@@ -142,7 +142,7 @@ def main() -> None:
             frozen_atmo = FROZEN_ATMOSPHERES[c["atmosphere"]]
             atmosphere = Atmo(
                 altitude=Distance.Meter(frozen_atmo["altitude_m"]),
-                pressure=Pressure.HPa(frozen_atmo["pressure_hpa"]),
+                pressure=Pressure.hPa(frozen_atmo["pressure_hpa"]),
                 temperature=Temperature.Celsius(frozen_atmo["temperature_c"]),
                 humidity=frozen_atmo["humidity_percent"],
             )
