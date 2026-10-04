@@ -68,7 +68,11 @@ Future<void> _openScreen(WidgetTester tester, ProfileStore store) async {
   final rifle = CatalogRepository.rifles.firstWhere((r) => r.id == _rifleId);
   final ammo = CatalogRepository.ammunition.firstWhere((a) => a.id == _ammoId);
   await _pick(tester, const ValueKey('chrono-rifle-pcp'), rifle.displayName);
-  await _pick(tester, const ValueKey('chrono-ammo-$_rifleId'), ammo.displayName);
+  await _pick(
+    tester,
+    const ValueKey('chrono-ammo-$_rifleId'),
+    ammo.displayName,
+  );
 }
 
 Future<void> _addShots(WidgetTester tester, List<String> speeds) async {
