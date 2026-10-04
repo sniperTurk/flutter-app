@@ -57,7 +57,27 @@ rollback_ios() {
 }
 trap rollback_ios EXIT
 
+# `flutter create .` runs its own dependency resolution and may rewrite the
+# committed, provenance-verified pubspec.lock (and touch pubspec.yaml). The
+# release preflight hashes both against lockfile-provenance.txt, so snapshot
+# them and restore the committed lockfile; pubspec.yaml must never change.
+DEP_SNAPSHOT="$(mktemp -d "${TMPDIR:-/tmp}/sniper-turk-deps.XXXXXX")"
+[[ -f pubspec.yaml ]] && cp -p pubspec.yaml "$DEP_SNAPSHOT/pubspec.yaml"
+[[ -f pubspec.lock ]] && cp -p pubspec.lock "$DEP_SNAPSHOT/pubspec.lock"
+
 flutter create --platforms=ios --org "$ORG" --project-name "$PROJECT" .
+
+[[ ! -f "$DEP_SNAPSHOT/pubspec.yaml" ]] || cmp -s pubspec.yaml "$DEP_SNAPSHOT/pubspec.yaml" || {
+  echo "flutter create modified pubspec.yaml; refusing to continue" >&2
+  cp -p "$DEP_SNAPSHOT/pubspec.yaml" pubspec.yaml
+  exit 11
+}
+if [[ -f "$DEP_SNAPSHOT/pubspec.lock" ]] && ! cmp -s pubspec.lock "$DEP_SNAPSHOT/pubspec.lock"; then
+  echo "flutter create rewrote pubspec.lock; restoring the committed lockfile" >&2
+  cp -p "$DEP_SNAPSHOT/pubspec.lock" pubspec.lock
+  flutter pub get --enforce-lockfile
+fi
+rm -rf -- "$DEP_SNAPSHOT"
 
 required=(
   ios/Runner.xcodeproj/project.pbxproj
