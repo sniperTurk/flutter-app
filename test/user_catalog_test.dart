@@ -274,6 +274,67 @@ void main() {
     });
   });
 
+  group('UserCatalogLoader ledger write failure', () {
+    test('a failed ledger write copies nothing, so a later deletion can never '
+        'be undone by migration', () async {
+      final legacy = jsonEncode([
+        {
+          'id': 'user-1',
+          'kind': 'rifle',
+          'platform': 'pcp',
+          'brand': 'Eski',
+          'model': 'Tüfek',
+          'caliberMm': 5.5,
+        },
+      ]);
+      SharedPreferences.setMockInitialValues({UserCatalogStore.key: legacy});
+      final failing = UserCatalogLoader(writeLedger: (prefs, ids) async => false);
+
+      final first = await failing.load();
+      expect(first.migrated, 0);
+      expect(first.warning, contains('taşınamadı'));
+      expect(first.warning, contains('silinmedi'));
+      expect(await ManualCatalogStore().all(), isEmpty);
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString(UserCatalogStore.key), legacy);
+      expect(prefs.getStringList(UserCatalogLoader.migratedIdsKey), isNull);
+
+      // Once the ledger works again the record is migrated normally.
+      final healthy = await UserCatalogLoader().load();
+      expect(healthy.migrated, 1);
+      expect(
+        (await ManualCatalogStore().all()).map((e) => e['id']),
+        contains('user-1'),
+      );
+      await ManualCatalogStore().remove('user-1');
+      expect((await UserCatalogLoader().load()).migrated, 0);
+      expect(await ManualCatalogStore().all(), isEmpty);
+    });
+
+    test('an already-present record whose ledger write fails is reported, '
+        'not silently trusted', () async {
+      final legacy = jsonEncode([
+        {
+          'id': 'manual_rifle_1',
+          'kind': 'rifle',
+          'platform': 'pcp',
+          'brand': 'Eski',
+          'model': 'Tüfek',
+          'caliberMm': 5.5,
+        },
+      ]);
+      SharedPreferences.setMockInitialValues({
+        UserCatalogStore.key: legacy,
+        ManualCatalogStore.key: jsonEncode([_rifle]),
+      });
+      final result = await UserCatalogLoader(
+        writeLedger: (prefs, ids) async => false,
+      ).load();
+      expect(result.warning, contains('taşınamadı'));
+      expect(await ManualCatalogStore().all(), hasLength(1));
+    });
+  });
+
   group('profile editor', () {
     Future<void> openEditor(WidgetTester tester) async {
       tester.view.physicalSize = const Size(390 * 3, 2400 * 3);
