@@ -13,6 +13,7 @@ import '../../ui/menzil_icons.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../ballistics/ballistics_screen.dart';
+import '../profiles/profile_recovery_dialog.dart';
 import '../profiles/profiles_screen.dart';
 import '../settings/settings_screen.dart';
 import '../tools/tools_screen.dart';
@@ -177,6 +178,15 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  /// The error card replaces the tabs, so recovery must be reachable here too.
+  Future<void> _recover() async {
+    // ProfileRecovery is not a subtype of ProfileStore: promote via Object.
+    final Object recovery = profiles;
+    if (recovery is! ProfileRecovery) return;
+    final reset = await showProfileRecoveryDialog(context, recovery);
+    if (reset && mounted) await _load();
+  }
+
   Future<void> _choose(RifleProfile? profile) async {
     if (choosingProfile) return;
     setState(() => choosingProfile = true);
@@ -274,11 +284,25 @@ class _HomeScreenState extends State<HomeScreen> {
           ? MenzilStateMessage(
               icon: Icons.error_outline,
               message: loadError!,
-              action: MenzilPrimaryButton(
-                label: 'Tekrar dene',
-                onPressed: _load,
-                icon: Icons.refresh,
-                expand: false,
+              action: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MenzilPrimaryButton(
+                    label: 'Tekrar dene',
+                    onPressed: _load,
+                    icon: Icons.refresh,
+                    expand: false,
+                  ),
+                  if (profiles is ProfileRecovery) ...[
+                    const SizedBox(height: MenzilSpace.md),
+                    MenzilSecondaryButton(
+                      key: const Key('home-recover'),
+                      label: 'Kayıtları kurtar',
+                      icon: Icons.healing,
+                      onPressed: _recover,
+                    ),
+                  ],
+                ],
               ),
             )
           : Column(
