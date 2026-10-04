@@ -16,6 +16,15 @@ Future<Map<String, String>> _stringsWithPrefix(String prefix) async {
   };
 }
 
+// SharedPreferences completes on real async I/O, which FakeAsync does not
+// advance on its own: give the real event loop a moment before pumping.
+Future<void> _settle(WidgetTester tester) async {
+  await tester.runAsync(
+    () => Future<void>.delayed(const Duration(milliseconds: 60)),
+  );
+  await tester.pumpAndSettle();
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -78,29 +87,29 @@ void main() {
         ),
       ),
     );
-    await tester.pumpAndSettle();
+    await _settle(tester);
     expect(find.textContaining('Kayıtlar değiştirilmedi'), findsOneWidget);
 
     await tester.tap(find.byKey(const Key('profiles-recover')));
-    await tester.pumpAndSettle();
+    await _settle(tester);
     await tester.tap(find.text('Kapat'));
-    await tester.pumpAndSettle();
+    await _settle(tester);
     expect(await _stringsWithPrefix(_key), before, reason: 'Kapat: no write');
 
     await tester.tap(find.byKey(const Key('profiles-recover')));
-    await tester.pumpAndSettle();
+    await _settle(tester);
     await tester.tap(find.byKey(const Key('recovery-show-raw')));
-    await tester.pumpAndSettle();
+    await _settle(tester);
     expect(find.byKey(const Key('recovery-raw')), findsOneWidget);
     expect(find.textContaining('{broken-primary'), findsWidgets);
     expect(await _stringsWithPrefix(_key), before, reason: 'show raw: no write');
 
     await tester.tap(find.byKey(const Key('recovery-start-empty')));
-    await tester.pumpAndSettle();
+    await _settle(tester);
     expect(find.textContaining('saklanacak'), findsOneWidget);
     expect(await _stringsWithPrefix(_key), before, reason: 'not yet confirmed');
     await tester.tap(find.byKey(const Key('recovery-confirm-empty')));
-    await tester.pumpAndSettle();
+    await _settle(tester);
 
     expect(find.textContaining('Henüz kayıtlı profil yok'), findsOneWidget);
     final copies = await _stringsWithPrefix('$_key.corrupt.');
