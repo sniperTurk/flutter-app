@@ -44,8 +44,32 @@ jobs:
           xcrun simctl terminate "$UDID" com.sniperturk.sniperTurk > /dev/null 2>&1
           xcrun simctl uninstall "$UDID" com.sniperturk.sniperTurk > /dev/null 2>&1
           flutter devices > ios-logs/devices-flutter.log 2>&1
-          flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded > ios-logs/integration.log 2>&1; echo "integration: $?" >> $S
+          # Bounded: a hung integration test must not consume the whole job and
+          # lose every log. On timeout capture a screenshot + Runner log.
+          ( flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded > ios-logs/integration.log 2>&1; echo "integration: $?" >> $S ) &
+          ITPID=$!
+          for i in $(seq 1 120); do kill -0 "$ITPID" 2>/dev/null || break; sleep 5; done
+          if kill -0 "$ITPID" 2>/dev/null; then
+            echo "integration: TIMEOUT after 600s" >> $S
+            xcrun simctl io "$UDID" screenshot ios-logs/integration-hang.png > /dev/null 2>&1
+            xcrun simctl spawn "$UDID" log show --last 3m --style compact --predicate 'process == "Runner"' > ios-logs/runner-log-hang.txt 2>&1
+            pkill -f "flutter_tools" || true
+            kill "$ITPID" 2>/dev/null || true
+          fi
           cat $S
+      - name: App Store source preflight (keep going)
+        if: always()
+        shell: bash
+        env:
+          PRIVACY_POLICY_URL: ${{ vars.PRIVACY_POLICY_URL }}
+          METNO_CONTACT: ${{ vars.METNO_CONTACT }}
+        run: |
+          set +e
+          mkdir -p ios-logs
+          python3 tools/app_store_preflight.py --privacy-url "$PRIVACY_POLICY_URL" > ios-logs/preflight.log 2>&1; echo "preflight: $?" >> ios-logs/status.txt
+          python3 tools/verify_privacy_policy_url.py --url "$PRIVACY_POLICY_URL" > ios-logs/privacy-live.log 2>&1; echo "privacy live: $?" >> ios-logs/status.txt
+          python3 tools/validate_metno_contact.py "$METNO_CONTACT" > ios-logs/metno.log 2>&1; echo "metno contact: $?" >> ios-logs/status.txt
+          cat ios-logs/status.txt
       - name: Push logs
         if: always()
         shell: bash
