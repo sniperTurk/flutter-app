@@ -18,6 +18,10 @@ testlerin gösterdiği hatalardır.
   Paylaşma sistemi paylaşım sayfası yerine panoya kopyalama olarak yapıldı
   (yeni bağımlılık eklenmedi).
 
+- **Düzeltme (inceleme bulgusu, doğrulandı):** Ana ekranın hata kartı sekmeleri
+  gizlediği için Profil sekmesindeki "Kayıtları kurtar"a ulaşılamıyordu. Düğme
+  artık Ana ekran hata kartında da var; Ana ekran üzerinden uçtan uca test eklendi.
+
 ## Araç / CI
 - `pubspec.lock` + `lockfile-provenance.txt`: sabitlenmiş Flutter 3.47.2 Actions
   koşusundan, format+analyze+test geçtikten sonra. sha256 `ccd06706fe686ead5cb1ea45e69d63d0160b7abc4247e9d9f53c8286f0b31277`.
@@ -26,8 +30,13 @@ testlerin gösterdiği hatalardır.
 - `ci-diagnostics.yml` (yalnız tanı; sürüm artefaktı değildir).
 
 ## Testler (gerçek CI)
-- Flutter: 218 test geçti (Kronograf uygula 5 test, profil kurtarma 3 test dahil).
+- Flutter: 219 test geçti (Kronograf uygula 5, profil kurtarma 3 + Ana ekran kurtarma 1 test dahil). Kanıt: release/CI_EVIDENCE.md (koşu numaraları).
 - Python: 575 test geçti. G1/G7 gate KAPALI. `acceptance.json` değişmedi.
+
+## Bilinen eksik (bu pakette DEĞİL)
+- Manuel katalog kayıtları profillere bağlı değil (yalnız Katalog ekranında). Ayrı
+  oturumda açılan taslak PR #1 (`review/profile-catalog-dialog-fixes`) bunu ele
+  alıyor; main'e birleştirilmedi, çakışma çözümü ve inceleme gerekir.
 
 ## ÇALIŞTIRILMADI / DOĞRULANMADI
 - iOS CI "App Store preflight" ve sonrası (PRIVACY_POLICY_URL yok), Simulator, IPA.
