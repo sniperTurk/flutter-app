@@ -1,0 +1,132 @@
+diff --git a/lib/services/profile_store.dart b/lib/services/profile_store.dart
+index 9a0fe44..0e96e98 100644
+--- a/lib/services/profile_store.dart
++++ b/lib/services/profile_store.dart
+@@ -53,24 +53,30 @@ class PersistentProfileStore implements ProfileStore, ProfileRecovery {
+   Future<T> _enqueueMutation<T>(Future<T> Function() operation) {
+     final n = ++_seq;
+     // ignore: avoid_print
+-    print('PSTORE enqueue#$n zone=${Zone.current.hashCode} tailDone=$_tailDone');
++    print(
++      'PSTORE enqueue#$n zone=${Zone.current.hashCode} tailDone=$_tailDone',
++    );
+     final result = _mutationTail.then((_) {
+       // ignore: avoid_print
+       print('PSTORE start#$n');
+       return operation();
+     });
+     _tailDone = false;
+-    _mutationTail = result.then<void>((_) {
+-      // ignore: avoid_print
+-      print('PSTORE done#$n');
+-      _tailDone = true;
+-    }, onError: (Object e, __) {
+-      // ignore: avoid_print
+-      print('PSTORE fail#$n $e');
+-      _tailDone = true;
+-    });
++    _mutationTail = result.then<void>(
++      (_) {
++        // ignore: avoid_print
++        print('PSTORE done#$n');
++        _tailDone = true;
++      },
++      onError: (Object e, __) {
++        // ignore: avoid_print
++        print('PSTORE fail#$n $e');
++        _tailDone = true;
++      },
++    );
+     return result;
+   }
++
+   static bool _tailDone = true;
+ 
+   List<RifleProfile>? _decodeCollection(String? raw) {
+diff --git a/test/profile_recovery_test.dart b/test/profile_recovery_test.dart
+index 00e0c0b..6d9f14e 100644
+--- a/test/profile_recovery_test.dart
++++ b/test/profile_recovery_test.dart
+@@ -136,43 +136,44 @@ void main() {
+       expect(copies.values, containsAll(['{broken-primary', '[broken-backup']));
+     },
+   );
+-  testWidgets('SAMEFILE HomeScreen error card (tabs hidden) still offers recovery', (
+-    tester,
+-  ) async {
+-    SharedPreferences.setMockInitialValues({
+-      _key: '{broken-primary',
+-      _backupKey: '[broken-backup',
+-    });
+-    final before = await _stringsWithPrefix(_key);
+-    await tester.pumpWidget(
+-      MaterialApp(
+-        theme: MenzilTheme.light(),
+-        home: HomeScreen(
+-          profileStore: PersistentProfileStore(),
+-          activeProfileStore: MemoryActiveProfileStore(),
++  testWidgets(
++    'SAMEFILE HomeScreen error card (tabs hidden) still offers recovery',
++    (tester) async {
++      SharedPreferences.setMockInitialValues({
++        _key: '{broken-primary',
++        _backupKey: '[broken-backup',
++      });
++      final before = await _stringsWithPrefix(_key);
++      await tester.pumpWidget(
++        MaterialApp(
++          theme: MenzilTheme.light(),
++          home: HomeScreen(
++            profileStore: PersistentProfileStore(),
++            activeProfileStore: MemoryActiveProfileStore(),
++          ),
+         ),
+-      ),
+-    );
+-    await _settle(tester);
+-    expect(find.text('Tekrar dene'), findsOneWidget);
+-    expect(find.byKey(const Key('home-recover')), findsOneWidget);
+-
+-    await tester.tap(find.byKey(const Key('home-recover')));
+-    await _settle(tester);
+-    await tester.tap(find.text('Kapat'));
+-    await _settle(tester);
+-    expect(await _stringsWithPrefix(_key), before, reason: 'Kapat: no write');
+-
+-    await tester.tap(find.byKey(const Key('home-recover')));
+-    await _settle(tester);
+-    await tester.tap(find.byKey(const Key('recovery-start-empty')));
+-    await _settle(tester);
+-    await tester.tap(find.byKey(const Key('recovery-confirm-empty')));
+-    await _settle(tester);
+-
+-    expect(find.byKey(const Key('home-recover')), findsNothing);
+-    expect(find.text('Tekrar dene'), findsNothing);
+-    final copies = await _stringsWithPrefix('$_key.corrupt.');
+-    expect(copies.values, containsAll(['{broken-primary', '[broken-backup']));
+-  });
++      );
++      await _settle(tester);
++      expect(find.text('Tekrar dene'), findsOneWidget);
++      expect(find.byKey(const Key('home-recover')), findsOneWidget);
++
++      await tester.tap(find.byKey(const Key('home-recover')));
++      await _settle(tester);
++      await tester.tap(find.text('Kapat'));
++      await _settle(tester);
++      expect(await _stringsWithPrefix(_key), before, reason: 'Kapat: no write');
++
++      await tester.tap(find.byKey(const Key('home-recover')));
++      await _settle(tester);
++      await tester.tap(find.byKey(const Key('recovery-start-empty')));
++      await _settle(tester);
++      await tester.tap(find.byKey(const Key('recovery-confirm-empty')));
++      await _settle(tester);
++
++      expect(find.byKey(const Key('home-recover')), findsNothing);
++      expect(find.text('Tekrar dene'), findsNothing);
++      final copies = await _stringsWithPrefix('$_key.corrupt.');
++      expect(copies.values, containsAll(['{broken-primary', '[broken-backup']));
++    },
++  );
+ }

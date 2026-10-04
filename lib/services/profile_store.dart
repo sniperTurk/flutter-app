@@ -53,24 +53,30 @@ class PersistentProfileStore implements ProfileStore, ProfileRecovery {
   Future<T> _enqueueMutation<T>(Future<T> Function() operation) {
     final n = ++_seq;
     // ignore: avoid_print
-    print('PSTORE enqueue#$n zone=${Zone.current.hashCode} tailDone=$_tailDone');
+    print(
+      'PSTORE enqueue#$n zone=${Zone.current.hashCode} tailDone=$_tailDone',
+    );
     final result = _mutationTail.then((_) {
       // ignore: avoid_print
       print('PSTORE start#$n');
       return operation();
     });
     _tailDone = false;
-    _mutationTail = result.then<void>((_) {
-      // ignore: avoid_print
-      print('PSTORE done#$n');
-      _tailDone = true;
-    }, onError: (Object e, __) {
-      // ignore: avoid_print
-      print('PSTORE fail#$n $e');
-      _tailDone = true;
-    });
+    _mutationTail = result.then<void>(
+      (_) {
+        // ignore: avoid_print
+        print('PSTORE done#$n');
+        _tailDone = true;
+      },
+      onError: (Object e, __) {
+        // ignore: avoid_print
+        print('PSTORE fail#$n $e');
+        _tailDone = true;
+      },
+    );
     return result;
   }
+
   static bool _tailDone = true;
 
   List<RifleProfile>? _decodeCollection(String? raw) {

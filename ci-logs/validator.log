@@ -1,0 +1,25 @@
+Processing /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/sniper-turk-validator-0o2zqar5/py_ballisticcalc-2.2.10-py3-none-any.whl
+Processing /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/sniper-turk-validator-0o2zqar5/typing_extensions-4.15.0-py3-none-any.whl
+Processing /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/sniper-turk-validator-0o2zqar5/Deprecated-1.2.18-py2.py3-none-any.whl
+Processing /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/sniper-turk-validator-0o2zqar5/wrapt-1.17.3-py3-none-any.whl
+Installing collected packages: wrapt, typing-extensions, py-ballisticcalc, Deprecated
+Successfully installed Deprecated-1.2.18 py-ballisticcalc-2.2.10 typing-extensions-4.15.0 wrapt-1.17.3
+installed 4 hash-verified pinned validator wheels
+bootstrap exit: 0
+[36mINFO[0m:py_balcalc:Loaded calculator from: py_ballisticcalc:RK4IntegrationEngine (Class: <class 'py_ballisticcalc.engines.rk4.RK4IntegrationEngine'>)
+[36mINFO[0m:py_balcalc:Loaded calculator from: py_ballisticcalc:RK4IntegrationEngine (Class: <class 'py_ballisticcalc.engines.rk4.RK4IntegrationEngine'>)
+[36mINFO[0m:py_balcalc:Loaded calculator from: py_ballisticcalc:RK4IntegrationEngine (Class: <class 'py_ballisticcalc.engines.rk4.RK4IntegrationEngine'>)
+[36mINFO[0m:py_balcalc:Loaded calculator from: py_ballisticcalc:RK4IntegrationEngine (Class: <class 'py_ballisticcalc.engines.rk4.RK4IntegrationEngine'>)
+wrote validated fixture /Users/runner/work/flutter-app/flutter-app/validation/py_ballisticcalc_vectors.json
+generate exit: 0
+total 48
+drwxr-xr-x    7 runner  staff   224 Oct  4 12:33 .
+drwxr-xr-x  307 runner  staff  9824 Oct  4 12:33 ..
+-rw-r--r--    1 runner  staff  1224 Oct  4 12:31 acceptance.json
+-rw-r--r--    1 runner  staff  1901 Oct  4 12:31 FORMULA_AUDIT.md
+-rw-------    1 runner  staff  6193 Oct  4 12:33 py_ballisticcalc_vectors.json
+-rw-r--r--    1 runner  staff  2982 Oct  4 12:31 README.md
+-rw-r--r--    1 runner  staff  2698 Oct  4 12:31 wind_acceptance.json
+PASS: py-ballisticcalc fixture schema/provenance satisfied
+fixture validate exit: 0
+Python 3.12.10
