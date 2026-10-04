@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/domain.dart';
 import 'profile_codec.dart';
 import 'profile_document_codec.dart';
+import 'serial_mutation_lock.dart';
 
 abstract class ProfileStore {
   Future<List<RifleProfile>> all();
@@ -46,13 +47,13 @@ class PersistentProfileStore implements ProfileStore, ProfileRecovery {
   // overwrite each other with stale snapshots. The tail always completes
   // successfully, even when an individual operation fails, so one storage
   // error cannot permanently poison later mutations.
-  static Future<void> _mutationTail = Future<void>.value();
+  // The lock is zone-independent state (see SerialMutationLock); a static
+  // Future tail used to bind every later mutation to the zone of whichever
+  // caller created it, which could leave the queue permanently stalled.
+  static final SerialMutationLock _mutationLock = SerialMutationLock();
 
-  Future<T> _enqueueMutation<T>(Future<T> Function() operation) {
-    final result = _mutationTail.then((_) => operation());
-    _mutationTail = result.then<void>((_) {}, onError: (_, __) {});
-    return result;
-  }
+  Future<T> _enqueueMutation<T>(Future<T> Function() operation) =>
+      _mutationLock.run(operation);
 
   List<RifleProfile>? _decodeCollection(String? raw) {
     if (raw == null) return const [];

@@ -1,18 +1,17 @@
 // dart format off
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'serial_mutation_lock.dart';
 
 /// User-owned catalog entries; never merged into manufacturer-verified records.
 class ManualCatalogStore {
   static const key = 'sniper_turk.manual_catalog.v1';
   static const backupKey = 'sniper_turk.manual_catalog.v1.backup';
-  static Future<void> _tail = Future<void>.value();
+  // Zone-independent process-wide lock (see SerialMutationLock).
+  static final SerialMutationLock _mutationLock = SerialMutationLock();
 
-  Future<T> _enqueueMutation<T>(Future<T> Function() operation) {
-    final result = _tail.then((_) => operation());
-    _tail = result.then<void>((_) {}, onError: (_, __) {});
-    return result;
-  }
+  Future<T> _enqueueMutation<T>(Future<T> Function() operation) =>
+      _mutationLock.run(operation);
 
   static List<Map<String, dynamic>> _decodeAndValidate(String raw) {
     final parsed = jsonDecode(raw);

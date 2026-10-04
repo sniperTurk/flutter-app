@@ -1,19 +1,18 @@
 // dart format off
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'serial_mutation_lock.dart';
 import '../models/domain.dart';
 
 /// User records never acquire manufacturer provenance and never overwrite built-ins.
 class UserCatalogStore {
   static const key = 'sniper_turk.user_catalog.v1';
   static const backupKey = 'sniper_turk.user_catalog.v1.backup';
-  static Future<void> _tail = Future<void>.value();
+  // Zone-independent process-wide lock (see SerialMutationLock).
+  static final SerialMutationLock _mutationLock = SerialMutationLock();
 
-  Future<T> _enqueueMutation<T>(Future<T> Function() operation) {
-    final result = _tail.then((_) => operation());
-    _tail = result.then<void>((_) {}, onError: (_, __) {});
-    return result;
-  }
+  Future<T> _enqueueMutation<T>(Future<T> Function() operation) =>
+      _mutationLock.run(operation);
 
   Future<List<Map<String, dynamic>>> _read({bool repairPrimary = false}) async {
     final prefs = await SharedPreferences.getInstance();
