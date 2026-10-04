@@ -453,46 +453,58 @@ void main() {
       expect(restart.warning, isNull);
       expect(await ManualCatalogStore().all(), isEmpty);
       final prefs = await SharedPreferences.getInstance();
-      expect(prefs.getString(UserCatalogStore.key), legacy, reason: 'legacy kept');
-    });
-
-    test('deletion with a ledger that never works is still preserved', () async {
-      SharedPreferences.setMockInitialValues({
-        UserCatalogStore.key: legacy,
-        ManualCatalogStore.key: jsonEncode([
-          {
-            'id': 'user-1',
-            'kind': 'rifle',
-            'platform': 'pcp',
-            'brand': 'Eski',
-            'model': 'Tüfek',
-            'caliberMm': 5.5,
-            'sourceName': 'Kullanıcı girdisi',
-          },
-        ]),
-      });
-      await ManualCatalogStore().remove('user-1');
-      final result = await UserCatalogLoader(
-        writeLedger: (prefs, ids) async => false,
-      ).load();
-      expect(result.migrated, 0);
-      expect(await ManualCatalogStore().all(), isEmpty);
-    });
-
-    test('a deletion that cannot be recorded is refused and deletes nothing',
-        () async {
-      SharedPreferences.setMockInitialValues({
-        ManualCatalogStore.key: jsonEncode([_rifle]),
-      });
-      // Make the tombstone key unwritable: a String already lives there.
-      final prefs = await SharedPreferences.getInstance();
-      expect(await prefs.setString(ManualCatalogStore.removedKey, 'x'), isTrue);
-      await expectLater(
-        ManualCatalogStore().remove('manual_rifle_1'),
-        throwsA(anything),
+      expect(
+        prefs.getString(UserCatalogStore.key),
+        legacy,
+        reason: 'legacy kept',
       );
-      expect(await ManualCatalogStore().all(), hasLength(1));
     });
+
+    test(
+      'deletion with a ledger that never works is still preserved',
+      () async {
+        SharedPreferences.setMockInitialValues({
+          UserCatalogStore.key: legacy,
+          ManualCatalogStore.key: jsonEncode([
+            {
+              'id': 'user-1',
+              'kind': 'rifle',
+              'platform': 'pcp',
+              'brand': 'Eski',
+              'model': 'Tüfek',
+              'caliberMm': 5.5,
+              'sourceName': 'Kullanıcı girdisi',
+            },
+          ]),
+        });
+        await ManualCatalogStore().remove('user-1');
+        final result = await UserCatalogLoader(
+          writeLedger: (prefs, ids) async => false,
+        ).load();
+        expect(result.migrated, 0);
+        expect(await ManualCatalogStore().all(), isEmpty);
+      },
+    );
+
+    test(
+      'a deletion that cannot be recorded is refused and deletes nothing',
+      () async {
+        SharedPreferences.setMockInitialValues({
+          ManualCatalogStore.key: jsonEncode([_rifle]),
+        });
+        // Make the tombstone key unwritable: a String already lives there.
+        final prefs = await SharedPreferences.getInstance();
+        expect(
+          await prefs.setString(ManualCatalogStore.removedKey, 'x'),
+          isTrue,
+        );
+        await expectLater(
+          ManualCatalogStore().remove('manual_rifle_1'),
+          throwsA(anything),
+        );
+        expect(await ManualCatalogStore().all(), hasLength(1));
+      },
+    );
   });
 
   group('profile editor', () {
