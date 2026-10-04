@@ -104,11 +104,15 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
         await _changed();
       } catch (_) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(existing == null
-                ? 'Profil kaydedilemedi. Mevcut kayıtlar korunuyor.'
-                : 'Profil güncellenemedi. Mevcut kayıt korunuyor.'),
-          ));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                existing == null
+                    ? 'Profil kaydedilemedi. Mevcut kayıtlar korunuyor.'
+                    : 'Profil güncellenemedi. Mevcut kayıt korunuyor.',
+              ),
+            ),
+          );
         }
       }
     }
@@ -117,8 +121,10 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   /// Saves an independent copy (new id) through the same store API.
   Future<void> _duplicate(RifleProfile p) async {
     const suffix = ' (kopya)';
-    final maxBase = ProductionLimits.maxProfileNameLength - suffix.length;
-    final base = p.name.length > maxBase ? p.name.substring(0, maxBase).trimRight() : p.name;
+    const maxBase = ProductionLimits.maxProfileNameLength - suffix.length;
+    final base = p.name.length > maxBase
+        ? p.name.substring(0, maxBase).trimRight()
+        : p.name;
     final copy = RifleProfile(
       id: DateTime.now().microsecondsSinceEpoch.toString(),
       name: '$base$suffix',
@@ -135,12 +141,16 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       await store.save(copy);
       await _changed();
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('“${copy.name}” oluşturuldu.')));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('“${copy.name}” oluşturuldu.')));
       }
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Profil kopyalanamadı. Mevcut kayıtlar korunuyor.')),
+          const SnackBar(
+            content: Text('Profil kopyalanamadı. Mevcut kayıtlar korunuyor.'),
+          ),
         );
       }
     }
@@ -151,7 +161,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   /// persistent storage so an accidental tap or swipe cannot destroy a
   /// carefully configured ballistic profile. Returns true when removed.
   Future<bool> _confirmAndRemove(RifleProfile p) async {
-    final confirmed = await showDialog<bool>(
+    final confirmed =
+        await showDialog<bool>(
           context: context,
           builder: (dialogContext) => AlertDialog(
             title: const Text('Profili sil?'),
@@ -165,7 +176,9 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 child: const Text('Vazgeç'),
               ),
               FilledButton(
-                style: FilledButton.styleFrom(backgroundColor: MenzilColors.of(dialogContext).danger),
+                style: FilledButton.styleFrom(
+                  backgroundColor: MenzilColors.of(dialogContext).danger,
+                ),
                 onPressed: () => Navigator.pop(dialogContext, true),
                 child: const Text('Profili sil'),
               ),
@@ -180,11 +193,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Profil silinemedi. Kayıt korunuyor.',
-            ),
-          ),
+          const SnackBar(content: Text('Profil silinemedi. Kayıt korunuyor.')),
         );
       }
       return false;
@@ -193,7 +202,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
 
   Future<void> _deleteViaButton(RifleProfile p) async {
     if (await _confirmAndRemove(p)) {
-      if (mounted) setState(() => items = items.where((x) => x.id != p.id).toList());
+      if (mounted)
+        setState(() => items = items.where((x) => x.id != p.id).toList());
       await widget.onProfilesChanged?.call();
     }
   }
@@ -212,11 +222,16 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     final body = loading
         ? const Center(child: CircularProgressIndicator())
         : loadError != null
-            ? MenzilStateMessage(
-                message: loadError!,
-                action: MenzilPrimaryButton(label: 'Tekrar dene', onPressed: _load, icon: Icons.refresh, expand: false),
-              )
-            : _content(context);
+        ? MenzilStateMessage(
+            message: loadError!,
+            action: MenzilPrimaryButton(
+              label: 'Tekrar dene',
+              onPressed: _load,
+              icon: Icons.refresh,
+              expand: false,
+            ),
+          )
+        : _content(context);
     if (widget.embedded) return body;
     return Scaffold(
       appBar: const MenzilSubPageBar(title: 'Profiller'),
@@ -264,13 +279,17 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
               direction: DismissDirection.endToStart,
               confirmDismiss: (_) => _confirmAndRemove(p),
               onDismissed: (_) {
-                setState(() => items = items.where((x) => x.id != p.id).toList());
+                setState(
+                  () => items = items.where((x) => x.id != p.id).toList(),
+                );
                 widget.onProfilesChanged?.call();
               },
               child: _ProfileRow(
                 profile: p,
                 active: p.id == widget.activeProfileId,
-                onTap: widget.embedded && widget.onActivate != null ? () => widget.onActivate!(p) : () => _edit(p),
+                onTap: widget.embedded && widget.onActivate != null
+                    ? () => widget.onActivate!(p)
+                    : () => _edit(p),
                 onEdit: () => _edit(p),
               ),
             ),
@@ -279,9 +298,19 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
           spacing: MenzilSpace.sm,
           runSpacing: MenzilSpace.sm,
           children: [
-            MenzilPrimaryButton(label: 'Yeni profil', icon: Icons.add, amber: true, expand: false, onPressed: _add),
+            MenzilPrimaryButton(
+              label: 'Yeni profil',
+              icon: Icons.add,
+              amber: true,
+              expand: false,
+              onPressed: _add,
+            ),
             if (selected != null) ...[
-              MenzilSecondaryButton(label: 'Kopyala', icon: Icons.copy_outlined, onPressed: () => _duplicate(selected)),
+              MenzilSecondaryButton(
+                label: 'Kopyala',
+                icon: Icons.copy_outlined,
+                onPressed: () => _duplicate(selected),
+              ),
               MenzilSecondaryButton(
                 label: 'Sil',
                 icon: Icons.delete_outline,
@@ -293,7 +322,10 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
         ),
         if (selected != null) ...[
           const SizedBox(height: MenzilSpace.lg),
-          _ActiveProfileDetails(profile: selected, onEdit: () => _edit(selected)),
+          _ActiveProfileDetails(
+            profile: selected,
+            onEdit: () => _edit(selected),
+          ),
         ],
       ],
     );
@@ -306,7 +338,12 @@ class _ProfileRow extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onEdit;
 
-  const _ProfileRow({required this.profile, required this.active, required this.onTap, required this.onEdit});
+  const _ProfileRow({
+    required this.profile,
+    required this.active,
+    required this.onTap,
+    required this.onEdit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -318,12 +355,17 @@ class _ProfileRow extends StatelessWidget {
         container: true,
         selected: active,
         button: true,
-        label: active ? 'Aktif profil ${profile.name}' : 'Profil ${profile.name}',
+        label: active
+            ? 'Aktif profil ${profile.name}'
+            : 'Profil ${profile.name}',
         child: Material(
           color: c.surface,
           shape: RoundedRectangleBorder(
             borderRadius: shape,
-            side: BorderSide(color: active ? c.ink : c.line, width: active ? 2 : 1),
+            side: BorderSide(
+              color: active ? c.ink : c.line,
+              width: active ? 2 : 1,
+            ),
           ),
           child: InkWell(
             borderRadius: shape,
@@ -337,7 +379,10 @@ class _ProfileRow extends StatelessWidget {
                     Container(
                       width: 12,
                       height: 12,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: active ? c.amber : c.surface2),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: active ? c.amber : c.surface2,
+                      ),
                     ),
                     const SizedBox(width: MenzilSpace.md),
                     Expanded(
@@ -349,7 +394,11 @@ class _ProfileRow extends StatelessWidget {
                               profile.name,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: c.ink),
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                color: c.ink,
+                              ),
                             ),
                             Text(
                               '${profile.muzzleVelocityMps.toStringAsFixed(1)} m/s • '
@@ -366,7 +415,14 @@ class _ProfileRow extends StatelessWidget {
                     if (active)
                       Padding(
                         padding: const EdgeInsets.only(left: MenzilSpace.xs),
-                        child: Text('Aktif', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: c.amberInk)),
+                        child: Text(
+                          'Aktif',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: c.amberInk,
+                          ),
+                        ),
                       ),
                     IconButton(
                       tooltip: 'Profili düzenle',
@@ -394,9 +450,15 @@ class _ActiveProfileDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rifle = CatalogRepository.rifles.where((r) => r.id == profile.rifleId).firstOrNull;
-    final ammo = CatalogRepository.ammunition.where((a) => a.id == profile.ammunitionId).firstOrNull;
-    final scope = CatalogRepository.scopes.where((o) => o.id == profile.scopeId).firstOrNull;
+    final rifle = CatalogRepository.rifles
+        .where((r) => r.id == profile.rifleId)
+        .firstOrNull;
+    final ammo = CatalogRepository.ammunition
+        .where((a) => a.id == profile.ammunitionId)
+        .firstOrNull;
+    final scope = CatalogRepository.scopes
+        .where((o) => o.id == profile.scopeId)
+        .firstOrNull;
     final barrelLengthMm = rifle?.barrelLengthMm;
     final ballisticCoefficient = ammo?.ballisticCoefficient;
     final ballisticModelName = ammo?.ballisticModel?.name.toUpperCase() ?? '';
@@ -406,34 +468,76 @@ class _ActiveProfileDetails extends StatelessWidget {
         MenzilSectionHeader(
           'Aktif profil',
           subtitle: profile.name,
-          trailing: TextButton.icon(onPressed: onEdit, icon: const Icon(Icons.edit_outlined, size: 18), label: const Text('Düzenle')),
+          trailing: TextButton.icon(
+            onPressed: onEdit,
+            icon: const Icon(Icons.edit_outlined, size: 18),
+            label: const Text('Düzenle'),
+          ),
           padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
         ),
-        _KeyValueCard(rows: [
-          ('Tüfek', rifle?.displayName ?? profile.rifleId),
-          ('Mühimmat', ammo?.displayName ?? profile.ammunitionId),
-          ('Dürbün', scope?.displayName ?? profile.scopeId),
-        ]),
-        MenzilMetricGrid(columns: 2, metrics: [
-          MenzilMetric('Çıkış hızı', profile.muzzleVelocityMps.toStringAsFixed(1), 'm/s'),
-          MenzilMetric('Sıfırlama mesafesi', profile.zeroRangeM.toStringAsFixed(0), 'm'),
-          MenzilMetric('Dürbün yüksekliği', profile.sightHeightMm.toStringAsFixed(1), 'mm'),
-          MenzilMetric('Dürbün birimi', profile.angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD'),
-          if (profile.pressureBar != null) MenzilMetric('Atış basıncı', profile.pressureBar!.toStringAsFixed(0), 'bar'),
-          if (rifle != null) MenzilMetric('Çap', rifle.caliberMm.toStringAsFixed(2), 'mm'),
-          if (ammo != null) MenzilMetric('Ağırlık', ammo.grain.toStringAsFixed(ammo.grain % 1 == 0 ? 0 : 1), 'gr'),
-          if (barrelLengthMm != null) MenzilMetric('Namlu boyu', barrelLengthMm.toStringAsFixed(0), 'mm'),
-          if (scope != null)
+        _KeyValueCard(
+          rows: [
+            ('Tüfek', rifle?.displayName ?? profile.rifleId),
+            ('Mühimmat', ammo?.displayName ?? profile.ammunitionId),
+            ('Dürbün', scope?.displayName ?? profile.scopeId),
+          ],
+        ),
+        MenzilMetricGrid(
+          columns: 2,
+          metrics: [
             MenzilMetric(
-              'Klik değeri',
-              scope.clickValue.toString(),
-              scope.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
+              'Çıkış hızı',
+              profile.muzzleVelocityMps.toStringAsFixed(1),
+              'm/s',
             ),
-          MenzilMetric(
-            'BC / model',
-            ballisticCoefficient == null ? '—' : '$ballisticCoefficient $ballisticModelName'.trim(),
-          ),
-        ]),
+            MenzilMetric(
+              'Sıfırlama mesafesi',
+              profile.zeroRangeM.toStringAsFixed(0),
+              'm',
+            ),
+            MenzilMetric(
+              'Dürbün yüksekliği',
+              profile.sightHeightMm.toStringAsFixed(1),
+              'mm',
+            ),
+            MenzilMetric(
+              'Dürbün birimi',
+              profile.angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
+            ),
+            if (profile.pressureBar != null)
+              MenzilMetric(
+                'Atış basıncı',
+                profile.pressureBar!.toStringAsFixed(0),
+                'bar',
+              ),
+            if (rifle != null)
+              MenzilMetric('Çap', rifle.caliberMm.toStringAsFixed(2), 'mm'),
+            if (ammo != null)
+              MenzilMetric(
+                'Ağırlık',
+                ammo.grain.toStringAsFixed(ammo.grain % 1 == 0 ? 0 : 1),
+                'gr',
+              ),
+            if (barrelLengthMm != null)
+              MenzilMetric(
+                'Namlu boyu',
+                barrelLengthMm.toStringAsFixed(0),
+                'mm',
+              ),
+            if (scope != null)
+              MenzilMetric(
+                'Klik değeri',
+                scope.clickValue.toString(),
+                scope.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
+              ),
+            MenzilMetric(
+              'BC / model',
+              ballisticCoefficient == null
+                  ? '—'
+                  : '$ballisticCoefficient $ballisticModelName'.trim(),
+            ),
+          ],
+        ),
         Text(
           'Katalog değerleri bilgi amaçlıdır. V1 vakum temel hesapta BC ve sürükleme modeli kullanılmaz.',
           style: MenzilType.caption(MenzilColors.of(context).ink2),
@@ -451,7 +555,10 @@ class _KeyValueCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     return MenzilCard(
-      padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.lg, vertical: MenzilSpace.sm),
+      padding: const EdgeInsets.symmetric(
+        horizontal: MenzilSpace.lg,
+        vertical: MenzilSpace.sm,
+      ),
       child: Column(
         children: [
           for (var i = 0; i < rows.length; i++)
@@ -463,8 +570,13 @@ class _KeyValueCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(width: 92, child: Text(rows[i].$1, style: MenzilType.label(c.ink2))),
-                  Expanded(child: Text(rows[i].$2, style: MenzilType.body(c.ink))),
+                  SizedBox(
+                    width: 92,
+                    child: Text(rows[i].$1, style: MenzilType.label(c.ink2)),
+                  ),
+                  Expanded(
+                    child: Text(rows[i].$2, style: MenzilType.body(c.ink)),
+                  ),
                 ],
               ),
             ),
@@ -509,30 +621,47 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   void initState() {
     super.initState();
     final p = widget.initial;
-    final initialRifle = p == null ? null : CatalogRepository.rifles.where((r) => r.id == p.rifleId).firstOrNull;
+    final initialRifle = p == null
+        ? null
+        : CatalogRepository.rifles.where((r) => r.id == p.rifleId).firstOrNull;
     // Platform of an unresolved rifle is inferred from the stored pressure
     // (only PCP profiles carry one) instead of defaulting silently.
-    platform = initialRifle?.platform ??
-        (p != null && p.pressureBar == null ? WeaponPlatform.firearm : WeaponPlatform.pcp);
+    platform =
+        initialRifle?.platform ??
+        (p != null && p.pressureBar == null
+            ? WeaponPlatform.firearm
+            : WeaponPlatform.pcp);
     rifle = initialRifle;
-    ammo = p == null ? null : CatalogRepository.ammunition.where((a) => a.id == p.ammunitionId).firstOrNull;
-    scope = p == null ? null : CatalogRepository.scopes.where((o) => o.id == p.scopeId).firstOrNull;
+    ammo = p == null
+        ? null
+        : CatalogRepository.ammunition
+              .where((a) => a.id == p.ammunitionId)
+              .firstOrNull;
+    scope = p == null
+        ? null
+        : CatalogRepository.scopes.where((o) => o.id == p.scopeId).firstOrNull;
     if (p != null) {
       if (rifle == null) _unresolved.add('tüfek');
       if (ammo == null) {
         _unresolved.add('mühimmat');
       } else if (rifle != null &&
-          !const CatalogRepository().ammunitionFor(platform, caliberMm: rifle!.caliberMm).contains(ammo)) {
+          !const CatalogRepository()
+              .ammunitionFor(platform, caliberMm: rifle!.caliberMm)
+              .contains(ammo)) {
         ammo = null;
         _unresolved.add('mühimmat (tüfek kalibresiyle uyumsuz)');
       }
       if (scope == null) _unresolved.add('dürbün');
     }
     name = TextEditingController(text: p?.name ?? 'Yeni Profil');
-    velocity = TextEditingController(text: p?.muzzleVelocityMps.toString() ?? '250');
+    velocity = TextEditingController(
+      text: p?.muzzleVelocityMps.toString() ?? '250',
+    );
     zero = TextEditingController(text: p?.zeroRangeM.toString() ?? '25');
     sight = TextEditingController(text: p?.sightHeightMm.toString() ?? '65');
-    pressure = TextEditingController(text: p == null ? '200' : (p.pressureBar?.toString() ?? ''));
+    pressure = TextEditingController(
+      text: p == null ? '200' : (p.pressureBar?.toString() ?? ''),
+    );
     angularUnit = p?.angularUnit ?? AngularUnit.mrad;
   }
 
@@ -562,7 +691,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         platform: platform,
         pressureText: pressure.text,
       );
-      final id = widget.initial?.id ?? DateTime.now().microsecondsSinceEpoch.toString();
+      final id =
+          widget.initial?.id ??
+          DateTime.now().microsecondsSinceEpoch.toString();
       Navigator.pop(
         context,
         RifleProfile(
@@ -583,7 +714,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     }
   }
 
-  void _showSightHelp() => showDialog<void>(context: context, builder: (_) => const _SightHeightHelpDialog());
+  void _showSightHelp() => showDialog<void>(
+    context: context,
+    builder: (_) => const _SightHeightHelpDialog(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -594,22 +728,38 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final ammos = rifle == null
         ? const <Ammunition>[]
         : repo.ammunitionFor(platform, caliberMm: rifle!.caliberMm);
-    if (!_isEdit && !ammos.contains(ammo)) ammo = ammos.isEmpty ? null : ammos.first;
+    if (!_isEdit && !ammos.contains(ammo))
+      ammo = ammos.isEmpty ? null : ammos.first;
     if (!_isEdit) scope ??= CatalogRepository.scopes.first;
-    final canSave = rifle != null && ammo != null && scope != null && _validSight;
+    final canSave =
+        rifle != null && ammo != null && scope != null && _validSight;
 
     return Scaffold(
-      appBar: MenzilSubPageBar(title: widget.initial == null ? 'Profil Oluştur' : 'Profili Düzenle'),
+      appBar: MenzilSubPageBar(
+        title: widget.initial == null ? 'Profil Oluştur' : 'Profili Düzenle',
+      ),
       bottomNavigationBar: DecoratedBox(
-        decoration: BoxDecoration(color: c.surface, border: Border(top: BorderSide(color: c.line))),
+        decoration: BoxDecoration(
+          color: c.surface,
+          border: Border(top: BorderSide(color: c.line)),
+        ),
         child: SafeArea(
           top: false,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(MenzilSpace.gutter, MenzilSpace.sm, MenzilSpace.gutter, MenzilSpace.sm),
+            padding: const EdgeInsets.fromLTRB(
+              MenzilSpace.gutter,
+              MenzilSpace.sm,
+              MenzilSpace.gutter,
+              MenzilSpace.sm,
+            ),
             child: Row(
               children: [
                 Expanded(
-                  child: MenzilSecondaryButton(label: 'İptal', expand: true, onPressed: () => Navigator.pop(context)),
+                  child: MenzilSecondaryButton(
+                    label: 'İptal',
+                    expand: true,
+                    onPressed: () => Navigator.pop(context),
+                  ),
                 ),
                 const SizedBox(width: MenzilSpace.md),
                 Expanded(
@@ -627,43 +777,75 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       body: MenzilPage(
         children: [
           if (validationError != null)
-            MenzilNotice(tone: MenzilNoticeTone.danger, message: validationError!),
-          if (_unresolved.isNotEmpty && (rifle == null || ammo == null || scope == null))
+            MenzilNotice(
+              tone: MenzilNoticeTone.danger,
+              message: validationError!,
+            ),
+          if (_unresolved.isNotEmpty &&
+              (rifle == null || ammo == null || scope == null))
             MenzilNotice(
               tone: MenzilNoticeTone.warning,
-              message: 'Bu profilin kayıtlı ${_unresolved.join(', ')} bilgisi katalogda bulunamadı. '
+              message:
+                  'Bu profilin kayıtlı ${_unresolved.join(', ')} bilgisi katalogda bulunamadı. '
                   'Başka bir kayıt sessizce seçilmedi; lütfen ilgili alanları kendiniz seçin.',
             ),
-          const MenzilSectionHeader('Kimlik', padding: EdgeInsets.only(bottom: MenzilSpace.sm)),
-          MenzilCard(
-            padding: const EdgeInsets.fromLTRB(MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.xxs),
-            child: MenzilFieldGrid(children: [
-              MenzilInput(
-                controller: name,
-                label: 'Profil adı',
-                keyboardType: TextInputType.text,
-                maxLength: ProductionLimits.maxProfileNameLength,
-              ),
-              MenzilSelect<WeaponPlatform>(
-                label: 'Tür',
-                initialValue: platform,
-                items: WeaponPlatform.values
-                    .map((e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(e == WeaponPlatform.pcp ? 'PCP Tüfek' : 'Ateşli Tüfek'),
-                        ))
-                    .toList(),
-                onChanged: (v) => setState(() {
-                  platform = v!;
-                  rifle = null;
-                  ammo = null;
-                }),
-              ),
-            ]),
+          const MenzilSectionHeader(
+            'Kimlik',
+            padding: EdgeInsets.only(bottom: MenzilSpace.sm),
           ),
-          const MenzilSectionHeader('Ekipman', padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm)),
           MenzilCard(
-            padding: const EdgeInsets.fromLTRB(MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.xxs),
+            padding: const EdgeInsets.fromLTRB(
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+              MenzilSpace.xxs,
+            ),
+            child: MenzilFieldGrid(
+              children: [
+                MenzilInput(
+                  controller: name,
+                  label: 'Profil adı',
+                  keyboardType: TextInputType.text,
+                  maxLength: ProductionLimits.maxProfileNameLength,
+                ),
+                MenzilSelect<WeaponPlatform>(
+                  label: 'Tür',
+                  initialValue: platform,
+                  items: WeaponPlatform.values
+                      .map(
+                        (e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(
+                            e == WeaponPlatform.pcp
+                                ? 'PCP Tüfek'
+                                : 'Ateşli Tüfek',
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (v) => setState(() {
+                    platform = v!;
+                    rifle = null;
+                    ammo = null;
+                  }),
+                ),
+              ],
+            ),
+          ),
+          const MenzilSectionHeader(
+            'Ekipman',
+            padding: EdgeInsets.only(
+              top: MenzilSpace.xxs,
+              bottom: MenzilSpace.sm,
+            ),
+          ),
+          MenzilCard(
+            padding: const EdgeInsets.fromLTRB(
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+              MenzilSpace.xxs,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -672,10 +854,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   label: 'Tüfek',
                   initialValue: rifle,
                   items: rifles
-                      .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e.displayName, maxLines: 1, overflow: TextOverflow.ellipsis),
-                          ))
+                      .map(
+                        (e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(
+                            e.displayName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      )
                       .toList(),
                   onChanged: (v) => setState(() {
                     rifle = v;
@@ -693,68 +881,115 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     label: 'Mühimmat',
                     initialValue: ammo,
                     items: ammos
-                        .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(e.displayName, maxLines: 1, overflow: TextOverflow.ellipsis),
-                            ))
+                        .map(
+                          (e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(
+                              e.displayName,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        )
                         .toList(),
                     onChanged: (v) => setState(() => ammo = v),
                   )
                 else
                   const MenzilNotice(
                     tone: MenzilNoticeTone.warning,
-                    message: 'Bu tüfeğin kalibresine uygun katalog mühimmatı yok; profil kaydedilemez.',
+                    message:
+                        'Bu tüfeğin kalibresine uygun katalog mühimmatı yok; profil kaydedilemez.',
                   ),
                 MenzilSelect<ScopeOptic>(
                   label: 'Dürbün',
                   initialValue: scope,
                   items: CatalogRepository.scopes
-                      .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e.displayName, maxLines: 1, overflow: TextOverflow.ellipsis),
-                          ))
+                      .map(
+                        (e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(
+                            e.displayName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      )
                       .toList(),
                   onChanged: (v) => setState(() => scope = v),
                 ),
               ],
             ),
           ),
-          const MenzilSectionHeader('Atış değerleri', padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm)),
+          const MenzilSectionHeader(
+            'Atış değerleri',
+            padding: EdgeInsets.only(
+              top: MenzilSpace.xxs,
+              bottom: MenzilSpace.sm,
+            ),
+          ),
           MenzilCard(
-            padding: const EdgeInsets.fromLTRB(MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.xxs),
-            child: MenzilFieldGrid(children: [
-              MenzilInput(controller: velocity, label: 'Çıkış hızı', unit: 'm/s'),
-              MenzilInput(controller: zero, label: 'Sıfırlama mesafesi', unit: 'm'),
-              MenzilInput(
-                controller: sight,
-                label: 'Dürbün yüksekliği',
-                unit: 'mm',
-                onChanged: (_) => setState(() {}),
-                helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
-                errorText: sight.text.isNotEmpty && !_validSight ? '0–300 mm arasında geçerli bir değer girin.' : null,
-              ),
-              MenzilSelect<AngularUnit>(
-                label: 'Dürbün birimi',
-                initialValue: angularUnit,
-                items: const [
-                  DropdownMenuItem(value: AngularUnit.mrad, child: Text('MRAD')),
-                  DropdownMenuItem(value: AngularUnit.moa, child: Text('MOA')),
-                ],
-                onChanged: (v) => setState(() => angularUnit = v ?? AngularUnit.mrad),
-              ),
-              if (platform == WeaponPlatform.pcp)
-                MenzilInput(controller: pressure, label: 'Atış basıncı', unit: 'bar'),
-              MenzilFullWidth(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton.icon(
-                    onPressed: _showSightHelp,
-                    icon: const Icon(Icons.info_outline, size: 18),
-                    label: const Text('Dürbün yüksekliği nasıl ölçülür?'),
+            padding: const EdgeInsets.fromLTRB(
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+              MenzilSpace.xxs,
+            ),
+            child: MenzilFieldGrid(
+              children: [
+                MenzilInput(
+                  controller: velocity,
+                  label: 'Çıkış hızı',
+                  unit: 'm/s',
+                ),
+                MenzilInput(
+                  controller: zero,
+                  label: 'Sıfırlama mesafesi',
+                  unit: 'm',
+                ),
+                MenzilInput(
+                  controller: sight,
+                  label: 'Dürbün yüksekliği',
+                  unit: 'mm',
+                  onChanged: (_) => setState(() {}),
+                  helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
+                  errorText: sight.text.isNotEmpty && !_validSight
+                      ? '0–300 mm arasında geçerli bir değer girin.'
+                      : null,
+                ),
+                MenzilSelect<AngularUnit>(
+                  label: 'Dürbün birimi',
+                  initialValue: angularUnit,
+                  items: const [
+                    DropdownMenuItem(
+                      value: AngularUnit.mrad,
+                      child: Text('MRAD'),
+                    ),
+                    DropdownMenuItem(
+                      value: AngularUnit.moa,
+                      child: Text('MOA'),
+                    ),
+                  ],
+                  onChanged: (v) =>
+                      setState(() => angularUnit = v ?? AngularUnit.mrad),
+                ),
+                if (platform == WeaponPlatform.pcp)
+                  MenzilInput(
+                    controller: pressure,
+                    label: 'Atış basıncı',
+                    unit: 'bar',
+                  ),
+                MenzilFullWidth(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton.icon(
+                      onPressed: _showSightHelp,
+                      icon: const Icon(Icons.info_outline, size: 18),
+                      label: const Text('Dürbün yüksekliği nasıl ölçülür?'),
+                    ),
                   ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ),
           _CatalogValues(rifle: rifle, ammo: ammo, scope: scope),
         ],
@@ -769,7 +1004,11 @@ class _CatalogValues extends StatelessWidget {
   final Ammunition? ammo;
   final ScopeOptic? scope;
 
-  const _CatalogValues({required this.rifle, required this.ammo, required this.scope});
+  const _CatalogValues({
+    required this.rifle,
+    required this.ammo,
+    required this.scope,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -780,15 +1019,35 @@ class _CatalogValues extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          MenzilMetricGrid(columns: 2, metrics: [
-            if (rifle != null) MenzilMetric('Çap', rifle!.caliberMm.toStringAsFixed(2), 'mm'),
-            if (ammo != null) MenzilMetric('Ağırlık', ammo!.grain.toStringAsFixed(ammo!.grain % 1 == 0 ? 0 : 1), 'gr'),
-            MenzilMetric('Sürükleme modeli', ammo?.ballisticModel?.name.toUpperCase() ?? '—'),
-            MenzilMetric('BC', ammo?.ballisticCoefficient?.toString() ?? '—'),
-            MenzilMetric('Namlu boyu', rifle?.barrelLengthMm?.toStringAsFixed(0) ?? '—', rifle?.barrelLengthMm == null ? null : 'mm'),
-            if (scope != null)
-              MenzilMetric('Klik değeri', scope!.clickValue.toString(), scope!.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD'),
-          ]),
+          MenzilMetricGrid(
+            columns: 2,
+            metrics: [
+              if (rifle != null)
+                MenzilMetric('Çap', rifle!.caliberMm.toStringAsFixed(2), 'mm'),
+              if (ammo != null)
+                MenzilMetric(
+                  'Ağırlık',
+                  ammo!.grain.toStringAsFixed(ammo!.grain % 1 == 0 ? 0 : 1),
+                  'gr',
+                ),
+              MenzilMetric(
+                'Sürükleme modeli',
+                ammo?.ballisticModel?.name.toUpperCase() ?? '—',
+              ),
+              MenzilMetric('BC', ammo?.ballisticCoefficient?.toString() ?? '—'),
+              MenzilMetric(
+                'Namlu boyu',
+                rifle?.barrelLengthMm?.toStringAsFixed(0) ?? '—',
+                rifle?.barrelLengthMm == null ? null : 'mm',
+              ),
+              if (scope != null)
+                MenzilMetric(
+                  'Klik değeri',
+                  scope!.clickValue.toString(),
+                  scope!.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
+                ),
+            ],
+          ),
           Text(
             'Bilgi amaçlıdır. V1 vakum temel hesapta BC ve sürükleme modeli kullanılmaz.',
             style: MenzilType.caption(c.ink2),
@@ -814,18 +1073,33 @@ class _SightHeightHelpDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Uygulama bu değeri hesaplamaz. Değeri siz ölçüp profil alanına girersiniz.'),
+              const Text(
+                'Uygulama bu değeri hesaplamaz. Değeri siz ölçüp profil alanına girersiniz.',
+              ),
               const SizedBox(height: 16),
               AspectRatio(
                 aspectRatio: 1.65,
-                child: CustomPaint(painter: _SightHeightDiagramPainter(line: c.ink2, accent: c.amber, text: c.ink)),
+                child: CustomPaint(
+                  painter: _SightHeightDiagramPainter(
+                    line: c.ink2,
+                    accent: c.amber,
+                    text: c.ink,
+                  ),
+                ),
               ),
               const SizedBox(height: 16),
-              const Text('1. Dürbünün optik eksen merkezini belirleyin.', style: TextStyle(fontWeight: FontWeight.w600)),
+              const Text(
+                '1. Dürbünün optik eksen merkezini belirleyin.',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
               const SizedBox(height: 6),
-              const Text('2. Namlu deliğinin merkezini belirleyin. Namlu dış yüzeyini referans almayın.'),
+              const Text(
+                '2. Namlu deliğinin merkezini belirleyin. Namlu dış yüzeyini referans almayın.',
+              ),
               const SizedBox(height: 6),
-              const Text('3. Bu iki merkez arasındaki dikey mesafeyi mm olarak ölçün.'),
+              const Text(
+                '3. Bu iki merkez arasındaki dikey mesafeyi mm olarak ölçün.',
+              ),
               const SizedBox(height: 12),
               const Text(
                 'Önemli: Ölçüm merkezden merkezedir; namlunun üst yüzeyinden dürbüne olan boşluk değildir.',
@@ -835,7 +1109,12 @@ class _SightHeightHelpDialog extends StatelessWidget {
           ),
         ),
       ),
-      actions: [FilledButton(onPressed: () => Navigator.pop(context), child: const Text('Anladım'))],
+      actions: [
+        FilledButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Anladım'),
+        ),
+      ],
     );
   }
 }
@@ -844,7 +1123,11 @@ class _SightHeightDiagramPainter extends CustomPainter {
   final Color line;
   final Color accent;
   final Color text;
-  const _SightHeightDiagramPainter({required this.line, required this.accent, required this.text});
+  const _SightHeightDiagramPainter({
+    required this.line,
+    required this.accent,
+    required this.text,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -873,7 +1156,10 @@ class _SightHeightDiagramPainter extends CustomPainter {
 
     final tp = TextPainter(textDirection: TextDirection.ltr);
     void label(String t, Offset o) {
-      tp.text = TextSpan(text: t, style: TextStyle(color: text, fontSize: 13));
+      tp.text = TextSpan(
+        text: t,
+        style: TextStyle(color: text, fontSize: 13),
+      );
       tp.layout(maxWidth: size.width * .45);
       tp.paint(canvas, o);
     }
@@ -885,5 +1171,7 @@ class _SightHeightDiagramPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _SightHeightDiagramPainter oldDelegate) =>
-      oldDelegate.line != line || oldDelegate.accent != accent || oldDelegate.text != text;
+      oldDelegate.line != line ||
+      oldDelegate.accent != accent ||
+      oldDelegate.text != text;
 }

@@ -27,10 +27,10 @@ class MetNoWeatherProvider implements WeatherProvider {
     Clock clock = const SystemClock(),
     String userAgent = ToolsConfig.metNoUserAgent,
     Duration timeout = const Duration(seconds: 12),
-  })  : _client = client ?? http.Client(),
-        _clock = clock,
-        _userAgent = userAgent,
-        _timeout = timeout;
+  }) : _client = client ?? http.Client(),
+       _clock = clock,
+       _userAgent = userAgent,
+       _timeout = timeout;
 
   @override
   String get sourceName => 'MET Norway (CC BY 4.0)';
@@ -44,18 +44,25 @@ class MetNoWeatherProvider implements WeatherProvider {
       );
     }
     final lat = _round4(latitude), lon = _round4(longitude);
-    final key = '${WeatherPolicy.roundCoordinate(latitude)},${WeatherPolicy.roundCoordinate(longitude)}';
+    final key =
+        '${WeatherPolicy.roundCoordinate(latitude)},${WeatherPolicy.roundCoordinate(longitude)}';
     final cached = _cache[key];
     final now = _clock.now().toUtc();
-    if (cached != null && cached.expires != null && now.isBefore(cached.expires!)) {
+    if (cached != null &&
+        cached.expires != null &&
+        now.isBefore(cached.expires!)) {
       return cached.observation;
     }
 
-    final uri = Uri.https('api.met.no', '/weatherapi/locationforecast/2.0/compact', {
-      'lat': lat.toStringAsFixed(4),
-      'lon': lon.toStringAsFixed(4),
-    });
-    final headers = <String, String>{'User-Agent': _userAgent, 'Accept': 'application/json'};
+    final uri = Uri.https(
+      'api.met.no',
+      '/weatherapi/locationforecast/2.0/compact',
+      {'lat': lat.toStringAsFixed(4), 'lon': lon.toStringAsFixed(4)},
+    );
+    final headers = <String, String>{
+      'User-Agent': _userAgent,
+      'Accept': 'application/json',
+    };
     final lastModified = cached?.lastModified;
     if (lastModified != null) headers['If-Modified-Since'] = lastModified;
 
@@ -63,11 +70,20 @@ class MetNoWeatherProvider implements WeatherProvider {
     try {
       response = await _client.get(uri, headers: headers).timeout(_timeout);
     } on TimeoutException {
-      throw const WeatherFailure(WeatherFailureKind.timeout, 'Hava servisi zaman aşımına uğradı.');
+      throw const WeatherFailure(
+        WeatherFailureKind.timeout,
+        'Hava servisi zaman aşımına uğradı.',
+      );
     } on SocketException {
-      throw const WeatherFailure(WeatherFailureKind.offline, 'İnternet bağlantısı yok.');
+      throw const WeatherFailure(
+        WeatherFailureKind.offline,
+        'İnternet bağlantısı yok.',
+      );
     } on http.ClientException {
-      throw const WeatherFailure(WeatherFailureKind.offline, 'İnternet bağlantısı yok.');
+      throw const WeatherFailure(
+        WeatherFailureKind.offline,
+        'İnternet bağlantısı yok.',
+      );
     }
 
     if (response.statusCode == 304 && cached != null) {
@@ -80,10 +96,16 @@ class MetNoWeatherProvider implements WeatherProvider {
       return refreshed.observation;
     }
     if (response.statusCode == 429) {
-      throw const WeatherFailure(WeatherFailureKind.rateLimited, 'Hava servisi istek sınırına ulaştı.');
+      throw const WeatherFailure(
+        WeatherFailureKind.rateLimited,
+        'Hava servisi istek sınırına ulaştı.',
+      );
     }
     if (response.statusCode != 200) {
-      throw WeatherFailure(WeatherFailureKind.server, 'Hava servisi hata verdi (${response.statusCode}).');
+      throw WeatherFailure(
+        WeatherFailureKind.server,
+        'Hava servisi hata verdi (${response.statusCode}).',
+      );
     }
     final observation = parse(utf8.decode(response.bodyBytes), fetchedAt: now);
     _cache[key] = _CacheEntry(
@@ -98,7 +120,9 @@ class MetNoWeatherProvider implements WeatherProvider {
   static WeatherObservation parse(String body, {required DateTime fetchedAt}) {
     try {
       final json = jsonDecode(body) as Map<String, dynamic>;
-      final series = (json['properties'] as Map<String, dynamic>)['timeseries'] as List<dynamic>;
+      final series =
+          (json['properties'] as Map<String, dynamic>)['timeseries']
+              as List<dynamic>;
       if (series.isEmpty) throw const FormatException('empty timeseries');
       final now = fetchedAt.toUtc();
       Map<String, dynamic> pick = series.first as Map<String, dynamic>;
@@ -109,24 +133,32 @@ class MetNoWeatherProvider implements WeatherProvider {
         pick = entry;
       }
       final data = pick['data'] as Map<String, dynamic>;
-      final details = (data['instant'] as Map<String, dynamic>)['details'] as Map<String, dynamic>;
+      final details =
+          (data['instant'] as Map<String, dynamic>)['details']
+              as Map<String, dynamic>;
       double need(String k) {
         final v = details[k];
-        if (v is! num || !v.toDouble().isFinite) throw FormatException('missing $k');
+        if (v is! num || !v.toDouble().isFinite)
+          throw FormatException('missing $k');
         return v.toDouble();
       }
 
       final humidity = need('relative_humidity');
       final windFrom = need('wind_from_direction');
       final speed = need('wind_speed');
-      if (humidity < 0 || humidity > 100 || speed < 0 || windFrom < 0 || windFrom > 360) {
+      if (humidity < 0 ||
+          humidity > 100 ||
+          speed < 0 ||
+          windFrom < 0 ||
+          windFrom > 360) {
         throw const FormatException('value out of range');
       }
       String? symbol;
       final next = data['next_1_hours'];
       if (next is Map<String, dynamic>) {
         final summary = next['summary'];
-        if (summary is Map<String, dynamic>) symbol = summary['symbol_code'] as String?;
+        if (summary is Map<String, dynamic>)
+          symbol = summary['symbol_code'] as String?;
       }
       return WeatherObservation(
         temperatureC: need('air_temperature'),
@@ -143,7 +175,10 @@ class MetNoWeatherProvider implements WeatherProvider {
     } on WeatherFailure {
       rethrow;
     } catch (_) {
-      throw const WeatherFailure(WeatherFailureKind.invalidResponse, 'Hava servisi yanıtı okunamadı.');
+      throw const WeatherFailure(
+        WeatherFailureKind.invalidResponse,
+        'Hava servisi yanıtı okunamadı.',
+      );
     }
   }
 

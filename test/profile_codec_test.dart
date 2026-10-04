@@ -4,7 +4,17 @@ import 'package:sniper_turk/services/profile_codec.dart';
 
 void main() {
   const codec = ProfileCodec();
-  const profile = RifleProfile(id:'p1', name:'Test', rifleId:'r1', ammunitionId:'a1', scopeId:'s1', muzzleVelocityMps:270, zeroRangeM:25, sightHeightMm:45, pressureBar:180);
+  const profile = RifleProfile(
+    id: 'p1',
+    name: 'Test',
+    rifleId: 'r1',
+    ammunitionId: 'a1',
+    scopeId: 's1',
+    muzzleVelocityMps: 270,
+    zeroRangeM: 25,
+    sightHeightMm: 45,
+    pressureBar: 180,
+  );
 
   test('profile codec round trips persisted fields', () {
     final decoded = codec.decode(codec.encode(profile));
@@ -28,14 +38,19 @@ void main() {
     expect(codec.decode(encoded).angularUnit, AngularUnit.mrad);
   });
 
-  test('present invalid angularUnit fails closed instead of changing DOPE units', () {
-    final encoded = codec.encode(profile)..['angularUnit'] = 'damaged-unit';
-    expect(() => codec.decode(encoded), throwsFormatException);
-  });
+  test(
+    'present invalid angularUnit fails closed instead of changing DOPE units',
+    () {
+      final encoded = codec.encode(profile)..['angularUnit'] = 'damaged-unit';
+      expect(() => codec.decode(encoded), throwsFormatException);
+    },
+  );
 
-  test('present invalid pressure fails closed instead of erasing PCP pressure', () {
-    final encoded = codec.encode(profile)..['pressureBar'] = -1;
-    expect(() => codec.decode(encoded), throwsFormatException);
-  });
-
+  test(
+    'present invalid pressure fails closed instead of erasing PCP pressure',
+    () {
+      final encoded = codec.encode(profile)..['pressureBar'] = -1;
+      expect(() => codec.decode(encoded), throwsFormatException);
+    },
+  );
 }

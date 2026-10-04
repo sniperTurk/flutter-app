@@ -20,36 +20,115 @@ void main() {
 
   test('rejects empty name instead of silently inventing one', () {
     expect(
-      () => ProfileInput.validate(name: ' ', muzzleVelocityText: '250', zeroRangeText: '25', sightHeightText: '65', platform: WeaponPlatform.firearm),
+      () => ProfileInput.validate(
+        name: ' ',
+        muzzleVelocityText: '250',
+        zeroRangeText: '25',
+        sightHeightText: '65',
+        platform: WeaponPlatform.firearm,
+      ),
       throwsFormatException,
     );
   });
 
-  test('rejects malformed numeric values instead of silently using defaults', () {
-    expect(
-      () => ProfileInput.validate(name: 'Test', muzzleVelocityText: 'abc', zeroRangeText: '25', sightHeightText: '65', platform: WeaponPlatform.firearm),
-      throwsFormatException,
-    );
-    expect(
-      () => ProfileInput.validate(name: 'Test', muzzleVelocityText: '250', zeroRangeText: '0', sightHeightText: '65', platform: WeaponPlatform.firearm),
-      throwsFormatException,
-    );
-  });
+  test(
+    'rejects malformed numeric values instead of silently using defaults',
+    () {
+      expect(
+        () => ProfileInput.validate(
+          name: 'Test',
+          muzzleVelocityText: 'abc',
+          zeroRangeText: '25',
+          sightHeightText: '65',
+          platform: WeaponPlatform.firearm,
+        ),
+        throwsFormatException,
+      );
+      expect(
+        () => ProfileInput.validate(
+          name: 'Test',
+          muzzleVelocityText: '250',
+          zeroRangeText: '0',
+          sightHeightText: '65',
+          platform: WeaponPlatform.firearm,
+        ),
+        throwsFormatException,
+      );
+    },
+  );
 
   test('PCP requires a positive pressure while firearm does not', () {
     expect(
-      () => ProfileInput.validate(name: 'PCP', muzzleVelocityText: '250', zeroRangeText: '25', sightHeightText: '65', platform: WeaponPlatform.pcp, pressureText: ''),
+      () => ProfileInput.validate(
+        name: 'PCP',
+        muzzleVelocityText: '250',
+        zeroRangeText: '25',
+        sightHeightText: '65',
+        platform: WeaponPlatform.pcp,
+        pressureText: '',
+      ),
       throwsFormatException,
     );
-    final firearm = ProfileInput.validate(name: 'Ateşli', muzzleVelocityText: '800', zeroRangeText: '100', sightHeightText: '45', platform: WeaponPlatform.firearm);
+    final firearm = ProfileInput.validate(
+      name: 'Ateşli',
+      muzzleVelocityText: '800',
+      zeroRangeText: '100',
+      sightHeightText: '45',
+      platform: WeaponPlatform.firearm,
+    );
     expect(firearm.pressureBar, isNull);
   });
   test('rejects values outside shared production guardrails', () {
-    expect(() => ProfileInput.validate(name: 'Test', muzzleVelocityText: '1501', zeroRangeText: '25', sightHeightText: '65', platform: WeaponPlatform.firearm), throwsFormatException);
-    expect(() => ProfileInput.validate(name: 'Test', muzzleVelocityText: '250', zeroRangeText: '3001', sightHeightText: '65', platform: WeaponPlatform.firearm), throwsFormatException);
-    expect(() => ProfileInput.validate(name: 'Test', muzzleVelocityText: '250', zeroRangeText: '25', sightHeightText: '300', platform: WeaponPlatform.firearm), throwsFormatException);
-    expect(() => ProfileInput.validate(name: 'Test', muzzleVelocityText: '250', zeroRangeText: '25', sightHeightText: '65', platform: WeaponPlatform.pcp, pressureText: '501'), throwsFormatException);
-    expect(() => ProfileInput.validate(name: '${'x'*81}', muzzleVelocityText: '250', zeroRangeText: '25', sightHeightText: '65', platform: WeaponPlatform.firearm), throwsFormatException);
+    expect(
+      () => ProfileInput.validate(
+        name: 'Test',
+        muzzleVelocityText: '1501',
+        zeroRangeText: '25',
+        sightHeightText: '65',
+        platform: WeaponPlatform.firearm,
+      ),
+      throwsFormatException,
+    );
+    expect(
+      () => ProfileInput.validate(
+        name: 'Test',
+        muzzleVelocityText: '250',
+        zeroRangeText: '3001',
+        sightHeightText: '65',
+        platform: WeaponPlatform.firearm,
+      ),
+      throwsFormatException,
+    );
+    expect(
+      () => ProfileInput.validate(
+        name: 'Test',
+        muzzleVelocityText: '250',
+        zeroRangeText: '25',
+        sightHeightText: '300',
+        platform: WeaponPlatform.firearm,
+      ),
+      throwsFormatException,
+    );
+    expect(
+      () => ProfileInput.validate(
+        name: 'Test',
+        muzzleVelocityText: '250',
+        zeroRangeText: '25',
+        sightHeightText: '65',
+        platform: WeaponPlatform.pcp,
+        pressureText: '501',
+      ),
+      throwsFormatException,
+    );
+    expect(
+      () => ProfileInput.validate(
+        name: 'x' * 81,
+        muzzleVelocityText: '250',
+        zeroRangeText: '25',
+        sightHeightText: '65',
+        platform: WeaponPlatform.firearm,
+      ),
+      throwsFormatException,
+    );
   });
-
 }

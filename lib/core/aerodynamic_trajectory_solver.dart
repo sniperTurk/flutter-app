@@ -48,10 +48,14 @@ class AerodynamicTrajectorySolver {
     final bc = input.ballisticCoefficient;
     final model = input.ballisticModel;
     if (bc == null || model == null) {
-      throw ArgumentError('G1/G7 ballisticCoefficient and ballisticModel are required');
+      throw ArgumentError(
+        'G1/G7 ballisticCoefficient and ballisticModel are required',
+      );
     }
     final drag = ReferenceDragModel(
-      model == BallisticModel.g1 ? StandardDragTables.g1 : StandardDragTables.g7,
+      model == BallisticModel.g1
+          ? StandardDragTables.g1
+          : StandardDragTables.g7,
     );
     // The sight setting is a mechanical launch angle established at zeroing;
     // it must not be silently re-zeroed for the current shot's wind/weather.
@@ -73,7 +77,8 @@ class AerodynamicTrajectorySolver {
         derivative: (s) => _derivative(s, drag, bc, input.environment),
       );
       time += integrationStepSeconds;
-      if (state.vx <= 0) throw StateError('projectile stopped before requested range');
+      if (state.vx <= 0)
+        throw StateError('projectile stopped before requested range');
 
       while (nextIndex < wanted.length && state.x >= wanted[nextIndex]) {
         final range = wanted[nextIndex];
@@ -108,7 +113,9 @@ class AerodynamicTrajectorySolver {
     // Otherwise a valid input such as [50, 50, 100] integrates successfully
     // and then fails after the trajectory has already reached every request.
     if (nextIndex != wanted.length) {
-      throw StateError('trajectory integration did not reach every requested range');
+      throw StateError(
+        'trajectory integration did not reach every requested range',
+      );
     }
     return input.rangesM.map((r) => results[r]!).toList(growable: false);
   }
@@ -116,7 +123,9 @@ class AerodynamicTrajectorySolver {
   /// Backward-compatible no-wind validation entry point.
   List<TrajectoryPoint> solveNoWind(BallisticInput input) {
     if (input.environment.windMps != 0) {
-      throw ArgumentError('solveNoWind requires windMps == 0; use solve() for vector wind experiments');
+      throw ArgumentError(
+        'solveNoWind requires windMps == 0; use solve() for vector wind experiments',
+      );
     }
     return solve(input);
   }
@@ -131,7 +140,9 @@ class AerodynamicTrajectorySolver {
     if (yLow == 0) return low;
     if (yHigh == 0) return high;
     if (yLow.sign == yHigh.sign) {
-      throw StateError('could not bracket a low-angle aerodynamic zero solution');
+      throw StateError(
+        'could not bracket a low-angle aerodynamic zero solution',
+      );
     }
     for (var i = 0; i < 60; i++) {
       final mid = (low + high) / 2;
@@ -148,7 +159,13 @@ class AerodynamicTrajectorySolver {
     return (low + high) / 2;
   }
 
-  double _heightAtRange(BallisticInput input, ReferenceDragModel drag, double bc, double angle, double range) {
+  double _heightAtRange(
+    BallisticInput input,
+    ReferenceDragModel drag,
+    double bc,
+    double angle,
+    double range,
+  ) {
     var state = _initialState(input, angle);
     for (var step = 0; step < _maxSteps; step++) {
       final previous = state;
@@ -175,7 +192,12 @@ class AerodynamicTrajectorySolver {
     vz: 0,
   );
 
-  Rk4Derivative _derivative(Rk4State s, ReferenceDragModel drag, double bc, EnvironmentData env) {
+  Rk4Derivative _derivative(
+    Rk4State s,
+    ReferenceDragModel drag,
+    double bc,
+    EnvironmentData env,
+  ) {
     final directionRad = env.windDirectionDeg * math.pi / 180;
     // 0° is a headwind: air moves toward the shooter (-x). 90° moves in +z.
     final airVx = -env.windMps * math.cos(directionRad);
@@ -184,7 +206,9 @@ class AerodynamicTrajectorySolver {
     final relativeVy = s.vy;
     final relativeVz = s.vz - airVz;
     final relativeSpeed = math.sqrt(
-      relativeVx * relativeVx + relativeVy * relativeVy + relativeVz * relativeVz,
+      relativeVx * relativeVx +
+          relativeVy * relativeVy +
+          relativeVz * relativeVz,
     );
     final decel = drag.decelerationMps2(
       speedMps: relativeSpeed,

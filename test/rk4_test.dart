@@ -30,7 +30,8 @@ void main() {
       () => Rk4Integrator.step(
         state: const Rk4State(x: 0, y: 0, z: 0, vx: 1, vy: 0, vz: 0),
         dt: 0,
-        derivative: (s) => const Rk4Derivative(dx: 1, dy: 0, dz: 0, dvx: 0, dvy: 0, dvz: 0),
+        derivative: (s) =>
+            const Rk4Derivative(dx: 1, dy: 0, dz: 0, dvx: 0, dvy: 0, dvz: 0),
       ),
       throwsArgumentError,
     );

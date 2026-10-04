@@ -9,7 +9,9 @@ class DopeRanges {
     String input, {
     double maxRangeM = ProductionLimits.maxRangeM,
   }) {
-    final tokens = input.split(RegExp(r'[,;\s]+')).where((e) => e.trim().isNotEmpty);
+    final tokens = input
+        .split(RegExp(r'[,;\s]+'))
+        .where((e) => e.trim().isNotEmpty);
     final values = <double>{};
     for (final token in tokens) {
       final value = double.tryParse(token);
@@ -18,7 +20,8 @@ class DopeRanges {
       }
       values.add(value);
     }
-    if (values.isEmpty) throw const FormatException('En az bir mesafe girilmeli');
+    if (values.isEmpty)
+      throw const FormatException('En az bir mesafe girilmeli');
     final result = values.toList()..sort();
     return List.unmodifiable(result);
   }

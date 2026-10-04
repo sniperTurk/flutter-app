@@ -1,3 +1,4 @@
+// dart format off
 import 'drag_table.dart';
 
 /// Standard G1/G7 Cd-vs-Mach reference tables.

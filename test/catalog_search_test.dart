@@ -8,8 +8,14 @@ void main() {
   });
 
   test('catalog query terms may be entered in any order', () {
-    expect(CatalogSearch.matches('HATSAN Hercules 6.35', '6.35 hatsan'), isTrue);
-    expect(CatalogSearch.matches('HATSAN Hercules 6.35', 'hatsan 5.5'), isFalse);
+    expect(
+      CatalogSearch.matches('HATSAN Hercules 6.35', '6.35 hatsan'),
+      isTrue,
+    );
+    expect(
+      CatalogSearch.matches('HATSAN Hercules 6.35', 'hatsan 5.5'),
+      isFalse,
+    );
   });
 
   test('empty or whitespace query matches everything', () {

@@ -36,7 +36,8 @@ abstract final class SightHeightGeometry {
     required PixelPoint objectiveBottom,
     required PixelPoint boreCentre,
   }) {
-    if (!objectiveOuterDiameterMm.isFinite || objectiveOuterDiameterMm <= 0) return null;
+    if (!objectiveOuterDiameterMm.isFinite || objectiveOuterDiameterMm <= 0)
+      return null;
     final dx = objectiveBottom.x - objectiveTop.x;
     final dy = objectiveBottom.y - objectiveTop.y;
     final diameterPx = math.sqrt(dx * dx + dy * dy);
@@ -54,7 +55,8 @@ abstract final class SightHeightGeometry {
     final ux = dx / diameterPx, uy = dy / diameterPx;
     final along = (boreCentre.x - ax) * ux + (boreCentre.y - ay) * uy;
     final heightMm = along.abs() * mmPerPx;
-    if (!heightMm.isFinite || heightMm <= 0 || heightMm > maxPlausibleMm) return null;
+    if (!heightMm.isFinite || heightMm <= 0 || heightMm > maxPlausibleMm)
+      return null;
     // The bore centre cannot lie inside the objective disc: the axis height is
     // objective radius + gap + wall + bore radius, always more than the radius.
     if (heightMm <= objectiveOuterDiameterMm / 2) return null;

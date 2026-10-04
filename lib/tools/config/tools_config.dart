@@ -8,8 +8,9 @@ abstract final class ToolsConfig {
   ///
   /// The contact can be supplied at build time without editing code:
   ///   flutter build ios --dart-define=METNO_CONTACT=ornek@alanadi.com
-  static const metNoUserAgent =
-      _metNoContact == '' ? 'SniperTurk/1.0 CONTACT_REQUIRED' : 'SniperTurk/1.0 $_metNoContact';
+  static const metNoUserAgent = _metNoContact == ''
+      ? 'SniperTurk/1.0 CONTACT_REQUIRED'
+      : 'SniperTurk/1.0 $_metNoContact';
 
   static const _metNoContact = String.fromEnvironment('METNO_CONTACT');
 

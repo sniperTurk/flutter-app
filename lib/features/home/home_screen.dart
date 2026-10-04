@@ -19,11 +19,7 @@ class HomeScreen extends StatefulWidget {
   final ProfileStore? profileStore;
   final ActiveProfileStore? activeProfileStore;
 
-  const HomeScreen({
-    super.key,
-    this.profileStore,
-    this.activeProfileStore,
-  });
+  const HomeScreen({super.key, this.profileStore, this.activeProfileStore});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -109,19 +105,18 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       if (!mounted || generation != _loadGeneration) return;
       setState(() {
-          saved = all;
-          active = selected;
-          activeProfileWarning = reconciliationWarning;
-          loading = false;
-          _profilesRevision++;
-        });
+        saved = all;
+        active = selected;
+        activeProfileWarning = reconciliationWarning;
+        loading = false;
+        _profilesRevision++;
+      });
     } catch (_) {
       if (!mounted || generation != _loadGeneration) return;
       setState(() {
-          loading = false;
-          loadError =
-              'Profil verileri okunamadı. Kayıtlar değiştirilmedi.';
-        });
+        loading = false;
+        loadError = 'Profil verileri okunamadı. Kayıtlar değiştirilmedi.';
+      });
     }
   }
 
@@ -143,9 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text(
-              'Aktif profil kaydedilemedi. Önceki seçim korundu.',
-            ),
+            content: Text('Aktif profil kaydedilemedi. Önceki seçim korundu.'),
           ),
         );
       }
@@ -159,14 +152,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadUnitPreference() async {
     try {
       final loadedMetric = (await SettingsStore.open()).loadMetric();
-      if (mounted && loadedMetric != metric) setState(() => metric = loadedMetric);
+      if (mounted && loadedMetric != metric)
+        setState(() => metric = loadedMetric);
     } catch (_) {
       // Keep metric.
     }
   }
 
   Future<void> _openSettings() async {
-    await Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()));
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const SettingsScreen()),
+    );
     // A changed unit preference re-creates the ballistic workspace (keyed on
     // `metric`), which re-runs its own atomic unit conversion on init.
     await _loadUnitPreference();
@@ -215,53 +212,61 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           : loadError != null
-              ? MenzilStateMessage(
-                  icon: Icons.error_outline,
-                  message: loadError!,
-                  action: MenzilPrimaryButton(
-                    label: 'Tekrar dene',
-                    onPressed: _load,
-                    icon: Icons.refresh,
-                    expand: false,
-                  ),
-                )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (loading) const LinearProgressIndicator(minHeight: 2),
-                    if (activeProfileWarning != null)
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(MenzilSpace.gutter, MenzilSpace.md, MenzilSpace.gutter, 0),
-                        child: Semantics(
-                          liveRegion: true,
-                          child: MenzilNotice(
-                            tone: MenzilNoticeTone.warning,
-                            icon: Icons.warning_amber_rounded,
-                            title: 'Aktif profil uyarısı',
-                            message: activeProfileWarning!,
-                          ),
-                        ),
-                      ),
-                    Expanded(
-                      key: const ValueKey('menzil-tabs'),
-                      child: IndexedStack(
-                        index: tab <= _tabEnvironment ? 0 : tab - _tabEnvironment,
-                        children: [
-                          _ballisticsTab(context),
-                          ProfilesScreen(
-                            embedded: true,
-                            store: profiles,
-                            activeProfileId: active?.id,
-                            revision: _profilesRevision,
-                            onActivate: _choose,
-                            onProfilesChanged: _load,
-                          ),
-                          ToolsScreen(onSettingsClosed: _loadUnitPreference, onProfilesChanged: _load),
-                        ],
+          ? MenzilStateMessage(
+              icon: Icons.error_outline,
+              message: loadError!,
+              action: MenzilPrimaryButton(
+                label: 'Tekrar dene',
+                onPressed: _load,
+                icon: Icons.refresh,
+                expand: false,
+              ),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (loading) const LinearProgressIndicator(minHeight: 2),
+                if (activeProfileWarning != null)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      MenzilSpace.gutter,
+                      MenzilSpace.md,
+                      MenzilSpace.gutter,
+                      0,
+                    ),
+                    child: Semantics(
+                      liveRegion: true,
+                      child: MenzilNotice(
+                        tone: MenzilNoticeTone.warning,
+                        icon: Icons.warning_amber_rounded,
+                        title: 'Aktif profil uyarısı',
+                        message: activeProfileWarning!,
                       ),
                     ),
-                  ],
+                  ),
+                Expanded(
+                  key: const ValueKey('menzil-tabs'),
+                  child: IndexedStack(
+                    index: tab <= _tabEnvironment ? 0 : tab - _tabEnvironment,
+                    children: [
+                      _ballisticsTab(context),
+                      ProfilesScreen(
+                        embedded: true,
+                        store: profiles,
+                        activeProfileId: active?.id,
+                        revision: _profilesRevision,
+                        onActivate: _choose,
+                        onProfilesChanged: _load,
+                      ),
+                      ToolsScreen(
+                        onSettingsClosed: _loadUnitPreference,
+                        onProfilesChanged: _load,
+                      ),
+                    ],
+                  ),
                 ),
+              ],
+            ),
     );
   }
 
@@ -271,7 +276,11 @@ class _HomeScreenState extends State<HomeScreen> {
       borderRadius: BorderRadius.circular(MenzilRadius.chip),
       borderSide: BorderSide(color: c.line),
     );
-    final nameStyle = TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600, color: c.ink);
+    final nameStyle = TextStyle(
+      fontSize: 13.5,
+      fontWeight: FontWeight.w600,
+      color: c.ink,
+    );
     if (saved.isEmpty) {
       return Semantics(
         button: true,
@@ -368,7 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
             subtitle: profile == null
                 ? 'DOPE için önce aktif profil oluşturun'
                 : 'Aktif profil katalogla eşleşmiyor; '
-                    'Profiller ekranında yeniden doğrulayın',
+                      'Profiller ekranında yeniden doğrulayın',
             enabled: false,
             onTap: null,
           ),

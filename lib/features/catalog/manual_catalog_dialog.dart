@@ -1,3 +1,4 @@
+// dart format off
 import 'package:flutter/material.dart';
 import '../../models/domain.dart';
 import '../../services/user_catalog_store.dart';

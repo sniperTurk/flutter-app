@@ -35,7 +35,9 @@ class _LevelScreenState extends State<LevelScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _controller ??= LevelController(provider: ToolsServicesScope.of(context).tilt)..start();
+    _controller ??= LevelController(
+      provider: ToolsServicesScope.of(context).tilt,
+    )..start();
   }
 
   @override
@@ -60,7 +62,8 @@ class _LevelScreenState extends State<LevelScreen> {
                 _unavailable(controller)
               else ...[
                 Semantics(
-                  label: 'Su terazisi. Yatay tüp X ${TiltMath.format(angles.xDeg)} derece, '
+                  label:
+                      'Su terazisi. Yatay tüp X ${TiltMath.format(angles.xDeg)} derece, '
                       'dikey tüp Y ${TiltMath.format(angles.yDeg)} derece, '
                       'dairesel gösterge her iki eksen. '
                       '${TiltMath.isLevel(angles) ? 'Seviyede.' : 'Eğik.'}',
@@ -85,7 +88,9 @@ class _LevelScreenState extends State<LevelScreen> {
                       key: const Key('level-clear-reference'),
                       label: 'Temizle',
                       expand: false,
-                      onPressed: controller.hasOffset ? controller.clearReference : null,
+                      onPressed: controller.hasOffset
+                          ? controller.clearReference
+                          : null,
                     ),
                   ],
                 ),
@@ -99,7 +104,8 @@ class _LevelScreenState extends State<LevelScreen> {
               ],
               MenzilNotice(
                 tone: MenzilNoticeTone.info,
-                message: 'Değerler 0,01° çözünürlükle gösterilir; bu yalnızca ekran çözünürlüğüdür, '
+                message:
+                    'Değerler 0,01° çözünürlükle gösterilir; bu yalnızca ekran çözünürlüğüdür, '
                     'telefon ivmeölçerinin doğruluğu değildir. Titreşimi azaltmak için filtre uygulanır; '
                     'bu doğruluğu artırmaz.'
                     '${controller.hasOffset ? '\nReferans ayarı etkin: değerler ayarlanan konuma göredir; bu sensör kalibrasyonu değildir.' : ''}',
@@ -119,9 +125,13 @@ class _LevelScreenState extends State<LevelScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(child: _axis(context, 'X · yatay tüp', angles.xDeg, 'level-x')),
+          Expanded(
+            child: _axis(context, 'X · yatay tüp', angles.xDeg, 'level-x'),
+          ),
           const SizedBox(width: MenzilSpace.md),
-          Expanded(child: _axis(context, 'Y · dikey tüp', angles.yDeg, 'level-y')),
+          Expanded(
+            child: _axis(context, 'Y · dikey tüp', angles.yDeg, 'level-y'),
+          ),
           const SizedBox(width: MenzilSpace.md),
           // Status is carried by icon + text, never by colour alone.
           ConstrainedBox(
@@ -129,8 +139,15 @@ class _LevelScreenState extends State<LevelScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(level ? Icons.check_circle_outline : Icons.swap_vert, color: c.ink),
-                Text(level ? 'Seviyede' : 'Eğik', key: const Key('level-state'), style: MenzilType.heading(c.ink, size: 20)),
+                Icon(
+                  level ? Icons.check_circle_outline : Icons.swap_vert,
+                  color: c.ink,
+                ),
+                Text(
+                  level ? 'Seviyede' : 'Eğik',
+                  key: const Key('level-state'),
+                  style: MenzilType.heading(c.ink, size: 20),
+                ),
               ],
             ),
           ),
@@ -151,7 +168,12 @@ class _LevelScreenState extends State<LevelScreen> {
             FittedBox(
               fit: BoxFit.scaleDown,
               alignment: Alignment.centerLeft,
-              child: Text('${TiltMath.format(deg)}°', key: Key(key), maxLines: 1, style: MenzilType.display(c.ink, size: 40)),
+              child: Text(
+                '${TiltMath.format(deg)}°',
+                key: Key(key),
+                maxLines: 1,
+                style: MenzilType.display(c.ink, size: 40),
+              ),
             ),
           ],
         ),
@@ -163,12 +185,17 @@ class _LevelScreenState extends State<LevelScreen> {
     final reason = controller.unavailableReason;
     final message = switch (reason) {
       TiltUnavailableReason.noSensor => 'Bu cihazda ivmeölçer bulunamadı.',
-      TiltUnavailableReason.error => 'Eğim sensörü okunamadı. Uygulamayı yeniden açıp tekrar deneyin.',
-      null => 'Eğim verisi bekleniyor. Simülatörde ivmeölçer yoktur; gerçek cihazda deneyin.',
+      TiltUnavailableReason.error =>
+        'Eğim sensörü okunamadı. Uygulamayı yeniden açıp tekrar deneyin.',
+      null =>
+        'Eğim verisi bekleniyor. Simülatörde ivmeölçer yoktur; gerçek cihazda deneyin.',
     };
     return SizedBox(
       height: 320,
-      child: MenzilStateMessage(icon: Icons.sensors_off_outlined, message: message),
+      child: MenzilStateMessage(
+        icon: Icons.sensors_off_outlined,
+        message: message,
+      ),
     );
   }
 }
@@ -206,7 +233,11 @@ class _VialCluster extends StatelessWidget {
                   width: w,
                   height: _tube,
                   child: CustomPaint(
-                    painter: _TubePainter(vertical: false, deg: angles.xDeg, colors: c),
+                    painter: _TubePainter(
+                      vertical: false,
+                      deg: angles.xDeg,
+                      colors: c,
+                    ),
                   ),
                 ),
                 const SizedBox(height: _gap),
@@ -218,7 +249,11 @@ class _VialCluster extends StatelessWidget {
                       width: _tube,
                       height: d,
                       child: CustomPaint(
-                        painter: _TubePainter(vertical: true, deg: angles.yDeg, colors: c),
+                        painter: _TubePainter(
+                          vertical: true,
+                          deg: angles.yDeg,
+                          colors: c,
+                        ),
                       ),
                     ),
                     const SizedBox(width: _gap),
@@ -246,7 +281,11 @@ class _TubePainter extends CustomPainter {
   final bool vertical;
   final double deg;
   final MenzilColors colors;
-  const _TubePainter({required this.vertical, required this.deg, required this.colors});
+  const _TubePainter({
+    required this.vertical,
+    required this.deg,
+    required this.colors,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -270,7 +309,8 @@ class _TubePainter extends CustomPainter {
       ..color = _highlight(colors).withValues(alpha: 0.7)
       ..strokeWidth = 4
       ..strokeCap = StrokeCap.round;
-    Offset at(double along, double across) => vertical ? Offset(across, along) : Offset(along, across);
+    Offset at(double along, double across) =>
+        vertical ? Offset(across, along) : Offset(along, across);
     canvas.drawLine(at(14, 14), at(len - 14, 14), strip);
 
     // Centre target lines either side of the bubble.
@@ -279,7 +319,11 @@ class _TubePainter extends CustomPainter {
       ..color = colors.ink
       ..strokeWidth = 3;
     for (final sign in const [-1.0, 1.0]) {
-      canvas.drawLine(at(centre + sign * half, 6), at(centre + sign * half, thick - 6), mark);
+      canvas.drawLine(
+        at(centre + sign * half, 6),
+        at(centre + sign * half, thick - 6),
+        mark,
+      );
     }
 
     // Bubble: x grows to the right, y sign is inverted like the circle.
@@ -328,8 +372,18 @@ class _CirclePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5
       ..color = colors.ink.withValues(alpha: 0.55);
-    _dashedLine(canvas, Offset(centre.dx - r + 4, centre.dy), Offset(centre.dx + r - 4, centre.dy), dashed);
-    _dashedLine(canvas, Offset(centre.dx, centre.dy - r + 4), Offset(centre.dx, centre.dy + r - 4), dashed);
+    _dashedLine(
+      canvas,
+      Offset(centre.dx - r + 4, centre.dy),
+      Offset(centre.dx + r - 4, centre.dy),
+      dashed,
+    );
+    _dashedLine(
+      canvas,
+      Offset(centre.dx, centre.dy - r + 4),
+      Offset(centre.dx, centre.dy + r - 4),
+      dashed,
+    );
 
     final strong = Paint()
       ..style = PaintingStyle.stroke
@@ -338,10 +392,26 @@ class _CirclePainter extends CustomPainter {
     canvas.drawCircle(centre, r * 0.225, strong..strokeWidth = 2.5);
     strong.strokeWidth = 3;
     final tick = r * 0.38;
-    canvas.drawLine(Offset(centre.dx - r, centre.dy), Offset(centre.dx - r + tick, centre.dy), strong);
-    canvas.drawLine(Offset(centre.dx + r - tick, centre.dy), Offset(centre.dx + r, centre.dy), strong);
-    canvas.drawLine(Offset(centre.dx, centre.dy - r), Offset(centre.dx, centre.dy - r + tick), strong);
-    canvas.drawLine(Offset(centre.dx, centre.dy + r - tick), Offset(centre.dx, centre.dy + r), strong);
+    canvas.drawLine(
+      Offset(centre.dx - r, centre.dy),
+      Offset(centre.dx - r + tick, centre.dy),
+      strong,
+    );
+    canvas.drawLine(
+      Offset(centre.dx + r - tick, centre.dy),
+      Offset(centre.dx + r, centre.dy),
+      strong,
+    );
+    canvas.drawLine(
+      Offset(centre.dx, centre.dy - r),
+      Offset(centre.dx, centre.dy - r + tick),
+      strong,
+    );
+    canvas.drawLine(
+      Offset(centre.dx, centre.dy + r - tick),
+      Offset(centre.dx, centre.dy + r),
+      strong,
+    );
     canvas.drawCircle(
       centre,
       r,
@@ -388,5 +458,7 @@ class _CirclePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _CirclePainter old) =>
-      old.angles.xDeg != angles.xDeg || old.angles.yDeg != angles.yDeg || old.colors != colors;
+      old.angles.xDeg != angles.xDeg ||
+      old.angles.yDeg != angles.yDeg ||
+      old.colors != colors;
 }

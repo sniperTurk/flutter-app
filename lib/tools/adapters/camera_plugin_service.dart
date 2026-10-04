@@ -21,7 +21,10 @@ class CameraPluginService implements CameraService {
     } on CameraException catch (e) {
       throw _map(e);
     } catch (_) {
-      throw const CameraUnavailable(CameraUnavailableReason.error, 'Kamera listesi alınamadı.');
+      throw const CameraUnavailable(
+        CameraUnavailableReason.error,
+        'Kamera listesi alınamadı.',
+      );
     }
     CameraDescription? back;
     for (final c in cameras) {
@@ -32,7 +35,10 @@ class CameraPluginService implements CameraService {
     }
     final chosen = back ?? (cameras.isEmpty ? null : cameras.first);
     if (chosen == null) {
-      throw const CameraUnavailable(CameraUnavailableReason.noCamera, 'Bu cihazda kamera yok.');
+      throw const CameraUnavailable(
+        CameraUnavailableReason.noCamera,
+        'Bu cihazda kamera yok.',
+      );
     }
     final controller = CameraController(
       chosen,
@@ -47,7 +53,10 @@ class CameraPluginService implements CameraService {
       throw _map(e);
     } catch (_) {
       await _disposeQuietly(controller);
-      throw const CameraUnavailable(CameraUnavailableReason.error, 'Kamera başlatılamadı.');
+      throw const CameraUnavailable(
+        CameraUnavailableReason.error,
+        'Kamera başlatılamadı.',
+      );
     }
     // Reflections off the scope glass would hurt marking; never fire a flash.
     try {
@@ -82,7 +91,10 @@ class CameraPluginService implements CameraService {
   CameraUnavailable _map(CameraException e) {
     switch (e.code) {
       case 'CameraAccessDenied':
-        return const CameraUnavailable(CameraUnavailableReason.denied, 'Kamera izni verilmedi.');
+        return const CameraUnavailable(
+          CameraUnavailableReason.denied,
+          'Kamera izni verilmedi.',
+        );
       case 'CameraAccessDeniedWithoutPrompt':
       case 'CameraAccessRestricted':
         return const CameraUnavailable(
@@ -90,7 +102,10 @@ class CameraPluginService implements CameraService {
           'Kamera erişimi kapalı. Ayarlar\'dan açın.',
         );
       default:
-        return const CameraUnavailable(CameraUnavailableReason.error, 'Kamera kullanılamıyor.');
+        return const CameraUnavailable(
+          CameraUnavailableReason.error,
+          'Kamera kullanılamıyor.',
+        );
     }
   }
 }

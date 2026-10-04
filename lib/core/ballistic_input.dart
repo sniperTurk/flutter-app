@@ -10,6 +10,7 @@ class BallisticInput {
   final double sightHeightMm;
   final List<double> rangesM;
   final EnvironmentData environment;
+
   /// Atmosphere/wind state in which the mechanical zero was established.
   /// Kept separate from the current-shot environment so changing today's
   /// weather cannot silently re-zero the sight. Defaults to ICAO dry standard.
@@ -36,19 +37,30 @@ class BallisticInput {
     this.ballisticModel,
   }) : rangesM = List.unmodifiable(rangesM) {
     _positiveFinite('muzzleVelocityMps', muzzleVelocityMps);
-    _max('muzzleVelocityMps', muzzleVelocityMps, ProductionLimits.maxMuzzleVelocityMps);
+    _max(
+      'muzzleVelocityMps',
+      muzzleVelocityMps,
+      ProductionLimits.maxMuzzleVelocityMps,
+    );
     _positiveFinite('grain', grain);
     _positiveFinite('zeroRangeM', zeroRangeM);
     _max('zeroRangeM', zeroRangeM, ProductionLimits.maxRangeM);
     _positiveFinite('sightHeightMm', sightHeightMm);
-    _max('sightHeightMm', sightHeightMm, ProductionLimits.maxSightHeightMm, inclusive: false);
+    _max(
+      'sightHeightMm',
+      sightHeightMm,
+      ProductionLimits.maxSightHeightMm,
+      inclusive: false,
+    );
     if (this.rangesM.isEmpty) throw ArgumentError('rangesM must not be empty');
     for (final range in this.rangesM) {
       _positiveFinite('rangeM', range);
       _max('rangeM', range, ProductionLimits.maxRangeM);
     }
     if ((ballisticCoefficient == null) != (ballisticModel == null)) {
-      throw ArgumentError('ballisticCoefficient and ballisticModel must be supplied together');
+      throw ArgumentError(
+        'ballisticCoefficient and ballisticModel must be supplied together',
+      );
     }
     if (ballisticCoefficient != null) {
       _positiveFinite('ballisticCoefficient', ballisticCoefficient!);
@@ -60,7 +72,11 @@ class BallisticInput {
     _range('pressureHpa', environment.pressureHpa, 300, 1100);
     _finite('humidityPercent', environment.humidityPercent);
     if (environment.humidityPercent < 0 || environment.humidityPercent > 100) {
-      throw ArgumentError.value(environment.humidityPercent, 'humidityPercent', 'must be between 0 and 100');
+      throw ArgumentError.value(
+        environment.humidityPercent,
+        'humidityPercent',
+        'must be between 0 and 100',
+      );
     }
     _finite('altitudeM', environment.altitudeM);
     _finite('windMps', environment.windMps);
@@ -69,8 +85,13 @@ class BallisticInput {
     }
     _max('windMps', environment.windMps, 60, inclusive: false);
     _finite('windDirectionDeg', environment.windDirectionDeg);
-    if (environment.windDirectionDeg < 0 || environment.windDirectionDeg > 360) {
-      throw ArgumentError.value(environment.windDirectionDeg, 'windDirectionDeg', 'must be between 0 and 360');
+    if (environment.windDirectionDeg < 0 ||
+        environment.windDirectionDeg > 360) {
+      throw ArgumentError.value(
+        environment.windDirectionDeg,
+        'windDirectionDeg',
+        'must be between 0 and 360',
+      );
     }
     _validateEnvironment('zeroEnvironment', zeroEnvironment);
   }
@@ -82,21 +103,35 @@ class BallisticInput {
     _range('$prefix.pressureHpa', environment.pressureHpa, 300, 1100);
     _finite('$prefix.humidityPercent', environment.humidityPercent);
     if (environment.humidityPercent < 0 || environment.humidityPercent > 100) {
-      throw ArgumentError.value(environment.humidityPercent, '$prefix.humidityPercent', 'must be between 0 and 100');
+      throw ArgumentError.value(
+        environment.humidityPercent,
+        '$prefix.humidityPercent',
+        'must be between 0 and 100',
+      );
     }
     _finite('$prefix.altitudeM', environment.altitudeM);
     _finite('$prefix.windMps', environment.windMps);
     if (environment.windMps < 0 || environment.windMps >= 60) {
-      throw ArgumentError.value(environment.windMps, '$prefix.windMps', 'must be >= 0 and < 60');
+      throw ArgumentError.value(
+        environment.windMps,
+        '$prefix.windMps',
+        'must be >= 0 and < 60',
+      );
     }
     _finite('$prefix.windDirectionDeg', environment.windDirectionDeg);
-    if (environment.windDirectionDeg < 0 || environment.windDirectionDeg > 360) {
-      throw ArgumentError.value(environment.windDirectionDeg, '$prefix.windDirectionDeg', 'must be between 0 and 360');
+    if (environment.windDirectionDeg < 0 ||
+        environment.windDirectionDeg > 360) {
+      throw ArgumentError.value(
+        environment.windDirectionDeg,
+        '$prefix.windDirectionDeg',
+        'must be between 0 and 360',
+      );
     }
   }
 
   static void _finite(String name, double value) {
-    if (!value.isFinite) throw ArgumentError.value(value, name, 'must be finite');
+    if (!value.isFinite)
+      throw ArgumentError.value(value, name, 'must be finite');
   }
 
   static void _range(String name, double value, double min, double max) {
@@ -105,9 +140,19 @@ class BallisticInput {
     }
   }
 
-  static void _max(String name, double value, double max, {bool inclusive = true}) {
+  static void _max(
+    String name,
+    double value,
+    double max, {
+    bool inclusive = true,
+  }) {
     final invalid = inclusive ? value > max : value >= max;
-    if (invalid) throw ArgumentError.value(value, name, inclusive ? 'must be <= $max' : 'must be < $max');
+    if (invalid)
+      throw ArgumentError.value(
+        value,
+        name,
+        inclusive ? 'must be <= $max' : 'must be < $max',
+      );
   }
 
   static void _positiveFinite(String name, double value) {

@@ -15,7 +15,8 @@ class SharedPreferencesSettingsPreferences implements SettingsPreferences {
   bool? getBool(String key) => preferences.getBool(key);
 
   @override
-  Future<bool> setBool(String key, bool value) => preferences.setBool(key, value);
+  Future<bool> setBool(String key, bool value) =>
+      preferences.setBool(key, value);
 }
 
 class SettingsStore {

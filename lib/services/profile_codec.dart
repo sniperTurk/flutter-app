@@ -1,3 +1,4 @@
+// dart format off
 import '../models/domain.dart';
 import '../core/production_limits.dart';
 

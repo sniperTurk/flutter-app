@@ -39,7 +39,11 @@ abstract final class BallisticsFieldKeys {
 class BallisticsScreen extends StatefulWidget {
   final RifleProfile? profile;
   final BallisticsView view;
-  const BallisticsScreen({super.key, this.profile, this.view = BallisticsView.all});
+  const BallisticsScreen({
+    super.key,
+    this.profile,
+    this.view = BallisticsView.all,
+  });
 
   @override
   State<BallisticsScreen> createState() => _BallisticsScreenState();
@@ -90,12 +94,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   void initState() {
     super.initState();
     final p = widget.profile;
-    profileResolution = p == null ? null : const ProfileCatalogIntegrity().resolve(p);
+    profileResolution = p == null
+        ? null
+        : const ProfileCatalogIntegrity().resolve(p);
     final ammo = profileResolution?.ammunition;
     ammunition = ammo;
     scope = profileResolution?.scope;
 
-    velocity = TextEditingController(text: (p?.muzzleVelocityMps ?? 270).toStringAsFixed(1));
+    velocity = TextEditingController(
+      text: (p?.muzzleVelocityMps ?? 270).toStringAsFixed(1),
+    );
     grain = TextEditingController(text: (ammo?.grain ?? 51).toString());
     zero = TextEditingController(text: (p?.zeroRangeM ?? 25).toString());
     sight = TextEditingController(text: (p?.sightHeightMm ?? 65).toString());
@@ -105,7 +113,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     pressure = TextEditingController(text: '1013.25');
     humidity = TextEditingController(text: '50');
     altitude = TextEditingController(text: '0');
-    ranges = TextEditingController(text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400');
+    ranges = TextEditingController(
+      text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
+    );
     _loadUnitPreference();
   }
 
@@ -143,7 +153,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     zero.text = UnitSystem.metersToYards(zeroM).toStringAsFixed(1);
     sight.text = UnitSystem.millimetersToInches(sightMm).toStringAsFixed(2);
     wind.text = UnitSystem.mpsToMph(windMps).toStringAsFixed(1);
-    temperature.text = UnitSystem.celsiusToFahrenheit(temperatureC).toStringAsFixed(1);
+    temperature.text = UnitSystem.celsiusToFahrenheit(
+      temperatureC,
+    ).toStringAsFixed(1);
     pressure.text = UnitSystem.hpaToInHg(pressureHpa).toStringAsFixed(2);
     altitude.text = UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0);
     ranges.text = metricRanges
@@ -164,7 +176,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _basis = null;
     });
 
-    double? number(TextEditingController c) => double.tryParse(c.text.trim().replaceAll(',', '.'));
+    double? number(TextEditingController c) =>
+        double.tryParse(c.text.trim().replaceAll(',', '.'));
     final rawVelocity = number(velocity);
     final rawGrain = number(grain);
     final rawZero = number(zero);
@@ -177,8 +190,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final rawAltitude = number(altitude);
 
     if ([
-      rawVelocity, rawGrain, rawZero, rawSight, rawWind,
-      rawWindDirection, rawTemperature, rawPressure, rawHumidity, rawAltitude,
+      rawVelocity,
+      rawGrain,
+      rawZero,
+      rawSight,
+      rawWind,
+      rawWindDirection,
+      rawTemperature,
+      rawPressure,
+      rawHumidity,
+      rawAltitude,
     ].any((x) => x == null)) {
       _error('Sayısal alanları kontrol edin.');
       return;
@@ -194,7 +215,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final s = metric ? rawSight! : UnitSystem.inchesToMillimeters(rawSight!);
     final w = metric ? rawWind! : UnitSystem.mphToMps(rawWind!);
     final wd = rawWindDirection!;
-    final temp = metric ? rawTemperature! : UnitSystem.fahrenheitToCelsius(rawTemperature!);
+    final temp = metric
+        ? rawTemperature!
+        : UnitSystem.fahrenheitToCelsius(rawTemperature!);
     final pres = metric ? rawPressure! : UnitSystem.inHgToHpa(rawPressure!);
     final hum = rawHumidity!;
     final alt = metric ? rawAltitude! : UnitSystem.feetToMeters(rawAltitude!);
@@ -210,7 +233,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         hum < 0 ||
         hum > 100 ||
         temp <= -273.15) {
-      _error('Balistik ve atmosfer alanlarını kontrol edin; nem %0–100, rüzgâr yönü 0–360° olmalı.');
+      _error(
+        'Balistik ve atmosfer alanlarını kontrol edin; nem %0–100, rüzgâr yönü 0–360° olmalı.',
+      );
       return;
     }
 
@@ -239,7 +264,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       final density = Atmosphere.densityKgM3(environment);
       final ratio = Atmosphere.densityRatio(environment);
       final sound = Atmosphere.speedOfSoundMps(environment);
-      final mach = Atmosphere.machNumber(velocityMps: v, environment: environment);
+      final mach = Atmosphere.machNumber(
+        velocityMps: v,
+        environment: environment,
+      );
 
       // V1 deliberately runs the labelled vacuum/gravity baseline even when the
       // selected catalog ammunition has BC metadata. Passing that unvalidated BC
@@ -247,14 +275,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       // make DOPE unusable for precisely the catalog ammunition that has the best
       // metadata. Keep the BC visible to the user, but do not consume it until the
       // G1/G7 solver has passed independent reference-vector validation.
-      final solved = const BallisticEngine().solve(BallisticInput(
-        muzzleVelocityMps: v,
-        grain: g,
-        zeroRangeM: z,
-        sightHeightMm: s,
-        rangesM: requestedRanges,
-        environment: environment,
-      ));
+      final solved = const BallisticEngine().solve(
+        BallisticInput(
+          muzzleVelocityMps: v,
+          grain: g,
+          zeroRangeM: z,
+          sightHeightMm: s,
+          rangesM: requestedRanges,
+          environment: environment,
+        ),
+      );
 
       setState(() {
         points = solved;
@@ -275,7 +305,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     } on ArgumentError catch (e) {
       _error(e.message?.toString() ?? 'Balistik girdileri geçersiz.');
     } on UnsupportedError catch (e) {
-      _error(e.message?.toString() ?? 'Bu balistik model henüz desteklenmiyor.');
+      _error(
+        e.message?.toString() ?? 'Bu balistik model henüz desteklenmiyor.',
+      );
     }
   }
 
@@ -296,7 +328,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   void _error(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   // -------------------------------------------------------------------------
@@ -307,17 +341,28 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   String get _angularLabel => _isMoa ? 'MOA' : 'MRAD';
   String get _distanceUnit => metric ? 'm' : 'yd';
 
-  double get _displayMaxRange =>
-      metric ? ProductionLimits.maxRangeM : UnitSystem.metersToYards(ProductionLimits.maxRangeM);
+  double get _displayMaxRange => metric
+      ? ProductionLimits.maxRangeM
+      : UnitSystem.metersToYards(ProductionLimits.maxRangeM);
 
-  double _toDisplayRange(double meters) => metric ? meters : UnitSystem.metersToYards(meters);
-  double _fromDisplayRange(double value) => metric ? value : UnitSystem.yardsToMeters(value);
+  double _toDisplayRange(double meters) =>
+      metric ? meters : UnitSystem.metersToYards(meters);
+  double _fromDisplayRange(double value) =>
+      metric ? value : UnitSystem.yardsToMeters(value);
 
   int get _shotDisplay => _toDisplayRange(_shotRangeM).round();
 
   void _setShotDisplay(num display) {
-    final clamped = display.toDouble().clamp(1.0, _displayMaxRange.floorToDouble()).toDouble();
-    setState(() => _shotRangeM = math.min(_fromDisplayRange(clamped), ProductionLimits.maxRangeM));
+    final clamped = display
+        .toDouble()
+        .clamp(1.0, _displayMaxRange.floorToDouble())
+        .toDouble();
+    setState(
+      () => _shotRangeM = math.min(
+        _fromDisplayRange(clamped),
+        ProductionLimits.maxRangeM,
+      ),
+    );
   }
 
   /// Same engine call as the table, evaluated at one range. Returns null
@@ -327,14 +372,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (basis == null) return null;
     try {
       return const BallisticEngine()
-          .solve(BallisticInput(
-            muzzleVelocityMps: basis.velocityMps,
-            grain: basis.grain,
-            zeroRangeM: basis.zeroRangeM,
-            sightHeightMm: basis.sightHeightMm,
-            rangesM: [_shotRangeM],
-            environment: basis.environment,
-          ))
+          .solve(
+            BallisticInput(
+              muzzleVelocityMps: basis.velocityMps,
+              grain: basis.grain,
+              zeroRangeM: basis.zeroRangeM,
+              sightHeightMm: basis.sightHeightMm,
+              rangesM: [_shotRangeM],
+              environment: basis.environment,
+            ),
+          )
           .first;
     } on ArgumentError {
       return null;
@@ -350,7 +397,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
     if (!mounted || result == null) return;
     if (!result.isFinite || result <= 0 || result > _displayMaxRange) {
-      _error('Mesafe 0 ile ${_displayMaxRange.toStringAsFixed(0)} $_distanceUnit arasında olmalı.');
+      _error(
+        'Mesafe 0 ile ${_displayMaxRange.toStringAsFixed(0)} $_distanceUnit arasında olmalı.',
+      );
       return;
     }
     _setShotDisplay(result.round());
@@ -371,7 +420,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       ),
     );
     if (widget.view != BallisticsView.all) return body;
-    return Scaffold(appBar: const MenzilSubPageBar(title: 'Balistik / DOPE'), body: body);
+    return Scaffold(
+      appBar: const MenzilSubPageBar(title: 'Balistik / DOPE'),
+      body: body,
+    );
   }
 
   Widget _referenceShotPanel() {
@@ -385,9 +437,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               Icon(Icons.gps_fixed, size: 26, color: c.ink),
               const SizedBox(width: MenzilSpace.sm),
               Expanded(
-                child: Text('Atış görünümü', style: MenzilType.heading(c.ink, size: 22)),
+                child: Text(
+                  'Atış görünümü',
+                  style: MenzilType.heading(c.ink, size: 22),
+                ),
               ),
-              Text(metric ? 'm' : 'yd', style: MenzilType.number(c.ink2, size: 16)),
+              Text(
+                metric ? 'm' : 'yd',
+                style: MenzilType.number(c.ink2, size: 16),
+              ),
             ],
           ),
           const SizedBox(height: MenzilSpace.md),
@@ -419,10 +477,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           LayoutBuilder(
             builder: (context, constraints) {
               final screenH = MediaQuery.sizeOf(context).height;
-              final side = math.min(constraints.maxWidth * 0.78, math.max(200.0, screenH * 0.42));
+              final side = math.min(
+                constraints.maxWidth * 0.78,
+                math.max(200.0, screenH * 0.42),
+              );
               return Center(
                 child: Semantics(
-                  label: 'Retikül önizlemesi. Düzeltme işareti merkeze kilitli.',
+                  label:
+                      'Retikül önizlemesi. Düzeltme işareti merkeze kilitli.',
                   image: true,
                   child: SizedBox.square(
                     dimension: side,
@@ -462,14 +524,23 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             children: [
               Icon(icon, size: 18, color: c.ink2),
               const SizedBox(width: MenzilSpace.xs),
-              Expanded(child: Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: c.ink))),
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(fontWeight: FontWeight.w700, color: c.ink),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: MenzilSpace.xs),
           FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
-            child: Text(value, maxLines: 1, style: MenzilType.heading(c.ink, size: 24)),
+            child: Text(
+              value,
+              maxLines: 1,
+              style: MenzilType.heading(c.ink, size: 24),
+            ),
           ),
           const SizedBox(height: MenzilSpace.xxs),
           Text(subtitle, style: MenzilType.caption(c.ink2)),
@@ -481,7 +552,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.profile == null) {
-      return _blocked('DOPE oluşturmak için önce bir tüfek profili oluşturup aktif profil olarak seçin.');
+      return _blocked(
+        'DOPE oluşturmak için önce bir tüfek profili oluşturup aktif profil olarak seçin.',
+      );
     }
     if (profileResolution == null) {
       return _blocked(
@@ -491,37 +564,56 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
     switch (widget.view) {
       case BallisticsView.shot:
-        return MenzilPage(key: const PageStorageKey('ballistics-shot'), children: _shotSection(context));
+        return MenzilPage(
+          key: const PageStorageKey('ballistics-shot'),
+          children: _shotSection(context),
+        );
       case BallisticsView.table:
-        return MenzilPage(key: const PageStorageKey('ballistics-table'), children: [
-          ..._tableHeader(context),
-          _bcNotice(),
-          _rangesInput(),
-          MenzilPrimaryButton(label: 'DOPE oluştur', onPressed: solve, icon: Icons.table_rows_outlined),
-          const SizedBox(height: MenzilSpace.md),
-          ..._tableResults(context),
-          _vacuumFootnote(context),
-        ]);
+        return MenzilPage(
+          key: const PageStorageKey('ballistics-table'),
+          children: [
+            ..._tableHeader(context),
+            _bcNotice(),
+            _rangesInput(),
+            MenzilPrimaryButton(
+              label: 'DOPE oluştur',
+              onPressed: solve,
+              icon: Icons.table_rows_outlined,
+            ),
+            const SizedBox(height: MenzilSpace.md),
+            ..._tableResults(context),
+            _vacuumFootnote(context),
+          ],
+        );
       case BallisticsView.environment:
-        return MenzilPage(key: const PageStorageKey('ballistics-environment'), children: [
-          ..._environmentInputs(context, collapseShotInputs: true),
-          MenzilPrimaryButton(label: 'Hesapla', onPressed: solve, icon: Icons.calculate_outlined),
-          const SizedBox(height: MenzilSpace.md),
-          _atmosphereResult(context),
-        ]);
+        return MenzilPage(
+          key: const PageStorageKey('ballistics-environment'),
+          children: [
+            ..._environmentInputs(context, collapseShotInputs: true),
+            MenzilPrimaryButton(
+              label: 'Hesapla',
+              onPressed: solve,
+              icon: Icons.calculate_outlined,
+            ),
+            const SizedBox(height: MenzilSpace.md),
+            _atmosphereResult(context),
+          ],
+        );
       case BallisticsView.all:
         return Scaffold(
           appBar: const MenzilSubPageBar(title: 'Balistik / DOPE'),
           bottomNavigationBar: _bottomAction(context),
-          body: MenzilPage(children: [
-            _profileCard(context),
-            _bcNotice(),
-            ..._environmentInputs(context, collapseShotInputs: false),
-            _rangesInput(),
-            _atmosphereResult(context),
-            ..._tableResults(context),
-            _vacuumFootnote(context),
-          ]),
+          body: MenzilPage(
+            children: [
+              _profileCard(context),
+              _bcNotice(),
+              ..._environmentInputs(context, collapseShotInputs: false),
+              _rangesInput(),
+              _atmosphereResult(context),
+              ..._tableResults(context),
+              _vacuumFootnote(context),
+            ],
+          ),
         );
     }
   }
@@ -533,16 +625,30 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   Widget _bottomAction(BuildContext context) {
     final c = MenzilColors.of(context);
     return DecoratedBox(
-      decoration: BoxDecoration(color: c.surface, border: Border(top: BorderSide(color: c.line))),
+      decoration: BoxDecoration(
+        color: c.surface,
+        border: Border(top: BorderSide(color: c.line)),
+      ),
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(MenzilSpace.gutter, MenzilSpace.sm, MenzilSpace.gutter, MenzilSpace.sm),
+          padding: const EdgeInsets.fromLTRB(
+            MenzilSpace.gutter,
+            MenzilSpace.sm,
+            MenzilSpace.gutter,
+            MenzilSpace.sm,
+          ),
           child: Center(
             heightFactor: 1,
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: MenzilSpace.maxContentWidth),
-              child: MenzilPrimaryButton(label: 'DOPE oluştur', onPressed: solve, icon: Icons.table_rows_outlined),
+              constraints: const BoxConstraints(
+                maxWidth: MenzilSpace.maxContentWidth,
+              ),
+              child: MenzilPrimaryButton(
+                label: 'DOPE oluştur',
+                onPressed: solve,
+                icon: Icons.table_rows_outlined,
+              ),
             ),
           ),
         ),
@@ -553,7 +659,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   Widget _profileCard(BuildContext context) {
     final c = MenzilColors.of(context);
     return MenzilCard(
-      padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.lg, vertical: MenzilSpace.md),
+      padding: const EdgeInsets.symmetric(
+        horizontal: MenzilSpace.lg,
+        vertical: MenzilSpace.md,
+      ),
       child: Row(
         children: [
           Icon(Icons.person_pin_circle_outlined, color: c.ink),
@@ -583,16 +692,19 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   Widget _bcNotice() => MenzilNotice(
-        tone: MenzilNoticeTone.warning,
-        message: ammunition?.ballisticCoefficient == null
-            ? 'Deterministik vacuum/gravity temel solver. Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz.'
-            : 'Katalogda ${ammunition!.ballisticModel!.name.toUpperCase()} BC ${ammunition!.ballisticCoefficient} mevcut. Doğrulanmış drag solver tamamlanana kadar bu BC sahte bir hesapta kullanılmayacak.',
-      );
+    tone: MenzilNoticeTone.warning,
+    message: ammunition?.ballisticCoefficient == null
+        ? 'Deterministik vacuum/gravity temel solver. Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz.'
+        : 'Katalogda ${ammunition!.ballisticModel!.name.toUpperCase()} BC ${ammunition!.ballisticCoefficient} mevcut. Doğrulanmış drag solver tamamlanana kadar bu BC sahte bir hesapta kullanılmayacak.',
+  );
 
   Widget _vacuumFootnote(BuildContext context) {
     final c = MenzilColors.of(context);
     return Padding(
-      padding: const EdgeInsets.only(top: MenzilSpace.xs, bottom: MenzilSpace.md),
+      padding: const EdgeInsets.only(
+        top: MenzilSpace.xs,
+        bottom: MenzilSpace.md,
+      ),
       child: Text(
         '* Vacuum solver hava direncini hesaplamaz: rüzgâr düzeltmesi güvenlik gereği 0.00 gösterilir, '
         'enerji sütunu her mesafede sabit namlu enerjisidir (mesafedeki enerji değildir) ve '
@@ -604,99 +716,131 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   Widget _rangesInput() => MenzilInput(
-        key: BallisticsFieldKeys.ranges,
-        controller: ranges,
-        label: 'DOPE mesafeleri',
-        unit: metric ? 'm' : 'yd',
-        helperText: 'Virgülle ayırın, en fazla ${_displayMaxRange.toStringAsFixed(0)} ${metric ? 'm' : 'yd'}.',
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.done,
-      );
+    key: BallisticsFieldKeys.ranges,
+    controller: ranges,
+    label: 'DOPE mesafeleri',
+    unit: metric ? 'm' : 'yd',
+    helperText:
+        'Virgülle ayırın, en fazla ${_displayMaxRange.toStringAsFixed(0)} ${metric ? 'm' : 'yd'}.',
+    keyboardType: TextInputType.text,
+    textInputAction: TextInputAction.done,
+  );
 
   // -------------------------------------------------------------------------
   // Ortam
   // -------------------------------------------------------------------------
 
-  List<Widget> _environmentInputs(BuildContext context, {required bool collapseShotInputs}) {
-    final shotInputs = MenzilFieldGrid(children: [
-      MenzilInput(
-        key: BallisticsFieldKeys.velocity,
-        controller: velocity,
-        label: 'Namlu çıkış hızı',
-        unit: metric ? 'm/s' : 'fps',
-      ),
-      MenzilInput(
-        key: BallisticsFieldKeys.grain,
-        controller: grain,
-        label: 'Mühimmat ağırlığı',
-        unit: 'grain',
-      ),
-      MenzilInput(
-        key: BallisticsFieldKeys.zero,
-        controller: zero,
-        label: 'Sıfır mesafesi',
-        unit: metric ? 'm' : 'yd',
-      ),
-      MenzilInput(
-        key: BallisticsFieldKeys.sight,
-        controller: sight,
-        label: 'Dürbün eksen yüksekliği',
-        unit: metric ? 'mm' : 'in',
-      ),
-    ]);
+  List<Widget> _environmentInputs(
+    BuildContext context, {
+    required bool collapseShotInputs,
+  }) {
+    final shotInputs = MenzilFieldGrid(
+      children: [
+        MenzilInput(
+          key: BallisticsFieldKeys.velocity,
+          controller: velocity,
+          label: 'Namlu çıkış hızı',
+          unit: metric ? 'm/s' : 'fps',
+        ),
+        MenzilInput(
+          key: BallisticsFieldKeys.grain,
+          controller: grain,
+          label: 'Mühimmat ağırlığı',
+          unit: 'grain',
+        ),
+        MenzilInput(
+          key: BallisticsFieldKeys.zero,
+          controller: zero,
+          label: 'Sıfır mesafesi',
+          unit: metric ? 'm' : 'yd',
+        ),
+        MenzilInput(
+          key: BallisticsFieldKeys.sight,
+          controller: sight,
+          label: 'Dürbün eksen yüksekliği',
+          unit: metric ? 'mm' : 'in',
+        ),
+      ],
+    );
 
     return [
-      const MenzilSectionHeader('Atmosfer', padding: EdgeInsets.only(bottom: MenzilSpace.sm)),
-      MenzilCard(
-        padding: const EdgeInsets.fromLTRB(MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.xxs),
-        child: MenzilFieldGrid(children: [
-          MenzilInput(
-            key: BallisticsFieldKeys.temperature,
-            controller: temperature,
-            label: 'Sıcaklık',
-            unit: metric ? '°C' : '°F',
-            keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
-          ),
-          MenzilInput(
-            key: BallisticsFieldKeys.pressure,
-            controller: pressure,
-            label: 'İstasyon basıncı',
-            unit: metric ? 'hPa' : 'inHg',
-          ),
-          MenzilInput(
-            key: BallisticsFieldKeys.humidity,
-            controller: humidity,
-            label: 'Bağıl nem',
-            unit: '%',
-          ),
-          MenzilInput(
-            key: BallisticsFieldKeys.altitude,
-            controller: altitude,
-            label: 'İrtifa',
-            unit: metric ? 'm' : 'ft',
-            helperText: 'Kayıt/referans',
-            keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
-          ),
-        ]),
+      const MenzilSectionHeader(
+        'Atmosfer',
+        padding: EdgeInsets.only(bottom: MenzilSpace.sm),
       ),
-      const MenzilSectionHeader('Rüzgâr', padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm)),
       MenzilCard(
-        padding: const EdgeInsets.fromLTRB(MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.xxs),
-        child: MenzilFieldGrid(children: [
-          MenzilInput(
-            key: BallisticsFieldKeys.wind,
-            controller: wind,
-            label: 'Rüzgâr hızı',
-            unit: metric ? 'm/s' : 'mph',
-          ),
-          MenzilInput(
-            key: BallisticsFieldKeys.windDirection,
-            controller: windDirection,
-            label: 'Rüzgâr yönü',
-            unit: '°',
-            helperText: '90 = tam yan',
-          ),
-        ]),
+        padding: const EdgeInsets.fromLTRB(
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.xxs,
+        ),
+        child: MenzilFieldGrid(
+          children: [
+            MenzilInput(
+              key: BallisticsFieldKeys.temperature,
+              controller: temperature,
+              label: 'Sıcaklık',
+              unit: metric ? '°C' : '°F',
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: true,
+              ),
+            ),
+            MenzilInput(
+              key: BallisticsFieldKeys.pressure,
+              controller: pressure,
+              label: 'İstasyon basıncı',
+              unit: metric ? 'hPa' : 'inHg',
+            ),
+            MenzilInput(
+              key: BallisticsFieldKeys.humidity,
+              controller: humidity,
+              label: 'Bağıl nem',
+              unit: '%',
+            ),
+            MenzilInput(
+              key: BallisticsFieldKeys.altitude,
+              controller: altitude,
+              label: 'İrtifa',
+              unit: metric ? 'm' : 'ft',
+              helperText: 'Kayıt/referans',
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: true,
+              ),
+            ),
+          ],
+        ),
+      ),
+      const MenzilSectionHeader(
+        'Rüzgâr',
+        padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
+      ),
+      MenzilCard(
+        padding: const EdgeInsets.fromLTRB(
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.xxs,
+        ),
+        child: MenzilFieldGrid(
+          children: [
+            MenzilInput(
+              key: BallisticsFieldKeys.wind,
+              controller: wind,
+              label: 'Rüzgâr hızı',
+              unit: metric ? 'm/s' : 'mph',
+            ),
+            MenzilInput(
+              key: BallisticsFieldKeys.windDirection,
+              controller: windDirection,
+              label: 'Rüzgâr yönü',
+              unit: '°',
+              helperText: '90 = tam yan',
+            ),
+          ],
+        ),
       ),
       if (collapseShotInputs)
         MenzilAccordion(
@@ -705,9 +849,20 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           child: shotInputs,
         )
       else ...[
-        const MenzilSectionHeader('Atış girdileri', padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm)),
+        const MenzilSectionHeader(
+          'Atış girdileri',
+          padding: EdgeInsets.only(
+            top: MenzilSpace.xxs,
+            bottom: MenzilSpace.sm,
+          ),
+        ),
         MenzilCard(
-          padding: const EdgeInsets.fromLTRB(MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.lg, MenzilSpace.xxs),
+          padding: const EdgeInsets.fromLTRB(
+            MenzilSpace.lg,
+            MenzilSpace.lg,
+            MenzilSpace.lg,
+            MenzilSpace.xxs,
+          ),
           child: shotInputs,
         ),
       ],
@@ -729,7 +884,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             'yoğunluk oranı: ${densityRatio!.toStringAsFixed(3)} • '
             'ses hızı: ${speedOfSoundMps!.toStringAsFixed(1)} m/s • '
             'namlu Mach: ${muzzleMach!.toStringAsFixed(3)}',
-            style: MenzilType.body(c.ink).copyWith(fontFeatures: MenzilType.tabular),
+            style: MenzilType.body(
+              c.ink,
+            ).copyWith(fontFeatures: MenzilType.tabular),
           ),
         ],
       ),
@@ -741,12 +898,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   // -------------------------------------------------------------------------
 
   List<Widget> _tableHeader(BuildContext context) => [
-        MenzilSectionHeader(
-          'Balistik tablo',
-          subtitle: '${widget.profile!.name} • ${scope?.displayName ?? widget.profile!.scopeId}',
-          padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
-        ),
-      ];
+    MenzilSectionHeader(
+      'Balistik tablo',
+      subtitle:
+          '${widget.profile!.name} • ${scope?.displayName ?? widget.profile!.scopeId}',
+      padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
+    ),
+  ];
 
   List<Widget> _tableResults(BuildContext context) {
     if (points.isEmpty) return const [];
@@ -766,19 +924,35 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             child: DataTable(
               columns: [
                 DataColumn(label: Text(metric ? 'm' : 'yd')),
-                DataColumn(label: Text(metric ? 'Vakum düşüşü cm*' : 'Vakum düşüşü in*'), numeric: true),
-                DataColumn(label: Text(metric ? 'Namlu enerjisi J*' : 'Namlu enerjisi ft-lb*'), numeric: true),
+                DataColumn(
+                  label: Text(metric ? 'Vakum düşüşü cm*' : 'Vakum düşüşü in*'),
+                  numeric: true,
+                ),
+                DataColumn(
+                  label: Text(
+                    metric ? 'Namlu enerjisi J*' : 'Namlu enerjisi ft-lb*',
+                  ),
+                  numeric: true,
+                ),
                 const DataColumn(label: Text('TOF'), numeric: true),
               ],
               rows: points.map((p) {
-                final displayRange = metric ? p.rangeM : UnitSystem.metersToYards(p.rangeM);
-                final displayEnergy = metric ? p.energyJ : UnitSystem.joulesToFootPounds(p.energyJ);
-                final displayDrop = metric ? p.dropM * 100 : UnitSystem.millimetersToInches(p.dropM * 1000);
+                final displayRange = metric
+                    ? p.rangeM
+                    : UnitSystem.metersToYards(p.rangeM);
+                final displayEnergy = metric
+                    ? p.energyJ
+                    : UnitSystem.joulesToFootPounds(p.energyJ);
+                final displayDrop = metric
+                    ? p.dropM * 100
+                    : UnitSystem.millimetersToInches(p.dropM * 1000);
                 final isZero = zeroM != null && (p.rangeM - zeroM).abs() < 0.05;
                 return DataRow(
                   color: isZero ? WidgetStatePropertyAll(c.amberSoft) : null,
                   cells: [
-                    DataCell(Text(displayRange.toStringAsFixed(metric ? 0 : 1))),
+                    DataCell(
+                      Text(displayRange.toStringAsFixed(metric ? 0 : 1)),
+                    ),
                     DataCell(Text(displayDrop.toStringAsFixed(1))),
                     DataCell(Text(displayEnergy.toStringAsFixed(1))),
                     DataCell(Text(p.timeOfFlightS.toStringAsFixed(3))),
@@ -828,7 +1002,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       display.toDouble(),
       math.min(
         _displayMaxRange.floorToDouble(),
-        points.isEmpty ? (metric ? 400.0 : 440.0) : _toDisplayRange(points.last.rangeM).ceilToDouble(),
+        points.isEmpty
+            ? (metric ? 400.0 : 440.0)
+            : _toDisplayRange(points.last.rangeM).ceilToDouble(),
       ),
     );
 
@@ -836,13 +1012,23 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       // Range dial: −5 −1 [value] +1 +5, slider below.
       Row(
         children: [
-          MenzilStepButton(label: '−5', semanticLabel: '5 azalt', onPressed: () => _setShotDisplay(display - 5)),
+          MenzilStepButton(
+            label: '−5',
+            semanticLabel: '5 azalt',
+            onPressed: () => _setShotDisplay(display - 5),
+          ),
           const SizedBox(width: MenzilSpace.xs),
-          MenzilStepButton(label: '−1', semanticLabel: '1 azalt', small: true, onPressed: () => _setShotDisplay(display - 1)),
+          MenzilStepButton(
+            label: '−1',
+            semanticLabel: '1 azalt',
+            small: true,
+            onPressed: () => _setShotDisplay(display - 1),
+          ),
           Expanded(
             child: Semantics(
               button: true,
-              label: 'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
+              label:
+                  'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
               child: ExcludeSemantics(
                 child: InkWell(
                   borderRadius: BorderRadius.circular(MenzilRadius.button),
@@ -855,9 +1041,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          Text('$display', style: MenzilType.display(c.ink, size: display >= 1000 ? 48 : 60)),
+                          Text(
+                            '$display',
+                            style: MenzilType.display(
+                              c.ink,
+                              size: display >= 1000 ? 48 : 60,
+                            ),
+                          ),
                           const SizedBox(width: 4),
-                          Text(_distanceUnit, style: MenzilType.number(c.ink2, size: 18)),
+                          Text(
+                            _distanceUnit,
+                            style: MenzilType.number(c.ink2, size: 18),
+                          ),
                         ],
                       ),
                     ),
@@ -866,9 +1061,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ),
             ),
           ),
-          MenzilStepButton(label: '+1', semanticLabel: '1 artır', small: true, onPressed: () => _setShotDisplay(display + 1)),
+          MenzilStepButton(
+            label: '+1',
+            semanticLabel: '1 artır',
+            small: true,
+            onPressed: () => _setShotDisplay(display + 1),
+          ),
           const SizedBox(width: MenzilSpace.xs),
-          MenzilStepButton(label: '+5', semanticLabel: '5 artır', onPressed: () => _setShotDisplay(display + 5)),
+          MenzilStepButton(
+            label: '+5',
+            semanticLabel: '5 artır',
+            onPressed: () => _setShotDisplay(display + 5),
+          ),
         ],
       ),
       Slider(
@@ -886,7 +1090,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ? 'Değerleri görmek için hesaplayın. Ortam ve atış girdileri Ortam sekmesindedir.'
               : 'Bu mesafe için değer üretilemedi. Mesafeyi veya girdileri kontrol edin.',
         ),
-        MenzilPrimaryButton(label: 'Hesapla', onPressed: solve, icon: Icons.calculate_outlined, amber: true),
+        MenzilPrimaryButton(
+          label: 'Hesapla',
+          onPressed: solve,
+          icon: Icons.calculate_outlined,
+          amber: true,
+        ),
         const SizedBox(height: MenzilSpace.md),
       ],
       // V352/V353: no angular correction, hold or click is rendered for the
@@ -899,31 +1108,49 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         padding: EdgeInsets.only(bottom: MenzilSpace.md),
         child: MenzilNotice(
           tone: MenzilNoticeTone.danger,
-          message: 'Vakum temel hesap: hava direnci ve rüzgâr modellenmez, klik talimatı verilmez. '
+          message:
+              'Vakum temel hesap: hava direnci ve rüzgâr modellenmez, klik talimatı verilmez. '
               'Değerler doğrulanmamıştır; gerçek atış için kullanmayın.',
         ),
       ),
       if (shot != null)
-        MenzilMetricGrid(metrics: [
-          MenzilMetric('Uçuş süresi', shot.timeOfFlightS.toStringAsFixed(3), 's'),
-          MenzilMetric(
-            'Vakum düşüşü*',
-            (metric ? shot.dropM * 100 : UnitSystem.millimetersToInches(shot.dropM * 1000)).toStringAsFixed(1),
-            metric ? 'cm' : 'in',
-          ),
-          MenzilMetric(
-            'Namlu hızı*',
-            (metric ? shot.velocityMps : UnitSystem.mpsToFps(shot.velocityMps)).toStringAsFixed(0),
-            metric ? 'm/s' : 'fps',
-          ),
-          MenzilMetric(
-            'Namlu enerjisi*',
-            (metric ? shot.energyJ : UnitSystem.joulesToFootPounds(shot.energyJ)).toStringAsFixed(1),
-            metric ? 'J' : 'ft-lb',
-          ),
-          if (muzzleMach != null) MenzilMetric('Namlu Mach', muzzleMach!.toStringAsFixed(3)),
-          if (densityRatio != null) MenzilMetric('Yoğunluk oranı', densityRatio!.toStringAsFixed(3)),
-        ]),
+        MenzilMetricGrid(
+          metrics: [
+            MenzilMetric(
+              'Uçuş süresi',
+              shot.timeOfFlightS.toStringAsFixed(3),
+              's',
+            ),
+            MenzilMetric(
+              'Vakum düşüşü*',
+              (metric
+                      ? shot.dropM * 100
+                      : UnitSystem.millimetersToInches(shot.dropM * 1000))
+                  .toStringAsFixed(1),
+              metric ? 'cm' : 'in',
+            ),
+            MenzilMetric(
+              'Namlu hızı*',
+              (metric
+                      ? shot.velocityMps
+                      : UnitSystem.mpsToFps(shot.velocityMps))
+                  .toStringAsFixed(0),
+              metric ? 'm/s' : 'fps',
+            ),
+            MenzilMetric(
+              'Namlu enerjisi*',
+              (metric
+                      ? shot.energyJ
+                      : UnitSystem.joulesToFootPounds(shot.energyJ))
+                  .toStringAsFixed(1),
+              metric ? 'J' : 'ft-lb',
+            ),
+            if (muzzleMach != null)
+              MenzilMetric('Namlu Mach', muzzleMach!.toStringAsFixed(3)),
+            if (densityRatio != null)
+              MenzilMetric('Yoğunluk oranı', densityRatio!.toStringAsFixed(3)),
+          ],
+        ),
       Text(
         '* Klik talimatı ve rüzgâr düzeltmesi doğrulanmış sürükleme modeli gelene kadar gösterilmez; '
         'hız ve enerji namlu değeridir.',
@@ -945,7 +1172,9 @@ class _RangeDialog extends StatefulWidget {
 }
 
 class _RangeDialogState extends State<_RangeDialog> {
-  late final TextEditingController controller = TextEditingController(text: widget.initial.toString());
+  late final TextEditingController controller = TextEditingController(
+    text: widget.initial.toString(),
+  );
 
   @override
   void dispose() {
@@ -953,22 +1182,28 @@ class _RangeDialogState extends State<_RangeDialog> {
     super.dispose();
   }
 
-  void _apply() => Navigator.pop(context, double.tryParse(controller.text.trim().replaceAll(',', '.')));
+  void _apply() => Navigator.pop(
+    context,
+    double.tryParse(controller.text.trim().replaceAll(',', '.')),
+  );
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-        title: const Text('Mesafe'),
-        content: MenzilInput(
-          controller: controller,
-          label: 'Atış mesafesi',
-          unit: widget.unit,
-          textInputAction: TextInputAction.done,
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('İptal')),
-          FilledButton(onPressed: _apply, child: const Text('Uygula')),
-        ],
-      );
+    title: const Text('Mesafe'),
+    content: MenzilInput(
+      controller: controller,
+      label: 'Atış mesafesi',
+      unit: widget.unit,
+      textInputAction: TextInputAction.done,
+    ),
+    actions: [
+      TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: const Text('İptal'),
+      ),
+      FilledButton(onPressed: _apply, child: const Text('Uygula')),
+    ],
+  );
 }
 
 class _SafeReticlePainter extends CustomPainter {
@@ -988,17 +1223,34 @@ class _SafeReticlePainter extends CustomPainter {
       ..color = colors.scopeLine
       ..strokeWidth = 1.2;
     canvas.drawCircle(center, radius, main);
-    canvas.drawLine(Offset(center.dx, center.dy - radius), Offset(center.dx, center.dy + radius), main);
-    canvas.drawLine(Offset(center.dx - radius, center.dy), Offset(center.dx + radius, center.dy), main);
+    canvas.drawLine(
+      Offset(center.dx, center.dy - radius),
+      Offset(center.dx, center.dy + radius),
+      main,
+    );
+    canvas.drawLine(
+      Offset(center.dx - radius, center.dy),
+      Offset(center.dx + radius, center.dy),
+      main,
+    );
     for (var i = -3; i <= 3; i++) {
       if (i == 0) continue;
       final d = radius * i / 4;
-      canvas.drawLine(Offset(center.dx + d, center.dy - 7), Offset(center.dx + d, center.dy + 7), fine);
-      canvas.drawLine(Offset(center.dx - 7, center.dy + d), Offset(center.dx + 7, center.dy + d), fine);
+      canvas.drawLine(
+        Offset(center.dx + d, center.dy - 7),
+        Offset(center.dx + d, center.dy + 7),
+        fine,
+      );
+      canvas.drawLine(
+        Offset(center.dx - 7, center.dy + d),
+        Offset(center.dx + 7, center.dy + d),
+        fine,
+      );
     }
     canvas.drawCircle(center, 6, Paint()..color = colors.amber);
   }
 
   @override
-  bool shouldRepaint(covariant _SafeReticlePainter oldDelegate) => oldDelegate.colors != colors;
+  bool shouldRepaint(covariant _SafeReticlePainter oldDelegate) =>
+      oldDelegate.colors != colors;
 }

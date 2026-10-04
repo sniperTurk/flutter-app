@@ -13,15 +13,21 @@ class SensorsPlusTiltProvider implements TiltProvider {
   Stream<TiltState> tilts() {
     final Stream<AccelerometerEvent> source;
     try {
-      source = accelerometerEventStream(samplingPeriod: SensorInterval.gameInterval);
+      source = accelerometerEventStream(
+        samplingPeriod: SensorInterval.gameInterval,
+      );
     } catch (_) {
-      return Stream<TiltState>.value(const TiltUnavailable(TiltUnavailableReason.error));
+      return Stream<TiltState>.value(
+        const TiltUnavailable(TiltUnavailableReason.error),
+      );
     }
-    return source.map<TiltState>((e) => TiltAvailable(GravityVector(e.x, e.y, e.z))).transform(
-      StreamTransformer<TiltState, TiltState>.fromHandlers(
-        handleError: (error, stack, sink) =>
-            sink.add(const TiltUnavailable(TiltUnavailableReason.noSensor)),
-      ),
-    );
+    return source
+        .map<TiltState>((e) => TiltAvailable(GravityVector(e.x, e.y, e.z)))
+        .transform(
+          StreamTransformer<TiltState, TiltState>.fromHandlers(
+            handleError: (error, stack, sink) =>
+                sink.add(const TiltUnavailable(TiltUnavailableReason.noSensor)),
+          ),
+        );
   }
 }

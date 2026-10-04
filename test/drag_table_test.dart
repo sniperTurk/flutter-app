@@ -14,7 +14,13 @@ void main() {
   });
 
   test('drag table rejects unordered or non-positive coefficient data', () {
-    expect(() => DragTable(const [DragSample(1, 0.2), DragSample(1, 0.3)]), throwsArgumentError);
-    expect(() => DragTable(const [DragSample(0, 0.2), DragSample(1, 0)]), throwsArgumentError);
+    expect(
+      () => DragTable(const [DragSample(1, 0.2), DragSample(1, 0.3)]),
+      throwsArgumentError,
+    );
+    expect(
+      () => DragTable(const [DragSample(0, 0.2), DragSample(1, 0)]),
+      throwsArgumentError,
+    );
   });
 }

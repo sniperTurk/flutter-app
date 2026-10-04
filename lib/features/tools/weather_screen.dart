@@ -24,7 +24,8 @@ class WeatherScreen extends StatefulWidget {
   State<WeatherScreen> createState() => _WeatherScreenState();
 }
 
-class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserver {
+class _WeatherScreenState extends State<WeatherScreen>
+    with WidgetsBindingObserver {
   WeatherController? _controller;
   Timer? _ageTimer;
 
@@ -50,7 +51,11 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
     super.didChangeDependencies();
     if (_controller == null) {
       final s = ToolsServicesScope.of(context);
-      _controller = WeatherController(location: s.location, provider: s.weather, clock: s.clock);
+      _controller = WeatherController(
+        location: s.location,
+        provider: s.weather,
+        clock: s.clock,
+      );
     }
   }
 
@@ -69,7 +74,8 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
       appBar: const MenzilSubPageBar(title: 'Hava & Rüzgâr'),
       body: ListenableBuilder(
         listenable: controller,
-        builder: (context, _) => MenzilPage(children: _children(context, controller)),
+        builder: (context, _) =>
+            MenzilPage(children: _children(context, controller)),
       ),
     );
   }
@@ -78,24 +84,34 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
     final metric = AppSettingsScope.metricOf(context);
     final obs = controller.observation;
     final phase = controller.phase;
-    final busy = phase == WeatherPhase.locating || phase == WeatherPhase.loading;
+    final busy =
+        phase == WeatherPhase.locating || phase == WeatherPhase.loading;
 
     return [
-      if (obs == null) ..._withoutData(context, controller, busy) else ..._withData(context, controller, obs, metric, busy),
+      if (obs == null)
+        ..._withoutData(context, controller, busy)
+      else
+        ..._withData(context, controller, obs, metric, busy),
       const SizedBox(height: MenzilSpace.md),
       MenzilNotice(
         tone: MenzilNoticeTone.warning,
         title: 'Bu bir ölçüm değildir',
-        message: 'Veri, ${_sourceName(controller)} hava servisinin model tahminidir. Telefonun GPS\'i rüzgâr '
+        message:
+            'Veri, ${_sourceName(controller)} hava servisinin model tahminidir. Telefonun GPS\'i rüzgâr '
             'ölçmez; değer konumunuzdaki veya hedefteki gerçek rüzgârı göstermez. '
             'Atış hesabına otomatik aktarılmaz.',
       ),
     ];
   }
 
-  String _sourceName(WeatherController controller) => controller.provider.sourceName;
+  String _sourceName(WeatherController controller) =>
+      controller.provider.sourceName;
 
-  List<Widget> _withoutData(BuildContext context, WeatherController controller, bool busy) {
+  List<Widget> _withoutData(
+    BuildContext context,
+    WeatherController controller,
+    bool busy,
+  ) {
     final phase = controller.phase;
     if (busy) {
       return [
@@ -103,8 +119,13 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
           height: 280,
           child: MenzilStateMessage(
             icon: Icons.cloud_sync_outlined,
-            message: phase == WeatherPhase.locating ? 'Konum alınıyor…' : 'Hava verisi yükleniyor…',
-            action: const SizedBox.square(dimension: 24, child: CircularProgressIndicator(strokeWidth: 2.5)),
+            message: phase == WeatherPhase.locating
+                ? 'Konum alınıyor…'
+                : 'Hava verisi yükleniyor…',
+            action: const SizedBox.square(
+              dimension: 24,
+              child: CircularProgressIndicator(strokeWidth: 2.5),
+            ),
           ),
         ),
       ];
@@ -130,7 +151,8 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
       case WeatherPhase.locating:
       case WeatherPhase.loading:
       case WeatherPhase.ready:
-        message = 'Konumunuza göre rüzgâr, sıcaklık, nem ve basınç servis verisini getirir. '
+        message =
+            'Konumunuza göre rüzgâr, sıcaklık, nem ve basınç servis verisini getirir. '
             'Konumunuz yalnızca bu istek için kullanılır ve saklanmaz.';
         settings = false;
     }
@@ -152,7 +174,11 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
               ),
               if (settings) ...[
                 const SizedBox(height: MenzilSpace.sm),
-                MenzilSecondaryButton(label: 'Ayarlar\'ı aç', onPressed: controller.openSettings, expand: false),
+                MenzilSecondaryButton(
+                  label: 'Ayarlar\'ı aç',
+                  onPressed: controller.openSettings,
+                  expand: false,
+                ),
               ],
             ],
           ),
@@ -219,7 +245,10 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
     final (IconData badgeIcon, String badgeText) = switch (freshness) {
       WeatherFreshness.fresh => (Icons.check_circle_outline, 'Güncel'),
       WeatherFreshness.stale => (Icons.history, 'Bayat veri'),
-      WeatherFreshness.expired => (Icons.warning_amber_outlined, 'Güncel değil'),
+      WeatherFreshness.expired => (
+        Icons.warning_amber_outlined,
+        'Güncel değil',
+      ),
     };
 
     return [
@@ -227,19 +256,22 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
         MenzilNotice(
           tone: MenzilNoticeTone.danger,
           title: 'Güncelleme başarısız',
-          message: '$locationNote Aşağıda son alınan veri gösteriliyor; güncel olduğu varsayılmamalı.',
+          message:
+              '$locationNote Aşağıda son alınan veri gösteriliyor; güncel olduğu varsayılmamalı.',
         ),
       if (failed)
         MenzilNotice(
           tone: MenzilNoticeTone.danger,
           title: 'Güncelleme başarısız',
-          message: '${_failureText(controller.failure)} Aşağıda son alınan veri gösteriliyor; '
+          message:
+              '${_failureText(controller.failure)} Aşağıda son alınan veri gösteriliyor; '
               'güncel olduğu varsayılmamalı.',
         ),
       MenzilCard(
         accent: c.cyan,
         child: Semantics(
-          label: 'Rüzgâr ${ToolFormat.windSpeed(obs.windSpeedMps, metric: metric)}, '
+          label:
+              'Rüzgâr ${ToolFormat.windSpeed(obs.windSpeedMps, metric: metric)}, '
               '${CompassMath.wholeDegrees(obs.windFromDeg)} derece ${CompassMath.cardinal16Spoken(obs.windFromDeg)} yönünden esiyor.',
           child: ExcludeSemantics(
             child: Column(
@@ -256,7 +288,10 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
                     style: MenzilType.display(valueColor, size: 52),
                   ),
                 ),
-                Text(ToolFormat.windSpeedAlt(obs.windSpeedMps, metric: metric), style: MenzilType.caption(c.ink2)),
+                Text(
+                  ToolFormat.windSpeedAlt(obs.windSpeedMps, metric: metric),
+                  style: MenzilType.caption(c.ink2),
+                ),
                 const SizedBox(height: MenzilSpace.sm),
                 Text(
                   'Yön: ${CompassMath.wholeDegrees(obs.windFromDeg)}° ${CompassMath.cardinal16(obs.windFromDeg)} '
@@ -273,10 +308,15 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
       MenzilMetricGrid(
         columns: 2,
         metrics: [
-          MenzilMetric('Sıcaklık', ToolFormat.temperature(obs.temperatureC, metric: metric)),
+          MenzilMetric(
+            'Sıcaklık',
+            ToolFormat.temperature(obs.temperatureC, metric: metric),
+          ),
           MenzilMetric('Nem', '${obs.humidityPercent.toStringAsFixed(0)} %'),
           MenzilMetric(
-            obs.pressureKind == PressureKind.seaLevel ? 'Basınç (deniz seviyesi)' : 'Basınç (istasyon)',
+            obs.pressureKind == PressureKind.seaLevel
+                ? 'Basınç (deniz seviyesi)'
+                : 'Basınç (istasyon)',
             ToolFormat.pressure(obs.pressureHpa, metric: metric),
           ),
           MenzilMetric('Hava durumu', condition ?? '—'),
@@ -290,7 +330,11 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
               children: [
                 Icon(badgeIcon, color: c.ink),
                 const SizedBox(width: MenzilSpace.xs),
-                Text(badgeText, key: const Key('weather-freshness'), style: MenzilType.heading(c.ink, size: 20)),
+                Text(
+                  badgeText,
+                  key: const Key('weather-freshness'),
+                  style: MenzilType.heading(c.ink, size: 20),
+                ),
               ],
             ),
             const SizedBox(height: MenzilSpace.xs),
@@ -299,9 +343,15 @@ class _WeatherScreenState extends State<WeatherScreen> with WidgetsBindingObserv
               key: const Key('weather-age'),
               style: MenzilType.body(c.ink),
             ),
-            Text('Veri geçerlilik zamanı: ${ToolFormat.dateTime(obs.validAt)}', style: MenzilType.caption(c.ink2)),
+            Text(
+              'Veri geçerlilik zamanı: ${ToolFormat.dateTime(obs.validAt)}',
+              style: MenzilType.caption(c.ink2),
+            ),
             const SizedBox(height: MenzilSpace.xs),
-            Text('Kaynak: ${obs.sourceName}', style: MenzilType.caption(c.ink2)),
+            Text(
+              'Kaynak: ${obs.sourceName}',
+              style: MenzilType.caption(c.ink2),
+            ),
             if (obs.pressureKind == PressureKind.seaLevel)
               Text(
                 'Basınç deniz seviyesine indirgenmiş değerdir; bulunduğunuz yerdeki istasyon basıncı değildir.',

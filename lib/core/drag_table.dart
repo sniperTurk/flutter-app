@@ -19,13 +19,23 @@ class DragTable {
     double? previous;
     for (final sample in samples) {
       if (!sample.mach.isFinite || sample.mach < 0) {
-        throw ArgumentError.value(sample.mach, 'mach', 'must be finite and >= 0');
+        throw ArgumentError.value(
+          sample.mach,
+          'mach',
+          'must be finite and >= 0',
+        );
       }
       if (!sample.coefficient.isFinite || sample.coefficient <= 0) {
-        throw ArgumentError.value(sample.coefficient, 'coefficient', 'must be finite and > 0');
+        throw ArgumentError.value(
+          sample.coefficient,
+          'coefficient',
+          'must be finite and > 0',
+        );
       }
       if (previous != null && sample.mach <= previous) {
-        throw ArgumentError('drag table Mach values must be strictly increasing');
+        throw ArgumentError(
+          'drag table Mach values must be strictly increasing',
+        );
       }
       previous = sample.mach;
     }

@@ -21,8 +21,7 @@ import '../models/domain.dart';
 /// complete trajectory solver is cross-validated against an independent
 /// external-ballistics reference dataset.
 class ReferenceDragModel {
-  static const double poundsPerSquareInchToKgPerSquareMeter =
-      703.0695796391593;
+  static const double poundsPerSquareInchToKgPerSquareMeter = 703.0695796391593;
   static const double _pi = 3.14159265358979323846;
 
   final DragTable table;
@@ -47,7 +46,11 @@ class ReferenceDragModel {
     required EnvironmentData environment,
   }) {
     if (!speedMps.isFinite || speedMps < 0) {
-      throw ArgumentError.value(speedMps, 'speedMps', 'must be finite and >= 0');
+      throw ArgumentError.value(
+        speedMps,
+        'speedMps',
+        'must be finite and >= 0',
+      );
     }
     final bcSi = ballisticCoefficientKgPerM2(ballisticCoefficient);
     if (speedMps == 0) return 0;

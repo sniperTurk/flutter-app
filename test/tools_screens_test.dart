@@ -27,9 +27,19 @@ Future<void> _unmount(WidgetTester tester) async {
 
 void main() {
   group('Tool hub', () {
-    testWidgets('lists the seven V1 tools and no separate vision tool', (tester) async {
+    testWidgets('lists the seven V1 tools and no separate vision tool', (
+      tester,
+    ) async {
       await tester.pumpWidget(host(const Scaffold(body: ToolsScreen())));
-      for (final k in ['chronograph', 'sight-height', 'compass', 'level', 'weather', 'catalog', 'settings']) {
+      for (final k in [
+        'chronograph',
+        'sight-height',
+        'compass',
+        'level',
+        'weather',
+        'catalog',
+        'settings',
+      ]) {
         expect(find.byKey(Key('tool-$k')), findsOneWidget, reason: k);
       }
       expect(find.textContaining('Qwen'), findsNothing);
@@ -47,55 +57,96 @@ void main() {
   group('Pusula', () {
     testWidgets('no sensor data: no heading is invented', (tester) async {
       final heading = TestHeading();
-      await tester.pumpWidget(host(const CompassScreen(), services: testServices(heading: heading)));
+      await tester.pumpWidget(
+        host(const CompassScreen(), services: testServices(heading: heading)),
+      );
       await tester.pump();
       expect(find.textContaining('°'), findsNothing);
-      heading.controller.add(const HeadingUnavailable(HeadingUnavailableReason.noSensor));
+      heading.controller.add(
+        const HeadingUnavailable(HeadingUnavailableReason.noSensor),
+      );
       await tester.pump();
-      expect(find.text('Bu cihazda pusula sensörü bulunamadı.'), findsOneWidget);
+      expect(
+        find.text('Bu cihazda pusula sensörü bulunamadı.'),
+        findsOneWidget,
+      );
       await _unmount(tester);
     });
 
-    testWidgets('available reading shows degrees and abbreviation', (tester) async {
+    testWidgets('available reading shows degrees and abbreviation', (
+      tester,
+    ) async {
       final heading = TestHeading();
-      await tester.pumpWidget(host(const CompassScreen(), services: testServices(heading: heading)));
+      await tester.pumpWidget(
+        host(const CompassScreen(), services: testServices(heading: heading)),
+      );
       await tester.pump();
-      heading.controller.add(const HeadingAvailable(HeadingReading(90, accuracyDeg: 5)));
+      heading.controller.add(
+        const HeadingAvailable(HeadingReading(90, accuracyDeg: 5)),
+      );
       await tester.pump();
       expect(find.textContaining('90°'), findsWidgets);
       expect(find.text('90°  D'), findsOneWidget);
-      expect(find.text('E'), findsNothing, reason: 'Turkish abbreviations only');
+      expect(
+        find.text('E'),
+        findsNothing,
+        reason: 'Turkish abbreviations only',
+      );
       await _unmount(tester);
     });
 
-    testWidgets('a still phone keeps its last bearing (iOS sends no event without change)', (tester) async {
-      final heading = TestHeading();
-      await tester.pumpWidget(host(const CompassScreen(), services: testServices(heading: heading)));
-      await tester.pump();
-      heading.controller.add(const HeadingAvailable(HeadingReading(90, accuracyDeg: 5)));
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 10));
-      expect(find.text('90°  D'), findsOneWidget);
-      await _unmount(tester);
-    });
+    testWidgets(
+      'a still phone keeps its last bearing (iOS sends no event without change)',
+      (tester) async {
+        final heading = TestHeading();
+        await tester.pumpWidget(
+          host(const CompassScreen(), services: testServices(heading: heading)),
+        );
+        await tester.pump();
+        heading.controller.add(
+          const HeadingAvailable(HeadingReading(90, accuracyDeg: 5)),
+        );
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 10));
+        expect(find.text('90°  D'), findsOneWidget);
+        await _unmount(tester);
+      },
+    );
 
-    testWidgets('invalid (negative) iOS heading shows a reason, not a bearing', (tester) async {
-      final heading = TestHeading();
-      await tester.pumpWidget(host(const CompassScreen(), services: testServices(heading: heading)));
-      await tester.pump();
-      heading.controller.add(const HeadingUnavailable(HeadingUnavailableReason.noReference));
-      await tester.pump();
-      expect(find.textContaining('geçersiz bir referans değeri'), findsOneWidget);
-      expect(find.textContaining('Konum ayarlarını kontrol edip'), findsOneWidget);
-      expect(find.textContaining('°'), findsNothing);
-      await _unmount(tester);
-    });
+    testWidgets(
+      'invalid (negative) iOS heading shows a reason, not a bearing',
+      (tester) async {
+        final heading = TestHeading();
+        await tester.pumpWidget(
+          host(const CompassScreen(), services: testServices(heading: heading)),
+        );
+        await tester.pump();
+        heading.controller.add(
+          const HeadingUnavailable(HeadingUnavailableReason.noReference),
+        );
+        await tester.pump();
+        expect(
+          find.textContaining('geçersiz bir referans değeri'),
+          findsOneWidget,
+        );
+        expect(
+          find.textContaining('Konum ayarlarını kontrol edip'),
+          findsOneWidget,
+        );
+        expect(find.textContaining('°'), findsNothing);
+        await _unmount(tester);
+      },
+    );
 
     testWidgets('poor accuracy shows the calibration notice', (tester) async {
       final heading = TestHeading();
-      await tester.pumpWidget(host(const CompassScreen(), services: testServices(heading: heading)));
+      await tester.pumpWidget(
+        host(const CompassScreen(), services: testServices(heading: heading)),
+      );
       await tester.pump();
-      heading.controller.add(const HeadingAvailable(HeadingReading(10, accuracyDeg: 60)));
+      heading.controller.add(
+        const HeadingAvailable(HeadingReading(10, accuracyDeg: 60)),
+      );
       await tester.pump();
       expect(find.text('Kalibrasyon gerekli'), findsOneWidget);
       await _unmount(tester);
@@ -103,14 +154,21 @@ void main() {
   });
 
   group('Su Terazisi', () {
-    testWidgets('shows X/Y with 0.01° resolution and the resolution caveat', (tester) async {
+    testWidgets('shows X/Y with 0.01° resolution and the resolution caveat', (
+      tester,
+    ) async {
       final tilt = TestTilt();
-      await tester.pumpWidget(host(const LevelScreen(), services: testServices(tilt: tilt)));
+      await tester.pumpWidget(
+        host(const LevelScreen(), services: testServices(tilt: tilt)),
+      );
       await tester.pump();
       tilt.controller.add(const TiltAvailable(GravityVector(0.5, -0.3, 9.79)));
       await tester.pump();
       expect(find.textContaining(RegExp(r'-?\d+,\d{2}°')), findsWidgets);
-      expect(find.textContaining('yalnızca ekran çözünürlüğüdür'), findsOneWidget);
+      expect(
+        find.textContaining('yalnızca ekran çözünürlüğüdür'),
+        findsOneWidget,
+      );
       // Design: circular gauge + X horizontal tube + Y vertical tube, together.
       expect(find.byKey(const Key('level-circle')), findsOneWidget);
       expect(find.byKey(const Key('level-tube-x')), findsOneWidget);
@@ -120,7 +178,9 @@ void main() {
 
     testWidgets('state is conveyed by text, not colour alone', (tester) async {
       final tilt = TestTilt();
-      await tester.pumpWidget(host(const LevelScreen(), services: testServices(tilt: tilt)));
+      await tester.pumpWidget(
+        host(const LevelScreen(), services: testServices(tilt: tilt)),
+      );
       await tester.pump();
       tilt.controller.add(const TiltAvailable(GravityVector(0, 0, 9.81)));
       await tester.pump();
@@ -131,11 +191,17 @@ void main() {
       await _unmount(tester);
     });
 
-    testWidgets('sensor missing shows a message, not a gauge value', (tester) async {
+    testWidgets('sensor missing shows a message, not a gauge value', (
+      tester,
+    ) async {
       final tilt = TestTilt();
-      await tester.pumpWidget(host(const LevelScreen(), services: testServices(tilt: tilt)));
+      await tester.pumpWidget(
+        host(const LevelScreen(), services: testServices(tilt: tilt)),
+      );
       await tester.pump();
-      tilt.controller.add(const TiltUnavailable(TiltUnavailableReason.noSensor));
+      tilt.controller.add(
+        const TiltUnavailable(TiltUnavailableReason.noSensor),
+      );
       await tester.pump();
       expect(find.text('Bu cihazda ivmeölçer bulunamadı.'), findsOneWidget);
       await _unmount(tester);
@@ -143,10 +209,17 @@ void main() {
   });
 
   group('Hava & Rüzgâr', () {
-    testWidgets('idle -> fresh data with source and non-measurement notice', (tester) async {
+    testWidgets('idle -> fresh data with source and non-measurement notice', (
+      tester,
+    ) async {
       final clock = TestClock(DateTime.utc(2026, 10, 3, 12));
       final weather = TestWeather(observation(fetchedAt: clock.current));
-      await tester.pumpWidget(host(const WeatherScreen(), services: testServices(weather: weather, clock: clock)));
+      await tester.pumpWidget(
+        host(
+          const WeatherScreen(),
+          services: testServices(weather: weather, clock: clock),
+        ),
+      );
       expect(find.text('Hava verisini getir'), findsOneWidget);
       expect(find.text('Bu bir ölçüm değildir'), findsOneWidget);
       await tester.tap(find.text('Hava verisini getir'));
@@ -160,7 +233,12 @@ void main() {
     testWidgets('shows loading while the service is pending', (tester) async {
       final clock = TestClock(DateTime.utc(2026, 10, 3, 12));
       final weather = TestWeather(null)..hold = Completer<WeatherObservation>();
-      await tester.pumpWidget(host(const WeatherScreen(), services: testServices(weather: weather, clock: clock)));
+      await tester.pumpWidget(
+        host(
+          const WeatherScreen(),
+          services: testServices(weather: weather, clock: clock),
+        ),
+      );
       await tester.tap(find.text('Hava verisini getir'));
       await tester.pump();
       await tester.pump();
@@ -169,45 +247,69 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets('offline failure without cache shows an error and retry', (tester) async {
-      final weather = TestWeather(const WeatherFailure(WeatherFailureKind.offline, 'x'));
-      await tester.pumpWidget(host(const WeatherScreen(), services: testServices(weather: weather)));
+    testWidgets('offline failure without cache shows an error and retry', (
+      tester,
+    ) async {
+      final weather = TestWeather(
+        const WeatherFailure(WeatherFailureKind.offline, 'x'),
+      );
+      await tester.pumpWidget(
+        host(const WeatherScreen(), services: testServices(weather: weather)),
+      );
       await tester.tap(find.text('Hava verisini getir'));
       await tester.pumpAndSettle();
       expect(find.textContaining('İnternet bağlantısı yok'), findsOneWidget);
       expect(find.text('Tekrar dene'), findsOneWidget);
     });
 
-    testWidgets('old data after a failed refresh is labelled stale with its time', (tester) async {
-      final clock = TestClock(DateTime.utc(2026, 10, 3, 12));
-      final weather = TestWeather(observation(fetchedAt: clock.current));
-      await tester.pumpWidget(host(const WeatherScreen(), services: testServices(weather: weather, clock: clock)));
-      await tester.tap(find.text('Hava verisini getir'));
-      await tester.pumpAndSettle();
-      clock.current = clock.current.add(const Duration(hours: 2));
-      weather.outcome = const WeatherFailure(WeatherFailureKind.offline, 'x');
-      await tester.tap(find.text('Yenile'));
-      await tester.pumpAndSettle();
-      expect(find.text('Bayat veri'), findsOneWidget);
-      expect(find.text('Güncel'), findsNothing);
-      expect(find.text('Güncelleme başarısız'), findsOneWidget);
-      expect(find.byKey(const Key('weather-age')), findsOneWidget);
-    });
+    testWidgets(
+      'old data after a failed refresh is labelled stale with its time',
+      (tester) async {
+        final clock = TestClock(DateTime.utc(2026, 10, 3, 12));
+        final weather = TestWeather(observation(fetchedAt: clock.current));
+        await tester.pumpWidget(
+          host(
+            const WeatherScreen(),
+            services: testServices(weather: weather, clock: clock),
+          ),
+        );
+        await tester.tap(find.text('Hava verisini getir'));
+        await tester.pumpAndSettle();
+        clock.current = clock.current.add(const Duration(hours: 2));
+        weather.outcome = const WeatherFailure(WeatherFailureKind.offline, 'x');
+        await tester.tap(find.text('Yenile'));
+        await tester.pumpAndSettle();
+        expect(find.text('Bayat veri'), findsOneWidget);
+        expect(find.text('Güncel'), findsNothing);
+        expect(find.text('Güncelleme başarısız'), findsOneWidget);
+        expect(find.byKey(const Key('weather-age')), findsOneWidget);
+      },
+    );
 
-    testWidgets('permanent location denial offers Settings and does not crash', (tester) async {
-      final location = TestLocation(const LocationDenied(permanent: true));
-      await tester.pumpWidget(host(const WeatherScreen(), services: testServices(location: location)));
-      await tester.tap(find.text('Hava verisini getir'));
-      await tester.pumpAndSettle();
-      expect(find.textContaining('kalıcı olarak kapalı'), findsOneWidget);
-      await tester.tap(find.text('Ayarlar\'ı aç'));
-      await tester.pump();
-      expect(location.settingsOpened, 1);
-    });
+    testWidgets(
+      'permanent location denial offers Settings and does not crash',
+      (tester) async {
+        final location = TestLocation(const LocationDenied(permanent: true));
+        await tester.pumpWidget(
+          host(
+            const WeatherScreen(),
+            services: testServices(location: location),
+          ),
+        );
+        await tester.tap(find.text('Hava verisini getir'));
+        await tester.pumpAndSettle();
+        expect(find.textContaining('kalıcı olarak kapalı'), findsOneWidget);
+        await tester.tap(find.text('Ayarlar\'ı aç'));
+        await tester.pump();
+        expect(location.settingsOpened, 1);
+      },
+    );
 
     testWidgets('location services off is handled', (tester) async {
       final location = TestLocation(const LocationServiceOff());
-      await tester.pumpWidget(host(const WeatherScreen(), services: testServices(location: location)));
+      await tester.pumpWidget(
+        host(const WeatherScreen(), services: testServices(location: location)),
+      );
       await tester.tap(find.text('Hava verisini getir'));
       await tester.pumpAndSettle();
       expect(find.textContaining('Konum servisleri kapalı'), findsOneWidget);
@@ -215,7 +317,9 @@ void main() {
   });
 
   group('Kronograf', () {
-    testWidgets('records shots and shows count/mean/ES; apply is gated', (tester) async {
+    testWidgets('records shots and shows count/mean/ES; apply is gated', (
+      tester,
+    ) async {
       await tester.pumpWidget(host(const ChronographScreen()));
       await tester.enterText(find.byKey(const Key('chrono-velocity')), '270');
       await tester.ensureVisible(find.text('Atış ekle'));
@@ -225,7 +329,11 @@ void main() {
       await tester.ensureVisible(find.text('Atış ekle'));
       await tester.tap(find.text('Atış ekle'));
       await tester.pump();
-      await tester.scrollUntilVisible(find.text('4 · Sonuç'), 300, scrollable: find.byType(Scrollable).first);
+      await tester.scrollUntilVisible(
+        find.text('4 · Sonuç'),
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
       expect(find.text('4 · Sonuç'), findsOneWidget);
       expect(find.textContaining('Aktarım için'), findsOneWidget);
     });
@@ -262,40 +370,63 @@ void main() {
       await tester.pump();
     }
 
-    testWidgets('vision is shown as not connected; nothing is uploaded', (tester) async {
+    testWidgets('vision is shown as not connected; nothing is uploaded', (
+      tester,
+    ) async {
       await tester.pumpWidget(host(const SightHeightScreen()));
-      await tester.scrollUntilVisible(find.byKey(const Key('sight-vision-off')), 300, scrollable: find.byType(Scrollable).first);
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('sight-vision-off')),
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
       expect(find.byKey(const Key('sight-vision-off')), findsOneWidget);
     });
 
-    testWidgets('muzzle-device and inclined-mount guidance is shown', (tester) async {
+    testWidgets('muzzle-device and inclined-mount guidance is shown', (
+      tester,
+    ) async {
       await tester.pumpWidget(host(const SightHeightScreen()));
-      await tester.scrollUntilVisible(find.byKey(const Key('sight-muzzle-warning')), 300, scrollable: find.byType(Scrollable).first);
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('sight-muzzle-warning')),
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
       expect(find.byKey(const Key('sight-muzzle-warning')), findsOneWidget);
       expect(find.byKey(const Key('sight-inclined-mount')), findsOneWidget);
     });
 
-    testWidgets('physical method: 3,18 + 5,80 + 21,40 + 32,00 = 62,4 mm (front/objective end)', (tester) async {
-      await tester.pumpWidget(host(const SightHeightScreen()));
-      await enter(tester, 'sight-bore', '6,36');
-      await enter(tester, 'sight-wall', '5,8');
-      await enter(tester, 'sight-gap', '21,4');
-      await enter(tester, 'sight-objective', '64');
-      await tester.ensureVisible(find.byKey(const Key('sight-total')));
-      expect(find.text('62,4 mm'), findsOneWidget);
-    });
+    testWidgets(
+      'physical method: 3,18 + 5,80 + 21,40 + 32,00 = 62,4 mm (front/objective end)',
+      (tester) async {
+        await tester.pumpWidget(host(const SightHeightScreen()));
+        await enter(tester, 'sight-bore', '6,36');
+        await enter(tester, 'sight-wall', '5,8');
+        await enter(tester, 'sight-gap', '21,4');
+        await enter(tester, 'sight-objective', '64');
+        await tester.ensureVisible(find.byKey(const Key('sight-total')));
+        expect(find.text('62,4 mm'), findsOneWidget);
+      },
+    );
 
-    testWidgets('physical method is independent: no photo, no camera, no gallery needed', (tester) async {
-      final picker = TestPhotoPicker();
-      await tester.pumpWidget(host(const SightHeightScreen(), services: testServices(photoPicker: picker)));
-      await enter(tester, 'sight-bore', '6,36');
-      await enter(tester, 'sight-wall', '5,8');
-      await enter(tester, 'sight-gap', '21,4');
-      await enter(tester, 'sight-objective', '64');
-      await tester.ensureVisible(find.byKey(const Key('sight-total')));
-      expect(find.text('62,4 mm'), findsOneWidget);
-      expect(picker.calls, 0);
-    });
+    testWidgets(
+      'physical method is independent: no photo, no camera, no gallery needed',
+      (tester) async {
+        final picker = TestPhotoPicker();
+        await tester.pumpWidget(
+          host(
+            const SightHeightScreen(),
+            services: testServices(photoPicker: picker),
+          ),
+        );
+        await enter(tester, 'sight-bore', '6,36');
+        await enter(tester, 'sight-wall', '5,8');
+        await enter(tester, 'sight-gap', '21,4');
+        await enter(tester, 'sight-objective', '64');
+        await tester.ensureVisible(find.byKey(const Key('sight-total')));
+        expect(find.text('62,4 mm'), findsOneWidget);
+        expect(picker.calls, 0);
+      },
+    );
 
     testWidgets('incomplete physical input gives no total', (tester) async {
       await tester.pumpWidget(host(const SightHeightScreen()));
@@ -304,16 +435,30 @@ void main() {
       expect(find.text('— mm'), findsOneWidget);
     });
 
-    testWidgets('both photo entry points exist: camera and gallery', (tester) async {
+    testWidgets('both photo entry points exist: camera and gallery', (
+      tester,
+    ) async {
       await tester.pumpWidget(host(const SightHeightScreen()));
       await tester.ensureVisible(find.byKey(const Key('sight-capture-side')));
       expect(find.text('Fotoğraf çek'), findsOneWidget);
       expect(find.text('Galeriden seç'), findsOneWidget);
     });
 
-    testWidgets('gallery denial shows a message instead of crashing', (tester) async {
-      final picker = TestPhotoPicker(failure: const PhotoPickFailure(PhotoPickFailureReason.denied, 'Fotoğraflara erişim kapalı.'));
-      await tester.pumpWidget(host(const SightHeightScreen(), services: testServices(photoPicker: picker)));
+    testWidgets('gallery denial shows a message instead of crashing', (
+      tester,
+    ) async {
+      final picker = TestPhotoPicker(
+        failure: const PhotoPickFailure(
+          PhotoPickFailureReason.denied,
+          'Fotoğraflara erişim kapalı.',
+        ),
+      );
+      await tester.pumpWidget(
+        host(
+          const SightHeightScreen(),
+          services: testServices(photoPicker: picker),
+        ),
+      );
       await tester.ensureVisible(find.byKey(const Key('sight-gallery')));
       await tester.tap(find.byKey(const Key('sight-gallery')));
       await tester.pumpAndSettle();
@@ -323,7 +468,12 @@ void main() {
 
     testWidgets('gallery cancel changes nothing', (tester) async {
       final picker = TestPhotoPicker();
-      await tester.pumpWidget(host(const SightHeightScreen(), services: testServices(photoPicker: picker)));
+      await tester.pumpWidget(
+        host(
+          const SightHeightScreen(),
+          services: testServices(photoPicker: picker),
+        ),
+      );
       await tester.ensureVisible(find.byKey(const Key('sight-gallery')));
       await tester.tap(find.byKey(const Key('sight-gallery')));
       await tester.pumpAndSettle();
@@ -331,17 +481,28 @@ void main() {
       expect(find.byKey(const Key('sight-photo-result')), findsNothing);
     });
 
-    testWidgets('camera permission denial shows a message instead of crashing', (tester) async {
-      final camera = TestCamera(
-        failure: const CameraUnavailable(CameraUnavailableReason.deniedPermanently, 'Kamera erişimi kapalı. Ayarlar\'dan açın.'),
-      );
-      await tester.pumpWidget(host(const SightHeightScreen(), services: testServices(camera: camera)));
-      await tester.ensureVisible(find.byKey(const Key('sight-capture-side')));
-      await tester.tap(find.byKey(const Key('sight-capture-side')));
-      await tester.pumpAndSettle();
-      expect(find.textContaining('Kamera erişimi kapalı'), findsOneWidget);
-      expect(find.text('Ayarları aç'), findsOneWidget);
-    });
+    testWidgets(
+      'camera permission denial shows a message instead of crashing',
+      (tester) async {
+        final camera = TestCamera(
+          failure: const CameraUnavailable(
+            CameraUnavailableReason.deniedPermanently,
+            'Kamera erişimi kapalı. Ayarlar\'dan açın.',
+          ),
+        );
+        await tester.pumpWidget(
+          host(
+            const SightHeightScreen(),
+            services: testServices(camera: camera),
+          ),
+        );
+        await tester.ensureVisible(find.byKey(const Key('sight-capture-side')));
+        await tester.tap(find.byKey(const Key('sight-capture-side')));
+        await tester.pumpAndSettle();
+        expect(find.textContaining('Kamera erişimi kapalı'), findsOneWidget);
+        expect(find.text('Ayarları aç'), findsOneWidget);
+      },
+    );
 
     testWidgets('side capture shows the alignment template', (tester) async {
       await tester.pumpWidget(host(const SightHeightScreen()));
@@ -357,34 +518,53 @@ void main() {
     const sizes = <Size>[Size(320, 568), Size(393, 852), Size(430, 932)];
     for (final size in sizes) {
       for (final scale in [1.0, 1.6]) {
-        testWidgets('hub and tools fit ${size.width.toInt()}x${size.height.toInt()} at ${scale}x text', (tester) async {
-          tester.view.physicalSize = size;
-          tester.view.devicePixelRatio = 1.0;
-          addTearDown(tester.view.reset);
-          final screens = <Widget>[
-            const Scaffold(body: ToolsScreen()),
-            const CompassScreen(),
-            const LevelScreen(),
-            const WeatherScreen(),
-            const ChronographScreen(),
-            const SightHeightScreen(),
-          ];
-          for (final s in screens) {
-            await tester.pumpWidget(host(s, textScale: scale));
+        testWidgets(
+          'hub and tools fit ${size.width.toInt()}x${size.height.toInt()} at ${scale}x text',
+          (tester) async {
+            tester.view.physicalSize = size;
+            tester.view.devicePixelRatio = 1.0;
+            addTearDown(tester.view.reset);
+            final screens = <Widget>[
+              const Scaffold(body: ToolsScreen()),
+              const CompassScreen(),
+              const LevelScreen(),
+              const WeatherScreen(),
+              const ChronographScreen(),
+              const SightHeightScreen(),
+            ];
+            for (final s in screens) {
+              await tester.pumpWidget(host(s, textScale: scale));
+              await tester.pump();
+              expect(
+                tester.takeException(),
+                isNull,
+                reason: '${s.runtimeType} $size $scale',
+              );
+              await _unmount(tester);
+            }
+            // Su Terazisi WITH a reading: the X/Y row must lay out inside the
+            // scroll view (previously an unbounded `stretch` row crashed here).
+            final tilt = TestTilt();
+            await tester.pumpWidget(
+              host(
+                const LevelScreen(),
+                services: testServices(tilt: tilt),
+                textScale: scale,
+              ),
+            );
             await tester.pump();
-            expect(tester.takeException(), isNull, reason: '${s.runtimeType} $size $scale');
+            tilt.controller.add(
+              const TiltAvailable(GravityVector(0.5, -0.3, 9.79)),
+            );
+            await tester.pump();
+            expect(
+              tester.takeException(),
+              isNull,
+              reason: 'LevelScreen with data $size $scale',
+            );
             await _unmount(tester);
-          }
-          // Su Terazisi WITH a reading: the X/Y row must lay out inside the
-          // scroll view (previously an unbounded `stretch` row crashed here).
-          final tilt = TestTilt();
-          await tester.pumpWidget(host(const LevelScreen(), services: testServices(tilt: tilt), textScale: scale));
-          await tester.pump();
-          tilt.controller.add(const TiltAvailable(GravityVector(0.5, -0.3, 9.79)));
-          await tester.pump();
-          expect(tester.takeException(), isNull, reason: 'LevelScreen with data $size $scale');
-          await _unmount(tester);
-        });
+          },
+        );
       }
     }
   });

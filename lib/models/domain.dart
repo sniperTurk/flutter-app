@@ -1,18 +1,44 @@
 enum WeaponPlatform { pcp, firearm }
+
 enum AmmunitionType { pellet, slug, bullet }
+
 enum AngularUnit { mrad, moa }
+
 enum BallisticModel { g1, g7 }
 
 class Rifle {
   final String id, brand, model;
   final WeaponPlatform platform;
   final double caliberMm;
+
   /// Optional manufacturer-verified catalog metadata. Null means unknown, not zero.
   final int? magazineCapacity;
-  final double? barrelLengthMm, airCapacityCc, overallLengthMm, weightKg, plenumCc;
+  final double? barrelLengthMm,
+      airCapacityCc,
+      overallLengthMm,
+      weightKg,
+      plenumCc;
   final String? barrelType, rail, moderatorThread, sourceName, sourceDocument;
-  const Rifle({required this.id, required this.brand, required this.model, required this.platform, required this.caliberMm, this.magazineCapacity, this.barrelLengthMm, this.airCapacityCc, this.overallLengthMm, this.weightKg, this.plenumCc, this.barrelType, this.rail, this.moderatorThread, this.sourceName, this.sourceDocument});
-  String get displayName => '$brand $model • ${caliberMm.toStringAsFixed(2)} mm';
+  const Rifle({
+    required this.id,
+    required this.brand,
+    required this.model,
+    required this.platform,
+    required this.caliberMm,
+    this.magazineCapacity,
+    this.barrelLengthMm,
+    this.airCapacityCc,
+    this.overallLengthMm,
+    this.weightKg,
+    this.plenumCc,
+    this.barrelType,
+    this.rail,
+    this.moderatorThread,
+    this.sourceName,
+    this.sourceDocument,
+  });
+  String get displayName =>
+      '$brand $model • ${caliberMm.toStringAsFixed(2)} mm';
 }
 
 class Ammunition {
@@ -23,21 +49,39 @@ class Ammunition {
   final double? ballisticCoefficient;
   final BallisticModel? ballisticModel;
   final String? sourceName, sourceDocument;
-  const Ammunition({required this.id, required this.brand, required this.model, required this.platform, required this.caliberMm, required this.grain, required this.type, this.ballisticCoefficient, this.ballisticModel, this.sourceName, this.sourceDocument});
-  String get displayName => '$brand $model • ${grain.toStringAsFixed(grain % 1 == 0 ? 0 : 1)} gr';
+  const Ammunition({
+    required this.id,
+    required this.brand,
+    required this.model,
+    required this.platform,
+    required this.caliberMm,
+    required this.grain,
+    required this.type,
+    this.ballisticCoefficient,
+    this.ballisticModel,
+    this.sourceName,
+    this.sourceDocument,
+  });
+  String get displayName =>
+      '$brand $model • ${grain.toStringAsFixed(grain % 1 == 0 ? 0 : 1)} gr';
 }
 
 class ScopeOptic {
   final String id, brand, model;
   final double objectiveDiameterMm, clickValue;
   final AngularUnit clickUnit;
+
   /// Optional manufacturer-verified optic metadata. `objectiveDiameterMm` is
   /// the optical objective size in the model designation;
   /// `objectiveOuterDiameterMm` is the physical bell/housing diameter when
   /// the manufacturer publishes it. They must never be treated as the same.
-  final double? objectiveOuterDiameterMm, tubeDiameterMm, minMagnification, maxMagnification;
+  final double? objectiveOuterDiameterMm,
+      tubeDiameterMm,
+      minMagnification,
+      maxMagnification;
   final double? elevationRangeMrad, windageRangeMrad, lengthMm, weightG;
   final bool? firstFocalPlane, zeroStop;
+
   /// True when the manufacturer publishes the corresponding adjustment range
   /// as a strict lower bound (for example `>17.5 MIL`) rather than an exact
   /// total travel. This prevents catalog consumers from silently presenting a
@@ -45,13 +89,27 @@ class ScopeOptic {
   final bool elevationRangeIsLowerBound, windageRangeIsLowerBound;
   final String? reticle, sourceName, sourceDocument;
   const ScopeOptic({
-    required this.id, required this.brand, required this.model,
-    required this.objectiveDiameterMm, required this.clickValue, required this.clickUnit,
-    this.objectiveOuterDiameterMm, this.tubeDiameterMm, this.minMagnification, this.maxMagnification,
-    this.elevationRangeMrad, this.windageRangeMrad, this.lengthMm, this.weightG,
-    this.firstFocalPlane, this.zeroStop,
-    this.elevationRangeIsLowerBound = false, this.windageRangeIsLowerBound = false,
-    this.reticle, this.sourceName, this.sourceDocument,
+    required this.id,
+    required this.brand,
+    required this.model,
+    required this.objectiveDiameterMm,
+    required this.clickValue,
+    required this.clickUnit,
+    this.objectiveOuterDiameterMm,
+    this.tubeDiameterMm,
+    this.minMagnification,
+    this.maxMagnification,
+    this.elevationRangeMrad,
+    this.windageRangeMrad,
+    this.lengthMm,
+    this.weightG,
+    this.firstFocalPlane,
+    this.zeroStop,
+    this.elevationRangeIsLowerBound = false,
+    this.windageRangeIsLowerBound = false,
+    this.reticle,
+    this.sourceName,
+    this.sourceDocument,
   });
   String get displayName => '$brand $model';
 }
@@ -61,15 +119,54 @@ class RifleProfile {
   final double muzzleVelocityMps, zeroRangeM, sightHeightMm;
   final double? pressureBar;
   final AngularUnit angularUnit;
-  const RifleProfile({required this.id, required this.name, required this.rifleId, required this.ammunitionId, required this.scopeId, required this.muzzleVelocityMps, required this.zeroRangeM, required this.sightHeightMm, this.pressureBar, this.angularUnit = AngularUnit.mrad});
+  const RifleProfile({
+    required this.id,
+    required this.name,
+    required this.rifleId,
+    required this.ammunitionId,
+    required this.scopeId,
+    required this.muzzleVelocityMps,
+    required this.zeroRangeM,
+    required this.sightHeightMm,
+    this.pressureBar,
+    this.angularUnit = AngularUnit.mrad,
+  });
 }
 
 class EnvironmentData {
-  final double temperatureC, pressureHpa, humidityPercent, altitudeM, windMps, windDirectionDeg;
-  const EnvironmentData({this.temperatureC=15, this.pressureHpa=1013.25, this.humidityPercent=50, this.altitudeM=0, this.windMps=0, this.windDirectionDeg=90});
+  final double temperatureC,
+      pressureHpa,
+      humidityPercent,
+      altitudeM,
+      windMps,
+      windDirectionDeg;
+  const EnvironmentData({
+    this.temperatureC = 15,
+    this.pressureHpa = 1013.25,
+    this.humidityPercent = 50,
+    this.altitudeM = 0,
+    this.windMps = 0,
+    this.windDirectionDeg = 90,
+  });
 }
 
 class TrajectoryPoint {
-  final double rangeM, dropM, correctionMrad, correctionMoa, velocityMps, energyJ, timeOfFlightS, windMrad;
-  const TrajectoryPoint({required this.rangeM, required this.dropM, required this.correctionMrad, required this.correctionMoa, required this.velocityMps, required this.energyJ, required this.timeOfFlightS, required this.windMrad});
+  final double rangeM,
+      dropM,
+      correctionMrad,
+      correctionMoa,
+      velocityMps,
+      energyJ,
+      timeOfFlightS,
+      windMrad;
+  const TrajectoryPoint({
+    required this.rangeM,
+    required this.dropM,
+    required this.correctionMrad,
+    required this.correctionMoa,
+    required this.velocityMps,
+    required this.energyJ,
+    required this.timeOfFlightS,
+    required this.windMrad,
+  });
 }

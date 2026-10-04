@@ -94,7 +94,8 @@ class Rk4Integrator {
 
   static void _validateDerivative(Rk4Derivative d) {
     for (final value in [d.dx, d.dy, d.dz, d.dvx, d.dvy, d.dvz]) {
-      if (!value.isFinite) throw StateError('RK4 derivative must remain finite');
+      if (!value.isFinite)
+        throw StateError('RK4 derivative must remain finite');
     }
   }
 }

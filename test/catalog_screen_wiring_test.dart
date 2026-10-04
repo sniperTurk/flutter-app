@@ -12,16 +12,21 @@ void _tallSurface(WidgetTester tester) {
 }
 
 void main() {
-  testWidgets('catalog defaults to PCP and does not mix firearm rifle/ammunition', (tester) async {
-    _tallSurface(tester);
-    await tester.pumpWidget(const MaterialApp(home: CatalogScreen()));
-    expect(find.text('PCP Tüfekler'), findsWidgets);
-    expect(find.textContaining('HATSAN Factor Sniper Long'), findsOneWidget);
-    expect(find.textContaining('Manuel Ateşli Tüfek'), findsNothing);
-    expect(find.textContaining('Manuel Ateşli Mühimmat'), findsNothing);
-  });
+  testWidgets(
+    'catalog defaults to PCP and does not mix firearm rifle/ammunition',
+    (tester) async {
+      _tallSurface(tester);
+      await tester.pumpWidget(const MaterialApp(home: CatalogScreen()));
+      expect(find.text('PCP Tüfekler'), findsWidgets);
+      expect(find.textContaining('HATSAN Factor Sniper Long'), findsOneWidget);
+      expect(find.textContaining('Manuel Ateşli Tüfek'), findsNothing);
+      expect(find.textContaining('Manuel Ateşli Mühimmat'), findsNothing);
+    },
+  );
 
-  testWidgets('switching to firearm filters rifles and ammunition together', (tester) async {
+  testWidgets('switching to firearm filters rifles and ammunition together', (
+    tester,
+  ) async {
     _tallSurface(tester);
     await tester.pumpWidget(const MaterialApp(home: CatalogScreen()));
     await tester.tap(find.text('Ateşli Tüfekler').first);
@@ -33,23 +38,33 @@ void main() {
 
   testWidgets('explicit firearm initial platform is honored', (tester) async {
     _tallSurface(tester);
-    await tester.pumpWidget(const MaterialApp(home: CatalogScreen(initialPlatform: WeaponPlatform.firearm)));
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: CatalogScreen(initialPlatform: WeaponPlatform.firearm),
+      ),
+    );
     expect(find.textContaining('Manuel Ateşli Tüfek'), findsOneWidget);
     expect(find.textContaining('HATSAN Factor Sniper Long'), findsNothing);
   });
-  testWidgets('catalog search filters visible records without crossing platform', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: CatalogScreen()));
-    await tester.enterText(find.byKey(const Key('catalog-search')), 'HATSAN');
-    await tester.pump();
-    expect(find.textContaining('HATSAN Factor Sniper Long'), findsOneWidget);
-    expect(find.textContaining('AirMaks Arms Krait PRO X HP'), findsNothing);
-    expect(find.textContaining('ATA Arms'), findsNothing);
-  });
+  testWidgets(
+    'catalog search filters visible records without crossing platform',
+    (tester) async {
+      await tester.pumpWidget(const MaterialApp(home: CatalogScreen()));
+      await tester.enterText(find.byKey(const Key('catalog-search')), 'HATSAN');
+      await tester.pump();
+      expect(find.textContaining('HATSAN Factor Sniper Long'), findsOneWidget);
+      expect(find.textContaining('AirMaks Arms Krait PRO X HP'), findsNothing);
+      expect(find.textContaining('ATA Arms'), findsNothing);
+    },
+  );
 
   testWidgets('catalog search can be cleared', (tester) async {
     _tallSurface(tester);
     await tester.pumpWidget(const MaterialApp(home: CatalogScreen()));
-    await tester.enterText(find.byKey(const Key('catalog-search')), 'zzzz-no-match');
+    await tester.enterText(
+      find.byKey(const Key('catalog-search')),
+      'zzzz-no-match',
+    );
     await tester.pump();
     expect(find.text('Aramaya uygun tüfek kaydı yok.'), findsOneWidget);
     await tester.tap(find.byTooltip('Aramayı temizle'));
@@ -57,14 +72,15 @@ void main() {
     expect(find.textContaining('HATSAN Factor Sniper Long'), findsOneWidget);
   });
 
-  testWidgets('catalog exposes provenance for ammunition and optics', (tester) async {
+  testWidgets('catalog exposes provenance for ammunition and optics', (
+    tester,
+  ) async {
     _tallSurface(tester);
     await tester.pumpWidget(const MaterialApp(home: CatalogScreen()));
     expect(find.textContaining('Kaynak: JSB Match Diabolo'), findsWidgets);
     expect(find.textContaining('Kaynak: Arken Optics USA'), findsWidgets);
     expect(find.textContaining('Kaynak doğrulanmadı'), findsWidgets);
   });
-
 }
 
 // v103 regression coverage: search must filter all visible catalog sections

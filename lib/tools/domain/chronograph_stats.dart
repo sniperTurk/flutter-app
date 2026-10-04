@@ -36,18 +36,32 @@ abstract final class ChronographStats {
     if (velocitiesMps.isEmpty) return null;
     for (final v in velocitiesMps) {
       if (!v.isFinite || v <= 0 || v > maxPlausibleMps) {
-        throw ArgumentError.value(v, 'velocity', 'must be finite and in (0, $maxPlausibleMps] m/s');
+        throw ArgumentError.value(
+          v,
+          'velocity',
+          'must be finite and in (0, $maxPlausibleMps] m/s',
+        );
       }
     }
     final n = velocitiesMps.length;
     final mean = velocitiesMps.reduce((a, b) => a + b) / n;
     double? sd;
     if (n > 1) {
-      final ss = velocitiesMps.fold<double>(0, (acc, v) => acc + (v - mean) * (v - mean));
+      final ss = velocitiesMps.fold<double>(
+        0,
+        (acc, v) => acc + (v - mean) * (v - mean),
+      );
       sd = math.sqrt(ss / (n - 1));
     }
     final mn = velocitiesMps.reduce(math.min);
     final mx = velocitiesMps.reduce(math.max);
-    return VelocityStats(count: n, meanMps: mean, sdMps: sd, esMps: mx - mn, minMps: mn, maxMps: mx);
+    return VelocityStats(
+      count: n,
+      meanMps: mean,
+      sdMps: sd,
+      esMps: mx - mn,
+      minMps: mn,
+      maxMps: mx,
+    );
   }
 }

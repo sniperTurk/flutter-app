@@ -24,7 +24,9 @@ class CompassController extends ChangeNotifier {
   bool _started = false;
   bool _hadReading = false;
 
-  HeadingState _state = const HeadingUnavailable(HeadingUnavailableReason.noData);
+  HeadingState _state = const HeadingUnavailable(
+    HeadingUnavailableReason.noData,
+  );
   double? _smoothedDeg;
 
   HeadingState get state => _state;
@@ -33,17 +35,20 @@ class CompassController extends ChangeNotifier {
   double? get degrees => _state is HeadingAvailable ? _smoothedDeg : null;
 
   double? get accuracyDeg => switch (_state) {
-        HeadingAvailable(:final reading) => reading.accuracyDeg,
-        _ => null,
-      };
+    HeadingAvailable(:final reading) => reading.accuracyDeg,
+    _ => null,
+  };
 
   void start() {
     if (_started) return;
     _started = true;
     _armTimer();
-    _sub = provider.headings().listen(_onState, onError: (Object _) {
-      _onState(const HeadingUnavailable(HeadingUnavailableReason.error));
-    });
+    _sub = provider.headings().listen(
+      _onState,
+      onError: (Object _) {
+        _onState(const HeadingUnavailable(HeadingUnavailableReason.error));
+      },
+    );
   }
 
   void _onState(HeadingState s) {

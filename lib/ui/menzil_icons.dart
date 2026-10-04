@@ -14,7 +14,11 @@ class MenzilIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final resolved = color ?? IconTheme.of(context).color ?? DefaultTextStyle.of(context).style.color ?? Colors.black;
+    final resolved =
+        color ??
+        IconTheme.of(context).color ??
+        DefaultTextStyle.of(context).style.color ??
+        Colors.black;
     return ExcludeSemantics(
       child: SizedBox.square(
         dimension: size,
@@ -41,7 +45,8 @@ class _GlyphPainter extends CustomPainter {
       ..strokeWidth = 2
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
-    void line(double x1, double y1, double x2, double y2) => canvas.drawLine(Offset(x1, y1), Offset(x2, y2), p);
+    void line(double x1, double y1, double x2, double y2) =>
+        canvas.drawLine(Offset(x1, y1), Offset(x2, y2), p);
 
     switch (glyph) {
       case MenzilGlyph.brand:
@@ -58,7 +63,10 @@ class _GlyphPainter extends CustomPainter {
         line(17, 12, 22, 12);
       case MenzilGlyph.table:
         canvas.drawRRect(
-          RRect.fromRectAndRadius(const Rect.fromLTWH(3, 4, 18, 16), const Radius.circular(2)),
+          RRect.fromRectAndRadius(
+            const Rect.fromLTWH(3, 4, 18, 16),
+            const Radius.circular(2),
+          ),
           p,
         );
         line(3, 10, 21, 10);
@@ -68,10 +76,19 @@ class _GlyphPainter extends CustomPainter {
         final wind = Path()
           ..moveTo(3, 9)
           ..lineTo(14, 9)
-          ..arcToPoint(const Offset(11, 6), radius: const Radius.circular(3), largeArc: true, clockwise: false)
+          ..arcToPoint(
+            const Offset(11, 6),
+            radius: const Radius.circular(3),
+            largeArc: true,
+            clockwise: false,
+          )
           ..moveTo(3, 14)
           ..lineTo(18, 14)
-          ..arcToPoint(const Offset(15, 17), radius: const Radius.circular(3), largeArc: true)
+          ..arcToPoint(
+            const Offset(15, 17),
+            radius: const Radius.circular(3),
+            largeArc: true,
+          )
           ..moveTo(3, 19)
           ..lineTo(10, 19);
         canvas.drawPath(wind, p);

@@ -48,8 +48,10 @@ def verify() -> list[str]:
         "if (input.ballisticModel != null || input.ballisticCoefficient != null)",
         "throw UnsupportedError('G1/G7 drag solver is not validated yet; aerodynamic DOPE is unavailable.');",
     ]
+    # Format-independent: dart format may wrap lines or add trailing commas.
+    squashed = "".join(source.split()).replace(",)", ")")
     for marker in required_markers:
-        if marker not in source:
+        if "".join(marker.split()).replace(",)", ")") not in squashed:
             errors.append(f"missing fail-closed marker in {ENGINE.relative_to(ROOT)}: {marker}")
 
     if "aerodynamic_trajectory_solver.dart" in source or "AerodynamicTrajectorySolver" in source:

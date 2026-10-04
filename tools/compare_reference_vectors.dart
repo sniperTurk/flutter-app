@@ -1,10 +1,11 @@
+// dart format off
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
-import '../lib/core/aerodynamic_trajectory_solver.dart';
-import '../lib/core/ballistic_input.dart';
-import '../lib/models/domain.dart';
+import 'package:sniper_turk/core/aerodynamic_trajectory_solver.dart';
+import 'package:sniper_turk/core/ballistic_input.dart';
+import 'package:sniper_turk/models/domain.dart';
 
 Never _fail(String message) {
   stderr.writeln('reference-vector comparison FAILED: $message');
@@ -13,7 +14,7 @@ Never _fail(String message) {
 
 double _number(Object? value, String path) {
   if (value is! num || !value.toDouble().isFinite) _fail('$path must be a finite number');
-  return (value as num).toDouble();
+  return value.toDouble();
 }
 
 double _positiveNumber(Object? value, String path) {

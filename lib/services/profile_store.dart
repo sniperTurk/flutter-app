@@ -69,7 +69,9 @@ class PersistentProfileStore implements ProfileStore {
       // Existing persisted bytes that cannot be decoded are not equivalent to
       // an empty profile collection. Failing closed prevents a later save
       // from silently replacing the only remaining evidence of user data.
-      throw StateError('Profile storage is corrupt and no valid backup is available');
+      throw StateError(
+        'Profile storage is corrupt and no valid backup is available',
+      );
     }
 
     if (repairPrimary) {
@@ -123,7 +125,8 @@ class PersistentProfileStore implements ProfileStore {
 
     // The first successful profile write must already have a recoverable
     // backup. Later writes keep the previous validated primary as the backup.
-    final backupPayload = previous != null && _decodeCollection(previous) != null
+    final backupPayload =
+        previous != null && _decodeCollection(previous) != null
         ? previous
         : payload;
     if (!await prefs.setString(_backupKey, backupPayload)) {
@@ -136,7 +139,8 @@ class PersistentProfileStore implements ProfileStore {
       final rollbackOk = previousBackup == null
           ? await prefs.remove(_backupKey)
           : await prefs.setString(_backupKey, previousBackup);
-      if (!rollbackOk) throw StateError('Profile write failed and backup rollback failed');
+      if (!rollbackOk)
+        throw StateError('Profile write failed and backup rollback failed');
       throw StateError('Profile write failed');
     }
   }
@@ -144,7 +148,14 @@ class PersistentProfileStore implements ProfileStore {
 
 class MemoryProfileStore implements ProfileStore {
   final List<RifleProfile> _items = [];
-  @override Future<List<RifleProfile>> all() async => List.unmodifiable(_items);
-  @override Future<void> save(RifleProfile profile) async { _items.removeWhere((p) => p.id == profile.id); _items.add(profile); }
-  @override Future<void> remove(String id) async => _items.removeWhere((p) => p.id == id);
+  @override
+  Future<List<RifleProfile>> all() async => List.unmodifiable(_items);
+  @override
+  Future<void> save(RifleProfile profile) async {
+    _items.removeWhere((p) => p.id == profile.id);
+    _items.add(profile);
+  }
+
+  @override
+  Future<void> remove(String id) async => _items.removeWhere((p) => p.id == id);
 }

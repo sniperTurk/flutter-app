@@ -28,20 +28,35 @@ class Atmosphere {
     final pressureHpa = environment.pressureHpa;
     final humidity = environment.humidityPercent;
     if (!temperatureC.isFinite || temperatureC <= -273.15) {
-      throw ArgumentError.value(temperatureC, 'temperatureC', 'must be finite and above absolute zero');
+      throw ArgumentError.value(
+        temperatureC,
+        'temperatureC',
+        'must be finite and above absolute zero',
+      );
     }
     if (!pressureHpa.isFinite || pressureHpa <= 0) {
-      throw ArgumentError.value(pressureHpa, 'pressureHpa', 'must be finite and > 0');
+      throw ArgumentError.value(
+        pressureHpa,
+        'pressureHpa',
+        'must be finite and > 0',
+      );
     }
     if (!humidity.isFinite || humidity < 0 || humidity > 100) {
-      throw ArgumentError.value(humidity, 'humidityPercent', 'must be between 0 and 100');
+      throw ArgumentError.value(
+        humidity,
+        'humidityPercent',
+        'must be between 0 and 100',
+      );
     }
 
     final temperatureK = temperatureC + 273.15;
-    final vaporPressurePa = saturationVaporPressureHpa(temperatureC) * 100 * humidity / 100;
+    final vaporPressurePa =
+        saturationVaporPressureHpa(temperatureC) * 100 * humidity / 100;
     final totalPressurePa = pressureHpa * 100;
     if (vaporPressurePa >= totalPressurePa) {
-      throw ArgumentError('water-vapor partial pressure must be below station pressure');
+      throw ArgumentError(
+        'water-vapor partial pressure must be below station pressure',
+      );
     }
     final dryPressurePa = totalPressurePa - vaporPressurePa;
     return dryPressurePa / (_dryAirGasConstant * temperatureK) +
@@ -70,7 +85,11 @@ class Atmosphere {
     required EnvironmentData environment,
   }) {
     if (!velocityMps.isFinite || velocityMps < 0) {
-      throw ArgumentError.value(velocityMps, 'velocityMps', 'must be finite and >= 0');
+      throw ArgumentError.value(
+        velocityMps,
+        'velocityMps',
+        'must be finite and >= 0',
+      );
     }
     return velocityMps / speedOfSoundMps(environment);
   }

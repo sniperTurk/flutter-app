@@ -12,9 +12,9 @@ class ProfileDocumentCodec {
   const ProfileDocumentCodec({this.profileCodec = const ProfileCodec()});
 
   Map<String, dynamic> encode(Iterable<RifleProfile> profiles) => {
-        'schemaVersion': currentSchemaVersion,
-        'profiles': profiles.map(profileCodec.encode).toList(growable: false),
-      };
+    'schemaVersion': currentSchemaVersion,
+    'profiles': profiles.map(profileCodec.encode).toList(growable: false),
+  };
 
   List<RifleProfile> decode(Object? decoded) {
     final Object? rawProfiles;
@@ -28,7 +28,9 @@ class ProfileDocumentCodec {
         throw const FormatException('Invalid profile document schemaVersion');
       }
       if (version > currentSchemaVersion) {
-        throw FormatException('Unsupported future profile schemaVersion: $version');
+        throw FormatException(
+          'Unsupported future profile schemaVersion: $version',
+        );
       }
       rawProfiles = map['profiles'];
     } else {

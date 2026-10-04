@@ -19,7 +19,13 @@ void main() {
   });
 
   test('transonic interpolation is deterministic', () {
-    expect(StandardDragTables.g1.coefficientAtMach(0.9875), closeTo(0.46265, 1e-12));
-    expect(StandardDragTables.g7.coefficientAtMach(0.9875), closeTo(0.3398, 1e-12));
+    expect(
+      StandardDragTables.g1.coefficientAtMach(0.9875),
+      closeTo(0.46265, 1e-12),
+    );
+    expect(
+      StandardDragTables.g7.coefficientAtMach(0.9875),
+      closeTo(0.3398, 1e-12),
+    );
   });
 }

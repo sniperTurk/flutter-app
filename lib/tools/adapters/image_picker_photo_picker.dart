@@ -25,16 +25,26 @@ class ImagePickerPhotoPicker implements PhotoPicker {
       );
     } catch (e) {
       final text = e.toString().toLowerCase();
-      if (text.contains('access') && (text.contains('denied') || text.contains('restricted'))) {
-        throw const PhotoPickFailure(PhotoPickFailureReason.denied, 'Fotoğraflara erişim kapalı.');
+      if (text.contains('access') &&
+          (text.contains('denied') || text.contains('restricted'))) {
+        throw const PhotoPickFailure(
+          PhotoPickFailureReason.denied,
+          'Fotoğraflara erişim kapalı.',
+        );
       }
-      throw const PhotoPickFailure(PhotoPickFailureReason.error, 'Galeri açılamadı.');
+      throw const PhotoPickFailure(
+        PhotoPickFailureReason.error,
+        'Galeri açılamadı.',
+      );
     }
     if (file == null) return null;
     try {
       return await file.readAsBytes();
     } catch (_) {
-      throw const PhotoPickFailure(PhotoPickFailureReason.error, 'Fotoğraf okunamadı.');
+      throw const PhotoPickFailure(
+        PhotoPickFailureReason.error,
+        'Fotoğraf okunamadı.',
+      );
     } finally {
       try {
         await File(file.path).delete();

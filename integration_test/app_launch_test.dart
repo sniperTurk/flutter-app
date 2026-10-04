@@ -7,7 +7,9 @@ import 'package:sniper_turk/main.dart' as app;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('production app launches and core routes open on iOS', (tester) async {
+  testWidgets('production app launches and core routes open on iOS', (
+    tester,
+  ) async {
     // Clean install on every run: the test writes a profile further down, so a
     // second run on the same simulator would otherwise start with stale data.
     await (await SharedPreferences.getInstance()).clear();
@@ -19,7 +21,11 @@ void main() {
     expect(find.text('Katalog yüklenemedi'), findsNothing);
     expect(find.text('Menzil'), findsWidgets);
     for (final tab in const ['Atış', 'Tablo', 'Ortam', 'Profil', 'Araçlar']) {
-      expect(find.text(tab), findsWidgets, reason: 'bottom navigation tab $tab');
+      expect(
+        find.text(tab),
+        findsWidgets,
+        reason: 'bottom navigation tab $tab',
+      );
     }
     // Clean install: the ballistic workspace stays locked without a profile.
     expect(find.text('DOPE için önce aktif profil oluşturun'), findsOneWidget);
@@ -36,10 +42,25 @@ void main() {
     // The section headers render a record count suffix ("PCP Mühimmat (N)",
     // "Dürbünler (N)"), so an exact find.text() would never match them. The
     // catalog list is lazy, so scroll each header into view first.
-    final catalogList = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
-    await tester.scrollUntilVisible(find.textContaining('PCP Mühimmat'), 400, scrollable: catalogList, maxScrolls: 400);
+    final catalogList = find
+        .descendant(
+          of: find.byType(ListView),
+          matching: find.byType(Scrollable),
+        )
+        .first;
+    await tester.scrollUntilVisible(
+      find.textContaining('PCP Mühimmat'),
+      400,
+      scrollable: catalogList,
+      maxScrolls: 400,
+    );
     expect(find.textContaining('PCP Mühimmat'), findsOneWidget);
-    await tester.scrollUntilVisible(find.textContaining('Dürbünler'), 400, scrollable: catalogList, maxScrolls: 400);
+    await tester.scrollUntilVisible(
+      find.textContaining('Dürbünler'),
+      400,
+      scrollable: catalogList,
+      maxScrolls: 400,
+    );
     expect(find.textContaining('Dürbünler'), findsOneWidget);
     expect(tester.takeException(), isNull);
 
@@ -75,7 +96,9 @@ void main() {
     // on-device assertion in the iOS integration test.
     final prefs = await SharedPreferences.getInstance();
     final persistedProfiles = prefs.getString('sniper_turk.rifle_profiles.v1');
-    final persistedActiveId = prefs.getString('sniper_turk.active_profile_id.v1');
+    final persistedActiveId = prefs.getString(
+      'sniper_turk.active_profile_id.v1',
+    );
     expect(persistedProfiles, isNotNull);
     expect(persistedProfiles, contains('Yeni Profil'));
     expect(persistedActiveId, isNotNull);

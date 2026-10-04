@@ -14,7 +14,7 @@ class LevelController extends ChangeNotifier {
   final GravityFilter _filter;
 
   LevelController({required this.provider, double smoothing = 0.15})
-      : _filter = GravityFilter(alpha: smoothing);
+    : _filter = GravityFilter(alpha: smoothing);
 
   StreamSubscription<TiltState>? _sub;
   bool _disposed = false;
@@ -45,9 +45,12 @@ class LevelController extends ChangeNotifier {
   void start() {
     if (_started) return;
     _started = true;
-    _sub = provider.tilts().listen(_onState, onError: (Object _) {
-      _onState(const TiltUnavailable(TiltUnavailableReason.error));
-    });
+    _sub = provider.tilts().listen(
+      _onState,
+      onError: (Object _) {
+        _onState(const TiltUnavailable(TiltUnavailableReason.error));
+      },
+    );
   }
 
   void _onState(TiltState s) {

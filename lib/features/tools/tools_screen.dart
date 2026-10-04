@@ -26,7 +26,10 @@ class ToolsScreen extends StatelessWidget {
   const ToolsScreen({super.key, this.onSettingsClosed, this.onProfilesChanged});
 
   Future<void> _open(BuildContext context, Widget page) async {
-    await Navigator.push(context, MaterialPageRoute<void>(builder: (_) => page));
+    await Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (_) => page),
+    );
     await onProfilesChanged?.call();
   }
 
@@ -79,7 +82,8 @@ class ToolsScreen extends StatelessWidget {
           tileKey: const Key('tool-catalog'),
           icon: Icons.inventory_2_outlined,
           title: 'Katalog',
-          subtitle: 'Tüfek, mühimmat ve dürbün; kaynak bilgileri ve manuel kayıtlar',
+          subtitle:
+              'Tüfek, mühimmat ve dürbün; kaynak bilgileri ve manuel kayıtlar',
           onTap: () => _open(context, const CatalogScreen()),
         ),
         MenzilToolTile(

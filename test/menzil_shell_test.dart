@@ -17,6 +17,7 @@ const _profile = RifleProfile(
   muzzleVelocityMps: 270,
   zeroRangeM: 25,
   sightHeightMm: 60,
+  pressureBar: 200,
 );
 
 Future<MemoryProfileStore> _storeWith(List<RifleProfile> profiles) async {
@@ -27,11 +28,17 @@ Future<MemoryProfileStore> _storeWith(List<RifleProfile> profiles) async {
   return store;
 }
 
-Future<void> _pumpShell(WidgetTester tester, ProfileStore store, ActiveProfileStore active) async {
-  await tester.pumpWidget(MaterialApp(
-    theme: MenzilTheme.light(),
-    home: HomeScreen(profileStore: store, activeProfileStore: active),
-  ));
+Future<void> _pumpShell(
+  WidgetTester tester,
+  ProfileStore store,
+  ActiveProfileStore active,
+) async {
+  await tester.pumpWidget(
+    MaterialApp(
+      theme: MenzilTheme.light(),
+      home: HomeScreen(profileStore: store, activeProfileStore: active),
+    ),
+  );
   await tester.pumpAndSettle();
 }
 
@@ -40,7 +47,11 @@ void main() {
     // find.bySemanticsLabel throws unless semantics are enabled.
     final semantics = tester.ensureSemantics();
     addTearDown(semantics.dispose);
-    await _pumpShell(tester, await _storeWith([_profile]), MemoryActiveProfileStore());
+    await _pumpShell(
+      tester,
+      await _storeWith([_profile]),
+      MemoryActiveProfileStore(),
+    );
 
     expect(find.text('Menzil'), findsOneWidget);
     for (final tab in const ['Atış', 'Tablo', 'Ortam', 'Profil', 'Araçlar']) {
@@ -51,8 +62,14 @@ void main() {
     expect(find.bySemanticsLabel('5 artır'), findsOneWidget);
   });
 
-  testWidgets('Atış, Tablo and Ortam share one workspace state', (tester) async {
-    await _pumpShell(tester, await _storeWith([_profile]), MemoryActiveProfileStore());
+  testWidgets('Atış, Tablo and Ortam share one workspace state', (
+    tester,
+  ) async {
+    await _pumpShell(
+      tester,
+      await _storeWith([_profile]),
+      MemoryActiveProfileStore(),
+    );
 
     // Edit the environment on Ortam, then solve from Tablo.
     await tester.tap(find.text('Ortam'));
@@ -70,7 +87,10 @@ void main() {
     await tester.tap(find.text('Ortam'));
     await tester.pumpAndSettle();
     final field = tester.widget<TextField>(
-      find.descendant(of: find.byKey(BallisticsFieldKeys.temperature), matching: find.byType(TextField)),
+      find.descendant(
+        of: find.byKey(BallisticsFieldKeys.temperature),
+        matching: find.byType(TextField),
+      ),
     );
     expect(field.controller!.text, '30');
     expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
@@ -87,7 +107,11 @@ void main() {
     // find.bySemanticsLabel throws unless semantics are enabled.
     final semantics = tester.ensureSemantics();
     addTearDown(semantics.dispose);
-    await _pumpShell(tester, await _storeWith([_profile]), MemoryActiveProfileStore());
+    await _pumpShell(
+      tester,
+      await _storeWith([_profile]),
+      MemoryActiveProfileStore(),
+    );
     await tester.tap(find.text('Hesapla'));
     await tester.pumpAndSettle();
 
@@ -100,32 +124,56 @@ void main() {
     expect(find.text('104'), findsOneWidget);
   });
 
-  testWidgets('shot view shows locked holds and no angular correction for the vacuum baseline', (tester) async {
-    await _pumpShell(tester, await _storeWith([_profile]), MemoryActiveProfileStore());
-    await tester.tap(find.text('Hesapla'));
-    await tester.pumpAndSettle();
+  testWidgets(
+    'shot view shows locked holds and no angular correction for the vacuum baseline',
+    (tester) async {
+      await _pumpShell(
+        tester,
+        await _storeWith([_profile]),
+        MemoryActiveProfileStore(),
+      );
+      await tester.tap(find.text('Hesapla'));
+      await tester.pumpAndSettle();
 
-    // V352/V353: no hold values, no click rows; both cards stay locked.
-    expect(find.text('KİLİTLİ'), findsNWidgets(2));
-    expect(find.text('G1/G7 kabul testi bekleniyor'), findsOneWidget);
-    expect(find.text('Klik: —*'), findsNothing);
-    expect(find.textContaining('gerçek atış için kullanmayın'), findsOneWidget);
-  });
+      // V352/V353: no hold values, no click rows; both cards stay locked.
+      expect(find.text('KİLİTLİ'), findsNWidgets(2));
+      expect(find.text('G1/G7 kabul testi bekleniyor'), findsOneWidget);
+      expect(find.text('Klik: —*'), findsNothing);
+      expect(
+        find.textContaining('gerçek atış için kullanmayın'),
+        findsOneWidget,
+      );
+    },
+  );
 
   testWidgets('Araçlar lists exactly the seven V1 tools', (tester) async {
-    await _pumpShell(tester, await _storeWith([_profile]), MemoryActiveProfileStore());
+    await _pumpShell(
+      tester,
+      await _storeWith([_profile]),
+      MemoryActiveProfileStore(),
+    );
     await tester.tap(find.text('Araçlar'));
     await tester.pumpAndSettle();
 
     // Chronograph, Sight Height, Compass and Level are back in V1 scope
     // (M1); only Qwen/cloud wording must stay absent from the hub.
-    for (final key in const ['chronograph', 'sight-height', 'compass', 'level', 'weather', 'catalog', 'settings']) {
+    for (final key in const [
+      'chronograph',
+      'sight-height',
+      'compass',
+      'level',
+      'weather',
+      'catalog',
+      'settings',
+    ]) {
       expect(find.byKey(Key('tool-$key')), findsOneWidget, reason: key);
     }
     expect(find.textContaining('Qwen'), findsNothing);
   });
 
-  testWidgets('Profil tab activates, copies and confirms before deleting', (tester) async {
+  testWidgets('Profil tab activates, copies and confirms before deleting', (
+    tester,
+  ) async {
     // find.bySemanticsLabel throws unless semantics are enabled.
     final semantics = tester.ensureSemantics();
     addTearDown(semantics.dispose);
@@ -138,6 +186,7 @@ void main() {
       muzzleVelocityMps: 280,
       zeroRangeM: 30,
       sightHeightMm: 60,
+      pressureBar: 200,
     );
     final store = await _storeWith([_profile, second]);
     final active = MemoryActiveProfileStore();
@@ -166,12 +215,16 @@ void main() {
     expect((await store.all()).length, 3, reason: 'cancel must not delete');
   });
 
-  testWidgets('profile editor saves through the store with catalog defaults', (tester) async {
+  testWidgets('profile editor saves through the store with catalog defaults', (
+    tester,
+  ) async {
     final store = MemoryProfileStore();
-    await tester.pumpWidget(MaterialApp(
-      theme: MenzilTheme.light(),
-      home: Scaffold(body: ProfilesScreen(embedded: true, store: store)),
-    ));
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: Scaffold(body: ProfilesScreen(embedded: true, store: store)),
+      ),
+    );
     await tester.pumpAndSettle();
     expect(find.textContaining('Henüz kayıtlı profil yok'), findsOneWidget);
 

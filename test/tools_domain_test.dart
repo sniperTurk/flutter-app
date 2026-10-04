@@ -33,13 +33,19 @@ void main() {
 
   group('TiltMath', () {
     test('flat phone is level', () {
-      final a = TiltMath.angles(const GravityVector(0, 0, 9.81), TiltMode.flat)!;
+      final a = TiltMath.angles(
+        const GravityVector(0, 0, 9.81),
+        TiltMode.flat,
+      )!;
       expect(a.xDeg, closeTo(0, 1e-9));
       expect(a.yDeg, closeTo(0, 1e-9));
       expect(TiltMath.isLevel(a), isTrue);
     });
     test('unusable gravity returns null', () {
-      expect(TiltMath.angles(const GravityVector(0, 0, 0.5), TiltMode.flat), isNull);
+      expect(
+        TiltMath.angles(const GravityVector(0, 0, 0.5), TiltMode.flat),
+        isNull,
+      );
     });
     test('format uses 0,01 resolution and never -0.00', () {
       expect(TiltMath.format(1.234), '1,23');
@@ -57,9 +63,27 @@ void main() {
     final t0 = DateTime.utc(2026, 10, 3, 12);
     test('fresh / stale / expired by download age', () {
       final obs = observation(fetchedAt: t0);
-      expect(WeatherPolicy.freshness(obs, TestClock(t0.add(const Duration(minutes: 5)))), WeatherFreshness.fresh);
-      expect(WeatherPolicy.freshness(obs, TestClock(t0.add(const Duration(hours: 2)))), WeatherFreshness.stale);
-      expect(WeatherPolicy.freshness(obs, TestClock(t0.add(const Duration(hours: 7)))), WeatherFreshness.expired);
+      expect(
+        WeatherPolicy.freshness(
+          obs,
+          TestClock(t0.add(const Duration(minutes: 5))),
+        ),
+        WeatherFreshness.fresh,
+      );
+      expect(
+        WeatherPolicy.freshness(
+          obs,
+          TestClock(t0.add(const Duration(hours: 2))),
+        ),
+        WeatherFreshness.stale,
+      );
+      expect(
+        WeatherPolicy.freshness(
+          obs,
+          TestClock(t0.add(const Duration(hours: 7))),
+        ),
+        WeatherFreshness.expired,
+      );
     });
     test('coordinates are rounded for any cache key', () {
       expect(WeatherPolicy.roundCoordinate(39.912345), 39.91);
@@ -102,7 +126,7 @@ void main() {
           objectiveOuterDiameterMm: 60,
           objectiveTop: const PixelPoint(500, 100),
           objectiveBottom: const PixelPoint(500, 220),
-          boreCentre: const PixelPoint(500, 230), // 10 px = 5 mm below the axis
+          boreCentre: const PixelPoint(500, 180), // axis at y=160: 20 px = 10 mm < 30 mm radius
         ),
         isNull,
       );
@@ -151,8 +175,14 @@ void main() {
     });
 
     test('rejects values the profile decoder would refuse later', () {
-      expect(() => ToolProfileUpdate.apply(base, muzzleVelocityMps: 1600), throwsFormatException);
-      expect(() => ToolProfileUpdate.apply(base, sightHeightMm: 300), throwsFormatException);
+      expect(
+        () => ToolProfileUpdate.apply(base, muzzleVelocityMps: 1600),
+        throwsFormatException,
+      );
+      expect(
+        () => ToolProfileUpdate.apply(base, sightHeightMm: 300),
+        throwsFormatException,
+      );
     });
 
     test('chronograph accepts nothing above the profile velocity limit', () {
@@ -174,10 +204,42 @@ void main() {
     });
 
     test('missing, zero, negative or non-finite input gives no result', () {
-      expect(SightHeightPhysical.compute(boreDiameterMm: null, barrelWallMm: 5, gapMm: 5, objectiveOuterDiameterMm: 64), isNull);
-      expect(SightHeightPhysical.compute(boreDiameterMm: 6, barrelWallMm: 0, gapMm: 5, objectiveOuterDiameterMm: 64), isNull);
-      expect(SightHeightPhysical.compute(boreDiameterMm: 6, barrelWallMm: -1, gapMm: 5, objectiveOuterDiameterMm: 64), isNull);
-      expect(SightHeightPhysical.compute(boreDiameterMm: 6, barrelWallMm: 5, gapMm: double.nan, objectiveOuterDiameterMm: 64), isNull);
+      expect(
+        SightHeightPhysical.compute(
+          boreDiameterMm: null,
+          barrelWallMm: 5,
+          gapMm: 5,
+          objectiveOuterDiameterMm: 64,
+        ),
+        isNull,
+      );
+      expect(
+        SightHeightPhysical.compute(
+          boreDiameterMm: 6,
+          barrelWallMm: 0,
+          gapMm: 5,
+          objectiveOuterDiameterMm: 64,
+        ),
+        isNull,
+      );
+      expect(
+        SightHeightPhysical.compute(
+          boreDiameterMm: 6,
+          barrelWallMm: -1,
+          gapMm: 5,
+          objectiveOuterDiameterMm: 64,
+        ),
+        isNull,
+      );
+      expect(
+        SightHeightPhysical.compute(
+          boreDiameterMm: 6,
+          barrelWallMm: 5,
+          gapMm: double.nan,
+          objectiveOuterDiameterMm: 64,
+        ),
+        isNull,
+      );
     });
   });
 }

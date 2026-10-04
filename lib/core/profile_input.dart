@@ -33,15 +33,29 @@ class ProfileInput {
     if (normalizedName.length > ProductionLimits.maxProfileNameLength) {
       throw const FormatException('Profil adı 80 karakterden uzun olamaz.');
     }
-    final velocity = _boundedPositive(muzzleVelocityText, 'Namlu hızı', ProductionLimits.maxMuzzleVelocityMps);
-    final zero = _boundedPositive(zeroRangeText, 'Sıfır mesafesi', ProductionLimits.maxRangeM);
+    final velocity = _boundedPositive(
+      muzzleVelocityText,
+      'Namlu hızı',
+      ProductionLimits.maxMuzzleVelocityMps,
+    );
+    final zero = _boundedPositive(
+      zeroRangeText,
+      'Sıfır mesafesi',
+      ProductionLimits.maxRangeM,
+    );
     final sight = _positive(sightHeightText, 'Dürbün eksen yüksekliği');
     if (sight >= ProductionLimits.maxSightHeightMm) {
-      throw const FormatException('Dürbün eksen yüksekliği 300 mm’den küçük olmalıdır.');
+      throw const FormatException(
+        'Dürbün eksen yüksekliği 300 mm’den küçük olmalıdır.',
+      );
     }
     double? pressure;
     if (platform == WeaponPlatform.pcp) {
-      pressure = _boundedPositive(pressureText ?? '', 'Atış basıncı', ProductionLimits.maxPcpPressureBar);
+      pressure = _boundedPositive(
+        pressureText ?? '',
+        'Atış basıncı',
+        ProductionLimits.maxPcpPressureBar,
+      );
     }
     return ProfileInput._(
       name: normalizedName,
@@ -55,7 +69,9 @@ class ProfileInput {
   static double _boundedPositive(String text, String label, double max) {
     final value = _positive(text, label);
     if (value > max) {
-      throw FormatException('$label en fazla ${max.toStringAsFixed(0)} olabilir.');
+      throw FormatException(
+        '$label en fazla ${max.toStringAsFixed(0)} olabilir.',
+      );
     }
     return value;
   }
@@ -63,7 +79,9 @@ class ProfileInput {
   static double _positive(String text, String label) {
     final value = double.tryParse(text.trim().replaceAll(',', '.'));
     if (value == null || !value.isFinite || value <= 0) {
-      throw FormatException('$label için sıfırdan büyük geçerli bir sayı girin.');
+      throw FormatException(
+        '$label için sıfırdan büyük geçerli bir sayı girin.',
+      );
     }
     return value;
   }

@@ -24,7 +24,8 @@ class PhysicalSightHeight {
   double get totalMm => boreRadiusMm + barrelWallMm + gapMm + objectiveRadiusMm;
 
   /// The value written to a profile: one decimal, like the page shows.
-  double get roundedMm => double.parse(roundedText(totalMm, 1).replaceAll(',', '.'));
+  double get roundedMm =>
+      double.parse(roundedText(totalMm, 1).replaceAll(',', '.'));
 
   /// Half-up rounding without relying on binary `toStringAsFixed` ties, with a
   /// Turkish decimal comma ("62,38").
@@ -56,9 +57,17 @@ abstract final class SightHeightPhysical {
     required double? objectiveOuterDiameterMm,
   }) {
     bool ok(double? v) => v != null && v.isFinite && v > 0;
-    if (!ok(boreDiameterMm) || !ok(barrelWallMm) || !ok(gapMm) || !ok(objectiveOuterDiameterMm)) return null;
+    if (!ok(boreDiameterMm) ||
+        !ok(barrelWallMm) ||
+        !ok(gapMm) ||
+        !ok(objectiveOuterDiameterMm))
+      return null;
     // Bounds that catch unit/typing mistakes without rejecting real equipment.
-    if (boreDiameterMm! > 30 || barrelWallMm! > 60 || gapMm! > 100 || objectiveOuterDiameterMm! > 120) return null;
+    if (boreDiameterMm! > 30 ||
+        barrelWallMm! > 60 ||
+        gapMm! > 100 ||
+        objectiveOuterDiameterMm! > 120)
+      return null;
     final result = PhysicalSightHeight(
       boreRadiusMm: boreDiameterMm / 2,
       barrelWallMm: barrelWallMm,

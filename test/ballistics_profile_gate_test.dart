@@ -16,6 +16,7 @@ const _validProfile = RifleProfile(
   muzzleVelocityMps: 270,
   zeroRangeM: 25,
   sightHeightMm: 60,
+  pressureBar: 200,
 );
 
 const _staleProfile = RifleProfile(
@@ -27,49 +28,91 @@ const _staleProfile = RifleProfile(
   muzzleVelocityMps: 270,
   zeroRangeM: 25,
   sightHeightMm: 60,
+  pressureBar: 200,
 );
 
 void main() {
-  testWidgets('home disables Ballistics navigation when there is no active profile', (tester) async {
-    await tester.pumpWidget(MaterialApp(
-      home: HomeScreen(profileStore: MemoryProfileStore(), activeProfileStore: MemoryActiveProfileStore()),
-    ));
-    await tester.pumpAndSettle();
+  testWidgets(
+    'home disables Ballistics navigation when there is no active profile',
+    (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: HomeScreen(
+            profileStore: MemoryProfileStore(),
+            activeProfileStore: MemoryActiveProfileStore(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
 
-    expect(find.text('DOPE için önce aktif profil oluşturun'), findsOneWidget);
-    final tile = tester.widget<ListTile>(find.widgetWithText(ListTile, 'Balistik / DOPE'));
-    expect(tile.enabled, isFalse);
+      expect(
+        find.text('DOPE için önce aktif profil oluşturun'),
+        findsOneWidget,
+      );
+      final tile = tester.widget<ListTile>(
+        find.widgetWithText(ListTile, 'Balistik / DOPE'),
+      );
+      expect(tile.enabled, isFalse);
 
-    await tester.tap(find.text('Balistik / DOPE'));
-    await tester.pumpAndSettle();
-    expect(find.byType(BallisticsScreen), findsNothing);
-  });
+      await tester.tap(find.text('Balistik / DOPE'));
+      await tester.pumpAndSettle();
+      expect(find.byType(BallisticsScreen), findsNothing);
+    },
+  );
 
-  testWidgets('Ballistics screen fails closed instead of solving with fallback profile values', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: BallisticsScreen(profile: null)));
-    await tester.pumpAndSettle();
+  testWidgets(
+    'Ballistics screen fails closed instead of solving with fallback profile values',
+    (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: BallisticsScreen(profile: null)),
+      );
+      await tester.pumpAndSettle();
 
-    expect(
-      find.text('DOPE oluşturmak için önce bir tüfek profili oluşturup aktif profil olarak seçin.'),
-      findsOneWidget,
-    );
-    expect(find.byType(DataTable), findsNothing);
-  });
+      expect(
+        find.text(
+          'DOPE oluşturmak için önce bir tüfek profili oluşturup aktif profil olarak seçin.',
+        ),
+        findsOneWidget,
+      );
+      expect(find.byType(DataTable), findsNothing);
+    },
+  );
 
-  testWidgets('Ballistics also fails closed when saved catalog references are stale', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: BallisticsScreen(profile: _staleProfile)));
-    await tester.pumpAndSettle();
+  testWidgets(
+    'Ballistics also fails closed when saved catalog references are stale',
+    (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: BallisticsScreen(profile: _staleProfile)),
+      );
+      await tester.pumpAndSettle();
 
-    expect(find.textContaining('Aktif profil katalogla artık eşleşmiyor'), findsOneWidget);
-    expect(find.byType(DataTable), findsNothing);
-  });
+      expect(
+        find.textContaining('Aktif profil katalogla artık eşleşmiyor'),
+        findsOneWidget,
+      );
+      expect(find.byType(DataTable), findsNothing);
+    },
+  );
 
-  testWidgets('Ballistics screen renders normally for a valid, catalog-matched profile', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: BallisticsScreen(profile: _validProfile)));
-    await tester.pumpAndSettle();
+  testWidgets(
+    'Ballistics screen renders normally for a valid, catalog-matched profile',
+    (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: BallisticsScreen(profile: _validProfile)),
+      );
+      await tester.pumpAndSettle();
 
-    expect(find.text('DOPE oluşturmak için önce bir tüfek profili oluşturup aktif profil olarak seçin.'), findsNothing);
-    expect(find.textContaining('Aktif profil katalogla artık eşleşmiyor'), findsNothing);
-    expect(find.text('DOPE oluştur'), findsOneWidget);
-  });
+      expect(
+        find.text(
+          'DOPE oluşturmak için önce bir tüfek profili oluşturup aktif profil olarak seçin.',
+        ),
+        findsNothing,
+      );
+      expect(
+        find.textContaining('Aktif profil katalogla artık eşleşmiyor'),
+        findsNothing,
+      );
+      expect(find.text('DOPE oluştur'), findsOneWidget);
+    },
+  );
 }

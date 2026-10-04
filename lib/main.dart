@@ -11,7 +11,11 @@ void main() {
   runApp(
     catalogIssues.isEmpty
         ? const SniperTurkApp()
-        : CatalogStartupErrorApp(issues: catalogIssues.map((e) => e.toString()).toList(growable: false)),
+        : CatalogStartupErrorApp(
+            issues: catalogIssues
+                .map((e) => e.toString())
+                .toList(growable: false),
+          ),
   );
 }
 
@@ -44,25 +48,25 @@ class _SniperTurkAppState extends State<SniperTurkApp> {
 
   @override
   Widget build(BuildContext context) => AppSettingsScope(
-        settings: appSettings,
-        child: ToolsServicesScope(
-          services: toolsServices,
-          child: MenzilThemeScope(
-            controller: themeMode,
-            child: ValueListenableBuilder<ThemeMode>(
-              valueListenable: themeMode,
-              builder: (context, mode, _) => MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: 'SNIPER TÜRK',
-                theme: lightTheme,
-                darkTheme: darkTheme,
-                themeMode: mode,
-                home: const HomeScreen(),
-              ),
-            ),
+    settings: appSettings,
+    child: ToolsServicesScope(
+      services: toolsServices,
+      child: MenzilThemeScope(
+        controller: themeMode,
+        child: ValueListenableBuilder<ThemeMode>(
+          valueListenable: themeMode,
+          builder: (context, mode, _) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'SNIPER TÜRK',
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: mode,
+            home: const HomeScreen(),
           ),
         ),
-      );
+      ),
+    ),
+  );
 }
 
 /// Safe startup fallback. A malformed bundled catalog is a build/data error;
@@ -74,33 +78,38 @@ class CatalogStartupErrorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: MenzilTheme.light(),
-        darkTheme: MenzilTheme.dark(),
-        home: Scaffold(
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Katalog yüklenemedi', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 12),
-                  const Text('Uygulama paketindeki katalog verisi doğrulanamadı. Veri kullanan ekranlar güvenli şekilde durduruldu.'),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: issues.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Text('• ${issues[index]}'),
-                      ),
-                    ),
-                  ),
-                ],
+    debugShowCheckedModeBanner: false,
+    theme: MenzilTheme.light(),
+    darkTheme: MenzilTheme.dark(),
+    home: Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Katalog yüklenemedi',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-            ),
+              const SizedBox(height: 12),
+              const Text(
+                'Uygulama paketindeki katalog verisi doğrulanamadı. Veri kullanan ekranlar güvenli şekilde durduruldu.',
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: issues.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text('• ${issues[index]}'),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    ),
+  );
 }

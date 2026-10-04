@@ -41,6 +41,7 @@ jobs:
           rm -f pubspec.lock
           flutter pub get > ci-logs/pub-get.log 2>&1; echo "pub get exit: $?" >> ci-logs/status.txt
           cp pubspec.lock ci-logs/pubspec.lock.UNVERIFIED || true
+          dart fix --apply --code=curly_braces_in_flow_control_structures > ci-logs/dart-fix.log 2>&1; echo "dart fix exit: $?" >> ci-logs/status.txt
           dart format --output=none --set-exit-if-changed lib test integration_test tools > ci-logs/format-check.log 2>&1; echo "format check exit: $?" >> ci-logs/status.txt
           dart format lib test integration_test tools > ci-logs/format-apply.log 2>&1 || true
           git diff -- lib test integration_test tools > ci-logs/dart-format.patch || true

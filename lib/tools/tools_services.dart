@@ -40,29 +40,35 @@ class ToolsServices {
   });
 
   factory ToolsServices.production() => ToolsServices(
-        location: const GeolocatorLocationProvider(),
-        weather: MetNoWeatherProvider(),
-        heading: const FlutterCompassHeadingProvider(),
-        tilt: const SensorsPlusTiltProvider(),
-        camera: const CameraPluginService(),
-        photoPicker: const ImagePickerPhotoPicker(),
-        vision: const DisconnectedVisionAssist(),
-        clock: const SystemClock(),
-      );
+    location: const GeolocatorLocationProvider(),
+    weather: MetNoWeatherProvider(),
+    heading: const FlutterCompassHeadingProvider(),
+    tilt: const SensorsPlusTiltProvider(),
+    camera: const CameraPluginService(),
+    photoPicker: const ImagePickerPhotoPicker(),
+    vision: const DisconnectedVisionAssist(),
+    clock: const SystemClock(),
+  );
 }
 
 class ToolsServicesScope extends InheritedWidget {
   final ToolsServices services;
-  const ToolsServicesScope({super.key, required this.services, required super.child});
+  const ToolsServicesScope({
+    super.key,
+    required this.services,
+    required super.child,
+  });
 
   static ToolsServices? _fallback;
 
   /// The installed services, or the production wiring when no scope exists.
   static ToolsServices of(BuildContext context) {
-    final scope = context.dependOnInheritedWidgetOfExactType<ToolsServicesScope>();
+    final scope = context
+        .dependOnInheritedWidgetOfExactType<ToolsServicesScope>();
     return scope?.services ?? (_fallback ??= ToolsServices.production());
   }
 
   @override
-  bool updateShouldNotify(ToolsServicesScope oldWidget) => services != oldWidget.services;
+  bool updateShouldNotify(ToolsServicesScope oldWidget) =>
+      services != oldWidget.services;
 }

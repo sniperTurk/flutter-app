@@ -14,14 +14,26 @@ void main() {
   });
 
   test('humidity lowers density at equal pressure and temperature', () {
-    const dry = EnvironmentData(temperatureC: 25, pressureHpa: 1013.25, humidityPercent: 0);
-    const humid = EnvironmentData(temperatureC: 25, pressureHpa: 1013.25, humidityPercent: 100);
-    expect(Atmosphere.densityKgM3(humid), lessThan(Atmosphere.densityKgM3(dry)));
+    const dry = EnvironmentData(
+      temperatureC: 25,
+      pressureHpa: 1013.25,
+      humidityPercent: 0,
+    );
+    const humid = EnvironmentData(
+      temperatureC: 25,
+      pressureHpa: 1013.25,
+      humidityPercent: 100,
+    );
+    expect(
+      Atmosphere.densityKgM3(humid),
+      lessThan(Atmosphere.densityKgM3(dry)),
+    );
   });
 
   test('invalid atmosphere is rejected', () {
     expect(
-      () => Atmosphere.densityKgM3(const EnvironmentData(temperatureC: -273.15)),
+      () =>
+          Atmosphere.densityKgM3(const EnvironmentData(temperatureC: -273.15)),
       throwsArgumentError,
     );
     expect(
@@ -29,7 +41,6 @@ void main() {
       throwsArgumentError,
     );
   });
-
 
   test('speed of sound is near ISA value at 15 C', () {
     const env = EnvironmentData(
@@ -43,7 +54,10 @@ void main() {
   test('Mach conversion uses local atmosphere and validates velocity', () {
     const env = EnvironmentData(temperatureC: 15, humidityPercent: 0);
     final sound = Atmosphere.speedOfSoundMps(env);
-    expect(Atmosphere.machNumber(velocityMps: sound, environment: env), closeTo(1, 1e-12));
+    expect(
+      Atmosphere.machNumber(velocityMps: sound, environment: env),
+      closeTo(1, 1e-12),
+    );
     expect(
       () => Atmosphere.machNumber(velocityMps: -1, environment: env),
       throwsArgumentError,

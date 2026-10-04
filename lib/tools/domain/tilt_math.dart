@@ -32,7 +32,8 @@ abstract final class TiltMath {
   static TiltAngles? angles(GravityVector g, TiltMode mode) {
     final mag = math.sqrt(g.x * g.x + g.y * g.y + g.z * g.z);
     if (!mag.isFinite || mag < minGravity) return null;
-    double asinDeg(double v) => math.asin((v / mag).clamp(-1.0, 1.0)) * 180.0 / math.pi;
+    double asinDeg(double v) =>
+        math.asin((v / mag).clamp(-1.0, 1.0)) * 180.0 / math.pi;
     switch (mode) {
       case TiltMode.flat:
         return TiltAngles(asinDeg(g.x), asinDeg(g.y));
@@ -61,7 +62,7 @@ class GravityFilter {
   GravityVector? _state;
 
   GravityFilter({this.alpha = 0.15})
-      : assert(alpha > 0 && alpha <= 1, 'alpha must be in (0, 1]');
+    : assert(alpha > 0 && alpha <= 1, 'alpha must be in (0, 1]');
 
   GravityVector add(GravityVector v) {
     final s = _state;

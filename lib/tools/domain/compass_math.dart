@@ -1,3 +1,4 @@
+// dart format off
 import 'dart:math' as math;
 
 /// Pure compass helpers (no sensors, no UI).

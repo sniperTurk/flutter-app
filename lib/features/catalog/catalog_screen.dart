@@ -1,3 +1,4 @@
+// dart format off
 import 'package:flutter/material.dart';
 import '../../core/catalog_search.dart';
 import '../../data/catalog_repository.dart';
@@ -117,8 +118,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
             trailing: Row(mainAxisSize: MainAxisSize.min, children: [
               IconButton(tooltip: 'Düzenle', icon: const Icon(Icons.edit), onPressed: () => _editManual(existing: e)),
               IconButton(tooltip: 'Sil', icon: const Icon(Icons.delete_outline), onPressed: () async {
+                final messenger = ScaffoldMessenger.of(context);
                 try { await _manualStore.remove(e['id'] as String); await _refreshManual(); }
-                catch (error) { if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$error'))); }
+                catch (error) { if (mounted) messenger.showSnackBar(SnackBar(content: Text('$error'))); }
               }),
             ]),
           )),
@@ -182,8 +184,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
             trailing: Row(mainAxisSize: MainAxisSize.min, children: [
               IconButton(tooltip: 'Düzenle', icon: const Icon(Icons.edit), onPressed: () => _editManual(existing: e)),
               IconButton(tooltip: 'Sil', icon: const Icon(Icons.delete_outline), onPressed: () async {
+                final messenger = ScaffoldMessenger.of(context);
                 try { await _manualStore.remove(e['id'] as String); await _refreshManual(); }
-                catch (error) { if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$error'))); }
+                catch (error) { if (mounted) messenger.showSnackBar(SnackBar(content: Text('$error'))); }
               }),
             ]),
             onTap:() => _showDetails(context, title: '${e['model']}', rows: [

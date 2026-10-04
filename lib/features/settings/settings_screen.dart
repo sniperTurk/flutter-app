@@ -63,7 +63,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Birim ayarı kaydedilemedi. Mevcut ayar korundu.')),
+        const SnackBar(
+          content: Text('Birim ayarı kaydedilemedi. Mevcut ayar korundu.'),
+        ),
       );
     } finally {
       if (mounted) setState(() => saving = false);
@@ -76,36 +78,61 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: const MenzilSubPageBar(title: 'Ayarlar'),
       body: loading
-          ? Center(child: Semantics(label: 'Ayarlar yükleniyor', liveRegion: true, child: const CircularProgressIndicator()))
+          ? Center(
+              child: Semantics(
+                label: 'Ayarlar yükleniyor',
+                liveRegion: true,
+                child: const CircularProgressIndicator(),
+              ),
+            )
           : loadError != null
-              ? MenzilStateMessage(
-                  message: loadError!,
-                  action: MenzilPrimaryButton(label: 'Tekrar dene', onPressed: _load, expand: false),
-                )
-              : MenzilPage(
-                  children: [
-                    const MenzilSectionHeader('Birimler', padding: EdgeInsets.only(bottom: MenzilSpace.sm)),
-                    MenzilCard(
-                      padding: const EdgeInsets.symmetric(vertical: MenzilSpace.xxs),
-                      child: SwitchListTile(
-                        value: metric,
-                        onChanged: saving ? null : _setMetric,
-                        title: Text('Balistik birimleri', style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w700)),
-                        subtitle: Text(
-                          metric ? 'metre • m/s • joule • hPa' : 'yard • FPS • ft-lb • inHg',
-                          style: MenzilType.caption(c.ink2),
-                        ),
-                        secondary: saving
-                            ? const SizedBox.square(dimension: 20, child: CircularProgressIndicator(strokeWidth: 2))
-                            : null,
-                      ),
+          ? MenzilStateMessage(
+              message: loadError!,
+              action: MenzilPrimaryButton(
+                label: 'Tekrar dene',
+                onPressed: _load,
+                expand: false,
+              ),
+            )
+          : MenzilPage(
+              children: [
+                const MenzilSectionHeader(
+                  'Birimler',
+                  padding: EdgeInsets.only(bottom: MenzilSpace.sm),
+                ),
+                MenzilCard(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: MenzilSpace.xxs,
+                  ),
+                  child: SwitchListTile(
+                    value: metric,
+                    onChanged: saving ? null : _setMetric,
+                    title: Text(
+                      'Balistik birimleri',
+                      style: MenzilType.body(
+                        c.ink,
+                      ).copyWith(fontWeight: FontWeight.w700),
                     ),
-                    Text(
-                      'Birim değiştiğinde Atış, Tablo ve Ortam sekmeleri profil değerleriyle yeni birimde yeniden başlar.',
+                    subtitle: Text(
+                      metric
+                          ? 'metre • m/s • joule • hPa'
+                          : 'yard • FPS • ft-lb • inHg',
                       style: MenzilType.caption(c.ink2),
                     ),
-                  ],
+                    secondary: saving
+                        ? const SizedBox.square(
+                            dimension: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : null,
+                  ),
                 ),
+                Text(
+                  'Birim değiştiğinde Atış, Tablo ve Ortam sekmeleri profil değerleriyle yeni birimde yeniden başlar.',
+                  style: MenzilType.caption(c.ink2),
+                ),
+              ],
+            ),
     );
   }
 }

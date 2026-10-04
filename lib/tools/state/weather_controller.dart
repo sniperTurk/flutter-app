@@ -24,7 +24,11 @@ class WeatherController extends ChangeNotifier {
   final WeatherProvider provider;
   final Clock clock;
 
-  WeatherController({required this.location, required this.provider, required this.clock});
+  WeatherController({
+    required this.location,
+    required this.provider,
+    required this.clock,
+  });
 
   WeatherPhase _phase = WeatherPhase.idle;
   WeatherObservation? _last;
@@ -72,7 +76,10 @@ class WeatherController extends ChangeNotifier {
             _failure = e;
             _set(WeatherPhase.failed);
           } catch (_) {
-            _failure = const WeatherFailure(WeatherFailureKind.invalidResponse, 'Hava verisi alınamadı.');
+            _failure = const WeatherFailure(
+              WeatherFailureKind.invalidResponse,
+              'Hava verisi alınamadı.',
+            );
             _set(WeatherPhase.failed);
           }
       }

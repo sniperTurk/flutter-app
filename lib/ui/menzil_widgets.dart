@@ -22,25 +22,32 @@ class MenzilPage extends StatelessWidget {
   const MenzilPage({
     super.key,
     required this.children,
-    this.padding = const EdgeInsets.fromLTRB(MenzilSpace.gutter, MenzilSpace.md, MenzilSpace.gutter, MenzilSpace.xl),
+    this.padding = const EdgeInsets.fromLTRB(
+      MenzilSpace.gutter,
+      MenzilSpace.md,
+      MenzilSpace.gutter,
+      MenzilSpace.xl,
+    ),
     this.controller,
   });
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-        controller: controller,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        padding: padding,
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: MenzilSpace.maxContentWidth),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: children,
-            ),
-          ),
+    controller: controller,
+    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+    padding: padding,
+    child: Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxWidth: MenzilSpace.maxContentWidth,
         ),
-      );
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: children,
+        ),
+      ),
+    ),
+  );
 }
 
 /// Header for secondary routes (Katalog, Ayarlar, profile editor). Uses the
@@ -49,16 +56,23 @@ class MenzilSubPageBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget> actions;
 
-  const MenzilSubPageBar({super.key, required this.title, this.actions = const []});
+  const MenzilSubPageBar({
+    super.key,
+    required this.title,
+    this.actions = const [],
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) => AppBar(
-        title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
-        actions: [...actions, const SizedBox(width: MenzilSpace.xs)],
-      );
+    title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
+    actions: [
+      ...actions,
+      const SizedBox(width: MenzilSpace.xs),
+    ],
+  );
 }
 
 /// Centred loading / error / empty state.
@@ -67,7 +81,12 @@ class MenzilStateMessage extends StatelessWidget {
   final String message;
   final Widget? action;
 
-  const MenzilStateMessage({super.key, this.icon, required this.message, this.action});
+  const MenzilStateMessage({
+    super.key,
+    this.icon,
+    required this.message,
+    this.action,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +101,11 @@ class MenzilStateMessage extends StatelessWidget {
               Icon(icon, size: 42, color: c.ink2),
               const SizedBox(height: MenzilSpace.md),
             ],
-            Text(message, textAlign: TextAlign.center, style: MenzilType.body(c.ink)),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: MenzilType.body(c.ink),
+            ),
             if (action != null) ...[
               const SizedBox(height: MenzilSpace.md),
               action!,
@@ -129,7 +152,9 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
       child: Material(
         color: c.bg,
         child: Container(
-          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: c.line))),
+          decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: c.line)),
+          ),
           child: SafeArea(
             bottom: false,
             child: SizedBox(
@@ -140,16 +165,26 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                   // reticle glyph so the profile selector keeps usable width.
                   final compact = constraints.maxWidth < 350;
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.gutter),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: MenzilSpace.gutter,
+                    ),
                     child: Row(
                       children: [
                         MenzilBrand(compact: compact),
                         const SizedBox(width: MenzilSpace.sm),
                         Expanded(child: profileSelector),
                         const SizedBox(width: MenzilSpace.sm),
-                        MenzilBarButton(label: unitLabel, tooltip: 'Birim sistemi', onPressed: onUnitTap),
+                        MenzilBarButton(
+                          label: unitLabel,
+                          tooltip: 'Birim sistemi',
+                          onPressed: onUnitTap,
+                        ),
                         const SizedBox(width: MenzilSpace.xs),
-                        MenzilBarButton(label: themeLabel, tooltip: 'Tema', onPressed: onThemeTap),
+                        MenzilBarButton(
+                          label: themeLabel,
+                          tooltip: 'Tema',
+                          onPressed: onThemeTap,
+                        ),
                       ],
                     ),
                   );
@@ -195,7 +230,12 @@ class MenzilBarButton extends StatelessWidget {
   final String tooltip;
   final VoidCallback? onPressed;
 
-  const MenzilBarButton({super.key, required this.label, required this.tooltip, this.onPressed});
+  const MenzilBarButton({
+    super.key,
+    required this.label,
+    required this.tooltip,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +262,14 @@ class MenzilBarButton extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Center(
                     widthFactor: 1,
-                    child: Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: c.ink)),
+                    child: Text(
+                      label,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: c.ink,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -263,13 +310,17 @@ class MenzilBottomNavigation extends StatelessWidget {
       child: Material(
         color: c.surface,
         child: Container(
-          decoration: BoxDecoration(border: Border(top: BorderSide(color: c.line))),
+          decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: c.line)),
+          ),
           child: SafeArea(
             top: false,
             child: Center(
               heightFactor: 1,
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: MenzilSpace.maxContentWidth),
+                constraints: const BoxConstraints(
+                  maxWidth: MenzilSpace.maxContentWidth,
+                ),
                 child: Row(
                   children: [
                     for (var i = 0; i < items.length; i++)
@@ -298,7 +349,12 @@ class _NavButton extends StatelessWidget {
   final VoidCallback onTap;
   final MenzilColors colors;
 
-  const _NavButton({required this.item, required this.selected, required this.onTap, required this.colors});
+  const _NavButton({
+    required this.item,
+    required this.selected,
+    required this.onTap,
+    required this.colors,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -323,7 +379,9 @@ class _NavButton extends StatelessWidget {
                       height: 3,
                       decoration: BoxDecoration(
                         color: colors.amber,
-                        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(3)),
+                        borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(3),
+                        ),
                       ),
                     ),
                   ),
@@ -338,7 +396,11 @@ class _NavButton extends StatelessWidget {
                         item.label,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: fg),
+                        style: TextStyle(
+                          fontSize: 11.5,
+                          fontWeight: FontWeight.w600,
+                          color: fg,
+                        ),
                       ),
                     ],
                   ),
@@ -385,7 +447,13 @@ class MenzilCard extends StatelessWidget {
       body = Stack(
         children: [
           Padding(padding: const EdgeInsets.only(left: 7), child: body),
-          Positioned(left: 0, top: 0, bottom: 0, width: 7, child: ColoredBox(color: accent!)),
+          Positioned(
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: 7,
+            child: ColoredBox(color: accent!),
+          ),
         ],
       );
     }
@@ -416,7 +484,10 @@ class MenzilSectionHeader extends StatelessWidget {
     super.key,
     this.subtitle,
     this.trailing,
-    this.padding = const EdgeInsets.only(top: MenzilSpace.sm, bottom: MenzilSpace.sm),
+    this.padding = const EdgeInsets.only(
+      top: MenzilSpace.sm,
+      bottom: MenzilSpace.sm,
+    ),
   });
 
   @override
@@ -432,7 +503,10 @@ class MenzilSectionHeader extends StatelessWidget {
               Expanded(
                 child: Semantics(
                   header: true,
-                  child: Text(title, style: MenzilType.heading(c.ink, size: 22)),
+                  child: Text(
+                    title,
+                    style: MenzilType.heading(c.ink, size: 22),
+                  ),
                 ),
               ),
               if (trailing != null) trailing!,
@@ -497,9 +571,19 @@ class MenzilNotice extends StatelessWidget {
                     if (title != null)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 2),
-                        child: Text(title!, style: MenzilType.label(c.ink).copyWith(fontSize: 14)),
+                        child: Text(
+                          title!,
+                          style: MenzilType.label(c.ink).copyWith(fontSize: 14),
+                        ),
                       ),
-                    Text(message, style: TextStyle(fontSize: 13.5, height: 1.35, color: c.ink)),
+                    Text(
+                      message,
+                      style: TextStyle(
+                        fontSize: 13.5,
+                        height: 1.35,
+                        color: c.ink,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -549,16 +633,25 @@ class _MenzilAccordionState extends State<MenzilAccordion> {
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minHeight: 52),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.lg, vertical: MenzilSpace.md),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: MenzilSpace.lg,
+                    vertical: MenzilSpace.md,
+                  ),
                   child: Row(
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.title, style: MenzilType.heading(c.ink, size: 20)),
+                            Text(
+                              widget.title,
+                              style: MenzilType.heading(c.ink, size: 20),
+                            ),
                             if (widget.subtitle != null)
-                              Text(widget.subtitle!, style: MenzilType.caption(c.ink2)),
+                              Text(
+                                widget.subtitle!,
+                                style: MenzilType.caption(c.ink2),
+                              ),
                           ],
                         ),
                       ),
@@ -575,7 +668,12 @@ class _MenzilAccordionState extends State<MenzilAccordion> {
           ),
           if (open)
             Padding(
-              padding: const EdgeInsets.fromLTRB(MenzilSpace.lg, 0, MenzilSpace.lg, MenzilSpace.lg),
+              padding: const EdgeInsets.fromLTRB(
+                MenzilSpace.lg,
+                0,
+                MenzilSpace.lg,
+                MenzilSpace.lg,
+              ),
               child: widget.child,
             ),
         ],
@@ -595,7 +693,12 @@ class MenzilFieldLabel extends StatelessWidget {
   final String? unit;
   final Widget? trailing;
 
-  const MenzilFieldLabel({super.key, required this.label, this.unit, this.trailing});
+  const MenzilFieldLabel({
+    super.key,
+    required this.label,
+    this.unit,
+    this.trailing,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -606,7 +709,12 @@ class MenzilFieldLabel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
-            child: Text(label, maxLines: 2, overflow: TextOverflow.ellipsis, style: MenzilType.label(c.ink)),
+            child: Text(
+              label,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: MenzilType.label(c.ink),
+            ),
           ),
           if (unit != null) ...[
             const SizedBox(width: MenzilSpace.xs),
@@ -664,7 +772,13 @@ class MenzilInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          ExcludeSemantics(child: MenzilFieldLabel(label: label, unit: unit, trailing: labelTrailing)),
+          ExcludeSemantics(
+            child: MenzilFieldLabel(
+              label: label,
+              unit: unit,
+              trailing: labelTrailing,
+            ),
+          ),
           Semantics(
             label: semanticLabel,
             child: TextField(
@@ -726,7 +840,9 @@ class MenzilSelect<T> extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          ExcludeSemantics(child: MenzilFieldLabel(label: label, unit: unit)),
+          ExcludeSemantics(
+            child: MenzilFieldLabel(label: label, unit: unit),
+          ),
           Semantics(
             label: semanticLabel ?? label,
             child: DropdownButtonFormField<T>(
@@ -738,7 +854,11 @@ class MenzilSelect<T> extends StatelessWidget {
               borderRadius: BorderRadius.circular(MenzilRadius.input),
               dropdownColor: c.surface,
               icon: Icon(Icons.expand_more, color: c.ink2),
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: c.ink),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: c.ink,
+              ),
               decoration: const InputDecoration(),
             ),
           ),
@@ -764,7 +884,11 @@ class MenzilFieldGrid extends StatelessWidget {
   final List<Widget> children;
   final double gap;
 
-  const MenzilFieldGrid({super.key, required this.children, this.gap = MenzilSpace.md});
+  const MenzilFieldGrid({
+    super.key,
+    required this.children,
+    this.gap = MenzilSpace.md,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -772,15 +896,21 @@ class MenzilFieldGrid extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
-        final twoColumns = width >= MenzilSpace.twoColumnMinWidth && width / scale >= 300;
+        final twoColumns =
+            width >= MenzilSpace.twoColumnMinWidth && width / scale >= 300;
         // Floor to 0.01 px: a rounding excess would push the second column
         // onto a new Wrap run.
-        final colWidth = twoColumns ? ((width - gap) / 2 * 100).floorToDouble() / 100 : width;
+        final colWidth = twoColumns
+            ? ((width - gap) / 2 * 100).floorToDouble() / 100
+            : width;
         return Wrap(
           spacing: gap,
           children: [
             for (final child in children)
-              SizedBox(width: child is MenzilFullWidth ? width : colWidth, child: child),
+              SizedBox(
+                width: child is MenzilFullWidth ? width : colWidth,
+                child: child,
+              ),
           ],
         );
       },
@@ -809,11 +939,19 @@ class MenzilPrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     final style = amber
-        ? FilledButton.styleFrom(backgroundColor: c.amber, foregroundColor: MenzilColors.onAmber)
+        ? FilledButton.styleFrom(
+            backgroundColor: c.amber,
+            foregroundColor: MenzilColors.onAmber,
+          )
         : null;
     final button = icon == null
         ? FilledButton(style: style, onPressed: onPressed, child: Text(label))
-        : FilledButton.icon(style: style, onPressed: onPressed, icon: Icon(icon, size: 20), label: Text(label));
+        : FilledButton.icon(
+            style: style,
+            onPressed: onPressed,
+            icon: Icon(icon, size: 20),
+            label: Text(label),
+          );
     return expand ? SizedBox(width: double.infinity, child: button) : button;
   }
 }
@@ -839,11 +977,19 @@ class MenzilSecondaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     final style = destructive
-        ? OutlinedButton.styleFrom(foregroundColor: c.danger, side: BorderSide(color: c.danger.withValues(alpha: 0.6)))
+        ? OutlinedButton.styleFrom(
+            foregroundColor: c.danger,
+            side: BorderSide(color: c.danger.withValues(alpha: 0.6)),
+          )
         : null;
     final button = icon == null
         ? OutlinedButton(style: style, onPressed: onPressed, child: Text(label))
-        : OutlinedButton.icon(style: style, onPressed: onPressed, icon: Icon(icon, size: 20), label: Text(label));
+        : OutlinedButton.icon(
+            style: style,
+            onPressed: onPressed,
+            icon: Icon(icon, size: 20),
+            label: Text(label),
+          );
     return expand ? SizedBox(width: double.infinity, child: button) : button;
   }
 }
@@ -944,17 +1090,42 @@ class MenzilHoldCard extends StatelessWidget {
                 textBaseline: TextBaseline.alphabetic,
                 children: [
                   Expanded(
-                    child: Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: titleColor)),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: titleColor,
+                      ),
+                    ),
                   ),
-                  Text(unit, style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: c.ink2)),
+                  Text(
+                    unit,
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: c.ink2,
+                    ),
+                  ),
                 ],
               ),
               FittedBox(
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.centerLeft,
-                child: Text(value, maxLines: 1, style: MenzilType.display(c.ink, size: 56)),
+                child: Text(
+                  value,
+                  maxLines: 1,
+                  style: MenzilType.display(c.ink, size: 56),
+                ),
               ),
-              Text(line1, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: c.ink)),
+              Text(
+                line1,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: c.ink,
+                ),
+              ),
               Text(line2, style: MenzilType.caption(c.ink2)),
             ],
           ),
@@ -989,7 +1160,8 @@ class MenzilMetricGrid extends StatelessWidget {
           final width = constraints.maxWidth;
           var cols = columns;
           if (width / scale < 330) cols = math.min(cols, 2);
-          final tileWidth = ((width - 2 - (cols - 1)) / cols * 100).floorToDouble() / 100;
+          final tileWidth =
+              ((width - 2 - (cols - 1)) / cols * 100).floorToDouble() / 100;
           final remainder = metrics.length % cols;
           final fillers = remainder == 0 ? 0 : cols - remainder;
           return ClipRRect(
@@ -1004,9 +1176,19 @@ class MenzilMetricGrid extends StatelessWidget {
                 spacing: 1,
                 runSpacing: 1,
                 children: [
-                  for (final m in metrics) SizedBox(width: tileWidth, child: MenzilMetricCard(metric: m)),
+                  for (final m in metrics)
+                    SizedBox(
+                      width: tileWidth,
+                      child: MenzilMetricCard(metric: m),
+                    ),
                   for (var i = 0; i < fillers; i++)
-                    SizedBox(width: tileWidth, child: ColoredBox(color: c.surface, child: const SizedBox(height: 56))),
+                    SizedBox(
+                      width: tileWidth,
+                      child: ColoredBox(
+                        color: c.surface,
+                        child: const SizedBox(height: 56),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -1038,7 +1220,12 @@ class MenzilMetricCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(metric.label, maxLines: 1, overflow: TextOverflow.ellipsis, style: MenzilType.caption(c.ink2).copyWith(fontSize: 12)),
+                  Text(
+                    metric.label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
+                  ),
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
@@ -1050,7 +1237,11 @@ class MenzilMetricCard extends StatelessWidget {
                           if (metric.unit != null)
                             TextSpan(
                               text: ' ${metric.unit}',
-                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: c.ink2),
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: c.ink2,
+                              ),
                             ),
                         ],
                       ),
@@ -1093,23 +1284,38 @@ class MenzilToolTile extends StatelessWidget {
     final c = MenzilColors.of(context);
     return MenzilCard(
       padding: EdgeInsets.zero,
-      child: ListTile(
-        key: tileKey,
-        enabled: enabled,
-        onTap: enabled ? onTap : null,
-        contentPadding: const EdgeInsets.symmetric(horizontal: MenzilSpace.lg, vertical: MenzilSpace.xxs),
-        leading: Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            color: enabled ? c.amberSoft : c.surface2,
-            borderRadius: BorderRadius.circular(MenzilRadius.button),
+      child: Material(
+        type: MaterialType.transparency,
+        child: ListTile(
+          key: tileKey,
+          enabled: enabled,
+          onTap: enabled ? onTap : null,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: MenzilSpace.lg,
+            vertical: MenzilSpace.xxs,
           ),
-          child: Icon(icon, color: enabled ? c.amberInk : c.ink2),
+          leading: Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: enabled ? c.amberSoft : c.surface2,
+              borderRadius: BorderRadius.circular(MenzilRadius.button),
+            ),
+            child: Icon(icon, color: enabled ? c.amberInk : c.ink2),
+          ),
+          title: Text(
+            title,
+            style: MenzilType.heading(enabled ? c.ink : c.ink2, size: 20),
+          ),
+          subtitle: Text(
+            subtitle,
+            style: MenzilType.caption(c.ink2).copyWith(fontSize: 13),
+          ),
+          trailing: Icon(
+            enabled ? Icons.chevron_right : Icons.lock_outline,
+            color: c.ink2,
+          ),
         ),
-        title: Text(title, style: MenzilType.heading(enabled ? c.ink : c.ink2, size: 20)),
-        subtitle: Text(subtitle, style: MenzilType.caption(c.ink2).copyWith(fontSize: 13)),
-        trailing: Icon(enabled ? Icons.chevron_right : Icons.lock_outline, color: c.ink2),
       ),
     );
   }
@@ -1121,7 +1327,12 @@ class MenzilChipGroup<T> extends StatelessWidget {
   final T selected;
   final ValueChanged<T> onSelected;
 
-  const MenzilChipGroup({super.key, required this.options, required this.selected, required this.onSelected});
+  const MenzilChipGroup({
+    super.key,
+    required this.options,
+    required this.selected,
+    required this.onSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1136,14 +1347,22 @@ class MenzilChipGroup<T> extends StatelessWidget {
             selected: value == selected,
             child: Material(
               color: value == selected ? c.ink : c.bg,
-              shape: StadiumBorder(side: BorderSide(color: value == selected ? c.ink : c.line)),
+              shape: StadiumBorder(
+                side: BorderSide(color: value == selected ? c.ink : c.line),
+              ),
               child: InkWell(
                 customBorder: const StadiumBorder(),
                 onTap: () => onSelected(value),
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 40, minWidth: 44),
+                  constraints: const BoxConstraints(
+                    minHeight: 40,
+                    minWidth: 44,
+                  ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 9,
+                    ),
                     child: Text(
                       label,
                       style: TextStyle(

@@ -131,28 +131,27 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     Color? scopeLine,
     Color? scopeDim,
     Color? levelLiquid,
-  }) =>
-      MenzilColors(
-        bg: bg ?? this.bg,
-        surface: surface ?? this.surface,
-        surface2: surface2 ?? this.surface2,
-        ink: ink ?? this.ink,
-        ink2: ink2 ?? this.ink2,
-        line: line ?? this.line,
-        amber: amber ?? this.amber,
-        amberInk: amberInk ?? this.amberInk,
-        amberSoft: amberSoft ?? this.amberSoft,
-        cyan: cyan ?? this.cyan,
-        cyanInk: cyanInk ?? this.cyanInk,
-        cyanSoft: cyanSoft ?? this.cyanSoft,
-        danger: danger ?? this.danger,
-        dangerSoft: dangerSoft ?? this.dangerSoft,
-        ok: ok ?? this.ok,
-        scopeBg: scopeBg ?? this.scopeBg,
-        scopeLine: scopeLine ?? this.scopeLine,
-        scopeDim: scopeDim ?? this.scopeDim,
-        levelLiquid: levelLiquid ?? this.levelLiquid,
-      );
+  }) => MenzilColors(
+    bg: bg ?? this.bg,
+    surface: surface ?? this.surface,
+    surface2: surface2 ?? this.surface2,
+    ink: ink ?? this.ink,
+    ink2: ink2 ?? this.ink2,
+    line: line ?? this.line,
+    amber: amber ?? this.amber,
+    amberInk: amberInk ?? this.amberInk,
+    amberSoft: amberSoft ?? this.amberSoft,
+    cyan: cyan ?? this.cyan,
+    cyanInk: cyanInk ?? this.cyanInk,
+    cyanSoft: cyanSoft ?? this.cyanSoft,
+    danger: danger ?? this.danger,
+    dangerSoft: dangerSoft ?? this.dangerSoft,
+    ok: ok ?? this.ok,
+    scopeBg: scopeBg ?? this.scopeBg,
+    scopeLine: scopeLine ?? this.scopeLine,
+    scopeDim: scopeDim ?? this.scopeDim,
+    levelLiquid: levelLiquid ?? this.levelLiquid,
+  );
 
   @override
   MenzilColors lerp(ThemeExtension<MenzilColors>? other, double t) {
@@ -232,60 +231,64 @@ abstract final class MenzilType {
   static const List<FontFeature> tabular = [FontFeature.tabularFigures()];
 
   static TextStyle display(Color color, {double size = 60}) => TextStyle(
-        fontFamilyFallback: numericFallback,
-        fontSize: size,
-        height: 1.0,
-        fontWeight: FontWeight.w700,
-        letterSpacing: -1,
-        color: color,
-        fontFeatures: tabular,
-      );
+    fontFamilyFallback: numericFallback,
+    fontSize: size,
+    height: 1.0,
+    fontWeight: FontWeight.w700,
+    letterSpacing: -1,
+    color: color,
+    fontFeatures: tabular,
+  );
 
-  static TextStyle number(Color color, {double size = 22, FontWeight weight = FontWeight.w600}) => TextStyle(
-        fontFamilyFallback: numericFallback,
-        fontSize: size,
-        height: 1.1,
-        fontWeight: weight,
-        color: color,
-        fontFeatures: tabular,
-      );
+  static TextStyle number(
+    Color color, {
+    double size = 22,
+    FontWeight weight = FontWeight.w600,
+  }) => TextStyle(
+    fontFamilyFallback: numericFallback,
+    fontSize: size,
+    height: 1.1,
+    fontWeight: weight,
+    color: color,
+    fontFeatures: tabular,
+  );
 
   static TextStyle heading(Color color, {double size = 22}) => TextStyle(
-        fontFamilyFallback: numericFallback,
-        fontSize: size,
-        height: 1.1,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.2,
-        color: color,
-      );
+    fontFamilyFallback: numericFallback,
+    fontSize: size,
+    height: 1.1,
+    fontWeight: FontWeight.w700,
+    letterSpacing: 0.2,
+    color: color,
+  );
 
   static TextStyle label(Color color) => TextStyle(
-        fontSize: 13,
-        height: 1.25,
-        fontWeight: FontWeight.w600,
-        color: color,
-      );
+    fontSize: 13,
+    height: 1.25,
+    fontWeight: FontWeight.w600,
+    color: color,
+  );
 
   static TextStyle unit(Color color) => TextStyle(
-        fontSize: 13,
-        height: 1.25,
-        fontWeight: FontWeight.w500,
-        color: color,
-      );
+    fontSize: 13,
+    height: 1.25,
+    fontWeight: FontWeight.w500,
+    color: color,
+  );
 
   static TextStyle body(Color color) => TextStyle(
-        fontSize: 15,
-        height: 1.35,
-        fontWeight: FontWeight.w500,
-        color: color,
-      );
+    fontSize: 15,
+    height: 1.35,
+    fontWeight: FontWeight.w500,
+    color: color,
+  );
 
   static TextStyle caption(Color color) => TextStyle(
-        fontSize: 12.5,
-        height: 1.35,
-        fontWeight: FontWeight.w400,
-        color: color,
-      );
+    fontSize: 12.5,
+    height: 1.35,
+    fontWeight: FontWeight.w400,
+    color: color,
+  );
 }
 
 /// Builds the Material theme from the tokens so that stock Material widgets
@@ -324,10 +327,13 @@ abstract final class MenzilTheme {
     final controlShape = RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(MenzilRadius.button),
     );
-    OutlineInputBorder inputBorder(Color color, [double width = MenzilSpace.border]) => OutlineInputBorder(
-          borderRadius: BorderRadius.circular(MenzilRadius.input),
-          borderSide: BorderSide(color: color, width: width),
-        );
+    OutlineInputBorder inputBorder(
+      Color color, [
+      double width = MenzilSpace.border,
+    ]) => OutlineInputBorder(
+      borderRadius: BorderRadius.circular(MenzilRadius.input),
+      borderSide: BorderSide(color: color, width: width),
+    );
     const minControl = Size(44, MenzilSpace.control);
 
     return ThemeData(
@@ -363,14 +369,19 @@ abstract final class MenzilTheme {
         iconColor: c.ink,
         textColor: c.ink,
         minVerticalPadding: 10,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(MenzilRadius.card)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(MenzilRadius.card),
+        ),
       ),
       dividerTheme: DividerThemeData(color: c.line, thickness: 1, space: 1),
       inputDecorationTheme: InputDecorationThemeData(
         filled: true,
         fillColor: c.bg,
         isDense: true,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 13),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 13,
+        ),
         border: inputBorder(c.line),
         enabledBorder: inputBorder(c.line),
         focusedBorder: inputBorder(c.cyan, 2),
@@ -437,15 +448,19 @@ abstract final class MenzilTheme {
           foregroundColor: WidgetStateProperty.resolveWith(
             (states) => states.contains(WidgetState.selected) ? c.bg : c.ink2,
           ),
-          textStyle: const WidgetStatePropertyAll(TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600)),
+          textStyle: const WidgetStatePropertyAll(
+            TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600),
+          ),
         ),
       ),
       switchTheme: SwitchThemeData(
         thumbColor: WidgetStateProperty.resolveWith(
-          (states) => states.contains(WidgetState.selected) ? c.surface : c.ink2,
+          (states) =>
+              states.contains(WidgetState.selected) ? c.surface : c.ink2,
         ),
         trackColor: WidgetStateProperty.resolveWith(
-          (states) => states.contains(WidgetState.selected) ? c.cyan : c.surface2,
+          (states) =>
+              states.contains(WidgetState.selected) ? c.cyan : c.surface2,
         ),
         trackOutlineColor: WidgetStatePropertyAll(c.line),
       ),
@@ -460,9 +475,15 @@ abstract final class MenzilTheme {
       progressIndicatorTheme: ProgressIndicatorThemeData(color: c.amber),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: c.ink,
-        contentTextStyle: TextStyle(color: c.bg, fontSize: 14.5, fontWeight: FontWeight.w500),
+        contentTextStyle: TextStyle(
+          color: c.bg,
+          fontSize: 14.5,
+          fontWeight: FontWeight.w500,
+        ),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(MenzilRadius.button)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(MenzilRadius.button),
+        ),
       ),
       dialogTheme: DialogThemeData(
         backgroundColor: c.surface,
@@ -478,15 +499,23 @@ abstract final class MenzilTheme {
         surfaceTintColor: Colors.transparent,
         showDragHandle: true,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(MenzilRadius.card)),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(MenzilRadius.card),
+          ),
         ),
       ),
       dropdownMenuTheme: DropdownMenuThemeData(
-        menuStyle: MenuStyle(backgroundColor: WidgetStatePropertyAll(c.surface)),
+        menuStyle: MenuStyle(
+          backgroundColor: WidgetStatePropertyAll(c.surface),
+        ),
       ),
       dataTableTheme: DataTableThemeData(
         headingRowColor: WidgetStatePropertyAll(c.surface2),
-        headingTextStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: c.ink),
+        headingTextStyle: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: c.ink,
+        ),
         dataTextStyle: MenzilType.number(c.ink, size: 19),
         headingRowHeight: 38,
         dataRowMinHeight: 40,
@@ -496,7 +525,10 @@ abstract final class MenzilTheme {
         dividerThickness: 1,
       ),
       tooltipTheme: TooltipThemeData(
-        decoration: BoxDecoration(color: c.ink, borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(
+          color: c.ink,
+          borderRadius: BorderRadius.circular(8),
+        ),
         textStyle: TextStyle(color: c.bg, fontSize: 13),
       ),
     );
@@ -518,15 +550,18 @@ class MenzilThemeController extends ValueNotifier<ThemeMode> {
   }
 
   static String labelFor(ThemeMode mode) => switch (mode) {
-        ThemeMode.system => 'Oto',
-        ThemeMode.light => 'Açık',
-        ThemeMode.dark => 'Koyu',
-      };
+    ThemeMode.system => 'Oto',
+    ThemeMode.light => 'Açık',
+    ThemeMode.dark => 'Koyu',
+  };
 }
 
 class MenzilThemeScope extends InheritedNotifier<MenzilThemeController> {
-  const MenzilThemeScope({super.key, required MenzilThemeController controller, required super.child})
-      : super(notifier: controller);
+  const MenzilThemeScope({
+    super.key,
+    required MenzilThemeController controller,
+    required super.child,
+  }) : super(notifier: controller);
 
   static MenzilThemeController? maybeOf(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<MenzilThemeScope>()?.notifier;

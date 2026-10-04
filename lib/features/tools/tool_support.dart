@@ -9,15 +9,25 @@ import '../../models/domain.dart';
 abstract final class ToolProfileUpdate {
   /// Returns [base] with the new muzzle velocity and/or sight height.
   /// Throws [FormatException] with a user-facing message.
-  static RifleProfile apply(RifleProfile base, {double? muzzleVelocityMps, double? sightHeightMm, double? pressureBar}) {
+  static RifleProfile apply(
+    RifleProfile base, {
+    double? muzzleVelocityMps,
+    double? sightHeightMm,
+    double? pressureBar,
+  }) {
     Rifle? rifle;
     for (final r in CatalogRepository.rifles) {
       if (r.id == base.rifleId) rifle = r;
     }
-    final platform = rifle?.platform ?? (base.pressureBar != null ? WeaponPlatform.pcp : WeaponPlatform.firearm);
+    final platform =
+        rifle?.platform ??
+        (base.pressureBar != null
+            ? WeaponPlatform.pcp
+            : WeaponPlatform.firearm);
     final input = ProfileInput.validate(
       name: base.name,
-      muzzleVelocityText: (muzzleVelocityMps ?? base.muzzleVelocityMps).toString(),
+      muzzleVelocityText: (muzzleVelocityMps ?? base.muzzleVelocityMps)
+          .toString(),
       zeroRangeText: base.zeroRangeM.toString(),
       sightHeightText: (sightHeightMm ?? base.sightHeightMm).toString(),
       platform: platform,
@@ -51,19 +61,23 @@ abstract final class ToolFormat {
   /// Decimal text with the Turkish comma ("270,4"). The tool pages follow the
   /// Menzil design, which prints measured values with a comma. Inputs accept
   /// both "," and ".".
-  static String dec(double v, int digits) => v.toStringAsFixed(digits).replaceAll('.', ',');
+  static String dec(double v, int digits) =>
+      v.toStringAsFixed(digits).replaceAll('.', ',');
 
   static String windSpeed(double mps, {required bool metric}) =>
       metric ? '${dec(mps, 1)} m/s' : '${dec(UnitSystem.mpsToMph(mps), 1)} mph';
 
-  static String windSpeedAlt(double mps, {required bool metric}) =>
-      metric ? '${dec(UnitSystem.mpsToKmh(mps), 1)} km/sa' : '${dec(mps, 1)} m/s';
+  static String windSpeedAlt(double mps, {required bool metric}) => metric
+      ? '${dec(UnitSystem.mpsToKmh(mps), 1)} km/sa'
+      : '${dec(mps, 1)} m/s';
 
-  static String temperature(double c, {required bool metric}) =>
-      metric ? '${dec(c, 1)} °C' : '${dec(UnitSystem.celsiusToFahrenheit(c), 1)} °F';
+  static String temperature(double c, {required bool metric}) => metric
+      ? '${dec(c, 1)} °C'
+      : '${dec(UnitSystem.celsiusToFahrenheit(c), 1)} °F';
 
-  static String pressure(double hpa, {required bool metric}) =>
-      metric ? '${dec(hpa, 1)} hPa' : '${dec(UnitSystem.hpaToInHg(hpa), 2)} inHg';
+  static String pressure(double hpa, {required bool metric}) => metric
+      ? '${dec(hpa, 1)} hPa'
+      : '${dec(UnitSystem.hpaToInHg(hpa), 2)} inHg';
 
   static String velocity(double mps, {required bool metric}) =>
       metric ? '${dec(mps, 1)} m/s' : '${dec(UnitSystem.mpsToFps(mps), 0)} fps';

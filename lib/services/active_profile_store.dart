@@ -14,13 +14,17 @@ class PersistentActiveProfileStore implements ActiveProfileStore {
   @override
   Future<void> setActiveProfileId(String? id) async {
     final prefs = await SharedPreferences.getInstance();
-    final ok = id == null ? await prefs.remove(_key) : await prefs.setString(_key, id);
+    final ok = id == null
+        ? await prefs.remove(_key)
+        : await prefs.setString(_key, id);
     if (!ok) throw StateError('Active profile write failed');
   }
 }
 
 class MemoryActiveProfileStore implements ActiveProfileStore {
   String? value;
-  @override Future<String?> getActiveProfileId() async => value;
-  @override Future<void> setActiveProfileId(String? id) async => value = id;
+  @override
+  Future<String?> getActiveProfileId() async => value;
+  @override
+  Future<void> setActiveProfileId(String? id) async => value = id;
 }

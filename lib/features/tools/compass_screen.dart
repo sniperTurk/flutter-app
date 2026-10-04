@@ -50,7 +50,8 @@ class _CompassScreenState extends State<CompassScreen> {
     super.dispose();
   }
 
-  Future<void> _openSettings() => ToolsServicesScope.of(context).location.openSettings();
+  Future<void> _openSettings() =>
+      ToolsServicesScope.of(context).location.openSettings();
 
   @override
   Widget build(BuildContext context) {
@@ -71,40 +72,46 @@ class _CompassScreenState extends State<CompassScreen> {
               else ...[
                 Semantics(
                   liveRegion: false,
-                  label: 'Pusula. ${CompassMath.wholeDegrees(degrees)} derece, '
+                  label:
+                      'Pusula. ${CompassMath.wholeDegrees(degrees)} derece, '
                       '${CompassMath.cardinal16Spoken(degrees)} yönü.',
-                  child: ExcludeSemantics(child: _CompassDial(degrees: degrees)),
+                  child: ExcludeSemantics(
+                    child: _CompassDial(degrees: degrees),
+                  ),
                 ),
                 const SizedBox(height: MenzilSpace.md),
                 // The dial label above already speaks the full Turkish name; the
                 // big visible text must not be read a second time as bare letters.
                 ExcludeSemantics(
-                    child: Center(
-                  child: Text.rich(
-                    TextSpan(
-                      text: '${CompassMath.wholeDegrees(degrees)}°',
-                      style: MenzilType.display(c.ink, size: 64),
-                      children: [
-                        TextSpan(
-                          text: '  ${CompassMath.cardinal16(degrees)}',
-                          style: MenzilType.heading(c.amberInk, size: 34),
-                        ),
-                      ],
+                  child: Center(
+                    child: Text.rich(
+                      TextSpan(
+                        text: '${CompassMath.wholeDegrees(degrees)}°',
+                        style: MenzilType.display(c.ink, size: 64),
+                        children: [
+                          TextSpan(
+                            text: '  ${CompassMath.cardinal16(degrees)}',
+                            style: MenzilType.heading(c.amberInk, size: 34),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                )),
+                ),
                 const SizedBox(height: MenzilSpace.md),
                 if (accuracy != null && accuracy > _poorAccuracyDeg)
                   const MenzilNotice(
                     tone: MenzilNoticeTone.warning,
                     title: 'Kalibrasyon gerekli',
-                    message: 'Sensör doğruluğu düşük. Telefonu havada 8 şeklinde hareket ettirin; '
+                    message:
+                        'Sensör doğruluğu düşük. Telefonu havada 8 şeklinde hareket ettirin; '
                         'metal ve mıknatıslardan uzak durun.',
                   ),
               ],
               const MenzilNotice(
                 tone: MenzilNoticeTone.info,
-                message: 'Yön telefonun üst kenarının baktığı sensör yönünü gösterir. Kuzey referansı (gerçek veya manyetik) '
+                message:
+                    'Yön telefonun üst kenarının baktığı sensör yönünü gösterir. Kuzey referansı (gerçek veya manyetik) '
                     'bu uygulamada cihazda doğrulanmamıştır; bu nedenle derece değeri gerçek kuzey olarak '
                     'etiketlenmez. Konum servisleri kapalıysa yön geçersiz olabilir. Doğruluk cihaz '
                     'sensörüne bağlıdır. Pusula atış hesabına otomatik aktarılmaz.',
@@ -122,11 +129,13 @@ class _CompassScreenState extends State<CompassScreen> {
       _ => HeadingUnavailableReason.noData,
     };
     final message = switch (reason) {
-      HeadingUnavailableReason.noSensor => 'Bu cihazda pusula sensörü bulunamadı.',
+      HeadingUnavailableReason.noSensor =>
+        'Bu cihazda pusula sensörü bulunamadı.',
       HeadingUnavailableReason.noData =>
         'Pusula verisi bekleniyor. Veri gelmiyorsa konum servislerinin açık olduğunu '
             'kontrol edin. Simülatörde pusula sensörü yoktur.',
-      HeadingUnavailableReason.error => 'Pusula okunamadı. Uygulamayı yeniden açıp tekrar deneyin.',
+      HeadingUnavailableReason.error =>
+        'Pusula okunamadı. Uygulamayı yeniden açıp tekrar deneyin.',
       HeadingUnavailableReason.noReference =>
         'Yön sağlayıcısı geçersiz bir referans değeri döndürdü. Bu, konum servisleri kapalıyken veya '
             'konum izni yokken olabilir (cihazda doğrulanmadı). Konum ayarlarını kontrol edip pusulayı '
@@ -157,11 +166,16 @@ class _CompassDial extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenH = MediaQuery.sizeOf(context).height;
-        final side = math.min(constraints.maxWidth, math.max(240.0, screenH * 0.5));
+        final side = math.min(
+          constraints.maxWidth,
+          math.max(240.0, screenH * 0.5),
+        );
         return Center(
           child: SizedBox.square(
             dimension: side,
-            child: CustomPaint(painter: _DialPainter(degrees: degrees, colors: c)),
+            child: CustomPaint(
+              painter: _DialPainter(degrees: degrees, colors: c),
+            ),
           ),
         );
       },
@@ -205,15 +219,29 @@ class _DialPainter extends CustomPainter {
       final len = isMajor ? r * 0.10 : (a % 10 == 0 ? r * 0.06 : r * 0.035);
       canvas.save();
       canvas.rotate(a * math.pi / 180);
-      canvas.drawLine(Offset(0, -r + 2), Offset(0, -r + 2 + len), isMajor ? major : minor);
+      canvas.drawLine(
+        Offset(0, -r + 2),
+        Offset(0, -r + 2 + len),
+        isMajor ? major : minor,
+      );
       canvas.restore();
     }
 
-    void label(String text, double angle, {required double size, required Color color, required double radius}) {
+    void label(
+      String text,
+      double angle, {
+      required double size,
+      required Color color,
+      required double radius,
+    }) {
       final tp = TextPainter(
         text: TextSpan(
           text: text,
-          style: TextStyle(fontSize: size, fontWeight: FontWeight.w800, color: color),
+          style: TextStyle(
+            fontSize: size,
+            fontWeight: FontWeight.w800,
+            color: color,
+          ),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
@@ -227,15 +255,33 @@ class _DialPainter extends CustomPainter {
     // Turkish cardinal letters: K kuzey, D doğu, G güney, B batı.
     const names = <int, String>{0: 'K', 90: 'D', 180: 'G', 270: 'B'};
     for (final e in names.entries) {
-      label(e.value, e.key.toDouble(), size: r * 0.17, color: e.key == 0 ? colors.amberInk : colors.ink, radius: r * 0.74);
+      label(
+        e.value,
+        e.key.toDouble(),
+        size: r * 0.17,
+        color: e.key == 0 ? colors.amberInk : colors.ink,
+        radius: r * 0.74,
+      );
     }
     const inter = <int, String>{45: 'KD', 135: 'GD', 225: 'GB', 315: 'KB'};
     for (final e in inter.entries) {
-      label(e.value, e.key.toDouble(), size: r * 0.09, color: colors.ink2, radius: r * 0.74);
+      label(
+        e.value,
+        e.key.toDouble(),
+        size: r * 0.09,
+        color: colors.ink2,
+        radius: r * 0.74,
+      );
     }
     for (var a = 30; a < 360; a += 30) {
       if (a % 90 == 0) continue;
-      label('$a', a.toDouble(), size: r * 0.07, color: colors.ink2, radius: r * 0.56);
+      label(
+        '$a',
+        a.toDouble(),
+        size: r * 0.07,
+        color: colors.ink2,
+        radius: r * 0.56,
+      );
     }
     canvas.restore();
 
@@ -250,5 +296,6 @@ class _DialPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _DialPainter old) => old.degrees != degrees || old.colors != colors;
+  bool shouldRepaint(covariant _DialPainter old) =>
+      old.degrees != degrees || old.colors != colors;
 }

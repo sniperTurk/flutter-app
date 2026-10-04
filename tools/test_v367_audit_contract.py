@@ -25,9 +25,11 @@ class V367AuditContract(unittest.TestCase):
         for rel in ('lib/ui/sight_height_art.dart', 'lib/features/tools/sight_height_diagrams.dart',
                     'lib/features/tools/level_screen.dart', 'lib/features/tools/sight_height_screen.dart',
                     'lib/features/ballistics/ballistics_screen.dart'):
-            for line in read(rel).splitlines():
-                if '.clamp(' in line and 'asin' not in line:
-                    self.assertIn('.toDouble()', line, (rel, line))
+            # Statement-level (split on ';') so the check does not depend on how
+            # dart format wraps a long expression across lines.
+            for stmt in read(rel).split(';'):
+                if '.clamp(' in stmt and 'asin' not in stmt:
+                    self.assertIn('.toDouble()', stmt, (rel, ' '.join(stmt.split())[:160]))
 
     def test_archived_tests_are_not_analysed(self):
         self.assertIn('archived_tests/**', read('analysis_options.yaml'))
@@ -41,7 +43,7 @@ class V367AuditContract(unittest.TestCase):
         self.assertIn('SystemChrome.setPreferredOrientations(DeviceOrientation.values);', text)
 
     def test_compass_big_text_is_not_read_twice_by_voiceover(self):
-        self.assertIn('ExcludeSemantics(\n                    child: Center(', read('lib/features/tools/compass_screen.dart'))
+        self.assertRegex(read('lib/features/tools/compass_screen.dart'), r'ExcludeSemantics\(\s*child: Center\(')
 
     def test_weather_wind_label_uses_spoken_name_and_clock_refresh(self):
         text = read('lib/features/tools/weather_screen.dart')

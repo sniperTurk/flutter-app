@@ -34,13 +34,17 @@ class AppSettings extends ChangeNotifier {
 
 /// Provides [AppSettings] to the tree.
 class AppSettingsScope extends InheritedNotifier<AppSettings> {
-  const AppSettingsScope({super.key, required AppSettings settings, required super.child})
-      : super(notifier: settings);
+  const AppSettingsScope({
+    super.key,
+    required AppSettings settings,
+    required super.child,
+  }) : super(notifier: settings);
 
   /// Returns null when no scope is installed (isolated widget tests).
   static AppSettings? maybeOf(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<AppSettingsScope>()?.notifier;
 
   /// Convenience: current unit system, SI when no scope exists.
-  static bool metricOf(BuildContext context) => maybeOf(context)?.metric ?? true;
+  static bool metricOf(BuildContext context) =>
+      maybeOf(context)?.metric ?? true;
 }

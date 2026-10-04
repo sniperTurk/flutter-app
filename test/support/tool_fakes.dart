@@ -54,13 +54,15 @@ class TestWeather implements WeatherProvider {
 }
 
 class TestHeading implements HeadingProvider {
-  final StreamController<HeadingState> controller = StreamController<HeadingState>.broadcast();
+  final StreamController<HeadingState> controller =
+      StreamController<HeadingState>.broadcast();
   @override
   Stream<HeadingState> headings() => controller.stream;
 }
 
 class TestTilt implements TiltProvider {
-  final StreamController<TiltState> controller = StreamController<TiltState>.broadcast();
+  final StreamController<TiltState> controller =
+      StreamController<TiltState>.broadcast();
   @override
   Stream<TiltState> tilts() => controller.stream;
 }
@@ -80,7 +82,8 @@ class TestCamera implements CameraService {
 
 class _Session implements CameraSession {
   @override
-  Widget buildPreview(BuildContext context) => const ColoredBox(color: Colors.black);
+  Widget buildPreview(BuildContext context) =>
+      const ColoredBox(color: Colors.black);
   @override
   Future<Uint8List> capture() async => Uint8List(0);
   @override
@@ -109,26 +112,30 @@ ToolsServices testServices({
   CameraService? camera,
   PhotoPicker? photoPicker,
   Clock? clock,
-}) =>
-    ToolsServices(
-      location: location ?? TestLocation(const LocationFix(39.9, 32.8)),
-      weather: weather ?? TestWeather(const WeatherFailure(WeatherFailureKind.offline, 'x')),
-      heading: heading ?? TestHeading(),
-      tilt: tilt ?? TestTilt(),
-      camera: camera ?? TestCamera(),
-      photoPicker: photoPicker ?? TestPhotoPicker(),
-      vision: const DisconnectedVisionAssist(),
-      clock: clock ?? TestClock(DateTime.utc(2026, 10, 3, 12)),
-    );
+}) => ToolsServices(
+  location: location ?? TestLocation(const LocationFix(39.9, 32.8)),
+  weather:
+      weather ??
+      TestWeather(const WeatherFailure(WeatherFailureKind.offline, 'x')),
+  heading: heading ?? TestHeading(),
+  tilt: tilt ?? TestTilt(),
+  camera: camera ?? TestCamera(),
+  photoPicker: photoPicker ?? TestPhotoPicker(),
+  vision: const DisconnectedVisionAssist(),
+  clock: clock ?? TestClock(DateTime.utc(2026, 10, 3, 12)),
+);
 
-Widget host(Widget child, {ToolsServices? services, double textScale = 1.0}) => MaterialApp(
+Widget host(Widget child, {ToolsServices? services, double textScale = 1.0}) =>
+    MaterialApp(
       theme: MenzilTheme.light(),
       // The scope sits ABOVE the Navigator so pushed routes (camera capture,
       // marking page, dialogs) see the injected fakes, as in lib/main.dart.
       builder: (context, c) => ToolsServicesScope(
         services: services ?? testServices(),
         child: MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(textScale)),
+          data: MediaQuery.of(
+            context,
+          ).copyWith(textScaler: TextScaler.linear(textScale)),
           child: c!,
         ),
       ),
@@ -139,16 +146,15 @@ WeatherObservation observation({
   required DateTime fetchedAt,
   double windSpeedMps = 5.0,
   double windFromDeg = 270,
-}) =>
-    WeatherObservation(
-      temperatureC: 18.5,
-      humidityPercent: 55,
-      pressureHpa: 1012.3,
-      pressureKind: PressureKind.seaLevel,
-      windSpeedMps: windSpeedMps,
-      windFromDeg: windFromDeg,
-      conditionCode: 'partlycloudy_day',
-      validAt: fetchedAt,
-      fetchedAt: fetchedAt,
-      sourceName: 'Test servisi',
-    );
+}) => WeatherObservation(
+  temperatureC: 18.5,
+  humidityPercent: 55,
+  pressureHpa: 1012.3,
+  pressureKind: PressureKind.seaLevel,
+  windSpeedMps: windSpeedMps,
+  windFromDeg: windFromDeg,
+  conditionCode: 'partlycloudy_day',
+  validAt: fetchedAt,
+  fetchedAt: fetchedAt,
+  sourceName: 'Test servisi',
+);

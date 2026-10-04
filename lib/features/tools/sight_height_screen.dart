@@ -38,15 +38,21 @@ class SightHeightScreen extends StatefulWidget {
   /// Injected in tests; default to the persistent stores.
   final ProfileStore? profileStore;
   final ActiveProfileStore? activeProfileStore;
-  const SightHeightScreen({super.key, this.profileStore, this.activeProfileStore});
+  const SightHeightScreen({
+    super.key,
+    this.profileStore,
+    this.activeProfileStore,
+  });
 
   @override
   State<SightHeightScreen> createState() => _SightHeightScreenState();
 }
 
 class _SightHeightScreenState extends State<SightHeightScreen> {
-  late final ProfileStore _profiles = widget.profileStore ?? PersistentProfileStore();
-  late final ActiveProfileStore _activeStore = widget.activeProfileStore ?? PersistentActiveProfileStore();
+  late final ProfileStore _profiles =
+      widget.profileStore ?? PersistentProfileStore();
+  late final ActiveProfileStore _activeStore =
+      widget.activeProfileStore ?? PersistentActiveProfileStore();
 
   final _bore = TextEditingController();
   final _wall = TextEditingController();
@@ -102,7 +108,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
         _active = profile;
         if (rifle != null && _bore.text.isEmpty) {
           _bore.text = _plain(rifle.caliberMm);
-          _boreNote = 'Aktif profilden gelir: ${rifle.brand} ${rifle.model} · ${_plain(rifle.caliberMm)} mm.';
+          _boreNote =
+              'Aktif profilden gelir: ${rifle.brand} ${rifle.model} · ${_plain(rifle.caliberMm)} mm.';
         }
         final outer = scope?.objectiveOuterDiameterMm;
         if (outer != null && _objective.text.isEmpty) {
@@ -123,19 +130,23 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
   }
 
   PhysicalSightHeight? get _physical => SightHeightPhysical.compute(
-        boreDiameterMm: _parse(_bore),
-        barrelWallMm: _parse(_wall),
-        gapMm: _parse(_gap),
-        objectiveOuterDiameterMm: _parse(_objective),
-      );
+    boreDiameterMm: _parse(_bore),
+    barrelWallMm: _parse(_wall),
+    gapMm: _parse(_gap),
+    objectiveOuterDiameterMm: _parse(_objective),
+  );
 
-  void _snack(String m) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(m)));
+  void _snack(String m) =>
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(m)));
 
   // ---------------------------------------------------------------- photo
   Future<void> _takePhoto() async {
     final photo = await Navigator.push<Uint8List>(
       context,
-      MaterialPageRoute<Uint8List>(fullscreenDialog: true, builder: (_) => const _CapturePage(side: true)),
+      MaterialPageRoute<Uint8List>(
+        fullscreenDialog: true,
+        builder: (_) => const _CapturePage(side: true),
+      ),
     );
     if (photo != null && mounted) await _markPhoto(photo);
   }
@@ -158,7 +169,9 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
   Future<void> _markPhoto(Uint8List photo) async {
     final marks = await Navigator.push<List<PixelPoint>>(
       context,
-      MaterialPageRoute<List<PixelPoint>>(builder: (_) => _MarkPage(photo: photo)),
+      MaterialPageRoute<List<PixelPoint>>(
+        builder: (_) => _MarkPage(photo: photo),
+      ),
     );
     if (marks == null || !mounted) return;
     // The scale needs the objective OUTER diameter. The physical method is
@@ -181,7 +194,9 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
       boreCentre: marks[2],
     );
     if (result == null) {
-      _snack('İşaretlerden makul bir sonuç çıkmadı. Noktaları yeniden işaretleyin.');
+      _snack(
+        'İşaretlerden makul bir sonuç çıkmadı. Noktaları yeniden işaretleyin.',
+      );
       return;
     }
     setState(() {
@@ -191,9 +206,9 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
   }
 
   Future<double?> _askObjectiveDiameter() => showDialog<double>(
-        context: context,
-        builder: (_) => const _ObjectiveDiameterDialog(),
-      );
+    context: context,
+    builder: (_) => const _ObjectiveDiameterDialog(),
+  );
 
   Future<void> _askVision() async {
     final photo = _photo;
@@ -209,8 +224,14 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
           'Göndermeden önce onayınız gerekir.',
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Vazgeç')),
-          FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Gönder')),
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Vazgeç'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Gönder'),
+          ),
         ],
       ),
     );
@@ -219,7 +240,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
     if (!mounted) return;
     setState(() {
       _visionNote = switch (res) {
-        VisionSuggestion(:final description) => 'Yardımcı öneri (doğrulanmamıştır): $description',
+        VisionSuggestion(:final description) =>
+          'Yardımcı öneri (doğrulanmamıştır): $description',
         VisionUnavailable(:final reason) => reason,
       };
     });
@@ -243,7 +265,11 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
     }
     final chosen = await showDialog<RifleProfile>(
       context: context,
-      builder: (_) => _ApplyDialog(profiles: all, newHeightMm: newHeightMm, activeProfileId: _active?.id),
+      builder: (_) => _ApplyDialog(
+        profiles: all,
+        newHeightMm: newHeightMm,
+        activeProfileId: _active?.id,
+      ),
     );
     if (chosen == null || !mounted) return;
     final RifleProfile updated;
@@ -277,13 +303,18 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Semantics(
-                  label: 'Yan görünüş: tüfek ve dürbün. Arka göz merceği solda, ön objektif sağda, namlu ağzı sağda. '
+                  label:
+                      'Yan görünüş: tüfek ve dürbün. Arka göz merceği solda, ön objektif sağda, namlu ağzı sağda. '
                       'Mavi kesikli çizgi dürbün ekseni, kırmızı kesikli çizgi namlu ekseni. Ölçüm noktası dürbünün ön '
                       'ucunun altında, namlu deliği merkezindedir. Dürbün yüksekliği dört parçanın toplamıdır.',
                   child: ExcludeSemantics(
                     child: AspectRatio(
-                      aspectRatio: sightSideViewSize.width / sightSideViewSize.height,
-                      child: CustomPaint(key: const Key('sight-side-view'), painter: SightSideViewPainter(c)),
+                      aspectRatio:
+                          sightSideViewSize.width / sightSideViewSize.height,
+                      child: CustomPaint(
+                        key: const Key('sight-side-view'),
+                        painter: SightSideViewPainter(c),
+                      ),
                     ),
                   ),
                 ),
@@ -302,21 +333,28 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
             key: Key('sight-inclined-mount'),
             tone: MenzilNoticeTone.info,
             title: 'Ölçüm noktası',
-            message: 'Bütün ölçüleri dürbünün namlu ağzına en yakın ön objektif ucunda alın. Dürbün namluya göre '
+            message:
+                'Bütün ölçüleri dürbünün namlu ağzına en yakın ön objektif ucunda alın. Dürbün namluya göre '
                 'eğimli monte edilmişse de doğru sonuç verir. Ölçüm yapmadan önce silahı boşaltın ve emniyette tutun.',
           ),
-          const MenzilSectionHeader('Ölçüler', padding: EdgeInsets.only(top: MenzilSpace.xs)),
+          const MenzilSectionHeader(
+            'Ölçüler',
+            padding: EdgeInsets.only(top: MenzilSpace.xs),
+          ),
           _measureList(c, physical),
           _resultCard(c, physical),
           MenzilPrimaryButton(
             key: const Key('sight-apply'),
             label: 'Profile uygula',
             icon: Icons.save_alt,
-            onPressed: physical == null ? null : () => _apply(physical.roundedMm),
+            onPressed: physical == null
+                ? null
+                : () => _apply(physical.roundedMm),
           ),
           const MenzilNotice(
             tone: MenzilNoticeTone.info,
-            message: 'Profil seçimi ve eski/yeni değer uygulamadan önce bir pencerede gösterilir.',
+            message:
+                'Profil seçimi ve eski/yeni değer uygulamadan önce bir pencerede gösterilir.',
           ),
           MenzilAccordion(
             key: const Key('sight-photo-section'),
@@ -331,26 +369,31 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
 
   Widget _partsCard(MenzilColors c) {
     Widget part(String n, String bold, String rest) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 9),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _NumBadge(n),
-              const SizedBox(width: MenzilSpace.md),
-              Expanded(
-                child: Text.rich(
+      padding: const EdgeInsets.symmetric(vertical: 9),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _NumBadge(n),
+          const SizedBox(width: MenzilSpace.md),
+          Expanded(
+            child: Text.rich(
+              TextSpan(
+                children: [
                   TextSpan(
-                    children: [
-                      TextSpan(text: '$bold ', style: const TextStyle(fontWeight: FontWeight.w700)),
-                      TextSpan(text: rest),
-                    ],
+                    text: '$bold ',
+                    style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
-                  style: MenzilType.body(c.ink).copyWith(fontSize: 13.5, height: 1.4),
-                ),
+                  TextSpan(text: rest),
+                ],
               ),
-            ],
+              style: MenzilType.body(
+                c.ink,
+              ).copyWith(fontSize: 13.5, height: 1.4),
+            ),
           ),
-        );
+        ],
+      ),
+    );
     return MenzilCard(
       key: const Key('sight-parts'),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -358,12 +401,23 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
         children: [
           part('1', 'Namlu iç yarıçapı:', 'namlu iç çapının (kalibre) yarısı.'),
           Divider(height: 1, color: c.surface2),
-          part('2', 'Namlu üst et kalınlığı:', 'namlu deliğinin üst kenarından namlunun üst dış yüzeyine.'),
+          part(
+            '2',
+            'Namlu üst et kalınlığı:',
+            'namlu deliğinin üst kenarından namlunun üst dış yüzeyine.',
+          ),
           Divider(height: 1, color: c.surface2),
-          part('3', 'Boşluk:',
-              'dürbünün namlu ağzı tarafındaki ön ucunda, dürbünün alt yüzeyinden namlunun üst yüzeyine. Kumpas ile ölçünüz.'),
+          part(
+            '3',
+            'Boşluk:',
+            'dürbünün namlu ağzı tarafındaki ön ucunda, dürbünün alt yüzeyinden namlunun üst yüzeyine. Kumpas ile ölçünüz.',
+          ),
           Divider(height: 1, color: c.surface2),
-          part('4', 'Dürbün yarıçapı:', 'dürbünün aynı ön uçtaki (objektif) dış çapının yarısı.'),
+          part(
+            '4',
+            'Dürbün yarıçapı:',
+            'dürbünün aynı ön uçtaki (objektif) dış çapının yarısı.',
+          ),
         ],
       ),
     );
@@ -377,7 +431,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
         label: 'Namlu iç çapı (kalibre)',
         controller: _bore,
         fieldKey: const Key('sight-bore'),
-        caption: '${_boreNote ?? 'Aktif profil yoksa kalibreyi girin.'}'
+        caption:
+            '${_boreNote ?? 'Aktif profil yoksa kalibreyi girin.'}'
             '${bore == null ? '' : ' Hesapta yarısı (${PhysicalSightHeight.roundedText(bore / 2, 2)} mm) kullanılır.'}',
         onChanged: (_) => setState(() {}),
       ),
@@ -386,7 +441,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
         label: 'Namlu üst et kalınlığı',
         controller: _wall,
         fieldKey: const Key('sight-wall'),
-        caption: 'Bilmiyorsanız: (namlu dış çapı − iç çap) ÷ 2. Namlu dış çapını kumpas ile ölçünüz.',
+        caption:
+            'Bilmiyorsanız: (namlu dış çapı − iç çap) ÷ 2. Namlu dış çapını kumpas ile ölçünüz.',
         onChanged: (_) => setState(() {}),
       ),
       _MeasureRow(
@@ -394,7 +450,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
         label: 'Dürbün–namlu boşluğu (ön uç)',
         controller: _gap,
         fieldKey: const Key('sight-gap'),
-        caption: 'Dürbünün ön ucunda, alt yüzeyinden namlunun üstüne. Kumpas ile ölçünüz.',
+        caption:
+            'Dürbünün ön ucunda, alt yüzeyinden namlunun üstüne. Kumpas ile ölçünüz.',
         onChanged: (_) => setState(() {}),
       ),
       _MeasureRow(
@@ -402,7 +459,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
         label: 'Dürbün ön dış çapı (objektif)',
         controller: _objective,
         fieldKey: const Key('sight-objective'),
-        caption: 'Objektif gövdesinin en dış çapı; model adındaki cam çapı (ör. 56) değildir. '
+        caption:
+            'Objektif gövdesinin en dış çapı; model adındaki cam çapı (ör. 56) değildir. '
             '${_objectiveNote ?? 'Katalogda yoksa kumpas ile ölçünüz.'}'
             '${objective == null ? '' : ' Hesapta yarısı (${PhysicalSightHeight.roundedText(objective / 2, 1)} mm) kullanılır.'}',
         onChanged: (_) => setState(() {}),
@@ -423,18 +481,24 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
   }
 
   Widget _resultCard(MenzilColors c, PhysicalSightHeight? p) {
-    String part(double? v) => v == null ? '—' : '${PhysicalSightHeight.roundedText(v, 2)} mm';
+    String part(double? v) =>
+        v == null ? '—' : '${PhysicalSightHeight.roundedText(v, 2)} mm';
     Widget line(String n, String label, String value) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            children: [
-              _NumBadge(n),
-              const SizedBox(width: MenzilSpace.md),
-              Expanded(child: Text(label, style: MenzilType.body(c.ink).copyWith(fontSize: 14.5))),
-              Text(value, style: MenzilType.number(c.ink, size: 20)),
-            ],
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          _NumBadge(n),
+          const SizedBox(width: MenzilSpace.md),
+          Expanded(
+            child: Text(
+              label,
+              style: MenzilType.body(c.ink).copyWith(fontSize: 14.5),
+            ),
           ),
-        );
+          Text(value, style: MenzilType.number(c.ink, size: 20)),
+        ],
+      ),
+    );
     return MenzilCard(
       key: const Key('sight-result'),
       padding: EdgeInsets.zero,
@@ -450,12 +514,19 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Dürbün yüksekliği', style: MenzilType.body(c.amberInk).copyWith(fontWeight: FontWeight.w700)),
+                Text(
+                  'Dürbün yüksekliği',
+                  style: MenzilType.body(
+                    c.amberInk,
+                  ).copyWith(fontWeight: FontWeight.w700),
+                ),
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    p == null ? '— mm' : '${PhysicalSightHeight.roundedText(p.totalMm, 1)} mm',
+                    p == null
+                        ? '— mm'
+                        : '${PhysicalSightHeight.roundedText(p.totalMm, 1)} mm',
                     key: const Key('sight-total'),
                     style: MenzilType.display(c.ink, size: 52),
                   ),
@@ -479,17 +550,26 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
                 Divider(height: 1, color: c.surface2),
                 line('3', 'Dürbün–namlu boşluğu', part(p?.gapMm)),
                 Divider(height: 1, color: c.surface2),
-                line('4', 'Dürbün yarıçapı (ön uç)', part(p?.objectiveRadiusMm)),
+                line(
+                  '4',
+                  'Dürbün yarıçapı (ön uç)',
+                  part(p?.objectiveRadiusMm),
+                ),
                 Divider(height: 1, color: c.line),
                 const SizedBox(height: MenzilSpace.sm),
-                Text('Toplam', style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w700)),
+                Text(
+                  'Toplam',
+                  style: MenzilType.body(
+                    c.ink,
+                  ).copyWith(fontWeight: FontWeight.w700),
+                ),
                 const SizedBox(height: 2),
                 Text(
                   p == null
                       ? '—'
                       : '${PhysicalSightHeight.roundedText(p.boreRadiusMm, 2)} + ${PhysicalSightHeight.roundedText(p.barrelWallMm, 2)} + '
-                          '${PhysicalSightHeight.roundedText(p.gapMm, 2)} + ${PhysicalSightHeight.roundedText(p.objectiveRadiusMm, 2)} = '
-                          '${PhysicalSightHeight.roundedText(p.totalMm, 2)} → ${PhysicalSightHeight.roundedText(p.totalMm, 1)} mm',
+                            '${PhysicalSightHeight.roundedText(p.gapMm, 2)} + ${PhysicalSightHeight.roundedText(p.objectiveRadiusMm, 2)} = '
+                            '${PhysicalSightHeight.roundedText(p.totalMm, 2)} → ${PhysicalSightHeight.roundedText(p.totalMm, 1)} mm',
                   key: const Key('sight-sum'),
                   style: MenzilType.body(c.ink).copyWith(fontSize: 13.5),
                 ),
@@ -510,8 +590,12 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
             Icon(Icons.photo_camera_outlined, size: 20, color: c.cyanInk),
             const SizedBox(width: MenzilSpace.sm),
             Expanded(
-              child: Text('Yan fotoğrafla ölç (isteğe bağlı)',
-                  style: MenzilType.body(c.cyanInk).copyWith(fontWeight: FontWeight.w700)),
+              child: Text(
+                'Yan fotoğrafla ölç (isteğe bağlı)',
+                style: MenzilType.body(
+                  c.cyanInk,
+                ).copyWith(fontWeight: FontWeight.w700),
+              ),
             ),
           ],
         ),
@@ -527,7 +611,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
           key: Key('sight-muzzle-warning'),
           tone: MenzilNoticeTone.danger,
           title: 'Namlu ağzı açık olmalı',
-          message: 'Namlu ağzında moderatör, susturucu veya alev gizleyen olmamalı. İşaretlenen nokta gerçek namlu '
+          message:
+              'Namlu ağzında moderatör, susturucu veya alev gizleyen olmamalı. İşaretlenen nokta gerçek namlu '
               'deliğinin merkezi olmalıdır; takılı bir cihazın merkezi namlu ekseniyle aynı olmayabilir.',
         ),
         const SizedBox(height: MenzilSpace.sm),
@@ -558,8 +643,10 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
               children: [
                 Text('Fotoğraftan tahmin', style: MenzilType.caption(c.ink2)),
                 const SizedBox(height: MenzilSpace.xxs),
-                Text('${PhysicalSightHeight.roundedText(_photoResult!.heightMm, 1)} mm',
-                    style: MenzilType.display(c.ink, size: 40)),
+                Text(
+                  '${PhysicalSightHeight.roundedText(_photoResult!.heightMm, 1)} mm',
+                  style: MenzilType.display(c.ink, size: 40),
+                ),
                 const SizedBox(height: MenzilSpace.xs),
                 Text(
                   'Bu bir tahmindir: ölçek objektif ön ucundan alınır ve işaretleme hatası sonuca girer. '
@@ -572,7 +659,14 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
                   label: 'Fotoğraf sonucunu profile uygula',
                   icon: Icons.save_alt,
                   expand: true,
-                  onPressed: () => _apply(double.parse(PhysicalSightHeight.roundedText(_photoResult!.heightMm, 1).replaceAll(',', '.'))),
+                  onPressed: () => _apply(
+                    double.parse(
+                      PhysicalSightHeight.roundedText(
+                        _photoResult!.heightMm,
+                        1,
+                      ).replaceAll(',', '.'),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -583,7 +677,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
           const MenzilNotice(
             key: Key('sight-vision-off'),
             tone: MenzilNoticeTone.info,
-            message: 'Görsel yardım servisi bağlı değil. Fotoğraflar cihazdan çıkmaz ve yapay zekâ sonucu üretilmez.',
+            message:
+                'Görsel yardım servisi bağlı değil. Fotoğraflar cihazdan çıkmaz ve yapay zekâ sonucu üretilmez.',
           )
         else ...[
           MenzilSecondaryButton(
@@ -603,45 +698,54 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
   }
 
   Widget _photoGuideCard(MenzilColors c) => MenzilCard(
-        key: const Key('sight-photo-guide'),
-        margin: EdgeInsets.zero,
-        background: c.cyanSoft,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    key: const Key('sight-photo-guide'),
+    margin: EdgeInsets.zero,
+    background: c.cyanSoft,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
           children: [
-            Row(
-              children: [
-                Icon(Icons.adjust, size: 20, color: c.cyanInk),
-                const SizedBox(width: MenzilSpace.sm),
-                Expanded(
-                  child: Text('Fotoğrafta işaretlenecek noktalar',
-                      style: MenzilType.body(c.cyanInk).copyWith(fontWeight: FontWeight.w700)),
-                ),
-              ],
-            ),
-            const SizedBox(height: MenzilSpace.sm),
-            Container(
-              padding: const EdgeInsets.all(MenzilSpace.sm),
-              decoration: BoxDecoration(color: c.surface, borderRadius: BorderRadius.circular(12)),
-              child: Semantics(
-                label: 'Fotoğrafta işaretlenecek üç nokta: objektif ön ucunun üst kenarı, alt kenarı ve namlu ağzında '
-                    'delik merkezi.',
-                child: ExcludeSemantics(
-                  child: AspectRatio(
-                    aspectRatio: sightPhotoGuideSize.width / sightPhotoGuideSize.height,
-                    child: CustomPaint(painter: SightPhotoGuidePainter(c)),
-                  ),
-                ),
+            Icon(Icons.adjust, size: 20, color: c.cyanInk),
+            const SizedBox(width: MenzilSpace.sm),
+            Expanded(
+              child: Text(
+                'Fotoğrafta işaretlenecek noktalar',
+                style: MenzilType.body(
+                  c.cyanInk,
+                ).copyWith(fontWeight: FontWeight.w700),
               ),
-            ),
-            const SizedBox(height: MenzilSpace.sm),
-            Text(
-              'Turuncu işaretleri fotoğrafta bu üç noktaya sürükleyin; seçili işareti ok tuşlarıyla ince ayarlayın.',
-              style: MenzilType.caption(c.ink),
             ),
           ],
         ),
-      );
+        const SizedBox(height: MenzilSpace.sm),
+        Container(
+          padding: const EdgeInsets.all(MenzilSpace.sm),
+          decoration: BoxDecoration(
+            color: c.surface,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Semantics(
+            label:
+                'Fotoğrafta işaretlenecek üç nokta: objektif ön ucunun üst kenarı, alt kenarı ve namlu ağzında '
+                'delik merkezi.',
+            child: ExcludeSemantics(
+              child: AspectRatio(
+                aspectRatio:
+                    sightPhotoGuideSize.width / sightPhotoGuideSize.height,
+                child: CustomPaint(painter: SightPhotoGuidePainter(c)),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: MenzilSpace.sm),
+        Text(
+          'Turuncu işaretleri fotoğrafta bu üç noktaya sürükleyin; seçili işareti ok tuşlarıyla ince ayarlayın.',
+          style: MenzilType.caption(c.ink),
+        ),
+      ],
+    ),
+  );
 }
 
 class _NumBadge extends StatelessWidget {
@@ -657,7 +761,14 @@ class _NumBadge extends StatelessWidget {
         height: 22,
         alignment: Alignment.center,
         decoration: BoxDecoration(color: c.cyanInk, shape: BoxShape.circle),
-        child: Text(n, style: TextStyle(color: c.surface, fontSize: 12, fontWeight: FontWeight.w700)),
+        child: Text(
+          n,
+          style: TextStyle(
+            color: c.surface,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
     );
   }
@@ -694,7 +805,14 @@ class _MeasureRow extends StatelessWidget {
             children: [
               _NumBadge(number),
               const SizedBox(width: 10),
-              Expanded(child: Text(label, style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w700, fontSize: 14.5))),
+              Expanded(
+                child: Text(
+                  label,
+                  style: MenzilType.body(
+                    c.ink,
+                  ).copyWith(fontWeight: FontWeight.w700, fontSize: 14.5),
+                ),
+              ),
               const SizedBox(width: 10),
               SizedBox(
                 width: 84,
@@ -706,23 +824,34 @@ class _MeasureRow extends StatelessWidget {
                     key: fieldKey,
                     controller: controller,
                     textAlign: TextAlign.center,
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     onChanged: onChanged,
-                    style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w600, fontSize: 17),
+                    style: MenzilType.body(
+                      c.ink,
+                    ).copyWith(fontWeight: FontWeight.w600, fontSize: 17),
                     decoration: InputDecoration(
                       isDense: true,
                       filled: true,
                       fillColor: c.bg,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
                       border: border,
                       enabledBorder: border,
-                      focusedBorder: border.copyWith(borderSide: BorderSide(color: c.ink, width: 1.5)),
+                      focusedBorder: border.copyWith(
+                        borderSide: BorderSide(color: c.ink, width: 1.5),
+                      ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(width: 4),
-              SizedBox(width: 26, child: Text('mm', style: MenzilType.caption(c.ink2))),
+              SizedBox(
+                width: 26,
+                child: Text('mm', style: MenzilType.caption(c.ink2)),
+              ),
             ],
           ),
           Padding(
@@ -740,7 +869,11 @@ class _ApplyDialog extends StatefulWidget {
   final List<RifleProfile> profiles;
   final double newHeightMm;
   final String? activeProfileId;
-  const _ApplyDialog({required this.profiles, required this.newHeightMm, required this.activeProfileId});
+  const _ApplyDialog({
+    required this.profiles,
+    required this.newHeightMm,
+    required this.activeProfileId,
+  });
 
   @override
   State<_ApplyDialog> createState() => _ApplyDialogState();
@@ -759,7 +892,8 @@ class _ApplyDialogState extends State<_ApplyDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final sorted = [...widget.profiles]..sort((a, b) {
+    final sorted = [...widget.profiles]
+      ..sort((a, b) {
         final pa = a.id == widget.activeProfileId ? 0 : 1;
         final pb = b.id == widget.activeProfileId ? 0 : 1;
         return pa.compareTo(pb);
@@ -781,7 +915,9 @@ class _ApplyDialogState extends State<_ApplyDialog> {
                     RadioListTile<RifleProfile>(
                       value: p,
                       title: Text(p.name),
-                      subtitle: Text(p.id == widget.activeProfileId ? 'Aktif profil' : ''),
+                      subtitle: Text(
+                        p.id == widget.activeProfileId ? 'Aktif profil' : '',
+                      ),
                     ),
                 ],
               ),
@@ -800,7 +936,10 @@ class _ApplyDialogState extends State<_ApplyDialog> {
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: const Text('Vazgeç')),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Vazgeç'),
+        ),
         FilledButton(
           onPressed: sel == null ? null : () => Navigator.pop(context, sel),
           child: const Text('Uygula'),
@@ -859,7 +998,12 @@ class _CapturePageState extends State<_CapturePage> {
       if (mounted) setState(() => _failure = e);
     } catch (_) {
       if (mounted) {
-        setState(() => _failure = const CameraUnavailable(CameraUnavailableReason.error, 'Kamera kullanılamıyor.'));
+        setState(
+          () => _failure = const CameraUnavailable(
+            CameraUnavailableReason.error,
+            'Kamera kullanılamıyor.',
+          ),
+        );
       }
     }
   }
@@ -885,7 +1029,9 @@ class _CapturePageState extends State<_CapturePage> {
     } catch (_) {
       if (mounted) {
         setState(() => _busy = false);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Fotoğraf alınamadı. Tekrar deneyin.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Fotoğraf alınamadı. Tekrar deneyin.')),
+        );
       }
     }
   }
@@ -904,7 +1050,8 @@ class _CapturePageState extends State<_CapturePage> {
             ? MenzilSecondaryButton(
                 label: 'Ayarları aç',
                 icon: Icons.settings_outlined,
-                onPressed: () => ToolsServicesScope.of(context).camera.openSettings(),
+                onPressed: () =>
+                    ToolsServicesScope.of(context).camera.openSettings(),
               )
             : null,
       );
@@ -919,7 +1066,9 @@ class _CapturePageState extends State<_CapturePage> {
           Center(child: _session!.buildPreview(context)),
           IgnorePointer(
             child: CustomPaint(
-              key: Key(widget.side ? 'sight-template-side' : 'sight-template-front'),
+              key: Key(
+                widget.side ? 'sight-template-side' : 'sight-template-front',
+              ),
               painter: _TemplatePainter(side: widget.side, color: c.amber),
             ),
           ),
@@ -966,18 +1115,39 @@ class _TemplatePainter extends CustomPainter {
     final cx = size.width / 2, cy = size.height / 2;
     if (side) {
       // Horizontal barrel axis plus two guides for the objective edges.
-      canvas.drawLine(Offset(size.width * 0.05, cy + size.height * 0.18), Offset(size.width * 0.95, cy + size.height * 0.18), p);
-      canvas.drawLine(Offset(size.width * 0.55, cy - size.height * 0.30), Offset(size.width * 0.95, cy - size.height * 0.30), p);
-      canvas.drawLine(Offset(size.width * 0.55, cy - size.height * 0.05), Offset(size.width * 0.95, cy - size.height * 0.05), p);
+      canvas.drawLine(
+        Offset(size.width * 0.05, cy + size.height * 0.18),
+        Offset(size.width * 0.95, cy + size.height * 0.18),
+        p,
+      );
+      canvas.drawLine(
+        Offset(size.width * 0.55, cy - size.height * 0.30),
+        Offset(size.width * 0.95, cy - size.height * 0.30),
+        p,
+      );
+      canvas.drawLine(
+        Offset(size.width * 0.55, cy - size.height * 0.05),
+        Offset(size.width * 0.95, cy - size.height * 0.05),
+        p,
+      );
     } else {
-      canvas.drawLine(Offset(cx, size.height * 0.1), Offset(cx, size.height * 0.9), p);
-      canvas.drawLine(Offset(size.width * 0.2, cy), Offset(size.width * 0.8, cy), p);
+      canvas.drawLine(
+        Offset(cx, size.height * 0.1),
+        Offset(cx, size.height * 0.9),
+        p,
+      );
+      canvas.drawLine(
+        Offset(size.width * 0.2, cy),
+        Offset(size.width * 0.8, cy),
+        p,
+      );
       canvas.drawCircle(Offset(cx, cy), size.shortestSide * 0.18, p);
     }
   }
 
   @override
-  bool shouldRepaint(covariant _TemplatePainter old) => old.side != side || old.color != color;
+  bool shouldRepaint(covariant _TemplatePainter old) =>
+      old.side != side || old.color != color;
 }
 
 /// Marking page: three taps on the side photo (objective top edge,
@@ -1009,7 +1179,11 @@ class _MarkPageState extends State<_MarkPage> {
   int? _selectedMark;
   String? _error;
 
-  static const _markLabels = ['Objektif üst kenarı', 'Objektif alt kenarı', 'Namlu merkezi'];
+  static const _markLabels = [
+    'Objektif üst kenarı',
+    'Objektif alt kenarı',
+    'Namlu merkezi',
+  ];
 
   @override
   void initState() {
@@ -1041,7 +1215,9 @@ class _MarkPageState extends State<_MarkPage> {
 
   Rect _fitRect(Size box, ui.Image img) {
     final iw = img.width.toDouble(), ih = img.height.toDouble();
-    final scale = (box.width / iw) < (box.height / ih) ? box.width / iw : box.height / ih;
+    final scale = (box.width / iw) < (box.height / ih)
+        ? box.width / iw
+        : box.height / ih;
     final w = iw * scale, h = ih * scale;
     return Rect.fromLTWH((box.width - w) / 2, (box.height - h) / 2, w, h);
   }
@@ -1069,7 +1245,10 @@ class _MarkPageState extends State<_MarkPage> {
     var bestDistance = double.infinity;
     for (var i = 0; i < _marks.length; i++) {
       final m = _marks[i];
-      final displayed = Offset(r.left + m.dx / img.width * r.width, r.top + m.dy / img.height * r.height);
+      final displayed = Offset(
+        r.left + m.dx / img.width * r.width,
+        r.top + m.dy / img.height * r.height,
+      );
       final distance = (displayed - local).distance;
       if (distance < bestDistance) {
         bestDistance = distance;
@@ -1102,162 +1281,203 @@ class _MarkPageState extends State<_MarkPage> {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     final img = _image;
-    final Widget notice =
-          Padding(
-            padding: const EdgeInsets.all(MenzilSpace.md),
-            child: MenzilNotice(
-              key: const Key('sight-mark-prompt'),
-              tone: _error == null ? MenzilNoticeTone.info : MenzilNoticeTone.warning,
-              message: _error ?? (_marks.length < 3 ? _prompts[_marks.length] : 'Üç nokta işaretlendi. Sonucu hesaplayın veya sıfırlayın.'),
-            ),
-          );
-    final Widget chips =
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.md),
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                for (var i = 0; i < 3; i++)
-                  Semantics(
-                    label: '${i + 1}. nokta: ${_markLabels[i]}, ${i < _marks.length ? 'işaretlendi' : 'işaretlenmedi'}',
-                    excludeSemantics: true,
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(minHeight: 44),
-                      child: Container(
-                        key: Key('sight-mark-chip-$i'),
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: i < _marks.length ? c.amberSoft : c.surface2,
-                          border: Border.all(color: i == _marks.length || i == _selectedMark ? c.amber : c.line, width: 1.5),
-                          borderRadius: BorderRadius.circular(MenzilRadius.input),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(i < _marks.length ? Icons.check_circle : Icons.radio_button_unchecked, size: 18, color: c.amberInk),
-                            const SizedBox(width: 6),
-                            Text(_markLabels[i], style: MenzilType.caption(c.ink)),
-                          ],
-                        ),
-                      ),
-                    ),
+    final Widget notice = Padding(
+      padding: const EdgeInsets.all(MenzilSpace.md),
+      child: MenzilNotice(
+        key: const Key('sight-mark-prompt'),
+        tone: _error == null ? MenzilNoticeTone.info : MenzilNoticeTone.warning,
+        message:
+            _error ??
+            (_marks.length < 3
+                ? _prompts[_marks.length]
+                : 'Üç nokta işaretlendi. Sonucu hesaplayın veya sıfırlayın.'),
+      ),
+    );
+    final Widget chips = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.md),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          for (var i = 0; i < 3; i++)
+            Semantics(
+              label:
+                  '${i + 1}. nokta: ${_markLabels[i]}, ${i < _marks.length ? 'işaretlendi' : 'işaretlenmedi'}',
+              excludeSemantics: true,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 44),
+                child: Container(
+                  key: Key('sight-mark-chip-$i'),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
                   ),
-              ],
-            ),
-          );
-    final Widget photo =
-          Expanded(
-            child: _decodeFailed
-                ? const MenzilStateMessage(icon: Icons.broken_image_outlined, message: 'Fotoğraf okunamadı. Yeniden çekin.')
-                : img == null
-                    ? const Center(child: CircularProgressIndicator())
-                    : _notLandscape
-                    ? const MenzilStateMessage(
-                        key: Key('sight-not-landscape'),
-                        icon: Icons.screen_rotation_outlined,
-                        message: 'Yan fotoğraf yatay değil. Telefonu yatay tutarak yeniden çekin; '
-                            'dikey fotoğrafla ölçüm yapılmaz.',
-                      )
-                    : LayoutBuilder(
-                        builder: (context, box) {
-                          final size = Size(box.maxWidth, box.maxHeight);
-                          final r = _fitRect(size, img);
-                          return Semantics(
-                            label: 'Fotoğraf işaretleme alanı. ${_marks.length} / 3 nokta işaretlendi.',
-                            hint: 'Dokunarak işaretlenir. VoiceOver ile hassas işaretleme zordur; yüksekliği kumpasla ölçüp Profil ekranına elle girebilirsiniz.',
-                            child: GestureDetector(
-                            key: const Key('sight-mark-area'),
-                            behavior: HitTestBehavior.opaque,
-                            onTapUp: (d) {
-                              if (_marks.length < 3) {
-                                _tap(d.localPosition, size);
-                                if (_marks.isNotEmpty) setState(() => _selectedMark = _marks.length - 1);
-                              } else {
-                                _selectNearest(d.localPosition, size);
-                              }
-                            },
-                            child: Stack(
-                              children: [
-                                Positioned.fromRect(
-                                  rect: r,
-                                  child: Image.memory(widget.photo, fit: BoxFit.fill, gaplessPlayback: true),
-                                ),
-                                Positioned.fill(
-                                  child: CustomPaint(
-                                    painter: _MarkPainter(
-                                      marks: [
-                                        for (final m in _marks)
-                                          Offset(r.left + m.dx / img.width * r.width, r.top + m.dy / img.height * r.height),
-                                      ],
-                                      color: c.amber,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          );
-                        },
+                  decoration: BoxDecoration(
+                    color: i < _marks.length ? c.amberSoft : c.surface2,
+                    border: Border.all(
+                      color: i == _marks.length || i == _selectedMark
+                          ? c.amber
+                          : c.line,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(MenzilRadius.input),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        i < _marks.length
+                            ? Icons.check_circle
+                            : Icons.radio_button_unchecked,
+                        size: 18,
+                        color: c.amberInk,
                       ),
-          );
-    final Widget nudge = _marks.isEmpty
-        ? const SizedBox.shrink()
-        :
-Semantics(
-              container: true,
-              label: _selectedMark == null ? 'İşaret seçilmedi' : 'Seçili işaret: ${_markLabels[_selectedMark!]}',
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.md),
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  children: [
-                    for (final entry in const [
-                      (Icons.chevron_left, 'Sola', -2.0, 0.0),
-                      (Icons.expand_less, 'Yukarı', 0.0, -2.0),
-                      (Icons.expand_more, 'Aşağı', 0.0, 2.0),
-                      (Icons.chevron_right, 'Sağa', 2.0, 0.0),
-                    ])
-                      IconButton(
-                        tooltip: 'Seçili işareti ${entry.$2.toLowerCase()} taşı',
-                        constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-                        icon: Icon(entry.$1),
-                        onPressed: _selectedMark == null ? null : () => _nudgeSelected(entry.$3, entry.$4),
-                      ),
-                  ],
+                      const SizedBox(width: 6),
+                      Text(_markLabels[i], style: MenzilType.caption(c.ink)),
+                    ],
+                  ),
                 ),
               ),
-            );
-    final Widget actions =
-          Padding(
-            padding: const EdgeInsets.all(MenzilSpace.md),
-            child: Row(
-              children: [
-                Expanded(
-                  child: MenzilSecondaryButton(
-                    key: const Key('sight-mark-reset'),
-                    label: 'Sıfırla',
-                    icon: Icons.restart_alt,
-                    expand: true,
-                    onPressed: _marks.isEmpty ? null : () => setState(() { _marks.clear(); _selectedMark = null; }),
+            ),
+        ],
+      ),
+    );
+    final Widget photo = Expanded(
+      child: _decodeFailed
+          ? const MenzilStateMessage(
+              icon: Icons.broken_image_outlined,
+              message: 'Fotoğraf okunamadı. Yeniden çekin.',
+            )
+          : img == null
+          ? const Center(child: CircularProgressIndicator())
+          : _notLandscape
+          ? const MenzilStateMessage(
+              key: Key('sight-not-landscape'),
+              icon: Icons.screen_rotation_outlined,
+              message:
+                  'Yan fotoğraf yatay değil. Telefonu yatay tutarak yeniden çekin; '
+                  'dikey fotoğrafla ölçüm yapılmaz.',
+            )
+          : LayoutBuilder(
+              builder: (context, box) {
+                final size = Size(box.maxWidth, box.maxHeight);
+                final r = _fitRect(size, img);
+                return Semantics(
+                  label:
+                      'Fotoğraf işaretleme alanı. ${_marks.length} / 3 nokta işaretlendi.',
+                  hint:
+                      'Dokunarak işaretlenir. VoiceOver ile hassas işaretleme zordur; yüksekliği kumpasla ölçüp Profil ekranına elle girebilirsiniz.',
+                  child: GestureDetector(
+                    key: const Key('sight-mark-area'),
+                    behavior: HitTestBehavior.opaque,
+                    onTapUp: (d) {
+                      if (_marks.length < 3) {
+                        _tap(d.localPosition, size);
+                        if (_marks.isNotEmpty)
+                          setState(() => _selectedMark = _marks.length - 1);
+                      } else {
+                        _selectNearest(d.localPosition, size);
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        Positioned.fromRect(
+                          rect: r,
+                          child: Image.memory(
+                            widget.photo,
+                            fit: BoxFit.fill,
+                            gaplessPlayback: true,
+                          ),
+                        ),
+                        Positioned.fill(
+                          child: CustomPaint(
+                            painter: _MarkPainter(
+                              marks: [
+                                for (final m in _marks)
+                                  Offset(
+                                    r.left + m.dx / img.width * r.width,
+                                    r.top + m.dy / img.height * r.height,
+                                  ),
+                              ],
+                              color: c.amber,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: MenzilSpace.sm),
-                Expanded(
-                  child: MenzilPrimaryButton(
-                    key: const Key('sight-mark-compute'),
-                    label: 'Hesapla',
-                    icon: Icons.calculate_outlined,
-                    onPressed: _marks.length == 3 ? _finish : null,
-                  ),
-                ),
-              ],
+                );
+              },
+            ),
+    );
+    final Widget nudge = _marks.isEmpty
+        ? const SizedBox.shrink()
+        : Semantics(
+            container: true,
+            label: _selectedMark == null
+                ? 'İşaret seçilmedi'
+                : 'Seçili işaret: ${_markLabels[_selectedMark!]}',
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.md),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                children: [
+                  for (final entry in const [
+                    (Icons.chevron_left, 'Sola', -2.0, 0.0),
+                    (Icons.expand_less, 'Yukarı', 0.0, -2.0),
+                    (Icons.expand_more, 'Aşağı', 0.0, 2.0),
+                    (Icons.chevron_right, 'Sağa', 2.0, 0.0),
+                  ])
+                    IconButton(
+                      tooltip: 'Seçili işareti ${entry.$2.toLowerCase()} taşı',
+                      constraints: const BoxConstraints(
+                        minWidth: 44,
+                        minHeight: 44,
+                      ),
+                      icon: Icon(entry.$1),
+                      onPressed: _selectedMark == null
+                          ? null
+                          : () => _nudgeSelected(entry.$3, entry.$4),
+                    ),
+                ],
+              ),
             ),
           );
+    final Widget actions = Padding(
+      padding: const EdgeInsets.all(MenzilSpace.md),
+      child: Row(
+        children: [
+          Expanded(
+            child: MenzilSecondaryButton(
+              key: const Key('sight-mark-reset'),
+              label: 'Sıfırla',
+              icon: Icons.restart_alt,
+              expand: true,
+              onPressed: _marks.isEmpty
+                  ? null
+                  : () => setState(() {
+                      _marks.clear();
+                      _selectedMark = null;
+                    }),
+            ),
+          ),
+          const SizedBox(width: MenzilSpace.sm),
+          Expanded(
+            child: MenzilPrimaryButton(
+              key: const Key('sight-mark-compute'),
+              label: 'Hesapla',
+              icon: Icons.calculate_outlined,
+              onPressed: _marks.length == 3 ? _finish : null,
+            ),
+          ),
+        ],
+      ),
+    );
     // Short landscape (the camera flow returns here while still landscape):
     // image on the left, controls in a scrolling side panel, so the photo keeps
     // its height and nothing overflows. Portrait keeps the stacked layout.
-    final landscape = MediaQuery.orientationOf(context) == Orientation.landscape;
+    final landscape =
+        MediaQuery.orientationOf(context) == Orientation.landscape;
     return Scaffold(
       appBar: const MenzilSubPageBar(title: 'Noktaları işaretle'),
       body: SafeArea(
@@ -1300,7 +1520,10 @@ class _MarkPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _MarkPainter old) => old.marks.length != marks.length || old.color != color || !_sameMarks(old.marks, marks);
+  bool shouldRepaint(covariant _MarkPainter old) =>
+      old.marks.length != marks.length ||
+      old.color != color ||
+      !_sameMarks(old.marks, marks);
 
   static bool _sameMarks(List<Offset> a, List<Offset> b) {
     if (a.length != b.length) return false;
@@ -1319,7 +1542,8 @@ class _ObjectiveDiameterDialog extends StatefulWidget {
   const _ObjectiveDiameterDialog();
 
   @override
-  State<_ObjectiveDiameterDialog> createState() => _ObjectiveDiameterDialogState();
+  State<_ObjectiveDiameterDialog> createState() =>
+      _ObjectiveDiameterDialogState();
 }
 
 class _ObjectiveDiameterDialogState extends State<_ObjectiveDiameterDialog> {
@@ -1354,11 +1578,17 @@ class _ObjectiveDiameterDialogState extends State<_ObjectiveDiameterDialog> {
         ],
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: const Text('Vazgeç')),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Vazgeç'),
+        ),
         FilledButton(
           onPressed: () {
-            final v = double.tryParse(_controller.text.trim().replaceAll(',', '.'));
-            if (v != null && v.isFinite && v > 0 && v <= 120) Navigator.pop(context, v);
+            final v = double.tryParse(
+              _controller.text.trim().replaceAll(',', '.'),
+            );
+            if (v != null && v.isFinite && v > 0 && v <= 120)
+              Navigator.pop(context, v);
           },
           child: const Text('Tamam'),
         ),
