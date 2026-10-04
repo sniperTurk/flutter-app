@@ -94,7 +94,8 @@ jobs:
         run: |
           git config user.name "ci-diagnostics"
           git config user.email "ci-diagnostics@users.noreply.github.com"
-          git checkout -b ci/diagnostics
+          OUT_BRANCH="ci/diagnostics-${GITHUB_REF_NAME//\//-}"
+          git checkout -b "$OUT_BRANCH"
           git add -A lib test integration_test tools ci-logs
           git commit -m "ci diagnostics: real Flutter 3.47.2 output (UNVERIFIED)" || true
-          git push -f origin ci/diagnostics
+          git push -f origin "$OUT_BRANCH"
