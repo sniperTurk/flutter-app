@@ -31,6 +31,8 @@ jobs:
           S=ios-logs/status.txt
           flutter pub get > ios-logs/pub-get.log 2>&1; echo "pub get: $?" >> $S
           tools/bootstrap_ios_scaffold.sh > ios-logs/scaffold.log 2>&1; echo "scaffold: $?" >> $S
+          git status --short > ios-logs/post-scaffold-status.log 2>&1
+          git diff -- pubspec.lock pubspec.yaml analysis_options.yaml > ios-logs/post-scaffold-diff.log 2>&1
           flutter build ios --simulator --debug > ios-logs/build.log 2>&1; echo "build: $?" >> $S
           UDID="$(python3 tools/select_ios_simulator.py 2> ios-logs/select.err)"; echo "select udid: '$UDID' rc=$?" >> $S
           xcrun simctl list devices available > ios-logs/devices.log 2>&1
