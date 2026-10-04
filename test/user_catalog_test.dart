@@ -30,7 +30,8 @@ class _KillOnUpsert extends ManualCatalogStore {
 /// A manual catalog whose undo (remove) fails.
 class _RemoveFails extends ManualCatalogStore {
   @override
-  Future<void> remove(String id) => throw StateError('remove failed');
+  Future<void> discardUnconfirmedCopy(String id) =>
+      throw StateError('undo failed');
 }
 
 const _rifle = <String, dynamic>{
@@ -432,6 +433,65 @@ void main() {
       await ManualCatalogStore().remove('user-1');
       expect((await UserCatalogLoader().load()).migrated, 0);
       expect(await ManualCatalogStore().all(), isEmpty);
+    });
+
+    test('user deletes the unconfirmed copy in the SAME session, then the app '
+        'restarts: the deletion is preserved (no resurrection)', () async {
+      SharedPreferences.setMockInitialValues({UserCatalogStore.key: legacy});
+      final first = await UserCatalogLoader(
+        manual: _RemoveFails(),
+        writeLedger: failAfter(1), // pending stored; confirm + undo fail
+      ).load();
+      expect(first.migrated, 0);
+      expect(await ManualCatalogStore().all(), hasLength(1));
+
+      await ManualCatalogStore().remove('user-1'); // the user's decision
+      expect(await ManualCatalogStore().all(), isEmpty);
+
+      final restart = await UserCatalogLoader().load();
+      expect(restart.migrated, 0);
+      expect(restart.warning, isNull);
+      expect(await ManualCatalogStore().all(), isEmpty);
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString(UserCatalogStore.key), legacy, reason: 'legacy kept');
+    });
+
+    test('deletion with a ledger that never works is still preserved', () async {
+      SharedPreferences.setMockInitialValues({
+        UserCatalogStore.key: legacy,
+        ManualCatalogStore.key: jsonEncode([
+          {
+            'id': 'user-1',
+            'kind': 'rifle',
+            'platform': 'pcp',
+            'brand': 'Eski',
+            'model': 'Tüfek',
+            'caliberMm': 5.5,
+            'sourceName': 'Kullanıcı girdisi',
+          },
+        ]),
+      });
+      await ManualCatalogStore().remove('user-1');
+      final result = await UserCatalogLoader(
+        writeLedger: (prefs, ids) async => false,
+      ).load();
+      expect(result.migrated, 0);
+      expect(await ManualCatalogStore().all(), isEmpty);
+    });
+
+    test('a deletion that cannot be recorded is refused and deletes nothing',
+        () async {
+      SharedPreferences.setMockInitialValues({
+        ManualCatalogStore.key: jsonEncode([_rifle]),
+      });
+      // Make the tombstone key unwritable: a String already lives there.
+      final prefs = await SharedPreferences.getInstance();
+      expect(await prefs.setString(ManualCatalogStore.removedKey, 'x'), isTrue);
+      await expectLater(
+        ManualCatalogStore().remove('manual_rifle_1'),
+        throwsA(anything),
+      );
+      expect(await ManualCatalogStore().all(), hasLength(1));
     });
   });
 

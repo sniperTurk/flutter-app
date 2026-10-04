@@ -104,9 +104,9 @@ class UserCatalogLoader {
   ///    (copy had happened), and one whose record is absent is simply copied
   ///    again (copy had not happened). A record can therefore neither be lost
   ///    nor copied back after a user deleted it.
-  /// Residual case: confirmation write fails AND undoing the copy fails AND the
-  /// user deletes that record in the same session before restart; then the
-  /// start-up cannot tell it from "never copied" and copies it again.
+  /// A record the user deletes is additionally recorded by
+  /// [ManualCatalogStore.remove] (before the removal happens), and such ids are
+  /// never copied again, even if the ledger could not be written at all.
   Future<int> migrateLegacy() async {
     final old = await legacy.all();
     if (old.isEmpty) return 0;
@@ -121,6 +121,7 @@ class UserCatalogLoader {
         if (e.startsWith(_pendingPrefix)) e.substring(_pendingPrefix.length),
     };
     final existing = {for (final e in await manual.all()) e['id']};
+    final removed = await manual.removedIds();
     var copied = 0;
     var skipped = 0;
 
@@ -132,6 +133,14 @@ class UserCatalogLoader {
     for (final item in old) {
       final id = item['id'];
       if (id is! String || done.contains(id)) continue;
+      if (removed.contains(id) && !existing.contains(id)) {
+        // The user deleted this record. Never copy it back, whatever state the
+        // ledger is in (including a pending id left by an interruption).
+        done.add(id);
+        pending.remove(id);
+        await persist(); // best effort: the deletion record already protects it
+        continue;
+      }
       if (existing.contains(id)) {
         // Present in the manual catalog: confirm it so a later deletion is
         // respected. If that cannot be stored, report instead of trusting.
@@ -179,7 +188,7 @@ class UserCatalogLoader {
       done.remove(id);
       pending.add(id);
       try {
-        await manual.remove(id);
+        await manual.discardUnconfirmedCopy(id);
       } catch (_) {
         // Could not undo: the pending id stays; start-up confirms it because
         // the record is present, so nothing is duplicated or lost.

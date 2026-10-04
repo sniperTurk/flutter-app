@@ -142,12 +142,38 @@ class ManualCatalogStore {
     }
   }
 
+  /// Ids the user deleted. Written BEFORE the record is removed (and removal is
+  /// refused when it cannot be written), so a start-up legacy migration can
+  /// never copy a deleted record back, whatever state its own ledger is in.
+  static const removedKey = 'sniper_turk.manual_catalog.v1.removed_ids';
+
+  Future<Set<String>> removedIds() async {
+    final prefs = await SharedPreferences.getInstance();
+    return {...?prefs.getStringList(removedKey)};
+  }
+
   Future<void> remove(String id) => _mutate((items) {
     items.removeWhere((e) => e['id'] == id);
+  }, tombstone: id);
+
+  /// Removes a record WITHOUT recording a user deletion. Only for undoing a
+  /// copy that the migration made itself and could not confirm.
+  Future<void> discardUnconfirmedCopy(String id) => _mutate((items) {
+    items.removeWhere((e) => e['id'] == id);
   });
-  Future<void> _mutate(void Function(List<Map<String, dynamic>>) change) =>
+
+  Future<void> _mutate(
+    void Function(List<Map<String, dynamic>>) change, {
+    String? tombstone,
+  }) =>
       _enqueueMutation(() async {
       final prefs = await SharedPreferences.getInstance();
+      if (tombstone != null) {
+        final removed = {...?prefs.getStringList(removedKey), tombstone};
+        if (!await prefs.setStringList(removedKey, removed.toList()..sort())) {
+          throw StateError('Removal could not be recorded; nothing was deleted');
+        }
+      }
       // Already inside the mutation queue: read privately to avoid recursively
       // enqueueing recovery and deadlocking on the same process-wide tail.
       final items = await _read();
