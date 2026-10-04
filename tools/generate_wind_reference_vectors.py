@@ -53,6 +53,9 @@ def main() -> None:
         )
     except Exception as exc:
         fail(f"pinned package API could not be imported: {exc}")
+    api = dict(Ammo=Ammo, Angular=Angular, Atmo=Atmo, Calculator=Calculator, Distance=Distance,
+               DragModel=DragModel, Pressure=Pressure, Shot=Shot, TableG1=TableG1, TableG7=TableG7,
+               Temperature=Temperature, Velocity=Velocity, Weapon=Weapon, Wind=Wind)
 
     output = {
         "schema": 1,
@@ -63,41 +66,58 @@ def main() -> None:
         "cases": [],
     }
     for c in policy["cases"]:
-        table = TableG1 if c["model"] == "G1" else TableG7
-        atmo_def = policy["atmospheres"][c["atmosphere"]]
-        if c["atmosphere"] == "icao":
-            atmosphere = Atmo.icao()
-        else:
-            atmosphere = Atmo(
-                altitude=Distance.Meter(atmo_def["altitude_m"]),
-                pressure=Pressure.hPa(atmo_def["pressure_hpa"]),
-                temperature=Temperature.Celsius(atmo_def["temperature_c"]),
-                humidity=atmo_def["humidity_percent"],
-            )
-        dm = DragModel(c["bc"], table, weight=c["grain"])
-        ammo = Ammo(dm, mv=Velocity.MPS(c["mv"]))
-        # twist = 0 disables the Litz spin-drift term, so windage is wind only.
-        weapon = Weapon(sight_height=Distance.Millimeter(c["sight_mm"]), twist=0)
-        calc = Calculator(engine="rk4_engine")
-        # Zero in still air (same as SNIPER TÜRK's separate zero environment).
-        calc.set_weapon_zero(Shot(weapon=weapon, ammo=ammo, atmo=atmosphere), Distance.Meter(c["zero"]))
-        direction_from = (180.0 - c["wind_direction_deg"]) % 360.0
-        wind = Wind(velocity=Velocity.MPS(c["wind_mps"]), direction_from=Angular.Degree(direction_from))
-        winds = [wind] if c["wind_mps"] > 0 else []
-        shot = Shot(weapon=weapon, ammo=ammo, atmo=atmosphere, winds=winds)
-        hit = calc.fire(shot, trajectory_range=Distance.Meter(max(c["ranges"])), trajectory_step=Distance.Meter(1))
-        points = []
-        for r in c["ranges"]:
-            p = hit.get_at("distance", Distance.Meter(r))
-            points.append({
-                "range_m": r,
-                "windage_m": p.windage >> Distance.Meter,
-                "height_m": p.height >> Distance.Meter,
-                "velocity_mps": p.velocity >> Velocity.MPS,
-                "time_s": p.time,
-            })
-        output["cases"].append({"id": c["id"], "py_direction_from_deg": direction_from, "points": points})
+        try:
+            output["cases"].append(generate_case(c, policy, api))
+        except SystemExit:
+            raise
+        except Exception as exc:  # report which frozen case the reference could not produce
+            print(f"::error title=Reference generation::{c['id']}: {exc!r}")
+            fail(f"{c['id']}: {exc!r}")
+    write(output)
 
+
+def generate_case(c: dict, policy: dict, api: dict) -> dict:
+    (Ammo, Angular, Atmo, Calculator, Distance, DragModel, Pressure, Shot,
+     TableG1, TableG7, Temperature, Velocity, Weapon, Wind) = (
+        api[k] for k in ("Ammo", "Angular", "Atmo", "Calculator", "Distance", "DragModel", "Pressure",
+                         "Shot", "TableG1", "TableG7", "Temperature", "Velocity", "Weapon", "Wind"))
+    table = TableG1 if c["model"] == "G1" else TableG7
+    atmo_def = policy["atmospheres"][c["atmosphere"]]
+    if c["atmosphere"] == "icao":
+        atmosphere = Atmo.icao()
+    else:
+        atmosphere = Atmo(
+            altitude=Distance.Meter(atmo_def["altitude_m"]),
+            pressure=Pressure.hPa(atmo_def["pressure_hpa"]),
+            temperature=Temperature.Celsius(atmo_def["temperature_c"]),
+            humidity=atmo_def["humidity_percent"],
+        )
+    dm = DragModel(c["bc"], table, weight=c["grain"])
+    ammo = Ammo(dm, mv=Velocity.MPS(c["mv"]))
+    # twist = 0 disables the Litz spin-drift term, so windage is wind only.
+    weapon = Weapon(sight_height=Distance.Millimeter(c["sight_mm"]), twist=0)
+    calc = Calculator(engine="rk4_engine")
+    # Zero in still air (same as SNIPER TÜRK's separate zero environment).
+    calc.set_weapon_zero(Shot(weapon=weapon, ammo=ammo, atmo=atmosphere), Distance.Meter(c["zero"]))
+    direction_from = (180.0 - c["wind_direction_deg"]) % 360.0
+    wind = Wind(velocity=Velocity.MPS(c["wind_mps"]), direction_from=Angular.Degree(direction_from))
+    winds = [wind] if c["wind_mps"] > 0 else []
+    shot = Shot(weapon=weapon, ammo=ammo, atmo=atmosphere, winds=winds)
+    hit = calc.fire(shot, trajectory_range=Distance.Meter(max(c["ranges"])), trajectory_step=Distance.Meter(1))
+    points = []
+    for r in c["ranges"]:
+        p = hit.get_at("distance", Distance.Meter(r))
+        points.append({
+            "range_m": r,
+            "windage_m": p.windage >> Distance.Meter,
+            "height_m": p.height >> Distance.Meter,
+            "velocity_mps": p.velocity >> Velocity.MPS,
+            "time_s": p.time,
+        })
+    return {"id": c["id"], "py_direction_from_deg": direction_from, "points": points}
+
+
+def write(output: dict) -> None:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp = tempfile.mkstemp(dir=OUT.parent, prefix=f".{OUT.name}.", suffix=".tmp")
     try:
