@@ -251,4 +251,26 @@ void main() {
     expect((await store.all()).single.name, 'Yeni Profil');
     expect(find.text('Yeni Profil'), findsOneWidget);
   });
+
+  testWidgets('MenzilCard hosts ListTile children without ink assertion', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: Scaffold(
+          body: MenzilCard(
+            child: SwitchListTile(
+              value: true,
+              onChanged: (_) {},
+              title: const Text('Balistik birimleri'),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    expect(find.text('Balistik birimleri'), findsOneWidget);
+  });
 }
