@@ -34,6 +34,11 @@ jobs:
       - name: Run dependency-free Dart source hygiene
         run: python3 tools/offline_dart_lint.py
 
+      - name: Install pinned scientific stack for the offline solver cross-check
+        # tools/offline_solver_crosscheck.py (run by the regression suite) needs
+        # scipy; a missing module must fail the gate, not be skipped.
+        run: python3 -m pip install --disable-pip-version-check scipy==1.18.1 numpy==2.5.3
+
       - name: Run complete offline Python regression suite
         # Discovery is intentional: every tools/test_*.py regression guard must
         # enter the production gate automatically instead of relying on a
