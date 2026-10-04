@@ -83,7 +83,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   }
 
   Future<void> _recover() async {
-    final recovery = store;
+    // ProfileRecovery is not a subtype of ProfileStore, so promote via Object.
+    final Object recovery = store;
     if (recovery is! ProfileRecovery) return;
     final reset = await showProfileRecoveryDialog(context, recovery);
     if (reset && mounted) await _changed();
