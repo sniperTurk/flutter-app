@@ -1,0 +1,5 @@
+ M analysis_options.yaml
+?? .metadata
+?? ios-logs/
+?? ios/
+?? test/widget_test.dart
