@@ -34,6 +34,7 @@ jobs:
       - name: Run real chain (keep going on failure)
         shell: bash
         run: |
+          set +e
           mkdir -p ci-logs
           { flutter --version; dart --version; } > ci-logs/versions.txt 2>&1 || true
           python3 tools/verify_flutter_toolchain.py > ci-logs/toolchain.txt 2>&1 || true
