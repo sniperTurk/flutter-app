@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
+import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
@@ -134,4 +136,43 @@ void main() {
       expect(copies.values, containsAll(['{broken-primary', '[broken-backup']));
     },
   );
+  testWidgets('SAMEFILE HomeScreen error card (tabs hidden) still offers recovery', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({
+      _key: '{broken-primary',
+      _backupKey: '[broken-backup',
+    });
+    final before = await _stringsWithPrefix(_key);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: HomeScreen(
+          profileStore: PersistentProfileStore(),
+          activeProfileStore: MemoryActiveProfileStore(),
+        ),
+      ),
+    );
+    await _settle(tester);
+    expect(find.text('Tekrar dene'), findsOneWidget);
+    expect(find.byKey(const Key('home-recover')), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('home-recover')));
+    await _settle(tester);
+    await tester.tap(find.text('Kapat'));
+    await _settle(tester);
+    expect(await _stringsWithPrefix(_key), before, reason: 'Kapat: no write');
+
+    await tester.tap(find.byKey(const Key('home-recover')));
+    await _settle(tester);
+    await tester.tap(find.byKey(const Key('recovery-start-empty')));
+    await _settle(tester);
+    await tester.tap(find.byKey(const Key('recovery-confirm-empty')));
+    await _settle(tester);
+
+    expect(find.byKey(const Key('home-recover')), findsNothing);
+    expect(find.text('Tekrar dene'), findsNothing);
+    final copies = await _stringsWithPrefix('$_key.corrupt.');
+    expect(copies.values, containsAll(['{broken-primary', '[broken-backup']));
+  });
 }

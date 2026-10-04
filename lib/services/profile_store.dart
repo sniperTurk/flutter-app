@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/domain.dart';
@@ -48,11 +49,29 @@ class PersistentProfileStore implements ProfileStore, ProfileRecovery {
   // error cannot permanently poison later mutations.
   static Future<void> _mutationTail = Future<void>.value();
 
+  static int _seq = 0;
   Future<T> _enqueueMutation<T>(Future<T> Function() operation) {
-    final result = _mutationTail.then((_) => operation());
-    _mutationTail = result.then<void>((_) {}, onError: (_, __) {});
+    final n = ++_seq;
+    // ignore: avoid_print
+    print('PSTORE enqueue#$n zone=${Zone.current.hashCode} tailDone=$_tailDone');
+    final result = _mutationTail.then((_) {
+      // ignore: avoid_print
+      print('PSTORE start#$n');
+      return operation();
+    });
+    _tailDone = false;
+    _mutationTail = result.then<void>((_) {
+      // ignore: avoid_print
+      print('PSTORE done#$n');
+      _tailDone = true;
+    }, onError: (Object e, __) {
+      // ignore: avoid_print
+      print('PSTORE fail#$n $e');
+      _tailDone = true;
+    });
     return result;
   }
+  static bool _tailDone = true;
 
   List<RifleProfile>? _decodeCollection(String? raw) {
     if (raw == null) return const [];
@@ -105,10 +124,14 @@ class PersistentProfileStore implements ProfileStore, ProfileRecovery {
 
   @override
   Future<List<RifleProfile>> all() async {
+    // ignore: avoid_print
+    print('PSTORE all() zone=${Zone.current.hashCode}');
     // A normal read is lock-free. Only recovery mutates storage, so serialize
     // that repair with save/remove and re-read inside the queue. This prevents
     // a stale corrupt-primary recovery from overwriting a concurrent save.
     final prefs = await SharedPreferences.getInstance();
+    // ignore: avoid_print
+    print('PSTORE all() got prefs');
     final primaryRaw = prefs.getString(_key);
     if (primaryRaw != null) {
       final primary = _decodeCollection(primaryRaw);
