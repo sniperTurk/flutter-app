@@ -157,7 +157,9 @@ def main() -> None:
         calc.set_weapon_zero(shot, Distance.Meter(c["zero"]))
         hit = calc.fire(
             shot,
-            trajectory_range=Distance.Meter(max(ranges)),
+            # +1 m: the last sample can land at e.g. 149.99999999999972 m, which
+            # makes get_at() at the exact maximum range fail (not a physics limit).
+            trajectory_range=Distance.Meter(max(ranges) + 1),
             trajectory_step=Distance.Meter(1),
         )
         points = []

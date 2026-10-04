@@ -106,7 +106,12 @@ def generate_case(c: dict, policy: dict, api: dict) -> dict:
     wind = Wind(velocity=Velocity.MPS(c["wind_mps"]), direction_from=Angular.Degree(direction_from))
     winds = [wind] if c["wind_mps"] > 0 else []
     shot = Shot(weapon=weapon, ammo=ammo, atmo=atmosphere, winds=winds)
-    hit = calc.fire(shot, trajectory_range=Distance.Meter(max(c["ranges"])), trajectory_step=Distance.Meter(1))
+    # Root cause of "Trajectory does not reach distance = 150.0m" (verified with
+    # py-ballisticcalc 2.2.10): the last sample sits at 149.99999999999972 m (float
+    # rounding), and get_at() needs a sample at or beyond the requested distance to
+    # interpolate. Simulating one metre further changes no value; ranges are still
+    # interpolated at their exact distance and nothing is relaxed.
+    hit = calc.fire(shot, trajectory_range=Distance.Meter(max(c["ranges"]) + 1), trajectory_step=Distance.Meter(1))
     points = []
     for r in c["ranges"]:
         p = hit.get_at("distance", Distance.Meter(r))
