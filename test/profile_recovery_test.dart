@@ -155,6 +155,11 @@ void main() {
       ),
     );
     await _settle(tester);
+    // ignore: avoid_print
+    print(
+      'HOME-DEBUG texts=${tester.widgetList<Text>(find.byType(Text)).map((t) => t.data).toList()} '
+      'spinner=${find.byType(CircularProgressIndicator).evaluate().length}',
+    );
     expect(find.text('Tekrar dene'), findsOneWidget);
     expect(find.byKey(const Key('home-recover')), findsOneWidget);
 
