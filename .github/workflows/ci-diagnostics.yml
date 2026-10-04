@@ -1,0 +1,59 @@
+name: CI diagnostics (never a release artifact)
+
+# Runs the real Flutter 3.47.2 chain WITHOUT stopping at the first failure and
+# pushes every output (versions, format patch, analyzer log, test log, resolver
+# lockfile) to the branch `ci/diagnostics`, so real compiler/analyzer/test
+# results can be read from git. Nothing produced here is a verified release
+# artifact: the lockfile here is UNVERIFIED until bootstrap-lockfile passes.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Set up pinned Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Run real chain (keep going on failure)
+        shell: bash
+        run: |
+          mkdir -p ci-logs
+          { flutter --version; dart --version; } > ci-logs/versions.txt 2>&1 || true
+          python3 tools/verify_flutter_toolchain.py > ci-logs/toolchain.txt 2>&1 || true
+          rm -f pubspec.lock
+          flutter pub get > ci-logs/pub-get.log 2>&1; echo "pub get exit: $?" >> ci-logs/status.txt
+          cp pubspec.lock ci-logs/pubspec.lock.UNVERIFIED || true
+          dart format --output=none --set-exit-if-changed lib test integration_test tools > ci-logs/format-check.log 2>&1; echo "format check exit: $?" >> ci-logs/status.txt
+          dart format lib test integration_test tools > ci-logs/format-apply.log 2>&1 || true
+          git diff -- lib test integration_test tools > ci-logs/dart-format.patch || true
+          flutter analyze --fatal-infos --fatal-warnings > ci-logs/analyze.log 2>&1; echo "analyze exit: $?" >> ci-logs/status.txt
+          flutter test --reporter=expanded > ci-logs/test.log 2>&1; echo "test exit: $?" >> ci-logs/status.txt
+          cat ci-logs/status.txt
+
+      - name: Push diagnostics to branch
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "ci-diagnostics"
+          git config user.email "ci-diagnostics@users.noreply.github.com"
+          git checkout -b ci/diagnostics
+          git add -A lib test integration_test tools ci-logs
+          git commit -m "ci diagnostics: real Flutter 3.47.2 output (UNVERIFIED)" || true
+          git push -f origin ci/diagnostics
