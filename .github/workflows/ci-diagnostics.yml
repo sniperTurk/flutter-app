@@ -49,6 +49,32 @@ jobs:
           flutter test --reporter=expanded > ci-logs/test.log 2>&1; echo "test exit: $?" >> ci-logs/status.txt
           cat ci-logs/status.txt
 
+      # Reachable copy of a lockfile, ONLY when this exact run passed format,
+      # analyze and tests (all exit 0) with it, using the same provenance tools
+      # as bootstrap-lockfile. Review, then commit to main.
+      - name: Publish lockfile to ci/lockfile (only if every check passed)
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$(grep -c ' exit: 0$' ci-logs/status.txt)" != "5" ]; then
+            echo "not all checks passed; no lockfile published"; exit 0
+          fi
+          python3 tools/write_lockfile_provenance.py --flutter-version 3.47.2
+          python3 tools/verify_lockfile_provenance.py
+          shasum -a 256 pubspec.lock lockfile-provenance.txt > lockfile-sha256.txt
+          mkdir -p /tmp/lock && cp pubspec.lock lockfile-provenance.txt lockfile-sha256.txt /tmp/lock/
+          git config user.name "ci-diagnostics"
+          git config user.email "ci-diagnostics@users.noreply.github.com"
+          git stash -u -q || true
+          git checkout -q --orphan ci/lockfile
+          git rm -rf -q . || true
+          cp /tmp/lock/* .
+          git add pubspec.lock lockfile-provenance.txt lockfile-sha256.txt
+          git commit -q -m "lockfile from run ${GITHUB_RUN_ID} @ ${GITHUB_SHA}; format+analyze+test all exit 0"
+          git push -f origin ci/lockfile
+          git checkout -q -f "$GITHUB_SHA"
+          git stash pop -q || true
+
       - name: Push diagnostics to branch
         if: always()
         shell: bash
