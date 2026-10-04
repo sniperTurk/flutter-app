@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
-          python-version: '3.12.11'
+          python-version: '3.12'
 
       - name: Set up pinned Flutter
         uses: subosito/flutter-action@v2
