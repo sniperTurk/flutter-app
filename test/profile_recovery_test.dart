@@ -21,9 +21,14 @@ Future<Map<String, String>> _stringsWithPrefix(String prefix) async {
 // SharedPreferences completes on real async I/O, which FakeAsync does not
 // advance on its own: give the real event loop a moment before pumping.
 Future<void> _settle(WidgetTester tester) async {
-  await tester.runAsync(
-    () => Future<void>.delayed(const Duration(milliseconds: 60)),
-  );
+  // Several real-I/O rounds: screens chain multiple awaited store reads, and a
+  // loading spinner keeps pumpAndSettle from ever settling until they finish.
+  for (var i = 0; i < 6; i++) {
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 40)),
+    );
+    await tester.pump(const Duration(milliseconds: 50));
+  }
   await tester.pumpAndSettle();
 }
 
