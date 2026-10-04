@@ -162,7 +162,7 @@ def main() -> None:
         )
         points = []
         for r in ranges:
-            p = hit.get_at(Distance.Meter(r))
+            p = hit.get_at("distance", Distance.Meter(r))
             points.append({
                 "range_m": r,
                 "height_m": p.height >> Distance.Meter,
