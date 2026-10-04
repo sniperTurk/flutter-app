@@ -66,29 +66,32 @@ void main() {
     expect(await store.all(), isEmpty);
   });
 
-  test('the lock serialises, keeps order and is released after errors', () async {
-    final lock = SerialMutationLock();
-    final log = <String>[];
-    final gate = Completer<void>();
-    final first = lock.run(() async {
-      log.add('first-start');
-      await gate.future;
-      log.add('first-end');
-    });
-    final second = lock.run(() async {
-      log.add('second');
-      throw StateError('boom');
-    });
-    final third = lock.run(() async => log.add('third'));
-    await Future<void>.delayed(Duration.zero);
-    expect(log, ['first-start']);
-    expect(lock.isHeld, isTrue);
+  test(
+    'the lock serialises, keeps order and is released after errors',
+    () async {
+      final lock = SerialMutationLock();
+      final log = <String>[];
+      final gate = Completer<void>();
+      final first = lock.run(() async {
+        log.add('first-start');
+        await gate.future;
+        log.add('first-end');
+      });
+      final second = lock.run(() async {
+        log.add('second');
+        throw StateError('boom');
+      });
+      final third = lock.run(() async => log.add('third'));
+      await Future<void>.delayed(Duration.zero);
+      expect(log, ['first-start']);
+      expect(lock.isHeld, isTrue);
 
-    gate.complete();
-    await first;
-    await expectLater(second, throwsStateError);
-    await third;
-    expect(log, ['first-start', 'first-end', 'second', 'third']);
-    expect(lock.isHeld, isFalse);
-  });
+      gate.complete();
+      await first;
+      await expectLater(second, throwsStateError);
+      await third;
+      expect(log, ['first-start', 'first-end', 'second', 'third']);
+      expect(lock.isHeld, isFalse);
+    },
+  );
 }

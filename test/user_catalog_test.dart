@@ -288,7 +288,9 @@ void main() {
         },
       ]);
       SharedPreferences.setMockInitialValues({UserCatalogStore.key: legacy});
-      final failing = UserCatalogLoader(writeLedger: (prefs, ids) async => false);
+      final failing = UserCatalogLoader(
+        writeLedger: (prefs, ids) async => false,
+      );
 
       final first = await failing.load();
       expect(first.migrated, 0);
