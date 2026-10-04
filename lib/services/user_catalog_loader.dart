@@ -85,35 +85,61 @@ class UserCatalogLoader {
   /// by the next start-up migration.
   static const migratedIdsKey = 'sniper_turk.user_catalog.v1.migrated_ids';
 
-  /// Copies every legacy record that has not been migrated before and whose
-  /// id is not yet in the manual catalog. Idempotent. Returns the number
-  /// copied; throws [LegacyMigrationIncomplete] when some could not be copied.
+  /// Ledger entries share one string list so every state change is a single
+  /// write: a bare id means "copied and confirmed"; `pending:<id>` means "copy
+  /// started, not confirmed". A pending id is never treated as migrated unless
+  /// the record is really present in the manual catalog.
+  static const _pendingPrefix = 'pending:';
+
+  /// Copies every legacy record that has not been migrated before. Idempotent.
+  /// Returns the number copied; throws [LegacyMigrationIncomplete] when some
+  /// could not be copied. Legacy records are never deleted.
   ///
-  /// Ordering matters for deletions: the ledger entry is persisted BEFORE the
-  /// record is copied. If the ledger cannot be written, that record is not
-  /// copied at all (reported as not migrated; the legacy record stays intact),
-  /// so a record the user later deletes can never be copied back by a start-up
-  /// migration whose ledger write had failed.
+  /// Interruption safety (kill, crash or failed write at any point):
+  ///  * intent (`pending:<id>`) is persisted BEFORE the copy; if that write
+  ///    fails nothing is copied;
+  ///  * after the copy the entry becomes a confirmed id in one write; if that
+  ///    write fails the fresh copy is removed again, so state is "not copied";
+  ///  * on the next start a pending id whose record is present is confirmed
+  ///    (copy had happened), and one whose record is absent is simply copied
+  ///    again (copy had not happened). A record can therefore neither be lost
+  ///    nor copied back after a user deleted it.
+  /// Residual case: confirmation write fails AND undoing the copy fails AND the
+  /// user deletes that record in the same session before restart; then the
+  /// start-up cannot tell it from "never copied" and copies it again.
   Future<int> migrateLegacy() async {
     final old = await legacy.all();
     if (old.isEmpty) return 0;
     final prefs = await SharedPreferences.getInstance();
-    final ledger = {...?prefs.getStringList(migratedIdsKey)};
+    final stored = prefs.getStringList(migratedIdsKey) ?? const <String>[];
+    final done = <String>{
+      for (final e in stored)
+        if (!e.startsWith(_pendingPrefix)) e,
+    };
+    final pending = <String>{
+      for (final e in stored)
+        if (e.startsWith(_pendingPrefix)) e.substring(_pendingPrefix.length),
+    };
     final existing = {for (final e in await manual.all()) e['id']};
     var copied = 0;
     var skipped = 0;
 
-    Future<bool> persist() => _writeLedger(prefs, ledger.toList()..sort());
+    Future<bool> persist() => _writeLedger(prefs, [
+      ...(done.toList()..sort()),
+      ...(pending.toList()..sort()).map((id) => '$_pendingPrefix$id'),
+    ]);
 
     for (final item in old) {
       final id = item['id'];
-      if (id is! String || ledger.contains(id)) continue;
+      if (id is! String || done.contains(id)) continue;
       if (existing.contains(id)) {
-        // Already present: remember it so a later deletion is respected. If
-        // that cannot be stored, say so instead of pretending it is safe.
-        ledger.add(id);
+        // Present in the manual catalog: confirm it so a later deletion is
+        // respected. If that cannot be stored, report instead of trusting.
+        done.add(id);
+        final wasPending = pending.remove(id);
         if (!await persist()) {
-          ledger.remove(id);
+          done.remove(id);
+          if (wasPending) pending.add(id);
           skipped++;
         }
         continue;
@@ -123,24 +149,42 @@ class UserCatalogLoader {
         skipped++;
         continue;
       }
-      ledger.add(id);
+      // 1. Record the intent first; without it nothing is copied.
+      pending.add(id);
       if (!await persist()) {
-        ledger.remove(id);
+        pending.remove(id);
         skipped++;
         continue;
       }
+      // 2. Copy.
       try {
         await manual.upsert(converted);
-        copied++;
       } on FormatException {
-        ledger.remove(id);
+        pending.remove(id);
         await persist(); // best effort: nothing was copied for this id
         skipped++;
+        continue;
       } catch (_) {
-        ledger.remove(id);
-        await persist();
+        pending.remove(id);
+        await persist(); // best effort; a stale pending id is harmless
         rethrow;
       }
+      // 3. Confirm in one write; otherwise undo the copy.
+      pending.remove(id);
+      done.add(id);
+      if (await persist()) {
+        copied++;
+        continue;
+      }
+      done.remove(id);
+      pending.add(id);
+      try {
+        await manual.remove(id);
+      } catch (_) {
+        // Could not undo: the pending id stays; start-up confirms it because
+        // the record is present, so nothing is duplicated or lost.
+      }
+      skipped++;
     }
     if (skipped > 0) throw LegacyMigrationIncomplete(copied, skipped);
     return copied;

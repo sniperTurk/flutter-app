@@ -19,6 +19,20 @@ import 'package:sniper_turk/services/user_catalog_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 import 'package:sniper_turk/ui/menzil_widgets.dart';
 
+class _Killed extends Error {}
+
+/// Simulates the process dying while the copy is being written.
+class _KillOnUpsert extends ManualCatalogStore {
+  @override
+  Future<void> upsert(Map<String, dynamic> entry) => throw _Killed();
+}
+
+/// A manual catalog whose undo (remove) fails.
+class _RemoveFails extends ManualCatalogStore {
+  @override
+  Future<void> remove(String id) => throw StateError('remove failed');
+}
+
 const _rifle = <String, dynamic>{
   'id': 'manual_rifle_1',
   'kind': 'rifle',
@@ -334,6 +348,90 @@ void main() {
       ).load();
       expect(result.warning, contains('taşınamadı'));
       expect(await ManualCatalogStore().all(), hasLength(1));
+    });
+  });
+
+  group('UserCatalogLoader interruption safety', () {
+    final legacy = jsonEncode([
+      {
+        'id': 'user-1',
+        'kind': 'rifle',
+        'platform': 'pcp',
+        'brand': 'Eski',
+        'model': 'Tüfek',
+        'caliberMm': 5.5,
+      },
+    ]);
+
+    Future<bool> realWrite(SharedPreferences prefs, List<String> ids) =>
+        prefs.setStringList(UserCatalogLoader.migratedIdsKey, ids);
+
+    // Real write for the first [ok] calls, then every write fails.
+    Future<bool> Function(SharedPreferences, List<String>) failAfter(int ok) {
+      var calls = 0;
+      return (prefs, ids) async => ++calls <= ok && await realWrite(prefs, ids);
+    }
+
+    test('killed after the intent was written but before the copy: the record '
+        'is NOT treated as migrated and migrates on the next start', () async {
+      SharedPreferences.setMockInitialValues({UserCatalogStore.key: legacy});
+      final killed = UserCatalogLoader(
+        manual: _KillOnUpsert(),
+        writeLedger: failAfter(1), // intent persisted, rollback write fails
+      );
+      final first = await killed.load();
+      expect(first.migrated, 0);
+      expect(await ManualCatalogStore().all(), isEmpty);
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getStringList(UserCatalogLoader.migratedIdsKey), [
+        'pending:user-1',
+      ]);
+      expect(prefs.getString(UserCatalogStore.key), legacy);
+
+      final restart = await UserCatalogLoader().load();
+      expect(restart.migrated, 1, reason: 'still migratable after the kill');
+      expect(
+        (await ManualCatalogStore().all()).map((e) => e['id']),
+        contains('user-1'),
+      );
+      // Now confirmed: a later deletion is respected.
+      await ManualCatalogStore().remove('user-1');
+      expect((await UserCatalogLoader().load()).migrated, 0);
+      expect(await ManualCatalogStore().all(), isEmpty);
+    });
+
+    test('confirmation write fails: the copy is undone, so the record stays '
+        'migratable and a later deletion is still respected', () async {
+      SharedPreferences.setMockInitialValues({UserCatalogStore.key: legacy});
+      final first = await UserCatalogLoader(writeLedger: failAfter(1)).load();
+      expect(first.migrated, 0);
+      expect(first.warning, contains('taşınamadı'));
+      expect(await ManualCatalogStore().all(), isEmpty, reason: 'undone');
+
+      final second = await UserCatalogLoader().load();
+      expect(second.migrated, 1);
+      await ManualCatalogStore().remove('user-1');
+      expect((await UserCatalogLoader().load()).migrated, 0);
+      expect(await ManualCatalogStore().all(), isEmpty);
+    });
+
+    test('confirmation AND undo both fail: restart confirms the present '
+        'record without duplicating or losing it', () async {
+      SharedPreferences.setMockInitialValues({UserCatalogStore.key: legacy});
+      final first = await UserCatalogLoader(
+        manual: _RemoveFails(),
+        writeLedger: failAfter(1),
+      ).load();
+      expect(first.migrated, 0);
+      expect(first.warning, contains('taşınamadı'));
+      expect(await ManualCatalogStore().all(), hasLength(1));
+
+      final restart = await UserCatalogLoader().load();
+      expect(restart.warning, isNull);
+      expect(await ManualCatalogStore().all(), hasLength(1));
+      await ManualCatalogStore().remove('user-1');
+      expect((await UserCatalogLoader().load()).migrated, 0);
+      expect(await ManualCatalogStore().all(), isEmpty);
     });
   });
 
