@@ -346,3 +346,64 @@ jobs:
             .dart_tool
           if-no-files-found: ignore
           retention-days: 7
+
+  # Separate acceptance set (validation/README.md): wind is validated apart
+  # from the frozen no-wind G1/G7 policy. Independent of `verify`, so a wind
+  # result can never hide or be hidden by the main release gate. Results are
+  # surfaced as annotations; nothing here opens the production gate.
+  wind-acceptance:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Enforce pinned Flutter release toolchain
+        run: python3 tools/verify_flutter_toolchain.py
+
+      - name: Bootstrap pinned independent ballistic validator
+        run: python3 tools/bootstrap_reference_validator.py
+
+      - name: Generate independent no-wind and wind reference vectors
+        run: |
+          .validator_venv/bin/python tools/generate_reference_vectors.py
+          python3 tools/validate_py_ballisticcalc_fixture.py validation/py_ballisticcalc_vectors.json
+          .validator_venv/bin/python tools/generate_wind_reference_vectors.py
+
+      - name: Resolve dependencies without lockfile drift
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE_LOCK_SHA="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          flutter pub get
+          AFTER_LOCK_SHA="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          [[ "$BEFORE_LOCK_SHA" == "$AFTER_LOCK_SHA" ]]
+
+      - name: Report no-wind G1/G7 comparison figures
+        shell: bash
+        run: |
+          set -o pipefail
+          dart run tools/compare_reference_vectors.dart 2>&1 | tee no-wind.log
+          echo "::notice title=G1/G7 no-wind acceptance::$(tail -n 1 no-wind.log)"
+
+      - name: Compare Dart wind response with independent vectors
+        shell: bash
+        run: |
+          set -o pipefail
+          status=0
+          dart run tools/compare_wind_reference_vectors.dart > wind.log 2>&1 || status=$?
+          cat wind.log
+          echo "::notice title=Wind acceptance::$(tail -n 1 wind.log)"
+          exit "$status"
