@@ -31,6 +31,7 @@ jobs:
           set -euo pipefail
           flutter pub get
           tools/bootstrap_ios_scaffold.sh
+          flutter build ios --simulator --debug
           xcrun simctl list devices available > devices.txt
           cat devices.txt
       - name: Capture
@@ -71,7 +72,10 @@ jobs:
             local out="shots/${label}_${look}"
             mkdir -p "$out"
             xcrun simctl boot "$udid" 2>/dev/null
-            xcrun simctl bootstatus "$udid" -b > /dev/null
+            open -a Simulator
+            ( xcrun simctl bootstatus "$udid" -b > /dev/null ) & local bpid=$!
+            for i in $(seq 1 60); do kill -0 "$bpid" 2>/dev/null || break; sleep 5; done
+            kill "$bpid" 2>/dev/null && echo "${label}_${look}: bootstatus TIMEOUT" >> logs/status.txt
             echo "${label}_${look}: booted" >> logs/status.txt
             xcrun simctl ui "$udid" appearance "$look"
             xcrun simctl status_bar "$udid" override --time 9:41 \
