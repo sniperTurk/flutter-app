@@ -62,7 +62,12 @@ void main(List<String> args) {
   final refCases = {
     for (final c in (fixture['cases'] as List).cast<Map<String, dynamic>>()) c['id'] as String: c,
   };
-  if (refCases.length != policyCases.length) _fail('case count differs from policy');
+  final unproducible = <String, Object?>{
+    ...?(fixture['unproducible'] as Map<String, dynamic>?),
+  };
+  if (refCases.length + unproducible.length != policyCases.length) {
+    _fail('case count differs from policy');
+  }
 
   var compared = 0;
   var worstWind = 0.0, worstHeight = 0.0, worstVelocity = 0.0, worstTime = 0.0;
@@ -71,6 +76,11 @@ void main(List<String> args) {
   for (final c in policyCases) {
     var caseWind = 0.0, caseHeight = 0.0, caseVelocity = 0.0, caseTime = 0.0;
     final id = c['id'] as String;
+    if (unproducible.containsKey(id)) {
+      failures.add('$id (reference cannot produce: ${unproducible[id]})');
+      perCase.add('$id UNPRODUCIBLE');
+      continue;
+    }
     final ref = refCases[id];
     if (ref == null) _fail('reference case $id is missing');
     final a = atmospheres[c['atmosphere']] as Map<String, dynamic>?;

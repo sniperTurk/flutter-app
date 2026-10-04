@@ -65,14 +65,17 @@ def main() -> None:
         "policy": policy,
         "cases": [],
     }
+    # A case the independent reference cannot produce (for example a pellet
+    # that does not reach a frozen range) is recorded, not dropped or edited;
+    # the comparator counts it as a failed case. The other cases still yield
+    # figures.
+    output["unproducible"] = {}
     for c in policy["cases"]:
         try:
             output["cases"].append(generate_case(c, policy, api))
-        except SystemExit:
-            raise
-        except Exception as exc:  # report which frozen case the reference could not produce
-            print(f"::error title=Reference generation::{c['id']}: {exc!r}")
-            fail(f"{c['id']}: {exc!r}")
+        except Exception as exc:
+            print(f"::error title=Reference cannot produce {c['id']}::{exc!r}")
+            output["unproducible"][c["id"]] = repr(exc)
     write(output)
 
 

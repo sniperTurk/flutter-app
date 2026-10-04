@@ -467,6 +467,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # Surface the tail of the output as an annotation when this fails.
+          trap 'status=$?; if [ "$status" != 0 ] && [ -s smoke.log ]; then printf "::error title=Simulator smoke (exit %s)::%s\n" "$status" "$(tail -n 40 smoke.log | sed "s/%/%25/g" | sed ":a;N;\$!ba;s/\n/%0A/g")"; fi' EXIT
+          exec > >(tee smoke.log) 2>&1
           UDID="$(python3 tools/select_ios_simulator.py)"
           test -n "$UDID"
           xcrun simctl boot "$UDID" 2>/dev/null || true
