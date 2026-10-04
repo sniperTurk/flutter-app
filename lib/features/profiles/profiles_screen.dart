@@ -7,6 +7,7 @@ import '../../models/domain.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import 'profile_recovery_dialog.dart';
 
 /// Profile list and management.
 ///
@@ -79,6 +80,13 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
         });
       }
     }
+  }
+
+  Future<void> _recover() async {
+    final recovery = store;
+    if (recovery is! ProfileRecovery) return;
+    final reset = await showProfileRecoveryDialog(context, recovery);
+    if (reset && mounted) await _changed();
   }
 
   Future<void> _changed() async {
@@ -225,11 +233,25 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
         : loadError != null
         ? MenzilStateMessage(
             message: loadError!,
-            action: MenzilPrimaryButton(
-              label: 'Tekrar dene',
-              onPressed: _load,
-              icon: Icons.refresh,
-              expand: false,
+            action: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MenzilPrimaryButton(
+                  label: 'Tekrar dene',
+                  onPressed: _load,
+                  icon: Icons.refresh,
+                  expand: false,
+                ),
+                if (store is ProfileRecovery) ...[
+                  const SizedBox(height: MenzilSpace.md),
+                  MenzilSecondaryButton(
+                    key: const Key('profiles-recover'),
+                    label: 'Kayıtları kurtar',
+                    icon: Icons.healing,
+                    onPressed: _recover,
+                  ),
+                ],
+              ],
             ),
           )
         : _content(context);

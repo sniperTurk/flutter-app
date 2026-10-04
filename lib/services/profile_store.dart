@@ -10,7 +10,28 @@ abstract class ProfileStore {
   Future<void> remove(String id);
 }
 
-class PersistentProfileStore implements ProfileStore {
+/// Raw bytes of the two stored profile records, exactly as found on disk.
+class CorruptProfileData {
+  final String? primary;
+  final String? backup;
+  const CorruptProfileData({this.primary, this.backup});
+  int get totalLength => (primary?.length ?? 0) + (backup?.length ?? 0);
+}
+
+/// User-initiated recovery when BOTH the primary and backup profile records are
+/// unreadable. Nothing here runs automatically.
+abstract interface class ProfileRecovery {
+  /// Exact stored text, for the user to copy and send for support. Read-only.
+  Future<CorruptProfileData> readCorruptData();
+
+  /// Copies both unreadable records to separate preserved keys (verified by
+  /// read-back), and only then writes an empty collection. Refuses (throws
+  /// [StateError], changing nothing) when storage is actually readable or if
+  /// any preserving copy cannot be verified.
+  Future<void> startEmptyKeepingCorruptCopy();
+}
+
+class PersistentProfileStore implements ProfileStore, ProfileRecovery {
   static const _key = 'sniper_turk.rifle_profiles.v1';
   static const _backupKey = 'sniper_turk.rifle_profiles.v1.backup';
   // Undecodable primary bytes are copied here BEFORE any repair or overwrite so
@@ -112,6 +133,44 @@ class PersistentProfileStore implements ProfileStore {
   Future<void> remove(String id) => _enqueueMutation(() async {
     final items = (await _read()).where((p) => p.id != id).toList();
     await _write(items);
+  });
+
+  @override
+  Future<CorruptProfileData> readCorruptData() async {
+    final prefs = await SharedPreferences.getInstance();
+    return CorruptProfileData(
+      primary: prefs.getString(_key),
+      backup: prefs.getString(_backupKey),
+    );
+  }
+
+  @override
+  Future<void> startEmptyKeepingCorruptCopy() => _enqueueMutation(() async {
+    final prefs = await SharedPreferences.getInstance();
+    final primaryRaw = prefs.getString(_key);
+    final backupRaw = prefs.getString(_backupKey);
+    if (primaryRaw == null && backupRaw == null) {
+      throw StateError('Nothing to recover: no profile record exists');
+    }
+    final primaryReadable =
+        primaryRaw != null && _decodeCollection(primaryRaw) != null;
+    final backupReadable =
+        backupRaw != null && _decodeCollection(backupRaw) != null;
+    if (primaryReadable || backupReadable) {
+      throw StateError('Profile storage is readable; refusing to start empty');
+    }
+    final stamp = DateTime.now().microsecondsSinceEpoch;
+    final copies = <String, String>{
+      if (primaryRaw != null) '$_key.corrupt.primary.$stamp': primaryRaw,
+      if (backupRaw != null) '$_key.corrupt.backup.$stamp': backupRaw,
+    };
+    for (final entry in copies.entries) {
+      if (!await prefs.setString(entry.key, entry.value) ||
+          prefs.getString(entry.key) != entry.value) {
+        throw StateError('Could not preserve the unreadable profile data');
+      }
+    }
+    await _write(const []);
   });
 
   Future<void> _write(List<RifleProfile> items) async {

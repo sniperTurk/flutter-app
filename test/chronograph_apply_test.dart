@@ -49,7 +49,14 @@ Future<void> _pick(WidgetTester tester, Key selectKey, String text) async {
   await tester.ensureVisible(dropdown);
   await tester.tap(dropdown);
   await tester.pumpAndSettle();
-  await tester.tap(find.text(text).last);
+  final item = find.text(text);
+  // The open menu is the last Scrollable; long catalogs are built lazily.
+  await tester.scrollUntilVisible(
+    item,
+    200,
+    scrollable: find.byType(Scrollable).last,
+  );
+  await tester.tap(item.last);
   await tester.pumpAndSettle();
 }
 
@@ -61,7 +68,7 @@ Future<void> _openScreen(WidgetTester tester, ProfileStore store) async {
   final rifle = CatalogRepository.rifles.firstWhere((r) => r.id == _rifleId);
   final ammo = CatalogRepository.ammunition.firstWhere((a) => a.id == _ammoId);
   await _pick(tester, const ValueKey('chrono-rifle-pcp'), rifle.displayName);
-  await _pick(tester, ValueKey('chrono-ammo-$_rifleId'), ammo.displayName);
+  await _pick(tester, const ValueKey('chrono-ammo-$_rifleId'), ammo.displayName);
 }
 
 Future<void> _addShots(WidgetTester tester, List<String> speeds) async {
