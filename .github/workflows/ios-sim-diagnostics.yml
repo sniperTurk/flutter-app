@@ -1,0 +1,59 @@
+name: iOS simulator diagnostics (never a release artifact)
+
+# Runs the simulator build + launch smoke test WITHOUT stopping at the first
+# failure and pushes the real command output to branch ci/ios-sim-<ref>, so a
+# failing simulator step can be read from git. Diagnostic only.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+      - name: Build, boot, install, launch, integration test (keep going)
+        shell: bash
+        run: |
+          set +e
+          mkdir -p ios-logs
+          S=ios-logs/status.txt
+          flutter pub get > ios-logs/pub-get.log 2>&1; echo "pub get: $?" >> $S
+          tools/bootstrap_ios_scaffold.sh > ios-logs/scaffold.log 2>&1; echo "scaffold: $?" >> $S
+          flutter build ios --simulator --debug > ios-logs/build.log 2>&1; echo "build: $?" >> $S
+          UDID="$(python3 tools/select_ios_simulator.py 2> ios-logs/select.err)"; echo "select udid: '$UDID' rc=$?" >> $S
+          xcrun simctl list devices available > ios-logs/devices.log 2>&1
+          xcrun simctl boot "$UDID" > ios-logs/boot.log 2>&1; echo "boot: $?" >> $S
+          open -a Simulator
+          xcrun simctl bootstatus "$UDID" -b > ios-logs/bootstatus.log 2>&1; echo "bootstatus: $?" >> $S
+          xcrun simctl install "$UDID" build/ios/iphonesimulator/Runner.app > ios-logs/install.log 2>&1; echo "install: $?" >> $S
+          xcrun simctl launch --terminate-running-process "$UDID" com.sniperturk.sniperTurk > ios-logs/launch.log 2>&1; echo "launch: $?" >> $S
+          sleep 8
+          xcrun simctl spawn "$UDID" log show --last 1m --style compact --predicate 'process == "Runner"' > ios-logs/runner-log.txt 2>&1
+          xcrun simctl terminate "$UDID" com.sniperturk.sniperTurk > /dev/null 2>&1
+          xcrun simctl uninstall "$UDID" com.sniperturk.sniperTurk > /dev/null 2>&1
+          flutter devices > ios-logs/devices-flutter.log 2>&1
+          flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded > ios-logs/integration.log 2>&1; echo "integration: $?" >> $S
+          cat $S
+      - name: Push logs
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "ios-sim-diagnostics"
+          git config user.email "ios-sim-diagnostics@users.noreply.github.com"
+          OUT="ci/ios-sim-${GITHUB_REF_NAME//\//-}"
+          git checkout -q -b "$OUT"
+          git add -f ios-logs
+          git commit -q -m "ios simulator diagnostics (UNVERIFIED) run ${GITHUB_RUN_ID}"
+          git push -f origin "$OUT"
