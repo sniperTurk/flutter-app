@@ -1,0 +1,6 @@
+phone=iPhone_17_Pro_Max pad=iPad_Pro_13-inch_M5
+iPhone_17_Pro_Max_light: booted
+iPhone_17_Pro_Max_light: TIMEOUT
+iPhone_17_Pro_Max_light: test exit 
+iPhone_17_Pro_Max_dark: booted
+iPhone_17_Pro_Max_dark: test exit 0
