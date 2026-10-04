@@ -11,8 +11,16 @@ import 'package:sniper_turk/main.dart' as app;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  // Fixed-duration pumping instead of pumpAndSettle: some screens animate
+  // continuously and would never settle.
+  Future<void> settle(WidgetTester tester) async {
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+  }
+
   Future<void> shot(WidgetTester tester, String name) async {
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(tester.takeException(), isNull);
     debugPrint('APPSTORE_SHOT:$name');
     // Give the host time to see the marker and grab the Simulator screen.
@@ -22,24 +30,25 @@ void main() {
   testWidgets('App Store screenshot walk-through', (tester) async {
     await (await SharedPreferences.getInstance()).clear();
     app.main();
-    await tester.pumpAndSettle();
+    await settle(tester);
+    await settle(tester);
 
     // Create one profile so the ballistic screens are unlocked.
     await tester.tap(find.text('Profil').first);
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Yeni profil'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Kaydet'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await shot(tester, '05_profil');
 
     await tester.tap(find.text('Atış').first);
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Hesapla').first);
     await shot(tester, '01_atis');
 
     await tester.tap(find.text('Tablo').first);
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('DOPE oluştur'));
     await shot(tester, '02_tablo');
 
@@ -52,12 +61,12 @@ void main() {
     await tester.tap(find.text('Katalog').first);
     await shot(tester, '06_katalog');
     await tester.pageBack();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     await tester.tap(find.text('Ayarlar').first);
     await shot(tester, '07_ayarlar');
     await tester.pageBack();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     debugPrint('APPSTORE_SHOT:DONE');
   });

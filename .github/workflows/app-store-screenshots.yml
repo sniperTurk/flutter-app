@@ -35,6 +35,9 @@ jobs:
           cat devices.txt
       - name: Capture
         shell: bash
+        timeout-minutes: 75
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set +e
           mkdir -p shots logs
@@ -53,38 +56,59 @@ jobs:
           sys.exit(1)
           PY
           }
+          push_results() {
+            local tmp; tmp="$(mktemp -d)"
+            cp -R shots logs "$tmp/"
+            ( cd "$tmp" && git init -q && git checkout -q -b ci/app-store-screenshots \
+              && git -c user.name=app-store-screenshots -c user.email=app-store-screenshots@users.noreply.github.com \
+                   add -A && git -c user.name=app-store-screenshots -c user.email=app-store-screenshots@users.noreply.github.com \
+                   commit -q -m "App Store screenshot candidates (draft) run ${GITHUB_RUN_ID}" \
+              && git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" ci/app-store-screenshots ) \
+              && echo "pushed results" || echo "push failed"
+          }
           run_one() {
             local udid="$1" label="$2" look="$3"
             local out="shots/${label}_${look}"
             mkdir -p "$out"
             xcrun simctl boot "$udid" 2>/dev/null
             xcrun simctl bootstatus "$udid" -b > /dev/null
+            echo "${label}_${look}: booted" >> logs/status.txt
             xcrun simctl ui "$udid" appearance "$look"
             xcrun simctl status_bar "$udid" override --time 9:41 \
               --dataNetwork wifi --wifiMode active --wifiBars 3 \
               --cellularMode active --cellularBars 4 \
               --batteryState charged --batteryLevel 100
             xcrun simctl uninstall "$udid" com.sniperturk.sniperTurk 2>/dev/null
-            flutter test integration_test/app_store_screenshots_test.dart \
-                -d "$udid" --reporter=expanded 2>&1 \
-              | tee "logs/${label}_${look}.log" \
-              | while IFS= read -r line; do
-                  case "$line" in
-                    *APPSTORE_SHOT:DONE*) ;;
-                    *APPSTORE_SHOT:*)
-                      name="${line##*APPSTORE_SHOT:}"
-                      name="${name//[^A-Za-z0-9_]/}"
-                      sleep 1.5
-                      xcrun simctl io "$udid" screenshot "$out/$name.png" > /dev/null
-                      echo "captured $out/$name.png" ;;
-                  esac
-                done
-            echo "${label}_${look}: test exit ${PIPESTATUS[0]}" >> logs/status.txt
+            # Bounded: a hung test must not eat the whole job.
+            ( flutter test integration_test/app_store_screenshots_test.dart \
+                -d "$udid" --reporter=expanded > "logs/${label}_${look}.log" 2>&1
+              echo $? > "logs/${label}_${look}.rc" ) &
+            local tpid=$!
+            for i in $(seq 1 900); do
+              grep -o 'APPSTORE_SHOT:[A-Za-z0-9_]*' "logs/${label}_${look}.log" 2>/dev/null > /tmp/marks || true
+              while IFS= read -r m; do
+                name="${m#APPSTORE_SHOT:}"
+                [[ "$name" == DONE || -f "$out/$name.png" ]] && continue
+                sleep 1.5
+                xcrun simctl io "$udid" screenshot "$out/$name.png" > /dev/null && echo "captured $out/$name.png"
+              done < /tmp/marks
+              kill -0 "$tpid" 2>/dev/null || break
+              sleep 1
+            done
+            if kill -0 "$tpid" 2>/dev/null; then
+              echo "${label}_${look}: TIMEOUT" >> logs/status.txt
+              xcrun simctl io "$udid" screenshot "$out/zz_timeout.png" > /dev/null
+              pkill -f flutter_tools || true
+              kill "$tpid" 2>/dev/null || true
+            fi
+            echo "${label}_${look}: test exit $(cat logs/${label}_${look}.rc 2>/dev/null)" >> logs/status.txt
+            push_results
             xcrun simctl shutdown "$udid" 2>/dev/null
           }
           read -r PHONE PHONE_LABEL < <(pick "iPhone 17 Pro Max" "iPhone 16 Pro Max" "iPhone 15 Pro Max") || true
           read -r PAD PAD_LABEL < <(pick "iPad Pro 13-inch (M5)" "iPad Pro 13-inch (M4)" "iPad Pro (12.9-inch) (6th generation)") || true
           echo "phone=$PHONE_LABEL pad=$PAD_LABEL" | tee -a logs/status.txt
+          push_results
           [[ -n "${PHONE:-}" ]] && run_one "$PHONE" "$PHONE_LABEL" light
           [[ -n "${PHONE:-}" ]] && run_one "$PHONE" "$PHONE_LABEL" dark
           [[ -n "${PAD:-}" ]] && run_one "$PAD" "$PAD_LABEL" light
@@ -99,14 +123,3 @@ jobs:
           path: |
             shots
             logs
-      - name: Push results branch
-        if: always()
-        shell: bash
-        run: |
-          git config user.name "app-store-screenshots"
-          git config user.email "app-store-screenshots@users.noreply.github.com"
-          git checkout -q --orphan ci/app-store-screenshots
-          git rm -rq --cached . > /dev/null
-          git add -f shots logs
-          git commit -q -m "App Store screenshot candidates (draft) run ${GITHUB_RUN_ID}"
-          git push -f origin ci/app-store-screenshots
