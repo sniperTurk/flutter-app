@@ -1,0 +1,79 @@
+diff --git a/lib/features/ballistics/ballistics_screen.dart b/lib/features/ballistics/ballistics_screen.dart
+index b8ff9c3..8152c3b 100644
+--- a/lib/features/ballistics/ballistics_screen.dart
++++ b/lib/features/ballistics/ballistics_screen.dart
+@@ -1125,8 +1125,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
+               'Vakum düşüşü*',
+               MenzilFormat.dec(
+                 metric
+-                      ? shot.dropM * 100
+-                      : UnitSystem.millimetersToInches(shot.dropM * 1000),
++                    ? shot.dropM * 100
++                    : UnitSystem.millimetersToInches(shot.dropM * 1000),
+                 1,
+               ),
+               metric ? 'cm' : 'in',
+@@ -1135,8 +1135,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
+               'Namlu hızı*',
+               MenzilFormat.dec(
+                 metric
+-                      ? shot.velocityMps
+-                      : UnitSystem.mpsToFps(shot.velocityMps),
++                    ? shot.velocityMps
++                    : UnitSystem.mpsToFps(shot.velocityMps),
+                 0,
+               ),
+               metric ? 'm/s' : 'fps',
+@@ -1145,8 +1145,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
+               'Namlu enerjisi*',
+               MenzilFormat.dec(
+                 metric
+-                      ? shot.energyJ
+-                      : UnitSystem.joulesToFootPounds(shot.energyJ),
++                    ? shot.energyJ
++                    : UnitSystem.joulesToFootPounds(shot.energyJ),
+                 1,
+               ),
+               metric ? 'J' : 'ft-lb',
+@@ -1154,7 +1154,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
+             if (muzzleMach != null)
+               MenzilMetric('Namlu Mach', MenzilFormat.dec(muzzleMach!, 3)),
+             if (densityRatio != null)
+-              MenzilMetric('Yoğunluk oranı', MenzilFormat.dec(densityRatio!, 3)),
++              MenzilMetric(
++                'Yoğunluk oranı',
++                MenzilFormat.dec(densityRatio!, 3),
++              ),
+           ],
+         ),
+       Text(
+diff --git a/lib/features/profiles/profiles_screen.dart b/lib/features/profiles/profiles_screen.dart
+index b233634..cd17b6c 100644
+--- a/lib/features/profiles/profiles_screen.dart
++++ b/lib/features/profiles/profiles_screen.dart
+@@ -1124,7 +1124,11 @@ class _CatalogValues extends StatelessWidget {
+             columns: 2,
+             metrics: [
+               if (rifle != null)
+-                MenzilMetric('Çap', MenzilFormat.dec(rifle!.caliberMm, 2), 'mm'),
++                MenzilMetric(
++                  'Çap',
++                  MenzilFormat.dec(rifle!.caliberMm, 2),
++                  'mm',
++                ),
+               if (ammo != null)
+                 MenzilMetric(
+                   'Ağırlık',
+@@ -1135,7 +1139,11 @@ class _CatalogValues extends StatelessWidget {
+                 'Sürükleme modeli',
+                 ammo?.ballisticModel?.name.toUpperCase() ?? '—',
+               ),
+-              MenzilMetric('BC', ammo?.ballisticCoefficient?.toString().replaceAll('.', ',') ?? '—'),
++              MenzilMetric(
++                'BC',
++                ammo?.ballisticCoefficient?.toString().replaceAll('.', ',') ??
++                    '—',
++              ),
+               MenzilMetric(
+                 'Namlu boyu',
+                 rifle?.barrelLengthMm?.toStringAsFixed(0) ?? '—',

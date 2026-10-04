@@ -1125,8 +1125,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               'Vakum düşüşü*',
               MenzilFormat.dec(
                 metric
-                      ? shot.dropM * 100
-                      : UnitSystem.millimetersToInches(shot.dropM * 1000),
+                    ? shot.dropM * 100
+                    : UnitSystem.millimetersToInches(shot.dropM * 1000),
                 1,
               ),
               metric ? 'cm' : 'in',
@@ -1135,8 +1135,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               'Namlu hızı*',
               MenzilFormat.dec(
                 metric
-                      ? shot.velocityMps
-                      : UnitSystem.mpsToFps(shot.velocityMps),
+                    ? shot.velocityMps
+                    : UnitSystem.mpsToFps(shot.velocityMps),
                 0,
               ),
               metric ? 'm/s' : 'fps',
@@ -1145,8 +1145,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               'Namlu enerjisi*',
               MenzilFormat.dec(
                 metric
-                      ? shot.energyJ
-                      : UnitSystem.joulesToFootPounds(shot.energyJ),
+                    ? shot.energyJ
+                    : UnitSystem.joulesToFootPounds(shot.energyJ),
                 1,
               ),
               metric ? 'J' : 'ft-lb',
@@ -1154,7 +1154,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             if (muzzleMach != null)
               MenzilMetric('Namlu Mach', MenzilFormat.dec(muzzleMach!, 3)),
             if (densityRatio != null)
-              MenzilMetric('Yoğunluk oranı', MenzilFormat.dec(densityRatio!, 3)),
+              MenzilMetric(
+                'Yoğunluk oranı',
+                MenzilFormat.dec(densityRatio!, 3),
+              ),
           ],
         ),
       Text(
