@@ -1,0 +1,112 @@
+name: App Store screenshots (draft, never a release gate)
+
+# Captures App Store screenshot candidates on iOS Simulators. Runs on pushes to
+# screenshots/** branches or manually. Output: workflow artifact
+# `app-store-screenshots` and branch ci/app-store-screenshots.
+on:
+  push:
+    branches: ['screenshots/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+      - name: Prepare
+        shell: bash
+        run: |
+          set -euo pipefail
+          flutter pub get
+          tools/bootstrap_ios_scaffold.sh
+          xcrun simctl list devices available > devices.txt
+          cat devices.txt
+      - name: Capture
+        shell: bash
+        run: |
+          set +e
+          mkdir -p shots logs
+          pick() {
+            python3 - "$@" <<'PY'
+          import json, subprocess, sys
+          data = json.loads(subprocess.check_output(
+              ["xcrun", "simctl", "list", "devices", "available", "-j"], text=True))
+          devs = [d for rt, ds in data["devices"].items() if "iOS" in rt for d in ds
+                  if d.get("isAvailable")]
+          for want in sys.argv[1:]:
+              for d in devs:
+                  if d["name"] == want:
+                      print(d["udid"], d["name"].replace(" ", "_").replace("(", "").replace(")", ""))
+                      sys.exit(0)
+          sys.exit(1)
+          PY
+          }
+          run_one() {
+            local udid="$1" label="$2" look="$3"
+            local out="shots/${label}_${look}"
+            mkdir -p "$out"
+            xcrun simctl boot "$udid" 2>/dev/null
+            xcrun simctl bootstatus "$udid" -b > /dev/null
+            xcrun simctl ui "$udid" appearance "$look"
+            xcrun simctl status_bar "$udid" override --time 9:41 \
+              --dataNetwork wifi --wifiMode active --wifiBars 3 \
+              --cellularMode active --cellularBars 4 \
+              --batteryState charged --batteryLevel 100
+            xcrun simctl uninstall "$udid" com.sniperturk.sniperTurk 2>/dev/null
+            flutter test integration_test/app_store_screenshots_test.dart \
+                -d "$udid" --reporter=expanded 2>&1 \
+              | tee "logs/${label}_${look}.log" \
+              | while IFS= read -r line; do
+                  case "$line" in
+                    *APPSTORE_SHOT:DONE*) ;;
+                    *APPSTORE_SHOT:*)
+                      name="${line##*APPSTORE_SHOT:}"
+                      name="${name//[^A-Za-z0-9_]/}"
+                      sleep 1.5
+                      xcrun simctl io "$udid" screenshot "$out/$name.png" > /dev/null
+                      echo "captured $out/$name.png" ;;
+                  esac
+                done
+            echo "${label}_${look}: test exit ${PIPESTATUS[0]}" >> logs/status.txt
+            xcrun simctl shutdown "$udid" 2>/dev/null
+          }
+          read -r PHONE PHONE_LABEL < <(pick "iPhone 17 Pro Max" "iPhone 16 Pro Max" "iPhone 15 Pro Max") || true
+          read -r PAD PAD_LABEL < <(pick "iPad Pro 13-inch (M5)" "iPad Pro 13-inch (M4)" "iPad Pro (12.9-inch) (6th generation)") || true
+          echo "phone=$PHONE_LABEL pad=$PAD_LABEL" | tee -a logs/status.txt
+          [[ -n "${PHONE:-}" ]] && run_one "$PHONE" "$PHONE_LABEL" light
+          [[ -n "${PHONE:-}" ]] && run_one "$PHONE" "$PHONE_LABEL" dark
+          [[ -n "${PAD:-}" ]] && run_one "$PAD" "$PAD_LABEL" light
+          for f in $(find shots -name '*.png' | sort); do
+            echo "$f $(sips -g pixelWidth -g pixelHeight "$f" | awk '/pixel/{printf "%s ", $2}')" >> logs/sizes.txt
+          done
+          cat logs/status.txt logs/sizes.txt
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: app-store-screenshots
+          path: |
+            shots
+            logs
+      - name: Push results branch
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "app-store-screenshots"
+          git config user.email "app-store-screenshots@users.noreply.github.com"
+          git checkout -q --orphan ci/app-store-screenshots
+          git rm -rq --cached . > /dev/null
+          git add -f shots logs
+          git commit -q -m "App Store screenshot candidates (draft) run ${GITHUB_RUN_ID}"
+          git push -f origin ci/app-store-screenshots
