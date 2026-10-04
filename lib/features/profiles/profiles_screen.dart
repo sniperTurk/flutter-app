@@ -1124,7 +1124,11 @@ class _CatalogValues extends StatelessWidget {
             columns: 2,
             metrics: [
               if (rifle != null)
-                MenzilMetric('Çap', MenzilFormat.dec(rifle!.caliberMm, 2), 'mm'),
+                MenzilMetric(
+                  'Çap',
+                  MenzilFormat.dec(rifle!.caliberMm, 2),
+                  'mm',
+                ),
               if (ammo != null)
                 MenzilMetric(
                   'Ağırlık',
@@ -1135,7 +1139,11 @@ class _CatalogValues extends StatelessWidget {
                 'Sürükleme modeli',
                 ammo?.ballisticModel?.name.toUpperCase() ?? '—',
               ),
-              MenzilMetric('BC', ammo?.ballisticCoefficient?.toString().replaceAll('.', ',') ?? '—'),
+              MenzilMetric(
+                'BC',
+                ammo?.ballisticCoefficient?.toString().replaceAll('.', ',') ??
+                    '—',
+              ),
               MenzilMetric(
                 'Namlu boyu',
                 rifle?.barrelLengthMm?.toStringAsFixed(0) ?? '—',
