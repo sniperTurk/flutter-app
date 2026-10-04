@@ -348,7 +348,9 @@ void main() {
     await tester.pump();
     expect(
       find.byWidgetPredicate(
-        (w) => w is Semantics && w.properties.label == 'Kişisel katalog yükleniyor',
+        (w) =>
+            w is Semantics &&
+            w.properties.label == 'Kişisel katalog yükleniyor',
       ),
       findsOneWidget,
     );
@@ -357,7 +359,9 @@ void main() {
 
     loader.gate.complete();
     await tester.pumpAndSettle();
-    final solver = tester.widget<BallisticsScreen>(find.byType(BallisticsScreen));
+    final solver = tester.widget<BallisticsScreen>(
+      find.byType(BallisticsScreen),
+    );
     expect(solver.profile?.id, 'personal');
   });
 }
