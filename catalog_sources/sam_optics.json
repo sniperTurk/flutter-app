@@ -1,0 +1,13 @@
+{
+  "source_id": "sam-optics-official",
+  "brand": "SAM Optics",
+  "url": "https://samoptics.com/",
+  "category": "rifle_scopes",
+  "status": "pending_source_verification",
+  "last_attempted": "2026-09-30",
+  "access_result": "Official website timed out; no authoritative product pages retrieved",
+  "import_policy": "Do not publish product records without a verifiable product-specific source and variant-specific specifications",
+  "required_fields": ["manufacturer_model", "product_url", "magnification", "objective_diameter_mm", "focal_plane", "click_value", "click_unit"],
+  "optional_fields": ["tube_diameter_mm", "elevation_range_mrad", "windage_range_mrad", "reticle", "zero_stop", "weight_g", "length_mm", "price", "currency"],
+  "verified_products": []
+}

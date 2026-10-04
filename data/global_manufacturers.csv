@@ -1,0 +1,27 @@
+manufacturer_id,manufacturer_name,country,platform,example_models,source_url,verification_status,notes
+mke,MKE,TR,firearm,"MPT-76; MPT-55; JNG-90",https://www.mke.gov.tr,user_supplied_unverified,
+sarsilmaz,Sarsılmaz,TR,firearm,"SAR 56; SAR 15T",https://www.sarsilmaz.com/tr,user_supplied_unverified,
+ata-arms,Ata Arms,TR,firearm,"Turqua; CY; Venza",https://www.ataarms.com,user_supplied_unverified,
+hatsan,Hatsan,TR,pcp,"Factor; Blitz; Hydra; Galatian",https://hatsan.com.tr,manufacturer_verified,Official airgun product listing
+kral-arms-pcp,Kral Arms,TR,pcp,"Puncher; Jumbo; Knight",https://www.kralarms.com/,manufacturer_verified,Official manufacturer lists PCP products
+kral-arms-firearm,Kral Arms,TR,firearm,"KR556; K410",https://www.kralarms.com/,manufacturer_verified,Official manufacturer lists firearm products
+colt,Colt,US,firearm,"M4; AR-15; M16",,user_supplied_unverified,
+remington,Remington,US,firearm,"Model 700; 870",,user_supplied_unverified,Brand and current manufacturer should be checked separately
+ruger,Ruger,US,firearm,"10/22; American Rifle; AR-556",,user_supplied_unverified,
+winchester,Winchester,US,firearm,"Model 70; Model 1894",,user_supplied_unverified,Brand and current manufacturer should be checked separately
+daniel-defense,Daniel Defense,US,firearm,"DDM4; DD5",,user_supplied_unverified,
+barrett,Barrett,US,firearm,"M82A1; MRAD",,user_supplied_unverified,
+mossberg,Mossberg,US,firearm,"500; Patriot",,user_supplied_unverified,
+crosman-benjamin,Crosman / Benjamin,US,pcp,"Marauder; Akela; Armada",,user_supplied_unverified,Brand grouping; verify current ownership and lineup
+airforce-airguns,AirForce Airguns,US,pcp,"Texan; Talon; Condor",https://airforceairguns.com/wp-content/uploads/2023/12/AirForceAirgunsCatalog2023.pdf,manufacturer_verified,Manufacturer catalog documents USA production
+umarex-usa,Umarex USA,US,pcp,"Gauntlet; Hammer",,user_supplied_unverified,US brand/distributor versus manufacturing origin requires distinction
+norinco,Norinco,CN,firearm,"Type 56; QBZ-95; QBZ-191",,user_supplied_unverified,
+kalashnikov,Kalashnikov Concern,RU,firearm,"AK-12; Saiga",,user_supplied_unverified,AK-47 is historical design not current model claim
+heckler-koch,Heckler & Koch,DE,firearm,"HK416; G36; MR308",,user_supplied_unverified,
+fn-herstal,FN Herstal,BE,firearm,"SCAR; FAL; MINIMI",,user_supplied_unverified,Historical models may not be current production
+benelli,Benelli,IT,firearm,"M4 Super 90; Black Eagle",,user_supplied_unverified,
+howa,Howa Machinery,JP,firearm,"Model 1500; Type 89",,user_supplied_unverified,
+fx-airguns,FX Airguns,SE,pcp,"Impact M4; Panthera MKII; DRS MKII",https://www.fxairguns.com/,manufacturer_verified,Current official model lineup
+daystate,Daystate,GB,pcp,"Delta Wolf; Alpha Wolf; Huntsman",,user_supplied_unverified,
+snowpeak,Snowpeak (SPA),CN,pcp,"M25; M30; Artemis",,user_supplied_unverified,
+aea,AEA Airguns,CN,pcp,"Zeus; Terminator; Challenger",,user_supplied_unverified,US sales presence does not establish USA manufacture

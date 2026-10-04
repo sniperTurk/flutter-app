@@ -1,0 +1,6 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    # Archived tests of removed V1 features import files that no longer exist.
+    - archived_tests/**

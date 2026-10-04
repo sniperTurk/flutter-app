@@ -1,0 +1,22 @@
+brand_id,brand_name,headquarters_country,segment_label,example_series,source_url,verification_status,notes
+schmidt-bender,Schmidt & Bender,DE,premium,PM II,,user_supplied_unverified,Brand location is not manufacturing location for every SKU
+swarovski-optik,Swarovski Optik,AT,premium,Z8i; Z5; dS,https://www.swarovskioptik.com/us/en/hunting/products/rifle-scopes,manufacturer_verified,Official current riflescope product catalog
+zeiss,ZEISS,DE,premium,Conquest; LRP,,user_supplied_unverified,
+nightforce,Nightforce Optics,US,premium,ATACR; NX8,,user_supplied_unverified,
+kahles,Kahles,AT,premium,K-series,,user_supplied_unverified,
+march,March Scopes (DEON Optical),JP,premium,March-FX; March-X,https://marchscopes.com/,manufacturer_verified,Official DEON site confirms Japanese manufacture and product families
+vortex,Vortex Optics,US,upper-mid,Razor HD; Strike Eagle,,user_supplied_unverified,
+leupold,Leupold & Stevens,US,upper-mid,Mark 5HD; VX,,user_supplied_unverified,
+trijicon,Trijicon,US,upper-mid,ACOG; VCOG,,user_supplied_unverified,ACOG and VCOG are fixed/variable combat optics; do not assume conventional riflescope specs
+steiner,Steiner Optik,DE,upper-mid,M-series; T-series,,user_supplied_unverified,Some models associated with US operation
+eotech,EOTECH,US,upper-mid,Vudu,https://www.eotechinc.com/pages/about-eotech,manufacturer_verified,Official site confirms Vudu magnified optics since 2016
+meopta,Meopta,CZ,upper-mid,MeoStar,,user_supplied_unverified,
+athlon,Athlon Optics,US,value-entry,Argos; Ares,,user_supplied_unverified,
+bushnell,Bushnell,US,value-entry,Match Pro; Elite Tactical,,user_supplied_unverified,
+primary-arms,Primary Arms,US,value-entry,SLx; PLx,,user_supplied_unverified,ACSS is reticle family not automatic rangefinder
+burris,Burris Optics,US,value-entry,Fullfield; Eliminator,,user_supplied_unverified,
+hawke,Hawke Optics,GB,value-entry,Sidewinder; Airmax,,user_supplied_unverified,
+sig-sauer-optics,SIG SAUER Electro-Optics,US,value-entry,TANGO; WHISKEY,,user_supplied_unverified,US division brand heritage not universal country of manufacture
+arken,Arken Optics,US,asia-production,EP-5,,user_supplied_unverified,US brand and China manufacturing distinction requires per-model evidence
+vector-optics,Vector Optics,CN,asia-production,Continental,,user_supplied_unverified,
+discovery-optics,Discovery Optics,CN,asia-production,XED; HD,,user_supplied_unverified,

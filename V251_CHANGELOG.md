@@ -1,0 +1,1 @@
+v251: User reference-inspired three-gauge spirit level UI: horizontal tube, vertical tube, circular dual-axis gauge; 0.01 degree X/Y display; session calibration and reading freeze. Sensor accuracy not independently validated.

@@ -1,0 +1,90 @@
+{
+  "source": "https://www.airventuri.com/collections/air-rifles",
+  "checked_on": "2026-09-30",
+  "policy": "Only manufacturer-confirmed caliber variants enter active catalog. Missing caliber or pellet weight stays staged. Historical 2017 pellet data must not be presented as current.",
+  "active_rifle_ids": [
+    "airventuri-seneca-dragon-claw-ii-tactical-50",
+    "airventuri-seneca-light-hunter-ii-wood-45",
+    "airventuri-seneca-light-hunter-ii-tactical-45"
+  ],
+  "staged_rifles_needing_variant_specs": [
+    "Alpha PCP Air Rifle",
+    "Avenger Regulated PCP Air Rifle Synthetic Stock",
+    "Avenger Regulated PCP Air Rifle Wood Stock",
+    "Avenger Bullpup II",
+    "Avenge-X Tactical",
+    "Avenge-X Tactical Carbine",
+    "Avenge-X Classic Synthetic",
+    "Avenge-X Classic Wood",
+    "Avenge-X Bullpup Wood",
+    "Avenge-XL",
+    "Ascent Hybrid",
+    "Seneca Dragon Claw II Wood",
+    "Seneca Light Hunter II Wood",
+    "Seneca Light Hunter II Tactical",
+    "Seneca Recluse II Tactical",
+    "Seneca Recluse II 500cc",
+    "Seneca Eagle Claw Carbine"
+  ],
+  "ammunition": {
+    "current_site": [
+      {
+        "name": "Steel BBs .177 5.1 grains",
+        "classification": "BB; incompatible with current pellet/slug/bullet enum; do not misclassify",
+        "status": "excluded_until_BB_type_supported"
+      },
+      {
+        "name": "Dust Devil Mk2 Frangible BBs",
+        "classification": "BB; incompatible with current enum",
+        "status": "excluded_until_BB_type_supported"
+      }
+    ],
+    "historical_pellets_2017": [
+      {
+        "sku": "AV-92144500004B",
+        "caliber_in": 0.177,
+        "grain": 8.64,
+        "shape": "pointed"
+      },
+      {
+        "sku": "AV-93114500003B",
+        "caliber_in": 0.177,
+        "grain": 8.18,
+        "shape": "domed"
+      },
+      {
+        "sku": "AV-93124500004B",
+        "caliber_in": 0.177,
+        "grain": 7.48,
+        "shape": "wadcutter"
+      }
+    ],
+    "historical_source": "https://www.airventuri.com/images/airventuri/Air-Venturi-Catalog-2017-low-res.pdf",
+    "status": "staged_not_current",
+    "archival_2017_imported": [
+      {
+        "id": "airventuri-av45-454-rb-137",
+        "sku": "AV.45/.454/RB",
+        "current_availability": "unverified"
+      },
+      {
+        "id": "airventuri-av45-457-rb-143",
+        "sku": "AV.45/.457/RB",
+        "current_availability": "unverified"
+      },
+      {
+        "id": "airventuri-av45-166-fp",
+        "sku": "AV.45/166gr/FP",
+        "current_availability": "unverified"
+      }
+    ]
+  },
+  "excluded": [
+    "DNT Optics",
+    "compressors",
+    "cleaning pellets",
+    "CO2 cartridges",
+    "airsoft",
+    "spring and multipump rifles not representable as PCP/firearm"
+  ]
+}

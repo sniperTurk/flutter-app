@@ -1,0 +1,124 @@
+name: Bootstrap Flutter lockfile
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate-lockfile:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12.11'
+
+      - name: Set up pinned Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Enforce pinned Flutter toolchain
+        run: python3 tools/verify_flutter_toolchain.py
+
+      - name: Generate resolver lockfile
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f pubspec.lock
+          flutter pub get
+          test -s pubspec.lock
+          git diff --exit-code -- pubspec.yaml
+
+      - name: Verify generated lockfile is reusable
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          flutter pub get
+          AFTER="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          [[ "$BEFORE" == "$AFTER" ]] || {
+            echo "Pinned Flutter resolver produced a non-deterministic pubspec.lock" >&2
+            exit 1
+          }
+
+      - name: Record lockfile provenance
+        # Keep generation and verification on the same production implementation
+        # used by local bootstrap. This prevents the workflow from silently
+        # drifting to a second provenance format or hash contract.
+        run: python3 tools/write_lockfile_provenance.py --flutter-version 3.47.2
+
+      - name: Verify lockfile provenance contract
+        run: python3 tools/verify_lockfile_provenance.py
+
+      # A resolver artifact is not useful for production if the exact dependency
+      # graph it pins cannot format/analyze/test under the same pinned Flutter
+      # toolchain. Keep these checks before artifact upload so a red source tree
+      # can never produce an adoptable release lockfile.
+      - name: Verify Dart formatting with generated lockfile
+        id: format
+        run: dart format --output=none --set-exit-if-changed lib test integration_test tools
+
+      - name: Analyze source with generated lockfile
+        shell: bash
+        run: flutter analyze --fatal-infos --fatal-warnings 2>&1 | tee flutter-analyze.log
+
+      - name: Run Flutter tests with generated lockfile
+        shell: bash
+        run: flutter test --reporter=expanded 2>&1 | tee flutter-test.log
+
+      - name: Record artifact SHA-256 manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          shasum -a 256 pubspec.lock lockfile-provenance.txt > lockfile-sha256.txt
+          test "$(wc -l < lockfile-sha256.txt | tr -d ' ')" = "2"
+
+      - name: Upload generated lockfile
+        uses: actions/upload-artifact@v7
+        with:
+          name: sniper-turk-pubspec-lock-flutter-3.47.2
+          path: |
+            pubspec.lock
+            lockfile-provenance.txt
+            lockfile-sha256.txt
+          if-no-files-found: error
+          retention-days: 7
+
+      # ---- Diagnostics only (run after a failure; they can NEVER publish a
+      # lockfile: the lockfile artifact above is uploaded only when every
+      # validation step before it passed). Without these, a never-formatted
+      # source tree would fail closed with nothing to act on.
+      - name: Produce formatting patch (diagnostic only)
+        if: failure() && steps.format.outcome == 'failure'
+        run: |
+          dart format lib test integration_test tools
+          git diff -- lib test integration_test tools > dart-format.patch
+
+      - name: Upload formatting patch (diagnostic only, not a lockfile)
+        if: failure() && steps.format.outcome == 'failure'
+        uses: actions/upload-artifact@v7
+        with:
+          name: UNVERIFIED-dart-format-patch
+          path: dart-format.patch
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Upload analyzer/test logs (diagnostic only, not a lockfile)
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: UNVERIFIED-validation-logs
+          path: |
+            flutter-analyze.log
+            flutter-test.log
+          if-no-files-found: ignore
+          retention-days: 7

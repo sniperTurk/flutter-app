@@ -1,0 +1,27 @@
+name: sniper_turk
+description: Sniper Turk V1 - PCP and firearm ballistic companion
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: '>=3.8.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.3.2
+  # M1 tools (versions from pub.dev 2026-10-03; Flutter 3.47.2 = Dart 3.13.2).
+  geolocator: ^14.1.1
+  sensors_plus: ^7.1.1
+  flutter_compass: ^0.8.1
+  camera: ^0.12.1
+  # Sight Height "Galeriden seç" (iOS PHPicker, requestFullMetadata: false).
+  image_picker: ^1.2.3
+  http: ^1.6.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+flutter:
+  uses-material-design: true

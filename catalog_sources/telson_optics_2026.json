@@ -1,0 +1,15 @@
+{
+  "brand": "Telson Optics",
+  "source": "https://telsonoptics.com/rifle-scope/target-master/",
+  "additional_sources": ["https://telsonoptics.com/shop/", "https://telsonoptics.com/digital-manuals/"],
+  "verified_on": "2026-09-30",
+  "import_status": "verified_model_staging_pending_click_and_tube_specification",
+  "note": "No production ScopeOptic records created: catalog requires verified click value and unit. Avoid inventing technical specifications.",
+  "products": [
+    {"model":"Target Master Victory 5-32x56 IR FFP", "min_magnification":5, "max_magnification":32, "objective_mm":56, "focal_plane":"FFP"},
+    {"model":"Target Master Tactical 5-25x56 IR FFP", "min_magnification":5, "max_magnification":25, "objective_mm":56, "focal_plane":"FFP"},
+    {"model":"Target Master Quantum 5-30x56 IR FFP", "min_magnification":5, "max_magnification":30, "objective_mm":56, "focal_plane":"FFP"},
+    {"model":"Toxin 3-18x50 IR FFP", "min_magnification":3, "max_magnification":18, "objective_mm":50, "focal_plane":"FFP", "note":"Store listing says FFP; older editorial page says SFP; verify variant before publishing."},
+    {"model":"ARC 2.5-15x44 IR SFP", "min_magnification":2.5, "max_magnification":15, "objective_mm":44, "focal_plane":"SFP"}
+  ]
+}

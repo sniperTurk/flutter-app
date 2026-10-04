@@ -1,0 +1,29 @@
+brand_id,brand_name,headquarters_country,category,example_products,source_url,verification_status,notes
+mke,MKE,TR,finished_ammunition,"5.56 NATO; 7.62 NATO",https://www.mke.gov.tr,user_supplied_unverified,Brand registry only; specifications require independent verification
+sterling-turac,Sterling / Turaç,TR,finished_ammunition,Shotshells,https://turac.com.tr,user_supplied_unverified,
+zsr,ZSR,TR,finished_ammunition,Shotshells,,user_supplied_unverified,
+ozkursan,Özkursan,TR,finished_ammunition,Shotshells,http://www.ozkursan.com,user_supplied_unverified,
+winchester-ammunition,Winchester Ammunition,US,finished_ammunition,Rifle cartridges,,user_supplied_unverified,Distinct from Winchester firearms brand
+federal-ammunition,Federal Ammunition,US,finished_ammunition,Gold Medal Match,,user_supplied_unverified,Corporate ownership subject to change
+remington-ammunition,Remington Ammunition,US,finished_ammunition,Core-Lokt,,user_supplied_unverified,
+cci-speer,CCI / Speer,US,finished_ammunition,.22 LR; Gold Dot,,user_supplied_unverified,Two brands grouped by user; normalize separately if product records added
+hornady,Hornady,US,projectiles_and_ammunition,ELD Match; ELD-X,,user_supplied_unverified,
+barnes,Barnes Bullets,US,projectiles,TSX; TTSX,,user_supplied_unverified,
+nosler,Nosler,US,projectiles_and_ammunition,Ballistic Tip,,user_supplied_unverified,
+sierra,Sierra Bullets,US,projectiles,MatchKing,,user_supplied_unverified,
+berger,Berger Bullets,US,projectiles,Match bullets,,user_supplied_unverified,
+lapua,Lapua,FI,projectiles_cases_ammunition,.338 Lapua Magnum,,user_supplied_unverified,
+norma,Norma Precision,SE,finished_ammunition,Rifle cartridges,,user_supplied_unverified,
+rws,RWS,DE,finished_ammunition,Rifle cartridges,,user_supplied_unverified,Ownership assertions not imported
+fiocchi,Fiocchi,IT,finished_ammunition,Shotshells; rifle cartridges,,user_supplied_unverified,
+sako,Sako Ammunition,FI,finished_ammunition,Hunting cartridges,,user_supplied_unverified,
+sellier-bellot,Sellier & Bellot,CZ,finished_ammunition,Rifle cartridges,,user_supplied_unverified,
+ppu,Prvi Partizan (PPU),RS,finished_ammunition,Rifle cartridges,,user_supplied_unverified,
+geco,GECO,DE,finished_ammunition,Rifle cartridges,,user_supplied_unverified,
+mesko,Mesko,PL,finished_ammunition,Military ammunition,,user_supplied_unverified,
+magtech,Magtech (CBC),BR,finished_ammunition,Rifle cartridges,,user_supplied_unverified,
+pmc,PMC (Poongsan),KR,finished_ammunition,Rifle cartridges,,user_supplied_unverified,
+norinco,Norinco Ammunition,CN,finished_ammunition,Military ammunition,,user_supplied_unverified,
+barnaul,Barnaul,RU,finished_ammunition,Steel-case cartridges,,user_supplied_unverified,
+tula,Tula Ammo,RU,finished_ammunition,Steel-case cartridges,,user_supplied_unverified,
+adi,ADI (Thales),AU,propellant_and_ammunition,Rifle propellants,,user_supplied_unverified,Brand and manufacturer identity require verification

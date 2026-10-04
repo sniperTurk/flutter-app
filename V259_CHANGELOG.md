@@ -1,0 +1,1 @@
+v259: Added 15 manufacturer-confirmed Avenge-X body/caliber variants to active PCP catalog. Other staged rifles and ammunition remain unverified and are NOT claimed active. No Flutter/iOS build executed.

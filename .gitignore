@@ -1,0 +1,22 @@
+# Dart / Flutter
+.dart_tool/
+.packages
+build/
+coverage/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE / platform generated metadata
+.idea/
+*.iml
+
+# Python validation tooling
+__pycache__/
+*.py[cod]
+
+# Independent validation output is generated in CI and must never be treated
+# as a hand-authored production fixture.
+validation/py_ballisticcalc_vectors.json
+
+# Local OS files
+.DS_Store

@@ -1,0 +1,25 @@
+brand_id,brand_name,headquarters_country,category,verification_status,notes
+spoton,Spoton,TR,pellet_slug,user_supplied_unverified,Brand registry only; model specifications not verified
+ince-mehmet,İnce Mehmet,TR,slug,user_supplied_unverified,Brand registry only; model specifications not verified
+eb-solid,EB Solid,TR,slug,user_supplied_unverified,Brand registry only; model specifications not verified
+shock-slugs,Shock Slugs,TR,slug,user_supplied_unverified,Brand registry only; model specifications not verified
+beta-solid,Beta Solid / Hawk Slug,TR,slug,user_supplied_unverified,Brand registry only; model specifications not verified
+hatsan,Hatsan,TR,pellet_slug,user_supplied_unverified,Brand registry only; model specifications not verified
+kral-oztay,Kral Arms / Öztay,TR,pellet,user_supplied_unverified,Brand registry only; model specifications not verified
+jsb,JSB Match Diabolo,CZ,pellet_slug,user_supplied_unverified,Brand registry only; model specifications not verified
+hn,H&N Sport,DE,pellet_slug,user_supplied_unverified,Brand registry only; model specifications not verified
+zan,ZAN Projectiles,SI,slug,user_supplied_unverified,Brand registry only; model specifications not verified
+rws,RWS,DE,pellet,user_supplied_unverified,Brand registry only; model specifications not verified
+altaros,Altaros,CZ,slug,user_supplied_unverified,Brand registry only; model specifications not verified
+nsa,Nielsen Specialty Ammo,US,slug,user_supplied_unverified,Brand registry only; model specifications not verified
+crosman,Crosman Premier,US,pellet,user_supplied_unverified,Brand registry only; model specifications not verified
+air-venturi,Air Venturi,US,pellet_slug,user_supplied_unverified,Brand registry only; model specifications not verified
+griffin,Griffin Airgun Ammo,US,slug,user_supplied_unverified,Brand registry only; model specifications not verified
+fx,FX Airguns Hybrid,SE,slug,user_supplied_unverified,Brand registry only; model specifications not verified
+wildman,Wildman Slugs,GB,slug,user_supplied_unverified,Brand registry only; model specifications not verified
+qys,Qiang Yuan (QYS),CN,pellet,user_supplied_unverified,Brand registry only; model specifications not verified
+snowpeak,Snowpeak / Artemis,CN,pellet,user_supplied_unverified,Brand registry only; model specifications not verified
+apolo,Apolo Ammo,AR,pellet_slug,user_supplied_unverified,Brand registry only; model specifications not verified
+coal,COAL,SI,pellet,user_supplied_unverified,Brand registry only; model specifications not verified
+gamo,Gamo,ES,pellet,user_supplied_unverified,Brand registry only; model specifications not verified
+my-bullet,My Bullet,TR,pellet_slug,manufacturer_website_verified,Official website lists 5.5 mm pellets and 6.35 mm hollow point slugs; 6.35 mm 32/38/45/60 grain variants stated in manufacturer FAQ; https://mybullet.com.tr/ checked 2026-09-29
