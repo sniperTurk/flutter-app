@@ -22,7 +22,10 @@ class DropdownValuePolicyTest(unittest.TestCase):
         self.assertIn("key: ValueKey('profile-rifle-${platform.name}')", profiles)
         self.assertIn("key: ValueKey('profile-ammo-${rifle?.id}')", profiles)
         home = (ROOT / 'lib/features/home/home_screen.dart').read_text(encoding='utf-8')
-        self.assertIn("key: ValueKey('active-profile-${active?.id}')", home)
+        # Keyed on the active id AND a rollback epoch: a failed selection
+        # must remount the field so it shows the still-active profile.
+        self.assertIn("key: ValueKey(('active-profile', active?.id, _selectorEpoch))", home)
+        self.assertIn("setState(() => _selectorEpoch++);", home)
 
 if __name__ == '__main__':
     unittest.main()

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/production_limits.dart';
 import '../../core/profile_input.dart';
 import '../../data/catalog_repository.dart';
+import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
@@ -464,6 +465,18 @@ class _ProfileRow extends StatelessWidget {
   }
 }
 
+/// Personal (manual catalog) records are never presented as manufacturer
+/// data: every place that names one also says it is the user's own entry.
+String _optionLabel(String name, bool userEntered) =>
+    userEntered ? '$name (kişisel kayıt)' : name;
+
+String _labelled(String? name, bool? userEntered, String fallbackId) =>
+    name == null
+    ? fallbackId
+    : userEntered == true
+    ? '$name — kişisel kayıt, üretici doğrulaması yok'
+    : name;
+
 /// Read-only summary of the active profile plus the catalog values it
 /// resolves to. Purely informational: nothing here feeds the solver.
 class _ActiveProfileDetails extends StatelessWidget {
@@ -474,13 +487,13 @@ class _ActiveProfileDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rifle = CatalogRepository.rifles
+    final rifle = CatalogRepository.allRifles
         .where((r) => r.id == profile.rifleId)
         .firstOrNull;
-    final ammo = CatalogRepository.ammunition
+    final ammo = CatalogRepository.allAmmunition
         .where((a) => a.id == profile.ammunitionId)
         .firstOrNull;
-    final scope = CatalogRepository.scopes
+    final scope = CatalogRepository.allScopes
         .where((o) => o.id == profile.scopeId)
         .firstOrNull;
     final barrelLengthMm = rifle?.barrelLengthMm;
@@ -501,9 +514,12 @@ class _ActiveProfileDetails extends StatelessWidget {
         ),
         _KeyValueCard(
           rows: [
-            ('Tüfek', rifle?.displayName ?? profile.rifleId),
-            ('Mühimmat', ammo?.displayName ?? profile.ammunitionId),
-            ('Dürbün', scope?.displayName ?? profile.scopeId),
+            ('Tüfek', _labelled(rifle?.displayName, rifle?.userEntered, profile.rifleId)),
+            (
+              'Mühimmat',
+              _labelled(ammo?.displayName, ammo?.userEntered, profile.ammunitionId),
+            ),
+            ('Dürbün', _labelled(scope?.displayName, scope?.userEntered, profile.scopeId)),
           ],
         ),
         MenzilMetricGrid(
@@ -621,6 +637,25 @@ class _ProfileDialog extends StatefulWidget {
 }
 
 class _ProfileDialogState extends State<_ProfileDialog> {
+  /// Catalog snapshot taken when the editor opens (built-in + personal).
+  /// Dropdown values are matched by identity, so the editor must not see a
+  /// reinstalled personal catalog half-way through an edit.
+  final List<Rifle> _allRifles = CatalogRepository.allRifles;
+  final List<Ammunition> _allAmmunition = CatalogRepository.allAmmunition;
+  final List<ScopeOptic> _allScopes = CatalogRepository.allScopes;
+  final List<UserCatalogIssue> _blockedPersonal =
+      CatalogRepository.userCatalog.blocked;
+
+  List<Rifle> _riflesFor(WeaponPlatform p) =>
+      _allRifles.where((r) => r.platform == p).toList(growable: false);
+
+  List<Ammunition> _ammunitionFor(WeaponPlatform p, double caliberMm) =>
+      _allAmmunition
+          .where(
+            (a) => a.platform == p && (a.caliberMm - caliberMm).abs() < 0.001,
+          )
+          .toList(growable: false);
+
   WeaponPlatform platform = WeaponPlatform.pcp;
   Rifle? rifle;
   Ammunition? ammo;
@@ -647,7 +682,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final p = widget.initial;
     final initialRifle = p == null
         ? null
-        : CatalogRepository.rifles.where((r) => r.id == p.rifleId).firstOrNull;
+        : _allRifles.where((r) => r.id == p.rifleId).firstOrNull;
     // Platform of an unresolved rifle is inferred from the stored pressure
     // (only PCP profiles carry one) instead of defaulting silently.
     platform =
@@ -658,20 +693,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifle = initialRifle;
     ammo = p == null
         ? null
-        : CatalogRepository.ammunition
-              .where((a) => a.id == p.ammunitionId)
-              .firstOrNull;
+        : _allAmmunition.where((a) => a.id == p.ammunitionId).firstOrNull;
     scope = p == null
         ? null
-        : CatalogRepository.scopes.where((o) => o.id == p.scopeId).firstOrNull;
+        : _allScopes.where((o) => o.id == p.scopeId).firstOrNull;
     if (p != null) {
       if (rifle == null) _unresolved.add('tüfek');
       if (ammo == null) {
         _unresolved.add('mühimmat');
       } else if (rifle != null &&
-          !const CatalogRepository()
-              .ammunitionFor(platform, caliberMm: rifle!.caliberMm)
-              .contains(ammo)) {
+          !_ammunitionFor(platform, rifle!.caliberMm).contains(ammo)) {
         ammo = null;
         _unresolved.add('mühimmat (tüfek kalibresiyle uyumsuz)');
       }
@@ -746,23 +777,25 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
-    const repo = CatalogRepository();
-    final rifles = repo.riflesFor(platform);
+    final rifles = _riflesFor(platform);
     // New profiles only: default to the first rifle that has catalog ammunition
     // of its caliber, so the default selection is saveable. Edits never do this.
     if (!_isEdit) {
       rifle ??= rifles.firstWhere(
-        (r) => repo.ammunitionFor(platform, caliberMm: r.caliberMm).isNotEmpty,
+        (r) => _ammunitionFor(platform, r.caliberMm).isNotEmpty,
         orElse: () => rifles.first,
       );
     }
     final ammos = rifle == null
         ? const <Ammunition>[]
-        : repo.ammunitionFor(platform, caliberMm: rifle!.caliberMm);
+        : _ammunitionFor(platform, rifle!.caliberMm);
     if (!_isEdit && !ammos.contains(ammo)) {
       ammo = ammos.isEmpty ? null : ammos.first;
     }
     if (!_isEdit) scope ??= CatalogRepository.scopes.first;
+    final blockedHere = _blockedPersonal
+        .where((b) => b.kind == 'scope' || b.platform == platform)
+        .toList(growable: false);
     final canSave =
         rifle != null && ammo != null && scope != null && _validSight;
 
@@ -890,7 +923,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                         (e) => DropdownMenuItem(
                           value: e,
                           child: Text(
-                            e.displayName,
+                            _optionLabel(e.displayName, e.userEntered),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -917,7 +950,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                           (e) => DropdownMenuItem(
                             value: e,
                             child: Text(
-                              e.displayName,
+                              _optionLabel(e.displayName, e.userEntered),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -935,12 +968,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 MenzilSelect<ScopeOptic>(
                   label: 'Dürbün',
                   initialValue: scope,
-                  items: CatalogRepository.scopes
+                  items: _allScopes
                       .map(
                         (e) => DropdownMenuItem(
                           value: e,
                           child: Text(
-                            e.displayName,
+                            _optionLabel(e.displayName, e.userEntered),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -949,6 +982,24 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       .toList(),
                   onChanged: (v) => setState(() => scope = v),
                 ),
+                if (rifle?.userEntered == true ||
+                    ammo?.userEntered == true ||
+                    scope?.userEntered == true)
+                  const MenzilNotice(
+                    tone: MenzilNoticeTone.info,
+                    message:
+                        'Kişisel kayıt seçildi: bu değerler kullanıcı '
+                        'girdisidir, üretici tarafından doğrulanmamıştır.',
+                  ),
+                if (blockedHere.isNotEmpty)
+                  MenzilNotice(
+                    key: const ValueKey('profile-blocked-personal'),
+                    tone: MenzilNoticeTone.warning,
+                    title: 'Seçilemeyen kişisel kayıtlar',
+                    message: blockedHere
+                        .map((b) => '• ${b.label}: ${b.reason}')
+                        .join('\n'),
+                  ),
               ],
             ),
           ),

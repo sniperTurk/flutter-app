@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../data/catalog_repository.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
 import '../../services/active_profile_store.dart';
 import '../../services/profile_store.dart';
 import '../../services/settings_store.dart';
+import '../../services/user_catalog_loader.dart';
 import '../../ui/menzil_icons.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
@@ -19,7 +21,16 @@ class HomeScreen extends StatefulWidget {
   final ProfileStore? profileStore;
   final ActiveProfileStore? activeProfileStore;
 
-  const HomeScreen({super.key, this.profileStore, this.activeProfileStore});
+  /// Loads (and migrates) the personal manual catalog so profiles can use the
+  /// user's own rifles, ammunition and scopes.
+  final UserCatalogLoader? userCatalogLoader;
+
+  const HomeScreen({
+    super.key,
+    this.profileStore,
+    this.activeProfileStore,
+    this.userCatalogLoader,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -30,6 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
       widget.profileStore ?? PersistentProfileStore();
   late final ActiveProfileStore activeStore =
       widget.activeProfileStore ?? PersistentActiveProfileStore();
+  late final UserCatalogLoader userCatalog =
+      widget.userCatalogLoader ?? UserCatalogLoader();
 
   List<RifleProfile> saved = [];
   RifleProfile? active;
@@ -37,7 +50,14 @@ class _HomeScreenState extends State<HomeScreen> {
   bool choosingProfile = false;
   String? loadError;
   String? activeProfileWarning;
+  String? userCatalogWarning;
   int _loadGeneration = 0;
+
+  /// Bumped whenever a selection could not be committed. The dropdown's
+  /// FormField keeps its own value after a tap; re-keying it remounts the
+  /// field from [active], so the visible profile never drifts away from the
+  /// profile the ballistic workspace actually uses.
+  int _selectorEpoch = 0;
 
   static const _tabShot = 0;
   static const _tabTable = 1;
@@ -75,6 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     try {
       final all = await profiles.all();
+      // Install the personal catalog before any profile is resolved, so a
+      // profile built from user records validates and reaches the solver.
+      final catalogWarning = await _loadUserCatalog(all);
       final id = await activeStore.getActiveProfileId();
       if (!mounted || generation != _loadGeneration) return;
       RifleProfile? selected;
@@ -108,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
         saved = all;
         active = selected;
         activeProfileWarning = reconciliationWarning;
+        userCatalogWarning = catalogWarning;
         loading = false;
         _profilesRevision++;
       });
@@ -117,6 +141,31 @@ class _HomeScreenState extends State<HomeScreen> {
         loading = false;
         loadError = 'Profil verileri okunamadı. Kayıtlar değiştirilmedi.';
       });
+    }
+  }
+
+  /// Returns a user-facing warning, or null. A read failure keeps the
+  /// previously installed personal catalog and only warns when a saved
+  /// profile actually depends on a personal record.
+  Future<String?> _loadUserCatalog(List<RifleProfile> all) async {
+    try {
+      return (await userCatalog.load()).warning;
+    } catch (_) {
+      final builtIn = <String>{
+        for (final r in CatalogRepository.rifles) r.id,
+        for (final a in CatalogRepository.ammunition) a.id,
+        for (final s in CatalogRepository.scopes) s.id,
+      };
+      final dependsOnPersonal = all.any(
+        (p) =>
+            !builtIn.contains(p.rifleId) ||
+            !builtIn.contains(p.ammunitionId) ||
+            !builtIn.contains(p.scopeId),
+      );
+      return dependsOnPersonal
+          ? 'Kişisel katalog okunamadı. Kişisel ekipman kullanan profiller '
+                'bu oturumda hesaplamada kullanılamaz; kayıtlar değiştirilmedi.'
+          : null;
     }
   }
 
@@ -136,6 +185,8 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     } catch (_) {
       if (mounted) {
+        // Roll the dropdown back to the still-active (previous) profile.
+        setState(() => _selectorEpoch++);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Aktif profil kaydedilemedi. Önceki seçim korundu.'),
@@ -179,9 +230,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  bool get _activeProfileValid =>
-      active != null &&
-      const ProfileCatalogIntegrity().resolve(active!) != null;
+  ProfileCatalogResolution? get _activeResolution =>
+      active == null ? null : const ProfileCatalogIntegrity().resolve(active!);
 
   @override
   Widget build(BuildContext context) {
@@ -242,6 +292,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.warning_amber_rounded,
                         title: 'Aktif profil uyarısı',
                         message: activeProfileWarning!,
+                      ),
+                    ),
+                  ),
+                if (userCatalogWarning != null)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      MenzilSpace.gutter,
+                      MenzilSpace.md,
+                      MenzilSpace.gutter,
+                      0,
+                    ),
+                    child: Semantics(
+                      liveRegion: true,
+                      child: MenzilNotice(
+                        tone: MenzilNoticeTone.warning,
+                        icon: Icons.warning_amber_rounded,
+                        title: 'Kişisel katalog uyarısı',
+                        message: userCatalogWarning!,
                       ),
                     ),
                   ),
@@ -318,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
       label: 'Aktif tüfek profili',
       button: true,
       child: DropdownButtonFormField<RifleProfile>(
-        key: ValueKey('active-profile-${active?.id}'),
+        key: ValueKey(('active-profile', active?.id, _selectorEpoch)),
         initialValue: active,
         isExpanded: true,
         isDense: true,
@@ -369,7 +437,8 @@ class _HomeScreenState extends State<HomeScreen> {
   /// or unit preference creates a fresh workspace (fresh profile defaults).
   Widget _ballisticsTab(BuildContext context) {
     final profile = active;
-    if (profile == null || !_activeProfileValid) {
+    final resolution = _activeResolution;
+    if (profile == null || resolution == null) {
       return MenzilPage(
         children: [
           MenzilToolTile(
@@ -416,6 +485,16 @@ class _HomeScreenState extends State<HomeScreen> {
         profile.zeroRangeM,
         profile.sightHeightMm,
         profile.angularUnit,
+        // Personal catalog records can be edited without changing the
+        // profile; the workspace must then start again from the new values.
+        (
+          resolution.rifle.caliberMm,
+          resolution.ammunition.grain,
+          resolution.ammunition.ballisticCoefficient,
+          resolution.ammunition.ballisticModel,
+          resolution.scope.clickValue,
+          resolution.scope.clickUnit,
+        ),
         metric,
       )),
       profile: profile,

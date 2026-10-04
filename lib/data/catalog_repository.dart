@@ -1,6 +1,7 @@
 // dart format off
 import '../models/domain.dart';
 import 'catalog_integrity.dart';
+import 'user_catalog.dart';
 
 class CatalogRepository {
   const CatalogRepository();
@@ -748,6 +749,22 @@ class CatalogRepository {
     scopes: scopes,
   );
 
-  List<Rifle> riflesFor(WeaponPlatform p) => rifles.where((x)=>x.platform==p).toList(growable:false);
-  List<Ammunition> ammunitionFor(WeaponPlatform p, {double? caliberMm}) => ammunition.where((x)=>x.platform==p && (caliberMm==null || (x.caliberMm-caliberMm).abs()<0.001)).toList(growable:false);
+  /// The user's personal (manual) catalog, converted and installed by
+  /// `UserCatalogLoader`. Built-in [rifles]/[ammunition]/[scopes] stay the
+  /// manufacturer-sourced lists; the `all*` views add the personal records,
+  /// which carry `userEntered: true` and a "Kullanıcı girdisi" source.
+  static UserCatalog _user = UserCatalog.empty;
+  static UserCatalog get userCatalog => _user;
+  static void installUserCatalog(UserCatalog catalog) => _user = catalog;
+
+  static List<Rifle> get allRifles => [...rifles, ..._user.rifles];
+  static List<Ammunition> get allAmmunition => [...ammunition, ..._user.ammunition];
+  static List<ScopeOptic> get allScopes => [...scopes, ..._user.scopes];
+
+  /// Rifles for [p]. Personal records are included unless [includeUser] is
+  /// false (the catalog browser lists them in their own section).
+  List<Rifle> riflesFor(WeaponPlatform p, {bool includeUser = true}) =>
+      (includeUser ? allRifles : rifles).where((x)=>x.platform==p).toList(growable:false);
+  List<Ammunition> ammunitionFor(WeaponPlatform p, {double? caliberMm, bool includeUser = true}) =>
+      (includeUser ? allAmmunition : ammunition).where((x)=>x.platform==p && (caliberMm==null || (x.caliberMm-caliberMm).abs()<0.001)).toList(growable:false);
 }

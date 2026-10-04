@@ -129,6 +129,12 @@ class ManualCatalogStore {
     if (kind == 'ammo' && entry['grain'] == null) {
       throw const FormatException('Grain is required for standard ammunition records');
     }
+    // Optional on older records; when present it must be a known unit. Scopes
+    // without it stay stored but cannot be selected in a profile.
+    final clickUnit = entry['clickUnit'];
+    if (clickUnit != null && clickUnit != 'mrad' && clickUnit != 'moa') {
+      throw const FormatException('Invalid click unit');
+    }
     for (final field in ['caliberMm', 'grain', 'diameterMm', 'lengthMm', 'bc', 'objectiveMm', 'click']) {
       final value = entry[field];
       if (value != null && (value is! num || !value.isFinite || value <= 0)) {

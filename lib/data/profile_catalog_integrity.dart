@@ -23,15 +23,15 @@ class ProfileCatalogIntegrity {
 
   ProfileCatalogResolution? resolve(RifleProfile profile) {
     final rifle = _one(
-      CatalogRepository.rifles,
+      CatalogRepository.allRifles,
       (x) => x.id == profile.rifleId,
     );
     final ammunition = _one(
-      CatalogRepository.ammunition,
+      CatalogRepository.allAmmunition,
       (x) => x.id == profile.ammunitionId,
     );
     final scope = _one(
-      CatalogRepository.scopes,
+      CatalogRepository.allScopes,
       (x) => x.id == profile.scopeId,
     );
     if (rifle == null || ammunition == null || scope == null) return null;

@@ -96,11 +96,11 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
       }
       if (profile == null || !mounted) return;
       Rifle? rifle;
-      for (final r in CatalogRepository.rifles) {
+      for (final r in CatalogRepository.allRifles) {
         if (r.id == profile.rifleId) rifle = r;
       }
       ScopeOptic? scope;
-      for (final s in CatalogRepository.scopes) {
+      for (final s in CatalogRepository.allScopes) {
         if (s.id == profile.scopeId) scope = s;
       }
       if (!mounted) return;

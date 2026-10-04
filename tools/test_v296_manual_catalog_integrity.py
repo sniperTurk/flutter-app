@@ -13,8 +13,8 @@ class ManualCatalogIntegrityRegression(unittest.TestCase):
         self.assertIn("(platform == 'firearm' && ammoType != 'bullet')", STORE)
         self.assertIn("(platform == 'pcp' && ammoType == 'bullet')", STORE)
 
-    def test_legacy_dialog_rebuilds_ammo_dropdown_on_platform_change(self):
-        self.assertIn("key: ValueKey('legacy-ammo-type-$platform')", DIALOG)
+    def test_dialog_rebuilds_ammo_dropdown_on_platform_change(self):
+        self.assertIn("key: ValueKey('ammo-type-$selectedPlatform')", DIALOG)
 
 if __name__ == '__main__':
     unittest.main()

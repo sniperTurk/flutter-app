@@ -19,8 +19,11 @@ class ManualCatalogRecoveryRegression(unittest.TestCase):
         self.assertIn('await _manualStore.all()', SCREEN)
         self.assertIn('await _manualStore.upsert(entry)', SCREEN)
         self.assertNotIn('UserCatalogStore(', SCREEN)
-    def test_other_dialog_is_not_wired_to_live_catalog(self):
-        self.assertNotIn('ManualCatalogDialog(', SCREEN)
-        self.assertIn('UserCatalogStore.validate(entry)', DIALOG)
+    def test_live_dialog_is_wired_to_manual_store_only(self):
+        # The former unused UserCatalogStore dialog was replaced by the live
+        # manual-catalog dialog; legacy records are migrated, never rewritten.
+        self.assertIn('ManualCatalogDialog(', SCREEN)
+        self.assertIn('onSave: (entry) async => await _manualStore.upsert(entry)', SCREEN)
+        self.assertNotIn('UserCatalogStore', DIALOG)
 
 if __name__ == '__main__': unittest.main()

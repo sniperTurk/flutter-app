@@ -18,6 +18,8 @@ class V219Tests(unittest.TestCase):
             self.assertIn(value, store + screen)
         self.assertIn("e['platform'] == platform.name", screen)
         self.assertIn("_editManual(existing: e)", screen)
-        self.assertIn("form.currentState!.validate()", screen)
+        dialog = (ROOT / 'lib/features/catalog/manual_catalog_dialog.dart').read_text()
+        self.assertIn("form.currentState!.validate()", dialog)
+        self.assertIn("ManualCatalogDialog(", screen)
 
 if __name__ == '__main__': unittest.main()
