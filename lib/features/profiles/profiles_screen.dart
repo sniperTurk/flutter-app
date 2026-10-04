@@ -725,7 +725,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final c = MenzilColors.of(context);
     const repo = CatalogRepository();
     final rifles = repo.riflesFor(platform);
-    if (!_isEdit) rifle ??= rifles.first;
+    // New profiles only: default to the first rifle that has catalog ammunition
+    // of its caliber, so the default selection is saveable. Edits never do this.
+    if (!_isEdit) {
+      rifle ??= rifles.firstWhere(
+        (r) => repo.ammunitionFor(platform, caliberMm: r.caliberMm).isNotEmpty,
+        orElse: () => rifles.first,
+      );
+    }
     final ammos = rifle == null
         ? const <Ammunition>[]
         : repo.ammunitionFor(platform, caliberMm: rifle!.caliberMm);

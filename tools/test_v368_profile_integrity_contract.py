@@ -12,7 +12,7 @@ def read(rel):
 class V368ProfileIntegrity(unittest.TestCase):
     def test_editor_never_autofills_catalog_ids_when_editing(self):
         t = read('lib/features/profiles/profiles_screen.dart')
-        self.assertIn('if (!_isEdit) rifle ??= rifles.first;', t)
+        self.assertIn('if (!_isEdit) {\n      rifle ??= rifles.firstWhere(', t)
         self.assertIn('if (!_isEdit) scope ??= CatalogRepository.scopes.first;', t)
         self.assertIn('if (!_isEdit && !ammos.contains(ammo))', t)
         self.assertNotIn('\n    rifle ??= rifles.first;', t)
