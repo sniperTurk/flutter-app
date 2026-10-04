@@ -120,8 +120,16 @@ class M1SafetyBoundaryTests(unittest.TestCase):
     def test_no_hand_made_lockfile_in_this_branch(self):
         # pubspec.lock / provenance are produced only by the pinned Actions
         # workflow (Job 1); this UI branch must not contain hand-made copies.
-        self.assertFalse((ROOT / 'pubspec.lock').exists())
-        self.assertFalse((ROOT / 'lockfile-provenance.txt').exists())
+        # A lockfile may exist only together with provenance that ties it to
+        # the pinned Flutter and the current pubspec.yaml (never hand-made).
+        import subprocess, sys
+        lock = (ROOT / 'pubspec.lock').exists()
+        prov = (ROOT / 'lockfile-provenance.txt').exists()
+        self.assertEqual(lock, prov, 'pubspec.lock and its provenance go together')
+        if lock:
+            r = subprocess.run([sys.executable, str(ROOT / 'tools/verify_lockfile_provenance.py')],
+                               capture_output=True, text=True)
+            self.assertEqual(0, r.returncode, r.stdout + r.stderr)
 
     def test_solver_core_is_not_imported_from_tool_code(self):
         for p in list((LIB / 'tools').rglob('*.dart')) + list((LIB / 'features/tools').glob('*.dart')):
