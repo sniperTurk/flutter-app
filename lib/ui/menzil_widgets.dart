@@ -457,15 +457,19 @@ class MenzilCard extends StatelessWidget {
         ],
       );
     }
+    // A Material (not a DecoratedBox) owns the card surface so ListTile /
+    // SwitchListTile children paint their background and ink on this card
+    // instead of tripping Flutter's "ink splashes may be invisible" assertion.
     return Padding(
       padding: margin,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: background ?? c.surface,
+      child: Material(
+        color: background ?? c.surface,
+        shape: RoundedRectangleBorder(
           borderRadius: shape,
-          border: Border.all(color: c.line, width: MenzilSpace.border),
+          side: BorderSide(color: c.line, width: MenzilSpace.border),
         ),
-        child: ClipRRect(borderRadius: shape, child: body),
+        clipBehavior: Clip.antiAlias,
+        child: body,
       ),
     );
   }

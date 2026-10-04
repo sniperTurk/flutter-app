@@ -3,7 +3,8 @@ from pathlib import Path
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / 'lib/features/catalog/catalog_screen.dart'
+# The manual-record form lives in its own lifecycle-owned dialog widget.
+SOURCE = ROOT / 'lib/features/catalog/manual_catalog_dialog.dart'
 
 class ManualCatalogAmmoPlatformGateTest(unittest.TestCase):
     def test_manual_ammunition_type_is_platform_gated(self):

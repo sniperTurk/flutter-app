@@ -1,18 +1,17 @@
 // dart format off
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'serial_mutation_lock.dart';
 
 /// User-owned catalog entries; never merged into manufacturer-verified records.
 class ManualCatalogStore {
   static const key = 'sniper_turk.manual_catalog.v1';
   static const backupKey = 'sniper_turk.manual_catalog.v1.backup';
-  static Future<void> _tail = Future<void>.value();
+  // Zone-independent process-wide lock (see SerialMutationLock).
+  static final SerialMutationLock _mutationLock = SerialMutationLock();
 
-  Future<T> _enqueueMutation<T>(Future<T> Function() operation) {
-    final result = _tail.then((_) => operation());
-    _tail = result.then<void>((_) {}, onError: (_, __) {});
-    return result;
-  }
+  Future<T> _enqueueMutation<T>(Future<T> Function() operation) =>
+      _mutationLock.run(operation);
 
   static List<Map<String, dynamic>> _decodeAndValidate(String raw) {
     final parsed = jsonDecode(raw);
@@ -129,6 +128,12 @@ class ManualCatalogStore {
     if (kind == 'ammo' && entry['grain'] == null) {
       throw const FormatException('Grain is required for standard ammunition records');
     }
+    // Optional on older records; when present it must be a known unit. Scopes
+    // without it stay stored but cannot be selected in a profile.
+    final clickUnit = entry['clickUnit'];
+    if (clickUnit != null && clickUnit != 'mrad' && clickUnit != 'moa') {
+      throw const FormatException('Invalid click unit');
+    }
     for (final field in ['caliberMm', 'grain', 'diameterMm', 'lengthMm', 'bc', 'objectiveMm', 'click']) {
       final value = entry[field];
       if (value != null && (value is! num || !value.isFinite || value <= 0)) {
@@ -137,12 +142,38 @@ class ManualCatalogStore {
     }
   }
 
+  /// Ids the user deleted. Written BEFORE the record is removed (and removal is
+  /// refused when it cannot be written), so a start-up legacy migration can
+  /// never copy a deleted record back, whatever state its own ledger is in.
+  static const removedKey = 'sniper_turk.manual_catalog.v1.removed_ids';
+
+  Future<Set<String>> removedIds() async {
+    final prefs = await SharedPreferences.getInstance();
+    return {...?prefs.getStringList(removedKey)};
+  }
+
   Future<void> remove(String id) => _mutate((items) {
     items.removeWhere((e) => e['id'] == id);
+  }, tombstone: id);
+
+  /// Removes a record WITHOUT recording a user deletion. Only for undoing a
+  /// copy that the migration made itself and could not confirm.
+  Future<void> discardUnconfirmedCopy(String id) => _mutate((items) {
+    items.removeWhere((e) => e['id'] == id);
   });
-  Future<void> _mutate(void Function(List<Map<String, dynamic>>) change) =>
+
+  Future<void> _mutate(
+    void Function(List<Map<String, dynamic>>) change, {
+    String? tombstone,
+  }) =>
       _enqueueMutation(() async {
       final prefs = await SharedPreferences.getInstance();
+      if (tombstone != null) {
+        final removed = {...?prefs.getStringList(removedKey), tombstone};
+        if (!await prefs.setStringList(removedKey, removed.toList()..sort())) {
+          throw StateError('Removal could not be recorded; nothing was deleted');
+        }
+      }
       // Already inside the mutation queue: read privately to avoid recursively
       // enqueueing recovery and deadlocking on the same process-wide tail.
       final items = await _read();

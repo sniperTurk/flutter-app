@@ -19,6 +19,10 @@ class Rifle {
       weightKg,
       plenumCc;
   final String? barrelType, rail, moderatorThread, sourceName, sourceDocument;
+
+  /// True for records the user typed in (manual catalog). Such records are
+  /// never manufacturer-verified and must be labelled as personal everywhere.
+  final bool userEntered;
   const Rifle({
     required this.id,
     required this.brand,
@@ -36,6 +40,7 @@ class Rifle {
     this.moderatorThread,
     this.sourceName,
     this.sourceDocument,
+    this.userEntered = false,
   });
   String get displayName =>
       '$brand $model • ${caliberMm.toStringAsFixed(2)} mm';
@@ -49,6 +54,9 @@ class Ammunition {
   final double? ballisticCoefficient;
   final BallisticModel? ballisticModel;
   final String? sourceName, sourceDocument;
+
+  /// See [Rifle.userEntered].
+  final bool userEntered;
   const Ammunition({
     required this.id,
     required this.brand,
@@ -61,6 +69,7 @@ class Ammunition {
     this.ballisticModel,
     this.sourceName,
     this.sourceDocument,
+    this.userEntered = false,
   });
   String get displayName =>
       '$brand $model • ${grain.toStringAsFixed(grain % 1 == 0 ? 0 : 1)} gr';
@@ -88,6 +97,9 @@ class ScopeOptic {
   /// lower bound as an exact manufacturer value.
   final bool elevationRangeIsLowerBound, windageRangeIsLowerBound;
   final String? reticle, sourceName, sourceDocument;
+
+  /// See [Rifle.userEntered].
+  final bool userEntered;
   const ScopeOptic({
     required this.id,
     required this.brand,
@@ -110,6 +122,7 @@ class ScopeOptic {
     this.reticle,
     this.sourceName,
     this.sourceDocument,
+    this.userEntered = false,
   });
   String get displayName => '$brand $model';
 }

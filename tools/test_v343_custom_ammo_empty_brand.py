@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 STORE = (ROOT / 'lib/services/manual_catalog_store.dart').read_text(encoding='utf-8')
-SCREEN = (ROOT / 'lib/features/catalog/catalog_screen.dart').read_text(encoding='utf-8')
+SCREEN = (ROOT / 'lib/features/catalog/manual_catalog_dialog.dart').read_text(encoding='utf-8')
 
 
 class CustomAmmoEmptyBrandTest(unittest.TestCase):

@@ -20,3 +20,5 @@ validation/py_ballisticcalc_vectors.json
 
 # Local OS files
 .DS_Store
+validation/py_ballisticcalc_wind_vectors.json
+validation/py_ballisticcalc_envelope_vectors.json

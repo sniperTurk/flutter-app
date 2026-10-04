@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "purpose": "Corner cases of the PROPOSED supported G1/G7 envelope (not yet a production claim). Frozen before any envelope reference output or Dart comparison existed. Same tolerances as the no-wind and wind sets. Passing these does not open the production gate.",
+  "proposed_envelope": {
+    "pcp_g1": {"muzzle_velocity_mps": [200.0, 330.0], "ballistic_coefficient_g1": [0.02, 0.12], "max_range_m": 150.0, "max_wind_mps": 8.0},
+    "rifle_g7": {"muzzle_velocity_mps": [700.0, 950.0], "ballistic_coefficient_g7": [0.15, 0.35], "max_range_m": 1000.0, "max_wind_mps": 10.0},
+    "atmosphere": {"temperature_c": [-10.0, 30.0], "altitude_m": [0.0, 1500.0], "humidity_percent": 0.0}
+  },
+  "reference": {
+    "package": "py-ballisticcalc",
+    "version": "2.2.10",
+    "engine": "rk4_engine",
+    "spin_drift": "disabled (Weapon twist = 0)",
+    "coriolis": "disabled (no latitude/azimuth)"
+  },
+  "convention": {
+    "sniper_turk_direction_deg": "0 = headwind (air moves toward the shooter), 90 = air moves toward the shooter's right (+z), 180 = tailwind",
+    "py_ballisticcalc_direction_from_deg": "180 - sniper_turk_direction_deg",
+    "lateral_axis": "+z = shooter's right; compared value is py-ballisticcalc windage (m) vs SNIPER TÜRK lateral position z = -range * tan(windMrad / 1000)",
+    "zeroing": "both sides zero in still air under the case atmosphere; wind is applied only to the shot"
+  },
+  "tolerances": {
+    "windage_m_absolute": 0.01,
+    "height_m_absolute": 0.01,
+    "velocity_mps_absolute": 1.0,
+    "time_s_absolute": 0.005
+  },
+  "atmospheres": {
+    "icao": {"altitude_m": 0.0, "temperature_c": 15.0, "pressure_hpa": 1013.25, "humidity_percent": 0.0},
+    "hot_high": {"altitude_m": 1500.0, "temperature_c": 30.0, "pressure_hpa": 1013.25, "humidity_percent": 0.0},
+    "cold_dense": {"altitude_m": 0.0, "temperature_c": -10.0, "pressure_hpa": 1030.0, "humidity_percent": 0.0}
+  },
+  "cases": [
+    {"id": "pcp_slow_low_bc_cold_still", "model": "G1", "atmosphere": "cold_dense", "bc": 0.02, "mv": 200.0, "grain": 8.44, "zero": 30.0, "sight_mm": 50.0, "wind_mps": 0.0, "wind_direction_deg": 90.0, "ranges": [10.0, 30.0, 60.0, 100.0, 150.0]},
+    {"id": "pcp_slow_low_bc_hot_high_cross", "model": "G1", "atmosphere": "hot_high", "bc": 0.02, "mv": 200.0, "grain": 8.44, "zero": 30.0, "sight_mm": 50.0, "wind_mps": 8.0, "wind_direction_deg": 90.0, "ranges": [10.0, 30.0, 60.0, 100.0, 150.0]},
+    {"id": "pcp_fast_low_bc_icao_cross", "model": "G1", "atmosphere": "icao", "bc": 0.02, "mv": 330.0, "grain": 15.89, "zero": 30.0, "sight_mm": 50.0, "wind_mps": 8.0, "wind_direction_deg": 270.0, "ranges": [10.0, 30.0, 60.0, 100.0, 150.0]},
+    {"id": "pcp_fast_high_bc_cold_quartering", "model": "G1", "atmosphere": "cold_dense", "bc": 0.12, "mv": 330.0, "grain": 40.0, "zero": 30.0, "sight_mm": 50.0, "wind_mps": 8.0, "wind_direction_deg": 45.0, "ranges": [10.0, 30.0, 60.0, 100.0, 150.0]},
+    {"id": "pcp_slow_high_bc_hot_high_tail", "model": "G1", "atmosphere": "hot_high", "bc": 0.12, "mv": 200.0, "grain": 40.0, "zero": 30.0, "sight_mm": 50.0, "wind_mps": 8.0, "wind_direction_deg": 180.0, "ranges": [10.0, 30.0, 60.0, 100.0, 150.0]},
+    {"id": "rifle_slow_low_bc_cold_cross", "model": "G7", "atmosphere": "cold_dense", "bc": 0.15, "mv": 700.0, "grain": 150.0, "zero": 100.0, "sight_mm": 50.0, "wind_mps": 10.0, "wind_direction_deg": 90.0, "ranges": [100.0, 300.0, 500.0, 800.0, 1000.0]},
+    {"id": "rifle_slow_low_bc_hot_high_head", "model": "G7", "atmosphere": "hot_high", "bc": 0.15, "mv": 700.0, "grain": 150.0, "zero": 100.0, "sight_mm": 50.0, "wind_mps": 10.0, "wind_direction_deg": 0.0, "ranges": [100.0, 300.0, 500.0, 800.0, 1000.0]},
+    {"id": "rifle_fast_high_bc_icao_cross_left", "model": "G7", "atmosphere": "icao", "bc": 0.35, "mv": 950.0, "grain": 200.0, "zero": 100.0, "sight_mm": 50.0, "wind_mps": 10.0, "wind_direction_deg": 270.0, "ranges": [100.0, 300.0, 500.0, 800.0, 1000.0]},
+    {"id": "rifle_fast_low_bc_cold_still", "model": "G7", "atmosphere": "cold_dense", "bc": 0.15, "mv": 950.0, "grain": 150.0, "zero": 100.0, "sight_mm": 50.0, "wind_mps": 0.0, "wind_direction_deg": 90.0, "ranges": [100.0, 300.0, 500.0, 800.0, 1000.0]},
+    {"id": "rifle_slow_high_bc_hot_high_quartering", "model": "G7", "atmosphere": "hot_high", "bc": 0.35, "mv": 700.0, "grain": 200.0, "zero": 100.0, "sight_mm": 50.0, "wind_mps": 10.0, "wind_direction_deg": 135.0, "ranges": [100.0, 300.0, 500.0, 800.0, 1000.0]}
+  ]
+}

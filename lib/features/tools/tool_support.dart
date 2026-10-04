@@ -16,7 +16,7 @@ abstract final class ToolProfileUpdate {
     double? pressureBar,
   }) {
     Rifle? rifle;
-    for (final r in CatalogRepository.rifles) {
+    for (final r in CatalogRepository.allRifles) {
       if (r.id == base.rifleId) rifle = r;
     }
     final platform =

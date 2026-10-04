@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import '../../core/catalog_search.dart';
 import '../../data/catalog_repository.dart';
+import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
 import '../../services/manual_catalog_store.dart';
+import 'manual_catalog_dialog.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 
@@ -34,6 +36,8 @@ class _CatalogScreenState extends State<CatalogScreen> {
   Future<void> _refreshManual() async {
     try {
       final items = await _manualStore.all();
+      // Keep the profile editor's personal catalog in step with this screen.
+      CatalogRepository.installUserCatalog(UserCatalog.fromManualEntries(items));
       if (mounted) setState(() => _manual = items);
     } catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Kullanıcı kataloğu okunamadı: $e')));
@@ -53,11 +57,11 @@ class _CatalogScreenState extends State<CatalogScreen> {
   Widget build(BuildContext context) {
     const repo = CatalogRepository();
     final rifles = repo
-        .riflesFor(platform)
+        .riflesFor(platform, includeUser: false)
         .where((x) => _matches('${x.brand} ${x.model} ${x.caliberMm}'))
         .toList(growable: false);
     final ammunition = repo
-        .ammunitionFor(platform)
+        .ammunitionFor(platform, includeUser: false)
         .where((x) => _matches('${x.brand} ${x.model} ${x.caliberMm} ${x.type.name}'))
         .toList(growable: false);
     final scopes = CatalogRepository.scopes
@@ -114,7 +118,8 @@ class _CatalogScreenState extends State<CatalogScreen> {
           ..._manual.where((e) => e['kind'] != 'custom_ammunition' && (e['kind'] == 'scope' || e['platform'] == platform.name) && _matches('${e['brand']} ${e['model']} ${e['caliberMm'] ?? ''}')).map((e) => ListTile(
             key: Key('manual-${e['id']}'),
             title: Text('${e['brand']} ${e['model']}'),
-            subtitle: Text('Kullanıcı girdisi • ${e['kind'] == 'scope' ? 'Dürbün' : e['kind'] == 'rifle' ? 'Tüfek' : 'Mühimmat'}'),
+            subtitle: Text('Kullanıcı girdisi • ${e['kind'] == 'scope' ? 'Dürbün' : e['kind'] == 'rifle' ? 'Tüfek' : 'Mühimmat'}'
+                '${_profileBlockReason(e['id']) == null ? '' : '\nProfilde kullanılamaz: ${_profileBlockReason(e['id'])}'}'),
             trailing: Row(mainAxisSize: MainAxisSize.min, children: [
               IconButton(tooltip: 'Düzenle', icon: const Icon(Icons.edit), onPressed: () => _editManual(existing: e)),
               IconButton(tooltip: 'Sil', icon: const Icon(Icons.delete_outline), onPressed: () async {
@@ -180,7 +185,8 @@ class _CatalogScreenState extends State<CatalogScreen> {
               _matches('${e['brand']} ${e['model']} ${e['caliberMm'] ?? ''}')).map((e) => ListTile(
             key: Key('custom-ammunition-${e['id']}'),
             title: Text('${e['model']}'),
-            subtitle: Text('Kullanıcı girdisi • ${e['caliberMm'] ?? 'Kalibre belirtilmedi'} mm • ${e['grain'] ?? 'Ağırlık belirtilmedi'} grain'),
+            subtitle: Text('Kullanıcı girdisi • ${e['caliberMm'] ?? 'Kalibre belirtilmedi'} mm • ${e['grain'] ?? 'Ağırlık belirtilmedi'} grain'
+                '${_profileBlockReason(e['id']) == null ? '' : '\nProfilde kullanılamaz: ${_profileBlockReason(e['id'])}'}'),
             trailing: Row(mainAxisSize: MainAxisSize.min, children: [
               IconButton(tooltip: 'Düzenle', icon: const Icon(Icons.edit), onPressed: () => _editManual(existing: e)),
               IconButton(tooltip: 'Sil', icon: const Icon(Icons.delete_outline), onPressed: () async {
@@ -226,126 +232,27 @@ class _CatalogScreenState extends State<CatalogScreen> {
 
 
   Future<void> _editManual({Map<String, dynamic>? existing, bool customAmmunition = false}) async {
-    String kind = existing?['kind'] as String? ?? (customAmmunition ? 'custom_ammunition' : 'rifle');
-    String selectedPlatform = existing?['platform'] as String? ?? platform.name;
-    String ammoType = existing?['ammoType'] as String? ?? 'pellet';
-    String focal = existing?['focal'] as String? ?? 'unknown';
-    final brand = TextEditingController(text: existing?['brand'] as String? ?? '');
-    final model = TextEditingController(text: existing?['model'] as String? ?? '');
-    final caliber = TextEditingController(text: existing?['caliberMm']?.toString() ?? '');
-    final grain = TextEditingController(text: existing?['grain']?.toString() ?? '');
-    final bc = TextEditingController(text: existing?['bc']?.toString() ?? '');
-    final objective = TextEditingController(text: existing?['objectiveMm']?.toString() ?? '');
-    final magnification = TextEditingController(text: existing?['magnification'] as String? ?? '');
-    final click = TextEditingController(text: existing?['click']?.toString() ?? '');
-    final diameter = TextEditingController(text: existing?['diameterMm']?.toString() ?? '');
-    final length = TextEditingController(text: existing?['lengthMm']?.toString() ?? '');
-    final material = TextEditingController(text: existing?['material'] as String? ?? '');
-    final shape = TextEditingController(text: existing?['shape'] as String? ?? '');
-    final lot = TextEditingController(text: existing?['lot'] as String? ?? '');
-    final bcModel = TextEditingController(text: existing?['bcModel'] as String? ?? '');
-    final notes = TextEditingController(text: existing?['notes'] as String? ?? '');
-    final form = GlobalKey<FormState>();
-    try {
-      await showDialog<void>(context: context, builder: (dialogContext) => StatefulBuilder(builder: (dialogContext, update) => AlertDialog(
-        title: Text(kind == 'custom_ammunition' ? 'Özel Yapım Mermiler' : existing == null ? 'Manuel model ekle' : 'Manuel modeli düzenle'),
-        content: SizedBox(width: 440, child: SingleChildScrollView(child: Form(key: form, child: Column(mainAxisSize: MainAxisSize.min, children: [
-          if (kind != 'custom_ammunition') DropdownButtonFormField<String>(initialValue: kind, decoration: const InputDecoration(labelText: 'Kategori'), items: const [
-            DropdownMenuItem(value: 'rifle', child: Text('Tüfek')),
-            DropdownMenuItem(value: 'ammo', child: Text('Mühimmat')),
-            DropdownMenuItem(value: 'scope', child: Text('Dürbün')),
-          ], onChanged: (v) => update(() => kind = v!)),
-          if (kind != 'scope') DropdownButtonFormField<String>(initialValue: selectedPlatform, decoration: const InputDecoration(labelText: 'Platform'), items: const [
-            DropdownMenuItem(value: 'pcp', child: Text('PCP')),
-            DropdownMenuItem(value: 'firearm', child: Text('Ateşli')),
-          ], onChanged: (v) => update(() {
-            selectedPlatform = v!;
-            if (kind == 'ammo' || kind == 'custom_ammunition') {
-              ammoType = selectedPlatform == 'firearm' ? 'bullet' : 'pellet';
-            }
-          })),
-          TextFormField(controller: brand, decoration: const InputDecoration(labelText: 'Marka *'), validator: (v) => kind != 'custom_ammunition' && (v == null || v.trim().isEmpty) ? 'Marka gerekli' : null),
-          TextFormField(controller: model, decoration: const InputDecoration(labelText: 'Model *'), validator: (v) => v == null || v.trim().isEmpty ? 'Model gerekli' : null),
-          if (kind != 'scope') TextFormField(controller: caliber, keyboardType: const TextInputType.numberWithOptions(decimal: true), decoration: const InputDecoration(labelText: 'Kalibre (mm) *'), validator: (v) => kind == 'custom_ammunition' && (v == null || v.trim().isEmpty) ? null : (double.tryParse((v ?? '').replaceAll(',', '.')) ?? 0) > 0 ? null : 'Pozitif kalibre girin'),
-          if (kind == 'ammo' || kind == 'custom_ammunition') ...[
-            DropdownButtonFormField<String>(
-              // initialValue is only read when the field state is created; the key
-              // rebuilds the field when the platform (and its item list) changes.
-              key: ValueKey('ammo-type-$selectedPlatform'),
-              initialValue: selectedPlatform == 'firearm' ? 'bullet' : (ammoType == 'bullet' ? 'pellet' : ammoType),
-              decoration: const InputDecoration(labelText: 'Mühimmat tipi'),
-              items: (selectedPlatform == 'firearm' ? const ['bullet'] : const ['pellet', 'slug'])
-                  .map((value) => DropdownMenuItem(value: value, child: Text(value == 'bullet' ? 'Bullet' : value == 'slug' ? 'Slug' : 'Pellet')))
-                  .toList(growable: false),
-              onChanged: (v) => update(() => ammoType = v!),
-            ),
-            TextFormField(controller: grain, keyboardType: const TextInputType.numberWithOptions(decimal: true), decoration: const InputDecoration(labelText: 'Ağırlık (grain) *'), validator: (v) => kind == 'custom_ammunition' && (v == null || v.trim().isEmpty) ? null : (double.tryParse((v ?? '').replaceAll(',', '.')) ?? 0) > 0 ? null : 'Pozitif ağırlık girin'),
-            TextFormField(controller: bc, keyboardType: const TextInputType.numberWithOptions(decimal: true), decoration: const InputDecoration(labelText: 'BC (isteğe bağlı)'), validator: (v) => v == null || v.trim().isEmpty || (double.tryParse(v.replaceAll(',', '.')) ?? 0) > 0 ? null : 'Geçerli BC girin'),
-          ],
-          if (kind == 'custom_ammunition') ...[
-            TextFormField(controller: diameter, keyboardType: const TextInputType.numberWithOptions(decimal: true), decoration: const InputDecoration(labelText: 'Gerçek çap (mm)'), validator: (v) => v == null || v.trim().isEmpty || (double.tryParse(v.replaceAll(',', '.')) ?? 0) > 0 ? null : 'Pozitif çap girin'),
-            TextFormField(controller: length, keyboardType: const TextInputType.numberWithOptions(decimal: true), decoration: const InputDecoration(labelText: 'Uzunluk (mm)'), validator: (v) => v == null || v.trim().isEmpty || (double.tryParse(v.replaceAll(',', '.')) ?? 0) > 0 ? null : 'Pozitif uzunluk girin'),
-            TextFormField(controller: bcModel, decoration: const InputDecoration(labelText: 'BC modeli (G1 / G7 / diğer)')),
-            TextFormField(controller: material, decoration: const InputDecoration(labelText: 'Malzeme')),
-            TextFormField(controller: shape, decoration: const InputDecoration(labelText: 'Çekirdek şekli / tipi')),
-            TextFormField(controller: lot, decoration: const InputDecoration(labelText: 'Parti / lot numarası')),
-          ],
-          if (kind == 'scope') ...[
-            TextFormField(controller: magnification, decoration: const InputDecoration(labelText: 'Büyütme (ör. 5-25x)')),
-            TextFormField(controller: objective, keyboardType: const TextInputType.numberWithOptions(decimal: true), decoration: const InputDecoration(labelText: 'Objektif (mm)'), validator: (v) => v == null || v.trim().isEmpty || (double.tryParse(v.replaceAll(',', '.')) ?? 0) > 0 ? null : 'Geçerli çap girin'),
-            DropdownButtonFormField<String>(initialValue: focal, decoration: const InputDecoration(labelText: 'Odak düzlemi'), items: const [
-              DropdownMenuItem(value: 'unknown', child: Text('Bilinmiyor')),
-              DropdownMenuItem(value: 'ffp', child: Text('FFP')),
-              DropdownMenuItem(value: 'sfp', child: Text('SFP')),
-            ], onChanged: (v) => update(() => focal = v!)),
-            TextFormField(controller: click, decoration: const InputDecoration(labelText: 'Klik değeri (isteğe bağlı)'), keyboardType: const TextInputType.numberWithOptions(decimal: true), validator: (v) => v == null || v.trim().isEmpty || (double.tryParse(v.replaceAll(',', '.')) ?? 0) > 0 ? null : 'Geçerli klik girin'),
-          ],
-          TextFormField(controller: notes, decoration: const InputDecoration(labelText: 'Diğer bilgiler / notlar'), maxLines: 3),
-          const SizedBox(height: 8), const Text('Bu kayıt kullanıcı girdisidir; üretici tarafından doğrulanmış değildir.'),
-        ])))),
-        actions: [TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text('İptal')),
-          FilledButton(onPressed: () async {
-            if (!form.currentState!.validate()) return;
-            double? number(TextEditingController c) => c.text.trim().isEmpty ? null : double.tryParse(c.text.trim().replaceAll(',', '.'));
-            final entry = <String, dynamic>{
-              'id': existing?['id'] ?? 'manual_${DateTime.now().microsecondsSinceEpoch}',
-              'kind': kind, 'platform': selectedPlatform,
-              'brand': brand.text.trim(), 'model': model.text.trim(),
-              'caliberMm': kind == 'scope' ? null : number(caliber),
-              'grain': (kind == 'ammo' || kind == 'custom_ammunition') ? number(grain) : null,
-              'ammoType': (kind == 'ammo' || kind == 'custom_ammunition')
-                  ? (selectedPlatform == 'firearm' ? 'bullet' : (ammoType == 'bullet' ? 'pellet' : ammoType))
-                  : null,
-              'bc': (kind == 'ammo' || kind == 'custom_ammunition') ? number(bc) : null,
-              'diameterMm': kind == 'custom_ammunition' ? number(diameter) : null,
-              'lengthMm': kind == 'custom_ammunition' ? number(length) : null,
-              'bcModel': kind == 'custom_ammunition' ? bcModel.text.trim() : null,
-              'material': kind == 'custom_ammunition' ? material.text.trim() : null,
-              'shape': kind == 'custom_ammunition' ? shape.text.trim() : null,
-              'lot': kind == 'custom_ammunition' ? lot.text.trim() : null,
-              'objectiveMm': kind == 'scope' ? number(objective) : null,
-              'magnification': kind == 'scope' ? magnification.text.trim() : null,
-              'focal': kind == 'scope' ? focal : null,
-              'click': kind == 'scope' ? number(click) : null,
-              'notes': notes.text.trim(), 'sourceName': 'Kullanıcı girdisi',
-            };
-            try {
-              await _manualStore.upsert(entry);
-              if (!dialogContext.mounted) return;
-              Navigator.pop(dialogContext);
-              await _refreshManual();
-            } catch (error) {
-              if (dialogContext.mounted) ScaffoldMessenger.of(dialogContext).showSnackBar(SnackBar(content: Text('Kayıt başarısız: $error')));
-            }
-          }, child: const Text('Kaydet'))],
-      )));
-    } finally {
-      // Text fields belong to this dialog's lifetime; controllers are disposed
-      // after the route is fully dismissed.
-      brand.dispose(); model.dispose(); caliber.dispose(); grain.dispose(); bc.dispose();
-      diameter.dispose(); length.dispose(); material.dispose(); shape.dispose(); lot.dispose(); bcModel.dispose();
-      objective.dispose(); magnification.dispose(); click.dispose(); notes.dispose();
+    // The dialog owns its text controllers (disposed with its State, after the
+    // route is gone), guards against double submission and keeps the typed
+    // values when a save fails.
+    final saved = await showDialog<bool>(
+      context: context,
+      builder: (_) => ManualCatalogDialog(
+        existing: existing,
+        customAmmunition: customAmmunition,
+        defaultPlatform: platform.name,
+        onSave: (entry) async => await _manualStore.upsert(entry),
+      ),
+    );
+    if (saved == true) await _refreshManual();
+  }
+
+  /// Why a personal record cannot be selected in a profile, if it cannot.
+  String? _profileBlockReason(Object? id) {
+    for (final issue in CatalogRepository.userCatalog.blocked) {
+      if (issue.id == id) return issue.reason;
     }
+    return null;
   }
 
   List<MapEntry<String, String>> _rifleDetails(Rifle rifle) => [

@@ -346,3 +346,169 @@ jobs:
             .dart_tool
           if-no-files-found: ignore
           retention-days: 7
+
+  # Separate acceptance set (validation/README.md): wind is validated apart
+  # from the frozen no-wind G1/G7 policy. Independent of `verify`, so a wind
+  # result can never hide or be hidden by the main release gate. Results are
+  # surfaced as annotations; nothing here opens the production gate.
+  wind-acceptance:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Enforce pinned Flutter release toolchain
+        run: python3 tools/verify_flutter_toolchain.py
+
+      - name: Bootstrap pinned independent ballistic validator
+        run: python3 tools/bootstrap_reference_validator.py
+
+      - name: Generate independent no-wind and wind reference vectors
+        run: |
+          .validator_venv/bin/python tools/generate_reference_vectors.py
+          python3 tools/validate_py_ballisticcalc_fixture.py validation/py_ballisticcalc_vectors.json
+          .validator_venv/bin/python tools/generate_wind_reference_vectors.py
+
+      - name: Resolve dependencies without lockfile drift
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE_LOCK_SHA="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          flutter pub get
+          AFTER_LOCK_SHA="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          [[ "$BEFORE_LOCK_SHA" == "$AFTER_LOCK_SHA" ]]
+
+      - name: Report no-wind G1/G7 comparison figures
+        shell: bash
+        run: |
+          set -o pipefail
+          dart run tools/compare_reference_vectors.dart 2>&1 | tee no-wind.log
+          echo "::notice title=G1/G7 no-wind acceptance::$(tail -n 1 no-wind.log)"
+
+      - name: Compare Dart wind response with independent vectors
+        shell: bash
+        run: |
+          set -o pipefail
+          status=0
+          dart run tools/compare_wind_reference_vectors.dart > wind.log 2>&1 || status=$?
+          cat wind.log
+          echo "::notice title=Wind acceptance::$(tail -n 1 wind.log)"
+          echo "::notice title=Wind per case::$(grep '^case-summary' wind.log | head -n 1)"
+          exit "$status"
+
+      - name: Compare proposed-envelope corner cases with independent vectors
+        shell: bash
+        run: |
+          set -o pipefail
+          .validator_venv/bin/python tools/generate_wind_reference_vectors.py validation/envelope_acceptance.json validation/py_ballisticcalc_envelope_vectors.json
+          status=0
+          dart run tools/compare_wind_reference_vectors.dart validation/envelope_acceptance.json validation/py_ballisticcalc_envelope_vectors.json > envelope.log 2>&1 || status=$?
+          cat envelope.log
+          echo "::notice title=Envelope acceptance::$(tail -n 1 envelope.log)"
+          echo "::notice title=Envelope per case::$(grep '^case-summary' envelope.log | head -n 1)"
+          exit "$status"
+
+  # Development-build evidence that does not depend on owner release settings
+  # (privacy policy URL, MET Norway contact, signing). The release path in
+  # `verify` is unchanged: App Store preflight still gates every release build
+  # there. This job only proves the app builds for, installs on and launches in
+  # the iOS Simulator and passes the integration smoke test.
+  ios-simulator:
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Enforce pinned Flutter release toolchain
+        run: python3 tools/verify_flutter_toolchain.py
+
+      - name: Resolve dependencies without lockfile drift
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE_LOCK_SHA="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          flutter pub get
+          AFTER_LOCK_SHA="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          [[ "$BEFORE_LOCK_SHA" == "$AFTER_LOCK_SHA" ]]
+
+      - name: Generate and verify pinned iOS scaffold (unsigned)
+        run: tools/bootstrap_ios_scaffold.sh
+
+      - name: Build iOS Simulator debug app
+        run: flutter build ios --simulator --debug
+
+      - name: Boot iOS Simulator and run launch smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Surface the tail of the output as an annotation when this fails.
+          trap 'status=$?; if [ "$status" != 0 ] && [ -s smoke.log ]; then printf "::error title=Simulator smoke (exit %s)::%s\n" "$status" "$(tail -n 40 smoke.log | sed "s/%/%25/g" | sed ":a;N;\$!ba;s/\n/%0A/g")"; fi' EXIT
+          exec > >(tee smoke.log) 2>&1
+          UDID="$(python3 tools/select_ios_simulator.py)"
+          test -n "$UDID"
+          xcrun simctl boot "$UDID" 2>/dev/null || true
+          open -a Simulator
+          xcrun simctl bootstatus "$UDID" -b
+
+          # The smoke contract starts from a clean install. GitHub-hosted
+          # simulators can retain an app container across repeated installs in
+          # the same job, and `simctl install` does not promise to erase that
+          # container. Remove any previous Runner data before both the raw app
+          # launch and the Flutter integration-test phase so persisted profiles
+          # cannot make a rerun pass/fail for the wrong reason. `uninstall` is
+          # intentionally tolerant because a genuinely clean simulator has no
+          # matching bundle yet.
+          BUNDLE_ID="com.sniperturk.sniperTurk"
+          xcrun simctl uninstall "$UDID" "$BUNDLE_ID" 2>/dev/null || true
+
+          # First exercise the exact .app produced by the preceding Flutter
+          # simulator build. Installing and launching that bundle catches
+          # packaging/Info.plist/runtime failures that a source-level
+          # integration-test invocation alone can miss.
+          APP_PATH="build/ios/iphonesimulator/Runner.app"
+          test -d "$APP_PATH"
+          BUILT_BUNDLE_ID="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PATH/Info.plist")"
+          test -n "$BUILT_BUNDLE_ID"
+          [[ "$BUILT_BUNDLE_ID" == "$BUNDLE_ID" ]] || {
+            echo "Unexpected simulator bundle identifier: $BUILT_BUNDLE_ID" >&2
+            exit 1
+          }
+          xcrun simctl install "$UDID" "$APP_PATH"
+          LAUNCH_OUTPUT="$(xcrun simctl launch --terminate-running-process "$UDID" "$BUNDLE_ID")"
+          echo "$LAUNCH_OUTPUT"
+          echo "$LAUNCH_OUTPUT" | grep -Eq ":[[:space:]]*[0-9]+$"
+          xcrun simctl terminate "$UDID" "$BUNDLE_ID" || true
+          xcrun simctl uninstall "$UDID" "$BUNDLE_ID"
+
+          # Then run the Flutter integration smoke test for production route
+          # navigation and plugin/persistence wiring. The preceding uninstall is
+          # strict here: we just installed the bundle, so failure to remove it
+          # means clean-install isolation is not proven and CI must stop.
+          flutter devices
+          flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded

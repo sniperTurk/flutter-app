@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "purpose": "Separate wind acceptance set for the experimental G1/G7 solver. Frozen before any wind reference output or Dart comparison existed. The no-wind policy in acceptance.json is unchanged.",
+  "reference": {
+    "package": "py-ballisticcalc",
+    "version": "2.2.10",
+    "engine": "rk4_engine",
+    "spin_drift": "disabled (Weapon twist = 0)",
+    "coriolis": "disabled (no latitude/azimuth)"
+  },
+  "convention": {
+    "sniper_turk_direction_deg": "0 = headwind (air moves toward the shooter), 90 = air moves toward the shooter's right (+z), 180 = tailwind",
+    "py_ballisticcalc_direction_from_deg": "180 - sniper_turk_direction_deg (py-ballisticcalc documents 0 = from behind the shooter, 90 = from the shooter's left towards the right; air vector = (cos, 0, sin))",
+    "lateral_axis": "+z = shooter's right; compared value is py-ballisticcalc windage (m) vs SNIPER TÜRK lateral position z = -range * tan(windMrad / 1000)",
+    "zeroing": "both sides zero in still air under the case atmosphere; wind is applied only to the shot"
+  },
+  "tolerances": {
+    "windage_m_absolute": 0.01,
+    "height_m_absolute": 0.01,
+    "velocity_mps_absolute": 1.0,
+    "time_s_absolute": 0.005
+  },
+  "atmospheres": {
+    "icao": {"altitude_m": 0.0, "temperature_c": 15.0, "pressure_hpa": 1013.25, "humidity_percent": 0.0},
+    "hot_high": {"altitude_m": 1500.0, "temperature_c": 30.0, "pressure_hpa": 1013.25, "humidity_percent": 0.0}
+  },
+  "cases": [
+    {"id": "g1_pcp_cross_right", "model": "G1", "atmosphere": "icao", "bc": 0.12, "mv": 270.0, "grain": 51.0, "zero": 25.0, "sight_mm": 60.0, "wind_mps": 4.0, "wind_direction_deg": 90.0, "ranges": [25.0, 50.0, 100.0, 200.0, 300.0]},
+    {"id": "g1_pcp_cross_left_hot_high", "model": "G1", "atmosphere": "hot_high", "bc": 0.12, "mv": 270.0, "grain": 51.0, "zero": 25.0, "sight_mm": 60.0, "wind_mps": 4.0, "wind_direction_deg": 270.0, "ranges": [25.0, 50.0, 100.0, 200.0, 300.0]},
+    {"id": "g7_rifle_cross_right", "model": "G7", "atmosphere": "icao", "bc": 0.243, "mv": 800.0, "grain": 175.0, "zero": 100.0, "sight_mm": 45.0, "wind_mps": 5.0, "wind_direction_deg": 90.0, "ranges": [100.0, 300.0, 600.0, 1000.0, 1500.0]},
+    {"id": "g7_rifle_quartering_head_hot_high", "model": "G7", "atmosphere": "hot_high", "bc": 0.243, "mv": 800.0, "grain": 175.0, "zero": 100.0, "sight_mm": 45.0, "wind_mps": 5.0, "wind_direction_deg": 45.0, "ranges": [100.0, 300.0, 600.0, 1000.0, 1500.0]},
+    {"id": "g7_rifle_tail_icao", "model": "G7", "atmosphere": "icao", "bc": 0.243, "mv": 800.0, "grain": 175.0, "zero": 100.0, "sight_mm": 45.0, "wind_mps": 5.0, "wind_direction_deg": 180.0, "ranges": [100.0, 300.0, 600.0, 1000.0, 1500.0]}
+  ]
+}
