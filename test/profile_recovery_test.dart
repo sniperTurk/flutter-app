@@ -29,7 +29,10 @@ Future<void> _settle(WidgetTester tester) async {
     );
     await tester.pump(const Duration(milliseconds: 50));
   }
-  await tester.pumpAndSettle();
+  // Bounded pumps (not pumpAndSettle): a spinner elsewhere on screen must not
+  // turn a state assertion into a timeout.
+  await tester.pump(const Duration(milliseconds: 400));
+  await tester.pump(const Duration(milliseconds: 400));
 }
 
 void main() {
