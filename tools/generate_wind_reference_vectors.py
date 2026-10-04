@@ -17,8 +17,10 @@ from pathlib import Path
 from generate_reference_vectors import PIN, fail, load_acceptance, verify_bootstrap_receipt
 
 ROOT = Path(__file__).resolve().parents[1]
-POLICY = ROOT / "validation" / "wind_acceptance.json"
-OUT = ROOT / "validation" / "py_ballisticcalc_wind_vectors.json"
+# Optional arguments select another frozen policy in the same format (for
+# example validation/envelope_acceptance.json) and its output file.
+POLICY = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else ROOT / "validation" / "wind_acceptance.json"
+OUT = Path(sys.argv[2]).resolve() if len(sys.argv) > 2 else ROOT / "validation" / "py_ballisticcalc_wind_vectors.json"
 
 
 def load_wind_policy() -> dict:
@@ -81,7 +83,8 @@ def main() -> None:
         calc.set_weapon_zero(Shot(weapon=weapon, ammo=ammo, atmo=atmosphere), Distance.Meter(c["zero"]))
         direction_from = (180.0 - c["wind_direction_deg"]) % 360.0
         wind = Wind(velocity=Velocity.MPS(c["wind_mps"]), direction_from=Angular.Degree(direction_from))
-        shot = Shot(weapon=weapon, ammo=ammo, atmo=atmosphere, winds=[wind])
+        winds = [wind] if c["wind_mps"] > 0 else []
+        shot = Shot(weapon=weapon, ammo=ammo, atmo=atmosphere, winds=winds)
         hit = calc.fire(shot, trajectory_range=Distance.Meter(max(c["ranges"])), trajectory_step=Distance.Meter(1))
         points = []
         for r in c["ranges"]:

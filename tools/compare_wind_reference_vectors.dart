@@ -34,11 +34,13 @@ Object? _canonical(Object? v) {
   return v;
 }
 
-void main() {
+void main(List<String> args) {
   final root = File.fromUri(Platform.script).absolute.parent.parent;
-  final policyFile = File('${root.path}/validation/wind_acceptance.json');
-  final fixtureFile = File('${root.path}/validation/py_ballisticcalc_wind_vectors.json');
-  if (!policyFile.existsSync()) _fail('validation/wind_acceptance.json is missing');
+  // Optional: <policy.json> <fixture.json> for another frozen set in the same
+  // format (e.g. the envelope corner cases).
+  final policyFile = File(args.isNotEmpty ? args[0] : '${root.path}/validation/wind_acceptance.json');
+  final fixtureFile = File(args.length > 1 ? args[1] : '${root.path}/validation/py_ballisticcalc_wind_vectors.json');
+  if (!policyFile.existsSync()) _fail('${policyFile.path} is missing');
   if (!fixtureFile.existsSync()) _fail('wind reference fixture is missing');
   final policy = jsonDecode(policyFile.readAsStringSync()) as Map<String, dynamic>;
   final fixture = jsonDecode(fixtureFile.readAsStringSync()) as Map<String, dynamic>;
@@ -65,7 +67,9 @@ void main() {
   var compared = 0;
   var worstWind = 0.0, worstHeight = 0.0, worstVelocity = 0.0, worstTime = 0.0;
   final failures = <String>[];
+  final perCase = <String>[];
   for (final c in policyCases) {
+    var caseWind = 0.0, caseHeight = 0.0, caseVelocity = 0.0, caseTime = 0.0;
     final id = c['id'] as String;
     final ref = refCases[id];
     if (ref == null) _fail('reference case $id is missing');
@@ -109,6 +113,10 @@ void main() {
       final dh = (actual[i].dropM + _num(p['height_m'], '$id[$i].height_m')).abs();
       final dv = (actual[i].velocityMps - _num(p['velocity_mps'], '$id[$i].velocity_mps')).abs();
       final dt = (actual[i].timeOfFlightS - _num(p['time_s'], '$id[$i].time_s')).abs();
+      caseWind = math.max(caseWind, dw);
+      caseHeight = math.max(caseHeight, dh);
+      caseVelocity = math.max(caseVelocity, dv);
+      caseTime = math.max(caseTime, dt);
       worstWind = math.max(worstWind, dw);
       worstHeight = math.max(worstHeight, dh);
       worstVelocity = math.max(worstVelocity, dv);
@@ -120,7 +128,10 @@ void main() {
       }
       compared++;
     }
+    perCase.add('$id dw=${caseWind.toStringAsFixed(4)} dh=${caseHeight.toStringAsFixed(4)} '
+        'dv=${caseVelocity.toStringAsFixed(3)} dt=${caseTime.toStringAsFixed(5)}');
   }
+  stdout.writeln('case-summary ${perCase.join('; ')}');
   final summary = '$compared points; worst |dw|=${worstWind.toStringAsFixed(6)}m, |dh|=${worstHeight.toStringAsFixed(6)}m, '
       '|dv|=${worstVelocity.toStringAsFixed(6)}m/s, |dt|=${worstTime.toStringAsFixed(6)}s';
   if (failures.isNotEmpty) {

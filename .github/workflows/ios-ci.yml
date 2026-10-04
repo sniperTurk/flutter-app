@@ -406,4 +406,17 @@ jobs:
           dart run tools/compare_wind_reference_vectors.dart > wind.log 2>&1 || status=$?
           cat wind.log
           echo "::notice title=Wind acceptance::$(tail -n 1 wind.log)"
+          echo "::notice title=Wind per case::$(grep '^case-summary' wind.log | head -n 1)"
+          exit "$status"
+
+      - name: Compare proposed-envelope corner cases with independent vectors
+        shell: bash
+        run: |
+          set -o pipefail
+          .validator_venv/bin/python tools/generate_wind_reference_vectors.py validation/envelope_acceptance.json validation/py_ballisticcalc_envelope_vectors.json
+          status=0
+          dart run tools/compare_wind_reference_vectors.dart validation/envelope_acceptance.json validation/py_ballisticcalc_envelope_vectors.json > envelope.log 2>&1 || status=$?
+          cat envelope.log
+          echo "::notice title=Envelope acceptance::$(tail -n 1 envelope.log)"
+          echo "::notice title=Envelope per case::$(grep '^case-summary' envelope.log | head -n 1)"
           exit "$status"
