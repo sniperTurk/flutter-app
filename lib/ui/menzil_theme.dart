@@ -218,19 +218,20 @@ abstract final class MenzilSpace {
   static const double twoColumnMinWidth = 300;
 }
 
-/// Typography. Numbers and headings prefer a condensed family (Barlow
-/// Condensed) when one is available on the device or bundled later through
-/// pubspec `fonts:`; otherwise the platform falls back to its system face.
+/// Typography. Numbers and headings use the bundled Barlow Condensed; body
+/// text uses the bundled Public Sans (both declared under pubspec `fonts:`).
 /// Tabular figures keep values from jittering while they change.
 abstract final class MenzilType {
+  static const String condensed = 'Barlow Condensed';
+  static const String sans = 'Public Sans';
   static const List<String> numericFallback = [
-    'Barlow Condensed',
     'Roboto Condensed',
     'Arial Narrow',
   ];
   static const List<FontFeature> tabular = [FontFeature.tabularFigures()];
 
   static TextStyle display(Color color, {double size = 60}) => TextStyle(
+    fontFamily: condensed,
     fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.0,
@@ -245,6 +246,7 @@ abstract final class MenzilType {
     double size = 22,
     FontWeight weight = FontWeight.w600,
   }) => TextStyle(
+    fontFamily: condensed,
     fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.1,
@@ -254,6 +256,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle heading(Color color, {double size = 22}) => TextStyle(
+    fontFamily: condensed,
     fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.1,
@@ -263,6 +266,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle label(Color color) => TextStyle(
+    fontFamily: sans,
     fontSize: 13,
     height: 1.25,
     fontWeight: FontWeight.w600,
@@ -270,6 +274,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle unit(Color color) => TextStyle(
+    fontFamily: sans,
     fontSize: 13,
     height: 1.25,
     fontWeight: FontWeight.w500,
@@ -277,6 +282,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle body(Color color) => TextStyle(
+    fontFamily: sans,
     fontSize: 15,
     height: 1.35,
     fontWeight: FontWeight.w500,
@@ -284,6 +290,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle caption(Color color) => TextStyle(
+    fontFamily: sans,
     fontSize: 12.5,
     height: 1.35,
     fontWeight: FontWeight.w400,
@@ -338,6 +345,7 @@ abstract final class MenzilTheme {
 
     return ThemeData(
       useMaterial3: true,
+      fontFamily: MenzilType.sans,
       brightness: brightness,
       colorScheme: scheme,
       scaffoldBackgroundColor: c.bg,
@@ -590,4 +598,16 @@ abstract final class MenzilArt {
   static const Color c9FD3EC = Color(0xFF9FD3EC);
   static const Color cF7FAFB = Color(0xFFF7FAFB);
   static const Color cFFFFFF = Color(0xFFFFFFFF);
+}
+
+/// Display formatting shared by the Menzil screens.
+abstract final class MenzilFormat {
+  /// Fixed-digit decimal with the Turkish comma ("0,370"), as in the Menzil
+  /// design. Never prints a negative zero: a tiny negative value that rounds
+  /// to zero ("-0.0") is shown unsigned ("0,0").
+  static String dec(double v, int digits) {
+    var s = v.toStringAsFixed(digits);
+    if (RegExp(r'^-0(\.0+)?$').hasMatch(s)) s = s.substring(1);
+    return s.replaceAll('.', ',');
+  }
 }

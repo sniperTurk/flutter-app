@@ -426,7 +426,7 @@ class _ProfileRow extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '${profile.muzzleVelocityMps.toStringAsFixed(1)} m/s • '
+                              '${MenzilFormat.dec(profile.muzzleVelocityMps, 1)} m/s • '
                               'Zero ${profile.zeroRangeM.toStringAsFixed(0)} m'
                               '${profile.pressureBar == null ? '' : ' • ${profile.pressureBar!.toStringAsFixed(0)} bar'}',
                               maxLines: 1,
@@ -545,7 +545,7 @@ class _ActiveProfileDetails extends StatelessWidget {
           metrics: [
             MenzilMetric(
               'Çıkış hızı',
-              profile.muzzleVelocityMps.toStringAsFixed(1),
+              MenzilFormat.dec(profile.muzzleVelocityMps, 1),
               'm/s',
             ),
             MenzilMetric(
@@ -555,7 +555,7 @@ class _ActiveProfileDetails extends StatelessWidget {
             ),
             MenzilMetric(
               'Dürbün yüksekliği',
-              profile.sightHeightMm.toStringAsFixed(1),
+              MenzilFormat.dec(profile.sightHeightMm, 1),
               'mm',
             ),
             MenzilMetric(
@@ -569,11 +569,11 @@ class _ActiveProfileDetails extends StatelessWidget {
                 'bar',
               ),
             if (rifle != null)
-              MenzilMetric('Çap', rifle.caliberMm.toStringAsFixed(2), 'mm'),
+              MenzilMetric('Çap', MenzilFormat.dec(rifle.caliberMm, 2), 'mm'),
             if (ammo != null)
               MenzilMetric(
                 'Ağırlık',
-                ammo.grain.toStringAsFixed(ammo.grain % 1 == 0 ? 0 : 1),
+                MenzilFormat.dec(ammo.grain, ammo.grain % 1 == 0 ? 0 : 1),
                 'gr',
               ),
             if (barrelLengthMm != null)
@@ -585,7 +585,7 @@ class _ActiveProfileDetails extends StatelessWidget {
             if (scope != null)
               MenzilMetric(
                 'Klik değeri',
-                scope.clickValue.toString(),
+                scope.clickValue.toString().replaceAll('.', ','),
                 scope.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
               ),
             MenzilMetric(
@@ -1124,18 +1124,18 @@ class _CatalogValues extends StatelessWidget {
             columns: 2,
             metrics: [
               if (rifle != null)
-                MenzilMetric('Çap', rifle!.caliberMm.toStringAsFixed(2), 'mm'),
+                MenzilMetric('Çap', MenzilFormat.dec(rifle!.caliberMm, 2), 'mm'),
               if (ammo != null)
                 MenzilMetric(
                   'Ağırlık',
-                  ammo!.grain.toStringAsFixed(ammo!.grain % 1 == 0 ? 0 : 1),
+                  MenzilFormat.dec(ammo!.grain, ammo!.grain % 1 == 0 ? 0 : 1),
                   'gr',
                 ),
               MenzilMetric(
                 'Sürükleme modeli',
                 ammo?.ballisticModel?.name.toUpperCase() ?? '—',
               ),
-              MenzilMetric('BC', ammo?.ballisticCoefficient?.toString() ?? '—'),
+              MenzilMetric('BC', ammo?.ballisticCoefficient?.toString().replaceAll('.', ',') ?? '—'),
               MenzilMetric(
                 'Namlu boyu',
                 rifle?.barrelLengthMm?.toStringAsFixed(0) ?? '—',
@@ -1144,7 +1144,7 @@ class _CatalogValues extends StatelessWidget {
               if (scope != null)
                 MenzilMetric(
                   'Klik değeri',
-                  scope!.clickValue.toString(),
+                  scope!.clickValue.toString().replaceAll('.', ','),
                   scope!.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
                 ),
             ],

@@ -880,10 +880,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           Text('Hava', style: MenzilType.heading(c.ink, size: 20)),
           const SizedBox(height: MenzilSpace.xs),
           Text(
-            'Hava yoğunluğu: ${airDensityKgM3!.toStringAsFixed(4)} kg/m³ • '
-            'yoğunluk oranı: ${densityRatio!.toStringAsFixed(3)} • '
-            'ses hızı: ${speedOfSoundMps!.toStringAsFixed(1)} m/s • '
-            'namlu Mach: ${muzzleMach!.toStringAsFixed(3)}',
+            'Hava yoğunluğu: ${MenzilFormat.dec(airDensityKgM3!, 4)} kg/m³ • '
+            'yoğunluk oranı: ${MenzilFormat.dec(densityRatio!, 3)} • '
+            'ses hızı: ${MenzilFormat.dec(speedOfSoundMps!, 1)} m/s • '
+            'namlu Mach: ${MenzilFormat.dec(muzzleMach!, 3)}',
             style: MenzilType.body(
               c.ink,
             ).copyWith(fontFeatures: MenzilType.tabular),
@@ -951,11 +951,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   color: isZero ? WidgetStatePropertyAll(c.amberSoft) : null,
                   cells: [
                     DataCell(
-                      Text(displayRange.toStringAsFixed(metric ? 0 : 1)),
+                      Text(MenzilFormat.dec(displayRange, metric ? 0 : 1)),
                     ),
-                    DataCell(Text(displayDrop.toStringAsFixed(1))),
-                    DataCell(Text(displayEnergy.toStringAsFixed(1))),
-                    DataCell(Text(p.timeOfFlightS.toStringAsFixed(3))),
+                    DataCell(Text(MenzilFormat.dec(displayDrop, 1))),
+                    DataCell(Text(MenzilFormat.dec(displayEnergy, 1))),
+                    DataCell(Text(MenzilFormat.dec(p.timeOfFlightS, 3))),
                   ],
                 );
               }).toList(),
@@ -980,7 +980,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               const SizedBox(width: MenzilSpace.xs),
               Expanded(
                 child: Text(
-                  'Sıfır mesafesi ${_toDisplayRange(zeroM).toStringAsFixed(metric ? 0 : 1)} $_distanceUnit',
+                  'Sıfır mesafesi ${MenzilFormat.dec(_toDisplayRange(zeroM), metric ? 0 : 1)} $_distanceUnit',
                   style: MenzilType.caption(c.ink2),
                 ),
               ),
@@ -1118,37 +1118,43 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           metrics: [
             MenzilMetric(
               'Uçuş süresi',
-              shot.timeOfFlightS.toStringAsFixed(3),
+              MenzilFormat.dec(shot.timeOfFlightS, 3),
               's',
             ),
             MenzilMetric(
               'Vakum düşüşü*',
-              (metric
+              MenzilFormat.dec(
+                metric
                       ? shot.dropM * 100
-                      : UnitSystem.millimetersToInches(shot.dropM * 1000))
-                  .toStringAsFixed(1),
+                      : UnitSystem.millimetersToInches(shot.dropM * 1000),
+                1,
+              ),
               metric ? 'cm' : 'in',
             ),
             MenzilMetric(
               'Namlu hızı*',
-              (metric
+              MenzilFormat.dec(
+                metric
                       ? shot.velocityMps
-                      : UnitSystem.mpsToFps(shot.velocityMps))
-                  .toStringAsFixed(0),
+                      : UnitSystem.mpsToFps(shot.velocityMps),
+                0,
+              ),
               metric ? 'm/s' : 'fps',
             ),
             MenzilMetric(
               'Namlu enerjisi*',
-              (metric
+              MenzilFormat.dec(
+                metric
                       ? shot.energyJ
-                      : UnitSystem.joulesToFootPounds(shot.energyJ))
-                  .toStringAsFixed(1),
+                      : UnitSystem.joulesToFootPounds(shot.energyJ),
+                1,
+              ),
               metric ? 'J' : 'ft-lb',
             ),
             if (muzzleMach != null)
-              MenzilMetric('Namlu Mach', muzzleMach!.toStringAsFixed(3)),
+              MenzilMetric('Namlu Mach', MenzilFormat.dec(muzzleMach!, 3)),
             if (densityRatio != null)
-              MenzilMetric('Yoğunluk oranı', densityRatio!.toStringAsFixed(3)),
+              MenzilMetric('Yoğunluk oranı', MenzilFormat.dec(densityRatio!, 3)),
           ],
         ),
       Text(
@@ -1247,7 +1253,26 @@ class _SafeReticlePainter extends CustomPainter {
         fine,
       );
     }
-    canvas.drawCircle(center, 6, Paint()..color = colors.amber);
+    // Centre mark as in the Menzil design: amber dot with an ink outline and
+    // a thin ring, scaled to the reticle (design: r 7 / 13 on a r 140 ring).
+    final dotRadius = math.max(5.0, radius * 7 / 140);
+    canvas.drawCircle(center, dotRadius, Paint()..color = colors.amber);
+    canvas.drawCircle(
+      center,
+      dotRadius,
+      Paint()
+        ..color = colors.ink
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2,
+    );
+    canvas.drawCircle(
+      center,
+      math.max(9.0, radius * 13 / 140),
+      Paint()
+        ..color = colors.ink
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.2,
+    );
   }
 
   @override
