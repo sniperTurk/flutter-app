@@ -139,8 +139,9 @@ class PersistentProfileStore implements ProfileStore {
       final rollbackOk = previousBackup == null
           ? await prefs.remove(_backupKey)
           : await prefs.setString(_backupKey, previousBackup);
-      if (!rollbackOk)
+      if (!rollbackOk) {
         throw StateError('Profile write failed and backup rollback failed');
+      }
       throw StateError('Profile write failed');
     }
   }

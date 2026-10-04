@@ -1373,8 +1373,9 @@ class _MarkPageState extends State<_MarkPage> {
                     onTapUp: (d) {
                       if (_marks.length < 3) {
                         _tap(d.localPosition, size);
-                        if (_marks.isNotEmpty)
+                        if (_marks.isNotEmpty) {
                           setState(() => _selectedMark = _marks.length - 1);
+                        }
                       } else {
                         _selectNearest(d.localPosition, size);
                       }
@@ -1587,8 +1588,9 @@ class _ObjectiveDiameterDialogState extends State<_ObjectiveDiameterDialog> {
             final v = double.tryParse(
               _controller.text.trim().replaceAll(',', '.'),
             );
-            if (v != null && v.isFinite && v > 0 && v <= 120)
+            if (v != null && v.isFinite && v > 0 && v <= 120) {
               Navigator.pop(context, v);
+            }
           },
           child: const Text('Tamam'),
         ),

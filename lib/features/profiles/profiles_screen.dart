@@ -202,8 +202,9 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
 
   Future<void> _deleteViaButton(RifleProfile p) async {
     if (await _confirmAndRemove(p)) {
-      if (mounted)
+      if (mounted) {
         setState(() => items = items.where((x) => x.id != p.id).toList());
+      }
       await widget.onProfilesChanged?.call();
     }
   }
@@ -728,8 +729,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final ammos = rifle == null
         ? const <Ammunition>[]
         : repo.ammunitionFor(platform, caliberMm: rifle!.caliberMm);
-    if (!_isEdit && !ammos.contains(ammo))
+    if (!_isEdit && !ammos.contains(ammo)) {
       ammo = ammos.isEmpty ? null : ammos.first;
+    }
     if (!_isEdit) scope ??= CatalogRepository.scopes.first;
     final canSave =
         rifle != null && ammo != null && scope != null && _validSight;

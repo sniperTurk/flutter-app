@@ -126,7 +126,10 @@ void main() {
           objectiveOuterDiameterMm: 60,
           objectiveTop: const PixelPoint(500, 100),
           objectiveBottom: const PixelPoint(500, 220),
-          boreCentre: const PixelPoint(500, 180), // axis at y=160: 20 px = 10 mm < 30 mm radius
+          boreCentre: const PixelPoint(
+            500,
+            180,
+          ), // axis at y=160: 20 px = 10 mm < 30 mm radius
         ),
         isNull,
       );

@@ -40,30 +40,37 @@ class ProfileCatalogIntegrity {
     // platform and caliber. This also protects migrated/hand-edited data.
     if (rifle.platform != ammunition.platform) return null;
     if ((rifle.caliberMm - ammunition.caliberMm).abs() >= 0.001) return null;
-    if (rifle.platform == WeaponPlatform.pcp && profile.pressureBar == null)
+    if (rifle.platform == WeaponPlatform.pcp && profile.pressureBar == null) {
       return null;
-    if (rifle.platform == WeaponPlatform.firearm && profile.pressureBar != null)
+    }
+    if (rifle.platform == WeaponPlatform.firearm &&
+        profile.pressureBar != null) {
       return null;
+    }
 
     // Persisted profiles may predate current validation rules or be externally
     // modified. Reject unsafe numeric state here before ballistics can consume it.
     if (!_positiveAtMost(
       profile.muzzleVelocityMps,
       ProductionLimits.maxMuzzleVelocityMps,
-    ))
+    )) {
       return null;
-    if (!_positiveAtMost(profile.zeroRangeM, ProductionLimits.maxRangeM))
+    }
+    if (!_positiveAtMost(profile.zeroRangeM, ProductionLimits.maxRangeM)) {
       return null;
+    }
     if (!profile.sightHeightMm.isFinite ||
         profile.sightHeightMm <= 0 ||
-        profile.sightHeightMm >= ProductionLimits.maxSightHeightMm)
+        profile.sightHeightMm >= ProductionLimits.maxSightHeightMm) {
       return null;
+    }
     if (profile.pressureBar != null &&
         !_positiveAtMost(
           profile.pressureBar!,
           ProductionLimits.maxPcpPressureBar,
-        ))
+        )) {
       return null;
+    }
 
     return ProfileCatalogResolution(
       rifle: rifle,

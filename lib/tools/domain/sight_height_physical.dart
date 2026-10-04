@@ -60,14 +60,16 @@ abstract final class SightHeightPhysical {
     if (!ok(boreDiameterMm) ||
         !ok(barrelWallMm) ||
         !ok(gapMm) ||
-        !ok(objectiveOuterDiameterMm))
+        !ok(objectiveOuterDiameterMm)) {
       return null;
+    }
     // Bounds that catch unit/typing mistakes without rejecting real equipment.
     if (boreDiameterMm! > 30 ||
         barrelWallMm! > 60 ||
         gapMm! > 100 ||
-        objectiveOuterDiameterMm! > 120)
+        objectiveOuterDiameterMm! > 120) {
       return null;
+    }
     final result = PhysicalSightHeight(
       boreRadiusMm: boreDiameterMm / 2,
       barrelWallMm: barrelWallMm,

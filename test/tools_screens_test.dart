@@ -66,6 +66,7 @@ void main() {
         const HeadingUnavailable(HeadingUnavailableReason.noSensor),
       );
       await tester.pump();
+      await tester.pump(); // stream events are delivered asynchronously
       expect(
         find.text('Bu cihazda pusula sensörü bulunamadı.'),
         findsOneWidget,
@@ -85,6 +86,7 @@ void main() {
         const HeadingAvailable(HeadingReading(90, accuracyDeg: 5)),
       );
       await tester.pump();
+      await tester.pump(); // stream events are delivered asynchronously
       expect(find.textContaining('90°'), findsWidgets);
       expect(find.text('90°  D'), findsOneWidget);
       expect(
@@ -107,6 +109,7 @@ void main() {
           const HeadingAvailable(HeadingReading(90, accuracyDeg: 5)),
         );
         await tester.pump();
+        await tester.pump(); // stream events are delivered asynchronously
         await tester.pump(const Duration(seconds: 10));
         expect(find.text('90°  D'), findsOneWidget);
         await _unmount(tester);
@@ -125,6 +128,7 @@ void main() {
           const HeadingUnavailable(HeadingUnavailableReason.noReference),
         );
         await tester.pump();
+        await tester.pump(); // stream events are delivered asynchronously
         expect(
           find.textContaining('geçersiz bir referans değeri'),
           findsOneWidget,
@@ -148,6 +152,7 @@ void main() {
         const HeadingAvailable(HeadingReading(10, accuracyDeg: 60)),
       );
       await tester.pump();
+      await tester.pump(); // stream events are delivered asynchronously
       expect(find.text('Kalibrasyon gerekli'), findsOneWidget);
       await _unmount(tester);
     });
@@ -164,6 +169,7 @@ void main() {
       await tester.pump();
       tilt.controller.add(const TiltAvailable(GravityVector(0.5, -0.3, 9.79)));
       await tester.pump();
+      await tester.pump(); // stream events are delivered asynchronously
       expect(find.textContaining(RegExp(r'-?\d+,\d{2}°')), findsWidgets);
       expect(
         find.textContaining('yalnızca ekran çözünürlüğüdür'),
@@ -184,6 +190,7 @@ void main() {
       await tester.pump();
       tilt.controller.add(const TiltAvailable(GravityVector(0, 0, 9.81)));
       await tester.pump();
+      await tester.pump(); // stream events are delivered asynchronously
       expect(find.text('Seviyede'), findsOneWidget);
       tilt.controller.add(const TiltAvailable(GravityVector(2, 0, 9.6)));
       await tester.pump(const Duration(seconds: 2));
@@ -203,6 +210,7 @@ void main() {
         const TiltUnavailable(TiltUnavailableReason.noSensor),
       );
       await tester.pump();
+      await tester.pump(); // stream events are delivered asynchronously
       expect(find.text('Bu cihazda ivmeölçer bulunamadı.'), findsOneWidget);
       await _unmount(tester);
     });
@@ -557,6 +565,7 @@ void main() {
               const TiltAvailable(GravityVector(0.5, -0.3, 9.79)),
             );
             await tester.pump();
+            await tester.pump(); // stream events are delivered asynchronously
             expect(
               tester.takeException(),
               isNull,

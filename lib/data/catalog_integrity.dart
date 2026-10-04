@@ -25,15 +25,18 @@ class CatalogIntegrity {
     _duplicateIds('scopes', scopes.map((e) => e.id), issues);
 
     for (final r in rifles) {
-      if (r.id.trim().isEmpty)
+      if (r.id.trim().isEmpty) {
         issues.add(const CatalogIssue('rifles', '<empty>', 'id is required'));
-      if (r.brand.trim().isEmpty || r.model.trim().isEmpty)
+      }
+      if (r.brand.trim().isEmpty || r.model.trim().isEmpty) {
         issues.add(CatalogIssue('rifles', r.id, 'brand/model is required'));
-      if (!r.caliberMm.isFinite || r.caliberMm <= 0)
+      }
+      if (!r.caliberMm.isFinite || r.caliberMm <= 0) {
         issues.add(
           CatalogIssue('rifles', r.id, 'caliberMm must be finite and > 0'),
         );
-      if (r.magazineCapacity != null && r.magazineCapacity! <= 0)
+      }
+      if (r.magazineCapacity != null && r.magazineCapacity! <= 0) {
         issues.add(
           CatalogIssue(
             'rifles',
@@ -41,6 +44,7 @@ class CatalogIntegrity {
             'magazineCapacity must be > 0 when present',
           ),
         );
+      }
       for (final value in <MapEntry<String, double?>>[
         MapEntry('barrelLengthMm', r.barrelLengthMm),
         MapEntry('airCapacityCc', r.airCapacityCc),
@@ -49,7 +53,7 @@ class CatalogIntegrity {
         MapEntry('plenumCc', r.plenumCc),
       ]) {
         if (value.value != null &&
-            (!value.value!.isFinite || value.value! <= 0))
+            (!value.value!.isFinite || value.value! <= 0)) {
           issues.add(
             CatalogIssue(
               'rifles',
@@ -57,8 +61,9 @@ class CatalogIntegrity {
               '${value.key} must be finite and > 0 when present',
             ),
           );
+        }
       }
-      if ((r.sourceName == null) != (r.sourceDocument == null))
+      if ((r.sourceName == null) != (r.sourceDocument == null)) {
         issues.add(
           CatalogIssue(
             'rifles',
@@ -66,7 +71,8 @@ class CatalogIntegrity {
             'sourceName and sourceDocument must be supplied together',
           ),
         );
-      if (r.brand != 'Manuel' && r.sourceName == null)
+      }
+      if (r.brand != 'Manuel' && r.sourceName == null) {
         issues.add(
           CatalogIssue(
             'rifles',
@@ -74,22 +80,27 @@ class CatalogIntegrity {
             'non-manual catalog records require provenance',
           ),
         );
+      }
     }
     for (final a in ammunition) {
-      if (a.id.trim().isEmpty)
+      if (a.id.trim().isEmpty) {
         issues.add(
           const CatalogIssue('ammunition', '<empty>', 'id is required'),
         );
-      if (a.brand.trim().isEmpty || a.model.trim().isEmpty)
+      }
+      if (a.brand.trim().isEmpty || a.model.trim().isEmpty) {
         issues.add(CatalogIssue('ammunition', a.id, 'brand/model is required'));
-      if (!a.caliberMm.isFinite || a.caliberMm <= 0)
+      }
+      if (!a.caliberMm.isFinite || a.caliberMm <= 0) {
         issues.add(
           CatalogIssue('ammunition', a.id, 'caliberMm must be finite and > 0'),
         );
-      if (!a.grain.isFinite || a.grain <= 0)
+      }
+      if (!a.grain.isFinite || a.grain <= 0) {
         issues.add(
           CatalogIssue('ammunition', a.id, 'grain must be finite and > 0'),
         );
+      }
       if (a.ballisticCoefficient != null &&
           (!a.ballisticCoefficient!.isFinite || a.ballisticCoefficient! <= 0)) {
         issues.add(
@@ -129,11 +140,13 @@ class CatalogIntegrity {
       }
     }
     for (final s in scopes) {
-      if (s.id.trim().isEmpty)
+      if (s.id.trim().isEmpty) {
         issues.add(const CatalogIssue('scopes', '<empty>', 'id is required'));
-      if (s.brand.trim().isEmpty || s.model.trim().isEmpty)
+      }
+      if (s.brand.trim().isEmpty || s.model.trim().isEmpty) {
         issues.add(CatalogIssue('scopes', s.id, 'brand/model is required'));
-      if (!s.objectiveDiameterMm.isFinite || s.objectiveDiameterMm <= 0)
+      }
+      if (!s.objectiveDiameterMm.isFinite || s.objectiveDiameterMm <= 0) {
         issues.add(
           CatalogIssue(
             'scopes',
@@ -141,10 +154,12 @@ class CatalogIntegrity {
             'objectiveDiameterMm must be finite and > 0',
           ),
         );
-      if (!s.clickValue.isFinite || s.clickValue <= 0)
+      }
+      if (!s.clickValue.isFinite || s.clickValue <= 0) {
         issues.add(
           CatalogIssue('scopes', s.id, 'clickValue must be finite and > 0'),
         );
+      }
       for (final value in <MapEntry<String, double?>>[
         MapEntry('objectiveOuterDiameterMm', s.objectiveOuterDiameterMm),
         MapEntry('tubeDiameterMm', s.tubeDiameterMm),
@@ -238,8 +253,9 @@ class CatalogIntegrity {
   ) {
     final seen = <String>{};
     for (final id in ids) {
-      if (!seen.add(id))
+      if (!seen.add(id)) {
         issues.add(CatalogIssue(collection, id, 'duplicate id'));
+      }
     }
   }
 }

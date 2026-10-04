@@ -405,22 +405,26 @@ class _ChronographScreenState extends State<ChronographScreen> {
     double? parse(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
     final start = parse(_startBar), end = parse(_endBar);
-    if (start == null || end == null || !start.isFinite || !end.isFinite)
+    if (start == null || end == null || !start.isFinite || !end.isFinite) {
       return null;
-    if (end < 0 || start <= end || start > ProductionLimits.maxPcpPressureBar)
+    }
+    if (end < 0 || start <= end || start > ProductionLimits.maxPcpPressureBar) {
       return null;
+    }
     return start - end;
   }
 
   double? get _validStartPressureBar {
-    if (_platform != WeaponPlatform.pcp || _pressureDropBar == null)
+    if (_platform != WeaponPlatform.pcp || _pressureDropBar == null) {
       return null;
+    }
     final value = double.tryParse(_startBar.text.trim().replaceAll(',', '.'));
     if (value == null ||
         !value.isFinite ||
         value <= 0 ||
-        value > ProductionLimits.maxPcpPressureBar)
+        value > ProductionLimits.maxPcpPressureBar) {
       return null;
+    }
     return value;
   }
 

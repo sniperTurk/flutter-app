@@ -20,8 +20,9 @@ class DopeRanges {
       }
       values.add(value);
     }
-    if (values.isEmpty)
+    if (values.isEmpty) {
       throw const FormatException('En az bir mesafe girilmeli');
+    }
     final result = values.toList()..sort();
     return List.unmodifiable(result);
   }

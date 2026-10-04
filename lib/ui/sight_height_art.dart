@@ -76,7 +76,7 @@ void _strokePath(
     var i = 0;
     while (pos < metric.length) {
       final len = dash[i % dash.length];
-      if (i.isEven)
+      if (i.isEven) {
         canvas.drawPath(
           metric.extractPath(
             pos,
@@ -84,6 +84,7 @@ void _strokePath(
           ),
           paint,
         );
+      }
       pos += len;
       i++;
     }

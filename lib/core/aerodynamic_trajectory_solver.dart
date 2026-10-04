@@ -77,8 +77,9 @@ class AerodynamicTrajectorySolver {
         derivative: (s) => _derivative(s, drag, bc, input.environment),
       );
       time += integrationStepSeconds;
-      if (state.vx <= 0)
+      if (state.vx <= 0) {
         throw StateError('projectile stopped before requested range');
+      }
 
       while (nextIndex < wanted.length && state.x >= wanted[nextIndex]) {
         final range = wanted[nextIndex];

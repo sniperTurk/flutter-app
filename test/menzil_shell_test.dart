@@ -7,6 +7,7 @@ import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 const _profile = RifleProfile(
   id: 'p1',
@@ -46,7 +47,6 @@ void main() {
   testWidgets('shell shows the Menzil bar and the five tabs', (tester) async {
     // find.bySemanticsLabel throws unless semantics are enabled.
     final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
     await _pumpShell(
       tester,
       await _storeWith([_profile]),
@@ -60,6 +60,7 @@ void main() {
     // Atış is the start tab and offers the range dial.
     expect(find.text('Hesapla'), findsOneWidget);
     expect(find.bySemanticsLabel('5 artır'), findsOneWidget);
+    semantics.dispose();
   });
 
   testWidgets('Atış, Tablo and Ortam share one workspace state', (
@@ -106,7 +107,6 @@ void main() {
   testWidgets('range dial steps change the evaluated distance', (tester) async {
     // find.bySemanticsLabel throws unless semantics are enabled.
     final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
     await _pumpShell(
       tester,
       await _storeWith([_profile]),
@@ -122,6 +122,7 @@ void main() {
     await tester.tap(find.bySemanticsLabel('1 azalt'));
     await tester.pumpAndSettle();
     expect(find.text('104'), findsOneWidget);
+    semantics.dispose();
   });
 
   testWidgets(
@@ -176,7 +177,6 @@ void main() {
   ) async {
     // find.bySemanticsLabel throws unless semantics are enabled.
     final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
     const second = RifleProfile(
       id: 'p2',
       name: 'İki',
@@ -213,6 +213,7 @@ void main() {
     await tester.tap(find.text('Vazgeç'));
     await tester.pumpAndSettle();
     expect((await store.all()).length, 3, reason: 'cancel must not delete');
+    semantics.dispose();
   });
 
   testWidgets('profile editor saves through the store with catalog defaults', (
@@ -231,8 +232,21 @@ void main() {
     await tester.tap(find.text('Yeni profil'));
     await tester.pumpAndSettle();
     expect(find.text('Profil Oluştur'), findsOneWidget);
+    final saveButton = tester.widget<MenzilPrimaryButton>(
+      find.widgetWithText(MenzilPrimaryButton, 'Kaydet'),
+    );
+    expect(
+      saveButton.onPressed,
+      isNotNull,
+      reason: 'a new profile with catalog defaults must be saveable',
+    );
     await tester.tap(find.text('Kaydet'));
     await tester.pumpAndSettle();
+    expect(
+      find.text('Profil Oluştur'),
+      findsNothing,
+      reason: 'editor should have closed after saving',
+    );
 
     expect((await store.all()).single.name, 'Yeni Profil');
     expect(find.text('Yeni Profil'), findsOneWidget);

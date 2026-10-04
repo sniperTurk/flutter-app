@@ -138,8 +138,9 @@ class MetNoWeatherProvider implements WeatherProvider {
               as Map<String, dynamic>;
       double need(String k) {
         final v = details[k];
-        if (v is! num || !v.toDouble().isFinite)
+        if (v is! num || !v.toDouble().isFinite) {
           throw FormatException('missing $k');
+        }
         return v.toDouble();
       }
 
@@ -157,8 +158,9 @@ class MetNoWeatherProvider implements WeatherProvider {
       final next = data['next_1_hours'];
       if (next is Map<String, dynamic>) {
         final summary = next['summary'];
-        if (summary is Map<String, dynamic>)
+        if (summary is Map<String, dynamic>) {
           symbol = summary['symbol_code'] as String?;
+        }
       }
       return WeatherObservation(
         temperatureC: need('air_temperature'),

@@ -130,8 +130,9 @@ class BallisticInput {
   }
 
   static void _finite(String name, double value) {
-    if (!value.isFinite)
+    if (!value.isFinite) {
       throw ArgumentError.value(value, name, 'must be finite');
+    }
   }
 
   static void _range(String name, double value, double min, double max) {
@@ -147,12 +148,13 @@ class BallisticInput {
     bool inclusive = true,
   }) {
     final invalid = inclusive ? value > max : value >= max;
-    if (invalid)
+    if (invalid) {
       throw ArgumentError.value(
         value,
         name,
         inclusive ? 'must be <= $max' : 'must be < $max',
       );
+    }
   }
 
   static void _positiveFinite(String name, double value) {

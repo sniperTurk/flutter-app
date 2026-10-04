@@ -152,8 +152,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadUnitPreference() async {
     try {
       final loadedMetric = (await SettingsStore.open()).loadMetric();
-      if (mounted && loadedMetric != metric)
+      if (mounted && loadedMetric != metric) {
         setState(() => metric = loadedMetric);
+      }
     } catch (_) {
       // Keep metric.
     }

@@ -49,8 +49,9 @@ class BallisticEngine {
     required Iterable<double> rangesM,
     EnvironmentData environment = const EnvironmentData(),
   }) {
-    if (muzzleVelocityMps <= 0 || zeroRangeM <= 0)
+    if (muzzleVelocityMps <= 0 || zeroRangeM <= 0) {
       throw ArgumentError('velocity and zero must be > 0');
+    }
     const g = 9.80665;
     final sightM = sightHeightMm / 1000;
     // Solve the launch angle against the line of sight exactly for the

@@ -187,7 +187,9 @@ void main() {
   ];
   if (missingPairs.isNotEmpty) _fail('fixture is missing required model-atmosphere pairs: $missingPairs');
   if (failures.isNotEmpty) {
-    for (final line in failures.take(20)) stderr.writeln(line);
+    for (final line in failures.take(20)) {
+      stderr.writeln(line);
+    }
     _fail('${failures.length}/$compared points exceeded predeclared tolerances');
   }
   stdout.writeln('reference-vector comparison PASSED: $compared points; worst |dh|=${worstHeight.toStringAsFixed(6)}m, |dv|=${worstVelocity.toStringAsFixed(6)}m/s, |dt|=${worstTime.toStringAsFixed(6)}s');
