@@ -79,34 +79,53 @@ void main() {
         find.byType(DropdownButtonFormField<RifleProfile>),
       );
       expect(dropdown.initialValue?.id, 'p1');
-      _expectActiveEverywhere(tester, 'p1', shownName: 'Bir', hiddenName: 'İki');
+      _expectActiveEverywhere(
+        tester,
+        'p1',
+        shownName: 'Bir',
+        hiddenName: 'İki',
+      );
     },
   );
 
-  testWidgets('successful active-profile write moves form, display and solver', (
-    tester,
-  ) async {
-    final profiles = MemoryProfileStore();
-    await profiles.save(_profile('p1', 'Bir'));
-    await profiles.save(_profile('p2', 'İki'));
-    final activeStore = MemoryActiveProfileStore()..value = 'p1';
+  testWidgets(
+    'successful active-profile write moves form, display and solver',
+    (tester) async {
+      final profiles = MemoryProfileStore();
+      await profiles.save(_profile('p1', 'Bir'));
+      await profiles.save(_profile('p2', 'İki'));
+      final activeStore = MemoryActiveProfileStore()..value = 'p1';
 
-    await tester.pumpWidget(
-      MaterialApp(
-        home: HomeScreen(profileStore: profiles, activeProfileStore: activeStore),
-      ),
-    );
-    await tester.pumpAndSettle();
-    _expectActiveEverywhere(tester, 'p1', shownName: 'Bir', hiddenName: 'İki');
+      await tester.pumpWidget(
+        MaterialApp(
+          home: HomeScreen(
+            profileStore: profiles,
+            activeProfileStore: activeStore,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      _expectActiveEverywhere(
+        tester,
+        'p1',
+        shownName: 'Bir',
+        hiddenName: 'İki',
+      );
 
-    await tester.tap(find.byType(DropdownButtonFormField<RifleProfile>));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('İki').last);
-    await tester.pumpAndSettle();
+      await tester.tap(find.byType(DropdownButtonFormField<RifleProfile>));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('İki').last);
+      await tester.pumpAndSettle();
 
-    expect(activeStore.value, 'p2');
-    _expectActiveEverywhere(tester, 'p2', shownName: 'İki', hiddenName: 'Bir');
-  });
+      expect(activeStore.value, 'p2');
+      _expectActiveEverywhere(
+        tester,
+        'p2',
+        shownName: 'İki',
+        hiddenName: 'Bir',
+      );
+    },
+  );
   testWidgets('stale active-profile id is cleared when no profiles remain', (
     tester,
   ) async {

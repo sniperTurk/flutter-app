@@ -49,7 +49,9 @@ class UserCatalog {
 
   /// Converts records persisted by `ManualCatalogStore` (already validated by
   /// that store's persistence boundary).
-  factory UserCatalog.fromManualEntries(Iterable<Map<String, dynamic>> entries) {
+  factory UserCatalog.fromManualEntries(
+    Iterable<Map<String, dynamic>> entries,
+  ) {
     final rifles = <Rifle>[];
     final ammunition = <Ammunition>[];
     final scopes = <ScopeOptic>[];
@@ -85,7 +87,9 @@ class UserCatalog {
       );
 
       if (builtInIds.contains(id)) {
-        block('Kimliği bir katalog kaydıyla çakışıyor; kaydı yeniden oluşturun.');
+        block(
+          'Kimliği bir katalog kaydıyla çakışıyor; kaydı yeniden oluşturun.',
+        );
         continue;
       }
 

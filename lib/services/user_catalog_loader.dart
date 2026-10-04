@@ -160,5 +160,6 @@ class LegacyMigrationIncomplete implements Exception {
   final int skipped;
   const LegacyMigrationIncomplete(this.copied, this.skipped);
   @override
-  String toString() => 'LegacyMigrationIncomplete($copied copied, $skipped skipped)';
+  String toString() =>
+      'LegacyMigrationIncomplete($copied copied, $skipped skipped)';
 }

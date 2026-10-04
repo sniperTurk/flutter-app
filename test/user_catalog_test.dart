@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -6,8 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/profile_catalog_integrity.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
+import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
+import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
+import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/manual_catalog_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/services/user_catalog_loader.dart';
@@ -86,6 +90,20 @@ const _personalProfile = RifleProfile(
   pressureBar: 190,
 );
 
+class _GatedLoader extends UserCatalogLoader {
+  final Completer<void> gate = Completer<void>();
+  final List<Map<String, dynamic>> entries;
+  _GatedLoader(this.entries);
+
+  @override
+  Future<UserCatalogLoadResult> load() async {
+    await gate.future;
+    final catalog = UserCatalog.fromManualEntries(entries);
+    CatalogRepository.installUserCatalog(catalog);
+    return UserCatalogLoadResult(catalog: catalog);
+  }
+}
+
 void main() {
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
@@ -148,17 +166,23 @@ void main() {
   });
 
   group('profile resolution and platform/caliber filters', () {
-    test('a profile built from personal records resolves only once installed', () {
-      expect(const ProfileCatalogIntegrity().resolve(_personalProfile), isNull);
-      CatalogRepository.installUserCatalog(
-        UserCatalog.fromManualEntries([_rifle, _ammo, _scope]),
-      );
-      final resolution = const ProfileCatalogIntegrity().resolve(
-        _personalProfile,
-      );
-      expect(resolution, isNotNull);
-      expect(resolution!.ammunition.grain, 18.1);
-    });
+    test(
+      'a profile built from personal records resolves only once installed',
+      () {
+        expect(
+          const ProfileCatalogIntegrity().resolve(_personalProfile),
+          isNull,
+        );
+        CatalogRepository.installUserCatalog(
+          UserCatalog.fromManualEntries([_rifle, _ammo, _scope]),
+        );
+        final resolution = const ProfileCatalogIntegrity().resolve(
+          _personalProfile,
+        );
+        expect(resolution, isNotNull);
+        expect(resolution!.ammunition.grain, 18.1);
+      },
+    );
 
     test('personal firearm ammunition never pairs with a PCP rifle', () {
       CatalogRepository.installUserCatalog(
@@ -287,7 +311,10 @@ void main() {
       );
       await openEditor(tester);
       expect(find.textContaining('(kişisel kayıt)'), findsWidgets);
-      expect(find.textContaining('üretici tarafından doğrulanmamıştır'), findsOneWidget);
+      expect(
+        find.textContaining('üretici tarafından doğrulanmamıştır'),
+        findsOneWidget,
+      );
       expect(updateAction(tester), isNotNull);
       expect(find.text('Seçilemeyen kişisel kayıtlar'), findsOneWidget);
       expect(find.textContaining('Ev yapımı slug'), findsOneWidget);
@@ -301,5 +328,36 @@ void main() {
       expect(find.textContaining('sessizce seçilmedi'), findsOneWidget);
       expect(updateAction(tester), isNull);
     });
+  });
+
+  testWidgets('home waits for the personal catalog, then hands the personal '
+      'profile to the solver', (tester) async {
+    final profiles = MemoryProfileStore();
+    await profiles.save(_personalProfile);
+    final loader = _GatedLoader([_rifle, _ammo, _scope]);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: HomeScreen(
+          profileStore: profiles,
+          activeProfileStore: MemoryActiveProfileStore()..value = 'personal',
+          userCatalogLoader: loader,
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+    expect(
+      find.byWidgetPredicate(
+        (w) => w is Semantics && w.properties.label == 'Kişisel katalog yükleniyor',
+      ),
+      findsOneWidget,
+    );
+    expect(find.textContaining('katalogla eşleşmiyor'), findsNothing);
+    expect(find.byType(BallisticsScreen), findsNothing);
+
+    loader.gate.complete();
+    await tester.pumpAndSettle();
+    final solver = tester.widget<BallisticsScreen>(find.byType(BallisticsScreen));
+    expect(solver.profile?.id, 'personal');
   });
 }

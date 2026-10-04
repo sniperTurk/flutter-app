@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../data/catalog_repository.dart';
@@ -51,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String? loadError;
   String? activeProfileWarning;
   String? userCatalogWarning;
+  bool _userCatalogReady = false;
   int _loadGeneration = 0;
 
   /// Bumped whenever a selection could not be committed. The dropdown's
@@ -95,9 +98,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     try {
       final all = await profiles.all();
-      // Install the personal catalog before any profile is resolved, so a
-      // profile built from user records validates and reaches the solver.
-      final catalogWarning = await _loadUserCatalog(all);
+      // The personal catalog loads alongside; profiles never wait for it. A
+      // profile built from personal records shows a loading state (not a
+      // mismatch) until the catalog is installed, then re-resolves.
+      unawaited(_loadUserCatalog(all, generation));
       final id = await activeStore.getActiveProfileId();
       if (!mounted || generation != _loadGeneration) return;
       RifleProfile? selected;
@@ -131,7 +135,6 @@ class _HomeScreenState extends State<HomeScreen> {
         saved = all;
         active = selected;
         activeProfileWarning = reconciliationWarning;
-        userCatalogWarning = catalogWarning;
         loading = false;
         _profilesRevision++;
       });
@@ -144,29 +147,34 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  /// Returns a user-facing warning, or null. A read failure keeps the
-  /// previously installed personal catalog and only warns when a saved
-  /// profile actually depends on a personal record.
-  Future<String?> _loadUserCatalog(List<RifleProfile> all) async {
+  static bool _dependsOnPersonal(RifleProfile p) {
+    bool builtIn(Iterable<String> ids, String id) => ids.contains(id);
+    return !builtIn(CatalogRepository.rifles.map((r) => r.id), p.rifleId) ||
+        !builtIn(
+          CatalogRepository.ammunition.map((a) => a.id),
+          p.ammunitionId,
+        ) ||
+        !builtIn(CatalogRepository.scopes.map((s) => s.id), p.scopeId);
+  }
+
+  /// Loads, migrates and installs the personal catalog, then rebuilds so
+  /// profiles re-resolve. A read failure keeps the previously installed
+  /// personal catalog and only warns when a saved profile depends on it.
+  Future<void> _loadUserCatalog(List<RifleProfile> all, int generation) async {
+    String? warning;
     try {
-      return (await userCatalog.load()).warning;
+      warning = (await userCatalog.load()).warning;
     } catch (_) {
-      final builtIn = <String>{
-        for (final r in CatalogRepository.rifles) r.id,
-        for (final a in CatalogRepository.ammunition) a.id,
-        for (final s in CatalogRepository.scopes) s.id,
-      };
-      final dependsOnPersonal = all.any(
-        (p) =>
-            !builtIn.contains(p.rifleId) ||
-            !builtIn.contains(p.ammunitionId) ||
-            !builtIn.contains(p.scopeId),
-      );
-      return dependsOnPersonal
+      warning = all.any(_dependsOnPersonal)
           ? 'Kişisel katalog okunamadı. Kişisel ekipman kullanan profiller '
                 'bu oturumda hesaplamada kullanılamaz; kayıtlar değiştirilmedi.'
           : null;
     }
+    if (!mounted || generation != _loadGeneration) return;
+    setState(() {
+      userCatalogWarning = warning;
+      _userCatalogReady = true;
+    });
   }
 
   Future<void> _choose(RifleProfile? profile) async {
@@ -438,6 +446,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _ballisticsTab(BuildContext context) {
     final profile = active;
     final resolution = _activeResolution;
+    if (profile != null &&
+        resolution == null &&
+        !_userCatalogReady &&
+        _dependsOnPersonal(profile)) {
+      return Center(
+        child: Semantics(
+          label: 'Kişisel katalog yükleniyor',
+          liveRegion: true,
+          child: const CircularProgressIndicator(),
+        ),
+      );
+    }
     if (profile == null || resolution == null) {
       return MenzilPage(
         children: [

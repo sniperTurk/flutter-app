@@ -514,12 +514,30 @@ class _ActiveProfileDetails extends StatelessWidget {
         ),
         _KeyValueCard(
           rows: [
-            ('Tüfek', _labelled(rifle?.displayName, rifle?.userEntered, profile.rifleId)),
+            (
+              'Tüfek',
+              _labelled(
+                rifle?.displayName,
+                rifle?.userEntered,
+                profile.rifleId,
+              ),
+            ),
             (
               'Mühimmat',
-              _labelled(ammo?.displayName, ammo?.userEntered, profile.ammunitionId),
+              _labelled(
+                ammo?.displayName,
+                ammo?.userEntered,
+                profile.ammunitionId,
+              ),
             ),
-            ('Dürbün', _labelled(scope?.displayName, scope?.userEntered, profile.scopeId)),
+            (
+              'Dürbün',
+              _labelled(
+                scope?.displayName,
+                scope?.userEntered,
+                profile.scopeId,
+              ),
+            ),
           ],
         ),
         MenzilMetricGrid(

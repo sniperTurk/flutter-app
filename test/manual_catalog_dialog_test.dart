@@ -40,7 +40,10 @@ Future<List<bool?>> _pumpHost(
 }
 
 Future<void> _fillRifle(WidgetTester tester) async {
-  await tester.enterText(find.widgetWithText(TextFormField, 'Marka *'), 'Atölye');
+  await tester.enterText(
+    find.widgetWithText(TextFormField, 'Marka *'),
+    'Atölye',
+  );
   await tester.enterText(find.widgetWithText(TextFormField, 'Model *'), 'X1');
   await tester.enterText(
     find.widgetWithText(TextFormField, 'Kalibre (mm) *'),
@@ -137,28 +140,29 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('editing keeps the stored id and offers a click unit for scopes', (
-    tester,
-  ) async {
-    final saved = <Map<String, dynamic>>[];
-    await _pumpHost(
-      tester,
-      existing: const {
-        'id': 'manual_scope_9',
-        'kind': 'scope',
-        'platform': 'pcp',
-        'brand': 'Optik',
-        'model': '3-12x40',
-        'objectiveMm': 40,
-        'click': 0.25,
-      },
-      onSave: (entry) async => saved.add(entry),
-    );
-    expect(find.text('Klik birimi'), findsOneWidget);
-    await tester.tap(find.byKey(const Key('manual-catalog-save')));
-    await tester.pumpAndSettle();
-    expect(saved.single['id'], 'manual_scope_9');
-    expect(saved.single['clickUnit'], 'mrad');
-    expect(saved.single['click'], 0.25);
-  });
+  testWidgets(
+    'editing keeps the stored id and offers a click unit for scopes',
+    (tester) async {
+      final saved = <Map<String, dynamic>>[];
+      await _pumpHost(
+        tester,
+        existing: const {
+          'id': 'manual_scope_9',
+          'kind': 'scope',
+          'platform': 'pcp',
+          'brand': 'Optik',
+          'model': '3-12x40',
+          'objectiveMm': 40,
+          'click': 0.25,
+        },
+        onSave: (entry) async => saved.add(entry),
+      );
+      expect(find.text('Klik birimi'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('manual-catalog-save')));
+      await tester.pumpAndSettle();
+      expect(saved.single['id'], 'manual_scope_9');
+      expect(saved.single['clickUnit'], 'mrad');
+      expect(saved.single['click'], 0.25);
+    },
+  );
 }
