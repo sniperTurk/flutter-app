@@ -49,6 +49,19 @@ jobs:
           flutter test --reporter=expanded > ci-logs/test.log 2>&1; echo "test exit: $?" >> ci-logs/status.txt
           cat ci-logs/status.txt
 
+      - name: Independent reference validator chain (diagnostic log only)
+        shell: bash
+        run: |
+          set +e
+          {
+            python3 tools/bootstrap_reference_validator.py; echo "bootstrap exit: $?"
+            .validator_venv/bin/python tools/generate_reference_vectors.py; echo "generate exit: $?"
+            ls -la validation/ || true
+            python3 tools/validate_py_ballisticcalc_fixture.py validation/py_ballisticcalc_vectors.json; echo "fixture validate exit: $?"
+            python3 --version
+          } > ci-logs/validator.log 2>&1
+          exit 0
+
       # Reachable copy of a lockfile, ONLY when this exact run passed format,
       # analyze and tests (all exit 0) with it, using the same provenance tools
       # as bootstrap-lockfile. Review, then commit to main.
