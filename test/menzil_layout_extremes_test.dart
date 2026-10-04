@@ -131,7 +131,11 @@ void main() {
   testWidgets('on-screen keyboard on iPhone SE does not break Ortam editing', (
     tester,
   ) async {
-    await _setView(tester, const Size(320, 568), padding: const EdgeInsets.only(top: 20));
+    await _setView(
+      tester,
+      const Size(320, 568),
+      padding: const EdgeInsets.only(top: 20),
+    );
     await _pumpHome(tester);
     await tester.tap(_tab('Ortam'));
     await tester.pumpAndSettle();
@@ -168,22 +172,32 @@ void main() {
         )
         .controller!
         .text;
-    // 270 m/s, 25 m and 60 mm from the profile; ICAO defaults elsewhere.
-    expect(text(BallisticsFieldKeys.velocity), '885.8');
-    expect(text(BallisticsFieldKeys.zero), '27.3');
-    expect(text(BallisticsFieldKeys.sight), '2.36');
-    expect(text(BallisticsFieldKeys.temperature), '59.0');
-    expect(text(BallisticsFieldKeys.pressure), '29.92');
-    expect(find.text('yd'), findsWidgets);
-
-    // Values survive tab switches in the converted unit system.
+    // Ortam shows the atmosphere inputs; the shell's ICAO defaults (15 °C,
+    // 1013.25 hPa, 0 m, 0 m/s) must arrive converted, all together.
     await tester.tap(_tab('Ortam'));
     await tester.pumpAndSettle();
+    expect(text(BallisticsFieldKeys.temperature), '59.0');
+    expect(text(BallisticsFieldKeys.pressure), '29.92');
+    expect(text(BallisticsFieldKeys.altitude), '0');
+    expect(text(BallisticsFieldKeys.wind), '0.0');
+    expect(find.text('yd'), findsWidgets);
+
+    // An edited imperial value survives tab switches unchanged.
+    await tester.enterText(
+      find.descendant(
+        of: find.byKey(BallisticsFieldKeys.temperature),
+        matching: find.byType(TextField),
+      ),
+      '86',
+    );
     await tester.tap(_tab('Profil'));
     await tester.pumpAndSettle();
     await tester.tap(_tab('Atış'));
     await tester.pumpAndSettle();
-    expect(text(BallisticsFieldKeys.velocity), '885.8');
+    await tester.tap(_tab('Ortam'));
+    await tester.pumpAndSettle();
+    expect(text(BallisticsFieldKeys.temperature), '86');
+    expect(text(BallisticsFieldKeys.pressure), '29.92');
     expect(tester.takeException(), isNull);
   });
 
