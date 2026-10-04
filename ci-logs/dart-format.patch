@@ -1,0 +1,17 @@
+diff --git a/test/menzil_layout_extremes_test.dart b/test/menzil_layout_extremes_test.dart
+index c1c7c88..400adec 100644
+--- a/test/menzil_layout_extremes_test.dart
++++ b/test/menzil_layout_extremes_test.dart
+@@ -131,7 +131,11 @@ void main() {
+   testWidgets('on-screen keyboard on iPhone SE does not break Ortam editing', (
+     tester,
+   ) async {
+-    await _setView(tester, const Size(320, 568), padding: const EdgeInsets.only(top: 20));
++    await _setView(
++      tester,
++      const Size(320, 568),
++      padding: const EdgeInsets.only(top: 20),
++    );
+     await _pumpHome(tester);
+     await tester.tap(_tab('Ortam'));
+     await tester.pumpAndSettle();

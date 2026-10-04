@@ -131,7 +131,11 @@ void main() {
   testWidgets('on-screen keyboard on iPhone SE does not break Ortam editing', (
     tester,
   ) async {
-    await _setView(tester, const Size(320, 568), padding: const EdgeInsets.only(top: 20));
+    await _setView(
+      tester,
+      const Size(320, 568),
+      padding: const EdgeInsets.only(top: 20),
+    );
     await _pumpHome(tester);
     await tester.tap(_tab('Ortam'));
     await tester.pumpAndSettle();
