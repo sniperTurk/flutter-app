@@ -22,6 +22,18 @@ double _num(Object? v, String path) {
   return v.toDouble();
 }
 
+Object? _canonical(Object? v) {
+  if (v is Map) {
+    final keys = v.keys.map((k) => k.toString()).toList()..sort();
+    return <String, Object?>{for (final k in keys) k: _canonical(v[k])};
+  }
+  if (v is List) return v.map(_canonical).toList(growable: false);
+  // Python writes 0.0 / 4.0 for floats; Dart may decode integral JSON numbers
+  // as int. Compare numbers by value.
+  if (v is num) return v.toDouble();
+  return v;
+}
+
 void main() {
   final root = File.fromUri(Platform.script).absolute.parent.parent;
   final policyFile = File('${root.path}/validation/wind_acceptance.json');
@@ -33,7 +45,9 @@ void main() {
   if (fixture['generator'] != 'py-ballisticcalc' || fixture['engine'] != 'rk4_engine') {
     _fail('unexpected generator/engine');
   }
-  if (jsonEncode(fixture['policy']) != jsonEncode(policy)) {
+  // Key order differs between Python (sort_keys) and this file, so compare a
+  // canonical (key-sorted) encoding of the embedded and current policy.
+  if (jsonEncode(_canonical(fixture['policy'])) != jsonEncode(_canonical(policy))) {
     _fail('fixture was not generated under the current wind acceptance policy');
   }
   final tol = policy['tolerances'] as Map<String, dynamic>;
