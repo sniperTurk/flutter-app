@@ -23,3 +23,28 @@ Lockfile: `pubspec.lock` sha256 `ccd06706fe686ead5cb1ea45e69d63d0160b7abc4247e9d
   değişkenleri tanımlı değil. Simulator, imzasız arşiv, IPA: ÇALIŞMADI.
 - Gerçek iPhone, signing, TestFlight, App Store: ÇALIŞMADI.
 - Üretim G1/G7 kapısı KAPALI; `validation/acceptance.json` değişmedi.
+
+## V371 (PR #1 `review/profile-catalog-dialog-fixes`, merge `8833001`)
+
+PR'ın kendi gövdesindeki kanıt tablosu (bu depo dışında ayrı bir oturumda
+üretildi, burada tekrar çalıştırılmadı — sadece PR metninden aktarılıyor):
+
+| Koşu | Workflow | Commit | Sonuç |
+|---|---|---|---|
+| 37203196834 | iOS CI / verify | `0091510` | format, analyze, tüm testler, iOS iskeleti GEÇTİ; App Store preflight `PRIVACY_POLICY_URL` eksikliğinde durdu |
+| — | CI diagnostics | `0091510` | format diff yok, analyze temiz, 249/249 test |
+| — | iOS CI / ios-simulator | `0091510` | Simulator debug build GEÇTİ; launch/integration smoke log alınamadığı için KALDI |
+| — | wind-acceptance | `0091510` | rüzgârsız 20/20, rüzgârlı 25/25 GEÇTİ; zarf köşelerinden 1 vaka referans üretemedi |
+
+PR gövdesi "Taslak. Birleştirilmeyecek: yeşil doğrulama yok." notu taşıyor;
+buna karşın `8833001` ile `main`'e birleşmiş durumda. Bu çelişki burada
+çözülmedi/yorumlanmadı — sadece olduğu gibi kayda geçirildi. Ayrıntı:
+`V371_CHANGELOG.md`.
+
+## PR #3 (`feature/wind-click-elevation-unlock-and-hit-probability`, inceleme sürüyor)
+
+Bu sandbox'ta Flutter SDK yok; yalnızca offline Python araçları (586 test,
+`offline_dart_lint.py` 116 dosya/0 sorun, production gate KAPALI doğrulaması)
+çalıştırıldı. Gerçek `dart format`/`flutter analyze`/`flutter test`/iOS
+Simulator sonucu için PR #3'ün kendi GitHub Actions koşusuna bakılmalı; bu
+dosyaya o koşu tamamlandığında ayrı bir satır olarak eklenecektir.
