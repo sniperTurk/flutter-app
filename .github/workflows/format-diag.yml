@@ -1,0 +1,72 @@
+name: One-off dart format diagnostic
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to diagnose'
+        required: true
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  diagnose:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Record toolchain
+        run: |
+          flutter --version
+          dart --version
+
+      - name: Diagnose formatting
+        id: diag
+        run: |
+          set +e
+          dart format --output=none --set-exit-if-changed lib test integration_test tools > /tmp/fmt_check.txt 2>&1
+          CHECK_EXIT=$?
+          echo "---- check exit: $CHECK_EXIT ----"
+          cat /tmp/fmt_check.txt
+          set -e
+          {
+            echo "### dart format --set-exit-if-changed exit code: $CHECK_EXIT"
+            echo '```'
+            cat /tmp/fmt_check.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "diag_exit=$CHECK_EXIT"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Post result as PR comment
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          BODY_FILE=$(mktemp)
+          {
+            echo "**One-off format diagnostic** on \`${{ github.event.inputs.branch }}\` @ \`${{ github.sha }}\`"
+            echo
+            echo "\`dart format --output=none --set-exit-if-changed lib test integration_test tools\` exit code: ${{ steps.diag.outputs.diag_exit }}"
+            echo
+            echo '```'
+            cat /tmp/fmt_check.txt
+            echo '```'
+          } > "$BODY_FILE"
+          gh pr comment 3 --repo sniperTurk/flutter-app --body-file "$BODY_FILE"
