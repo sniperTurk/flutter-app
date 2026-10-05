@@ -153,9 +153,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     zero.text = UnitSystem.metersToYards(zeroM).toStringAsFixed(1);
     sight.text = UnitSystem.millimetersToInches(sightMm).toStringAsFixed(2);
     wind.text = UnitSystem.mpsToMph(windMps).toStringAsFixed(1);
-    temperature.text = UnitSystem.celsiusToFahrenheit(
-      temperatureC,
-    ).toStringAsFixed(1);
+    temperature.text = UnitSystem.celsiusToFahrenheit(temperatureC)
+        .toStringAsFixed(1);
     pressure.text = UnitSystem.hpaToInHg(pressureHpa).toStringAsFixed(2);
     altitude.text = UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0);
     ranges.text = metricRanges
@@ -328,9 +327,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   void _error(String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   // -------------------------------------------------------------------------
@@ -461,9 +459,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final c = MenzilColors.of(context);
     final correction = shot == null ? null : _elevationCorrectionText(shot);
     final clicks = shot == null ? null : _elevationClicksOnScope(shot);
-    final clickUnitLabel = scope?.clickUnit == AngularUnit.moa
-        ? 'MOA'
-        : 'mrad';
+    final clickUnitLabel = scope?.clickUnit == AngularUnit.moa ? 'MOA' : 'mrad';
     return MenzilCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -924,9 +920,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             'yoğunluk oranı: ${densityRatio!.toStringAsFixed(3)} • '
             'ses hızı: ${speedOfSoundMps!.toStringAsFixed(1)} m/s • '
             'namlu Mach: ${muzzleMach!.toStringAsFixed(3)}',
-            style: MenzilType.body(
-              c.ink,
-            ).copyWith(fontFeatures: MenzilType.tabular),
+            style: MenzilType.body(c.ink)
+                .copyWith(fontFeatures: MenzilType.tabular),
           ),
         ],
       ),
@@ -969,10 +964,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   numeric: true,
                 ),
                 const DataColumn(label: Text('Yükseklik MOA*'), numeric: true),
-                const DataColumn(
-                  label: Text('Yükseklik mrad*'),
-                  numeric: true,
-                ),
+                const DataColumn(label: Text('Yükseklik mrad*'), numeric: true),
                 DataColumn(
                   label: Text(
                     metric ? 'Namlu enerjisi J*' : 'Namlu enerjisi ft-lb*',

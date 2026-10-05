@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+
 import '../models/domain.dart';
 import 'units.dart';
 import 'ballistic_input.dart';

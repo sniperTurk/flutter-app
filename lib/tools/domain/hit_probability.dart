@@ -41,12 +41,15 @@ class HitProbabilityEngine {
     required double rangeM,
   }) {
     if (groupDiameterMoa <= 0 || targetDiameterCm <= 0 || rangeM <= 0) {
-      throw ArgumentError('groupDiameterMoa, targetDiameterCm and rangeM must be > 0');
+      throw ArgumentError(
+        'groupDiameterMoa, targetDiameterCm and rangeM must be > 0',
+      );
     }
     final sigma = sigmaM(groupDiameterMoa: groupDiameterMoa, rangeM: rangeM);
     final targetRadiusM = targetDiameterCm / 100 / 2;
     if (sigma <= 0) return 1.0;
-    final p = 1 - math.exp(-(targetRadiusM * targetRadiusM) / (2 * sigma * sigma));
+    final p =
+        1 - math.exp(-(targetRadiusM * targetRadiusM) / (2 * sigma * sigma));
     return p.clamp(0.0, 1.0);
   }
 
@@ -62,7 +65,8 @@ class HitProbabilityEngine {
     if (groupDiameterMoa <= 0 || targetDiameterCm <= 0) return null;
     if (probability <= 0 || probability >= 1) return null;
     final sigmaRadiusMoa = groupDiameterMoa / 2;
-    final sigmaMradPerM = Units.moaToMrad(sigmaRadiusMoa) / 1000; // sigma(m) per 1 m of range
+    final sigmaMradPerM =
+        Units.moaToMrad(sigmaRadiusMoa) / 1000; // sigma(m) per 1 m of range
     if (sigmaMradPerM <= 0) return null;
     final targetRadiusM = targetDiameterCm / 100 / 2;
     final denom = sigmaMradPerM * math.sqrt(-2 * math.log(1 - probability));

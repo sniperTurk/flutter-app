@@ -353,8 +353,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
           ),
           const MenzilNotice(
             tone: MenzilNoticeTone.info,
-            message:
-                'Profil seçimi ve eski/yeni değer uygulamadan önce bir pencerede gösterilir.',
+            message: 'Profil seçimi ve eski/yeni değer uygulamadan önce bir pencerede gösterilir.',
           ),
           MenzilAccordion(
             key: const Key('sight-photo-section'),
@@ -386,9 +385,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
                   TextSpan(text: rest),
                 ],
               ),
-              style: MenzilType.body(
-                c.ink,
-              ).copyWith(fontSize: 13.5, height: 1.4),
+              style: MenzilType.body(c.ink)
+                  .copyWith(fontSize: 13.5, height: 1.4),
             ),
           ),
         ],
@@ -441,8 +439,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
         label: 'Namlu üst et kalınlığı',
         controller: _wall,
         fieldKey: const Key('sight-wall'),
-        caption:
-            'Bilmiyorsanız: (namlu dış çapı − iç çap) ÷ 2. Namlu dış çapını kumpas ile ölçünüz.',
+        caption: 'Bilmiyorsanız: (namlu dış çapı − iç çap) ÷ 2. Namlu dış çapını kumpas ile ölçünüz.',
         onChanged: (_) => setState(() {}),
       ),
       _MeasureRow(
@@ -450,8 +447,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
         label: 'Dürbün–namlu boşluğu (ön uç)',
         controller: _gap,
         fieldKey: const Key('sight-gap'),
-        caption:
-            'Dürbünün ön ucunda, alt yüzeyinden namlunun üstüne. Kumpas ile ölçünüz.',
+        caption: 'Dürbünün ön ucunda, alt yüzeyinden namlunun üstüne. Kumpas ile ölçünüz.',
         onChanged: (_) => setState(() {}),
       ),
       _MeasureRow(
@@ -516,9 +512,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
               children: [
                 Text(
                   'Dürbün yüksekliği',
-                  style: MenzilType.body(
-                    c.amberInk,
-                  ).copyWith(fontWeight: FontWeight.w700),
+                  style: MenzilType.body(c.amberInk)
+                      .copyWith(fontWeight: FontWeight.w700),
                 ),
                 FittedBox(
                   fit: BoxFit.scaleDown,
@@ -559,9 +554,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
                 const SizedBox(height: MenzilSpace.sm),
                 Text(
                   'Toplam',
-                  style: MenzilType.body(
-                    c.ink,
-                  ).copyWith(fontWeight: FontWeight.w700),
+                  style: MenzilType.body(c.ink)
+                      .copyWith(fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 2),
                 Text(
@@ -592,9 +586,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
             Expanded(
               child: Text(
                 'Yan fotoğrafla ölç (isteğe bağlı)',
-                style: MenzilType.body(
-                  c.cyanInk,
-                ).copyWith(fontWeight: FontWeight.w700),
+                style: MenzilType.body(c.cyanInk)
+                    .copyWith(fontWeight: FontWeight.w700),
               ),
             ),
           ],
@@ -677,8 +670,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
           const MenzilNotice(
             key: Key('sight-vision-off'),
             tone: MenzilNoticeTone.info,
-            message:
-                'Görsel yardım servisi bağlı değil. Fotoğraflar cihazdan çıkmaz ve yapay zekâ sonucu üretilmez.',
+            message: 'Görsel yardım servisi bağlı değil. Fotoğraflar cihazdan çıkmaz ve yapay zekâ sonucu üretilmez.',
           )
         else ...[
           MenzilSecondaryButton(
@@ -711,9 +703,8 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
             Expanded(
               child: Text(
                 'Fotoğrafta işaretlenecek noktalar',
-                style: MenzilType.body(
-                  c.cyanInk,
-                ).copyWith(fontWeight: FontWeight.w700),
+                style: MenzilType.body(c.cyanInk)
+                    .copyWith(fontWeight: FontWeight.w700),
               ),
             ),
           ],
@@ -808,9 +799,8 @@ class _MeasureRow extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: MenzilType.body(
-                    c.ink,
-                  ).copyWith(fontWeight: FontWeight.w700, fontSize: 14.5),
+                  style: MenzilType.body(c.ink)
+                      .copyWith(fontWeight: FontWeight.w700, fontSize: 14.5),
                 ),
               ),
               const SizedBox(width: 10),
@@ -828,9 +818,8 @@ class _MeasureRow extends StatelessWidget {
                       decimal: true,
                     ),
                     onChanged: onChanged,
-                    style: MenzilType.body(
-                      c.ink,
-                    ).copyWith(fontWeight: FontWeight.w600, fontSize: 17),
+                    style: MenzilType.body(c.ink)
+                        .copyWith(fontWeight: FontWeight.w600, fontSize: 17),
                     decoration: InputDecoration(
                       isDense: true,
                       filled: true,
@@ -1365,8 +1354,7 @@ class _MarkPageState extends State<_MarkPage> {
                 return Semantics(
                   label:
                       'Fotoğraf işaretleme alanı. ${_marks.length} / 3 nokta işaretlendi.',
-                  hint:
-                      'Dokunarak işaretlenir. VoiceOver ile hassas işaretleme zordur; yüksekliği kumpasla ölçüp Profil ekranına elle girebilirsiniz.',
+                  hint: 'Dokunarak işaretlenir. VoiceOver ile hassas işaretleme zordur; yüksekliği kumpasla ölçüp Profil ekranına elle girebilirsiniz.',
                   child: GestureDetector(
                     key: const Key('sight-mark-area'),
                     behavior: HitTestBehavior.opaque,

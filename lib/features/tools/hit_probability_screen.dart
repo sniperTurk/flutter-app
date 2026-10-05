@@ -117,7 +117,10 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
           if (valid) ...[
             const MenzilSectionHeader(
               '2 · Sonuç',
-              padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
+              padding: EdgeInsets.only(
+                top: MenzilSpace.md,
+                bottom: MenzilSpace.sm,
+              ),
             ),
             MenzilMetricGrid(
               columns: 2,

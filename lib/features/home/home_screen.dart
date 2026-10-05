@@ -500,9 +500,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  saved.isEmpty
-                      ? 'Önce bir tüfek profili oluştur.'
-                      : 'Aktif profili Profil sekmesinde düzenleyip yeniden kaydedin.',
+                  saved.isEmpty ? 'Önce bir tüfek profili oluştur.' : 'Aktif profili Profil sekmesinde düzenleyip yeniden kaydedin.',
                   style: MenzilType.body(MenzilColors.of(context).ink),
                 ),
                 const SizedBox(height: MenzilSpace.md),

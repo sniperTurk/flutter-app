@@ -18,36 +18,33 @@ void main() {
     expect(issues, isEmpty, reason: issues.join('\n'));
   });
 
-  test(
-    'current AirMaks Krait S variants are manufacturer-backed, not generic placeholders',
-    () {
-      Rifle byId(String id) =>
-          CatalogRepository.rifles.singleWhere((e) => e.id == id);
-      final kraitS = byId('airmaks-krait-s-635');
-      final mk2S = byId('airmaks-krait-mkii-s-635');
+  test('current AirMaks Krait S variants are manufacturer-backed, not generic placeholders', () {
+    Rifle byId(String id) =>
+        CatalogRepository.rifles.singleWhere((e) => e.id == id);
+    final kraitS = byId('airmaks-krait-s-635');
+    final mk2S = byId('airmaks-krait-mkii-s-635');
 
-      expect(kraitS.magazineCapacity, 14);
-      expect(kraitS.barrelLengthMm, 400);
-      expect(kraitS.airCapacityCc, 300);
-      expect(kraitS.overallLengthMm, 610);
-      expect(kraitS.weightKg, 2.5);
-      expect(kraitS.plenumCc, 60);
-      expect(kraitS.sourceName, 'AirMaks Arms');
+    expect(kraitS.magazineCapacity, 14);
+    expect(kraitS.barrelLengthMm, 400);
+    expect(kraitS.airCapacityCc, 300);
+    expect(kraitS.overallLengthMm, 610);
+    expect(kraitS.weightKg, 2.5);
+    expect(kraitS.plenumCc, 60);
+    expect(kraitS.sourceName, 'AirMaks Arms');
 
-      expect(mk2S.magazineCapacity, 12);
-      expect(mk2S.barrelLengthMm, 400);
-      expect(mk2S.airCapacityCc, 300);
-      expect(mk2S.overallLengthMm, 640);
-      expect(mk2S.weightKg, 3.13);
-      expect(mk2S.plenumCc, 30);
-      expect(mk2S.sourceDocument, contains('official product page'));
+    expect(mk2S.magazineCapacity, 12);
+    expect(mk2S.barrelLengthMm, 400);
+    expect(mk2S.airCapacityCc, 300);
+    expect(mk2S.overallLengthMm, 640);
+    expect(mk2S.weightKg, 3.13);
+    expect(mk2S.plenumCc, 30);
+    expect(mk2S.sourceDocument, contains('official product page'));
 
-      expect(
-        CatalogRepository.rifles.any((e) => e.id == 'airmaks-krait-635'),
-        isFalse,
-      );
-    },
-  );
+    expect(
+      CatalogRepository.rifles.any((e) => e.id == 'airmaks-krait-635'),
+      isFalse,
+    );
+  });
 
   test('Krait MKII X HP manufacturer metadata stays variant-specific', () {
     final rifle = CatalogRepository.rifles.singleWhere(
@@ -254,37 +251,34 @@ void main() {
     },
   );
 
-  test(
-    'verified optic metadata keeps lens and physical objective diameter distinct',
-    () {
-      ScopeOptic byId(String id) =>
-          CatalogRepository.scopes.singleWhere((e) => e.id == id);
+  test('verified optic metadata keeps lens and physical objective diameter distinct', () {
+    ScopeOptic byId(String id) =>
+        CatalogRepository.scopes.singleWhere((e) => e.id == id);
 
-      final discovery = byId('discovery-xed');
-      expect(discovery.objectiveDiameterMm, 56);
-      expect(discovery.objectiveOuterDiameterMm, 67);
-      expect(discovery.tubeDiameterMm, 35);
-      expect(discovery.elevationRangeMrad, 35);
-      expect(discovery.windageRangeMrad, 18);
-      expect(discovery.zeroStop, isTrue);
-      expect(discovery.sourceName, 'DISCOVERYOPT');
+    final discovery = byId('discovery-xed');
+    expect(discovery.objectiveDiameterMm, 56);
+    expect(discovery.objectiveOuterDiameterMm, 67);
+    expect(discovery.tubeDiameterMm, 35);
+    expect(discovery.elevationRangeMrad, 35);
+    expect(discovery.windageRangeMrad, 18);
+    expect(discovery.zeroStop, isTrue);
+    expect(discovery.sourceName, 'DISCOVERYOPT');
 
-      final gazi = byId('gazi-6-36');
-      expect(gazi.tubeDiameterMm, 34);
-      expect(gazi.elevationRangeMrad, 26);
-      expect(gazi.windageRangeMrad, 14.5);
-      expect(gazi.lengthMm, 335);
-      expect(gazi.weightG, 870);
+    final gazi = byId('gazi-6-36');
+    expect(gazi.tubeDiameterMm, 34);
+    expect(gazi.elevationRangeMrad, 26);
+    expect(gazi.windageRangeMrad, 14.5);
+    expect(gazi.lengthMm, 335);
+    expect(gazi.weightG, 870);
 
-      final arken = byId('arken-ep5');
-      expect(arken.minMagnification, 7);
-      expect(arken.maxMagnification, 35);
-      expect(arken.tubeDiameterMm, 34);
-      expect(arken.elevationRangeMrad, 30);
-      expect(arken.windageRangeMrad, 15);
-      expect(arken.reticle, 'VPR-MIL');
-    },
-  );
+    final arken = byId('arken-ep5');
+    expect(arken.minMagnification, 7);
+    expect(arken.maxMagnification, 35);
+    expect(arken.tubeDiameterMm, 34);
+    expect(arken.elevationRangeMrad, 30);
+    expect(arken.windageRangeMrad, 15);
+    expect(arken.reticle, 'VPR-MIL');
+  });
 
   test('scope integrity rejects impossible physical objective diameter', () {
     const scope = ScopeOptic(
@@ -304,62 +298,56 @@ void main() {
     expect(issues.any((e) => e.message.contains('cannot be smaller')), isTrue);
   });
 
-  test(
-    'JSB Exact King .25 family keeps manufacturer-backed weights without invented BC',
-    () {
-      Ammunition byId(String id) =>
-          CatalogRepository.ammunition.singleWhere((e) => e.id == id);
-      final king = byId('jsb-exact-king-25');
-      final heavy = byId('jsb-exact-king-heavy-25');
-      final heavyMk2 = byId('jsb-exact-king-heavy-mkii-25');
+  test('JSB Exact King .25 family keeps manufacturer-backed weights without invented BC', () {
+    Ammunition byId(String id) =>
+        CatalogRepository.ammunition.singleWhere((e) => e.id == id);
+    final king = byId('jsb-exact-king-25');
+    final heavy = byId('jsb-exact-king-heavy-25');
+    final heavyMk2 = byId('jsb-exact-king-heavy-mkii-25');
 
-      expect(king.caliberMm, 6.35);
-      expect(king.grain, 25.39);
-      expect(heavy.grain, 33.95);
-      expect(heavyMk2.grain, 33.95);
-      expect(king.type, AmmunitionType.pellet);
-      expect(heavy.type, AmmunitionType.pellet);
-      expect(heavyMk2.type, AmmunitionType.pellet);
-      expect(king.ballisticCoefficient, isNull);
-      expect(heavy.ballisticCoefficient, isNull);
-      expect(heavyMk2.ballisticCoefficient, isNull);
-      expect(king.sourceName, 'JSB Match Diabolo');
-    },
-  );
+    expect(king.caliberMm, 6.35);
+    expect(king.grain, 25.39);
+    expect(heavy.grain, 33.95);
+    expect(heavyMk2.grain, 33.95);
+    expect(king.type, AmmunitionType.pellet);
+    expect(heavy.type, AmmunitionType.pellet);
+    expect(heavyMk2.type, AmmunitionType.pellet);
+    expect(king.ballisticCoefficient, isNull);
+    expect(heavy.ballisticCoefficient, isNull);
+    expect(heavyMk2.ballisticCoefficient, isNull);
+    expect(king.sourceName, 'JSB Match Diabolo');
+  });
 
-  test(
-    'verified PCP ammunition preserves manufacturer provenance without invented BC',
-    () {
-      Ammunition byId(String id) =>
-          CatalogRepository.ammunition.singleWhere((e) => e.id == id);
-      final fx177 = byId('fx-premium-177-8_4');
-      expect(fx177.caliberMm, 4.52);
-      expect(fx177.grain, 8.4);
-      expect(fx177.sourceName, 'FX Airguns');
-      expect(fx177.ballisticCoefficient, isNull);
+  test('verified PCP ammunition preserves manufacturer provenance without invented BC', () {
+    Ammunition byId(String id) =>
+        CatalogRepository.ammunition.singleWhere((e) => e.id == id);
+    final fx177 = byId('fx-premium-177-8_4');
+    expect(fx177.caliberMm, 4.52);
+    expect(fx177.grain, 8.4);
+    expect(fx177.sourceName, 'FX Airguns');
+    expect(fx177.ballisticCoefficient, isNull);
 
-      final fx22Light = byId('fx-premium-22-15_9');
-      final fx22Heavy = byId('fx-premium-22-18_1');
-      expect(fx22Light.caliberMm, 5.52);
-      expect(fx22Light.grain, 15.9);
-      expect(fx22Heavy.caliberMm, 5.52);
-      expect(fx22Heavy.grain, 18.1);
-      expect(fx22Heavy.ballisticModel, isNull);
+    final fx22Light = byId('fx-premium-22-15_9');
+    final fx22Heavy = byId('fx-premium-22-18_1');
+    expect(fx22Light.caliberMm, 5.52);
+    expect(fx22Light.grain, 15.9);
+    expect(fx22Heavy.caliberMm, 5.52);
+    expect(fx22Heavy.grain, 18.1);
+    expect(fx22Heavy.ballisticModel, isNull);
 
-      final fx = byId('fx-premium-25-34');
-      expect(fx.caliberMm, 6.35);
-      expect(fx.grain, 34);
-      expect(fx.sourceName, 'FX Airguns');
-      expect(fx.ballisticCoefficient, isNull);
-      expect(fx.ballisticModel, isNull);
+    final fx = byId('fx-premium-25-34');
+    expect(fx.caliberMm, 6.35);
+    expect(fx.grain, 34);
+    expect(fx.sourceName, 'FX Airguns');
+    expect(fx.ballisticCoefficient, isNull);
+    expect(fx.ballisticModel, isNull);
 
-      final jsb = byId('jsb-knockout-mkii-25');
-      expect(jsb.caliberMm, 6.35);
-      expect(jsb.grain, closeTo(33.49, 0.01));
-      expect(jsb.type, AmmunitionType.slug);
-      expect(jsb.sourceName, 'JSB Match Diabolo');
-    },
-  );
+    final jsb = byId('jsb-knockout-mkii-25');
+    expect(jsb.caliberMm, 6.35);
+    expect(jsb.grain, closeTo(33.49, 0.01));
+    expect(jsb.type, AmmunitionType.slug);
+    expect(jsb.sourceName, 'JSB Match Diabolo');
+  });
 
   test(
     'FX 6.35 rifle expansion preserves only manufacturer-backed metadata',
@@ -404,37 +392,34 @@ void main() {
     },
   );
 
-  test(
-    'FX current 6.35 family expansion keeps provenance and avoids guessed variant data',
-    () {
-      Rifle byId(String id) =>
-          CatalogRepository.rifles.singleWhere((e) => e.id == id);
+  test('FX current 6.35 family expansion keeps provenance and avoids guessed variant data', () {
+    Rifle byId(String id) =>
+        CatalogRepository.rifles.singleWhere((e) => e.id == id);
 
-      final impact = byId('fx-impact-m4-635');
-      expect(impact.plenumCc, 75);
-      expect(impact.sourceName, 'FX Airguns');
-      expect(impact.airCapacityCc, isNull);
+    final impact = byId('fx-impact-m4-635');
+    expect(impact.plenumCc, 75);
+    expect(impact.sourceName, 'FX Airguns');
+    expect(impact.airCapacityCc, isNull);
 
-      final crown = byId('fx-crown-mkii-635');
-      expect(crown.rail, 'Picatinny 20 MOA');
-      expect(crown.barrelType, contains('STX'));
-      expect(crown.airCapacityCc, isNull);
+    final crown = byId('fx-crown-mkii-635');
+    expect(crown.rail, 'Picatinny 20 MOA');
+    expect(crown.barrelType, contains('STX'));
+    expect(crown.airCapacityCc, isNull);
 
-      final wildcat = byId('fx-wildcat-mkiii-635');
-      expect(wildcat.caliberMm, 6.35);
-      expect(
-        wildcat.airCapacityCc,
-        isNull,
-      ); // tube/bottle variants are not collapsed
+    final wildcat = byId('fx-wildcat-mkiii-635');
+    expect(wildcat.caliberMm, 6.35);
+    expect(
+      wildcat.airCapacityCc,
+      isNull,
+    ); // tube/bottle variants are not collapsed
 
-      final classic = byId('fx-drs-mkii-classic-635');
-      final pro = byId('fx-drs-mkii-pro-635');
-      expect(classic.rail, 'Picatinny 30 MOA');
-      expect(classic.barrelType, contains('APB'));
-      expect(pro.rail, contains('M-LOK'));
-      expect(pro.sourceDocument, contains('official product page'));
-    },
-  );
+    final classic = byId('fx-drs-mkii-classic-635');
+    final pro = byId('fx-drs-mkii-pro-635');
+    expect(classic.rail, 'Picatinny 30 MOA');
+    expect(classic.barrelType, contains('APB'));
+    expect(pro.rail, contains('M-LOK'));
+    expect(pro.sourceDocument, contains('official product page'));
+  });
 
   test('ammunition integrity rejects half-specified provenance', () {
     const ammo = Ammunition(

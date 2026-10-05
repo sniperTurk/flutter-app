@@ -133,9 +133,8 @@ Widget host(Widget child, {ToolsServices? services, double textScale = 1.0}) =>
       builder: (context, c) => ToolsServicesScope(
         services: services ?? testServices(),
         child: MediaQuery(
-          data: MediaQuery.of(
-            context,
-          ).copyWith(textScaler: TextScaler.linear(textScale)),
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: TextScaler.linear(textScale)),
           child: c!,
         ),
       ),

@@ -113,7 +113,8 @@ class _LevelScreenState extends State<LevelScreen> {
                         expand: true,
                         label: 'Dört Yüzey Kalibrasyonu',
                         icon: Icons.rule_outlined,
-                        onPressed: () => _openCalibrationSheet(context, controller),
+                        onPressed: () =>
+                            _openCalibrationSheet(context, controller),
                       ),
                     ),
                   ],
@@ -320,8 +321,7 @@ class _LevelScreenState extends State<LevelScreen> {
       TiltUnavailableReason.noSensor => 'Bu cihazda ivmeölçer bulunamadı.',
       TiltUnavailableReason.error =>
         'Eğim sensörü okunamadı. Uygulamayı yeniden açıp tekrar deneyin.',
-      null =>
-        'Eğim verisi bekleniyor. Simülatörde ivmeölçer yoktur; gerçek cihazda deneyin.',
+      null => 'Eğim verisi bekleniyor. Simülatörde ivmeölçer yoktur; gerçek cihazda deneyin.',
     };
     return SizedBox(
       height: 320,
@@ -391,7 +391,8 @@ class _CalibrationSheet extends StatelessWidget {
                             ? '1) Normal okuma al'
                             : '1) Normal ✓ yeniden al',
                         onPressed: hasReading
-                            ? () => controller.captureCalibration(flipped: false)
+                            ? () =>
+                                  controller.captureCalibration(flipped: false)
                             : null,
                       ),
                     ),
@@ -421,7 +422,7 @@ class _CalibrationSheet extends StatelessWidget {
                       : MenzilNoticeTone.warning,
                   message: cal.isComplete
                       ? 'Bu duruş için kalibrasyon etkin. Değer oturum belleğinde '
-                          'tutulur; uygulama yeniden başlatıldığında sıfırlanır.'
+                            'tutulur; uygulama yeniden başlatıldığında sıfırlanır.'
                       : 'Bu duruş için kalibrasyon tamamlanmadı (iki okuma da gerekli).',
                 ),
                 const SizedBox(height: MenzilSpace.md),

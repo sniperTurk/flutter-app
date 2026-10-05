@@ -24,27 +24,24 @@ void main() {
     },
   );
 
-  test(
-    'duplicate requested ranges are preserved instead of failing completion check',
-    () {
-      final duplicateRanges = BallisticInput(
-        muzzleVelocityMps: 270,
-        grain: 51,
-        zeroRangeM: 25,
-        sightHeightMm: 60,
-        rangesM: const [100, 50, 50, 25],
-        ballisticCoefficient: 0.12,
-        ballisticModel: BallisticModel.g1,
-      );
-      final points = const AerodynamicTrajectorySolver().solveNoWind(
-        duplicateRanges,
-      );
-      expect(points.map((p) => p.rangeM), [100, 50, 50, 25]);
-      expect(points[1].dropM, closeTo(points[2].dropM, 1e-12));
-      expect(points[1].velocityMps, closeTo(points[2].velocityMps, 1e-12));
-      expect(points[1].timeOfFlightS, closeTo(points[2].timeOfFlightS, 1e-12));
-    },
-  );
+  test('duplicate requested ranges are preserved instead of failing completion check', () {
+    final duplicateRanges = BallisticInput(
+      muzzleVelocityMps: 270,
+      grain: 51,
+      zeroRangeM: 25,
+      sightHeightMm: 60,
+      rangesM: const [100, 50, 50, 25],
+      ballisticCoefficient: 0.12,
+      ballisticModel: BallisticModel.g1,
+    );
+    final points = const AerodynamicTrajectorySolver().solveNoWind(
+      duplicateRanges,
+    );
+    expect(points.map((p) => p.rangeM), [100, 50, 50, 25]);
+    expect(points[1].dropM, closeTo(points[2].dropM, 1e-12));
+    expect(points[1].velocityMps, closeTo(points[2].velocityMps, 1e-12));
+    expect(points[1].timeOfFlightS, closeTo(points[2].timeOfFlightS, 1e-12));
+  });
 
   test('drag reduces velocity and energy with distance', () {
     final points = const AerodynamicTrajectorySolver().solveNoWind(input());
@@ -263,15 +260,15 @@ void main() {
 
   test('invalid integration steps fail closed', () {
     expect(
-      () => const AerodynamicTrajectorySolver(
-        integrationStepSeconds: 0,
-      ).solveNoWind(input()),
+      () =>
+          const AerodynamicTrajectorySolver(integrationStepSeconds: 0)
+              .solveNoWind(input()),
       throwsArgumentError,
     );
     expect(
-      () => const AerodynamicTrajectorySolver(
-        integrationStepSeconds: 0.02,
-      ).solveNoWind(input()),
+      () =>
+          const AerodynamicTrajectorySolver(integrationStepSeconds: 0.02)
+              .solveNoWind(input()),
       throwsArgumentError,
     );
   });

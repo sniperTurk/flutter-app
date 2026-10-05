@@ -1,5 +1,7 @@
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/domain.dart';
 import 'profile_codec.dart';
 import 'profile_document_codec.dart';

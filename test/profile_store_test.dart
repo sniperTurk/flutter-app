@@ -204,70 +204,61 @@ void main() {
     expect(all.map((profile) => profile.id).toSet(), {'old', 'fresh'});
   });
 
-  test(
-    'corrupt primary and corrupt backup fail closed instead of returning empty profiles',
-    () async {
-      const key = 'sniper_turk.rifle_profiles.v1';
-      const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
-      SharedPreferences.setMockInitialValues({
-        key: '{broken-primary',
-        backupKey: '{broken-backup',
-      });
+  test('corrupt primary and corrupt backup fail closed instead of returning empty profiles', () async {
+    const key = 'sniper_turk.rifle_profiles.v1';
+    const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
+    SharedPreferences.setMockInitialValues({
+      key: '{broken-primary',
+      backupKey: '{broken-backup',
+    });
 
-      final store = PersistentProfileStore();
-      await expectLater(store.all(), throwsA(isA<StateError>()));
+    final store = PersistentProfileStore();
+    await expectLater(store.all(), throwsA(isA<StateError>()));
 
-      final prefs = await SharedPreferences.getInstance();
-      expect(prefs.getString(key), '{broken-primary');
-      expect(prefs.getString(backupKey), '{broken-backup');
-    },
-  );
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString(key), '{broken-primary');
+    expect(prefs.getString(backupKey), '{broken-backup');
+  });
 
-  test(
-    'save refuses to overwrite profiles when both persisted snapshots are corrupt',
-    () async {
-      const key = 'sniper_turk.rifle_profiles.v1';
-      const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
-      SharedPreferences.setMockInitialValues({
-        key: '{broken-primary',
-        backupKey: '{broken-backup',
-      });
-      const fresh = RifleProfile(
-        id: 'fresh-after-corruption',
-        name: 'Fresh',
-        rifleId: 'r',
-        ammunitionId: 'a',
-        scopeId: 's',
-        muzzleVelocityMps: 255,
-        zeroRangeM: 25,
-        sightHeightMm: 65,
-      );
+  test('save refuses to overwrite profiles when both persisted snapshots are corrupt', () async {
+    const key = 'sniper_turk.rifle_profiles.v1';
+    const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
+    SharedPreferences.setMockInitialValues({
+      key: '{broken-primary',
+      backupKey: '{broken-backup',
+    });
+    const fresh = RifleProfile(
+      id: 'fresh-after-corruption',
+      name: 'Fresh',
+      rifleId: 'r',
+      ammunitionId: 'a',
+      scopeId: 's',
+      muzzleVelocityMps: 255,
+      zeroRangeM: 25,
+      sightHeightMm: 65,
+    );
 
-      await expectLater(
-        PersistentProfileStore().save(fresh),
-        throwsA(isA<StateError>()),
-      );
+    await expectLater(
+      PersistentProfileStore().save(fresh),
+      throwsA(isA<StateError>()),
+    );
 
-      final prefs = await SharedPreferences.getInstance();
-      expect(prefs.getString(key), '{broken-primary');
-      expect(prefs.getString(backupKey), '{broken-backup');
-    },
-  );
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString(key), '{broken-primary');
+    expect(prefs.getString(backupKey), '{broken-backup');
+  });
 
-  test(
-    'missing primary recovers surviving profile backup and self-heals',
-    () async {
-      const key = 'sniper_turk.rifle_profiles.v1';
-      const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
-      const good =
-          '[{"id":"p1","name":"Recovered missing primary","rifleId":"r","ammunitionId":"a","scopeId":"s","muzzleVelocityMps":250,"zeroRangeM":25,"sightHeightMm":65}]';
-      SharedPreferences.setMockInitialValues({backupKey: good});
-      final all = await PersistentProfileStore().all();
-      expect(all.single.name, 'Recovered missing primary');
-      final prefs = await SharedPreferences.getInstance();
-      expect(prefs.getString(key), good);
-    },
-  );
+  test('missing primary recovers surviving profile backup and self-heals', () async {
+    const key = 'sniper_turk.rifle_profiles.v1';
+    const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
+    const good =
+        '[{"id":"p1","name":"Recovered missing primary","rifleId":"r","ammunitionId":"a","scopeId":"s","muzzleVelocityMps":250,"zeroRangeM":25,"sightHeightMm":65}]';
+    SharedPreferences.setMockInitialValues({backupKey: good});
+    final all = await PersistentProfileStore().all();
+    expect(all.single.name, 'Recovered missing primary');
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString(key), good);
+  });
 
   test('first profile write creates a recoverable backup', () async {
     const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
@@ -310,43 +301,37 @@ void main() {
     },
   );
 
-  test(
-    'self-heal quarantines the corrupt primary bytes before overwriting them',
-    () async {
-      const key = 'sniper_turk.rifle_profiles.v1';
-      const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
-      const quarantineKey = 'sniper_turk.rifle_profiles.v1.corrupt';
-      const good =
-          '[{"id":"p1","name":"Recovered","rifleId":"r","ammunitionId":"a","scopeId":"s","muzzleVelocityMps":250,"zeroRangeM":25,"sightHeightMm":65,"angularUnit":"mrad"}]';
-      SharedPreferences.setMockInitialValues({
-        key: '{broken-json',
-        backupKey: good,
-      });
-      expect((await PersistentProfileStore().all()).single.name, 'Recovered');
-      final prefs = await SharedPreferences.getInstance();
-      expect(prefs.getString(key), good);
-      expect(prefs.getString(quarantineKey), '{broken-json');
-    },
-  );
+  test('self-heal quarantines the corrupt primary bytes before overwriting them', () async {
+    const key = 'sniper_turk.rifle_profiles.v1';
+    const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
+    const quarantineKey = 'sniper_turk.rifle_profiles.v1.corrupt';
+    const good =
+        '[{"id":"p1","name":"Recovered","rifleId":"r","ammunitionId":"a","scopeId":"s","muzzleVelocityMps":250,"zeroRangeM":25,"sightHeightMm":65,"angularUnit":"mrad"}]';
+    SharedPreferences.setMockInitialValues({
+      key: '{broken-json',
+      backupKey: good,
+    });
+    expect((await PersistentProfileStore().all()).single.name, 'Recovered');
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString(key), good);
+    expect(prefs.getString(quarantineKey), '{broken-json');
+  });
 
-  test(
-    'first quarantined evidence is never overwritten by later corruption',
-    () async {
-      const key = 'sniper_turk.rifle_profiles.v1';
-      const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
-      const quarantineKey = 'sniper_turk.rifle_profiles.v1.corrupt';
-      const good =
-          '[{"id":"p1","name":"Recovered","rifleId":"r","ammunitionId":"a","scopeId":"s","muzzleVelocityMps":250,"zeroRangeM":25,"sightHeightMm":65,"angularUnit":"mrad"}]';
-      SharedPreferences.setMockInitialValues({
-        key: '{second-corruption',
-        backupKey: good,
-        quarantineKey: '{first-corruption',
-      });
-      await PersistentProfileStore().all();
-      final prefs = await SharedPreferences.getInstance();
-      expect(prefs.getString(quarantineKey), '{first-corruption');
-    },
-  );
+  test('first quarantined evidence is never overwritten by later corruption', () async {
+    const key = 'sniper_turk.rifle_profiles.v1';
+    const backupKey = 'sniper_turk.rifle_profiles.v1.backup';
+    const quarantineKey = 'sniper_turk.rifle_profiles.v1.corrupt';
+    const good =
+        '[{"id":"p1","name":"Recovered","rifleId":"r","ammunitionId":"a","scopeId":"s","muzzleVelocityMps":250,"zeroRangeM":25,"sightHeightMm":65,"angularUnit":"mrad"}]';
+    SharedPreferences.setMockInitialValues({
+      key: '{second-corruption',
+      backupKey: good,
+      quarantineKey: '{first-corruption',
+    });
+    await PersistentProfileStore().all();
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString(quarantineKey), '{first-corruption');
+  });
 
   test('saving over a corrupt primary quarantines it first', () async {
     const key = 'sniper_turk.rifle_profiles.v1';

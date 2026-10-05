@@ -9,8 +9,7 @@ const _profile = RifleProfile(
   id: 'p1',
   name: 'Bir',
   rifleId: 'hatsan-hercules-635',
-  ammunitionId:
-      'gmaz-51', // catalog entry with no BC/model set (see catalog_repository.dart)
+  ammunitionId: 'gmaz-51', // catalog entry with no BC/model set (see catalog_repository.dart)
   scopeId: 'gazi-6-36',
   muzzleVelocityMps: 270,
   zeroRangeM: 25,
@@ -66,8 +65,7 @@ void main() {
       expect(
         find.textContaining('Bu mühimmat için doğrulanmış BC/model yok'),
         findsOneWidget,
-        reason:
-            'the screen must say so explicitly rather than silently using an unvalidated value',
+        reason: 'the screen must say so explicitly rather than silently using an unvalidated value',
       );
 
       await tester.tap(find.text('DOPE oluştur'));
