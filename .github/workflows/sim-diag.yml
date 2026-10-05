@@ -41,6 +41,7 @@ jobs:
 
       - name: Diagnose simulator boot/install/launch
         id: diag
+        timeout-minutes: 12
         shell: bash
         run: |
           set +e
