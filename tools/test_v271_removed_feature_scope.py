@@ -8,6 +8,13 @@ obsolete and were replaced by "exists, reachable only from the Araçlar hub".
 Every other retired-surface assertion stays (and is stricter): no photo
 library/image_picker, no audio recording bridge, no microphone use, no
 path_provider, nothing retired reappears on the Home shell.
+
+V1.1 (explicit, per product-owner request to close competitor feature gaps,
+software/math-only — Bluetooth/hardware integrations stayed out of scope):
+added 'Vuruş Olasılığı' (hit-probability / WEZ-style estimate), a standalone
+statistics tool with no dependency on the still-gated drag solver and no
+scope-adjustment ("klik"/"tambur") wording of its own. The hub count below
+was bumped from 7 to 8 to match; everything else in this file is unchanged.
 """
 from pathlib import Path
 import importlib.util
@@ -26,11 +33,14 @@ class V1ToolScopeTests(unittest.TestCase):
         for forbidden in ('ChronographScreen', 'SightHeightScreen', 'CompassScreen', 'LevelScreen', 'field_tools_screen.dart'):
             self.assertNotIn(forbidden, home)
 
-    def test_tool_hub_lists_exactly_the_v1_tools(self):
+    def test_tool_hub_lists_exactly_the_v1_1_tools(self):
         hub = (ROOT / 'lib/features/tools/tools_screen.dart').read_text(encoding='utf-8')
-        for key in ('tool-chronograph', 'tool-sight-height', 'tool-compass', 'tool-level', 'tool-weather', 'tool-catalog', 'tool-settings'):
+        for key in (
+            'tool-chronograph', 'tool-sight-height', 'tool-compass', 'tool-level',
+            'tool-weather', 'tool-hit-probability', 'tool-catalog', 'tool-settings',
+        ):
             self.assertIn(f"Key('{key}')", hub)
-        self.assertEqual(7, hub.count('MenzilToolTile('))
+        self.assertEqual(8, hub.count('MenzilToolTile('))
 
     def test_still_retired_dependencies_and_ios_bridge_stay_absent(self):
         pubspec = (ROOT / 'pubspec.yaml').read_text(encoding='utf-8')

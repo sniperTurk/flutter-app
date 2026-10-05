@@ -54,6 +54,87 @@ abstract final class TiltMath {
 
   static bool isLevel(TiltAngles a) =>
       a.xDeg.abs() <= levelToleranceDeg && a.yDeg.abs() <= levelToleranceDeg;
+
+  /// Angle beyond which a percent-grade or roof-pitch conversion is not
+  /// meaningful (the surface is effectively vertical and tan() diverges).
+  static const _percentGuardDeg = 89.9;
+
+  /// Percent grade (tan(θ)×100), or null beyond [_percentGuardDeg].
+  static double? percentGrade(double degrees) {
+    if (degrees.abs() >= _percentGuardDeg) return null;
+    return math.tan(degrees * math.pi / 180.0) * 100.0;
+  }
+
+  /// Roofing "rise per 12" pitch (tan(θ)×12), or null beyond
+  /// [_percentGuardDeg]. This is the common "x/12" notation, not a
+  /// certified roofing measurement.
+  static double? roofPitchPer12(double degrees) {
+    if (degrees.abs() >= _percentGuardDeg) return null;
+    return math.tan(degrees * math.pi / 180.0) * 12.0;
+  }
+
+  /// "0,0%" style text for [percentGrade], or '—' when not meaningful.
+  static String percentText(double degrees) {
+    final p = percentGrade(degrees);
+    if (p == null) return '—';
+    var text = p.toStringAsFixed(1).replaceAll('.', ',');
+    if (text == '-0,0') text = '0,0';
+    return '$text%';
+  }
+
+  /// "n/12" style text for [roofPitchPer12], or '—' when not meaningful.
+  static String roofPitchText(double degrees) {
+    final p = roofPitchPer12(degrees);
+    if (p == null) return '—';
+    final rounded = (p * 2).round() / 2; // nearest 0.5
+    final mag = rounded.abs();
+    final magText = mag == mag.roundToDouble()
+        ? mag.toStringAsFixed(0)
+        : mag.toStringAsFixed(1).replaceAll('.', ',');
+    final sign = rounded < 0 ? '-' : '';
+    return '$sign$magText/12';
+  }
+}
+
+/// Which layout the Su Terazisi screen shows. Mirrors the view choices of
+/// dedicated physical level tools: a single bar vial ("torpedo" level, used
+/// along edges and rails), a circular bullseye vial (used on flat surfaces,
+/// "mason's" style), or every gauge together (a precision/"engineer's"
+/// combined view — this app's original design).
+enum LevelViewType { all, torpedo, bullseye }
+
+/// How an angle is displayed next to its gauge.
+enum AngleDisplayUnit { degrees, percent, roofPitch }
+
+/// Two-point "flip" calibration for one [TiltMode]: a reading captured in
+/// the normal orientation and a second reading after physically rotating
+/// the phone 180° on the same surface. The average of the pair is a
+/// constant sensor/mounting bias that cancels out regardless of which way
+/// is physically "up" — unlike [TiltAngles] offsets set from a single
+/// reading, it does not depend on any assumption about the accelerometer's
+/// sign convention (never verified in this codebase without a physical
+/// device). A complete calibration is one pair per mode (flat, upright):
+/// four captures in total.
+class FlipCalibration {
+  final TiltAngles? normal;
+  final TiltAngles? flipped;
+  const FlipCalibration({this.normal, this.flipped});
+
+  bool get isComplete => normal != null && flipped != null;
+
+  /// Constant bias to subtract from future readings, or null until both
+  /// captures are in.
+  TiltAngles? get bias {
+    final n = normal, f = flipped;
+    if (n == null || f == null) return null;
+    return TiltAngles((n.xDeg + f.xDeg) / 2, (n.yDeg + f.yDeg) / 2);
+  }
+
+  FlipCalibration withNormal(TiltAngles a) =>
+      FlipCalibration(normal: a, flipped: flipped);
+
+  FlipCalibration withFlipped(TiltAngles a) =>
+      FlipCalibration(normal: normal, flipped: a);
 }
 
 /// Exponential smoothing of the gravity vector. Reduces jitter only.

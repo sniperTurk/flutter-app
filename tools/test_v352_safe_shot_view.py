@@ -11,14 +11,22 @@ class SafeShotViewTest(unittest.TestCase):
     def test_safe_shot_view_is_present_and_drag_locked(self):
         self.assertIn("'Atış görünümü'", self.text)
         self.assertIn('class _SafeReticlePainter', self.text)
-        self.assertGreaterEqual(self.text.count("'KİLİTLİ'"), 2)
-        self.assertIn('G1/G7 kabul testi bekleniyor', self.text)
-        self.assertIn('düzeltme işareti merkeze kilitlidir', self.text)
+        # V354: elevation is unlocked (vacuum-model estimate); only the WIND
+        # status card still reads 'KİLİTLİ', so exactly one literal remains.
+        self.assertEqual(self.text.count("'KİLİTLİ'"), 1)
+        self.assertIn('Drag doğrulaması bekleniyor', self.text)
+        self.assertIn('merkeze kilitlidir', self.text)
 
-    def test_safe_shot_view_does_not_restore_click_instruction(self):
-        panel = self.text[self.text.index('Widget _referenceShotPanel()'):self.text.index('Widget _statusCard(')]
-        self.assertNotIn('clicks(', panel)
-        self.assertNotIn('klik', panel.lower())
+    def test_wind_status_card_never_shows_a_click_or_numeric_value(self):
+        # Scope the check to the wind _statusCard call specifically (the one
+        # titled 'Rüzgâr'), not the whole reference-shot panel: that panel's
+        # ELEVATION card is now allowed, by design, to show a real klik value.
+        start = self.text.index("title: 'Rüzgâr',")
+        end = self.text.index('LayoutBuilder', start)
+        wind_card = self.text[start:end]
+        self.assertIn("'KİLİTLİ'", wind_card)
+        self.assertNotIn('klik', wind_card.lower())
+        self.assertNotIn('clicks(', wind_card)
 
 if __name__ == '__main__':
     unittest.main()

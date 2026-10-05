@@ -2,9 +2,9 @@
 
 G1/G7 production activation is intentionally blocked until SNIPER TÜRK output is compared with independently generated trajectory vectors.
 
-Reference implementation selected: `py-ballisticcalc==2.2.10` (Ballistics Lab). The generator in `tools/generate_reference_vectors.py` is deliberately external to the Dart solver and writes a JSON fixture with its implementation/version and all input conditions. Generated vectors must be reviewed and committed before the production gate can be changed.
+Reference implementation selected: `py-ballisticcalc==2.2.10` (Ballistics Lab). The generator in `tools/generate_reference_vectors.py` is deliberately external to the Dart solver and writes a JSON fixture with its implementation/version and all input conditions. The generated fixture is **never git-committed** (`validation/py_ballisticcalc_vectors.json` is in `.gitignore`, so a stale or hand-edited copy cannot be mistaken for a live validator run); CI regenerates it from scratch on every run, uploads it as a build artifact for human review, and immediately runs the Dart comparison against that same fresh copy in the same job.
 
-This repository does **not** contain generated reference values yet. A missing Python dependency or unavailable network is not treated as a validation pass.
+This repository does **not** contain generated reference values yet, and will not accumulate a historical copy in git. A missing Python dependency or unavailable network is not treated as a validation pass.
 
 Required acceptance before activation:
 - G1 and G7 cases.
@@ -15,7 +15,7 @@ Required acceptance before activation:
 
 ## Frozen acceptance policy
 
-`validation/acceptance.json` is the reviewable, machine-readable acceptance policy. Its numerical tolerances are committed **before** reference output is available, preventing result-driven tolerance widening. It also pins the expected 2.2.10 wheel SHA-256 published by PyPI. Generating vectors does not itself open the production gate: the committed vectors still have to be compared with the Dart solver and all declared tolerances must pass.
+`validation/acceptance.json` is the reviewable, machine-readable acceptance policy. Its numerical tolerances are committed **before** reference output is available, preventing result-driven tolerance widening. It also pins the expected 2.2.10 wheel SHA-256 published by PyPI. Generating vectors does not itself open the production gate: the freshly generated fixture still has to be compared with the Dart solver in the same CI run and all declared tolerances must pass.
 
 ## Automated Dart comparison
 

@@ -337,8 +337,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   // Shot (single range) evaluation of the last validated inputs.
   // -------------------------------------------------------------------------
 
-  bool get _isMoa => widget.profile!.angularUnit == AngularUnit.moa;
-  String get _angularLabel => _isMoa ? 'MOA' : 'MRAD';
   String get _distanceUnit => metric ? 'm' : 'yd';
 
   double get _displayMaxRange => metric
@@ -426,8 +424,46 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
-  Widget _referenceShotPanel() {
+  /// Signed elevation correction text: "12,3 MOA (3,6 mrad)" plus a
+  /// direction word. Positive [TrajectoryPoint.correctionMrad]/`correctionMoa`
+  /// means the point of impact is BELOW the line of sight at this range (the
+  /// vacuum drop formula is `atan2(drop, range)`), so the shooter must dial
+  /// the turret UP to compensate; negative means dial DOWN (short of zero,
+  /// where the bore angle puts the projectile above the line of sight).
+  ({String direction, String value}) _elevationCorrectionText(
+    TrajectoryPoint shot,
+  ) {
+    final moa = shot.correctionMoa;
+    final mrad = shot.correctionMrad;
+    final direction = moa >= 0 ? 'Yukarı' : 'Aşağı';
+    final value =
+        '${moa.abs().toStringAsFixed(2)} MOA  ·  ${mrad.abs().toStringAsFixed(2)} mrad';
+    return (direction: direction, value: value);
+  }
+
+  /// Click count on THIS scope's real turret, using its actual click size
+  /// and unit from the catalog (clicks only mean something relative to the
+  /// specific turret you are holding — a MOA number is not "clicks" on a
+  /// mrad turret). Null if the scope has no usable click value.
+  int? _elevationClicksOnScope(TrajectoryPoint shot) {
+    final s = scope;
+    if (s == null || s.clickValue <= 0) return null;
+    final correction = s.clickUnit == AngularUnit.moa
+        ? shot.correctionMoa
+        : shot.correctionMrad;
+    return const BallisticEngine().clicks(
+      correction: correction,
+      clickValue: s.clickValue,
+    );
+  }
+
+  Widget _referenceShotPanel(TrajectoryPoint? shot) {
     final c = MenzilColors.of(context);
+    final correction = shot == null ? null : _elevationCorrectionText(shot);
+    final clicks = shot == null ? null : _elevationClicksOnScope(shot);
+    final clickUnitLabel = scope?.clickUnit == AngularUnit.moa
+        ? 'MOA'
+        : 'mrad';
     return MenzilCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -455,9 +491,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               children: [
                 Expanded(
                   child: _statusCard(
-                    title: 'Yukarı',
-                    value: 'KİLİTLİ',
-                    subtitle: 'G1/G7 kabul testi bekleniyor',
+                    title: correction == null ? 'Yukarı' : correction.direction,
+                    value: correction?.value ?? '—',
+                    subtitle: clicks == null
+                        ? 'Vakum düşüşünden (sürükleme yok); hesaplayın'
+                        : '${clicks.abs()} klik ($clickUnitLabel dürbün)',
                     icon: Icons.vertical_align_top,
                   ),
                 ),
@@ -496,8 +534,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ),
           const SizedBox(height: MenzilSpace.sm),
           Text(
-            'Retikül önizlemesi • $_angularLabel • '
-            'doğrulanmış drag sonucu gelene kadar düzeltme işareti merkeze kilitlidir.',
+            'Retikül önizlemesi • yükseklik değeri solda sayısal olarak veriliyor; '
+            'rüzgâr düzeltmesi doğrulanana kadar işaret görsel olarak merkeze kilitlidir.',
             textAlign: TextAlign.center,
             style: MenzilType.caption(c.ink2),
           ),
@@ -706,10 +744,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         bottom: MenzilSpace.md,
       ),
       child: Text(
-        '* Vacuum solver hava direncini hesaplamaz: rüzgâr düzeltmesi güvenlik gereği 0.00 gösterilir, '
+        '* Vacuum solver hava direncini hesaplamaz: rüzgâr düzeltmesi güvenlik gereği 0,00 gösterilir, '
         'enerji sütunu her mesafede sabit namlu enerjisidir (mesafedeki enerji değildir) ve '
-        'yüzlerce metrede düşüş değerleri gerçek atıştakinden yaklaşık %20–45 küçük çıkabilir. Açısal düzeltme (MIL/MRAD/MOA) ve Klik/tambur talimatı bu nedenle gösterilmez. Gerçek atış için kullanmayın; '
-        'doğrulanmış drag modeli gelmeden yaklaşık değer üretilmez.',
+        'yüzlerce metrede düşüş değerleri gerçek atıştakinden yaklaşık %20–45 KÜÇÜK çıkabilir — yani '
+        'MOA/mrad yükseklik kliki de gerçekte gerekenden daha AZ görünebilir. Bu nedenle buradaki klik '
+        'değerleri bir başlangıç tahminidir; doğrulanmış drag modeli gelmeden kesin değildir ve ilk '
+        'atışta canlı atışla teyit edilmelidir. Rüzgâr düzeltmesi/kliki hiç üretilmez (KİLİTLİ).',
         style: MenzilType.caption(c.ink2),
       ),
     );
@@ -928,6 +968,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   label: Text(metric ? 'Vakum düşüşü cm*' : 'Vakum düşüşü in*'),
                   numeric: true,
                 ),
+                const DataColumn(label: Text('Yükseklik MOA*'), numeric: true),
+                const DataColumn(
+                  label: Text('Yükseklik mrad*'),
+                  numeric: true,
+                ),
                 DataColumn(
                   label: Text(
                     metric ? 'Namlu enerjisi J*' : 'Namlu enerjisi ft-lb*',
@@ -954,6 +999,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                       Text(displayRange.toStringAsFixed(metric ? 0 : 1)),
                     ),
                     DataCell(Text(displayDrop.toStringAsFixed(1))),
+                    DataCell(Text(p.correctionMoa.toStringAsFixed(2))),
+                    DataCell(Text(p.correctionMrad.toStringAsFixed(2))),
                     DataCell(Text(displayEnergy.toStringAsFixed(1))),
                     DataCell(Text(p.timeOfFlightS.toStringAsFixed(3))),
                   ],
@@ -1098,19 +1145,25 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ),
         const SizedBox(height: MenzilSpace.md),
       ],
-      // V352/V353: no angular correction, hold or click is rendered for the
-      // vacuum baseline. The locked panel replaces the hold cards and reticle.
+      // V354: elevation correction/clicks are shown from the vacuum (no-drag)
+      // drop, which is valid trigonometry (atan2(drop, range)) independent of
+      // the unvalidated G1/G7 drag model. Wind stays locked — a vacuum model
+      // has no aerodynamic coupling, so it cannot produce a real wind value
+      // (see BallisticEngine.vacuumDope's windMrad == 0.0 comment).
       Padding(
         padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-        child: _referenceShotPanel(),
+        child: _referenceShotPanel(shot),
       ),
       const Padding(
         padding: EdgeInsets.only(bottom: MenzilSpace.md),
         child: MenzilNotice(
           tone: MenzilNoticeTone.danger,
           message:
-              'Vakum temel hesap: hava direnci ve rüzgâr modellenmez, klik talimatı verilmez. '
-              'Değerler doğrulanmamıştır; gerçek atış için kullanmayın.',
+              'Yükseklik kliki, hava direnci YOK sayılan bir vakum düşüşünden hesaplanır — '
+              'gerçek mermi menzil arttıkça havadan daha çok yavaşlar, bu nedenle gerçek düşüş '
+              'burada gösterilenden FAZLA olur. Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ). '
+              'Bu klik değerini ilk atışta mutlaka canlı atışla (chronograph + deneme atışı) '
+              'doğrulayın; tek başına gerçek atış için kullanmayın.',
         ),
       ),
       if (shot != null)
@@ -1152,8 +1205,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ],
         ),
       Text(
-        '* Klik talimatı ve rüzgâr düzeltmesi doğrulanmış sürükleme modeli gelene kadar gösterilmez; '
-        'hız ve enerji namlu değeridir.',
+        '* Vakum temelli (hava direnci modellenmez); rüzgâr düzeltmesi doğrulanmış sürükleme '
+        'modeli gelene kadar hiç gösterilmez. Hız ve enerji namlu değeridir.',
         style: MenzilType.caption(c.ink2),
       ),
     ];

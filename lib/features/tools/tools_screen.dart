@@ -6,13 +6,15 @@ import '../catalog/catalog_screen.dart';
 import '../settings/settings_screen.dart';
 import 'chronograph_screen.dart';
 import 'compass_screen.dart';
+import 'hit_probability_screen.dart';
 import 'level_screen.dart';
 import 'sight_height_screen.dart';
 import 'weather_screen.dart';
 
-/// Tool hub (V1 scope): Kronograf, Sight Height, Pusula, Su Terazisi,
-/// Hava & Rüzgâr, Katalog, Ayarlar. Visual assistance is NOT a tool of its own;
-/// it only appears inside the Sight Height flow.
+/// Tool hub (V1 scope: Kronograf, Sight Height, Pusula, Su Terazisi,
+/// Hava & Rüzgâr, Katalog, Ayarlar; V1.1 adds Vuruş Olasılığı, a standalone
+/// statistics tool). Visual assistance is NOT a tool of its own; it only
+/// appears inside the Sight Height flow.
 class ToolsScreen extends StatelessWidget {
   /// Called after the settings route closes so the shell can refresh the
   /// unit label in the top bar.
@@ -77,6 +79,13 @@ class ToolsScreen extends StatelessWidget {
           title: 'Hava & Rüzgâr',
           subtitle: 'Konuma göre servis verisi: rüzgâr, sıcaklık, nem, basınç',
           onTap: () => _open(context, const WeatherScreen()),
+        ),
+        MenzilToolTile(
+          tileKey: const Key('tool-hit-probability'),
+          icon: Icons.track_changes_outlined,
+          title: 'Vuruş Olasılığı',
+          subtitle: 'Grup ve hedef çapından tek atış vuruş yüzdesi',
+          onTap: () => _open(context, const HitProbabilityScreen()),
         ),
         MenzilToolTile(
           tileKey: const Key('tool-catalog'),
