@@ -231,7 +231,28 @@ jobs:
           # strict here: we just installed the bundle, so failure to remove it
           # means clean-install isolation is not proven and CI must stop.
           flutter devices
-          flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded
+          #
+          # GitHub-hosted simulators intermittently hang before the test binds
+          # to the VM service (no assertion ever runs; observed as 30-40 min
+          # step timeouts). A watchdog turns that hang into a retry. Only a
+          # watchdog expiry (exit 142 = SIGALRM) is retried; a real test
+          # failure exits non-zero immediately and fails the job.
+          for attempt in 1 2 3; do
+            set +e
+            perl -e 'alarm shift; exec @ARGV' 900 \
+              flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded
+            rc=$?
+            set -e
+            if [ "$rc" -eq 0 ]; then exit 0; fi
+            if [ "$rc" -ne 142 ]; then exit "$rc"; fi
+            echo "::warning::Simulator integration test hung (attempt $attempt); resetting simulator and retrying"
+            xcrun simctl shutdown "$UDID" || true
+            xcrun simctl boot "$UDID" || true
+            xcrun simctl bootstatus "$UDID" -b
+            xcrun simctl uninstall "$UDID" "$BUNDLE_ID" 2>/dev/null || true
+          done
+          echo "Simulator integration test hung on every attempt" >&2
+          exit 1
 
       # The weather adapter refuses to call api.met.no while the build carries
       # the CONTACT_REQUIRED placeholder. A release without a real contact would
@@ -511,4 +532,25 @@ jobs:
           # strict here: we just installed the bundle, so failure to remove it
           # means clean-install isolation is not proven and CI must stop.
           flutter devices
-          flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded
+          #
+          # GitHub-hosted simulators intermittently hang before the test binds
+          # to the VM service (no assertion ever runs; observed as 30-40 min
+          # step timeouts). A watchdog turns that hang into a retry. Only a
+          # watchdog expiry (exit 142 = SIGALRM) is retried; a real test
+          # failure exits non-zero immediately and fails the job.
+          for attempt in 1 2 3; do
+            set +e
+            perl -e 'alarm shift; exec @ARGV' 900 \
+              flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded
+            rc=$?
+            set -e
+            if [ "$rc" -eq 0 ]; then exit 0; fi
+            if [ "$rc" -ne 142 ]; then exit "$rc"; fi
+            echo "::warning::Simulator integration test hung (attempt $attempt); resetting simulator and retrying"
+            xcrun simctl shutdown "$UDID" || true
+            xcrun simctl boot "$UDID" || true
+            xcrun simctl bootstatus "$UDID" -b
+            xcrun simctl uninstall "$UDID" "$BUNDLE_ID" 2>/dev/null || true
+          done
+          echo "Simulator integration test hung on every attempt" >&2
+          exit 1
