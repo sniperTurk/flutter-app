@@ -34,23 +34,21 @@ jobs:
           flutter --version
           dart --version
 
-      - name: Diagnose formatting
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Diagnose formatting and analysis
         id: diag
         run: |
           set +e
           dart format --output=none --set-exit-if-changed lib test integration_test tools > /tmp/fmt_check.txt 2>&1
-          CHECK_EXIT=$?
-          echo "---- check exit: $CHECK_EXIT ----"
-          cat /tmp/fmt_check.txt
+          FMT_EXIT=$?
+          flutter analyze --fatal-infos --fatal-warnings > /tmp/analyze_check.txt 2>&1
+          ANALYZE_EXIT=$?
           set -e
           {
-            echo "### dart format --set-exit-if-changed exit code: $CHECK_EXIT"
-            echo '```'
-            cat /tmp/fmt_check.txt
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-          {
-            echo "diag_exit=$CHECK_EXIT"
+            echo "fmt_exit=$FMT_EXIT"
+            echo "analyze_exit=$ANALYZE_EXIT"
           } >> "$GITHUB_OUTPUT"
 
       - name: Post result as PR comment
@@ -61,12 +59,22 @@ jobs:
           set -euo pipefail
           BODY_FILE=$(mktemp)
           {
-            echo "**One-off format diagnostic** on \`${{ github.event.inputs.branch }}\` @ \`${{ github.sha }}\`"
+            echo "**One-off format+analyze diagnostic** on \`${{ github.event.inputs.branch }}\`"
             echo
-            echo "\`dart format --output=none --set-exit-if-changed lib test integration_test tools\` exit code: ${{ steps.diag.outputs.diag_exit }}"
+            echo "format exit: ${{ steps.diag.outputs.fmt_exit }} | analyze exit: ${{ steps.diag.outputs.analyze_exit }}"
+            echo
+            echo "<details><summary>dart format output</summary>"
             echo
             echo '```'
             cat /tmp/fmt_check.txt
             echo '```'
+            echo "</details>"
+            echo
+            echo "<details><summary>flutter analyze output</summary>"
+            echo
+            echo '```'
+            cat /tmp/analyze_check.txt
+            echo '```'
+            echo "</details>"
           } > "$BODY_FILE"
           gh pr comment 3 --repo sniperTurk/flutter-app --body-file "$BODY_FILE"
