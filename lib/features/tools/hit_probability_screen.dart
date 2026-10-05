@@ -53,9 +53,9 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
     double? maxRange80;
     if (valid) {
       probability = HitProbabilityEngine.probabilityOfHit(
-        groupDiameterMoa: group!,
-        targetDiameterCm: target!,
-        rangeM: range!,
+        groupDiameterMoa: group,
+        targetDiameterCm: target,
+        rangeM: range,
       );
       maxRange80 = HitProbabilityEngine.maxRangeForProbability(
         groupDiameterMoa: group,

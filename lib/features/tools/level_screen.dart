@@ -300,7 +300,7 @@ class _LevelScreenState extends State<LevelScreen> {
         Switch.adaptive(
           key: const Key('level-sound-toggle'),
           value: controller.soundEnabled,
-          activeColor: c.ink,
+          activeThumbColor: c.ink,
           onChanged: controller.setSoundEnabled,
         ),
       ],
