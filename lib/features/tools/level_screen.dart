@@ -321,7 +321,8 @@ class _LevelScreenState extends State<LevelScreen> {
       TiltUnavailableReason.noSensor => 'Bu cihazda ivmeölçer bulunamadı.',
       TiltUnavailableReason.error =>
         'Eğim sensörü okunamadı. Uygulamayı yeniden açıp tekrar deneyin.',
-      null => 'Eğim verisi bekleniyor. Simülatörde ivmeölçer yoktur; gerçek cihazda deneyin.',
+      null =>
+        'Eğim verisi bekleniyor. Simülatörde ivmeölçer yoktur; gerçek cihazda deneyin.',
     };
     return SizedBox(
       height: 320,

@@ -12,7 +12,8 @@ import 'package:sniper_turk/ui/menzil_theme.dart';
 
 const _longName = RifleProfile(
   id: 'p1',
-  name: 'Çok uzun bir profil adı — sahada kullanılan 6.35 mm Hercules Bully kurulumu',
+  name:
+      'Çok uzun bir profil adı — sahada kullanılan 6.35 mm Hercules Bully kurulumu',
   rifleId: 'hatsan-hercules-635',
   ammunitionId: 'gmaz-51',
   scopeId: 'gazi-6-36',

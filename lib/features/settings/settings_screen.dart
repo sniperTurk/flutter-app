@@ -109,8 +109,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onChanged: saving ? null : _setMetric,
                     title: Text(
                       'Balistik birimleri',
-                      style: MenzilType.body(c.ink)
-                          .copyWith(fontWeight: FontWeight.w700),
+                      style: MenzilType.body(
+                        c.ink,
+                      ).copyWith(fontWeight: FontWeight.w700),
                     ),
                     subtitle: Text(
                       metric

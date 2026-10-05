@@ -72,9 +72,9 @@ class _ChronographScreenState extends State<ChronographScreen> {
         : _catalog.ammunitionFor(_platform, caliberMm: r.caliberMm);
   }
 
-  void _snack(String message) =>
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(message)));
+  void _snack(String message) => ScaffoldMessenger.of(
+    context,
+  ).showSnackBar(SnackBar(content: Text(message)));
 
   void _addShot(bool metric) {
     final raw = double.tryParse(_velocity.text.trim().replaceAll(',', '.'));
@@ -292,7 +292,8 @@ class _ChronographScreenState extends State<ChronographScreen> {
             ),
           const MenzilNotice(
             tone: MenzilNoticeTone.info,
-            message: 'Hızlar kronograf cihazından elle girilir; uygulama hız ölçmez. Seri yalnızca bu oturumda tutulur.',
+            message:
+                'Hızlar kronograf cihazından elle girilir; uygulama hız ölçmez. Seri yalnızca bu oturumda tutulur.',
           ),
           MenzilInput(
             key: const Key('chrono-velocity'),

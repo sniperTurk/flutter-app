@@ -980,7 +980,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 else
                   const MenzilNotice(
                     tone: MenzilNoticeTone.warning,
-                    message: 'Bu tüfeğin kalibresine uygun katalog mühimmatı yok; profil kaydedilemez.',
+                    message:
+                        'Bu tüfeğin kalibresine uygun katalog mühimmatı yok; profil kaydedilemez.',
                   ),
                 MenzilSelect<ScopeOptic>(
                   label: 'Dürbün',

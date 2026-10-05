@@ -153,8 +153,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     zero.text = UnitSystem.metersToYards(zeroM).toStringAsFixed(1);
     sight.text = UnitSystem.millimetersToInches(sightMm).toStringAsFixed(2);
     wind.text = UnitSystem.mpsToMph(windMps).toStringAsFixed(1);
-    temperature.text = UnitSystem.celsiusToFahrenheit(temperatureC)
-        .toStringAsFixed(1);
+    temperature.text = UnitSystem.celsiusToFahrenheit(
+      temperatureC,
+    ).toStringAsFixed(1);
     pressure.text = UnitSystem.hpaToInHg(pressureHpa).toStringAsFixed(2);
     altitude.text = UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0);
     ranges.text = metricRanges
@@ -327,8 +328,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   void _error(String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   // -------------------------------------------------------------------------
@@ -920,8 +922,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             'yoğunluk oranı: ${densityRatio!.toStringAsFixed(3)} • '
             'ses hızı: ${speedOfSoundMps!.toStringAsFixed(1)} m/s • '
             'namlu Mach: ${muzzleMach!.toStringAsFixed(3)}',
-            style: MenzilType.body(c.ink)
-                .copyWith(fontFeatures: MenzilType.tabular),
+            style: MenzilType.body(
+              c.ink,
+            ).copyWith(fontFeatures: MenzilType.tabular),
           ),
         ],
       ),
