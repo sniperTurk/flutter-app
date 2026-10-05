@@ -186,7 +186,6 @@ class MetNoWeatherProvider implements WeatherProvider {
     }
   }
 
-
   static DateTime? _parseExpires(String? header) {
     if (header == null) return null;
     try {
