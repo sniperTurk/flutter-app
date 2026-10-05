@@ -1,0 +1,102 @@
+name: One-off simulator launch smoke diagnostic
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to diagnose'
+        required: true
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  diagnose:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Generate and verify pinned iOS scaffold
+        shell: bash
+        run: tools/bootstrap_ios_scaffold.sh
+
+      - name: Build iOS Simulator app
+        run: flutter build ios --simulator --debug
+
+      - name: Diagnose simulator boot/install/launch
+        id: diag
+        shell: bash
+        run: |
+          set +e
+          {
+            UDID="$(python3 tools/select_ios_simulator.py)"
+            echo "UDID=$UDID"
+            test -n "$UDID"
+            xcrun simctl boot "$UDID" 2>&1
+            open -a Simulator
+            xcrun simctl bootstatus "$UDID" -b 2>&1
+
+            BUNDLE_ID="com.sniperturk.sniperTurk"
+            xcrun simctl uninstall "$UDID" "$BUNDLE_ID" 2>&1
+
+            APP_PATH="build/ios/iphonesimulator/Runner.app"
+            ls -la "$APP_PATH" 2>&1
+            BUILT_BUNDLE_ID="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PATH/Info.plist" 2>&1)"
+            echo "BUILT_BUNDLE_ID=$BUILT_BUNDLE_ID"
+
+            xcrun simctl install "$UDID" "$APP_PATH" 2>&1
+            echo "---install exit: $?---"
+            LAUNCH_OUTPUT="$(xcrun simctl launch --terminate-running-process "$UDID" "$BUNDLE_ID" 2>&1)"
+            LAUNCH_EXIT=$?
+            echo "LAUNCH_OUTPUT: $LAUNCH_OUTPUT"
+            echo "LAUNCH_EXIT=$LAUNCH_EXIT"
+
+            sleep 3
+            echo "--- recent Runner device log ---"
+            xcrun simctl spawn "$UDID" log show --last 1m --predicate 'process == "Runner"' 2>&1 | tail -200
+
+            xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2>&1
+            xcrun simctl uninstall "$UDID" "$BUNDLE_ID" 2>&1
+
+            echo "--- flutter integration test ---"
+            flutter devices 2>&1
+            flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded 2>&1
+            echo "INTEGRATION_EXIT=$?"
+          } > /tmp/sim_diag.txt 2>&1
+          set -e
+          cat /tmp/sim_diag.txt
+
+      - name: Post result as PR comment
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          BODY_FILE=$(mktemp)
+          {
+            echo "**One-off simulator launch smoke diagnostic** on \`${{ github.event.inputs.branch }}\`"
+            echo
+            echo "<details><summary>full output (tail 400 lines)</summary>"
+            echo
+            echo '```'
+            tail -400 /tmp/sim_diag.txt
+            echo '```'
+            echo "</details>"
+          } > "$BODY_FILE"
+          gh pr comment 3 --repo sniperTurk/flutter-app --body-file "$BODY_FILE"
