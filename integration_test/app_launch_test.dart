@@ -112,7 +112,8 @@ void main() {
     expect(find.text('DOPE için önce aktif profil oluşturun'), findsNothing);
     await tester.tap(find.text('Hesapla').first);
     await tester.pumpAndSettle();
-    expect(find.text('KİLİTLİ'), findsNWidgets(2));
+    // V354: elevation shows a real vacuum-model value; only wind stays locked.
+    expect(find.text('KİLİTLİ'), findsNWidgets(1));
     expect(tester.takeException(), isNull);
 
     await tester.tap(find.text('Tablo').first);
