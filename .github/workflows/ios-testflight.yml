@@ -140,12 +140,11 @@ jobs:
             --build-number="${GITHUB_RUN_NUMBER}" \
             --dart-define=METNO_CONTACT="$METNO_CONTACT"
 
-      - name: Archive with cloud-managed signing
+      # The team has no registered devices, so Xcode cannot create a Development
+      # profile. Archive unsigned and let the export step sign with Apple's
+      # cloud-managed Distribution certificate / App Store profile instead.
+      - name: Archive (unsigned; signing happens at export)
         shell: bash
-        env:
-          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
-          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
-          TEAM_ID: ${{ vars.IOS_DEVELOPMENT_TEAM }}
         run: |
           set -euo pipefail
           mkdir -p build/ios/signed
@@ -155,12 +154,7 @@ jobs:
             -configuration Release \
             -destination 'generic/platform=iOS' \
             -archivePath build/ios/signed/Runner.xcarchive \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$RUNNER_TEMP/asc/AuthKey_${ASC_KEY_ID}.p8" \
-            -authenticationKeyID "$ASC_KEY_ID" \
-            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
-            DEVELOPMENT_TEAM="$TEAM_ID" \
-            CODE_SIGN_STYLE=Automatic 2>&1 | tee build/ios/signed/archive.log
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" 2>&1 | tee build/ios/signed/archive.log
 
       - name: Export and upload to TestFlight
         shell: bash
