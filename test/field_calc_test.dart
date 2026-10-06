@@ -4,6 +4,7 @@ import 'package:sniper_turk/core/standard_drag_tables.dart';
 import 'package:sniper_turk/features/tools/calculators_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/tools/domain/field_calc.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/tool_fakes.dart';
 
@@ -186,7 +187,8 @@ void main() {
 
     testWidgets('stadia shows the distance', (tester) async {
       await tester.pumpWidget(host(const StadiaScreen()));
-      expect(find.text('100,0'), findsWidgets);
+      expect(find.byType(MenzilMetricGrid), findsOneWidget);
+      expect(find.text('Mesafe'), findsWidgets);
     });
 
     testWidgets('air lab shows density at standard conditions', (tester) async {
