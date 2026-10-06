@@ -1,0 +1,22 @@
+name: One-off show privacy policy URL
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  show:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Post public variable value to PR 3
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRIVACY_POLICY_URL: ${{ vars.PRIVACY_POLICY_URL }}
+        run: |
+          set -euo pipefail
+          gh pr comment 3 --repo sniperTurk/flutter-app --body "PRIVACY_POLICY_URL variable value (public URL): \`${PRIVACY_POLICY_URL}\`"
