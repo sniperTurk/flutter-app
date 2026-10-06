@@ -265,6 +265,7 @@ def audit_bc():
     ]
     worst_v = worst_bc = 0.0
     detail = []
+    per_case = []
     for name, ptable, bc, mv, ranges in cases:
         dm = DragModel(bc, ptable, weight=15.9)
         shot = Shot(weapon=Weapon(sight_height=Distance.Millimeter(50)), ammo=Ammo(dm, mv=Velocity.MPS(mv)),
@@ -276,6 +277,7 @@ def audit_bc():
             v_me = mirror_velocity_after(tables[name], bc, mv, r, 15.0, 1013.25, 0.0)
             dv = abs(v_py - v_me)
             worst_v = max(worst_v, dv)
+            per_case.append(f"{name} bc={bc} mv={mv:.0f} r={r}: py={v_py:.3f} app={v_me:.3f} dv={dv:.3f}")
             if v_me < mv - 2.0:  # BC is only recoverable when the velocity loss is measurable
                 bc_back = mirror_solve_bc(tables[name], mv, v_py, r, 15.0, 1013.25, 0.0)
                 rel = abs(bc_back - bc) / bc
@@ -283,6 +285,10 @@ def audit_bc():
                 detail.append(f"{name} bc={bc} r={r}: dv={dv:.3f} bc_back={bc_back:.4f}")
     check("velocity_after_vs_py_ballisticcalc", worst_v <= TOL["velocity_after_mps"],
           f"{len(cases)} loads, max |dv| {worst_v:.3f} m/s (tol {TOL['velocity_after_mps']})")
+    check("velocity_after_within_frozen_policy", worst_v <= 1.0,
+          f"max |dv| {worst_v:.3f} m/s vs frozen acceptance.json tolerance 1.0 m/s")
+    for line in sorted(per_case, key=lambda x: -float(x.rsplit('dv=', 1)[1]))[:5]:
+        results.append((True, "INFO " + line))
     check("bc_from_two_velocities_vs_py_ballisticcalc", worst_bc <= TOL["bc_roundtrip_rel"],
           f"max rel BC error {worst_bc:.4f} using py velocities as the 'measured' V2; " + "; ".join(detail[:4]))
 
