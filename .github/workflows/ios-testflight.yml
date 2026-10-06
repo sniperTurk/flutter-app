@@ -1,0 +1,163 @@
+name: iOS TestFlight
+
+# Manual, owner-triggered release upload. Signs with Apple cloud-managed
+# signing through an App Store Connect API key and uploads the build to
+# TestFlight. Never runs automatically and never fakes success: any missing
+# secret, signing failure or upload failure fails the job.
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build and upload'
+        required: true
+        default: 'main'
+
+permissions:
+  contents: read
+
+jobs:
+  testflight:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Require signing secrets
+        shell: bash
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+          TEAM_ID: ${{ vars.IOS_DEVELOPMENT_TEAM }}
+        run: |
+          set -euo pipefail
+          for n in ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_P8 TEAM_ID; do
+            [ -n "${!n}" ] || { echo "Missing required secret/variable: $n" >&2; exit 1; }
+          done
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Enforce closed G1/G7 production gate
+        run: python3 tools/verify_production_gate.py
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Enforce pinned Flutter release toolchain
+        run: python3 tools/verify_flutter_toolchain.py
+
+      - name: Resolve dependencies without lockfile drift
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          flutter pub get
+          AFTER="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          [[ "$BEFORE" == "$AFTER" ]] || { echo "pubspec.lock drift" >&2; exit 1; }
+
+      - name: Generate and verify pinned iOS scaffold
+        shell: bash
+        env:
+          SNIPER_TURK_IOS_DEVELOPMENT_TEAM: ${{ vars.IOS_DEVELOPMENT_TEAM }}
+        run: tools/bootstrap_ios_scaffold.sh
+
+      - name: Enforce App Store source preflight
+        shell: bash
+        env:
+          PRIVACY_POLICY_URL: ${{ vars.PRIVACY_POLICY_URL }}
+        run: python3 tools/app_store_preflight.py --privacy-url "$PRIVACY_POLICY_URL"
+
+      - name: Require MET Norway contact
+        shell: bash
+        env:
+          METNO_CONTACT: ${{ vars.METNO_CONTACT }}
+        run: python3 tools/validate_metno_contact.py "$METNO_CONTACT"
+
+      - name: Install App Store Connect API key
+        shell: bash
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/asc"
+          umask 077
+          printf '%s\n' "$ASC_KEY_P8" > "$RUNNER_TEMP/asc/AuthKey_${ASC_KEY_ID}.p8"
+          head -n 1 "$RUNNER_TEMP/asc/AuthKey_${ASC_KEY_ID}.p8" | grep -q 'BEGIN PRIVATE KEY' || {
+            echo "ASC_KEY_P8 does not look like a .p8 private key" >&2; exit 1; }
+
+      - name: Build Flutter release (unsigned, prepares Xcode config)
+        shell: bash
+        env:
+          METNO_CONTACT: ${{ vars.METNO_CONTACT }}
+        run: |
+          set -euo pipefail
+          # Each TestFlight upload needs a unique build number.
+          flutter build ios --release --no-codesign \
+            --build-number="${GITHUB_RUN_NUMBER}" \
+            --dart-define=METNO_CONTACT="$METNO_CONTACT"
+
+      - name: Archive with cloud-managed signing
+        shell: bash
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          TEAM_ID: ${{ vars.IOS_DEVELOPMENT_TEAM }}
+        run: |
+          set -euo pipefail
+          xcodebuild archive \
+            -workspace ios/Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/ios/signed/Runner.xcarchive \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$RUNNER_TEMP/asc/AuthKey_${ASC_KEY_ID}.p8" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            CODE_SIGN_STYLE=Automatic
+
+      - name: Export and upload to TestFlight
+        shell: bash
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          TEAM_ID: ${{ vars.IOS_DEVELOPMENT_TEAM }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os, plistlib
+          with open("build/ios/signed/ExportOptions.plist", "wb") as f:
+              plistlib.dump({
+                  "destination": "upload",
+                  "method": "app-store-connect",
+                  "signingStyle": "automatic",
+                  "stripSwiftSymbols": True,
+                  "teamID": os.environ["TEAM_ID"],
+                  "uploadSymbols": True,
+                  "manageAppVersionAndBuildNumber": False,
+              }, f)
+          PY
+          xcodebuild -exportArchive \
+            -archivePath build/ios/signed/Runner.xcarchive \
+            -exportPath build/ios/signed/export \
+            -exportOptionsPlist build/ios/signed/ExportOptions.plist \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$RUNNER_TEMP/asc/AuthKey_${ASC_KEY_ID}.p8" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+
+      - name: Remove API key
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/asc"
