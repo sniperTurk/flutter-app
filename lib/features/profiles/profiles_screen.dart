@@ -818,7 +818,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           'model': r.model,
           'caliberMm': r.caliberMm,
           'barrelLengthMm': r.barrelLengthMm,
-          'notes': 'Katalog kaydından kopyalandı; değerler kullanıcı tarafından düzenlendi.',
+          'notes':
+              'Katalog kaydından kopyalandı; değerler kullanıcı tarafından düzenlendi.',
           'sourceName': 'Kullanıcı girdisi',
         };
       } else {
@@ -833,14 +834,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           'grain': a.grain,
           'ammoType': a.type.name,
           'bc': a.ballisticCoefficient,
-          'notes': 'Katalog kaydından kopyalandı; değerler kullanıcı tarafından düzenlendi.',
+          'notes':
+              'Katalog kaydından kopyalandı; değerler kullanıcı tarafından düzenlendi.',
           'sourceName': 'Kullanıcı girdisi',
         };
       }
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Kişisel katalog okunamadı. Değerler düzenlenemedi.')),
+        const SnackBar(
+          content: Text('Kişisel katalog okunamadı. Değerler düzenlenemedi.'),
+        ),
       );
       return;
     }
@@ -857,11 +861,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     if (saved != true) return;
     try {
       final items = await _manualStore.all();
-      CatalogRepository.installUserCatalog(UserCatalog.fromManualEntries(items));
+      CatalogRepository.installUserCatalog(
+        UserCatalog.fromManualEntries(items),
+      );
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Kayıt yapıldı ancak katalog yenilenemedi. Profil ekranını yeniden açın.')),
+        const SnackBar(
+          content: Text(
+            'Kayıt yapıldı ancak katalog yenilenemedi. Profil ekranını yeniden açın.',
+          ),
+        ),
       );
       return;
     }
@@ -885,8 +895,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           }
         }
       } else {
-        final updated = _allAmmunition.where((a) => a.id == recordId).firstOrNull;
-        ammo = updated != null &&
+        final updated = _allAmmunition
+            .where((a) => a.id == recordId)
+            .firstOrNull;
+        ammo =
+            updated != null &&
                 rifle != null &&
                 _ammunitionFor(platform, rifle!.caliberMm).contains(updated)
             ? updated
