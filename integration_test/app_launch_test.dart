@@ -36,6 +36,9 @@ void main() {
     // safe smoke-test targets on a clean install.
     await tester.tap(find.text('Araçlar').first);
     await tester.pumpAndSettle();
+    // The hub now lists nine tools, so Katalog can sit below the fold.
+    await tester.ensureVisible(find.text('Katalog').first);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Katalog').first);
     await tester.pumpAndSettle();
     expect(find.text('PCP Tüfekler'), findsWidgets);
