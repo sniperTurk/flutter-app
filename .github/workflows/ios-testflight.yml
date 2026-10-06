@@ -108,6 +108,10 @@ jobs:
           import os, time, json, urllib.request, urllib.error
           import jwt
           kid = os.environ["ASC_KEY_ID"]
+          iss = os.environ["ASC_ISSUER_ID"]
+          # Key ID and Issuer ID are identifiers, not secrets. Print them spaced
+          # out (GitHub would mask the exact string) so a typo can be spotted.
+          print(f"::notice title=ids::key_id len={len(kid)} '{' '.join(kid)}' | issuer len={len(iss)} '{' '.join(iss)}'")
           key = open(os.path.join(os.environ["RUNNER_TEMP"], "asc", f"AuthKey_{kid}.p8")).read()
           tok = jwt.encode({"iss": os.environ["ASC_ISSUER_ID"], "iat": int(time.time()),
                             "exp": int(time.time()) + 600, "aud": "appstoreconnect-v1"},
