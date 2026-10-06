@@ -1040,14 +1040,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final c = MenzilColors.of(context);
     final shot = _shotPoint();
     final display = _shotDisplay;
+    // The shot range may be anything up to the production limit; it is not
+    // tied to the last range of the DOPE table (that made the dial stop at
+    // the default table's 400 m).
     final sliderMax = math.max(
       display.toDouble(),
-      math.min(
-        _displayMaxRange.floorToDouble(),
-        points.isEmpty
-            ? (metric ? 400.0 : 440.0)
-            : _toDisplayRange(points.last.rangeM).ceilToDouble(),
-      ),
+      _displayMaxRange.floorToDouble(),
     );
 
     return [
