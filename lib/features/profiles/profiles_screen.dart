@@ -803,9 +803,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final Map<String, dynamic> entry;
     try {
       final stored = await _manualStore.all();
-      final current = forRifle ? rifle : ammo;
-      if (current == null) return;
-      final existing = stored.where((e) => e['id'] == current.id).firstOrNull;
+      final String? currentId = forRifle ? rifle?.id : ammo?.id;
+      if (currentId == null) return;
+      final existing = stored.where((e) => e['id'] == currentId).firstOrNull;
       if (existing != null) {
         entry = Map<String, dynamic>.from(existing);
       } else if (forRifle) {
