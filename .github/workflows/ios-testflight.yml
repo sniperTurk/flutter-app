@@ -38,6 +38,31 @@ jobs:
             [ -n "${!n}" ] || { echo "Missing required secret/variable: $n" >&2; exit 1; }
           done
 
+      # App Store Connect only accepts builds made with the iOS 26 SDK
+      # (Xcode 26 or later). Select the newest installed Xcode 26+ and fail
+      # loudly if the runner image has none.
+      - name: Select Xcode 26 or newer
+        shell: bash
+        run: |
+          set -euo pipefail
+          ls -d /Applications/Xcode_*.app || true
+          BEST="$(ls -d /Applications/Xcode_*.app 2>/dev/null | python3 -c "
+          import re, sys
+          best = None
+          for line in sys.stdin:
+              p = line.strip()
+              m = re.search(r'Xcode_(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?', p)
+              if not m: continue
+              v = tuple(int(x or 0) for x in m.groups())
+              if v[0] >= 26 and (best is None or v > best[0]):
+                  best = (v, p)
+          print(best[1] if best else '')
+          ")"
+          [ -n "$BEST" ] || { echo "No Xcode 26+ installed on this runner image" >&2; exit 1; }
+          sudo xcode-select -s "$BEST/Contents/Developer"
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
