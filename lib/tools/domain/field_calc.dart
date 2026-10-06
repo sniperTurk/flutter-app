@@ -89,7 +89,8 @@ abstract final class FieldCalc {
     final dl = (lon2 - lon1) * math.pi / 180;
     final y = math.sin(dl) * math.cos(p2);
     final x =
-        math.cos(p1) * math.sin(p2) - math.sin(p1) * math.cos(p2) * math.cos(dl);
+        math.cos(p1) * math.sin(p2) -
+        math.sin(p1) * math.cos(p2) * math.cos(dl);
     return (math.atan2(y, x) * 180 / math.pi + 360) % 360;
   }
 

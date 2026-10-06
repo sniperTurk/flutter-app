@@ -8,7 +8,8 @@ import 'package:sniper_turk/tools/domain/field_calc.dart';
 import 'support/tool_fakes.dart';
 
 double _conv(ConvCategory c, String from, String to, double v) {
-  ConvUnit u(String label) => c.units.firstWhere((x) => x.label.startsWith(label));
+  ConvUnit u(String label) =>
+      c.units.firstWhere((x) => x.label.startsWith(label));
   return c.convert(v, u(from), u(to));
 }
 
@@ -28,9 +29,16 @@ void main() {
       expect(s * 100, closeTo(2.909, 0.001));
     });
     test('real click: 40 clicks moved 40 cm at 100 m is 0.1 mil each', () {
-      final r = FieldCalc.realClickRad(distanceM: 100, movedM: 0.4, clicks: 40)!;
+      final r = FieldCalc.realClickRad(
+        distanceM: 100,
+        movedM: 0.4,
+        clicks: 40,
+      )!;
       expect(r / FieldCalc.radPerMil, closeTo(0.1, 1e-3));
-      expect(FieldCalc.realClickRad(distanceM: 100, movedM: 0.4, clicks: 0), isNull);
+      expect(
+        FieldCalc.realClickRad(distanceM: 100, movedM: 0.4, clicks: 0),
+        isNull,
+      );
     });
     test('haversine and bearing', () {
       expect(FieldCalc.haversineM(0, 0, 0, 1), closeTo(111195, 5));
@@ -98,16 +106,40 @@ void main() {
     test('known factors', () {
       expect(_conv(Converters.angle, 'MIL', 'MOA', 1), closeTo(3.43775, 1e-4));
       expect(_conv(Converters.angle, 'Derece', 'MOA', 1), closeTo(60, 1e-9));
-      expect(_conv(Converters.angle, 'NATO', 'Derece', 6400), closeTo(360, 1e-9));
+      expect(
+        _conv(Converters.angle, 'NATO', 'Derece', 6400),
+        closeTo(360, 1e-9),
+      );
       expect(_conv(Converters.speed, 'm/s', 'fps', 1), closeTo(3.28084, 1e-5));
       expect(_conv(Converters.speed, 'km/sa', 'm/s', 36), closeTo(10, 1e-9));
-      expect(_conv(Converters.weight, 'grain', 'gram', 1), closeTo(0.0647989, 1e-7));
-      expect(_conv(Converters.weight, 'libre', 'grain', 1), closeTo(7000, 0.01));
-      expect(_conv(Converters.pressure, 'bar', 'psi', 1), closeTo(14.5038, 1e-3));
-      expect(_conv(Converters.pressure, 'atm', 'hPa', 1), closeTo(1013.25, 1e-9));
-      expect(_conv(Converters.length, 'inç', 'milimetre', 1), closeTo(25.4, 1e-9));
-      expect(_conv(Converters.length, 'yarda', 'metre', 100), closeTo(91.44, 1e-9));
-      expect(_conv(Converters.torque, 'lbf·ft', 'N·m', 1), closeTo(1.35582, 1e-5));
+      expect(
+        _conv(Converters.weight, 'grain', 'gram', 1),
+        closeTo(0.0647989, 1e-7),
+      );
+      expect(
+        _conv(Converters.weight, 'libre', 'grain', 1),
+        closeTo(7000, 0.01),
+      );
+      expect(
+        _conv(Converters.pressure, 'bar', 'psi', 1),
+        closeTo(14.5038, 1e-3),
+      );
+      expect(
+        _conv(Converters.pressure, 'atm', 'hPa', 1),
+        closeTo(1013.25, 1e-9),
+      );
+      expect(
+        _conv(Converters.length, 'inç', 'milimetre', 1),
+        closeTo(25.4, 1e-9),
+      );
+      expect(
+        _conv(Converters.length, 'yarda', 'metre', 100),
+        closeTo(91.44, 1e-9),
+      );
+      expect(
+        _conv(Converters.torque, 'lbf·ft', 'N·m', 1),
+        closeTo(1.35582, 1e-5),
+      );
     });
     test('round trip is the identity', () {
       for (final cat in [
@@ -120,7 +152,10 @@ void main() {
       ]) {
         for (final a in cat.units) {
           for (final b in cat.units) {
-            expect(cat.convert(cat.convert(12.5, a, b), b, a), closeTo(12.5, 1e-9));
+            expect(
+              cat.convert(cat.convert(12.5, a, b), b, a),
+              closeTo(12.5, 1e-9),
+            );
           }
         }
       }

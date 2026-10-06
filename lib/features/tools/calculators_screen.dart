@@ -313,7 +313,9 @@ class _CoordState extends State<CoordinateDistanceScreen> {
         ),
         _header('3 · Sonuç'),
         if (!ok)
-          _note('Enlem −90..90, boylam −180..180 arasında ondalık derece girin.')
+          _note(
+            'Enlem −90..90, boylam −180..180 arasında ondalık derece girin.',
+          )
         else
           _distanceMetrics(
             FieldCalc.haversineM(a, b, c, d),
@@ -395,7 +397,11 @@ class _CustomLocState extends State<CustomLocationScreen> {
   Widget build(BuildContext context) {
     final lat = _p(_lat), lon = _p(_lon);
     final fix = _fix;
-    final ok = fix != null && lat != null && lon != null && FieldCalc.validLatLon(lat, lon);
+    final ok =
+        fix != null &&
+        lat != null &&
+        lon != null &&
+        FieldCalc.validLatLon(lat, lon);
     return _CalcPage(
       title: 'Özel konum için mesafe',
       children: [
@@ -439,7 +445,9 @@ class _CustomLocState extends State<CustomLocationScreen> {
         ),
         _header('3 · Sonuç'),
         if (!ok)
-          _note('Önce konumunuzu alın ve hedefin enlem/boylamını ondalık derece girin.')
+          _note(
+            'Önce konumunuzu alın ve hedefin enlem/boylamını ondalık derece girin.',
+          )
         else
           _distanceMetrics(
             FieldCalc.haversineM(fix.latitude, fix.longitude, lat, lon),
@@ -626,7 +634,9 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         ),
         _header('3 · Sonuç'),
         if (!hasResult)
-          _note('Mesafe, tık sayısı (tam sayı), ölçülen kayma ve yazan değeri girin.')
+          _note(
+            'Mesafe, tık sayısı (tam sayı), ölçülen kayma ve yazan değeri girin.',
+          )
         else
           Builder(
             builder: (_) {
@@ -637,7 +647,11 @@ class _ClickCheckState extends State<ClickCheckScreen> {
                 metrics: [
                   MenzilMetric('Gerçek tık', _d(actual, 4), unitName),
                   MenzilMetric('Yazan tık', _d(nominal, 4), unitName),
-                  MenzilMetric('Fark', '${errPct >= 0 ? '+' : ''}${_d(errPct, 1)}', '%'),
+                  MenzilMetric(
+                    'Fark',
+                    '${errPct >= 0 ? '+' : ''}${_d(errPct, 1)}',
+                    '%',
+                  ),
                   MenzilMetric('Gerçek ÷ yazan', _d(actual / nominal, 4)),
                 ],
               );
@@ -688,7 +702,12 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
     final t = _p(_temp), pr = _p(_press), rh = _p(_rh);
     double? bc;
     String? problem;
-    if (v1 != null && v2 != null && dist != null && t != null && pr != null && rh != null) {
+    if (v1 != null &&
+        v2 != null &&
+        dist != null &&
+        t != null &&
+        pr != null &&
+        rh != null) {
       if (!(v1 > 0 && v2 > 0 && dist > 0 && pr > 0 && rh >= 0 && rh <= 100)) {
         problem = 'Değerler pozitif olmalı; nem 0–100.';
       } else if (v2 >= v1) {
@@ -707,7 +726,8 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
             ),
           );
           if (bc == null) {
-            problem = 'Bu değerlere uyan bir BC (0,005–3,0) bulunamadı. Hızları ve mesafeyi kontrol edin.';
+            problem =
+                'Bu değerlere uyan bir BC (0,005–3,0) bulunamadı. Hızları ve mesafeyi kontrol edin.';
           }
         } on ArgumentError catch (e) {
           problem = 'Geçersiz atmosfer değeri: ${e.message}';
@@ -755,8 +775,18 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
         _header('2 · Hava ve model'),
         MenzilFieldGrid(
           children: [
-            _field(_temp, 'Sıcaklık', unit: '°C', changed: () => setState(() {})),
-            _field(_press, 'Basınç', unit: 'hPa', changed: () => setState(() {})),
+            _field(
+              _temp,
+              'Sıcaklık',
+              unit: '°C',
+              changed: () => setState(() {}),
+            ),
+            _field(
+              _press,
+              'Basınç',
+              unit: 'hPa',
+              changed: () => setState(() {}),
+            ),
             _field(_rh, 'Nem', unit: '%', changed: () => setState(() {})),
           ],
         ),
@@ -898,8 +928,16 @@ class _AirLabState extends State<AirLabScreen> {
             columns: 2,
             metrics: [
               MenzilMetric('Hava yoğunluğu', _d(lab.densityKgM3, 4), 'kg/m³'),
-              MenzilMetric('Standarda oranı', _d(lab.densityRatioPercent, 1), '%'),
-              MenzilMetric('Yoğunluk irtifası', _d(lab.densityAltitudeM, 0), 'm'),
+              MenzilMetric(
+                'Standarda oranı',
+                _d(lab.densityRatioPercent, 1),
+                '%',
+              ),
+              MenzilMetric(
+                'Yoğunluk irtifası',
+                _d(lab.densityAltitudeM, 0),
+                'm',
+              ),
               MenzilMetric(
                 'Yoğunluk irtifası',
                 _d(lab.densityAltitudeM / 0.3048, 0),
@@ -990,7 +1028,9 @@ class _ConverterState extends State<ConverterScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 6),
                     child: Row(
                       children: [
-                        Expanded(child: Text(u.label, style: MenzilType.body(c.ink2))),
+                        Expanded(
+                          child: Text(u.label, style: MenzilType.body(c.ink2)),
+                        ),
                         Flexible(
                           child: Text(
                             _fmt(cat.convert(v, _from, u)),
