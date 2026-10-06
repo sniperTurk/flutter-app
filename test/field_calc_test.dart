@@ -196,7 +196,7 @@ void main() {
 
     testWidgets('converter lists every unit', (tester) async {
       await tester.pumpWidget(
-        host(ConverterScreen(category: Converters.pressure)),
+        host(const ConverterScreen(category: Converters.pressure)),
       );
       expect(find.byKey(const Key('conv-pressure-bar')), findsOneWidget);
       expect(find.byKey(const Key('conv-pressure-psi')), findsOneWidget);
