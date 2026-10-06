@@ -22,6 +22,9 @@ class LevelController extends ChangeNotifier {
   bool _started = false;
 
   TiltMode _mode = TiltMode.flat;
+  bool _autoMode = true;
+  bool _locked = false;
+  TiltAngles? _lockedAngles;
   GravityVector? _gravity;
   TiltUnavailableReason? _unavailable;
   TiltAngles? _offset;
@@ -36,6 +39,12 @@ class LevelController extends ChangeNotifier {
   };
 
   TiltMode get mode => _mode;
+
+  /// True while the pose (flat / upright) follows the gravity vector.
+  bool get autoMode => _autoMode;
+
+  /// True while the display is frozen ("Kilitle").
+  bool get locked => _locked;
   bool get hasReading => _gravity != null && _unavailable == null;
   TiltUnavailableReason? get unavailableReason => _unavailable;
   bool get hasOffset => _offset != null;
@@ -57,6 +66,12 @@ class LevelController extends ChangeNotifier {
   /// Angles shown to the user: raw, minus this mode's flip-calibration bias
   /// (if any), minus the single-point reference offset (if any).
   TiltAngles? get angles {
+    if (_locked && _lockedAngles != null) return _lockedAngles;
+    return liveAngles;
+  }
+
+  /// Same as [angles] but never frozen by the lock.
+  TiltAngles? get liveAngles {
     final raw = rawAngles;
     if (raw == null) return null;
     final bias = _calibration[_mode]?.bias;
@@ -84,6 +99,7 @@ class LevelController extends ChangeNotifier {
     switch (s) {
       case TiltAvailable(:final gravity):
         _unavailable = null;
+        if (_autoMode) _followPose(gravity);
         _gravity = _filter.add(gravity);
       case TiltUnavailable(:final reason):
         _unavailable = reason;
@@ -112,7 +128,44 @@ class LevelController extends ChangeNotifier {
     _wasLevel = isLevelNow;
   }
 
+  /// Picks flat / upright from how much of gravity lies along the screen
+  /// normal, with hysteresis so the pose does not flicker near 45°.
+  void _followPose(GravityVector g) {
+    final next = TiltMath.poseFor(g, _mode);
+    if (next != _mode) _switchMode(next);
+  }
+
+  void _switchMode(TiltMode m) {
+    _mode = m;
+    _offset = null;
+    _filter.reset();
+    _gravity = null;
+    _lockedAngles = null;
+    _locked = false;
+  }
+
+  /// Freezes / releases the displayed values.
+  void toggleLock() {
+    if (_locked) {
+      _locked = false;
+      _lockedAngles = null;
+    } else {
+      final a = liveAngles;
+      if (a == null) return;
+      _locked = true;
+      _lockedAngles = a;
+    }
+    if (!_disposed) notifyListeners();
+  }
+
+  void setAutoMode(bool auto) {
+    if (auto == _autoMode) return;
+    _autoMode = auto;
+    if (!_disposed) notifyListeners();
+  }
+
   void setMode(TiltMode m) {
+    _autoMode = false;
     if (m == _mode) return;
     _mode = m;
     // A reference set in one orientation is meaningless in the other.

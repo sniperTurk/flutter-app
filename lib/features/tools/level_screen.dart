@@ -86,6 +86,22 @@ class _LevelScreenState extends State<LevelScreen> {
                   children: [
                     Expanded(
                       child: MenzilSecondaryButton(
+                        key: const Key('level-lock'),
+                        expand: true,
+                        label: controller.locked ? 'Kilidi aç' : 'Kilitle',
+                        icon: controller.locked
+                            ? Icons.lock_open_outlined
+                            : Icons.lock_outline,
+                        onPressed: controller.toggleLock,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: MenzilSpace.sm),
+                Row(
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
                         key: const Key('level-set-reference'),
                         expand: true,
                         label: 'Referansı bu konuma ayarla',
@@ -123,8 +139,9 @@ class _LevelScreenState extends State<LevelScreen> {
                 _soundRow(context, controller),
                 const SizedBox(height: MenzilSpace.md),
                 Text(
-                  'Telefonu düz yüzeye yatırdığınızda dairesel gösterge, uzun kenarı üzerinde dikey tuttuğunuzda '
-                  'yatay tüp, kısa kenarı üzerinde tuttuğunuzda dikey tüp okunur. Üçü aynı sayfada aynı anda güncellenir.',
+                  'Duruş otomatik algılanır: ${controller.mode == TiltMode.flat ? 'telefon düz (ekran yukarı)' : 'telefon dik'}. '
+                  '${controller.locked ? 'Değerler kilitli.' : ''}',
+                  key: const Key('level-pose'),
                   style: MenzilType.caption(MenzilColors.of(context).ink2),
                 ),
                 const SizedBox(height: MenzilSpace.md),
@@ -241,17 +258,6 @@ class _LevelScreenState extends State<LevelScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Telefon duruşu', style: MenzilType.label(c.ink2)),
-        const SizedBox(height: MenzilSpace.xs),
-        MenzilChipGroup<TiltMode>(
-          options: const [
-            (TiltMode.flat, 'Düz (ekran yukarı)'),
-            (TiltMode.upright, 'Dik (kenar üzerinde)'),
-          ],
-          selected: controller.mode,
-          onSelected: controller.setMode,
-        ),
-        const SizedBox(height: MenzilSpace.sm),
         Text('Görünüm', style: MenzilType.label(c.ink2)),
         const SizedBox(height: MenzilSpace.xs),
         MenzilChipGroup<LevelViewType>(

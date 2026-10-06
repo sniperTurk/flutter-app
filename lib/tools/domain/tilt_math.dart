@@ -43,6 +43,18 @@ abstract final class TiltMath {
     }
   }
 
+  /// Pose from gravity: flat when most of gravity is along the screen
+  /// normal (|gz|/|g| >= 0.8), upright when it is mostly in the screen plane
+  /// (<= 0.6); in between the [current] pose is kept (hysteresis).
+  static TiltMode poseFor(GravityVector g, TiltMode current) {
+    final mag = math.sqrt(g.x * g.x + g.y * g.y + g.z * g.z);
+    if (!mag.isFinite || mag < minGravity) return current;
+    final f = g.z.abs() / mag;
+    if (f >= 0.8) return TiltMode.flat;
+    if (f <= 0.6) return TiltMode.upright;
+    return current;
+  }
+
   /// "0,00" style text (Turkish comma) with a fixed 0.01° resolution; never "-0,00".
   static String format(double degrees) {
     final text = degrees.toStringAsFixed(2).replaceAll('.', ',');

@@ -47,6 +47,15 @@ void main() {
         isNull,
       );
     });
+    test('pose follows gravity with hysteresis', () {
+      const flat = GravityVector(0, 0, 9.81);
+      const upright = GravityVector(0, 9.81, 0);
+      const between = GravityVector(0, 7.5, 6.3); // |gz|/|g| ~ 0.64
+      expect(TiltMath.poseFor(flat, TiltMode.upright), TiltMode.flat);
+      expect(TiltMath.poseFor(upright, TiltMode.flat), TiltMode.upright);
+      expect(TiltMath.poseFor(between, TiltMode.flat), TiltMode.flat);
+      expect(TiltMath.poseFor(between, TiltMode.upright), TiltMode.upright);
+    });
     test('format uses 0,01 resolution and never -0.00', () {
       expect(TiltMath.format(1.234), '1,23');
       expect(TiltMath.format(-0.001), '0,00');
