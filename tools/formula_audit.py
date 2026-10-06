@@ -90,11 +90,15 @@ def audit_air():
             pv = 6.112 * math.exp(a * t / (b + t)) * rh / 100
             ps_td = 6.112 * math.exp(a * td / (b + td))
             worst = max(worst, abs(ps_td - pv) / pv)
-            if rh >= 50:  # Lawrence approximation, valid for RH >= 50 %
-                lawrence = t - (100 - rh) / 5
-                if abs(td - lawrence) > 1.0:
-                    check("dew_point_vs_Lawrence", False, f"T={t} RH={rh} td={td:.2f} approx={lawrence:.2f}")
     check("dew_point_inverse_consistency", worst < 1e-9, f"max rel {worst:.2e}")
+    # published psychrometric-chart values (T degC, RH %, dew point degC)
+    chart = [(20, 50, 9.3), (25, 60, 16.7), (30, 70, 23.9), (15, 80, 11.6)]
+    worst = 0.0
+    for t, rh, td_ref in chart:
+        a, b = 17.62, 243.12
+        g = math.log(rh / 100) + a * t / (b + t)
+        worst = max(worst, abs(b * g / (a - g) - td_ref))
+    check("dew_point_vs_psychrometric_chart", worst <= 0.3, f"max |dTd| {worst:.3f} degC")
 
     # density altitude: ISA troposphere density -> altitude round trip
     worst = 0.0
