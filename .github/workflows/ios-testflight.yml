@@ -115,6 +115,7 @@ jobs:
           TEAM_ID: ${{ vars.IOS_DEVELOPMENT_TEAM }}
         run: |
           set -euo pipefail
+          mkdir -p build/ios/signed
           xcodebuild archive \
             -workspace ios/Runner.xcworkspace \
             -scheme Runner \
@@ -126,7 +127,7 @@ jobs:
             -authenticationKeyID "$ASC_KEY_ID" \
             -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
             DEVELOPMENT_TEAM="$TEAM_ID" \
-            CODE_SIGN_STYLE=Automatic
+            CODE_SIGN_STYLE=Automatic 2>&1 | tee build/ios/signed/archive.log
 
       - name: Export and upload to TestFlight
         shell: bash
@@ -136,6 +137,7 @@ jobs:
           TEAM_ID: ${{ vars.IOS_DEVELOPMENT_TEAM }}
         run: |
           set -euo pipefail
+          mkdir -p build/ios/signed
           python3 - <<'PY'
           import os, plistlib
           with open("build/ios/signed/ExportOptions.plist", "wb") as f:
@@ -156,7 +158,18 @@ jobs:
             -allowProvisioningUpdates \
             -authenticationKeyPath "$RUNNER_TEMP/asc/AuthKey_${ASC_KEY_ID}.p8" \
             -authenticationKeyID "$ASC_KEY_ID" \
-            -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" 2>&1 | tee build/ios/signed/export.log
+
+      - name: Surface xcodebuild errors
+        if: failure()
+        shell: bash
+        run: |
+          for f in build/ios/signed/archive.log build/ios/signed/export.log; do
+            [ -f "$f" ] || continue
+            grep -E "error:|Error Domain|requires a provisioning|No profile|No signing|Provisioning|forbidden|not permitted|does not have permission" "$f" | sort -u | head -12 | while IFS= read -r line; do
+              echo "::error title=$(basename "$f")::${line:0:400}"
+            done
+          done
 
       - name: Remove API key
         if: always()
