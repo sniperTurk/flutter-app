@@ -30,9 +30,9 @@ jobs:
         shell: bash
         run: |
           set +e
-          /tmp/auditenv/bin/python tools/formula_audit.py > audit.txt 2>&1
+          /tmp/auditenv/bin/python tools/formula_audit.py > audit.txt 2> audit.err
           echo "rc=$?" >> "$GITHUB_OUTPUT"
-          cat audit.txt
+          cat audit.txt; tail -5 audit.err
       - name: Annotations 1
         run: sed -n '1,9p' audit.txt | while IFS= read -r l; do echo "::notice title=audit::${l:0:480}"; done
       - name: Annotations 2
