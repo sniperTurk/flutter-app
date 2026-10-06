@@ -175,6 +175,7 @@ void main() {
       'level',
       'weather',
       'hit-probability',
+      'calculators',
       'catalog',
       'settings',
     ]) {

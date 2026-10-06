@@ -4,6 +4,7 @@ import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../catalog/catalog_screen.dart';
 import '../settings/settings_screen.dart';
+import 'calculators_screen.dart';
 import 'chronograph_screen.dart';
 import 'compass_screen.dart';
 import 'hit_probability_screen.dart';
@@ -86,6 +87,14 @@ class ToolsScreen extends StatelessWidget {
           title: 'Vuruş Olasılığı',
           subtitle: 'Grup ve hedef çapından tek atış vuruş yüzdesi',
           onTap: () => _open(context, const HitProbabilityScreen()),
+        ),
+        MenzilToolTile(
+          tileKey: const Key('tool-calculators'),
+          icon: Icons.calculate_outlined,
+          title: 'Hesaplayıcılar',
+          subtitle:
+              'Mesafe, MOA, tık doğrulama, BC, hava laboratuvarı, birim dönüştürücüler',
+          onTap: () => _open(context, const CalculatorsScreen()),
         ),
         MenzilToolTile(
           tileKey: const Key('tool-catalog'),

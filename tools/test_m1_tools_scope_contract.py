@@ -108,8 +108,15 @@ class M1ArchitectureTests(unittest.TestCase):
     def test_tool_screens_expose_no_click_or_hold_instruction(self):
         for p in (LIB / 'features/tools').glob('*.dart'):
             text = p.read_text(encoding='utf-8').lower()
-            for forbidden in ('klik', 'click', 'tambur', 'holdover'):
+            # The Hesaplayicilar screen has a user-requested scope click-value
+            # CHECK (measures the real click size). It may name clicks, but it
+            # must still never give a firing/hold instruction.
+            forbidden_words = ('tambur', 'holdover') if p.name == 'calculators_screen.dart' else ('klik', 'click', 'tambur', 'holdover')
+            for forbidden in forbidden_words:
                 self.assertNotIn(forbidden, text, rel(p))
+        calc = (LIB / 'features/tools/calculators_screen.dart').read_text(encoding='utf-8').lower()
+        for forbidden in ('çevrilecek', 'dial ', 'hold '):
+            self.assertNotIn(forbidden, calc)
 
 
 class M1SafetyBoundaryTests(unittest.TestCase):
