@@ -1,0 +1,43 @@
+name: One-off formula audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to audit'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install reference libraries
+        run: |
+          python -m venv /tmp/auditenv
+          /tmp/auditenv/bin/pip install -q "py-ballisticcalc==2.2.10" numpy scipy geopy pint
+      - name: Run audit
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          /tmp/auditenv/bin/python tools/formula_audit.py > audit.txt 2>&1
+          echo "rc=$?" >> "$GITHUB_OUTPUT"
+          cat audit.txt
+      - name: Annotations 1
+        run: sed -n '1,9p' audit.txt | while IFS= read -r l; do echo "::notice title=audit::${l:0:480}"; done
+      - name: Annotations 2
+        run: sed -n '10,18p' audit.txt | while IFS= read -r l; do echo "::notice title=audit::${l:0:480}"; done
+      - name: Annotations 3
+        run: sed -n '19,27p' audit.txt | while IFS= read -r l; do echo "::notice title=audit::${l:0:480}"; done
+      - name: Result
+        run: exit ${{ steps.audit.outputs.rc }}
