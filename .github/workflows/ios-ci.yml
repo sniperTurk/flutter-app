@@ -16,7 +16,7 @@ concurrency:
 jobs:
   verify:
     runs-on: macos-15
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -239,7 +239,7 @@ jobs:
           # failure exits non-zero immediately and fails the job.
           for attempt in 1 2 3; do
             set +e
-            perl -e 'alarm shift; exec @ARGV' 900 \
+            perl -e 'alarm shift; exec @ARGV' 600 \
               flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded
             rc=$?
             set -e
@@ -449,7 +449,7 @@ jobs:
   # the iOS Simulator and passes the integration smoke test.
   ios-simulator:
     runs-on: macos-15
-    timeout-minutes: 40
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -540,7 +540,7 @@ jobs:
           # failure exits non-zero immediately and fails the job.
           for attempt in 1 2 3; do
             set +e
-            perl -e 'alarm shift; exec @ARGV' 900 \
+            perl -e 'alarm shift; exec @ARGV' 600 \
               flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded
             rc=$?
             set -e
