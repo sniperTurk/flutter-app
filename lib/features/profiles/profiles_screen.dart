@@ -5,9 +5,11 @@ import '../../core/profile_input.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
+import '../../services/manual_catalog_store.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import '../catalog/manual_catalog_dialog.dart';
 import 'profile_recovery_dialog.dart';
 
 /// Profile list and management.
@@ -658,11 +660,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Catalog snapshot taken when the editor opens (built-in + personal).
   /// Dropdown values are matched by identity, so the editor must not see a
   /// reinstalled personal catalog half-way through an edit.
-  final List<Rifle> _allRifles = CatalogRepository.allRifles;
-  final List<Ammunition> _allAmmunition = CatalogRepository.allAmmunition;
-  final List<ScopeOptic> _allScopes = CatalogRepository.allScopes;
-  final List<UserCatalogIssue> _blockedPersonal =
+  ///
+  /// The snapshot is only ever replaced by [_editRecordValues], i.e. by the
+  /// user's own explicit "değerleri düzenle" save, never behind their back.
+  List<Rifle> _allRifles = CatalogRepository.allRifles;
+  List<Ammunition> _allAmmunition = CatalogRepository.allAmmunition;
+  List<ScopeOptic> _allScopes = CatalogRepository.allScopes;
+  List<UserCatalogIssue> _blockedPersonal =
       CatalogRepository.userCatalog.blocked;
+  final ManualCatalogStore _manualStore = ManualCatalogStore();
 
   List<Rifle> _riflesFor(WeaponPlatform p) =>
       _allRifles.where((r) => r.platform == p).toList(growable: false);
@@ -785,6 +791,112 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     } on FormatException catch (e) {
       setState(() => validationError = e.message);
     }
+  }
+
+  /// Lets the user correct catalog values (caliber, barrel length, pellet
+  /// weight) that are wrong for their gear. Manufacturer-verified records are
+  /// never modified: a built-in record is copied into a personal record (new
+  /// id, labelled "kişisel kayıt, doğrulanmamış") and the copy is edited. A
+  /// personal record is edited in place, so every profile that uses it picks
+  /// up the corrected values.
+  Future<void> _editRecordValues({required bool forRifle}) async {
+    final Map<String, dynamic> entry;
+    try {
+      final stored = await _manualStore.all();
+      final current = forRifle ? rifle : ammo;
+      if (current == null) return;
+      final existing = stored.where((e) => e['id'] == current.id).firstOrNull;
+      if (existing != null) {
+        entry = Map<String, dynamic>.from(existing);
+      } else if (forRifle) {
+        final r = rifle!;
+        entry = <String, dynamic>{
+          'id': 'manual_${DateTime.now().microsecondsSinceEpoch}',
+          'kind': 'rifle',
+          'platform': r.platform.name,
+          'brand': r.brand,
+          'model': r.model,
+          'caliberMm': r.caliberMm,
+          'barrelLengthMm': r.barrelLengthMm,
+          'notes': 'Katalog kaydından kopyalandı; değerler kullanıcı tarafından düzenlendi.',
+          'sourceName': 'Kullanıcı girdisi',
+        };
+      } else {
+        final a = ammo!;
+        entry = <String, dynamic>{
+          'id': 'manual_${DateTime.now().microsecondsSinceEpoch}',
+          'kind': 'ammo',
+          'platform': a.platform.name,
+          'brand': a.brand,
+          'model': a.model,
+          'caliberMm': a.caliberMm,
+          'grain': a.grain,
+          'ammoType': a.type.name,
+          'bc': a.ballisticCoefficient,
+          'notes': 'Katalog kaydından kopyalandı; değerler kullanıcı tarafından düzenlendi.',
+          'sourceName': 'Kullanıcı girdisi',
+        };
+      }
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Kişisel katalog okunamadı. Değerler düzenlenemedi.')),
+      );
+      return;
+    }
+    if (!mounted) return;
+    final recordId = entry['id'] as String;
+    final saved = await showDialog<bool>(
+      context: context,
+      builder: (_) => ManualCatalogDialog(
+        existing: entry,
+        defaultPlatform: platform.name,
+        onSave: (e) async => await _manualStore.upsert(e),
+      ),
+    );
+    if (saved != true) return;
+    try {
+      final items = await _manualStore.all();
+      CatalogRepository.installUserCatalog(UserCatalog.fromManualEntries(items));
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Kayıt yapıldı ancak katalog yenilenemedi. Profil ekranını yeniden açın.')),
+      );
+      return;
+    }
+    if (!mounted) return;
+    setState(() {
+      _allRifles = CatalogRepository.allRifles;
+      _allAmmunition = CatalogRepository.allAmmunition;
+      _allScopes = CatalogRepository.allScopes;
+      _blockedPersonal = CatalogRepository.userCatalog.blocked;
+      if (forRifle) {
+        rifle = _allRifles.where((r) => r.id == recordId).firstOrNull ?? rifle;
+        platform = rifle?.platform ?? platform;
+        // The corrected caliber may no longer match the chosen ammunition.
+        if (rifle != null &&
+            ammo != null &&
+            !_ammunitionFor(platform, rifle!.caliberMm).contains(ammo)) {
+          ammo = _allAmmunition.where((a) => a.id == ammo!.id).firstOrNull;
+          if (ammo != null &&
+              !_ammunitionFor(platform, rifle!.caliberMm).contains(ammo)) {
+            ammo = null;
+          }
+        }
+      } else {
+        final updated = _allAmmunition.where((a) => a.id == recordId).firstOrNull;
+        ammo = updated != null &&
+                rifle != null &&
+                _ammunitionFor(platform, rifle!.caliberMm).contains(updated)
+            ? updated
+            : null;
+        if (ammo == null && updated != null) {
+          validationError =
+              'Düzenlenen mühimmatın kalibresi tüfekle uyuşmuyor; lütfen mühimmatı yeniden seçin.';
+        }
+      }
+    });
   }
 
   void _showSightHelp() => showDialog<void>(
@@ -953,6 +1065,20 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     ammo = null;
                   }),
                 ),
+                if (rifle != null)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton.icon(
+                      key: const ValueKey('profile-edit-rifle-values'),
+                      onPressed: () => _editRecordValues(forRifle: true),
+                      icon: const Icon(Icons.tune, size: 18),
+                      label: Text(
+                        rifle!.userEntered
+                            ? 'Tüfek değerlerini düzenle (kalibre, namlu)'
+                            : 'Tüfek değerleri hatalı mı? Kişisel kopyayı düzenle',
+                      ),
+                    ),
+                  ),
                 if (rifle == null)
                   const MenzilNotice(
                     tone: MenzilNoticeTone.warning,
@@ -982,6 +1108,20 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     tone: MenzilNoticeTone.warning,
                     message:
                         'Bu tüfeğin kalibresine uygun katalog mühimmatı yok; profil kaydedilemez.',
+                  ),
+                if (ammo != null)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton.icon(
+                      key: const ValueKey('profile-edit-ammo-values'),
+                      onPressed: () => _editRecordValues(forRifle: false),
+                      icon: const Icon(Icons.tune, size: 18),
+                      label: Text(
+                        ammo!.userEntered
+                            ? 'Mühimmat değerlerini düzenle (ağırlık, çap)'
+                            : 'Mühimmat değerleri hatalı mı? Kişisel kopyayı düzenle',
+                      ),
+                    ),
                   ),
                 MenzilSelect<ScopeOptic>(
                   label: 'Dürbün',
