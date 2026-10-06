@@ -96,6 +96,35 @@ jobs:
           head -n 1 "$RUNNER_TEMP/asc/AuthKey_${ASC_KEY_ID}.p8" | grep -q 'BEGIN PRIVATE KEY' || {
             echo "ASC_KEY_P8 does not look like a .p8 private key" >&2; exit 1; }
 
+      - name: Check App Store Connect API key
+        shell: bash
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet --break-system-packages pyjwt cryptography 2>&1 | tail -1 || true
+          python3 - <<'PY'
+          import os, time, json, urllib.request, urllib.error
+          import jwt
+          kid = os.environ["ASC_KEY_ID"]
+          key = open(os.path.join(os.environ["RUNNER_TEMP"], "asc", f"AuthKey_{kid}.p8")).read()
+          tok = jwt.encode({"iss": os.environ["ASC_ISSUER_ID"], "iat": int(time.time()),
+                            "exp": int(time.time()) + 600, "aud": "appstoreconnect-v1"},
+                           key, algorithm="ES256", headers={"kid": kid})
+          req = urllib.request.Request("https://api.appstoreconnect.apple.com/v1/apps?limit=5",
+                                       headers={"Authorization": f"Bearer {tok}"})
+          try:
+              with urllib.request.urlopen(req, timeout=30) as r:
+                  d = json.load(r)
+                  names = [a["attributes"]["bundleId"] for a in d.get("data", [])]
+                  print(f"::notice title=ASC API key::HTTP {r.status}; apps: {names}")
+          except urllib.error.HTTPError as e:
+              body = e.read().decode()[:300].replace("\n", " ")
+              print(f"::error title=ASC API key::HTTP {e.code}: {body}")
+              raise SystemExit(1)
+          PY
+
       - name: Build Flutter release (unsigned, prepares Xcode config)
         shell: bash
         env:
