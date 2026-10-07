@@ -247,7 +247,10 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Aktif profil'), findsOneWidget);
 
-    // Tapping a row makes it active (persisted through the shell).
+    // Tapping a row makes it active (persisted through the shell). The list
+    // sits below the active-profile summary.
+    await tester.ensureVisible(find.bySemanticsLabel('Profil İki'));
+    await tester.pumpAndSettle();
     await tester.tap(find.bySemanticsLabel('Profil İki'));
     await tester.pumpAndSettle();
     expect(active.value, 'p2');
@@ -256,6 +259,9 @@ void main() {
     await tester.tap(find.text('Kopyala'));
     await tester.pumpAndSettle();
     expect((await store.all()).map((p) => p.name), contains('İki (kopya)'));
+    // Let the "oluşturuldu" snackbar close; it can cover the buttons.
+    await tester.pump(const Duration(seconds: 5));
+    await tester.pumpAndSettle();
 
     await tester.ensureVisible(find.text('Sil'));
     await tester.tap(find.text('Sil'));

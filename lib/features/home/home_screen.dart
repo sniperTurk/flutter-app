@@ -386,6 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         revision: _profilesRevision,
                         onActivate: _choose,
                         onProfilesChanged: _load,
+                        onContinue: () => _selectTab(_tabEnvironment),
                       ),
                       _ballisticsTab(context),
                       ToolsScreen(

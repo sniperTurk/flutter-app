@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../core/production_limits.dart';
 import '../../core/profile_input.dart';
+import '../../core/unit_system.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
+import '../../services/app_settings.dart';
 import '../../services/manual_catalog_store.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
@@ -24,6 +26,10 @@ class ProfilesScreen extends StatefulWidget {
   final Future<void> Function(RifleProfile? profile)? onActivate;
   final Future<void> Function()? onProfilesChanged;
 
+  /// Shell only: next step after choosing a profile (Hava Durumu). When set,
+  /// the active-profile summary offers a button for it.
+  final VoidCallback? onContinue;
+
   /// Bumped by the shell whenever it reloaded profiles, so this list stays in
   /// sync with changes made elsewhere.
   final int revision;
@@ -35,6 +41,7 @@ class ProfilesScreen extends StatefulWidget {
     this.activeProfileId,
     this.onActivate,
     this.onProfilesChanged,
+    this.onContinue,
     this.revision = 0,
   });
 
@@ -276,6 +283,16 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     final selected = _selected;
     return MenzilPage(
       children: [
+        // The app opens here: the profile in use comes first, with the next
+        // step one tap away; the list for switching or managing follows.
+        if (selected != null) ...[
+          _ActiveProfileDetails(
+            profile: selected,
+            onEdit: () => _edit(selected),
+            onContinue: widget.embedded ? widget.onContinue : null,
+          ),
+          const SizedBox(height: MenzilSpace.lg),
+        ],
         MenzilSectionHeader(
           'Profiller',
           subtitle: items.isEmpty ? null : '${items.length} kayıtlı profil',
@@ -347,13 +364,6 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
             ],
           ],
         ),
-        if (selected != null) ...[
-          const SizedBox(height: MenzilSpace.lg),
-          _ActiveProfileDetails(
-            profile: selected,
-            onEdit: () => _edit(selected),
-          ),
-        ],
       ],
     );
   }
@@ -428,8 +438,8 @@ class _ProfileRow extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '${profile.muzzleVelocityMps.toStringAsFixed(1)} m/s • '
-                              'Zero ${profile.zeroRangeM.toStringAsFixed(0)} m'
+                              '${_ProfileUnits.of(context).velocity(profile.muzzleVelocityMps)} • '
+                              'Sıfır ${_ProfileUnits.of(context).distance(profile.zeroRangeM)}'
                               '${profile.pressureBar == null ? '' : ' • ${profile.pressureBar!.toStringAsFixed(0)} bar'}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -484,8 +494,13 @@ String _labelled(String? name, bool? userEntered, String fallbackId) =>
 class _ActiveProfileDetails extends StatelessWidget {
   final RifleProfile profile;
   final VoidCallback onEdit;
+  final VoidCallback? onContinue;
 
-  const _ActiveProfileDetails({required this.profile, required this.onEdit});
+  const _ActiveProfileDetails({
+    required this.profile,
+    required this.onEdit,
+    this.onContinue,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -501,6 +516,7 @@ class _ActiveProfileDetails extends StatelessWidget {
     final barrelLengthMm = rifle?.barrelLengthMm;
     final ballisticCoefficient = ammo?.ballisticCoefficient;
     final ballisticModelName = ammo?.ballisticModel?.name.toUpperCase() ?? '';
+    final units = _ProfileUnits.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -547,13 +563,13 @@ class _ActiveProfileDetails extends StatelessWidget {
           metrics: [
             MenzilMetric(
               'Çıkış hızı',
-              profile.muzzleVelocityMps.toStringAsFixed(1),
-              'm/s',
+              units.velocityValue(profile.muzzleVelocityMps),
+              units.velocityUnit,
             ),
             MenzilMetric(
               'Sıfırlama mesafesi',
-              profile.zeroRangeM.toStringAsFixed(0),
-              'm',
+              units.distanceValue(profile.zeroRangeM),
+              units.distanceUnit,
             ),
             MenzilMetric(
               'Dürbün yüksekliği',
@@ -599,9 +615,20 @@ class _ActiveProfileDetails extends StatelessWidget {
           ],
         ),
         Text(
-          'Katalog değerleri bilgi amaçlıdır. V1 vakum temel hesapta BC ve sürükleme modeli kullanılmaz.',
+          'Katalog değerleri bilgi amaçlıdır. Mühimmatın BC ve G1/G7 modeli '
+          'varsa Atış hesabı sürüklenme çözücüsünü kullanır; yoksa vakum '
+          'temel hesap çalışır ve bu ekranda belirtilir.',
           style: MenzilType.caption(MenzilColors.of(context).ink2),
         ),
+        if (onContinue != null) ...[
+          const SizedBox(height: MenzilSpace.md),
+          MenzilPrimaryButton(
+            key: const Key('profile-continue-weather'),
+            label: 'Hava Durumu\'na geç',
+            icon: Icons.arrow_forward,
+            onPressed: onContinue,
+          ),
+        ],
       ],
     );
   }
@@ -1428,4 +1455,28 @@ class _SightHeightDiagramPainter extends CustomPainter {
       oldDelegate.line != line ||
       oldDelegate.accent != accent ||
       oldDelegate.text != text;
+}
+
+/// Shows the profile's SI values in the user's unit system (Ayarlar). The
+/// stored profile stays SI; only the display converts.
+class _ProfileUnits {
+  final bool metric;
+  const _ProfileUnits(this.metric);
+
+  static _ProfileUnits of(BuildContext context) =>
+      _ProfileUnits(AppSettingsScope.metricOf(context));
+
+  String get velocityUnit => metric ? 'm/s' : 'fps';
+  String get distanceUnit => metric ? 'm' : 'yd';
+
+  String velocityValue(double mps) => metric
+      ? mps.toStringAsFixed(1)
+      : UnitSystem.mpsToFps(mps).toStringAsFixed(0);
+
+  String distanceValue(double m) => metric
+      ? m.toStringAsFixed(0)
+      : UnitSystem.metersToYards(m).toStringAsFixed(1);
+
+  String velocity(double mps) => '${velocityValue(mps)} $velocityUnit';
+  String distance(double m) => '${distanceValue(m)} $distanceUnit';
 }
