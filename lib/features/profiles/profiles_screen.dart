@@ -1100,11 +1100,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         .where((b) => b.kind == 'scope' || b.platform == platform)
         .toList(growable: false);
     final canSave =
-        !_saving &&
-        _rifleValid &&
-        ammo != null &&
-        scope != null &&
-        _validSight;
+        !_saving && _rifleValid && ammo != null && scope != null && _validSight;
 
     return Scaffold(
       appBar: MenzilSubPageBar(
