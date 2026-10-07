@@ -142,7 +142,9 @@ void main() {
     );
   });
 
-  testWidgets('shot view shows the wind card instead of the lock', (tester) async {
+  testWidgets('shot view shows the wind card instead of the lock', (
+    tester,
+  ) async {
     install();
     tester.view.physicalSize = const Size(1000, 4000);
     tester.view.devicePixelRatio = 1;
