@@ -683,6 +683,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         windLabels.add((mark, _windLabel(mpsPerMil * mrad)));
       }
     }
+    // What one reticle unit spans at the selected range.
+    final unitSpanM = ScopeDialMath.linearAtRange(1, _shotRangeM, unit);
+    final span = metric
+        ? '${(unitSpanM * 100).toStringAsFixed(1)} cm'
+        : '${UnitSystem.millimetersToInches(unitSpanM * 1000).toStringAsFixed(1)} in';
+    final scaleNote =
+        '${unit == AngularUnit.moa ? '1 MOA' : '1 mil'} = $span '
+        '($_shotDisplay $_distanceUnit).';
     String? windNote;
     final windMps = basis?.environment.windMps ?? 0;
     if (basis != null && basis.drag && windMps > 0) {
@@ -709,7 +717,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       requiredUp: requiredUp,
       requiredRight: requiredRight,
       windLabels: windLabels,
-      windNote: windNote,
+      windNote: windNote == null ? scaleNote : '$scaleNote $windNote',
       rangeM: _shotRangeM,
       samples: basis == null ? const [] : _holdSamplesFor(basis, unit),
       toDisplayRange: _toDisplayRange,
