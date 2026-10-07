@@ -585,11 +585,7 @@ class _ActiveProfileDetails extends StatelessWidget {
                 'gr',
               ),
             if (barrelLengthMm != null)
-              MenzilMetric(
-                'Namlu boyu',
-                _trimNum(barrelLengthMm / 10),
-                'cm',
-              ),
+              MenzilMetric('Namlu boyu', _trimNum(barrelLengthMm / 10), 'cm'),
             if (rifle?.regulatorBar != null)
               MenzilMetric('Regülatör', _trimNum(rifle!.regulatorBar!), 'bar'),
             if (scope?.minMagnification != null &&
