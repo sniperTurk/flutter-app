@@ -70,11 +70,22 @@ class TestTilt implements TiltProvider {
 
 class TestCamera implements CameraService {
   CameraUnavailable? failure;
-  TestCamera({this.failure});
+
+  /// Any other error thrown by [open] (not a [CameraUnavailable]).
+  Object? error;
+
+  /// When set, [open] waits for it before returning/throwing.
+  Completer<void>? hold;
+  int opened = 0;
+  int disposed = 0;
+  TestCamera({this.failure, this.error});
   @override
   Future<CameraSession> open() async {
+    opened++;
+    if (hold != null) await hold!.future;
     if (failure != null) throw failure!;
-    return _Session();
+    if (error != null) throw error!;
+    return _Session(this);
   }
 
   @override
@@ -82,13 +93,17 @@ class TestCamera implements CameraService {
 }
 
 class _Session implements CameraSession {
+  final TestCamera owner;
+  _Session(this.owner);
   @override
   Widget buildPreview(BuildContext context) =>
       const ColoredBox(color: Colors.black);
   @override
   Future<Uint8List> capture() async => Uint8List(0);
   @override
-  Future<void> dispose() async {}
+  Future<void> dispose() async {
+    owner.disposed++;
+  }
 }
 
 /// Gallery double: returns [photo], or throws [failure], or null (cancel).

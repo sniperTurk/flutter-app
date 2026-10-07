@@ -15,7 +15,7 @@ için zaten belgelediği gerçek CI koşularıyla çelişiyordu. Aşağıdaki li
 ## B — RELEASE ÖNCESİ
 1. App Privacy — sahip kararı verildi (2026-10-06): konum api.met.no'ya 2 ondalığa (~1 km) yuvarlanarak gönderilir; `PrivacyInfo.xcprivacy` `CoarseLocation` (bağlı değil, izleme yok, AppFunctionality) beyan eder. **AÇIK (sahip):** App Store Connect > App Privacy'de aynı beyanın girilmesi.
 2. OWNER DECISION REQUIRED — Primary+backup ikisi bozukken kullanıcı kurtarma UX'i (`release/PROFILE_RECOVERY_DESIGN.md`); kod bilerek değiştirilmedi.
-3. Eksik Flutter testleri (yazılı ama çalıştırılmadı): profil editörü fail-closed widget testi, quarantine testleri. Yazılmayanlar: Weather timer/resume, camera init-failure/cleanup, orientation lifecycle, Level reference/reset widget testleri (fake'ler `test/support/tool_fakes.dart` içinde mevcut).
+3. Eksik Flutter testleri — **V372 ile YAZILDI** (`test/tools_lifecycle_test.dart`): Hava yaş zamanlayıcısı ve ön plana dönüş, kamera açılış hatası ve oturum temizliği (sayfa kapanınca / açılış bitmeden kapanınca), ekran yönü kilidi ve geri alınması (Su Terazisi, Pusula, yan fotoğraf), Su Terazisi referans ayarla/temizle/kilitle. Sonuç: PR'ın kendi iOS CI koşusu (bu sandbox'ta Flutter yok). Profil editörü fail-closed ve quarantine testleri V370 CI'ında çalıştı (`release/CI_EVIDENCE.md`).
 4. `IOS_DEVELOPMENT_TEAM` variable ve imzalama/export (sahip Apple hesabı).
 5. App Store metadata (ekran görüntüleri, açıklama, yaş derecesi — silah/balistik içerik incelemesi) — sahip.
 
@@ -26,6 +26,7 @@ Pusula kuzey referansı (iOS trueHeading + konum güncellemesi yok → geçersiz
 Kullanılmayan `UserCatalogStore` (üretimde bağlı değil), RifleProfile ==/hashCode, pubspec Dart tabanı 3.8→daha sıkı, kullanıcı özel mühimmat/katalog kaydı özelliği, G1/G7 kapısı (gerçek acceptance kanıtı gelene kadar KAPALI).
 
 ## Değişmeyenler
+G1/G7: PR #5 (`4cd5faf`) BC+model isteklerini aerodinamik çözücüye yönlendirdi; kapı CI'daki py-ballisticcalc referans karşılaştırmasıyla yapısal olarak korunuyor (`tools/verify_production_gate.py`). Aşağıdaki eski satır PR #5 öncesi durumdur:
 G1/G7 gate KAPALI; `validation/acceptance.json` SHA 1d861282…7c67927d; Atış/Tablo KİLİTLİ; click yasağı (V354 ile sadece Yükseklik/elevation vakum trigonometrisi kilidi açıldı — Rüzgâr hâlâ KİLİTLİ, bkz. PR #3).
 
 ## V1 kapsamı netliği (karışıklığı önlemek için)
