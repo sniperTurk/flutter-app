@@ -577,13 +577,7 @@ class _DrumPainter extends CustomPainter {
         ..lineTo(0, mid + 7)
         ..lineTo(11, mid)
         ..close();
-      _text(
-        canvas,
-        '↑$positiveLetter',
-        Offset(size.width / 2, 10),
-        label,
-        11,
-      );
+      _text(canvas, '↑$positiveLetter', Offset(size.width / 2, 10), label, 11);
       _text(
         canvas,
         '$negativeLetter↓',
