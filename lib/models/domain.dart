@@ -29,6 +29,10 @@ class Rifle {
   final TwistDirection? twistDirection;
   final double? twistRateIn;
 
+  /// PCP regulator pressure in bar, entered by the user. Null for firearms
+  /// or when not entered.
+  final double? regulatorBar;
+
   /// True for records the user typed in (manual catalog). Such records are
   /// never manufacturer-verified and must be labelled as personal everywhere.
   final bool userEntered;
@@ -51,6 +55,7 @@ class Rifle {
     this.sourceDocument,
     this.twistDirection,
     this.twistRateIn,
+    this.regulatorBar,
     this.userEntered = false,
   });
   String get displayName =>

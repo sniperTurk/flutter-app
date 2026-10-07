@@ -600,6 +600,19 @@ class _ActiveProfileDetails extends StatelessWidget {
                 barrelLengthMm.toStringAsFixed(0),
                 'mm',
               ),
+            if (rifle?.regulatorBar != null)
+              MenzilMetric('Regülatör', _trimNum(rifle!.regulatorBar!), 'bar'),
+            if (scope?.minMagnification != null &&
+                scope?.maxMagnification != null)
+              MenzilMetric(
+                'Büyütme',
+                '${_trimNum(scope!.minMagnification!)}-${_trimNum(scope.maxMagnification!)}x',
+              ),
+            if (scope?.firstFocalPlane != null)
+              MenzilMetric(
+                'Odak düzlemi',
+                scope!.firstFocalPlane! ? 'FFP' : 'SFP',
+              ),
             if (rifle?.twistDirection != null)
               MenzilMetric(
                 'Yiv yönü',
@@ -726,7 +739,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController rifleCaliber;
   late final TextEditingController rifleBarrel;
   late final TextEditingController rifleTwist;
+  late final TextEditingController rifleRegulator;
   TwistDirection? twistDirection;
+
+  /// The scope is typed in too; stored as a personal scope record.
+  late final TextEditingController scopeBrand;
+  late final TextEditingController scopeMinMag;
+  late final TextEditingController scopeMaxMag;
+  late final TextEditingController scopeObjective;
+  late final TextEditingController scopeClick;
+
+  /// true = FFP, false = SFP, null = not chosen yet.
+  bool? firstFocalPlane;
   bool _saving = false;
   Ammunition? ammo;
   ScopeOptic? scope;
@@ -776,7 +800,22 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       text: num(initialRifle?.barrelLengthMm),
     );
     rifleTwist = TextEditingController(text: num(initialRifle?.twistRateIn));
+    rifleRegulator = TextEditingController(
+      text: num(initialRifle?.regulatorBar),
+    );
     twistDirection = initialRifle?.twistDirection;
+    final s0 = scope;
+    angularUnit = p?.angularUnit ?? s0?.clickUnit ?? AngularUnit.mrad;
+    scopeBrand = TextEditingController(text: s0?.brand ?? '');
+    scopeMinMag = TextEditingController(text: num(s0?.minMagnification));
+    scopeMaxMag = TextEditingController(text: num(s0?.maxMagnification));
+    scopeObjective = TextEditingController(text: num(s0?.objectiveDiameterMm));
+    scopeClick = TextEditingController(
+      text: s0 != null && s0.clickUnit == angularUnit
+          ? num(s0.clickValue)
+          : num(_defaultClick(angularUnit)),
+    );
+    firstFocalPlane = s0?.firstFocalPlane;
     if (p != null) {
       if (rifle == null) _unresolved.add('tüfek');
       if (ammo == null) {
@@ -786,7 +825,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         ammo = null;
         _unresolved.add('mühimmat (tüfek kalibresiyle uyumsuz)');
       }
-      if (scope == null) _unresolved.add('dürbün');
     }
     name = TextEditingController(text: p?.name ?? 'Yeni Profil');
     velocity = TextEditingController(
@@ -797,8 +835,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     pressure = TextEditingController(
       text: p == null ? '200' : (p.pressureBar?.toString() ?? ''),
     );
-    angularUnit = p?.angularUnit ?? AngularUnit.mrad;
   }
+
+  static double _defaultClick(AngularUnit u) =>
+      u == AngularUnit.moa ? 0.25 : 0.1;
 
   @override
   void dispose() {
@@ -807,6 +847,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifleCaliber.dispose();
     rifleBarrel.dispose();
     rifleTwist.dispose();
+    rifleRegulator.dispose();
+    scopeBrand.dispose();
+    scopeMinMag.dispose();
+    scopeMaxMag.dispose();
+    scopeObjective.dispose();
+    scopeClick.dispose();
     name.dispose();
     velocity.dispose();
     zero.dispose();
@@ -855,6 +901,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? get _barrelError =>
       _rangeError(rifleBarrel, _minBarrelMm, _maxBarrelMm);
   String? get _twistError => _rangeError(rifleTwist, _minTwistIn, _maxTwistIn);
+  String? get _regulatorError => platform == WeaponPlatform.pcp
+      ? _rangeError(rifleRegulator, 10, ProductionLimits.maxPcpPressureBar)
+      : null;
 
   bool get _rifleValid =>
       _brandError == null &&
@@ -862,7 +911,58 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _caliberError == null &&
       _barrelError == null &&
       _twistError == null &&
+      _regulatorError == null &&
       twistDirection != null;
+
+  String? get _scopeBrandError => _textError(scopeBrand);
+  String? get _minMagError => _rangeError(scopeMinMag, 1, 60);
+  String? get _maxMagError {
+    final e = _rangeError(scopeMaxMag, 1, 100);
+    if (e != null) return e;
+    final lo = _parse(scopeMinMag), hi = _parse(scopeMaxMag);
+    if (lo != null && hi != null && hi < lo) {
+      return 'Minimum büyütmeden küçük olamaz.';
+    }
+    return null;
+  }
+
+  String? get _objectiveError => _rangeError(scopeObjective, 10, 80);
+  String? get _clickError => angularUnit == AngularUnit.moa
+      ? _rangeError(scopeClick, 0.05, 1)
+      : _rangeError(scopeClick, 0.01, 0.5);
+
+  bool get _scopeValid =>
+      _scopeBrandError == null &&
+      _minMagError == null &&
+      _maxMagError == null &&
+      _objectiveError == null &&
+      _clickError == null &&
+      firstFocalPlane != null;
+
+  /// One-line designation, e.g. "6-24x56 FFP" (empty parts are skipped).
+  String get _scopeDesignation {
+    String part(TextEditingController c) {
+      final v = _parse(c);
+      return v == null ? '' : _trimNum(v);
+    }
+
+    final lo = part(scopeMinMag), hi = part(scopeMaxMag);
+    final obj = part(scopeObjective);
+    final zoom = lo.isEmpty && hi.isEmpty
+        ? ''
+        : lo == hi || hi.isEmpty
+        ? lo
+        : lo.isEmpty
+        ? hi
+        : '$lo-$hi';
+    final body = zoom.isEmpty && obj.isEmpty
+        ? ''
+        : '${zoom}x${obj.isEmpty ? '' : obj}';
+    final plane = firstFocalPlane == null
+        ? ''
+        : (firstFocalPlane! ? 'FFP' : 'SFP');
+    return [body, plane].where((x) => x.isNotEmpty).join(' ');
+  }
 
   /// Caliber typed so far, used to list matching ammunition.
   double? get _typedCaliber =>
@@ -887,20 +987,49 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'barrelLengthMm': _parse(rifleBarrel),
       'twistDirection': twistDirection!.name,
       'twistRateIn': _parse(rifleTwist),
+      'regulatorBar': platform == WeaponPlatform.pcp
+          ? _parse(rifleRegulator)
+          : null,
+      'sourceName': userCatalogSourceName,
+    };
+  }
+
+  Map<String, dynamic> _scopeEntry() {
+    final existing = scope;
+    final lo = _parse(scopeMinMag)!, hi = _parse(scopeMaxMag)!;
+    return <String, dynamic>{
+      'id': existing != null && existing.userEntered
+          ? existing.id
+          : 'manual_scope_${DateTime.now().microsecondsSinceEpoch}',
+      'kind': 'scope',
+      'platform': platform.name,
+      'brand': scopeBrand.text.trim(),
+      'model': _scopeDesignation,
+      'objectiveMm': _parse(scopeObjective),
+      'click': _parse(scopeClick),
+      'clickUnit': angularUnit.name,
+      'focal': firstFocalPlane! ? 'ffp' : 'sfp',
+      'minMag': lo,
+      'maxMag': hi,
+      'magnification': lo == hi
+          ? '${_trimNum(lo)}x'
+          : '${_trimNum(lo)}-${_trimNum(hi)}x',
       'sourceName': userCatalogSourceName,
     };
   }
 
   Future<void> _save() async {
     if (_saving) return;
-    if (!_rifleValid) {
+    if (!_rifleValid || !_scopeValid) {
       setState(() {
         _showErrors = true;
-        validationError = 'Tüfek bilgilerinde eksik veya hatalı alan var.';
+        validationError = !_rifleValid
+            ? 'Tüfek bilgilerinde eksik veya hatalı alan var.'
+            : 'Dürbün bilgilerinde eksik veya hatalı alan var.';
       });
       return;
     }
-    if (ammo == null || scope == null) return;
+    if (ammo == null) return;
     final ProfileInput input;
     try {
       input = ProfileInput.validate(
@@ -920,8 +1049,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     setState(() => _saving = true);
     final entry = _rifleEntry();
     final rifleId = entry['id'] as String;
+    final scopeRecord = _scopeEntry();
+    final scopeId = scopeRecord['id'] as String;
     try {
       await _manualStore.upsert(entry);
+      await _manualStore.upsert(scopeRecord);
       CatalogRepository.installUserCatalog(
         UserCatalog.fromManualEntries(await _manualStore.all()),
       );
@@ -935,10 +1067,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       return;
     }
     if (!mounted) return;
-    if (!CatalogRepository.allRifles.any((r) => r.id == rifleId)) {
+    if (!CatalogRepository.allRifles.any((r) => r.id == rifleId) ||
+        !CatalogRepository.allScopes.any((o) => o.id == scopeId)) {
       setState(() {
         _saving = false;
-        validationError = 'Tüfek kaydı okunamadı. Profil kaydedilmedi.';
+        validationError =
+            'Tüfek veya dürbün kaydı okunamadı. Profil kaydedilmedi.';
       });
       return;
     }
@@ -951,7 +1085,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         name: input.name,
         rifleId: rifleId,
         ammunitionId: ammo!.id,
-        scopeId: scope!.id,
+        scopeId: scopeId,
         muzzleVelocityMps: input.muzzleVelocityMps,
         zeroRangeM: input.zeroRangeM,
         sightHeightMm: input.sightHeightMm,
@@ -1095,12 +1229,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     if (!_isEdit && !ammos.contains(ammo)) {
       ammo = ammos.isEmpty ? null : ammos.first;
     }
-    if (!_isEdit) scope ??= CatalogRepository.scopes.first;
     final blockedHere = _blockedPersonal
         .where((b) => b.kind == 'scope' || b.platform == platform)
         .toList(growable: false);
     final canSave =
-        !_saving && _rifleValid && ammo != null && scope != null && _validSight;
+        !_saving && _rifleValid && _scopeValid && ammo != null && _validSight;
 
     return Scaffold(
       appBar: MenzilSubPageBar(
@@ -1149,7 +1282,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               tone: MenzilNoticeTone.danger,
               message: validationError!,
             ),
-          if (_unresolved.isNotEmpty && (ammo == null || scope == null))
+          if (_unresolved.isNotEmpty && ammo == null)
             MenzilNotice(
               tone: MenzilNoticeTone.warning,
               message:
@@ -1285,6 +1418,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_twistError, rifleTwist),
                 ),
+                if (platform == WeaponPlatform.pcp)
+                  MenzilInput(
+                    key: const Key('rifle-regulator'),
+                    controller: rifleRegulator,
+                    label: 'Regülatör basıncı',
+                    unit: 'bar',
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_regulatorError, rifleRegulator),
+                  ),
                 if (_showErrors && twistDirection == null)
                   const MenzilFullWidth(
                     child: MenzilNotice(
@@ -1292,6 +1434,140 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       message: 'Namlu yiv yönünü seçin (Sağ / Sol).',
                     ),
                   ),
+              ],
+            ),
+          ),
+          const MenzilSectionHeader(
+            'Dürbün',
+            subtitle: 'Dürbününüzün bilgilerini kendiniz girin',
+            padding: EdgeInsets.only(
+              top: MenzilSpace.xxs,
+              bottom: MenzilSpace.sm,
+            ),
+          ),
+          MenzilCard(
+            key: const Key('profile-scope-form'),
+            padding: const EdgeInsets.fromLTRB(
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+              MenzilSpace.xxs,
+            ),
+            child: MenzilFieldGrid(
+              children: [
+                MenzilInput(
+                  key: const Key('scope-brand'),
+                  controller: scopeBrand,
+                  label: 'Dürbün markası',
+                  keyboardType: TextInputType.text,
+                  maxLength: 100,
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_scopeBrandError, scopeBrand),
+                ),
+                MenzilSelect<bool>(
+                  key: const Key('scope-focal-plane'),
+                  label: 'Odak düzlemi',
+                  initialValue: firstFocalPlane,
+                  items: const [
+                    DropdownMenuItem(value: true, child: Text('FFP')),
+                    DropdownMenuItem(value: false, child: Text('SFP')),
+                  ],
+                  onChanged: (v) => setState(() => firstFocalPlane = v),
+                ),
+                MenzilInput(
+                  key: const Key('scope-min-mag'),
+                  controller: scopeMinMag,
+                  label: 'Minimum büyütme',
+                  unit: 'x',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_minMagError, scopeMinMag),
+                ),
+                MenzilInput(
+                  key: const Key('scope-max-mag'),
+                  controller: scopeMaxMag,
+                  label: 'Maksimum büyütme',
+                  unit: 'x',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_maxMagError, scopeMaxMag),
+                ),
+                MenzilInput(
+                  key: const Key('scope-objective'),
+                  controller: scopeObjective,
+                  label: 'Mercek çapı',
+                  unit: 'mm',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_objectiveError, scopeObjective),
+                ),
+                MenzilSelect<AngularUnit>(
+                  key: ValueKey('profile-angular-unit-${angularUnit.name}'),
+                  label: 'Dürbün birimi',
+                  initialValue: angularUnit,
+                  items: const [
+                    DropdownMenuItem(
+                      value: AngularUnit.mrad,
+                      child: Text('MRAD'),
+                    ),
+                    DropdownMenuItem(
+                      value: AngularUnit.moa,
+                      child: Text('MOA'),
+                    ),
+                  ],
+                  onChanged: (v) => setState(() {
+                    final next = v ?? AngularUnit.mrad;
+                    // Keep a typed click value; replace only the default
+                    // of the other unit.
+                    final click = _parse(scopeClick);
+                    if (click == null || click == _defaultClick(angularUnit)) {
+                      scopeClick.text = _trimNum(_defaultClick(next));
+                    }
+                    angularUnit = next;
+                  }),
+                ),
+                MenzilInput(
+                  key: const Key('scope-click'),
+                  controller: scopeClick,
+                  label: 'Klik değeri',
+                  unit: angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
+                  helperText: 'Kulenin bir klikte ayarladığı açı.',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_clickError, scopeClick),
+                ),
+                MenzilInput(
+                  key: const Key('scope-sight-height'),
+                  controller: sight,
+                  label: 'Dürbün yüksekliği (sight height)',
+                  unit: 'mm',
+                  onChanged: (_) => setState(() {}),
+                  helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
+                  errorText: sight.text.isNotEmpty && !_validSight
+                      ? '0–300 mm arasında geçerli bir değer girin.'
+                      : null,
+                ),
+                MenzilFullWidth(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _scopeDesignation.isEmpty
+                            ? 'Dürbün: —'
+                            : 'Dürbün: ${scopeBrand.text.trim()} $_scopeDesignation'
+                                  .trim(),
+                        key: const Key('scope-designation'),
+                        style: MenzilType.body(c.ink),
+                      ),
+                      if (_showErrors && firstFocalPlane == null)
+                        const MenzilNotice(
+                          tone: MenzilNoticeTone.danger,
+                          message: 'Odak düzlemini seçin (FFP / SFP).',
+                        ),
+                      TextButton.icon(
+                        onPressed: _showSightHelp,
+                        icon: const Icon(Icons.info_outline, size: 18),
+                        label: const Text('Dürbün yüksekliği nasıl ölçülür?'),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -1361,29 +1637,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       ),
                     ),
                   ),
-                MenzilSelect<ScopeOptic>(
-                  label: 'Dürbün',
-                  initialValue: scope,
-                  items: _allScopes
-                      .map(
-                        (e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(
-                            _optionLabel(e.displayName, e.userEntered),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  // The scope's turret unit becomes the profile unit; the
-                  // user can still change "Dürbün birimi" below.
-                  onChanged: (v) => setState(() {
-                    scope = v;
-                    if (v != null) angularUnit = v.clickUnit;
-                  }),
-                ),
-                if (ammo?.userEntered == true || scope?.userEntered == true)
+                if (ammo?.userEntered == true)
                   const MenzilNotice(
                     tone: MenzilNoticeTone.info,
                     message:
@@ -1428,53 +1682,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   label: 'Sıfırlama mesafesi',
                   unit: 'm',
                 ),
-                MenzilInput(
-                  controller: sight,
-                  label: 'Dürbün yüksekliği',
-                  unit: 'mm',
-                  onChanged: (_) => setState(() {}),
-                  helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
-                  errorText: sight.text.isNotEmpty && !_validSight
-                      ? '0–300 mm arasında geçerli bir değer girin.'
-                      : null,
-                ),
-                MenzilSelect<AngularUnit>(
-                  key: ValueKey('profile-angular-unit-${angularUnit.name}'),
-                  label: 'Dürbün birimi',
-                  initialValue: angularUnit,
-                  items: const [
-                    DropdownMenuItem(
-                      value: AngularUnit.mrad,
-                      child: Text('MRAD'),
-                    ),
-                    DropdownMenuItem(
-                      value: AngularUnit.moa,
-                      child: Text('MOA'),
-                    ),
-                  ],
-                  onChanged: (v) =>
-                      setState(() => angularUnit = v ?? AngularUnit.mrad),
-                ),
                 if (platform == WeaponPlatform.pcp)
                   MenzilInput(
                     controller: pressure,
                     label: 'Atış basıncı',
                     unit: 'bar',
                   ),
-                MenzilFullWidth(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton.icon(
-                      onPressed: _showSightHelp,
-                      icon: const Icon(Icons.info_outline, size: 18),
-                      label: const Text('Dürbün yüksekliği nasıl ölçülür?'),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
-          _CatalogValues(rifle: null, ammo: ammo, scope: scope),
+          _CatalogValues(rifle: null, ammo: ammo, scope: null),
         ],
       ),
     );

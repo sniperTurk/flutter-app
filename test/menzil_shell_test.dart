@@ -127,6 +127,22 @@ void main() {
     // the atmosphere result of the same solve is shown.
     await tester.tap(find.text('Hava Durumu'));
     await tester.pumpAndSettle();
+    // Values that come from Profil are shown but locked here.
+    await tester.ensureVisible(find.text('Atış girdileri'));
+    await tester.tap(find.text('Atış girdileri'));
+    await tester.pumpAndSettle();
+    for (final key in [
+      BallisticsFieldKeys.velocity,
+      BallisticsFieldKeys.grain,
+      BallisticsFieldKeys.zero,
+      BallisticsFieldKeys.sight,
+    ]) {
+      final field = tester.widget<TextField>(
+        find.descendant(of: find.byKey(key), matching: find.byType(TextField)),
+      );
+      expect(field.enabled, isFalse, reason: '$key');
+    }
+    await tester.pumpAndSettle();
     final field = tester.widget<TextField>(
       find.descendant(
         of: find.byKey(BallisticsFieldKeys.temperature),
@@ -312,7 +328,14 @@ void main() {
       reason: 'the rifle must be typed in; no catalog rifle is preselected',
     );
     await fillRifleForm(tester);
-    expect(save(), isNotNull, reason: 'complete rifle data makes it saveable');
+    expect(save(), isNull, reason: 'the scope must be typed in as well');
+    await fillScopeForm(tester);
+    expect(
+      find.text('Dürbün: Test Optik 6-24x56 FFP'),
+      findsOneWidget,
+      reason: 'separate fields are shown as one designation line',
+    );
+    expect(save(), isNotNull, reason: 'complete rifle and scope data');
     await tester.tap(find.text('Kaydet'));
     await tester.pumpAndSettle();
     expect(
@@ -335,6 +358,19 @@ void main() {
     expect(rifle.barrelLengthMm, 600);
     expect(rifle.twistDirection, TwistDirection.right);
     expect(rifle.twistRateIn, 16);
+    expect(rifle.regulatorBar, 120);
+    final scope = CatalogRepository.allScopes.singleWhere(
+      (o) => o.id == saved.scopeId,
+    );
+    expect(scope.userEntered, isTrue);
+    expect(scope.brand, 'Test Optik');
+    expect(scope.model, '6-24x56 FFP');
+    expect(scope.minMagnification, 6);
+    expect(scope.maxMagnification, 24);
+    expect(scope.objectiveDiameterMm, 56);
+    expect(scope.firstFocalPlane, isTrue);
+    expect(scope.clickValue, 0.1);
+    expect(scope.clickUnit, AngularUnit.mrad);
   });
 
   testWidgets('MenzilCard hosts ListTile children without ink assertion', (

@@ -1122,12 +1122,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       children: [
         MenzilInput(
           key: BallisticsFieldKeys.velocity,
+          // In the shell these come from Profil and are read-only here:
+          // the profile is the single source of the solver inputs.
+          enabled: !collapseShotInputs,
           controller: velocity,
           label: 'Namlu çıkış hızı',
           unit: metric ? 'm/s' : 'fps',
         ),
         MenzilInput(
           key: BallisticsFieldKeys.grain,
+          // In the shell these come from Profil and are read-only here:
+          // the profile is the single source of the solver inputs.
+          enabled: !collapseShotInputs,
           controller: grain,
           label: 'Mühimmat ağırlığı',
           unit: 'grain',
@@ -1135,12 +1141,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ),
         MenzilInput(
           key: BallisticsFieldKeys.zero,
+          // In the shell these come from Profil and are read-only here:
+          // the profile is the single source of the solver inputs.
+          enabled: !collapseShotInputs,
           controller: zero,
           label: 'Sıfır mesafesi',
           unit: metric ? 'm' : 'yd',
         ),
         MenzilInput(
           key: BallisticsFieldKeys.sight,
+          // In the shell these come from Profil and are read-only here:
+          // the profile is the single source of the solver inputs.
+          enabled: !collapseShotInputs,
           controller: sight,
           label: 'Dürbün eksen yüksekliği',
           unit: metric ? 'mm' : 'in',
@@ -1230,7 +1242,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       if (collapseShotInputs)
         MenzilAccordion(
           title: 'Atış girdileri',
-          subtitle: 'Profilden gelir; yalnız bu oturum için değiştirin.',
+          subtitle: 'Profilden gelir; değiştirmek için Profil\'i düzenleyin.',
           child: shotInputs,
         )
       else ...[
