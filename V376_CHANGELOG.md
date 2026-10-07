@@ -9,11 +9,13 @@ bekleniyor"); kuleler dönse de retikülde vuruş noktası ve kırmızı mesafe
 sayıları çıkmıyordu. Kullanıcı önce "Hesapla"ya basması gerektiğini bilmiyordu.
 
 ## Üretim kodu (`lib/features/ballistics/ballistics_screen.dart`)
-- Çalışma alanı açılınca (birim tercihi alanlara uygulandıktan sonra) aktif
-  profil otomatik çözülür. Bu ilk çözümün hataları sessizdir; Atış
+- Çalışma alanı açılınca (ilk kare çizildikten sonra) aktif profil otomatik
+  çözülür. Bu ilk çözümün hataları sessizdir; Atış
   görünümündeki not nedenini söyler.
 - Atış görünümünde "Hesapla" her zaman görünür (Hava Durumu değişince yeniden
   hesaplamak için); çözüm yoksa vurgulu.
+- BC notu son çözüme değil girilen grain'e bakar (açılışta çözüm hazır
+  olduğundan, grain değişince not hemen güncellenir).
 
 ## Testler
 - `test/scope_dial_view_test.dart`: Atış açılınca, Hesapla'ya basmadan vuruş
