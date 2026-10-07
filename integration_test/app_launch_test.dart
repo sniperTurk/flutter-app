@@ -20,14 +20,17 @@ void main() {
     // and the real persistent-store/plugin wiring on an iOS runtime.
     expect(find.text('Katalog yüklenemedi'), findsNothing);
     expect(find.text('Menzil'), findsWidgets);
-    for (final tab in const ['Atış', 'Tablo', 'Ortam', 'Profil', 'Araçlar']) {
+    for (final tab in const ['Profil', 'Atış', 'Tablo', 'Ortam', 'Araçlar']) {
       expect(
         find.text(tab),
         findsWidgets,
         reason: 'bottom navigation tab $tab',
       );
     }
-    // Clean install: the ballistic workspace stays locked without a profile.
+    // The app opens on Profil; on a clean install the ballistic workspace
+    // stays locked without a profile.
+    await tester.tap(find.text('Atış').first);
+    await tester.pumpAndSettle();
     expect(find.text('DOPE için önce aktif profil oluşturun'), findsOneWidget);
     expect(tester.takeException(), isNull);
 

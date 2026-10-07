@@ -72,8 +72,12 @@ void main() {
             ),
           );
           await tester.pumpAndSettle();
+          // The app opens on Profil.
+          expect(tester.takeException(), isNull, reason: 'Profil at start');
 
           // Atış before and after a solve.
+          await tester.tap(find.text('Atış'));
+          await tester.pumpAndSettle();
           await tester.tap(find.text('Hesapla'));
           await tester.pumpAndSettle();
           expect(tester.takeException(), isNull);
@@ -126,6 +130,8 @@ void main() {
         ),
       ),
     );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Atış'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Hesapla'));
     await tester.pumpAndSettle();

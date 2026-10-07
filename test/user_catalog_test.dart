@@ -584,16 +584,21 @@ void main() {
         (w) =>
             w is Semantics &&
             w.properties.label == 'Kişisel katalog yükleniyor',
+        // The app opens on Profil, so the workspace tab is offstage.
+        skipOffstage: false,
       ),
       findsOneWidget,
     );
-    expect(find.textContaining('katalogla eşleşmiyor'), findsNothing);
-    expect(find.byType(BallisticsScreen), findsNothing);
+    expect(
+      find.textContaining('katalogla eşleşmiyor', skipOffstage: false),
+      findsNothing,
+    );
+    expect(find.byType(BallisticsScreen, skipOffstage: false), findsNothing);
 
     loader.gate.complete();
     await tester.pumpAndSettle();
     final solver = tester.widget<BallisticsScreen>(
-      find.byType(BallisticsScreen),
+      find.byType(BallisticsScreen, skipOffstage: false),
     );
     expect(solver.profile?.id, 'personal');
   });

@@ -43,6 +43,12 @@ Future<void> _pumpShell(
   await tester.pumpAndSettle();
 }
 
+/// The app opens on Profil; tests of the ballistic workspace switch to Atış.
+Future<void> _openShot(WidgetTester tester) async {
+  await tester.tap(find.text('Atış'));
+  await tester.pumpAndSettle();
+}
+
 void main() {
   testWidgets('shell shows the Menzil bar and the five tabs', (tester) async {
     // find.bySemanticsLabel throws unless semantics are enabled.
@@ -54,10 +60,18 @@ void main() {
     );
 
     expect(find.text('Menzil'), findsOneWidget);
-    for (final tab in const ['Atış', 'Tablo', 'Ortam', 'Profil', 'Araçlar']) {
+    for (final tab in const ['Profil', 'Atış', 'Tablo', 'Ortam', 'Araçlar']) {
       expect(find.text(tab), findsOneWidget, reason: tab);
     }
-    // Atış is the start tab and offers the range dial.
+    // Profil is the start tab and the leftmost one.
+    expect(find.text('Aktif profil'), findsOneWidget);
+    expect(find.text('Hesapla'), findsNothing);
+    final profilX = tester.getCenter(find.text('Profil')).dx;
+    for (final tab in const ['Atış', 'Tablo', 'Ortam', 'Araçlar']) {
+      expect(tester.getCenter(find.text(tab)).dx, greaterThan(profilX));
+    }
+    // Atış offers the range dial.
+    await _openShot(tester);
     expect(find.text('Hesapla'), findsOneWidget);
     expect(find.bySemanticsLabel('5 artır'), findsOneWidget);
     semantics.dispose();
@@ -115,6 +129,7 @@ void main() {
       await _storeWith([_profile]),
       MemoryActiveProfileStore(),
     );
+    await _openShot(tester);
     await tester.tap(find.text('Hesapla'));
     await tester.pumpAndSettle();
 
@@ -136,6 +151,7 @@ void main() {
         await _storeWith([_profile]),
         MemoryActiveProfileStore(),
       );
+      await _openShot(tester);
       await tester.tap(find.text('Hesapla'));
       await tester.pumpAndSettle();
 

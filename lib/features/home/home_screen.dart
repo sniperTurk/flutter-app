@@ -18,8 +18,9 @@ import '../profiles/profiles_screen.dart';
 import '../settings/settings_screen.dart';
 import '../tools/tools_screen.dart';
 
-/// Application shell: fixed Menzil top bar, five tabs (Atış, Tablo, Ortam,
-/// Profil, Araçlar) and the active-profile state shared by all of them.
+/// Application shell: fixed Menzil top bar, five tabs (Profil, Atış, Tablo,
+/// Ortam, Araçlar) and the active-profile state shared by all of them.
+/// The app opens on Profil.
 class HomeScreen extends StatefulWidget {
   final ProfileStore? profileStore;
   final ActiveProfileStore? activeProfileStore;
@@ -63,20 +64,20 @@ class _HomeScreenState extends State<HomeScreen> {
   /// profile the ballistic workspace actually uses.
   int _selectorEpoch = 0;
 
-  static const _tabShot = 0;
-  static const _tabTable = 1;
-  static const _tabEnvironment = 2;
-  static const _tabProfile = 3;
+  static const _tabProfile = 0;
+  static const _tabShot = 1;
+  static const _tabTable = 2;
+  static const _tabEnvironment = 3;
 
   static const _navItems = [
+    MenzilNavItem(MenzilGlyph.profile, 'Profil'),
     MenzilNavItem(MenzilGlyph.shot, 'Atış'),
     MenzilNavItem(MenzilGlyph.table, 'Tablo'),
     MenzilNavItem(MenzilGlyph.environment, 'Ortam'),
-    MenzilNavItem(MenzilGlyph.profile, 'Profil'),
     MenzilNavItem(MenzilGlyph.tools, 'Araçlar'),
   ];
 
-  int tab = _tabShot;
+  int tab = _tabProfile;
   BallisticsView ballisticsView = BallisticsView.shot;
   bool metric = true;
   int _profilesRevision = 0;
@@ -348,9 +349,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   key: const ValueKey('menzil-tabs'),
                   child: IndexedStack(
-                    index: tab <= _tabEnvironment ? 0 : tab - _tabEnvironment,
+                    // 0: Profil, 1: Atış/Tablo/Ortam (one workspace), 2: Araçlar.
+                    index: tab == _tabProfile
+                        ? 0
+                        : tab <= _tabEnvironment
+                        ? 1
+                        : 2,
                     children: [
-                      _ballisticsTab(context),
                       ProfilesScreen(
                         embedded: true,
                         store: profiles,
@@ -359,6 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onActivate: _choose,
                         onProfilesChanged: _load,
                       ),
+                      _ballisticsTab(context),
                       ToolsScreen(
                         onSettingsClosed: _loadUnitPreference,
                         onProfilesChanged: _load,

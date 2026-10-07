@@ -28,7 +28,7 @@ const _profile = RifleProfile(
   pressureBar: 200,
 );
 
-const _tabs = ['Atış', 'Tablo', 'Ortam', 'Profil', 'Araçlar'];
+const _tabs = ['Profil', 'Atış', 'Tablo', 'Ortam', 'Araçlar'];
 
 Future<void> _setView(
   WidgetTester tester,
@@ -77,6 +77,10 @@ Finder _tab(String label) => find.descendant(
 );
 
 Future<void> _visitEveryTab(WidgetTester tester) async {
+  // The app opens on Profil.
+  expect(tester.takeException(), isNull, reason: 'Profil at start');
+  await tester.tap(_tab('Atış'));
+  await tester.pumpAndSettle();
   await tester.ensureVisible(find.text('Hesapla'));
   await tester.pumpAndSettle();
   await tester.tap(find.text('Hesapla'));
