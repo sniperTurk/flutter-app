@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sniper_turk/data/catalog_repository.dart';
+import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
@@ -8,6 +11,8 @@ import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 import 'package:sniper_turk/ui/menzil_widgets.dart';
+
+import 'support/rifle_form.dart';
 
 const _profile = RifleProfile(
   id: 'p1',
@@ -66,7 +71,8 @@ void main() {
       MemoryActiveProfileStore(),
     );
 
-    expect(find.text('Menzil'), findsOneWidget);
+    // Profil shows no Menzil wordmark; the other tabs do.
+    expect(find.text('Menzil'), findsNothing);
     for (final tab in const ['Profil', 'Hava Durumu', 'Atış', 'Araçlar']) {
       expect(find.text(tab), findsOneWidget, reason: tab);
     }
@@ -85,6 +91,7 @@ void main() {
     }
     // Atış opens on the single shot and offers the range dial.
     await _openShot(tester);
+    expect(find.text('Menzil'), findsOneWidget);
     expect(find.byKey(const Key('shot-mode-shot')), findsOneWidget);
     expect(find.byKey(const Key('shot-mode-table')), findsOneWidget);
     expect(find.text('Hesapla'), findsOneWidget);
@@ -273,9 +280,11 @@ void main() {
     semantics.dispose();
   });
 
-  testWidgets('profile editor saves through the store with catalog defaults', (
+  testWidgets('profile editor saves a typed-in rifle through the stores', (
     tester,
   ) async {
+    SharedPreferences.setMockInitialValues({});
+    addTearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
     final store = MemoryProfileStore();
     await tester.pumpWidget(
       MaterialApp(
@@ -289,14 +298,18 @@ void main() {
     await tester.tap(find.text('Yeni profil'));
     await tester.pumpAndSettle();
     expect(find.text('Profil Oluştur'), findsOneWidget);
-    final saveButton = tester.widget<MenzilPrimaryButton>(
-      find.widgetWithText(MenzilPrimaryButton, 'Kaydet'),
-    );
+    VoidCallback? save() => tester
+        .widget<MenzilPrimaryButton>(
+          find.widgetWithText(MenzilPrimaryButton, 'Kaydet'),
+        )
+        .onPressed;
     expect(
-      saveButton.onPressed,
-      isNotNull,
-      reason: 'a new profile with catalog defaults must be saveable',
+      save(),
+      isNull,
+      reason: 'the rifle must be typed in; no catalog rifle is preselected',
     );
+    await fillRifleForm(tester);
+    expect(save(), isNotNull, reason: 'complete rifle data makes it saveable');
     await tester.tap(find.text('Kaydet'));
     await tester.pumpAndSettle();
     expect(
@@ -305,8 +318,20 @@ void main() {
       reason: 'editor should have closed after saving',
     );
 
-    expect((await store.all()).single.name, 'Yeni Profil');
+    final saved = (await store.all()).single;
+    expect(saved.name, 'Yeni Profil');
     expect(find.text('Yeni Profil'), findsOneWidget);
+    // The rifle became a personal record with every typed value.
+    final rifle = CatalogRepository.allRifles.singleWhere(
+      (r) => r.id == saved.rifleId,
+    );
+    expect(rifle.userEntered, isTrue);
+    expect(rifle.brand, 'Test Marka');
+    expect(rifle.model, 'Test Model');
+    expect(rifle.caliberMm, 6.35);
+    expect(rifle.barrelLengthMm, 600);
+    expect(rifle.twistDirection, TwistDirection.right);
+    expect(rifle.twistRateIn, 16);
   });
 
   testWidgets('MenzilCard hosts ListTile children without ink assertion', (

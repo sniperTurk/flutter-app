@@ -277,6 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onUnitTap: _openSettings,
         themeLabel: MenzilThemeController.labelFor(themeMode),
         onThemeTap: themeController?.cycle,
+        showBrand: tab != _tabProfile,
       ),
       bottomNavigationBar: MenzilBottomNavigation(
         items: _navItems,

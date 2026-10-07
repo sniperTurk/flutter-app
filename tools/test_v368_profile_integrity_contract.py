@@ -12,7 +12,8 @@ def read(rel):
 class V368ProfileIntegrity(unittest.TestCase):
     def test_editor_never_autofills_catalog_ids_when_editing(self):
         t = read('lib/features/profiles/profiles_screen.dart')
-        self.assertIn('if (!_isEdit) {\n      rifle ??= rifles.firstWhere(', t)
+        # V375: no rifle is ever preselected; the user types the rifle in.
+        self.assertNotIn('rifle ??=', t)
         self.assertIn('if (!_isEdit) scope ??= CatalogRepository.scopes.first;', t)
         self.assertIn('if (!_isEdit && !ammos.contains(ammo))', t)
         self.assertNotIn('\n    rifle ??= rifles.first;', t)
@@ -20,7 +21,8 @@ class V368ProfileIntegrity(unittest.TestCase):
 
     def test_save_requires_explicit_rifle_ammo_scope(self):
         t = read('lib/features/profiles/profiles_screen.dart')
-        self.assertIn('rifle != null && ammo != null && scope != null && _validSight', t)
+        # V375: the typed rifle must be complete and valid (incl. twist).
+        self.assertIn('!_saving && _rifleValid && ammo != null && scope != null && _validSight', t)
 
     def test_no_fabricated_pressure_for_existing_profile(self):
         t = read('lib/features/profiles/profiles_screen.dart')

@@ -41,6 +41,9 @@ const _rifle = <String, dynamic>{
   'brand': 'Atölye',
   'model': 'Uzun Namlu',
   'caliberMm': 5.5,
+  'barrelLengthMm': 600,
+  'twistDirection': 'right',
+  'twistRateIn': 16,
   'sourceName': 'Kullanıcı girdisi',
 };
 const _ammo = <String, dynamic>{

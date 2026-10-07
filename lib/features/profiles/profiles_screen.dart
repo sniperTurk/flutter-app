@@ -600,6 +600,17 @@ class _ActiveProfileDetails extends StatelessWidget {
                 barrelLengthMm.toStringAsFixed(0),
                 'mm',
               ),
+            if (rifle?.twistDirection != null)
+              MenzilMetric(
+                'Yiv yönü',
+                rifle!.twistDirection == TwistDirection.right ? 'Sağ' : 'Sol',
+              ),
+            if (rifle?.twistRateIn != null)
+              MenzilMetric(
+                'Yiv oranı',
+                '1:${_trimNum(rifle!.twistRateIn!)}',
+                'inç',
+              ),
             if (scope != null)
               MenzilMetric(
                 'Klik değeri',
@@ -697,9 +708,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       CatalogRepository.userCatalog.blocked;
   final ManualCatalogStore _manualStore = ManualCatalogStore();
 
-  List<Rifle> _riflesFor(WeaponPlatform p) =>
-      _allRifles.where((r) => r.platform == p).toList(growable: false);
-
   List<Ammunition> _ammunitionFor(WeaponPlatform p, double caliberMm) =>
       _allAmmunition
           .where(
@@ -708,7 +716,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           .toList(growable: false);
 
   WeaponPlatform platform = WeaponPlatform.pcp;
+
+  /// The rifle is typed in by the user (catalog rifle data proved
+  /// unreliable). On save it is written as a personal record and the profile
+  /// points at it. An existing personal record is updated in place.
   Rifle? rifle;
+  late final TextEditingController rifleBrand;
+  late final TextEditingController rifleModel;
+  late final TextEditingController rifleCaliber;
+  late final TextEditingController rifleBarrel;
+  late final TextEditingController rifleTwist;
+  TwistDirection? twistDirection;
+  bool _saving = false;
   Ammunition? ammo;
   ScopeOptic? scope;
   late final TextEditingController name;
@@ -748,6 +767,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scope = p == null
         ? null
         : _allScopes.where((o) => o.id == p.scopeId).firstOrNull;
+    String num(double? v) =>
+        v == null ? '' : (v % 1 == 0 ? v.toStringAsFixed(0) : v.toString());
+    rifleBrand = TextEditingController(text: initialRifle?.brand ?? '');
+    rifleModel = TextEditingController(text: initialRifle?.model ?? '');
+    rifleCaliber = TextEditingController(text: num(initialRifle?.caliberMm));
+    rifleBarrel = TextEditingController(
+      text: num(initialRifle?.barrelLengthMm),
+    );
+    rifleTwist = TextEditingController(text: num(initialRifle?.twistRateIn));
+    twistDirection = initialRifle?.twistDirection;
     if (p != null) {
       if (rifle == null) _unresolved.add('tüfek');
       if (ammo == null) {
@@ -773,6 +802,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   @override
   void dispose() {
+    rifleBrand.dispose();
+    rifleModel.dispose();
+    rifleCaliber.dispose();
+    rifleBarrel.dispose();
+    rifleTwist.dispose();
     name.dispose();
     velocity.dispose();
     zero.dispose();
@@ -786,10 +820,90 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return v != null && v > 0 && v < 300;
   }
 
-  void _save() {
-    if (rifle == null || ammo == null || scope == null) return;
+  static double? _parse(TextEditingController c) {
+    final v = double.tryParse(c.text.trim().replaceAll(',', '.'));
+    return v != null && v.isFinite ? v : null;
+  }
+
+  // Plausibility bounds for typed rifle data (application guardrails, not
+  // claims about any rifle).
+  static const _minCaliberMm = 2.0, _maxCaliberMm = 20.0;
+  static const _minBarrelMm = 50.0, _maxBarrelMm = 1500.0;
+  static const _minTwistIn = 3.0, _maxTwistIn = 80.0;
+
+  String? _textError(TextEditingController c) {
+    final t = c.text.trim();
+    if (t.isEmpty) return 'Gerekli.';
+    if (t.length > 100) return 'En fazla 100 karakter.';
+    return null;
+  }
+
+  String? _rangeError(TextEditingController c, double min, double max) {
+    if (c.text.trim().isEmpty) return 'Gerekli.';
+    final v = _parse(c);
+    if (v == null || v < min || v > max) {
+      String f(double x) => x % 1 == 0 ? x.toStringAsFixed(0) : '$x';
+      return '${f(min)}–${f(max)} arasında bir değer girin.';
+    }
+    return null;
+  }
+
+  String? get _brandError => _textError(rifleBrand);
+  String? get _modelError => _textError(rifleModel);
+  String? get _caliberError =>
+      _rangeError(rifleCaliber, _minCaliberMm, _maxCaliberMm);
+  String? get _barrelError =>
+      _rangeError(rifleBarrel, _minBarrelMm, _maxBarrelMm);
+  String? get _twistError => _rangeError(rifleTwist, _minTwistIn, _maxTwistIn);
+
+  bool get _rifleValid =>
+      _brandError == null &&
+      _modelError == null &&
+      _caliberError == null &&
+      _barrelError == null &&
+      _twistError == null &&
+      twistDirection != null;
+
+  /// Caliber typed so far, used to list matching ammunition.
+  double? get _typedCaliber =>
+      _caliberError == null ? _parse(rifleCaliber) : null;
+
+  /// Show field errors only after the user typed something or tried to save.
+  bool _showErrors = false;
+  String? _shown(String? error, TextEditingController c) =>
+      (_showErrors || c.text.isNotEmpty) ? error : null;
+
+  Map<String, dynamic> _rifleEntry() {
+    final existing = rifle;
+    return <String, dynamic>{
+      'id': existing != null && existing.userEntered
+          ? existing.id
+          : 'manual_rifle_${DateTime.now().microsecondsSinceEpoch}',
+      'kind': 'rifle',
+      'platform': platform.name,
+      'brand': rifleBrand.text.trim(),
+      'model': rifleModel.text.trim(),
+      'caliberMm': _parse(rifleCaliber),
+      'barrelLengthMm': _parse(rifleBarrel),
+      'twistDirection': twistDirection!.name,
+      'twistRateIn': _parse(rifleTwist),
+      'sourceName': userCatalogSourceName,
+    };
+  }
+
+  Future<void> _save() async {
+    if (_saving) return;
+    if (!_rifleValid) {
+      setState(() {
+        _showErrors = true;
+        validationError = 'Tüfek bilgilerinde eksik veya hatalı alan var.';
+      });
+      return;
+    }
+    if (ammo == null || scope == null) return;
+    final ProfileInput input;
     try {
-      final input = ProfileInput.validate(
+      input = ProfileInput.validate(
         name: name.text,
         muzzleVelocityText: velocity.text,
         zeroRangeText: zero.text,
@@ -797,27 +911,54 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         platform: platform,
         pressureText: pressure.text,
       );
-      final id =
-          widget.initial?.id ??
-          DateTime.now().microsecondsSinceEpoch.toString();
-      Navigator.pop(
-        context,
-        RifleProfile(
-          id: id,
-          name: input.name,
-          rifleId: rifle!.id,
-          ammunitionId: ammo!.id,
-          scopeId: scope!.id,
-          muzzleVelocityMps: input.muzzleVelocityMps,
-          zeroRangeM: input.zeroRangeM,
-          sightHeightMm: input.sightHeightMm,
-          pressureBar: input.pressureBar,
-          angularUnit: angularUnit,
-        ),
-      );
     } on FormatException catch (e) {
       setState(() => validationError = e.message);
+      return;
     }
+    // Profile values are valid: only now write the rifle record, so a
+    // rejected profile never leaves a personal record behind.
+    setState(() => _saving = true);
+    final entry = _rifleEntry();
+    final rifleId = entry['id'] as String;
+    try {
+      await _manualStore.upsert(entry);
+      CatalogRepository.installUserCatalog(
+        UserCatalog.fromManualEntries(await _manualStore.all()),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _saving = false;
+        validationError =
+            'Tüfek bilgileri kaydedilemedi. Profil kaydedilmedi; tekrar deneyin.';
+      });
+      return;
+    }
+    if (!mounted) return;
+    if (!CatalogRepository.allRifles.any((r) => r.id == rifleId)) {
+      setState(() {
+        _saving = false;
+        validationError = 'Tüfek kaydı okunamadı. Profil kaydedilmedi.';
+      });
+      return;
+    }
+    final id =
+        widget.initial?.id ?? DateTime.now().microsecondsSinceEpoch.toString();
+    Navigator.pop(
+      context,
+      RifleProfile(
+        id: id,
+        name: input.name,
+        rifleId: rifleId,
+        ammunitionId: ammo!.id,
+        scopeId: scope!.id,
+        muzzleVelocityMps: input.muzzleVelocityMps,
+        zeroRangeM: input.zeroRangeM,
+        sightHeightMm: input.sightHeightMm,
+        pressureBar: input.pressureBar,
+        angularUnit: angularUnit,
+      ),
+    );
   }
 
   /// Lets the user correct catalog values (caliber, barrel length, pellet
@@ -947,18 +1088,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
-    final rifles = _riflesFor(platform);
-    // New profiles only: default to the first rifle that has catalog ammunition
-    // of its caliber, so the default selection is saveable. Edits never do this.
-    if (!_isEdit) {
-      rifle ??= rifles.firstWhere(
-        (r) => _ammunitionFor(platform, r.caliberMm).isNotEmpty,
-        orElse: () => rifles.first,
-      );
-    }
-    final ammos = rifle == null
+    final typedCaliber = _typedCaliber;
+    final ammos = typedCaliber == null
         ? const <Ammunition>[]
-        : _ammunitionFor(platform, rifle!.caliberMm);
+        : _ammunitionFor(platform, typedCaliber);
     if (!_isEdit && !ammos.contains(ammo)) {
       ammo = ammos.isEmpty ? null : ammos.first;
     }
@@ -967,7 +1100,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         .where((b) => b.kind == 'scope' || b.platform == platform)
         .toList(growable: false);
     final canSave =
-        rifle != null && ammo != null && scope != null && _validSight;
+        !_saving && _rifleValid && ammo != null && scope != null && _validSight;
 
     return Scaffold(
       appBar: MenzilSubPageBar(
@@ -1016,8 +1149,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               tone: MenzilNoticeTone.danger,
               message: validationError!,
             ),
-          if (_unresolved.isNotEmpty &&
-              (rifle == null || ammo == null || scope == null))
+          if (_unresolved.isNotEmpty && (ammo == null || scope == null))
             MenzilNotice(
               tone: MenzilNoticeTone.warning,
               message:
@@ -1060,10 +1192,106 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       .toList(),
                   onChanged: (v) => setState(() {
                     platform = v!;
-                    rifle = null;
                     ammo = null;
                   }),
                 ),
+              ],
+            ),
+          ),
+          const MenzilSectionHeader(
+            'Tüfek',
+            subtitle: 'Tüfeğinizin bilgilerini kendiniz girin',
+            padding: EdgeInsets.only(
+              top: MenzilSpace.xxs,
+              bottom: MenzilSpace.sm,
+            ),
+          ),
+          MenzilCard(
+            key: const Key('profile-rifle-form'),
+            padding: const EdgeInsets.fromLTRB(
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+              MenzilSpace.xxs,
+            ),
+            child: MenzilFieldGrid(
+              children: [
+                MenzilInput(
+                  key: const Key('rifle-brand'),
+                  controller: rifleBrand,
+                  label: 'Marka',
+                  keyboardType: TextInputType.text,
+                  maxLength: 100,
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_brandError, rifleBrand),
+                ),
+                MenzilInput(
+                  key: const Key('rifle-model'),
+                  controller: rifleModel,
+                  label: 'Model',
+                  keyboardType: TextInputType.text,
+                  maxLength: 100,
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_modelError, rifleModel),
+                ),
+                MenzilInput(
+                  key: const Key('rifle-caliber'),
+                  controller: rifleCaliber,
+                  label: 'Kalibre',
+                  unit: 'mm',
+                  hintText: '5,5 / 6,35 / 7,62',
+                  onChanged: (_) => setState(() {
+                    // A different caliber may no longer fit the ammunition.
+                    final cal = _typedCaliber;
+                    if (ammo != null &&
+                        (cal == null ||
+                            !_ammunitionFor(platform, cal).contains(ammo))) {
+                      ammo = null;
+                    }
+                  }),
+                  errorText: _shown(_caliberError, rifleCaliber),
+                ),
+                MenzilInput(
+                  key: const Key('rifle-barrel'),
+                  controller: rifleBarrel,
+                  label: 'Namlu uzunluğu',
+                  unit: 'mm',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_barrelError, rifleBarrel),
+                ),
+                MenzilSelect<TwistDirection>(
+                  key: const Key('rifle-twist-direction'),
+                  label: 'Namlu yiv yönü',
+                  initialValue: twistDirection,
+                  items: const [
+                    DropdownMenuItem(
+                      value: TwistDirection.right,
+                      child: Text('Sağ'),
+                    ),
+                    DropdownMenuItem(
+                      value: TwistDirection.left,
+                      child: Text('Sol'),
+                    ),
+                  ],
+                  onChanged: (v) => setState(() => twistDirection = v),
+                ),
+                MenzilInput(
+                  key: const Key('rifle-twist-rate'),
+                  controller: rifleTwist,
+                  label: 'Yiv oranı (1:…)',
+                  unit: 'inç',
+                  hintText: '16',
+                  helperText: '1:16" için 16 girin (bir tam dönüş, inç).',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_twistError, rifleTwist),
+                ),
+                if (_showErrors && twistDirection == null)
+                  const MenzilFullWidth(
+                    child: MenzilNotice(
+                      tone: MenzilNoticeTone.danger,
+                      message: 'Namlu yiv yönünü seçin (Sağ / Sol).',
+                    ),
+                  ),
               ],
             ),
           ),
@@ -1084,49 +1312,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                MenzilSelect<Rifle>(
-                  key: ValueKey('profile-rifle-${platform.name}'),
-                  label: 'Tüfek',
-                  initialValue: rifle,
-                  items: rifles
-                      .map(
-                        (e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(
-                            _optionLabel(e.displayName, e.userEntered),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  onChanged: (v) => setState(() {
-                    rifle = v;
-                    ammo = null;
-                  }),
-                ),
-                if (rifle != null)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton.icon(
-                      key: const ValueKey('profile-edit-rifle-values'),
-                      onPressed: () => _editRecordValues(forRifle: true),
-                      icon: const Icon(Icons.tune, size: 18),
-                      label: Text(
-                        rifle!.userEntered
-                            ? 'Tüfek değerlerini düzenle (kalibre, namlu)'
-                            : 'Tüfek değerleri hatalı mı? Kişisel kopyayı düzenle',
-                      ),
-                    ),
-                  ),
-                if (rifle == null)
+                if (typedCaliber == null)
                   const MenzilNotice(
                     tone: MenzilNoticeTone.warning,
-                    message: 'Mühimmat seçmek için önce tüfeği seçin.',
+                    message:
+                        'Mühimmat seçmek için önce tüfeğin kalibresini girin.',
                   )
                 else if (ammos.isNotEmpty)
                   MenzilSelect<Ammunition>(
-                    key: ValueKey('profile-ammo-${rifle?.id}'),
+                    // initialValue is not live: remount when the typed
+                    // caliber or platform changes the matching list.
+                    key: ValueKey(
+                      'profile-ammo-${platform.name}-$typedCaliber',
+                    ),
                     label: 'Mühimmat',
                     initialValue: ammo,
                     items: ammos
@@ -1147,7 +1345,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   const MenzilNotice(
                     tone: MenzilNoticeTone.warning,
                     message:
-                        'Bu tüfeğin kalibresine uygun katalog mühimmatı yok; profil kaydedilemez.',
+                        'Girilen kalibreye uygun mühimmat yok; profil kaydedilemez.',
                   ),
                 if (ammo != null)
                   Align(
@@ -1185,9 +1383,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     if (v != null) angularUnit = v.clickUnit;
                   }),
                 ),
-                if (rifle?.userEntered == true ||
-                    ammo?.userEntered == true ||
-                    scope?.userEntered == true)
+                if (ammo?.userEntered == true || scope?.userEntered == true)
                   const MenzilNotice(
                     tone: MenzilNoticeTone.info,
                     message:
@@ -1278,7 +1474,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               ],
             ),
           ),
-          _CatalogValues(rifle: rifle, ammo: ammo, scope: scope),
+          _CatalogValues(rifle: null, ammo: ammo, scope: scope),
         ],
       ),
     );
@@ -1462,6 +1658,9 @@ class _SightHeightDiagramPainter extends CustomPainter {
       oldDelegate.accent != accent ||
       oldDelegate.text != text;
 }
+
+String _trimNum(double v) =>
+    v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
 
 /// Shows the profile's SI values in the user's unit system (Ayarlar). The
 /// stored profile stays SI; only the display converts.

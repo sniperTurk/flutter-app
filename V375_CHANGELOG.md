@@ -1,39 +1,38 @@
-# V375 — dürbün: profil birimi, FFP/SFP ve büyütme, hesap dökümü
+# V375 — tüfek bilgileri kullanıcı tarafından girilir; Profil'de "Menzil" yok
 
-Kaynak: `main` @ `2e41a37`. Solver, katalog, `validation/*` ve üretim kapısı
-değişmedi.
+Kaynak: `main` @ `d63559c`. Solver, `validation/*` ve üretim kapısı değişmedi.
+Katalogdaki tüfek kayıtları silinmedi (eski profiller ve Katalog ekranı için
+duruyor) ama profil düzenleyicisi artık tüfek seçtirmiyor.
+
+## Neden
+Sahip kararı (2026-10-07): katalogdaki tüfek ve mühimmat verilerinin çoğu
+hatalı; bu veriler kullanıcı tarafından elle girilecek. İlk adım tüfek.
 
 ## Üretim kodu
-- `lib/core/scope_dial.dart`: `standardClick` (0.1 mrad / ¼ MOA), `convert`
-  (1 mrad = 3.43775 MOA), `reticleSubtension` (FFP = 1; SFP = kalibrasyon /
-  büyütme) ve `visibleHalfField` (görüş alanı büyütmeyle ters orantılı).
-- `lib/features/ballistics/ballistics_screen.dart`: dürbün görünümünün birimi
-  artık profildeki "Dürbün birimi". MRAD profil → MRAD retikül + MRAD kule;
-  MOA profil → MOA retikül + MOA kule. Katalog kulesi farklı birimdeyse o
-  birimin standart kliği kullanılır ve uyarı gösterilir. Klik sayısı kartları
-  ve kule sınırları aynı birimi kullanır. Büyütme durumu çalışma alanında
-  tutulur (varsayılan: en yüksek büyütme).
-- `lib/features/ballistics/scope_dial_view.dart`:
-  - Büyütme kaydırıcısı (katalogda min/maks büyütme varsa).
-  - FFP: retikül görüntüyle birlikte büyür/küçülür, çizgiler her büyütmede
-    gerçek değerdedir.
-  - SFP: retikül ekranda sabit; en yüksek büyütmede kalibre kabul edilir.
-    Başka büyütmede 1 çizgi = kalibrasyon / büyütme; kırmızı mesafe ve
-    turuncu rüzgâr etiketleri bu gerçek açıyla hesaplanır, "1 çizgi = X"
-    uyarısı retikülde gösterilir.
-  - Vuruş noktası her zaman gerçek açı ölçeğinde çizilir.
-  - "Hesap dökümü": 1 birimin mesafedeki karşılığı, gereken düzeltme (cm →
-    birim → diğer birim), klik = düzeltme / klik değeri, diğer birimdeki
-    klik karşılaştırması, kuledeki ayar, kalan, FFP/SFP tutuşu.
-- `lib/features/profiles/profiles_screen.dart`: dürbün seçilince "Dürbün
-  birimi" o dürbünün kule birimine ayarlanır (kullanıcı değiştirebilir).
+- Profil düzenleyicisinde "Tüfek" bölümü: Marka*, Model*, Kalibre (mm)*,
+  Namlu uzunluğu (mm)*, Namlu yiv yönü (Sağ/Sol)*, Yiv oranı (1:N inç)*.
+  Hepsi zorunlu; aralık dışı değerler alan altında hata gösterir ve kaydı
+  engeller (kalibre 2–20 mm, namlu 50–1500 mm, yiv 3–80 inç).
+- Kaydet: önce profil değerleri doğrulanır, sonra tüfek kişisel kayıt olarak
+  (`ManualCatalogStore`, `kind: rifle`) yazılır ve profil ona bağlanır. Mevcut
+  kişisel tüfek yerinde güncellenir; eski katalog tüfeği olan profil
+  düzenlenince değerler forma ön-doldurulur ve kaydedilince kişisel kayda
+  dönüşür. Yazma başarısızsa profil kaydedilmez.
+- Mühimmat listesi girilen kalibre ve platforma göre süzülür (henüz katalog;
+  mühimmat alanları ayrıca gelecek).
+- `Rifle`: `twistDirection`, `twistRateIn`. Kişisel kayıt eşlemesi ve
+  `ManualCatalogStore` doğrulaması (yiv yönü right/left, yiv oranı pozitif).
+  Katalog ekranında kayıt düzenlenince yiv bilgisi korunur.
+- Aktif profil özeti yiv yönü ve oranını gösterir.
+- Profil sekmesinde üst çubuktaki "Menzil" markası gizlenir (diğer sekmelerde
+  durur).
+- Yiv bilgisi şimdilik yalnız bilgi amaçlıdır; nokta-kütle çözücü spin
+  sapmasını modellemez.
 
 ## Testler
-- `test/scope_dial_test.dart`: birim dönüşümü, 1 mrad = 10 × 0.1 mrad klik =
-  14 × ¼ MOA klik, FFP/SFP çizgi değeri, görüş alanı.
-- `test/scope_dial_view_test.dart`: MOA profil + MRAD katalog dürbünü uyarı ve
-  ¼ MOA klik hesabı; SFP 12x/24x çizgi değeri ve tutuş.
-
-## ÇALIŞTIRILMADI / DOĞRULANMADI
-- Bu sandbox'ta Flutter yok (SDK indirme adresi engelli); analyze/test/format
-  sonucu PR'ın iOS CI koşusundadır.
+- `test/support/rifle_form.dart` (form doldurma yardımcısı).
+- Kabuk: Profil'de "Menzil" yok, Atış'ta var; yeni profil tüfek girilmeden
+  kaydedilemez, girilince kişisel kayıt tüm değerlerle oluşur.
+- Fail-closed: eski katalog tüfeği ön-doldurulur, yiv girilmeden Güncelle
+  kapalı; aralık dışı değerler hata verir.
+- Python sözleşmeleri (v299, v368) yeni davranışa göre güncellendi.

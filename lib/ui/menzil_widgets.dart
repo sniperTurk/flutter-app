@@ -122,13 +122,16 @@ class MenzilStateMessage extends StatelessWidget {
 // ---------------------------------------------------------------------------
 
 /// Fixed Menzil bar: brand (left), active-profile selector (centre, flexible)
-/// and the unit / theme buttons (right). Identical on every tab.
+/// and the unit / theme buttons (right). The brand is hidden on Profil.
 class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget profileSelector;
   final String unitLabel;
   final VoidCallback? onUnitTap;
   final String themeLabel;
   final VoidCallback? onThemeTap;
+
+  /// False hides the Menzil wordmark (the Profil page shows no brand).
+  final bool showBrand;
 
   static const double height = 58;
 
@@ -139,6 +142,7 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
     this.onUnitTap,
     required this.themeLabel,
     this.onThemeTap,
+    this.showBrand = true,
   });
 
   @override
@@ -170,8 +174,10 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     child: Row(
                       children: [
-                        MenzilBrand(compact: compact),
-                        const SizedBox(width: MenzilSpace.sm),
+                        if (showBrand) ...[
+                          MenzilBrand(compact: compact),
+                          const SizedBox(width: MenzilSpace.sm),
+                        ],
                         Expanded(child: profileSelector),
                         const SizedBox(width: MenzilSpace.sm),
                         MenzilBarButton(

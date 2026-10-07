@@ -19,7 +19,8 @@ void main() {
     // Enter through main() so this exercises the bundled-catalog startup guard
     // and the real persistent-store/plugin wiring on an iOS runtime.
     expect(find.text('Katalog yüklenemedi'), findsNothing);
-    expect(find.text('Menzil'), findsWidgets);
+    // The app opens on Profil, which shows no Menzil wordmark.
+    expect(find.text('Menzil'), findsNothing);
     for (final tab in const ['Profil', 'Hava Durumu', 'Atış', 'Araçlar']) {
       expect(
         find.text(tab),
@@ -84,12 +85,32 @@ void main() {
     expect(tester.takeException(), isNull);
 
     // Exercise the real SharedPreferences write path, not only a read-only route.
-    // The editor intentionally supplies production defaults for a clean install;
-    // saving them proves catalog selection, validation and persistence wiring can
-    // complete on an actual iOS runtime.
+    // The rifle is typed in (no catalog rifle is preselected); ammunition and
+    // scope keep their defaults. Saving proves validation and the personal
+    // catalog + profile persistence wiring on an actual iOS runtime.
     await tester.tap(find.text('Yeni profil'));
     await tester.pumpAndSettle();
     expect(find.text('Profil Oluştur'), findsOneWidget);
+    Future<void> type(String key, String text) async {
+      final field = find.descendant(
+        of: find.byKey(Key(key)),
+        matching: find.byType(TextField),
+      );
+      await tester.ensureVisible(field);
+      await tester.enterText(field, text);
+      await tester.pump();
+    }
+
+    await type('rifle-brand', 'Test Marka');
+    await type('rifle-model', 'Test Model');
+    await type('rifle-caliber', '6,35');
+    await type('rifle-barrel', '600');
+    await type('rifle-twist-rate', '16');
+    await tester.ensureVisible(find.byKey(const Key('rifle-twist-direction')));
+    await tester.tap(find.byKey(const Key('rifle-twist-direction')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Sağ').last);
+    await tester.pumpAndSettle();
     expect(find.text('Kaydet'), findsOneWidget);
     await tester.tap(find.text('Kaydet'));
     await tester.pumpAndSettle();

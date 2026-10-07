@@ -93,6 +93,10 @@ class _ManualCatalogDialogState extends State<ManualCatalogDialog> {
     'brand': brand.text.trim(), 'model': model.text.trim(),
     'caliberMm': kind == 'scope' ? null : _number(caliber),
     'barrelLengthMm': kind == 'rifle' ? _number(barrel) : null,
+    // Twist is entered in the profile editor; editing the record here must
+    // not silently drop it.
+    'twistDirection': kind == 'rifle' ? (existing?['twistDirection']) : null,
+    'twistRateIn': kind == 'rifle' ? (existing?['twistRateIn']) : null,
     'grain': (kind == 'ammo' || kind == 'custom_ammunition') ? _number(grain) : null,
     'ammoType': (kind == 'ammo' || kind == 'custom_ammunition')
         ? (selectedPlatform == 'firearm' ? 'bullet' : (ammoType == 'bullet' ? 'pellet' : ammoType))

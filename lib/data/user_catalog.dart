@@ -109,6 +109,12 @@ class UserCatalog {
               caliberMm: caliber,
               barrelLengthMm: _positive(e['barrelLengthMm']),
               airCapacityCc: _positive(e['airCapacityCc']),
+              twistDirection: switch (e['twistDirection']) {
+                'right' => TwistDirection.right,
+                'left' => TwistDirection.left,
+                _ => null,
+              },
+              twistRateIn: _positive(e['twistRateIn']),
               sourceName: userCatalogSourceName,
               sourceDocument: userCatalogSourceDocument,
               userEntered: true,
