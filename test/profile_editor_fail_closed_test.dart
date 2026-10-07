@@ -188,9 +188,15 @@ void main() {
     await tester.ensureVisible(bcInfo);
     await tester.tap(bcInfo);
     await tester.pumpAndSettle();
-    expect(find.textContaining('havayı ne kadar kolay yardığını'), findsOneWidget);
+    expect(
+      find.textContaining('havayı ne kadar kolay yardığını'),
+      findsOneWidget,
+    );
     await tester.tap(find.text('Tamam'));
     await tester.pumpAndSettle();
-    expect(find.textContaining('havayı ne kadar kolay yardığını'), findsNothing);
+    expect(
+      find.textContaining('havayı ne kadar kolay yardığını'),
+      findsNothing,
+    );
   });
 }
