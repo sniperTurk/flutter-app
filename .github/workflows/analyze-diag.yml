@@ -1,0 +1,36 @@
+name: One-off analyze diagnostic
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to analyze'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+      - name: Analyze and surface findings as annotations
+        shell: bash
+        run: |
+          flutter pub get >/dev/null
+          set +e
+          flutter analyze --fatal-infos --fatal-warnings > analyze.log 2>&1
+          rc=$?
+          grep -E "error|warning|info" analyze.log | head -20 | while IFS= read -r line; do
+            echo "::error title=analyze::${line:0:400}"
+          done
+          exit $rc

@@ -32,6 +32,14 @@ jobs:
           flutter --version
           dart --version
 
+      # dart format reads per-file language-version/formatter context from the
+      # package configuration. Without it (no .dart_tool/package_config.json)
+      # it can format differently than ios-ci.yml's real "Verify formatting"
+      # step, which always runs after "flutter pub get". Match that order so
+      # the commit this produces actually satisfies the real CI check.
+      - name: Resolve dependencies (match real CI order)
+        run: flutter pub get
+
       - name: Apply dart format
         run: dart format lib test integration_test tools
 

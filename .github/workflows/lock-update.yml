@@ -1,0 +1,43 @@
+name: One-off lockfile update
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to update pubspec.lock on'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+      - name: Resolve (keeps existing pins, adds new packages)
+        run: |
+          flutter pub get
+          git diff --stat -- pubspec.lock | tail -3
+      - name: Provenance
+        run: python3 tools/write_lockfile_provenance.py --flutter-version 3.47.2
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet; then echo "no change"; exit 0; fi
+          git add pubspec.lock lockfile-provenance.txt
+          git commit -m "Update pubspec.lock for flutter_map (CI-generated)"
+          git push origin HEAD:${{ github.event.inputs.branch }}

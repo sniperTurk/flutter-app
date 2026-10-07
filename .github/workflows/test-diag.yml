@@ -1,0 +1,39 @@
+name: One-off test diagnostic
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to test'
+        required: true
+      files:
+        description: 'Test files (space separated)'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+      - name: Run tests and surface failures as annotations
+        shell: bash
+        run: |
+          flutter pub get >/dev/null
+          set +e
+          flutter test --reporter=expanded ${{ github.event.inputs.files }} > test.log 2>&1
+          rc=$?
+          grep -nE "\[E\]|Expected:|Actual:|Which:|EXCEPTION|overflowed|Some tests failed" test.log | head -25 | while IFS= read -r line; do
+            echo "::error title=test::${line:0:400}"
+          done
+          exit $rc
