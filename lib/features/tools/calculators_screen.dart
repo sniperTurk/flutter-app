@@ -7,6 +7,7 @@ import '../../tools/ports/location_provider.dart';
 import '../../tools/tools_services.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import 'reticle_screen.dart';
 import 'tool_support.dart';
 
 const _decimal = TextInputType.numberWithOptions(decimal: true, signed: true);
@@ -59,6 +60,13 @@ class CalculatorsScreen extends StatelessWidget {
             'Stadyametrik mesafe ölçer',
             'Hedef boyutu ve dürbündeki okumadan mesafe',
             const StadiaScreen(),
+          ),
+          tile(
+            'calc-reticle',
+            Icons.gps_fixed,
+            'Retikül (mil-dot)',
+            'Mil-dot çizimi, noktaların mesafedeki cm karşılığı',
+            const ReticleScreen(),
           ),
           tile(
             'calc-distance',

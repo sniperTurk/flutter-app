@@ -45,6 +45,41 @@ abstract final class FieldCalc {
     return math.atan(sizeM / distanceM);
   }
 
+  // ---- Reticle geometry ---------------------------------------------------
+
+  /// True angle (mil) that one reticle mil covers at the current setting.
+  /// A first-focal-plane reticle always covers its nominal value; a
+  /// second-focal-plane reticle is only exact at [calibrationMag] and covers
+  /// [calibrationMag] / [mag] times its nominal value elsewhere.
+  static double? trueMilPerReticleMil({
+    required bool firstFocalPlane,
+    required double mag,
+    required double calibrationMag,
+  }) {
+    if (firstFocalPlane) return 1.0;
+    if (!mag.isFinite ||
+        !calibrationMag.isFinite ||
+        mag <= 0 ||
+        calibrationMag <= 0) {
+      return null;
+    }
+    return calibrationMag / mag;
+  }
+
+  /// Width (m) that [mil] true milliradians span at [distanceM].
+  static double? spanM(double distanceM, double mil) {
+    if (!distanceM.isFinite || !mil.isFinite || distanceM <= 0 || mil < 0) {
+      return null;
+    }
+    return distanceM * math.tan(mil * radPerMil);
+  }
+
+  /// True milliradians a [sizeM] target covers at [distanceM].
+  static double? milOfSize(double sizeM, double distanceM) {
+    final a = angleFromSize(sizeM, distanceM);
+    return a == null ? null : a / radPerMil;
+  }
+
   // ---- Click verification ----------------------------------------------
 
   /// Real value of one click, in the same unit as the angle inputs.

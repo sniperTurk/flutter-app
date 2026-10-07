@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/core/standard_drag_tables.dart';
 import 'package:sniper_turk/features/tools/calculators_screen.dart';
+import 'package:sniper_turk/features/tools/reticle_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/tools/domain/field_calc.dart';
 import 'package:sniper_turk/ui/menzil_widgets.dart';
@@ -163,11 +164,48 @@ void main() {
     });
   });
 
+  group('reticle geometry', () {
+    test('1 mil spans 60 cm at 600 m', () {
+      expect(FieldCalc.spanM(600, 1)!, closeTo(0.6, 1e-6));
+    });
+    test('FFP covers nominal, SFP scales with magnification', () {
+      expect(
+        FieldCalc.trueMilPerReticleMil(
+          firstFocalPlane: true,
+          mag: 5,
+          calibrationMag: 10,
+        ),
+        1.0,
+      );
+      expect(
+        FieldCalc.trueMilPerReticleMil(
+          firstFocalPlane: false,
+          mag: 5,
+          calibrationMag: 10,
+        )!,
+        closeTo(2.0, 1e-12),
+      );
+      expect(
+        FieldCalc.trueMilPerReticleMil(
+          firstFocalPlane: false,
+          mag: 0,
+          calibrationMag: 10,
+        ),
+        isNull,
+      );
+    });
+    test('USMC mil formula: 1.8 m target at 3 mil is 600 m', () {
+      expect(FieldCalc.milOfSize(1.8, 600)!, closeTo(3.0, 1e-3));
+      expect(FieldCalc.distanceFromAngle(1.8, 0.003)!, closeTo(600, 0.01));
+    });
+  });
+
   group('Hesaplayıcılar screens', () {
-    testWidgets('hub lists all twelve tools', (tester) async {
+    testWidgets('hub lists all tools', (tester) async {
       await tester.pumpWidget(host(const CalculatorsScreen()));
       for (final k in const [
         'calc-stadia',
+        'calc-reticle',
         'calc-distance',
         'calc-custom-location',
         'calc-moa-at-distance',
@@ -183,6 +221,16 @@ void main() {
       ]) {
         expect(find.byKey(Key(k)), findsOneWidget, reason: k);
       }
+    });
+
+    testWidgets('reticle shows dot spacing and honest scope note', (
+      tester,
+    ) async {
+      await tester.pumpWidget(host(const ReticleScreen()));
+      expect(find.byKey(const Key('reticle-canvas')), findsOneWidget);
+      // 50 m, FFP: 1 mil = 5.0 cm.
+      expect(find.text('5,0'), findsWidgets);
+      expect(find.textContaining('yalnızca geometridir'), findsOneWidget);
     });
 
     testWidgets('stadia shows the distance', (tester) async {
