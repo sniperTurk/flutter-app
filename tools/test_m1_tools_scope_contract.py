@@ -12,6 +12,7 @@ LIB = ROOT / 'lib'
 PLATFORM_PACKAGES = ('geolocator', 'sensors_plus', 'flutter_compass', 'camera', 'http')
 ALLOWED_PACKAGE_FILES = {
     'lib/tools/adapters/met_no_weather_provider.dart',
+    'lib/tools/adapters/nominatim_place_search.dart',
     'lib/tools/adapters/sensors_plus_tilt_provider.dart',
     'lib/tools/adapters/camera_plugin_service.dart',
     'lib/tools/adapters/geolocator_location_provider.dart',

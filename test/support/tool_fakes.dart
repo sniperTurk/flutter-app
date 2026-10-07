@@ -7,6 +7,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:sniper_turk/tools/ports/camera_service.dart';
 import 'package:sniper_turk/tools/ports/photo_picker.dart';
+import 'package:sniper_turk/tools/ports/place_search.dart';
 import 'package:sniper_turk/tools/ports/clock.dart';
 import 'package:sniper_turk/tools/ports/heading_provider.dart';
 import 'package:sniper_turk/tools/ports/location_provider.dart';
@@ -104,6 +105,21 @@ class TestPhotoPicker implements PhotoPicker {
   }
 }
 
+class TestPlaceSearch implements PlaceSearch {
+  List<PlaceResult> results;
+  PlaceSearchFailure? failure;
+  final List<String> queries = [];
+  TestPlaceSearch([this.results = const []]);
+  @override
+  String get sourceName => 'Test servisi';
+  @override
+  Future<List<PlaceResult>> search(String query) async {
+    queries.add(query);
+    if (failure != null) throw failure!;
+    return results;
+  }
+}
+
 ToolsServices testServices({
   LocationProvider? location,
   WeatherProvider? weather,
@@ -111,6 +127,7 @@ ToolsServices testServices({
   TiltProvider? tilt,
   CameraService? camera,
   PhotoPicker? photoPicker,
+  PlaceSearch? places,
   Clock? clock,
 }) => ToolsServices(
   location: location ?? TestLocation(const LocationFix(39.9, 32.8)),
@@ -121,6 +138,7 @@ ToolsServices testServices({
   tilt: tilt ?? TestTilt(),
   camera: camera ?? TestCamera(),
   photoPicker: photoPicker ?? TestPhotoPicker(),
+  places: places ?? TestPlaceSearch(),
   vision: const DisconnectedVisionAssist(),
   clock: clock ?? TestClock(DateTime.utc(2026, 10, 3, 12)),
 );

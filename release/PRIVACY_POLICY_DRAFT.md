@@ -27,7 +27,9 @@ diğer tüm araçlar çalışmaya devam eder.
 **Harita (yalnızca "Haritadan mesafe").** Bu araç uydu görüntüsünü Esri (ArcGIS World
 Imagery) sunucularından indirir. Görüntülediğiniz harita bölgesi karo istekleri olarak
 bu sunucuya gider ve Esri IP adresinizi görebilir; Esri'nin kendi koşulları geçerlidir.
-Seçtiğiniz nişancı ve hedef konumları saklanmaz ve gönderilmez.
+Seçtiğiniz nişancı ve hedef konumları saklanmaz ve gönderilmez. "Yerleri ara" kutusuna
+yazdığınız metin, yalnızca arama düğmesine bastığınızda OpenStreetMap Nominatim
+servisine (nominatim.openstreetmap.org) gönderilir; yazarken hiçbir şey gönderilmez.
 
 **Kamera ve galeri (yalnızca "Sight Height").** Dürbün yüksekliğini ölçmek için çekilen
 veya galeriden seçilen tek fotoğraf cihazın belleğinde işlenir; kaydedilmez, kitaplığınıza
@@ -66,7 +68,9 @@ every other tool still works.
 **Map (only "Distance from map").** This tool downloads satellite imagery from Esri
 (ArcGIS World Imagery) servers. The map area you view is requested as tiles and Esri can
 see your IP address; Esri's own terms apply. The shooter and target positions you pick
-are neither stored nor sent.
+are neither stored nor sent. The text you type in the place search box is sent to the
+OpenStreetMap Nominatim service (nominatim.openstreetmap.org) only when you press search,
+never while typing.
 
 **Camera and photo library (Sight Height only).** The single photo you take or pick is
 processed in device memory, is not saved, not written to your library and does not leave

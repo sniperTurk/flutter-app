@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../../tools/domain/field_calc.dart';
 import '../../tools/ports/location_provider.dart';
+import '../../tools/ports/place_search.dart';
 import '../../tools/tools_services.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
@@ -45,6 +46,10 @@ class _MapDistanceState extends State<MapDistanceScreen> {
   LatLng? _target;
   bool _locating = false;
   String? _message;
+  final _query = TextEditingController();
+  List<PlaceResult> _results = const [];
+  bool _searching = false;
+  String? _searchMessage;
 
   static const _turkey = LatLng(39.0, 35.0);
 
@@ -57,6 +62,7 @@ class _MapDistanceState extends State<MapDistanceScreen> {
   @override
   void dispose() {
     _map.dispose();
+    _query.dispose();
     super.dispose();
   }
 
@@ -87,6 +93,47 @@ class _MapDistanceState extends State<MapDistanceScreen> {
               'Konum alınamadı. Haritaya dokunarak nişancı konumunu seçebilirsiniz.';
       }
     });
+  }
+
+  Future<void> _runSearch() async {
+    final q = _query.text.trim();
+    FocusScope.of(context).unfocus();
+    if (q.length < 3) {
+      setState(() {
+        _results = const [];
+        _searchMessage = 'En az 3 harf girin.';
+      });
+      return;
+    }
+    final places = ToolsServicesScope.of(context).places;
+    setState(() {
+      _searching = true;
+      _searchMessage = null;
+      _results = const [];
+    });
+    try {
+      final found = await places.search(q);
+      if (!mounted) return;
+      setState(() {
+        _searching = false;
+        _results = found;
+        if (found.isEmpty) _searchMessage = 'Yer bulunamadı.';
+      });
+    } on PlaceSearchFailure catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _searching = false;
+        _searchMessage = e.message;
+      });
+    }
+  }
+
+  void _openResult(PlaceResult r) {
+    setState(() {
+      _results = const [];
+      _searchMessage = null;
+    });
+    _map.move(LatLng(r.latitude, r.longitude), 17);
   }
 
   void _reset() => setState(() {
@@ -356,6 +403,95 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                         Shadow(blurRadius: 3, color: Colors.black87),
                       ],
                     ),
+                  ),
+                ),
+                Positioned(
+                  left: MenzilSpace.md,
+                  right: MenzilSpace.md,
+                  top: MenzilSpace.md,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Material(
+                        elevation: 2,
+                        borderRadius: BorderRadius.circular(12),
+                        color: c.surface,
+                        child: TextField(
+                          key: const Key('map-search'),
+                          controller: _query,
+                          textInputAction: TextInputAction.search,
+                          onSubmitted: (_) => _runSearch(),
+                          style: TextStyle(color: c.ink),
+                          decoration: InputDecoration(
+                            hintText: 'Yerleri ara',
+                            prefixIcon: _searching
+                                ? const Padding(
+                                    padding: EdgeInsets.all(12),
+                                    child: SizedBox(
+                                      width: 18,
+                                      height: 18,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    ),
+                                  )
+                                : const Icon(Icons.search),
+                            suffixIcon: IconButton(
+                              key: const Key('map-search-go'),
+                              tooltip: 'Ara',
+                              icon: const Icon(Icons.arrow_forward),
+                              onPressed: _searching ? null : _runSearch,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      if (_searchMessage != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: MenzilSpace.xs),
+                          child: Material(
+                            borderRadius: BorderRadius.circular(8),
+                            color: c.surface,
+                            child: Padding(
+                              padding: const EdgeInsets.all(MenzilSpace.md),
+                              child: Text(
+                                _searchMessage!,
+                                key: const Key('map-search-message'),
+                                style: TextStyle(color: c.ink2, fontSize: 13),
+                              ),
+                            ),
+                          ),
+                        ),
+                      if (_results.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(top: MenzilSpace.xs),
+                          child: Material(
+                            borderRadius: BorderRadius.circular(12),
+                            color: c.surface,
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(maxHeight: 240),
+                              child: ListView.separated(
+                                key: const Key('map-search-results'),
+                                shrinkWrap: true,
+                                itemCount: _results.length,
+                                separatorBuilder: (_, _) =>
+                                    Divider(height: 1, color: c.line),
+                                itemBuilder: (_, i) => ListTile(
+                                  dense: true,
+                                  leading: const Icon(Icons.place_outlined),
+                                  title: Text(
+                                    _results[i].name,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(color: c.ink),
+                                  ),
+                                  onTap: () => _openResult(_results[i]),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
                 Positioned(

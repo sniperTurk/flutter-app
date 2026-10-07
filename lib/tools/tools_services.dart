@@ -5,12 +5,14 @@ import 'adapters/flutter_compass_heading_provider.dart';
 import 'adapters/geolocator_location_provider.dart';
 import 'adapters/image_picker_photo_picker.dart';
 import 'adapters/met_no_weather_provider.dart';
+import 'adapters/nominatim_place_search.dart';
 import 'adapters/sensors_plus_tilt_provider.dart';
 import 'ports/camera_service.dart';
 import 'ports/clock.dart';
 import 'ports/heading_provider.dart';
 import 'ports/location_provider.dart';
 import 'ports/photo_picker.dart';
+import 'ports/place_search.dart';
 import 'ports/tilt_provider.dart';
 import 'ports/vision_assist.dart';
 import 'ports/weather_provider.dart';
@@ -25,6 +27,7 @@ class ToolsServices {
   final TiltProvider tilt;
   final CameraService camera;
   final PhotoPicker photoPicker;
+  final PlaceSearch places;
   final VisionAssist vision;
   final Clock clock;
 
@@ -35,6 +38,7 @@ class ToolsServices {
     required this.tilt,
     required this.camera,
     required this.photoPicker,
+    required this.places,
     required this.vision,
     required this.clock,
   });
@@ -46,6 +50,7 @@ class ToolsServices {
     tilt: const SensorsPlusTiltProvider(),
     camera: const CameraPluginService(),
     photoPicker: const ImagePickerPhotoPicker(),
+    places: NominatimPlaceSearch(),
     vision: const DisconnectedVisionAssist(),
     clock: const SystemClock(),
   );
