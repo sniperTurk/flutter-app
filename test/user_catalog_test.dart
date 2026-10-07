@@ -56,6 +56,8 @@ const _ammo = <String, dynamic>{
   'caliberMm': 5.5,
   'grain': 18.1,
   'ammoType': 'pellet',
+  'bc': 0.03,
+  'bcModel': 'g1',
   'sourceName': 'Kullanıcı girdisi',
 };
 const _firearmAmmo = <String, dynamic>{
@@ -538,7 +540,7 @@ void main() {
         )
         .onPressed;
 
-    testWidgets('personal records are selectable and labelled as personal', (
+    testWidgets('personal records prefill the typed-in editor forms', (
       tester,
     ) async {
       CatalogRepository.installUserCatalog(
@@ -550,14 +552,22 @@ void main() {
         ]),
       );
       await openEditor(tester);
-      expect(find.textContaining('(kişisel kayıt)'), findsWidgets);
-      expect(
-        find.textContaining('üretici tarafından doğrulanmamıştır'),
-        findsOneWidget,
-      );
+      String text(String key) => tester
+          .widget<TextField>(
+            find.descendant(
+              of: find.byKey(Key(key)),
+              matching: find.byType(TextField),
+            ),
+          )
+          .controller!
+          .text;
+      expect(text('rifle-brand'), 'Atölye');
+      expect(text('ammo-brand'), 'Kendi');
+      expect(text('ammo-bc'), '0.03');
+      expect(text('scope-brand'), 'Optik');
+      expect(find.text('Dürbün: Optik 4-16x44 SFP'), findsOneWidget);
+      // Complete personal records: the profile can be updated as is.
       expect(updateAction(tester), isNotNull);
-      expect(find.text('Seçilemeyen kişisel kayıtlar'), findsOneWidget);
-      expect(find.textContaining('Ev yapımı slug'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
 

@@ -112,6 +112,20 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Sağ').last);
     await tester.pumpAndSettle();
+    await type('ammo-brand', 'Test Mühimmat');
+    await type('ammo-model', 'Test Slug');
+    await tester.ensureVisible(find.byKey(const Key('ammo-type')));
+    await tester.tap(find.byKey(const Key('ammo-type')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Slug').last);
+    await tester.pumpAndSettle();
+    await type('ammo-grain', '33,95');
+    await type('ammo-bc', '0,08');
+    await tester.ensureVisible(find.byKey(const Key('ammo-bc-model')));
+    await tester.tap(find.byKey(const Key('ammo-bc-model')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('G1').last);
+    await tester.pumpAndSettle();
     await type('scope-brand', 'Test Optik');
     await type('scope-min-mag', '6');
     await type('scope-max-mag', '24');
@@ -149,8 +163,10 @@ void main() {
     expect(find.text('DOPE için önce aktif profil oluşturun'), findsNothing);
     await tester.tap(find.text('Hesapla').first);
     await tester.pumpAndSettle();
-    // V354: elevation shows a real vacuum-model value; only wind stays locked.
-    expect(find.text('KİLİTLİ'), findsNWidgets(1));
+    // V378: the typed ammo carries a BC with its G1 model, so Atış uses the
+    // drag solver and wind is computed (no KİLİTLİ card).
+    expect(find.text('KİLİTLİ'), findsNothing);
+    expect(find.byKey(const Key('wind-status-card')), findsOneWidget);
     expect(tester.takeException(), isNull);
 
     // Tablo is the second mode of the Atış tab.
