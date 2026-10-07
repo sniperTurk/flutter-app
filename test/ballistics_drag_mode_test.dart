@@ -146,6 +146,10 @@ void main() {
     tester,
   ) async {
     install();
+    final errors = <String>[];
+    final old = FlutterError.onError;
+    FlutterError.onError = (d) => errors.add(d.exceptionAsString().split('\n').first);
+    addTearDown(() => FlutterError.onError = old);
     await _pump(tester, view: BallisticsView.shot);
     await tester.tap(find.text('Hesapla'));
     await tester.pumpAndSettle();
@@ -157,7 +161,7 @@ void main() {
         .toList();
     final snack = tester.widgetList<SnackBar>(find.byType(SnackBar)).map((w) => (w.content as Text).data).toList();
     final exc = tester.takeException()?.toString().split('\n').first;
-    expect('${seen.join('|')} SNACK:${snack.join('|')} EXC:$exc', contains('Rüzgâr 0 girildi'));
+    expect('${seen.join('|')} SNACK:${snack.join('|')} EXC:$exc ERR:${errors.join(' ## ')}', contains('Rüzgâr 0 girildi'));
     expect(find.textContaining('1 mil ='), findsOneWidget);
   });
 }
