@@ -54,24 +54,12 @@ void main() {
 
   test('crosswind for one mil scales with the 1 m/s drift', () {
     final base = pellet();
-    final w1 = ReticleHolds.crosswindForMil(
-      base: base,
-      rangeM: 50,
-      mil: 1,
-    )!;
-    final w2 = ReticleHolds.crosswindForMil(
-      base: base,
-      rangeM: 50,
-      mil: 2,
-    )!;
+    final w1 = ReticleHolds.crosswindForMil(base: base, rangeM: 50, mil: 1)!;
+    final w2 = ReticleHolds.crosswindForMil(base: base, rangeM: 50, mil: 2)!;
     expect(w1, greaterThan(0));
     expect(w2, closeTo(2 * w1, 1e-9));
     // Longer range drifts more per m/s, so less wind is needed for one mil.
-    final far = ReticleHolds.crosswindForMil(
-      base: base,
-      rangeM: 100,
-      mil: 1,
-    )!;
+    final far = ReticleHolds.crosswindForMil(base: base, rangeM: 100, mil: 1)!;
     expect(far, lessThan(w1));
   });
 

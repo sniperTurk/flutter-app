@@ -30,12 +30,17 @@ Map<String, dynamic> _ammo({String? bcModel = 'G1', double bc = 0.04}) => {
   'bcModel': bcModel,
 };
 
-Future<void> _pump(WidgetTester tester, {BallisticsView view = BallisticsView.all}) async {
+Future<void> _pump(
+  WidgetTester tester, {
+  BallisticsView view = BallisticsView.all,
+}) async {
   tester.view.physicalSize = const Size(1000, 4000);
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
   await tester.pumpWidget(
-    MaterialApp(home: BallisticsScreen(profile: _profile, view: view)),
+    MaterialApp(
+      home: BallisticsScreen(profile: _profile, view: view),
+    ),
   );
   await tester.pumpAndSettle();
 }
@@ -43,9 +48,10 @@ Future<void> _pump(WidgetTester tester, {BallisticsView view = BallisticsView.al
 void main() {
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
-  void install([Map<String, dynamic>? ammo]) => CatalogRepository.installUserCatalog(
-    UserCatalog.fromManualEntries([ammo ?? _ammo()]),
-  );
+  void install([Map<String, dynamic>? ammo]) =>
+      CatalogRepository.installUserCatalog(
+        UserCatalog.fromManualEntries([ammo ?? _ammo()]),
+      );
 
   testWidgets('BC + G1 switches the table to the drag solver', (tester) async {
     install();
@@ -62,22 +68,32 @@ void main() {
     expect(find.textContaining('Namlu enerjisi'), findsNothing);
   });
 
-  testWidgets('a BC without G1/G7 is not used: vacuum baseline stays', (tester) async {
+  testWidgets('a BC without G1/G7 is not used: vacuum baseline stays', (
+    tester,
+  ) async {
     install(_ammo(bcModel: null));
     await _pump(tester);
-    expect(find.textContaining('Bu mühimmat için doğrulanmış BC/model yok'), findsOneWidget);
+    expect(
+      find.textContaining('Bu mühimmat için doğrulanmış BC/model yok'),
+      findsOneWidget,
+    );
     await tester.tap(find.text('DOPE oluştur'));
     await tester.pumpAndSettle();
     expect(find.text('Rüzgâr mrad'), findsNothing);
     expect(find.text('Vakum düşüşü cm*'), findsOneWidget);
   });
 
-  testWidgets('editing the grain drops the BC (it belongs to one mass)', (tester) async {
+  testWidgets('editing the grain drops the BC (it belongs to one mass)', (
+    tester,
+  ) async {
     install();
     await _pump(tester);
     await tester.enterText(find.byKey(BallisticsFieldKeys.grain), '30');
     await tester.pumpAndSettle();
-    expect(find.textContaining('Grain değiştirildiği için BC kullanılmıyor'), findsOneWidget);
+    expect(
+      find.textContaining('Grain değiştirildiği için BC kullanılmıyor'),
+      findsOneWidget,
+    );
     await tester.tap(find.text('DOPE oluştur'));
     await tester.pumpAndSettle();
     expect(find.text('Rüzgâr mrad'), findsNothing);
@@ -108,17 +124,27 @@ void main() {
     expect(find.textContaining('alışılmadık'), findsOneWidget);
   });
 
-  testWidgets('ranges the pellet cannot reach are listed, not invented', (tester) async {
+  testWidgets('ranges the pellet cannot reach are listed, not invented', (
+    tester,
+  ) async {
     install();
     await _pump(tester);
-    await tester.enterText(find.byKey(BallisticsFieldKeys.ranges), '25, 100, 3000');
+    await tester.enterText(
+      find.byKey(BallisticsFieldKeys.ranges),
+      '25, 100, 3000',
+    );
     await tester.tap(find.text('DOPE oluştur'));
     await tester.pumpAndSettle();
     expect(find.byType(DataTable), findsOneWidget);
-    expect(find.textContaining('ulaşamıyor, tabloda yok: 3000 m'), findsOneWidget);
+    expect(
+      find.textContaining('ulaşamıyor, tabloda yok: 3000 m'),
+      findsOneWidget,
+    );
   });
 
-  testWidgets('shot view shows the wind card instead of the lock', (tester) async {
+  testWidgets('shot view shows the wind card instead of the lock', (
+    tester,
+  ) async {
     install();
     await _pump(tester, view: BallisticsView.shot);
     await tester.tap(find.text('Hesapla'));

@@ -69,9 +69,7 @@ abstract final class ReticleHolds {
     required List<double> mils,
   }) {
     final beyond = samples.where((p) => p.rangeM >= zeroRangeM).toList();
-    return [
-      for (final mil in mils) HoldMark(mil, _distanceFor(beyond, mil)),
-    ];
+    return [for (final mil in mils) HoldMark(mil, _distanceFor(beyond, mil))];
   }
 
   static double? _distanceFor(List<TrajectoryPoint> pts, double mil) {
@@ -97,26 +95,28 @@ abstract final class ReticleHolds {
     required double mil,
   }) {
     try {
-      final shot = const BallisticEngine().solve(
-        BallisticInput(
-          muzzleVelocityMps: base.muzzleVelocityMps,
-          grain: base.grain,
-          zeroRangeM: base.zeroRangeM,
-          sightHeightMm: base.sightHeightMm,
-          rangesM: [rangeM],
-          environment: EnvironmentData(
-            temperatureC: base.environment.temperatureC,
-            pressureHpa: base.environment.pressureHpa,
-            humidityPercent: base.environment.humidityPercent,
-            altitudeM: base.environment.altitudeM,
-            windMps: 1,
-            windDirectionDeg: 90,
-          ),
-          zeroEnvironment: base.zeroEnvironment,
-          ballisticCoefficient: base.ballisticCoefficient,
-          ballisticModel: base.ballisticModel,
-        ),
-      ).single;
+      final shot = const BallisticEngine()
+          .solve(
+            BallisticInput(
+              muzzleVelocityMps: base.muzzleVelocityMps,
+              grain: base.grain,
+              zeroRangeM: base.zeroRangeM,
+              sightHeightMm: base.sightHeightMm,
+              rangesM: [rangeM],
+              environment: EnvironmentData(
+                temperatureC: base.environment.temperatureC,
+                pressureHpa: base.environment.pressureHpa,
+                humidityPercent: base.environment.humidityPercent,
+                altitudeM: base.environment.altitudeM,
+                windMps: 1,
+                windDirectionDeg: 90,
+              ),
+              zeroEnvironment: base.zeroEnvironment,
+              ballisticCoefficient: base.ballisticCoefficient,
+              ballisticModel: base.ballisticModel,
+            ),
+          )
+          .single;
       final perMps = shot.windMrad.abs();
       if (!perMps.isFinite || perMps <= 0) return null;
       return mil / perMps;

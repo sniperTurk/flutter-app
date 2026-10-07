@@ -103,18 +103,21 @@ void main() {
     expect(drag.dropM, isNot(closeTo(vacuum.dropM, 1e-6)));
   });
 
-  test('a projectile that cannot reach the range is an error, not a number', () {
-    final input = BallisticInput(
-      muzzleVelocityMps: 120,
-      grain: 8,
-      zeroRangeM: 10,
-      sightHeightMm: 40,
-      rangesM: const [3000],
-      ballisticCoefficient: 0.02,
-      ballisticModel: BallisticModel.g1,
-    );
-    expect(() => const BallisticEngine().solve(input), throwsStateError);
-  });
+  test(
+    'a projectile that cannot reach the range is an error, not a number',
+    () {
+      final input = BallisticInput(
+        muzzleVelocityMps: 120,
+        grain: 8,
+        zeroRangeM: 10,
+        sightHeightMm: 40,
+        rangesM: const [3000],
+        ballisticCoefficient: 0.02,
+        ballisticModel: BallisticModel.g1,
+      );
+      expect(() => const BallisticEngine().solve(input), throwsStateError);
+    },
+  );
 
   test('solveReachable drops the ranges a slow pellet cannot reach', () {
     final input = BallisticInput(

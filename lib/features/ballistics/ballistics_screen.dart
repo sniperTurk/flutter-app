@@ -658,8 +658,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
-  String _windLabel(double mps) => (metric ? mps : UnitSystem.mpsToMph(mps))
-      .toStringAsFixed(1);
+  String _windLabel(double mps) =>
+      (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
 
   /// What one mil means at the selected range, and how the reticle is read.
   String _holdCaption() {
@@ -1210,7 +1210,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                       ),
                       DataColumn(
                         label: Text(
-                          metric ? 'Mesafe enerjisi J' : 'Mesafe enerjisi ft-lb',
+                          metric
+                              ? 'Mesafe enerjisi J'
+                              : 'Mesafe enerjisi ft-lb',
                         ),
                         numeric: true,
                       ),
@@ -1234,7 +1236,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                       ),
                       DataColumn(
                         label: Text(
-                          metric ? 'Namlu enerjisi J*' : 'Namlu enerjisi ft-lb*',
+                          metric
+                              ? 'Namlu enerjisi J*'
+                              : 'Namlu enerjisi ft-lb*',
                         ),
                         numeric: true,
                       ),
@@ -1427,17 +1431,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       if (_dragMode) ..._dragNotices(),
       if (!_dragMode)
         const Padding(
-        padding: EdgeInsets.only(bottom: MenzilSpace.md),
-        child: MenzilNotice(
-          tone: MenzilNoticeTone.danger,
-          message:
-              'Yükseklik kliki, hava direnci YOK sayılan bir vakum düşüşünden hesaplanır — '
-              'gerçek mermi menzil arttıkça havadan daha çok yavaşlar, bu nedenle gerçek düşüş '
-              'burada gösterilenden FAZLA olur. Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ). '
-              'Bu klik değerini ilk atışta mutlaka canlı atışla (chronograph + deneme atışı) '
-              'doğrulayın; tek başına gerçek atış için kullanmayın.',
+          padding: EdgeInsets.only(bottom: MenzilSpace.md),
+          child: MenzilNotice(
+            tone: MenzilNoticeTone.danger,
+            message:
+                'Yükseklik kliki, hava direnci YOK sayılan bir vakum düşüşünden hesaplanır — '
+                'gerçek mermi menzil arttıkça havadan daha çok yavaşlar, bu nedenle gerçek düşüş '
+                'burada gösterilenden FAZLA olur. Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ). '
+                'Bu klik değerini ilk atışta mutlaka canlı atışla (chronograph + deneme atışı) '
+                'doğrulayın; tek başına gerçek atış için kullanmayın.',
+          ),
         ),
-      ),
       if (shot != null && _dragMode)
         MenzilMetricGrid(
           metrics: [
@@ -1637,7 +1641,6 @@ class _SafeReticlePainter extends CustomPainter {
   bool shouldRepaint(covariant _SafeReticlePainter oldDelegate) =>
       oldDelegate.colors != colors;
 }
-
 
 /// Reticle for the drag solver: vertical dots carry the distance at which the
 /// target sits on that dot, horizontal dots carry the crosswind speed that
