@@ -813,12 +813,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       );
     }
     final windMps = _basis?.environment.windMps ?? 0;
-    final mrad = shot.windMrad.abs();
-    final moa = Units.mradToMoa(mrad);
-    final clicks = _clicksOnScope(mrad: mrad, moa: moa);
     // windMrad = atan2(-z, range) > 0: the pellet drifts LEFT and the
     // windage turret is dialled RIGHT (R); < 0 is the mirror image.
-    final dialRight = shot.windMrad > 0;
+    final signedMrad = shot.windMrad;
+    final mrad = signedMrad.abs();
+    final moa = Units.mradToMoa(mrad);
+    final clicks = _clicksOnScope(mrad: mrad, moa: moa);
+    final dialRight = signedMrad > 0;
     final driftSide = mrad < 1e-9 ? '' : (dialRight ? ' sola' : ' sağa');
     final turret = mrad < 1e-9 ? '' : (dialRight ? ' R (sağa)' : ' L (sola)');
     final drift =
