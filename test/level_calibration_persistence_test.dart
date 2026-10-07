@@ -168,8 +168,25 @@ void main() {
     await tester.tap(find.byKey(const Key('level-calibrate-open')));
     await tester.pumpAndSettle();
 
+    // Each reading averages ~2 s of still samples (100 after 15 skipped).
+    Future<void> holdStill() async {
+      for (var i = 0; i < 130; i++) {
+        tilt.controller.add(TiltAvailable(_tilted(_biasX, _biasY)));
+        await tester.pump();
+      }
+    }
+
     await tester.tap(find.byKey(const Key('level-calibrate-normal')));
     await tester.pump();
+    expect(find.byKey(const Key('level-calibration-progress')), findsOneWidget);
+    expect(
+      tester
+          .widget<Text>(find.byKey(const Key('level-calibration-status')))
+          .data,
+      contains('dokunmayın'),
+    );
+    await holdStill();
+    expect(find.byKey(const Key('level-calibration-progress')), findsNothing);
     expect(
       tester
           .widget<Text>(find.byKey(const Key('level-calibration-status')))
@@ -178,6 +195,7 @@ void main() {
     );
     await tester.tap(find.byKey(const Key('level-calibrate-flipped')));
     await tester.pump();
+    await holdStill();
     expect(
       tester
           .widget<Text>(find.byKey(const Key('level-calibration-status')))

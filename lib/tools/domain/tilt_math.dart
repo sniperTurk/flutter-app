@@ -158,26 +158,130 @@ class FlipCalibration {
 }
 
 /// Exponential smoothing of the gravity vector. Reduces jitter only.
+///
+/// With a fixed [alpha] every sample moves the estimate by the same share.
+/// [GravityFilter.adaptive] instead smooths hard while the phone is still
+/// (a steady read-out) and lets go while it moves (no lag): the share grows
+/// with how far the new sample is from the current estimate.
 class GravityFilter {
   final double alpha;
+
+  /// Adaptive mode: share used while still (deviations up to
+  /// [stillBandMps2], i.e. sensor noise), share reached at [motionMps2] of
+  /// deviation, both in m/s². Null in fixed mode.
+  final double? stillAlpha;
+  final double? movingAlpha;
+  final double? stillBandMps2;
+  final double? motionMps2;
   GravityVector? _state;
 
   GravityFilter({this.alpha = 0.15})
-    : assert(alpha > 0 && alpha <= 1, 'alpha must be in (0, 1]');
+    : stillAlpha = null,
+      movingAlpha = null,
+      stillBandMps2 = null,
+      motionMps2 = null,
+      assert(alpha > 0 && alpha <= 1, 'alpha must be in (0, 1]');
+
+  /// About 0.5 s time constant while still at the ~50 Hz game rate (noise
+  /// up to ~0.1 m/s², ~0.6°), close to raw response once a sample is
+  /// ~0.8 m/s² (~4.5°) off the estimate.
+  GravityFilter.adaptive({
+    double still = 0.04,
+    double moving = 0.6,
+    double stillBand = 0.1,
+    double motion = 0.8,
+  }) : alpha = still,
+       stillAlpha = still,
+       movingAlpha = moving,
+       stillBandMps2 = stillBand,
+       motionMps2 = motion,
+       assert(still > 0 && still <= moving && moving <= 1),
+       assert(stillBand >= 0 && motion > stillBand);
+
+  bool get isAdaptive => stillAlpha != null;
+
+  /// Share of the new sample for a given deviation from the estimate.
+  double shareFor(double deviationMps2) {
+    final still = stillAlpha, moving = movingAlpha;
+    final band = stillBandMps2, motion = motionMps2;
+    if (still == null || moving == null || band == null || motion == null) {
+      return alpha;
+    }
+    final t = ((deviationMps2 - band) / (motion - band))
+        .clamp(0.0, 1.0)
+        .toDouble();
+    return still + (moving - still) * t;
+  }
 
   GravityVector add(GravityVector v) {
     final s = _state;
     if (s == null) {
       _state = v;
     } else {
-      _state = GravityVector(
-        s.x + alpha * (v.x - s.x),
-        s.y + alpha * (v.y - s.y),
-        s.z + alpha * (v.z - s.z),
-      );
+      final dx = v.x - s.x, dy = v.y - s.y, dz = v.z - s.z;
+      final a = shareFor(math.sqrt(dx * dx + dy * dy + dz * dz));
+      _state = GravityVector(s.x + a * dx, s.y + a * dy, s.z + a * dz);
     }
     return _state!;
   }
 
   void reset() => _state = null;
+}
+
+/// Averages raw gravity samples for one calibration reading and rejects the
+/// reading if the phone moved: the first [settleSamples] are skipped (the
+/// tap that started it), then [samples] are collected; any sample further
+/// than [stillToleranceMps2] from the running mean starts the collection
+/// over. Pure and synchronous: the caller feeds samples.
+class StillAverager {
+  final int settleSamples;
+  final int samples;
+  final double stillToleranceMps2;
+
+  int _skipped = 0;
+  int _n = 0;
+  double _sx = 0, _sy = 0, _sz = 0;
+  int _restarts = 0;
+
+  StillAverager({
+    this.settleSamples = 15,
+    this.samples = 100,
+    this.stillToleranceMps2 = 0.12,
+  }) : assert(settleSamples >= 0 && samples > 0 && stillToleranceMps2 > 0);
+
+  /// 0..1 progress of the current attempt.
+  double get progress => _n / samples;
+
+  /// How many times the phone moved and the collection started over.
+  int get restarts => _restarts;
+
+  bool get isComplete => _n >= samples;
+
+  /// Mean of the collected samples once [isComplete], else null.
+  GravityVector? get mean =>
+      isComplete ? GravityVector(_sx / _n, _sy / _n, _sz / _n) : null;
+
+  /// Feeds one sample. Returns true when the reading is complete.
+  bool add(GravityVector v) {
+    if (isComplete) return true;
+    if (_skipped < settleSamples) {
+      _skipped++;
+      return false;
+    }
+    if (_n > 0) {
+      final dx = v.x - _sx / _n, dy = v.y - _sy / _n, dz = v.z - _sz / _n;
+      if (math.sqrt(dx * dx + dy * dy + dz * dz) > stillToleranceMps2) {
+        _restarts++;
+        _n = 0;
+        _sx = _sy = _sz = 0;
+        _skipped = 0;
+        return false;
+      }
+    }
+    _n++;
+    _sx += v.x;
+    _sy += v.y;
+    _sz += v.z;
+    return isComplete;
+  }
 }

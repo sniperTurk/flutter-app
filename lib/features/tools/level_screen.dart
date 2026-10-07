@@ -91,9 +91,12 @@ class _LevelScreenState extends State<LevelScreen> {
                                   'dairesel gösterge her iki eksen. '
                                   '${TiltMath.isLevel(angles) ? 'Seviyede.' : 'Eğik.'}',
                               child: ExcludeSemantics(
-                                child: _VialCluster(
-                                  angles: angles,
-                                  viewType: controller.viewType,
+                                child: _EasedAngles(
+                                  target: angles,
+                                  builder: (shown) => _VialCluster(
+                                    angles: shown,
+                                    viewType: controller.viewType,
+                                  ),
                                 ),
                               ),
                             ),
@@ -377,6 +380,25 @@ class _LevelSettingsSheet extends StatelessWidget {
   final LevelController controller;
   const _LevelSettingsSheet({required this.controller});
 
+  /// Takes an averaged, still-checked reading and confirms it by touch, or
+  /// explains why nothing was stored.
+  Future<void> _capture(BuildContext context, {required bool flipped}) async {
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    final ok = await controller.startCalibrationCapture(flipped: flipped);
+    if (ok) {
+      HapticFeedback.mediumImpact();
+    } else {
+      messenger?.showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Okuma alınamadı: telefon düz ve hareketsiz durmalı. '
+            'Tekrar deneyin.',
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -394,8 +416,16 @@ class _LevelSettingsSheet extends StatelessWidget {
             final cal = controller.calibration;
             final hasReading = controller.rawAngles != null;
             final pose = controller.mode == TiltMode.flat ? 'düz' : 'dik';
+            final capturing = controller.capturingCalibration;
             final String calStatus;
-            if (cal.normal != null && cal.flipped == null) {
+            if (capturing) {
+              final pct = ((controller.calibrationProgress ?? 0) * 100)
+                  .round();
+              calStatus = controller.calibrationRestarts > 0
+                  ? 'Telefon kıpırdadı, okuma yeniden başladı. Dokunmadan '
+                        'bekleyin… %$pct'
+                  : 'Okunuyor, telefona dokunmayın… %$pct';
+            } else if (cal.normal != null && cal.flipped == null) {
               calStatus =
                   '1. okuma alındı. Şimdi telefonu aynı yerde 180° çevirip '
                   '2. okumayı alın.';
@@ -434,9 +464,8 @@ class _LevelSettingsSheet extends StatelessWidget {
                         key: const Key('level-calibrate-normal'),
                         expand: true,
                         label: cal.normal == null ? '1. okuma' : '1. okuma ✓',
-                        onPressed: hasReading
-                            ? () =>
-                                  controller.captureCalibration(flipped: false)
+                        onPressed: hasReading && !capturing
+                            ? () => _capture(context, flipped: false)
                             : null,
                       ),
                     ),
@@ -448,13 +477,22 @@ class _LevelSettingsSheet extends StatelessWidget {
                         label: cal.flipped == null
                             ? '2. okuma (180°)'
                             : '2. okuma ✓',
-                        onPressed: hasReading
-                            ? () => controller.captureCalibration(flipped: true)
+                        onPressed: hasReading && !capturing
+                            ? () => _capture(context, flipped: true)
                             : null,
                       ),
                     ),
                   ],
                 ),
+                if (capturing) ...[
+                  const SizedBox(height: MenzilSpace.sm),
+                  LinearProgressIndicator(
+                    key: const Key('level-calibration-progress'),
+                    value: controller.calibrationProgress,
+                    minHeight: 6,
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ],
                 const SizedBox(height: MenzilSpace.xs),
                 Row(
                   children: [
@@ -596,6 +634,69 @@ class _RoundButton extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Moves the drawn bubbles toward the measured angles like a bubble in a
+/// viscous liquid: an exponential approach with a ~0.12 s time constant, so
+/// sensor steps glide instead of jumping. Only the drawing is eased; the
+/// numbers always show the measured value. The ticker stops once the
+/// bubbles have arrived, so an idle level does not repaint.
+class _EasedAngles extends StatefulWidget {
+  final TiltAngles target;
+  final Widget Function(TiltAngles shown) builder;
+  const _EasedAngles({required this.target, required this.builder});
+
+  @override
+  State<_EasedAngles> createState() => _EasedAnglesState();
+}
+
+class _EasedAnglesState extends State<_EasedAngles>
+    with SingleTickerProviderStateMixin {
+  static const _tauSeconds = 0.12;
+  static const _arrivedDeg = 0.002;
+
+  late double _x = widget.target.xDeg;
+  late double _y = widget.target.yDeg;
+  late final _ticker = createTicker(_tick);
+  Duration _last = Duration.zero;
+
+  @override
+  void didUpdateWidget(covariant _EasedAngles oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!_arrived && !_ticker.isActive) {
+      _last = Duration.zero;
+      _ticker.start();
+    }
+  }
+
+  bool get _arrived =>
+      (widget.target.xDeg - _x).abs() < _arrivedDeg &&
+      (widget.target.yDeg - _y).abs() < _arrivedDeg;
+
+  void _tick(Duration elapsed) {
+    final dt = (elapsed - _last).inMicroseconds / 1e6;
+    _last = elapsed;
+    if (dt <= 0) return;
+    final k = 1 - math.exp(-dt / _tauSeconds);
+    setState(() {
+      _x += (widget.target.xDeg - _x) * k;
+      _y += (widget.target.yDeg - _y) * k;
+      if (_arrived) {
+        _x = widget.target.xDeg;
+        _y = widget.target.yDeg;
+        _ticker.stop();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _ticker.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.builder(TiltAngles(_x, _y));
 }
 
 /// Horizontal (X) vial on top, vertical (Y) vial on the left and the round
