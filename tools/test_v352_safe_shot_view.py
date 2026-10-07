@@ -10,12 +10,13 @@ class SafeShotViewTest(unittest.TestCase):
 
     def test_safe_shot_view_is_present_and_drag_locked(self):
         self.assertIn("'Atış görünümü'", self.text)
-        self.assertIn('class _SafeReticlePainter', self.text)
+        # V372: the static reticle painters were replaced by the interactive
+        # turret/reticle view (scope_dial_view.dart); see test_v372.
+        self.assertIn('_scopeDial(shot)', self.text)
         # V354: elevation is unlocked (vacuum-model estimate); only the WIND
         # status card still reads 'KİLİTLİ', so exactly one literal remains.
         self.assertEqual(self.text.count("'KİLİTLİ'"), 1)
         self.assertIn('Drag doğrulaması bekleniyor', self.text)
-        self.assertIn('merkeze kilitlidir', self.text)
 
     def test_wind_status_card_never_shows_a_click_or_numeric_value(self):
         # Scope the check to the wind _statusCard call specifically (the one
