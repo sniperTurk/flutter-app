@@ -8,7 +8,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
-import 'package:sniper_turk/features/settings/settings_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
@@ -71,20 +70,6 @@ void main() {
     },
   );
 
-  testWidgets(
-    'settings loading state announces progress via a live semantics region',
-    (tester) async {
-      final handle = tester.ensureSemantics();
-      await tester.pumpWidget(const MaterialApp(home: SettingsScreen()));
-      await tester.pump();
-
-      final loadingNode = tester.getSemantics(
-        find.bySemanticsLabel('Ayarlar yükleniyor'),
-      );
-      expect(loadingNode.flagsCollection.isLiveRegion, isTrue);
-      handle.dispose();
-    },
-  );
 }
 
 class _NeverResolvingProfileStore implements ProfileStore {

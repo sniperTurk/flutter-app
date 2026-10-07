@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../catalog/catalog_screen.dart';
-import '../settings/settings_screen.dart';
 import 'calculators_screen.dart';
 import 'chronograph_screen.dart';
 import 'compass_screen.dart';
@@ -13,20 +12,16 @@ import 'sight_height_screen.dart';
 import 'weather_screen.dart';
 
 /// Tool hub (V1 scope: Kronograf, Sight Height, Pusula, Su Terazisi,
-/// Hava & Rüzgâr, Katalog, Ayarlar; V1.1 adds Vuruş Olasılığı, a standalone
+/// Hava & Rüzgâr, Katalog; V1.1 adds Vuruş Olasılığı, a standalone
 /// statistics tool). Visual assistance is NOT a tool of its own; it only
 /// appears inside the Sight Height flow.
 class ToolsScreen extends StatelessWidget {
-  /// Called after the settings route closes so the shell can refresh the
-  /// unit label in the top bar.
-  final Future<void> Function()? onSettingsClosed;
-
   /// Called after any tool route closes. Kronograf and Sight Height can write
   /// to a profile; the shell must reload so Atış/Tablo never keep using the
   /// previous muzzle velocity or sight height.
   final Future<void> Function()? onProfilesChanged;
 
-  const ToolsScreen({super.key, this.onSettingsClosed, this.onProfilesChanged});
+  const ToolsScreen({super.key, this.onProfilesChanged});
 
   Future<void> _open(BuildContext context, Widget page) async {
     await Navigator.push(
@@ -103,19 +98,6 @@ class ToolsScreen extends StatelessWidget {
           subtitle:
               'Tüfek, mühimmat ve dürbün; kaynak bilgileri ve manuel kayıtlar',
           onTap: () => _open(context, const CatalogScreen()),
-        ),
-        MenzilToolTile(
-          tileKey: const Key('tool-settings'),
-          icon: Icons.settings_outlined,
-          title: 'Ayarlar',
-          subtitle: 'Birimler ve uygulama tercihleri',
-          onTap: () async {
-            await Navigator.push(
-              context,
-              MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
-            );
-            await onSettingsClosed?.call();
-          },
         ),
         const SizedBox(height: MenzilSpace.md),
         Center(
