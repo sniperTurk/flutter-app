@@ -787,7 +787,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// windMrad is the angle atan2(-z, range); this recovers |z| exactly.
   double _windDrift(TrajectoryPoint point) {
     final meters = point.rangeM * math.tan(point.windMrad.abs() / 1000);
-    return metric ? meters * 100 : UnitSystem.millimetersToInches(meters * 1000);
+    return metric
+        ? meters * 100
+        : UnitSystem.millimetersToInches(meters * 1000);
   }
 
   String get _driftUnit => metric ? 'cm' : 'in';
