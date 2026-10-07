@@ -11,7 +11,8 @@ class BallisticsUnitConversionHygieneTest(unittest.TestCase):
         # M1: whole-screen check (the table moved into a separate Tablo view).
         table = source
         self.assertNotIn("Units.mradToMoa(p.windMrad)", table)
-        self.assertNotIn("p.windMrad", table)
+        # V355: the wind column exists, but only in drag mode (see v353).
+        self.assertEqual(table.count("p.windMrad"), 1)
 
 if __name__ == "__main__":
     unittest.main()

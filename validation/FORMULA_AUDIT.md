@@ -3,7 +3,7 @@
 Scope: the production DOPE path (`ballistic_engine.dart`, `atmosphere.dart`, `units.dart`,
 `unit_system.dart`, `ballistics_screen.dart`) and the gated G1/G7 solver.
 Method: offline Python re-implementation plus independent numerical integration. This is
-**not** the py-ballisticcalc acceptance run; the production gate stays CLOSED.
+**not** the py-ballisticcalc acceptance run; the production gate is now OPEN only through the CI reference comparison (tools/verify_production_gate.py).
 
 ## Verified correct
 - Vacuum zero angle: closed form `A u^2 - x u + (s + A) = 0` (low root) matches a numerical

@@ -68,7 +68,7 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Enforce closed G1/G7 production gate
+      - name: Enforce G1/G7 production gate (open only with CI reference comparison)
         run: python3 tools/verify_production_gate.py
 
       - name: Set up Flutter

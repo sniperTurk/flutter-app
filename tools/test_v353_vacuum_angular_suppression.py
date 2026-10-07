@@ -16,12 +16,19 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
     def setUp(self):
         self.text = SCREEN.read_text(encoding='utf-8')
 
-    def test_wind_mrad_is_never_rendered(self):
-        for forbidden in ('p.windMrad', 'shot.windMrad', 'otherCorrection', 'MenzilReticle'):
+    def test_wind_mrad_is_rendered_only_in_drag_mode(self):
+        # Gate opened in V355: wind comes only from the validated drag solver.
+        for forbidden in ('otherCorrection', 'MenzilReticle'):
             self.assertNotIn(forbidden, self.text)
-        # windMrad is only referenced in the explanatory comment, never
-        # passed to a widget/formatter.
-        self.assertNotIn('windMrad.toStringAsFixed', self.text)
+        # The table cell is inside the `if (drag)` branch of the row.
+        self.assertEqual(self.text.count('p.windMrad'), 1)
+        idx = self.text.index('p.windMrad')
+        self.assertIn('if (drag)', self.text[max(0, idx - 120):idx])
+        # The status card reads shot.windMrad only after the vacuum early
+        # return (`if (!_dragMode) { ... KİLİTLİ ... return }`).
+        self.assertEqual(self.text.count('shot.windMrad'), 1)
+        self.assertLess(self.text.index('if (!_dragMode) {'),
+                        self.text.index('shot.windMrad'))
 
     def test_elevation_angular_correction_is_now_rendered_with_disclaimers(self):
         self.assertIn('p.correctionMoa.toStringAsFixed(2)', self.text)

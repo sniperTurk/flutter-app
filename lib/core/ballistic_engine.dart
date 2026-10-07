@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import '../models/domain.dart';
+import 'aerodynamic_trajectory_solver.dart';
 import 'units.dart';
 import 'ballistic_input.dart';
 
@@ -18,16 +19,45 @@ class BallisticEngine {
     return (correction / clickValue).round();
   }
 
-  /// Production-safe entry point. Aerodynamic requests are never silently
-  /// downgraded to the vacuum solver: doing so would produce plausible-looking
-  /// but materially wrong long-range DOPE.
+  /// Production entry point.
+  ///
+  /// With a ballistic coefficient and drag law (G1/G7) the aerodynamic solver
+  /// is used. Its output has been compared with an independent reference
+  /// (py-ballisticcalc) in CI under the frozen tolerances in
+  /// `validation/acceptance.json`, for G1 and G7, with and without wind;
+  /// `tools/verify_production_gate.py` fails the build if that comparison is
+  /// removed from CI. Without a coefficient the labelled vacuum baseline runs.
+  /// An aerodynamic request is never silently downgraded to the vacuum solver:
+  /// that would produce plausible-looking but materially wrong DOPE.
+  ///
+  /// The aerodynamic solver throws [StateError] when the projectile cannot
+  /// reach a requested range; callers must say so instead of inventing a value.
   List<TrajectoryPoint> solve(BallisticInput input) {
     if (input.ballisticModel != null || input.ballisticCoefficient != null) {
-      throw UnsupportedError(
-        'G1/G7 drag solver is not validated yet; aerodynamic DOPE is unavailable.',
-      );
+      return const AerodynamicTrajectorySolver().solve(input);
     }
     return solveVacuum(input);
+  }
+
+  /// Like [solve], but a range the projectile cannot reach is reported
+  /// instead of failing the whole request. The farthest unreachable ranges are
+  /// dropped one by one; [unreachableM] lists them (ascending). When nothing
+  /// can be solved (for example the zero cannot be found) [points] is empty.
+  ({List<TrajectoryPoint> points, List<double> unreachableM}) solveReachable(
+    BallisticInput input,
+  ) {
+    var wanted = input.rangesM.toSet().toList()..sort();
+    final dropped = <double>[];
+    while (wanted.isNotEmpty) {
+      try {
+        final points = solve(input.withRanges(wanted));
+        return (points: points, unreachableM: dropped.reversed.toList());
+      } on StateError {
+        dropped.add(wanted.last);
+        wanted = wanted.sublist(0, wanted.length - 1);
+      }
+    }
+    return (points: const [], unreachableM: dropped.reversed.toList());
   }
 
   List<TrajectoryPoint> solveVacuum(BallisticInput input) => vacuumDope(

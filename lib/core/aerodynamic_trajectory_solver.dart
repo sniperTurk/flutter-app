@@ -7,15 +7,21 @@ import 'rk4.dart';
 import 'standard_drag_tables.dart';
 import 'units.dart';
 
-/// Experimental, deterministic 3-D G1/G7 trajectory integrator.
+/// Deterministic 3-D G1/G7 trajectory integrator.
 ///
-/// This is deliberately not called by BallisticEngine.solve() yet. Production
-/// activation requires cross-validation against an independent reference
-/// trajectory dataset. Keeping this class separate prevents an unvalidated
-/// solver from leaking into user-visible DOPE.
+/// Called by `BallisticEngine.solve()` for requests that carry a ballistic
+/// coefficient and drag law. Its no-wind and wind output is compared with an
+/// independent reference trajectory (py-ballisticcalc) in CI under the frozen
+/// tolerances of `validation/acceptance.json`; `tools/verify_production_gate.py`
+/// fails the build if that comparison is no longer wired into CI.
 class AerodynamicTrajectorySolver {
   static const double _g = 9.80665;
   static const int _maxSteps = 4000000;
+
+  /// No real shot flies this long. A projectile that has not reached the
+  /// requested range by then (a slow, high-drag pellet asked for a far range)
+  /// is reported as unreachable instead of integrating for minutes.
+  static const double maxFlightTimeS = 60.0;
 
   /// Fixed RK4 integration step. Exposed only to support deterministic
   /// convergence checks before the solver is allowed into production DOPE.
@@ -36,13 +42,12 @@ class AerodynamicTrajectorySolver {
     }
   }
 
-  /// Experimental G1/G7 trajectory including vector wind coupling.
+  /// G1/G7 trajectory including vector wind coupling.
   ///
   /// Wind convention follows the UI: 0° = headwind, 90° = full-value
   /// crosswind, 180° = tailwind, 270° = opposite crosswind. The wind vector
   /// represents moving air, so drag is computed from projectile velocity
-  /// relative to that air mass. This remains experimental until external
-  /// trajectory-vector cross-validation is complete.
+  /// relative to that air mass.
   List<TrajectoryPoint> solve(BallisticInput input) {
     _validateStep();
     final bc = input.ballisticCoefficient;
@@ -79,6 +84,9 @@ class AerodynamicTrajectorySolver {
       time += integrationStepSeconds;
       if (state.vx <= 0) {
         throw StateError('projectile stopped before requested range');
+      }
+      if (time > maxFlightTimeS) {
+        throw StateError('projectile did not reach the requested range');
       }
 
       while (nextIndex < wanted.length && state.x >= wanted[nextIndex]) {

@@ -45,7 +45,7 @@ jobs:
         # hand-maintained module list that can silently omit new tests.
         run: python3 -m unittest discover -s tools -p 'test_*.py' -v
 
-      - name: Enforce closed G1/G7 production gate
+      - name: Enforce G1/G7 production gate (open only with CI reference comparison)
         run: python3 tools/verify_production_gate.py
 
       # Reject an unreproducible release before spending time installing the

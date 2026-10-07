@@ -1,6 +1,6 @@
 # Independent trajectory validation
 
-G1/G7 production activation is intentionally blocked until SNIPER TÜRK output is compared with independently generated trajectory vectors.
+G1/G7 production activation is allowed only while SNIPER TÜRK output is compared with independently generated trajectory vectors on every CI run. The gate was opened in V355: `BallisticEngine.solve` now sends requests with a ballistic coefficient and drag law to `AerodynamicTrajectorySolver`. `tools/verify_production_gate.py` fails the build if the engine falls back to the vacuum solver for such a request, or if the no-wind and wind reference comparison steps disappear from `.github/workflows/ios-ci.yml`.
 
 Reference implementation selected: `py-ballisticcalc==2.2.10` (Ballistics Lab). The generator in `tools/generate_reference_vectors.py` is deliberately external to the Dart solver and writes a JSON fixture with its implementation/version and all input conditions. The generated fixture is **never git-committed** (`validation/py_ballisticcalc_vectors.json` is in `.gitignore`, so a stale or hand-edited copy cannot be mistaken for a live validator run); CI regenerates it from scratch on every run, uploads it as a build artifact for human review, and immediately runs the Dart comparison against that same fresh copy in the same job.
 

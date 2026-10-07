@@ -6,8 +6,11 @@ import '../../core/atmosphere.dart';
 import '../../core/ballistic_engine.dart';
 import '../../core/ballistic_input.dart';
 import '../../core/dope_ranges.dart';
+import '../../core/drag_safety.dart';
 import '../../core/production_limits.dart';
+import '../../core/reticle_holds.dart';
 import '../../core/unit_system.dart';
+import '../../core/units.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
 import '../../services/settings_store.dart';
@@ -56,13 +59,32 @@ class BallisticsScreen extends StatefulWidget {
 class _ShotBasis {
   final double velocityMps, grain, zeroRangeM, sightHeightMm;
   final EnvironmentData environment;
+
+  /// Both set (drag solve) or both null (vacuum baseline).
+  final double? ballisticCoefficient;
+  final BallisticModel? ballisticModel;
   const _ShotBasis({
     required this.velocityMps,
     required this.grain,
     required this.zeroRangeM,
     required this.sightHeightMm,
     required this.environment,
+    this.ballisticCoefficient,
+    this.ballisticModel,
   });
+
+  bool get drag => ballisticCoefficient != null && ballisticModel != null;
+
+  BallisticInput input(List<double> rangesM) => BallisticInput(
+    muzzleVelocityMps: velocityMps,
+    grain: grain,
+    zeroRangeM: zeroRangeM,
+    sightHeightMm: sightHeightMm,
+    rangesM: rangesM,
+    environment: environment,
+    ballisticCoefficient: ballisticCoefficient,
+    ballisticModel: ballisticModel,
+  );
 }
 
 class _BallisticsScreenState extends State<BallisticsScreen> {
@@ -90,6 +112,29 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   _ShotBasis? _basis;
   double _shotRangeM = 100;
+
+  /// Drag-mode extras of the last solve (empty in vacuum mode).
+  List<DragWarning> _warnings = [];
+  List<double> _unreachableM = [];
+  List<HoldMark> _holdMarks = [];
+  final Map<double, ({TrajectoryPoint? shot, double? mpsPerMil})> _shotCache =
+      {};
+
+  /// True when the entered ammunition carries a BC + drag law AND the grain
+  /// field still equals that ammunition's weight (a BC belongs to one mass).
+  bool _bcApplies() {
+    final a = ammunition;
+    if (a == null ||
+        a.ballisticCoefficient == null ||
+        a.ballisticModel == null) {
+      return false;
+    }
+    final g = double.tryParse(grain.text.trim().replaceAll(',', '.'));
+    return g != null && (g - a.grain).abs() < 1e-9;
+  }
+
+  /// Whether results shown (or about to be computed) use the drag solver.
+  bool get _dragMode => _basis != null ? _basis!.drag : _bcApplies();
 
   @override
   void initState() {
@@ -175,6 +220,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       speedOfSoundMps = null;
       muzzleMach = null;
       _basis = null;
+      _warnings = [];
+      _unreachableM = [];
+      _holdMarks = [];
+      _shotCache.clear();
     });
 
     double? number(TextEditingController c) =>
@@ -270,25 +319,53 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         environment: environment,
       );
 
-      // V1 deliberately runs the labelled vacuum/gravity baseline even when the
-      // selected catalog ammunition has BC metadata. Passing that unvalidated BC
-      // into BallisticEngine.solve() would correctly trip the production gate and
-      // make DOPE unusable for precisely the catalog ammunition that has the best
-      // metadata. Keep the BC visible to the user, but do not consume it until the
-      // G1/G7 solver has passed independent reference-vector validation.
-      final solved = const BallisticEngine().solve(
-        BallisticInput(
-          muzzleVelocityMps: v,
-          grain: g,
-          zeroRangeM: z,
-          sightHeightMm: s,
-          rangesM: requestedRanges,
-          environment: environment,
-        ),
+      // A BC is consumed only together with its drag law and only while the
+      // grain still matches the ammunition it was entered for. Otherwise the
+      // labelled vacuum baseline runs and says so.
+      final ammo = ammunition;
+      final useBc = _bcApplies();
+      final bc = useBc ? ammo!.ballisticCoefficient : null;
+      final model = useBc ? ammo!.ballisticModel : null;
+      final input = BallisticInput(
+        muzzleVelocityMps: v,
+        grain: g,
+        zeroRangeM: z,
+        sightHeightMm: s,
+        rangesM: requestedRanges,
+        environment: environment,
+        ballisticCoefficient: bc,
+        ballisticModel: model,
       );
+      final solved = const BallisticEngine().solveReachable(input);
+      if (solved.points.isEmpty) {
+        _error(
+          'Bu girdilerle çözüm bulunamadı: mermi sıfır mesafesine veya '
+          'istenen mesafelere ulaşamıyor. Hız, BC ve mesafeleri kontrol edin.',
+        );
+        return;
+      }
+      final warnings = bc == null
+          ? <DragWarning>[]
+          : DragSafety.assess(
+              muzzleVelocityMps: v,
+              environment: environment,
+              ballisticCoefficient: bc,
+              ballisticModel: model,
+              platform: ammo!.platform,
+            );
+      final holds = bc == null
+          ? <HoldMark>[]
+          : ReticleHolds.marks(
+              samples: ReticleHolds.sample(input),
+              zeroRangeM: z,
+              mils: const [1, 2, 3, 4],
+            );
 
       setState(() {
-        points = solved;
+        points = solved.points;
+        _unreachableM = solved.unreachableM;
+        _warnings = warnings;
+        _holdMarks = holds;
         airDensityKgM3 = density;
         densityRatio = ratio;
         speedOfSoundMps = sound;
@@ -299,6 +376,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           zeroRangeM: z,
           sightHeightMm: s,
           environment: environment,
+          ballisticCoefficient: bc,
+          ballisticModel: model,
         );
       });
     } on FormatException catch (e) {
@@ -308,6 +387,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     } on UnsupportedError catch (e) {
       _error(
         e.message?.toString() ?? 'Bu balistik model henüz desteklenmiyor.',
+      );
+    } on StateError {
+      _error(
+        'Sürtünmeli çözüm bulunamadı; hız, sıfır mesafesi ve BC uyumsuz olabilir.',
       );
     }
   }
@@ -365,29 +448,39 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   /// Same engine call as the table, evaluated at one range. Returns null
-  /// until a solve has succeeded (fail closed: no basis, no numbers).
-  TrajectoryPoint? _shotPoint() {
+  /// until a solve has succeeded (fail closed: no basis, no numbers). In drag
+  /// mode it also yields the crosswind (m/s) that moves the impact 1 mil at
+  /// this range. Results are cached per range because the build method asks
+  /// for them on every frame (slider drags).
+  ({TrajectoryPoint? shot, double? mpsPerMil}) _evalShot() {
     final basis = _basis;
-    if (basis == null) return null;
+    if (basis == null) return (shot: null, mpsPerMil: null);
+    final cached = _shotCache[_shotRangeM];
+    if (cached != null) return cached;
+    TrajectoryPoint? shot;
+    double? mpsPerMil;
     try {
-      return const BallisticEngine()
-          .solve(
-            BallisticInput(
-              muzzleVelocityMps: basis.velocityMps,
-              grain: basis.grain,
-              zeroRangeM: basis.zeroRangeM,
-              sightHeightMm: basis.sightHeightMm,
-              rangesM: [_shotRangeM],
-              environment: basis.environment,
-            ),
-          )
-          .first;
+      final input = basis.input([_shotRangeM]);
+      shot = const BallisticEngine().solve(input).first;
+      if (basis.drag) {
+        mpsPerMil = ReticleHolds.crosswindForMil(
+          base: input,
+          rangeM: _shotRangeM,
+          mil: 1,
+        );
+      }
     } on ArgumentError {
-      return null;
+      shot = null;
     } on UnsupportedError {
-      return null;
+      shot = null;
+    } on StateError {
+      shot = null;
     }
+    if (_shotCache.length > 24) _shotCache.clear();
+    return _shotCache[_shotRangeM] = (shot: shot, mpsPerMil: mpsPerMil);
   }
+
+  TrajectoryPoint? _shotPoint() => _evalShot().shot;
 
   Future<void> _editShotRange() async {
     final result = await showDialog<double>(
@@ -446,12 +539,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// and unit from the catalog (clicks only mean something relative to the
   /// specific turret you are holding — a MOA number is not "clicks" on a
   /// mrad turret). Null if the scope has no usable click value.
-  int? _elevationClicksOnScope(TrajectoryPoint shot) {
+  int? _elevationClicksOnScope(TrajectoryPoint shot) =>
+      _clicksOnScope(mrad: shot.correctionMrad, moa: shot.correctionMoa);
+
+  int? _clicksOnScope({required double mrad, required double moa}) {
     final s = scope;
     if (s == null || s.clickValue <= 0) return null;
-    final correction = s.clickUnit == AngularUnit.moa
-        ? shot.correctionMoa
-        : shot.correctionMrad;
+    final correction = s.clickUnit == AngularUnit.moa ? moa : mrad;
     return const BallisticEngine().clicks(
       correction: correction,
       clickValue: s.clickValue,
@@ -493,20 +587,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     title: correction == null ? 'Yukarı' : correction.direction,
                     value: correction?.value ?? '—',
                     subtitle: clicks == null
-                        ? 'Vakum düşüşünden (sürükleme yok); hesaplayın'
+                        ? (_dragMode
+                              ? (shot == null
+                                    ? 'Hesaplayın'
+                                    : 'Dürbün klik değeri yok')
+                              : 'Vakum düşüşünden (sürükleme yok); hesaplayın')
                         : '${clicks.abs()} klik ($clickUnitLabel dürbün)',
                     icon: Icons.vertical_align_top,
                   ),
                 ),
                 const SizedBox(width: MenzilSpace.md),
-                Expanded(
-                  child: _statusCard(
-                    title: 'Rüzgâr',
-                    value: 'KİLİTLİ',
-                    subtitle: 'Drag doğrulaması bekleniyor',
-                    icon: Icons.air,
-                  ),
-                ),
+                Expanded(child: _windStatusCard(shot, clickUnitLabel)),
               ],
             ),
           ),
@@ -518,14 +609,36 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 constraints.maxWidth * 0.78,
                 math.max(200.0, screenH * 0.42),
               );
+              final holdReticle = _dragMode && _basis != null;
               return Center(
                 child: Semantics(
-                  label:
-                      'Retikül önizlemesi. Düzeltme işareti merkeze kilitli.',
+                  label: holdReticle
+                      ? 'Retikül. Dikey noktalar mesafeyi, yatay noktalar yan rüzgâr hızını gösterir.'
+                      : 'Retikül önizlemesi. Düzeltme işareti merkeze kilitli.',
                   image: true,
                   child: SizedBox.square(
                     dimension: side,
-                    child: CustomPaint(painter: _SafeReticlePainter(c)),
+                    child: CustomPaint(
+                      painter: holdReticle
+                          ? _HoldReticlePainter(
+                              colors: c,
+                              distanceLabels: [
+                                for (final m in _holdMarks)
+                                  m.distanceM == null
+                                      ? '—'
+                                      : _toDisplayRange(
+                                          m.distanceM!,
+                                        ).toStringAsFixed(0),
+                              ],
+                              windLabels: [
+                                for (var k = 1; k <= 4; k++)
+                                  _evalShot().mpsPerMil == null
+                                      ? '—'
+                                      : _windLabel(_evalShot().mpsPerMil! * k),
+                              ],
+                            )
+                          : _SafeReticlePainter(c),
+                    ),
                   ),
                 ),
               );
@@ -533,13 +646,64 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ),
           const SizedBox(height: MenzilSpace.sm),
           Text(
-            'Retikül önizlemesi • yükseklik değeri solda sayısal olarak veriliyor; '
-            'rüzgâr düzeltmesi doğrulanana kadar işaret görsel olarak merkeze kilitlidir.',
+            _dragMode && _basis != null
+                ? _holdCaption()
+                : 'Retikül önizlemesi • yükseklik değeri solda sayısal olarak veriliyor; '
+                      'rüzgâr düzeltmesi doğrulanana kadar işaret görsel olarak merkeze kilitlidir.',
             textAlign: TextAlign.center,
             style: MenzilType.caption(c.ink2),
           ),
         ],
       ),
+    );
+  }
+
+  String _windLabel(double mps) =>
+      (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
+
+  /// What one mil means at the selected range, and how the reticle is read.
+  String _holdCaption() {
+    final cm = _shotRangeM / 10; // 1 mil subtends range/1000 m
+    final span = metric
+        ? '${cm.toStringAsFixed(1)} cm'
+        : '${UnitSystem.millimetersToInches(_shotRangeM).toStringAsFixed(1)} in';
+    final windUnit = metric ? 'm/s' : 'mph';
+    return 'Dikey noktalar: hedefi o noktaya oturttuğunuz mesafe ($_distanceUnit). '
+        'Yatay noktalar: $_shotDisplay $_distanceUnit mesafede isabeti o kadar '
+        'kaydıran yan rüzgâr hızı ($windUnit). 1 mil = $span. '
+        'Rüzgâr hangi yönden eserse o yöne doğru düzeltin.';
+  }
+
+  Widget _windStatusCard(TrajectoryPoint? shot, String clickUnitLabel) {
+    if (!_dragMode) {
+      return _statusCard(
+        title: 'Rüzgâr',
+        value: 'KİLİTLİ',
+        subtitle: 'Drag doğrulaması bekleniyor',
+        icon: Icons.air,
+      );
+    }
+    if (shot == null) {
+      return _statusCard(
+        title: 'Rüzgâr',
+        value: '—',
+        subtitle: 'Hesaplayın',
+        icon: Icons.air,
+      );
+    }
+    final windMps = _basis?.environment.windMps ?? 0;
+    final mrad = shot.windMrad.abs();
+    final moa = Units.mradToMoa(mrad);
+    final clicks = _clicksOnScope(mrad: mrad, moa: moa);
+    return _statusCard(
+      title: 'Rüzgâr',
+      value: '${mrad.toStringAsFixed(2)} mrad',
+      subtitle: windMps == 0
+          ? 'Rüzgâr 0 girildi'
+          : clicks == null
+          ? '${_windLabel(windMps)} ${metric ? 'm/s' : 'mph'}'
+          : '${clicks.abs()} klik ($clickUnitLabel dürbün)',
+      icon: Icons.air,
     );
   }
 
@@ -728,15 +892,73 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
-  Widget _bcNotice() => MenzilNotice(
-    tone: MenzilNoticeTone.warning,
-    message: ammunition?.ballisticCoefficient == null
-        ? 'Deterministik vacuum/gravity temel solver. Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz.'
-        : 'Katalogda ${ammunition!.ballisticModel!.name.toUpperCase()} BC ${ammunition!.ballisticCoefficient} mevcut. Doğrulanmış drag solver tamamlanana kadar bu BC sahte bir hesapta kullanılmayacak.',
-  );
+  Widget _bcNotice() {
+    final a = ammunition;
+    if (a?.ballisticCoefficient == null || a?.ballisticModel == null) {
+      return const MenzilNotice(
+        tone: MenzilNoticeTone.warning,
+        message:
+            'Deterministik vacuum/gravity temel solver. Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz. Özel mermi kaydına BC ve G1/G7 ekleyerek sürtünmeli hesabı açabilirsiniz.',
+      );
+    }
+    final name = a!.ballisticModel!.name.toUpperCase();
+    if (!_dragMode) {
+      return MenzilNotice(
+        tone: MenzilNoticeTone.warning,
+        message:
+            'Kayıtlı $name BC ${a.ballisticCoefficient}, ${a.grain} gr mermi içindir. '
+            'Grain değiştirildiği için BC kullanılmıyor; vacuum temel hesap yapılır.',
+      );
+    }
+    return MenzilNotice(
+      tone: MenzilNoticeTone.info,
+      message:
+          'Sürtünmeli hesap: $name BC ${a.ballisticCoefficient}. BC sizin girdiğiniz değerdir; '
+          'gerçek mermiden farklıysa sonuç da kayar. İlk atışta canlı atışla doğrulayın.',
+    );
+  }
+
+  /// Safety warnings of the last drag solve plus ranges the projectile cannot
+  /// reach. Empty in vacuum mode.
+  List<Widget> _dragNotices() => [
+    for (final w in _warnings)
+      Padding(
+        padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
+        child: MenzilNotice(
+          tone: w.level == DragWarningLevel.caution
+              ? MenzilNoticeTone.danger
+              : MenzilNoticeTone.info,
+          message: w.message,
+        ),
+      ),
+    if (_unreachableM.isNotEmpty)
+      Padding(
+        padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
+        child: MenzilNotice(
+          tone: MenzilNoticeTone.warning,
+          message:
+              'Bu mermi şu mesafelere ulaşamıyor, tabloda yok: '
+              '${_unreachableM.map((m) => _toDisplayRange(m).toStringAsFixed(0)).join(', ')} $_distanceUnit.',
+        ),
+      ),
+  ];
 
   Widget _vacuumFootnote(BuildContext context) {
     final c = MenzilColors.of(context);
+    if (_dragMode) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          top: MenzilSpace.xs,
+          bottom: MenzilSpace.md,
+        ),
+        child: Text(
+          'Hesap seçili sürtünme yasası (G1/G7) ve girilen BC ile yapılır; sabit rüzgâr '
+          'tüm menzil boyunca uygulanır. Mermi gerçekte BC değerinden farklı uçabilir, '
+          'bu yüzden klik değerleri ilk atışta canlı atışla teyit edilmelidir.',
+          style: MenzilType.caption(c.ink2),
+        ),
+      );
+    }
     return Padding(
       padding: const EdgeInsets.only(
         top: MenzilSpace.xs,
@@ -786,6 +1008,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           controller: grain,
           label: 'Mühimmat ağırlığı',
           unit: 'grain',
+          onChanged: (_) => setState(() {}),
         ),
         MenzilInput(
           key: BallisticsFieldKeys.zero,
@@ -949,7 +1172,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (points.isEmpty) return const [];
     final c = MenzilColors.of(context);
     final zeroM = _basis?.zeroRangeM;
+    final drag = _basis?.drag ?? false;
     return [
+      ..._dragNotices(),
       DecoratedBox(
         decoration: BoxDecoration(
           color: c.surface,
@@ -961,22 +1186,65 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: DataTable(
-              columns: [
-                DataColumn(label: Text(metric ? 'm' : 'yd')),
-                DataColumn(
-                  label: Text(metric ? 'Vakum düşüşü cm*' : 'Vakum düşüşü in*'),
-                  numeric: true,
-                ),
-                const DataColumn(label: Text('Yükseklik MOA*'), numeric: true),
-                const DataColumn(label: Text('Yükseklik mrad*'), numeric: true),
-                DataColumn(
-                  label: Text(
-                    metric ? 'Namlu enerjisi J*' : 'Namlu enerjisi ft-lb*',
-                  ),
-                  numeric: true,
-                ),
-                const DataColumn(label: Text('TOF'), numeric: true),
-              ],
+              columns: drag
+                  ? [
+                      DataColumn(label: Text(metric ? 'm' : 'yd')),
+                      DataColumn(
+                        label: Text(metric ? 'Düşüş cm' : 'Düşüş in'),
+                        numeric: true,
+                      ),
+                      const DataColumn(
+                        label: Text('Yükseklik MOA'),
+                        numeric: true,
+                      ),
+                      const DataColumn(
+                        label: Text('Yükseklik mrad'),
+                        numeric: true,
+                      ),
+                      const DataColumn(
+                        label: Text('Rüzgâr mrad'),
+                        numeric: true,
+                      ),
+                      DataColumn(
+                        label: Text(metric ? 'Hız m/s' : 'Hız fps'),
+                        numeric: true,
+                      ),
+                      DataColumn(
+                        label: Text(
+                          metric
+                              ? 'Mesafe enerjisi J'
+                              : 'Mesafe enerjisi ft-lb',
+                        ),
+                        numeric: true,
+                      ),
+                      const DataColumn(label: Text('TOF'), numeric: true),
+                    ]
+                  : [
+                      DataColumn(label: Text(metric ? 'm' : 'yd')),
+                      DataColumn(
+                        label: Text(
+                          metric ? 'Vakum düşüşü cm*' : 'Vakum düşüşü in*',
+                        ),
+                        numeric: true,
+                      ),
+                      const DataColumn(
+                        label: Text('Yükseklik MOA*'),
+                        numeric: true,
+                      ),
+                      const DataColumn(
+                        label: Text('Yükseklik mrad*'),
+                        numeric: true,
+                      ),
+                      DataColumn(
+                        label: Text(
+                          metric
+                              ? 'Namlu enerjisi J*'
+                              : 'Namlu enerjisi ft-lb*',
+                        ),
+                        numeric: true,
+                      ),
+                      const DataColumn(label: Text('TOF'), numeric: true),
+                    ],
               rows: points.map((p) {
                 final displayRange = metric
                     ? p.rangeM
@@ -997,6 +1265,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     DataCell(Text(displayDrop.toStringAsFixed(1))),
                     DataCell(Text(p.correctionMoa.toStringAsFixed(2))),
                     DataCell(Text(p.correctionMrad.toStringAsFixed(2))),
+                    if (drag) ...[
+                      DataCell(Text(p.windMrad.abs().toStringAsFixed(2))),
+                      DataCell(
+                        Text(
+                          (metric
+                                  ? p.velocityMps
+                                  : UnitSystem.mpsToFps(p.velocityMps))
+                              .toStringAsFixed(0),
+                        ),
+                      ),
+                    ],
                     DataCell(Text(displayEnergy.toStringAsFixed(1))),
                     DataCell(Text(p.timeOfFlightS.toStringAsFixed(3))),
                   ],
@@ -1129,6 +1408,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           tone: MenzilNoticeTone.info,
           message: _basis == null
               ? 'Değerleri görmek için hesaplayın. Ortam ve atış girdileri Ortam sekmesindedir.'
+              : _dragMode
+              ? 'Bu mermi bu mesafeye ulaşamıyor veya değer üretilemedi. Daha kısa bir mesafe deneyin.'
               : 'Bu mesafe için değer üretilemedi. Mesafeyi veya girdileri kontrol edin.',
         ),
         MenzilPrimaryButton(
@@ -1148,19 +1429,59 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         padding: const EdgeInsets.only(bottom: MenzilSpace.md),
         child: _referenceShotPanel(shot),
       ),
-      const Padding(
-        padding: EdgeInsets.only(bottom: MenzilSpace.md),
-        child: MenzilNotice(
-          tone: MenzilNoticeTone.danger,
-          message:
-              'Yükseklik kliki, hava direnci YOK sayılan bir vakum düşüşünden hesaplanır — '
-              'gerçek mermi menzil arttıkça havadan daha çok yavaşlar, bu nedenle gerçek düşüş '
-              'burada gösterilenden FAZLA olur. Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ). '
-              'Bu klik değerini ilk atışta mutlaka canlı atışla (chronograph + deneme atışı) '
-              'doğrulayın; tek başına gerçek atış için kullanmayın.',
+      if (_dragMode) ..._dragNotices(),
+      if (!_dragMode)
+        const Padding(
+          padding: EdgeInsets.only(bottom: MenzilSpace.md),
+          child: MenzilNotice(
+            tone: MenzilNoticeTone.danger,
+            message:
+                'Yükseklik kliki, hava direnci YOK sayılan bir vakum düşüşünden hesaplanır — '
+                'gerçek mermi menzil arttıkça havadan daha çok yavaşlar, bu nedenle gerçek düşüş '
+                'burada gösterilenden FAZLA olur. Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ). '
+                'Bu klik değerini ilk atışta mutlaka canlı atışla (chronograph + deneme atışı) '
+                'doğrulayın; tek başına gerçek atış için kullanmayın.',
+          ),
         ),
-      ),
-      if (shot != null)
+      if (shot != null && _dragMode)
+        MenzilMetricGrid(
+          metrics: [
+            MenzilMetric(
+              'Uçuş süresi',
+              shot.timeOfFlightS.toStringAsFixed(3),
+              's',
+            ),
+            MenzilMetric(
+              'Düşüş',
+              (metric
+                      ? shot.dropM * 100
+                      : UnitSystem.millimetersToInches(shot.dropM * 1000))
+                  .toStringAsFixed(1),
+              metric ? 'cm' : 'in',
+            ),
+            MenzilMetric(
+              'Hız',
+              (metric
+                      ? shot.velocityMps
+                      : UnitSystem.mpsToFps(shot.velocityMps))
+                  .toStringAsFixed(0),
+              metric ? 'm/s' : 'fps',
+            ),
+            MenzilMetric(
+              'Enerji',
+              (metric
+                      ? shot.energyJ
+                      : UnitSystem.joulesToFootPounds(shot.energyJ))
+                  .toStringAsFixed(1),
+              metric ? 'J' : 'ft-lb',
+            ),
+            if (muzzleMach != null)
+              MenzilMetric('Namlu Mach', muzzleMach!.toStringAsFixed(3)),
+            if (densityRatio != null)
+              MenzilMetric('Yoğunluk oranı', densityRatio!.toStringAsFixed(3)),
+          ],
+        ),
+      if (shot != null && !_dragMode)
         MenzilMetricGrid(
           metrics: [
             MenzilMetric(
@@ -1199,8 +1520,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ],
         ),
       Text(
-        '* Vakum temelli (hava direnci modellenmez); rüzgâr düzeltmesi doğrulanmış sürükleme '
-        'modeli gelene kadar hiç gösterilmez. Hız ve enerji namlu değeridir.',
+        _dragMode
+            ? 'Sürtünmeli hesap (G1/G7 + girilen BC); sabit rüzgâr tüm menzilde uygulanır. '
+                  'Klik değerlerini ilk atışta canlı atışla doğrulayın.'
+            : '* Vakum temelli (hava direnci modellenmez); rüzgâr düzeltmesi doğrulanmış sürükleme '
+                  'modeli gelene kadar hiç gösterilmez. Hız ve enerji namlu değeridir.',
         style: MenzilType.caption(c.ink2),
       ),
     ];
@@ -1317,4 +1641,112 @@ class _SafeReticlePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _SafeReticlePainter oldDelegate) =>
       oldDelegate.colors != colors;
+}
+
+/// Reticle for the drag solver: vertical dots carry the distance at which the
+/// target sits on that dot, horizontal dots carry the crosswind speed that
+/// moves the impact by that many mils at the selected range. Labels are
+/// symmetric on both arms because the wind direction is the shooter's call.
+class _HoldReticlePainter extends CustomPainter {
+  final MenzilColors colors;
+
+  /// Labels for 1..4 mil (index 0 = 1 mil).
+  final List<String> distanceLabels;
+  final List<String> windLabels;
+  const _HoldReticlePainter({
+    required this.colors,
+    required this.distanceLabels,
+    required this.windLabels,
+  });
+
+  static const int _mils = 5;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.shortestSide * 0.46;
+    final milPx = radius / _mils;
+    canvas.drawCircle(center, radius, Paint()..color = colors.scopeBg);
+    final main = Paint()
+      ..color = colors.ink
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    canvas.drawCircle(center, radius, main);
+    canvas.drawLine(
+      Offset(center.dx, center.dy - radius),
+      Offset(center.dx, center.dy + radius),
+      main,
+    );
+    canvas.drawLine(
+      Offset(center.dx - radius, center.dy),
+      Offset(center.dx + radius, center.dy),
+      main,
+    );
+    final dot = Paint()..color = colors.ink;
+    final fontSize = (size.shortestSide / 26).clamp(9.0, 13.0).toDouble();
+    for (var k = 1; k <= 4; k++) {
+      final d = milPx * k;
+      canvas.drawCircle(Offset(center.dx, center.dy + d), 3, dot);
+      canvas.drawCircle(Offset(center.dx - d, center.dy), 3, dot);
+      canvas.drawCircle(Offset(center.dx + d, center.dy), 3, dot);
+      if (k <= distanceLabels.length) {
+        _text(
+          canvas,
+          distanceLabels[k - 1],
+          Offset(center.dx + 7, center.dy + d - fontSize / 2 - 1),
+          fontSize,
+          colors.ink,
+        );
+      }
+      if (k <= windLabels.length) {
+        for (final sign in const [-1.0, 1.0]) {
+          _text(
+            canvas,
+            windLabels[k - 1],
+            Offset(center.dx + sign * d, center.dy - fontSize - 6),
+            fontSize,
+            colors.ink2,
+            centered: true,
+          );
+        }
+      }
+    }
+    canvas.drawCircle(center, 3, Paint()..color = colors.amber);
+  }
+
+  void _text(
+    Canvas canvas,
+    String text,
+    Offset at,
+    double fontSize,
+    Color color, {
+    bool centered = false,
+  }) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: text,
+        style: TextStyle(
+          color: color,
+          fontSize: fontSize,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    tp.paint(canvas, centered ? at - Offset(tp.width / 2, 0) : at);
+  }
+
+  @override
+  bool shouldRepaint(covariant _HoldReticlePainter oldDelegate) =>
+      oldDelegate.colors != colors ||
+      !_same(oldDelegate.distanceLabels, distanceLabels) ||
+      !_same(oldDelegate.windLabels, windLabels);
+
+  static bool _same(List<String> a, List<String> b) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
+  }
 }

@@ -1,10 +1,22 @@
 #!/usr/bin/env python3
-"""Fail closed if unvalidated G1/G7 DOPE becomes reachable from BallisticEngine.
+"""Fail the build if G1/G7 DOPE is reachable without its validation evidence.
 
-The gate is deliberately structural: it parses the acceptance policy as JSON
-instead of grepping its formatting, and verifies that production code still
-contains the explicit rejection path and has no dependency on the experimental
-solver.  Malformed/missing policy is a hard failure.
+Opening the G1/G7 production gate is allowed only while all of these hold, and
+the check is deliberately structural (policy parsed as JSON, formatting
+independent):
+
+* ``BallisticEngine.solve`` routes aerodynamic requests (ballistic coefficient
+  or drag law present) to ``AerodynamicTrajectorySolver`` and never to the
+  vacuum solver;
+* the frozen acceptance policy still requires G1 and G7, the model x
+  atmosphere cross product, and records that the gate depends on the
+  comparison passing;
+* the iOS CI workflow still runs the independent reference comparison
+  (no-wind and wind) before anything is built.
+
+Removing the comparison from CI, or letting the engine fall back to vacuum for
+an aerodynamic request, fails this check. Malformed/missing policy is a hard
+failure.
 """
 from __future__ import annotations
 import json
@@ -14,6 +26,19 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 ENGINE = ROOT / "lib/core/ballistic_engine.dart"
 ACCEPTANCE = ROOT / "validation/acceptance.json"
+WORKFLOW = ROOT / ".github/workflows/ios-ci.yml"
+
+REQUIRED_WORKFLOW_STEPS = (
+    "tools/generate_reference_vectors.py",
+    "dart run tools/compare_reference_vectors.dart",
+    "tools/generate_wind_reference_vectors.py",
+    "dart run tools/compare_wind_reference_vectors.dart",
+)
+
+
+def _squash(text: str) -> str:
+    # Format-independent: dart format may wrap lines or add trailing commas.
+    return "".join(text.split()).replace(",)", ")")
 
 
 def verify() -> list[str]:
@@ -46,16 +71,31 @@ def verify() -> list[str]:
 
     required_markers = [
         "if (input.ballisticModel != null || input.ballisticCoefficient != null)",
-        "throw UnsupportedError('G1/G7 drag solver is not validated yet; aerodynamic DOPE is unavailable.');",
+        "return const AerodynamicTrajectorySolver().solve(input);",
+        "return solveVacuum(input);",
     ]
-    # Format-independent: dart format may wrap lines or add trailing commas.
-    squashed = "".join(source.split()).replace(",)", ")")
+    squashed = _squash(source)
     for marker in required_markers:
-        if "".join(marker.split()).replace(",)", ")") not in squashed:
-            errors.append(f"missing fail-closed marker in {ENGINE.relative_to(ROOT)}: {marker}")
+        if _squash(marker) not in squashed:
+            errors.append(f"missing routing marker in {ENGINE.relative_to(ROOT)}: {marker}")
+    # The aerodynamic branch must come first: vacuum is only the no-BC path.
+    aero = squashed.find(_squash("return const AerodynamicTrajectorySolver().solve(input);"))
+    vac = squashed.find(_squash("return solveVacuum(input);"))
+    if aero != -1 and vac != -1 and aero > vac:
+        errors.append("aerodynamic routing must precede the vacuum fallback in BallisticEngine.solve")
+    if "UnsupportedError('G1/G7 drag solver is not validated yet" in source:
+        errors.append("the closed-gate rejection is still present in BallisticEngine")
+    if "aerodynamic_trajectory_solver.dart" not in source:
+        errors.append("BallisticEngine does not import the aerodynamic solver")
 
-    if "aerodynamic_trajectory_solver.dart" in source or "AerodynamicTrajectorySolver" in source:
-        errors.append("BallisticEngine directly references the experimental aerodynamic solver while gate policy is closed")
+    try:
+        workflow = WORKFLOW.read_text(encoding="utf-8")
+    except OSError as exc:
+        errors.append(f"could not read {WORKFLOW.relative_to(ROOT)}: {exc}")
+        workflow = ""
+    for step in REQUIRED_WORKFLOW_STEPS:
+        if step not in workflow:
+            errors.append(f"CI no longer runs the reference validation step: {step}")
     return errors
 
 
@@ -65,7 +105,7 @@ def main() -> int:
         for error in errors:
             print(f"ERROR: {error}", file=sys.stderr)
         return 1
-    print("Production G1/G7 gate: CLOSED (fail-closed contract verified)")
+    print("Production G1/G7 gate: OPEN only with CI reference comparison wired (contract verified)")
     return 0
 
 
