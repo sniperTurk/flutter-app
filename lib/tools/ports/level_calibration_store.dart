@@ -1,8 +1,7 @@
 /// Device-constant tilt bias of one level pose, in degrees.
 ///
 /// It is what a two-point flip calibration measures: the phone's own
-/// accelerometer offset plus anything fixed to the phone, such as the
-/// camera bump lifting one end when it lies screen-up.
+/// accelerometer offset plus anything else fixed to the phone.
 typedef LevelBias = ({double xDeg, double yDeg});
 
 /// Port for remembering the Su Terazisi flip calibration between launches.

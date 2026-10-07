@@ -140,7 +140,7 @@ void main() {
     },
   );
 
-  testWidgets('uncalibrated level points to the calibration; steps work', (
+  testWidgets('calibration steps from the bottom-left sheet work', (
     tester,
   ) async {
     tester.view.physicalSize = const Size(430, 932);
@@ -159,8 +159,13 @@ void main() {
     await tester.pump();
     await tester.pump();
 
-    expect(find.byKey(const Key('level-calibration-hint')), findsOneWidget);
-    await tester.tap(find.byKey(const Key('level-calibration-hint')));
+    // No warning banner; the note only states the calibration status.
+    expect(find.byKey(const Key('level-calibration-hint')), findsNothing);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('level-pose'))).data,
+      contains('kalibre değil'),
+    );
+    await tester.tap(find.byKey(const Key('level-calibrate-open')));
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('level-calibrate-normal')));
@@ -182,7 +187,10 @@ void main() {
     await tester.tapAt(const Offset(10, 10)); // close the sheet
     await tester.pumpAndSettle();
 
-    expect(find.byKey(const Key('level-calibration-hint')), findsNothing);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('level-pose'))).data,
+      contains('kalibre'),
+    );
     expect(find.text('Seviyede'), findsOneWidget);
     expect((await store.load())['flat'], isNotNull);
 
