@@ -172,14 +172,51 @@ void main() {
       await tester.pump();
       await tester.pump(); // stream events are delivered asynchronously
       expect(find.textContaining(RegExp(r'-?\d+,\d{2}°')), findsWidgets);
+      // The resolution caveat lives behind the help button of the bottom bar.
+      await tester.tap(find.byKey(const Key('level-help')));
+      await tester.pumpAndSettle();
       expect(
         find.textContaining('yalnızca ekran çözünürlüğüdür'),
         findsOneWidget,
       );
+      await tester.tap(find.text('Tamam'));
+      await tester.pumpAndSettle();
       // Design: circular gauge + X horizontal tube + Y vertical tube, together.
       expect(find.byKey(const Key('level-circle')), findsOneWidget);
       expect(find.byKey(const Key('level-tube-x')), findsOneWidget);
       expect(find.byKey(const Key('level-tube-y')), findsOneWidget);
+      await _unmount(tester);
+    });
+
+    testWidgets('bottom bar cycles the view and opens the settings sheet', (
+      tester,
+    ) async {
+      final tilt = TestTilt();
+      await tester.pumpWidget(
+        host(const LevelScreen(), services: testServices(tilt: tilt)),
+      );
+      await tester.pump();
+      tilt.controller.add(const TiltAvailable(GravityVector(0.5, -0.3, 9.79)));
+      await tester.pump();
+      await tester.pump(); // stream events are delivered asynchronously
+
+      // all -> torpedo: only the horizontal tube remains.
+      await tester.tap(find.byKey(const Key('level-view-cycle')));
+      await tester.pump();
+      expect(find.byKey(const Key('level-tube-x')), findsOneWidget);
+      expect(find.byKey(const Key('level-circle')), findsNothing);
+      // torpedo -> bullseye: only the round vial remains.
+      await tester.tap(find.byKey(const Key('level-view-cycle')));
+      await tester.pump();
+      expect(find.byKey(const Key('level-circle')), findsOneWidget);
+      expect(find.byKey(const Key('level-tube-x')), findsNothing);
+
+      // Reference and calibration controls live in the settings sheet.
+      await tester.tap(find.byKey(const Key('level-calibrate-open')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('level-set-reference')), findsOneWidget);
+      expect(find.byKey(const Key('level-clear-reference')), findsOneWidget);
+      expect(find.text('Dört Yüzey Kalibrasyonu'), findsOneWidget);
       await _unmount(tester);
     });
 

@@ -37,6 +37,17 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
   /// level vial (Su Terazisi). Never use it for status text or other widgets.
   final Color levelLiquid;
 
+  /// Neutral "physical instrument" tones of the Su Terazisi screen only:
+  /// concrete backdrop, black vial frames, glass glare and the round
+  /// control buttons. Identical in light and dark: a real level does not
+  /// change colour with the system theme.
+  final Color levelBackdrop;
+  final Color levelBackdropDeep;
+  final Color levelBezel;
+  final Color levelGlare;
+  final Color levelControl;
+  final Color levelControlInk;
+
   const MenzilColors({
     required this.bg,
     required this.surface,
@@ -57,6 +68,12 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     required this.scopeLine,
     required this.scopeDim,
     required this.levelLiquid,
+    required this.levelBackdrop,
+    required this.levelBackdropDeep,
+    required this.levelBezel,
+    required this.levelGlare,
+    required this.levelControl,
+    required this.levelControlInk,
   });
 
   static const light = MenzilColors(
@@ -78,7 +95,13 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     scopeBg: Color(0xFFF7FAFB),
     scopeLine: Color(0xFF0F2230),
     scopeDim: Color(0xFF8DA0AE),
-    levelLiquid: Color(0xFF2EA862),
+    levelLiquid: Color(0xFF8CCB12),
+    levelBackdrop: Color(0xFF5A5C5E),
+    levelBackdropDeep: Color(0xFF2B2C2E),
+    levelBezel: Color(0xFF111213),
+    levelGlare: Color(0xFFFFFFFF),
+    levelControl: Color(0xFF1B1C1E),
+    levelControlInk: Color(0xFFF1F2F3),
   );
 
   static const dark = MenzilColors(
@@ -100,7 +123,13 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     scopeBg: Color(0xFF0C1A24),
     scopeLine: Color(0xFFE7EFF3),
     scopeDim: Color(0xFF5E7A8E),
-    levelLiquid: Color(0xFF3FCB7C),
+    levelLiquid: Color(0xFF8CCB12),
+    levelBackdrop: Color(0xFF5A5C5E),
+    levelBackdropDeep: Color(0xFF2B2C2E),
+    levelBezel: Color(0xFF111213),
+    levelGlare: Color(0xFFFFFFFF),
+    levelControl: Color(0xFF1B1C1E),
+    levelControlInk: Color(0xFFF1F2F3),
   );
 
   /// Colours for the current theme. Falls back to the light palette when a
@@ -131,6 +160,12 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     Color? scopeLine,
     Color? scopeDim,
     Color? levelLiquid,
+    Color? levelBackdrop,
+    Color? levelBackdropDeep,
+    Color? levelBezel,
+    Color? levelGlare,
+    Color? levelControl,
+    Color? levelControlInk,
   }) => MenzilColors(
     bg: bg ?? this.bg,
     surface: surface ?? this.surface,
@@ -151,6 +186,12 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     scopeLine: scopeLine ?? this.scopeLine,
     scopeDim: scopeDim ?? this.scopeDim,
     levelLiquid: levelLiquid ?? this.levelLiquid,
+    levelBackdrop: levelBackdrop ?? this.levelBackdrop,
+    levelBackdropDeep: levelBackdropDeep ?? this.levelBackdropDeep,
+    levelBezel: levelBezel ?? this.levelBezel,
+    levelGlare: levelGlare ?? this.levelGlare,
+    levelControl: levelControl ?? this.levelControl,
+    levelControlInk: levelControlInk ?? this.levelControlInk,
   );
 
   @override
@@ -177,6 +218,12 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
       scopeLine: mix(scopeLine, other.scopeLine),
       scopeDim: mix(scopeDim, other.scopeDim),
       levelLiquid: mix(levelLiquid, other.levelLiquid),
+      levelBackdrop: mix(levelBackdrop, other.levelBackdrop),
+      levelBackdropDeep: mix(levelBackdropDeep, other.levelBackdropDeep),
+      levelBezel: mix(levelBezel, other.levelBezel),
+      levelGlare: mix(levelGlare, other.levelGlare),
+      levelControl: mix(levelControl, other.levelControl),
+      levelControlInk: mix(levelControlInk, other.levelControlInk),
     );
   }
 }
