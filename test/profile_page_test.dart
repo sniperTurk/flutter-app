@@ -205,7 +205,10 @@ void main() {
       'Yeni Profil 3',
     );
     // A gap is reused: only taken names are skipped.
-    expect(defaultProfileName({'Yeni Profil', 'Yeni Profil 3'}), 'Yeni Profil 2');
+    expect(
+      defaultProfileName({'Yeni Profil', 'Yeni Profil 3'}),
+      'Yeni Profil 2',
+    );
   });
 
   testWidgets('second new profile opens as "Yeni Profil 2"', (tester) async {
