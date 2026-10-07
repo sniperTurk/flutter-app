@@ -95,8 +95,8 @@ class _ManualCatalogDialogState extends State<ManualCatalogDialog> {
     'barrelLengthMm': kind == 'rifle' ? _number(barrel) : null,
     // Twist is entered in the profile editor; editing the record here must
     // not silently drop it.
-    'twistDirection': kind == 'rifle' ? widget.existing?['twistDirection'] : null,
-    'twistRateIn': kind == 'rifle' ? widget.existing?['twistRateIn'] : null,
+    'twistDirection': kind == 'rifle' ? (existing?['twistDirection']) : null,
+    'twistRateIn': kind == 'rifle' ? (existing?['twistRateIn']) : null,
     'grain': (kind == 'ammo' || kind == 'custom_ammunition') ? _number(grain) : null,
     'ammoType': (kind == 'ammo' || kind == 'custom_ammunition')
         ? (selectedPlatform == 'firearm' ? 'bullet' : (ammoType == 'bullet' ? 'pellet' : ammoType))
