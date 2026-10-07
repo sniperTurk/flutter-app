@@ -7,13 +7,16 @@ import '../../core/ballistic_engine.dart';
 import '../../core/ballistic_input.dart';
 import '../../core/dope_ranges.dart';
 import '../../core/production_limits.dart';
+import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
+import '../../core/units.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
 import '../../services/settings_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../tools/map_distance_screen.dart';
+import 'scope_dial_view.dart';
 
 /// Which part of the ballistic workspace is shown.
 ///
@@ -90,6 +93,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   _ShotBasis? _basis;
   double _shotRangeM = 100;
+
+  /// Turret clicks dialled on the interactive scope (U/R positive). Kept
+  /// with the workspace so they survive tab switches; a new profile starts
+  /// a fresh workspace with both turrets at zero.
+  int _elevationClicks = 0;
+  int _windageClicks = 0;
+
+  /// Correction-vs-range curve of the current basis in the scope's unit,
+  /// used to label the reticle's hold marks. Cached per basis/unit.
+  List<CorrectionSample>? _holdSamples;
+  _ShotBasis? _holdSamplesBasis;
+  AngularUnit? _holdSamplesUnit;
 
   @override
   void initState() {
@@ -511,35 +526,105 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             ),
           ),
           const SizedBox(height: MenzilSpace.md),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final screenH = MediaQuery.sizeOf(context).height;
-              final side = math.min(
-                constraints.maxWidth * 0.78,
-                math.max(200.0, screenH * 0.42),
-              );
-              return Center(
-                child: Semantics(
-                  label:
-                      'Retikül önizlemesi. Düzeltme işareti merkeze kilitli.',
-                  image: true,
-                  child: SizedBox.square(
-                    dimension: side,
-                    child: CustomPaint(painter: _SafeReticlePainter(c)),
-                  ),
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: MenzilSpace.sm),
-          Text(
-            'Retikül önizlemesi • yükseklik değeri solda sayısal olarak veriliyor; '
-            'rüzgâr düzeltmesi doğrulanana kadar işaret görsel olarak merkeze kilitlidir.',
-            textAlign: TextAlign.center,
-            style: MenzilType.caption(c.ink2),
-          ),
+          _scopeDial(shot),
         ],
       ),
+    );
+  }
+
+  /// Half of the scope's total adjustment travel, in clicks; falls back to
+  /// 30 mrad (≈103 MOA) of travel each way when the catalog has no value.
+  int _halfTravelClicks(ScopeOptic s, double? totalTravelMrad) {
+    final mrad = (totalTravelMrad != null && totalTravelMrad > 0)
+        ? totalTravelMrad / 2
+        : 30.0;
+    final inUnit = s.clickUnit == AngularUnit.moa
+        ? Units.mradToMoa(mrad)
+        : mrad;
+    return math.max(1, (inUnit / s.clickValue).floor());
+  }
+
+  List<CorrectionSample> _holdSamplesFor(_ShotBasis basis, AngularUnit unit) {
+    if (identical(basis, _holdSamplesBasis) &&
+        unit == _holdSamplesUnit &&
+        _holdSamples != null) {
+      return _holdSamples!;
+    }
+    List<CorrectionSample> samples;
+    try {
+      final ranges = <double>[
+        for (var r = 1.0; r <= ProductionLimits.maxRangeM; r += 1) r,
+      ];
+      samples = const BallisticEngine()
+          .solve(
+            BallisticInput(
+              muzzleVelocityMps: basis.velocityMps,
+              grain: basis.grain,
+              zeroRangeM: basis.zeroRangeM,
+              sightHeightMm: basis.sightHeightMm,
+              rangesM: ranges,
+              environment: basis.environment,
+            ),
+          )
+          .map((p) => ScopeDialMath.sampleOf(p, unit))
+          .toList(growable: false);
+    } on ArgumentError {
+      samples = const [];
+    } on UnsupportedError {
+      samples = const [];
+    }
+    _holdSamples = samples;
+    _holdSamplesBasis = basis;
+    _holdSamplesUnit = unit;
+    return samples;
+  }
+
+  /// Interactive scope: turrets change the dialled clicks and the reticle
+  /// shows where the shot lands at the selected range. Without a usable
+  /// click value the scope cannot be simulated, so it says so instead.
+  Widget _scopeDial(TrajectoryPoint? shot) {
+    final c = MenzilColors.of(context);
+    final s = scope;
+    if (s == null || !s.clickValue.isFinite || s.clickValue <= 0) {
+      return MenzilNotice(
+        tone: MenzilNoticeTone.warning,
+        message:
+            'Bu dürbünün klik değeri katalogda yok; kule simülasyonu '
+            'gösterilemiyor. Dürbünü Profil sekmesinden kontrol edin.',
+      );
+    }
+    final unit = s.clickUnit;
+    final basis = _basis;
+    final requiredUp = shot == null
+        ? null
+        : (unit == AngularUnit.moa ? shot.correctionMoa : shot.correctionMrad);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ScopeDialView(
+          unit: unit,
+          clickValue: s.clickValue,
+          elevationClicks: _elevationClicks,
+          windageClicks: _windageClicks,
+          maxElevationClicks: _halfTravelClicks(s, s.elevationRangeMrad),
+          maxWindageClicks: _halfTravelClicks(s, s.windageRangeMrad),
+          onElevationChanged: (v) => setState(() => _elevationClicks = v),
+          onWindageChanged: (v) => setState(() => _windageClicks = v),
+          requiredUp: requiredUp,
+          rangeM: _shotRangeM,
+          samples: basis == null ? const [] : _holdSamplesFor(basis, unit),
+          toDisplayRange: _toDisplayRange,
+          distanceUnit: _distanceUnit,
+          metric: metric,
+        ),
+        const SizedBox(height: MenzilSpace.sm),
+        Text(
+          'Rüzgâr kulesi yalnızca nişan kaydırmasını gösterir: rüzgâr etkisi '
+          'doğrulanmış sürükleme modeli gelene kadar hesaplanmaz.',
+          textAlign: TextAlign.center,
+          style: MenzilType.caption(c.ink2),
+        ),
+      ],
     );
   }
 
@@ -1268,53 +1353,4 @@ class _RangeDialogState extends State<_RangeDialog> {
       FilledButton(onPressed: _apply, child: const Text('Uygula')),
     ],
   );
-}
-
-class _SafeReticlePainter extends CustomPainter {
-  final MenzilColors colors;
-  const _SafeReticlePainter(this.colors);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.shortestSide * 0.44;
-    canvas.drawCircle(center, radius, Paint()..color = colors.scopeBg);
-    final main = Paint()
-      ..color = colors.ink
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3;
-    final fine = Paint()
-      ..color = colors.scopeLine
-      ..strokeWidth = 1.2;
-    canvas.drawCircle(center, radius, main);
-    canvas.drawLine(
-      Offset(center.dx, center.dy - radius),
-      Offset(center.dx, center.dy + radius),
-      main,
-    );
-    canvas.drawLine(
-      Offset(center.dx - radius, center.dy),
-      Offset(center.dx + radius, center.dy),
-      main,
-    );
-    for (var i = -3; i <= 3; i++) {
-      if (i == 0) continue;
-      final d = radius * i / 4;
-      canvas.drawLine(
-        Offset(center.dx + d, center.dy - 7),
-        Offset(center.dx + d, center.dy + 7),
-        fine,
-      );
-      canvas.drawLine(
-        Offset(center.dx - 7, center.dy + d),
-        Offset(center.dx + 7, center.dy + d),
-        fine,
-      );
-    }
-    canvas.drawCircle(center, 6, Paint()..color = colors.amber);
-  }
-
-  @override
-  bool shouldRepaint(covariant _SafeReticlePainter oldDelegate) =>
-      oldDelegate.colors != colors;
 }
