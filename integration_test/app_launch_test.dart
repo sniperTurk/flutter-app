@@ -163,8 +163,10 @@ void main() {
     expect(find.text('DOPE için önce aktif profil oluşturun'), findsNothing);
     await tester.tap(find.text('Hesapla').first);
     await tester.pumpAndSettle();
-    // V354: elevation shows a real vacuum-model value; only wind stays locked.
-    expect(find.text('KİLİTLİ'), findsNWidgets(1));
+    // V378: the typed ammo carries a BC with its G1 model, so Atış uses the
+    // drag solver and wind is computed (no KİLİTLİ card).
+    expect(find.text('KİLİTLİ'), findsNothing);
+    expect(find.byKey(const Key('wind-status-card')), findsOneWidget);
     expect(tester.takeException(), isNull);
 
     // Tablo is the second mode of the Atış tab.
