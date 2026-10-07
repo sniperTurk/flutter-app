@@ -9,6 +9,7 @@ import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle_holds.dart';
+import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
 import '../../core/units.dart';
 import '../../data/profile_catalog_integrity.dart';
@@ -17,6 +18,7 @@ import '../../services/settings_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../tools/map_distance_screen.dart';
+import 'scope_dial_view.dart';
 
 /// Which part of the ballistic workspace is shown.
 ///
@@ -116,7 +118,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Drag-mode extras of the last solve (empty in vacuum mode).
   List<DragWarning> _warnings = [];
   List<double> _unreachableM = [];
-  List<HoldMark> _holdMarks = [];
+
+  /// Turret clicks dialled on the interactive scope (U/R positive). Kept
+  /// with the workspace so they survive tab switches; a new profile starts
+  /// a fresh workspace with both turrets at zero.
+  int _elevationClicks = 0;
+  int _windageClicks = 0;
+
+  /// Correction-vs-range curve of the current basis (drag or vacuum), used
+  /// to label the reticle's hold marks. Sampled once per solve.
+  List<TrajectoryPoint>? _holdSamples;
+  _ShotBasis? _holdSamplesBasis;
   final Map<double, ({TrajectoryPoint? shot, double? mpsPerMil})> _shotCache =
       {};
 
@@ -222,7 +234,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _basis = null;
       _warnings = [];
       _unreachableM = [];
-      _holdMarks = [];
       _shotCache.clear();
     });
 
@@ -353,19 +364,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ballisticModel: model,
               platform: ammo!.platform,
             );
-      final holds = bc == null
-          ? <HoldMark>[]
-          : ReticleHolds.marks(
-              samples: ReticleHolds.sample(input),
-              zeroRangeM: z,
-              mils: const [1, 2, 3, 4],
-            );
 
       setState(() {
         points = solved.points;
         _unreachableM = solved.unreachableM;
         _warnings = warnings;
-        _holdMarks = holds;
         airDensityKgM3 = density;
         densityRatio = ratio;
         speedOfSoundMps = sound;
@@ -602,57 +605,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             ),
           ),
           const SizedBox(height: MenzilSpace.md),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final screenH = MediaQuery.sizeOf(context).height;
-              final side = math.min(
-                constraints.maxWidth * 0.78,
-                math.max(200.0, screenH * 0.42),
-              );
-              final holdReticle = _dragMode && _basis != null;
-              return Center(
-                child: Semantics(
-                  label: holdReticle
-                      ? 'Retikül. Dikey noktalar mesafeyi, yatay noktalar yan rüzgâr hızını gösterir.'
-                      : 'Retikül önizlemesi. Düzeltme işareti merkeze kilitli.',
-                  image: true,
-                  child: SizedBox.square(
-                    dimension: side,
-                    child: CustomPaint(
-                      painter: holdReticle
-                          ? _HoldReticlePainter(
-                              colors: c,
-                              distanceLabels: [
-                                for (final m in _holdMarks)
-                                  m.distanceM == null
-                                      ? '—'
-                                      : _toDisplayRange(
-                                          m.distanceM!,
-                                        ).toStringAsFixed(0),
-                              ],
-                              windLabels: [
-                                for (var k = 1; k <= 4; k++)
-                                  _evalShot().mpsPerMil == null
-                                      ? '—'
-                                      : _windLabel(_evalShot().mpsPerMil! * k),
-                              ],
-                            )
-                          : _SafeReticlePainter(c),
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: MenzilSpace.sm),
-          Text(
-            _dragMode && _basis != null
-                ? _holdCaption()
-                : 'Retikül önizlemesi • yükseklik değeri solda sayısal olarak veriliyor; '
-                      'rüzgâr düzeltmesi doğrulanana kadar işaret görsel olarak merkeze kilitlidir.',
-            textAlign: TextAlign.center,
-            style: MenzilType.caption(c.ink2),
-          ),
+          _scopeDial(shot),
         ],
       ),
     );
@@ -661,17 +614,116 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   String _windLabel(double mps) =>
       (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
 
-  /// What one mil means at the selected range, and how the reticle is read.
-  String _holdCaption() {
-    final cm = _shotRangeM / 10; // 1 mil subtends range/1000 m
+  /// Half of the scope's total adjustment travel, in clicks; falls back to
+  /// 30 mrad (≈103 MOA) of travel each way when the catalog has no value.
+  int _halfTravelClicks(ScopeOptic s, double? totalTravelMrad) {
+    final mrad = (totalTravelMrad != null && totalTravelMrad > 0)
+        ? totalTravelMrad / 2
+        : 30.0;
+    final inUnit = s.clickUnit == AngularUnit.moa
+        ? Units.mradToMoa(mrad)
+        : mrad;
+    return math.max(1, (inUnit / s.clickValue).floor());
+  }
+
+  /// Elevation correction from 1 m out to the farthest reachable range of
+  /// the current basis (drag or vacuum), sampled once per solve.
+  List<CorrectionSample> _holdSamplesFor(_ShotBasis basis, AngularUnit unit) {
+    if (!identical(basis, _holdSamplesBasis) || _holdSamples == null) {
+      List<TrajectoryPoint> points;
+      try {
+        points = ReticleHolds.sample(basis.input(const [1]));
+      } on ArgumentError {
+        points = const [];
+      } on UnsupportedError {
+        points = const [];
+      }
+      _holdSamples = points;
+      _holdSamplesBasis = basis;
+    }
+    return [for (final p in _holdSamples!) ScopeDialMath.sampleOf(p, unit)];
+  }
+
+  /// Interactive scope: turrets change the dialled clicks and the reticle
+  /// shows where the shot lands at the selected range. In drag mode the
+  /// required windage and the crosswind labels come from the drag solver;
+  /// the vacuum baseline has no wind model, so its required windage is 0.
+  Widget _scopeDial(TrajectoryPoint? shot) {
+    final s = scope;
+    if (s == null || !s.clickValue.isFinite || s.clickValue <= 0) {
+      return const MenzilNotice(
+        tone: MenzilNoticeTone.warning,
+        message:
+            'Bu dürbünün klik değeri katalogda yok; kule simülasyonu '
+            'gösterilemiyor. Dürbünü Profil sekmesinden kontrol edin.',
+      );
+    }
+    final unit = s.clickUnit;
+    final basis = _basis;
+    double inUnit(double mrad) =>
+        unit == AngularUnit.moa ? Units.mradToMoa(mrad) : mrad;
+    final requiredUp = shot == null
+        ? null
+        : (unit == AngularUnit.moa ? shot.correctionMoa : shot.correctionMrad);
+    // windMrad = atan2(-z, range): the correction toward the RIGHT turret
+    // direction, with the solver's +z drawn to the right of the crosshair.
+    final requiredRight = (shot == null || basis == null || !basis.drag)
+        ? 0.0
+        : inUnit(shot.windMrad);
+
+    final windLabels = <(double, String)>[];
+    final mpsPerMil = basis != null && basis.drag
+        ? _evalShot().mpsPerMil
+        : null;
+    if (mpsPerMil != null) {
+      final step = unit == AngularUnit.moa ? 4.0 : 1.0;
+      for (var i = 1; i <= 4; i++) {
+        final mark = i * step;
+        final mrad = unit == AngularUnit.moa ? Units.moaToMrad(mark) : mark;
+        windLabels.add((mark, _windLabel(mpsPerMil * mrad)));
+      }
+    }
+    // What one reticle unit spans at the selected range.
+    final unitSpanM = ScopeDialMath.linearAtRange(1, _shotRangeM, unit);
     final span = metric
-        ? '${cm.toStringAsFixed(1)} cm'
-        : '${UnitSystem.millimetersToInches(_shotRangeM).toStringAsFixed(1)} in';
-    final windUnit = metric ? 'm/s' : 'mph';
-    return 'Dikey noktalar: hedefi o noktaya oturttuğunuz mesafe ($_distanceUnit). '
-        'Yatay noktalar: $_shotDisplay $_distanceUnit mesafede isabeti o kadar '
-        'kaydıran yan rüzgâr hızı ($windUnit). 1 mil = $span. '
-        'Rüzgâr hangi yönden eserse o yöne doğru düzeltin.';
+        ? '${(unitSpanM * 100).toStringAsFixed(1)} cm'
+        : '${UnitSystem.millimetersToInches(unitSpanM * 1000).toStringAsFixed(1)} in';
+    final scaleNote =
+        '${unit == AngularUnit.moa ? '1 MOA' : '1 mil'} = $span '
+        '($_shotDisplay $_distanceUnit).';
+    String? windNote;
+    final windMps = basis?.environment.windMps ?? 0;
+    if (basis != null && basis.drag && windMps > 0) {
+      final dir = basis.environment.windDirectionDeg;
+      final side = math.sin(dir * math.pi / 180);
+      final from = side.abs() < 0.05
+          ? 'önden/arkadan'
+          : (side > 0 ? 'soldan' : 'sağdan');
+      windNote =
+          'Rüzgâr ${_windLabel(windMps)} ${metric ? 'm/s' : 'mph'}, '
+          '${dir.toStringAsFixed(0)}° ($from) ile hesaplandı; 90° = soldan, '
+          '270° = sağdan.';
+    }
+
+    return ScopeDialView(
+      unit: unit,
+      clickValue: s.clickValue,
+      elevationClicks: _elevationClicks,
+      windageClicks: _windageClicks,
+      maxElevationClicks: _halfTravelClicks(s, s.elevationRangeMrad),
+      maxWindageClicks: _halfTravelClicks(s, s.windageRangeMrad),
+      onElevationChanged: (v) => setState(() => _elevationClicks = v),
+      onWindageChanged: (v) => setState(() => _windageClicks = v),
+      requiredUp: requiredUp,
+      requiredRight: requiredRight,
+      windLabels: windLabels,
+      windNote: windNote == null ? scaleNote : '$scaleNote $windNote',
+      rangeM: _shotRangeM,
+      samples: basis == null ? const [] : _holdSamplesFor(basis, unit),
+      toDisplayRange: _toDisplayRange,
+      distanceUnit: _distanceUnit,
+      metric: metric,
+    );
   }
 
   Widget _windStatusCard(TrajectoryPoint? shot, String clickUnitLabel) {
@@ -1592,161 +1644,4 @@ class _RangeDialogState extends State<_RangeDialog> {
       FilledButton(onPressed: _apply, child: const Text('Uygula')),
     ],
   );
-}
-
-class _SafeReticlePainter extends CustomPainter {
-  final MenzilColors colors;
-  const _SafeReticlePainter(this.colors);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.shortestSide * 0.44;
-    canvas.drawCircle(center, radius, Paint()..color = colors.scopeBg);
-    final main = Paint()
-      ..color = colors.ink
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3;
-    final fine = Paint()
-      ..color = colors.scopeLine
-      ..strokeWidth = 1.2;
-    canvas.drawCircle(center, radius, main);
-    canvas.drawLine(
-      Offset(center.dx, center.dy - radius),
-      Offset(center.dx, center.dy + radius),
-      main,
-    );
-    canvas.drawLine(
-      Offset(center.dx - radius, center.dy),
-      Offset(center.dx + radius, center.dy),
-      main,
-    );
-    for (var i = -3; i <= 3; i++) {
-      if (i == 0) continue;
-      final d = radius * i / 4;
-      canvas.drawLine(
-        Offset(center.dx + d, center.dy - 7),
-        Offset(center.dx + d, center.dy + 7),
-        fine,
-      );
-      canvas.drawLine(
-        Offset(center.dx - 7, center.dy + d),
-        Offset(center.dx + 7, center.dy + d),
-        fine,
-      );
-    }
-    canvas.drawCircle(center, 6, Paint()..color = colors.amber);
-  }
-
-  @override
-  bool shouldRepaint(covariant _SafeReticlePainter oldDelegate) =>
-      oldDelegate.colors != colors;
-}
-
-/// Reticle for the drag solver: vertical dots carry the distance at which the
-/// target sits on that dot, horizontal dots carry the crosswind speed that
-/// moves the impact by that many mils at the selected range. Labels are
-/// symmetric on both arms because the wind direction is the shooter's call.
-class _HoldReticlePainter extends CustomPainter {
-  final MenzilColors colors;
-
-  /// Labels for 1..4 mil (index 0 = 1 mil).
-  final List<String> distanceLabels;
-  final List<String> windLabels;
-  const _HoldReticlePainter({
-    required this.colors,
-    required this.distanceLabels,
-    required this.windLabels,
-  });
-
-  static const int _mils = 5;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.shortestSide * 0.46;
-    final milPx = radius / _mils;
-    canvas.drawCircle(center, radius, Paint()..color = colors.scopeBg);
-    final main = Paint()
-      ..color = colors.ink
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-    canvas.drawCircle(center, radius, main);
-    canvas.drawLine(
-      Offset(center.dx, center.dy - radius),
-      Offset(center.dx, center.dy + radius),
-      main,
-    );
-    canvas.drawLine(
-      Offset(center.dx - radius, center.dy),
-      Offset(center.dx + radius, center.dy),
-      main,
-    );
-    final dot = Paint()..color = colors.ink;
-    final fontSize = (size.shortestSide / 26).clamp(9.0, 13.0).toDouble();
-    for (var k = 1; k <= 4; k++) {
-      final d = milPx * k;
-      canvas.drawCircle(Offset(center.dx, center.dy + d), 3, dot);
-      canvas.drawCircle(Offset(center.dx - d, center.dy), 3, dot);
-      canvas.drawCircle(Offset(center.dx + d, center.dy), 3, dot);
-      if (k <= distanceLabels.length) {
-        _text(
-          canvas,
-          distanceLabels[k - 1],
-          Offset(center.dx + 7, center.dy + d - fontSize / 2 - 1),
-          fontSize,
-          colors.ink,
-        );
-      }
-      if (k <= windLabels.length) {
-        for (final sign in const [-1.0, 1.0]) {
-          _text(
-            canvas,
-            windLabels[k - 1],
-            Offset(center.dx + sign * d, center.dy - fontSize - 6),
-            fontSize,
-            colors.ink2,
-            centered: true,
-          );
-        }
-      }
-    }
-    canvas.drawCircle(center, 3, Paint()..color = colors.amber);
-  }
-
-  void _text(
-    Canvas canvas,
-    String text,
-    Offset at,
-    double fontSize,
-    Color color, {
-    bool centered = false,
-  }) {
-    final tp = TextPainter(
-      text: TextSpan(
-        text: text,
-        style: TextStyle(
-          color: color,
-          fontSize: fontSize,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    tp.paint(canvas, centered ? at - Offset(tp.width / 2, 0) : at);
-  }
-
-  @override
-  bool shouldRepaint(covariant _HoldReticlePainter oldDelegate) =>
-      oldDelegate.colors != colors ||
-      !_same(oldDelegate.distanceLabels, distanceLabels) ||
-      !_same(oldDelegate.windLabels, windLabels);
-
-  static bool _same(List<String> a, List<String> b) {
-    if (a.length != b.length) return false;
-    for (var i = 0; i < a.length; i++) {
-      if (a[i] != b[i]) return false;
-    }
-    return true;
-  }
 }
