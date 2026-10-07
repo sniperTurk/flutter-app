@@ -65,6 +65,60 @@ abstract final class ScopeDialMath {
     double requiredRight = 0,
   }) => (up: dialedUp - requiredUp, right: dialedRight - requiredRight);
 
+  /// Turret click used when the profile's unit differs from the catalog
+  /// scope's click unit: 0.1 mrad or ¼ MOA, the common click of each unit.
+  static double standardClick(AngularUnit unit) =>
+      unit == AngularUnit.mrad ? 0.1 : 0.25;
+
+  /// Converts [angle] from [from] to [to] (1 mrad = 3.43775 MOA).
+  static double convert(double angle, AngularUnit from, AngularUnit to) {
+    if (from == to) return angle;
+    return to == AngularUnit.moa
+        ? Units.mradToMoa(angle)
+        : Units.moaToMrad(angle);
+  }
+
+  /// Angle, in the reticle's own unit, that ONE reticle unit really covers.
+  ///
+  /// * FFP (first focal plane): the reticle is magnified with the image, so
+  ///   a 1 mrad / 1 MOA mark covers exactly that at every magnification.
+  /// * SFP (second focal plane): the reticle stays the same size while the
+  ///   image grows, so the marks are true only at the calibration
+  ///   magnification; at [magnification] one mark covers
+  ///   `calibration / magnification` units.
+  static double reticleSubtension({
+    required bool firstFocalPlane,
+    required double magnification,
+    required double calibrationMagnification,
+  }) {
+    if (firstFocalPlane) return 1;
+    if (!magnification.isFinite || magnification <= 0) {
+      throw ArgumentError.value(magnification, 'magnification', 'must be > 0');
+    }
+    if (!calibrationMagnification.isFinite || calibrationMagnification <= 0) {
+      throw ArgumentError.value(
+        calibrationMagnification,
+        'calibrationMagnification',
+        'must be > 0',
+      );
+    }
+    return calibrationMagnification / magnification;
+  }
+
+  /// Half of the visible field (true angle, reticle unit) at [magnification]
+  /// when [halfFieldAtReference] is visible at [referenceMagnification].
+  /// The field of view shrinks in proportion to magnification.
+  static double visibleHalfField({
+    required double halfFieldAtReference,
+    required double magnification,
+    required double referenceMagnification,
+  }) {
+    if (!magnification.isFinite || magnification <= 0) {
+      throw ArgumentError.value(magnification, 'magnification', 'must be > 0');
+    }
+    return halfFieldAtReference * referenceMagnification / magnification;
+  }
+
   /// Converts an angle in [unit] to milliradians.
   static double toMrad(double angle, AngularUnit unit) =>
       unit == AngularUnit.mrad ? angle : Units.moaToMrad(angle);

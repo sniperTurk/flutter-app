@@ -126,6 +126,27 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   int _elevationClicks = 0;
   int _windageClicks = 0;
 
+  /// Magnification shown on the interactive scope; null = the scope's
+  /// highest power (the usual SFP calibration).
+  double? _magnification;
+
+  /// Angular unit of the scope view: the unit chosen in the profile
+  /// ("Dürbün birimi") wins, so a MRAD profile shows a MRAD reticle and MRAD
+  /// turret clicks, and a MOA profile shows MOA throughout.
+  AngularUnit get _scopeUnit =>
+      widget.profile?.angularUnit ?? scope?.clickUnit ?? AngularUnit.mrad;
+
+  /// Click size in [_scopeUnit]: the catalog value when the catalog turret
+  /// is in the same unit, otherwise the standard click of that unit
+  /// (0.1 mrad / ¼ MOA).
+  double? get _scopeClickValue {
+    final s = scope;
+    if (s == null || !s.clickValue.isFinite || s.clickValue <= 0) return null;
+    return s.clickUnit == _scopeUnit
+        ? s.clickValue
+        : ScopeDialMath.standardClick(_scopeUnit);
+  }
+
   /// Correction-vs-range curve of the current basis (drag or vacuum), used
   /// to label the reticle's hold marks. Sampled once per solve.
   List<TrajectoryPoint>? _holdSamples;
@@ -547,12 +568,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _clicksOnScope(mrad: shot.correctionMrad, moa: shot.correctionMoa);
 
   int? _clicksOnScope({required double mrad, required double moa}) {
-    final s = scope;
-    if (s == null || s.clickValue <= 0) return null;
-    final correction = s.clickUnit == AngularUnit.moa ? moa : mrad;
+    final click = _scopeClickValue;
+    if (click == null) return null;
+    final correction = _scopeUnit == AngularUnit.moa ? moa : mrad;
     return const BallisticEngine().clicks(
       correction: correction,
-      clickValue: s.clickValue,
+      clickValue: click,
     );
   }
 
@@ -560,7 +581,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final c = MenzilColors.of(context);
     final correction = shot == null ? null : _elevationCorrectionText(shot);
     final clicks = shot == null ? null : _elevationClicksOnScope(shot);
-    final clickUnitLabel = scope?.clickUnit == AngularUnit.moa ? 'MOA' : 'mrad';
+    final clickUnitLabel = _scopeUnit == AngularUnit.moa ? 'MOA' : 'mrad';
     return MenzilCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -617,14 +638,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Half of the scope's total adjustment travel, in clicks; falls back to
   /// 30 mrad (≈103 MOA) of travel each way when the catalog has no value.
-  int _halfTravelClicks(ScopeOptic s, double? totalTravelMrad) {
+  int _halfTravelClicks(double clickValue, double? totalTravelMrad) {
     final mrad = (totalTravelMrad != null && totalTravelMrad > 0)
         ? totalTravelMrad / 2
         : 30.0;
-    final inUnit = s.clickUnit == AngularUnit.moa
+    final inUnit = _scopeUnit == AngularUnit.moa
         ? Units.mradToMoa(mrad)
         : mrad;
-    return math.max(1, (inUnit / s.clickValue).floor());
+    return math.max(1, (inUnit / clickValue).floor());
   }
 
   /// Elevation correction from 1 m out to the farthest reachable range of
@@ -651,7 +672,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// the vacuum baseline has no wind model, so its required windage is 0.
   Widget _scopeDial(TrajectoryPoint? shot) {
     final s = scope;
-    if (s == null || !s.clickValue.isFinite || s.clickValue <= 0) {
+    final click = _scopeClickValue;
+    if (s == null || click == null) {
       return const MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:
@@ -659,7 +681,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             'gösterilemiyor. Dürbünü Profil sekmesinden kontrol edin.',
       );
     }
-    final unit = s.clickUnit;
+    final unit = _scopeUnit;
     final basis = _basis;
     double inUnit(double mrad) =>
         unit == AngularUnit.moa ? Units.mradToMoa(mrad) : mrad;
@@ -672,18 +694,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ? 0.0
         : inUnit(shot.windMrad);
 
-    final windLabels = <(double, String)>[];
     final mpsPerMil = basis != null && basis.drag
         ? _evalShot().mpsPerMil
         : null;
-    if (mpsPerMil != null) {
-      final step = unit == AngularUnit.moa ? 4.0 : 1.0;
-      for (var i = 1; i <= 4; i++) {
-        final mark = i * step;
-        final mrad = unit == AngularUnit.moa ? Units.moaToMrad(mark) : mark;
-        windLabels.add((mark, _windLabel(mpsPerMil * mrad)));
-      }
-    }
+    final windMpsPerUnit = mpsPerMil == null
+        ? null
+        : mpsPerMil * (unit == AngularUnit.moa ? Units.moaToMrad(1) : 1.0);
     // What one reticle unit spans at the selected range.
     final unitSpanM = ScopeDialMath.linearAtRange(1, _shotRangeM, unit);
     final span = metric
@@ -706,18 +722,40 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           '270° = sağdan.';
     }
 
+    final minMag = s.minMagnification ?? 0, maxMag = s.maxMagnification ?? 0;
+    final zoom = minMag > 0 && maxMag >= minMag;
+    final unitName = unit == AngularUnit.moa ? 'MOA' : 'MRAD';
+    final catalogName = s.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD';
+    final unitNote = s.clickUnit == unit
+        ? null
+        : 'Profilde dürbün birimi $unitName seçili; katalogdaki '
+              '${s.displayName} kulesi $catalogName '
+              '(${s.clickValue} $catalogName/klik). Retikül ve kule $unitName '
+              'olarak, $click $unitName/klik ile gösteriliyor. Dürbününüz '
+              '$catalogName ise profilde birimi $catalogName yapın.';
     return ScopeDialView(
       unit: unit,
-      clickValue: s.clickValue,
+      clickValue: click,
       elevationClicks: _elevationClicks,
       windageClicks: _windageClicks,
-      maxElevationClicks: _halfTravelClicks(s, s.elevationRangeMrad),
-      maxWindageClicks: _halfTravelClicks(s, s.windageRangeMrad),
+      maxElevationClicks: _halfTravelClicks(click, s.elevationRangeMrad),
+      maxWindageClicks: _halfTravelClicks(click, s.windageRangeMrad),
       onElevationChanged: (v) => setState(() => _elevationClicks = v),
       onWindageChanged: (v) => setState(() => _windageClicks = v),
       requiredUp: requiredUp,
       requiredRight: requiredRight,
-      windLabels: windLabels,
+      windMpsPerUnit: windMpsPerUnit,
+      windText: _windLabel,
+      firstFocalPlane: s.firstFocalPlane,
+      minMagnification: zoom ? minMag : null,
+      maxMagnification: zoom ? maxMag : null,
+      magnification: zoom
+          ? (_magnification ?? maxMag).clamp(minMag, maxMag).toDouble()
+          : null,
+      onMagnificationChanged: zoom
+          ? (v) => setState(() => _magnification = v)
+          : null,
+      unitNote: unitNote,
       windNote: windNote == null ? scaleNote : '$scaleNote $windNote',
       rangeM: _shotRangeM,
       samples: basis == null ? const [] : _holdSamplesFor(basis, unit),

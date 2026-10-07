@@ -1178,7 +1178,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                         ),
                       )
                       .toList(),
-                  onChanged: (v) => setState(() => scope = v),
+                  // The scope's turret unit becomes the profile unit; the
+                  // user can still change "Dürbün birimi" below.
+                  onChanged: (v) => setState(() {
+                    scope = v;
+                    if (v != null) angularUnit = v.clickUnit;
+                  }),
                 ),
                 if (rifle?.userEntered == true ||
                     ammo?.userEntered == true ||
@@ -1238,6 +1243,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       : null,
                 ),
                 MenzilSelect<AngularUnit>(
+                  key: ValueKey('profile-angular-unit-${angularUnit.name}'),
                   label: 'Dürbün birimi',
                   initialValue: angularUnit,
                   items: const [
