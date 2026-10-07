@@ -212,7 +212,8 @@ class _LevelScreenState extends State<LevelScreen> {
                 LevelViewType.torpedo => Icons.horizontal_rule_rounded,
                 LevelViewType.bullseye => Icons.radio_button_unchecked,
               },
-              label: 'Görünüm: ${_viewName(controller.viewType)}, değiştirmek için dokunun',
+              label:
+                  'Görünüm: ${_viewName(controller.viewType)}, değiştirmek için dokunun',
               onPressed: () => controller.setViewType(
                 LevelViewType.values[(controller.viewType.index + 1) %
                     LevelViewType.values.length],
@@ -505,7 +506,9 @@ class _RoundButton extends StatelessWidget {
           message: label,
           child: Material(
             color: c.levelControl,
-            shape: CircleBorder(side: BorderSide(color: c.levelBezel, width: 2)),
+            shape: CircleBorder(
+              side: BorderSide(color: c.levelBezel, width: 2),
+            ),
             elevation: 4,
             shadowColor: c.levelBezel,
             child: InkWell(
@@ -873,7 +876,10 @@ class _TubePainter extends CustomPainter {
         at(e - len * 0.07, thick - frame).dx,
         at(e - len * 0.07, thick - frame).dy,
       )
-      ..lineTo(at(e - len * 0.05, thick - frame).dx, at(e - len * 0.05, thick - frame).dy)
+      ..lineTo(
+        at(e - len * 0.05, thick - frame).dx,
+        at(e - len * 0.05, thick - frame).dy,
+      )
       ..quadraticBezierTo(
         at(e - len * 0.005, thick * 0.7).dx,
         at(e - len * 0.005, thick * 0.7).dy,
@@ -992,7 +998,10 @@ class _CirclePainter extends CustomPainter {
       ..color = colors.levelGlare.withValues(alpha: 0.08);
     for (final f in const [0.55, 0.75, 0.95]) {
       canvas.drawArc(
-        Rect.fromCircle(center: centre + Offset(ri * 0.25, ri * 0.15), radius: ri * f),
+        Rect.fromCircle(
+          center: centre + Offset(ri * 0.25, ri * 0.15),
+          radius: ri * f,
+        ),
         math.pi * 0.9,
         math.pi * 0.7,
         false,
@@ -1003,17 +1012,18 @@ class _CirclePainter extends CustomPainter {
       centre + Offset(-ri * 0.18, -ri * 0.32),
       ri * 0.09,
       Paint()
-        ..shader = RadialGradient(
-          colors: [
-            colors.levelGlare.withValues(alpha: 0.9),
-            colors.levelGlare.withValues(alpha: 0),
-          ],
-        ).createShader(
-          Rect.fromCircle(
-            center: centre + Offset(-ri * 0.18, -ri * 0.32),
-            radius: ri * 0.09,
-          ),
-        ),
+        ..shader =
+            RadialGradient(
+              colors: [
+                colors.levelGlare.withValues(alpha: 0.9),
+                colors.levelGlare.withValues(alpha: 0),
+              ],
+            ).createShader(
+              Rect.fromCircle(
+                center: centre + Offset(-ri * 0.18, -ri * 0.32),
+                radius: ri * 0.09,
+              ),
+            ),
     );
 
     // Dotted crosshair through the centre.
