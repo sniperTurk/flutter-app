@@ -268,27 +268,34 @@ void main() {
       tilt.controller.add(const TiltAvailable(GravityVector(2, 0, 9.6)));
       await tester.pump();
       await tester.pump(); // stream events are delivered asynchronously
-      expect(find.text('Eğik'), findsOneWidget);
+      String state() =>
+          tester.widget<Text>(find.byKey(const Key('level-state'))).data!;
+      String pose() =>
+          tester.widget<Text>(find.byKey(const Key('level-pose'))).data!;
+      expect(state(), 'Eğik');
+      expect(pose(), isNot(contains('referans etkin')));
+
+      // Reference controls live in the settings sheet of the bottom bar.
+      await tester.tap(find.byKey(const Key('level-calibrate-open')));
+      await tester.pumpAndSettle();
       expect(find.textContaining('Referans ayarı etkin'), findsNothing);
 
       final clear = find.byKey(const Key('level-clear-reference'));
-      await tester.ensureVisible(clear);
       // Nothing to clear yet.
       await tester.tap(clear, warnIfMissed: false);
       await tester.pump();
-      expect(find.text('Eğik'), findsOneWidget);
+      expect(state(), 'Eğik');
 
-      final set = find.byKey(const Key('level-set-reference'));
-      await tester.ensureVisible(set);
-      await tester.tap(set);
+      await tester.tap(find.byKey(const Key('level-set-reference')));
       await tester.pump();
-      expect(find.text('Seviyede'), findsOneWidget);
+      expect(state(), 'Seviyede');
+      expect(pose(), contains('referans etkin'));
       expect(find.textContaining('Referans ayarı etkin'), findsOneWidget);
 
-      await tester.ensureVisible(clear);
       await tester.tap(clear);
       await tester.pump();
-      expect(find.text('Eğik'), findsOneWidget);
+      expect(state(), 'Eğik');
+      expect(pose(), isNot(contains('referans etkin')));
       expect(find.textContaining('Referans ayarı etkin'), findsNothing);
       await _unmount(tester);
     });
