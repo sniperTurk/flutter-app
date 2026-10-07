@@ -104,7 +104,7 @@ void main() {
     await type('rifle-brand', 'Test Marka');
     await type('rifle-model', 'Test Model');
     await type('rifle-caliber', '6,35');
-    await type('rifle-barrel', '600');
+    await type('rifle-barrel', '60');
     await type('rifle-twist-rate', '16');
     await type('rifle-regulator', '120');
     await tester.ensureVisible(find.byKey(const Key('rifle-twist-direction')));
@@ -126,6 +126,9 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('G1').last);
     await tester.pumpAndSettle();
+    await type('profile-velocity-fps', '900');
+    await type('profile-zero', '25');
+    await type('scope-sight-height', '60');
     await type('scope-brand', 'Test Optik');
     await type('scope-min-mag', '6');
     await type('scope-max-mag', '24');

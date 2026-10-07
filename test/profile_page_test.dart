@@ -52,11 +52,13 @@ Future<void> _pumpList(
 }
 
 void main() {
-  testWidgets('metric: row and summary show m/s and m, in Turkish', (
+  testWidgets('metric: velocity in fps (Profil rule), zero in m, Turkish', (
     tester,
   ) async {
     await _pumpList(tester, metric: true);
-    expect(find.textContaining('270.0 m/s • Sıfır 25 m'), findsOneWidget);
+    // 270 m/s = 885.8 fps. Velocity is always fps on Profil.
+    expect(find.textContaining('886 fps • Sıfır 25 m'), findsOneWidget);
+    expect(find.textContaining('m/s', findRichText: true), findsNothing);
     expect(find.textContaining('Zero'), findsNothing);
   });
 
@@ -132,5 +134,116 @@ void main() {
     await tester.tap(button);
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('environment-open-weather')), findsOneWidget);
+  });
+
+  testWidgets('editor takes velocity in fps and stores m/s', (tester) async {
+    tester.view.physicalSize = const Size(390 * 3, 2600 * 3);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await _pumpList(tester, metric: true, embedded: false);
+    await tester.tap(find.byTooltip('Profili düzenle').first);
+    await tester.pumpAndSettle();
+    final field = find.descendant(
+      of: find.byKey(const Key('profile-velocity-fps')),
+      matching: find.byType(TextField),
+    );
+    await tester.ensureVisible(field);
+    // The stored 270 m/s is shown as fps.
+    expect(tester.widget<TextField>(field).controller!.text, '885.8');
+    expect(find.text('fps'), findsWidgets);
+    await tester.enterText(field, '6000');
+    await tester.pump();
+    expect(find.text('100–4900 arasında bir değer girin.'), findsOneWidget);
+    // The reason Kaydet/Güncelle is off is always written above it.
+    expect(find.byKey(const Key('profile-missing')), findsOneWidget);
+    expect(find.textContaining('Namlu çıkış hızı'), findsWidgets);
+    // No separate shot-pressure field any more.
+    expect(find.text('Atış basıncı'), findsNothing);
+  });
+
+  testWidgets('a new profile starts empty and lists what is missing', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(390 * 3, 2600 * 3);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: ProfilesScreen(store: MemoryProfileStore()),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Yeni profil'));
+    await tester.pumpAndSettle();
+    String text(String key) => tester
+        .widget<TextField>(
+          find.descendant(
+            of: find.byKey(Key(key)),
+            matching: find.byType(TextField),
+          ),
+        )
+        .controller!
+        .text;
+    // No placeholder data such as 250 m/s is ever filled in.
+    expect(text('profile-velocity-fps'), isEmpty);
+    expect(text('profile-zero'), isEmpty);
+    expect(text('scope-sight-height'), isEmpty);
+    final missing = tester
+        .widget<Text>(find.byKey(const Key('profile-missing')))
+        .data!;
+    for (final section in const ['Tüfek:', 'Dürbün:', 'Mühimmat:']) {
+      expect(missing, contains(section));
+    }
+  });
+
+  test('new-profile default names never repeat', () {
+    expect(defaultProfileName({}), 'Yeni Profil');
+    expect(defaultProfileName({'Yeni Profil'}), 'Yeni Profil 2');
+    expect(
+      defaultProfileName({'Yeni Profil', 'Yeni Profil 2', 'Avcı'}),
+      'Yeni Profil 3',
+    );
+    // A gap is reused: only taken names are skipped.
+    expect(
+      defaultProfileName({'Yeni Profil', 'Yeni Profil 3'}),
+      'Yeni Profil 2',
+    );
+  });
+
+  testWidgets('second new profile opens as "Yeni Profil 2"', (tester) async {
+    tester.view.physicalSize = const Size(390 * 3, 2600 * 3);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    final store = MemoryProfileStore();
+    await store.save(
+      const RifleProfile(
+        id: 'p0',
+        name: 'Yeni Profil',
+        rifleId: 'hatsan-hercules-635',
+        ammunitionId: 'gmaz-51',
+        scopeId: 'gazi-6-36',
+        muzzleVelocityMps: 270,
+        zeroRangeM: 25,
+        sightHeightMm: 60,
+        pressureBar: 200,
+      ),
+    );
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: ProfilesScreen(store: store),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Yeni profil'));
+    await tester.pumpAndSettle();
+    final nameField = tester.widget<TextField>(
+      find.descendant(
+        of: find.byKey(const Key('profile-name')),
+        matching: find.byType(TextField),
+      ),
+    );
+    expect(nameField.controller!.text, 'Yeni Profil 2');
   });
 }

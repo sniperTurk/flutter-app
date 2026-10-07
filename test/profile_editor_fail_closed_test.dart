@@ -96,6 +96,8 @@ void main() {
           .controller!
           .text;
       expect(text('rifle-caliber'), '6.35');
+      // Barrel length is entered in cm: the old 585 mm shows as 58.5.
+      expect(text('rifle-barrel'), '58.5');
       expect(text('rifle-twist-rate'), isEmpty);
       expect(_updateAction(tester), isNull);
 
@@ -104,7 +106,7 @@ void main() {
       expect(text('scope-max-mag'), '36');
       expect(find.text('Dürbün: Gazi Sniper 6-36x56 FFP'), findsOneWidget);
 
-      await enterRifleField(tester, 'rifle-barrel', '600');
+      await enterRifleField(tester, 'rifle-barrel', '60');
       await enterRifleField(tester, 'rifle-twist-rate', '16');
       await chooseTwistDirection(tester, 'Sol');
       expect(
@@ -129,7 +131,7 @@ void main() {
     tester,
   ) async {
     await _pumpAndOpen(tester, _valid);
-    await enterRifleField(tester, 'rifle-barrel', '600');
+    await enterRifleField(tester, 'rifle-barrel', '60');
     await enterRifleField(tester, 'rifle-regulator', '120');
     await enterRifleField(tester, 'ammo-bc', '0,08');
     await chooseInSelect(tester, 'ammo-bc-model', 'G1');
@@ -156,5 +158,47 @@ void main() {
     await enterRifleField(tester, 'ammo-bc', '3');
     expect(find.text('0.005–1.5 arasında bir değer girin.'), findsOneWidget);
     expect(_updateAction(tester), isNull);
+  });
+
+  testWidgets('every typed value has an ⓘ explanation; BC opens its text', (
+    tester,
+  ) async {
+    await _pumpAndOpen(tester, _valid);
+    for (final label in const [
+      'Kalibre',
+      'Namlu uzunluğu',
+      'Namlu yiv yönü',
+      'Yiv oranı (1:…)',
+      'Regülatör basıncı',
+      'Tip',
+      'Ağırlık',
+      'BC (balistik katsayı)',
+      'BC modeli',
+      'Odak düzlemi',
+      'Minimum büyütme',
+      'Maksimum büyütme',
+      'Mercek çapı',
+      'Dürbün birimi',
+      'Klik değeri',
+      'Sight height',
+      'Namlu çıkış hızı',
+      'Sıfırlama mesafesi',
+    ]) {
+      expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
+    }
+    final bcInfo = find.byTooltip('Bilgi: BC (balistik katsayı)');
+    await tester.ensureVisible(bcInfo);
+    await tester.tap(bcInfo);
+    await tester.pumpAndSettle();
+    expect(
+      find.textContaining('havayı ne kadar kolay yardığını'),
+      findsOneWidget,
+    );
+    await tester.tap(find.text('Tamam'));
+    await tester.pumpAndSettle();
+    expect(
+      find.textContaining('havayı ne kadar kolay yardığını'),
+      findsNothing,
+    );
   });
 }

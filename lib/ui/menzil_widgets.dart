@@ -696,6 +696,65 @@ class _MenzilAccordionState extends State<MenzilAccordion> {
 // Form controls
 // ---------------------------------------------------------------------------
 
+/// "ⓘ" next to a field label: opens a short explanation of the value to
+/// enter. Project rule: every value the user types or picks gets one.
+/// It stays outside the label's ExcludeSemantics so VoiceOver can reach it.
+class MenzilInfoButton extends StatelessWidget {
+  final String title;
+  final String text;
+  const MenzilInfoButton({super.key, required this.title, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    return IconButton(
+      tooltip: 'Bilgi: $title',
+      constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+      padding: EdgeInsets.zero,
+      visualDensity: VisualDensity.compact,
+      icon: Icon(Icons.info_outline, size: 18, color: c.ink2),
+      onPressed: () => showDialog<void>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(child: Text(text)),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: const Text('Tamam'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Label row with an optional [MenzilInfoButton] on the right.
+class _LabelWithInfo extends StatelessWidget {
+  final Widget label;
+  final String title;
+  final String? info;
+  const _LabelWithInfo({
+    required this.label,
+    required this.title,
+    required this.info,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final text = info;
+    if (text == null) return label;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Expanded(child: label),
+        MenzilInfoButton(title: title, text: text),
+      ],
+    );
+  }
+}
+
 /// Label row shared by inputs and selectors: label on the left, unit on the
 /// right, constant gap to the control below.
 class MenzilFieldLabel extends StatelessWidget {
@@ -754,6 +813,9 @@ class MenzilInput extends StatelessWidget {
   final int? maxLength;
   final List<TextInputFormatter>? inputFormatters;
 
+  /// Explanation shown by the ⓘ button next to the label.
+  final String? info;
+
   const MenzilInput({
     super.key,
     required this.controller,
@@ -769,6 +831,7 @@ class MenzilInput extends StatelessWidget {
     this.enabled = true,
     this.maxLength,
     this.inputFormatters,
+    this.info,
   });
 
   String get semanticLabel => unit == null ? label : '$label ($unit)';
@@ -782,11 +845,15 @@ class MenzilInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          ExcludeSemantics(
-            child: MenzilFieldLabel(
-              label: label,
-              unit: unit,
-              trailing: labelTrailing,
+          _LabelWithInfo(
+            title: label,
+            info: info,
+            label: ExcludeSemantics(
+              child: MenzilFieldLabel(
+                label: label,
+                unit: unit,
+                trailing: labelTrailing,
+              ),
             ),
           ),
           Semantics(
@@ -831,6 +898,9 @@ class MenzilSelect<T> extends StatelessWidget {
   final ValueChanged<T?>? onChanged;
   final String? semanticLabel;
 
+  /// Explanation shown by the ⓘ button next to the label.
+  final String? info;
+
   const MenzilSelect({
     super.key,
     required this.label,
@@ -839,6 +909,7 @@ class MenzilSelect<T> extends StatelessWidget {
     required this.items,
     required this.onChanged,
     this.semanticLabel,
+    this.info,
   });
 
   @override
@@ -850,8 +921,12 @@ class MenzilSelect<T> extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          ExcludeSemantics(
-            child: MenzilFieldLabel(label: label, unit: unit),
+          _LabelWithInfo(
+            title: label,
+            info: info,
+            label: ExcludeSemantics(
+              child: MenzilFieldLabel(label: label, unit: unit),
+            ),
           ),
           Semantics(
             label: semanticLabel ?? label,

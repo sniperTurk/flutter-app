@@ -333,6 +333,17 @@ void main() {
     expect(save(), isNull, reason: 'the ammunition must be typed in as well');
     await fillAmmoForm(tester);
     expect(
+      save(),
+      isNull,
+      reason: 'new profiles start empty: velocity, zero, sight are required',
+    );
+    // The label also says "Namlu çıkış hızı"; check the missing-field hint.
+    expect(
+      tester.widget<Text>(find.byKey(const Key('profile-missing'))).data,
+      contains('Namlu çıkış hızı'),
+    );
+    await fillShotValues(tester);
+    expect(
       find.text('Dürbün: Test Optik 6-24x56 FFP'),
       findsOneWidget,
       reason: 'separate fields are shown as one designation line',
@@ -348,6 +359,11 @@ void main() {
 
     final saved = (await store.all()).single;
     expect(saved.name, 'Yeni Profil');
+    // 900 fps entered on Profil reaches the solver as 274.32 m/s.
+    expect(saved.muzzleVelocityMps, closeTo(274.32, 1e-9));
+    expect(saved.zeroRangeM, 25);
+    expect(saved.sightHeightMm, 60);
+    expect(saved.pressureBar, 120, reason: 'PCP pressure = regulator');
     expect(find.text('Yeni Profil'), findsOneWidget);
     // The rifle became a personal record with every typed value.
     final rifle = CatalogRepository.allRifles.singleWhere(

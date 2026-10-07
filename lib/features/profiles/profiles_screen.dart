@@ -11,6 +11,7 @@ import '../../services/manual_catalog_store.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
 
 /// Profile list and management.
@@ -113,7 +114,10 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       context,
       MaterialPageRoute(
         fullscreenDialog: true,
-        builder: (_) => _ProfileDialog(initial: existing),
+        builder: (_) => _ProfileDialog(
+          initial: existing,
+          takenNames: {for (final x in items) x.name},
+        ),
       ),
     );
     if (p != null) {
@@ -557,7 +561,7 @@ class _ActiveProfileDetails extends StatelessWidget {
           columns: 2,
           metrics: [
             MenzilMetric(
-              'Çıkış hızı',
+              'Namlu çıkış hızı',
               units.velocityValue(profile.muzzleVelocityMps),
               units.velocityUnit,
             ),
@@ -567,7 +571,7 @@ class _ActiveProfileDetails extends StatelessWidget {
               units.distanceUnit,
             ),
             MenzilMetric(
-              'Dürbün yüksekliği',
+              'Sight height',
               profile.sightHeightMm.toStringAsFixed(1),
               'mm',
             ),
@@ -575,12 +579,6 @@ class _ActiveProfileDetails extends StatelessWidget {
               'Dürbün birimi',
               profile.angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
             ),
-            if (profile.pressureBar != null)
-              MenzilMetric(
-                'Atış basıncı',
-                profile.pressureBar!.toStringAsFixed(0),
-                'bar',
-              ),
             if (rifle != null)
               MenzilMetric('Çap', rifle.caliberMm.toStringAsFixed(2), 'mm'),
             if (ammo != null)
@@ -590,11 +588,7 @@ class _ActiveProfileDetails extends StatelessWidget {
                 'gr',
               ),
             if (barrelLengthMm != null)
-              MenzilMetric(
-                'Namlu boyu',
-                barrelLengthMm.toStringAsFixed(0),
-                'mm',
-              ),
+              MenzilMetric('Namlu boyu', _trimNum(barrelLengthMm / 10), 'cm'),
             if (rifle?.regulatorBar != null)
               MenzilMetric('Regülatör', _trimNum(rifle!.regulatorBar!), 'bar'),
             if (scope?.minMagnification != null &&
@@ -694,9 +688,24 @@ class _KeyValueCard extends StatelessWidget {
 
 /// Full-screen profile editor (create / edit). Returns the validated profile
 /// via `Navigator.pop`; persistence stays with the caller.
+/// Default name for a new profile that does not repeat an existing one:
+/// "Yeni Profil", then "Yeni Profil 2", "Yeni Profil 3", ...
+String defaultProfileName(Set<String> taken) {
+  const base = 'Yeni Profil';
+  if (!taken.contains(base)) return base;
+  var n = 2;
+  while (taken.contains('$base $n')) {
+    n++;
+  }
+  return '$base $n';
+}
+
 class _ProfileDialog extends StatefulWidget {
   final RifleProfile? initial;
-  const _ProfileDialog({this.initial});
+
+  /// Names already used by saved profiles (for the new-profile default).
+  final Set<String> takenNames;
+  const _ProfileDialog({this.initial, this.takenNames = const {}});
 
   @override
   State<_ProfileDialog> createState() => _ProfileDialogState();
@@ -749,7 +758,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController velocity;
   late final TextEditingController zero;
   late final TextEditingController sight;
-  late final TextEditingController pressure;
   String? validationError;
   late AngularUnit angularUnit;
 
@@ -785,8 +793,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifleBrand = TextEditingController(text: initialRifle?.brand ?? '');
     rifleModel = TextEditingController(text: initialRifle?.model ?? '');
     rifleCaliber = TextEditingController(text: num(initialRifle?.caliberMm));
+    // Barrel length is entered in cm (owner, 2026-10-07); stored as mm.
+    final barrelMm = initialRifle?.barrelLengthMm;
     rifleBarrel = TextEditingController(
-      text: num(initialRifle?.barrelLengthMm),
+      text: barrelMm == null ? '' : num(barrelMm / 10),
     );
     rifleTwist = TextEditingController(text: num(initialRifle?.twistRateIn));
     rifleRegulator = TextEditingController(
@@ -817,15 +827,70 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       if (ammo == null) _unresolved.add('mühimmat');
       if (scope == null) _unresolved.add('dürbün');
     }
-    name = TextEditingController(text: p?.name ?? 'Yeni Profil');
+    name = TextEditingController(
+      text: p?.name ?? defaultProfileName(widget.takenNames),
+    );
+    // Muzzle velocity is entered in fps on Profil (owner decision); the
+    // profile keeps storing m/s, so every calculation is unchanged.
     velocity = TextEditingController(
-      text: p?.muzzleVelocityMps.toString() ?? '250',
+      text: p == null ? '' : _fpsText(p.muzzleVelocityMps),
     );
-    zero = TextEditingController(text: p?.zeroRangeM.toString() ?? '25');
-    sight = TextEditingController(text: p?.sightHeightMm.toString() ?? '65');
-    pressure = TextEditingController(
-      text: p == null ? '200' : (p.pressureBar?.toString() ?? ''),
-    );
+    // New profiles start empty: no placeholder value is ever taken for the
+    // user's data (owner, 2026-10-07: "250 m/s nereden geliyor?").
+    zero = TextEditingController(text: p == null ? '' : num(p.zeroRangeM));
+    sight = TextEditingController(text: p == null ? '' : num(p.sightHeightMm));
+  }
+
+  static String _fpsText(double mps) {
+    final fps = UnitSystem.mpsToFps(mps);
+    return fps.toStringAsFixed(1).replaceFirst(RegExp(r'\.0$'), '');
+  }
+
+  // 100–4900 fps (4900 fps ≈ 1494 m/s, inside the 1500 m/s production limit).
+  String? get _velocityError => _rangeError(velocity, 100, 4900);
+  String? get _zeroError => _rangeError(zero, 1, ProductionLimits.maxRangeM);
+
+  /// What is still missing, per section, in the order of the page. Shown
+  /// above Kaydet so a disabled button always says why.
+  List<String> get _missing {
+    final out = <String>[];
+    void section(String name, List<(bool, String)> checks) {
+      final m = [
+        for (final (ok, label) in checks)
+          if (!ok) label,
+      ];
+      if (m.isNotEmpty) out.add('$name: ${m.join(', ')}');
+    }
+
+    section('Tüfek', [
+      (_brandError == null, 'Marka'),
+      (_modelError == null, 'Model'),
+      (_caliberError == null, 'Kalibre'),
+      (_barrelError == null, 'Namlu uzunluğu'),
+      (twistDirection != null, 'Yiv yönü'),
+      (_twistError == null, 'Yiv oranı'),
+      (_regulatorError == null, 'Regülatör basıncı'),
+      (_velocityError == null, 'Namlu çıkış hızı'),
+      (_zeroError == null, 'Sıfırlama mesafesi'),
+    ]);
+    section('Dürbün', [
+      (_scopeBrandError == null, 'Marka'),
+      (firstFocalPlane != null, 'Odak düzlemi'),
+      (_minMagError == null, 'Min. büyütme'),
+      (_maxMagError == null, 'Maks. büyütme'),
+      (_objectiveError == null, 'Mercek çapı'),
+      (_clickError == null, 'Klik değeri'),
+      (_validSight, 'Sight height'),
+    ]);
+    section('Mühimmat', [
+      (_ammoBrandError == null, 'Marka'),
+      (_ammoModelError == null, 'Model'),
+      (_effectiveAmmoType != null, 'Tip'),
+      (_grainError == null, 'Ağırlık'),
+      (_bcError == null, 'BC'),
+      (ammoBcModel != null, 'BC modeli'),
+    ]);
+    return out;
   }
 
   static double _defaultClick(AngularUnit u) =>
@@ -852,7 +917,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     velocity.dispose();
     zero.dispose();
     sight.dispose();
-    pressure.dispose();
     super.dispose();
   }
 
@@ -869,7 +933,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   // Plausibility bounds for typed rifle data (application guardrails, not
   // claims about any rifle).
   static const _minCaliberMm = 2.0, _maxCaliberMm = 20.0;
-  static const _minBarrelMm = 50.0, _maxBarrelMm = 1500.0;
+  static const _minBarrelCm = 5.0, _maxBarrelCm = 150.0;
   static const _minTwistIn = 3.0, _maxTwistIn = 80.0;
 
   String? _textError(TextEditingController c) {
@@ -894,7 +958,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? get _caliberError =>
       _rangeError(rifleCaliber, _minCaliberMm, _maxCaliberMm);
   String? get _barrelError =>
-      _rangeError(rifleBarrel, _minBarrelMm, _maxBarrelMm);
+      _rangeError(rifleBarrel, _minBarrelCm, _maxBarrelCm);
   String? get _twistError => _rangeError(rifleTwist, _minTwistIn, _maxTwistIn);
   String? get _regulatorError => platform == WeaponPlatform.pcp
       ? _rangeError(rifleRegulator, 10, ProductionLimits.maxPcpPressureBar)
@@ -997,7 +1061,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'brand': rifleBrand.text.trim(),
       'model': rifleModel.text.trim(),
       'caliberMm': _parse(rifleCaliber),
-      'barrelLengthMm': _parse(rifleBarrel),
+      'barrelLengthMm': _parse(rifleBarrel)! * 10,
       'twistDirection': twistDirection!.name,
       'twistRateIn': _parse(rifleTwist),
       'regulatorBar': platform == WeaponPlatform.pcp
@@ -1064,15 +1128,26 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       });
       return;
     }
+    final velocityError = _velocityError;
+    if (velocityError != null) {
+      setState(() {
+        _showErrors = true;
+        validationError = 'Namlu çıkış hızı (fps): $velocityError';
+      });
+      return;
+    }
+    final mps = UnitSystem.fpsToMps(_parse(velocity)!);
     final ProfileInput input;
     try {
       input = ProfileInput.validate(
         name: name.text,
-        muzzleVelocityText: velocity.text,
+        muzzleVelocityText: mps.toString(),
         zeroRangeText: zero.text,
         sightHeightText: sight.text,
         platform: platform,
-        pressureText: pressure.text,
+        // V380: the PCP profile pressure is the rifle's regulator pressure
+        // (the separate "Atış basıncı" field was redundant).
+        pressureText: rifleRegulator.text,
       );
     } on FormatException catch (e) {
       setState(() => validationError = e.message);
@@ -1142,8 +1217,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     final typedCaliber = _typedCaliber;
+    final missing = _missing;
     final canSave =
-        !_saving && _rifleValid && _ammoValid && _scopeValid && _validSight;
+        !_saving &&
+        _rifleValid &&
+        _ammoValid &&
+        _scopeValid &&
+        _validSight &&
+        missing.isEmpty;
 
     return Scaffold(
       appBar: MenzilSubPageBar(
@@ -1163,22 +1244,38 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               MenzilSpace.gutter,
               MenzilSpace.sm,
             ),
-            child: Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  child: MenzilSecondaryButton(
-                    label: 'İptal',
-                    expand: true,
-                    onPressed: () => Navigator.pop(context),
+                if (missing.isNotEmpty) ...[
+                  Text(
+                    'Kaydetmek için eksik: ${missing.join(' · ')}',
+                    key: const Key('profile-missing'),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: MenzilType.caption(c.danger),
                   ),
-                ),
-                const SizedBox(width: MenzilSpace.md),
-                Expanded(
-                  flex: 2,
-                  child: MenzilPrimaryButton(
-                    label: widget.initial == null ? 'Kaydet' : 'Güncelle',
-                    onPressed: canSave ? _save : null,
-                  ),
+                  const SizedBox(height: MenzilSpace.xs),
+                ],
+                Row(
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        label: 'İptal',
+                        expand: true,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                    const SizedBox(width: MenzilSpace.md),
+                    Expanded(
+                      flex: 2,
+                      child: MenzilPrimaryButton(
+                        label: widget.initial == null ? 'Kaydet' : 'Güncelle',
+                        onPressed: canSave ? _save : null,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -1213,6 +1310,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             child: MenzilFieldGrid(
               children: [
                 MenzilInput(
+                  key: const Key('profile-name'),
                   controller: name,
                   label: 'Profil adı',
                   keyboardType: TextInputType.text,
@@ -1280,6 +1378,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('rifle-caliber'),
+                  info: ProfileFieldInfo.caliber,
                   controller: rifleCaliber,
                   label: 'Kalibre',
                   unit: 'mm',
@@ -1289,14 +1388,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('rifle-barrel'),
+                  info: ProfileFieldInfo.barrelLength,
                   controller: rifleBarrel,
                   label: 'Namlu uzunluğu',
-                  unit: 'mm',
+                  unit: 'cm',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_barrelError, rifleBarrel),
                 ),
                 MenzilSelect<TwistDirection>(
                   key: const Key('rifle-twist-direction'),
+                  info: ProfileFieldInfo.twistDirection,
                   label: 'Namlu yiv yönü',
                   initialValue: twistDirection,
                   items: const [
@@ -1313,6 +1414,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('rifle-twist-rate'),
+                  info: ProfileFieldInfo.twistRate,
                   controller: rifleTwist,
                   label: 'Yiv oranı (1:…)',
                   unit: 'inç',
@@ -1324,6 +1426,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 if (platform == WeaponPlatform.pcp)
                   MenzilInput(
                     key: const Key('rifle-regulator'),
+                    info: ProfileFieldInfo.regulator,
                     controller: rifleRegulator,
                     label: 'Regülatör basıncı',
                     unit: 'bar',
@@ -1337,6 +1440,25 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       message: 'Namlu yiv yönünü seçin (Sağ / Sol).',
                     ),
                   ),
+                // Atış değerleri sit at the end of the Tüfek card.
+                MenzilInput(
+                  key: const Key('profile-velocity-fps'),
+                  controller: velocity,
+                  label: 'Namlu çıkış hızı',
+                  info: ProfileFieldInfo.velocity,
+                  unit: 'fps',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_velocityError, velocity),
+                ),
+                MenzilInput(
+                  key: const Key('profile-zero'),
+                  controller: zero,
+                  label: 'Sıfırlama mesafesi',
+                  info: ProfileFieldInfo.zero,
+                  unit: 'm',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_zeroError, zero),
+                ),
               ],
             ),
           ),
@@ -1369,6 +1491,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilSelect<bool>(
                   key: const Key('scope-focal-plane'),
+                  info: ProfileFieldInfo.focalPlane,
                   label: 'Odak düzlemi',
                   initialValue: firstFocalPlane,
                   items: const [
@@ -1379,6 +1502,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('scope-min-mag'),
+                  info: ProfileFieldInfo.minMag,
                   controller: scopeMinMag,
                   label: 'Minimum büyütme',
                   unit: 'x',
@@ -1387,6 +1511,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('scope-max-mag'),
+                  info: ProfileFieldInfo.maxMag,
                   controller: scopeMaxMag,
                   label: 'Maksimum büyütme',
                   unit: 'x',
@@ -1395,6 +1520,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('scope-objective'),
+                  info: ProfileFieldInfo.objective,
                   controller: scopeObjective,
                   label: 'Mercek çapı',
                   unit: 'mm',
@@ -1403,6 +1529,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilSelect<AngularUnit>(
                   key: ValueKey('profile-angular-unit-${angularUnit.name}'),
+                  info: ProfileFieldInfo.scopeUnit,
                   label: 'Dürbün birimi',
                   initialValue: angularUnit,
                   items: const [
@@ -1428,6 +1555,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('scope-click'),
+                  info: ProfileFieldInfo.click,
                   controller: scopeClick,
                   label: 'Klik değeri',
                   unit: angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
@@ -1437,8 +1565,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('scope-sight-height'),
+                  info: ProfileFieldInfo.sightHeight,
                   controller: sight,
-                  label: 'Dürbün yüksekliği (sight height)',
+                  label: 'Sight height',
                   unit: 'mm',
                   onChanged: (_) => setState(() {}),
                   helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
@@ -1466,7 +1595,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       TextButton.icon(
                         onPressed: _showSightHelp,
                         icon: const Icon(Icons.info_outline, size: 18),
-                        label: const Text('Dürbün yüksekliği nasıl ölçülür?'),
+                        label: const Text('Sight height nasıl ölçülür?'),
                       ),
                     ],
                   ),
@@ -1513,6 +1642,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 if (platform == WeaponPlatform.pcp)
                   MenzilSelect<AmmunitionType>(
                     key: const Key('ammo-type'),
+                    info: ProfileFieldInfo.ammoType,
                     label: 'Tip',
                     initialValue: ammoType == AmmunitionType.bullet
                         ? null
@@ -1520,7 +1650,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     items: const [
                       DropdownMenuItem(
                         value: AmmunitionType.pellet,
-                        child: Text('Diabolo'),
+                        child: Text('Pellet'),
                       ),
                       DropdownMenuItem(
                         value: AmmunitionType.slug,
@@ -1531,6 +1661,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ),
                 MenzilInput(
                   key: const Key('ammo-grain'),
+                  info: ProfileFieldInfo.grain,
                   controller: ammoGrain,
                   label: 'Ağırlık',
                   unit: 'grain',
@@ -1539,6 +1670,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('ammo-bc'),
+                  info: ProfileFieldInfo.bc,
                   controller: ammoBc,
                   label: 'BC (balistik katsayı)',
                   hintText: '0,035',
@@ -1547,6 +1679,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilSelect<BallisticModel>(
                   key: const Key('ammo-bc-model'),
+                  info: ProfileFieldInfo.bcModel,
                   label: 'BC modeli',
                   initialValue: ammoBcModel,
                   items: const [
@@ -1581,41 +1714,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               ],
             ),
           ),
-          const MenzilSectionHeader(
-            'Atış değerleri',
-            padding: EdgeInsets.only(
-              top: MenzilSpace.xxs,
-              bottom: MenzilSpace.sm,
-            ),
-          ),
-          MenzilCard(
-            padding: const EdgeInsets.fromLTRB(
-              MenzilSpace.lg,
-              MenzilSpace.lg,
-              MenzilSpace.lg,
-              MenzilSpace.xxs,
-            ),
-            child: MenzilFieldGrid(
-              children: [
-                MenzilInput(
-                  controller: velocity,
-                  label: 'Çıkış hızı',
-                  unit: 'm/s',
-                ),
-                MenzilInput(
-                  controller: zero,
-                  label: 'Sıfırlama mesafesi',
-                  unit: 'm',
-                ),
-                if (platform == WeaponPlatform.pcp)
-                  MenzilInput(
-                    controller: pressure,
-                    label: 'Atış basıncı',
-                    unit: 'bar',
-                  ),
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -1629,7 +1727,7 @@ class _SightHeightHelpDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     return AlertDialog(
-      title: const Text('Dürbün yüksekliği nasıl ölçülür?'),
+      title: const Text('Sight height nasıl ölçülür?'),
       content: SizedBox(
         width: 420,
         child: SingleChildScrollView(
@@ -1752,12 +1850,13 @@ class _ProfileUnits {
   static _ProfileUnits of(BuildContext context) =>
       _ProfileUnits(AppSettingsScope.metricOf(context));
 
-  String get velocityUnit => metric ? 'm/s' : 'fps';
+  // Muzzle velocity is entered and shown in fps on Profil in both unit
+  // systems (owner decision, 2026-10-07).
+  String get velocityUnit => 'fps';
   String get distanceUnit => metric ? 'm' : 'yd';
 
-  String velocityValue(double mps) => metric
-      ? mps.toStringAsFixed(1)
-      : UnitSystem.mpsToFps(mps).toStringAsFixed(0);
+  String velocityValue(double mps) =>
+      UnitSystem.mpsToFps(mps).toStringAsFixed(0);
 
   String distanceValue(double m) => metric
       ? m.toStringAsFixed(0)
