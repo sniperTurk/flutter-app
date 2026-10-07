@@ -38,3 +38,7 @@ Kaynak: `main` @ `1b8c125`. Hesap, solver ve kapılar değişmedi.
 - **Atış değerleri** (namlu çıkış hızı, sıfırlama) Tüfek kartının sonunda; ayrı bölüm yok.
 - "Çıkış hızı" → **"Namlu çıkış hızı"**.
 - (Atış basıncı → regülatör basıncı: Ek 2'de yapıldı.)
+
+## Ek 4 (sahip, 23:23)
+- Yeni profil adı tekrarlanmaz: ad yazılmazsa "Yeni Profil", sonra
+  "Yeni Profil 2", "Yeni Profil 3"… (`defaultProfileName`).

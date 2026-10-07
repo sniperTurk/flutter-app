@@ -114,7 +114,10 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       context,
       MaterialPageRoute(
         fullscreenDialog: true,
-        builder: (_) => _ProfileDialog(initial: existing),
+        builder: (_) => _ProfileDialog(
+          initial: existing,
+          takenNames: {for (final x in items) x.name},
+        ),
       ),
     );
     if (p != null) {
@@ -685,9 +688,24 @@ class _KeyValueCard extends StatelessWidget {
 
 /// Full-screen profile editor (create / edit). Returns the validated profile
 /// via `Navigator.pop`; persistence stays with the caller.
+/// Default name for a new profile that does not repeat an existing one:
+/// "Yeni Profil", then "Yeni Profil 2", "Yeni Profil 3", ...
+String defaultProfileName(Set<String> taken) {
+  const base = 'Yeni Profil';
+  if (!taken.contains(base)) return base;
+  var n = 2;
+  while (taken.contains('$base $n')) {
+    n++;
+  }
+  return '$base $n';
+}
+
 class _ProfileDialog extends StatefulWidget {
   final RifleProfile? initial;
-  const _ProfileDialog({this.initial});
+
+  /// Names already used by saved profiles (for the new-profile default).
+  final Set<String> takenNames;
+  const _ProfileDialog({this.initial, this.takenNames = const {}});
 
   @override
   State<_ProfileDialog> createState() => _ProfileDialogState();
@@ -809,7 +827,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       if (ammo == null) _unresolved.add('mühimmat');
       if (scope == null) _unresolved.add('dürbün');
     }
-    name = TextEditingController(text: p?.name ?? 'Yeni Profil');
+    name = TextEditingController(
+      text: p?.name ?? defaultProfileName(widget.takenNames),
+    );
     // Muzzle velocity is entered in fps on Profil (owner decision); the
     // profile keeps storing m/s, so every calculation is unchanged.
     velocity = TextEditingController(
@@ -1290,6 +1310,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             child: MenzilFieldGrid(
               children: [
                 MenzilInput(
+                  key: const Key('profile-name'),
                   controller: name,
                   label: 'Profil adı',
                   keyboardType: TextInputType.text,

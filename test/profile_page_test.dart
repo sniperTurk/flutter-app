@@ -196,4 +196,51 @@ void main() {
       expect(missing, contains(section));
     }
   });
+
+  test('new-profile default names never repeat', () {
+    expect(defaultProfileName({}), 'Yeni Profil');
+    expect(defaultProfileName({'Yeni Profil'}), 'Yeni Profil 2');
+    expect(
+      defaultProfileName({'Yeni Profil', 'Yeni Profil 2', 'Avcı'}),
+      'Yeni Profil 3',
+    );
+    // A gap is reused: only taken names are skipped.
+    expect(defaultProfileName({'Yeni Profil', 'Yeni Profil 3'}), 'Yeni Profil 2');
+  });
+
+  testWidgets('second new profile opens as "Yeni Profil 2"', (tester) async {
+    tester.view.physicalSize = const Size(390 * 3, 2600 * 3);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    final store = MemoryProfileStore();
+    await store.save(
+      const RifleProfile(
+        id: 'p0',
+        name: 'Yeni Profil',
+        rifleId: 'hatsan-hercules-635',
+        ammunitionId: 'gmaz-51',
+        scopeId: 'gazi-6-36',
+        muzzleVelocityMps: 270,
+        zeroRangeM: 25,
+        sightHeightMm: 60,
+        pressureBar: 200,
+      ),
+    );
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: ProfilesScreen(store: store),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Yeni profil'));
+    await tester.pumpAndSettle();
+    final nameField = tester.widget<TextField>(
+      find.descendant(
+        of: find.byKey(const Key('profile-name')),
+        matching: find.byType(TextField),
+      ),
+    );
+    expect(nameField.controller!.text, 'Yeni Profil 2');
+  });
 }
