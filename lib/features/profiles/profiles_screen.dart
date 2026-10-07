@@ -753,12 +753,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? validationError;
   late AngularUnit angularUnit;
 
-  /// Editing an existing profile is fail-closed: a catalog reference that no
-  /// longer resolves (or an ammunition that no longer matches the rifle's
-  /// caliber) is NEVER replaced by "the first catalog entry". The field is left
-  /// empty, the user is told, and saving stays disabled until they pick
-  /// explicitly. Only brand-new profiles get convenience defaults.
-  bool get _isEdit => widget.initial != null;
+  /// Editing an existing profile is fail-closed: a stored reference that no
+  /// longer resolves is NEVER replaced by another record. Its form is left
+  /// empty, the user is told, and saving stays disabled until they type the
+  /// values in. Rifle, ammunition and scope are all typed in (no defaults).
   final List<String> _unresolved = <String>[];
 
   @override
