@@ -56,8 +56,11 @@ class _LevelScreenState extends State<LevelScreen> {
         listenable: controller,
         builder: (context, _) {
           final angles = controller.angles;
+          final bias = controller.calibration.bias;
           return MenzilPage(
             children: [
+              _modeAndViewRow(context, controller),
+              const SizedBox(height: MenzilSpace.md),
               if (angles == null)
                 _unavailable(controller)
               else ...[
@@ -67,11 +70,34 @@ class _LevelScreenState extends State<LevelScreen> {
                       'dikey tüp Y ${TiltMath.format(angles.yDeg)} derece, '
                       'dairesel gösterge her iki eksen. '
                       '${TiltMath.isLevel(angles) ? 'Seviyede.' : 'Eğik.'}',
-                  child: ExcludeSemantics(child: _VialCluster(angles: angles)),
+                  child: ExcludeSemantics(
+                    child: _VialCluster(
+                      angles: angles,
+                      viewType: controller.viewType,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: MenzilSpace.md),
-                _readoutCard(context, angles),
+                _readoutCard(context, angles, controller.unit),
+                const SizedBox(height: MenzilSpace.sm),
+                _unitRow(context, controller),
                 const SizedBox(height: MenzilSpace.md),
+                Row(
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: const Key('level-lock'),
+                        expand: true,
+                        label: controller.locked ? 'Kilidi aç' : 'Kilitle',
+                        icon: controller.locked
+                            ? Icons.lock_open_outlined
+                            : Icons.lock_outline,
+                        onPressed: controller.toggleLock,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: MenzilSpace.sm),
                 Row(
                   children: [
                     Expanded(
@@ -94,10 +120,28 @@ class _LevelScreenState extends State<LevelScreen> {
                     ),
                   ],
                 ),
+                const SizedBox(height: MenzilSpace.sm),
+                Row(
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: const Key('level-calibrate-open'),
+                        expand: true,
+                        label: 'Dört Yüzey Kalibrasyonu',
+                        icon: Icons.rule_outlined,
+                        onPressed: () =>
+                            _openCalibrationSheet(context, controller),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: MenzilSpace.sm),
+                _soundRow(context, controller),
                 const SizedBox(height: MenzilSpace.md),
                 Text(
-                  'Telefonu düz yüzeye yatırdığınızda dairesel gösterge, uzun kenarı üzerinde dikey tuttuğunuzda '
-                  'yatay tüp, kısa kenarı üzerinde tuttuğunuzda dikey tüp okunur. Üçü aynı sayfada aynı anda güncellenir.',
+                  'Duruş otomatik algılanır: ${controller.mode == TiltMode.flat ? 'telefon düz (ekran yukarı)' : 'telefon dik'}. '
+                  '${controller.locked ? 'Değerler kilitli.' : ''}',
+                  key: const Key('level-pose'),
                   style: MenzilType.caption(MenzilColors.of(context).ink2),
                 ),
                 const SizedBox(height: MenzilSpace.md),
@@ -108,7 +152,8 @@ class _LevelScreenState extends State<LevelScreen> {
                     'Değerler 0,01° çözünürlükle gösterilir; bu yalnızca ekran çözünürlüğüdür, '
                     'telefon ivmeölçerinin doğruluğu değildir. Titreşimi azaltmak için filtre uygulanır; '
                     'bu doğruluğu artırmaz.'
-                    '${controller.hasOffset ? '\nReferans ayarı etkin: değerler ayarlanan konuma göredir; bu sensör kalibrasyonu değildir.' : ''}',
+                    '${controller.hasOffset ? '\nReferans ayarı etkin: değerler ayarlanan konuma göredir; bu sensör kalibrasyonu değildir.' : ''}'
+                    '${bias != null ? '\nDört yüzey kalibrasyonu etkin: sabit cihaz sapması çıkarılıyor.' : ''}',
               ),
             ],
           );
@@ -117,7 +162,11 @@ class _LevelScreenState extends State<LevelScreen> {
     );
   }
 
-  Widget _readoutCard(BuildContext context, TiltAngles angles) {
+  Widget _readoutCard(
+    BuildContext context,
+    TiltAngles angles,
+    AngleDisplayUnit unit,
+  ) {
     final c = MenzilColors.of(context);
     final level = TiltMath.isLevel(angles);
     return MenzilCard(
@@ -126,11 +175,23 @@ class _LevelScreenState extends State<LevelScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: _axis(context, 'X · yatay tüp', angles.xDeg, 'level-x'),
+            child: _axis(
+              context,
+              'X · yatay tüp',
+              angles.xDeg,
+              'level-x',
+              unit,
+            ),
           ),
           const SizedBox(width: MenzilSpace.md),
           Expanded(
-            child: _axis(context, 'Y · dikey tüp', angles.yDeg, 'level-y'),
+            child: _axis(
+              context,
+              'Y · dikey tüp',
+              angles.yDeg,
+              'level-y',
+              unit,
+            ),
           ),
           const SizedBox(width: MenzilSpace.md),
           // Status is carried by icon + text, never by colour alone.
@@ -156,8 +217,19 @@ class _LevelScreenState extends State<LevelScreen> {
     );
   }
 
-  Widget _axis(BuildContext context, String label, double deg, String key) {
+  Widget _axis(
+    BuildContext context,
+    String label,
+    double deg,
+    String key,
+    AngleDisplayUnit unit,
+  ) {
     final c = MenzilColors.of(context);
+    final text = switch (unit) {
+      AngleDisplayUnit.degrees => '${TiltMath.format(deg)}°',
+      AngleDisplayUnit.percent => TiltMath.percentText(deg),
+      AngleDisplayUnit.roofPitch => TiltMath.roofPitchText(deg),
+    };
     return Semantics(
       label: '$label ${TiltMath.format(deg)} derece',
       child: ExcludeSemantics(
@@ -169,7 +241,7 @@ class _LevelScreenState extends State<LevelScreen> {
               fit: BoxFit.scaleDown,
               alignment: Alignment.centerLeft,
               child: Text(
-                '${TiltMath.format(deg)}°',
+                text,
                 key: Key(key),
                 maxLines: 1,
                 style: MenzilType.display(c.ink, size: 40),
@@ -178,6 +250,74 @@ class _LevelScreenState extends State<LevelScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _modeAndViewRow(BuildContext context, LevelController controller) {
+    final c = MenzilColors.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Görünüm', style: MenzilType.label(c.ink2)),
+        const SizedBox(height: MenzilSpace.xs),
+        MenzilChipGroup<LevelViewType>(
+          options: const [
+            (LevelViewType.all, 'Tümü'),
+            (LevelViewType.torpedo, 'Çubuk (Torpedo)'),
+            (LevelViewType.bullseye, 'Dairesel (Mastar)'),
+          ],
+          selected: controller.viewType,
+          onSelected: controller.setViewType,
+        ),
+      ],
+    );
+  }
+
+  Widget _unitRow(BuildContext context, LevelController controller) {
+    final c = MenzilColors.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Açı birimi', style: MenzilType.label(c.ink2)),
+        const SizedBox(height: MenzilSpace.xs),
+        MenzilChipGroup<AngleDisplayUnit>(
+          options: const [
+            (AngleDisplayUnit.degrees, 'Derece'),
+            (AngleDisplayUnit.percent, 'Yüzde (%)'),
+            (AngleDisplayUnit.roofPitch, 'Çatı eğimi (n/12)'),
+          ],
+          selected: controller.unit,
+          onSelected: controller.setUnit,
+        ),
+      ],
+    );
+  }
+
+  Widget _soundRow(BuildContext context, LevelController controller) {
+    final c = MenzilColors.of(context);
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            'Seviyeye gelince sistem sesi çal',
+            style: MenzilType.body(c.ink),
+          ),
+        ),
+        Switch.adaptive(
+          key: const Key('level-sound-toggle'),
+          value: controller.soundEnabled,
+          activeThumbColor: c.ink,
+          onChanged: controller.setSoundEnabled,
+        ),
+      ],
+    );
+  }
+
+  void _openCalibrationSheet(BuildContext context, LevelController controller) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (sheetContext) => _CalibrationSheet(controller: controller),
     );
   }
 
@@ -200,6 +340,130 @@ class _LevelScreenState extends State<LevelScreen> {
   }
 }
 
+/// Guided two-point "flip" calibration (see [FlipCalibration]): for the
+/// current [LevelController.mode], capture a reading held normally, flip
+/// the phone 180° on the same surface, capture again. A full calibration
+/// across both modes (flat, upright) is four captures total.
+class _CalibrationSheet extends StatelessWidget {
+  final LevelController controller;
+  const _CalibrationSheet({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          MenzilSpace.md,
+          MenzilSpace.md,
+          MenzilSpace.md,
+          MenzilSpace.lg,
+        ),
+        child: ListenableBuilder(
+          listenable: controller,
+          builder: (context, _) {
+            final c = MenzilColors.of(context);
+            final cal = controller.calibration;
+            final hasReading = controller.rawAngles != null;
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Dört Yüzey Kalibrasyonu',
+                  style: MenzilType.heading(c.ink, size: 20),
+                ),
+                const SizedBox(height: MenzilSpace.xs),
+                Text(
+                  'Telefon bilinen düz bir yüzeyde dururken normal konumda bir okuma, '
+                  'ardından aynı yüzeyde 180° döndürülmüş hâlde ikinci bir okuma alınır. '
+                  'İki okumanın ortalaması cihaza özgü sabit sapmayı temizler; bu, '
+                  'sensörün işaret yönünü varsaymadan çalışan bir teknik olup gerçek '
+                  'cihazda doğrulanmamış işaret kuralına bağlı değildir. '
+                  'Düz ve dik duruş için ayrı ayrı yapılır (toplam dört okuma).',
+                  style: MenzilType.caption(c.ink2),
+                ),
+                const SizedBox(height: MenzilSpace.md),
+                Text(
+                  'Duruş: ${controller.mode == TiltMode.flat ? 'Düz' : 'Dik'}',
+                  style: MenzilType.label(c.ink2),
+                ),
+                const SizedBox(height: MenzilSpace.sm),
+                Row(
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: const Key('level-calibrate-normal'),
+                        expand: true,
+                        label: cal.normal == null
+                            ? '1) Normal okuma al'
+                            : '1) Normal ✓ yeniden al',
+                        onPressed: hasReading
+                            ? () =>
+                                  controller.captureCalibration(flipped: false)
+                            : null,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: MenzilSpace.sm),
+                Row(
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: const Key('level-calibrate-flipped'),
+                        expand: true,
+                        label: cal.flipped == null
+                            ? '2) 180° çevirip okuma al'
+                            : '2) Çevrilmiş ✓ yeniden al',
+                        onPressed: hasReading
+                            ? () => controller.captureCalibration(flipped: true)
+                            : null,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: MenzilSpace.md),
+                MenzilNotice(
+                  tone: cal.isComplete
+                      ? MenzilNoticeTone.info
+                      : MenzilNoticeTone.warning,
+                  message: cal.isComplete
+                      ? 'Bu duruş için kalibrasyon etkin. Değer oturum belleğinde '
+                            'tutulur; uygulama yeniden başlatıldığında sıfırlanır.'
+                      : 'Bu duruş için kalibrasyon tamamlanmadı (iki okuma da gerekli).',
+                ),
+                const SizedBox(height: MenzilSpace.md),
+                Row(
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: const Key('level-calibrate-clear-mode'),
+                        expand: true,
+                        label: 'Bu duruşu temizle',
+                        onPressed: () =>
+                            controller.clearCalibration(controller.mode),
+                      ),
+                    ),
+                    const SizedBox(width: MenzilSpace.md),
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: const Key('level-calibrate-clear-all'),
+                        expand: true,
+                        label: 'Tümünü temizle',
+                        onPressed: controller.clearAllCalibration,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
 /// Circular vial + horizontal (X) and vertical (Y) tubes, all driven by the
 /// same two angles and updated together (Claude design "Su Terazisi").
 ///
@@ -210,7 +474,8 @@ class _LevelScreenState extends State<LevelScreen> {
 /// The on-device bubble sign convention is NOT verified without a physical iPhone.
 class _VialCluster extends StatelessWidget {
   final TiltAngles angles;
-  const _VialCluster({required this.angles});
+  final LevelViewType viewType;
+  const _VialCluster({required this.angles, this.viewType = LevelViewType.all});
 
   static const _tube = 64.0;
   static const _gap = 14.0;
@@ -221,55 +486,89 @@ class _VialCluster extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final w = math.min(constraints.maxWidth, 420.0);
-        final d = w - _tube - _gap; // circle diameter = vertical tube length
-        return Center(
-          child: SizedBox(
-            width: w,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
+        switch (viewType) {
+          case LevelViewType.torpedo:
+            // Single bar vial, carpenter's/torpedo-level style: one large
+            // horizontal tube reading the X axis.
+            return Center(
+              child: SizedBox(
+                width: w,
+                height: 120,
+                child: CustomPaint(
                   key: const Key('level-tube-x'),
-                  width: w,
-                  height: _tube,
-                  child: CustomPaint(
-                    painter: _TubePainter(
-                      vertical: false,
-                      deg: angles.xDeg,
-                      colors: c,
-                    ),
+                  painter: _TubePainter(
+                    vertical: false,
+                    deg: angles.xDeg,
+                    colors: c,
                   ),
                 ),
-                const SizedBox(height: _gap),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+            );
+          case LevelViewType.bullseye:
+            // Single circular vial, mason's-level style: one large bullseye
+            // reading both axes at once.
+            final d = math.min(w, 320.0);
+            return Center(
+              child: SizedBox.square(
+                key: const Key('level-circle'),
+                dimension: d,
+                child: CustomPaint(
+                  painter: _CirclePainter(angles: angles, colors: c),
+                ),
+              ),
+            );
+          case LevelViewType.all:
+            final d =
+                w - _tube - _gap; // circle diameter = vertical tube length
+            return Center(
+              child: SizedBox(
+                width: w,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
-                      key: const Key('level-tube-y'),
-                      width: _tube,
-                      height: d,
+                      key: const Key('level-tube-x'),
+                      width: w,
+                      height: _tube,
                       child: CustomPaint(
                         painter: _TubePainter(
-                          vertical: true,
-                          deg: angles.yDeg,
+                          vertical: false,
+                          deg: angles.xDeg,
                           colors: c,
                         ),
                       ),
                     ),
-                    const SizedBox(width: _gap),
-                    SizedBox.square(
-                      key: const Key('level-circle'),
-                      dimension: d,
-                      child: CustomPaint(
-                        painter: _CirclePainter(angles: angles, colors: c),
-                      ),
+                    const SizedBox(height: _gap),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          key: const Key('level-tube-y'),
+                          width: _tube,
+                          height: d,
+                          child: CustomPaint(
+                            painter: _TubePainter(
+                              vertical: true,
+                              deg: angles.yDeg,
+                              colors: c,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: _gap),
+                        SizedBox.square(
+                          key: const Key('level-circle'),
+                          dimension: d,
+                          child: CustomPaint(
+                            painter: _CirclePainter(angles: angles, colors: c),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-        );
+              ),
+            );
+        }
       },
     );
   }

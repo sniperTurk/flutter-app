@@ -37,6 +37,7 @@ void main() {
         'compass',
         'level',
         'weather',
+        'calculators',
         'catalog',
         'settings',
       ]) {

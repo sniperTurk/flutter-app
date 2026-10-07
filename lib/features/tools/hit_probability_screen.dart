@@ -1,0 +1,158 @@
+import 'package:flutter/material.dart';
+
+import '../../tools/domain/hit_probability.dart';
+import '../../ui/menzil_theme.dart';
+import '../../ui/menzil_widgets.dart';
+import 'tool_support.dart';
+
+/// Vuruş Olasılığı (WEZ-style): from a measured group size and a target
+/// size, estimates the single-shot hit probability at a chosen range using
+/// the closed-form circular-Gaussian model in [HitProbabilityEngine]. This
+/// is a standalone statistics tool: it does not touch the (still gated)
+/// aerodynamic drag solver and never shows a scope-adjustment instruction,
+/// so it is additive to the rifle's trajectory DOPE rather than a
+/// replacement.
+class HitProbabilityScreen extends StatefulWidget {
+  const HitProbabilityScreen({super.key});
+
+  @override
+  State<HitProbabilityScreen> createState() => _HitProbabilityScreenState();
+}
+
+class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
+  final _group = TextEditingController(text: '1,0');
+  final _target = TextEditingController(text: '10');
+  final _range = TextEditingController(text: '100');
+
+  @override
+  void dispose() {
+    _group.dispose();
+    _target.dispose();
+    _range.dispose();
+    super.dispose();
+  }
+
+  double? _parse(TextEditingController c) =>
+      double.tryParse(c.text.trim().replaceAll(',', '.'));
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    final group = _parse(_group);
+    final target = _parse(_target);
+    final range = _parse(_range);
+    final valid =
+        group != null &&
+        group > 0 &&
+        target != null &&
+        target > 0 &&
+        range != null &&
+        range > 0;
+
+    double? probability;
+    double? maxRange80;
+    if (valid) {
+      probability = HitProbabilityEngine.probabilityOfHit(
+        groupDiameterMoa: group,
+        targetDiameterCm: target,
+        rangeM: range,
+      );
+      maxRange80 = HitProbabilityEngine.maxRangeForProbability(
+        groupDiameterMoa: group,
+        targetDiameterCm: target,
+        probability: 0.8,
+      );
+    }
+
+    return Scaffold(
+      appBar: const MenzilSubPageBar(title: 'Vuruş Olasılığı'),
+      body: MenzilPage(
+        children: [
+          const MenzilSectionHeader(
+            '1 · Grup ve hedef',
+            padding: EdgeInsets.only(bottom: MenzilSpace.sm),
+          ),
+          const MenzilNotice(
+            tone: MenzilNoticeTone.info,
+            message:
+                'Grup çapı, atış kağıdında ÖLÇTÜĞÜNÜZ gerçek dağılımdır (tüfek+mühimmat+nişancı dahil). '
+                'Rüzgâr veya namlu hızı sapması burada ayrıca eklenmez; onlar zaten ölçülen grubun içindedir.',
+          ),
+          MenzilFieldGrid(
+            children: [
+              MenzilInput(
+                key: const Key('wez-group'),
+                controller: _group,
+                label: 'Grup çapı',
+                unit: 'MOA',
+                helperText: 'Ör. 1,0 MOA',
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                onChanged: (_) => setState(() {}),
+              ),
+              MenzilInput(
+                key: const Key('wez-target'),
+                controller: _target,
+                label: 'Hedef çapı',
+                unit: 'cm',
+                helperText: 'Ör. vurulacak bölge',
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                onChanged: (_) => setState(() {}),
+              ),
+              MenzilInput(
+                key: const Key('wez-range'),
+                controller: _range,
+                label: 'Menzil',
+                unit: 'm',
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                onChanged: (_) => setState(() {}),
+              ),
+            ],
+          ),
+          if (valid) ...[
+            const MenzilSectionHeader(
+              '2 · Sonuç',
+              padding: EdgeInsets.only(
+                top: MenzilSpace.md,
+                bottom: MenzilSpace.sm,
+              ),
+            ),
+            MenzilMetricGrid(
+              columns: 2,
+              metrics: [
+                MenzilMetric(
+                  'Vuruş olasılığı',
+                  ToolFormat.dec(probability! * 100, 0),
+                  '%',
+                ),
+                MenzilMetric(
+                  '%80 için maks. menzil',
+                  maxRange80 == null ? '—' : ToolFormat.dec(maxRange80, 0),
+                  maxRange80 == null ? null : 'm',
+                ),
+              ],
+            ),
+            const SizedBox(height: MenzilSpace.sm),
+            Text(
+              'Model: dağılımın dairesel ve Gauss olduğu, grup yarıçapının bir sigma kabul edildiği '
+              'basitleştirilmiş bir tahmindir — gerçek atış sonuçlarının yerini tutmaz.',
+              style: MenzilType.caption(c.ink2),
+            ),
+          ] else
+            Padding(
+              padding: const EdgeInsets.only(top: MenzilSpace.md),
+              child: Text(
+                'Üç alanı da pozitif bir sayı ile doldurun.',
+                style: MenzilType.caption(c.ink2),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}

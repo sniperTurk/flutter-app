@@ -12,6 +12,7 @@ LIB = ROOT / 'lib'
 PLATFORM_PACKAGES = ('geolocator', 'sensors_plus', 'flutter_compass', 'camera', 'http')
 ALLOWED_PACKAGE_FILES = {
     'lib/tools/adapters/met_no_weather_provider.dart',
+    'lib/tools/adapters/nominatim_place_search.dart',
     'lib/tools/adapters/sensors_plus_tilt_provider.dart',
     'lib/tools/adapters/camera_plugin_service.dart',
     'lib/tools/adapters/geolocator_location_provider.dart',
@@ -108,8 +109,15 @@ class M1ArchitectureTests(unittest.TestCase):
     def test_tool_screens_expose_no_click_or_hold_instruction(self):
         for p in (LIB / 'features/tools').glob('*.dart'):
             text = p.read_text(encoding='utf-8').lower()
-            for forbidden in ('klik', 'click', 'tambur', 'holdover'):
+            # The Hesaplayicilar screen has a user-requested scope click-value
+            # CHECK (measures the real click size). It may name clicks, but it
+            # must still never give a firing/hold instruction.
+            forbidden_words = ('tambur', 'holdover') if p.name == 'calculators_screen.dart' else ('klik', 'click', 'tambur', 'holdover')
+            for forbidden in forbidden_words:
                 self.assertNotIn(forbidden, text, rel(p))
+        calc = (LIB / 'features/tools/calculators_screen.dart').read_text(encoding='utf-8').lower()
+        for forbidden in ('çevrilecek', 'dial ', 'hold '):
+            self.assertNotIn(forbidden, calc)
 
 
 class M1SafetyBoundaryTests(unittest.TestCase):

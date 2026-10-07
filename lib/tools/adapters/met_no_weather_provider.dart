@@ -12,7 +12,8 @@ import '../ports/weather_provider.dart';
 /// [WeatherProvider] for the MET Norway Locationforecast 2.0 API
 /// (CC BY 4.0). Rules honoured here (from the service terms):
 ///  * identifying User-Agent with contact information is mandatory;
-///  * coordinates are sent with at most 4 decimals;
+///  * coordinates are sent with at most 4 decimals (this app sends 2, ~1 km,
+///    so only approximate location ever leaves the device);
 ///  * data is cached and `Expires` / `If-Modified-Since` are respected;
 ///  * no request is made while the app does not ask for data.
 class MetNoWeatherProvider implements WeatherProvider {
@@ -43,7 +44,8 @@ class MetNoWeatherProvider implements WeatherProvider {
         'Hava servisi yapılandırılmadı: iletişim bilgisi eksik.',
       );
     }
-    final lat = _round4(latitude), lon = _round4(longitude);
+    final lat = WeatherPolicy.roundCoordinate(latitude);
+    final lon = WeatherPolicy.roundCoordinate(longitude);
     final key =
         '${WeatherPolicy.roundCoordinate(latitude)},${WeatherPolicy.roundCoordinate(longitude)}';
     final cached = _cache[key];
@@ -57,7 +59,7 @@ class MetNoWeatherProvider implements WeatherProvider {
     final uri = Uri.https(
       'api.met.no',
       '/weatherapi/locationforecast/2.0/compact',
-      {'lat': lat.toStringAsFixed(4), 'lon': lon.toStringAsFixed(4)},
+      {'lat': lat.toStringAsFixed(2), 'lon': lon.toStringAsFixed(2)},
     );
     final headers = <String, String>{
       'User-Agent': _userAgent,
@@ -183,8 +185,6 @@ class MetNoWeatherProvider implements WeatherProvider {
       );
     }
   }
-
-  static double _round4(double v) => (v * 10000).round() / 10000;
 
   static DateTime? _parseExpires(String? header) {
     if (header == null) return null;

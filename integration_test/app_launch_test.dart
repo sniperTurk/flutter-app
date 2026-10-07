@@ -36,6 +36,9 @@ void main() {
     // safe smoke-test targets on a clean install.
     await tester.tap(find.text('Araçlar').first);
     await tester.pumpAndSettle();
+    // The hub now lists nine tools, so Katalog can sit below the fold.
+    await tester.ensureVisible(find.text('Katalog').first);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Katalog').first);
     await tester.pumpAndSettle();
     expect(find.text('PCP Tüfekler'), findsWidgets);
@@ -112,7 +115,8 @@ void main() {
     expect(find.text('DOPE için önce aktif profil oluşturun'), findsNothing);
     await tester.tap(find.text('Hesapla').first);
     await tester.pumpAndSettle();
-    expect(find.text('KİLİTLİ'), findsNWidgets(2));
+    // V354: elevation shows a real vacuum-model value; only wind stays locked.
+    expect(find.text('KİLİTLİ'), findsNWidgets(1));
     expect(tester.takeException(), isNull);
 
     await tester.tap(find.text('Tablo').first);
@@ -124,6 +128,10 @@ void main() {
     expect(tester.takeException(), isNull);
 
     await tester.tap(find.text('Araçlar').first);
+    await tester.pumpAndSettle();
+    // The hub now lists eight tools (V1.1 added Vuruş Olasılığı), so Ayarlar
+    // can sit below the fold on the simulator screen; scroll it into view.
+    await tester.ensureVisible(find.text('Ayarlar').first);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Ayarlar').first);
     await tester.pumpAndSettle();

@@ -15,9 +15,15 @@ class VacuumTableLabelsTest(unittest.TestCase):
         self.assertIn("Namlu enerjisi ft-lb*", text)
 
     def test_footnote_states_drag_is_not_modelled(self):
+        # V354: elevation is now computed from the vacuum drop and shown as
+        # an estimate; the footnote/danger-notice text was reworded to say so
+        # explicitly instead of blanket-refusing any angular correction. The
+        # drag/wind-not-modelled disclosure and the live-fire-confirmation
+        # requirement must still both be present somewhere on the screen.
         text = SCREEN.read_text(encoding="utf-8")
         self.assertIn("hava direncini hesaplamaz", text)
-        self.assertIn("Gerçek atış için kullanmayın", text)
+        self.assertIn("canlı atışla teyit edilmelidir", text)
+        self.assertIn("gerçek atış için kullanmayın", text)
 
 
 if __name__ == "__main__":

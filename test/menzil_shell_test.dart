@@ -101,7 +101,10 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Hesapla'), findsNothing);
     expect(find.text('Atış görünümü'), findsOneWidget);
-    expect(find.text('KİLİTLİ'), findsNWidgets(2));
+    // V354: elevation is computed from the vacuum drop (valid trigonometry);
+    // only wind stays locked, since a vacuum model has no aerodynamic
+    // coupling to produce a real wind value.
+    expect(find.text('KİLİTLİ'), findsNWidgets(1));
   });
 
   testWidgets('range dial steps change the evaluated distance', (tester) async {
@@ -126,7 +129,7 @@ void main() {
   });
 
   testWidgets(
-    'shot view shows locked holds and no angular correction for the vacuum baseline',
+    'shot view shows a vacuum elevation correction but keeps wind locked',
     (tester) async {
       await _pumpShell(
         tester,
@@ -136,10 +139,14 @@ void main() {
       await tester.tap(find.text('Hesapla'));
       await tester.pumpAndSettle();
 
-      // V352/V353: no hold values, no click rows; both cards stay locked.
-      expect(find.text('KİLİTLİ'), findsNWidgets(2));
-      expect(find.text('G1/G7 kabul testi bekleniyor'), findsOneWidget);
-      expect(find.text('Klik: —*'), findsNothing);
+      // V354: elevation shows a real MOA/mrad value and a click count on the
+      // profile's own scope; wind has no aerodynamic coupling in the vacuum
+      // model, so it alone stays locked.
+      expect(find.text('KİLİTLİ'), findsNWidgets(1));
+      expect(find.text('Rüzgâr'), findsOneWidget);
+      expect(find.textContaining('MOA'), findsWidgets);
+      expect(find.textContaining('mrad'), findsWidgets);
+      expect(find.textContaining('klik'), findsWidgets);
       expect(
         find.textContaining('gerçek atış için kullanmayın'),
         findsOneWidget,
@@ -147,7 +154,9 @@ void main() {
     },
   );
 
-  testWidgets('Araçlar lists exactly the seven V1 tools', (tester) async {
+  testWidgets('Araçlar lists the V1 tools plus the V1.1 Vuruş Olasılığı tool', (
+    tester,
+  ) async {
     await _pumpShell(
       tester,
       await _storeWith([_profile]),
@@ -157,13 +166,16 @@ void main() {
     await tester.pumpAndSettle();
 
     // Chronograph, Sight Height, Compass and Level are back in V1 scope
-    // (M1); only Qwen/cloud wording must stay absent from the hub.
+    // (M1); Vuruş Olasılığı (hit probability) is a V1.1 standalone stats
+    // tool. Qwen/cloud wording must stay absent from the hub either way.
     for (final key in const [
       'chronograph',
       'sight-height',
       'compass',
       'level',
       'weather',
+      'hit-probability',
+      'calculators',
       'catalog',
       'settings',
     ]) {

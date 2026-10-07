@@ -46,7 +46,7 @@ class _ManualCatalogDialogState extends State<ManualCatalogDialog> {
   late final String recordId = existing?['id'] as String? ?? 'manual_${DateTime.now().microsecondsSinceEpoch}';
 
   late final TextEditingController brand, model, caliber, grain, bc, objective, magnification, click,
-      diameter, length, material, shape, lot, bcModel, notes;
+      diameter, length, material, shape, lot, bcModel, notes, barrel;
   late final List<TextEditingController> _controllers;
 
   bool saving = false;
@@ -71,8 +71,9 @@ class _ManualCatalogDialogState extends State<ManualCatalogDialog> {
     lot = text('lot');
     bcModel = text('bcModel');
     notes = text('notes');
+    barrel = text('barrelLengthMm');
     _controllers = [brand, model, caliber, grain, bc, objective, magnification, click,
-      diameter, length, material, shape, lot, bcModel, notes];
+      diameter, length, material, shape, lot, bcModel, notes, barrel];
   }
 
   @override
@@ -91,6 +92,7 @@ class _ManualCatalogDialogState extends State<ManualCatalogDialog> {
     'kind': kind, 'platform': selectedPlatform,
     'brand': brand.text.trim(), 'model': model.text.trim(),
     'caliberMm': kind == 'scope' ? null : _number(caliber),
+    'barrelLengthMm': kind == 'rifle' ? _number(barrel) : null,
     'grain': (kind == 'ammo' || kind == 'custom_ammunition') ? _number(grain) : null,
     'ammoType': (kind == 'ammo' || kind == 'custom_ammunition')
         ? (selectedPlatform == 'firearm' ? 'bullet' : (ammoType == 'bullet' ? 'pellet' : ammoType))
@@ -157,6 +159,7 @@ class _ManualCatalogDialogState extends State<ManualCatalogDialog> {
         TextFormField(controller: brand, decoration: const InputDecoration(labelText: 'Marka *'), validator: (v) => kind != 'custom_ammunition' && (v == null || v.trim().isEmpty) ? 'Marka gerekli' : null),
         TextFormField(controller: model, decoration: const InputDecoration(labelText: 'Model *'), validator: (v) => v == null || v.trim().isEmpty ? 'Model gerekli' : null),
         if (kind != 'scope') TextFormField(controller: caliber, keyboardType: const TextInputType.numberWithOptions(decimal: true), decoration: const InputDecoration(labelText: 'Kalibre (mm) *'), validator: (v) => kind == 'custom_ammunition' && (v == null || v.trim().isEmpty) ? null : (double.tryParse((v ?? '').replaceAll(',', '.')) ?? 0) > 0 ? null : 'Pozitif kalibre girin'),
+        if (kind == 'rifle') TextFormField(controller: barrel, keyboardType: const TextInputType.numberWithOptions(decimal: true), decoration: const InputDecoration(labelText: 'Namlu boyu (mm, isteğe bağlı)'), validator: (v) => _optionalPositive(v, 'Pozitif namlu boyu girin')),
         if (kind == 'ammo' || kind == 'custom_ammunition') ...[
           DropdownButtonFormField<String>(
             // initialValue is only read when the field state is created; the key
