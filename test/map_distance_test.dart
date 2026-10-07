@@ -39,7 +39,8 @@ void main() {
 
     final center = tester.getCenter(find.byKey(const Key('map-view')));
     await tester.tapAt(center + const Offset(0, 80));
-    await tester.pump();
+    // flutter_map waits to rule out a double tap before reporting a tap.
+    await tester.pump(const Duration(milliseconds: 600));
 
     expect(find.textContaining('Mesafe: —'), findsNothing);
     expect(find.textContaining(' m'), findsWidgets);
