@@ -205,6 +205,7 @@ void main() {
       await tester.pumpWidget(host(const CalculatorsScreen()));
       for (final k in const [
         'calc-stadia',
+        'calc-map-distance',
         'calc-reticle',
         'calc-distance',
         'calc-custom-location',

@@ -1,0 +1,313 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+
+import '../../tools/domain/field_calc.dart';
+import '../../tools/ports/location_provider.dart';
+import '../../tools/tools_services.dart';
+import '../../ui/menzil_theme.dart';
+import '../../ui/menzil_widgets.dart';
+import 'tool_support.dart';
+
+enum _Pick { shooter, target }
+
+/// Esri World Imagery satellite tiles (no API key). Attribution is shown on
+/// the map as the provider requires.
+const mapImageryUrl =
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+
+/// Konum için mesafe: pick the shooter and the target on a satellite map and
+/// read the straight-line distance and the bearing. Nothing is stored; the
+/// two points live only while the screen is open.
+///
+/// With [returnDistance] the screen shows "Bu mesafeyi kullan" and pops with
+/// the distance in metres (used by the shot-distance dialog).
+class MapDistanceScreen extends StatefulWidget {
+  final bool returnDistance;
+
+  /// Replaces the network tile loader (tests only).
+  final TileProvider? tileProvider;
+
+  const MapDistanceScreen({
+    super.key,
+    this.returnDistance = false,
+    this.tileProvider,
+  });
+
+  @override
+  State<MapDistanceScreen> createState() => _MapDistanceState();
+}
+
+class _MapDistanceState extends State<MapDistanceScreen> {
+  final _map = MapController();
+  _Pick _pick = _Pick.shooter;
+  LatLng? _shooter;
+  LatLng? _target;
+  bool _locating = false;
+  String? _message;
+
+  static const _turkey = LatLng(39.0, 35.0);
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _locate());
+  }
+
+  @override
+  void dispose() {
+    _map.dispose();
+    super.dispose();
+  }
+
+  Future<void> _locate() async {
+    if (_locating || !mounted) return;
+    final provider = ToolsServicesScope.of(context).location;
+    setState(() {
+      _locating = true;
+      _message = null;
+    });
+    final result = await provider.current();
+    if (!mounted) return;
+    setState(() {
+      _locating = false;
+      switch (result) {
+        case LocationFix(:final latitude, :final longitude):
+          _shooter = LatLng(latitude, longitude);
+          _pick = _Pick.target;
+          _map.move(_shooter!, 17);
+        case LocationDenied():
+          _message =
+              'Konum izni verilmedi. Haritaya dokunarak nişancı konumunu seçebilirsiniz.';
+        case LocationServiceOff():
+          _message =
+              'Konum servisleri kapalı. Haritaya dokunarak nişancı konumunu seçebilirsiniz.';
+        case LocationFailure():
+          _message =
+              'Konum alınamadı. Haritaya dokunarak nişancı konumunu seçebilirsiniz.';
+      }
+    });
+  }
+
+  void _onTap(LatLng p) {
+    setState(() {
+      if (_pick == _Pick.shooter) {
+        _shooter = p;
+        _pick = _Pick.target;
+      } else {
+        _target = p;
+      }
+    });
+  }
+
+  double? get _distanceM {
+    final s = _shooter, t = _target;
+    if (s == null || t == null) return null;
+    return FieldCalc.haversineM(s.latitude, s.longitude, t.latitude, t.longitude);
+  }
+
+  double? get _bearing {
+    final s = _shooter, t = _target;
+    if (s == null || t == null) return null;
+    return FieldCalc.bearingDeg(s.latitude, s.longitude, t.latitude, t.longitude);
+  }
+
+  static const _names = ['K', 'KD', 'D', 'GD', 'G', 'GB', 'B', 'KB'];
+  static String _dir(double deg) =>
+      _names[((deg % 360) / 45).round() % 8];
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    final active = _pick == _Pick.shooter ? _shooter : _target;
+    final dist = _distanceM;
+    final bearing = _bearing;
+
+    Widget info(String label, String value) => Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(text: '$label: '),
+              TextSpan(
+                text: value,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
+          style: TextStyle(color: c.ink, fontSize: 14),
+        ),
+      ),
+    );
+
+    final marker = <Marker>[
+      if (_shooter != null)
+        Marker(
+          point: _shooter!,
+          width: 44,
+          height: 44,
+          child: Icon(Icons.person_pin_circle, size: 40, color: c.amber),
+        ),
+      if (_target != null)
+        Marker(
+          point: _target!,
+          width: 44,
+          height: 44,
+          child: Icon(Icons.gps_fixed, size: 36, color: c.danger),
+        ),
+    ];
+
+    return Scaffold(
+      appBar: const MenzilSubPageBar(title: 'Konum için mesafe'),
+      body: Column(
+        children: [
+          Container(
+            key: const Key('map-info'),
+            width: double.infinity,
+            color: c.surface2,
+            padding: const EdgeInsets.symmetric(
+              horizontal: MenzilSpace.gutter,
+              vertical: MenzilSpace.sm,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    info(
+                      'Enlem',
+                      active == null
+                          ? '—'
+                          : '${ToolFormat.dec(active.latitude, 4)}°',
+                    ),
+                    info(
+                      'Mesafe',
+                      dist == null ? '—' : '${ToolFormat.dec(dist, 0)} m',
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    info(
+                      'Boylam',
+                      active == null
+                          ? '—'
+                          : '${ToolFormat.dec(active.longitude, 4)}°',
+                    ),
+                    info(
+                      'Yön',
+                      bearing == null
+                          ? '—'
+                          : '${ToolFormat.dec(bearing, 1)}° ${_dir(bearing)}',
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Stack(
+              children: [
+                FlutterMap(
+                  key: const Key('map-view'),
+                  mapController: _map,
+                  options: MapOptions(
+                    initialCenter: _turkey,
+                    initialZoom: 6,
+                    minZoom: 2,
+                    maxZoom: 20,
+                    onTap: (_, p) => _onTap(p),
+                  ),
+                  children: [
+                    TileLayer(
+                      urlTemplate: mapImageryUrl,
+                      userAgentPackageName: 'com.sniperturk.sniperTurk',
+                      maxNativeZoom: 19,
+                      tileProvider: widget.tileProvider,
+                    ),
+                    if (_shooter != null && _target != null)
+                      PolylineLayer(
+                        polylines: [
+                          Polyline(
+                            points: [_shooter!, _target!],
+                            strokeWidth: 3,
+                            color: c.amber,
+                          ),
+                        ],
+                      ),
+                    MarkerLayer(markers: marker),
+                    const SimpleAttributionWidget(
+                      source: Text('Esri, Maxar, Earthstar Geographics'),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  right: MenzilSpace.md,
+                  bottom: MenzilSpace.md,
+                  child: FloatingActionButton.small(
+                    key: const Key('map-locate'),
+                    tooltip: 'Konumumu nişancı yap',
+                    onPressed: _locating ? null : _locate,
+                    child: _locating
+                        ? const SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.my_location),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            color: c.bg,
+            padding: const EdgeInsets.all(MenzilSpace.gutter),
+            child: SafeArea(
+              top: false,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (_message != null)
+                    MenzilNotice(
+                      tone: MenzilNoticeTone.warning,
+                      message: _message!,
+                    ),
+                  MenzilChipGroup<_Pick>(
+                    options: const [
+                      (_Pick.shooter, 'Nişancı konumu'),
+                      (_Pick.target, 'Hedef konumu'),
+                    ],
+                    selected: _pick,
+                    onSelected: (v) => setState(() => _pick = v),
+                  ),
+                  const SizedBox(height: MenzilSpace.sm),
+                  Text(
+                    _shooter == null
+                        ? 'Haritaya dokunarak nişancı konumunu seçin.'
+                        : _target == null
+                        ? 'Şimdi haritaya dokunarak hedef konumunu seçin.'
+                        : 'Konumu değiştirmek için üstten seçip haritaya dokunun. '
+                              'Mesafe, iki nokta arası düz çizgidir (yükseklik farkı dahil değil).',
+                    style: TextStyle(color: c.ink2, fontSize: 13),
+                  ),
+                  if (widget.returnDistance) ...[
+                    const SizedBox(height: MenzilSpace.sm),
+                    FilledButton(
+                      key: const Key('map-use'),
+                      onPressed: dist == null
+                          ? null
+                          : () => Navigator.pop(context, dist),
+                      child: const Text('Bu mesafeyi kullan'),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

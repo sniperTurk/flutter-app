@@ -13,6 +13,7 @@ import '../../models/domain.dart';
 import '../../services/settings_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import '../tools/map_distance_screen.dart';
 
 /// Which part of the ballistic workspace is shown.
 ///
@@ -1228,6 +1229,18 @@ class _RangeDialogState extends State<_RangeDialog> {
     super.dispose();
   }
 
+  Future<void> _fromMap() async {
+    final meters = await Navigator.push<double>(
+      context,
+      MaterialPageRoute<double>(
+        builder: (_) => const MapDistanceScreen(returnDistance: true),
+      ),
+    );
+    if (!mounted || meters == null || !meters.isFinite || meters <= 0) return;
+    final shown = widget.unit == 'm' ? meters : meters / 0.9144;
+    setState(() => controller.text = shown.round().toString());
+  }
+
   void _apply() => Navigator.pop(
     context,
     double.tryParse(controller.text.trim().replaceAll(',', '.')),
@@ -1243,6 +1256,11 @@ class _RangeDialogState extends State<_RangeDialog> {
       textInputAction: TextInputAction.done,
     ),
     actions: [
+      TextButton(
+        key: const Key('range-from-map'),
+        onPressed: _fromMap,
+        child: const Text('Haritadan'),
+      ),
       TextButton(
         onPressed: () => Navigator.pop(context),
         child: const Text('İptal'),

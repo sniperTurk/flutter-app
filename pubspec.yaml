@@ -17,6 +17,9 @@ dependencies:
   # Sight Height "Galeriden seç" (iOS PHPicker, requestFullMetadata: false).
   image_picker: ^1.2.3
   http: ^1.6.0
+  # Konum için mesafe: satellite map to pick shooter and target.
+  flutter_map: ^8.2.1
+  latlong2: ^0.9.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
