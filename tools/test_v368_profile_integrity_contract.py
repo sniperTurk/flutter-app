@@ -22,7 +22,7 @@ class V368ProfileIntegrity(unittest.TestCase):
     def test_save_requires_explicit_rifle_ammo_scope(self):
         t = read('lib/features/profiles/profiles_screen.dart')
         # V375: the typed rifle must be complete and valid (incl. twist).
-        self.assertIn('_rifleValid &&\n        ammo != null &&\n        scope != null &&\n        _validSight', t)
+        self.assertIn('!_saving && _rifleValid && ammo != null && scope != null && _validSight', t)
 
     def test_no_fabricated_pressure_for_existing_profile(self):
         t = read('lib/features/profiles/profiles_screen.dart')
