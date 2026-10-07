@@ -136,7 +136,7 @@ void main() {
     expect(find.text('DOPE oluştur'), findsOneWidget);
     await tester.tap(find.byKey(const Key('shot-mode-shot')));
     await tester.pumpAndSettle();
-    expect(find.text('Hesapla'), findsNothing);
+    expect(find.textContaining('Değerleri görmek için hesaplayın'), findsNothing);
     expect(find.text('Atış görünümü'), findsOneWidget);
     // V354: elevation is computed from the vacuum drop (valid trigonometry);
     // only wind stays locked, since a vacuum model has no aerodynamic
