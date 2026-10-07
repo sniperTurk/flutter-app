@@ -819,8 +819,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       if (scope == null) _unresolved.add('dürbün');
     }
     name = TextEditingController(text: p?.name ?? 'Yeni Profil');
+    // Muzzle velocity is entered in fps on Profil (owner decision); the
+    // profile keeps storing m/s, so every calculation is unchanged.
     velocity = TextEditingController(
-      text: p?.muzzleVelocityMps.toString() ?? '250',
+      text: p == null ? '820' : _fpsText(p.muzzleVelocityMps),
     );
     zero = TextEditingController(text: p?.zeroRangeM.toString() ?? '25');
     sight = TextEditingController(text: p?.sightHeightMm.toString() ?? '65');
@@ -828,6 +830,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       text: p == null ? '200' : (p.pressureBar?.toString() ?? ''),
     );
   }
+
+  static String _fpsText(double mps) {
+    final fps = UnitSystem.mpsToFps(mps);
+    return fps.toStringAsFixed(1).replaceFirst(RegExp(r'\.0$'), '');
+  }
+
+  // 100–4900 fps (4900 fps ≈ 1494 m/s, inside the 1500 m/s production limit).
+  String? get _velocityError => _rangeError(velocity, 100, 4900);
 
   static double _defaultClick(AngularUnit u) =>
       u == AngularUnit.moa ? 0.25 : 0.1;
@@ -1065,11 +1075,20 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       });
       return;
     }
+    final velocityError = _velocityError;
+    if (velocityError != null) {
+      setState(() {
+        _showErrors = true;
+        validationError = 'Çıkış hızı (fps): $velocityError';
+      });
+      return;
+    }
+    final mps = UnitSystem.fpsToMps(_parse(velocity)!);
     final ProfileInput input;
     try {
       input = ProfileInput.validate(
         name: name.text,
-        muzzleVelocityText: velocity.text,
+        muzzleVelocityText: mps.toString(),
         zeroRangeText: zero.text,
         sightHeightText: sight.text,
         platform: platform,
@@ -1615,10 +1634,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             child: MenzilFieldGrid(
               children: [
                 MenzilInput(
+                  key: const Key('profile-velocity-fps'),
                   controller: velocity,
                   label: 'Çıkış hızı',
                   info: ProfileFieldInfo.velocity,
-                  unit: 'm/s',
+                  unit: 'fps',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_velocityError, velocity),
                 ),
                 MenzilInput(
                   controller: zero,
@@ -1772,12 +1794,13 @@ class _ProfileUnits {
   static _ProfileUnits of(BuildContext context) =>
       _ProfileUnits(AppSettingsScope.metricOf(context));
 
-  String get velocityUnit => metric ? 'm/s' : 'fps';
+  // Muzzle velocity is entered and shown in fps on Profil in both unit
+  // systems (owner decision, 2026-10-07).
+  String get velocityUnit => 'fps';
   String get distanceUnit => metric ? 'm' : 'yd';
 
-  String velocityValue(double mps) => metric
-      ? mps.toStringAsFixed(1)
-      : UnitSystem.mpsToFps(mps).toStringAsFixed(0);
+  String velocityValue(double mps) =>
+      UnitSystem.mpsToFps(mps).toStringAsFixed(0);
 
   String distanceValue(double m) => metric
       ? m.toStringAsFixed(0)

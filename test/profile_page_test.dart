@@ -52,11 +52,13 @@ Future<void> _pumpList(
 }
 
 void main() {
-  testWidgets('metric: row and summary show m/s and m, in Turkish', (
+  testWidgets('metric: velocity in fps (Profil rule), zero in m, Turkish', (
     tester,
   ) async {
     await _pumpList(tester, metric: true);
-    expect(find.textContaining('270.0 m/s • Sıfır 25 m'), findsOneWidget);
+    // 270 m/s = 885.8 fps. Velocity is always fps on Profil.
+    expect(find.textContaining('886 fps • Sıfır 25 m'), findsOneWidget);
+    expect(find.textContaining('m/s', findRichText: true), findsNothing);
     expect(find.textContaining('Zero'), findsNothing);
   });
 
@@ -132,5 +134,22 @@ void main() {
     await tester.tap(button);
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('environment-open-weather')), findsOneWidget);
+  });
+
+  testWidgets('editor takes velocity in fps and stores m/s', (tester) async {
+    await _pumpList(tester, metric: true, embedded: false);
+    await tester.tap(find.text('Bir').first);
+    await tester.pumpAndSettle();
+    final field = find.descendant(
+      of: find.byKey(const Key('profile-velocity-fps')),
+      matching: find.byType(TextField),
+    );
+    await tester.ensureVisible(field);
+    // The stored 270 m/s is shown as fps.
+    expect(tester.widget<TextField>(field).controller!.text, '885.8');
+    expect(find.text('fps'), findsWidgets);
+    await tester.enterText(field, '6000');
+    await tester.pump();
+    expect(find.text('100–4900 arasında bir değer girin.'), findsOneWidget);
   });
 }

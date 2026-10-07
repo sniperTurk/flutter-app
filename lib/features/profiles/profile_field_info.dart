@@ -69,8 +69,9 @@ abstract final class ProfileFieldInfo {
 
   // Atış değerleri
   static const velocity =
-      'Merminin namludan çıktığı andaki hızı, m/s olarak. En doğrusu '
-      'kronografla birkaç atış ölçüp ortalamasını girmektir.';
+      'Merminin namludan çıktığı andaki hızı, fps (feet/saniye) olarak. En '
+      'doğrusu kronografla birkaç atış ölçüp ortalamasını girmektir. '
+      'Örnek: 900 fps ≈ 274 m/s (1 m/s = 3,28 fps).';
   static const zero =
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
       'noktası çakışır. Örnek: havalı tüfekte 25–40 m.';
