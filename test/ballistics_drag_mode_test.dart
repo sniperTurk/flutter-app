@@ -142,26 +142,23 @@ void main() {
     );
   });
 
-  testWidgets('shot view shows the wind card instead of the lock', (
-    tester,
-  ) async {
+  testWidgets('shot view shows the wind card instead of the lock', (tester) async {
     install();
-    final errors = <String>[];
-    final old = FlutterError.onError;
-    FlutterError.onError = (d) => errors.add(d.exceptionAsString().split('\n').first);
-    addTearDown(() => FlutterError.onError = old);
-    await _pump(tester, view: BallisticsView.shot);
+    tester.view.physicalSize = const Size(1000, 4000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: BallisticsScreen(profile: _profile, view: BallisticsView.shot),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Hesapla'));
     await tester.pumpAndSettle();
     expect(find.text('KİLİTLİ'), findsNothing);
-    final seen = tester
-        .widgetList<Text>(find.byType(Text))
-        .map((w) => w.data ?? '')
-        .where((x) => x.contains('Rüzgâr') || x.contains('Hesap') || x.contains('ulaş'))
-        .toList();
-    final snack = tester.widgetList<SnackBar>(find.byType(SnackBar)).map((w) => (w.content as Text).data).toList();
-    final exc = tester.takeException()?.toString().split('\n').first;
-    expect('${seen.join('|')} SNACK:${snack.join('|')} EXC:$exc ERR:${errors.join(' ## ')}', contains('Rüzgâr 0 girildi'));
+    expect(find.text('Rüzgâr 0 girildi'), findsOneWidget);
     expect(find.textContaining('1 mil ='), findsOneWidget);
   });
 }
