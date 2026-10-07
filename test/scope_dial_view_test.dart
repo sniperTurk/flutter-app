@@ -101,6 +101,30 @@ void main() {
     expect(find.textContaining('klik yukarı'), findsOneWidget);
   });
 
+  testWidgets('the scope works as soon as Atış opens, without Hesapla', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(430, 2400) * 3;
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    final store = MemoryProfileStore();
+    await store.save(_profile);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: HomeScreen(
+          profileStore: store,
+          activeProfileStore: MemoryActiveProfileStore(),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Atış'));
+    await tester.pumpAndSettle();
+    expect(_impact(tester), isNot(contains('bekleniyor')));
+    expect(_impact(tester), contains('aşağı'));
+  });
+
   testWidgets('a MOA profile shows MOA turret and reticle on a MRAD scope', (
     tester,
   ) async {

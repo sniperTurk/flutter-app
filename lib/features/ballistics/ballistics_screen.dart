@@ -197,7 +197,26 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
     _loadUnitPreference();
+    // Solve the profile as soon as the workspace opens, so the scope's
+    // reticle, hold labels and point of impact work without a manual
+    // "Hesapla" first. The fields are still SI here; a later switch to
+    // imperial only converts the fields, the stored basis stays SI.
+    // Failures stay silent (the shot view says why).
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && widget.profile != null && _basis == null) {
+        _silentErrors = true;
+        try {
+          solve();
+        } finally {
+          _silentErrors = false;
+        }
+      }
+    });
   }
+
+  /// True while the automatic first solve runs: errors are not shown as
+  /// snack bars then.
+  bool _silentErrors = false;
 
   Future<void> _loadUnitPreference() async {
     try {
@@ -437,6 +456,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   void _error(String message) {
+    if (_silentErrors) return;
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text(message)));
@@ -1003,7 +1023,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       );
     }
     final name = a!.ballisticModel!.name.toUpperCase();
-    if (!_dragMode) {
+    // Describes the inputs as they are now (the profile is solved on open,
+    // so the last solve may predate a grain edit).
+    if (!_bcApplies()) {
       return MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:
@@ -1504,7 +1526,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         semanticFormatterCallback: (v) => '${v.round()} $_distanceUnit',
         onChanged: (v) => _setShotDisplay(v.round()),
       ),
-      if (shot == null) ...[
+      if (shot == null)
         MenzilNotice(
           tone: MenzilNoticeTone.info,
           message: _basis == null
@@ -1513,14 +1535,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ? 'Bu mermi bu mesafeye ulaşamıyor veya değer üretilemedi. Daha kısa bir mesafe deneyin.'
               : 'Bu mesafe için değer üretilemedi. Mesafeyi veya girdileri kontrol edin.',
         ),
-        MenzilPrimaryButton(
-          label: 'Hesapla',
-          onPressed: solve,
-          icon: Icons.calculate_outlined,
-          amber: true,
-        ),
-        const SizedBox(height: MenzilSpace.md),
-      ],
+      // The profile is solved automatically when the workspace opens; the
+      // button re-solves after the conditions on Hava Durumu change.
+      MenzilPrimaryButton(
+        label: 'Hesapla',
+        onPressed: solve,
+        icon: Icons.calculate_outlined,
+        amber: shot == null,
+      ),
+      const SizedBox(height: MenzilSpace.md),
       // V354: elevation correction/clicks are shown from the vacuum (no-drag)
       // drop, which is valid trigonometry (atan2(drop, range)) independent of
       // the unvalidated G1/G7 drag model. Wind stays locked — a vacuum model
