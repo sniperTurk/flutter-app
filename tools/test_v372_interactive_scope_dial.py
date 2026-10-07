@@ -45,7 +45,7 @@ class InteractiveScopeDialContract(unittest.TestCase):
         self.assertIn('.clamp(-widget.maxClicks, widget.maxClicks)', self.view)
 
     def test_unit_follows_the_profile_unit(self):
-        # V374: the profile's "Dürbün birimi" decides reticle and turret unit.
+        # V375: the profile's "Dürbün birimi" decides reticle and turret unit.
         self.assertIn('final unit = _scopeUnit;', self.dial)
         self.assertIn('widget.profile?.angularUnit ?? scope?.clickUnit', self.screen)
 
