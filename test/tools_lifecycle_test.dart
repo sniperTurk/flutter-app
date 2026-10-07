@@ -201,11 +201,14 @@ void main() {
         host(const SightHeightScreen(), services: testServices(camera: camera)),
       );
       await openSideCapture(tester);
-      await tester.pumpAndSettle();
+      // The spinner animates forever, so settle by time, not pumpAndSettle.
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
 
       navigator(tester).pop();
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
       camera.hold!.complete(); // the open call finishes after the page is gone
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
