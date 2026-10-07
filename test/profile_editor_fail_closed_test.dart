@@ -157,4 +157,40 @@ void main() {
     expect(find.text('0.005–1.5 arasında bir değer girin.'), findsOneWidget);
     expect(_updateAction(tester), isNull);
   });
+
+  testWidgets('every typed value has an ⓘ explanation; BC opens its text', (
+    tester,
+  ) async {
+    await _pumpAndOpen(tester, _valid);
+    for (final label in const [
+      'Kalibre',
+      'Namlu uzunluğu',
+      'Namlu yiv yönü',
+      'Yiv oranı (1:…)',
+      'Regülatör basıncı',
+      'Tip',
+      'Ağırlık',
+      'BC (balistik katsayı)',
+      'BC modeli',
+      'Odak düzlemi',
+      'Minimum büyütme',
+      'Maksimum büyütme',
+      'Mercek çapı',
+      'Dürbün birimi',
+      'Klik değeri',
+      'Dürbün yüksekliği (sight height)',
+      'Çıkış hızı',
+      'Sıfırlama mesafesi',
+    ]) {
+      expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
+    }
+    final bcInfo = find.byTooltip('Bilgi: BC (balistik katsayı)');
+    await tester.ensureVisible(bcInfo);
+    await tester.tap(bcInfo);
+    await tester.pumpAndSettle();
+    expect(find.textContaining('havayı ne kadar kolay yardığını'), findsOneWidget);
+    await tester.tap(find.text('Tamam'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('havayı ne kadar kolay yardığını'), findsNothing);
+  });
 }

@@ -39,3 +39,12 @@ CI runs `dart format --set-exit-if-changed`. The source has never been passed
 through the SDK formatter (offline tooling cannot do it). On a machine with the
 pinned Flutter/Dart SDK run `tools/format_dart.sh`, review and commit the diff
 before expecting the format gate to pass.
+
+## UI rule: explain every entered value (owner, 2026-10-07)
+Whenever a page is added or edited, every value the user types or picks
+(MenzilInput / MenzilSelect) gets an ⓘ explanation via the `info:` parameter
+(`MenzilInfoButton`). Keep the text short, in Turkish, and say what the value
+is, where to find it and a typical example. Plain identity fields (brand,
+model, name) may skip it. Profil texts live in
+`lib/features/profiles/profile_field_info.dart`; follow the same pattern for
+other pages.

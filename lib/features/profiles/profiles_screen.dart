@@ -11,6 +11,7 @@ import '../../services/manual_catalog_store.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
 
 /// Profile list and management.
@@ -1280,6 +1281,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('rifle-caliber'),
+                  info: ProfileFieldInfo.caliber,
                   controller: rifleCaliber,
                   label: 'Kalibre',
                   unit: 'mm',
@@ -1289,6 +1291,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('rifle-barrel'),
+                  info: ProfileFieldInfo.barrelLength,
                   controller: rifleBarrel,
                   label: 'Namlu uzunluğu',
                   unit: 'mm',
@@ -1297,6 +1300,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilSelect<TwistDirection>(
                   key: const Key('rifle-twist-direction'),
+                  info: ProfileFieldInfo.twistDirection,
                   label: 'Namlu yiv yönü',
                   initialValue: twistDirection,
                   items: const [
@@ -1313,6 +1317,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('rifle-twist-rate'),
+                  info: ProfileFieldInfo.twistRate,
                   controller: rifleTwist,
                   label: 'Yiv oranı (1:…)',
                   unit: 'inç',
@@ -1324,6 +1329,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 if (platform == WeaponPlatform.pcp)
                   MenzilInput(
                     key: const Key('rifle-regulator'),
+                    info: ProfileFieldInfo.regulator,
                     controller: rifleRegulator,
                     label: 'Regülatör basıncı',
                     unit: 'bar',
@@ -1369,6 +1375,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilSelect<bool>(
                   key: const Key('scope-focal-plane'),
+                  info: ProfileFieldInfo.focalPlane,
                   label: 'Odak düzlemi',
                   initialValue: firstFocalPlane,
                   items: const [
@@ -1379,6 +1386,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('scope-min-mag'),
+                  info: ProfileFieldInfo.minMag,
                   controller: scopeMinMag,
                   label: 'Minimum büyütme',
                   unit: 'x',
@@ -1387,6 +1395,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('scope-max-mag'),
+                  info: ProfileFieldInfo.maxMag,
                   controller: scopeMaxMag,
                   label: 'Maksimum büyütme',
                   unit: 'x',
@@ -1395,6 +1404,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('scope-objective'),
+                  info: ProfileFieldInfo.objective,
                   controller: scopeObjective,
                   label: 'Mercek çapı',
                   unit: 'mm',
@@ -1403,6 +1413,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilSelect<AngularUnit>(
                   key: ValueKey('profile-angular-unit-${angularUnit.name}'),
+                  info: ProfileFieldInfo.scopeUnit,
                   label: 'Dürbün birimi',
                   initialValue: angularUnit,
                   items: const [
@@ -1428,6 +1439,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('scope-click'),
+                  info: ProfileFieldInfo.click,
                   controller: scopeClick,
                   label: 'Klik değeri',
                   unit: angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
@@ -1437,6 +1449,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('scope-sight-height'),
+                  info: ProfileFieldInfo.sightHeight,
                   controller: sight,
                   label: 'Dürbün yüksekliği (sight height)',
                   unit: 'mm',
@@ -1513,6 +1526,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 if (platform == WeaponPlatform.pcp)
                   MenzilSelect<AmmunitionType>(
                     key: const Key('ammo-type'),
+                    info: ProfileFieldInfo.ammoType,
                     label: 'Tip',
                     initialValue: ammoType == AmmunitionType.bullet
                         ? null
@@ -1531,6 +1545,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ),
                 MenzilInput(
                   key: const Key('ammo-grain'),
+                  info: ProfileFieldInfo.grain,
                   controller: ammoGrain,
                   label: 'Ağırlık',
                   unit: 'grain',
@@ -1539,6 +1554,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('ammo-bc'),
+                  info: ProfileFieldInfo.bc,
                   controller: ammoBc,
                   label: 'BC (balistik katsayı)',
                   hintText: '0,035',
@@ -1547,6 +1563,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilSelect<BallisticModel>(
                   key: const Key('ammo-bc-model'),
+                  info: ProfileFieldInfo.bcModel,
                   label: 'BC modeli',
                   initialValue: ammoBcModel,
                   items: const [
@@ -1600,17 +1617,20 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 MenzilInput(
                   controller: velocity,
                   label: 'Çıkış hızı',
+                  info: ProfileFieldInfo.velocity,
                   unit: 'm/s',
                 ),
                 MenzilInput(
                   controller: zero,
                   label: 'Sıfırlama mesafesi',
+                  info: ProfileFieldInfo.zero,
                   unit: 'm',
                 ),
                 if (platform == WeaponPlatform.pcp)
                   MenzilInput(
                     controller: pressure,
                     label: 'Atış basıncı',
+                    info: ProfileFieldInfo.shotPressure,
                     unit: 'bar',
                   ),
               ],
