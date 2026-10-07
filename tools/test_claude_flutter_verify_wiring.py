@@ -40,7 +40,7 @@ class ClaudeFlutterVerifyWiringTest(unittest.TestCase):
         offline_compile = text.index('name: Validate complete Python tools tree')
         offline_lint = text.index('name: Run dependency-free Dart source hygiene')
         offline_tests = text.index('name: Run complete offline Python regression suite')
-        production_gate = text.index('name: Enforce closed G1/G7 production gate')
+        production_gate = text.index('name: Enforce G1/G7 production gate (open only with CI reference comparison)')
         flutter_setup = text.index('name: Set up Flutter')
         self.assertLess(offline_compile, flutter_setup)
         self.assertLess(offline_lint, flutter_setup)

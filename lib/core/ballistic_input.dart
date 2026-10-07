@@ -18,6 +18,19 @@ class BallisticInput {
   final double? ballisticCoefficient;
   final BallisticModel? ballisticModel;
 
+  /// The same input for different [ranges] (validated again).
+  BallisticInput withRanges(Iterable<double> ranges) => BallisticInput(
+    muzzleVelocityMps: muzzleVelocityMps,
+    grain: grain,
+    zeroRangeM: zeroRangeM,
+    sightHeightMm: sightHeightMm,
+    rangesM: ranges,
+    environment: environment,
+    zeroEnvironment: zeroEnvironment,
+    ballisticCoefficient: ballisticCoefficient,
+    ballisticModel: ballisticModel,
+  );
+
   BallisticInput({
     required this.muzzleVelocityMps,
     required this.grain,

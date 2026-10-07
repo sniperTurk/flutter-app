@@ -21,8 +21,11 @@ class SafeShotViewTest(unittest.TestCase):
         # Scope the check to the wind _statusCard call specifically (the one
         # titled 'Rüzgâr'), not the whole reference-shot panel: that panel's
         # ELEVATION card is now allowed, by design, to show a real klik value.
-        start = self.text.index("title: 'Rüzgâr',")
-        end = self.text.index('LayoutBuilder', start)
+        # V355: the card has a vacuum branch (locked) and a drag branch; the
+        # locked branch is everything before the drag branch begins.
+        start = self.text.index('Widget _windStatusCard')
+        start = self.text.index("title: 'Rüzgâr',", start)
+        end = self.text.index('if (shot == null) {', start)
         wind_card = self.text[start:end]
         self.assertIn("'KİLİTLİ'", wind_card)
         self.assertNotIn('klik', wind_card.lower())

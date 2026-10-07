@@ -178,7 +178,19 @@ class _ManualCatalogDialogState extends State<ManualCatalogDialog> {
         if (kind == 'custom_ammunition') ...[
           TextFormField(controller: diameter, keyboardType: const TextInputType.numberWithOptions(decimal: true), decoration: const InputDecoration(labelText: 'Gerçek çap (mm)'), validator: (v) => _optionalPositive(v, 'Pozitif çap girin')),
           TextFormField(controller: length, keyboardType: const TextInputType.numberWithOptions(decimal: true), decoration: const InputDecoration(labelText: 'Uzunluk (mm)'), validator: (v) => _optionalPositive(v, 'Pozitif uzunluk girin')),
-          TextFormField(controller: bcModel, decoration: const InputDecoration(labelText: 'BC modeli (G1 / G7 / diğer)')),
+          // A BC means nothing without its drag law, and G1 vs G7 values are not
+          // interchangeable, so a BC requires an explicit G1/G7 choice.
+          DropdownButtonFormField<String>(
+            key: const ValueKey('bc-model'),
+            initialValue: const ['G1', 'G7'].contains(bcModel.text.trim().toUpperCase()) ? bcModel.text.trim().toUpperCase() : null,
+            decoration: const InputDecoration(labelText: 'BC sürtünme yasası (G1 / G7)', helperText: 'Üreticinin BC değerini hangi yasaya göre verdiğine bakın; emin değilseniz BC girmeyin.'),
+            items: const [
+              DropdownMenuItem(value: 'G1', child: Text('G1')),
+              DropdownMenuItem(value: 'G7', child: Text('G7')),
+            ],
+            onChanged: (v) => setState(() => bcModel.text = v ?? ''),
+            validator: (v) => bc.text.trim().isNotEmpty && v == null ? 'BC için G1 veya G7 seçin' : null,
+          ),
           TextFormField(controller: material, decoration: const InputDecoration(labelText: 'Malzeme')),
           TextFormField(controller: shape, decoration: const InputDecoration(labelText: 'Çekirdek şekli / tipi')),
           TextFormField(controller: lot, decoration: const InputDecoration(labelText: 'Parti / lot numarası')),

@@ -81,16 +81,66 @@ void main() {
     },
   );
 
-  test('production solve never silently substitutes vacuum for G1/G7', () {
-    final input = BallisticInput(
+  test('production solve uses the drag solver for G1/G7, never vacuum', () {
+    BallisticInput input(double? bc, BallisticModel? model) => BallisticInput(
       muzzleVelocityMps: 270,
       grain: 51,
       zeroRangeM: 25,
       sightHeightMm: 60,
       rangesM: const [100],
-      ballisticCoefficient: 0.12,
+      ballisticCoefficient: bc,
+      ballisticModel: model,
+    );
+    final drag = const BallisticEngine()
+        .solve(input(0.12, BallisticModel.g1))
+        .single;
+    final vacuum = const BallisticEngine().solve(input(null, null)).single;
+    // Drag slows the projectile; the vacuum baseline keeps muzzle speed.
+    expect(drag.velocityMps, lessThan(270));
+    expect(vacuum.velocityMps, 270);
+    // More time of flight, so more drop at the same range.
+    expect(drag.timeOfFlightS, greaterThan(vacuum.timeOfFlightS));
+    expect(drag.dropM, isNot(closeTo(vacuum.dropM, 1e-6)));
+  });
+
+  test('a projectile that cannot reach the range is an error, not a number', () {
+    final input = BallisticInput(
+      muzzleVelocityMps: 120,
+      grain: 8,
+      zeroRangeM: 10,
+      sightHeightMm: 40,
+      rangesM: const [3000],
+      ballisticCoefficient: 0.02,
       ballisticModel: BallisticModel.g1,
     );
-    expect(() => const BallisticEngine().solve(input), throwsUnsupportedError);
+    expect(() => const BallisticEngine().solve(input), throwsStateError);
+  });
+
+  test('solveReachable drops the ranges a slow pellet cannot reach', () {
+    final input = BallisticInput(
+      muzzleVelocityMps: 250,
+      grain: 18,
+      zeroRangeM: 25,
+      sightHeightMm: 60,
+      rangesM: const [25, 50, 100, 3000],
+      ballisticCoefficient: 0.03,
+      ballisticModel: BallisticModel.g1,
+    );
+    final r = const BallisticEngine().solveReachable(input);
+    expect(r.points.map((p) => p.rangeM), [25, 50, 100]);
+    expect(r.unreachableM, [3000]);
+  });
+
+  test('solveReachable on vacuum input never drops anything', () {
+    final input = BallisticInput(
+      muzzleVelocityMps: 250,
+      grain: 18,
+      zeroRangeM: 25,
+      sightHeightMm: 60,
+      rangesM: const [25, 3000],
+    );
+    final r = const BallisticEngine().solveReachable(input);
+    expect(r.points, hasLength(2));
+    expect(r.unreachableM, isEmpty);
   });
 }
