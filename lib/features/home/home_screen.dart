@@ -18,9 +18,11 @@ import '../profiles/profiles_screen.dart';
 import '../settings/settings_screen.dart';
 import '../tools/tools_screen.dart';
 
-/// Application shell: fixed Menzil top bar, five tabs (Profil, Atış, Ortam,
-/// Tablo, Araçlar) and the active-profile state shared by all of them.
-/// The app opens on Profil.
+/// Application shell: fixed Menzil top bar, four tabs (Profil, Hava Durumu,
+/// Atış, Araçlar) and the active-profile state shared by all of them.
+/// The app opens on Profil. Hava Durumu sits next to it so the conditions are
+/// set before shooting; Atış switches between a single shot and the DOPE
+/// table, as range-card apps do.
 class HomeScreen extends StatefulWidget {
   final ProfileStore? profileStore;
   final ActiveProfileStore? activeProfileStore;
@@ -65,20 +67,22 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectorEpoch = 0;
 
   static const _tabProfile = 0;
-  static const _tabShot = 1;
-  static const _tabEnvironment = 2;
-  static const _tabTable = 3;
+  static const _tabEnvironment = 1;
+  static const _tabShot = 2;
 
   static const _navItems = [
     MenzilNavItem(MenzilGlyph.profile, 'Profil'),
+    MenzilNavItem(MenzilGlyph.environment, 'Hava Durumu'),
     MenzilNavItem(MenzilGlyph.shot, 'Atış'),
-    MenzilNavItem(MenzilGlyph.environment, 'Ortam'),
-    MenzilNavItem(MenzilGlyph.table, 'Tablo'),
     MenzilNavItem(MenzilGlyph.tools, 'Araçlar'),
   ];
 
   int tab = _tabProfile;
   BallisticsView ballisticsView = BallisticsView.shot;
+
+  /// Atış shows either the single shot or the DOPE table; the choice is kept
+  /// while visiting other tabs.
+  BallisticsView _shotMode = BallisticsView.shot;
   bool metric = true;
   int _profilesRevision = 0;
 
@@ -243,9 +247,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void _selectTab(int index) {
     setState(() {
       tab = index;
-      if (index == _tabShot) ballisticsView = BallisticsView.shot;
-      if (index == _tabTable) ballisticsView = BallisticsView.table;
+      if (index == _tabShot) ballisticsView = _shotMode;
       if (index == _tabEnvironment) ballisticsView = BallisticsView.environment;
+    });
+  }
+
+  void _selectShotMode(BallisticsView mode) {
+    setState(() {
+      _shotMode = mode;
+      if (tab == _tabShot) ballisticsView = mode;
     });
   }
 
@@ -346,13 +356,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                if (tab == _tabShot && active != null)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      MenzilSpace.gutter,
+                      MenzilSpace.md,
+                      MenzilSpace.gutter,
+                      0,
+                    ),
+                    child: _ShotModeSwitch(
+                      selected: _shotMode,
+                      onSelected: _selectShotMode,
+                    ),
+                  ),
                 Expanded(
                   key: const ValueKey('menzil-tabs'),
                   child: IndexedStack(
-                    // 0: Profil, 1: Atış/Ortam/Tablo (one workspace), 2: Araçlar.
+                    // 0: Profil, 1: Hava Durumu/Atış (one workspace), 2: Araçlar.
                     index: tab == _tabProfile
                         ? 0
-                        : tab <= _tabTable
+                        : tab <= _tabShot
                         ? 1
                         : 2,
                     children: [
@@ -470,7 +493,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// Atış, Tablo and Ortam share one ballistic workspace so inputs and the
+  /// Hava Durumu and Atış (single shot and table) share one ballistic workspace so inputs and the
   /// last validated solve survive tab switches. A different active profile
   /// or unit preference creates a fresh workspace (fresh profile defaults).
   Widget _ballisticsTab(BuildContext context) {
@@ -549,6 +572,76 @@ class _HomeScreenState extends State<HomeScreen> {
       )),
       profile: profile,
       view: ballisticsView,
+    );
+  }
+}
+
+/// "Tek atış | Tablo" switch above the Atış workspace. Each half is a full
+/// 44 pt tap target and announces its selected state to VoiceOver.
+class _ShotModeSwitch extends StatelessWidget {
+  final BallisticsView selected;
+  final ValueChanged<BallisticsView> onSelected;
+
+  const _ShotModeSwitch({required this.selected, required this.onSelected});
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    Widget half(BallisticsView value, String label, IconData icon) {
+      final on = value == selected;
+      return Expanded(
+        child: Semantics(
+          button: true,
+          selected: on,
+          child: Material(
+            color: on ? c.ink : c.surface,
+            child: InkWell(
+              key: Key('shot-mode-${value.name}'),
+              onTap: () => onSelected(value),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 44),
+                child: Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(icon, size: 18, color: on ? c.bg : c.ink2),
+                      const SizedBox(width: MenzilSpace.xs),
+                      Flexible(
+                        child: Text(
+                          label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 13.5,
+                            fontWeight: FontWeight.w600,
+                            color: on ? c.bg : c.ink2,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(MenzilRadius.chip),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(color: c.line),
+          borderRadius: BorderRadius.circular(MenzilRadius.chip),
+        ),
+        child: Row(
+          children: [
+            half(BallisticsView.shot, 'Tek atış', Icons.gps_fixed),
+            half(BallisticsView.table, 'Tablo', Icons.table_rows_outlined),
+          ],
+        ),
+      ),
     );
   }
 }

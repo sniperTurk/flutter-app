@@ -18,6 +18,12 @@ değişmedi.
 ## ÇALIŞTIRILMADI / DOĞRULANMADI
 - Bu sandbox'ta Flutter yok; sonuç PR'ın iOS CI koşusundadır.
 
-## Ek (PR #11): sekme sırası
-- Sıra Profil, Atış, Ortam, Tablo, Araçlar oldu (Ortam Tablo'dan önce).
-  Kabuk testi beş sekmenin soldan sağa sırasını doğrular.
+## Ek (PR #11): dört sekme, Hava Durumu öne
+- Alt menü: Profil · Hava Durumu · Atış · Araçlar. "Ortam" sekmesinin adı
+  "Hava Durumu" oldu ve Profil'in hemen yanına alındı (atıştan önce koşullar).
+- Tablo artık ayrı sekme değil: Atış sekmesinin üstünde "Tek atış | Tablo"
+  geçişi var (seçim sekmeler arasında korunur). Her yarı 44 pt dokunma alanı.
+- Hava Durumu sekmesinde "Konumdan canlı hava verisi" düğmesi Araçlar'daki
+  Hava & Rüzgâr ekranını doğrudan açar. Servis verisi girdilere otomatik
+  kopyalanmaz (önceki politika korunur).
+- Ayarlar ve boş-sonuç metinlerindeki "Ortam" ifadeleri güncellendi.
