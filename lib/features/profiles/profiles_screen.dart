@@ -606,7 +606,7 @@ class _ActiveProfileDetails extends StatelessWidget {
                 scope?.maxMagnification != null)
               MenzilMetric(
                 'Büyütme',
-                '${_trimNum(scope!.minMagnification!)}-${_trimNum(scope!.maxMagnification!)}x',
+                '${_trimNum(scope!.minMagnification!)}-${_trimNum(scope.maxMagnification!)}x',
               ),
             if (scope?.firstFocalPlane != null)
               MenzilMetric(

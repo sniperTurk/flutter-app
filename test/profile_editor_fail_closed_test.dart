@@ -131,14 +131,18 @@ void main() {
     expect(_updateAction(tester), isNull);
     await enterRifleField(tester, 'rifle-twist-rate', '9');
     expect(_updateAction(tester), isNotNull);
-    await enterRifleField(tester, 'rifle-caliber', '50');
-    expect(find.text('2–20 arasında bir değer girin.'), findsOneWidget);
-    expect(_updateAction(tester), isNull);
-    await enterRifleField(tester, 'rifle-caliber', '6,35');
-    expect(_updateAction(tester), isNotNull);
     // Maximum magnification below the minimum is rejected.
     await enterRifleField(tester, 'scope-max-mag', '4');
     expect(find.text('Minimum büyütmeden küçük olamaz.'), findsOneWidget);
+    expect(_updateAction(tester), isNull);
+    await enterRifleField(tester, 'scope-max-mag', '36');
+    expect(_updateAction(tester), isNotNull);
+    await enterRifleField(tester, 'rifle-caliber', '50');
+    expect(find.text('2–20 arasında bir değer girin.'), findsOneWidget);
+    expect(_updateAction(tester), isNull);
+    // An invalid caliber cleared the ammunition; when editing it is never
+    // silently picked again, so Güncelle stays off until the user chooses.
+    await enterRifleField(tester, 'rifle-caliber', '6,35');
     expect(_updateAction(tester), isNull);
   });
 }
