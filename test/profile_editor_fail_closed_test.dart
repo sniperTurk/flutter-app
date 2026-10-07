@@ -99,9 +99,20 @@ void main() {
       expect(text('rifle-twist-rate'), isEmpty);
       expect(_updateAction(tester), isNull);
 
+      // The old catalog scope is prefilled into the scope form.
+      expect(text('scope-brand'), 'Gazi Sniper');
+      expect(text('scope-max-mag'), '36');
+      expect(find.text('Dürbün: Gazi Sniper 6-36x56 FFP'), findsOneWidget);
+
       await enterRifleField(tester, 'rifle-barrel', '600');
       await enterRifleField(tester, 'rifle-twist-rate', '16');
       await chooseTwistDirection(tester, 'Sol');
+      expect(
+        _updateAction(tester),
+        isNull,
+        reason: 'PCP rifles also need the regulator pressure',
+      );
+      await enterRifleField(tester, 'rifle-regulator', '120');
       expect(_updateAction(tester), isNotNull);
     },
   );
@@ -111,6 +122,7 @@ void main() {
   ) async {
     await _pumpAndOpen(tester, _valid);
     await enterRifleField(tester, 'rifle-barrel', '600');
+    await enterRifleField(tester, 'rifle-regulator', '120');
     await chooseTwistDirection(tester, 'Sağ');
     await enterRifleField(tester, 'rifle-twist-rate', '200');
     expect(find.text('3–80 arasında bir değer girin.'), findsOneWidget);
@@ -121,6 +133,12 @@ void main() {
     expect(_updateAction(tester), isNotNull);
     await enterRifleField(tester, 'rifle-caliber', '50');
     expect(find.text('2–20 arasında bir değer girin.'), findsOneWidget);
+    expect(_updateAction(tester), isNull);
+    await enterRifleField(tester, 'rifle-caliber', '6,35');
+    expect(_updateAction(tester), isNotNull);
+    // Maximum magnification below the minimum is rejected.
+    await enterRifleField(tester, 'scope-max-mag', '4');
+    expect(find.text('Minimum büyütmeden küçük olamaz.'), findsOneWidget);
     expect(_updateAction(tester), isNull);
   });
 }

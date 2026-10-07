@@ -97,6 +97,9 @@ class _ManualCatalogDialogState extends State<ManualCatalogDialog> {
     // not silently drop it.
     'twistDirection': kind == 'rifle' ? (existing?['twistDirection']) : null,
     'twistRateIn': kind == 'rifle' ? (existing?['twistRateIn']) : null,
+    'regulatorBar': kind == 'rifle' ? (existing?['regulatorBar']) : null,
+    'minMag': kind == 'scope' ? (existing?['minMag']) : null,
+    'maxMag': kind == 'scope' ? (existing?['maxMag']) : null,
     'grain': (kind == 'ammo' || kind == 'custom_ammunition') ? _number(grain) : null,
     'ammoType': (kind == 'ammo' || kind == 'custom_ammunition')
         ? (selectedPlatform == 'firearm' ? 'bullet' : (ammoType == 'bullet' ? 'pellet' : ammoType))

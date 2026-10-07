@@ -44,6 +44,7 @@ const _rifle = <String, dynamic>{
   'barrelLengthMm': 600,
   'twistDirection': 'right',
   'twistRateIn': 16,
+  'regulatorBar': 120,
   'sourceName': 'Kullanıcı girdisi',
 };
 const _ammo = <String, dynamic>{
@@ -76,6 +77,9 @@ const _scope = <String, dynamic>{
   'objectiveMm': 44,
   'click': 0.1,
   'clickUnit': 'mrad',
+  'focal': 'sfp',
+  'minMag': 4,
+  'maxMag': 16,
 };
 const _legacyScopeWithoutUnit = <String, dynamic>{
   'id': 'manual_scope_old',
