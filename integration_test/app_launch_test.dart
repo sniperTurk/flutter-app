@@ -183,18 +183,8 @@ void main() {
 
     await tester.tap(find.text('Araçlar').first);
     await tester.pumpAndSettle();
-    // The hub now lists eight tools (V1.1 added Vuruş Olasılığı), so Ayarlar
-    // can sit below the fold on the simulator screen; scroll it into view.
-    await tester.ensureVisible(find.text('Ayarlar').first);
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Ayarlar').first);
-    await tester.pumpAndSettle();
-    expect(find.byType(Scaffold), findsWidgets);
-    expect(find.text('Ayarlar'), findsWidgets);
-    expect(tester.takeException(), isNull);
-
-    await tester.pageBack();
-    await tester.pumpAndSettle();
+    // V380: there is no Ayarlar screen any more (metric only).
+    expect(find.text('Ayarlar'), findsNothing);
     expect(find.text('Araçlar'), findsWidgets);
     expect(tester.takeException(), isNull);
   });

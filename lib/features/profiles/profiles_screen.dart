@@ -520,8 +520,9 @@ class _ActiveProfileDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         MenzilSectionHeader(
+          // The name is already in the top-bar selector and the list; it is
+          // not repeated here (owner, 2026-10-08).
           'Aktif profil',
-          subtitle: profile.name,
           trailing: TextButton.icon(
             onPressed: onEdit,
             icon: const Icon(Icons.edit_outlined, size: 18),

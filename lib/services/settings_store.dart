@@ -25,7 +25,10 @@ class SettingsStore {
 
   const SettingsStore(this.preferences);
 
-  bool loadMetric() => preferences.getBool(metricKey) ?? true;
+  /// V380: the app is metric only (owner decision, 2026-10-07; the Ayarlar
+  /// screen was removed). A previously stored imperial choice is ignored, so
+  /// no device can stay in yd/fps/°F/inHg after the update.
+  bool loadMetric() => true;
 
   Future<void> saveMetric(bool value) async {
     final saved = await preferences.setBool(metricKey, value);
