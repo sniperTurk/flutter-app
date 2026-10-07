@@ -20,12 +20,15 @@ const _profile = RifleProfile(
   pressureBar: 200,
 );
 
-Future<void> _pumpSolved(WidgetTester tester) async {
+Future<void> _pumpSolved(
+  WidgetTester tester, {
+  RifleProfile profile = _profile,
+}) async {
   tester.view.physicalSize = const Size(430, 2400) * 3;
   tester.view.devicePixelRatio = 3;
   addTearDown(tester.view.reset);
   final store = MemoryProfileStore();
-  await store.save(_profile);
+  await store.save(profile);
   await tester.pumpWidget(
     MaterialApp(
       theme: MenzilTheme.light(),
@@ -96,5 +99,77 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('Kule: 0 klik'), findsNothing);
     expect(find.textContaining('klik yukarı'), findsOneWidget);
+  });
+
+  testWidgets('a MOA profile shows MOA turret and reticle on a MRAD scope', (
+    tester,
+  ) async {
+    await _pumpSolved(
+      tester,
+      profile: const RifleProfile(
+        id: 'p-moa',
+        name: 'MOA',
+        rifleId: 'hatsan-hercules-635',
+        ammunitionId: 'gmaz-51',
+        scopeId: 'gazi-6-36',
+        muzzleVelocityMps: 270,
+        zeroRangeM: 25,
+        sightHeightMm: 60,
+        pressureBar: 200,
+        angularUnit: AngularUnit.moa,
+      ),
+    );
+    expect(find.textContaining('Profilde dürbün birimi MOA'), findsOneWidget);
+    expect(find.textContaining('MOA dürbün)'), findsWidgets);
+    expect(find.byKey(ScopeDialKeys.workings), findsOneWidget);
+    expect(find.textContaining('/ 0.25 ='), findsOneWidget);
+  });
+
+  testWidgets('SFP reticle marks scale with magnification', (tester) async {
+    tester.view.physicalSize = const Size(430, 2400) * 3;
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    Widget view(double mag) => MaterialApp(
+      theme: MenzilTheme.light(),
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: ScopeDialView(
+            unit: AngularUnit.mrad,
+            clickValue: 0.1,
+            elevationClicks: 0,
+            windageClicks: 0,
+            maxElevationClicks: 100,
+            maxWindageClicks: 100,
+            onElevationChanged: (_) {},
+            onWindageChanged: (_) {},
+            requiredUp: 1.5,
+            firstFocalPlane: false,
+            minMagnification: 6,
+            maxMagnification: 24,
+            magnification: mag,
+            onMagnificationChanged: (_) {},
+            rangeM: 100,
+            samples: const [],
+            toDisplayRange: (m) => m,
+            distanceUnit: 'm',
+            metric: true,
+          ),
+        ),
+      ),
+    );
+    await tester.pumpWidget(view(12));
+    expect(
+      find.textContaining('1 çizgi = 24 / 12 = 2.000 mrad'),
+      findsOneWidget,
+    );
+    // 1.5 mrad low at 12x on a 24x-calibrated SFP = 0.75 marks.
+    expect(find.textContaining('= 0.75 çizgi'), findsOneWidget);
+    expect(find.byKey(ScopeDialKeys.magnification), findsOneWidget);
+
+    await tester.pumpWidget(view(24));
+    expect(
+      find.textContaining('1 çizgi = 24 / 24 = 1.000 mrad'),
+      findsOneWidget,
+    );
   });
 }

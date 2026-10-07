@@ -124,6 +124,80 @@ void main() {
       expect(centre.rangeM, closeTo(100, 1.0));
     });
 
+    test('MOA and MRAD convert with 1 mrad = 3.43775 MOA', () {
+      expect(
+        ScopeDialMath.convert(1, AngularUnit.moa, AngularUnit.mrad),
+        closeTo(0.290888, 1e-6),
+      );
+      expect(
+        ScopeDialMath.convert(1, AngularUnit.mrad, AngularUnit.moa),
+        closeTo(3.437747, 1e-6),
+      );
+      expect(ScopeDialMath.convert(2.5, AngularUnit.moa, AngularUnit.moa), 2.5);
+      // 1 mrad: 10 clicks of 0.1 mrad, 14 clicks of ¼ MOA.
+      expect(
+        ScopeDialMath.clicksFor(
+          1,
+          ScopeDialMath.standardClick(AngularUnit.mrad),
+        ),
+        10,
+      );
+      expect(
+        ScopeDialMath.clicksFor(
+          ScopeDialMath.convert(1, AngularUnit.mrad, AngularUnit.moa),
+          ScopeDialMath.standardClick(AngularUnit.moa),
+        ),
+        14,
+      );
+    });
+
+    test('FFP marks are true at every power; SFP only at calibration', () {
+      expect(
+        ScopeDialMath.reticleSubtension(
+          firstFocalPlane: true,
+          magnification: 6,
+          calibrationMagnification: 24,
+        ),
+        1,
+      );
+      expect(
+        ScopeDialMath.reticleSubtension(
+          firstFocalPlane: false,
+          magnification: 24,
+          calibrationMagnification: 24,
+        ),
+        1,
+      );
+      // SFP at half power: one mark covers twice the angle.
+      expect(
+        ScopeDialMath.reticleSubtension(
+          firstFocalPlane: false,
+          magnification: 12,
+          calibrationMagnification: 24,
+        ),
+        closeTo(2, 1e-12),
+      );
+      expect(
+        () => ScopeDialMath.reticleSubtension(
+          firstFocalPlane: false,
+          magnification: 0,
+          calibrationMagnification: 24,
+        ),
+        throwsArgumentError,
+      );
+    });
+
+    test('field of view widens as magnification drops', () {
+      expect(
+        ScopeDialMath.visibleHalfField(
+          halfFieldAtReference: 10,
+          magnification: 12,
+          referenceMagnification: 24,
+        ),
+        closeTo(20, 1e-12),
+      );
+    });
+
     test('unsorted samples are rejected', () {
       expect(
         () => ScopeDialMath.holdovers(

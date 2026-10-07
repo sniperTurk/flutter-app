@@ -15,6 +15,8 @@ abstract final class ScopeDialKeys {
   static const impactText = ValueKey('scope-impact-text');
   static const dialSolution = ValueKey('scope-dial-solution');
   static const reset = ValueKey('scope-reset');
+  static const magnification = ValueKey('scope-magnification');
+  static const workings = ValueKey('scope-workings');
 }
 
 /// Interactive scope: elevation turret on top, windage turret on the right,
@@ -44,9 +46,26 @@ class ScopeDialView extends StatelessWidget {
   /// when the solver has no wind model or no wind was entered.
   final double requiredRight;
 
-  /// Crosswind speed that moves the impact by each horizontal mark, as
-  /// (mark angle in [unit], label). Empty when the solver has no wind model.
-  final List<(double, String)> windLabels;
+  /// Crosswind speed (m/s) that moves the impact by one [unit] at [rangeM].
+  /// Null when the solver has no wind model.
+  final double? windMpsPerUnit;
+
+  /// Formats a crosswind speed in m/s for the user's units.
+  final String Function(double mps)? windText;
+
+  /// Focal plane from the profile's scope. Null (unknown) is drawn as FFP.
+  final bool? firstFocalPlane;
+
+  /// Zoom range of the scope; null when the catalog has none.
+  final double? minMagnification, maxMagnification;
+
+  /// Current magnification (parent-owned). SFP reticles are taken as
+  /// calibrated at [maxMagnification], the common SFP calibration.
+  final double? magnification;
+  final ValueChanged<double>? onMagnificationChanged;
+
+  /// Shown when the profile unit differs from the catalog turret unit.
+  final String? unitNote;
 
   /// Short line explaining the wind side/speed the solve used, if any.
   final String? windNote;
@@ -70,8 +89,15 @@ class ScopeDialView extends StatelessWidget {
     required this.onWindageChanged,
     required this.requiredUp,
     this.requiredRight = 0,
-    this.windLabels = const [],
+    this.windMpsPerUnit,
+    this.windText,
     this.windNote,
+    this.firstFocalPlane,
+    this.minMagnification,
+    this.maxMagnification,
+    this.magnification,
+    this.onMagnificationChanged,
+    this.unitNote,
     required this.rangeM,
     required this.samples,
     required this.toDisplayRange,
@@ -81,11 +107,55 @@ class ScopeDialView extends StatelessWidget {
 
   String get unitLabel => unit == AngularUnit.moa ? 'MOA' : 'mrad';
 
+  String get otherUnitLabel => unit == AngularUnit.moa ? 'mrad' : 'MOA';
+
+  AngularUnit get otherUnit =>
+      unit == AngularUnit.moa ? AngularUnit.mrad : AngularUnit.moa;
+
+  bool get ffp => firstFocalPlane ?? true;
+
+  /// True when a zoom range is known and the view can model magnification.
+  bool get hasZoom {
+    final max = maxMagnification, mag = magnification;
+    return max != null && max > 0 && mag != null && mag > 0;
+  }
+
+  /// Magnification the reticle is true at (SFP) and the reference for the
+  /// field of view (the view shows [halfField] at this magnification).
+  double get calibrationMag => maxMagnification ?? 1;
+
+  double get currentMag => hasZoom ? magnification! : calibrationMag;
+
+  /// One reticle mark = this many [unit] at the current magnification.
+  double get subtension => hasZoom
+      ? ScopeDialMath.reticleSubtension(
+          firstFocalPlane: ffp,
+          magnification: currentMag,
+          calibrationMagnification: calibrationMag,
+        )
+      : 1.0;
+
+  /// True angle from the centre to the edge of the view.
+  double get trueHalfField => hasZoom
+      ? ScopeDialMath.visibleHalfField(
+          halfFieldAtReference: halfField,
+          magnification: currentMag,
+          referenceMagnification: calibrationMag,
+        )
+      : halfField;
+
+  /// Reticle units from the centre to the edge of the view: FFP marks grow
+  /// with the image, SFP marks stay put.
+  double get reticleHalfField => ffp ? trueHalfField : halfField;
+
   /// Half of the visible reticle field, in reticle units.
   double get halfField => unit == AngularUnit.moa ? 32 : 10;
 
   /// Reticle mark spacing on the vertical stadia, in reticle units.
   double get markStep => unit == AngularUnit.moa ? 2 : 1;
+
+  /// Horizontal marks that carry crosswind labels, in reticle units.
+  double get windStep => unit == AngularUnit.moa ? 4 : 1;
 
   static String _fmt(double v) {
     final r = v.abs() < 0.005 ? 0.0 : v;
@@ -113,16 +183,26 @@ class ScopeDialView extends StatelessWidget {
       for (var i = -steps; i <= steps; i++)
         if (i != 0) i * markStep,
     ];
+    // A mark k reticle units below the centre covers k × subtension true
+    // units; the hold range is found for the true angle and drawn at k.
+    final sub = subtension;
     final holds = req == null
         ? const <HoldoverMark>[]
         : ScopeDialMath.holdovers(
             dialedUp: dialedUp,
-            markAngles: marks,
+            markAngles: [for (final m in marks) m * sub],
             samples: samples,
           );
     final holdLabels = [
       for (final h in holds)
-        (h.markAngle, toDisplayRange(h.rangeM).round().toString()),
+        (h.markAngle / sub, toDisplayRange(h.rangeM).round().toString()),
+    ];
+    final perUnit = windMpsPerUnit;
+    final windFmt = windText;
+    final windLabels = <(double, String)>[
+      if (perUnit != null && windFmt != null)
+        for (var i = 1; i <= 4; i++)
+          (i * windStep, windFmt(perUnit * i * windStep * sub)),
     ];
 
     const windageWidth = 58.0;
@@ -176,6 +256,8 @@ class ScopeDialView extends StatelessWidget {
                       painter: ScopeReticlePainter(
                         colors: c,
                         halfField: halfField,
+                        reticleHalfField: reticleHalfField,
+                        trueHalfField: trueHalfField,
                         markStep: markStep,
                         unitLabel: unitLabel,
                         impactUp: impact?.up,
@@ -184,6 +266,12 @@ class ScopeDialView extends StatelessWidget {
                         windLabels: windLabels,
                         headline:
                             'Hedef: ${toDisplayRange(rangeM).round()} $distanceUnit',
+                        opticLine:
+                            '${ffp ? 'FFP' : 'SFP'} · $unitLabel'
+                            '${hasZoom ? ' · ${_mag(currentMag)}x' : ''}',
+                        sfpNote: !ffp && hasZoom && (sub - 1).abs() > 1e-6
+                            ? '1 çizgi = ${sub.toStringAsFixed(2)} $unitLabel'
+                            : null,
                       ),
                     ),
                   ),
@@ -209,6 +297,15 @@ class ScopeDialView extends StatelessWidget {
                 ),
               ],
             ),
+            if (hasZoom &&
+                onMagnificationChanged != null &&
+                (minMagnification ?? 0) > 0 &&
+                minMagnification! < maxMagnification!)
+              _zoomRow(context),
+            if (unitNote != null) ...[
+              const SizedBox(height: MenzilSpace.xs),
+              MenzilNotice(tone: MenzilNoticeTone.warning, message: unitNote!),
+            ],
             const SizedBox(height: MenzilSpace.md),
             _readout(context, dialedUp, dialedRight, impact),
             const SizedBox(height: MenzilSpace.sm),
@@ -260,9 +357,139 @@ class ScopeDialView extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: MenzilSpace.md),
+            _workings(context, dialedUp, dialedRight, impact),
           ],
         );
       },
+    );
+  }
+
+  static String _mag(double m) =>
+      m == m.roundToDouble() ? m.toStringAsFixed(0) : m.toStringAsFixed(1);
+
+  Widget _zoomRow(BuildContext context) {
+    final c = MenzilColors.of(context);
+    final min = minMagnification!, max = maxMagnification!;
+    final steps = ((max - min) * 2).round();
+    return Row(
+      children: [
+        Text('Büyütme', style: MenzilType.body(c.ink2)),
+        Expanded(
+          child: Slider(
+            key: ScopeDialKeys.magnification,
+            min: min,
+            max: max,
+            divisions: steps > 0 ? steps : null,
+            value: currentMag.clamp(min, max).toDouble(),
+            label: '${_mag(currentMag)}x',
+            onChanged: onMagnificationChanged,
+          ),
+        ),
+        SizedBox(
+          width: 52,
+          child: Text(
+            '${_mag(currentMag)}x',
+            textAlign: TextAlign.end,
+            style: MenzilType.number(c.ink, size: 16),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Step-by-step working of the turret and reticle numbers, so the user
+  /// can follow every value on the scope.
+  Widget _workings(
+    BuildContext context,
+    double dialedUp,
+    double dialedRight,
+    ({double up, double right})? impact,
+  ) {
+    final c = MenzilColors.of(context);
+    final req = requiredUp;
+    String f(double v) => _fmt(v);
+    String len(double angle) {
+      final m = ScopeDialMath.linearAtRange(angle.abs(), rangeM, unit);
+      return metric
+          ? '${(m * 100).toStringAsFixed(1)} cm'
+          : '${(m * 39.3700787).toStringAsFixed(1)} in';
+    }
+
+    final lines = <String>[];
+    final r = toDisplayRange(rangeM).round();
+    lines.add(
+      '1 $unitLabel, $r $distanceUnit mesafede = ${len(1)}'
+      '${unit == AngularUnit.mrad ? '  (mesafe(m) / 10 cm)' : '  (mesafe(m) × 0.02909 cm)'}',
+    );
+    lines.add('1 MOA = 0.29089 mrad · 1 mrad = 3.43775 MOA');
+    if (req != null) {
+      final other = ScopeDialMath.convert(req, unit, otherUnit);
+      lines.add(
+        'Gereken yükseliş: ${len(req)} → ${f(req.abs())} $unitLabel '
+        '(${f(other.abs())} $otherUnitLabel) ${req >= 0 ? 'U' : 'D'}',
+      );
+      final clicks = ScopeDialMath.clicksFor(req, clickValue);
+      lines.add(
+        'Klik = ${f(req.abs())} / $clickValue = ${clicks.abs()} klik '
+        '${req >= 0 ? 'U' : 'D'}',
+      );
+      final otherClick = ScopeDialMath.standardClick(otherUnit);
+      final otherClicks = ScopeDialMath.clicksFor(other, otherClick);
+      lines.add(
+        'Karşılaştırma: aynı düzeltme $otherClick $otherUnitLabel klikli '
+        'kulede ${otherClicks.abs()} klik',
+      );
+      if (requiredRight.abs() > 1e-9) {
+        final w = ScopeDialMath.clicksFor(requiredRight, clickValue);
+        lines.add(
+          'Gereken yan: ${f(requiredRight.abs())} $unitLabel → '
+          '${w.abs()} klik ${requiredRight >= 0 ? 'R' : 'L'}',
+        );
+      }
+    }
+    lines.add(
+      'Kulede: $elevationClicks × $clickValue = ${f(dialedUp)} $unitLabel · '
+      '$windageClicks × $clickValue = ${f(dialedRight)} $unitLabel',
+    );
+    if (impact != null) {
+      lines.add(
+        'Kalan = kule − gereken = ${f(impact.up)} $unitLabel dikey, '
+        '${f(impact.right)} $unitLabel yatay',
+      );
+    }
+    if (ffp) {
+      lines.add(
+        'FFP: retikül görüntüyle birlikte büyür; 1 çizgi her büyütmede '
+        '1 $unitLabel. Tutuş = kalan.',
+      );
+    } else {
+      final sub = subtension;
+      lines.add(
+        'SFP: retikül yalnız ${_mag(calibrationMag)}x büyütmede doğru. '
+        '1 çizgi = ${_mag(calibrationMag)} / ${_mag(currentMag)} = '
+        '${sub.toStringAsFixed(3)} $unitLabel.',
+      );
+      if (impact != null) {
+        lines.add(
+          'Retikülde tutuş = kalan / ${sub.toStringAsFixed(3)} = '
+          '${f(impact.up.abs() / sub)} çizgi '
+          '${impact.up <= 0 ? 'aşağıdaki' : 'yukarıdaki'} işaret',
+        );
+      }
+    }
+    return Column(
+      key: ScopeDialKeys.workings,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text('Hesap dökümü', style: MenzilType.heading(c.ink, size: 17)),
+        const SizedBox(height: MenzilSpace.xxs),
+        for (final l in lines)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 2),
+            child: Text(l, style: MenzilType.caption(c.ink2)),
+          ),
+      ],
     );
   }
 
@@ -323,10 +550,9 @@ class ScopeDialView extends StatelessWidget {
         Text(
           'Kırmızı sayılar: o noktayı hedefe tuttuğunuzda vuracağınız mesafe '
           '($distanceUnit).'
-          '${windLabels.isEmpty ? '' : ' Turuncu sayılar: bu mesafede isabeti o işarete kaydıran yan rüzgâr hızı.'}'
+          '${windMpsPerUnit == null ? '' : ' Turuncu sayılar: bu mesafede isabeti o işarete kaydıran yan rüzgâr hızı.'}'
           '${windNote == null ? '' : ' $windNote'}'
-          ' Retikül aralıkları dürbünün kalibre edildiği büyütmede '
-          'geçerlidir (FFP her büyütmede).',
+          '${ffp ? ' FFP: retikül aralıkları her büyütmede geçerlidir.' : ' SFP: retikül aralıkları yalnız ${_mag(calibrationMag)}x büyütmede geçerlidir; sayılar seçili büyütmeye göre hesaplandı.'}',
           style: MenzilType.caption(c.ink2),
         ),
       ],
@@ -626,7 +852,18 @@ class _DrumPainter extends CustomPainter {
 /// angular unit: mil-dots every 1 mrad, or hashes every 2 MOA.
 class ScopeReticlePainter extends CustomPainter {
   final MenzilColors colors;
+
+  /// Physical extent of the reticle pattern, in reticle units: marks run to
+  /// 80 % of it and the thick posts start at 82 %.
   final double halfField;
+
+  /// Reticle units between the centre and the edge of the view (FFP: grows
+  /// and shrinks with magnification; SFP: fixed).
+  final double reticleHalfField;
+
+  /// True angle between the centre and the edge of the view; the point of
+  /// impact is drawn on this scale.
+  final double trueHalfField;
   final double markStep;
   final String unitLabel;
   final double? impactUp;
@@ -634,10 +871,16 @@ class ScopeReticlePainter extends CustomPainter {
   final List<(double, String)> holdLabels;
   final List<(double, String)> windLabels;
   final String headline;
+  final String? opticLine;
+  final String? sfpNote;
 
   const ScopeReticlePainter({
     required this.colors,
     required this.halfField,
+    double? reticleHalfField,
+    double? trueHalfField,
+    this.opticLine,
+    this.sfpNote,
     required this.markStep,
     required this.unitLabel,
     required this.impactUp,
@@ -645,7 +888,8 @@ class ScopeReticlePainter extends CustomPainter {
     required this.holdLabels,
     this.windLabels = const [],
     required this.headline,
-  });
+  }) : reticleHalfField = reticleHalfField ?? halfField,
+       trueHalfField = trueHalfField ?? halfField;
 
   void _text(
     Canvas canvas,
@@ -671,7 +915,9 @@ class ScopeReticlePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.shortestSide / 2 - 2;
-    final scale = radius / halfField;
+    // px per reticle unit (marks) and px per true unit (impact).
+    final scale = radius / reticleHalfField;
+    final trueScale = radius / trueHalfField;
     final ink = colors.scopeLine;
 
     canvas.drawCircle(center, radius, Paint()..color = colors.scopeBg);
@@ -686,7 +932,7 @@ class ScopeReticlePainter extends CustomPainter {
     final post = Paint()
       ..color = ink
       ..strokeWidth = 7;
-    final postStart = radius * 0.82;
+    final postStart = halfField * 0.82 * scale;
     // Fine crosshair.
     canvas.drawLine(
       Offset(center.dx - postStart, center.dy),
@@ -712,7 +958,10 @@ class ScopeReticlePainter extends CustomPainter {
     // Marks.
     final steps = (halfField * 0.8 / markStep).floor();
     final dot = Paint()..color = ink;
-    final dotR = math.max(2.5, size.shortestSide * 0.011);
+    final dotR = math.max(
+      1.5,
+      math.min(size.shortestSide * 0.011, markStep * scale * 0.12),
+    );
     for (var i = -steps; i <= steps; i++) {
       if (i == 0) continue;
       final p = i * markStep * scale;
@@ -720,7 +969,8 @@ class ScopeReticlePainter extends CustomPainter {
         canvas.drawCircle(center + Offset(p, 0), dotR, dot);
         canvas.drawCircle(center + Offset(0, p), dotR, dot);
       } else {
-        final long = i % 5 == 0 ? 9.0 : 5.0;
+        final long =
+            (i % 5 == 0 ? 9.0 : 5.0) * math.min(1.0, markStep * scale / 12);
         canvas.drawLine(
           center + Offset(p, -long),
           center + Offset(p, long),
@@ -736,7 +986,11 @@ class ScopeReticlePainter extends CustomPainter {
     canvas.drawCircle(center, 2.5, Paint()..color = colors.ok);
 
     // Range labels next to each hold mark (positive mark = below centre).
+    // When the marks crowd together (FFP at low power) every n-th is kept.
+    final gap = markStep * scale;
+    final stride = gap <= 0 ? 1 : math.max(1, (16 / gap).ceil());
     for (final (mark, label) in holdLabels) {
+      if ((mark / markStep).round() % stride != 0) continue;
       final y = center.dy + mark * scale;
       _text(
         canvas,
@@ -751,6 +1005,7 @@ class ScopeReticlePainter extends CustomPainter {
 
     // Crosswind speed above each horizontal mark, mirrored left and right.
     for (final (mark, label) in windLabels) {
+      if (mark * scale > postStart) continue;
       for (final side in const [-1.0, 1.0]) {
         _text(
           canvas,
@@ -778,12 +1033,32 @@ class ScopeReticlePainter extends CustomPainter {
       colors.cyanInk,
       math.max(10.0, size.shortestSide * 0.036),
     );
+    final optic = opticLine;
+    if (optic != null) {
+      _text(
+        canvas,
+        optic,
+        Offset(center.dx - radius * 0.48, center.dy - radius * 0.50),
+        colors.cyanInk,
+        math.max(10.0, size.shortestSide * 0.038),
+      );
+    }
+    final note = sfpNote;
+    if (note != null) {
+      _text(
+        canvas,
+        note,
+        Offset(center.dx - radius * 0.48, center.dy - radius * 0.38),
+        colors.amberInk,
+        math.max(10.0, size.shortestSide * 0.036),
+      );
+    }
 
     // Point of impact.
     final up = impactUp;
     final right = impactRight;
     if (up != null && right != null) {
-      var poi = center + Offset(right * scale, -up * scale);
+      var poi = center + Offset(right * trueScale, -up * trueScale);
       final offset = poi - center;
       final limit = radius - 14;
       final outside = offset.distance > limit;
@@ -831,6 +1106,10 @@ class ScopeReticlePainter extends CustomPainter {
       old.colors != colors ||
       old.unitLabel != unitLabel ||
       old.halfField != halfField ||
+      old.reticleHalfField != reticleHalfField ||
+      old.trueHalfField != trueHalfField ||
+      old.opticLine != opticLine ||
+      old.sfpNote != sfpNote ||
       !_sameLabels(old.holdLabels, holdLabels) ||
       !_sameLabels(old.windLabels, windLabels);
 
