@@ -586,7 +586,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final c = MenzilColors.of(context);
     final s = scope;
     if (s == null || !s.clickValue.isFinite || s.clickValue <= 0) {
-      return MenzilNotice(
+      return const MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:
             'Bu dürbünün klik değeri katalogda yok; kule simülasyonu '
