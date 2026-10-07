@@ -289,7 +289,7 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                         : _target == null
                         ? 'Şimdi haritaya dokunarak hedef konumunu seçin.'
                         : 'Konumu değiştirmek için üstten seçip haritaya dokunun. '
-                              'Mesafe, iki nokta arası düz çizgidir (yükseklik farkı dahil değil).',
+                              'Mesafe, iki nokta arası düz çizgidir; arazi eğimi hesaba katılmaz.',
                     style: TextStyle(color: c.ink2, fontSize: 13),
                   ),
                   if (widget.returnDistance) ...[
