@@ -290,25 +290,28 @@ void main() {
       await _unmount(tester);
     });
 
-    test('reference is dropped on a pose change; calibration is kept', () async {
-      final tilt = TestTilt();
-      final c = LevelController(provider: tilt)..start();
-      addTearDown(c.dispose);
-      tilt.controller.add(const TiltAvailable(GravityVector(2, 0, 9.6)));
-      await Future<void>.delayed(Duration.zero);
-      expect(c.mode, TiltMode.flat);
+    test(
+      'reference is dropped on a pose change; calibration is kept',
+      () async {
+        final tilt = TestTilt();
+        final c = LevelController(provider: tilt)..start();
+        addTearDown(c.dispose);
+        tilt.controller.add(const TiltAvailable(GravityVector(2, 0, 9.6)));
+        await Future<void>.delayed(Duration.zero);
+        expect(c.mode, TiltMode.flat);
 
-      c.setReferenceHere();
-      expect(c.hasOffset, isTrue);
-      expect(TiltMath.isLevel(c.angles!), isTrue);
-      expect(c.captureCalibration(flipped: false), isTrue);
+        c.setReferenceHere();
+        expect(c.hasOffset, isTrue);
+        expect(TiltMath.isLevel(c.angles!), isTrue);
+        expect(c.captureCalibration(flipped: false), isTrue);
 
-      c.setMode(TiltMode.upright);
-      expect(c.hasOffset, isFalse);
-      expect(c.autoMode, isFalse);
-      // Per-mode flip calibration survives the switch.
-      expect(c.calibrationFor(TiltMode.flat).normal, isNotNull);
-    });
+        c.setMode(TiltMode.upright);
+        expect(c.hasOffset, isFalse);
+        expect(c.autoMode, isFalse);
+        // Per-mode flip calibration survives the switch.
+        expect(c.calibrationFor(TiltMode.flat).normal, isNotNull);
+      },
+    );
 
     test('reference needs a reading; without one nothing is stored', () {
       final c = LevelController(provider: TestTilt())..start();
