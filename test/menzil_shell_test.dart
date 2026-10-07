@@ -259,6 +259,9 @@ void main() {
     await tester.tap(find.text('Kopyala'));
     await tester.pumpAndSettle();
     expect((await store.all()).map((p) => p.name), contains('İki (kopya)'));
+    // Let the "oluşturuldu" snackbar close; it can cover the buttons.
+    await tester.pump(const Duration(seconds: 5));
+    await tester.pumpAndSettle();
 
     await tester.ensureVisible(find.text('Sil'));
     await tester.tap(find.text('Sil'));
