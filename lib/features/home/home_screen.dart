@@ -18,8 +18,8 @@ import '../profiles/profiles_screen.dart';
 import '../settings/settings_screen.dart';
 import '../tools/tools_screen.dart';
 
-/// Application shell: fixed Menzil top bar, five tabs (Profil, Atış, Tablo,
-/// Ortam, Araçlar) and the active-profile state shared by all of them.
+/// Application shell: fixed Menzil top bar, five tabs (Profil, Atış, Ortam,
+/// Tablo, Araçlar) and the active-profile state shared by all of them.
 /// The app opens on Profil.
 class HomeScreen extends StatefulWidget {
   final ProfileStore? profileStore;
@@ -66,14 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static const _tabProfile = 0;
   static const _tabShot = 1;
-  static const _tabTable = 2;
-  static const _tabEnvironment = 3;
+  static const _tabEnvironment = 2;
+  static const _tabTable = 3;
 
   static const _navItems = [
     MenzilNavItem(MenzilGlyph.profile, 'Profil'),
     MenzilNavItem(MenzilGlyph.shot, 'Atış'),
-    MenzilNavItem(MenzilGlyph.table, 'Tablo'),
     MenzilNavItem(MenzilGlyph.environment, 'Ortam'),
+    MenzilNavItem(MenzilGlyph.table, 'Tablo'),
     MenzilNavItem(MenzilGlyph.tools, 'Araçlar'),
   ];
 
@@ -349,10 +349,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   key: const ValueKey('menzil-tabs'),
                   child: IndexedStack(
-                    // 0: Profil, 1: Atış/Tablo/Ortam (one workspace), 2: Araçlar.
+                    // 0: Profil, 1: Atış/Ortam/Tablo (one workspace), 2: Araçlar.
                     index: tab == _tabProfile
                         ? 0
-                        : tab <= _tabEnvironment
+                        : tab <= _tabTable
                         ? 1
                         : 2,
                     children: [

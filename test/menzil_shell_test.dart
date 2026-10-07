@@ -60,15 +60,18 @@ void main() {
     );
 
     expect(find.text('Menzil'), findsOneWidget);
-    for (final tab in const ['Profil', 'Atış', 'Tablo', 'Ortam', 'Araçlar']) {
+    for (final tab in const ['Profil', 'Atış', 'Ortam', 'Tablo', 'Araçlar']) {
       expect(find.text(tab), findsOneWidget, reason: tab);
     }
     // Profil is the start tab and the leftmost one.
     expect(find.text('Aktif profil'), findsOneWidget);
     expect(find.text('Hesapla'), findsNothing);
-    final profilX = tester.getCenter(find.text('Profil')).dx;
-    for (final tab in const ['Atış', 'Tablo', 'Ortam', 'Araçlar']) {
-      expect(tester.getCenter(find.text(tab)).dx, greaterThan(profilX));
+    // Left to right: Profil, Atış, Ortam, Tablo, Araçlar.
+    var previousX = double.negativeInfinity;
+    for (final tab in const ['Profil', 'Atış', 'Ortam', 'Tablo', 'Araçlar']) {
+      final x = tester.getCenter(find.text(tab)).dx;
+      expect(x, greaterThan(previousX), reason: tab);
+      previousX = x;
     }
     // Atış offers the range dial.
     await _openShot(tester);

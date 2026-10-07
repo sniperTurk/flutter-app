@@ -17,3 +17,7 @@ değişmedi.
 
 ## ÇALIŞTIRILMADI / DOĞRULANMADI
 - Bu sandbox'ta Flutter yok; sonuç PR'ın iOS CI koşusundadır.
+
+## Ek (PR #11): sekme sırası
+- Sıra Profil, Atış, Ortam, Tablo, Araçlar oldu (Ortam Tablo'dan önce).
+  Kabuk testi beş sekmenin soldan sağa sırasını doğrular.

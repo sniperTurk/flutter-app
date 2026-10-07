@@ -20,7 +20,7 @@ void main() {
     // and the real persistent-store/plugin wiring on an iOS runtime.
     expect(find.text('Katalog yüklenemedi'), findsNothing);
     expect(find.text('Menzil'), findsWidgets);
-    for (final tab in const ['Profil', 'Atış', 'Tablo', 'Ortam', 'Araçlar']) {
+    for (final tab in const ['Profil', 'Atış', 'Ortam', 'Tablo', 'Araçlar']) {
       expect(
         find.text(tab),
         findsWidgets,

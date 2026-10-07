@@ -28,7 +28,7 @@ const _profile = RifleProfile(
   pressureBar: 200,
 );
 
-const _tabs = ['Profil', 'Atış', 'Tablo', 'Ortam', 'Araçlar'];
+const _tabs = ['Profil', 'Atış', 'Ortam', 'Tablo', 'Araçlar'];
 
 Future<void> _setView(
   WidgetTester tester,
