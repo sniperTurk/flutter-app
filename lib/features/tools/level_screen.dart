@@ -419,8 +419,7 @@ class _LevelSettingsSheet extends StatelessWidget {
             final capturing = controller.capturingCalibration;
             final String calStatus;
             if (capturing) {
-              final pct = ((controller.calibrationProgress ?? 0) * 100)
-                  .round();
+              final pct = ((controller.calibrationProgress ?? 0) * 100).round();
               calStatus = controller.calibrationRestarts > 0
                   ? 'Telefon kıpırdadı, okuma yeniden başladı. Dokunmadan '
                         'bekleyin… %$pct'

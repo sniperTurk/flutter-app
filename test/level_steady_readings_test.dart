@@ -27,9 +27,7 @@ List<GravityVector> _noisy(GravityVector base, int n, {int seed = 7}) {
 }
 
 double _spreadDeg(List<GravityVector> out) {
-  final xs = [
-    for (final g in out) TiltMath.angles(g, TiltMode.flat)!.xDeg,
-  ];
+  final xs = [for (final g in out) TiltMath.angles(g, TiltMode.flat)!.xDeg];
   return xs.reduce(math.max) - xs.reduce(math.min);
 }
 
@@ -44,10 +42,7 @@ void main() {
       final f = [for (final s in samples) fixed.add(s)].skip(150).toList();
       final a = [for (final s in samples) adaptive.add(s)].skip(150).toList();
       expect(_spreadDeg(a), lessThan(_spreadDeg(f) * 0.6));
-      expect(
-        TiltMath.angles(a.last, TiltMode.flat)!.xDeg,
-        closeTo(0.3, 0.05),
-      );
+      expect(TiltMath.angles(a.last, TiltMode.flat)!.xDeg, closeTo(0.3, 0.05));
     });
 
     test('follows a real move quickly', () {
