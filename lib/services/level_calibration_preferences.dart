@@ -22,8 +22,8 @@ class PersistentLevelCalibrationStore implements LevelCalibrationStore {
       final x = prefs.getDouble(_key(pose, 'x'));
       final y = prefs.getDouble(_key(pose, 'y'));
       // A stored bias is only used when both halves are present and sane:
-      // a phone accelerometer offset plus a camera bump stays well inside
-      // ±10°; anything else is a corrupt value and is ignored.
+      // a phone accelerometer offset stays well inside ±10°; anything else
+      // is a corrupt value and is ignored.
       if (x == null || y == null) continue;
       if (!x.isFinite || !y.isFinite || x.abs() > 10 || y.abs() > 10) {
         continue;

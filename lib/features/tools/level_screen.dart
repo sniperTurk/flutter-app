@@ -161,51 +161,10 @@ class _LevelScreenState extends State<LevelScreen> {
         ],
       ),
     );
-    if (calibrated) return status;
-    // Uncalibrated phones read ~1–2° on a flat table (camera bump plus
-    // accelerometer offset); point straight at the two-step fix.
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        status,
-        const SizedBox(height: MenzilSpace.xs),
-        Semantics(
-          button: true,
-          label: 'Kalibre edilmedi. Kalibrasyonu başlatmak için dokunun.',
-          child: ExcludeSemantics(
-            child: Material(
-              color: c.levelControl,
-              shape: StadiumBorder(side: BorderSide(color: c.amber)),
-              child: InkWell(
-                key: const Key('level-calibration-hint'),
-                customBorder: const StadiumBorder(),
-                onTap: () => _openSettingsSheet(context, controller),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: MenzilSpace.lg,
-                    vertical: MenzilSpace.sm,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.tune, size: 18, color: c.amber),
-                      const SizedBox(width: MenzilSpace.xs),
-                      Flexible(
-                        child: Text(
-                          'Kalibre edilmedi · düz zeminde 1–2° sapma normaldir, '
-                          'düzeltmek için dokunun',
-                          style: MenzilType.caption(c.levelControlInk),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+    // No warning banner: an uncalibrated phone usually reads within a few
+    // tenths of a degree (TestFlight: 0.2° on a level floor). Calibration
+    // stays one tap away in the bottom-left sheet; the note says its state.
+    return status;
   }
 
   Widget _controlBar(
@@ -363,11 +322,12 @@ class _LevelScreenState extends State<LevelScreen> {
             'göz iki ekseni birden, uzun kenarı üzerinde dik tutunca üst tüp X '
             'eksenini, kısa kenarı üzerinde dik tutunca sol tüp Y eksenini '
             'gösterir. Kabarcık iki çizginin ortasındaysa yüzey seviyededir.\n\n'
-            'Kalibrasyon neden gerekli: telefon sırt üstü yatınca kamera çıkıntısı '
-            'bir ucu yaklaşık 1–2° kaldırır; ivmeölçerin de kendine özgü küçük bir '
-            'sapması vardır. Bu yüzden kalibre edilmemiş telefon tamamen düz bir '
-            'masada da 1–2° gösterebilir. Sol alttaki düğmeden iki adımlı '
-            'kalibrasyonu bir kez yapın; sonuç telefona kaydedilir.\n\n'
+            'Kalibrasyon (isteğe bağlı): her telefonun ivmeölçerinde küçük, '
+            'sabit bir sapma olabilir. En yüksek hassasiyet için sol alttaki '
+            'düğmeden iki adımlı kalibrasyonu bir kez yapın: düz bir yerde 1. '
+            'okuma, telefonu aynı yerde 180° çevirip 2. okuma. Sonuç telefona '
+            'kaydedilir. Aynı yerde 180° çevirince değer işaret değiştiriyorsa '
+            'eğim yüzeydedir, telefonda değil.\n\n'
             '$_resolutionNotice'
             '${controller.hasOffset ? '\n\nReferans ayarı etkin: değerler ayarlanan konuma göredir; bu sensör kalibrasyonu değildir.' : ''}'
             '${controller.calibration.bias != null ? '\n\nDört yüzey kalibrasyonu etkin: sabit cihaz sapması çıkarılıyor.' : ''}',
@@ -462,8 +422,8 @@ class _LevelSettingsSheet extends StatelessWidget {
                 const SizedBox(height: MenzilSpace.xxs),
                 Text(
                   'Telefonu düz bir yere koyup 1. okumayı alın, aynı yerde 180° '
-                  'çevirip 2. okumayı alın. Kamera çıkıntısının ve sensörün '
-                  'sapması çıkarılır; düz ve dik duruş ayrı kalibre edilir.',
+                  'çevirip 2. okumayı alın. Telefona özgü sabit sensör sapması '
+                  'çıkarılır; düz ve dik duruş ayrı kalibre edilir.',
                   style: MenzilType.caption(c.ink2),
                 ),
                 const SizedBox(height: MenzilSpace.sm),
@@ -880,37 +840,60 @@ class _TubePainter extends CustomPainter {
       Paint()..color = colors.levelGlare.withValues(alpha: 0.35),
     );
 
-    // Bubble: a lens floating against the light edge, moving along the tube.
-    final bubbleLen = len * 0.13;
-    final bubbleThick = thick * 0.42;
+    // Bubble: a clearly visible glossy pill centred across the tube's
+    // thickness, moving along it. It used to hug the glass edge, where the
+    // clip cut it down to a thin, low-contrast arc that read as "no bubble".
+    final inner = thick - 2 * frame;
+    final bubbleLen = len * 0.17;
+    final bubbleThick = inner * 0.72;
     final k = len * 0.06; // px per degree
     final maxOff = len / 2 - bubbleLen / 2 - frame;
     final off = ((vertical ? -deg : deg) * k).clamp(-maxOff, maxOff).toDouble();
     final along = len / 2 + off;
+    final mid = thick / 2;
     final bubble = span(
       along - bubbleLen / 2,
       along + bubbleLen / 2,
-      frame - bubbleThick * 0.42,
-      frame + bubbleThick * 0.58,
+      mid - bubbleThick / 2,
+      mid + bubbleThick / 2,
     );
-    canvas.drawOval(
+    final pill = RRect.fromRectAndRadius(
       bubble,
+      Radius.circular(bubbleThick / 2),
+    );
+    canvas.drawRRect(
+      pill,
       Paint()
-        ..shader = LinearGradient(
-          begin: vertical ? Alignment.centerRight : Alignment.bottomCenter,
-          end: vertical ? Alignment.centerLeft : Alignment.topCenter,
+        ..shader = RadialGradient(
+          center: vertical
+              ? const Alignment(-0.45, -0.35)
+              : const Alignment(-0.35, -0.45),
+          radius: 0.9,
           colors: [
-            Color.lerp(colors.levelLiquid, colors.levelGlare, 0.25)!,
-            Color.lerp(_liquidLight(colors), colors.levelGlare, 0.6)!,
+            Color.lerp(colors.levelLiquid, colors.levelGlare, 0.35)!,
+            Color.lerp(colors.levelLiquid, colors.levelBezel, 0.2)!,
+            Color.lerp(colors.levelLiquid, colors.levelBezel, 0.45)!,
           ],
+          stops: const [0.0, 0.6, 1.0],
         ).createShader(bubble),
     );
-    canvas.drawOval(
-      bubble,
+    canvas.drawRRect(
+      pill,
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.5
         ..color = _liquidDeep(colors),
+    );
+    // Small specular highlight on the lit side.
+    final shineAt = span(
+      along - bubbleLen * 0.28,
+      along - bubbleLen * 0.06,
+      mid - bubbleThick * 0.34,
+      mid - bubbleThick * 0.12,
+    );
+    canvas.drawOval(
+      shineAt,
+      Paint()..color = colors.levelGlare.withValues(alpha: 0.7),
     );
     canvas.restore();
 
