@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../services/level_calibration_preferences.dart';
 import 'adapters/camera_plugin_service.dart';
 import 'adapters/flutter_compass_heading_provider.dart';
 import 'adapters/geolocator_location_provider.dart';
@@ -10,6 +11,7 @@ import 'adapters/sensors_plus_tilt_provider.dart';
 import 'ports/camera_service.dart';
 import 'ports/clock.dart';
 import 'ports/heading_provider.dart';
+import 'ports/level_calibration_store.dart';
 import 'ports/location_provider.dart';
 import 'ports/photo_picker.dart';
 import 'ports/place_search.dart';
@@ -31,6 +33,10 @@ class ToolsServices {
   final VisionAssist vision;
   final Clock clock;
 
+  /// Where the Su Terazisi flip calibration is remembered. Null keeps it for
+  /// the current screen only.
+  final LevelCalibrationStore? levelCalibration;
+
   const ToolsServices({
     required this.location,
     required this.weather,
@@ -41,6 +47,7 @@ class ToolsServices {
     required this.places,
     required this.vision,
     required this.clock,
+    this.levelCalibration,
   });
 
   factory ToolsServices.production() => ToolsServices(
@@ -53,6 +60,7 @@ class ToolsServices {
     places: NominatimPlaceSearch(),
     vision: const DisconnectedVisionAssist(),
     clock: const SystemClock(),
+    levelCalibration: const PersistentLevelCalibrationStore(),
   );
 }
 
