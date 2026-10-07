@@ -247,7 +247,10 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Aktif profil'), findsOneWidget);
 
-    // Tapping a row makes it active (persisted through the shell).
+    // Tapping a row makes it active (persisted through the shell). The list
+    // sits below the active-profile summary.
+    await tester.ensureVisible(find.bySemanticsLabel('Profil İki'));
+    await tester.pumpAndSettle();
     await tester.tap(find.bySemanticsLabel('Profil İki'));
     await tester.pumpAndSettle();
     expect(active.value, 'p2');
