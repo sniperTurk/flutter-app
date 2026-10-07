@@ -24,11 +24,20 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
         self.assertEqual(self.text.count('p.windMrad'), 1)
         idx = self.text.index('p.windMrad')
         self.assertIn('if (drag)', self.text[max(0, idx - 120):idx])
-        # The status card reads shot.windMrad only after the vacuum early
-        # return (`if (!_dragMode) { ... KİLİTLİ ... return }`).
-        self.assertEqual(self.text.count('shot.windMrad'), 1)
-        self.assertLess(self.text.index('if (!_dragMode) {'),
-                        self.text.index('shot.windMrad'))
+        # Two readers of shot.windMrad, both drag-only:
+        # 1. the status card, after the vacuum early return
+        #    (`if (!_dragMode) { ... KİLİTLİ ... return }`);
+        # 2. V372 interactive scope: required windage is 0.0 unless the
+        #    basis is a drag solve.
+        self.assertEqual(self.text.count('shot.windMrad'), 2)
+        card = self.text.index('Widget _windStatusCard(')
+        card_read = self.text.index('shot.windMrad', card)
+        self.assertLess(self.text.index('if (!_dragMode) {', card), card_read)
+        dial = self.text.index('Widget _scopeDial(')
+        dial_read = self.text.index('shot.windMrad', dial)
+        guard = self.text[dial:dial_read]
+        self.assertIn('!basis.drag', guard)
+        self.assertIn('? 0.0', guard)
 
     def test_elevation_angular_correction_is_now_rendered_with_disclaimers(self):
         self.assertIn('p.correctionMoa.toStringAsFixed(2)', self.text)
