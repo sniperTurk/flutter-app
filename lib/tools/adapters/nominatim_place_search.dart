@@ -47,8 +47,8 @@ class NominatimPlaceSearch implements PlaceSearch {
 
     final last = _lastRequest;
     if (last != null) {
-      final wait = const Duration(milliseconds: 1100) -
-          DateTime.now().difference(last);
+      final wait =
+          const Duration(milliseconds: 1100) - DateTime.now().difference(last);
       if (wait > Duration.zero) await Future<void>.delayed(wait);
     }
     _lastRequest = DateTime.now();

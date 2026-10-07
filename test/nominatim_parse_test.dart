@@ -26,8 +26,10 @@ void main() {
     );
   });
 
-  test('queries shorter than 3 characters return nothing without a request',
-      () async {
-    expect(await NominatimPlaceSearch().search('ab'), isEmpty);
-  });
+  test(
+    'queries shorter than 3 characters return nothing without a request',
+    () async {
+      expect(await NominatimPlaceSearch().search('ab'), isEmpty);
+    },
+  );
 }
