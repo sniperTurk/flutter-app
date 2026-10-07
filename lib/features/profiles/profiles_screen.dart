@@ -821,7 +821,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // user's data (owner, 2026-10-07: "250 m/s nereden geliyor?").
     zero = TextEditingController(text: p == null ? '' : num(p.zeroRangeM));
     sight = TextEditingController(text: p == null ? '' : num(p.sightHeightMm));
-
   }
 
   static String _fpsText(double mps) {
@@ -1244,24 +1243,24 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   const SizedBox(height: MenzilSpace.xs),
                 ],
                 Row(
-              children: [
-                Expanded(
-                  child: MenzilSecondaryButton(
-                    label: 'İptal',
-                    expand: true,
-                    onPressed: () => Navigator.pop(context),
-                  ),
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        label: 'İptal',
+                        expand: true,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                    const SizedBox(width: MenzilSpace.md),
+                    Expanded(
+                      flex: 2,
+                      child: MenzilPrimaryButton(
+                        label: widget.initial == null ? 'Kaydet' : 'Güncelle',
+                        onPressed: canSave ? _save : null,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: MenzilSpace.md),
-                Expanded(
-                  flex: 2,
-                  child: MenzilPrimaryButton(
-                    label: widget.initial == null ? 'Kaydet' : 'Güncelle',
-                    onPressed: canSave ? _save : null,
-                  ),
-                ),
-              ],
-            ),
               ],
             ),
           ),
