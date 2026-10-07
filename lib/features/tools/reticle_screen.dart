@@ -316,7 +316,7 @@ class _ReticlePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_ReticlePainter o) =>
+  bool shouldRepaint(covariant _ReticlePainter o) =>
       o.dotSpanM != dotSpanM ||
       o.targetReticleMil != targetReticleMil ||
       o.colors != colors;
