@@ -137,8 +137,11 @@ void main() {
   });
 
   testWidgets('editor takes velocity in fps and stores m/s', (tester) async {
+    tester.view.physicalSize = const Size(390 * 3, 2600 * 3);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
     await _pumpList(tester, metric: true, embedded: false);
-    await tester.tap(find.text('Bir').first);
+    await tester.tap(find.byTooltip('Profili düzenle').first);
     await tester.pumpAndSettle();
     final field = find.descendant(
       of: find.byKey(const Key('profile-velocity-fps')),
