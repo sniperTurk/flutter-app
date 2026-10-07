@@ -228,8 +228,7 @@ void main() {
     ) async {
       await tester.pumpWidget(host(const ReticleScreen()));
       expect(find.byKey(const Key('reticle-canvas')), findsOneWidget);
-      // 50 m, FFP: 1 mil = 5.0 cm.
-      expect(find.text('5,0'), findsWidgets);
+      expect(find.text('1 mil (nokta aralığı)'), findsOneWidget);
       expect(find.textContaining('yalnızca geometridir'), findsOneWidget);
     });
 

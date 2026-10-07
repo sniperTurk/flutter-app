@@ -92,9 +92,9 @@ class _ReticleState extends State<ReticleScreen> {
       appBar: const MenzilSubPageBar(title: 'Retikül (mil-dot)'),
       body: MenzilPage(
         children: [
-          MenzilSectionHeader(
+          const MenzilSectionHeader(
             '1 · Dürbün ve hedef',
-            padding: const EdgeInsets.only(
+            padding: EdgeInsets.only(
               top: MenzilSpace.md,
               bottom: MenzilSpace.sm,
             ),
@@ -134,9 +134,9 @@ class _ReticleState extends State<ReticleScreen> {
                   'Çoğu SFP dürbünde en yüksek büyütme. Dürbünün kılavuzuna bakın.',
             ),
           ],
-          MenzilSectionHeader(
+          const MenzilSectionHeader(
             '2 · Retikül görünümü',
-            padding: const EdgeInsets.only(
+            padding: EdgeInsets.only(
               top: MenzilSpace.md,
               bottom: MenzilSpace.sm,
             ),
