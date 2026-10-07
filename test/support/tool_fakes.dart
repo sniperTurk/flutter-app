@@ -10,6 +10,7 @@ import 'package:sniper_turk/tools/ports/photo_picker.dart';
 import 'package:sniper_turk/tools/ports/place_search.dart';
 import 'package:sniper_turk/tools/ports/clock.dart';
 import 'package:sniper_turk/tools/ports/heading_provider.dart';
+import 'package:sniper_turk/tools/ports/level_calibration_store.dart';
 import 'package:sniper_turk/tools/ports/location_provider.dart';
 import 'package:sniper_turk/tools/ports/tilt_provider.dart';
 import 'package:sniper_turk/tools/ports/vision_assist.dart';
@@ -144,6 +145,7 @@ ToolsServices testServices({
   PhotoPicker? photoPicker,
   PlaceSearch? places,
   Clock? clock,
+  LevelCalibrationStore? levelCalibration,
 }) => ToolsServices(
   location: location ?? TestLocation(const LocationFix(39.9, 32.8)),
   weather:
@@ -156,6 +158,7 @@ ToolsServices testServices({
   places: places ?? TestPlaceSearch(),
   vision: const DisconnectedVisionAssist(),
   clock: clock ?? TestClock(DateTime.utc(2026, 10, 3, 12)),
+  levelCalibration: levelCalibration,
 );
 
 Widget host(Widget child, {ToolsServices? services, double textScale = 1.0}) =>

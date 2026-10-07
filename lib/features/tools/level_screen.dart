@@ -43,8 +43,10 @@ class _LevelScreenState extends State<LevelScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    final services = ToolsServicesScope.of(context);
     _controller ??= LevelController(
-      provider: ToolsServicesScope.of(context).tilt,
+      provider: services.tilt,
+      calibrationStore: services.levelCalibration,
     )..start();
   }
 
@@ -127,13 +129,14 @@ class _LevelScreenState extends State<LevelScreen> {
   ) {
     final c = MenzilColors.of(context);
     final level = TiltMath.isLevel(angles);
+    final calibrated = controller.calibration.bias != null;
     final notes = [
       controller.mode == TiltMode.flat ? 'Telefon düz' : 'Telefon dik',
       if (controller.locked) 'kilitli',
       if (controller.hasOffset) 'referans etkin',
-      if (controller.calibration.bias != null) 'kalibre',
+      calibrated ? 'kalibre' : 'kalibre değil',
     ].join(' · ');
-    return FittedBox(
+    final status = FittedBox(
       fit: BoxFit.scaleDown,
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -158,6 +161,51 @@ class _LevelScreenState extends State<LevelScreen> {
         ],
       ),
     );
+    if (calibrated) return status;
+    // Uncalibrated phones read ~1–2° on a flat table (camera bump plus
+    // accelerometer offset); point straight at the two-step fix.
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        status,
+        const SizedBox(height: MenzilSpace.xs),
+        Semantics(
+          button: true,
+          label: 'Kalibre edilmedi. Kalibrasyonu başlatmak için dokunun.',
+          child: ExcludeSemantics(
+            child: Material(
+              color: c.levelControl,
+              shape: StadiumBorder(side: BorderSide(color: c.amber)),
+              child: InkWell(
+                key: const Key('level-calibration-hint'),
+                customBorder: const StadiumBorder(),
+                onTap: () => _openSettingsSheet(context, controller),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: MenzilSpace.lg,
+                    vertical: MenzilSpace.sm,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.tune, size: 18, color: c.amber),
+                      const SizedBox(width: MenzilSpace.xs),
+                      Flexible(
+                        child: Text(
+                          'Kalibre edilmedi · düz zeminde 1–2° sapma normaldir, '
+                          'düzeltmek için dokunun',
+                          style: MenzilType.caption(c.levelControlInk),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _controlBar(
@@ -177,7 +225,7 @@ class _LevelScreenState extends State<LevelScreen> {
               key: const Key('level-calibrate-open'),
               size: button,
               icon: Icons.center_focus_strong_outlined,
-              label: 'Referans ve kalibrasyon',
+              label: 'Kalibrasyon ve ayarlar',
               onPressed: () => _openSettingsSheet(context, controller),
             ),
             const SizedBox(width: gap),
@@ -315,6 +363,11 @@ class _LevelScreenState extends State<LevelScreen> {
             'göz iki ekseni birden, uzun kenarı üzerinde dik tutunca üst tüp X '
             'eksenini, kısa kenarı üzerinde dik tutunca sol tüp Y eksenini '
             'gösterir. Kabarcık iki çizginin ortasındaysa yüzey seviyededir.\n\n'
+            'Kalibrasyon neden gerekli: telefon sırt üstü yatınca kamera çıkıntısı '
+            'bir ucu yaklaşık 1–2° kaldırır; ivmeölçerin de kendine özgü küçük bir '
+            'sapması vardır. Bu yüzden kalibre edilmemiş telefon tamamen düz bir '
+            'masada da 1–2° gösterebilir. Sol alttaki düğmeden iki adımlı '
+            'kalibrasyonu bir kez yapın; sonuç telefona kaydedilir.\n\n'
             '$_resolutionNotice'
             '${controller.hasOffset ? '\n\nReferans ayarı etkin: değerler ayarlanan konuma göredir; bu sensör kalibrasyonu değildir.' : ''}'
             '${controller.calibration.bias != null ? '\n\nDört yüzey kalibrasyonu etkin: sabit cihaz sapması çıkarılıyor.' : ''}',
@@ -334,17 +387,7 @@ class _LevelScreenState extends State<LevelScreen> {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      builder: (sheetContext) => _LevelSettingsSheet(
-        controller: controller,
-        onOpenCalibration: () {
-          Navigator.of(sheetContext).pop();
-          showModalBottomSheet<void>(
-            context: context,
-            isScrollControlled: true,
-            builder: (_) => _CalibrationSheet(controller: controller),
-          );
-        },
-      ),
+      builder: (sheetContext) => _LevelSettingsSheet(controller: controller),
     );
   }
 
@@ -372,11 +415,7 @@ class _LevelScreenState extends State<LevelScreen> {
 /// needed while reading the bubble lives in this sheet.
 class _LevelSettingsSheet extends StatelessWidget {
   final LevelController controller;
-  final VoidCallback onOpenCalibration;
-  const _LevelSettingsSheet({
-    required this.controller,
-    required this.onOpenCalibration,
-  });
+  const _LevelSettingsSheet({required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -392,15 +431,101 @@ class _LevelSettingsSheet extends StatelessWidget {
           listenable: controller,
           builder: (context, _) {
             final c = MenzilColors.of(context);
+            final cal = controller.calibration;
+            final hasReading = controller.rawAngles != null;
+            final pose = controller.mode == TiltMode.flat ? 'düz' : 'dik';
+            final String calStatus;
+            if (cal.normal != null && cal.flipped == null) {
+              calStatus =
+                  '1. okuma alındı. Şimdi telefonu aynı yerde 180° çevirip '
+                  '2. okumayı alın.';
+            } else if (cal.normal == null && cal.flipped != null) {
+              calStatus = '2. okuma alındı; 1. okumayı da alın.';
+            } else if (cal.normal != null && cal.flipped != null) {
+              calStatus =
+                  'Kalibrasyon tamam ve telefona kaydedildi ($pose duruş).';
+            } else if (cal.restored != null) {
+              calStatus =
+                  'Kayıtlı kalibrasyon kullanılıyor ($pose duruş). Telefon '
+                  'değiştiyse yeniden yapın.';
+            } else {
+              calStatus = 'Bu duruş ($pose) için kalibrasyon yapılmadı.';
+            }
             return Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Referans ve kalibrasyon',
+                  'Dört Yüzey Kalibrasyonu',
                   style: MenzilType.heading(c.ink, size: 20),
                 ),
+                const SizedBox(height: MenzilSpace.xxs),
+                Text(
+                  'Telefonu düz bir yere koyup 1. okumayı alın, aynı yerde 180° '
+                  'çevirip 2. okumayı alın. Kamera çıkıntısının ve sensörün '
+                  'sapması çıkarılır; düz ve dik duruş ayrı kalibre edilir.',
+                  style: MenzilType.caption(c.ink2),
+                ),
+                const SizedBox(height: MenzilSpace.sm),
+                Row(
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: const Key('level-calibrate-normal'),
+                        expand: true,
+                        label: cal.normal == null ? '1. okuma' : '1. okuma ✓',
+                        onPressed: hasReading
+                            ? () =>
+                                  controller.captureCalibration(flipped: false)
+                            : null,
+                      ),
+                    ),
+                    const SizedBox(width: MenzilSpace.sm),
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: const Key('level-calibrate-flipped'),
+                        expand: true,
+                        label: cal.flipped == null
+                            ? '2. okuma (180°)'
+                            : '2. okuma ✓',
+                        onPressed: hasReading
+                            ? () => controller.captureCalibration(flipped: true)
+                            : null,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: MenzilSpace.xs),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        calStatus,
+                        key: const Key('level-calibration-status'),
+                        style: MenzilType.caption(c.ink),
+                      ),
+                    ),
+                    TextButton(
+                      key: const Key('level-calibrate-clear-mode'),
+                      onPressed: cal.bias != null ||
+                              cal.normal != null ||
+                              cal.flipped != null
+                          ? () => controller.clearCalibration(controller.mode)
+                          : null,
+                      child: const Text('Sıfırla'),
+                    ),
+                  ],
+                ),
+                if (controller.calibrationSaveFailed)
+                  const MenzilNotice(
+                    tone: MenzilNoticeTone.warning,
+                    message:
+                        'Kalibrasyon telefona kaydedilemedi; bu oturumda '
+                        'kullanılıyor ama uygulama kapanınca silinir.',
+                  ),
                 const SizedBox(height: MenzilSpace.md),
+                Text('Geçici referans', style: MenzilType.label(c.ink2)),
+                const SizedBox(height: MenzilSpace.xs),
                 Row(
                   children: [
                     Expanded(
@@ -425,20 +550,15 @@ class _LevelSettingsSheet extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: MenzilSpace.sm),
-                Row(
-                  children: [
-                    Expanded(
-                      child: MenzilSecondaryButton(
-                        key: const Key('level-calibrate-flip-open'),
-                        expand: true,
-                        label: 'Dört Yüzey Kalibrasyonu',
-                        icon: Icons.rule_outlined,
-                        onPressed: onOpenCalibration,
-                      ),
-                    ),
-                  ],
-                ),
+                if (controller.hasOffset) ...[
+                  const SizedBox(height: MenzilSpace.sm),
+                  const MenzilNotice(
+                    tone: MenzilNoticeTone.info,
+                    message:
+                        'Referans ayarı etkin: değerler ayarlanan konuma göredir; '
+                        'bu sensör kalibrasyonu değildir.',
+                  ),
+                ],
                 const SizedBox(height: MenzilSpace.lg),
                 Text('Açı birimi', style: MenzilType.label(c.ink2)),
                 const SizedBox(height: MenzilSpace.xs),
@@ -463,15 +583,6 @@ class _LevelSettingsSheet extends StatelessWidget {
                   selected: controller.viewType,
                   onSelected: controller.setViewType,
                 ),
-                if (controller.hasOffset) ...[
-                  const SizedBox(height: MenzilSpace.md),
-                  const MenzilNotice(
-                    tone: MenzilNoticeTone.info,
-                    message:
-                        'Referans ayarı etkin: değerler ayarlanan konuma göredir; '
-                        'bu sensör kalibrasyonu değildir.',
-                  ),
-                ],
               ],
             );
           },
@@ -520,130 +631,6 @@ class _RoundButton extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Guided two-point "flip" calibration (see [FlipCalibration]): for the
-/// current [LevelController.mode], capture a reading held normally, flip
-/// the phone 180° on the same surface, capture again. A full calibration
-/// across both modes (flat, upright) is four captures total.
-class _CalibrationSheet extends StatelessWidget {
-  final LevelController controller;
-  const _CalibrationSheet({required this.controller});
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          MenzilSpace.md,
-          MenzilSpace.md,
-          MenzilSpace.md,
-          MenzilSpace.lg,
-        ),
-        child: ListenableBuilder(
-          listenable: controller,
-          builder: (context, _) {
-            final c = MenzilColors.of(context);
-            final cal = controller.calibration;
-            final hasReading = controller.rawAngles != null;
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Dört Yüzey Kalibrasyonu',
-                  style: MenzilType.heading(c.ink, size: 20),
-                ),
-                const SizedBox(height: MenzilSpace.xs),
-                Text(
-                  'Telefon bilinen düz bir yüzeyde dururken normal konumda bir okuma, '
-                  'ardından aynı yüzeyde 180° döndürülmüş hâlde ikinci bir okuma alınır. '
-                  'İki okumanın ortalaması cihaza özgü sabit sapmayı temizler; bu, '
-                  'sensörün işaret yönünü varsaymadan çalışan bir teknik olup gerçek '
-                  'cihazda doğrulanmamış işaret kuralına bağlı değildir. '
-                  'Düz ve dik duruş için ayrı ayrı yapılır (toplam dört okuma).',
-                  style: MenzilType.caption(c.ink2),
-                ),
-                const SizedBox(height: MenzilSpace.md),
-                Text(
-                  'Duruş: ${controller.mode == TiltMode.flat ? 'Düz' : 'Dik'}',
-                  style: MenzilType.label(c.ink2),
-                ),
-                const SizedBox(height: MenzilSpace.sm),
-                Row(
-                  children: [
-                    Expanded(
-                      child: MenzilSecondaryButton(
-                        key: const Key('level-calibrate-normal'),
-                        expand: true,
-                        label: cal.normal == null
-                            ? '1) Normal okuma al'
-                            : '1) Normal ✓ yeniden al',
-                        onPressed: hasReading
-                            ? () =>
-                                  controller.captureCalibration(flipped: false)
-                            : null,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: MenzilSpace.sm),
-                Row(
-                  children: [
-                    Expanded(
-                      child: MenzilSecondaryButton(
-                        key: const Key('level-calibrate-flipped'),
-                        expand: true,
-                        label: cal.flipped == null
-                            ? '2) 180° çevirip okuma al'
-                            : '2) Çevrilmiş ✓ yeniden al',
-                        onPressed: hasReading
-                            ? () => controller.captureCalibration(flipped: true)
-                            : null,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: MenzilSpace.md),
-                MenzilNotice(
-                  tone: cal.isComplete
-                      ? MenzilNoticeTone.info
-                      : MenzilNoticeTone.warning,
-                  message: cal.isComplete
-                      ? 'Bu duruş için kalibrasyon etkin. Değer oturum belleğinde '
-                            'tutulur; uygulama yeniden başlatıldığında sıfırlanır.'
-                      : 'Bu duruş için kalibrasyon tamamlanmadı (iki okuma da gerekli).',
-                ),
-                const SizedBox(height: MenzilSpace.md),
-                Row(
-                  children: [
-                    Expanded(
-                      child: MenzilSecondaryButton(
-                        key: const Key('level-calibrate-clear-mode'),
-                        expand: true,
-                        label: 'Bu duruşu temizle',
-                        onPressed: () =>
-                            controller.clearCalibration(controller.mode),
-                      ),
-                    ),
-                    const SizedBox(width: MenzilSpace.md),
-                    Expanded(
-                      child: MenzilSecondaryButton(
-                        key: const Key('level-calibrate-clear-all'),
-                        expand: true,
-                        label: 'Tümünü temizle',
-                        onPressed: controller.clearAllCalibration,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
         ),
       ),
     );

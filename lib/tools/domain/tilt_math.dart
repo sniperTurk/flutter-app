@@ -130,15 +130,22 @@ enum AngleDisplayUnit { degrees, percent, roofPitch }
 class FlipCalibration {
   final TiltAngles? normal;
   final TiltAngles? flipped;
-  const FlipCalibration({this.normal, this.flipped});
 
-  bool get isComplete => normal != null && flipped != null;
+  /// A bias measured in an earlier session and restored from storage. A new
+  /// capture starts a fresh pair and replaces it.
+  final TiltAngles? restored;
+  const FlipCalibration({this.normal, this.flipped}) : restored = null;
+  const FlipCalibration.restored(TiltAngles this.restored)
+    : normal = null,
+      flipped = null;
+
+  bool get isComplete => (normal != null && flipped != null) || restored != null;
 
   /// Constant bias to subtract from future readings, or null until both
   /// captures are in.
   TiltAngles? get bias {
     final n = normal, f = flipped;
-    if (n == null || f == null) return null;
+    if (n == null || f == null) return restored;
     return TiltAngles((n.xDeg + f.xDeg) / 2, (n.yDeg + f.yDeg) / 2);
   }
 

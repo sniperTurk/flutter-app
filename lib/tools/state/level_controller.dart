@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show SystemSound, SystemSoundType;
 
 import '../domain/tilt_math.dart';
+import '../ports/level_calibration_store.dart';
 import '../ports/tilt_provider.dart';
 
 /// Drives the Su Terazisi screen.
@@ -12,10 +13,21 @@ import '../ports/tilt_provider.dart';
 /// in memory only. It is NOT a sensor calibration.
 class LevelController extends ChangeNotifier {
   final TiltProvider provider;
+
+  /// Remembers the flip calibration between launches; null = this screen
+  /// only.
+  final LevelCalibrationStore? calibrationStore;
   final GravityFilter _filter;
 
-  LevelController({required this.provider, double smoothing = 0.15})
-    : _filter = GravityFilter(alpha: smoothing);
+  LevelController({
+    required this.provider,
+    this.calibrationStore,
+    double smoothing = 0.15,
+  }) : _filter = GravityFilter(alpha: smoothing);
+
+  /// True after a calibration could not be written to storage.
+  bool get calibrationSaveFailed => _saveFailed;
+  bool _saveFailed = false;
 
   StreamSubscription<TiltState>? _sub;
   bool _disposed = false;
@@ -87,12 +99,53 @@ class LevelController extends ChangeNotifier {
   void start() {
     if (_started) return;
     _started = true;
+    _restoreCalibration();
     _sub = provider.tilts().listen(
       _onState,
       onError: (Object _) {
         _onState(const TiltUnavailable(TiltUnavailableReason.error));
       },
     );
+  }
+
+  /// Restores stored biases for poses not calibrated in this session yet.
+  Future<void> _restoreCalibration() async {
+    final store = calibrationStore;
+    if (store == null) return;
+    Map<String, LevelBias> stored;
+    try {
+      stored = await store.load();
+    } catch (_) {
+      return;
+    }
+    if (_disposed) return;
+    var changed = false;
+    for (final mode in TiltMode.values) {
+      final b = stored[mode.name];
+      final current = _calibration[mode] ?? const FlipCalibration();
+      if (b == null || current.normal != null || current.flipped != null) {
+        continue;
+      }
+      _calibration[mode] = FlipCalibration.restored(TiltAngles(b.xDeg, b.yDeg));
+      changed = true;
+    }
+    if (changed) notifyListeners();
+  }
+
+  Future<void> _persist(TiltMode mode) async {
+    final store = calibrationStore;
+    if (store == null) return;
+    final bias = _calibration[mode]?.bias;
+    try {
+      await store.save(
+        mode.name,
+        bias == null ? null : (xDeg: bias.xDeg, yDeg: bias.yDeg),
+      );
+      _saveFailed = false;
+    } catch (_) {
+      _saveFailed = true;
+    }
+    if (!_disposed) notifyListeners();
   }
 
   void _onState(TiltState s) {
@@ -215,22 +268,29 @@ class LevelController extends ChangeNotifier {
     final raw = rawAngles;
     if (raw == null) return false;
     final existing = _calibration[_mode] ?? const FlipCalibration();
-    _calibration[_mode] = flipped
-        ? existing.withFlipped(raw)
-        : existing.withNormal(raw);
+    final next = flipped ? existing.withFlipped(raw) : existing.withNormal(raw);
+    _calibration[_mode] = next;
     if (!_disposed) notifyListeners();
+    // Only a complete NEW pair replaces what is stored; a half-finished
+    // recalibration leaves the saved bias alone.
+    if (next.normal != null && next.flipped != null) {
+      unawaited(_persist(_mode));
+    }
     return true;
   }
 
   void clearCalibration(TiltMode mode) {
     _calibration[mode] = const FlipCalibration();
     if (!_disposed) notifyListeners();
+    unawaited(_persist(mode));
   }
 
   void clearAllCalibration() {
     _calibration[TiltMode.flat] = const FlipCalibration();
     _calibration[TiltMode.upright] = const FlipCalibration();
     if (!_disposed) notifyListeners();
+    unawaited(_persist(TiltMode.flat));
+    unawaited(_persist(TiltMode.upright));
   }
 
   @override
