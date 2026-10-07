@@ -75,7 +75,4 @@ abstract final class ProfileFieldInfo {
   static const zero =
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
       'noktası çakışır. Örnek: havalı tüfekte 25–40 m.';
-  static const shotPressure =
-      'Atış sırasında tüpte bulunan hava basıncı, bar olarak (tüp göstergesi). '
-      'Regülatör basıncından farklıdır.';
 }

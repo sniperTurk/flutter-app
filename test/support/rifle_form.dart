@@ -87,6 +87,18 @@ Future<void> fillAmmoForm(
   await chooseInSelect(tester, 'ammo-bc-model', bcModel);
 }
 
+/// Fills Atış değerleri: muzzle velocity (fps), zero (m) and sight height (mm).
+Future<void> fillShotValues(
+  WidgetTester tester, {
+  String velocityFps = '900',
+  String zero = '25',
+  String sight = '60',
+}) async {
+  await enterRifleField(tester, 'profile-velocity-fps', velocityFps);
+  await enterRifleField(tester, 'profile-zero', zero);
+  await enterRifleField(tester, 'scope-sight-height', sight);
+}
+
 /// Fills the profile editor's manual scope form.
 Future<void> fillScopeForm(
   WidgetTester tester, {

@@ -576,12 +576,6 @@ class _ActiveProfileDetails extends StatelessWidget {
               'Dürbün birimi',
               profile.angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
             ),
-            if (profile.pressureBar != null)
-              MenzilMetric(
-                'Atış basıncı',
-                profile.pressureBar!.toStringAsFixed(0),
-                'bar',
-              ),
             if (rifle != null)
               MenzilMetric('Çap', rifle.caliberMm.toStringAsFixed(2), 'mm'),
             if (ammo != null)
@@ -750,7 +744,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController velocity;
   late final TextEditingController zero;
   late final TextEditingController sight;
-  late final TextEditingController pressure;
   String? validationError;
   late AngularUnit angularUnit;
 
@@ -822,13 +815,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // Muzzle velocity is entered in fps on Profil (owner decision); the
     // profile keeps storing m/s, so every calculation is unchanged.
     velocity = TextEditingController(
-      text: p == null ? '820' : _fpsText(p.muzzleVelocityMps),
+      text: p == null ? '' : _fpsText(p.muzzleVelocityMps),
     );
-    zero = TextEditingController(text: p?.zeroRangeM.toString() ?? '25');
-    sight = TextEditingController(text: p?.sightHeightMm.toString() ?? '65');
-    pressure = TextEditingController(
-      text: p == null ? '200' : (p.pressureBar?.toString() ?? ''),
-    );
+    // New profiles start empty: no placeholder value is ever taken for the
+    // user's data (owner, 2026-10-07: "250 m/s nereden geliyor?").
+    zero = TextEditingController(text: p == null ? '' : num(p.zeroRangeM));
+    sight = TextEditingController(text: p == null ? '' : num(p.sightHeightMm));
+
   }
 
   static String _fpsText(double mps) {
@@ -838,6 +831,52 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   // 100–4900 fps (4900 fps ≈ 1494 m/s, inside the 1500 m/s production limit).
   String? get _velocityError => _rangeError(velocity, 100, 4900);
+  String? get _zeroError => _rangeError(zero, 1, ProductionLimits.maxRangeM);
+
+  /// What is still missing, per section, in the order of the page. Shown
+  /// above Kaydet so a disabled button always says why.
+  List<String> get _missing {
+    final out = <String>[];
+    void section(String name, List<(bool, String)> checks) {
+      final m = [
+        for (final (ok, label) in checks)
+          if (!ok) label,
+      ];
+      if (m.isNotEmpty) out.add('$name: ${m.join(', ')}');
+    }
+
+    section('Tüfek', [
+      (_brandError == null, 'Marka'),
+      (_modelError == null, 'Model'),
+      (_caliberError == null, 'Kalibre'),
+      (_barrelError == null, 'Namlu uzunluğu'),
+      (twistDirection != null, 'Yiv yönü'),
+      (_twistError == null, 'Yiv oranı'),
+      (_regulatorError == null, 'Regülatör basıncı'),
+    ]);
+    section('Dürbün', [
+      (_scopeBrandError == null, 'Marka'),
+      (firstFocalPlane != null, 'Odak düzlemi'),
+      (_minMagError == null, 'Min. büyütme'),
+      (_maxMagError == null, 'Maks. büyütme'),
+      (_objectiveError == null, 'Mercek çapı'),
+      (_clickError == null, 'Klik değeri'),
+      (_validSight, 'Dürbün yüksekliği'),
+    ]);
+    section('Mühimmat', [
+      (_ammoBrandError == null, 'Marka'),
+      (_ammoModelError == null, 'Model'),
+      (_effectiveAmmoType != null, 'Tip'),
+      (_grainError == null, 'Ağırlık'),
+      (_bcError == null, 'BC'),
+      (ammoBcModel != null, 'BC modeli'),
+    ]);
+    section('Atış değerleri', [
+      (_velocityError == null, 'Çıkış hızı'),
+      (_zeroError == null, 'Sıfırlama mesafesi'),
+    ]);
+    return out;
+  }
 
   static double _defaultClick(AngularUnit u) =>
       u == AngularUnit.moa ? 0.25 : 0.1;
@@ -863,7 +902,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     velocity.dispose();
     zero.dispose();
     sight.dispose();
-    pressure.dispose();
     super.dispose();
   }
 
@@ -1092,7 +1130,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         zeroRangeText: zero.text,
         sightHeightText: sight.text,
         platform: platform,
-        pressureText: pressure.text,
+        // V380: the PCP profile pressure is the rifle's regulator pressure
+        // (the separate "Atış basıncı" field was redundant).
+        pressureText: rifleRegulator.text,
       );
     } on FormatException catch (e) {
       setState(() => validationError = e.message);
@@ -1162,8 +1202,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     final typedCaliber = _typedCaliber;
+    final missing = _missing;
     final canSave =
-        !_saving && _rifleValid && _ammoValid && _scopeValid && _validSight;
+        !_saving &&
+        _rifleValid &&
+        _ammoValid &&
+        _scopeValid &&
+        _validSight &&
+        missing.isEmpty;
 
     return Scaffold(
       appBar: MenzilSubPageBar(
@@ -1183,7 +1229,21 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               MenzilSpace.gutter,
               MenzilSpace.sm,
             ),
-            child: Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (missing.isNotEmpty) ...[
+                  Text(
+                    'Kaydetmek için eksik: ${missing.join(' · ')}',
+                    key: const Key('profile-missing'),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: MenzilType.caption(c.danger),
+                  ),
+                  const SizedBox(height: MenzilSpace.xs),
+                ],
+                Row(
               children: [
                 Expanded(
                   child: MenzilSecondaryButton(
@@ -1200,6 +1260,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     onPressed: canSave ? _save : null,
                   ),
                 ),
+              ],
+            ),
               ],
             ),
           ),
@@ -1643,18 +1705,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   errorText: _shown(_velocityError, velocity),
                 ),
                 MenzilInput(
+                  key: const Key('profile-zero'),
                   controller: zero,
                   label: 'Sıfırlama mesafesi',
                   info: ProfileFieldInfo.zero,
                   unit: 'm',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_zeroError, zero),
                 ),
-                if (platform == WeaponPlatform.pcp)
-                  MenzilInput(
-                    controller: pressure,
-                    label: 'Atış basıncı',
-                    info: ProfileFieldInfo.shotPressure,
-                    unit: 'bar',
-                  ),
               ],
             ),
           ),

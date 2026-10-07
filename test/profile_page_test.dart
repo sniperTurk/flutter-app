@@ -154,5 +154,46 @@ void main() {
     await tester.enterText(field, '6000');
     await tester.pump();
     expect(find.text('100–4900 arasında bir değer girin.'), findsOneWidget);
+    // The reason Kaydet/Güncelle is off is always written above it.
+    expect(find.byKey(const Key('profile-missing')), findsOneWidget);
+    expect(find.textContaining('Çıkış hızı'), findsWidgets);
+    // No separate shot-pressure field any more.
+    expect(find.text('Atış basıncı'), findsNothing);
+  });
+
+  testWidgets('a new profile starts empty and lists what is missing', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(390 * 3, 2600 * 3);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: ProfilesScreen(store: MemoryProfileStore()),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Yeni profil'));
+    await tester.pumpAndSettle();
+    String text(String key) => tester
+        .widget<TextField>(
+          find.descendant(
+            of: find.byKey(Key(key)),
+            matching: find.byType(TextField),
+          ),
+        )
+        .controller!
+        .text;
+    // No placeholder data such as 250 m/s is ever filled in.
+    expect(text('profile-velocity-fps'), isEmpty);
+    expect(text('profile-zero'), isEmpty);
+    expect(text('scope-sight-height'), isEmpty);
+    final missing = tester
+        .widget<Text>(find.byKey(const Key('profile-missing')))
+        .data!;
+    for (final section in const ['Tüfek:', 'Dürbün:', 'Mühimmat:']) {
+      expect(missing, contains(section));
+    }
   });
 }

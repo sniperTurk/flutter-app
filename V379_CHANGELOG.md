@@ -20,3 +20,14 @@ Kaynak: `main` @ `1b8c125`. Hesap, solver ve kapılar değişmedi.
   varsayılanı 820 fps.
 - Profil listesi ve özeti hızı her iki birim sisteminde de fps gösterir.
 - Test: düzenleyici kayıtlı 270 m/s'yi 885.8 fps gösterir; 6000 fps reddedilir.
+
+## Ek 2 (sahip geri bildirimi, ekran görüntüsü 22:26)
+- **Çıkış hızı**: yalnız etiket değil, değer de fps. Eski sürümde m/s
+  kutusuna yazılan 950, 950 m/s olarak hesaba giriyordu; artık fps alınır ve
+  çözücüye tam dönüşümle (× 0,3048) gider.
+- **Atış basıncı alanı kaldırıldı**: PCP profil basıncı = regülatör basıncı
+  (bar). Özetteki yinelenen "Atış basıncı" satırı kaldırıldı.
+- **Varsayılan veri yok**: yeni profilde çıkış hızı (eski 250 m/s
+  varsayılanı), sıfırlama (25 m) ve dürbün yüksekliği (65 mm) boş gelir.
+- **Kaydet neden kapalı**: düğmenin üstünde bölüm bölüm eksik alanlar yazılır
+  (ör. "Mühimmat: Marka, Model, Tip, Ağırlık, BC, BC modeli").

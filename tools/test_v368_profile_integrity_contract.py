@@ -25,11 +25,17 @@ class V368ProfileIntegrity(unittest.TestCase):
     def test_save_requires_explicit_rifle_ammo_scope(self):
         t = read('lib/features/profiles/profiles_screen.dart')
         # V375: the typed rifle must be complete and valid (incl. twist).
-        self.assertIn('!_saving && _rifleValid && _ammoValid && _scopeValid && _validSight', t)
+        # Whitespace-insensitive: dart format decides the line breaks.
+        flat = ' '.join(t.split())
+        self.assertIn('!_saving && _rifleValid && _ammoValid && _scopeValid && _validSight && missing.isEmpty', flat)
 
     def test_no_fabricated_pressure_for_existing_profile(self):
         t = read('lib/features/profiles/profiles_screen.dart')
-        self.assertIn("p == null ? '200' : (p.pressureBar?.toString() ?? '')", t)
+        # V380: no separate shot-pressure field; the PCP pressure is the typed
+        # regulator pressure, and new profiles start with no invented values.
+        self.assertNotIn("'200'", t)
+        self.assertIn('pressureText: rifleRegulator.text', t)
+        self.assertIn("text: p == null ? '' : _fpsText(p.muzzleVelocityMps)", t)
 
     def test_home_resolves_active_instance_from_saved(self):
         t = read('lib/features/home/home_screen.dart')
