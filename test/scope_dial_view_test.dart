@@ -158,12 +158,18 @@ void main() {
       ),
     );
     await tester.pumpWidget(view(12));
-    expect(find.textContaining('1 çizgi = 24 / 12 = 2.000 mrad'), findsOneWidget);
+    expect(
+      find.textContaining('1 çizgi = 24 / 12 = 2.000 mrad'),
+      findsOneWidget,
+    );
     // 1.5 mrad low at 12x on a 24x-calibrated SFP = 0.75 marks.
     expect(find.textContaining('= 0.75 çizgi'), findsOneWidget);
     expect(find.byKey(ScopeDialKeys.magnification), findsOneWidget);
 
     await tester.pumpWidget(view(24));
-    expect(find.textContaining('1 çizgi = 24 / 24 = 1.000 mrad'), findsOneWidget);
+    expect(
+      find.textContaining('1 çizgi = 24 / 24 = 1.000 mrad'),
+      findsOneWidget,
+    );
   });
 }

@@ -202,10 +202,7 @@ class ScopeDialView extends StatelessWidget {
     final windLabels = <(double, String)>[
       if (perUnit != null && windFmt != null)
         for (var i = 1; i <= 4; i++)
-          (
-            i * windStep,
-            windFmt(perUnit * i * windStep * sub),
-          ),
+          (i * windStep, windFmt(perUnit * i * windStep * sub)),
     ];
 
     const windageWidth = 58.0;
@@ -307,10 +304,7 @@ class ScopeDialView extends StatelessWidget {
               _zoomRow(context),
             if (unitNote != null) ...[
               const SizedBox(height: MenzilSpace.xs),
-              MenzilNotice(
-                tone: MenzilNoticeTone.warning,
-                message: unitNote!,
-              ),
+              MenzilNotice(tone: MenzilNoticeTone.warning, message: unitNote!),
             ],
             const SizedBox(height: MenzilSpace.md),
             _readout(context, dialedUp, dialedRight, impact),
@@ -975,7 +969,8 @@ class ScopeReticlePainter extends CustomPainter {
         canvas.drawCircle(center + Offset(p, 0), dotR, dot);
         canvas.drawCircle(center + Offset(0, p), dotR, dot);
       } else {
-        final long = (i % 5 == 0 ? 9.0 : 5.0) * math.min(1.0, markStep * scale / 12);
+        final long =
+            (i % 5 == 0 ? 9.0 : 5.0) * math.min(1.0, markStep * scale / 12);
         canvas.drawLine(
           center + Offset(p, -long),
           center + Offset(p, long),

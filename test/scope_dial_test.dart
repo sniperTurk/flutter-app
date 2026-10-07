@@ -136,7 +136,10 @@ void main() {
       expect(ScopeDialMath.convert(2.5, AngularUnit.moa, AngularUnit.moa), 2.5);
       // 1 mrad: 10 clicks of 0.1 mrad, 14 clicks of ¼ MOA.
       expect(
-        ScopeDialMath.clicksFor(1, ScopeDialMath.standardClick(AngularUnit.mrad)),
+        ScopeDialMath.clicksFor(
+          1,
+          ScopeDialMath.standardClick(AngularUnit.mrad),
+        ),
         10,
       );
       expect(

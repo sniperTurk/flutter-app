@@ -642,9 +642,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final mrad = (totalTravelMrad != null && totalTravelMrad > 0)
         ? totalTravelMrad / 2
         : 30.0;
-    final inUnit = _scopeUnit == AngularUnit.moa
-        ? Units.mradToMoa(mrad)
-        : mrad;
+    final inUnit = _scopeUnit == AngularUnit.moa ? Units.mradToMoa(mrad) : mrad;
     return math.max(1, (inUnit / clickValue).floor());
   }
 
