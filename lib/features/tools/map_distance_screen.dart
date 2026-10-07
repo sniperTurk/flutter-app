@@ -435,8 +435,16 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                     ),
                   MenzilChipGroup<_Pick>(
                     options: [
-                      (_Pick.shooter, _shooter == null ? 'Nişancı konumu' : '✓ Nişancı konumu'),
-                      (_Pick.target, _target == null ? 'Hedef konumu' : '✓ Hedef konumu'),
+                      (
+                        _Pick.shooter,
+                        _shooter == null
+                            ? 'Nişancı konumu'
+                            : '✓ Nişancı konumu',
+                      ),
+                      (
+                        _Pick.target,
+                        _target == null ? 'Hedef konumu' : '✓ Hedef konumu',
+                      ),
                     ],
                     selected: _pick,
                     onSelected: (v) => setState(() => _pick = v),
