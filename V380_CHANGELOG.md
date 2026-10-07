@@ -14,3 +14,5 @@ namlu cm, regülatör bar; dürbün için MRAD/MOA/Yard seçeneği ayrıca gelec
 - `SettingsStore.loadMetric()` her zaman metrik döner: daha önce emperyal
   seçmiş bir cihaz da güncellemeden sonra tutarlı çalışır.
 - Testler ve sözleşmeler (v271, iOS smoke) güncellendi.
+- Profil: "Aktif profil" başlığının altındaki profil adı satırı kaldırıldı
+  (ad üst çubuktaki seçicide ve listede zaten var).
