@@ -1023,7 +1023,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       );
     }
     final name = a!.ballisticModel!.name.toUpperCase();
-    if (!_dragMode) {
+    // Describes the inputs as they are now (the profile is solved on open,
+    // so the last solve may predate a grain edit).
+    if (!_bcApplies()) {
       return MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:
