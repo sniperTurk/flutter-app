@@ -156,7 +156,7 @@ void main() {
     expect(find.text('100–4900 arasında bir değer girin.'), findsOneWidget);
     // The reason Kaydet/Güncelle is off is always written above it.
     expect(find.byKey(const Key('profile-missing')), findsOneWidget);
-    expect(find.textContaining('Çıkış hızı'), findsWidgets);
+    expect(find.textContaining('Namlu çıkış hızı'), findsWidgets);
     // No separate shot-pressure field any more.
     expect(find.text('Atış basıncı'), findsNothing);
   });

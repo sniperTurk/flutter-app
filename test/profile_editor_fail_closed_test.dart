@@ -96,6 +96,8 @@ void main() {
           .controller!
           .text;
       expect(text('rifle-caliber'), '6.35');
+      // Barrel length is entered in cm: the old 585 mm shows as 58.5.
+      expect(text('rifle-barrel'), '58.5');
       expect(text('rifle-twist-rate'), isEmpty);
       expect(_updateAction(tester), isNull);
 
@@ -104,7 +106,7 @@ void main() {
       expect(text('scope-max-mag'), '36');
       expect(find.text('Dürbün: Gazi Sniper 6-36x56 FFP'), findsOneWidget);
 
-      await enterRifleField(tester, 'rifle-barrel', '600');
+      await enterRifleField(tester, 'rifle-barrel', '60');
       await enterRifleField(tester, 'rifle-twist-rate', '16');
       await chooseTwistDirection(tester, 'Sol');
       expect(
@@ -129,7 +131,7 @@ void main() {
     tester,
   ) async {
     await _pumpAndOpen(tester, _valid);
-    await enterRifleField(tester, 'rifle-barrel', '600');
+    await enterRifleField(tester, 'rifle-barrel', '60');
     await enterRifleField(tester, 'rifle-regulator', '120');
     await enterRifleField(tester, 'ammo-bc', '0,08');
     await chooseInSelect(tester, 'ammo-bc-model', 'G1');
@@ -179,7 +181,7 @@ void main() {
       'Dürbün birimi',
       'Klik değeri',
       'Dürbün yüksekliği (sight height)',
-      'Çıkış hızı',
+      'Namlu çıkış hızı',
       'Sıfırlama mesafesi',
     ]) {
       expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);

@@ -31,3 +31,10 @@ Kaynak: `main` @ `1b8c125`. Hesap, solver ve kapılar değişmedi.
   varsayılanı), sıfırlama (25 m) ve dürbün yüksekliği (65 mm) boş gelir.
 - **Kaydet neden kapalı**: düğmenin üstünde bölüm bölüm eksik alanlar yazılır
   (ör. "Mühimmat: Marka, Model, Tip, Ağırlık, BC, BC modeli").
+
+## Ek 3 (sahip, 23:18)
+- Namlu uzunluğu **cm** olarak girilir ve özette cm gösterilir (mm saklanır).
+- Mühimmat tipi: **Slug / Pellet** ("Diabolo" kaldırıldı).
+- **Atış değerleri** bölümü Tüfek'in hemen altında.
+- "Çıkış hızı" → **"Namlu çıkış hızı"**.
+- (Atış basıncı → regülatör basıncı: Ek 2'de yapıldı.)

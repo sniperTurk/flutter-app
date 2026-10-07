@@ -9,7 +9,7 @@ abstract final class ProfileFieldInfo {
       'Namlunun iç çapı, milimetre olarak. Örnek: 5,5 mm (.22), '
       '6,35 mm (.25), 7,62 mm (.30). Mühimmatın kalibresi buradan alınır.';
   static const barrelLength =
-      'Namlunun arka ucundan namlu ağzına kadar uzunluğu, milimetre olarak. '
+      'Namlunun arka ucundan namlu ağzına kadar uzunluğu, santimetre olarak. '
       'Susturucu veya moderatör dahil değildir. Tüfeğin teknik föyünde yazar.';
   static const twistDirection =
       'Namlunun içindeki yivlerin dönüş yönü. Namluya arkadan bakarken yivler '
@@ -25,15 +25,15 @@ abstract final class ProfileFieldInfo {
 
   // Mühimmat
   static const ammoType =
-      'Diabolo: belli ve etek yapılı klasik havalı tüfek saçması. Slug: dolu '
+      'Pellet: belli ve etek yapılı klasik havalı tüfek saçması. Slug: dolu '
       'gövdeli, mermi biçimli ağır saçma. Ateşli tüfekte mermi seçilir.';
   static const grain =
       'Bir saçmanın veya merminin ağırlığı, grain olarak (1 grain = 0,0648 g). '
-      'Kutunun üstünde yazar. Örnek: 25,39 gr diabolo, 33,95 gr slug.';
+      'Kutunun üstünde yazar. Örnek: 25,39 gr pellet, 33,95 gr slug.';
   static const bc =
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
-      'etkilenir. Tipik: diabolo 0,02–0,04, slug 0,05–0,15 (G1). Kutuda veya '
+      'etkilenir. Tipik: pellet 0,02–0,04, slug 0,05–0,15 (G1). Kutuda veya '
       'üreticinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
   static const bcModel =
       'BC sayısının hangi standart mermi şekline göre verildiği. G1: küt uçlu '

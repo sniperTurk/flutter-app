@@ -337,7 +337,7 @@ void main() {
       isNull,
       reason: 'new profiles start empty: velocity, zero, sight are required',
     );
-    expect(find.textContaining('Atış değerleri: Çıkış hızı'), findsOneWidget);
+    expect(find.textContaining('Atış değerleri: Namlu çıkış hızı'), findsOneWidget);
     await fillShotValues(tester);
     expect(
       find.text('Dürbün: Test Optik 6-24x56 FFP'),

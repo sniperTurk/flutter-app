@@ -31,7 +31,7 @@ Future<void> fillRifleForm(
   String brand = 'Test Marka',
   String model = 'Test Model',
   String caliber = '6,35',
-  String barrel = '600',
+  String barrel = '60',
   String twist = '16',
   String direction = 'Sağ',
   String? regulator = '120',
