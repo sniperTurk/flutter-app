@@ -843,9 +843,9 @@ class _TubePainter extends CustomPainter {
     // Bubble: a clearly visible glossy pill centred across the tube's
     // thickness, moving along it. It used to hug the glass edge, where the
     // clip cut it down to a thin, low-contrast arc that read as "no bubble".
-    final inner = thick - 2 * frame;
+    final innerThick = thick - 2 * frame;
     final bubbleLen = len * 0.17;
-    final bubbleThick = inner * 0.72;
+    final bubbleThick = innerThick * 0.72;
     final k = len * 0.06; // px per degree
     final maxOff = len / 2 - bubbleLen / 2 - frame;
     final off = ((vertical ? -deg : deg) * k).clamp(-maxOff, maxOff).toDouble();
