@@ -102,7 +102,7 @@ void main() {
   testWidgets('muzzle Mach >= 0.8 shows the transonic warning', (tester) async {
     install();
     await _pump(tester);
-    await tester.enterText(find.byKey(BallisticsFieldKeys.velocity), '300');
+    await tester.enterText(find.byKey(BallisticsFieldKeys.velocity), '985');
     await tester.tap(find.text('DOPE oluştur'));
     await tester.pumpAndSettle();
     expect(find.textContaining('Mach 0,8'), findsOneWidget);

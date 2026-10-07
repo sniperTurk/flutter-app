@@ -77,6 +77,12 @@ class ScopeDialView extends StatelessWidget {
   final String distanceUnit;
   final bool metric;
 
+  /// Diameter of the ring target drawn at [rangeM], in metres. The target is
+  /// drawn at its true angular size, so like a real scope it gets bigger
+  /// when you zoom in (higher magnification) and smaller when the range
+  /// grows. Default 10 cm (a common airgun paper target).
+  final double targetDiameterM;
+
   const ScopeDialView({
     super.key,
     required this.unit,
@@ -103,7 +109,13 @@ class ScopeDialView extends StatelessWidget {
     required this.toDisplayRange,
     required this.distanceUnit,
     required this.metric,
+    this.targetDiameterM = 0.10,
   });
+
+  /// Target radius as a true angle in [unit] (null when the range is unknown).
+  double? get targetRadius => rangeM > 0 && targetDiameterM > 0
+      ? ScopeDialMath.angleAtRange(targetDiameterM, rangeM, unit) / 2
+      : null;
 
   String get unitLabel => unit == AngularUnit.moa ? 'MOA' : 'mrad';
 
@@ -258,6 +270,7 @@ class ScopeDialView extends StatelessWidget {
                         halfField: halfField,
                         reticleHalfField: reticleHalfField,
                         trueHalfField: trueHalfField,
+                        targetRadius: targetRadius,
                         markStep: markStep,
                         unitLabel: unitLabel,
                         impactUp: impact?.up,
@@ -423,6 +436,16 @@ class ScopeDialView extends StatelessWidget {
       '${unit == AngularUnit.mrad ? '  (mesafe(m) / 10 cm)' : '  (mesafe(m) × 0.02909 cm)'}',
     );
     lines.add('1 MOA = 0.29089 mrad · 1 mrad = 3.43775 MOA');
+    final tRad = targetRadius;
+    if (tRad != null) {
+      final d = metric
+          ? '${(targetDiameterM * 100).toStringAsFixed(0)} cm'
+          : '${(targetDiameterM * 39.3700787).toStringAsFixed(1)} in';
+      lines.add(
+        'Hedef halkası Ø$d = ${f(tRad * 2)} $unitLabel; gerçek boyutunda '
+        'çizilir: büyütme arttıkça büyür, mesafe arttıkça küçülür.',
+      );
+    }
     if (req != null) {
       final other = ScopeDialMath.convert(req, unit, otherUnit);
       lines.add(
@@ -864,6 +887,11 @@ class ScopeReticlePainter extends CustomPainter {
   /// True angle between the centre and the edge of the view; the point of
   /// impact is drawn on this scale.
   final double trueHalfField;
+
+  /// Radius of the ring target as a true angle (same unit as
+  /// [trueHalfField]); drawn on the true scale behind the reticle so it grows
+  /// with magnification. Null: no target.
+  final double? targetRadius;
   final double markStep;
   final String unitLabel;
   final double? impactUp;
@@ -879,6 +907,7 @@ class ScopeReticlePainter extends CustomPainter {
     required this.halfField,
     double? reticleHalfField,
     double? trueHalfField,
+    this.targetRadius,
     this.opticLine,
     this.sfpNote,
     required this.markStep,
@@ -890,6 +919,13 @@ class ScopeReticlePainter extends CustomPainter {
     required this.headline,
   }) : reticleHalfField = reticleHalfField ?? halfField,
        trueHalfField = trueHalfField ?? halfField;
+
+  /// On-screen radius of the target for a view of [radius] px.
+  static double targetRadiusPx({
+    required double radius,
+    required double trueHalfField,
+    required double targetRadius,
+  }) => targetRadius * radius / trueHalfField;
 
   void _text(
     Canvas canvas,
@@ -925,6 +961,26 @@ class ScopeReticlePainter extends CustomPainter {
     canvas.clipPath(
       Path()..addOval(Rect.fromCircle(center: center, radius: radius)),
     );
+
+    // Ring target at the point of aim, at its true angular size: zooming in
+    // makes it bigger (it "comes closer"), a longer range makes it smaller.
+    final tr = targetRadius;
+    if (tr != null && tr > 0) {
+      final px = targetRadiusPx(
+        radius: radius,
+        trueHalfField: trueHalfField,
+        targetRadius: tr,
+      );
+      canvas.drawCircle(center, px, Paint()..color = colors.surface);
+      final ringPaint = Paint()
+        ..color = colors.ink2
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1;
+      for (var i = 1; i <= 5; i++) {
+        canvas.drawCircle(center, px * i / 5, ringPaint);
+      }
+      canvas.drawCircle(center, px / 5, Paint()..color = colors.ink2);
+    }
 
     final fine = Paint()
       ..color = ink
@@ -1108,6 +1164,7 @@ class ScopeReticlePainter extends CustomPainter {
       old.halfField != halfField ||
       old.reticleHalfField != reticleHalfField ||
       old.trueHalfField != trueHalfField ||
+      old.targetRadius != targetRadius ||
       old.opticLine != opticLine ||
       old.sfpNote != sfpNote ||
       !_sameLabels(old.holdLabels, holdLabels) ||

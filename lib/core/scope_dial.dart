@@ -127,6 +127,16 @@ abstract final class ScopeDialMath {
   static double linearAtRange(double angle, double rangeM, AngularUnit unit) =>
       rangeM * math.tan(toMrad(angle, unit) / 1000);
 
+  /// Angle (in [unit]) subtended by an object [sizeM] metres across at
+  /// [rangeM]. Inverse of [linearAtRange]: a 10 cm target at 50 m is 2 mrad.
+  static double angleAtRange(double sizeM, double rangeM, AngularUnit unit) {
+    if (!rangeM.isFinite || rangeM <= 0) {
+      throw ArgumentError.value(rangeM, 'rangeM', 'must be > 0');
+    }
+    final mrad = math.atan(sizeM / rangeM) * 1000;
+    return unit == AngularUnit.mrad ? mrad : Units.mradToMoa(mrad);
+  }
+
   /// Converts a vacuum/drag trajectory point to a [CorrectionSample] in [unit].
   static CorrectionSample sampleOf(TrajectoryPoint p, AngularUnit unit) =>
       CorrectionSample(

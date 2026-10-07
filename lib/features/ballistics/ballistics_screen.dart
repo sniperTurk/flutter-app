@@ -19,6 +19,7 @@ import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../tools/map_distance_screen.dart';
 import '../tools/weather_screen.dart';
+import 'environment_field_info.dart';
 import 'scope_dial_view.dart';
 
 /// Which part of the ballistic workspace is shown.
@@ -182,7 +183,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     scope = profileResolution?.scope;
 
     velocity = TextEditingController(
-      text: (p?.muzzleVelocityMps ?? 270).toStringAsFixed(1),
+      // Namlu çıkış hızı is always fps (owner rule), like on Profil.
+      text: UnitSystem.mpsToFps(p?.muzzleVelocityMps ?? 270).toStringAsFixed(1),
     );
     grain = TextEditingController(text: (ammo?.grain ?? 51).toString());
     zero = TextEditingController(text: (p?.zeroRangeM ?? 25).toString());
@@ -238,7 +240,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // to imperial while `metric` still says the form is SI.
     double value(TextEditingController c) =>
         double.parse(c.text.trim().replaceAll(',', '.'));
-    final velocityMps = value(velocity);
     final zeroM = value(zero);
     final sightMm = value(sight);
     final windMps = value(wind);
@@ -248,7 +249,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final metricRanges = DopeRanges.parse(ranges.text);
 
     // Commit only after the complete source form has been validated.
-    velocity.text = UnitSystem.mpsToFps(velocityMps).toStringAsFixed(1);
     zero.text = UnitSystem.metersToYards(zeroM).toStringAsFixed(1);
     sight.text = UnitSystem.millimetersToInches(sightMm).toStringAsFixed(2);
     wind.text = UnitSystem.mpsToMph(windMps).toStringAsFixed(1);
@@ -311,7 +311,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // once here instead of sprinkling `!` at each call site. The previous
     // version of this file used `v` (double?) directly at two call sites
     // below without unwrapping it, which is a null-safety type error.
-    final v = metric ? rawVelocity! : UnitSystem.fpsToMps(rawVelocity!);
+    // Namlu çıkış hızı is entered in fps in every unit system.
+    final v = UnitSystem.fpsToMps(rawVelocity!);
     final g = rawGrain!;
     final z = metric ? rawZero! : UnitSystem.yardsToMeters(rawZero!);
     final s = metric ? rawSight! : UnitSystem.inchesToMillimeters(rawSight!);
@@ -815,8 +816,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final mrad = shot.windMrad.abs();
     final moa = Units.mradToMoa(mrad);
     final clicks = _clicksOnScope(mrad: mrad, moa: moa);
+    // windMrad = atan2(-z, range) > 0: the pellet drifts LEFT and the
+    // windage turret is dialled RIGHT (R); < 0 is the mirror image.
+    final dialRight = shot.windMrad > 0;
+    final driftSide = mrad < 1e-9 ? '' : (dialRight ? ' sola' : ' sağa');
+    final turret = mrad < 1e-9 ? '' : (dialRight ? ' R (sağa)' : ' L (sola)');
     final drift =
-        'Sapma ${_windDrift(shot).toStringAsFixed(1).replaceAll('.', ',')} $_driftUnit';
+        'Sapma ${_windDrift(shot).toStringAsFixed(1).replaceAll('.', ',')} '
+        '$_driftUnit$driftSide';
     return _statusCard(
       key: const Key('wind-status-card'),
       title: 'Rüzgâr',
@@ -825,7 +832,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ? 'Rüzgâr 0 girildi'
           : clicks == null
           ? '$drift · ${_windLabel(windMps)} ${metric ? 'm/s' : 'mph'}'
-          : '$drift · ${clicks.abs()} klik ($clickUnitLabel dürbün)',
+          : '$drift · ${clicks.abs()} klik$turret ($clickUnitLabel dürbün)',
       icon: Icons.air,
     );
   }
@@ -1119,6 +1126,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     key: BallisticsFieldKeys.ranges,
     controller: ranges,
     label: 'DOPE mesafeleri',
+    info: EnvironmentFieldInfo.ranges,
     unit: metric ? 'm' : 'yd',
     helperText:
         'Virgülle ayırın, en fazla ${_displayMaxRange.toStringAsFixed(0)} ${metric ? 'm' : 'yd'}.',
@@ -1143,7 +1151,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           enabled: !collapseShotInputs,
           controller: velocity,
           label: 'Namlu çıkış hızı',
-          unit: metric ? 'm/s' : 'fps',
+          unit: 'fps',
         ),
         MenzilInput(
           key: BallisticsFieldKeys.grain,
@@ -1170,7 +1178,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           // the profile is the single source of the solver inputs.
           enabled: !collapseShotInputs,
           controller: sight,
-          label: 'Dürbün eksen yüksekliği',
+          label: 'Sight height',
           unit: metric ? 'mm' : 'in',
         ),
       ],
@@ -1194,6 +1202,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               key: BallisticsFieldKeys.temperature,
               controller: temperature,
               label: 'Sıcaklık',
+              info: EnvironmentFieldInfo.temperature,
               unit: metric ? '°C' : '°F',
               keyboardType: const TextInputType.numberWithOptions(
                 decimal: true,
@@ -1204,20 +1213,23 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               key: BallisticsFieldKeys.pressure,
               controller: pressure,
               label: 'İstasyon basıncı',
+              info: EnvironmentFieldInfo.pressure,
               unit: metric ? 'hPa' : 'inHg',
             ),
             MenzilInput(
               key: BallisticsFieldKeys.humidity,
               controller: humidity,
               label: 'Bağıl nem',
+              info: EnvironmentFieldInfo.humidity,
               unit: '%',
             ),
             MenzilInput(
               key: BallisticsFieldKeys.altitude,
               controller: altitude,
               label: 'İrtifa',
+              info: EnvironmentFieldInfo.altitude,
               unit: metric ? 'm' : 'ft',
-              helperText: 'Kayıt/referans',
+              helperText: 'Bilgi amaçlı; hesap basıncı kullanır',
               keyboardType: const TextInputType.numberWithOptions(
                 decimal: true,
                 signed: true,
@@ -1243,14 +1255,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               key: BallisticsFieldKeys.wind,
               controller: wind,
               label: 'Rüzgâr hızı',
+              info: EnvironmentFieldInfo.windSpeed,
               unit: metric ? 'm/s' : 'mph',
             ),
             MenzilInput(
               key: BallisticsFieldKeys.windDirection,
               controller: windDirection,
               label: 'Rüzgâr yönü',
+              info: EnvironmentFieldInfo.windDirection,
               unit: '°',
-              helperText: '90 = tam yan',
+              helperText: '0 karşı · 90 sol · 180 arka · 270 sağ',
             ),
           ],
         ),
@@ -1733,6 +1747,7 @@ class _RangeDialogState extends State<_RangeDialog> {
     content: MenzilInput(
       controller: controller,
       label: 'Atış mesafesi',
+      info: EnvironmentFieldInfo.shotRange,
       unit: widget.unit,
       textInputAction: TextInputAction.done,
     ),
