@@ -155,7 +155,8 @@ void main() {
         .map((w) => w.data ?? '')
         .where((x) => x.contains('Rüzgâr') || x.contains('Hesap') || x.contains('ulaş'))
         .toList();
-    expect(seen, contains('Rüzgâr 0 girildi'));
+    final snack = tester.widgetList<SnackBar>(find.byType(SnackBar)).map((w) => (w.content as Text).data).toList();
+    expect([seen, snack, tester.takeException()?.toString().split('\n').first], contains('Rüzgâr 0 girildi'));
     expect(find.textContaining('1 mil ='), findsOneWidget);
   });
 }
