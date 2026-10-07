@@ -1,0 +1,306 @@
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+2026-10-07 17:51:02.941 Df Runner[13489:aea3] [com.apple.xpc:connection] [0x600003d00000] activating connection: mach=true listener=false peer=false name=com.apple.cfprefsd.daemon
+2026-10-07 17:51:02.945 Df Runner[13489:aea7] (libMobileGestalt.dylib) No persisted cache on this platform.
+2026-10-07 17:51:02.946 Df Runner[13489:aea5] [com.apple.runningboard:connection] Initializing connection
+2026-10-07 17:51:02.946 Df Runner[13489:aea5] [com.apple.runningboard:process] Removing all cached process handles
+2026-10-07 17:51:02.948 Df Runner[13489:aea5] [com.apple.xpc:connection] [0x10170bca0] activating connection: mach=false listener=false peer=false name=(anonymous)
+2026-10-07 17:51:02.951 Df Runner[13489:aea3] [com.apple.UIKit:BackgroundTask] Creating new assertion because there is no existing background assertion.
+2026-10-07 17:51:02.958 Df Runner[13489:aea3] [com.apple.UIKit:BackgroundTask] Creating new background assertion
+2026-10-07 17:51:02.959 Df Runner[13489:aea3] [com.apple.UIKit:BackgroundTask] Created new background assertion <BKSProcessAssertion: 0x6000021088c0>
+2026-10-07 17:51:02.960 Df Runner[13489:aea3] [com.apple.runningboard:connection] Creating connection to com.apple.runningboard
+2026-10-07 17:51:02.960 Df Runner[13489:ae87] [com.apple.UIKit:Application] Deactivation reason added: 10; deactivation reasons: 0 -> 1024; animating application lifecycle event: 0
+2026-10-07 17:51:02.960 Df Runner[13489:aea3] [com.apple.xpc:connection] [0x600003d04960] activating connection: mach=true listener=false peer=false name=com.apple.runningboard
+2026-10-07 17:51:02.961 E  Runner[13489:0] [com.apple.os_debug_log:] assertion failed: 24G830 22F77: libxpc.dylib + 72720 [021C0BF8-EDD4-395A-B281-2CC7A26F742F]: 0x7d
+2026-10-07 17:51:02.961 Df Runner[13489:ae87] [com.apple.BoardServices:Injection] activating monitor for service com.apple.frontboard.open
+2026-10-07 17:51:02.962 Df Runner[13489:ae87] [com.apple.BoardServices:Injection] activating monitor for service com.apple.frontboard.workspace-service
+2026-10-07 17:51:02.962 Df Runner[13489:aea8] [com.apple.runningboard:connection] Sending handshake request attempt #1 to server
+2026-10-07 17:51:02.962 Df Runner[13489:ae87] [com.apple.FrontBoard:Common] FBSWorkspace registering source: com.apple.frontboard.systemappservices
+2026-10-07 17:51:02.964 Df Runner[13489:ae87] [com.apple.FrontBoard:Common] FBSWorkspace connected to endpoint : <BSServiceConnectionEndpoint: 0x6000017093c0; target: com.apple.frontboard.systemappservices; service: com.apple.frontboard.workspace-service>
+2026-10-07 17:51:02.964 Df Runner[13489:ae87] [com.apple.FrontBoard:Common] <FBSWorkspaceScenesClient:0x600002c09200 com.apple.frontboard.systemappservices> attempting immediate handshake from activate
+2026-10-07 17:51:02.965 Df Runner[13489:ae87] [com.apple.FrontBoard:Common] <FBSWorkspaceScenesClient:0x600002c09200 com.apple.frontboard.systemappservices> sent handshake
+2026-10-07 17:51:02.965 Df Runner[13489:ae87] [com.apple.runningboard:general] Added observer for process assertions expiration warning: <_RBSExpirationWarningClient: 0x60000020e440>
+2026-10-07 17:51:02.966 Df Runner[13489:aea8] [com.apple.runningboard:connection] Handshake succeeded
+2026-10-07 17:51:02.967 Df Runner[13489:aea8] [com.apple.runningboard:connection] Identity resolved as app<com.sniperturk.sniperTurk((null))>
+2026-10-07 17:51:02.968 Df Runner[13489:aea3] [com.apple.UIKit:BackgroundTask] Incrementing reference count for background assertion <BKSProcessAssertion: 0x6000021088c0>
+2026-10-07 17:51:02.968 Df Runner[13489:aea3] [com.apple.UIKit:BackgroundTask] Created background task <_UIBackgroundTaskInfo: 0x60000170f140>: taskID = 1, taskName = Launch Background Task for Coalescing, creationTime = 618 (elapsed = 0).
+2026-10-07 17:51:02.968 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UIApplicationSceneKeyboardSettings on FBSSceneSettings
+2026-10-07 17:51:02.969 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneOcclusionSettings> on FBSSceneSettings
+2026-10-07 17:51:02.970 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneInterfaceProtectionSceneSettings> on FBSSceneSettings
+2026-10-07 17:51:02.970 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UIHomeAffordanceHostSceneSettings> on FBSSceneSettings
+2026-10-07 17:51:02.971 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISystemShellSceneHostingEnvironmentSettings on FBSSceneSettings
+2026-10-07 17:51:02.971 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISceneRenderingEnvironmentSettings on FBSSceneSettings
+2026-10-07 17:51:02.972 Df Runner[13489:ae87] [com.apple.UIKit:UIScreen] Evaluated capturing state as 0 on <UIScreen: 0x10170cf90> for initial
+2026-10-07 17:51:02.972 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneTransitioningHostSettings> on FBSSceneSettings
+2026-10-07 17:51:02.972 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] Realizing settings extension FBSSceneSettingsCore on FBSSceneSettings
+2026-10-07 17:51:02.972 Df Runner[13489:ae87] [com.apple.UIKit:UIScreen] Evaluated capturing state as 0 on <UIScreen: 0x10170cf90> for CADisplay KVO
+2026-10-07 17:51:02.973 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] Realizing settings extension FBSSceneClientSettingsCore on FBSSceneClientSettings
+2026-10-07 17:51:02.973 Df Runner[13489:aea3] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneHostingContentSizePreferenceClientSettings> on FBSSceneClientSettings
+2026-10-07 17:51:02.973 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] UIMutableApplicationSceneSettings setting counterpart class: UIApplicationSceneSettings
+2026-10-07 17:51:02.974 Df Runner[13489:aea3] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISceneHostingTraitCollectionPropagationSettings on FBSSceneSettings
+2026-10-07 17:51:02.974 Df Runner[13489:aea3] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneHostingSheetPresentationSettings> on FBSSceneSettings
+2026-10-07 17:51:02.974 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] UIMutableApplicationSceneClientSettings setting counterpart class: UIApplicationSceneClientSettings
+2026-10-07 17:51:02.974 Df Runner[13489:aea3] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneHostingSheetPresentationClientSettings> on FBSSceneClientSettings
+2026-10-07 17:51:02.974 Df Runner[13489:aea3] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneHostingEventDeferringSettings> on FBSSceneSettings
+2026-10-07 17:51:02.975 Df Runner[13489:aea3] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <UIKit__UITypedKeyValueSceneSettings> on FBSSceneSettings
+2026-10-07 17:51:02.975 Df Runner[13489:aea3] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <UIKit__UITypedKeyValueSceneSettings> on FBSSceneClientSettings
+2026-10-07 17:51:02.975 Df Runner[13489:aeab] [com.apple.FrontBoard:SceneExtension] Realizing settings extension FBSSceneTransitionContextCore on FBSSceneTransitionContext
+2026-10-07 17:51:02.976 Df Runner[13489:ae87] [com.apple.Accessibility:AXSupportCommon] Read CategoryName: per-app = 1, category name = (null)
+2026-10-07 17:51:02.976 Df Runner[13489:ae87] [com.apple.Accessibility:AXSupportCommon] Read CategoryName: per-app = 0, category name = (null)
+2026-10-07 17:51:02.979 Df Runner[13489:ae87] [com.apple.FileURL:default] kExcludedFromBackupXattrName set on path: /Users/runner/Library/Developer/CoreSimulator/Devices/DC4CD8B3-4457-4153-9087-A0D7A2F9BFD9/data/Containers/Data/Application/EF33B207-C84A-4EBE-8F4F-41AB972324ED/Library/Caches//flutter_callback_cache.json
+2026-10-07 17:51:02.981 A  Runner[13489:aeac] (RunningBoardServices) didChangeInheritances
+2026-10-07 17:51:02.981 Df Runner[13489:ae87] [com.apple.dt.xctest:Default] Registering for test daemon availability notify post.
+2026-10-07 17:51:02.982 Df Runner[13489:ae87] [com.apple.dt.xctest:Default] notify_get_state check indicated test daemon not ready.
+2026-10-07 17:51:02.982 Df Runner[13489:ae87] [com.apple.dt.xctest:Default] notify_get_state check indicated test daemon not ready.
+2026-10-07 17:51:02.983 Df Runner[13489:ae87] [com.apple.dt.xctest:Default] notify_get_state check indicated test daemon not ready.
+2026-10-07 17:51:02.983 Df Runner[13489:ae87] [com.apple.UIKit:Application] Deactivation reason added: 11; deactivation reasons: 1024 -> 3072; animating application lifecycle event: 0
+2026-10-07 17:51:02.983 Df Runner[13489:ae87] [com.apple.UIKit:ViewServices] Launching as view service: NO
+2026-10-07 17:51:02.985 A  Runner[13489:aea4] (CoreFoundation) Loading Preferences From User Session CFPrefsD
+2026-10-07 17:51:02.985 Df Runner[13489:ae87] (UIKitCore) Warning: Unable to create restoration in progress marker file
+2026-10-07 17:51:02.986 Df Runner[13489:ae87] [com.apple.UIKit:Application] Deactivation reason removed: 10; deactivation reasons: 3072 -> 2048; animating application lifecycle event: 0
+2026-10-07 17:51:02.987 Df Runner[13489:ae87] [com.apple.UIKit:EventBus] Event Timing Profile for Touch: not found, path="/System/Library/EventTimingProfiles/Sim.Touch.plist"
+2026-10-07 17:51:02.987 Df Runner[13489:ae87] [com.apple.UIKit:EventBus] Event Timing Profile for Pencil: not found, path="/System/Library/EventTimingProfiles/Sim.Pencil.plist"
+2026-10-07 17:51:02.987 Df Runner[13489:ae87] [com.apple.UIKit:UpdateScheduler] Selected display: name=LCD (PurpleMain), id=1
+2026-10-07 17:51:02.991 Df Runner[13489:ae87] [com.apple.UIKit:BackgroundTask] Will add backgroundTask with taskName: Persistent SceneSession Map Update, expirationHandler: <__NSGlobalBlock__: 0x1e6965d48>
+2026-10-07 17:51:02.992 Df Runner[13489:ae87] [com.apple.UIKit:BackgroundTask] Reusing background assertion <BKSProcessAssertion: 0x6000021088c0>
+2026-10-07 17:51:02.992 Df Runner[13489:ae87] [com.apple.UIKit:BackgroundTask] Incrementing reference count for background assertion <BKSProcessAssertion: 0x6000021088c0>
+2026-10-07 17:51:02.992 Df Runner[13489:ae87] [com.apple.UIKit:BackgroundTask] Created background task <_UIBackgroundTaskInfo: 0x600001712b00>: taskID = 2, taskName = Persistent SceneSession Map Update, creationTime = 618 (elapsed = 0).
+2026-10-07 17:51:02.993 Df Runner[13489:ae87] [com.apple.UIKit:Application] Deactivation reason added: 5; deactivation reasons: 2048 -> 2080; animating application lifecycle event: 1
+2026-10-07 17:51:02.994 Df Runner[13489:ae87] [com.apple.UIKit:InterfaceStyle] Should send trait collection or coordinate space update, interface style 1 -> 1, <UIWindowScene: 0x1030061d0> (D0C6211A-7931-4B90-8016-88EA7A09EB02)
+2026-10-07 17:51:02.994 Df Runner[13489:ae87] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x1030061d0> (D0C6211A-7931-4B90-8016-88EA7A09EB02)
+2026-10-07 17:51:02.995 Df Runner[13489:ae87] [com.apple.UIKit:HomeAffordanceObservation] Initializing: <_UIHomeAffordanceSceneNotifier: 0x60000290c690>; with scene: <UIWindowScene: 0x1030061d0>
+2026-10-07 17:51:02.995 Df Runner[13489:ae87] [com.apple.BacklightServices:scenes] 0x600000c0d2f0 setDelegate:<0x600000c16220 _UIBacklightEnvironment> hasDelegate:YES for environment:sceneID:com.sniperturk.sniperTurk-default
+2026-10-07 17:51:02.995 Df Runner[13489:ae87] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x1030061d0> (D0C6211A-7931-4B90-8016-88EA7A09EB02)
+2026-10-07 17:51:02.995 Df Runner[13489:ae87] [com.apple.UIKit:EventDeferring] [0x60000290c770] Initialized with scene: <UIWindowScene: 0x1030061d0>; behavior: <_UIEventDeferringBehavior_iOS: 0x600000216400>; availableForProcess: 1, systemShellManagesKeyboardFocus: 1
+2026-10-07 17:51:02.996 Df Runner[13489:ae87] [com.apple.xpc:connection] [0x10170b930] activating connection: mach=false listener=false peer=false name=(anonymous)
+2026-10-07 17:51:02.997 Df Runner[13489:ae87] [com.apple.BackBoard:EventDelivery] policyStatus:<BKSHIDEventDeliveryPolicyObserver: 0x600002101630; process scope; status: target> was:none
+2026-10-07 17:51:02.997 Df Runner[13489:ae87] [com.apple.UIKit:KeyWindow] Setting default evaluation strategy for UIUserInterfaceIdiomPhone to LastOneWins
+2026-10-07 17:51:02.997 Df Runner[13489:ae87] [com.apple.UIKit:KeyWindow] Scene target of keyboard event deferring environment did change: 1; scene: UIWindowScene: 0x1030061d0; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.sniperturk.sniperTurk-default
+2026-10-07 17:51:02.997 Df Runner[13489:ae87] [com.apple.UIKit:EventDeferring] [0x60000290c770] Scene target of event deferring environments did update: scene: 0x1030061d0; current systemShellManagesKeyboardFocus: 1; systemShellManagesKeyboardFocusForScene: 1; eligibleForRecordRemoval: 1;
+2026-10-07 17:51:02.997 Df Runner[13489:ae87] [com.apple.UIKit:KeyWindow] Scene became target of keyboard event deferring environment: UIWindowScene: 0x1030061d0; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.sniperturk.sniperTurk-default
+2026-10-07 17:51:02.997 Df Runner[13489:ae87] [com.apple.UIKit:KeyWindow] Setting default evaluation strategy for UIUserInterfaceIdiomPhone to SystemShellManaged
+2026-10-07 17:51:02.997 Df Runner[13489:ae87] [com.apple.UIKit:KeyWindow] Key window needs update: 0; currentKeyWindowScene: 0x0; evaluatedKeyWindowScene: 0x1030061d0; currentApplicationKeyWindow: 0x0; evaluatedApplicationKeyWindow: 0x0; reason: UIWindowScene: 0x1030061d0: Window scene became target of keyboard environment
+2026-10-07 17:51:02.997 Df Runner[13489:ae87] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x1030061d0> (D0C6211A-7931-4B90-8016-88EA7A09EB02)
+2026-10-07 17:51:02.997 Df Runner[13489:ae87] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x1030061d0> (D0C6211A-7931-4B90-8016-88EA7A09EB02)
+2026-10-07 17:51:02.998 Df Runner[13489:ae87] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x1030061d0> (D0C6211A-7931-4B90-8016-88EA7A09EB02)
+2026-10-07 17:51:03.015 Df Runner[13489:ae87] [com.apple.xpc:connection] [0x103006560] activating connection: mach=true listener=false peer=false name=com.apple.metal.simulator
+2026-10-07 17:51:03.018 Df Runner[13489:ae87] [com.apple.xpc:connection] [0x101711b70] activating connection: mach=true listener=false peer=false name=com.apple.metal.simulator
+2026-10-07 17:51:03.020 Df Runner[13489:ae87] [com.apple.xpc:connection] [0x101712040] activating connection: mach=true listener=false peer=false name=com.apple.metal.simulator
+2026-10-07 17:51:03.021 E  Runner[13489:ae87] [com.apple.UIKit:UIFocus] FlutterView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+2026-10-07 17:51:03.051 Df Runner[13489:ae87] (Flutter) [IMPORTANT:flutter/shell/platform/darwin/graphics/FlutterDarwinContextMetalImpeller.mm(45)] Using the Impeller rendering backend (Metal).
+2026-10-07 17:51:03.057 E  Runner[13489:ae87] (libCoreFSCache.dylib) fopen failed for data file: errno = 2 (No such file or directory)
+2026-10-07 17:51:03.058 E  Runner[13489:ae87] (libCoreFSCache.dylib) Errors found! Invalidating cache...
+2026-10-07 17:51:03.058 Df Runner[13489:ae87] [com.apple.xpc:connection] [0x600003d00f00] activating connection: mach=false listener=false peer=false name=com.apple.MTLCompilerService
+2026-10-07 17:51:03.260 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:03.260 E  Runner[13489:ae87] (libCoreFSCache.dylib) fopen failed for data file: errno = 2 (No such file or directory)
+2026-10-07 17:51:03.261 E  Runner[13489:ae87] (libCoreFSCache.dylib) Errors found! Invalidating cache...
+2026-10-07 17:51:03.261 Df Runner[13489:ae87] [com.apple.xpc:connection] [0x600003d011d0] activating connection: mach=false listener=false peer=false name=com.apple.MTLCompilerService
+2026-10-07 17:51:03.262 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:03.343 Df Runner[13489:aea4] [com.apple.xpc:connection] [0x101724b10] activating connection: mach=true listener=false peer=false name=com.apple.fontservicesd
+2026-10-07 17:51:03.368 A  Runner[13489:ae87] (CoreLocation) CL: CLLocationManager
+2026-10-07 17:51:03.368 Df Runner[13489:ae87] [com.apple.locationd.Core:Client] {"msg":"CLLocationManager", "event":activity, "_cmd":initWithEffectiveBundleIdentifier:bundlePath:websiteIdentifier:delegate:silo:, "self":"0x6000000108f0", "identifier":(null), "bundlePath":(null)}
+2026-10-07 17:51:03.369 Df Runner[13489:ae87] [com.apple.locationd.Core:Core] {"msg":"state transition", "event":state_transition, "state":LocationManager, "id":"0x6000000108f0", "property":init, "new":'00 00 00 00 00 00 F0 BF 00 00 00 00 00 00 F0 BF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00'}
+2026-10-07 17:51:03.369 Df Runner[13489:ae87] [com.apple.locationd.Core:Core] {"msg":"state transition", "event":state_transition, "state":LocationManager, "id":"0x6000000108f0", "property":lifecycle, "old":"0x0", "new":"0x60000290e5a0"}
+2026-10-07 17:51:03.369 Df Runner[13489:ae87] [com.apple.locationd.Core:Client] {"msg":"client allocated", "client":"0x1013182b0"}
+2026-10-07 17:51:03.369 A  Runner[13489:ae87] (CoreLocation) CL: _CLClientCreateConnection
+2026-10-07 17:51:03.369 Df Runner[13489:ae87] [com.apple.locationd.Core:Client] {"msg":"_CLClientCreateConnection", "event":activity, "client":"0x1013182b0"}
+2026-10-07 17:51:03.369 A  Runner[13489:ae87] (LocationSupport) CL: CLConnectionClient::sendMessage(cache)
+2026-10-07 17:51:03.370 Df Runner[13489:ae87] [com.apple.locationd.Core:Core] {"msg":"state transition", "event":state_transition, "state":LocationManager, "id":"0x6000000108f0", "property":pausesLocationUpdatesAutomatically, "old":0, "new":1}
+2026-10-07 17:51:03.370 A  Runner[13489:aea5] (LocationSupport) CL: Sending cached messages to daemon
+2026-10-07 17:51:03.370 A  Runner[13489:ae87] (LocationSupport) CL: CLConnectionClient::sendMessage(cache)
+2026-10-07 17:51:03.370 Df Runner[13489:aea5] [com.apple.LocationSupport:Connection] {"msg":"Sending cached messages to daemon", "event":activity}
+2026-10-07 17:51:03.371 Df Runner[13489:aea5] [com.apple.xpc:connection] [0x10300c2e0] activating connection: mach=true listener=false peer=false name=com.apple.locationd.registration
+2026-10-07 17:51:03.371 A  Runner[13489:aea5] (LocationSupport) CL: CLConnection::sendMessage
+2026-10-07 17:51:03.371 A  Runner[13489:aea5] (LocationSupport) CL: CLConnection::sendMessage
+2026-10-07 17:51:03.379 A  Runner[13489:aec3] (CoreFoundation) Loading Preferences From User Session CFPrefsD
+2026-10-07 17:51:03.381 A  Runner[13489:ae87] (CoreLocation) CL: CLLocationManager
+2026-10-07 17:51:03.381 Df Runner[13489:ae87] [com.apple.locationd.Core:Client] {"msg":"CLLocationManager", "event":activity, "_cmd":setDelegate:, "self":"0x6000000108f0", "delegate":"0x600000c1a700"}
+2026-10-07 17:51:03.381 A  Runner[13489:ae87] (CoreLocation) CL: CLLocationManager
+2026-10-07 17:51:03.382 Df Runner[13489:ae87] [com.apple.locationd.Core:Client] {"msg":"CLLocationManager", "event":activity, "_cmd":setHeadingFilter:, "self":"0x6000000108f0", "filter":"0.100000"}
+2026-10-07 17:51:03.382 Df Runner[13489:ae87] [com.apple.locationd.Core:Core] {"msg":"state transition", "event":state_transition, "state":LocationManager, "id":"0x6000000108f0", "property":headingFilter, "old":"1.000000", "new":"0.100000"}
+2026-10-07 17:51:03.498 Df Runner[13489:aea5] [com.apple.UIKit:BackgroundTask] Ending background task with UIBackgroundTaskIdentifier: 2
+2026-10-07 17:51:03.498 Df Runner[13489:aea5] [com.apple.UIKit:BackgroundTask] Ending task with identifier 2 and description: <_UIBackgroundTaskInfo: 0x600001712b00>: taskID = 2, taskName = Persistent SceneSession Map Update, creationTime = 618 (elapsed = 0), _expireHandler: <__NSGlobalBlock__: 0x1e6965d48>
+2026-10-07 17:51:03.498 Df Runner[13489:aea5] [com.apple.UIKit:BackgroundTask] Decrementing reference count for assertion <BKSProcessAssertion: 0x6000021088c0> (used by background task with identifier 2: <_UIBackgroundTaskInfo: 0x600001712b00>: taskID = 2, taskName = Persistent SceneSession Map Update, creationTime = 618 (elapsed = 0))
+2026-10-07 17:51:03.617 Df Runner[13489:aec6] (Flutter) flutter: The Dart VM service is listening on http://127.0.0.1:50344/kSPq6N4Nldg=/
+2026-10-07 17:51:03.989 Df Runner[13489:aea5] [com.apple.UIKit:BackgroundTask] Ending background task with UIBackgroundTaskIdentifier: 1
+2026-10-07 17:51:03.989 Df Runner[13489:aea5] [com.apple.UIKit:BackgroundTask] Ending task with identifier 1 and description: <_UIBackgroundTaskInfo: 0x60000170f140>: taskID = 1, taskName = Launch Background Task for Coalescing, creationTime = 618 (elapsed = 1), _expireHandler: (null)
+2026-10-07 17:51:03.990 Df Runner[13489:aea5] [com.apple.UIKit:BackgroundTask] Decrementing reference count for assertion <BKSProcessAssertion: 0x6000021088c0> (used by background task with identifier 1: <_UIBackgroundTaskInfo: 0x60000170f140>: taskID = 1, taskName = Launch Background Task for Coalescing, creationTime = 618 (elapsed = 1))
+2026-10-07 17:51:03.990 Df Runner[13489:aea5] [com.apple.UIKit:BackgroundTask] Will invalidate assertion: <BKSProcessAssertion: 0x6000021088c0> for task identifier: 1
+2026-10-07 17:51:03.991 A  Runner[13489:aea5] (RunningBoardServices) didChangeInheritances
+2026-10-07 17:51:04.099 A  Runner[13489:aea4] (RunningBoardServices) didChangeInheritances
+2026-10-07 17:51:04.252 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.253 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.253 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.253 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.253 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.253 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.253 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.266 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.267 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.267 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.339 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.339 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.340 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.340 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.340 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.340 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.340 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.340 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.341 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.341 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.359 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.378 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.378 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.378 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.382 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.385 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.391 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.392 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.397 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.397 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.404 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.408 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.411 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.414 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.414 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.417 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.420 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.421 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.425 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.427 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.431 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.432 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.434 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.435 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.439 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.442 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.448 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.451 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.455 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.458 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.462 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.464 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.466 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.467 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.469 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.471 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.474 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.475 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.476 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.479 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.480 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.483 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.483 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.485 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.488 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.490 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.494 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.495 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.498 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.502 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.502 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.502 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.508 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.510 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.513 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.513 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.514 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.515 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.516 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.518 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.520 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.520 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.521 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.523 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.525 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.526 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.528 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.528 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.537 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.537 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.537 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.542 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.544 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.545 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.547 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.547 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.548 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.548 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.551 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.552 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.553 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.554 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.555 A  Runner[13489:aea8] (Metal) compiling shader
+2026-10-07 17:51:04.572 A  Runner[13489:aeab] (Metal) compiling shader
+2026-10-07 17:51:04.572 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.582 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.582 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.585 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.592 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.595 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.595 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.602 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.611 A  Runner[13489:aea3] (Metal) compiling shader
+2026-10-07 17:51:04.658 Df Runner[13489:ae87] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UIApplicationSceneDisplaySettings> on FBSSceneSettings
+2026-10-07 17:51:04.693 Df Runner[13489:ae87] [com.apple.UIKit:Orientation] <UIWindowScene: 0x1030061d0> (D0C6211A-7931-4B90-8016-88EA7A09EB02) Scene updated orientation preferences: none -> ( Pu Ll Lr )
+2026-10-07 17:51:04.693 Df Runner[13489:ae87] [com.apple.UIKit:KeyWindow] Key window API is scene-level: YES
+2026-10-07 17:51:04.693 Df Runner[13489:ae87] [com.apple.UIKit:KeyWindow] UIWindowScene: 0x1030061d0: Window became key in scene: UIWindow: 0x1013188a0; contextId: 0x3A393869: reason: UIWindowScene: 0x1030061d0: Window requested to become key in scene: 0x1013188a0
+2026-10-07 17:51:04.693 Df Runner[13489:ae87] [com.apple.UIKit:KeyWindow] Key window needs update: 1; currentKeyWindowScene: 0x0; evaluatedKeyWindowScene: 0x1030061d0; currentApplicationKeyWindow: 0x0; evaluatedApplicationKeyWindow: 0x1013188a0; reason: UIWindowScene: 0x1030061d0: Window requested to become key in scene: 0x1013188a0
+2026-10-07 17:51:04.693 Df Runner[13489:ae87] [com.apple.UIKit:KeyWindow] Window did become application key: UIWindow: 0x1013188a0; contextId: 0x3A393869; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.sniperturk.sniperTurk-default
+2026-10-07 17:51:04.693 Df Runner[13489:ae87] [com.apple.UIKit:EventDeferring] [0x60000290c770] Begin local event deferring requested for token: 0x60000260d020; environments: 1; reason: UIWindowScene: 0x1030061d0: Begin event deferring in keyboardFocus for window: 0x1013188a0
+2026-10-07 17:51:04.695 Df Runner[13489:ae87] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x1030061d0> (D0C6211A-7931-4B90-8016-88EA7A09EB02)
+2026-10-07 17:51:04.697 Df Runner[13489:aea6] [com.apple.BackBoard:EventDelivery] policyStatus:<BKSHIDEventDeliveryPolicyObserver: 0x600002101630; token: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.sniperturk.sniperTurk-default; status: ancestor> was:target
+2026-10-07 17:51:04.697 Df Runner[13489:aea6] [com.apple.BackBoard:EventDelivery] observerPolicyDidChange: 0x600002101630 -> <_UIKeyWindowSceneObserver: 0x600000c0d170>
+2026-10-07 17:51:04.701 Df Runner[13489:ae87] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:com.sniperturk.sniperTurk-default  persistentID: D0C6211A-7931-4B90-8016-88EA7A09EB02
+2026-10-07 17:51:04.702 Df Runner[13489:ae87] [com.apple.UIKit:Application] Ignoring already applied deactivation reason: 5; deactivation reasons: 2080
+2026-10-07 17:51:04.702 Df Runner[13489:ae87] [com.apple.UIKit:Application] Deactivation reason added: 12; deactivation reasons: 2080 -> 6176; animating application lifecycle event: 1
+2026-10-07 17:51:04.702 A  Runner[13489:ae87] (CoreLocation) CL: CLLocationManager
+2026-10-07 17:51:04.702 Df Runner[13489:ae87] [com.apple.locationd.Core:Client] {"msg":"CLLocationManager", "event":activity, "_cmd":onWillEnterForeground:, "self":"0x6000000108f0", "notification":NSConcreteNotification 0x60000026f420 {name = UIApplicationWillEnterForegroundNotification; object = <UIApplication: 0x10170b740>}}
+2026-10-07 17:51:04.704 Df Runner[13489:ae87] [com.apple.UIKit:Application] Deactivation reason removed: 11; deactivation reasons: 6176 -> 4128; animating application lifecycle event: 1
+2026-10-07 17:51:04.707 Df Runner[13489:ae87] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x1030061d0> (D0C6211A-7931-4B90-8016-88EA7A09EB02)
+2026-10-07 17:51:04.708 A  Runner[13489:ae87] (CoreLocation) CL: CLLocationManager
+2026-10-07 17:51:04.708 Df Runner[13489:ae87] [com.apple.locationd.Core:Client] {"msg":"CLLocationManager", "event":activity, "_cmd":onClientEventRegistration:, "self":"0x6000000108f0", "clientKey":icom.sniperturk.sniperTurk:}
+2026-10-07 17:51:04.708 Df Runner[13489:ae87] [com.apple.locationd.Core:Core] {"msg":"state transition", "event":state_transition, "state":LocationManager, "id":"0x6000000108f0", "property":limitsPrecision, "old":0, "new":0}
+2026-10-07 17:51:04.708 Df Runner[13489:ae87] [com.apple.locationd.Core:Core] {"msg":"state transition", "event":state_transition, "state":LocationManager, "id":"0x6000000108f0", "property":previousAuthorizationStatus, "old":0, "new":0}
+2026-10-07 17:51:04.708 Df Runner[13489:aea6] [com.apple.UIIntelligenceSupport:xpc] establishing connection to agent
+2026-10-07 17:51:04.709 Df Runner[13489:ae87] [com.apple.locationd.Core:Core] {"msg":"state transition", "event":state_transition, "state":LocationManager, "id":"0x6000000108f0", "property":previousAuthorizationStatusValid, "old":0, "new":1}
+2026-10-07 17:51:04.709 Df Runner[13489:ae87] [com.apple.locationd.Core:Core] {"msg":"state transition", "event":state_transition, "state":LocationManager, "id":"0x6000000108f0", "property":isAuthorizedForWidgetUpdates, "old":0, "new":0}
+2026-10-07 17:51:04.710 Df Runner[13489:ae87] [com.apple.xpc:connection] [0x600003d08b40] activating connection: mach=true listener=false peer=false name=com.apple.IOSurface.Remote
+2026-10-07 17:51:04.712 Df Runner[13489:aea6] [com.apple.xpc:session] [0x600002103e80] Session created.
+2026-10-07 17:51:04.712 Df Runner[13489:aea6] [com.apple.xpc:session] [0x600002103e80] Session created from connection [0x600003d093b0]
+2026-10-07 17:51:04.713 Df Runner[13489:aea6] [com.apple.xpc:connection] [0x600003d093b0] activating connection: mach=true listener=false peer=false name=com.apple.uiintelligencesupport.agent
+2026-10-07 17:51:04.719 Df Runner[13489:aea6] [com.apple.xpc:session] [0x600002103e80] Session activated
+2026-10-07 17:51:04.738 Df Runner[13489:ae87] [com.apple.network:activity] Create activity from XPC object <nw_activity 50:1 [2067CF51-3CDF-49CA-967C-B04C89D59CD8] (reporting strategy default)>
+2026-10-07 17:51:04.738 Df Runner[13489:ae87] [com.apple.network:activity] Create activity from XPC object <nw_activity 50:2 [EAC95FC4-4EA6-45E8-87AC-265491A37BD9] (reporting strategy default)>
+2026-10-07 17:51:04.738 Df Runner[13489:ae87] [com.apple.network:activity] Set activity <nw_activity 50:1 [2067CF51-3CDF-49CA-967C-B04C89D59CD8] (reporting strategy default)> as the global parent
+2026-10-07 17:51:04.739 Df Runner[13489:ae87] [com.apple.UIKit:UpdateScheduler] Target list changed: <CADisplay:LCD PurpleMain>
+2026-10-07 17:51:04.739 Df Runner[13489:ae87] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:com.sniperturk.sniperTurk-default  persistentID: D0C6211A-7931-4B90-8016-88EA7A09EB02
+2026-10-07 17:51:04.740 A  Runner[13489:ae87] (CoreFoundation) Updating Key-Value Observers Of Preferences
+2026-10-07 17:51:04.742 Df Runner[13489:ae87] [com.apple.UIKit:EventDeferring] [0x60000290c770] Scene target of event deferring environments did update: scene: 0x1030061d0; current systemShellManagesKeyboardFocus: 1; systemShellManagesKeyboardFocusForScene: 1; eligibleForRecordRemoval: 1;
+2026-10-07 17:51:04.742 Df Runner[13489:ae87] [com.apple.UIKit:KeyWindow] Scene became target of keyboard event deferring environment: UIWindowScene: 0x1030061d0; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.sniperturk.sniperTurk-default
+2026-10-07 17:51:04.744 Df Runner[13489:ae87] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x1030061d0> (D0C6211A-7931-4B90-8016-88EA7A09EB02)
+2026-10-07 17:51:04.744 Df Runner[13489:ae87] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:com.sniperturk.sniperTurk-default  persistentID: D0C6211A-7931-4B90-8016-88EA7A09EB02
+2026-10-07 17:51:04.745 Df Runner[13489:ae87] [com.apple.UIKit:Application] Deactivation reason removed: 12; deactivation reasons: 4128 -> 32; animating application lifecycle event: 1
+2026-10-07 17:51:04.745 Df Runner[13489:ae87] [com.apple.KeyboardArbiter:Client] Send setDeactivating: N (-DeactivationReason:SuspendedEventsOnly)
+2026-10-07 17:51:04.745 Df Runner[13489:ae87] [com.apple.UIKit:Application] Deactivation reason removed: 5; deactivation reasons: 32 -> 0; animating application lifecycle event: 0
+2026-10-07 17:51:04.746 A  Runner[13489:ae87] (CoreLocation) CL: CLLocationManager
+2026-10-07 17:51:04.746 Df Runner[13489:ae87] [com.apple.locationd.Core:Client] {"msg":"CLLocationManager", "event":activity, "_cmd":onDidBecomeActive:, "self":"0x6000000108f0", "notification":NSConcreteNotification 0x600000221b80 {name = UIApplicationDidBecomeActiveNotification; object = <UIApplication: 0x10170b740>}}
+2026-10-07 17:51:04.754 A  Runner[13489:aea8] (RunningBoardServices) didChangeInheritances
+2026-10-07 17:51:04.758 A  Runner[13489:aea3] (RunningBoardServices) didChangeInheritances
+2026-10-07 17:51:04.760 Df Runner[13489:ae87] [com.apple.KeyboardArbiter:Client] startConnection
+2026-10-07 17:51:04.761 Df Runner[13489:ae87] [com.apple.xpc:connection] [0x101315420] activating connection: mach=true listener=false peer=false name=com.apple.UIKit.KeyboardManagement.hosted
+2026-10-07 17:51:04.762 Df Runner[13489:ae87] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:com.sniperturk.sniperTurk-default  persistentID: D0C6211A-7931-4B90-8016-88EA7A09EB02
+2026-10-07 17:51:04.867 A  Runner[13489:aea3] (RunningBoardServices) didChangeInheritances
+2026-10-07 17:51:05.921 Df Runner[13489:ae87] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:com.sniperturk.sniperTurk-default  persistentID: D0C6211A-7931-4B90-8016-88EA7A09EB02
+2026-10-07 17:51:05.923 Df Runner[13489:ae87] [com.apple.KeyboardArbiter:Client] handleKeyboardChange: set currentKeyboard:N (wasKeyboard:N)
+2026-10-07 17:51:05.923 Df Runner[13489:ae87] [com.apple.UIKit:KeyboardSceneDelegate] forceReloadInputViews
+2026-10-07 17:51:05.923 Df Runner[13489:ae87] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <(null): 0x0; > force: 1
+2026-10-07 17:51:05.925 Df Runner[13489:ae87] [com.apple.UIKit:KeyboardArbiterClientLog] isWritingToolsHandlingKeyboardTracking:Y (WT ready:Y, Arbiter ready:Y)
+2026-10-07 17:51:05.926 Df Runner[13489:ae87] [com.apple.runningboard:connection] Creating side-channel connection to com.apple.runningboard
+2026-10-07 17:51:05.926 Df Runner[13489:ae87] [com.apple.xpc:connection] [0x600003d0fa20] activating connection: mach=true listener=false peer=false name=com.apple.runningboard
+2026-10-07 17:51:05.927 Df Runner[13489:ae87] [com.apple.runningboard:process] Hit the server for a process handle 192a5e3b000034b1 that resolved to: [app<com.sniperturk.sniperTurk((null))>:13489]
+2026-10-07 17:51:06.561 E  Runner[13489:ae87] [com.apple.UIKit:UIFocus] FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+2026-10-07 17:51:06.607 Df Runner[13489:ae87] [com.apple.network:activity] <nw_activity 50:1 [2067CF51-3CDF-49CA-967C-B04C89D59CD8] (global parent) (reporting strategy default) complete (reason success)> complete with reason 2 (success), duration 4606ms
+2026-10-07 17:51:06.608 Df Runner[13489:ae87] [com.apple.network:activity] <nw_activity 50:2 [EAC95FC4-4EA6-45E8-87AC-265491A37BD9] (reporting strategy default) complete (reason success)> complete with reason 2 (success), duration 4606ms
+2026-10-07 17:51:06.608 Df Runner[13489:ae87] [com.apple.network:activity] Unsetting the global parent activity <nw_activity 50:1 [2067CF51-3CDF-49CA-967C-B04C89D59CD8] (global parent) (reporting strategy default) complete (reason success)>
+2026-10-07 17:51:06.608 Df Runner[13489:ae87] [com.apple.network:activity] Unset the global parent activity

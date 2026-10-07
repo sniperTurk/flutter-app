@@ -1,0 +1,9 @@
+diff --git a/analysis_options.yaml b/analysis_options.yaml
+index a32ce5b..bd49c3a 100644
+--- a/analysis_options.yaml
++++ b/analysis_options.yaml
+@@ -5,3 +5,4 @@ analyzer:
+     # Archived tests of removed V1 features import files that no longer exist.
+     - archived_tests/**
+     - build/**
++    - ios/**
