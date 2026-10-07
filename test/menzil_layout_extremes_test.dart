@@ -163,7 +163,7 @@ void main() {
     expect(tester.widget<TextField>(field).controller!.text, '31');
   });
 
-  testWidgets('imperial preference converts the workspace atomically', (
+  testWidgets('a stored imperial choice is ignored: the app stays metric', (
     tester,
   ) async {
     SharedPreferences.setMockInitialValues({SettingsStore.metricKey: false});
@@ -182,23 +182,22 @@ void main() {
         )
         .controller!
         .text;
-    // Ortam shows the atmosphere inputs; the shell's ICAO defaults (15 °C,
-    // 1013.25 hPa, 0 m, 0 m/s) must arrive converted, all together.
+    // V380: metric only. A device that had chosen imperial before the
+    // update still shows the ICAO defaults in °C / hPa / m.
     await tester.tap(_tab('Hava Durumu'));
     await tester.pumpAndSettle();
-    expect(text(BallisticsFieldKeys.temperature), '59.0');
-    expect(text(BallisticsFieldKeys.pressure), '29.92');
-    expect(text(BallisticsFieldKeys.altitude), '0');
-    expect(text(BallisticsFieldKeys.wind), '0.0');
-    expect(find.text('yd'), findsWidgets);
+    expect(text(BallisticsFieldKeys.temperature), '15');
+    expect(text(BallisticsFieldKeys.pressure), '1013.25');
+    expect(find.text('yd'), findsNothing);
+    expect(find.text('°F'), findsNothing);
 
-    // An edited imperial value survives tab switches unchanged.
+    // An edited value survives tab switches unchanged.
     await tester.enterText(
       find.descendant(
         of: find.byKey(BallisticsFieldKeys.temperature),
         matching: find.byType(TextField),
       ),
-      '86',
+      '30',
     );
     await tester.tap(_tab('Profil'));
     await tester.pumpAndSettle();
@@ -206,8 +205,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(_tab('Hava Durumu'));
     await tester.pumpAndSettle();
-    expect(text(BallisticsFieldKeys.temperature), '86');
-    expect(text(BallisticsFieldKeys.pressure), '29.92');
+    expect(text(BallisticsFieldKeys.temperature), '30');
+    expect(text(BallisticsFieldKeys.pressure), '1013.25');
     expect(tester.takeException(), isNull);
   });
 

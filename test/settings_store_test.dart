@@ -21,11 +21,11 @@ void main() {
     expect(SettingsStore(preferences).loadMetric(), isTrue);
   });
 
-  test('metric setting persists explicit value', () async {
+  test('V380: a stored imperial choice is ignored (metric only)', () async {
     final preferences = FakeSettingsPreferences();
     final store = SettingsStore(preferences);
     await store.saveMetric(false);
-    expect(store.loadMetric(), isFalse);
+    expect(store.loadMetric(), isTrue);
   });
 
   test('failed preference write is surfaced instead of accepted', () async {

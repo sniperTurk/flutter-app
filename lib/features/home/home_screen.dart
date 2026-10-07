@@ -15,7 +15,6 @@ import '../../ui/menzil_widgets.dart';
 import '../ballistics/ballistics_screen.dart';
 import '../profiles/profile_recovery_dialog.dart';
 import '../profiles/profiles_screen.dart';
-import '../settings/settings_screen.dart';
 import '../tools/tools_screen.dart';
 
 /// Application shell: fixed Menzil top bar, four tabs (Profil, Hava Durumu,
@@ -234,16 +233,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<void> _openSettings() async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const SettingsScreen()),
-    );
-    // A changed unit preference re-creates the ballistic workspace (keyed on
-    // `metric`), which re-runs its own atomic unit conversion on init.
-    await _loadUnitPreference();
-  }
-
   void _selectTab(int index) {
     setState(() {
       tab = index;
@@ -273,8 +262,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: MenzilTopBar(
         profileSelector: _profileSelector(context),
-        unitLabel: metric ? 'm' : 'yd',
-        onUnitTap: _openSettings,
         themeLabel: MenzilThemeController.labelFor(themeMode),
         onThemeTap: themeController?.cycle,
         showBrand: tab != _tabProfile,
@@ -391,7 +378,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       _ballisticsTab(context),
                       ToolsScreen(
-                        onSettingsClosed: _loadUnitPreference,
                         onProfilesChanged: _load,
                       ),
                     ],

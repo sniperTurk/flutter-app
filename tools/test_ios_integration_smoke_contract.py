@@ -7,9 +7,10 @@ ROOT = Path(__file__).resolve().parents[1]
 class IosIntegrationSmokeContractTest(unittest.TestCase):
     def test_clean_install_smoke_covers_core_safe_routes_and_dope_gate(self):
         source = (ROOT / 'integration_test' / 'app_launch_test.dart').read_text(encoding='utf-8')
-        # Menzil shell: Katalog and Ayarlar open from the Araçlar tab, profile
-        # management is the Profil tab.
-        for label in ('Araçlar', 'Katalog', 'Profil', 'Ayarlar'):
+        # Menzil shell: Katalog opens from the Araçlar tab, profile management
+        # is the Profil tab. V380: Ayarlar was removed (metric only).
+        self.assertIn("expect(find.text('Ayarlar'), findsNothing)", source)
+        for label in ('Araçlar', 'Katalog', 'Profil'):
             with self.subTest(label=label):
                 self.assertIn(f"tester.tap(find.text('{label}').first)", source)
         self.assertIn("DOPE için önce aktif profil oluşturun", source)

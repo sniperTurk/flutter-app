@@ -242,11 +242,12 @@ void main() {
       'hit-probability',
       'calculators',
       'catalog',
-      'settings',
     ]) {
       expect(find.byKey(Key('tool-$key')), findsOneWidget, reason: key);
     }
     expect(find.textContaining('Qwen'), findsNothing);
+    // V380: Ayarlar was removed (metric only).
+    expect(find.byKey(const Key('tool-settings')), findsNothing);
   });
 
   testWidgets('Profil tab activates, copies and confirms before deleting', (

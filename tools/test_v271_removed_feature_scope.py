@@ -37,10 +37,12 @@ class V1ToolScopeTests(unittest.TestCase):
         hub = (ROOT / 'lib/features/tools/tools_screen.dart').read_text(encoding='utf-8')
         for key in (
             'tool-chronograph', 'tool-sight-height', 'tool-compass', 'tool-level',
-            'tool-weather', 'tool-hit-probability', 'tool-calculators', 'tool-catalog', 'tool-settings',
+            'tool-weather', 'tool-hit-probability', 'tool-calculators', 'tool-catalog',
         ):
             self.assertIn(f"Key('{key}')", hub)
-        self.assertEqual(9, hub.count('MenzilToolTile('))
+        # V380: Ayarlar removed (the app is metric only).
+        self.assertNotIn("Key('tool-settings')", hub)
+        self.assertEqual(8, hub.count('MenzilToolTile('))
 
     def test_still_retired_dependencies_and_ios_bridge_stay_absent(self):
         pubspec = (ROOT / 'pubspec.yaml').read_text(encoding='utf-8')
