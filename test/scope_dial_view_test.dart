@@ -36,6 +36,9 @@ Future<void> _pumpSolved(WidgetTester tester) async {
     ),
   );
   await tester.pumpAndSettle();
+  // The app opens on Profil; the scope lives on the Atış tab.
+  await tester.tap(find.text('Atış'));
+  await tester.pumpAndSettle();
   await tester.tap(find.text('Hesapla'));
   await tester.pumpAndSettle();
 }
