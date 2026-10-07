@@ -142,6 +142,36 @@ void main() {
     );
   });
 
+  testWidgets('crosswind gives a drift column in cm that grows with range', (
+    tester,
+  ) async {
+    install();
+    await _pump(tester);
+    await tester.enterText(find.byKey(BallisticsFieldKeys.wind), '4');
+    await tester.tap(find.text('DOPE oluştur'));
+    await tester.pumpAndSettle();
+    expect(find.text('Rüzgâr sapması cm'), findsOneWidget);
+    final table = tester.widget<DataTable>(find.byType(DataTable));
+    final header = table.columns
+        .map((c) => (c.label as Text).data)
+        .toList(growable: false);
+    final mradCol = header.indexOf('Rüzgâr mrad');
+    final driftCol = header.indexOf('Rüzgâr sapması cm');
+    double cell(DataRow row, int i) =>
+        double.parse((row.cells[i].child as Text).data!);
+    double? previous;
+    for (final row in table.rows) {
+      final range = double.parse((row.cells.first.child as Text).data!);
+      final mrad = cell(row, mradCol);
+      final drift = cell(row, driftCol);
+      // Same lateral displacement two ways: angle × range vs. the drift.
+      expect(drift, closeTo(mrad * range / 10, 0.15 + drift * 0.01));
+      if (previous != null) expect(drift, greaterThanOrEqualTo(previous));
+      previous = drift;
+    }
+    expect(previous, greaterThan(0), reason: '4 m/s crosswind drifts');
+  });
+
   testWidgets('shot view shows the wind card instead of the lock', (
     tester,
   ) async {

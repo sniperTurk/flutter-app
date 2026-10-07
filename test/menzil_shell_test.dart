@@ -330,12 +330,14 @@ void main() {
     await fillRifleForm(tester);
     expect(save(), isNull, reason: 'the scope must be typed in as well');
     await fillScopeForm(tester);
+    expect(save(), isNull, reason: 'the ammunition must be typed in as well');
+    await fillAmmoForm(tester);
     expect(
       find.text('Dürbün: Test Optik 6-24x56 FFP'),
       findsOneWidget,
       reason: 'separate fields are shown as one designation line',
     );
-    expect(save(), isNotNull, reason: 'complete rifle and scope data');
+    expect(save(), isNotNull, reason: 'complete rifle, ammo and scope data');
     await tester.tap(find.text('Kaydet'));
     await tester.pumpAndSettle();
     expect(
@@ -371,6 +373,15 @@ void main() {
     expect(scope.firstFocalPlane, isTrue);
     expect(scope.clickValue, 0.1);
     expect(scope.clickUnit, AngularUnit.mrad);
+    final ammo = CatalogRepository.allAmmunition.singleWhere(
+      (a) => a.id == saved.ammunitionId,
+    );
+    expect(ammo.userEntered, isTrue);
+    expect(ammo.caliberMm, 6.35, reason: 'caliber follows the rifle');
+    expect(ammo.grain, 33.95);
+    expect(ammo.type, AmmunitionType.slug);
+    expect(ammo.ballisticCoefficient, 0.08);
+    expect(ammo.ballisticModel, BallisticModel.g1);
   });
 
   testWidgets('MenzilCard hosts ListTile children without ink assertion', (

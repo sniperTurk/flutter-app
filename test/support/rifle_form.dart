@@ -56,6 +56,37 @@ Future<void> chooseFocalPlane(WidgetTester tester, String label) async {
   await tester.pumpAndSettle();
 }
 
+Future<void> chooseInSelect(
+  WidgetTester tester,
+  String key,
+  String label,
+) async {
+  final select = find.byKey(Key(key));
+  await tester.ensureVisible(select);
+  await tester.tap(select);
+  await tester.pumpAndSettle();
+  await tester.tap(find.text(label).last);
+  await tester.pumpAndSettle();
+}
+
+/// Fills the profile editor's manual ammunition form (PCP slug by default).
+Future<void> fillAmmoForm(
+  WidgetTester tester, {
+  String brand = 'Test Mühimmat',
+  String model = 'Test Slug',
+  String? type = 'Slug',
+  String grain = '33,95',
+  String bc = '0,08',
+  String bcModel = 'G1',
+}) async {
+  await enterRifleField(tester, 'ammo-brand', brand);
+  await enterRifleField(tester, 'ammo-model', model);
+  if (type != null) await chooseInSelect(tester, 'ammo-type', type);
+  await enterRifleField(tester, 'ammo-grain', grain);
+  await enterRifleField(tester, 'ammo-bc', bc);
+  await chooseInSelect(tester, 'ammo-bc-model', bcModel);
+}
+
 /// Fills the profile editor's manual scope form.
 Future<void> fillScopeForm(
   WidgetTester tester, {

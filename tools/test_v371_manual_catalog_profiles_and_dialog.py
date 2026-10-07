@@ -49,13 +49,16 @@ class PersonalCatalogProfileContract(unittest.TestCase):
     def test_personal_records_are_never_manufacturer_verified(self):
         self.assertIn("const userCatalogSourceName = 'Kullanıcı girdisi';", USER)
         self.assertEqual(USER.count('userEntered: true'), 3)
-        self.assertIn('(kişisel kayıt)', PROFILES)
+        # V378: the profile editor has no catalog dropdowns any more (rifle,
+        # ammo and scope are typed in), so the "(kişisel kayıt)" option label
+        # is gone; the summary still labels every personal record.
         self.assertIn('kişisel kayıt, üretici doğrulaması yok', PROFILES)
 
     def test_incomplete_records_are_blocked_with_reason(self):
         self.assertIn('ağırlık (grain)', USER)
         self.assertIn('klik birimi (MRAD/MOA)', USER)
-        self.assertIn('Seçilemeyen kişisel kayıtlar', PROFILES)
+        # V378: blocked personal records are reported on the Katalog screen;
+        # the editor no longer lists catalog records to choose from.
 
     def test_legacy_migration_copies_and_never_deletes(self):
         self.assertIn('migratedIdsKey', LOADER)

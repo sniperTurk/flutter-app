@@ -11,7 +11,6 @@ import '../../services/manual_catalog_store.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
-import '../catalog/manual_catalog_dialog.dart';
 import 'profile_recovery_dialog.dart';
 
 /// Profile list and management.
@@ -477,11 +476,7 @@ class _ProfileRow extends StatelessWidget {
   }
 }
 
-/// Personal (manual catalog) records are never presented as manufacturer
-/// data: every place that names one also says it is the user's own entry.
-String _optionLabel(String name, bool userEntered) =>
-    userEntered ? '$name (kişisel kayıt)' : name;
-
+/// Personal records are never presented as manufacturer data.
 String _labelled(String? name, bool? userEntered, String fallbackId) =>
     name == null
     ? fallbackId
@@ -708,25 +703,12 @@ class _ProfileDialog extends StatefulWidget {
 }
 
 class _ProfileDialogState extends State<_ProfileDialog> {
-  /// Catalog snapshot taken when the editor opens (built-in + personal).
-  /// Dropdown values are matched by identity, so the editor must not see a
-  /// reinstalled personal catalog half-way through an edit.
-  ///
-  /// The snapshot is only ever replaced by [_editRecordValues], i.e. by the
-  /// user's own explicit "değerleri düzenle" save, never behind their back.
-  List<Rifle> _allRifles = CatalogRepository.allRifles;
-  List<Ammunition> _allAmmunition = CatalogRepository.allAmmunition;
-  List<ScopeOptic> _allScopes = CatalogRepository.allScopes;
-  List<UserCatalogIssue> _blockedPersonal =
-      CatalogRepository.userCatalog.blocked;
+  /// Records the profile pointed at when the editor opened (built-in or
+  /// personal). They only prefill the forms; everything is typed in.
+  final List<Rifle> _allRifles = CatalogRepository.allRifles;
+  final List<Ammunition> _allAmmunition = CatalogRepository.allAmmunition;
+  final List<ScopeOptic> _allScopes = CatalogRepository.allScopes;
   final ManualCatalogStore _manualStore = ManualCatalogStore();
-
-  List<Ammunition> _ammunitionFor(WeaponPlatform p, double caliberMm) =>
-      _allAmmunition
-          .where(
-            (a) => a.platform == p && (a.caliberMm - caliberMm).abs() < 0.001,
-          )
-          .toList(growable: false);
 
   WeaponPlatform platform = WeaponPlatform.pcp;
 
@@ -751,6 +733,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// true = FFP, false = SFP, null = not chosen yet.
   bool? firstFocalPlane;
+
+  /// Ammunition is typed in too. A BC with its G1/G7 model lets the drag
+  /// solver compute wind drift (the vacuum baseline keeps wind locked).
+  late final TextEditingController ammoBrand;
+  late final TextEditingController ammoModel;
+  late final TextEditingController ammoGrain;
+  late final TextEditingController ammoBc;
+  AmmunitionType? ammoType;
+  BallisticModel? ammoBcModel;
   bool _saving = false;
   Ammunition? ammo;
   ScopeOptic? scope;
@@ -816,15 +807,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           : num(_defaultClick(angularUnit)),
     );
     firstFocalPlane = s0?.firstFocalPlane;
+    final a0 = ammo;
+    ammoBrand = TextEditingController(text: a0?.brand ?? '');
+    ammoModel = TextEditingController(text: a0?.model ?? '');
+    ammoGrain = TextEditingController(text: num(a0?.grain));
+    ammoBc = TextEditingController(text: num(a0?.ballisticCoefficient));
+    ammoType = a0?.type;
+    ammoBcModel = a0?.ballisticModel;
     if (p != null) {
       if (rifle == null) _unresolved.add('tüfek');
-      if (ammo == null) {
-        _unresolved.add('mühimmat');
-      } else if (rifle != null &&
-          !_ammunitionFor(platform, rifle!.caliberMm).contains(ammo)) {
-        ammo = null;
-        _unresolved.add('mühimmat (tüfek kalibresiyle uyumsuz)');
-      }
+      if (ammo == null) _unresolved.add('mühimmat');
+      if (scope == null) _unresolved.add('dürbün');
     }
     name = TextEditingController(text: p?.name ?? 'Yeni Profil');
     velocity = TextEditingController(
@@ -853,6 +846,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeMaxMag.dispose();
     scopeObjective.dispose();
     scopeClick.dispose();
+    ammoBrand.dispose();
+    ammoModel.dispose();
+    ammoGrain.dispose();
+    ammoBc.dispose();
     name.dispose();
     velocity.dispose();
     zero.dispose();
@@ -939,6 +936,24 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _clickError == null &&
       firstFocalPlane != null;
 
+  String? get _ammoBrandError => _textError(ammoBrand);
+  String? get _ammoModelError => _textError(ammoModel);
+  String? get _grainError => _rangeError(ammoGrain, 1, 800);
+  String? get _bcError => _rangeError(ammoBc, 0.005, 1.5);
+
+  /// PCP: pellet or slug must be chosen; firearms always use bullets.
+  AmmunitionType? get _effectiveAmmoType => platform == WeaponPlatform.firearm
+      ? AmmunitionType.bullet
+      : (ammoType == AmmunitionType.bullet ? null : ammoType);
+
+  bool get _ammoValid =>
+      _ammoBrandError == null &&
+      _ammoModelError == null &&
+      _grainError == null &&
+      _bcError == null &&
+      ammoBcModel != null &&
+      _effectiveAmmoType != null;
+
   /// One-line designation, e.g. "6-24x56 FFP" (empty parts are skipped).
   String get _scopeDesignation {
     String part(TextEditingController c) {
@@ -994,6 +1009,26 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     };
   }
 
+  Map<String, dynamic> _ammoEntry() {
+    final existing = ammo;
+    return <String, dynamic>{
+      'id': existing != null && existing.userEntered
+          ? existing.id
+          : 'manual_ammo_${DateTime.now().microsecondsSinceEpoch}',
+      'kind': 'ammo',
+      'platform': platform.name,
+      'brand': ammoBrand.text.trim(),
+      'model': ammoModel.text.trim(),
+      // Caliber follows the rifle, so the pair can never mismatch.
+      'caliberMm': _parse(rifleCaliber),
+      'grain': _parse(ammoGrain),
+      'ammoType': _effectiveAmmoType!.name,
+      'bc': _parse(ammoBc),
+      'bcModel': ammoBcModel!.name,
+      'sourceName': userCatalogSourceName,
+    };
+  }
+
   Map<String, dynamic> _scopeEntry() {
     final existing = scope;
     final lo = _parse(scopeMinMag)!, hi = _parse(scopeMaxMag)!;
@@ -1020,16 +1055,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   Future<void> _save() async {
     if (_saving) return;
-    if (!_rifleValid || !_scopeValid) {
+    if (!_rifleValid || !_ammoValid || !_scopeValid) {
       setState(() {
         _showErrors = true;
         validationError = !_rifleValid
             ? 'Tüfek bilgilerinde eksik veya hatalı alan var.'
+            : !_ammoValid
+            ? 'Mühimmat bilgilerinde eksik veya hatalı alan var.'
             : 'Dürbün bilgilerinde eksik veya hatalı alan var.';
       });
       return;
     }
-    if (ammo == null) return;
     final ProfileInput input;
     try {
       input = ProfileInput.validate(
@@ -1051,8 +1087,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final rifleId = entry['id'] as String;
     final scopeRecord = _scopeEntry();
     final scopeId = scopeRecord['id'] as String;
+    final ammoRecord = _ammoEntry();
+    final ammoId = ammoRecord['id'] as String;
     try {
       await _manualStore.upsert(entry);
+      await _manualStore.upsert(ammoRecord);
       await _manualStore.upsert(scopeRecord);
       CatalogRepository.installUserCatalog(
         UserCatalog.fromManualEntries(await _manualStore.all()),
@@ -1068,11 +1107,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     }
     if (!mounted) return;
     if (!CatalogRepository.allRifles.any((r) => r.id == rifleId) ||
+        !CatalogRepository.allAmmunition.any((a) => a.id == ammoId) ||
         !CatalogRepository.allScopes.any((o) => o.id == scopeId)) {
       setState(() {
         _saving = false;
         validationError =
-            'Tüfek veya dürbün kaydı okunamadı. Profil kaydedilmedi.';
+            'Tüfek, mühimmat veya dürbün kaydı okunamadı. Profil kaydedilmedi.';
       });
       return;
     }
@@ -1084,7 +1124,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         id: id,
         name: input.name,
         rifleId: rifleId,
-        ammunitionId: ammo!.id,
+        ammunitionId: ammoId,
         scopeId: scopeId,
         muzzleVelocityMps: input.muzzleVelocityMps,
         zeroRangeM: input.zeroRangeM,
@@ -1093,125 +1133,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         angularUnit: angularUnit,
       ),
     );
-  }
-
-  /// Lets the user correct catalog values (caliber, barrel length, pellet
-  /// weight) that are wrong for their gear. Manufacturer-verified records are
-  /// never modified: a built-in record is copied into a personal record (new
-  /// id, labelled "kişisel kayıt, doğrulanmamış") and the copy is edited. A
-  /// personal record is edited in place, so every profile that uses it picks
-  /// up the corrected values.
-  Future<void> _editRecordValues({required bool forRifle}) async {
-    final Map<String, dynamic> entry;
-    try {
-      final stored = await _manualStore.all();
-      final String? currentId = forRifle ? rifle?.id : ammo?.id;
-      if (currentId == null) return;
-      final existing = stored.where((e) => e['id'] == currentId).firstOrNull;
-      if (existing != null) {
-        entry = Map<String, dynamic>.from(existing);
-      } else if (forRifle) {
-        final r = rifle!;
-        entry = <String, dynamic>{
-          'id': 'manual_${DateTime.now().microsecondsSinceEpoch}',
-          'kind': 'rifle',
-          'platform': r.platform.name,
-          'brand': r.brand,
-          'model': r.model,
-          'caliberMm': r.caliberMm,
-          'barrelLengthMm': r.barrelLengthMm,
-          'notes':
-              'Katalog kaydından kopyalandı; değerler kullanıcı tarafından düzenlendi.',
-          'sourceName': 'Kullanıcı girdisi',
-        };
-      } else {
-        final a = ammo!;
-        entry = <String, dynamic>{
-          'id': 'manual_${DateTime.now().microsecondsSinceEpoch}',
-          'kind': 'ammo',
-          'platform': a.platform.name,
-          'brand': a.brand,
-          'model': a.model,
-          'caliberMm': a.caliberMm,
-          'grain': a.grain,
-          'ammoType': a.type.name,
-          'bc': a.ballisticCoefficient,
-          'notes':
-              'Katalog kaydından kopyalandı; değerler kullanıcı tarafından düzenlendi.',
-          'sourceName': 'Kullanıcı girdisi',
-        };
-      }
-    } catch (_) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Kişisel katalog okunamadı. Değerler düzenlenemedi.'),
-        ),
-      );
-      return;
-    }
-    if (!mounted) return;
-    final recordId = entry['id'] as String;
-    final saved = await showDialog<bool>(
-      context: context,
-      builder: (_) => ManualCatalogDialog(
-        existing: entry,
-        defaultPlatform: platform.name,
-        onSave: (e) async => await _manualStore.upsert(e),
-      ),
-    );
-    if (saved != true) return;
-    try {
-      final items = await _manualStore.all();
-      CatalogRepository.installUserCatalog(
-        UserCatalog.fromManualEntries(items),
-      );
-    } catch (_) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Kayıt yapıldı ancak katalog yenilenemedi. Profil ekranını yeniden açın.',
-          ),
-        ),
-      );
-      return;
-    }
-    if (!mounted) return;
-    setState(() {
-      _allRifles = CatalogRepository.allRifles;
-      _allAmmunition = CatalogRepository.allAmmunition;
-      _allScopes = CatalogRepository.allScopes;
-      _blockedPersonal = CatalogRepository.userCatalog.blocked;
-      if (forRifle) {
-        rifle = _allRifles.where((r) => r.id == recordId).firstOrNull ?? rifle;
-        platform = rifle?.platform ?? platform;
-        // The corrected caliber may no longer match the chosen ammunition.
-        if (rifle != null &&
-            ammo != null &&
-            !_ammunitionFor(platform, rifle!.caliberMm).contains(ammo)) {
-          ammo = _allAmmunition.where((a) => a.id == ammo!.id).firstOrNull;
-          if (ammo != null &&
-              !_ammunitionFor(platform, rifle!.caliberMm).contains(ammo)) {
-            ammo = null;
-          }
-        }
-      } else {
-        final updated = _allAmmunition
-            .where((a) => a.id == recordId)
-            .firstOrNull;
-        ammo =
-            updated != null &&
-                rifle != null &&
-                _ammunitionFor(platform, rifle!.caliberMm).contains(updated)
-            ? updated
-            : null;
-        if (ammo == null && updated != null) {
-          validationError =
-              'Düzenlenen mühimmatın kalibresi tüfekle uyuşmuyor; lütfen mühimmatı yeniden seçin.';
-        }
-      }
-    });
   }
 
   void _showSightHelp() => showDialog<void>(
@@ -1223,17 +1144,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     final typedCaliber = _typedCaliber;
-    final ammos = typedCaliber == null
-        ? const <Ammunition>[]
-        : _ammunitionFor(platform, typedCaliber);
-    if (!_isEdit && !ammos.contains(ammo)) {
-      ammo = ammos.isEmpty ? null : ammos.first;
-    }
-    final blockedHere = _blockedPersonal
-        .where((b) => b.kind == 'scope' || b.platform == platform)
-        .toList(growable: false);
     final canSave =
-        !_saving && _rifleValid && _scopeValid && ammo != null && _validSight;
+        !_saving && _rifleValid && _ammoValid && _scopeValid && _validSight;
 
     return Scaffold(
       appBar: MenzilSubPageBar(
@@ -1282,12 +1194,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               tone: MenzilNoticeTone.danger,
               message: validationError!,
             ),
-          if (_unresolved.isNotEmpty && ammo == null)
+          if (_unresolved.isNotEmpty)
             MenzilNotice(
               tone: MenzilNoticeTone.warning,
               message:
                   'Bu profilin kayıtlı ${_unresolved.join(', ')} bilgisi katalogda bulunamadı. '
-                  'Başka bir kayıt sessizce seçilmedi; lütfen ilgili alanları kendiniz seçin.',
+                  'Başka bir kayıt sessizce seçilmedi; lütfen ilgili alanları kendiniz doldurun.',
             ),
           const MenzilSectionHeader(
             'Kimlik',
@@ -1325,7 +1237,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       .toList(),
                   onChanged: (v) => setState(() {
                     platform = v!;
-                    ammo = null;
+                    // Pellet/slug only exist on PCP; firearms use bullets.
+                    if (platform == WeaponPlatform.firearm) ammoType = null;
                   }),
                 ),
               ],
@@ -1373,15 +1286,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   label: 'Kalibre',
                   unit: 'mm',
                   hintText: '5,5 / 6,35 / 7,62',
-                  onChanged: (_) => setState(() {
-                    // A different caliber may no longer fit the ammunition.
-                    final cal = _typedCaliber;
-                    if (ammo != null &&
-                        (cal == null ||
-                            !_ammunitionFor(platform, cal).contains(ammo))) {
-                      ammo = null;
-                    }
-                  }),
+                  onChanged: (_) => setState(() {}),
                   errorText: _shown(_caliberError, rifleCaliber),
                 ),
                 MenzilInput(
@@ -1572,86 +1477,108 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
           ),
           const MenzilSectionHeader(
-            'Ekipman',
+            'Mühimmat',
+            subtitle: 'BC ve G1/G7 modeli rüzgâr sapması hesabı için gerekir',
             padding: EdgeInsets.only(
               top: MenzilSpace.xxs,
               bottom: MenzilSpace.sm,
             ),
           ),
           MenzilCard(
+            key: const Key('profile-ammo-form'),
             padding: const EdgeInsets.fromLTRB(
               MenzilSpace.lg,
               MenzilSpace.lg,
               MenzilSpace.lg,
               MenzilSpace.xxs,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: MenzilFieldGrid(
               children: [
-                if (typedCaliber == null)
-                  const MenzilNotice(
-                    tone: MenzilNoticeTone.warning,
-                    message:
-                        'Mühimmat seçmek için önce tüfeğin kalibresini girin.',
-                  )
-                else if (ammos.isNotEmpty)
-                  MenzilSelect<Ammunition>(
-                    // initialValue is not live: remount when the typed
-                    // caliber or platform changes the matching list.
-                    key: ValueKey(
-                      'profile-ammo-${platform.name}-$typedCaliber',
-                    ),
-                    label: 'Mühimmat',
-                    initialValue: ammo,
-                    items: ammos
-                        .map(
-                          (e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(
-                              _optionLabel(e.displayName, e.userEntered),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (v) => setState(() => ammo = v),
-                  )
-                else
-                  const MenzilNotice(
-                    tone: MenzilNoticeTone.warning,
-                    message:
-                        'Girilen kalibreye uygun mühimmat yok; profil kaydedilemez.',
-                  ),
-                if (ammo != null)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton.icon(
-                      key: const ValueKey('profile-edit-ammo-values'),
-                      onPressed: () => _editRecordValues(forRifle: false),
-                      icon: const Icon(Icons.tune, size: 18),
-                      label: Text(
-                        ammo!.userEntered
-                            ? 'Mühimmat değerlerini düzenle (ağırlık, çap)'
-                            : 'Mühimmat değerleri hatalı mı? Kişisel kopyayı düzenle',
+                MenzilInput(
+                  key: const Key('ammo-brand'),
+                  controller: ammoBrand,
+                  label: 'Marka',
+                  keyboardType: TextInputType.text,
+                  maxLength: 100,
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_ammoBrandError, ammoBrand),
+                ),
+                MenzilInput(
+                  key: const Key('ammo-model'),
+                  controller: ammoModel,
+                  label: 'Model',
+                  keyboardType: TextInputType.text,
+                  maxLength: 100,
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_ammoModelError, ammoModel),
+                ),
+                if (platform == WeaponPlatform.pcp)
+                  MenzilSelect<AmmunitionType>(
+                    key: const Key('ammo-type'),
+                    label: 'Tip',
+                    initialValue: ammoType == AmmunitionType.bullet
+                        ? null
+                        : ammoType,
+                    items: const [
+                      DropdownMenuItem(
+                        value: AmmunitionType.pellet,
+                        child: Text('Diabolo'),
                       ),
+                      DropdownMenuItem(
+                        value: AmmunitionType.slug,
+                        child: Text('Slug'),
+                      ),
+                    ],
+                    onChanged: (v) => setState(() => ammoType = v),
+                  ),
+                MenzilInput(
+                  key: const Key('ammo-grain'),
+                  controller: ammoGrain,
+                  label: 'Ağırlık',
+                  unit: 'grain',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_grainError, ammoGrain),
+                ),
+                MenzilInput(
+                  key: const Key('ammo-bc'),
+                  controller: ammoBc,
+                  label: 'BC (balistik katsayı)',
+                  hintText: '0,035',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_bcError, ammoBc),
+                ),
+                MenzilSelect<BallisticModel>(
+                  key: const Key('ammo-bc-model'),
+                  label: 'BC modeli',
+                  initialValue: ammoBcModel,
+                  items: const [
+                    DropdownMenuItem(
+                      value: BallisticModel.g1,
+                      child: Text('G1'),
                     ),
+                    DropdownMenuItem(
+                      value: BallisticModel.g7,
+                      child: Text('G7'),
+                    ),
+                  ],
+                  onChanged: (v) => setState(() => ammoBcModel = v),
+                ),
+                MenzilFullWidth(
+                  child: Text(
+                    typedCaliber == null
+                        ? 'Kalibre: tüfek bilgilerinden alınır.'
+                        : 'Kalibre: ${_trimNum(typedCaliber)} mm (tüfekten).',
+                    key: const Key('ammo-caliber-note'),
+                    style: MenzilType.caption(c.ink2),
                   ),
-                if (ammo?.userEntered == true)
-                  const MenzilNotice(
-                    tone: MenzilNoticeTone.info,
-                    message:
-                        'Kişisel kayıt seçildi: bu değerler kullanıcı '
-                        'girdisidir, üretici tarafından doğrulanmamıştır.',
-                  ),
-                if (blockedHere.isNotEmpty)
-                  MenzilNotice(
-                    key: const ValueKey('profile-blocked-personal'),
-                    tone: MenzilNoticeTone.warning,
-                    title: 'Seçilemeyen kişisel kayıtlar',
-                    message: blockedHere
-                        .map((b) => '• ${b.label}: ${b.reason}')
-                        .join('\n'),
+                ),
+                if (_showErrors &&
+                    (ammoBcModel == null || _effectiveAmmoType == null))
+                  const MenzilFullWidth(
+                    child: MenzilNotice(
+                      tone: MenzilNoticeTone.danger,
+                      message: 'Mühimmat tipini ve BC modelini (G1/G7) seçin.',
+                    ),
                   ),
               ],
             ),
@@ -1691,67 +1618,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               ],
             ),
           ),
-          _CatalogValues(rifle: null, ammo: ammo, scope: null),
-        ],
-      ),
-    );
-  }
-}
 
-/// Catalog-derived values for the current selection (read-only).
-class _CatalogValues extends StatelessWidget {
-  final Rifle? rifle;
-  final Ammunition? ammo;
-  final ScopeOptic? scope;
-
-  const _CatalogValues({
-    required this.rifle,
-    required this.ammo,
-    required this.scope,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final c = MenzilColors.of(context);
-    return MenzilAccordion(
-      title: 'Katalogdan gelen değerler',
-      subtitle: 'Seçime göre otomatik; düzenlenmez',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          MenzilMetricGrid(
-            columns: 2,
-            metrics: [
-              if (rifle != null)
-                MenzilMetric('Çap', rifle!.caliberMm.toStringAsFixed(2), 'mm'),
-              if (ammo != null)
-                MenzilMetric(
-                  'Ağırlık',
-                  ammo!.grain.toStringAsFixed(ammo!.grain % 1 == 0 ? 0 : 1),
-                  'gr',
-                ),
-              MenzilMetric(
-                'Sürükleme modeli',
-                ammo?.ballisticModel?.name.toUpperCase() ?? '—',
-              ),
-              MenzilMetric('BC', ammo?.ballisticCoefficient?.toString() ?? '—'),
-              MenzilMetric(
-                'Namlu boyu',
-                rifle?.barrelLengthMm?.toStringAsFixed(0) ?? '—',
-                rifle?.barrelLengthMm == null ? null : 'mm',
-              ),
-              if (scope != null)
-                MenzilMetric(
-                  'Klik değeri',
-                  scope!.clickValue.toString(),
-                  scope!.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
-                ),
-            ],
-          ),
-          Text(
-            'Bilgi amaçlıdır. V1 vakum temel hesapta BC ve sürükleme modeli kullanılmaz.',
-            style: MenzilType.caption(c.ink2),
-          ),
         ],
       ),
     );

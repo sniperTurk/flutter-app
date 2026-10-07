@@ -783,6 +783,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
+  /// Lateral wind drift at the point's range, in cm (metric) or inches.
+  /// windMrad is the angle atan2(-z, range); this recovers |z| exactly.
+  double _windDrift(TrajectoryPoint point) {
+    final meters = point.rangeM * math.tan(point.windMrad.abs() / 1000);
+    return metric ? meters * 100 : UnitSystem.millimetersToInches(meters * 1000);
+  }
+
+  String get _driftUnit => metric ? 'cm' : 'in';
+
   Widget _windStatusCard(TrajectoryPoint? shot, String clickUnitLabel) {
     if (!_dragMode) {
       return _statusCard(
@@ -804,19 +813,23 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final mrad = shot.windMrad.abs();
     final moa = Units.mradToMoa(mrad);
     final clicks = _clicksOnScope(mrad: mrad, moa: moa);
+    final drift =
+        'Sapma ${_windDrift(shot).toStringAsFixed(1).replaceAll('.', ',')} $_driftUnit';
     return _statusCard(
+      key: const Key('wind-status-card'),
       title: 'Rüzgâr',
       value: '${mrad.toStringAsFixed(2)} mrad',
       subtitle: windMps == 0
           ? 'Rüzgâr 0 girildi'
           : clicks == null
-          ? '${_windLabel(windMps)} ${metric ? 'm/s' : 'mph'}'
-          : '${clicks.abs()} klik ($clickUnitLabel dürbün)',
+          ? '$drift · ${_windLabel(windMps)} ${metric ? 'm/s' : 'mph'}'
+          : '$drift · ${clicks.abs()} klik ($clickUnitLabel dürbün)',
       icon: Icons.air,
     );
   }
 
   Widget _statusCard({
+    Key? key,
     required String title,
     required String value,
     required String subtitle,
@@ -824,6 +837,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }) {
     final c = MenzilColors.of(context);
     return MenzilCard(
+      key: key,
       margin: EdgeInsets.zero,
       background: c.surface2,
       padding: const EdgeInsets.all(MenzilSpace.md),
@@ -1341,6 +1355,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                         numeric: true,
                       ),
                       DataColumn(
+                        label: Text('Rüzgâr sapması $_driftUnit'),
+                        numeric: true,
+                      ),
+                      DataColumn(
                         label: Text(metric ? 'Hız m/s' : 'Hız fps'),
                         numeric: true,
                       ),
@@ -1402,6 +1420,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     DataCell(Text(p.correctionMrad.toStringAsFixed(2))),
                     if (drag) ...[
                       DataCell(Text(p.windMrad.abs().toStringAsFixed(2))),
+                      DataCell(Text(_windDrift(p).toStringAsFixed(1))),
                       DataCell(
                         Text(
                           (metric
