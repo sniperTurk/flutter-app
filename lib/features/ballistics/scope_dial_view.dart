@@ -1,0 +1,803 @@
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+
+import '../../core/scope_dial.dart';
+import '../../models/domain.dart';
+import '../../ui/menzil_theme.dart';
+import '../../ui/menzil_widgets.dart';
+
+/// Stable keys for widget tests.
+abstract final class ScopeDialKeys {
+  static const elevationDrum = ValueKey('scope-elevation-drum');
+  static const windageDrum = ValueKey('scope-windage-drum');
+  static const reticle = ValueKey('scope-reticle');
+  static const impactText = ValueKey('scope-impact-text');
+  static const dialSolution = ValueKey('scope-dial-solution');
+  static const reset = ValueKey('scope-reset');
+}
+
+/// Interactive scope: elevation turret on top, windage turret on the right,
+/// and a reticle that shows where the shot lands for the dialled clicks.
+///
+/// The view is stateless; the parent owns the click counts so they survive
+/// tab switches together with the rest of the ballistic workspace.
+///
+/// Wind is not modelled by the current (vacuum) solver, so the required
+/// windage is always 0 here: the windage turret only shifts the point of
+/// impact by the dialled angle. It never claims a wind correction.
+class ScopeDialView extends StatelessWidget {
+  final AngularUnit unit;
+  final double clickValue;
+  final int elevationClicks;
+  final int windageClicks;
+  final int maxElevationClicks;
+  final int maxWindageClicks;
+  final ValueChanged<int> onElevationChanged;
+  final ValueChanged<int> onWindageChanged;
+
+  /// Required elevation at [rangeM] in [unit] (positive = dial up). Null
+  /// until a validated solve exists: no impact marker, no hold labels.
+  final double? requiredUp;
+  final double rangeM;
+  final List<CorrectionSample> samples;
+
+  /// Converts metres to the user's display distance (m or yd).
+  final double Function(double meters) toDisplayRange;
+  final String distanceUnit;
+  final bool metric;
+
+  const ScopeDialView({
+    super.key,
+    required this.unit,
+    required this.clickValue,
+    required this.elevationClicks,
+    required this.windageClicks,
+    required this.maxElevationClicks,
+    required this.maxWindageClicks,
+    required this.onElevationChanged,
+    required this.onWindageChanged,
+    required this.requiredUp,
+    required this.rangeM,
+    required this.samples,
+    required this.toDisplayRange,
+    required this.distanceUnit,
+    required this.metric,
+  });
+
+  String get unitLabel => unit == AngularUnit.moa ? 'MOA' : 'mrad';
+
+  /// Half of the visible reticle field, in reticle units.
+  double get halfField => unit == AngularUnit.moa ? 32 : 10;
+
+  /// Reticle mark spacing on the vertical stadia, in reticle units.
+  double get markStep => unit == AngularUnit.moa ? 2 : 1;
+
+  static String _fmt(double v) {
+    final r = v.abs() < 0.005 ? 0.0 : v;
+    return r.toStringAsFixed(2);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    final dialedUp = ScopeDialMath.clicksToAngle(elevationClicks, clickValue);
+    final dialedRight = ScopeDialMath.clicksToAngle(windageClicks, clickValue);
+    final req = requiredUp;
+    final impact = req == null
+        ? null
+        : ScopeDialMath.impactOffset(
+            dialedUp: dialedUp,
+            requiredUp: req,
+            dialedRight: dialedRight,
+          );
+
+    // Hold labels on every vertical mark inside the posts, above and below.
+    final steps = (halfField * 0.8 / markStep).floor();
+    final marks = <double>[
+      for (var i = -steps; i <= steps; i++)
+        if (i != 0) i * markStep,
+    ];
+    final holds = req == null
+        ? const <HoldoverMark>[]
+        : ScopeDialMath.holdovers(
+            dialedUp: dialedUp,
+            markAngles: marks,
+            samples: samples,
+          );
+    final holdLabels = [
+      for (final h in holds)
+        (h.markAngle, toDisplayRange(h.rangeM).round().toString()),
+    ];
+
+    const windageWidth = 58.0;
+    const gap = MenzilSpace.sm;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final screenH = MediaQuery.sizeOf(context).height;
+        final side = math.max(
+          180.0,
+          math.min(
+            constraints.maxWidth - windageWidth - gap,
+            math.max(220.0, screenH * 0.46),
+          ),
+        );
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: side,
+                  child: _TurretDrum(
+                    key: ScopeDialKeys.elevationDrum,
+                    axis: Axis.horizontal,
+                    clicks: elevationClicks,
+                    clickValue: clickValue,
+                    unitLabel: unitLabel,
+                    maxClicks: maxElevationClicks,
+                    positiveLetter: 'U',
+                    negativeLetter: 'D',
+                    semanticName: 'Yükseklik kulesi',
+                    positiveWord: 'yukarı',
+                    negativeWord: 'aşağı',
+                    onChanged: onElevationChanged,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: gap),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Semantics(
+                  label: _reticleSemantics(impact),
+                  image: true,
+                  child: SizedBox.square(
+                    key: ScopeDialKeys.reticle,
+                    dimension: side,
+                    child: CustomPaint(
+                      painter: ScopeReticlePainter(
+                        colors: c,
+                        halfField: halfField,
+                        markStep: markStep,
+                        unitLabel: unitLabel,
+                        impactUp: impact?.up,
+                        impactRight: impact?.right,
+                        holdLabels: holdLabels,
+                        headline:
+                            'Hedef: ${toDisplayRange(rangeM).round()} $distanceUnit',
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: gap),
+                SizedBox(
+                  width: windageWidth,
+                  height: side,
+                  child: _TurretDrum(
+                    key: ScopeDialKeys.windageDrum,
+                    axis: Axis.vertical,
+                    clicks: windageClicks,
+                    clickValue: clickValue,
+                    unitLabel: unitLabel,
+                    maxClicks: maxWindageClicks,
+                    positiveLetter: 'R',
+                    negativeLetter: 'L',
+                    semanticName: 'Rüzgâr kulesi',
+                    positiveWord: 'sağa',
+                    negativeWord: 'sola',
+                    onChanged: onWindageChanged,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: MenzilSpace.md),
+            _readout(context, dialedUp, dialedRight, impact),
+            const SizedBox(height: MenzilSpace.sm),
+            Row(
+              children: [
+                Expanded(
+                  child: MenzilSecondaryButton(
+                    key: ScopeDialKeys.dialSolution,
+                    label: 'Çözümü kuleye kur',
+                    icon: Icons.tune,
+                    expand: true,
+                    onPressed: req == null
+                        ? null
+                        : () {
+                            final clicks = ScopeDialMath.clicksFor(
+                              req,
+                              clickValue,
+                            );
+                            onElevationChanged(
+                              clicks
+                                  .clamp(
+                                    -maxElevationClicks,
+                                    maxElevationClicks,
+                                  )
+                                  .toInt(),
+                            );
+                            onWindageChanged(0);
+                          },
+                  ),
+                ),
+                const SizedBox(width: MenzilSpace.sm),
+                Expanded(
+                  child: MenzilSecondaryButton(
+                    key: ScopeDialKeys.reset,
+                    label: 'Kuleleri sıfırla',
+                    icon: Icons.restart_alt,
+                    expand: true,
+                    onPressed: elevationClicks == 0 && windageClicks == 0
+                        ? null
+                        : () {
+                            onElevationChanged(0);
+                            onWindageChanged(0);
+                          },
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  String _reticleSemantics(({double up, double right})? impact) {
+    if (impact == null) {
+      return 'Dürbün retikülü. Vuruş noktası için önce hesaplayın.';
+    }
+    return 'Dürbün retikülü. Vuruş noktası artı işaretine göre '
+        '${_fmt(impact.up.abs())} $unitLabel ${impact.up >= 0 ? 'yukarıda' : 'aşağıda'}, '
+        '${_fmt(impact.right.abs())} $unitLabel ${impact.right >= 0 ? 'sağda' : 'solda'}.';
+  }
+
+  Widget _readout(
+    BuildContext context,
+    double dialedUp,
+    double dialedRight,
+    ({double up, double right})? impact,
+  ) {
+    final c = MenzilColors.of(context);
+    String linear(double angle) {
+      final m = ScopeDialMath.linearAtRange(angle.abs(), rangeM, unit);
+      return metric
+          ? '${(m * 100).toStringAsFixed(1)} cm'
+          : '${(m * 39.3700787).toStringAsFixed(1)} in';
+    }
+
+    String dial(int clicks, double angle, String pos, String neg) =>
+        '${clicks.abs()} klik ${clicks >= 0 ? pos : neg} '
+        '(${_fmt(angle.abs())} $unitLabel)';
+
+    final impactText = impact == null
+        ? 'Vuruş noktası: hesaplama bekleniyor'
+        : (impact.up.abs() < clickValue / 2 && impact.right.abs() < 0.0005)
+        ? 'Vuruş noktası: artı işaretinde'
+        : 'Vuruş noktası: ${linear(impact.up)} '
+              '${impact.up >= 0 ? 'yukarı' : 'aşağı'} · '
+              '${linear(impact.right)} ${impact.right >= 0 ? 'sağ' : 'sol'}';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          'Kule: ${dial(elevationClicks, dialedUp, 'yukarı', 'aşağı')} · '
+          '${dial(windageClicks, dialedRight, 'sağ', 'sol')}',
+          style: MenzilType.body(c.ink),
+        ),
+        const SizedBox(height: MenzilSpace.xxs),
+        Semantics(
+          liveRegion: true,
+          child: Text(
+            impactText,
+            key: ScopeDialKeys.impactText,
+            style: TextStyle(fontWeight: FontWeight.w700, color: c.ink),
+          ),
+        ),
+        const SizedBox(height: MenzilSpace.xxs),
+        Text(
+          'Kırmızı sayılar: o noktayı hedefe tuttuğunuzda vuracağınız mesafe '
+          '($distanceUnit). Retikül aralıkları dürbünün kalibre edildiği '
+          'büyütmede geçerlidir (FFP her büyütmede).',
+          style: MenzilType.caption(c.ink2),
+        ),
+      ],
+    );
+  }
+}
+
+/// A turret drum that the user drags (or steps with buttons) one click at a
+/// time. Horizontal drum: dragging right dials UP. Vertical drum: dragging
+/// down dials RIGHT — the numbers on the drum move toward the pointer the
+/// way a real turret's markings do.
+class _TurretDrum extends StatefulWidget {
+  final Axis axis;
+  final int clicks;
+  final double clickValue;
+  final String unitLabel;
+  final int maxClicks;
+  final String positiveLetter, negativeLetter;
+  final String semanticName, positiveWord, negativeWord;
+  final ValueChanged<int> onChanged;
+
+  const _TurretDrum({
+    super.key,
+    required this.axis,
+    required this.clicks,
+    required this.clickValue,
+    required this.unitLabel,
+    required this.maxClicks,
+    required this.positiveLetter,
+    required this.negativeLetter,
+    required this.semanticName,
+    required this.positiveWord,
+    required this.negativeWord,
+    required this.onChanged,
+  });
+
+  @override
+  State<_TurretDrum> createState() => _TurretDrumState();
+}
+
+class _TurretDrumState extends State<_TurretDrum> {
+  static const double pixelsPerClick = 9;
+  double _carry = 0;
+
+  void _set(int value) {
+    final v = value.clamp(-widget.maxClicks, widget.maxClicks).toInt();
+    if (v != widget.clicks) widget.onChanged(v);
+  }
+
+  void _drag(double delta) {
+    _carry += delta;
+    final steps = (_carry / pixelsPerClick).truncate();
+    if (steps != 0) {
+      _carry -= steps * pixelsPerClick;
+      _set(widget.clicks + steps);
+    }
+  }
+
+  String _valueText() {
+    final angle = (widget.clicks * widget.clickValue).abs().toStringAsFixed(2);
+    if (widget.clicks == 0) return '${widget.semanticName} sıfırda';
+    final word = widget.clicks > 0 ? widget.positiveWord : widget.negativeWord;
+    return '${widget.clicks.abs()} klik $word, $angle ${widget.unitLabel}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    final horizontal = widget.axis == Axis.horizontal;
+    final drum = GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onHorizontalDragStart: horizontal ? (_) => _carry = 0 : null,
+      onHorizontalDragUpdate: horizontal ? (d) => _drag(d.delta.dx) : null,
+      onVerticalDragStart: horizontal ? null : (_) => _carry = 0,
+      onVerticalDragUpdate: horizontal ? null : (d) => _drag(d.delta.dy),
+      child: CustomPaint(
+        painter: _DrumPainter(
+          colors: c,
+          axis: widget.axis,
+          clicks: widget.clicks,
+          clickValue: widget.clickValue,
+          unitLabel: widget.unitLabel,
+          positiveLetter: widget.positiveLetter,
+          negativeLetter: widget.negativeLetter,
+          pixelsPerClick: pixelsPerClick,
+        ),
+        child: const SizedBox.expand(),
+      ),
+    );
+
+    Widget step(int delta, IconData icon, String label) => SizedBox(
+      width: 44,
+      height: 44,
+      child: IconButton(
+        tooltip: label,
+        padding: EdgeInsets.zero,
+        icon: Icon(icon, size: 22, color: c.ink),
+        onPressed: () => _set(widget.clicks + delta),
+      ),
+    );
+
+    final up = '${widget.semanticName} 1 klik ${widget.positiveWord}';
+    final down = '${widget.semanticName} 1 klik ${widget.negativeWord}';
+    final body = horizontal
+        ? SizedBox(
+            height: 64,
+            child: Row(
+              children: [
+                step(1, Icons.chevron_left, up),
+                Expanded(child: drum),
+                step(-1, Icons.chevron_right, down),
+              ],
+            ),
+          )
+        : Column(
+            children: [
+              step(1, Icons.expand_less, up),
+              Expanded(child: drum),
+              step(-1, Icons.expand_more, down),
+            ],
+          );
+
+    return Semantics(
+      container: true,
+      slider: true,
+      label: widget.semanticName,
+      value: _valueText(),
+      increasedValue: '${widget.clicks + 1}',
+      decreasedValue: '${widget.clicks - 1}',
+      onIncrease: () => _set(widget.clicks + 1),
+      onDecrease: () => _set(widget.clicks - 1),
+      child: body,
+    );
+  }
+}
+
+class _DrumPainter extends CustomPainter {
+  final MenzilColors colors;
+  final Axis axis;
+  final int clicks;
+  final double clickValue;
+  final String unitLabel;
+  final String positiveLetter, negativeLetter;
+  final double pixelsPerClick;
+
+  const _DrumPainter({
+    required this.colors,
+    required this.axis,
+    required this.clicks,
+    required this.clickValue,
+    required this.unitLabel,
+    required this.positiveLetter,
+    required this.negativeLetter,
+    required this.pixelsPerClick,
+  });
+
+  /// Clicks between labelled major ticks: one whole unit (1 mrad / 1 MOA).
+  int get _major => math.max(1, (1 / clickValue).round());
+
+  void _text(
+    Canvas canvas,
+    String s,
+    Offset center,
+    Color color,
+    double size, {
+    FontWeight weight = FontWeight.w600,
+  }) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: s,
+        style: TextStyle(color: color, fontSize: size, fontWeight: weight),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    tp.paint(canvas, center - Offset(tp.width / 2, tp.height / 2));
+  }
+
+  String _letter(int v) =>
+      v == 0 ? '' : (v > 0 ? positiveLetter : negativeLetter);
+
+  String _num(double v) =>
+      v == v.roundToDouble() ? v.toStringAsFixed(0) : v.toStringAsFixed(1);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rect = Offset.zero & size;
+    final rrect = RRect.fromRectAndRadius(rect, const Radius.circular(10));
+    canvas.drawRRect(
+      rrect,
+      Paint()
+        ..shader = LinearGradient(
+          begin: axis == Axis.horizontal
+              ? Alignment.centerLeft
+              : Alignment.topCenter,
+          end: axis == Axis.horizontal
+              ? Alignment.centerRight
+              : Alignment.bottomCenter,
+          colors: [colors.surface2, colors.line, colors.surface2],
+        ).createShader(rect),
+    );
+    canvas.save();
+    canvas.clipRRect(rrect);
+
+    final horizontal = axis == Axis.horizontal;
+    final length = horizontal ? size.width : size.height;
+    final across = horizontal ? size.height : size.width;
+    final mid = length / 2;
+    final tick = Paint()
+      ..color = colors.ink
+      ..strokeWidth = 1.2;
+    final reach = (mid / pixelsPerClick).ceil() + 1;
+    final label = colors.ink;
+    for (var v = clicks - reach; v <= clicks + reach; v++) {
+      // Values above the current setting sit before the pointer, so dragging
+      // toward the pointer increases the setting.
+      final p = mid - (v - clicks) * pixelsPerClick;
+      final major = v % _major == 0;
+      final len = major ? across * 0.30 : across * 0.16;
+      if (horizontal) {
+        canvas.drawLine(
+          Offset(p, size.height),
+          Offset(p, size.height - len),
+          tick,
+        );
+        if (major) {
+          final value = (v * clickValue).abs();
+          final letter = _letter(v);
+          _text(
+            canvas,
+            '${_num(value)}$letter',
+            Offset(p, size.height * 0.40),
+            label,
+            15,
+          );
+        }
+      } else {
+        canvas.drawLine(Offset(0, p), Offset(len, p), tick);
+        if (major) {
+          final value = (v * clickValue).abs();
+          final letter = _letter(v);
+          _text(
+            canvas,
+            '${_num(value)}$letter',
+            Offset(size.width * 0.62, p),
+            label,
+            13,
+          );
+        }
+      }
+    }
+    canvas.restore();
+
+    // Fixed pointer.
+    final pointer = Paint()..color = colors.danger;
+    final path = Path();
+    if (horizontal) {
+      path
+        ..moveTo(mid - 7, size.height)
+        ..lineTo(mid + 7, size.height)
+        ..lineTo(mid, size.height - 11)
+        ..close();
+      _text(
+        canvas,
+        '← $positiveLetter   $unitLabel   $negativeLetter →',
+        Offset(mid, 10),
+        colors.ink2,
+        10,
+      );
+    } else {
+      path
+        ..moveTo(0, mid - 7)
+        ..lineTo(0, mid + 7)
+        ..lineTo(11, mid)
+        ..close();
+      _text(canvas, '↑$positiveLetter', Offset(size.width / 2, 10), label, 11);
+      _text(
+        canvas,
+        '$negativeLetter↓',
+        Offset(size.width / 2, size.height - 10),
+        label,
+        11,
+      );
+    }
+    canvas.drawPath(path, pointer);
+  }
+
+  @override
+  bool shouldRepaint(covariant _DrumPainter old) =>
+      old.clicks != clicks ||
+      old.clickValue != clickValue ||
+      old.colors != colors ||
+      old.unitLabel != unitLabel;
+}
+
+/// Reticle with hold marks, range labels for each mark and the point of
+/// impact for the current turret setting. Marks are drawn in the scope's
+/// angular unit: mil-dots every 1 mrad, or hashes every 2 MOA.
+class ScopeReticlePainter extends CustomPainter {
+  final MenzilColors colors;
+  final double halfField;
+  final double markStep;
+  final String unitLabel;
+  final double? impactUp;
+  final double? impactRight;
+  final List<(double, String)> holdLabels;
+  final String headline;
+
+  const ScopeReticlePainter({
+    required this.colors,
+    required this.halfField,
+    required this.markStep,
+    required this.unitLabel,
+    required this.impactUp,
+    required this.impactRight,
+    required this.holdLabels,
+    required this.headline,
+  });
+
+  void _text(
+    Canvas canvas,
+    String s,
+    Offset at,
+    Color color,
+    double size, {
+    bool alignLeft = false,
+    FontWeight weight = FontWeight.w600,
+  }) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: s,
+        style: TextStyle(color: color, fontSize: size, fontWeight: weight),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    final dx = alignLeft ? 0.0 : tp.width / 2;
+    tp.paint(canvas, at - Offset(dx, tp.height / 2));
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.shortestSide / 2 - 2;
+    final scale = radius / halfField;
+    final ink = colors.scopeLine;
+
+    canvas.drawCircle(center, radius, Paint()..color = colors.scopeBg);
+    canvas.save();
+    canvas.clipPath(
+      Path()..addOval(Rect.fromCircle(center: center, radius: radius)),
+    );
+
+    final fine = Paint()
+      ..color = ink
+      ..strokeWidth = 1.4;
+    final post = Paint()
+      ..color = ink
+      ..strokeWidth = 7;
+    final postStart = radius * 0.82;
+    // Fine crosshair.
+    canvas.drawLine(
+      Offset(center.dx - postStart, center.dy),
+      Offset(center.dx + postStart, center.dy),
+      fine,
+    );
+    canvas.drawLine(
+      Offset(center.dx, center.dy - postStart),
+      Offset(center.dx, center.dy + postStart),
+      fine,
+    );
+    // Thick posts.
+    const directions = [
+      Offset(1, 0),
+      Offset(-1, 0),
+      Offset(0, 1),
+      Offset(0, -1),
+    ];
+    for (final d in directions) {
+      canvas.drawLine(center + d * postStart, center + d * radius, post);
+    }
+
+    // Marks.
+    final steps = (halfField * 0.8 / markStep).floor();
+    final dot = Paint()..color = ink;
+    final dotR = math.max(2.5, size.shortestSide * 0.011);
+    for (var i = -steps; i <= steps; i++) {
+      if (i == 0) continue;
+      final p = i * markStep * scale;
+      if (unitLabel == 'mrad') {
+        canvas.drawCircle(center + Offset(p, 0), dotR, dot);
+        canvas.drawCircle(center + Offset(0, p), dotR, dot);
+      } else {
+        final long = i % 5 == 0 ? 9.0 : 5.0;
+        canvas.drawLine(
+          center + Offset(p, -long),
+          center + Offset(p, long),
+          fine,
+        );
+        canvas.drawLine(
+          center + Offset(-long, p),
+          center + Offset(long, p),
+          fine,
+        );
+      }
+    }
+    canvas.drawCircle(center, 2.5, Paint()..color = colors.ok);
+
+    // Range labels next to each hold mark (positive mark = below centre).
+    for (final (mark, label) in holdLabels) {
+      final y = center.dy + mark * scale;
+      _text(
+        canvas,
+        label,
+        Offset(center.dx + dotR + 6, y),
+        colors.danger,
+        math.max(10.0, size.shortestSide * 0.042),
+        alignLeft: true,
+        weight: FontWeight.w700,
+      );
+    }
+
+    // Headline and scale legend.
+    _text(
+      canvas,
+      headline,
+      Offset(center.dx - radius * 0.48, center.dy + radius * 0.36),
+      colors.cyanInk,
+      math.max(11.0, size.shortestSide * 0.045),
+    );
+    _text(
+      canvas,
+      'aralık: ${markStep.toStringAsFixed(0)} $unitLabel',
+      Offset(center.dx - radius * 0.48, center.dy + radius * 0.50),
+      colors.cyanInk,
+      math.max(10.0, size.shortestSide * 0.036),
+    );
+
+    // Point of impact.
+    final up = impactUp;
+    final right = impactRight;
+    if (up != null && right != null) {
+      var poi = center + Offset(right * scale, -up * scale);
+      final offset = poi - center;
+      final limit = radius - 14;
+      final outside = offset.distance > limit;
+      if (outside) {
+        poi = center + offset / offset.distance * limit;
+      }
+      final ring = Paint()
+        ..color = colors.scopeLine
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2;
+      if (!outside) {
+        canvas.drawCircle(poi, 11, Paint()..color = colors.amber);
+        canvas.drawCircle(poi, 11, ring);
+        canvas.drawCircle(poi, 3.5, ring);
+      } else {
+        // Off-field: an arrow at the edge pointing toward the impact.
+        final dir = offset / offset.distance;
+        final normal = Offset(-dir.dy, dir.dx);
+        final tip = poi + dir * 10;
+        final arrow = Path()
+          ..moveTo(tip.dx, tip.dy)
+          ..lineTo((poi + normal * 9).dx, (poi + normal * 9).dy)
+          ..lineTo((poi - normal * 9).dx, (poi - normal * 9).dy)
+          ..close();
+        canvas.drawPath(arrow, Paint()..color = colors.amber);
+        canvas.drawPath(arrow, ring);
+      }
+    }
+    canvas.restore();
+    canvas.drawCircle(
+      center,
+      radius,
+      Paint()
+        ..color = colors.ink
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant ScopeReticlePainter old) =>
+      old.impactUp != impactUp ||
+      old.impactRight != impactRight ||
+      old.headline != headline ||
+      old.colors != colors ||
+      old.unitLabel != unitLabel ||
+      old.halfField != halfField ||
+      !_sameLabels(old.holdLabels, holdLabels);
+
+  static bool _sameLabels(List<(double, String)> a, List<(double, String)> b) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
+  }
+}
