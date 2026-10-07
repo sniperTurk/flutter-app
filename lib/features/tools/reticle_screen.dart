@@ -123,12 +123,7 @@ class _ReticleState extends State<ReticleScreen> {
           ),
           const SizedBox(height: MenzilSpace.sm),
           if (!_ffp) ...[
-            _field(
-              _mag,
-              'Şu anki büyütme',
-              'x',
-              const Key('reticle-mag'),
-            ),
+            _field(_mag, 'Şu anki büyütme', 'x', const Key('reticle-mag')),
             const SizedBox(height: MenzilSpace.sm),
             _field(
               _calMag,
@@ -182,7 +177,11 @@ class _ReticleState extends State<ReticleScreen> {
                   'cm',
                 ),
                 if (targetMil != null) ...[
-                  MenzilMetric('Hedef (gerçek)', ToolFormat.dec(targetMil, 2), 'mil'),
+                  MenzilMetric(
+                    'Hedef (gerçek)',
+                    ToolFormat.dec(targetMil, 2),
+                    'mil',
+                  ),
                   MenzilMetric(
                     'Hedef (retikülde)',
                     ToolFormat.dec(targetReticleMil!, 2),
