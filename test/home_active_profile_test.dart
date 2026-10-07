@@ -143,7 +143,11 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(activeStore.value, isNull);
-    expect(find.text('Önce bir tüfek profili oluştur.'), findsOneWidget);
+    // Shown in the Atış workspace, which is offstage at start (Profil).
+    expect(
+      find.text('Önce bir tüfek profili oluştur.', skipOffstage: false),
+      findsOneWidget,
+    );
   });
 
   testWidgets('failed stale active-id repair does not block loaded profiles', (
