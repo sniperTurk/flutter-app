@@ -89,6 +89,9 @@ class _MapDistanceState extends State<MapDistanceScreen> {
     });
   }
 
+  /// Puts the active pin where the centre crosshair is.
+  void _placeAtCentre() => _onTap(_map.camera.center);
+
   void _onTap(LatLng p) {
     setState(() {
       if (_pick == _Pick.shooter) {
@@ -231,7 +234,9 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                     TileLayer(
                       urlTemplate: mapImageryUrl,
                       userAgentPackageName: 'com.sniperturk.sniperTurk',
-                      maxNativeZoom: 19,
+                      // Esri has no imagery beyond about zoom 17 in many rural areas; deeper
+                      // zoom levels stretch the zoom-17 tiles instead of showing gaps.
+                      maxNativeZoom: 17,
                       tileProvider: widget.tileProvider,
                     ),
                     if (_shooter != null && _target != null)
@@ -249,6 +254,19 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                       source: Text('Esri, Maxar, Earthstar Geographics'),
                     ),
                   ],
+                ),
+                IgnorePointer(
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      key: const Key('map-crosshair'),
+                      size: 44,
+                      color: c.amber,
+                      shadows: const [
+                        Shadow(blurRadius: 3, color: Colors.black87),
+                      ],
+                    ),
+                  ),
                 ),
                 Positioned(
                   right: MenzilSpace.md,
@@ -292,12 +310,23 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                     onSelected: (v) => setState(() => _pick = v),
                   ),
                   const SizedBox(height: MenzilSpace.sm),
+                  FilledButton.icon(
+                    key: const Key('map-place'),
+                    onPressed: _placeAtCentre,
+                    icon: const Icon(Icons.add_location_alt_outlined),
+                    label: Text(
+                      _pick == _Pick.shooter
+                          ? 'Nişancıyı artıya koy'
+                          : 'Hedefi artıya koy',
+                    ),
+                  ),
+                  const SizedBox(height: MenzilSpace.sm),
                   Text(
                     _shooter == null
-                        ? 'Haritaya dokunarak nişancı konumunu seçin.'
+                        ? 'Haritayı kaydırıp yakınlaştırın, artıyı konumun üstüne getirip düğmeye basın (veya haritaya dokunun).'
                         : _target == null
-                        ? 'Şimdi haritaya dokunarak hedef konumunu seçin.'
-                        : 'Konumu değiştirmek için üstten seçip haritaya dokunun. '
+                        ? 'Şimdi artıyı hedefin üstüne getirip düğmeye basın (veya haritaya dokunun).'
+                        : 'Bir konumu değiştirmek için üstten seçip artıyla yeniden koyun. '
                               'Mesafe, iki nokta arası düz çizgidir; arazi eğimi hesaba katılmaz.',
                     style: TextStyle(color: c.ink2, fontSize: 13),
                   ),

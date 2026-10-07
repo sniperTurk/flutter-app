@@ -46,6 +46,27 @@ void main() {
     expect(find.textContaining(' m'), findsWidgets);
   });
 
+  testWidgets('the crosshair button places the active pin at the centre', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      host(
+        MapDistanceScreen(tileProvider: _NoTiles()),
+        services: testServices(
+          location: TestLocation(const LocationFix(38.0752, 26.9366)),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.byKey(const Key('map-crosshair')), findsOneWidget);
+    expect(find.textContaining('Mesafe: —'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('map-place')));
+    await tester.pump();
+    expect(find.textContaining('Mesafe: —'), findsNothing);
+  });
+
   testWidgets('denied location tells the user to tap the map', (tester) async {
     await tester.pumpWidget(
       host(
