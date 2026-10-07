@@ -715,7 +715,9 @@ class MenzilInfoButton extends StatelessWidget {
       tooltip: 'Bilgi: $title',
       constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
       padding: EdgeInsets.zero,
-      visualDensity: VisualDensity.compact,
+      // Not compact: compact density shrinks the 44 pt minimum to 40 pt and
+      // fails Apple's tap-target guideline (found in the 2026-10-08 audit).
+      visualDensity: VisualDensity.standard,
       icon: Icon(Icons.info_outline, size: 18, color: c.ink2),
       onPressed: () => showDialog<void>(
         context: context,

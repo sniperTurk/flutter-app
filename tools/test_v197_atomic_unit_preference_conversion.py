@@ -10,9 +10,12 @@ class V197AtomicUnitPreferenceConversion(unittest.TestCase):
 
     def test_all_source_values_are_parsed_before_first_controller_write(self):
         body=self._conversion_body()
-        first_write=body.index('velocity.text =')
+        # V381: Namlu çıkış hızı is fps in every unit system (owner rule), so
+        # the velocity field is no longer converted; zero is the first write.
+        self.assertNotIn('velocity.text =', body)
+        first_write=body.index('zero.text =')
         for marker in (
-            'final velocityMps = value(velocity);', 'final zeroM = value(zero);',
+            'final zeroM = value(zero);',
             'final sightMm = value(sight);', 'final windMps = value(wind);',
             'final temperatureC = value(temperature);', 'final pressureHpa = value(pressure);',
             'final altitudeM = value(altitude);', 'final metricRanges = DopeRanges.parse(ranges.text);'):
