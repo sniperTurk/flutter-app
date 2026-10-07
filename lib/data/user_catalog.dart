@@ -143,7 +143,8 @@ class UserCatalog {
           }
           // A BC is only meaningful together with its drag model. Without an
           // explicit G1/G7 model the value is not attached to the record.
-          final bcModel = custom ? _ballisticModel(e['bcModel']) : null;
+          // V378: standard (profile-typed) ammunition carries its model too.
+          final bcModel = _ballisticModel(e['bcModel']);
           final bc = bcModel == null ? null : _positive(e['bc']);
           ammunition.add(
             Ammunition(

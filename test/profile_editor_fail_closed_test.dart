@@ -113,6 +113,14 @@ void main() {
         reason: 'PCP rifles also need the regulator pressure',
       );
       await enterRifleField(tester, 'rifle-regulator', '120');
+      expect(
+        _updateAction(tester),
+        isNull,
+        reason: 'the old catalog ammo has no BC; it must be entered',
+      );
+      expect(text('ammo-grain'), '51');
+      await enterRifleField(tester, 'ammo-bc', '0,08');
+      await chooseInSelect(tester, 'ammo-bc-model', 'G1');
       expect(_updateAction(tester), isNotNull);
     },
   );
@@ -123,6 +131,8 @@ void main() {
     await _pumpAndOpen(tester, _valid);
     await enterRifleField(tester, 'rifle-barrel', '600');
     await enterRifleField(tester, 'rifle-regulator', '120');
+    await enterRifleField(tester, 'ammo-bc', '0,08');
+    await chooseInSelect(tester, 'ammo-bc-model', 'G1');
     await chooseTwistDirection(tester, 'Sağ');
     await enterRifleField(tester, 'rifle-twist-rate', '200');
     expect(find.text('3–80 arasında bir değer girin.'), findsOneWidget);
@@ -140,9 +150,11 @@ void main() {
     await enterRifleField(tester, 'rifle-caliber', '50');
     expect(find.text('2–20 arasında bir değer girin.'), findsOneWidget);
     expect(_updateAction(tester), isNull);
-    // An invalid caliber cleared the ammunition; when editing it is never
-    // silently picked again, so Güncelle stays off until the user chooses.
     await enterRifleField(tester, 'rifle-caliber', '6,35');
+    expect(_updateAction(tester), isNotNull);
+    // A BC outside the plausible range is rejected.
+    await enterRifleField(tester, 'ammo-bc', '3');
+    expect(find.text('0.005–1.5 arasında bir değer girin.'), findsOneWidget);
     expect(_updateAction(tester), isNull);
   });
 }

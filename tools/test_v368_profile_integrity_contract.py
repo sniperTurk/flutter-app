@@ -16,14 +16,16 @@ class V368ProfileIntegrity(unittest.TestCase):
         self.assertNotIn('rifle ??=', t)
         # V376: the scope is typed in too; nothing is preselected.
         self.assertNotIn('scope ??=', t)
-        self.assertIn('if (!_isEdit && !ammos.contains(ammo))', t)
+        # V378: ammunition is typed in; nothing is preselected.
+        self.assertNotIn('ammo ??=', t)
+        self.assertNotIn('ammos.first', t)
         self.assertNotIn('\n    rifle ??= rifles.first;', t)
         self.assertNotIn('\n    scope ??= CatalogRepository.scopes.first;', t)
 
     def test_save_requires_explicit_rifle_ammo_scope(self):
         t = read('lib/features/profiles/profiles_screen.dart')
         # V375: the typed rifle must be complete and valid (incl. twist).
-        self.assertIn('!_saving && _rifleValid && _scopeValid && ammo != null && _validSight', t)
+        self.assertIn('!_saving && _rifleValid && _ammoValid && _scopeValid && _validSight', t)
 
     def test_no_fabricated_pressure_for_existing_profile(self):
         t = read('lib/features/profiles/profiles_screen.dart')
