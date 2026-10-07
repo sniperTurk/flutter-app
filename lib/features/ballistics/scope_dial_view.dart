@@ -236,10 +236,7 @@ class ScopeDialView extends StatelessWidget {
                                   .toInt(),
                             );
                             onWindageChanged(
-                              ScopeDialMath.clicksFor(
-                                    requiredRight,
-                                    clickValue,
-                                  )
+                              ScopeDialMath.clicksFor(requiredRight, clickValue)
                                   .clamp(-maxWindageClicks, maxWindageClicks)
                                   .toInt(),
                             );

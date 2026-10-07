@@ -118,6 +118,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Drag-mode extras of the last solve (empty in vacuum mode).
   List<DragWarning> _warnings = [];
   List<double> _unreachableM = [];
+
   /// Turret clicks dialled on the interactive scope (U/R positive). Kept
   /// with the workspace so they survive tab switches; a new profile starts
   /// a fresh workspace with both turrets at zero.
@@ -640,9 +641,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _holdSamples = points;
       _holdSamplesBasis = basis;
     }
-    return [
-      for (final p in _holdSamples!) ScopeDialMath.sampleOf(p, unit),
-    ];
+    return [for (final p in _holdSamples!) ScopeDialMath.sampleOf(p, unit)];
   }
 
   /// Interactive scope: turrets change the dialled clicks and the reticle
@@ -673,7 +672,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         : inUnit(shot.windMrad);
 
     final windLabels = <(double, String)>[];
-    final mpsPerMil = basis != null && basis.drag ? _evalShot().mpsPerMil : null;
+    final mpsPerMil = basis != null && basis.drag
+        ? _evalShot().mpsPerMil
+        : null;
     if (mpsPerMil != null) {
       final step = unit == AngularUnit.moa ? 4.0 : 1.0;
       for (var i = 1; i <= 4; i++) {
