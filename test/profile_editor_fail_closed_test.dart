@@ -180,7 +180,7 @@ void main() {
       'Mercek çapı',
       'Dürbün birimi',
       'Klik değeri',
-      'Dürbün yüksekliği (sight height)',
+      'Sight height',
       'Namlu çıkış hızı',
       'Sıfırlama mesafesi',
     ]) {

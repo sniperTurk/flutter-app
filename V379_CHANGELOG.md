@@ -42,3 +42,8 @@ Kaynak: `main` @ `1b8c125`. Hesap, solver ve kapılar değişmedi.
 ## Ek 4 (sahip, 23:23)
 - Yeni profil adı tekrarlanmaz: ad yazılmazsa "Yeni Profil", sonra
   "Yeni Profil 2", "Yeni Profil 3"… (`defaultProfileName`).
+
+## Ek 5 (sahip, 23:24)
+- "Dürbün yüksekliği" yerine **"Sight height"** (alan, özet, eksik listesi,
+  "nasıl ölçülür?" bağlantısı ve yardım başlığı). ⓘ açıklaması ne olduğunu ve
+  hesaba etkisini anlatıyor.

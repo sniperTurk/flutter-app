@@ -63,9 +63,12 @@ abstract final class ProfileFieldInfo {
       'dürbünlerde genelde 0,1; MOA dürbünlerde genelde 1/4 = 0,25. Kulenin '
       'üstünde yazar.';
   static const sightHeight =
-      'Dürbünün merkez ekseni ile namlunun merkez ekseni arasındaki dikey '
-      'mesafe, milimetre olarak. Ölçüm için altındaki "nasıl ölçülür" '
-      'bağlantısına bakın.';
+      'Sight height: dürbünün merkez ekseni ile namlunun merkez ekseni '
+      'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
+      'aşağıdan çıkar ve önce yükselerek nişan çizgisini keser; bu yüzden '
+      'yakın ve uzak mesafedeki düşüş hesabını doğrudan etkiler. Örnek: '
+      'havalı tüfekte 45–70 mm. Ölçmek için altındaki "Sight height nasıl '
+      'ölçülür?" bağlantısına bakın.';
 
   // Atış değerleri
   static const velocity =

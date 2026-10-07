@@ -571,7 +571,7 @@ class _ActiveProfileDetails extends StatelessWidget {
               units.distanceUnit,
             ),
             MenzilMetric(
-              'Dürbün yüksekliği',
+              'Sight height',
               profile.sightHeightMm.toStringAsFixed(1),
               'mm',
             ),
@@ -880,7 +880,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_maxMagError == null, 'Maks. büyütme'),
       (_objectiveError == null, 'Mercek çapı'),
       (_clickError == null, 'Klik değeri'),
-      (_validSight, 'Dürbün yüksekliği'),
+      (_validSight, 'Sight height'),
     ]);
     section('Mühimmat', [
       (_ammoBrandError == null, 'Marka'),
@@ -1567,7 +1567,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   key: const Key('scope-sight-height'),
                   info: ProfileFieldInfo.sightHeight,
                   controller: sight,
-                  label: 'Dürbün yüksekliği (sight height)',
+                  label: 'Sight height',
                   unit: 'mm',
                   onChanged: (_) => setState(() {}),
                   helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
@@ -1595,7 +1595,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       TextButton.icon(
                         onPressed: _showSightHelp,
                         icon: const Icon(Icons.info_outline, size: 18),
-                        label: const Text('Dürbün yüksekliği nasıl ölçülür?'),
+                        label: const Text('Sight height nasıl ölçülür?'),
                       ),
                     ],
                   ),
@@ -1727,7 +1727,7 @@ class _SightHeightHelpDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     return AlertDialog(
-      title: const Text('Dürbün yüksekliği nasıl ölçülür?'),
+      title: const Text('Sight height nasıl ölçülür?'),
       content: SizedBox(
         width: 420,
         child: SingleChildScrollView(
