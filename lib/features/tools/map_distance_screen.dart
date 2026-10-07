@@ -103,18 +103,27 @@ class _MapDistanceState extends State<MapDistanceScreen> {
   double? get _distanceM {
     final s = _shooter, t = _target;
     if (s == null || t == null) return null;
-    return FieldCalc.haversineM(s.latitude, s.longitude, t.latitude, t.longitude);
+    return FieldCalc.haversineM(
+      s.latitude,
+      s.longitude,
+      t.latitude,
+      t.longitude,
+    );
   }
 
   double? get _bearing {
     final s = _shooter, t = _target;
     if (s == null || t == null) return null;
-    return FieldCalc.bearingDeg(s.latitude, s.longitude, t.latitude, t.longitude);
+    return FieldCalc.bearingDeg(
+      s.latitude,
+      s.longitude,
+      t.latitude,
+      t.longitude,
+    );
   }
 
   static const _names = ['K', 'KD', 'D', 'GD', 'G', 'GB', 'B', 'KB'];
-  static String _dir(double deg) =>
-      _names[((deg % 360) / 45).round() % 8];
+  static String _dir(double deg) => _names[((deg % 360) / 45).round() % 8];
 
   @override
   Widget build(BuildContext context) {

@@ -62,16 +62,12 @@ void main() {
   testWidgets('"Bu mesafeyi kullan" only when asked to return a distance', (
     tester,
   ) async {
-    await tester.pumpWidget(
-      host(MapDistanceScreen(tileProvider: _NoTiles())),
-    );
+    await tester.pumpWidget(host(MapDistanceScreen(tileProvider: _NoTiles())));
     await tester.pump();
     expect(find.byKey(const Key('map-use')), findsNothing);
 
     await tester.pumpWidget(
-      host(
-        MapDistanceScreen(returnDistance: true, tileProvider: _NoTiles()),
-      ),
+      host(MapDistanceScreen(returnDistance: true, tileProvider: _NoTiles())),
     );
     await tester.pump();
     expect(find.byKey(const Key('map-use')), findsOneWidget);
