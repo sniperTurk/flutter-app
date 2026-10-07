@@ -196,11 +196,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     ranges = TextEditingController(
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
+    _loadUnitPreference();
     // Solve the profile as soon as the workspace opens, so the scope's
     // reticle, hold labels and point of impact work without a manual
-    // "Hesapla" first. Runs after the unit preference has been applied to
-    // the input fields; failures stay silent (the shot view says why).
-    _loadUnitPreference().whenComplete(() {
+    // "Hesapla" first. The fields are still SI here; a later switch to
+    // imperial only converts the fields, the stored basis stays SI.
+    // Failures stay silent (the shot view says why).
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted && widget.profile != null && _basis == null) {
         _silentErrors = true;
         try {
