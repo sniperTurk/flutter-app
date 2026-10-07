@@ -19,8 +19,10 @@ class DropdownValuePolicyTest(unittest.TestCase):
 
     def test_dependent_dropdowns_are_keyed_because_initial_value_is_not_live(self):
         profiles = (ROOT / 'lib/features/profiles/profiles_screen.dart').read_text(encoding='utf-8')
-        self.assertIn("key: ValueKey('profile-rifle-${platform.name}')", profiles)
-        self.assertIn("key: ValueKey('profile-ammo-${rifle?.id}')", profiles)
+        # V375: the rifle is typed in (no rifle dropdown). The ammunition list
+        # depends on the typed caliber and the platform, so it is keyed on both.
+        self.assertNotIn("MenzilSelect<Rifle>(", profiles)
+        self.assertIn("'profile-ammo-${platform.name}-$typedCaliber'", profiles)
         home = (ROOT / 'lib/features/home/home_screen.dart').read_text(encoding='utf-8')
         # Keyed on the active id AND a rollback epoch: a failed selection
         # must remount the field so it shows the still-active profile.

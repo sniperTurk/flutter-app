@@ -6,6 +6,9 @@ enum AngularUnit { mrad, moa }
 
 enum BallisticModel { g1, g7 }
 
+/// Rifling twist direction ("namlu yiv yönü").
+enum TwistDirection { right, left }
+
 class Rifle {
   final String id, brand, model;
   final WeaponPlatform platform;
@@ -19,6 +22,12 @@ class Rifle {
       weightKg,
       plenumCc;
   final String? barrelType, rail, moderatorThread, sourceName, sourceDocument;
+
+  /// Rifling twist, entered by the user: direction and inches of barrel per
+  /// full turn (1:N"). Null means not entered. Informational for now; the
+  /// point-mass solver does not model spin drift.
+  final TwistDirection? twistDirection;
+  final double? twistRateIn;
 
   /// True for records the user typed in (manual catalog). Such records are
   /// never manufacturer-verified and must be labelled as personal everywhere.
@@ -40,6 +49,8 @@ class Rifle {
     this.moderatorThread,
     this.sourceName,
     this.sourceDocument,
+    this.twistDirection,
+    this.twistRateIn,
     this.userEntered = false,
   });
   String get displayName =>

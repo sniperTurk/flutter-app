@@ -134,7 +134,11 @@ class ManualCatalogStore {
     if (clickUnit != null && clickUnit != 'mrad' && clickUnit != 'moa') {
       throw const FormatException('Invalid click unit');
     }
-    for (final field in ['caliberMm', 'grain', 'diameterMm', 'lengthMm', 'bc', 'objectiveMm', 'click']) {
+    final twist = entry['twistDirection'];
+    if (twist != null && twist != 'right' && twist != 'left') {
+      throw const FormatException('Invalid twist direction');
+    }
+    for (final field in ['caliberMm', 'grain', 'diameterMm', 'lengthMm', 'bc', 'objectiveMm', 'click', 'twistRateIn']) {
       final value = entry[field];
       if (value != null && (value is! num || !value.isFinite || value <= 0)) {
         throw FormatException('Invalid numeric field: $field');
