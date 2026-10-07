@@ -601,11 +601,7 @@ class _ActiveProfileDetails extends StatelessWidget {
                 'mm',
               ),
             if (rifle?.regulatorBar != null)
-              MenzilMetric(
-                'Regülatör',
-                _trimNum(rifle!.regulatorBar!),
-                'bar',
-              ),
+              MenzilMetric('Regülatör', _trimNum(rifle!.regulatorBar!), 'bar'),
             if (scope?.minMagnification != null &&
                 scope?.maxMagnification != null)
               MenzilMetric(
@@ -1015,7 +1011,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'focal': firstFocalPlane! ? 'ffp' : 'sfp',
       'minMag': lo,
       'maxMag': hi,
-      'magnification': lo == hi ? '${_trimNum(lo)}x' : '${_trimNum(lo)}-${_trimNum(hi)}x',
+      'magnification': lo == hi
+          ? '${_trimNum(lo)}x'
+          : '${_trimNum(lo)}-${_trimNum(hi)}x',
       'sourceName': userCatalogSourceName,
     };
   }
