@@ -35,6 +35,6 @@ Kaynak: `main` @ `1b8c125`. Hesap, solver ve kapılar değişmedi.
 ## Ek 3 (sahip, 23:18)
 - Namlu uzunluğu **cm** olarak girilir ve özette cm gösterilir (mm saklanır).
 - Mühimmat tipi: **Slug / Pellet** ("Diabolo" kaldırıldı).
-- **Atış değerleri** bölümü Tüfek'in hemen altında.
+- **Atış değerleri** (namlu çıkış hızı, sıfırlama) Tüfek kartının sonunda; ayrı bölüm yok.
 - "Çıkış hızı" → **"Namlu çıkış hızı"**.
 - (Atış basıncı → regülatör basıncı: Ek 2'de yapıldı.)

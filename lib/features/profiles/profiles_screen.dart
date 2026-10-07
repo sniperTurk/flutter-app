@@ -850,8 +850,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (twistDirection != null, 'Yiv yönü'),
       (_twistError == null, 'Yiv oranı'),
       (_regulatorError == null, 'Regülatör basıncı'),
-    ]);
-    section('Atış değerleri', [
       (_velocityError == null, 'Namlu çıkış hızı'),
       (_zeroError == null, 'Sıfırlama mesafesi'),
     ]);
@@ -1421,25 +1419,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       message: 'Namlu yiv yönünü seçin (Sağ / Sol).',
                     ),
                   ),
-              ],
-            ),
-          ),
-          const MenzilSectionHeader(
-            'Atış değerleri',
-            padding: EdgeInsets.only(
-              top: MenzilSpace.xxs,
-              bottom: MenzilSpace.sm,
-            ),
-          ),
-          MenzilCard(
-            padding: const EdgeInsets.fromLTRB(
-              MenzilSpace.lg,
-              MenzilSpace.lg,
-              MenzilSpace.lg,
-              MenzilSpace.xxs,
-            ),
-            child: MenzilFieldGrid(
-              children: [
+                // Atış değerleri sit at the end of the Tüfek card.
                 MenzilInput(
                   key: const Key('profile-velocity-fps'),
                   controller: velocity,

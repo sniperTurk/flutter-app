@@ -337,9 +337,10 @@ void main() {
       isNull,
       reason: 'new profiles start empty: velocity, zero, sight are required',
     );
+    // The label also says "Namlu çıkış hızı"; check the missing-field hint.
     expect(
-      find.textContaining('Atış değerleri: Namlu çıkış hızı'),
-      findsOneWidget,
+      tester.widget<Text>(find.byKey(const Key('profile-missing'))).data,
+      contains('Namlu çıkış hızı'),
     );
     await fillShotValues(tester);
     expect(
