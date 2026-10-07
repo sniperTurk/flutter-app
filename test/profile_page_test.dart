@@ -86,8 +86,14 @@ void main() {
     final note = find.textContaining('Katalog değerleri bilgi amaçlıdır');
     await tester.ensureVisible(note);
     expect(note, findsOneWidget);
-    expect(find.textContaining('BC ve sürükleme modeli kullanılmaz'), findsNothing);
-    expect(find.textContaining('sürüklenme çözücüsünü kullanır'), findsOneWidget);
+    expect(
+      find.textContaining('BC ve sürükleme modeli kullanılmaz'),
+      findsNothing,
+    );
+    expect(
+      find.textContaining('sürüklenme çözücüsünü kullanır'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('continue button calls back; absent outside the shell', (
