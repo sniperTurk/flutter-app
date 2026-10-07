@@ -89,6 +89,31 @@ class _MapDistanceState extends State<MapDistanceScreen> {
     });
   }
 
+  void _reset() => setState(() {
+    _shooter = null;
+    _target = null;
+    _pick = _Pick.shooter;
+    _message = null;
+  });
+
+  void _swap() => setState(() {
+    final a = _shooter;
+    _shooter = _target;
+    _target = a;
+  });
+
+  void _fit() {
+    final s = _shooter, t = _target;
+    if (s == null || t == null) return;
+    _map.fitCamera(
+      CameraFit.coordinates(
+        coordinates: [s, t],
+        padding: const EdgeInsets.all(72),
+        maxZoom: 18,
+      ),
+    );
+  }
+
   /// Puts the active pin where the centre crosshair is.
   void _placeAtCentre() => _onTap(_map.camera.center);
 
@@ -153,20 +178,83 @@ class _MapDistanceState extends State<MapDistanceScreen> {
       ),
     );
 
+    Widget pin(IconData icon, Color color, bool selected, VoidCallback onTap) =>
+        GestureDetector(
+          onTap: onTap,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: selected ? Colors.white : Colors.black54,
+                    width: selected ? 3 : 1.5,
+                  ),
+                ),
+                child: Icon(icon, color: Colors.white, size: 22),
+              ),
+              Container(width: 3, height: 12, color: color),
+            ],
+          ),
+        );
+
+    final s = _shooter, t = _target;
     final marker = <Marker>[
-      if (_shooter != null)
+      if (s != null && t != null && dist != null)
         Marker(
-          point: _shooter!,
-          width: 44,
-          height: 44,
-          child: Icon(Icons.person_pin_circle, size: 40, color: c.amber),
+          point: LatLng(
+            (s.latitude + t.latitude) / 2,
+            (s.longitude + t.longitude) / 2,
+          ),
+          width: 96,
+          height: 30,
+          child: Container(
+            key: const Key('map-distance-label'),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: c.surface,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: c.amber, width: 1.5),
+            ),
+            child: Text(
+              '${ToolFormat.dec(dist, 0)} m',
+              style: TextStyle(
+                color: c.ink,
+                fontWeight: FontWeight.w800,
+                fontSize: 14,
+              ),
+            ),
+          ),
         ),
-      if (_target != null)
+      if (s != null)
         Marker(
-          point: _target!,
+          point: s,
           width: 44,
-          height: 44,
-          child: Icon(Icons.gps_fixed, size: 36, color: c.danger),
+          height: 52,
+          alignment: Alignment.bottomCenter,
+          child: pin(
+            Icons.person,
+            c.amber,
+            _pick == _Pick.shooter,
+            () => setState(() => _pick = _Pick.shooter),
+          ),
+        ),
+      if (t != null)
+        Marker(
+          point: t,
+          width: 44,
+          height: 52,
+          alignment: Alignment.bottomCenter,
+          child: pin(
+            Icons.gps_fixed,
+            c.danger,
+            _pick == _Pick.target,
+            () => setState(() => _pick = _Pick.target),
+          ),
         ),
     ];
 
@@ -194,7 +282,9 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                     ),
                     info(
                       'Mesafe',
-                      dist == null ? '—' : '${ToolFormat.dec(dist, 0)} m',
+                      dist == null
+                          ? '—'
+                          : '${ToolFormat.dec(dist, 0)} m (${ToolFormat.dec(dist / 0.9144, 0)} yd)',
                     ),
                   ],
                 ),
@@ -227,7 +317,7 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                     initialCenter: _turkey,
                     initialZoom: 6,
                     minZoom: 2,
-                    maxZoom: 20,
+                    maxZoom: 18,
                     onTap: (_, p) => _onTap(p),
                   ),
                   children: [
@@ -271,17 +361,53 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                 Positioned(
                   right: MenzilSpace.md,
                   bottom: MenzilSpace.md,
-                  child: FloatingActionButton.small(
-                    key: const Key('map-locate'),
-                    tooltip: 'Konumumu nişancı yap',
-                    onPressed: _locating ? null : _locate,
-                    child: _locating
-                        ? const SizedBox(
-                            width: 18,
-                            height: 18,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : const Icon(Icons.my_location),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (_shooter != null || _target != null) ...[
+                        FloatingActionButton.small(
+                          key: const Key('map-clear'),
+                          heroTag: 'map-clear',
+                          tooltip: 'Konumları sıfırla',
+                          onPressed: _reset,
+                          child: const Icon(Icons.delete_outline),
+                        ),
+                        const SizedBox(height: MenzilSpace.sm),
+                      ],
+                      if (_shooter != null && _target != null) ...[
+                        FloatingActionButton.small(
+                          key: const Key('map-swap'),
+                          heroTag: 'map-swap',
+                          tooltip: 'Nişancı ve hedefi değiştir',
+                          onPressed: _swap,
+                          child: const Icon(Icons.swap_vert),
+                        ),
+                        const SizedBox(height: MenzilSpace.sm),
+                        FloatingActionButton.small(
+                          key: const Key('map-fit'),
+                          heroTag: 'map-fit',
+                          tooltip: 'İkisini de göster',
+                          onPressed: _fit,
+                          child: const Icon(Icons.zoom_out_map),
+                        ),
+                        const SizedBox(height: MenzilSpace.sm),
+                      ],
+                      FloatingActionButton.small(
+                        key: const Key('map-locate'),
+                        heroTag: 'map-locate',
+                        tooltip: 'Konumumu nişancı yap',
+                        onPressed: _locating ? null : _locate,
+                        child: _locating
+                            ? const SizedBox(
+                                width: 18,
+                                height: 18,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : const Icon(Icons.my_location),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -296,15 +422,21 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  if (dist != null && dist > 3000)
+                    const MenzilNotice(
+                      tone: MenzilNoticeTone.warning,
+                      message:
+                          'Uygulama atış hesabını en fazla 3000 m için yapar; bu mesafe sınırı aşıyor.',
+                    ),
                   if (_message != null)
                     MenzilNotice(
                       tone: MenzilNoticeTone.warning,
                       message: _message!,
                     ),
                   MenzilChipGroup<_Pick>(
-                    options: const [
-                      (_Pick.shooter, 'Nişancı konumu'),
-                      (_Pick.target, 'Hedef konumu'),
+                    options: [
+                      (_Pick.shooter, _shooter == null ? 'Nişancı konumu' : '✓ Nişancı konumu'),
+                      (_Pick.target, _target == null ? 'Hedef konumu' : '✓ Hedef konumu'),
                     ],
                     selected: _pick,
                     onSelected: (v) => setState(() => _pick = v),
