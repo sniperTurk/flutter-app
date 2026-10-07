@@ -1618,7 +1618,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               ],
             ),
           ),
-
         ],
       ),
     );
