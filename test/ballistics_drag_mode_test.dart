@@ -150,7 +150,12 @@ void main() {
     await tester.tap(find.text('Hesapla'));
     await tester.pumpAndSettle();
     expect(find.text('KİLİTLİ'), findsNothing);
-    expect(find.text('Rüzgâr 0 girildi'), findsOneWidget);
+    final seen = tester
+        .widgetList<Text>(find.byType(Text))
+        .map((w) => w.data ?? '')
+        .where((x) => x.contains('Rüzgâr') || x.contains('Hesap') || x.contains('ulaş'))
+        .toList();
+    expect(seen, contains('Rüzgâr 0 girildi'));
     expect(find.textContaining('1 mil ='), findsOneWidget);
   });
 }

@@ -1008,6 +1008,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           controller: grain,
           label: 'Mühimmat ağırlığı',
           unit: 'grain',
+          onChanged: (_) => setState(() {}),
         ),
         MenzilInput(
           key: BallisticsFieldKeys.zero,
