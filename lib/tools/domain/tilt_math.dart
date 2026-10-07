@@ -139,7 +139,8 @@ class FlipCalibration {
     : normal = null,
       flipped = null;
 
-  bool get isComplete => (normal != null && flipped != null) || restored != null;
+  bool get isComplete =>
+      (normal != null && flipped != null) || restored != null;
 
   /// Constant bias to subtract from future readings, or null until both
   /// captures are in.

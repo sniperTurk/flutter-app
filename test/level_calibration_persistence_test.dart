@@ -37,45 +37,54 @@ class _ThrowingStore implements LevelCalibrationStore {
 Future<void> _settle() => Future<void>.delayed(Duration.zero);
 
 void main() {
-  test('flip calibration removes a constant device bias on a level table', () async {
-    final tilt = TestTilt();
-    final store = InMemoryLevelCalibrationStore();
-    final c = LevelController(provider: tilt, calibrationStore: store, smoothing: 1)
-      ..start();
-    addTearDown(c.dispose);
+  test(
+    'flip calibration removes a constant device bias on a level table',
+    () async {
+      final tilt = TestTilt();
+      final store = InMemoryLevelCalibrationStore();
+      final c = LevelController(
+        provider: tilt,
+        calibrationStore: store,
+        smoothing: 1,
+      )..start();
+      addTearDown(c.dispose);
 
-    tilt.controller.add(TiltAvailable(_tilted(_biasX, _biasY)));
-    await _settle();
-    expect(TiltMath.isLevel(c.angles!), isFalse, reason: 'uncalibrated');
+      tilt.controller.add(TiltAvailable(_tilted(_biasX, _biasY)));
+      await _settle();
+      expect(TiltMath.isLevel(c.angles!), isFalse, reason: 'uncalibrated');
 
-    expect(c.captureCalibration(flipped: false), isTrue);
-    // Same level table, phone turned 180°: the device bias is unchanged.
-    tilt.controller.add(TiltAvailable(_tilted(_biasX, _biasY)));
-    await _settle();
-    expect(c.captureCalibration(flipped: true), isTrue);
-    await _settle();
+      expect(c.captureCalibration(flipped: false), isTrue);
+      // Same level table, phone turned 180°: the device bias is unchanged.
+      tilt.controller.add(TiltAvailable(_tilted(_biasX, _biasY)));
+      await _settle();
+      expect(c.captureCalibration(flipped: true), isTrue);
+      await _settle();
 
-    expect(c.angles!.xDeg, closeTo(0, 0.01));
-    expect(c.angles!.yDeg, closeTo(0, 0.01));
-    expect(TiltMath.isLevel(c.angles!), isTrue);
+      expect(c.angles!.xDeg, closeTo(0, 0.01));
+      expect(c.angles!.yDeg, closeTo(0, 0.01));
+      expect(TiltMath.isLevel(c.angles!), isTrue);
 
-    // A real 1° slope is still measured after calibration.
-    tilt.controller.add(TiltAvailable(_tilted(_biasX + 1, _biasY)));
-    await _settle();
-    expect(c.angles!.xDeg, closeTo(1, 0.02));
+      // A real 1° slope is still measured after calibration.
+      tilt.controller.add(TiltAvailable(_tilted(_biasX + 1, _biasY)));
+      await _settle();
+      expect(c.angles!.xDeg, closeTo(1, 0.02));
 
-    final saved = await store.load();
-    expect(saved['flat']!.xDeg, closeTo(_biasX, 0.01));
-    expect(saved['flat']!.yDeg, closeTo(_biasY, 0.01));
-  });
+      final saved = await store.load();
+      expect(saved['flat']!.xDeg, closeTo(_biasX, 0.01));
+      expect(saved['flat']!.yDeg, closeTo(_biasY, 0.01));
+    },
+  );
 
   test('a stored calibration is restored when the level opens again', () async {
     final store = InMemoryLevelCalibrationStore();
     await store.save('flat', (xDeg: _biasX, yDeg: _biasY));
 
     final tilt = TestTilt();
-    final c = LevelController(provider: tilt, calibrationStore: store, smoothing: 1)
-      ..start();
+    final c = LevelController(
+      provider: tilt,
+      calibrationStore: store,
+      smoothing: 1,
+    )..start();
     addTearDown(c.dispose);
     await _settle();
     tilt.controller.add(TiltAvailable(_tilted(_biasX, _biasY)));
@@ -85,42 +94,51 @@ void main() {
     expect(TiltMath.isLevel(c.angles!), isTrue);
   });
 
-  test('half a recalibration keeps the stored bias; clearing removes it', () async {
-    final store = InMemoryLevelCalibrationStore();
-    await store.save('flat', (xDeg: _biasX, yDeg: _biasY));
-    final tilt = TestTilt();
-    final c = LevelController(provider: tilt, calibrationStore: store, smoothing: 1)
-      ..start();
-    addTearDown(c.dispose);
-    await _settle();
-    tilt.controller.add(TiltAvailable(_tilted(0.3, 0.2)));
-    await _settle();
+  test(
+    'half a recalibration keeps the stored bias; clearing removes it',
+    () async {
+      final store = InMemoryLevelCalibrationStore();
+      await store.save('flat', (xDeg: _biasX, yDeg: _biasY));
+      final tilt = TestTilt();
+      final c = LevelController(
+        provider: tilt,
+        calibrationStore: store,
+        smoothing: 1,
+      )..start();
+      addTearDown(c.dispose);
+      await _settle();
+      tilt.controller.add(TiltAvailable(_tilted(0.3, 0.2)));
+      await _settle();
 
-    c.captureCalibration(flipped: false);
-    await _settle();
-    expect((await store.load())['flat'], isNotNull);
+      c.captureCalibration(flipped: false);
+      await _settle();
+      expect((await store.load())['flat'], isNotNull);
 
-    c.clearCalibration(TiltMode.flat);
-    await _settle();
-    expect((await store.load())['flat'], isNull);
-  });
+      c.clearCalibration(TiltMode.flat);
+      await _settle();
+      expect((await store.load())['flat'], isNull);
+    },
+  );
 
-  test('a failed save is reported, the session calibration still applies', () async {
-    final tilt = TestTilt();
-    final c = LevelController(
-      provider: tilt,
-      calibrationStore: _ThrowingStore(),
-      smoothing: 1,
-    )..start();
-    addTearDown(c.dispose);
-    tilt.controller.add(TiltAvailable(_tilted(_biasX, _biasY)));
-    await _settle();
-    c.captureCalibration(flipped: false);
-    c.captureCalibration(flipped: true);
-    await _settle();
-    expect(c.calibrationSaveFailed, isTrue);
-    expect(TiltMath.isLevel(c.angles!), isTrue);
-  });
+  test(
+    'a failed save is reported, the session calibration still applies',
+    () async {
+      final tilt = TestTilt();
+      final c = LevelController(
+        provider: tilt,
+        calibrationStore: _ThrowingStore(),
+        smoothing: 1,
+      )..start();
+      addTearDown(c.dispose);
+      tilt.controller.add(TiltAvailable(_tilted(_biasX, _biasY)));
+      await _settle();
+      c.captureCalibration(flipped: false);
+      c.captureCalibration(flipped: true);
+      await _settle();
+      expect(c.calibrationSaveFailed, isTrue);
+      expect(TiltMath.isLevel(c.angles!), isTrue);
+    },
+  );
 
   testWidgets('uncalibrated level points to the calibration; steps work', (
     tester,

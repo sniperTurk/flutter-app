@@ -507,7 +507,8 @@ class _LevelSettingsSheet extends StatelessWidget {
                     ),
                     TextButton(
                       key: const Key('level-calibrate-clear-mode'),
-                      onPressed: cal.bias != null ||
+                      onPressed:
+                          cal.bias != null ||
                               cal.normal != null ||
                               cal.flipped != null
                           ? () => controller.clearCalibration(controller.mode)
