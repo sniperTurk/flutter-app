@@ -125,6 +125,7 @@ class MenzilStateMessage extends StatelessWidget {
 /// and the unit / theme buttons (right). The brand is hidden on Profil.
 class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget profileSelector;
+
   /// Unit button; omitted when null (the app is metric only since V380).
   final String? unitLabel;
   final VoidCallback? onUnitTap;
@@ -182,12 +183,12 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                         Expanded(child: profileSelector),
                         const SizedBox(width: MenzilSpace.sm),
                         if (unitLabel != null) ...[
-                        MenzilBarButton(
-                          label: unitLabel!,
-                          tooltip: 'Birim sistemi',
-                          onPressed: onUnitTap,
-                        ),
-                        const SizedBox(width: MenzilSpace.xs),
+                          MenzilBarButton(
+                            label: unitLabel!,
+                            tooltip: 'Birim sistemi',
+                            onPressed: onUnitTap,
+                          ),
+                          const SizedBox(width: MenzilSpace.xs),
                         ],
                         MenzilBarButton(
                           label: themeLabel,

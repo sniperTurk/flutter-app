@@ -69,7 +69,6 @@ void main() {
       handle.dispose();
     },
   );
-
 }
 
 class _NeverResolvingProfileStore implements ProfileStore {

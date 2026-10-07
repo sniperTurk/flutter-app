@@ -377,9 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onContinue: () => _selectTab(_tabEnvironment),
                       ),
                       _ballisticsTab(context),
-                      ToolsScreen(
-                        onProfilesChanged: _load,
-                      ),
+                      ToolsScreen(onProfilesChanged: _load),
                     ],
                   ),
                 ),
