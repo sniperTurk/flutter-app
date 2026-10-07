@@ -83,8 +83,7 @@ void main() {
           expect(tester.takeException(), isNull);
 
           for (final tab in const [
-            'Tablo',
-            'Ortam',
+            'Hava Durumu',
             'Profil',
             'Araçlar',
             'Atış',
@@ -94,7 +93,8 @@ void main() {
             expect(tester.takeException(), isNull, reason: tab);
           }
 
-          // Table after a solve (horizontal scroll, not squeezed columns).
+          // Table after a solve (horizontal scroll, not squeezed columns);
+          // Tablo is the second mode of the Atış tab.
           await tester.tap(find.text('Tablo'));
           await tester.pumpAndSettle();
           await tester.ensureVisible(find.text('DOPE oluştur'));

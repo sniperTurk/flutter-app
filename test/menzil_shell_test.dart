@@ -49,8 +49,15 @@ Future<void> _openShot(WidgetTester tester) async {
   await tester.pumpAndSettle();
 }
 
+/// The DOPE table is the second mode of the Atış tab.
+Future<void> _openTable(WidgetTester tester) async {
+  await _openShot(tester);
+  await tester.tap(find.byKey(const Key('shot-mode-table')));
+  await tester.pumpAndSettle();
+}
+
 void main() {
-  testWidgets('shell shows the Menzil bar and the five tabs', (tester) async {
+  testWidgets('shell shows the Menzil bar and the four tabs', (tester) async {
     // find.bySemanticsLabel throws unless semantics are enabled.
     final semantics = tester.ensureSemantics();
     await _pumpShell(
@@ -60,24 +67,32 @@ void main() {
     );
 
     expect(find.text('Menzil'), findsOneWidget);
-    for (final tab in const ['Profil', 'Atış', 'Tablo', 'Ortam', 'Araçlar']) {
+    for (final tab in const ['Profil', 'Hava Durumu', 'Atış', 'Araçlar']) {
       expect(find.text(tab), findsOneWidget, reason: tab);
     }
+    // Tablo is no longer a bottom tab: it is a mode of Atış.
+    expect(find.text('Tablo'), findsNothing);
+    expect(find.text('Ortam'), findsNothing);
     // Profil is the start tab and the leftmost one.
     expect(find.text('Aktif profil'), findsOneWidget);
     expect(find.text('Hesapla'), findsNothing);
-    final profilX = tester.getCenter(find.text('Profil')).dx;
-    for (final tab in const ['Atış', 'Tablo', 'Ortam', 'Araçlar']) {
-      expect(tester.getCenter(find.text(tab)).dx, greaterThan(profilX));
+    // Left to right: Profil, Hava Durumu, Atış, Araçlar.
+    var previousX = double.negativeInfinity;
+    for (final tab in const ['Profil', 'Hava Durumu', 'Atış', 'Araçlar']) {
+      final x = tester.getCenter(find.text(tab)).dx;
+      expect(x, greaterThan(previousX), reason: tab);
+      previousX = x;
     }
-    // Atış offers the range dial.
+    // Atış opens on the single shot and offers the range dial.
     await _openShot(tester);
+    expect(find.byKey(const Key('shot-mode-shot')), findsOneWidget);
+    expect(find.byKey(const Key('shot-mode-table')), findsOneWidget);
     expect(find.text('Hesapla'), findsOneWidget);
     expect(find.bySemanticsLabel('5 artır'), findsOneWidget);
     semantics.dispose();
   });
 
-  testWidgets('Atış, Tablo and Ortam share one workspace state', (
+  testWidgets('Atış, Tablo and Hava Durumu share one workspace state', (
     tester,
   ) async {
     await _pumpShell(
@@ -86,20 +101,24 @@ void main() {
       MemoryActiveProfileStore(),
     );
 
-    // Edit the environment on Ortam, then solve from Tablo.
-    await tester.tap(find.text('Ortam'));
+    // Edit the conditions on Hava Durumu, then solve from Atış > Tablo.
+    await tester.tap(find.text('Hava Durumu'));
     await tester.pumpAndSettle();
+    expect(
+      find.byKey(const Key('environment-open-weather')),
+      findsOneWidget,
+      reason: 'live service data is one tap away before shooting',
+    );
     await tester.enterText(find.byKey(BallisticsFieldKeys.temperature), '30');
 
-    await tester.tap(find.text('Tablo'));
-    await tester.pumpAndSettle();
+    await _openTable(tester);
     await tester.tap(find.text('DOPE oluştur'));
     await tester.pumpAndSettle();
     expect(find.byType(DataTable), findsOneWidget);
 
-    // Back on Ortam the edited value survived the tab switches, and the
-    // atmosphere result of the same solve is shown.
-    await tester.tap(find.text('Ortam'));
+    // Back on Hava Durumu the edited value survived the tab switches, and
+    // the atmosphere result of the same solve is shown.
+    await tester.tap(find.text('Hava Durumu'));
     await tester.pumpAndSettle();
     final field = tester.widget<TextField>(
       find.descendant(
@@ -110,8 +129,12 @@ void main() {
     expect(field.controller!.text, '30');
     expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
 
-    // Atış uses the same validated solve: no "calculate first" prompt.
+    // Atış remembers the table mode; switching to the single shot uses the
+    // same validated solve: no "calculate first" prompt.
     await tester.tap(find.text('Atış'));
+    await tester.pumpAndSettle();
+    expect(find.text('DOPE oluştur'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('shot-mode-shot')));
     await tester.pumpAndSettle();
     expect(find.text('Hesapla'), findsNothing);
     expect(find.text('Atış görünümü'), findsOneWidget);

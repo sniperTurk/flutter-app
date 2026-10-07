@@ -20,7 +20,7 @@ void main() {
     // and the real persistent-store/plugin wiring on an iOS runtime.
     expect(find.text('Katalog yüklenemedi'), findsNothing);
     expect(find.text('Menzil'), findsWidgets);
-    for (final tab in const ['Profil', 'Atış', 'Tablo', 'Ortam', 'Araçlar']) {
+    for (final tab in const ['Profil', 'Hava Durumu', 'Atış', 'Araçlar']) {
       expect(
         find.text(tab),
         findsWidgets,
@@ -122,6 +122,7 @@ void main() {
     expect(find.text('KİLİTLİ'), findsNWidgets(1));
     expect(tester.takeException(), isNull);
 
+    // Tablo is the second mode of the Atış tab.
     await tester.tap(find.text('Tablo').first);
     await tester.pumpAndSettle();
     expect(find.text('DOPE oluştur'), findsOneWidget);

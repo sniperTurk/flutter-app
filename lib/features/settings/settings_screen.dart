@@ -128,7 +128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
                 Text(
-                  'Birim değiştiğinde Atış, Tablo ve Ortam sekmeleri profil değerleriyle yeni birimde yeniden başlar.',
+                  'Birim değiştiğinde Hava Durumu ve Atış (tek atış ve tablo) profil değerleriyle yeni birimde yeniden başlar.',
                   style: MenzilType.caption(c.ink2),
                 ),
               ],

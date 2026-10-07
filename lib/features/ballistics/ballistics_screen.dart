@@ -18,6 +18,7 @@ import '../../services/settings_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../tools/map_distance_screen.dart';
+import '../tools/weather_screen.dart';
 import 'scope_dial_view.dart';
 
 /// Which part of the ballistic workspace is shown.
@@ -842,6 +843,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         return MenzilPage(
           key: const PageStorageKey('ballistics-environment'),
           children: [
+            // Live service data one tap away before shooting. It is shown
+            // for reading only; nothing is copied into these inputs.
+            MenzilSecondaryButton(
+              key: const Key('environment-open-weather'),
+              label: 'Konumdan canlı hava verisi',
+              icon: Icons.cloud_outlined,
+              expand: true,
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(builder: (_) => const WeatherScreen()),
+              ),
+            ),
+            const SizedBox(height: MenzilSpace.md),
             ..._environmentInputs(context, collapseShotInputs: true),
             MenzilPrimaryButton(
               label: 'Hesapla',
@@ -1459,7 +1472,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         MenzilNotice(
           tone: MenzilNoticeTone.info,
           message: _basis == null
-              ? 'Değerleri görmek için hesaplayın. Ortam ve atış girdileri Ortam sekmesindedir.'
+              ? 'Değerleri görmek için hesaplayın. Hava ve atış girdileri Hava Durumu sekmesindedir.'
               : _dragMode
               ? 'Bu mermi bu mesafeye ulaşamıyor veya değer üretilemedi. Daha kısa bir mesafe deneyin.'
               : 'Bu mesafe için değer üretilemedi. Mesafeyi veya girdileri kontrol edin.',
