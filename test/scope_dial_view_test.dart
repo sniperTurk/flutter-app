@@ -216,62 +216,63 @@ void main() {
     );
   });
 
-  testWidgets('an impact outside the field is pointed at, the reticle keeps its scale', (
-    tester,
-  ) async {
-    tester.view.physicalSize = const Size(430, 2400) * 3;
-    tester.view.devicePixelRatio = 3;
-    addTearDown(tester.view.reset);
-    Widget view(double up) => MaterialApp(
-      theme: MenzilTheme.light(),
-      home: Scaffold(
-        body: SingleChildScrollView(
-          child: ScopeDialView(
-            unit: AngularUnit.mrad,
-            clickValue: 0.1,
-            elevationClicks: 0,
-            windageClicks: 0,
-            maxElevationClicks: 130,
-            maxWindageClicks: 130,
-            onElevationChanged: (_) {},
-            onWindageChanged: (_) {},
-            requiredUp: up,
-            firstFocalPlane: true,
-            minMagnification: 6,
-            maxMagnification: 36,
-            magnification: 36,
-            onMagnificationChanged: (_) {},
-            rangeM: 424,
-            samples: const [],
-            toDisplayRange: (m) => m,
-            distanceUnit: 'm',
-            metric: true,
+  testWidgets(
+    'an impact outside the field is pointed at, the reticle keeps its scale',
+    (tester) async {
+      tester.view.physicalSize = const Size(430, 2400) * 3;
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      Widget view(double up) => MaterialApp(
+        theme: MenzilTheme.light(),
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: ScopeDialView(
+              unit: AngularUnit.mrad,
+              clickValue: 0.1,
+              elevationClicks: 0,
+              windageClicks: 0,
+              maxElevationClicks: 130,
+              maxWindageClicks: 130,
+              onElevationChanged: (_) {},
+              onWindageChanged: (_) {},
+              requiredUp: up,
+              firstFocalPlane: true,
+              minMagnification: 6,
+              maxMagnification: 36,
+              magnification: 36,
+              onMagnificationChanged: (_) {},
+              rangeM: 424,
+              samples: const [],
+              toDisplayRange: (m) => m,
+              distanceUnit: 'm',
+              metric: true,
+            ),
           ),
         ),
-      ),
-    );
-    await tester.pumpWidget(view(3));
-    expect(find.byKey(ScopeDialKeys.fitNote), findsNothing);
-    expect(find.byKey(ScopeDialKeys.travelNote), findsNothing);
+      );
+      await tester.pumpWidget(view(3));
+      expect(find.byKey(ScopeDialKeys.fitNote), findsNothing);
+      expect(find.byKey(ScopeDialKeys.travelNote), findsNothing);
 
-    // 113.7 mrad low at 36x (half field 10 mrad), and the 13 mrad turret
-    // cannot dial it.
-    await tester.pumpWidget(view(113.7));
-    expect(find.byKey(ScopeDialKeys.fitNote), findsOneWidget);
-    final painter =
-        tester
-                .widget<CustomPaint>(
-                  find.descendant(
-                    of: find.byKey(ScopeDialKeys.reticle),
-                    matching: find.byType(CustomPaint),
-                  ),
-                )
-                .painter!
-            as ScopeReticlePainter;
-    // The reticle keeps its real scale (no zoom-out); the note names the
-    // offset and the edge arrow points to it.
-    expect(painter.trueHalfField, closeTo(10, 1e-9));
-    expect(find.textContaining('113.70 mrad aşağıda'), findsOneWidget);
-    expect(find.byKey(ScopeDialKeys.travelNote), findsOneWidget);
-  });
+      // 113.7 mrad low at 36x (half field 10 mrad), and the 13 mrad turret
+      // cannot dial it.
+      await tester.pumpWidget(view(113.7));
+      expect(find.byKey(ScopeDialKeys.fitNote), findsOneWidget);
+      final painter =
+          tester
+                  .widget<CustomPaint>(
+                    find.descendant(
+                      of: find.byKey(ScopeDialKeys.reticle),
+                      matching: find.byType(CustomPaint),
+                    ),
+                  )
+                  .painter!
+              as ScopeReticlePainter;
+      // The reticle keeps its real scale (no zoom-out); the note names the
+      // offset and the edge arrow points to it.
+      expect(painter.trueHalfField, closeTo(10, 1e-9));
+      expect(find.textContaining('113.70 mrad aşağıda'), findsOneWidget);
+      expect(find.byKey(ScopeDialKeys.travelNote), findsOneWidget);
+    },
+  );
 }
