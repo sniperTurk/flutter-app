@@ -120,10 +120,18 @@ class LevelController extends ChangeNotifier {
   /// band, so a still phone shows a still number.
   TiltAngles? get angles {
     if (_locked && _lockedAngles != null) return _lockedAngles;
-    final live = liveAngles;
+    _followShown(liveAngles);
+    final x = _shownX, y = _shownY;
+    return x == null || y == null ? null : TiltAngles(x, y);
+  }
+
+  /// Moves each shown axis to [live] only once it is [displayDeadbandDeg]
+  /// away. Called for every sensor sample and on every read, so the band
+  /// works the same whether or not the screen happened to repaint.
+  void _followShown(TiltAngles? live) {
     if (live == null) {
       _resetShown();
-      return null;
+      return;
     }
     double follow(double? shown, double now) =>
         (shown == null || (now - shown).abs() >= displayDeadbandDeg)
@@ -131,7 +139,6 @@ class LevelController extends ChangeNotifier {
         : shown;
     _shownX = follow(_shownX, live.xDeg);
     _shownY = follow(_shownY, live.yDeg);
-    return TiltAngles(_shownX!, _shownY!);
   }
 
   /// Same as [angles] but never frozen by the lock.
@@ -207,6 +214,7 @@ class LevelController extends ChangeNotifier {
         _unavailable = null;
         if (_autoMode) _followPose(gravity);
         _gravity = _filter.add(gravity);
+        _followShown(liveAngles);
         _feedAverager(gravity);
       case TiltUnavailable(:final reason):
         _finishCapture(false);
