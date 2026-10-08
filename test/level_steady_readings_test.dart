@@ -202,5 +202,51 @@ void main() {
       c.setReferenceHere();
       expect(c.angles!.xDeg, closeTo(0, 1e-9));
     });
+
+    test(
+      'set back on the calibration spot it settles to 0,0, not a held -0,1',
+      () async {
+        // TestFlight 2026-10-08: lifted and set back on the same spot the
+        // read-out stayed at the value passed while setting it down.
+        final tilt = TestTilt();
+        final c = LevelController(provider: tilt, smoothing: 1)..start();
+        addTearDown(c.dispose);
+        String shownX() => TiltMath.format(c.angles!.xDeg);
+
+        tilt.controller.add(TiltAvailable(_tilted(-0.12, 0)));
+        await _settle();
+        expect(shownX(), '-0,1');
+        // It comes to rest at -0.03 (within the dead band of -0.12).
+        // The first rest sample starts the stillness count.
+        for (var i = 0; i < 40; i++) {
+          tilt.controller.add(TiltAvailable(_tilted(-0.03, 0)));
+          await _settle();
+        }
+        expect(shownX(), '-0,1', reason: 'not yet still long enough');
+        tilt.controller.add(TiltAvailable(_tilted(-0.03, 0)));
+        await _settle();
+        expect(c.angles!.xDeg, closeTo(-0.03, 1e-6));
+        expect(shownX(), '0,0');
+
+        // Still with tiny noise: the number does not move again.
+        final shown = <String>{};
+        for (var i = 0; i < 200; i++) {
+          tilt.controller.add(TiltAvailable(_tilted(i.isEven ? -0.01 : -0.05, 0)));
+          await _settle();
+          shown.add(shownX());
+        }
+        expect(shown, {'0,0'});
+
+        // A real move shows at once and later settles again.
+        tilt.controller.add(TiltAvailable(_tilted(0.5, 0)));
+        await _settle();
+        expect(c.angles!.xDeg, closeTo(0.5, 1e-6));
+        for (var i = 0; i < 41; i++) {
+          tilt.controller.add(TiltAvailable(_tilted(0.43, 0)));
+          await _settle();
+        }
+        expect(c.angles!.xDeg, closeTo(0.43, 1e-6));
+      },
+    );
   });
 }
