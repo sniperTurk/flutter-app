@@ -254,10 +254,7 @@ class _LevelScreenState extends State<LevelScreen> {
                 onPressed: () => _openSettingsSheet(context, controller),
                 child: Text(
                   'Kalibre et',
-                  style: TextStyle(
-                    color: c.amber,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyle(color: c.amber, fontWeight: FontWeight.w700),
                 ),
               ),
             ],
