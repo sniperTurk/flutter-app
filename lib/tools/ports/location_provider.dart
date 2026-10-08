@@ -6,7 +6,11 @@ sealed class LocationResult {
 class LocationFix extends LocationResult {
   final double latitude;
   final double longitude;
-  const LocationFix(this.latitude, this.longitude);
+
+  /// GPS altitude above sea level in metres, when the device reports it with
+  /// a usable vertical accuracy; null otherwise (never guessed).
+  final double? altitudeM;
+  const LocationFix(this.latitude, this.longitude, {this.altitudeM});
 }
 
 /// The user refused. [permanent] means iOS will not prompt again; the only

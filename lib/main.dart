@@ -61,7 +61,7 @@ class _SniperTurkAppState extends State<SniperTurkApp> {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: mode,
-            home: const HomeScreen(),
+            home: const HomeScreen(autoWeather: true),
           ),
         ),
       ),

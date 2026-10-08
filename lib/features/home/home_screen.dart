@@ -30,11 +30,16 @@ class HomeScreen extends StatefulWidget {
   /// user's own rifles, ammunition and scopes.
   final UserCatalogLoader? userCatalogLoader;
 
+  /// Fill Hava Durumu from the live weather when it opens (the app turns
+  /// this on; tests leave it off so they never reach the network).
+  final bool autoWeather;
+
   const HomeScreen({
     super.key,
     this.profileStore,
     this.activeProfileStore,
     this.userCatalogLoader,
+    this.autoWeather = false,
   });
 
   @override
@@ -561,6 +566,7 @@ class _HomeScreenState extends State<HomeScreen> {
       )),
       profile: profile,
       view: ballisticsView,
+      autoWeather: widget.autoWeather,
     );
   }
 }

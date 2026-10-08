@@ -30,7 +30,16 @@ class GeolocatorLocationProvider implements LocationProvider {
           timeLimit: Duration(seconds: 15),
         ),
       );
-      return LocationFix(position.latitude, position.longitude);
+      // Altitude only when its vertical accuracy is known and usable.
+      final vAcc = position.altitudeAccuracy;
+      final altitude = vAcc > 0 && vAcc <= 50 && position.altitude.isFinite
+          ? position.altitude
+          : null;
+      return LocationFix(
+        position.latitude,
+        position.longitude,
+        altitudeM: altitude,
+      );
     } catch (_) {
       // Includes TimeoutException and plugin errors; never leak details.
       return const LocationFailure('Konum alınamadı.');

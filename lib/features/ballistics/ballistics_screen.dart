@@ -16,7 +16,11 @@ import '../../core/wind_clock.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
 import '../../services/settings_store.dart';
+import '../../tools/domain/field_calc.dart';
 import '../../tools/domain/shot_angle_math.dart';
+import '../../tools/ports/location_provider.dart';
+import '../../tools/ports/weather_provider.dart';
+import '../../tools/tools_services.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../tools/map_distance_screen.dart';
@@ -52,10 +56,16 @@ abstract final class BallisticsFieldKeys {
 class BallisticsScreen extends StatefulWidget {
   final RifleProfile? profile;
   final BallisticsView view;
+
+  /// Fill Hava Durumu from the location's live weather the first time the
+  /// environment view opens (owner, 2026-10-08). Off by default so tests and
+  /// embeddings never reach the network unless they ask for it.
+  final bool autoWeather;
   const BallisticsScreen({
     super.key,
     this.profile,
     this.view = BallisticsView.all,
+    this.autoWeather = false,
   });
 
   @override
@@ -229,6 +239,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // "Hesapla" first. The fields are still SI here; a later switch to
     // imperial only converts the fields, the stored basis stays SI.
     // Failures stay silent (the shot view says why).
+    if (widget.view == BallisticsView.environment) _maybeAutoWeather();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted && widget.profile != null && _basis == null) {
         _silentErrors = true;
@@ -244,6 +255,174 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// True while the automatic first solve runs: errors are not shown as
   /// snack bars then.
   bool _silentErrors = false;
+
+  // ---- Live weather fill (Hava Durumu) ----------------------------------
+
+  /// Fields the user typed into: an automatic fill never overwrites them.
+  final Set<TextEditingController> _userEdited = {};
+  bool _autoWeatherDone = false;
+  bool _weatherBusy = false;
+  String? _weatherStatus;
+  bool _weatherFailed = false;
+
+  @override
+  void didUpdateWidget(covariant BallisticsScreen old) {
+    super.didUpdateWidget(old);
+    if (widget.view == BallisticsView.environment &&
+        old.view != BallisticsView.environment) {
+      _maybeAutoWeather();
+    }
+  }
+
+  void _maybeAutoWeather() {
+    if (!widget.autoWeather || _autoWeatherDone) return;
+    _autoWeatherDone = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _fillWeather();
+    });
+  }
+
+  /// Location → weather service → Hava Durumu fields. With [overwrite] the
+  /// user's own edits are replaced too (the "Yeniden doldur" button);
+  /// otherwise only untouched fields are filled.
+  Future<void> _fillWeather({bool overwrite = false}) async {
+    if (_weatherBusy) return;
+    final services = ToolsServicesScope.of(context);
+    setState(() {
+      _weatherBusy = true;
+      _weatherFailed = false;
+      _weatherStatus = 'Konumdan hava verisi alınıyor…';
+    });
+    String status;
+    var failed = false;
+    try {
+      final fix = await services.location.current();
+      if (fix is! LocationFix) {
+        failed = true;
+        status = switch (fix) {
+          LocationDenied() =>
+            'Konum izni yok; hava değerlerini elle girin.',
+          LocationServiceOff() =>
+            'Konum Servisleri kapalı; hava değerlerini elle girin.',
+          _ => 'Konum alınamadı; hava değerlerini elle girin.',
+        };
+      } else {
+        final obs = await services.weather.fetch(fix.latitude, fix.longitude);
+        if (!mounted) return;
+        if (overwrite) _userEdited.clear();
+        void put(TextEditingController c, String v) {
+          if (!_userEdited.contains(c)) c.text = v;
+        }
+
+        put(
+          temperature,
+          (metric
+                  ? obs.temperatureC
+                  : UnitSystem.celsiusToFahrenheit(obs.temperatureC))
+              .toStringAsFixed(1),
+        );
+        put(humidity, obs.humidityPercent.round().toString());
+        put(
+          wind,
+          (metric ? obs.windSpeedMps : UnitSystem.mpsToMph(obs.windSpeedMps))
+              .toStringAsFixed(1),
+        );
+        // Station pressure needs the altitude: from GPS, or from a value
+        // the user typed. Sea-level pressure is never used as station
+        // pressure (that was the audit's density trap).
+        final gpsAlt = fix.altitudeM;
+        if (gpsAlt != null) {
+          put(
+            altitude,
+            (metric ? gpsAlt : UnitSystem.metersToFeet(gpsAlt))
+                .toStringAsFixed(0),
+          );
+        }
+        final typedAlt = double.tryParse(
+          altitude.text.trim().replaceAll(',', '.'),
+        );
+        final altM = gpsAlt ??
+            (_userEdited.contains(altitude) && typedAlt != null
+                ? (metric ? typedAlt : UnitSystem.feetToMeters(typedAlt))
+                : null);
+        String pressureNote;
+        if (obs.pressureKind == PressureKind.station) {
+          put(pressure, _pressureText(obs.pressureHpa));
+          pressureNote = 'basınç istasyon basıncı';
+        } else if (altM != null) {
+          put(
+            pressure,
+            _pressureText(FieldCalc.stationPressureHpa(obs.pressureHpa, altM)),
+          );
+          pressureNote =
+              'basınç ${altM.round()} m irtifaya göre istasyon basıncına '
+              'çevrildi';
+        } else {
+          pressureNote =
+              'irtifa bilinmediği için basınç doldurulmadı (İrtifa girin, '
+              'sonra Yeniden doldur)';
+        }
+        final t = obs.validAt.toLocal();
+        final hh = t.hour.toString().padLeft(2, '0');
+        final mm = t.minute.toString().padLeft(2, '0');
+        status =
+            'Hava verisi otomatik dolduruldu (${obs.sourceName}, $hh:$mm; '
+            '$pressureNote). Rüzgâr yönünü siz seçin. Değerleri '
+            'değiştirebilirsiniz; değiştirdikleriniz korunur.';
+      }
+    } on WeatherFailure {
+      failed = true;
+      status = 'Hava servisine ulaşılamadı; değerleri elle girin.';
+    } catch (_) {
+      failed = true;
+      status = 'Hava verisi alınamadı; değerleri elle girin.';
+    }
+    if (!mounted) return;
+    setState(() {
+      _weatherBusy = false;
+      _weatherFailed = failed;
+      _weatherStatus = status;
+    });
+    // Re-solve with the new conditions (quietly: Atış says why if not).
+    if (!failed && widget.profile != null) {
+      _silentErrors = true;
+      try {
+        solve();
+      } finally {
+        _silentErrors = false;
+      }
+    }
+  }
+
+  String _pressureText(double hpa) => metric
+      ? hpa.toStringAsFixed(1)
+      : UnitSystem.hpaToInHg(hpa).toStringAsFixed(2);
+
+  Widget _weatherFillCard(BuildContext context) {
+    final status = _weatherStatus;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (status != null)
+          MenzilNotice(
+            key: const Key('environment-weather-status'),
+            tone: _weatherFailed
+                ? MenzilNoticeTone.warning
+                : MenzilNoticeTone.info,
+            message: status,
+          ),
+        const SizedBox(height: MenzilSpace.xs),
+        MenzilSecondaryButton(
+          key: const Key('environment-fill-weather'),
+          label: _weatherBusy ? 'Alınıyor…' : 'Konumdan yeniden doldur',
+          icon: Icons.my_location,
+          expand: true,
+          onPressed: _weatherBusy ? null : () => _fillWeather(overwrite: true),
+        ),
+        const SizedBox(height: MenzilSpace.md),
+      ],
+    );
+  }
 
   Future<void> _loadUnitPreference() async {
     try {
@@ -995,6 +1174,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ),
             ),
             const SizedBox(height: MenzilSpace.md),
+            _weatherFillCard(context),
             ..._environmentInputs(context, collapseShotInputs: true),
             MenzilPrimaryButton(
               label: 'Hesapla',
@@ -1263,6 +1443,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               key: BallisticsFieldKeys.temperature,
               controller: temperature,
               label: 'Sıcaklık',
+              // A typed value is the user's: auto fill keeps it.
+              onChanged: (_) => _userEdited.add(temperature),
               info: EnvironmentFieldInfo.temperature,
               unit: metric ? '°C' : '°F',
               keyboardType: const TextInputType.numberWithOptions(
@@ -1274,6 +1456,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               key: BallisticsFieldKeys.pressure,
               controller: pressure,
               label: 'İstasyon basıncı',
+              // A typed value is the user's: auto fill keeps it.
+              onChanged: (_) => _userEdited.add(pressure),
               info: EnvironmentFieldInfo.pressure,
               unit: metric ? 'hPa' : 'inHg',
             ),
@@ -1281,6 +1465,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               key: BallisticsFieldKeys.humidity,
               controller: humidity,
               label: 'Bağıl nem',
+              // A typed value is the user's: auto fill keeps it.
+              onChanged: (_) => _userEdited.add(humidity),
               info: EnvironmentFieldInfo.humidity,
               unit: '%',
             ),
@@ -1288,6 +1474,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               key: BallisticsFieldKeys.altitude,
               controller: altitude,
               label: 'İrtifa',
+              // A typed value is the user's: auto fill keeps it.
+              onChanged: (_) => _userEdited.add(altitude),
               info: EnvironmentFieldInfo.altitude,
               unit: metric ? 'm' : 'ft',
               helperText: 'Bilgi amaçlı; hesap basıncı kullanır',
@@ -1316,6 +1504,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               key: BallisticsFieldKeys.wind,
               controller: wind,
               label: 'Rüzgâr hızı',
+              // A typed value is the user's: auto fill keeps it.
+              onChanged: (_) => _userEdited.add(wind),
               info: EnvironmentFieldInfo.windSpeed,
               unit: metric ? 'm/s' : 'mph',
             ),
