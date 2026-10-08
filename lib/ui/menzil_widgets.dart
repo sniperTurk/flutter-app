@@ -181,12 +181,21 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                     child: Row(
                       children: [
                         if (title != null) ...[
-                          Semantics(
-                            header: true,
-                            child: Text(
-                              title!,
-                              key: const Key('top-bar-title'),
-                              style: MenzilType.heading(c.ink, size: 26),
+                          // Shrinks instead of overflowing on the narrowest
+                          // phones with large text.
+                          Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              alignment: Alignment.centerLeft,
+                              child: Semantics(
+                                header: true,
+                                child: Text(
+                                  title!,
+                                  key: const Key('top-bar-title'),
+                                  maxLines: 1,
+                                  style: MenzilType.heading(c.ink, size: 26),
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(width: MenzilSpace.sm),
