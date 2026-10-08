@@ -57,7 +57,16 @@ void main() {
     },
   );
 
-  test('PCP requires a positive pressure while firearm does not', () {
+  test('pressure is optional (owner, 2026-10-09) but a given one is valid', () {
+    final pcp = ProfileInput.validate(
+      name: 'PCP',
+      muzzleVelocityText: '250',
+      zeroRangeText: '25',
+      sightHeightText: '65',
+      platform: WeaponPlatform.pcp,
+      pressureText: '',
+    );
+    expect(pcp.pressureBar, isNull);
     expect(
       () => ProfileInput.validate(
         name: 'PCP',
@@ -65,7 +74,7 @@ void main() {
         zeroRangeText: '25',
         sightHeightText: '65',
         platform: WeaponPlatform.pcp,
-        pressureText: '',
+        pressureText: '-5',
       ),
       throwsFormatException,
     );

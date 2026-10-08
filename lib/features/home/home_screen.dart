@@ -283,7 +283,6 @@ class _HomeScreenState extends State<HomeScreen> {
         profileSelector: _profileSelector(context),
         themeLabel: MenzilThemeController.labelFor(themeMode),
         onThemeTap: themeController?.cycle,
-        showBrand: tab != _tabProfile,
         // Each page shows its own name instead of Menzil (owner, 2026-10-08).
         // The tab is "Hedef"; its single shot is "Hedef Görünümü" (owner,
         // 2026-10-08).

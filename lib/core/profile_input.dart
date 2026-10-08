@@ -57,10 +57,14 @@ class ProfileInput {
     if (!ProductionLimits.mountCantOptionsMoa.contains(mountCantMoa)) {
       throw const FormatException('Dürbün ayağını listeden seçin.');
     }
+    // Regülatör basıncı is optional (owner, 2026-10-09): no calculation uses
+    // it. A value that is given (older profiles) must still be valid, and a
+    // firearm never has one.
     double? pressure;
-    if (platform == WeaponPlatform.pcp) {
+    final pressureTyped = pressureText?.trim() ?? '';
+    if (platform == WeaponPlatform.pcp && pressureTyped.isNotEmpty) {
       pressure = _boundedPositive(
-        pressureText ?? '',
+        pressureTyped,
         'Atış basıncı',
         ProductionLimits.maxPcpPressureBar,
       );

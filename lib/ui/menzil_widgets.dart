@@ -121,8 +121,8 @@ class MenzilStateMessage extends StatelessWidget {
 // Top bar and bottom navigation
 // ---------------------------------------------------------------------------
 
-/// Fixed Menzil bar: brand (left), active-profile selector (centre, flexible)
-/// and the unit / theme buttons (right). The brand is hidden on Profil.
+/// Fixed top bar: page title or "Sniper Türk" (left), a compact
+/// active-profile selector and the unit / theme buttons (right).
 class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget profileSelector;
 
@@ -132,10 +132,10 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String themeLabel;
   final VoidCallback? onThemeTap;
 
-  /// False hides the Menzil wordmark (the Profil page shows no brand).
+  /// False hides the "Sniper Türk" brand (shown when there is no title).
   final bool showBrand;
 
-  /// Page title shown instead of the Menzil wordmark (Araçlar).
+  /// Page title shown instead of the brand (Hava Durumu, Pro, Hedef, …).
   final String? title;
 
   static const double height = 58;
@@ -180,30 +180,44 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     child: Row(
                       children: [
-                        if (title != null) ...[
-                          // Shrinks instead of overflowing on the narrowest
-                          // phones with large text.
-                          Flexible(
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              alignment: Alignment.centerLeft,
-                              child: Semantics(
-                                header: true,
-                                child: Text(
-                                  title!,
-                                  key: const Key('top-bar-title'),
-                                  maxLines: 1,
-                                  style: MenzilType.heading(c.ink, size: 26),
-                                ),
-                              ),
-                            ),
+                        // Left: page title, or "Sniper Türk" on Profil. It
+                        // shrinks instead of overflowing on narrow phones.
+                        Expanded(
+                          flex: 3,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: title != null
+                                ? FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    alignment: Alignment.centerLeft,
+                                    child: Semantics(
+                                      header: true,
+                                      child: Text(
+                                        title!,
+                                        key: const Key('top-bar-title'),
+                                        maxLines: 1,
+                                        style: MenzilType.heading(
+                                          c.ink,
+                                          size: 26,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : showBrand
+                                ? MenzilBrand(compact: compact)
+                                : const SizedBox.shrink(),
                           ),
-                          const SizedBox(width: MenzilSpace.sm),
-                        ] else if (showBrand) ...[
-                          MenzilBrand(compact: compact),
-                          const SizedBox(width: MenzilSpace.sm),
-                        ],
-                        Expanded(child: profileSelector),
+                        ),
+                        const SizedBox(width: MenzilSpace.sm),
+                        // The selector is only as wide as a profile name needs
+                        // (owner, 2026-10-09: it was needlessly long).
+                        Flexible(
+                          flex: 2,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 170),
+                            child: profileSelector,
+                          ),
+                        ),
                         const SizedBox(width: MenzilSpace.sm),
                         if (unitLabel != null) ...[
                           MenzilBarButton(
@@ -238,19 +252,21 @@ class MenzilBrand extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    // "Sniper Türk", text only (owner, 2026-10-09). On the narrowest phones
+    // it scales down instead of squeezing the profile selector.
     return Semantics(
       header: true,
-      label: 'Menzil',
+      label: 'Sniper Türk',
       child: ExcludeSemantics(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MenzilIcon(MenzilGlyph.brand, size: 22, color: c.ink),
-            if (!compact) ...[
-              const SizedBox(width: 7),
-              Text('Menzil', style: MenzilType.heading(c.ink, size: 26)),
-            ],
-          ],
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Sniper Türk',
+            key: const Key('top-bar-brand'),
+            maxLines: 1,
+            style: MenzilType.heading(c.ink, size: compact ? 22 : 26),
+          ),
         ),
       ),
     );
@@ -792,12 +808,32 @@ class _LabelWithInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = info;
-    if (text == null) return label;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Expanded(child: label),
-        MenzilInfoButton(title: title, text: text),
+        // Without an ⓘ an invisible one of the same size keeps the label row
+        // as tall as its neighbour's, so side-by-side fields line up (owner,
+        // 2026-10-09: "Dürbün markası" sat lower than "Odak düzlemi").
+        if (text != null)
+          MenzilInfoButton(title: title, text: text)
+        else
+          // Same size as MenzilInfoButton (constraints, density, icon), but
+          // invisible, untappable and silent for VoiceOver.
+          const ExcludeSemantics(
+            child: IgnorePointer(
+              child: Opacity(
+                opacity: 0,
+                child: IconButton(
+                  constraints: BoxConstraints(minWidth: 44, minHeight: 44),
+                  padding: EdgeInsets.zero,
+                  visualDensity: VisualDensity.standard,
+                  icon: Icon(Icons.circle, size: 18),
+                  onPressed: null,
+                ),
+              ),
+            ),
+          ),
       ],
     );
   }

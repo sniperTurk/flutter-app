@@ -31,10 +31,11 @@ class V368ProfileIntegrity(unittest.TestCase):
 
     def test_no_fabricated_pressure_for_existing_profile(self):
         t = read('lib/features/profiles/profiles_screen.dart')
-        # V380: no separate shot-pressure field; the PCP pressure is the typed
-        # regulator pressure, and new profiles start with no invented values.
+        # Owner, 2026-10-09: no pressure field at all (no calculation uses
+        # it), and new profiles start with no invented values.
         self.assertNotIn("'200'", t)
-        self.assertIn('pressureText: rifleRegulator.text', t)
+        self.assertNotIn('pressureText:', t)
+        self.assertNotIn('rifleRegulator', t)
         self.assertIn("text: p == null ? '' : _fpsText(p.muzzleVelocityMps)", t)
 
     def test_home_resolves_active_instance_from_saved(self):

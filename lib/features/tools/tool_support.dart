@@ -13,7 +13,6 @@ abstract final class ToolProfileUpdate {
     RifleProfile base, {
     double? muzzleVelocityMps,
     double? sightHeightMm,
-    double? pressureBar,
   }) {
     Rifle? rifle;
     for (final r in CatalogRepository.allRifles) {
@@ -31,7 +30,8 @@ abstract final class ToolProfileUpdate {
       zeroRangeText: base.zeroRangeM.toString(),
       sightHeightText: (sightHeightMm ?? base.sightHeightMm).toString(),
       platform: platform,
-      pressureText: (pressureBar ?? base.pressureBar)?.toString(),
+      // An older profile's pressure is kept as it was (no longer asked).
+      pressureText: base.pressureBar?.toString(),
       mountCantMoa: base.mountCantMoa,
     );
     return RifleProfile(

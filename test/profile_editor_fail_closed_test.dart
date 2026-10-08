@@ -109,12 +109,8 @@ void main() {
       await enterRifleField(tester, 'rifle-barrel', '60');
       await enterRifleField(tester, 'rifle-twist-rate', '16');
       await chooseTwistDirection(tester, 'Sol');
-      expect(
-        _updateAction(tester),
-        isNull,
-        reason: 'PCP rifles also need the regulator pressure',
-      );
-      await enterRifleField(tester, 'rifle-regulator', '120');
+      // Regülatör basıncı is not asked any more (owner, 2026-10-09).
+      expect(find.byKey(const Key('rifle-regulator')), findsNothing);
       expect(
         _updateAction(tester),
         isNull,
@@ -132,7 +128,6 @@ void main() {
   ) async {
     await _pumpAndOpen(tester, _valid);
     await enterRifleField(tester, 'rifle-barrel', '60');
-    await enterRifleField(tester, 'rifle-regulator', '120');
     await enterRifleField(tester, 'ammo-bc', '0,08');
     await chooseInSelect(tester, 'ammo-bc-model', 'G1');
     await chooseTwistDirection(tester, 'Sağ');
@@ -169,7 +164,6 @@ void main() {
       'Namlu uzunluğu',
       'Namlu yiv yönü',
       'Yiv oranı (1:…)',
-      'Regülatör basıncı',
       'Tip',
       'Ağırlık',
       'BC (balistik katsayı)',
@@ -179,13 +173,17 @@ void main() {
       'Maksimum büyütme',
       'Mercek çapı',
       'Dürbün birimi',
-      'Klik değeri',
+      'Dürbün ayağı',
+      'Üst kule klik sayısı',
       'Sight height',
       'Namlu çıkış hızı',
       'Sıfırlama mesafesi',
     ]) {
       expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
     }
+    // Not asked any more (owner, 2026-10-09).
+    expect(find.byTooltip('Bilgi: Regülatör basıncı'), findsNothing);
+    expect(find.byTooltip('Bilgi: Klik değeri'), findsNothing);
     final bcInfo = find.byTooltip('Bilgi: BC (balistik katsayı)');
     await tester.ensureVisible(bcInfo);
     await tester.tap(bcInfo);

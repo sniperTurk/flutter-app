@@ -17,13 +17,17 @@ class V361SelectiveMergeTests(unittest.TestCase):
             self.assertIn(token, src)
 
     def test_chronograph_optional_pressure_write_uses_validated_update_path(self):
+        # Owner, 2026-10-09: Regülatör basıncı was removed everywhere, so the
+        # chronograph no longer offers to write the tank pressure to the
+        # profile. The pressure-drop statistic stays; updates still go
+        # through the validated ToolProfileUpdate path.
         chrono = (ROOT/'lib/features/tools/chronograph_screen.dart').read_text(encoding='utf-8')
         support = (ROOT/'lib/features/tools/tool_support.dart').read_text(encoding='utf-8')
-        for token in ('chrono-start-bar', 'chrono-end-bar', 'chrono-write-pressure', '_pressureDropBar', '_validStartPressureBar'):
+        for token in ('chrono-start-bar', 'chrono-end-bar', '_pressureDropBar', 'ToolProfileUpdate.apply('):
             self.assertIn(token, chrono)
-        self.assertIn('pressureBar: pick.writePressure ? _validStartPressureBar : null', chrono)
-        self.assertIn('double? pressureBar', support)
-        self.assertIn('pressureText: (pressureBar ?? base.pressureBar)?.toString()', support)
+        self.assertNotIn('chrono-write-pressure', chrono)
+        self.assertNotIn('double? pressureBar', support)
+        self.assertIn('pressureText: base.pressureBar?.toString()', support)
 
 if __name__ == '__main__':
     unittest.main()

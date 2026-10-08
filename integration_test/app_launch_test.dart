@@ -91,14 +91,12 @@ void main() {
     await type('rifle-caliber', '6,35');
     await type('rifle-barrel', '60');
     await type('rifle-twist-rate', '16');
-    await type('rifle-regulator', '120');
     await tester.ensureVisible(find.byKey(const Key('rifle-twist-direction')));
     await tester.tap(find.byKey(const Key('rifle-twist-direction')));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Sağ').last);
     await tester.pumpAndSettle();
-    await type('ammo-brand', 'Test Mühimmat');
-    await type('ammo-model', 'Test Slug');
+    await type('ammo-brand', 'Test Mühimmat Slug');
     await tester.ensureVisible(find.byKey(const Key('ammo-type')));
     await tester.tap(find.byKey(const Key('ammo-type')));
     await tester.pumpAndSettle();

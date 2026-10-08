@@ -59,7 +59,7 @@ class Rifle {
     this.userEntered = false,
   });
   String get displayName =>
-      '$brand $model • ${caliberMm.toStringAsFixed(2)} mm';
+      '${_joinName(brand, model)} • ${caliberMm.toStringAsFixed(2)} mm';
 }
 
 class Ammunition {
@@ -88,7 +88,8 @@ class Ammunition {
     this.userEntered = false,
   });
   String get displayName =>
-      '$brand $model • ${grain.toStringAsFixed(grain % 1 == 0 ? 0 : 1)} gr';
+      '${_joinName(brand, model)} • '
+      '${grain.toStringAsFixed(grain % 1 == 0 ? 0 : 1)} gr';
 }
 
 class ScopeOptic {
@@ -140,8 +141,13 @@ class ScopeOptic {
     this.sourceDocument,
     this.userEntered = false,
   });
-  String get displayName => '$brand $model';
+  String get displayName => _joinName(brand, model);
 }
+
+/// "Brand Model" without a stray space when one part is empty (personal
+/// ammunition keeps its whole name in the brand since 2026-10-09).
+String _joinName(String brand, String model) =>
+    [brand.trim(), model.trim()].where((s) => s.isNotEmpty).join(' ');
 
 class RifleProfile {
   final String id, name, rifleId, ammunitionId, scopeId;

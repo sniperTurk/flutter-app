@@ -38,7 +38,7 @@ void main() {
     expect(integrity.resolve(profile), isNull);
   });
 
-  test('rejects platform/caliber incoherence and missing PCP pressure', () {
+  test('rejects platform/caliber incoherence; PCP pressure is optional', () {
     const wrongAmmo = RifleProfile(
       id: 'mixed',
       name: 'Mixed',
@@ -61,7 +61,8 @@ void main() {
       sightHeightMm: 65,
     );
     expect(integrity.resolve(wrongAmmo), isNull);
-    expect(integrity.resolve(missingPressure), isNull);
+    // Regülatör basıncı is no longer required (owner, 2026-10-09).
+    expect(integrity.resolve(missingPressure), isNotNull);
   });
 
   test('rejects persisted numeric values outside production guardrails', () {
