@@ -83,6 +83,15 @@ class ScopeDialView extends StatelessWidget {
   /// grows. Default 10 cm (a common airgun paper target).
   final double targetDiameterM;
 
+  /// Shot incline (degrees, + up) shown next to the range; the required
+  /// corrections already include it.
+  final double inclineDeg;
+
+  /// Scope cant (degrees, + clockwise). The required corrections are in the
+  /// canted scope's axes; the reticle is drawn rolled by this angle while
+  /// the target stays upright, as seen through a canted scope.
+  final double cantDeg;
+
   const ScopeDialView({
     super.key,
     required this.unit,
@@ -110,6 +119,8 @@ class ScopeDialView extends StatelessWidget {
     required this.distanceUnit,
     required this.metric,
     this.targetDiameterM = 0.10,
+    this.inclineDeg = 0,
+    this.cantDeg = 0,
   });
 
   /// Target radius as a true angle in [unit] (null when the range is unknown).
@@ -278,7 +289,9 @@ class ScopeDialView extends StatelessWidget {
                         holdLabels: holdLabels,
                         windLabels: windLabels,
                         headline:
-                            'Hedef: ${toDisplayRange(rangeM).round()} $distanceUnit',
+                            'Hedef: ${toDisplayRange(rangeM).round()} $distanceUnit'
+                            '${inclineDeg.round() == 0 ? '' : ' ∠ ${inclineDeg.round()}°'}',
+                        cantDeg: cantDeg,
                         opticLine:
                             '${ffp ? 'FFP' : 'SFP'} · $unitLabel'
                             '${hasZoom ? ' · ${_mag(currentMag)}x' : ''}',
@@ -444,6 +457,23 @@ class ScopeDialView extends StatelessWidget {
       lines.add(
         'Hedef halkası Ø$d = ${f(tRad * 2)} $unitLabel; gerçek boyutunda '
         'çizilir: büyütme arttıkça büyür, mesafe arttıkça küçülür.',
+      );
+    }
+    if (inclineDeg.round() != 0) {
+      final horizontal = toDisplayRange(
+        rangeM * math.cos(inclineDeg * math.pi / 180),
+      );
+      lines.add(
+        'Tüfek eğimi ∠${inclineDeg.round()}°: düşüş eğik mesafe ($r '
+        '$distanceUnit) boyunca eğime göre hesaplandı; yatay mesafe '
+        '${horizontal.round()} $distanceUnit.',
+      );
+    }
+    if (cantDeg.round() != 0) {
+      lines.add(
+        'Dürbün eğimi ${cantDeg.abs().round()}° '
+        '${cantDeg > 0 ? 'sağa' : 'sola'}: saçma yatık tarafa ve aşağı '
+        'kayar; kule değerleri yatık dürbünün kendi eksenlerinde verildi.',
       );
     }
     if (req != null) {
@@ -892,6 +922,9 @@ class ScopeReticlePainter extends CustomPainter {
   /// [trueHalfField]); drawn on the true scale behind the reticle so it grows
   /// with magnification. Null: no target.
   final double? targetRadius;
+
+  /// Reticle roll in degrees (+ clockwise); the target is not rolled.
+  final double cantDeg;
   final double markStep;
   final String unitLabel;
   final double? impactUp;
@@ -908,6 +941,7 @@ class ScopeReticlePainter extends CustomPainter {
     double? reticleHalfField,
     double? trueHalfField,
     this.targetRadius,
+    this.cantDeg = 0,
     this.opticLine,
     this.sfpNote,
     required this.markStep,
@@ -982,6 +1016,15 @@ class ScopeReticlePainter extends CustomPainter {
       canvas.drawCircle(center, px / 5, Paint()..color = colors.ink2);
     }
 
+    // Everything of the reticle (lines, marks, labels on marks, impact) is
+    // in the scope's own axes: roll it by the cant about the centre.
+    void roll() {
+      canvas.save();
+      canvas.translate(center.dx, center.dy);
+      canvas.rotate(cantDeg * math.pi / 180);
+      canvas.translate(-center.dx, -center.dy);
+    }
+
     final fine = Paint()
       ..color = ink
       ..strokeWidth = 1.4;
@@ -989,6 +1032,7 @@ class ScopeReticlePainter extends CustomPainter {
       ..color = ink
       ..strokeWidth = 7;
     final postStart = halfField * 0.82 * scale;
+    roll();
     // Fine crosshair.
     canvas.drawLine(
       Offset(center.dx - postStart, center.dy),
@@ -1074,6 +1118,7 @@ class ScopeReticlePainter extends CustomPainter {
       }
     }
 
+    canvas.restore(); // roll
     // Headline and scale legend.
     _text(
       canvas,
@@ -1110,7 +1155,8 @@ class ScopeReticlePainter extends CustomPainter {
       );
     }
 
-    // Point of impact.
+    // Point of impact (scope axes, so rolled with the reticle).
+    roll();
     final up = impactUp;
     final right = impactRight;
     if (up != null && right != null) {
@@ -1143,6 +1189,7 @@ class ScopeReticlePainter extends CustomPainter {
         canvas.drawPath(arrow, ring);
       }
     }
+    canvas.restore(); // roll
     canvas.restore();
     canvas.drawCircle(
       center,
@@ -1165,6 +1212,7 @@ class ScopeReticlePainter extends CustomPainter {
       old.reticleHalfField != reticleHalfField ||
       old.trueHalfField != trueHalfField ||
       old.targetRadius != targetRadius ||
+      old.cantDeg != cantDeg ||
       old.opticLine != opticLine ||
       old.sfpNote != sfpNote ||
       !_sameLabels(old.holdLabels, holdLabels) ||

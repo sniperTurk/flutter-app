@@ -36,4 +36,16 @@ abstract final class EnvironmentFieldInfo {
   static const shotRange =
       'Hedefe olan mesafe. Telemetre (lazer mesafe ölçer) ile ölçün veya '
       '"Haritadan" ile seçin. Örnek: 45 m.';
+  static const incline =
+      'Tüfek eğimi: hedefe bakış çizgisinin yatayla yaptığı açı. Yukarı '
+      'atışta +, aşağı atışta −. Yokuşta saçma daha az düşer; yukarı ve aşağı '
+      'atışta düz atıştan daha az yükseltme gerekir. Mesafe, telemetrenin '
+      'ölçtüğü eğik mesafedir. "Kamerayla ölç" ile telefonun arka kamerasını '
+      'hedefe çevirerek ölçün. Örnek: −15°.';
+  static const cant =
+      'Dürbün eğimi: dürbünün dikey çizgisinin tam dikeyden sağa veya sola '
+      'yatma açısı. Sağa (saat 3 yönüne) yatık +, sola −. Yatık dürbünde '
+      'saçma yatık tarafa ve biraz aşağı gider; uygulama kule kliklerini '
+      'buna göre düzeltir. Telefonu dürbüne dayayıp "Telefonla ölç" ile '
+      'ölçebilirsiniz. Örnek: 3°.';
 }

@@ -15,11 +15,14 @@ import '../../core/units.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
 import '../../services/settings_store.dart';
+import '../../tools/domain/shot_angle_math.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../tools/map_distance_screen.dart';
 import '../tools/weather_screen.dart';
 import 'environment_field_info.dart';
+import 'incline_measure_screen.dart';
+import 'scope_cant_screen.dart';
 import 'scope_dial_view.dart';
 
 /// Which part of the ballistic workspace is shown.
@@ -79,7 +82,13 @@ class _ShotBasis {
 
   bool get drag => ballisticCoefficient != null && ballisticModel != null;
 
-  BallisticInput input(List<double> rangesM) => BallisticInput(
+  /// [inclineDeg]/[cantDeg] are per-shot values (Atış); the DOPE table is
+  /// always solved level.
+  BallisticInput input(
+    List<double> rangesM, {
+    double inclineDeg = 0,
+    double cantDeg = 0,
+  }) => BallisticInput(
     muzzleVelocityMps: velocityMps,
     grain: grain,
     zeroRangeM: zeroRangeM,
@@ -88,6 +97,8 @@ class _ShotBasis {
     environment: environment,
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
+    inclineDeg: inclineDeg,
+    cantDeg: cantDeg,
   );
 }
 
@@ -116,6 +127,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   _ShotBasis? _basis;
   double _shotRangeM = 100;
+
+  /// Atış: shot incline (+ up, − down) and scope cant (+ clockwise), degrees.
+  double _inclineDeg = 0;
+  double _cantDeg = 0;
+
+  void _setAngles({double? incline, double? cant}) => setState(() {
+    if (incline != null) _inclineDeg = incline;
+    if (cant != null) _cantDeg = cant;
+    // Every cached shot and hold curve belongs to the old angles.
+    _shotCache.clear();
+    _holdSamples = null;
+  });
 
   /// Drag-mode extras of the last solve (empty in vacuum mode).
   List<DragWarning> _warnings = [];
@@ -506,7 +529,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     TrajectoryPoint? shot;
     double? mpsPerMil;
     try {
-      final input = basis.input([_shotRangeM]);
+      final input = basis.input(
+        [_shotRangeM],
+        inclineDeg: _inclineDeg,
+        cantDeg: _cantDeg,
+      );
       shot = const BallisticEngine().solve(input).first;
       if (basis.drag) {
         mpsPerMil = ReticleHolds.crosswindForMil(
@@ -630,6 +657,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               children: [
                 Expanded(
                   child: _statusCard(
+                    key: const Key('elevation-status-card'),
                     title: correction == null ? 'Yukarı' : correction.direction,
                     value: correction?.value ?? '—',
                     subtitle: clicks == null
@@ -673,7 +701,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (!identical(basis, _holdSamplesBasis) || _holdSamples == null) {
       List<TrajectoryPoint> points;
       try {
-        points = ReticleHolds.sample(basis.input(const [1]));
+        points = ReticleHolds.sample(
+          basis.input(const [1], inclineDeg: _inclineDeg, cantDeg: _cantDeg),
+        );
       } on ArgumentError {
         points = const [];
       } on UnsupportedError {
@@ -777,6 +807,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       unitNote: unitNote,
       windNote: windNote == null ? scaleNote : '$scaleNote $windNote',
       rangeM: _shotRangeM,
+      inclineDeg: _inclineDeg,
+      cantDeg: _cantDeg,
       samples: basis == null ? const [] : _holdSamplesFor(basis, unit),
       toDisplayRange: _toDisplayRange,
       distanceUnit: _distanceUnit,
@@ -825,11 +857,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final drift =
         'Sapma ${_windDrift(shot).toStringAsFixed(1).replaceAll('.', ',')} '
         '$_driftUnit$driftSide';
+    // With a canted scope the sideways correction is wind + cant.
+    final canted = _cantDeg != 0;
     return _statusCard(
       key: const Key('wind-status-card'),
-      title: 'Rüzgâr',
+      title: canted ? 'Yan (rüzgâr + dürbün eğimi)' : 'Rüzgâr',
       value: '${mrad.toStringAsFixed(2)} mrad',
-      subtitle: windMps == 0
+      subtitle: windMps == 0 && !canted
           ? 'Rüzgâr 0 girildi'
           : clicks == null
           ? '$drift · ${_windLabel(windMps)} ${metric ? 'm/s' : 'mph'}'
@@ -1487,6 +1521,91 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   // Atış
   // -------------------------------------------------------------------------
 
+  /// Tüfek eğimi and Dürbün eğimi, side by side under the range dial.
+  Widget _angleTiles(BuildContext context) {
+    final c = MenzilColors.of(context);
+    Widget tile({
+      required Key key,
+      required String title,
+      required String value,
+      required String info,
+      required IconData icon,
+      required VoidCallback onTap,
+    }) => Expanded(
+      child: MenzilCard(
+        margin: EdgeInsets.zero,
+        background: c.surface2,
+        padding: const EdgeInsets.fromLTRB(
+          MenzilSpace.md,
+          MenzilSpace.xs,
+          MenzilSpace.xxs,
+          MenzilSpace.sm,
+        ),
+        child: InkWell(
+          key: key,
+          onTap: onTap,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(icon, size: 18, color: c.ink2),
+                  const SizedBox(width: MenzilSpace.xxs),
+                  Expanded(
+                    child: Text(title, style: MenzilType.caption(c.ink2)),
+                  ),
+                  MenzilInfoButton(title: title, text: info),
+                ],
+              ),
+              Text(value, style: MenzilType.number(c.ink, size: 22)),
+            ],
+          ),
+        ),
+      ),
+    );
+    return Row(
+      children: [
+        tile(
+          key: const Key('shot-incline'),
+          title: 'Tüfek eğimi',
+          value: '∠ ${ShotAngleMath.degrees(_inclineDeg)}',
+          info: EnvironmentFieldInfo.incline,
+          icon: Icons.terrain_outlined,
+          onTap: _editIncline,
+        ),
+        const SizedBox(width: MenzilSpace.sm),
+        tile(
+          key: const Key('shot-cant'),
+          title: 'Dürbün eğimi',
+          value: _cantDeg == 0
+              ? 'Yok'
+              : '${ShotAngleMath.degrees(_cantDeg)} '
+                    '${_cantDeg > 0 ? 'sağa' : 'sola'}',
+          info: EnvironmentFieldInfo.cant,
+          icon: Icons.rotate_right,
+          onTap: _editCant,
+        ),
+      ],
+    );
+  }
+
+  Future<void> _editIncline() async {
+    final result = await showDialog<double>(
+      context: context,
+      builder: (_) => _InclineDialog(initial: _inclineDeg),
+    );
+    if (!mounted || result == null) return;
+    _setAngles(incline: result);
+  }
+
+  Future<void> _editCant() async {
+    final result = await Navigator.of(context).push<double>(
+      MaterialPageRoute(builder: (_) => ScopeCantScreen(initialDeg: _cantDeg)),
+    );
+    if (!mounted || result == null) return;
+    _setAngles(cant: result);
+  }
+
   List<Widget> _shotSection(BuildContext context) {
     final c = MenzilColors.of(context);
     final shot = _shotPoint();
@@ -1574,6 +1693,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         semanticFormatterCallback: (v) => '${v.round()} $_distanceUnit',
         onChanged: (v) => _setShotDisplay(v.round()),
       ),
+      _angleTiles(context),
+      const SizedBox(height: MenzilSpace.sm),
       if (shot == null)
         MenzilNotice(
           tone: MenzilNoticeTone.info,
@@ -1765,4 +1886,98 @@ class _RangeDialogState extends State<_RangeDialog> {
       FilledButton(onPressed: _apply, child: const Text('Uygula')),
     ],
   );
+}
+
+/// Tüfek eğimi: typed by hand or measured with the camera.
+class _InclineDialog extends StatefulWidget {
+  final double initial;
+  const _InclineDialog({required this.initial});
+
+  @override
+  State<_InclineDialog> createState() => _InclineDialogState();
+}
+
+class _InclineDialogState extends State<_InclineDialog> {
+  late final TextEditingController _c = TextEditingController(
+    text: _text(widget.initial),
+  );
+
+  static String _text(double v) {
+    final r = (v * 10).round() / 10;
+    return r == r.roundToDouble()
+        ? r.toStringAsFixed(0)
+        : r.toStringAsFixed(1).replaceAll('.', ',');
+  }
+
+  double? get _value {
+    final v = double.tryParse(_c.text.trim().replaceAll(',', '.'));
+    if (v == null || !v.isFinite) return null;
+    return v.abs() <= ProductionLimits.maxInclineDeg ? v : null;
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  Future<void> _measure() async {
+    final v = await Navigator.of(context).push<double>(
+      MaterialPageRoute(builder: (_) => const InclineMeasureScreen()),
+    );
+    if (!mounted || v == null) return;
+    setState(() => _c.text = _text(v));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final value = _value;
+    final max = ProductionLimits.maxInclineDeg.toStringAsFixed(0);
+    return AlertDialog(
+      title: const Text('Tüfek eğimi'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MenzilInput(
+            key: const Key('incline-field'),
+            controller: _c,
+            label: 'Tüfek eğimi açısı',
+            unit: '°',
+            info: EnvironmentFieldInfo.incline,
+            helperText: 'Yukarı +, aşağı −',
+            errorText: value == null ? '−$max ile $max arasında olmalı.' : null,
+            keyboardType: const TextInputType.numberWithOptions(
+              decimal: true,
+              signed: true,
+            ),
+            onChanged: (_) => setState(() {}),
+          ),
+          MenzilSecondaryButton(
+            key: const Key('incline-measure'),
+            label: 'Kamerayla ölç',
+            icon: Icons.photo_camera_outlined,
+            expand: true,
+            onPressed: _measure,
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(0.0),
+          child: const Text('0° (düz)'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('İptal'),
+        ),
+        TextButton(
+          key: const Key('incline-done'),
+          onPressed: value == null
+              ? null
+              : () => Navigator.of(context).pop(value),
+          child: const Text('Tamam'),
+        ),
+      ],
+    );
+  }
 }
