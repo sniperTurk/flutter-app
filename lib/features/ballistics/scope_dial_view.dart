@@ -37,6 +37,7 @@ class ScopeDialView extends StatelessWidget {
   final double clickValue;
   final int elevationClicks;
   final int windageClicks;
+
   /// UP travel of the elevation turret from zero, in clicks (a canted
   /// mount is already included).
   final int maxElevationClicks;
@@ -826,7 +827,10 @@ class _TurretDrumState extends State<_TurretDrum> {
 
   void _set(int value) {
     final v = value
-        .clamp(-(widget.maxNegativeClicks ?? widget.maxClicks), widget.maxClicks)
+        .clamp(
+          -(widget.maxNegativeClicks ?? widget.maxClicks),
+          widget.maxClicks,
+        )
         .toInt();
     if (v != widget.clicks) widget.onChanged(v);
   }
