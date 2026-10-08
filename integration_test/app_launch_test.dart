@@ -113,7 +113,6 @@ void main() {
     await tester.tap(find.text('Sağ').last);
     await tester.pumpAndSettle();
     await type('ammo-brand', 'Test Mühimmat');
-    await type('ammo-model', 'Test Slug');
     await tester.ensureVisible(find.byKey(const Key('ammo-type')));
     await tester.tap(find.byKey(const Key('ammo-type')));
     await tester.pumpAndSettle();
