@@ -97,7 +97,7 @@ void main() {
     const order = [
       'Namlu çıkış hızı',
       'Yiv yönü',
-      'Namlu boyu',
+      'Namlu uzunluğu',
       'Kalibre',
       'Yiv oranı',
       'Sight height',
