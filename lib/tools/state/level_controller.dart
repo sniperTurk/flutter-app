@@ -19,11 +19,37 @@ class LevelController extends ChangeNotifier {
   final LevelCalibrationStore? calibrationStore;
   final GravityFilter _filter;
 
+  /// [smoothing] fixes the filter share (tests use 1 for raw readings);
+  /// left null, the filter is adaptive: steady while still, quick while
+  /// moving.
   LevelController({
     required this.provider,
     this.calibrationStore,
-    double smoothing = 0.15,
-  }) : _filter = GravityFilter(alpha: smoothing);
+    double? smoothing,
+    this.calibrationSamples = 100,
+    this.calibrationSettleSamples = 15,
+  }) : _filter = smoothing == null
+           ? GravityFilter.adaptive()
+           : GravityFilter(alpha: smoothing);
+
+  /// Raw samples averaged for one calibration reading (~2 s at the ~50 Hz
+  /// game rate) and samples skipped first to let the tap settle.
+  final int calibrationSamples;
+  final int calibrationSettleSamples;
+
+  StillAverager? _averager;
+  bool _averagerFlipped = false;
+  int _averagerFed = 0;
+  Completer<bool>? _captureDone;
+
+  /// True while an averaged calibration reading is being collected.
+  bool get capturingCalibration => _averager != null;
+
+  /// 0..1 progress of the running averaged reading, null when idle.
+  double? get calibrationProgress => _averager?.progress;
+
+  /// Times the running reading restarted because the phone moved.
+  int get calibrationRestarts => _averager?.restarts ?? 0;
 
   /// True after a calibration could not be written to storage.
   bool get calibrationSaveFailed => _saveFailed;
@@ -154,7 +180,9 @@ class LevelController extends ChangeNotifier {
         _unavailable = null;
         if (_autoMode) _followPose(gravity);
         _gravity = _filter.add(gravity);
+        _feedAverager(gravity);
       case TiltUnavailable(:final reason):
+        _finishCapture(false);
         _unavailable = reason;
         _gravity = null;
         _filter.reset();
@@ -189,6 +217,8 @@ class LevelController extends ChangeNotifier {
   }
 
   void _switchMode(TiltMode m) {
+    // A reading half taken flat must not be completed upright.
+    _finishCapture(false);
     _mode = m;
     _offset = null;
     _filter.reset();
@@ -267,6 +297,68 @@ class LevelController extends ChangeNotifier {
   bool captureCalibration({required bool flipped}) {
     final raw = rawAngles;
     if (raw == null) return false;
+    _applyCapture(raw, flipped: flipped);
+    return true;
+  }
+
+  /// Starts an averaged calibration reading: ~2 s of RAW (unfiltered)
+  /// samples while the phone lies still. Moving the phone restarts the
+  /// collection; if it never stays still long enough, or the pose changes
+  /// or the sensor stops, the future completes with false and nothing is
+  /// stored. Completes with true once the reading is applied.
+  Future<bool> startCalibrationCapture({required bool flipped}) {
+    _finishCapture(false);
+    if (!hasReading) return Future.value(false);
+    _averager = StillAverager(
+      settleSamples: calibrationSettleSamples,
+      samples: calibrationSamples,
+    );
+    _averagerFlipped = flipped;
+    _averagerFed = 0;
+    final done = Completer<bool>();
+    _captureDone = done;
+    if (!_disposed) notifyListeners();
+    return done.future;
+  }
+
+  void cancelCalibrationCapture() => _finishCapture(false);
+
+  void _feedAverager(GravityVector raw) {
+    final avg = _averager;
+    if (avg == null) return;
+    _averagerFed++;
+    if (avg.add(raw)) {
+      final angles = TiltMath.angles(avg.mean!, _mode);
+      if (angles == null) {
+        _finishCapture(false);
+        return;
+      }
+      final flipped = _averagerFlipped;
+      _averager = null;
+      _applyCapture(angles, flipped: flipped);
+      _completeCapture(true);
+      return;
+    }
+    // Give up after the time of ~6 full readings without a still stretch.
+    if (_averagerFed > (calibrationSettleSamples + calibrationSamples) * 6) {
+      _finishCapture(false);
+    }
+  }
+
+  void _finishCapture(bool ok) {
+    if (_averager == null && _captureDone == null) return;
+    _averager = null;
+    _completeCapture(ok);
+    if (!_disposed) notifyListeners();
+  }
+
+  void _completeCapture(bool ok) {
+    final done = _captureDone;
+    _captureDone = null;
+    if (done != null && !done.isCompleted) done.complete(ok);
+  }
+
+  void _applyCapture(TiltAngles raw, {required bool flipped}) {
     final existing = _calibration[_mode] ?? const FlipCalibration();
     final next = flipped ? existing.withFlipped(raw) : existing.withNormal(raw);
     _calibration[_mode] = next;
@@ -276,7 +368,6 @@ class LevelController extends ChangeNotifier {
     if (next.normal != null && next.flipped != null) {
       unawaited(_persist(_mode));
     }
-    return true;
   }
 
   void clearCalibration(TiltMode mode) {
@@ -296,6 +387,8 @@ class LevelController extends ChangeNotifier {
   @override
   void dispose() {
     _disposed = true;
+    _averager = null;
+    _completeCapture(false);
     _sub?.cancel();
     super.dispose();
   }
