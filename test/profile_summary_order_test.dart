@@ -131,8 +131,9 @@ void main() {
     // New names and values.
     expect(find.text('6-36 x 56 FFP'), findsOneWidget);
     expect(find.text('GaziSniper'), findsOneWidget);
-    expect(find.text('260'), findsOneWidget); // 26 mrad / 0.1 = 260 klik
-    expect(find.text('gr Pellet'), findsOneWidget);
+    // Value and unit are one rich text: "260 klik", "50 gr Pellet".
+    expect(find.text('260 klik'), findsOneWidget); // 26 mrad / 0.1
+    expect(find.text('50 gr Pellet'), findsOneWidget);
     // Gone: separate Regülatör, Odak düzlemi, Klik değeri, Çap, Ağırlık,
     // Büyütme and Kule ayar aralığı boxes.
     for (final gone in const [
