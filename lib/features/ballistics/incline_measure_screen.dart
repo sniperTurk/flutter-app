@@ -55,7 +55,8 @@ class _InclineMeasureScreenState extends State<InclineMeasureScreen> {
             _noSensor = false;
             // Light low-pass filter: steadier digits, no visible lag.
             final r = _raw;
-            _raw = r == null ? v : r + (v - r) * 0.2;
+            // Across the ±180° seam the average would be meaningless.
+            _raw = r == null || (v - r).abs() > 180 ? v : r + (v - r) * 0.2;
           });
         case TiltUnavailable():
           setState(() => _noSensor = true);
@@ -89,9 +90,13 @@ class _InclineMeasureScreenState extends State<InclineMeasureScreen> {
   @override
   Widget build(BuildContext context) {
     final angle = _angle;
-    const glow = [Shadow(color: Colors.white54, blurRadius: 12)];
+    // As in ChairGun: black digits with a white glow, readable on any scene.
+    const glow = [
+      Shadow(color: Colors.white, blurRadius: 10),
+      Shadow(color: Colors.white70, blurRadius: 18),
+    ];
     TextStyle style(double size, {FontWeight w = FontWeight.w600}) => TextStyle(
-      color: Colors.white,
+      color: Colors.black,
       fontSize: size,
       fontWeight: w,
       shadows: glow,
@@ -137,9 +142,7 @@ class _InclineMeasureScreenState extends State<InclineMeasureScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Text(
-                    'Telefonu dik tutun, arka kamerayı hedefe çevirin; '
-                    'artıyı hedefe yerleştirip OK\'a basın. Yukarı atış +, '
-                    'aşağı atış −.',
+                    'Nişangahı hedefe yerleştirin ve OK\'a basın.',
                     textAlign: TextAlign.center,
                     style: style(15, w: FontWeight.w500),
                   ),
@@ -182,21 +185,52 @@ class _InclineMeasureScreenState extends State<InclineMeasureScreen> {
   }
 }
 
+/// Mil-dot reticle centred on the screen (= the camera's axis), like the
+/// ChairGun inclinometer: thick ring, fine crosshair, posts and dots.
 class _Crosshair extends CustomPainter {
   const _Crosshair();
 
   @override
   void paint(Canvas canvas, Size size) {
     final c = size.center(Offset.zero);
-    final r = size.shortestSide * 0.32;
-    final p = Paint()
-      ..color = Colors.white
-      ..strokeWidth = 1.5
-      ..style = PaintingStyle.stroke;
-    canvas.drawCircle(c, r, p);
-    canvas.drawLine(c - Offset(r, 0), c + Offset(r, 0), p);
-    canvas.drawLine(c - Offset(0, r), c + Offset(0, r), p);
-    canvas.drawCircle(c, 3, Paint()..color = Colors.greenAccent);
+    final r = size.shortestSide * 0.47;
+    final ink = Paint()..color = Colors.black;
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..color = Colors.black
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 4,
+    );
+    final fine = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 1.5;
+    final post = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 7;
+    final postStart = r * 0.72;
+    canvas.drawLine(c - Offset(postStart, 0), c + Offset(postStart, 0), fine);
+    canvas.drawLine(c - Offset(0, postStart), c + Offset(0, postStart), fine);
+    for (final d in const [
+      Offset(1, 0),
+      Offset(-1, 0),
+      Offset(0, 1),
+      Offset(0, -1),
+    ]) {
+      canvas.drawLine(c + d * postStart, c + d * r, post);
+    }
+    final step = postStart / 5;
+    for (var i = 1; i <= 4; i++) {
+      for (final d in const [
+        Offset(1, 0),
+        Offset(-1, 0),
+        Offset(0, 1),
+        Offset(0, -1),
+      ]) {
+        canvas.drawCircle(c + d * (step * i), 5, ink);
+      }
+    }
   }
 
   @override

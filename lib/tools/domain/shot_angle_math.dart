@@ -13,14 +13,17 @@ abstract final class ShotAngleMath {
   static const minGravity = 4.0;
 
   /// Incline of the BACK camera's line of sight above (+) or below (−) the
-  /// horizontal, degrees, with the phone held upright and the camera aimed
-  /// at the target. Lying flat screen-up reads −90° (camera straight down).
-  /// Rolling the phone sideways does not change the reading.
+  /// horizontal, degrees, over the full −180…180 range (no artificial
+  /// limit): lying flat screen-up reads −90° (camera straight down); tipping
+  /// further, top edge toward you, continues to −100°, −120°… as in field
+  /// apps. Rolling the phone sideways does not change the reading.
   static double? inclineDeg(GravityVector g) {
     final inPlane = math.sqrt(g.x * g.x + g.y * g.y);
     final mag = math.sqrt(inPlane * inPlane + g.z * g.z);
     if (!mag.isFinite || mag < minGravity) return null;
-    return math.atan2(-g.z, inPlane) * 180 / math.pi;
+    // Top edge up (y > 0): −90…90; top edge down (upside down): beyond ±90.
+    final signedPlane = g.y < 0 ? -inPlane : inPlane;
+    return math.atan2(-g.z, signedPlane) * 180 / math.pi;
   }
 
   /// Roll of the phone (held upright, screen facing the shooter, its top

@@ -100,6 +100,9 @@ void main() {
       );
       expect(ShotAngleMath.inclineDeg(_pitched(30)), closeTo(30, 0.05));
       expect(ShotAngleMath.inclineDeg(_pitched(-20)), closeTo(-20, 0.05));
+      // No artificial limit: tipping past straight down keeps counting.
+      expect(ShotAngleMath.inclineDeg(_pitched(-102)), closeTo(-102, 0.05));
+      expect(ShotAngleMath.inclineDeg(_pitched(120)), closeTo(120, 0.05));
       // Rolling the phone sideways does not change the incline.
       expect(
         ShotAngleMath.inclineDeg(const GravityVector(5, 8, -2)),
