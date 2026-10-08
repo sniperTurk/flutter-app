@@ -1,0 +1,26 @@
+Processing /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/sniper-turk-validator-etq5phcj/py_ballisticcalc-2.2.10-py3-none-any.whl
+Processing /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/sniper-turk-validator-etq5phcj/typing_extensions-4.15.0-py3-none-any.whl
+Processing /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/sniper-turk-validator-etq5phcj/Deprecated-1.2.18-py2.py3-none-any.whl
+Processing /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/sniper-turk-validator-etq5phcj/wrapt-1.17.3-py3-none-any.whl
+Installing collected packages: wrapt, typing-extensions, py-ballisticcalc, Deprecated
+Successfully installed Deprecated-1.2.18 py-ballisticcalc-2.2.10 typing-extensions-4.15.0 wrapt-1.17.3
+installed 4 hash-verified pinned validator wheels
+bootstrap exit: 0
+[36mINFO[0m:py_balcalc:Loaded calculator from: py_ballisticcalc:RK4IntegrationEngine (Class: <class 'py_ballisticcalc.engines.rk4.RK4IntegrationEngine'>)
+[36mINFO[0m:py_balcalc:Loaded calculator from: py_ballisticcalc:RK4IntegrationEngine (Class: <class 'py_ballisticcalc.engines.rk4.RK4IntegrationEngine'>)
+[36mINFO[0m:py_balcalc:Loaded calculator from: py_ballisticcalc:RK4IntegrationEngine (Class: <class 'py_ballisticcalc.engines.rk4.RK4IntegrationEngine'>)
+[36mINFO[0m:py_balcalc:Loaded calculator from: py_ballisticcalc:RK4IntegrationEngine (Class: <class 'py_ballisticcalc.engines.rk4.RK4IntegrationEngine'>)
+wrote validated fixture /Users/runner/work/flutter-app/flutter-app/validation/py_ballisticcalc_vectors.json
+generate exit: 0
+total 64
+drwxr-xr-x    8 runner  staff    256 Oct  8 01:12 .
+drwxr-xr-x  321 runner  staff  10272 Oct  8 01:12 ..
+-rw-r--r--    1 runner  staff   1224 Oct  8 01:09 acceptance.json
+-rw-r--r--    1 runner  staff   4463 Oct  8 01:09 envelope_acceptance.json
+-rw-r--r--    1 runner  staff   1975 Oct  8 01:09 FORMULA_AUDIT.md
+-rw-------    1 runner  staff   6193 Oct  8 01:12 py_ballisticcalc_vectors.json
+-rw-r--r--    1 runner  staff   3709 Oct  8 01:09 README.md
+-rw-r--r--    1 runner  staff   2698 Oct  8 01:09 wind_acceptance.json
+PASS: py-ballisticcalc fixture schema/provenance satisfied
+fixture validate exit: 0
+Python 3.12.10
