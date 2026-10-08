@@ -26,9 +26,10 @@ abstract final class EnvironmentFieldInfo {
       'doğrusudur. Yan rüzgâr saçmayı yana taşır; sapma BC ile hesaplanır. '
       'Örnek: 3 m/s.';
   static const windDirection =
-      'Rüzgârın NEREDEN estiği, atış yönüne göre derece. 0 = tam karşıdan '
-      '(yüze), 90 = tam soldan, 180 = tam arkadan, 270 = tam sağdan. Saat '
-      'kadranıyla: 9 yönü = 90°, 3 yönü = 270°. Soldan esen rüzgâr saçmayı '
+      'Rüzgârın NEREDEN estiğini seçin. Hedef 0° (saat 12) yönünde; açı saat '
+      'yönünde artar: 90° (saat 3) = sağdan, 180° (saat 6) = arkadan, 270° '
+      '(saat 9) = soldan. 45°, 135°, 225°, 315° ara yönlerdir. ChairGun, '
+      'Strelok ve Kestrel de böyle kullanır. Soldan esen rüzgâr saçmayı '
       'sağa taşır.';
   static const ranges =
       'Tabloda görmek istediğiniz mesafeler, virgülle ayrılmış. Örnek: '
@@ -48,4 +49,19 @@ abstract final class EnvironmentFieldInfo {
       'saçma yatık tarafa ve biraz aşağı gider; uygulama kule kliklerini '
       'buna göre düzeltir. Telefonu dürbüne dayayıp "Telefonla ölç" ile '
       'ölçebilirsiniz. Örnek: 3°.';
+  static const coriolis =
+      'Dünyanın dönüşü uçuştaki saçmayı çok az saptırır: kuzey yarımkürede '
+      'sağa, doğuya atışta biraz yukarı, batıya atışta biraz aşağı. Uzun '
+      'uçuş süresinde (uzun mesafe) önem kazanır; havalı tüfekte 100 m\'de '
+      'milimetre düzeyindedir. Açıkken uygulama enlem ve atış yönüne göre '
+      'hesaplar ve kule kliklerine ekler.';
+  static const latitude =
+      'Bulunduğunuz yerin enlemi, derece. Kuzey yarımküre +, güney −. '
+      'Türkiye için yaklaşık 36–42. "Konumdan al" telefonun konumunu '
+      'kullanır. Örnek: 39,9 (Ankara).';
+  static const azimuth =
+      'Hedefe atış yönü, kuzeyden saat yönünde derece: kuzey 0, doğu 90, '
+      'güney 180, batı 270. "Pusuladan al" için telefonu hedefe doğru '
+      'tutun. Birkaç derecelik hata Coriolis sonucunu fark edilir '
+      'değiştirmez. Örnek: 135.';
 }

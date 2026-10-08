@@ -729,7 +729,15 @@ class _MenzilAccordionState extends State<MenzilAccordion> {
 class MenzilInfoButton extends StatelessWidget {
   final String title;
   final String text;
-  const MenzilInfoButton({super.key, required this.title, required this.text});
+
+  /// Optional picture shown above the text (e.g. the wind direction dial).
+  final Widget? illustration;
+  const MenzilInfoButton({
+    super.key,
+    required this.title,
+    required this.text,
+    this.illustration,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -746,7 +754,18 @@ class MenzilInfoButton extends StatelessWidget {
         context: context,
         builder: (dialogContext) => AlertDialog(
           title: Text(title),
-          content: SingleChildScrollView(child: Text(text)),
+          content: SingleChildScrollView(
+            child: illustration == null
+                ? Text(text)
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      illustration!,
+                      const SizedBox(height: MenzilSpace.md),
+                      Text(text),
+                    ],
+                  ),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(),

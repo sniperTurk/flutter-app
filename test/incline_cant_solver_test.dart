@@ -38,6 +38,8 @@ BallisticInput _input({
   List<double> ranges = const [20, 45, 70],
   bool drag = true,
   EnvironmentData env = _env,
+  double? latitude,
+  double? azimuth,
 }) => BallisticInput(
   muzzleVelocityMps: 275,
   grain: 33.95,
@@ -49,6 +51,8 @@ BallisticInput _input({
   ballisticModel: drag ? BallisticModel.g1 : null,
   inclineDeg: incline,
   cantDeg: cant,
+  latitudeDeg: latitude,
+  azimuthDeg: azimuth,
 );
 
 typedef _V = List<double>;
@@ -57,6 +61,26 @@ double _dot(_V a, _V b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 /// World axes: [forward (horizontal), up, right].
 class _World {
   final ReferenceDragModel drag = ReferenceDragModel(StandardDragTables.g1);
+
+  /// Earth's rotation in world axes; zero = no Coriolis.
+  final _V omega;
+
+  _World() : omega = const [0.0, 0.0, 0.0];
+
+  /// East-north-up Ω = ω(0, cos φ, sin φ) seen along the shot azimuth A:
+  /// forward = (sin A, cos A, 0), right = (cos A, −sin A, 0).
+  _World.coriolis(double latDeg, double azDeg)
+    : omega = _earthRotation(latDeg, azDeg);
+
+  static _V _earthRotation(double latDeg, double azDeg) {
+    const w = 7.2921159e-5;
+    final lat = latDeg * math.pi / 180, az = azDeg * math.pi / 180;
+    return [
+      w * math.cos(lat) * math.cos(az),
+      w * math.sin(lat),
+      -w * math.cos(lat) * math.sin(az),
+    ];
+  }
 
   _V _accel(_V v, _V air, EnvironmentData env) {
     final rv = [v[0] - air[0], v[1] - air[1], v[2] - air[2]];
@@ -67,7 +91,12 @@ class _World {
       environment: env,
     );
     final s = speed == 0 ? 0.0 : -decel / speed;
-    return [s * rv[0], s * rv[1] - _g, s * rv[2]];
+    // Coriolis: a = −2 Ω × v.
+    final o = omega;
+    final cx = o[1] * v[2] - o[2] * v[1];
+    final cy = o[2] * v[0] - o[0] * v[2];
+    final cz = o[0] * v[1] - o[1] * v[0];
+    return [s * rv[0] - 2 * cx, s * rv[1] - _g - 2 * cy, s * rv[2] - 2 * cz];
   }
 
   List<double> _step(List<double> st, _V air, EnvironmentData env) {
@@ -266,5 +295,80 @@ void main() {
     expect(() => _input(incline: 181), throwsArgumentError);
     expect(() => _input(cant: -181), throwsArgumentError);
     expect(() => _input(incline: double.nan), throwsArgumentError);
+  });
+
+  group('Coriolis', () {
+    for (final (lat, az, incline, cant) in const [
+      (45.0, 0.0, 0.0, 0.0),
+      (39.9, 90.0, 0.0, 0.0),
+      (41.0, 270.0, 0.0, 0.0),
+      (-33.9, 135.0, 0.0, 0.0),
+      (38.0, 200.0, 25.0, -8.0),
+      (60.0, 45.0, -30.0, 15.0),
+    ]) {
+      test('drag solver = world-frame reference '
+          '(φ $lat°, A $az°, ∠$incline°, cant $cant°)', () {
+        final reference = _World.coriolis(lat, az);
+        final points = const BallisticEngine().solve(
+          _input(incline: incline, cant: cant, latitude: lat, azimuth: az),
+        );
+        for (final p in points) {
+          // The zero is solved level, without cant and without Coriolis.
+          final (up, right) = reference.offsetAt(
+            boreAngle: zero,
+            range: p.rangeM,
+            inclineDeg: incline,
+            cantDeg: cant,
+            env: _env,
+          );
+          expect(p.dropM, closeTo(-up, 2e-5), reason: '${p.rangeM} m drop');
+          expect(
+            p.windMrad,
+            closeTo(math.atan2(-right, p.rangeM) * 1000, 2e-3),
+            reason: '${p.rangeM} m lateral',
+          );
+        }
+      });
+    }
+
+    const calm = EnvironmentData(windMps: 0);
+    TrajectoryPoint at(double? lat, double? az, {double range = 70}) =>
+        const BallisticEngine()
+            .solve(
+              _input(env: calm, ranges: [range], latitude: lat, azimuth: az),
+            )
+            .single;
+
+    test('northern hemisphere drifts right, southern left', () {
+      final base = at(null, null);
+      expect(base.windMrad, closeTo(0, 1e-9));
+      // windMrad > 0 means dial RIGHT: a right drift needs LEFT.
+      expect(at(40, 0).windMrad, lessThan(0));
+      expect(at(-40, 0).windMrad, greaterThan(0));
+    });
+
+    test('east shoots high, west low (Eötvös)', () {
+      final base = at(null, null).dropM;
+      expect(at(40, 90).dropM, lessThan(base));
+      expect(at(40, 270).dropM, greaterThan(base));
+    });
+
+    test('horizontal drift ≈ ω·sin φ·R·t', () {
+      const range = 100.0;
+      final p = at(45, 0, range: range);
+      final drift = -range * math.tan(p.windMrad / 1000);
+      final expected =
+          7.2921159e-5 * math.sin(math.pi / 4) * range * p.timeOfFlightS;
+      expect(drift, closeTo(expected, expected * 0.35));
+      // Air rifle at 100 m: well under a centimetre.
+      expect(drift.abs(), lessThan(0.01));
+    });
+
+    test('latitude and azimuth come together and stay in range', () {
+      expect(() => _input(latitude: 40), throwsArgumentError);
+      expect(() => _input(azimuth: 40), throwsArgumentError);
+      expect(() => _input(latitude: 91, azimuth: 0), throwsArgumentError);
+      expect(() => _input(latitude: 40, azimuth: 361), throwsArgumentError);
+    });
   });
 }

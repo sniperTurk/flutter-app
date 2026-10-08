@@ -29,6 +29,14 @@ class BallisticInput {
   /// clicks to dial on the canted turrets. The zero is solved without cant.
   final double cantDeg;
 
+  /// Coriolis (Earth's rotation): shooter latitude in degrees (+ north,
+  /// − south) and the shot azimuth in degrees clockwise from true north.
+  /// Both null = Coriolis off. The zero is solved without it.
+  final double? latitudeDeg;
+  final double? azimuthDeg;
+
+  bool get coriolis => latitudeDeg != null && azimuthDeg != null;
+
   /// The same input for different [ranges] (validated again).
   BallisticInput withRanges(Iterable<double> ranges) => BallisticInput(
     muzzleVelocityMps: muzzleVelocityMps,
@@ -42,6 +50,8 @@ class BallisticInput {
     ballisticModel: ballisticModel,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
+    latitudeDeg: latitudeDeg,
+    azimuthDeg: azimuthDeg,
   );
 
   BallisticInput({
@@ -63,6 +73,8 @@ class BallisticInput {
     this.ballisticModel,
     this.inclineDeg = 0,
     this.cantDeg = 0,
+    this.latitudeDeg,
+    this.azimuthDeg,
   }) : rangesM = List.unmodifiable(rangesM) {
     _positiveFinite('muzzleVelocityMps', muzzleVelocityMps);
     _max(
@@ -136,6 +148,15 @@ class BallisticInput {
       -ProductionLimits.maxCantDeg,
       ProductionLimits.maxCantDeg,
     );
+    if ((latitudeDeg == null) != (azimuthDeg == null)) {
+      throw ArgumentError('latitudeDeg and azimuthDeg must be given together');
+    }
+    if (latitudeDeg != null) {
+      _finite('latitudeDeg', latitudeDeg!);
+      _range('latitudeDeg', latitudeDeg!, -90, 90);
+      _finite('azimuthDeg', azimuthDeg!);
+      _range('azimuthDeg', azimuthDeg!, 0, 360);
+    }
   }
 
   static void _validateEnvironment(String prefix, EnvironmentData environment) {

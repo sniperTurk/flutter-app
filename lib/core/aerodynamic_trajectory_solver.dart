@@ -54,10 +54,30 @@ class AerodynamicTrajectorySolver {
   static _Frame _frameFor({
     required double inclineDeg,
     required double cantDeg,
+    double? latitudeDeg,
+    double? azimuthDeg,
   }) {
     final t = inclineDeg * math.pi / 180;
     final p = cantDeg * math.pi / 180;
-    return _Frame(math.sin(t), math.cos(t), math.sin(p), math.cos(p));
+    final sinT = math.sin(t), cosT = math.cos(t);
+    final sinP = math.sin(p), cosP = math.cos(p);
+    var ox = 0.0, oy = 0.0, oz = 0.0;
+    if (latitudeDeg != null && azimuthDeg != null) {
+      // Earth's rotation in the local horizontal frame (forward along the
+      // shot azimuth, up, right): Ω = ω·(cosφ·cosA, sinφ, −cosφ·sinA),
+      // then into the scope frame exactly like gravity and wind.
+      const omega = 7.2921159e-5; // rad/s
+      final lat = latitudeDeg * math.pi / 180;
+      final az = azimuthDeg * math.pi / 180;
+      final f = omega * math.cos(lat) * math.cos(az);
+      final u = omega * math.sin(lat);
+      final r = -omega * math.cos(lat) * math.sin(az);
+      ox = f * cosT + u * sinT;
+      final y1 = -f * sinT + u * cosT;
+      oy = y1 * cosP + r * sinP;
+      oz = r * cosP - y1 * sinP;
+    }
+    return _Frame(sinT, cosT, sinP, cosP, ox, oy, oz);
   }
 
   /// G1/G7 trajectory including vector wind coupling.
@@ -88,6 +108,8 @@ class AerodynamicTrajectorySolver {
     final frame = _frameFor(
       inclineDeg: input.inclineDeg,
       cantDeg: input.cantDeg,
+      latitudeDeg: input.latitudeDeg,
+      azimuthDeg: input.azimuthDeg,
     );
     final wanted = input.rangesM.toList()..sort();
     final results = <double, TrajectoryPoint>{};
@@ -261,9 +283,16 @@ class AerodynamicTrajectorySolver {
       // dz at zero makes crosswind acceleration invisible in sampled drift
       // even though vz changes, producing a false zero-wind correction.
       dz: s.vz,
-      dvx: scale * relativeVx - _g * f.sinT,
-      dvy: scale * relativeVy - _g * f.cosT * f.cosP,
-      dvz: scale * relativeVz + _g * f.cosT * f.sinP,
+      // Coriolis: a = −2·Ω × v (zero when Ω = 0).
+      dvx: scale * relativeVx - _g * f.sinT - 2 * (f.oy * s.vz - f.oz * s.vy),
+      dvy:
+          scale * relativeVy -
+          _g * f.cosT * f.cosP -
+          2 * (f.oz * s.vx - f.ox * s.vz),
+      dvz:
+          scale * relativeVz +
+          _g * f.cosT * f.sinP -
+          2 * (f.ox * s.vy - f.oy * s.vx),
     );
   }
 
@@ -273,6 +302,17 @@ class AerodynamicTrajectorySolver {
 /// Sines and cosines of the shot incline (T) and scope cant (P).
 class _Frame {
   final double sinT, cosT, sinP, cosP;
-  const _Frame(this.sinT, this.cosT, this.sinP, this.cosP);
+
+  /// Earth's rotation vector in the scope frame (rad/s); zero = no Coriolis.
+  final double ox, oy, oz;
+  const _Frame(
+    this.sinT,
+    this.cosT,
+    this.sinP,
+    this.cosP, [
+    this.ox = 0,
+    this.oy = 0,
+    this.oz = 0,
+  ]);
   static const level = _Frame(0, 1, 0, 1);
 }

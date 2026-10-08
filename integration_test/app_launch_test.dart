@@ -21,7 +21,13 @@ void main() {
     expect(find.text('Katalog yüklenemedi'), findsNothing);
     // The app opens on Profil, which shows no Menzil wordmark.
     expect(find.text('Menzil'), findsNothing);
-    for (final tab in const ['Profil', 'Hava Durumu', 'Atış', 'Araçlar']) {
+    for (final tab in const [
+      'Profil',
+      'Hava Durumu',
+      'Pro',
+      'Atış',
+      'Araçlar',
+    ]) {
       expect(
         find.text(tab),
         findsWidgets,
@@ -143,8 +149,7 @@ void main() {
     await tester.tap(find.text('Atış').first);
     await tester.pumpAndSettle();
     expect(find.text('DOPE için önce aktif profil oluşturun'), findsNothing);
-    await tester.tap(find.text('Hesapla').first);
-    await tester.pumpAndSettle();
+    // Atış solves on its own when it opens (no Hesapla button).
     // V378: the typed ammo carries a BC with its G1 model, so Atış uses the
     // drag solver and wind is computed (no KİLİTLİ card).
     expect(find.text('KİLİTLİ'), findsNothing);

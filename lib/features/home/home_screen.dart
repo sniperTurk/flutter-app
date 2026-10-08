@@ -17,11 +17,12 @@ import '../profiles/profile_recovery_dialog.dart';
 import '../profiles/profiles_screen.dart';
 import '../tools/tools_screen.dart';
 
-/// Application shell: fixed Menzil top bar, four tabs (Profil, Hava Durumu,
+/// Application shell: fixed top bar, five tabs (Profil, Hava Durumu, Pro,
 /// Atış, Araçlar) and the active-profile state shared by all of them.
 /// The app opens on Profil. Hava Durumu sits next to it so the conditions are
-/// set before shooting; Atış switches between a single shot and the DOPE
-/// table, as range-card apps do.
+/// set before shooting; Pro holds the incline, cant and Coriolis settings;
+/// Atış switches between a single shot and the DOPE table, as range-card
+/// apps do.
 class HomeScreen extends StatefulWidget {
   final ProfileStore? profileStore;
   final ActiveProfileStore? activeProfileStore;
@@ -30,11 +31,16 @@ class HomeScreen extends StatefulWidget {
   /// user's own rifles, ammunition and scopes.
   final UserCatalogLoader? userCatalogLoader;
 
+  /// Fill Hava Durumu from the live weather when it opens (the app turns
+  /// this on; tests leave it off so they never reach the network).
+  final bool autoWeather;
+
   const HomeScreen({
     super.key,
     this.profileStore,
     this.activeProfileStore,
     this.userCatalogLoader,
+    this.autoWeather = false,
   });
 
   @override
@@ -67,12 +73,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static const _tabProfile = 0;
   static const _tabEnvironment = 1;
-  static const _tabShot = 2;
-  static const _tabTools = 3;
+  static const _tabPro = 2;
+  static const _tabShot = 3;
+  static const _tabTools = 4;
+
+  /// Page titles in the top bar (owner, 2026-10-08): each page shows its own
+  /// name instead of the Menzil wordmark.
+  static const _titles = {
+    _tabEnvironment: 'Hava Durumu',
+    _tabPro: 'Pro Ayarlar',
+    _tabShot: 'Atış',
+    _tabTools: 'Araçlar',
+  };
 
   static const _navItems = [
     MenzilNavItem(MenzilGlyph.profile, 'Profil'),
     MenzilNavItem(MenzilGlyph.environment, 'Hava Durumu'),
+    MenzilNavItem(MenzilGlyph.pro, 'Pro'),
     MenzilNavItem(MenzilGlyph.shot, 'Atış'),
     MenzilNavItem(MenzilGlyph.tools, 'Araçlar'),
   ];
@@ -239,6 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
       tab = index;
       if (index == _tabShot) ballisticsView = _shotMode;
       if (index == _tabEnvironment) ballisticsView = BallisticsView.environment;
+      if (index == _tabPro) ballisticsView = BallisticsView.pro;
     });
   }
 
@@ -266,8 +284,8 @@ class _HomeScreenState extends State<HomeScreen> {
         themeLabel: MenzilThemeController.labelFor(themeMode),
         onThemeTap: themeController?.cycle,
         showBrand: tab != _tabProfile,
-        // Araçlar shows its own name instead of Menzil (owner, 2026-10-08).
-        title: tab == _tabTools ? 'Araçlar' : null,
+        // Each page shows its own name instead of Menzil (owner, 2026-10-08).
+        title: _titles[tab],
       ),
       bottomNavigationBar: MenzilBottomNavigation(
         items: _navItems,
@@ -363,7 +381,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   key: const ValueKey('menzil-tabs'),
                   child: IndexedStack(
-                    // 0: Profil, 1: Hava Durumu/Atış (one workspace), 2: Araçlar.
+                    // 0: Profil, 1: Hava Durumu/Pro/Atış (one workspace),
+                    // 2: Araçlar.
                     index: tab == _tabProfile
                         ? 0
                         : tab <= _tabShot
@@ -482,7 +501,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// Hava Durumu and Atış (single shot and table) share one ballistic workspace so inputs and the
+  /// Hava Durumu, Pro and Atış (single shot and table) share one ballistic workspace so inputs and the
   /// last validated solve survive tab switches. A different active profile
   /// or unit preference creates a fresh workspace (fresh profile defaults).
   Widget _ballisticsTab(BuildContext context) {
@@ -561,6 +580,9 @@ class _HomeScreenState extends State<HomeScreen> {
       )),
       profile: profile,
       view: ballisticsView,
+      autoWeather: widget.autoWeather,
+      onContinueToPro: () => _selectTab(_tabPro),
+      onContinueToShot: () => _selectTab(_tabShot),
     );
   }
 }

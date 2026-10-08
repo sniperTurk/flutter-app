@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// Line glyphs used by the top bar and the bottom navigation. They are drawn
 /// on the same 24×24 grid with a 2-unit stroke as the reference design so the
 /// icon weight matches the text weight on every page.
-enum MenzilGlyph { brand, shot, table, environment, profile, tools }
+enum MenzilGlyph { brand, shot, table, environment, pro, profile, tools }
 
 class MenzilIcon extends StatelessWidget {
   final MenzilGlyph glyph;
@@ -92,6 +92,19 @@ class _GlyphPainter extends CustomPainter {
           ..moveTo(3, 19)
           ..lineTo(10, 19);
         canvas.drawPath(wind, p);
+      case MenzilGlyph.pro:
+        // Protractor: ground line, sight line and the angle arc between
+        // them (Pro: incline, cant, Coriolis).
+        line(3, 20, 21, 20);
+        line(3, 20, 17, 5);
+        canvas.drawArc(
+          const Rect.fromLTWH(-5, 12, 16, 16),
+          -0.82,
+          0.82,
+          false,
+          p,
+        );
+        canvas.drawCircle(const Offset(19, 11.5), 1.6, p); // degree mark
       case MenzilGlyph.profile:
         final bullet = Path()
           ..moveTo(9, 21)

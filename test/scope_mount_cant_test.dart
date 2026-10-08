@@ -289,8 +289,6 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Atış'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Hesapla'));
-      await tester.pumpAndSettle();
       // 13 mrad half travel = 130 clicks; 60 MOA = 17.45 mrad = 174 clicks.
       // UP can never exceed the whole travel (260 clicks), and a mount larger
       // than half the travel cannot be zeroed: said in red.
