@@ -54,6 +54,8 @@ abstract final class ReticleHolds {
             ballisticModel: base.ballisticModel,
             inclineDeg: base.inclineDeg,
             cantDeg: base.cantDeg,
+            latitudeDeg: base.latitudeDeg,
+            azimuthDeg: base.azimuthDeg,
           ),
         );
       } on StateError {

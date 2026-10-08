@@ -54,6 +54,9 @@ Future<void> _openShot(WidgetTester tester) async {
   await tester.pumpAndSettle();
 }
 
+String? _title(WidgetTester tester) =>
+    tester.widget<Text>(find.byKey(const Key('top-bar-title'))).data;
+
 /// The DOPE table is the second mode of the Atış tab.
 Future<void> _openTable(WidgetTester tester) async {
   await _openShot(tester);
@@ -62,7 +65,7 @@ Future<void> _openTable(WidgetTester tester) async {
 }
 
 void main() {
-  testWidgets('shell shows the Menzil bar and the four tabs', (tester) async {
+  testWidgets('shell shows page titles and the five tabs', (tester) async {
     // find.bySemanticsLabel throws unless semantics are enabled.
     final semantics = tester.ensureSemantics();
     await _pumpShell(
@@ -71,9 +74,10 @@ void main() {
       MemoryActiveProfileStore(),
     );
 
-    // Profil shows no Menzil wordmark; the other tabs do.
+    // No page shows the Menzil wordmark any more; each shows its own name.
     expect(find.text('Menzil'), findsNothing);
-    for (final tab in const ['Profil', 'Hava Durumu', 'Atış', 'Araçlar']) {
+    const tabs = ['Profil', 'Hava Durumu', 'Pro', 'Atış', 'Araçlar'];
+    for (final tab in tabs) {
       expect(find.text(tab), findsOneWidget, reason: tab);
     }
     // Tablo is no longer a bottom tab: it is a mode of Atış.
@@ -82,19 +86,22 @@ void main() {
     // Profil is the start tab and the leftmost one.
     expect(find.text('Aktif profil'), findsOneWidget);
     expect(find.text('Hesapla'), findsNothing);
-    // Left to right: Profil, Hava Durumu, Atış, Araçlar.
+    // Left to right: Profil, Hava Durumu, Pro, Atış, Araçlar.
     var previousX = double.negativeInfinity;
-    for (final tab in const ['Profil', 'Hava Durumu', 'Atış', 'Araçlar']) {
+    for (final tab in tabs) {
       final x = tester.getCenter(find.text(tab)).dx;
       expect(x, greaterThan(previousX), reason: tab);
       previousX = x;
     }
     // Atış opens on the single shot and offers the range dial.
+    // Atış solves on its own: no Hesapla button (owner, 2026-10-08).
     await _openShot(tester);
-    expect(find.text('Menzil'), findsOneWidget);
+    expect(find.text('Menzil'), findsNothing);
+    expect(_title(tester), 'Atış');
     expect(find.byKey(const Key('shot-mode-shot')), findsOneWidget);
     expect(find.byKey(const Key('shot-mode-table')), findsOneWidget);
-    expect(find.text('Hesapla'), findsOneWidget);
+    expect(find.text('Hesapla'), findsNothing);
+    expect(find.byKey(const Key('elevation-status-card')), findsOneWidget);
     expect(find.bySemanticsLabel('5 artır'), findsOneWidget);
     semantics.dispose();
   });
@@ -127,22 +134,10 @@ void main() {
     // the atmosphere result of the same solve is shown.
     await tester.tap(find.text('Hava Durumu'));
     await tester.pumpAndSettle();
-    // Values that come from Profil are shown but locked here.
-    await tester.ensureVisible(find.text('Atış girdileri'));
-    await tester.tap(find.text('Atış girdileri'));
-    await tester.pumpAndSettle();
-    for (final key in [
-      BallisticsFieldKeys.velocity,
-      BallisticsFieldKeys.grain,
-      BallisticsFieldKeys.zero,
-      BallisticsFieldKeys.sight,
-    ]) {
-      final field = tester.widget<TextField>(
-        find.descendant(of: find.byKey(key), matching: find.byType(TextField)),
-      );
-      expect(field.enabled, isFalse, reason: '$key');
-    }
-    await tester.pumpAndSettle();
+    // Profil values are no longer repeated here (owner, 2026-10-08).
+    expect(_title(tester), 'Hava Durumu');
+    expect(find.text('Atış girdileri'), findsNothing);
+    expect(find.byKey(BallisticsFieldKeys.velocity), findsNothing);
     final field = tester.widget<TextField>(
       find.descendant(
         of: find.byKey(BallisticsFieldKeys.temperature),
@@ -179,8 +174,6 @@ void main() {
       MemoryActiveProfileStore(),
     );
     await _openShot(tester);
-    await tester.tap(find.text('Hesapla'));
-    await tester.pumpAndSettle();
 
     expect(find.text('100'), findsOneWidget);
     await tester.tap(find.bySemanticsLabel('5 artır'));
@@ -201,8 +194,6 @@ void main() {
         MemoryActiveProfileStore(),
       );
       await _openShot(tester);
-      await tester.tap(find.text('Hesapla'));
-      await tester.pumpAndSettle();
 
       // V354: elevation shows a real MOA/mrad value and a click count on the
       // profile's own scope; wind has no aerodynamic coupling in the vacuum

@@ -1,5 +1,5 @@
-// Tüfek eğimi (incline) and Dürbün eğimi (cant) on Atış: measuring with the
-// phone, entering by hand, and the effect on the shown corrections.
+// Tüfek eğimi (incline) and Dürbün eğimi (cant) on Pro Ayarlar: measuring
+// with the phone, entering by hand, and the effect on Atış's corrections.
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -13,6 +13,7 @@ import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/tools/domain/shot_angle_math.dart';
 import 'package:sniper_turk/tools/ports/camera_service.dart';
 import 'package:sniper_turk/tools/ports/tilt_provider.dart';
+import 'package:sniper_turk/tools/tools_services.dart';
 
 import 'support/tool_fakes.dart';
 
@@ -47,16 +48,13 @@ GravityVector _pitched(double deg) {
   return GravityVector(0, 9.81 * math.cos(r), -9.81 * math.sin(r));
 }
 
-Future<void> _pumpShot(WidgetTester tester, TestTilt tilt) async {
-  tester.view.physicalSize = const Size(430, 2600) * 3;
-  tester.view.devicePixelRatio = 3;
-  addTearDown(tester.view.reset);
-  await tester.pumpWidget(
-    host(
-      const Scaffold(
-        body: BallisticsScreen(profile: _profile, view: BallisticsView.shot),
-      ),
-      services: testServices(
+/// Incline and cant are set on Pro Ayarlar (owner, 2026-10-08); Atış shows
+/// the result. Both views share one workspace state, as in the shell.
+class _Workspace {
+  final WidgetTester tester;
+  final ToolsServices services;
+  _Workspace(this.tester, TestTilt tilt)
+    : services = testServices(
         tilt: tilt,
         camera: TestCamera(
           failure: const CameraUnavailable(
@@ -64,12 +62,29 @@ Future<void> _pumpShot(WidgetTester tester, TestTilt tilt) async {
             'Kamera yok',
           ),
         ),
+      );
+
+  Future<void> show(BallisticsView view) async {
+    await tester.pumpWidget(
+      host(
+        Scaffold(
+          body: BallisticsScreen(profile: _profile, view: view),
+        ),
+        services: services,
       ),
-    ),
-  );
-  await tester.pumpAndSettle();
-  await tester.tap(find.text('Hesapla'));
-  await tester.pumpAndSettle();
+    );
+    await tester.pumpAndSettle();
+  }
+}
+
+Future<_Workspace> _pumpShot(WidgetTester tester, TestTilt tilt) async {
+  tester.view.physicalSize = const Size(430, 2600) * 3;
+  tester.view.devicePixelRatio = 3;
+  addTearDown(tester.view.reset);
+  final ws = _Workspace(tester, tilt);
+  // Atış solves on its own when it opens: no Hesapla button.
+  await ws.show(BallisticsView.shot);
+  return ws;
 }
 
 String _cardText(WidgetTester tester, Key key) => tester
@@ -199,12 +214,16 @@ void main() {
     );
   });
 
-  testWidgets('Atış: entering an incline lowers the elevation correction', (
+  testWidgets('Pro: entering an incline lowers the elevation correction', (
     tester,
   ) async {
-    await _pumpShot(tester, TestTilt());
+    final ws = await _pumpShot(tester, TestTilt());
     final level = _cardText(tester, const Key('elevation-status-card'));
+    // The tiles left Atış for Pro Ayarlar.
+    expect(find.byKey(const Key('shot-incline')), findsNothing);
+    expect(find.byKey(const Key('shot-cant')), findsNothing);
 
+    await ws.show(BallisticsView.pro);
     await tester.tap(find.byKey(const Key('shot-incline')));
     await tester.pumpAndSettle();
     await tester.enterText(
@@ -219,20 +238,22 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('∠ −35°'), findsOneWidget);
+    await ws.show(BallisticsView.shot);
     final inclined = _cardText(tester, const Key('elevation-status-card'));
     expect(inclined, isNot(level));
     expect(find.textContaining('Tüfek eğimi ∠-35°'), findsOneWidget);
   });
 
-  testWidgets('Atış: a canted scope adds a sideways correction', (
+  testWidgets('Pro: a canted scope adds a sideways correction on Atış', (
     tester,
   ) async {
-    await _pumpShot(tester, TestTilt());
+    final ws = await _pumpShot(tester, TestTilt());
     expect(
       _cardText(tester, const Key('wind-status-card')),
       contains('0 girildi'),
     );
 
+    await ws.show(BallisticsView.pro);
     await tester.tap(find.byKey(const Key('shot-cant')));
     await tester.pumpAndSettle();
     expect(find.text('Dürbün eğim açısı'), findsWidgets);
@@ -248,12 +269,14 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('8° sağa'), findsOneWidget);
+    await ws.show(BallisticsView.shot);
     final card = _cardText(tester, const Key('wind-status-card'));
     expect(card, contains('Yan (rüzgâr + dürbün eğimi)'));
     // A right cant moves the shot right: dial left.
     expect(card, contains('L (sola)'));
 
     // Dürbün eğimini sil → back to level.
+    await ws.show(BallisticsView.pro);
     await tester.tap(find.byKey(const Key('shot-cant')));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.byKey(ScopeCantScreen.clearKey));

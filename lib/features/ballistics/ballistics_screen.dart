@@ -18,6 +18,7 @@ import '../../models/domain.dart';
 import '../../services/settings_store.dart';
 import '../../tools/domain/field_calc.dart';
 import '../../tools/domain/shot_angle_math.dart';
+import '../../tools/ports/heading_provider.dart';
 import '../../tools/ports/location_provider.dart';
 import '../../tools/ports/weather_provider.dart';
 import '../../tools/tools_services.dart';
@@ -36,7 +37,8 @@ import 'wind_clock_picker.dart';
 /// The Menzil shell shows [shot], [table] and [environment] as separate tabs
 /// over ONE state object, so inputs and the last validated solve are shared
 /// between them. [all] is the stand-alone route (every section on one page).
-enum BallisticsView { all, shot, table, environment }
+/// [pro]: Pro Ayarlar (shot incline, scope cant, Coriolis) — owner, 2026-10-08.
+enum BallisticsView { all, shot, table, environment, pro }
 
 /// Stable keys for the ballistic inputs (used by widget tests).
 abstract final class BallisticsFieldKeys {
@@ -61,11 +63,17 @@ class BallisticsScreen extends StatefulWidget {
   /// environment view opens (owner, 2026-10-08). Off by default so tests and
   /// embeddings never reach the network unless they ask for it.
   final bool autoWeather;
+
+  /// Shell navigation: Hava Durumu → Pro Ayarlar → Atış.
+  final VoidCallback? onContinueToPro;
+  final VoidCallback? onContinueToShot;
   const BallisticsScreen({
     super.key,
     this.profile,
     this.view = BallisticsView.all,
     this.autoWeather = false,
+    this.onContinueToPro,
+    this.onContinueToShot,
   });
 
   @override
@@ -100,6 +108,8 @@ class _ShotBasis {
     List<double> rangesM, {
     double inclineDeg = 0,
     double cantDeg = 0,
+    double? latitudeDeg,
+    double? azimuthDeg,
   }) => BallisticInput(
     muzzleVelocityMps: velocityMps,
     grain: grain,
@@ -111,6 +121,8 @@ class _ShotBasis {
     ballisticModel: ballisticModel,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
+    latitudeDeg: latitudeDeg,
+    azimuthDeg: azimuthDeg,
   );
 }
 
@@ -148,6 +160,39 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (incline != null) _inclineDeg = incline;
     if (cant != null) _cantDeg = cant;
     // Every cached shot and hold curve belongs to the old angles.
+    _shotCache.clear();
+    _holdSamples = null;
+  });
+
+  /// Pro Ayarlar → Coriolis: off until switched on; latitude (+N) and shot
+  /// azimuth (° from north) as typed or taken from GPS / compass.
+  bool _coriolisOn = false;
+  final TextEditingController latitudeCtl = TextEditingController();
+  final TextEditingController azimuthCtl = TextEditingController();
+  String? _coriolisStatus;
+
+  double? _parsed(TextEditingController c) {
+    final v = double.tryParse(c.text.trim().replaceAll(',', '.'));
+    return v != null && v.isFinite ? v : null;
+  }
+
+  double? get _latitude {
+    final v = _parsed(latitudeCtl);
+    return v != null && v >= -90 && v <= 90 ? v : null;
+  }
+
+  double? get _azimuth {
+    final v = _parsed(azimuthCtl);
+    return v != null && v >= 0 && v <= 360 ? v : null;
+  }
+
+  /// Latitude/azimuth handed to the solver: both or neither.
+  ({double? lat, double? az}) get _coriolisArgs =>
+      _coriolisOn && _latitude != null && _azimuth != null
+      ? (lat: _latitude, az: _azimuth)
+      : (lat: null, az: null);
+
+  void _coriolisChanged() => setState(() {
     _shotCache.clear();
     _holdSamples = null;
   });
@@ -271,6 +316,27 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (widget.view == BallisticsView.environment &&
         old.view != BallisticsView.environment) {
       _maybeAutoWeather();
+    }
+    // Atış has no Hesapla button any more (owner, 2026-10-08): it is solved
+    // with the current Hava Durumu / Pro values whenever it opens.
+    final toShot =
+        widget.view == BallisticsView.shot ||
+        widget.view == BallisticsView.table;
+    if (toShot && widget.view != old.view) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _quietSolve();
+      });
+    }
+  }
+
+  /// Solve without snack bars (Atış says why when there is no value).
+  void _quietSolve() {
+    if (widget.profile == null) return;
+    _silentErrors = true;
+    try {
+      solve();
+    } finally {
+      _silentErrors = false;
     }
   }
 
@@ -658,6 +724,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     humidity.dispose();
     altitude.dispose();
     ranges.dispose();
+    latitudeCtl.dispose();
+    azimuthCtl.dispose();
     super.dispose();
   }
 
@@ -715,6 +783,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         [_shotRangeM],
         inclineDeg: _inclineDeg,
         cantDeg: _cantDeg,
+        latitudeDeg: _coriolisArgs.lat,
+        azimuthDeg: _coriolisArgs.az,
       );
       shot = const BallisticEngine().solve(input).first;
       if (basis.drag) {
@@ -887,7 +957,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       List<TrajectoryPoint> points;
       try {
         points = ReticleHolds.sample(
-          basis.input(const [1], inclineDeg: _inclineDeg, cantDeg: _cantDeg),
+          basis.input(
+            const [1],
+            inclineDeg: _inclineDeg,
+            cantDeg: _cantDeg,
+            latitudeDeg: _coriolisArgs.lat,
+            azimuthDeg: _coriolisArgs.az,
+          ),
         );
       } on ArgumentError {
         points = const [];
@@ -1177,14 +1253,30 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             const SizedBox(height: MenzilSpace.md),
             _weatherFillCard(context),
             ..._environmentInputs(context, collapseShotInputs: true),
-            MenzilPrimaryButton(
-              label: 'Hesapla',
-              onPressed: solve,
-              icon: Icons.calculate_outlined,
-            ),
+            if (widget.onContinueToPro != null)
+              MenzilPrimaryButton(
+                key: const Key('environment-continue-pro'),
+                label: 'Pro Ayarlara Geç',
+                icon: Icons.arrow_forward,
+                onPressed: () {
+                  _quietSolve();
+                  widget.onContinueToPro!();
+                },
+              )
+            else
+              MenzilPrimaryButton(
+                label: 'Hesapla',
+                onPressed: solve,
+                icon: Icons.calculate_outlined,
+              ),
             const SizedBox(height: MenzilSpace.md),
             _atmosphereResult(context),
           ],
+        );
+      case BallisticsView.pro:
+        return MenzilPage(
+          key: const PageStorageKey('ballistics-pro'),
+          children: _proSection(context),
         );
       case BallisticsView.all:
         return Scaffold(
@@ -1533,13 +1625,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ],
         ),
       ),
-      if (collapseShotInputs)
-        MenzilAccordion(
-          title: 'Atış girdileri',
-          subtitle: 'Profilden gelir; değiştirmek için Profil\'i düzenleyin.',
-          child: shotInputs,
-        )
-      else ...[
+      // Hava Durumu no longer shows "Atış girdileri" (owner, 2026-10-08):
+      // they come from Profil and are edited there.
+      if (!collapseShotInputs) ...[
         const MenzilSectionHeader(
           'Atış girdileri',
           padding: EdgeInsets.only(
@@ -1750,6 +1838,211 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   // Atış
   // -------------------------------------------------------------------------
 
+  // -------------------------------------------------------------------------
+  // Pro Ayarlar
+  // -------------------------------------------------------------------------
+
+  List<Widget> _proSection(BuildContext context) {
+    final c = MenzilColors.of(context);
+    final effect = _coriolisEffect();
+    String len(double m) => metric
+        ? '${(m.abs() * 100).toStringAsFixed(1)} cm'
+        : '${UnitSystem.millimetersToInches(m.abs() * 1000).toStringAsFixed(1)} in';
+    return [
+      const MenzilSectionHeader(
+        'Eğim',
+        padding: EdgeInsets.only(bottom: MenzilSpace.sm),
+      ),
+      _angleTiles(context),
+      const MenzilSectionHeader(
+        'Coriolis',
+        padding: EdgeInsets.only(top: MenzilSpace.lg, bottom: MenzilSpace.sm),
+      ),
+      MenzilCard(
+        margin: EdgeInsets.zero,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Coriolis etkisini ekle',
+                    style: MenzilType.body(c.ink),
+                  ),
+                ),
+                const MenzilInfoButton(
+                  title: 'Coriolis',
+                  text: EnvironmentFieldInfo.coriolis,
+                ),
+                Switch(
+                  key: const Key('pro-coriolis-switch'),
+                  value: _coriolisOn,
+                  onChanged: (v) {
+                    _coriolisOn = v;
+                    _coriolisChanged();
+                  },
+                ),
+              ],
+            ),
+            if (_coriolisOn) ...[
+              const SizedBox(height: MenzilSpace.sm),
+              MenzilInput(
+                key: const Key('pro-latitude'),
+                controller: latitudeCtl,
+                label: 'Enlem',
+                unit: '°',
+                info: EnvironmentFieldInfo.latitude,
+                helperText: 'Kuzey +, güney −',
+                errorText: latitudeCtl.text.isNotEmpty && _latitude == null
+                    ? '−90 ile 90 arasında olmalı.'
+                    : null,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                  signed: true,
+                ),
+                onChanged: (_) => _coriolisChanged(),
+              ),
+              MenzilSecondaryButton(
+                key: const Key('pro-latitude-gps'),
+                label: 'Konumdan al',
+                icon: Icons.my_location,
+                expand: true,
+                onPressed: _latitudeFromGps,
+              ),
+              const SizedBox(height: MenzilSpace.md),
+              MenzilInput(
+                key: const Key('pro-azimuth'),
+                controller: azimuthCtl,
+                label: 'Atış yönü (azimut)',
+                unit: '°',
+                info: EnvironmentFieldInfo.azimuth,
+                helperText: 'Kuzey 0 · doğu 90 · güney 180 · batı 270',
+                errorText: azimuthCtl.text.isNotEmpty && _azimuth == null
+                    ? '0 ile 360 arasında olmalı.'
+                    : null,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+              MenzilSecondaryButton(
+                key: const Key('pro-azimuth-compass'),
+                label: 'Pusuladan al',
+                icon: Icons.explore_outlined,
+                expand: true,
+                onPressed: _azimuthFromCompass,
+              ),
+              if (_coriolisStatus != null) ...[
+                const SizedBox(height: MenzilSpace.xs),
+                Text(_coriolisStatus!, style: MenzilType.caption(c.ink2)),
+              ],
+              const SizedBox(height: MenzilSpace.sm),
+              Text(
+                effect == null
+                    ? !_dragMode
+                          ? 'Coriolis, BC değeri olan mühimmatla hesaplanır.'
+                          : 'Etkiyi görmek için enlem ve atış yönünü girin.'
+                    : '$_shotDisplay $_distanceUnit\'de Coriolis: '
+                          '${len(effect.up)} ${effect.up >= 0 ? 'yukarı' : 'aşağı'} · '
+                          '${len(effect.right)} ${effect.right >= 0 ? 'sağa' : 'sola'}. '
+                          'Kule klikleri bunu içerir.',
+                key: const Key('pro-coriolis-effect'),
+                style: MenzilType.body(c.ink),
+              ),
+            ],
+          ],
+        ),
+      ),
+      const SizedBox(height: MenzilSpace.lg),
+      if (widget.onContinueToShot != null)
+        MenzilPrimaryButton(
+          key: const Key('pro-continue-shot'),
+          label: 'Atış\'a geç',
+          icon: Icons.arrow_forward,
+          onPressed: widget.onContinueToShot,
+        ),
+    ];
+  }
+
+  /// Where Coriolis moves the impact at the shot range: (up, right) in
+  /// metres, from two solves with and without it. Null when off/unknown.
+  ({double up, double right})? _coriolisEffect() {
+    final basis = _basis;
+    final args = _coriolisArgs;
+    // The vacuum model has no Coriolis (nor wind): drag mode only.
+    if (basis == null || args.lat == null || !_dragMode) return null;
+    try {
+      final engine = const BallisticEngine();
+      final base = engine
+          .solve(
+            basis.input(
+              [_shotRangeM],
+              inclineDeg: _inclineDeg,
+              cantDeg: _cantDeg,
+            ),
+          )
+          .single;
+      final withC = engine
+          .solve(
+            basis.input(
+              [_shotRangeM],
+              inclineDeg: _inclineDeg,
+              cantDeg: _cantDeg,
+              latitudeDeg: args.lat,
+              azimuthDeg: args.az,
+            ),
+          )
+          .single;
+      // dropM is positive down; windMrad > 0 means the shot went LEFT.
+      double lateral(TrajectoryPoint point) =>
+          -_shotRangeM * math.tan(point.windMrad / 1000);
+      return (
+        up: base.dropM - withC.dropM,
+        right: lateral(withC) - lateral(base),
+      );
+    } on ArgumentError {
+      return null;
+    } on StateError {
+      return null;
+    }
+  }
+
+  Future<void> _latitudeFromGps() async {
+    final services = ToolsServicesScope.of(context);
+    setState(() => _coriolisStatus = 'Konum alınıyor…');
+    final fix = await services.location.current();
+    if (!mounted) return;
+    if (fix is LocationFix) {
+      latitudeCtl.text = fix.latitude.toStringAsFixed(2);
+      _coriolisStatus = 'Enlem konumdan alındı.';
+    } else {
+      _coriolisStatus = 'Konum alınamadı; enlemi elle girin.';
+    }
+    _coriolisChanged();
+  }
+
+  Future<void> _azimuthFromCompass() async {
+    final services = ToolsServicesScope.of(context);
+    setState(
+      () => _coriolisStatus = 'Telefonu hedefe doğru tutun; pusula okunuyor…',
+    );
+    HeadingState? state;
+    try {
+      state = await services.heading
+          .headings()
+          .firstWhere((s) => s is HeadingAvailable)
+          .timeout(const Duration(seconds: 5));
+    } catch (_) {
+      state = null;
+    }
+    if (!mounted) return;
+    if (state is HeadingAvailable) {
+      azimuthCtl.text = state.reading.degrees.round().toString();
+      _coriolisStatus = 'Atış yönü pusuladan alındı.';
+    } else {
+      _coriolisStatus = 'Pusula okunamadı; atış yönünü elle girin.';
+    }
+    _coriolisChanged();
+  }
+
   /// Tüfek eğimi and Dürbün eğimi, side by side under the range dial.
   Widget _angleTiles(BuildContext context) {
     final c = MenzilColors.of(context);
@@ -1922,26 +2215,19 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         semanticFormatterCallback: (v) => '${v.round()} $_distanceUnit',
         onChanged: (v) => _setShotDisplay(v.round()),
       ),
-      _angleTiles(context),
       const SizedBox(height: MenzilSpace.sm),
       if (shot == null)
         MenzilNotice(
           tone: MenzilNoticeTone.info,
           message: _basis == null
-              ? 'Değerleri görmek için hesaplayın. Hava ve atış girdileri Hava Durumu sekmesindedir.'
+              ? 'Değerler hesaplanamadı. Profil ve Hava Durumu değerlerini kontrol edin.'
               : _dragMode
               ? 'Bu mermi bu mesafeye ulaşamıyor veya değer üretilemedi. Daha kısa bir mesafe deneyin.'
               : 'Bu mesafe için değer üretilemedi. Mesafeyi veya girdileri kontrol edin.',
         ),
-      // The profile is solved automatically when the workspace opens; the
-      // button re-solves after the conditions on Hava Durumu change.
-      MenzilPrimaryButton(
-        label: 'Hesapla',
-        onPressed: solve,
-        icon: Icons.calculate_outlined,
-        amber: shot == null,
-      ),
-      const SizedBox(height: MenzilSpace.md),
+      // No Hesapla button (owner, 2026-10-08): Atış is solved automatically
+      // whenever it opens, with the Hava Durumu and Pro Ayarlar values.
+      const SizedBox(height: MenzilSpace.xs),
       // V354: elevation correction/clicks are shown from the vacuum (no-drag)
       // drop, which is valid trigonometry (atan2(drop, range)) independent of
       // the unvalidated G1/G7 drag model. Wind stays locked — a vacuum model

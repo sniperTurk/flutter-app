@@ -186,8 +186,7 @@ void main() {
         ),
       ),
     );
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Hesapla'));
+    // Atış solves on its own when it opens.
     await tester.pumpAndSettle();
     expect(find.text('KİLİTLİ'), findsNothing);
     expect(find.text('Rüzgâr 0 girildi'), findsOneWidget);

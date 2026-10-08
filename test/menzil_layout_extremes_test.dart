@@ -28,7 +28,7 @@ const _profile = RifleProfile(
   pressureBar: 200,
 );
 
-const _tabs = ['Profil', 'Hava Durumu', 'Atış', 'Araçlar'];
+const _tabs = ['Profil', 'Hava Durumu', 'Pro', 'Atış', 'Araçlar'];
 
 Future<void> _setView(
   WidgetTester tester,
@@ -79,11 +79,8 @@ Finder _tab(String label) => find.descendant(
 Future<void> _visitEveryTab(WidgetTester tester) async {
   // The app opens on Profil.
   expect(tester.takeException(), isNull, reason: 'Profil at start');
+  // Atış solves on its own when it opens.
   await tester.tap(_tab('Atış'));
-  await tester.pumpAndSettle();
-  await tester.ensureVisible(find.text('Hesapla'));
-  await tester.pumpAndSettle();
-  await tester.tap(find.text('Hesapla'));
   await tester.pumpAndSettle();
   expect(tester.takeException(), isNull, reason: 'Atış after solve');
   for (final tab in _tabs) {

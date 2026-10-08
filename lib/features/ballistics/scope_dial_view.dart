@@ -412,6 +412,59 @@ class ScopeDialView extends StatelessWidget {
                 ),
               ),
             ),
+            if (hasZoom &&
+                onMagnificationChanged != null &&
+                (minMagnification ?? 0) > 0 &&
+                minMagnification! < maxMagnification!)
+              _zoomRow(context),
+            // Owner, 2026-10-08: the turret buttons sit right under the
+            // magnification; the explanations follow below them.
+            const SizedBox(height: MenzilSpace.sm),
+            Row(
+              children: [
+                Expanded(
+                  child: MenzilSecondaryButton(
+                    key: ScopeDialKeys.dialSolution,
+                    label: 'Çözümü kuleye kur',
+                    icon: Icons.tune,
+                    expand: true,
+                    onPressed: req == null
+                        ? null
+                        : () {
+                            final clicks = ScopeDialMath.clicksFor(
+                              req,
+                              clickValue,
+                            );
+                            onElevationChanged(
+                              clicks
+                                  .clamp(-_downClicks, maxElevationClicks)
+                                  .toInt(),
+                            );
+                            onWindageChanged(
+                              ScopeDialMath.clicksFor(requiredRight, clickValue)
+                                  .clamp(-maxWindageClicks, maxWindageClicks)
+                                  .toInt(),
+                            );
+                          },
+                  ),
+                ),
+                const SizedBox(width: MenzilSpace.sm),
+                Expanded(
+                  child: MenzilSecondaryButton(
+                    key: ScopeDialKeys.reset,
+                    label: 'Kuleleri sıfırla',
+                    icon: Icons.restart_alt,
+                    expand: true,
+                    onPressed: elevationClicks == 0 && windageClicks == 0
+                        ? null
+                        : () {
+                            onElevationChanged(0);
+                            onWindageChanged(0);
+                          },
+                  ),
+                ),
+              ],
+            ),
             if (outside && impact != null)
               Padding(
                 padding: const EdgeInsets.only(top: MenzilSpace.xs),
@@ -473,63 +526,12 @@ class ScopeDialView extends StatelessWidget {
                       'yer açar.',
                 ),
               ),
-            if (hasZoom &&
-                onMagnificationChanged != null &&
-                (minMagnification ?? 0) > 0 &&
-                minMagnification! < maxMagnification!)
-              _zoomRow(context),
             if (unitNote != null) ...[
               const SizedBox(height: MenzilSpace.xs),
               MenzilNotice(tone: MenzilNoticeTone.warning, message: unitNote!),
             ],
             const SizedBox(height: MenzilSpace.md),
             _readout(context, dialedUp, dialedRight, impact),
-            const SizedBox(height: MenzilSpace.sm),
-            Row(
-              children: [
-                Expanded(
-                  child: MenzilSecondaryButton(
-                    key: ScopeDialKeys.dialSolution,
-                    label: 'Çözümü kuleye kur',
-                    icon: Icons.tune,
-                    expand: true,
-                    onPressed: req == null
-                        ? null
-                        : () {
-                            final clicks = ScopeDialMath.clicksFor(
-                              req,
-                              clickValue,
-                            );
-                            onElevationChanged(
-                              clicks
-                                  .clamp(-_downClicks, maxElevationClicks)
-                                  .toInt(),
-                            );
-                            onWindageChanged(
-                              ScopeDialMath.clicksFor(requiredRight, clickValue)
-                                  .clamp(-maxWindageClicks, maxWindageClicks)
-                                  .toInt(),
-                            );
-                          },
-                  ),
-                ),
-                const SizedBox(width: MenzilSpace.sm),
-                Expanded(
-                  child: MenzilSecondaryButton(
-                    key: ScopeDialKeys.reset,
-                    label: 'Kuleleri sıfırla',
-                    icon: Icons.restart_alt,
-                    expand: true,
-                    onPressed: elevationClicks == 0 && windageClicks == 0
-                        ? null
-                        : () {
-                            onElevationChanged(0);
-                            onWindageChanged(0);
-                          },
-                  ),
-                ),
-              ],
-            ),
             const SizedBox(height: MenzilSpace.md),
             _workings(context, dialedUp, dialedRight, impact),
           ],

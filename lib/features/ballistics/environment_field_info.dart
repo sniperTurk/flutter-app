@@ -49,4 +49,19 @@ abstract final class EnvironmentFieldInfo {
       'saçma yatık tarafa ve biraz aşağı gider; uygulama kule kliklerini '
       'buna göre düzeltir. Telefonu dürbüne dayayıp "Telefonla ölç" ile '
       'ölçebilirsiniz. Örnek: 3°.';
+  static const coriolis =
+      'Dünyanın dönüşü uçuştaki saçmayı çok az saptırır: kuzey yarımkürede '
+      'sağa, doğuya atışta biraz yukarı, batıya atışta biraz aşağı. Uzun '
+      'uçuş süresinde (uzun mesafe) önem kazanır; havalı tüfekte 100 m\'de '
+      'milimetre düzeyindedir. Açıkken uygulama enlem ve atış yönüne göre '
+      'hesaplar ve kule kliklerine ekler.';
+  static const latitude =
+      'Bulunduğunuz yerin enlemi, derece. Kuzey yarımküre +, güney −. '
+      'Türkiye için yaklaşık 36–42. "Konumdan al" telefonun konumunu '
+      'kullanır. Örnek: 39,9 (Ankara).';
+  static const azimuth =
+      'Hedefe atış yönü, kuzeyden saat yönünde derece: kuzey 0, doğu 90, '
+      'güney 180, batı 270. "Pusuladan al" için telefonu hedefe doğru '
+      'tutun. Birkaç derecelik hata Coriolis sonucunu fark edilir '
+      'değiştirmez. Örnek: 135.';
 }

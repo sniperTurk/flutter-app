@@ -1,7 +1,7 @@
 // Fixes from the 2026-10-08 ballistic audit (see AUDIT_2026-10-08.md):
 // the wind card says which way the pellet drifts and which way to dial,
 // the scope shows a target at its true size that grows with zoom, and
-// Namlu çıkış hızı is entered in fps on Atış/Hava Durumu as on Profil.
+// Namlu çıkış hızı is entered in fps as on Profil.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/core/scope_dial.dart';
@@ -73,8 +73,6 @@ Future<String> _windCardAfter(
   await tester.tap(dial);
   await tester.pumpAndSettle();
   await tester.tap(find.text('Atış'));
-  await tester.pumpAndSettle();
-  await tester.tap(find.text('Hesapla'));
   await tester.pumpAndSettle();
   final card = find.byKey(const Key('wind-status-card'));
   expect(card, findsOneWidget);
@@ -187,14 +185,20 @@ void main() {
     expect(text, contains('R (sağa)'));
   });
 
-  testWidgets('Atış velocity field is fps (270 m/s shown as 885.8)', (
+  testWidgets('velocity field is fps (270 m/s shown as 885.8)', (
     tester,
   ) async {
-    await _pumpShell(tester);
-    await tester.tap(find.text('Hava Durumu'));
-    await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('Atış girdileri'));
-    await tester.tap(find.text('Atış girdileri'));
+    tester.view.physicalSize = const Size(430, 2400) * 3;
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    // The shell no longer repeats Profil values on Hava Durumu (owner,
+    // 2026-10-08); the full workspace still shows the field in fps.
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: const BallisticsScreen(profile: _profile),
+      ),
+    );
     await tester.pumpAndSettle();
     final field = tester.widget<TextField>(
       find.descendant(

@@ -75,15 +75,14 @@ void main() {
           // The app opens on Profil.
           expect(tester.takeException(), isNull, reason: 'Profil at start');
 
-          // Atış before and after a solve.
+          // Atış (solved on its own when it opens).
           await tester.tap(find.text('Atış'));
-          await tester.pumpAndSettle();
-          await tester.tap(find.text('Hesapla'));
           await tester.pumpAndSettle();
           expect(tester.takeException(), isNull);
 
           for (final tab in const [
             'Hava Durumu',
+            'Pro',
             'Profil',
             'Araçlar',
             'Atış',
@@ -133,7 +132,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Atış'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Hesapla'));
+    await tester.tap(find.text('Pro'));
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
   });
