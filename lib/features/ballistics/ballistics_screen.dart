@@ -300,8 +300,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       if (fix is! LocationFix) {
         failed = true;
         status = switch (fix) {
-          LocationDenied() =>
-            'Konum izni yok; hava değerlerini elle girin.',
+          LocationDenied() => 'Konum izni yok; hava değerlerini elle girin.',
           LocationServiceOff() =>
             'Konum Servisleri kapalı; hava değerlerini elle girin.',
           _ => 'Konum alınamadı; hava değerlerini elle girin.',
@@ -334,14 +333,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         if (gpsAlt != null) {
           put(
             altitude,
-            (metric ? gpsAlt : UnitSystem.metersToFeet(gpsAlt))
-                .toStringAsFixed(0),
+            (metric ? gpsAlt : UnitSystem.metersToFeet(gpsAlt)).toStringAsFixed(
+              0,
+            ),
           );
         }
         final typedAlt = double.tryParse(
           altitude.text.trim().replaceAll(',', '.'),
         );
-        final altM = gpsAlt ??
+        final altM =
+            gpsAlt ??
             (_userEdited.contains(altitude) && typedAlt != null
                 ? (metric ? typedAlt : UnitSystem.feetToMeters(typedAlt))
                 : null);

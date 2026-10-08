@@ -118,10 +118,7 @@ void main() {
   testWidgets('location refused: fields stay, the user is told', (
     tester,
   ) async {
-    await _pump(
-      tester,
-      location: const LocationDenied(permanent: false),
-    );
+    await _pump(tester, location: const LocationDenied(permanent: false));
     expect(_text(tester, BallisticsFieldKeys.temperature), '15');
     expect(find.textContaining('Konum izni yok'), findsOneWidget);
   });
