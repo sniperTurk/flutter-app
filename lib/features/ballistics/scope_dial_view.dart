@@ -657,8 +657,12 @@ class _TurretBarState extends State<_TurretBar> {
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    // The drum's zero must sit exactly above the reticle's centre line: the
+    // reticle is centred in the full width, so the drum is too — an empty
+    // slot on the left balances the L-R button on the right.
     return Row(
       children: [
+        const SizedBox(width: 52 + MenzilSpace.xs),
         Expanded(
           child: ClipRect(
             child: AnimatedSwitcher(

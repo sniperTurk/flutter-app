@@ -53,6 +53,11 @@ void main() {
   testWidgets('turrets and reticle are shown on the shot tab', (tester) async {
     await _pumpSolved(tester);
     expect(find.byKey(ScopeDialKeys.elevationDrum), findsOneWidget);
+    // The drum's zero sits exactly above the reticle's centre line.
+    expect(
+      tester.getCenter(find.byKey(ScopeDialKeys.elevationDrum)).dx,
+      closeTo(tester.getCenter(find.byKey(ScopeDialKeys.reticle)).dx, 0.5),
+    );
     // One turret bar: the windage drum slides in after "L-R".
     expect(find.byKey(ScopeDialKeys.windageDrum), findsNothing);
     await tester.ensureVisible(find.byKey(ScopeDialKeys.turretToggle));
@@ -61,6 +66,10 @@ void main() {
     expect(find.byKey(ScopeDialKeys.windageDrum), findsOneWidget);
     expect(find.byKey(ScopeDialKeys.elevationDrum), findsNothing);
     expect(find.text('U-D'), findsOneWidget);
+    expect(
+      tester.getCenter(find.byKey(ScopeDialKeys.windageDrum)).dx,
+      closeTo(tester.getCenter(find.byKey(ScopeDialKeys.reticle)).dx, 0.5),
+    );
     expect(find.byKey(ScopeDialKeys.reticle), findsOneWidget);
     // Wind is still not modelled.
     expect(find.text('KİLİTLİ'), findsOneWidget);
