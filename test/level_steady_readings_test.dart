@@ -149,4 +149,54 @@ void main() {
       expect(c.mode, TiltMode.upright);
     });
   });
+
+  group('display dead band', () {
+    test('a still, noisy phone shows a still number', () async {
+      final tilt = TestTilt();
+      final c = LevelController(provider: tilt)..start();
+      addTearDown(c.dispose);
+      final shown = <double>{};
+      for (final s in _noisy(_tilted(0.3, 0), 300, seed: 11)) {
+        tilt.controller.add(TiltAvailable(s));
+        await _settle();
+        shown.add(double.parse(c.angles!.xDeg.toStringAsFixed(2)));
+      }
+      // The first samples converge; after that the read-out holds still.
+      final tail = <double>{};
+      for (final s in _noisy(_tilted(0.3, 0), 300, seed: 12)) {
+        tilt.controller.add(TiltAvailable(s));
+        await _settle();
+        tail.add(double.parse(c.angles!.xDeg.toStringAsFixed(2)));
+      }
+      expect(tail.length, lessThanOrEqualTo(3));
+      expect(tail.first, closeTo(0.3, 0.06));
+    });
+
+    test('a real change past the band shows at once', () async {
+      final tilt = TestTilt();
+      final c = LevelController(provider: tilt, smoothing: 1)..start();
+      addTearDown(c.dispose);
+      tilt.controller.add(TiltAvailable(_tilted(0, 0)));
+      await _settle();
+      tilt.controller.add(TiltAvailable(_tilted(0.02, 0)));
+      await _settle();
+      expect(c.angles!.xDeg, closeTo(0, 1e-9), reason: 'inside the band');
+      tilt.controller.add(TiltAvailable(_tilted(0.5, 0)));
+      await _settle();
+      expect(c.angles!.xDeg, closeTo(0.5, 1e-6));
+      expect(c.liveAngles!.xDeg, closeTo(0.5, 1e-6));
+    });
+
+    test('setting a reference shows exactly zero, not a held value', () async {
+      final tilt = TestTilt();
+      final c = LevelController(provider: tilt, smoothing: 1)..start();
+      addTearDown(c.dispose);
+      tilt.controller.add(TiltAvailable(_tilted(0.03, 0)));
+      await _settle();
+      expect(c.angles!.xDeg, closeTo(0.03, 1e-6));
+      c.setReferenceHere();
+      expect(c.angles!.xDeg, closeTo(0, 1e-9));
+    });
+  });
 }
+
