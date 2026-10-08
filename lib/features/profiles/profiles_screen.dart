@@ -612,11 +612,7 @@ class _ActiveProfileDetails extends StatelessWidget {
             if (barrelLengthMm != null)
               MenzilMetric('Namlu boyu', _trimNum(barrelLengthMm / 10), 'cm'),
             if (rifle != null)
-              MenzilMetric(
-                'Kalibre',
-                rifle.caliberMm.toStringAsFixed(2),
-                'mm',
-              ),
+              MenzilMetric('Kalibre', rifle.caliberMm.toStringAsFixed(2), 'mm'),
             if (rifle?.twistRateIn != null)
               MenzilMetric(
                 'Yiv oranı',
