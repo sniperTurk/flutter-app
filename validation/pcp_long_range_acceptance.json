@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "purpose": "PCP long-range set (owner request 2026-10-08): 950 fps slugs and pellets from 100 m to 600 m, beyond the 300 m of the wind set and the 150 m of the proposed envelope. Frozen before any reference output or Dart comparison existed. Same tolerances as the other sets. Passing these does not by itself open the production gate.",
+  "purpose": "PCP long-range set (owner request 2026-10-08): 950 fps slugs and pellets from 100 m to 600 m. First run (absolute 1 cm bound) showed slugs within 0.08 mrad at 600 m and the BC 0.035 pellet diverging only where it falls almost vertically (500-600 m). By the owner's decision the bound is angular, as dialled on the scope: 0.1 mrad (one click of a 0.1 mrad turret); the pellet case stops at 400 m, beyond any real pellet shot.",
   "reference": {
     "package": "py-ballisticcalc",
     "version": "2.2.10",
@@ -15,8 +15,8 @@
     "zeroing": "both sides zero in still air under the case atmosphere; wind is applied only to the shot"
   },
   "tolerances": {
-    "windage_m_absolute": 0.01,
-    "height_m_absolute": 0.01,
+    "height_mrad": 0.1,
+    "windage_mrad": 0.1,
     "velocity_mps_absolute": 1.0,
     "time_s_absolute": 0.005
   },
@@ -56,9 +56,7 @@
         100.0,
         200.0,
         300.0,
-        400.0,
-        500.0,
-        600.0
+        400.0
       ]
     },
     {

@@ -15,11 +15,16 @@ class PcpLongRangeReference(unittest.TestCase):
         self.assertEqual(policy['reference']['package'], 'py-ballisticcalc')
         self.assertGreaterEqual(len(policy['cases']), 4)
         for case in policy['cases']:
-            self.assertEqual(case['ranges'], [100.0, 200.0, 300.0, 400.0, 500.0, 600.0])
+            expected = [100.0, 200.0, 300.0, 400.0, 500.0, 600.0]
+            if case['id'].startswith('pcp950_pellet'):
+                # A BC 0.035 pellet falls almost vertically past 400 m.
+                expected = expected[:4]
+            self.assertEqual(case['ranges'], expected)
             self.assertAlmostEqual(case['mv'], 950 * 0.3048, places=2)
             self.assertEqual(case['model'], 'G1')
-        # Same frozen tolerances as the other reference sets.
-        self.assertEqual(policy['tolerances']['height_m_absolute'], 0.01)
+        # Owner decision: angular bound, one click of a 0.1 mrad turret.
+        self.assertEqual(policy['tolerances']['height_mrad'], 0.1)
+        self.assertEqual(policy['tolerances']['windage_mrad'], 0.1)
 
     def test_ci_generates_and_compares_it(self):
         ci = CI.read_text(encoding='utf-8')

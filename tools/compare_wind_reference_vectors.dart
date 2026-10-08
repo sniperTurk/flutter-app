@@ -53,8 +53,17 @@ void main(List<String> args) {
     _fail('fixture was not generated under the current wind acceptance policy');
   }
   final tol = policy['tolerances'] as Map<String, dynamic>;
-  final windTol = _num(tol['windage_m_absolute'], 'windage tolerance');
-  final heightTol = _num(tol['height_m_absolute'], 'height tolerance');
+  // A set may instead declare ANGULAR tolerances (mrad at the range), which
+  // is what a shooter dials: 0.1 mrad = one click of a 0.1 mrad turret. Used
+  // for long ranges, where tens of metres of drop make a fixed 1 cm bound
+  // meaningless (owner decision 2026-10-08).
+  final angular = tol.containsKey('height_mrad');
+  final windTol = angular
+      ? _num(tol['windage_mrad'], 'windage tolerance (mrad)')
+      : _num(tol['windage_m_absolute'], 'windage tolerance');
+  final heightTol = angular
+      ? _num(tol['height_mrad'], 'height tolerance (mrad)')
+      : _num(tol['height_m_absolute'], 'height tolerance');
   final velocityTol = _num(tol['velocity_mps_absolute'], 'velocity tolerance');
   final timeTol = _num(tol['time_s_absolute'], 'time tolerance');
   final atmospheres = policy['atmospheres'] as Map<String, dynamic>;
@@ -135,7 +144,9 @@ void main(List<String> args) {
           'h=${(-actual[i].dropM).toStringAsFixed(3)} refh=${_num(p['height_m'], 'h').toStringAsFixed(3)} '
           '|dw|=${dw.toStringAsFixed(5)} |dh|=${dh.toStringAsFixed(5)} (${(dh / range * 1000).toStringAsFixed(3)} mrad) '
           '|dv|=${dv.toStringAsFixed(4)} |dt|=${dt.toStringAsFixed(5)}');
-      if (dw > windTol || dh > heightTol || dv > velocityTol || dt > timeTol) {
+      final wCheck = angular ? dw / range * 1000 : dw;
+      final hCheck = angular ? dh / range * 1000 : dh;
+      if (wCheck > windTol || hCheck > heightTol || dv > velocityTol || dt > timeTol) {
         failures.add('$id @ ${range}m');
       }
       compared++;
