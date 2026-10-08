@@ -1,3 +1,4 @@
+import re
 import unittest
 from pathlib import Path
 
@@ -44,9 +45,10 @@ class InteractiveScopeDialContract(unittest.TestCase):
         self.assertIn('s.windageRangeMrad', self.dial)
         # V3xx: the DOWN side may be shorter (a canted "Dürbün ayağı"
         # takes its clicks from it); null keeps the symmetric bound.
+        flat = re.sub(r'\s+', '', self.view)
         self.assertIn(
-            '.clamp(-(widget.maxNegativeClicks ?? widget.maxClicks), widget.maxClicks)',
-            self.view,
+            '.clamp(-(widget.maxNegativeClicks??widget.maxClicks),widget.maxClicks',
+            flat,
         )
 
     def test_mount_cant_widens_up_travel_only(self):
