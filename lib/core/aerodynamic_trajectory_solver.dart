@@ -42,6 +42,21 @@ class AerodynamicTrajectorySolver {
     }
   }
 
+  /// The solver works in the frame of the (possibly inclined and canted)
+  /// scope: x along the line of sight, y the scope's "up" and z its "right".
+  /// Gravity and the horizontal wind are rotated into that frame, so the
+  /// sampled y/z are directly what the scope's turrets must correct.
+  ///   incline θ (LOS above horizontal) and cant φ (clockwise roll):
+  ///   g = (−g·sinθ, −g·cosθ·cosφ, +g·cosθ·sinφ)
+  ///   air(ax, 0, az) → (ax·cosθ, −ax·sinθ·cosφ + az·sinφ,
+  ///                     az·cosφ + ax·sinθ·sinφ)
+  /// With θ = φ = 0 this is exactly the level solver used before.
+  static _Frame _frameFor({required double inclineDeg, required double cantDeg}) {
+    final t = inclineDeg * math.pi / 180;
+    final p = cantDeg * math.pi / 180;
+    return _Frame(math.sin(t), math.cos(t), math.sin(p), math.cos(p));
+  }
+
   /// G1/G7 trajectory including vector wind coupling.
   ///
   /// Wind convention follows the UI: 0° = headwind, 90° = full-value
@@ -67,6 +82,10 @@ class AerodynamicTrajectorySolver {
     // Zeroing conditions are distinct from the current shot environment.
     // This preserves the mechanical sight setting across weather changes.
     final angle = _zeroAngle(input, drag, bc);
+    final frame = _frameFor(
+      inclineDeg: input.inclineDeg,
+      cantDeg: input.cantDeg,
+    );
     final wanted = input.rangesM.toList()..sort();
     final results = <double, TrajectoryPoint>{};
     var state = _initialState(input, angle);
@@ -79,7 +98,7 @@ class AerodynamicTrajectorySolver {
       state = Rk4Integrator.step(
         state: state,
         dt: integrationStepSeconds,
-        derivative: (s) => _derivative(s, drag, bc, input.environment),
+        derivative: (s) => _derivative(s, drag, bc, input.environment, frame),
       );
       time += integrationStepSeconds;
       if (state.vx <= 0) {
@@ -181,7 +200,9 @@ class AerodynamicTrajectorySolver {
       state = Rk4Integrator.step(
         state: state,
         dt: integrationStepSeconds,
-        derivative: (s) => _derivative(s, drag, bc, input.zeroEnvironment),
+        // The zero is established level and without cant.
+        derivative: (s) =>
+            _derivative(s, drag, bc, input.zeroEnvironment, _Frame.level),
       );
       if (state.x >= range) {
         final f = (range - previous.x) / (state.x - previous.x);
@@ -206,13 +227,18 @@ class AerodynamicTrajectorySolver {
     ReferenceDragModel drag,
     double bc,
     EnvironmentData env,
+    _Frame f,
   ) {
     final directionRad = env.windDirectionDeg * math.pi / 180;
     // 0° is a headwind: air moves toward the shooter (-x). 90° moves in +z.
-    final airVx = -env.windMps * math.cos(directionRad);
-    final airVz = env.windMps * math.sin(directionRad);
+    // Horizontal (world) components, then rotated into the scope frame.
+    final ax = -env.windMps * math.cos(directionRad);
+    final az = env.windMps * math.sin(directionRad);
+    final airVx = ax * f.cosT;
+    final airVy = -ax * f.sinT * f.cosP + az * f.sinP;
+    final airVz = az * f.cosP + ax * f.sinT * f.sinP;
     final relativeVx = s.vx - airVx;
-    final relativeVy = s.vy;
+    final relativeVy = s.vy - airVy;
     final relativeVz = s.vz - airVz;
     final relativeSpeed = math.sqrt(
       relativeVx * relativeVx +
@@ -232,11 +258,18 @@ class AerodynamicTrajectorySolver {
       // dz at zero makes crosswind acceleration invisible in sampled drift
       // even though vz changes, producing a false zero-wind correction.
       dz: s.vz,
-      dvx: scale * relativeVx,
-      dvy: scale * relativeVy - _g,
-      dvz: scale * relativeVz,
+      dvx: scale * relativeVx - _g * f.sinT,
+      dvy: scale * relativeVy - _g * f.cosT * f.cosP,
+      dvz: scale * relativeVz + _g * f.cosT * f.sinP,
     );
   }
 
   double _lerp(double a, double b, double f) => a + (b - a) * f;
+}
+
+/// Sines and cosines of the shot incline (T) and scope cant (P).
+class _Frame {
+  final double sinT, cosT, sinP, cosP;
+  const _Frame(this.sinT, this.cosT, this.sinP, this.cosP);
+  static const level = _Frame(0, 1, 0, 1);
 }

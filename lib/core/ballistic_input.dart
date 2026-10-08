@@ -18,6 +18,17 @@ class BallisticInput {
   final double? ballisticCoefficient;
   final BallisticModel? ballisticModel;
 
+  /// Shot incline: angle of the line of sight above (+) or below (−) the
+  /// horizontal, degrees. Ranges are measured ALONG the line of sight (what a
+  /// laser rangefinder reports). The zero is always solved level.
+  final double inclineDeg;
+
+  /// Scope cant: roll of the scope about the line of sight, degrees;
+  /// positive = rotated clockwise as seen by the shooter (top to the right).
+  /// Corrections are then reported in the canted scope's own axes, i.e. the
+  /// clicks to dial on the canted turrets. The zero is solved without cant.
+  final double cantDeg;
+
   /// The same input for different [ranges] (validated again).
   BallisticInput withRanges(Iterable<double> ranges) => BallisticInput(
     muzzleVelocityMps: muzzleVelocityMps,
@@ -29,6 +40,8 @@ class BallisticInput {
     zeroEnvironment: zeroEnvironment,
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
+    inclineDeg: inclineDeg,
+    cantDeg: cantDeg,
   );
 
   BallisticInput({
@@ -48,6 +61,8 @@ class BallisticInput {
     ),
     this.ballisticCoefficient,
     this.ballisticModel,
+    this.inclineDeg = 0,
+    this.cantDeg = 0,
   }) : rangesM = List.unmodifiable(rangesM) {
     _positiveFinite('muzzleVelocityMps', muzzleVelocityMps);
     _max(
@@ -107,6 +122,20 @@ class BallisticInput {
       );
     }
     _validateEnvironment('zeroEnvironment', zeroEnvironment);
+    _finite('inclineDeg', inclineDeg);
+    _range(
+      'inclineDeg',
+      inclineDeg,
+      -ProductionLimits.maxInclineDeg,
+      ProductionLimits.maxInclineDeg,
+    );
+    _finite('cantDeg', cantDeg);
+    _range(
+      'cantDeg',
+      cantDeg,
+      -ProductionLimits.maxCantDeg,
+      ProductionLimits.maxCantDeg,
+    );
   }
 
   static void _validateEnvironment(String prefix, EnvironmentData environment) {

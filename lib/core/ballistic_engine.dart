@@ -67,6 +67,8 @@ class BallisticEngine {
     sightHeightMm: input.sightHeightMm,
     rangesM: input.rangesM,
     environment: input.environment,
+    inclineDeg: input.inclineDeg,
+    cantDeg: input.cantDeg,
   );
 
   /// Deterministic baseline trajectory. This is intentionally documented as a
@@ -79,6 +81,8 @@ class BallisticEngine {
     required double sightHeightMm,
     required Iterable<double> rangesM,
     EnvironmentData environment = const EnvironmentData(),
+    double inclineDeg = 0,
+    double cantDeg = 0,
   }) {
     if (muzzleVelocityMps <= 0 || zeroRangeM <= 0) {
       throw ArgumentError('velocity and zero must be > 0');
@@ -101,11 +105,25 @@ class BallisticEngine {
     }
     final tanBoreAngle = (x - math.sqrt(discriminant)) / (2 * a);
     final boreAngle = math.atan(tanBoreAngle);
+    // The zero is level; the shot may be inclined (θ) and canted (φ). In the
+    // scope frame gravity is (−g·sinθ, −g·cosθ·cosφ, g·cosθ·sinφ): constant,
+    // so the vacuum trajectory stays closed-form. θ = φ = 0 reproduces the
+    // level formula exactly.
+    final theta = inclineDeg * math.pi / 180;
+    final phi = cantDeg * math.pi / 180;
+    final gAlong = -g * math.sin(theta);
+    final gUp = -g * math.cos(theta) * math.cos(phi);
+    final vAlong = muzzleVelocityMps * math.cos(boreAngle);
+    final vUp = muzzleVelocityMps * math.sin(boreAngle);
     return rangesM
         .map((r) {
-          final t = r / (muzzleVelocityMps * math.cos(boreAngle));
-          final projectileY =
-              -sightM + r * math.tan(boreAngle) - 0.5 * g * t * t;
+          // r = vAlong·t + ½·gAlong·t²  →  stable root form (also for g=0).
+          final disc = vAlong * vAlong + 2 * gAlong * r;
+          if (disc < 0) {
+            throw StateError('projectile did not reach the requested range');
+          }
+          final t = 2 * r / (vAlong + math.sqrt(disc));
+          final projectileY = -sightM + vUp * t + 0.5 * gUp * t * t;
           final drop = -projectileY;
           final mrad = correctionMrad(offsetM: drop, rangeM: r);
           // A vacuum trajectory has no aerodynamic coupling to the air, so a
