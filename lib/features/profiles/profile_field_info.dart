@@ -70,9 +70,10 @@ abstract final class ProfileFieldInfo {
       'havalı tüfekte 45–70 mm. Ölçmek için altındaki "Sight height nasıl '
       'ölçülür?" bağlantısına bakın.';
   static const elevationTravel =
-      'Kulenin baştan sona ne kadar çevrilebildiği. Dürbün kutusunda veya '
-      'üreticinin sitesinde yazar, ör. 60 MOA. Uzak atışta kule yetmezse '
-      'uygulama bunu söyler. Bilmiyorsanız boş bırakın; hesap yine çalışır.';
+      'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü. '
+      'Kutuda yazar ya da kuleyi çevirip sayarsınız. Uzak atışta kule '
+      'yetmezse uygulama bunu söyler. Bilmiyorsanız boş bırakın; hesap '
+      'yine çalışır.';
   static const windageTravel =
       'Rüzgâr kulesinin (sağ kule) toplam ayar aralığı, dürbün biriminde. '
       'Föyde "Total windage adjustment" diye yazar; çoğu dürbünde yükseklik '

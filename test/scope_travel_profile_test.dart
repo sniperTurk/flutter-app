@@ -33,7 +33,7 @@ void main() {
     expect(scope.windageRangeMrad, 15);
   });
 
-  testWidgets('travel field: ⓘ, optional, converted with the unit', (
+  testWidgets('Üst kule klik sayısı: ⓘ, optional, whole clicks', (
     tester,
   ) async {
     tester.view.physicalSize = const Size(390 * 3, 2600 * 3);
@@ -49,25 +49,21 @@ void main() {
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
 
-    final field = find.descendant(
-      of: find.byKey(const Key('scope-travel-elevation')),
-      matching: find.byType(TextField),
-    );
-    expect(field, findsOneWidget);
-    expect(find.byTooltip('Bilgi: Kule ayar aralığı'), findsOneWidget);
+    expect(find.text('Üst kule klik sayısı'), findsOneWidget);
+    expect(find.byTooltip('Bilgi: Üst kule klik sayısı'), findsOneWidget);
+    // Only one question: no separate side-turret field.
+    expect(find.byKey(const Key('scope-travel-windage')), findsNothing);
     // Empty is allowed: it never appears in the missing list.
     expect(
       tester.widget<Text>(find.byKey(const Key('profile-missing'))).data,
-      isNot(contains('Kule ayar aralığı')),
+      isNot(contains('Üst kule')),
     );
 
-    await enterRifleField(tester, 'scope-travel-elevation', '17');
-    // MRAD → MOA keeps the angle: 17 mrad = 58.4 MOA.
-    await chooseInSelect(tester, 'profile-angular-unit-mrad', 'MOA');
-    expect(tester.widget<TextField>(field).controller!.text, '58,4');
-
-    // An implausible value is flagged.
-    await enterRifleField(tester, 'scope-travel-elevation', '1');
-    expect(find.text('3–400 arasında bir değer girin.'), findsWidgets);
+    await enterRifleField(tester, 'scope-travel-elevation', '5');
+    expect(find.text('10–3000 arasında bir değer girin.'), findsOneWidget);
+    await enterRifleField(tester, 'scope-travel-elevation', '120,5');
+    expect(find.text('Tam sayı girin.'), findsOneWidget);
+    await enterRifleField(tester, 'scope-travel-elevation', '240');
+    expect(find.text('Tam sayı girin.'), findsNothing);
   });
 }
