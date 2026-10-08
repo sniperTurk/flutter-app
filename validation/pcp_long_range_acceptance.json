@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "purpose": "PCP long-range set (owner request 2026-10-08): 950 fps slugs and pellets from 100 m to 600 m, beyond the 300 m of the wind set and the 150 m of the proposed envelope. Frozen before any reference output or Dart comparison existed. Same tolerances as the other sets. Passing these does not by itself open the production gate.",
+  "reference": {
+    "package": "py-ballisticcalc",
+    "version": "2.2.10",
+    "engine": "rk4_engine",
+    "spin_drift": "disabled (Weapon twist = 0)",
+    "coriolis": "disabled (no latitude/azimuth)"
+  },
+  "convention": {
+    "sniper_turk_direction_deg": "0 = headwind (air moves toward the shooter), 90 = air moves toward the shooter's right (+z), 180 = tailwind",
+    "py_ballisticcalc_direction_from_deg": "180 - sniper_turk_direction_deg",
+    "lateral_axis": "+z = shooter's right; compared value is py-ballisticcalc windage (m) vs SNIPER TÜRK lateral position z = -range * tan(windMrad / 1000)",
+    "zeroing": "both sides zero in still air under the case atmosphere; wind is applied only to the shot"
+  },
+  "tolerances": {
+    "windage_m_absolute": 0.01,
+    "height_m_absolute": 0.01,
+    "velocity_mps_absolute": 1.0,
+    "time_s_absolute": 0.005
+  },
+  "atmospheres": {
+    "icao": {
+      "altitude_m": 0.0,
+      "temperature_c": 15.0,
+      "pressure_hpa": 1013.25,
+      "humidity_percent": 0.0
+    },
+    "hot_high": {
+      "altitude_m": 1500.0,
+      "temperature_c": 30.0,
+      "pressure_hpa": 1013.25,
+      "humidity_percent": 0.0
+    },
+    "cold_dense": {
+      "altitude_m": 0.0,
+      "temperature_c": -10.0,
+      "pressure_hpa": 1030.0,
+      "humidity_percent": 0.0
+    }
+  },
+  "cases": [
+    {
+      "id": "pcp950_pellet22_bc035_icao_still",
+      "model": "G1",
+      "atmosphere": "icao",
+      "bc": 0.035,
+      "mv": 289.56,
+      "grain": 18.13,
+      "zero": 30.0,
+      "sight_mm": 60.0,
+      "wind_mps": 0.0,
+      "wind_direction_deg": 90.0,
+      "ranges": [
+        100.0,
+        200.0,
+        300.0,
+        400.0,
+        500.0,
+        600.0
+      ]
+    },
+    {
+      "id": "pcp950_slug25_bc08_icao_cross",
+      "model": "G1",
+      "atmosphere": "icao",
+      "bc": 0.08,
+      "mv": 289.56,
+      "grain": 33.95,
+      "zero": 50.0,
+      "sight_mm": 60.0,
+      "wind_mps": 3.0,
+      "wind_direction_deg": 90.0,
+      "ranges": [
+        100.0,
+        200.0,
+        300.0,
+        400.0,
+        500.0,
+        600.0
+      ]
+    },
+    {
+      "id": "pcp950_slug25_bc12_hot_high_cross_left",
+      "model": "G1",
+      "atmosphere": "hot_high",
+      "bc": 0.12,
+      "mv": 289.56,
+      "grain": 44.75,
+      "zero": 50.0,
+      "sight_mm": 60.0,
+      "wind_mps": 4.0,
+      "wind_direction_deg": 270.0,
+      "ranges": [
+        100.0,
+        200.0,
+        300.0,
+        400.0,
+        500.0,
+        600.0
+      ]
+    },
+    {
+      "id": "pcp950_slug30_bc10_cold_quartering",
+      "model": "G1",
+      "atmosphere": "cold_dense",
+      "bc": 0.1,
+      "mv": 289.56,
+      "grain": 50.0,
+      "zero": 50.0,
+      "sight_mm": 60.0,
+      "wind_mps": 6.0,
+      "wind_direction_deg": 45.0,
+      "ranges": [
+        100.0,
+        200.0,
+        300.0,
+        400.0,
+        500.0,
+        600.0
+      ]
+    }
+  ]
+}
