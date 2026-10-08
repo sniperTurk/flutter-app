@@ -231,7 +231,9 @@ void main() {
         // Still with tiny noise: the number does not move again.
         final shown = <String>{};
         for (var i = 0; i < 200; i++) {
-          tilt.controller.add(TiltAvailable(_tilted(i.isEven ? -0.01 : -0.05, 0)));
+          tilt.controller.add(
+            TiltAvailable(_tilted(i.isEven ? -0.01 : -0.05, 0)),
+          );
           await _settle();
           shown.add(shownX());
         }
