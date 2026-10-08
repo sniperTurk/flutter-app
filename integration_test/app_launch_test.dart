@@ -40,35 +40,14 @@ void main() {
     // safe smoke-test targets on a clean install.
     await tester.tap(find.text('Araçlar').first);
     await tester.pumpAndSettle();
-    // The hub now lists nine tools, so Katalog can sit below the fold.
-    await tester.ensureVisible(find.text('Katalog').first);
+    // Katalog is no longer listed on Araçlar (owner, 2026-10-08; its data
+    // stays). Hesaplayıcılar is the safe sub-route exercised instead.
+    expect(find.text('Katalog'), findsNothing);
+    await tester.ensureVisible(find.text('Hesaplayıcılar').first);
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Katalog').first);
+    await tester.tap(find.text('Hesaplayıcılar').first);
     await tester.pumpAndSettle();
-    expect(find.text('PCP Tüfekler'), findsWidgets);
-    // The section headers render a record count suffix ("PCP Mühimmat (N)",
-    // "Dürbünler (N)"), so an exact find.text() would never match them. The
-    // catalog list is lazy, so scroll each header into view first.
-    final catalogList = find
-        .descendant(
-          of: find.byType(ListView),
-          matching: find.byType(Scrollable),
-        )
-        .first;
-    await tester.scrollUntilVisible(
-      find.textContaining('PCP Mühimmat'),
-      400,
-      scrollable: catalogList,
-      maxScrolls: 400,
-    );
-    expect(find.textContaining('PCP Mühimmat'), findsOneWidget);
-    await tester.scrollUntilVisible(
-      find.textContaining('Dürbünler'),
-      400,
-      scrollable: catalogList,
-      maxScrolls: 400,
-    );
-    expect(find.textContaining('Dürbünler'), findsOneWidget);
+    expect(find.text('Stadyametrik mesafe ölçer'), findsOneWidget);
     expect(tester.takeException(), isNull);
 
     await tester.pageBack();

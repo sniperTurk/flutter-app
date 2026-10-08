@@ -37,11 +37,15 @@ class V1ToolScopeTests(unittest.TestCase):
         hub = (ROOT / 'lib/features/tools/tools_screen.dart').read_text(encoding='utf-8')
         for key in (
             'tool-chronograph', 'tool-sight-height', 'tool-compass', 'tool-level',
-            'tool-weather', 'tool-hit-probability', 'tool-calculators', 'tool-catalog',
+            'tool-weather', 'tool-hit-probability', 'tool-calculators',
+            # 2026-10-08: Haritadan mesafe moved here from Hesaplayıcılar.
+            'tool-map-distance',
         ):
             self.assertIn(f"Key('{key}')", hub)
         # V380: Ayarlar removed (the app is metric only).
         self.assertNotIn("Key('tool-settings')", hub)
+        # 2026-10-08: Katalog is no longer on the hub; its data is kept.
+        self.assertNotIn("Key('tool-catalog')", hub)
         self.assertEqual(8, hub.count('MenzilToolTile('))
 
     def test_still_retired_dependencies_and_ios_bridge_stay_absent(self):

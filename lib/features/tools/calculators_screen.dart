@@ -7,7 +7,6 @@ import '../../tools/ports/location_provider.dart';
 import '../../tools/tools_services.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
-import 'map_distance_screen.dart';
 import 'reticle_screen.dart';
 import 'tool_support.dart';
 
@@ -61,13 +60,6 @@ class CalculatorsScreen extends StatelessWidget {
             'Stadyametrik mesafe ölçer',
             'Hedef boyutu ve dürbündeki okumadan mesafe',
             const StadiaScreen(),
-          ),
-          tile(
-            'calc-map-distance',
-            Icons.map_outlined,
-            'Haritadan mesafe',
-            'Uydu haritasında nişancı ve hedef konumu, mesafe ve yön',
-            const MapDistanceScreen(),
           ),
           tile(
             'calc-reticle',

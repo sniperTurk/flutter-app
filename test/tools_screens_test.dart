@@ -38,10 +38,11 @@ void main() {
         'level',
         'weather',
         'calculators',
-        'catalog',
+        'map-distance',
       ]) {
         expect(find.byKey(Key('tool-$k')), findsOneWidget, reason: k);
       }
+      expect(find.byKey(const Key('tool-catalog')), findsNothing);
       // V380: Ayarlar was removed.
       expect(find.byKey(const Key('tool-settings')), findsNothing);
       expect(find.textContaining('Qwen'), findsNothing);

@@ -241,10 +241,12 @@ void main() {
       'weather',
       'hit-probability',
       'calculators',
-      'catalog',
+      'map-distance',
     ]) {
       expect(find.byKey(Key('tool-$key')), findsOneWidget, reason: key);
     }
+    // Katalog is no longer on the hub (its data is kept).
+    expect(find.byKey(const Key('tool-catalog')), findsNothing);
     expect(find.textContaining('Qwen'), findsNothing);
     // V380: Ayarlar was removed (metric only).
     expect(find.byKey(const Key('tool-settings')), findsNothing);

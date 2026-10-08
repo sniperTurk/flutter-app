@@ -68,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const _tabProfile = 0;
   static const _tabEnvironment = 1;
   static const _tabShot = 2;
+  static const _tabTools = 3;
 
   static const _navItems = [
     MenzilNavItem(MenzilGlyph.profile, 'Profil'),
@@ -265,6 +266,8 @@ class _HomeScreenState extends State<HomeScreen> {
         themeLabel: MenzilThemeController.labelFor(themeMode),
         onThemeTap: themeController?.cycle,
         showBrand: tab != _tabProfile,
+        // Araçlar shows its own name instead of Menzil (owner, 2026-10-08).
+        title: tab == _tabTools ? 'Araçlar' : null,
       ),
       bottomNavigationBar: MenzilBottomNavigation(
         items: _navItems,
