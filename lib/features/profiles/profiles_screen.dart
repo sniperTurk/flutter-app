@@ -1195,8 +1195,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       // elevation travel, as on most spec sheets.
       'elevationRangeMrad': _travelMrad(scopeTravelElevation),
       'windageRangeMrad':
-          _travelMrad(scopeTravelWindage) ??
-          _travelMrad(scopeTravelElevation),
+          _travelMrad(scopeTravelWindage) ?? _travelMrad(scopeTravelElevation),
       'sourceName': userCatalogSourceName,
     };
   }
@@ -1639,7 +1638,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       scopeClick.text = _trimNum(_defaultClick(next));
                     }
                     // Typed travel keeps its angle in the new unit.
-                    for (final t in [scopeTravelElevation, scopeTravelWindage]) {
+                    for (final t in [
+                      scopeTravelElevation,
+                      scopeTravelWindage,
+                    ]) {
                       final v = _parse(t);
                       if (v != null && next != angularUnit) {
                         t.text = _trimTravel(
