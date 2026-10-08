@@ -17,7 +17,7 @@ class IosProfilePersistenceSmokeContractTest(unittest.TestCase):
             "tester.tap(find.text('Kaydet'))",
             "find.text('Yeni Profil')",
             "find.text('DOPE için önce aktif profil oluşturun'), findsNothing",
-            "tester.tap(find.text('Atış').first)",
+            "tester.tap(find.text('Hedef').first)",
             "find.text('DOPE oluştur')",
         )
         for marker in required:

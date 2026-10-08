@@ -45,7 +45,7 @@ void main() {
       );
       await tester.pumpAndSettle();
       // The app opens on Profil; the gate lives in the Atış workspace.
-      await tester.tap(find.text('Atış'));
+      await tester.tap(find.text('Hedef'));
       await tester.pumpAndSettle();
 
       expect(

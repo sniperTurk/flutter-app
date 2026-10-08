@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const _titles = {
     _tabEnvironment: 'Hava Durumu',
     _tabPro: 'Pro Ayarlar',
-    _tabShot: 'Atış',
+    _tabShot: 'Hedef',
     _tabTools: 'Araçlar',
   };
 
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
     MenzilNavItem(MenzilGlyph.profile, 'Profil'),
     MenzilNavItem(MenzilGlyph.environment, 'Hava Durumu'),
     MenzilNavItem(MenzilGlyph.pro, 'Pro'),
-    MenzilNavItem(MenzilGlyph.shot, 'Atış'),
+    MenzilNavItem(MenzilGlyph.shot, 'Hedef'),
     MenzilNavItem(MenzilGlyph.tools, 'Araçlar'),
   ];
 
@@ -285,9 +285,10 @@ class _HomeScreenState extends State<HomeScreen> {
         onThemeTap: themeController?.cycle,
         showBrand: tab != _tabProfile,
         // Each page shows its own name instead of Menzil (owner, 2026-10-08).
-        // Atış's single shot is titled "Atış görünümü" (owner, 2026-10-08).
+        // The tab is "Hedef"; its single shot is "Hedef Görünümü" (owner,
+        // 2026-10-08).
         title: tab == _tabShot && _shotMode == BallisticsView.shot
-            ? 'Atış görünümü'
+            ? 'Hedef Görünümü'
             : _titles[tab],
       ),
       bottomNavigationBar: MenzilBottomNavigation(

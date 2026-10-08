@@ -28,7 +28,7 @@ const _profile = RifleProfile(
   pressureBar: 200,
 );
 
-const _tabs = ['Profil', 'Hava Durumu', 'Pro', 'Atış', 'Araçlar'];
+const _tabs = ['Profil', 'Hava Durumu', 'Pro', 'Hedef', 'Araçlar'];
 
 Future<void> _setView(
   WidgetTester tester,
@@ -80,7 +80,7 @@ Future<void> _visitEveryTab(WidgetTester tester) async {
   // The app opens on Profil.
   expect(tester.takeException(), isNull, reason: 'Profil at start');
   // Atış solves on its own when it opens.
-  await tester.tap(_tab('Atış'));
+  await tester.tap(_tab('Hedef'));
   await tester.pumpAndSettle();
   expect(tester.takeException(), isNull, reason: 'Atış after solve');
   for (final tab in _tabs) {
@@ -89,7 +89,7 @@ Future<void> _visitEveryTab(WidgetTester tester) async {
     expect(tester.takeException(), isNull, reason: tab);
   }
   // Tablo is the second mode of Atış.
-  await tester.tap(_tab('Atış'));
+  await tester.tap(_tab('Hedef'));
   await tester.pumpAndSettle();
   await tester.tap(find.byKey(const Key('shot-mode-table')));
   await tester.pumpAndSettle();
@@ -198,7 +198,7 @@ void main() {
     );
     await tester.tap(_tab('Profil'));
     await tester.pumpAndSettle();
-    await tester.tap(_tab('Atış'));
+    await tester.tap(_tab('Hedef'));
     await tester.pumpAndSettle();
     await tester.tap(_tab('Hava Durumu'));
     await tester.pumpAndSettle();

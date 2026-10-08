@@ -11,7 +11,7 @@ class SafeShotViewTest(unittest.TestCase):
     def test_safe_shot_view_is_present_and_drag_locked(self):
         # The title moved to the top bar (owner, 2026-10-08).
         home = (ROOT / 'lib/features/home/home_screen.dart').read_text(encoding='utf-8')
-        self.assertIn("'Atış görünümü'", home)
+        self.assertIn("'Hedef Görünümü'", home)
         # V372: the static reticle painters were replaced by the interactive
         # turret/reticle view (scope_dial_view.dart); see test_v372.
         self.assertIn('_scopeDial(shot)', self.text)

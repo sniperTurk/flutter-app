@@ -51,7 +51,7 @@ Future<void> _pumpShell(
 
 /// The app opens on Profil; tests of the ballistic workspace switch to Atış.
 Future<void> _openShot(WidgetTester tester) async {
-  await tester.tap(find.text('Atış'));
+  await tester.tap(find.text('Hedef'));
   await tester.pumpAndSettle();
 }
 
@@ -77,7 +77,7 @@ void main() {
 
     // No page shows the Menzil wordmark any more; each shows its own name.
     expect(find.text('Menzil'), findsNothing);
-    const tabs = ['Profil', 'Hava Durumu', 'Pro', 'Atış', 'Araçlar'];
+    const tabs = ['Profil', 'Hava Durumu', 'Pro', 'Hedef', 'Araçlar'];
     for (final tab in tabs) {
       expect(find.text(tab), findsOneWidget, reason: tab);
     }
@@ -98,7 +98,7 @@ void main() {
     // Atış solves on its own: no Hesapla button (owner, 2026-10-08).
     await _openShot(tester);
     expect(find.text('Menzil'), findsNothing);
-    expect(_title(tester), 'Atış görünümü');
+    expect(_title(tester), 'Hedef Görünümü');
     expect(find.byKey(const Key('shot-mode-shot')), findsOneWidget);
     expect(find.byKey(const Key('shot-mode-table')), findsOneWidget);
     expect(find.text('Hesapla'), findsNothing);
@@ -152,7 +152,7 @@ void main() {
 
     // Atış remembers the table mode; switching to the single shot uses the
     // same validated solve: no "calculate first" prompt.
-    await tester.tap(find.text('Atış'));
+    await tester.tap(find.text('Hedef'));
     await tester.pumpAndSettle();
     expect(find.text('DOPE oluştur'), findsOneWidget);
     await tester.tap(find.byKey(const Key('shot-mode-shot')));
@@ -161,7 +161,7 @@ void main() {
       find.textContaining('Değerleri görmek için hesaplayın'),
       findsNothing,
     );
-    expect(_title(tester), 'Atış görünümü');
+    expect(_title(tester), 'Hedef Görünümü');
     // V354: elevation is computed from the vacuum drop (valid trigonometry);
     // only wind stays locked, since a vacuum model has no aerodynamic
     // coupling to produce a real wind value.

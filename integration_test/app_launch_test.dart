@@ -25,7 +25,7 @@ void main() {
       'Profil',
       'Hava Durumu',
       'Pro',
-      'Atış',
+      'Hedef',
       'Araçlar',
     ]) {
       expect(
@@ -36,7 +36,7 @@ void main() {
     }
     // The app opens on Profil; on a clean install the ballistic workspace
     // stays locked without a profile.
-    await tester.tap(find.text('Atış').first);
+    await tester.tap(find.text('Hedef').first);
     await tester.pumpAndSettle();
     expect(find.text('DOPE için önce aktif profil oluşturun'), findsOneWidget);
     expect(tester.takeException(), isNull);
@@ -146,7 +146,7 @@ void main() {
     // The shell must reconcile the first persisted profile as active and unlock
     // DOPE. This closes the end-to-end clean-install path: create -> persist ->
     // reload -> active-profile resolution -> ballistic workspace.
-    await tester.tap(find.text('Atış').first);
+    await tester.tap(find.text('Hedef').first);
     await tester.pumpAndSettle();
     expect(find.text('DOPE için önce aktif profil oluşturun'), findsNothing);
     // Atış solves on its own when it opens (no Hesapla button).

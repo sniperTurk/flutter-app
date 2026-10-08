@@ -40,7 +40,7 @@ Future<void> _pumpSolved(
   );
   await tester.pumpAndSettle();
   // The app opens on Profil; the scope lives on the Atış tab.
-  await tester.tap(find.text('Atış'));
+  await tester.tap(find.text('Hedef'));
   await tester.pumpAndSettle();
 }
 
@@ -145,7 +145,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Atış'));
+    await tester.tap(find.text('Hedef'));
     await tester.pumpAndSettle();
     expect(_impact(tester), isNot(contains('bekleniyor')));
     expect(_impact(tester), contains('aşağı'));

@@ -844,7 +844,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   Widget _referenceShotPanel(TrajectoryPoint? shot) {
-    // "Atış görünümü" is the page title in the top bar (owner, 2026-10-08);
+    // "Hedef Görünümü" is the page title in the top bar (owner, 2026-10-08);
     // the Yukarı/Aşağı and Rüzgâr boxes were removed: the scope below shows
     // the clicks and the point of impact.
     return MenzilCard(
@@ -1790,7 +1790,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       if (widget.onContinueToShot != null)
         MenzilPrimaryButton(
           key: const Key('pro-continue-shot'),
-          label: 'Atış\'a geç',
+          label: 'Hedef\'e geç',
           icon: Icons.arrow_forward,
           onPressed: widget.onContinueToShot,
         ),

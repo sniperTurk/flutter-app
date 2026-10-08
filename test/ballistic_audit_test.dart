@@ -74,7 +74,7 @@ Future<(String, String)> _windAfter(
   await tester.ensureVisible(dial);
   await tester.tap(dial);
   await tester.pumpAndSettle();
-  await tester.tap(find.text('Atış'));
+  await tester.tap(find.text('Hedef'));
   await tester.pumpAndSettle();
   final impact = _impact(tester);
   return (impact, await _dialSolution(tester));
