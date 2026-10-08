@@ -625,7 +625,7 @@ class _ActiveProfileDetails extends StatelessWidget {
               ),
             if ((scope?.elevationRangeMrad ?? 0) > 0)
               MenzilMetric(
-                'Kule aralığı',
+                'Kule ayar aralığı',
                 _trimNum(
                   ((scope!.clickUnit == AngularUnit.moa
                                   ? Units.mradToMoa(scope.elevationRangeMrad!)
@@ -921,8 +921,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_maxMagError == null, 'Maks. büyütme'),
       (_objectiveError == null, 'Mercek çapı'),
       (_clickError == null, 'Klik değeri'),
-      (_travelError(scopeTravelElevation) == null, 'Kule aralığı (yükseklik)'),
-      (_travelError(scopeTravelWindage) == null, 'Kule aralığı (rüzgâr)'),
+      (_travelError(scopeTravelElevation) == null, 'Kule ayar aralığı'),
       (_validSight, 'Sight height'),
     ]);
     section('Mühimmat', [
@@ -1070,7 +1069,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   bool get _scopeValid =>
       _travelError(scopeTravelElevation) == null &&
-      _travelError(scopeTravelWindage) == null &&
       _scopeBrandError == null &&
       _minMagError == null &&
       _maxMagError == null &&
@@ -1666,21 +1664,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   key: const Key('scope-travel-elevation'),
                   info: ProfileFieldInfo.elevationTravel,
                   controller: scopeTravelElevation,
-                  label: 'Kule ayar aralığı (yükseklik)',
+                  label: 'Kule ayar aralığı',
                   unit: angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
-                  helperText: 'Toplam aralık; föyde yazar. Boş bırakılabilir.',
+                  helperText: 'Kutuda yazar, ör. 60 MOA. Bilmiyorsanız boş bırakın.',
                   onChanged: (_) => setState(() {}),
                   errorText: _travelError(scopeTravelElevation),
-                ),
-                MenzilInput(
-                  key: const Key('scope-travel-windage'),
-                  info: ProfileFieldInfo.windageTravel,
-                  controller: scopeTravelWindage,
-                  label: 'Kule ayar aralığı (rüzgâr)',
-                  unit: angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
-                  helperText: 'Boşsa yükseklik aralığı kullanılır.',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _travelError(scopeTravelWindage),
                 ),
                 MenzilInput(
                   key: const Key('scope-sight-height'),

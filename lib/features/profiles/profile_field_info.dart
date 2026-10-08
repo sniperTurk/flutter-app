@@ -70,12 +70,9 @@ abstract final class ProfileFieldInfo {
       'havalı tüfekte 45–70 mm. Ölçmek için altındaki "Sight height nasıl '
       'ölçülür?" bağlantısına bakın.';
   static const elevationTravel =
-      'Yükseklik kulesinin (üst kule) baştan sona toplam ayar aralığı, '
-      'dürbün biriminde. Dürbünün föyünde "Total elevation adjustment" '
-      'veya "Elevation travel" diye yazar. Örnek: 6-24x50 havalı tüfek '
-      'dürbününde 60 MOA veya 17 MRAD. Uygulama sıfırı kulenin ortasında '
-      'kabul eder; her yöne bunun yarısı kadar çevrilebilir. Boş bırakırsanız '
-      '"kule yetmez" uyarısı ve ayak önerisi gösterilmez.';
+      'Kulenin baştan sona ne kadar çevrilebildiği. Dürbün kutusunda veya '
+      'üreticinin sitesinde yazar, ör. 60 MOA. Uzak atışta kule yetmezse '
+      'uygulama bunu söyler. Bilmiyorsanız boş bırakın; hesap yine çalışır.';
   static const windageTravel =
       'Rüzgâr kulesinin (sağ kule) toplam ayar aralığı, dürbün biriminde. '
       'Föyde "Total windage adjustment" diye yazar; çoğu dürbünde yükseklik '

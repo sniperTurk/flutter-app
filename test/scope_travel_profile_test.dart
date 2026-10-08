@@ -55,13 +55,13 @@ void main() {
     );
     expect(field, findsOneWidget);
     expect(
-      find.byTooltip('Bilgi: Kule ayar aralığı (yükseklik)'),
+      find.byTooltip('Bilgi: Kule ayar aralığı'),
       findsOneWidget,
     );
     // Empty is allowed: it never appears in the missing list.
     expect(
       tester.widget<Text>(find.byKey(const Key('profile-missing'))).data,
-      isNot(contains('Kule aralığı')),
+      isNot(contains('Kule ayar aralığı')),
     );
 
     await enterRifleField(tester, 'scope-travel-elevation', '17');
