@@ -225,52 +225,53 @@ void main() {
     await tester.pump();
   });
 
-  testWidgets('no title bar; "Su Terazisi" explanation sits under the numbers', (
-    tester,
-  ) async {
-    tester.view.physicalSize = const Size(430, 932);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.reset);
-    final tilt = TestTilt();
-    await tester.pumpWidget(
-      host(
-        const LevelScreen(),
-        services: testServices(
-          tilt: tilt,
-          levelCalibration: InMemoryLevelCalibrationStore(),
+  testWidgets(
+    'no title bar; "Su Terazisi" explanation sits under the numbers',
+    (tester) async {
+      tester.view.physicalSize = const Size(430, 932);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      final tilt = TestTilt();
+      await tester.pumpWidget(
+        host(
+          const LevelScreen(),
+          services: testServices(
+            tilt: tilt,
+            levelCalibration: InMemoryLevelCalibrationStore(),
+          ),
         ),
-      ),
-    );
-    await tester.pump();
-    tilt.controller.add(TiltAvailable(_tilted(0.2, 0.1)));
-    await tester.pump();
-    await tester.pump();
+      );
+      await tester.pump();
+      tilt.controller.add(TiltAvailable(_tilted(0.2, 0.1)));
+      await tester.pump();
+      await tester.pump();
 
-    expect(find.byType(AppBar), findsNothing);
-    final guide = find.byKey(const Key('level-calibration-guide'));
-    expect(guide, findsOneWidget);
-    // No way to hide it.
-    expect(find.byKey(const Key('level-guide-later')), findsNothing);
-    final title = find.byKey(const Key('level-guide-title'));
-    expect(tester.widget<Text>(title).data, 'Su Terazisi');
-    // Order on the page: vials, numbers, then the titled explanation.
-    final numbersBottom = tester
-        .getBottomLeft(find.byKey(const Key('level-x')))
-        .dy;
-    expect(tester.getTopLeft(title).dy, greaterThan(numbersBottom));
-    expect(
-      tester.getBottomLeft(find.byKey(const Key('level-circle'))).dy,
-      lessThan(tester.getTopLeft(find.byKey(const Key('level-x'))).dy),
-    );
-    // The vials start near the top of the screen.
-    expect(
-      tester.getTopLeft(find.byKey(const Key('level-tube-x'))).dy,
-      lessThan(120),
-    );
+      expect(find.byType(AppBar), findsNothing);
+      final guide = find.byKey(const Key('level-calibration-guide'));
+      expect(guide, findsOneWidget);
+      // No way to hide it.
+      expect(find.byKey(const Key('level-guide-later')), findsNothing);
+      final title = find.byKey(const Key('level-guide-title'));
+      expect(tester.widget<Text>(title).data, 'Su Terazisi');
+      // Order on the page: vials, numbers, then the titled explanation.
+      final numbersBottom = tester
+          .getBottomLeft(find.byKey(const Key('level-x')))
+          .dy;
+      expect(tester.getTopLeft(title).dy, greaterThan(numbersBottom));
+      expect(
+        tester.getBottomLeft(find.byKey(const Key('level-circle'))).dy,
+        lessThan(tester.getTopLeft(find.byKey(const Key('level-x'))).dy),
+      );
+      // The vials start near the top of the screen.
+      expect(
+        tester.getTopLeft(find.byKey(const Key('level-tube-x'))).dy,
+        lessThan(120),
+      );
 
-    await tester.pumpWidget(const SizedBox.shrink());
-    await tester.pump();
-  });
+      await tester.pumpWidget(const SizedBox.shrink());
+      await tester.pump();
+    },
+  );
 
   testWidgets('"Kalibre et" opens the numbered steps', (tester) async {
     tester.view.physicalSize = const Size(430, 932);
