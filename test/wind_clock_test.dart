@@ -47,5 +47,19 @@ void main() {
     expect(hour, 3);
     expect(find.text('Saat 3 · sağdan'), findsOneWidget);
     expect(find.byTooltip('Bilgi: Rüzgâr yönü'), findsOneWidget);
+    // The ⓘ box shows the 0–315° dial with every 45° labelled.
+    await tester.tap(find.byTooltip('Bilgi: Rüzgâr yönü'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('wind-direction-diagram')), findsOneWidget);
+    expect(WindDirectionDiagram.labels, [
+      '0°',
+      '45°',
+      '90°',
+      '135°',
+      '180°',
+      '225°',
+      '270°',
+      '315°',
+    ]);
   });
 }
