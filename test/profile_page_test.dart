@@ -287,10 +287,8 @@ void main() {
     );
 
     // A field without ⓘ lines up with its neighbour that has one.
-    Finder box(String key) => find.descendant(
-      of: field(key),
-      matching: find.byType(InputDecorator),
-    );
+    Finder box(String key) =>
+        find.descendant(of: field(key), matching: find.byType(InputDecorator));
     expect(
       tester.getTopLeft(box('scope-brand')).dy,
       tester.getTopLeft(box('scope-focal-plane')).dy,

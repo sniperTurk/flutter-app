@@ -786,23 +786,23 @@ class MenzilFieldLabel extends StatelessWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 44),
         child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            child: Text(
-              label,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: MenzilType.label(c.ink),
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Expanded(
+              child: Text(
+                label,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: MenzilType.label(c.ink),
+              ),
             ),
-          ),
-          if (unit != null) ...[
-            const SizedBox(width: MenzilSpace.xs),
-            Text(unit!, style: MenzilType.unit(c.ink2)),
+            if (unit != null) ...[
+              const SizedBox(width: MenzilSpace.xs),
+              Text(unit!, style: MenzilType.unit(c.ink2)),
+            ],
+            if (trailing != null) trailing!,
           ],
-          if (trailing != null) trailing!,
-        ],
-      ),
+        ),
       ),
     );
   }

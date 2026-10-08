@@ -1021,6 +1021,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       firstFocalPlane != null;
 
   String? get _ammoBrandError => _textError(ammoBrand);
+
   /// The ammunition has no Model box (owner, 2026-10-08); its record name
   /// is built from what was entered, e.g. "33,95 gr Slug".
   String get _ammoModelName {
@@ -1036,6 +1037,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       type,
     ].where((p) => p.isNotEmpty).join(' ');
   }
+
   String? get _grainError => _rangeError(ammoGrain, 1, 800);
   String? get _bcError => _rangeError(ammoBc, 0.005, 1.5);
 
