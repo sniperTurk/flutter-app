@@ -1656,7 +1656,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   label: 'Üst kule klik sayısı',
                   unit: 'klik',
                   keyboardType: TextInputType.number,
-                  helperText: 'Baştan sona toplam klik. Bilmiyorsanız boş bırakın.',
+                  helperText:
+                      'Baştan sona toplam klik. Bilmiyorsanız boş bırakın.',
                   onChanged: (_) => setState(() {}),
                   errorText: _travelError(scopeTravelElevation),
                 ),
