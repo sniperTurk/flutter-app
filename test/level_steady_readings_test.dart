@@ -159,17 +159,22 @@ void main() {
       for (final s in _noisy(_tilted(0.3, 0), 300, seed: 11)) {
         tilt.controller.add(TiltAvailable(s));
         await _settle();
-        shown.add(double.parse(c.angles!.xDeg.toStringAsFixed(2)));
+        shown.add(
+          double.parse(TiltMath.format(c.angles!.xDeg).replaceAll(',', '.')),
+        );
       }
       // The first samples converge; after that the read-out holds still.
       final tail = <double>{};
       for (final s in _noisy(_tilted(0.3, 0), 300, seed: 12)) {
         tilt.controller.add(TiltAvailable(s));
         await _settle();
-        tail.add(double.parse(c.angles!.xDeg.toStringAsFixed(2)));
+        tail.add(
+          double.parse(TiltMath.format(c.angles!.xDeg).replaceAll(',', '.')),
+        );
       }
-      expect(tail.length, lessThanOrEqualTo(3));
-      expect(tail.first, closeTo(0.3, 0.06));
+      // What the user reads (0.1° text) does not change at all.
+      expect(tail.length, 1);
+      expect(tail.first, closeTo(0.3, 0.1));
     });
 
     test('a real change past the band shows at once', () async {
@@ -178,7 +183,7 @@ void main() {
       addTearDown(c.dispose);
       tilt.controller.add(TiltAvailable(_tilted(0, 0)));
       await _settle();
-      tilt.controller.add(TiltAvailable(_tilted(0.02, 0)));
+      tilt.controller.add(TiltAvailable(_tilted(0.06, 0)));
       await _settle();
       expect(c.angles!.xDeg, closeTo(0, 1e-9), reason: 'inside the band');
       tilt.controller.add(TiltAvailable(_tilted(0.5, 0)));

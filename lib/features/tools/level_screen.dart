@@ -13,7 +13,7 @@ import '../../ui/menzil_widgets.dart';
 /// Su Terazisi, laid out like a physical bubble level: a horizontal vial on
 /// top, a vertical vial on the left and a round bullseye vial, all on a
 /// concrete backdrop, with a bottom bar of round controls (settings, help,
-/// X/Y readout with lock, sound, view). X/Y keep a 0.01° DISPLAY resolution.
+/// X/Y readout with lock, sound, view). X/Y use a 0.1° DISPLAY resolution.
 /// Without an accelerometer reading it shows a state message instead of a
 /// fake bubble.
 class LevelScreen extends StatefulWidget {
@@ -31,7 +31,7 @@ class _LevelScreenState extends State<LevelScreen> {
   bool _guideDismissed = false;
 
   static const _resolutionNotice =
-      'Değerler 0,01° çözünürlükle gösterilir; bu yalnızca ekran çözünürlüğüdür, '
+      'Değerler 0,1° çözünürlükle gösterilir; bu yalnızca ekran çözünürlüğüdür, '
       'telefon ivmeölçerinin doğruluğu değildir. Titreşimi azaltmak için filtre uygulanır; '
       'bu doğruluğu artırmaz.';
 

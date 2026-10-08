@@ -56,9 +56,9 @@ void main() {
       expect(TiltMath.poseFor(between, TiltMode.flat), TiltMode.flat);
       expect(TiltMath.poseFor(between, TiltMode.upright), TiltMode.upright);
     });
-    test('format uses 0,01 resolution and never -0.00', () {
-      expect(TiltMath.format(1.234), '1,23');
-      expect(TiltMath.format(-0.001), '0,00');
+    test('format uses 0,1 resolution and never -0,0', () {
+      expect(TiltMath.format(1.234), '1,2');
+      expect(TiltMath.format(-0.01), '0,0');
     });
     test('filter only smooths', () {
       final f = GravityFilter(alpha: 0.5);

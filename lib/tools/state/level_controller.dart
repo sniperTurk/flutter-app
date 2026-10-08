@@ -28,7 +28,7 @@ class LevelController extends ChangeNotifier {
     double? smoothing,
     this.calibrationSamples = 100,
     this.calibrationSettleSamples = 15,
-    this.displayDeadbandDeg = 0.05,
+    this.displayDeadbandDeg = 0.1,
   }) : _filter = smoothing == null
            ? GravityFilter.adaptive()
            : GravityFilter(alpha: smoothing);

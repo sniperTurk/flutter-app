@@ -161,7 +161,7 @@ void main() {
   });
 
   group('Su Terazisi', () {
-    testWidgets('shows X/Y with 0.01° resolution and the resolution caveat', (
+    testWidgets('shows X/Y with 0.1° resolution and the resolution caveat', (
       tester,
     ) async {
       final tilt = TestTilt();
@@ -172,7 +172,8 @@ void main() {
       tilt.controller.add(const TiltAvailable(GravityVector(0.5, -0.3, 9.79)));
       await tester.pump();
       await tester.pump(); // stream events are delivered asynchronously
-      expect(find.textContaining(RegExp(r'-?\d+,\d{2}°')), findsWidgets);
+      expect(find.textContaining(RegExp(r'-?\d+,\d°')), findsWidgets);
+      expect(find.textContaining(RegExp(r'\d+,\d{2}°')), findsNothing);
       // The resolution caveat lives behind the help button of the bottom bar.
       await tester.tap(find.byKey(const Key('level-help')));
       await tester.pumpAndSettle();
