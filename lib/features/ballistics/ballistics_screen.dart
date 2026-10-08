@@ -850,9 +850,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return MenzilCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _scopeDial(shot),
-        ],
+        children: [_scopeDial(shot)],
       ),
     );
   }
