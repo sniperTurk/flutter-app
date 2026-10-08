@@ -53,7 +53,14 @@ void main() {
   testWidgets('turrets and reticle are shown on the shot tab', (tester) async {
     await _pumpSolved(tester);
     expect(find.byKey(ScopeDialKeys.elevationDrum), findsOneWidget);
+    // One turret bar: the windage drum slides in after "L-R".
+    expect(find.byKey(ScopeDialKeys.windageDrum), findsNothing);
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.turretToggle));
+    await tester.tap(find.byKey(ScopeDialKeys.turretToggle));
+    await tester.pumpAndSettle();
     expect(find.byKey(ScopeDialKeys.windageDrum), findsOneWidget);
+    expect(find.byKey(ScopeDialKeys.elevationDrum), findsNothing);
+    expect(find.text('U-D'), findsOneWidget);
     expect(find.byKey(ScopeDialKeys.reticle), findsOneWidget);
     // Wind is still not modelled.
     expect(find.text('KİLİTLİ'), findsOneWidget);
@@ -82,6 +89,9 @@ void main() {
     await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
     await tester.pumpAndSettle();
 
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.turretToggle));
+    await tester.tap(find.byKey(ScopeDialKeys.turretToggle));
+    await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Rüzgâr kulesi 1 klik sağa'));
     await tester.pumpAndSettle();
     // 0.1 mrad at 100 m = 1.0 cm to the right.
@@ -195,5 +205,61 @@ void main() {
       find.textContaining('1 çizgi = 24 / 24 = 1.000 mrad'),
       findsOneWidget,
     );
+  });
+
+  testWidgets('an impact outside the field zooms the view out to fit', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(430, 2400) * 3;
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    Widget view(double up) => MaterialApp(
+      theme: MenzilTheme.light(),
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: ScopeDialView(
+            unit: AngularUnit.mrad,
+            clickValue: 0.1,
+            elevationClicks: 0,
+            windageClicks: 0,
+            maxElevationClicks: 130,
+            maxWindageClicks: 130,
+            onElevationChanged: (_) {},
+            onWindageChanged: (_) {},
+            requiredUp: up,
+            firstFocalPlane: true,
+            minMagnification: 6,
+            maxMagnification: 36,
+            magnification: 36,
+            onMagnificationChanged: (_) {},
+            rangeM: 424,
+            samples: const [],
+            toDisplayRange: (m) => m,
+            distanceUnit: 'm',
+            metric: true,
+          ),
+        ),
+      ),
+    );
+    await tester.pumpWidget(view(3));
+    expect(find.byKey(ScopeDialKeys.fitNote), findsNothing);
+    expect(find.byKey(ScopeDialKeys.travelNote), findsNothing);
+
+    // 113.7 mrad low at 36x (half field 10 mrad): zoomed out ~13×, and the
+    // 13 mrad turret cannot dial it.
+    await tester.pumpWidget(view(113.7));
+    expect(find.byKey(ScopeDialKeys.fitNote), findsOneWidget);
+    final painter =
+        tester
+                .widget<CustomPaint>(
+                  find.descendant(
+                    of: find.byKey(ScopeDialKeys.reticle),
+                    matching: find.byType(CustomPaint),
+                  ),
+                )
+                .painter!
+            as ScopeReticlePainter;
+    expect(painter.trueHalfField, greaterThan(113.7));
+    expect(find.byKey(ScopeDialKeys.travelNote), findsOneWidget);
   });
 }

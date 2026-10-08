@@ -16,6 +16,9 @@ abstract final class ScopeDialKeys {
   static const dialSolution = ValueKey('scope-dial-solution');
   static const reset = ValueKey('scope-reset');
   static const magnification = ValueKey('scope-magnification');
+  static const turretToggle = ValueKey('scope-turret-toggle');
+  static const fitNote = ValueKey('scope-fit-note');
+  static const travelNote = ValueKey('scope-travel-note');
   static const workings = ValueKey('scope-workings');
 }
 
@@ -228,101 +231,121 @@ class ScopeDialView extends StatelessWidget {
           (i * windStep, windFmt(perUnit * i * windStep * sub)),
     ];
 
-    const windageWidth = 58.0;
-    const gap = MenzilSpace.sm;
+    // Auto-fit: when the impact lies outside the optical field the view is
+    // zoomed out (uniformly, reticle and target included) until it fits,
+    // and a note says so. A real scope would not show that point.
+    final impactDistance = impact == null
+        ? 0.0
+        : math.sqrt(impact.up * impact.up + impact.right * impact.right);
+    final fit = impactDistance * 1.15 > trueHalfField
+        ? impactDistance * 1.15 / trueHalfField
+        : 1.0;
+
+    final elevationDrum = _TurretDrum(
+      key: ScopeDialKeys.elevationDrum,
+      axis: Axis.horizontal,
+      clicks: elevationClicks,
+      clickValue: clickValue,
+      unitLabel: unitLabel,
+      maxClicks: maxElevationClicks,
+      positiveLetter: 'U',
+      negativeLetter: 'D',
+      semanticName: 'Yükseklik kulesi',
+      positiveWord: 'yukarı',
+      negativeWord: 'aşağı',
+      onChanged: onElevationChanged,
+    );
+    // Windage on the same top bar, mirrored so it reads "1L · 0 · 1R".
+    final windageDrum = _TurretDrum(
+      key: ScopeDialKeys.windageDrum,
+      axis: Axis.horizontal,
+      clicks: -windageClicks,
+      clickValue: clickValue,
+      unitLabel: unitLabel,
+      maxClicks: maxWindageClicks,
+      positiveLetter: 'L',
+      negativeLetter: 'R',
+      semanticName: 'Rüzgâr kulesi',
+      positiveWord: 'sola',
+      negativeWord: 'sağa',
+      onChanged: (v) => onWindageChanged(-v),
+    );
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenH = MediaQuery.sizeOf(context).height;
         final side = math.max(
-          180.0,
-          math.min(
-            constraints.maxWidth - windageWidth - gap,
-            math.max(220.0, screenH * 0.46),
-          ),
+          200.0,
+          math.min(constraints.maxWidth, math.max(240.0, screenH * 0.56)),
         );
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: side,
-                  child: _TurretDrum(
-                    key: ScopeDialKeys.elevationDrum,
-                    axis: Axis.horizontal,
-                    clicks: elevationClicks,
-                    clickValue: clickValue,
-                    unitLabel: unitLabel,
-                    maxClicks: maxElevationClicks,
-                    positiveLetter: 'U',
-                    negativeLetter: 'D',
-                    semanticName: 'Yükseklik kulesi',
-                    positiveWord: 'yukarı',
-                    negativeWord: 'aşağı',
-                    onChanged: onElevationChanged,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: gap),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Semantics(
-                  label: _reticleSemantics(impact),
-                  image: true,
-                  child: SizedBox.square(
-                    key: ScopeDialKeys.reticle,
-                    dimension: side,
-                    child: CustomPaint(
-                      painter: ScopeReticlePainter(
-                        colors: c,
-                        halfField: halfField,
-                        reticleHalfField: reticleHalfField,
-                        trueHalfField: trueHalfField,
-                        targetRadius: targetRadius,
-                        markStep: markStep,
-                        unitLabel: unitLabel,
-                        impactUp: impact?.up,
-                        impactRight: impact?.right,
-                        holdLabels: holdLabels,
-                        windLabels: windLabels,
-                        headline:
-                            'Hedef: ${toDisplayRange(rangeM).round()} $distanceUnit'
-                            '${inclineDeg.round() == 0 ? '' : ' ∠ ${inclineDeg.round()}°'}',
-                        cantDeg: cantDeg,
-                        opticLine:
-                            '${ffp ? 'FFP' : 'SFP'} · $unitLabel'
-                            '${hasZoom ? ' · ${_mag(currentMag)}x' : ''}',
-                        sfpNote: !ffp && hasZoom && (sub - 1).abs() > 1e-6
-                            ? '1 çizgi = ${sub.toStringAsFixed(2)} $unitLabel'
-                            : null,
-                      ),
+            _TurretBar(elevation: elevationDrum, windage: windageDrum),
+            const SizedBox(height: MenzilSpace.xs),
+            Center(
+              child: Semantics(
+                label: _reticleSemantics(impact),
+                image: true,
+                child: SizedBox.square(
+                  key: ScopeDialKeys.reticle,
+                  dimension: side,
+                  child: CustomPaint(
+                    painter: ScopeReticlePainter(
+                      colors: c,
+                      halfField: halfField,
+                      reticleHalfField: reticleHalfField * fit,
+                      trueHalfField: trueHalfField * fit,
+                      targetRadius: targetRadius,
+                      markStep: markStep,
+                      unitLabel: unitLabel,
+                      impactUp: impact?.up,
+                      impactRight: impact?.right,
+                      holdLabels: holdLabels,
+                      windLabels: windLabels,
+                      headline:
+                          'Hedef: ${toDisplayRange(rangeM).round()} $distanceUnit'
+                          '${inclineDeg.round() == 0 ? '' : ' ∠ ${inclineDeg.round()}°'}',
+                      cantDeg: cantDeg,
+                      opticLine:
+                          '${ffp ? 'FFP' : 'SFP'} · $unitLabel'
+                          '${hasZoom ? ' · ${_mag(currentMag)}x' : ''}',
+                      sfpNote: !ffp && hasZoom && (sub - 1).abs() > 1e-6
+                          ? '1 çizgi = ${sub.toStringAsFixed(2)} $unitLabel'
+                          : null,
                     ),
                   ),
                 ),
-                const SizedBox(width: gap),
-                SizedBox(
-                  width: windageWidth,
-                  height: side,
-                  child: _TurretDrum(
-                    key: ScopeDialKeys.windageDrum,
-                    axis: Axis.vertical,
-                    clicks: windageClicks,
-                    clickValue: clickValue,
-                    unitLabel: unitLabel,
-                    maxClicks: maxWindageClicks,
-                    positiveLetter: 'R',
-                    negativeLetter: 'L',
-                    semanticName: 'Rüzgâr kulesi',
-                    positiveWord: 'sağa',
-                    negativeWord: 'sola',
-                    onChanged: onWindageChanged,
-                  ),
-                ),
-              ],
+              ),
             ),
+            if (fit > 1)
+              Padding(
+                padding: const EdgeInsets.only(top: MenzilSpace.xs),
+                child: MenzilNotice(
+                  key: ScopeDialKeys.fitNote,
+                  tone: MenzilNoticeTone.warning,
+                  message:
+                      'Vuruş noktası dürbünün görüş alanı dışında; görünüm '
+                      '${fit.toStringAsFixed(1)} kat uzaklaştırıldı. Gerçek '
+                      'dürbünde bu nokta görünmez: kuleyi çevirin veya '
+                      '"Çözümü kuleye kur"a dokunun.',
+                ),
+              ),
+            if (req != null &&
+                ScopeDialMath.clicksFor(req, clickValue).abs() >
+                    maxElevationClicks)
+              Padding(
+                padding: const EdgeInsets.only(top: MenzilSpace.xs),
+                child: MenzilNotice(
+                  key: ScopeDialKeys.travelNote,
+                  tone: MenzilNoticeTone.warning,
+                  message:
+                      'Kule yetmez: gereken ${_fmt(req.abs())} $unitLabel, '
+                      'kulenin bir yöndeki yolu '
+                      '${_fmt(maxElevationClicks * clickValue)} $unitLabel. '
+                      'Mesafeyi kısaltın veya retikülde tutuş yapın.',
+                ),
+              ),
             if (hasZoom &&
                 onMagnificationChanged != null &&
                 (minMagnification ?? 0) > 0 &&
@@ -617,6 +640,85 @@ class ScopeDialView extends StatelessWidget {
 /// time. Horizontal drum: dragging right dials UP. Vertical drum: dragging
 /// down dials RIGHT — the numbers on the drum move toward the pointer the
 /// way a real turret's markings do.
+/// One turret bar on top of the scope, like field apps: the elevation drum,
+/// or — after tapping "L-R" — the windage drum sliding in from the right.
+/// Keeps the scope itself as large as the screen allows.
+class _TurretBar extends StatefulWidget {
+  final Widget elevation, windage;
+  const _TurretBar({required this.elevation, required this.windage});
+
+  @override
+  State<_TurretBar> createState() => _TurretBarState();
+}
+
+class _TurretBarState extends State<_TurretBar> {
+  bool _windage = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    return Row(
+      children: [
+        Expanded(
+          child: ClipRect(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 260),
+              switchInCurve: Curves.easeOutCubic,
+              switchOutCurve: Curves.easeInCubic,
+              transitionBuilder: (child, animation) {
+                final incoming = child.key == ValueKey(_windage);
+                final begin = Offset(incoming ? 1 : -1, 0);
+                return SlideTransition(
+                  position: Tween(
+                    begin: begin,
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: child,
+                );
+              },
+              child: KeyedSubtree(
+                key: ValueKey(_windage),
+                child: _windage ? widget.windage : widget.elevation,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: MenzilSpace.xs),
+        Semantics(
+          button: true,
+          label: _windage
+              ? 'Yükseklik kulesine geç'
+              : 'Rüzgâr kulesine geç',
+          child: ExcludeSemantics(
+            child: SizedBox.square(
+              dimension: 52,
+              child: Material(
+                key: ScopeDialKeys.turretToggle,
+                color: c.cyan,
+                shape: const CircleBorder(),
+                child: InkWell(
+                  customBorder: const CircleBorder(),
+                  onTap: () => setState(() => _windage = !_windage),
+                  child: Center(
+                    child: Text(
+                      _windage ? 'U-D' : 'L-R',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _TurretDrum extends StatefulWidget {
   final Axis axis;
   final int clicks;
@@ -711,7 +813,7 @@ class _TurretDrumState extends State<_TurretDrum> {
     final down = '${widget.semanticName} 1 klik ${widget.negativeWord}';
     final body = horizontal
         ? SizedBox(
-            height: 64,
+            height: 52,
             child: Row(
               children: [
                 step(1, Icons.chevron_left, up),
@@ -1104,7 +1206,12 @@ class ScopeReticlePainter extends CustomPainter {
     }
 
     // Crosswind speed above each horizontal mark, mirrored left and right.
-    for (final (mark, label) in windLabels) {
+    // Keep at least ~38 px between crosswind labels (they are wider than the
+    // hold numbers); when marks crowd together every n-th is kept.
+    final windGap = windLabels.isEmpty ? 0.0 : windLabels.first.$1 * scale;
+    final windStride = windGap <= 0 ? 1 : math.max(1, (38 / windGap).ceil());
+    for (final (i, (mark, label)) in windLabels.indexed) {
+      if ((i + 1) % windStride != 0) continue;
       if (mark * scale > postStart) continue;
       for (final side in const [-1.0, 1.0]) {
         _text(
