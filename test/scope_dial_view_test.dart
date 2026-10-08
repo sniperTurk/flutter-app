@@ -58,18 +58,24 @@ void main() {
       tester.getCenter(find.byKey(ScopeDialKeys.elevationDrum)).dx,
       closeTo(tester.getCenter(find.byKey(ScopeDialKeys.reticle)).dx, 0.5),
     );
-    // One turret bar: the windage drum slides in after "L-R".
+    // As in ChairGun: the windage drum is hidden until "L-R", then slides
+    // in from the right over the scope's right edge; the top drum stays.
     expect(find.byKey(ScopeDialKeys.windageDrum), findsNothing);
     await tester.ensureVisible(find.byKey(ScopeDialKeys.turretToggle));
     await tester.tap(find.byKey(ScopeDialKeys.turretToggle));
     await tester.pumpAndSettle();
     expect(find.byKey(ScopeDialKeys.windageDrum), findsOneWidget);
-    expect(find.byKey(ScopeDialKeys.elevationDrum), findsNothing);
-    expect(find.text('U-D'), findsOneWidget);
-    expect(
-      tester.getCenter(find.byKey(ScopeDialKeys.windageDrum)).dx,
-      closeTo(tester.getCenter(find.byKey(ScopeDialKeys.reticle)).dx, 0.5),
-    );
+    expect(find.byKey(ScopeDialKeys.elevationDrum), findsOneWidget);
+    final reticle = tester.getRect(find.byKey(ScopeDialKeys.reticle));
+    final drum = tester.getRect(find.byKey(ScopeDialKeys.windageDrum));
+    // Its zero is on the reticle's horizontal line, at the right edge.
+    expect(drum.center.dy, closeTo(reticle.center.dy, 0.5));
+    expect(drum.right, closeTo(reticle.right, 0.5));
+    expect(drum.left, greaterThan(reticle.center.dx));
+    // "L-R" again hides it.
+    await tester.tap(find.byKey(ScopeDialKeys.turretToggle));
+    await tester.pumpAndSettle();
+    expect(find.byKey(ScopeDialKeys.windageDrum), findsNothing);
     expect(find.byKey(ScopeDialKeys.reticle), findsOneWidget);
     // Wind is still not modelled.
     expect(find.text('KİLİTLİ'), findsOneWidget);
