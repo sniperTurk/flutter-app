@@ -285,7 +285,10 @@ class _HomeScreenState extends State<HomeScreen> {
         onThemeTap: themeController?.cycle,
         showBrand: tab != _tabProfile,
         // Each page shows its own name instead of Menzil (owner, 2026-10-08).
-        title: _titles[tab],
+        // Atış's single shot is titled "Atış görünümü" (owner, 2026-10-08).
+        title: tab == _tabShot && _shotMode == BallisticsView.shot
+            ? 'Atış görünümü'
+            : _titles[tab],
       ),
       bottomNavigationBar: MenzilBottomNavigation(
         items: _navItems,

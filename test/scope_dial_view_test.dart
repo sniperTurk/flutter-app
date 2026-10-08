@@ -76,7 +76,10 @@ void main() {
     expect(find.byKey(ScopeDialKeys.windageDrum), findsNothing);
     expect(find.byKey(ScopeDialKeys.reticle), findsOneWidget);
     // Wind is still not modelled.
-    expect(find.text('KİLİTLİ'), findsOneWidget);
+    expect(
+      find.textContaining('Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('dialling the solution centres the impact; reset drops it', (

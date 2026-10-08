@@ -29,7 +29,8 @@ class InteractiveScopeDialContract(unittest.TestCase):
         self.assertIn('!basis.drag', self.dial)
         self.assertIn('? 0.0', self.dial)
         self.assertIn('shot.windMrad', self.dial)
-        self.assertEqual(self.screen.count("'KİLİTLİ'"), 1)
+        # The wind box itself was removed from Atış (owner, 2026-10-08).
+        self.assertEqual(self.screen.count("'KİLİTLİ'"), 0)
 
     def test_crosswind_labels_come_from_the_solver(self):
         self.assertIn('_evalShot().mpsPerMil', self.dial)

@@ -152,8 +152,8 @@ void main() {
     // Atış solves on its own when it opens (no Hesapla button).
     // V378: the typed ammo carries a BC with its G1 model, so Atış uses the
     // drag solver and wind is computed (no KİLİTLİ card).
-    expect(find.text('KİLİTLİ'), findsNothing);
-    expect(find.byKey(const Key('wind-status-card')), findsOneWidget);
+    expect(find.textContaining('(KİLİTLİ)'), findsNothing);
+    expect(find.byKey(const Key('scope-impact-text')), findsOneWidget);
     expect(tester.takeException(), isNull);
 
     // Tablo is the second mode of the Atış tab.

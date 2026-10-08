@@ -9,28 +9,23 @@ class SafeShotViewTest(unittest.TestCase):
         self.text = SCREEN.read_text(encoding='utf-8')
 
     def test_safe_shot_view_is_present_and_drag_locked(self):
-        self.assertIn("'Atış görünümü'", self.text)
+        # The title moved to the top bar (owner, 2026-10-08).
+        home = (ROOT / 'lib/features/home/home_screen.dart').read_text(encoding='utf-8')
+        self.assertIn("'Atış görünümü'", home)
         # V372: the static reticle painters were replaced by the interactive
         # turret/reticle view (scope_dial_view.dart); see test_v372.
         self.assertIn('_scopeDial(shot)', self.text)
-        # V354: elevation is unlocked (vacuum-model estimate); only the WIND
-        # status card still reads 'KİLİTLİ', so exactly one literal remains.
-        self.assertEqual(self.text.count("'KİLİTLİ'"), 1)
-        self.assertIn('Drag doğrulaması bekleniyor', self.text)
+        # The Yukarı/Aşağı and Rüzgâr boxes were removed from Atış (owner,
+        # 2026-10-08). The vacuum notice still says wind is locked.
+        self.assertNotIn("'KİLİTLİ'", self.text)
+        self.assertIn('Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)', self.text)
 
-    def test_wind_status_card_never_shows_a_click_or_numeric_value(self):
-        # Scope the check to the wind _statusCard call specifically (the one
-        # titled 'Rüzgâr'), not the whole reference-shot panel: that panel's
-        # ELEVATION card is now allowed, by design, to show a real klik value.
-        # V355: the card has a vacuum branch (locked) and a drag branch; the
-        # locked branch is everything before the drag branch begins.
-        start = self.text.index('Widget _windStatusCard')
-        start = self.text.index("title: 'Rüzgâr',", start)
-        end = self.text.index('if (shot == null) {', start)
-        wind_card = self.text[start:end]
-        self.assertIn("'KİLİTLİ'", wind_card)
-        self.assertNotIn('klik', wind_card.lower())
-        self.assertNotIn('clicks(', wind_card)
+    def test_wind_status_card_was_removed(self):
+        # Owner, 2026-10-08: no separate wind/elevation boxes on Atış; the
+        # scope dial (drag-gated windage) is the only place wind is shown.
+        self.assertNotIn('Widget _windStatusCard', self.text)
+        self.assertNotIn("Key('wind-status-card')", self.text)
+        self.assertNotIn("Key('elevation-status-card')", self.text)
 
 if __name__ == '__main__':
     unittest.main()

@@ -21,8 +21,12 @@ class VacuumClickSuppressionContractTest(unittest.TestCase):
         self.assertNotIn("DataColumn(label: Text('Klik'))", text)
 
     def test_elevation_clicks_are_now_computed_from_the_vacuum_model(self):
+        # The elevation box was removed from Atış (owner, 2026-10-08); the
+        # scope dial gets the required elevation from every basis (vacuum
+        # included) and shows it as clicks.
         text = SCREEN.read_text(encoding="utf-8")
-        self.assertIn("const BallisticEngine().clicks(", text)
+        self.assertIn("requiredUp: requiredUp", text)
+        self.assertIn("_scopeDial(shot)", text)
 
     def test_wind_click_suppression_language_is_still_present(self):
         text = SCREEN.read_text(encoding="utf-8")
