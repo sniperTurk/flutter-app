@@ -34,7 +34,8 @@ class WindClockPicker extends StatelessWidget {
             Expanded(
               child: Text('Rüzgâr yönü', style: MenzilType.body(c.ink2)),
             ),
-            if (info != null) MenzilInfoButton(title: 'Rüzgâr yönü', text: info!),
+            if (info != null)
+              MenzilInfoButton(title: 'Rüzgâr yönü', text: info!),
           ],
         ),
         const SizedBox(height: MenzilSpace.xs),
