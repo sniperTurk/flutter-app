@@ -1798,14 +1798,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final args = _coriolisArgs;
     // The vacuum model has no Coriolis (nor wind): drag mode only.
     if (basis == null || args.lat == null || !_dragMode) return null;
-    final key = (
-      basis,
-      _shotRangeM,
-      _inclineDeg,
-      _cantDeg,
-      args.lat,
-      args.az,
-    );
+    final key = (basis, _shotRangeM, _inclineDeg, _cantDeg, args.lat, args.az);
     if (key == _coriolisEffectKey) return _coriolisEffectValue;
     _coriolisEffectKey = key;
     return _coriolisEffectValue = _computeCoriolisEffect(basis, args);
