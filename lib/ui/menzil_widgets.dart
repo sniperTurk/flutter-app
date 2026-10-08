@@ -135,6 +135,9 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   /// False hides the Menzil wordmark (the Profil page shows no brand).
   final bool showBrand;
 
+  /// Page title shown instead of the Menzil wordmark (Araçlar).
+  final String? title;
+
   static const double height = 58;
 
   const MenzilTopBar({
@@ -145,6 +148,7 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
     required this.themeLabel,
     this.onThemeTap,
     this.showBrand = true,
+    this.title,
   });
 
   @override
@@ -176,7 +180,17 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     child: Row(
                       children: [
-                        if (showBrand) ...[
+                        if (title != null) ...[
+                          Semantics(
+                            header: true,
+                            child: Text(
+                              title!,
+                              key: const Key('top-bar-title'),
+                              style: MenzilType.heading(c.ink, size: 26),
+                            ),
+                          ),
+                          const SizedBox(width: MenzilSpace.sm),
+                        ] else if (showBrand) ...[
                           MenzilBrand(compact: compact),
                           const SizedBox(width: MenzilSpace.sm),
                         ],

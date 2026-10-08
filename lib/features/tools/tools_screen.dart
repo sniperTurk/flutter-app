@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
-import '../catalog/catalog_screen.dart';
 import 'calculators_screen.dart';
 import 'chronograph_screen.dart';
 import 'compass_screen.dart';
 import 'hit_probability_screen.dart';
 import 'level_screen.dart';
+import 'map_distance_screen.dart';
 import 'sight_height_screen.dart';
 import 'weather_screen.dart';
 
-/// Tool hub (V1 scope: Kronograf, Sight Height, Pusula, Su Terazisi,
-/// Hava & Rüzgâr, Katalog; V1.1 adds Vuruş Olasılığı, a standalone
-/// statistics tool). Visual assistance is NOT a tool of its own; it only
+/// Tool hub (Kronograf, Sight Height, Haritadan mesafe, Hava & Rüzgâr,
+/// Pusula, Su Terazisi, Vuruş Olasılığı, Hesaplayıcılar). Katalog is no
+/// longer listed here (owner, 2026-10-08); its records and screen remain. Visual assistance is NOT a tool of its own; it only
 /// appears inside the Sight Height flow.
 class ToolsScreen extends StatelessWidget {
   /// Called after any tool route closes. Kronograf and Sight Height can write
@@ -36,11 +36,6 @@ class ToolsScreen extends StatelessWidget {
     final c = MenzilColors.of(context);
     return MenzilPage(
       children: [
-        const MenzilSectionHeader(
-          'Araçlar',
-          subtitle: 'Saha araçları, katalog ve uygulama ayarları',
-          padding: EdgeInsets.only(bottom: MenzilSpace.sm),
-        ),
         MenzilToolTile(
           tileKey: const Key('tool-chronograph'),
           icon: Icons.speed_outlined,
@@ -54,6 +49,20 @@ class ToolsScreen extends StatelessWidget {
           title: 'Sight Height',
           subtitle: 'Dürbün eksen yüksekliği: fiziksel ölçüm veya yan fotoğraf',
           onTap: () => _open(context, const SightHeightScreen()),
+        ),
+        MenzilToolTile(
+          tileKey: const Key('tool-map-distance'),
+          icon: Icons.map_outlined,
+          title: 'Haritadan mesafe',
+          subtitle: 'Uydu haritasında nişancı ve hedef konumu, mesafe ve yön',
+          onTap: () => _open(context, const MapDistanceScreen()),
+        ),
+        MenzilToolTile(
+          tileKey: const Key('tool-weather'),
+          icon: Icons.air,
+          title: 'Hava & Rüzgâr',
+          subtitle: 'Konuma göre servis verisi: rüzgâr, sıcaklık, nem, basınç',
+          onTap: () => _open(context, const WeatherScreen()),
         ),
         MenzilToolTile(
           tileKey: const Key('tool-compass'),
@@ -70,13 +79,6 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const LevelScreen()),
         ),
         MenzilToolTile(
-          tileKey: const Key('tool-weather'),
-          icon: Icons.air,
-          title: 'Hava & Rüzgâr',
-          subtitle: 'Konuma göre servis verisi: rüzgâr, sıcaklık, nem, basınç',
-          onTap: () => _open(context, const WeatherScreen()),
-        ),
-        MenzilToolTile(
           tileKey: const Key('tool-hit-probability'),
           icon: Icons.track_changes_outlined,
           title: 'Vuruş Olasılığı',
@@ -90,14 +92,6 @@ class ToolsScreen extends StatelessWidget {
           subtitle:
               'Mesafe, MOA, tık doğrulama, BC, hava laboratuvarı, birim dönüştürücüler',
           onTap: () => _open(context, const CalculatorsScreen()),
-        ),
-        MenzilToolTile(
-          tileKey: const Key('tool-catalog'),
-          icon: Icons.inventory_2_outlined,
-          title: 'Katalog',
-          subtitle:
-              'Tüfek, mühimmat ve dürbün; kaynak bilgileri ve manuel kayıtlar',
-          onTap: () => _open(context, const CatalogScreen()),
         ),
         const SizedBox(height: MenzilSpace.md),
         Center(
