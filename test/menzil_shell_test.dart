@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
+import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
@@ -50,7 +51,7 @@ Future<void> _pumpShell(
 
 /// The app opens on Profil; tests of the ballistic workspace switch to Atış.
 Future<void> _openShot(WidgetTester tester) async {
-  await tester.tap(find.text('Atış'));
+  await tester.tap(find.text('Hedef'));
   await tester.pumpAndSettle();
 }
 
@@ -76,7 +77,7 @@ void main() {
 
     // No page shows the Menzil wordmark any more; each shows its own name.
     expect(find.text('Menzil'), findsNothing);
-    const tabs = ['Profil', 'Hava Durumu', 'Pro', 'Atış', 'Araçlar'];
+    const tabs = ['Profil', 'Hava Durumu', 'Pro', 'Hedef', 'Araçlar'];
     for (final tab in tabs) {
       expect(find.text(tab), findsOneWidget, reason: tab);
     }
@@ -97,11 +98,13 @@ void main() {
     // Atış solves on its own: no Hesapla button (owner, 2026-10-08).
     await _openShot(tester);
     expect(find.text('Menzil'), findsNothing);
-    expect(_title(tester), 'Atış');
+    expect(_title(tester), 'Hedef Görünümü');
     expect(find.byKey(const Key('shot-mode-shot')), findsOneWidget);
     expect(find.byKey(const Key('shot-mode-table')), findsOneWidget);
     expect(find.text('Hesapla'), findsNothing);
-    expect(find.byKey(const Key('elevation-status-card')), findsOneWidget);
+    // The Yukarı/Rüzgâr boxes are gone; the scope shows the impact.
+    expect(find.byKey(const Key('elevation-status-card')), findsNothing);
+    expect(find.byKey(ScopeDialKeys.impactText), findsOneWidget);
     expect(find.bySemanticsLabel('5 artır'), findsOneWidget);
     semantics.dispose();
   });
@@ -149,7 +152,7 @@ void main() {
 
     // Atış remembers the table mode; switching to the single shot uses the
     // same validated solve: no "calculate first" prompt.
-    await tester.tap(find.text('Atış'));
+    await tester.tap(find.text('Hedef'));
     await tester.pumpAndSettle();
     expect(find.text('DOPE oluştur'), findsOneWidget);
     await tester.tap(find.byKey(const Key('shot-mode-shot')));
@@ -158,11 +161,14 @@ void main() {
       find.textContaining('Değerleri görmek için hesaplayın'),
       findsNothing,
     );
-    expect(find.text('Atış görünümü'), findsOneWidget);
+    expect(_title(tester), 'Hedef Görünümü');
     // V354: elevation is computed from the vacuum drop (valid trigonometry);
     // only wind stays locked, since a vacuum model has no aerodynamic
     // coupling to produce a real wind value.
-    expect(find.text('KİLİTLİ'), findsNWidgets(1));
+    expect(
+      find.textContaining('Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('range dial steps change the evaluated distance', (tester) async {
@@ -198,8 +204,10 @@ void main() {
       // V354: elevation shows a real MOA/mrad value and a click count on the
       // profile's own scope; wind has no aerodynamic coupling in the vacuum
       // model, so it alone stays locked.
-      expect(find.text('KİLİTLİ'), findsNWidgets(1));
-      expect(find.text('Rüzgâr'), findsOneWidget);
+      expect(
+        find.textContaining('Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)'),
+        findsOneWidget,
+      );
       expect(find.textContaining('MOA'), findsWidgets);
       expect(find.textContaining('mrad'), findsWidgets);
       expect(find.textContaining('klik'), findsWidgets);

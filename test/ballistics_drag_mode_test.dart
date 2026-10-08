@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
+import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 
 const _profile = RifleProfile(
@@ -188,8 +189,16 @@ void main() {
     );
     // Atış solves on its own when it opens.
     await tester.pumpAndSettle();
-    expect(find.text('KİLİTLİ'), findsNothing);
-    expect(find.text('Rüzgâr 0 girildi'), findsOneWidget);
+    expect(find.textContaining('(KİLİTLİ)'), findsNothing);
+    // Calm air: the scope shows no sideways impact.
+    expect(
+      tester
+          .widget<Text>(find.byKey(ScopeDialKeys.impactText))
+          .data!
+          .split(' · ')
+          .last,
+      startsWith('0.0 cm'),
+    );
     expect(find.textContaining('1 mil ='), findsOneWidget);
   });
 }

@@ -28,7 +28,7 @@ class IosProfilePersistencePlatformContractTest(unittest.TestCase):
         # visible in the list and the top-bar selector.
         home = text.index("expect(find.text('Yeni Profil'), findsWidgets);", save)
         prefs = text.index("SharedPreferences.getInstance()", home)
-        dope = text.index("tester.tap(find.text('Atış').first)", prefs)
+        dope = text.index("tester.tap(find.text('Hedef').first)", prefs)
         self.assertLess(save, home)
         self.assertLess(home, prefs)
         self.assertLess(prefs, dope)

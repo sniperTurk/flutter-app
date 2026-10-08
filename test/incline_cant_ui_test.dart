@@ -9,6 +9,7 @@ import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/incline_measure_screen.dart';
 import 'package:sniper_turk/features/ballistics/scope_cant_screen.dart';
+import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/tools/domain/shot_angle_math.dart';
 import 'package:sniper_turk/tools/ports/camera_service.dart';
@@ -87,12 +88,18 @@ Future<_Workspace> _pumpShot(WidgetTester tester, TestTilt tilt) async {
   return ws;
 }
 
-String _cardText(WidgetTester tester, Key key) => tester
-    .widgetList<Text>(
-      find.descendant(of: find.byKey(key), matching: find.byType(Text)),
-    )
-    .map((t) => t.data ?? '')
-    .join(' | ');
+String _impact(WidgetTester tester) =>
+    tester.widget<Text>(find.byKey(ScopeDialKeys.impactText)).data!;
+
+/// Taps "Çözümü kuleye kur" and returns the "Kule: …" readout.
+Future<String> _dialSolution(WidgetTester tester) async {
+  final button = find.byKey(ScopeDialKeys.dialSolution);
+  await tester.ensureVisible(button);
+  await tester.pumpAndSettle();
+  await tester.tap(button);
+  await tester.pumpAndSettle();
+  return tester.widget<Text>(find.textContaining('Kule:')).data!;
+}
 
 void main() {
   setUp(
@@ -218,7 +225,7 @@ void main() {
     tester,
   ) async {
     final ws = await _pumpShot(tester, TestTilt());
-    final level = _cardText(tester, const Key('elevation-status-card'));
+    final level = _impact(tester);
     // The tiles left Atış for Pro Ayarlar.
     expect(find.byKey(const Key('shot-incline')), findsNothing);
     expect(find.byKey(const Key('shot-cant')), findsNothing);
@@ -239,7 +246,7 @@ void main() {
 
     expect(find.text('∠ −35°'), findsOneWidget);
     await ws.show(BallisticsView.shot);
-    final inclined = _cardText(tester, const Key('elevation-status-card'));
+    final inclined = _impact(tester);
     expect(inclined, isNot(level));
     expect(find.textContaining('Tüfek eğimi ∠-35°'), findsOneWidget);
   });
@@ -248,10 +255,8 @@ void main() {
     tester,
   ) async {
     final ws = await _pumpShot(tester, TestTilt());
-    expect(
-      _cardText(tester, const Key('wind-status-card')),
-      contains('0 girildi'),
-    );
+    // Calm and level: nothing sideways.
+    expect(_impact(tester).split(' · ').last, startsWith('0.0 cm'));
 
     await ws.show(BallisticsView.pro);
     await tester.tap(find.byKey(const Key('shot-cant')));
@@ -270,10 +275,11 @@ void main() {
 
     expect(find.text('8° sağa'), findsOneWidget);
     await ws.show(BallisticsView.shot);
-    final card = _cardText(tester, const Key('wind-status-card'));
-    expect(card, contains('Yan (rüzgâr + dürbün eğimi)'));
     // A right cant moves the shot right: dial left.
-    expect(card, contains('L (sola)'));
+    final side = _impact(tester).split(' · ').last;
+    expect(side, isNot(startsWith('0.0 cm')));
+    expect(side, endsWith('sağ'));
+    expect(await _dialSolution(tester), contains('klik sol'));
 
     // Dürbün eğimini sil → back to level.
     await ws.show(BallisticsView.pro);

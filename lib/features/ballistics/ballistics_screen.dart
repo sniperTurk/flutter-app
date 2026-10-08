@@ -843,93 +843,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
-  /// Signed elevation correction text: "12,3 MOA (3,6 mrad)" plus a
-  /// direction word. Positive [TrajectoryPoint.correctionMrad]/`correctionMoa`
-  /// means the point of impact is BELOW the line of sight at this range (the
-  /// vacuum drop formula is `atan2(drop, range)`), so the shooter must dial
-  /// the turret UP to compensate; negative means dial DOWN (short of zero,
-  /// where the bore angle puts the projectile above the line of sight).
-  ({String direction, String value}) _elevationCorrectionText(
-    TrajectoryPoint shot,
-  ) {
-    final moa = shot.correctionMoa;
-    final mrad = shot.correctionMrad;
-    final direction = moa >= 0 ? 'Yukarı' : 'Aşağı';
-    final value =
-        '${moa.abs().toStringAsFixed(2)} MOA  ·  ${mrad.abs().toStringAsFixed(2)} mrad';
-    return (direction: direction, value: value);
-  }
-
-  /// Click count on THIS scope's real turret, using its actual click size
-  /// and unit from the catalog (clicks only mean something relative to the
-  /// specific turret you are holding — a MOA number is not "clicks" on a
-  /// mrad turret). Null if the scope has no usable click value.
-  int? _elevationClicksOnScope(TrajectoryPoint shot) =>
-      _clicksOnScope(mrad: shot.correctionMrad, moa: shot.correctionMoa);
-
-  int? _clicksOnScope({required double mrad, required double moa}) {
-    final click = _scopeClickValue;
-    if (click == null) return null;
-    final correction = _scopeUnit == AngularUnit.moa ? moa : mrad;
-    return const BallisticEngine().clicks(
-      correction: correction,
-      clickValue: click,
-    );
-  }
-
   Widget _referenceShotPanel(TrajectoryPoint? shot) {
-    final c = MenzilColors.of(context);
-    final correction = shot == null ? null : _elevationCorrectionText(shot);
-    final clicks = shot == null ? null : _elevationClicksOnScope(shot);
-    final clickUnitLabel = _scopeUnit == AngularUnit.moa ? 'MOA' : 'mrad';
+    // "Hedef Görünümü" is the page title in the top bar (owner, 2026-10-08);
+    // the Yukarı/Aşağı and Rüzgâr boxes were removed: the scope below shows
+    // the clicks and the point of impact.
     return MenzilCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.gps_fixed, size: 26, color: c.ink),
-              const SizedBox(width: MenzilSpace.sm),
-              Expanded(
-                child: Text(
-                  'Atış görünümü',
-                  style: MenzilType.heading(c.ink, size: 22),
-                ),
-              ),
-              Text(
-                metric ? 'm' : 'yd',
-                style: MenzilType.number(c.ink2, size: 16),
-              ),
-            ],
-          ),
-          const SizedBox(height: MenzilSpace.md),
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: _statusCard(
-                    key: const Key('elevation-status-card'),
-                    title: correction == null ? 'Yukarı' : correction.direction,
-                    value: correction?.value ?? '—',
-                    subtitle: clicks == null
-                        ? (_dragMode
-                              ? (shot == null
-                                    ? 'Hesaplayın'
-                                    : 'Dürbün klik değeri yok')
-                              : 'Vakum düşüşünden (sürükleme yok); hesaplayın')
-                        : '${clicks.abs()} klik ($clickUnitLabel dürbün)',
-                    icon: Icons.vertical_align_top,
-                  ),
-                ),
-                const SizedBox(width: MenzilSpace.md),
-                Expanded(child: _windStatusCard(shot, clickUnitLabel)),
-              ],
-            ),
-          ),
-          const SizedBox(height: MenzilSpace.md),
-          _scopeDial(shot),
-        ],
+        children: [_scopeDial(shot)],
       ),
     );
   }
@@ -1108,96 +1029,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   String get _driftUnit => metric ? 'cm' : 'in';
-
-  Widget _windStatusCard(TrajectoryPoint? shot, String clickUnitLabel) {
-    if (!_dragMode) {
-      return _statusCard(
-        title: 'Rüzgâr',
-        value: 'KİLİTLİ',
-        subtitle: 'Drag doğrulaması bekleniyor',
-        icon: Icons.air,
-      );
-    }
-    if (shot == null) {
-      return _statusCard(
-        title: 'Rüzgâr',
-        value: '—',
-        subtitle: 'Hesaplayın',
-        icon: Icons.air,
-      );
-    }
-    final windMps = _basis?.environment.windMps ?? 0;
-    // windMrad = atan2(-z, range) > 0: the pellet drifts LEFT and the
-    // windage turret is dialled RIGHT (R); < 0 is the mirror image.
-    final signedMrad = shot.windMrad;
-    final mrad = signedMrad.abs();
-    final moa = Units.mradToMoa(mrad);
-    final clicks = _clicksOnScope(mrad: mrad, moa: moa);
-    final dialRight = signedMrad > 0;
-    final driftSide = mrad < 1e-9 ? '' : (dialRight ? ' sola' : ' sağa');
-    final turret = mrad < 1e-9 ? '' : (dialRight ? ' R (sağa)' : ' L (sola)');
-    final drift =
-        'Sapma ${_windDrift(shot).toStringAsFixed(1).replaceAll('.', ',')} '
-        '$_driftUnit$driftSide';
-    // With a canted scope the sideways correction is wind + cant.
-    final canted = _cantDeg != 0;
-    return _statusCard(
-      key: const Key('wind-status-card'),
-      title: canted ? 'Yan (rüzgâr + dürbün eğimi)' : 'Rüzgâr',
-      value: '${mrad.toStringAsFixed(2)} mrad',
-      subtitle: windMps == 0 && !canted
-          ? 'Rüzgâr 0 girildi'
-          : clicks == null
-          ? '$drift · ${_windLabel(windMps)} ${metric ? 'm/s' : 'mph'}'
-          : '$drift · ${clicks.abs()} klik$turret ($clickUnitLabel dürbün)',
-      icon: Icons.air,
-    );
-  }
-
-  Widget _statusCard({
-    Key? key,
-    required String title,
-    required String value,
-    required String subtitle,
-    required IconData icon,
-  }) {
-    final c = MenzilColors.of(context);
-    return MenzilCard(
-      key: key,
-      margin: EdgeInsets.zero,
-      background: c.surface2,
-      padding: const EdgeInsets.all(MenzilSpace.md),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icon, size: 18, color: c.ink2),
-              const SizedBox(width: MenzilSpace.xs),
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(fontWeight: FontWeight.w700, color: c.ink),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: MenzilSpace.xs),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              value,
-              maxLines: 1,
-              style: MenzilType.heading(c.ink, size: 24),
-            ),
-          ),
-          const SizedBox(height: MenzilSpace.xxs),
-          Text(subtitle, style: MenzilType.caption(c.ink2)),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -1959,7 +1790,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       if (widget.onContinueToShot != null)
         MenzilPrimaryButton(
           key: const Key('pro-continue-shot'),
-          label: 'Atış\'a geç',
+          label: 'Hedef\'e geç',
           icon: Icons.arrow_forward,
           onPressed: widget.onContinueToShot,
         ),

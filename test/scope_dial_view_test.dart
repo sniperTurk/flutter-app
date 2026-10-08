@@ -40,7 +40,7 @@ Future<void> _pumpSolved(
   );
   await tester.pumpAndSettle();
   // The app opens on Profil; the scope lives on the Atış tab.
-  await tester.tap(find.text('Atış'));
+  await tester.tap(find.text('Hedef'));
   await tester.pumpAndSettle();
 }
 
@@ -76,7 +76,10 @@ void main() {
     expect(find.byKey(ScopeDialKeys.windageDrum), findsNothing);
     expect(find.byKey(ScopeDialKeys.reticle), findsOneWidget);
     // Wind is still not modelled.
-    expect(find.text('KİLİTLİ'), findsOneWidget);
+    expect(
+      find.textContaining('Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('dialling the solution centres the impact; reset drops it', (
@@ -142,7 +145,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Atış'));
+    await tester.tap(find.text('Hedef'));
     await tester.pumpAndSettle();
     expect(_impact(tester), isNot(contains('bekleniyor')));
     expect(_impact(tester), contains('aşağı'));
@@ -167,7 +170,11 @@ void main() {
       ),
     );
     expect(find.textContaining('Profilde dürbün birimi MOA'), findsOneWidget);
-    expect(find.textContaining('MOA dürbün)'), findsWidgets);
+    // The turret readout counts in MOA (the elevation box is gone).
+    expect(
+      tester.widget<Text>(find.textContaining('Kule:')).data,
+      contains('MOA)'),
+    );
     expect(find.byKey(ScopeDialKeys.workings), findsOneWidget);
     expect(find.textContaining('/ 0.25 ='), findsOneWidget);
   });

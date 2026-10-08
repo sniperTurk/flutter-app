@@ -59,7 +59,9 @@ Future<void> _pumpShell(WidgetTester tester) async {
   await tester.pumpAndSettle();
 }
 
-Future<String> _windCardAfter(
+/// The Rüzgâr box left Atış (owner, 2026-10-08): the scope's impact line
+/// says where the pellet goes, "Çözümü kuleye kur" which way to dial.
+Future<(String, String)> _windAfter(
   WidgetTester tester, {
   required String direction,
 }) async {
@@ -72,14 +74,23 @@ Future<String> _windCardAfter(
   await tester.ensureVisible(dial);
   await tester.tap(dial);
   await tester.pumpAndSettle();
-  await tester.tap(find.text('Atış'));
+  await tester.tap(find.text('Hedef'));
   await tester.pumpAndSettle();
-  final card = find.byKey(const Key('wind-status-card'));
-  expect(card, findsOneWidget);
-  return tester
-      .widgetList<Text>(find.descendant(of: card, matching: find.byType(Text)))
-      .map((t) => t.data ?? '')
-      .join(' | ');
+  final impact = _impact(tester);
+  return (impact, await _dialSolution(tester));
+}
+
+String _impact(WidgetTester tester) =>
+    tester.widget<Text>(find.byKey(ScopeDialKeys.impactText)).data!;
+
+/// Taps "Çözümü kuleye kur" and returns the "Kule: …" readout.
+Future<String> _dialSolution(WidgetTester tester) async {
+  final button = find.byKey(ScopeDialKeys.dialSolution);
+  await tester.ensureVisible(button);
+  await tester.pumpAndSettle();
+  await tester.tap(button);
+  await tester.pumpAndSettle();
+  return tester.widget<Text>(find.textContaining('Kule:')).data!;
 }
 
 ScopeDialView _scope(double mag, {required bool ffp, double rangeM = 100}) =>
@@ -173,16 +184,16 @@ void main() {
 
   testWidgets('wind from the left: drifts right, dial L', (tester) async {
     await _pumpShell(tester);
-    final text = await _windCardAfter(tester, direction: '90');
-    expect(text, contains('cm sağa'));
-    expect(text, contains('L (sola)'));
+    final (impact, turret) = await _windAfter(tester, direction: '90');
+    expect(impact, endsWith('cm sağ'));
+    expect(turret, contains('klik sol'));
   });
 
   testWidgets('wind from the right: drifts left, dial R', (tester) async {
     await _pumpShell(tester);
-    final text = await _windCardAfter(tester, direction: '270');
-    expect(text, contains('cm sola'));
-    expect(text, contains('R (sağa)'));
+    final (impact, turret) = await _windAfter(tester, direction: '270');
+    expect(impact, endsWith('cm sol'));
+    expect(turret, contains('klik sağ'));
   });
 
   testWidgets('velocity field is fps (270 m/s shown as 885.8)', (tester) async {

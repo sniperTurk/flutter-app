@@ -76,7 +76,7 @@ void main() {
           expect(tester.takeException(), isNull, reason: 'Profil at start');
 
           // Atış (solved on its own when it opens).
-          await tester.tap(find.text('Atış'));
+          await tester.tap(find.text('Hedef'));
           await tester.pumpAndSettle();
           expect(tester.takeException(), isNull);
 
@@ -85,7 +85,7 @@ void main() {
             'Pro',
             'Profil',
             'Araçlar',
-            'Atış',
+            'Hedef',
           ]) {
             await tester.tap(find.text(tab));
             await tester.pumpAndSettle();
@@ -130,7 +130,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Atış'));
+    await tester.tap(find.text('Hedef'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Pro'));
     await tester.pumpAndSettle();

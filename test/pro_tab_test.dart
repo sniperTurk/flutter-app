@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
+import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
@@ -105,10 +106,10 @@ void main() {
     expect(effect, contains('Kule klikleri bunu içerir'));
 
     await _tapKey(tester, 'pro-continue-shot');
-    expect(_title(tester), 'Atış');
+    expect(_title(tester), 'Hedef Görünümü');
     expect(find.text('Hesapla'), findsNothing);
     expect(find.byKey(const Key('shot-incline')), findsNothing);
-    expect(find.byKey(const Key('elevation-status-card')), findsOneWidget);
+    expect(find.byKey(ScopeDialKeys.impactText), findsOneWidget);
     expect(find.text('Menzil'), findsNothing);
   });
 }
