@@ -1,5 +1,5 @@
 // Fills the profile editor's manual rifle form (Marka, Model, Kalibre, Namlu
-// uzunluğu, Namlu yiv yönü, Yiv oranı). Regülatör basıncı is not asked.
+// yiv yönü, Yiv oranı). Regülatör basıncı and Namlu uzunluğu are not asked.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -31,14 +31,12 @@ Future<void> fillRifleForm(
   String brand = 'Test Marka',
   String model = 'Test Model',
   String caliber = '6,35',
-  String barrel = '60',
   String twist = '16',
   String direction = 'Sağ',
 }) async {
   await enterRifleField(tester, 'rifle-brand', brand);
   await enterRifleField(tester, 'rifle-model', model);
   await enterRifleField(tester, 'rifle-caliber', caliber);
-  await enterRifleField(tester, 'rifle-barrel', barrel);
   await enterRifleField(tester, 'rifle-twist-rate', twist);
   await chooseTwistDirection(tester, direction);
 }

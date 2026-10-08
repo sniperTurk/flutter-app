@@ -552,7 +552,6 @@ class _ActiveProfileDetails extends StatelessWidget {
     final scope = CatalogRepository.allScopes
         .where((o) => o.id == profile.scopeId)
         .firstOrNull;
-    final barrelLengthMm = rifle?.barrelLengthMm;
     final ballisticCoefficient = ammo?.ballisticCoefficient;
     final ballisticModelName = ammo?.ballisticModel?.name.toUpperCase() ?? '';
     final units = _ProfileUnits.of(context);
@@ -612,12 +611,6 @@ class _ActiveProfileDetails extends StatelessWidget {
               MenzilMetric(
                 'Yiv yönü',
                 rifle!.twistDirection == TwistDirection.right ? 'Sağ' : 'Sol',
-              ),
-            if (barrelLengthMm != null)
-              MenzilMetric(
-                'Namlu uzunluğu',
-                _trimNum(barrelLengthMm / 10),
-                'cm',
               ),
             if (rifle != null)
               MenzilMetric('Kalibre', rifle.caliberMm.toStringAsFixed(2), 'mm'),
@@ -777,7 +770,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController rifleBrand;
   late final TextEditingController rifleModel;
   late final TextEditingController rifleCaliber;
-  late final TextEditingController rifleBarrel;
   late final TextEditingController rifleTwist;
   TwistDirection? twistDirection;
 
@@ -845,11 +837,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifleBrand = TextEditingController(text: initialRifle?.brand ?? '');
     rifleModel = TextEditingController(text: initialRifle?.model ?? '');
     rifleCaliber = TextEditingController(text: num(initialRifle?.caliberMm));
-    // Barrel length is entered in cm (owner, 2026-10-07); stored as mm.
-    final barrelMm = initialRifle?.barrelLengthMm;
-    rifleBarrel = TextEditingController(
-      text: barrelMm == null ? '' : num(barrelMm / 10),
-    );
     rifleTwist = TextEditingController(text: num(initialRifle?.twistRateIn));
     twistDirection = initialRifle?.twistDirection;
     final s0 = scope;
@@ -934,7 +921,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_modelError == null, 'Model'),
       (_velocityError == null, 'Namlu çıkış hızı'),
       (twistDirection != null, 'Yiv yönü'),
-      (_barrelError == null, 'Namlu uzunluğu'),
       (_caliberError == null, 'Kalibre'),
       (_twistError == null, 'Yiv oranı'),
       (_validSight, 'Sight height'),
@@ -968,7 +954,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifleBrand.dispose();
     rifleModel.dispose();
     rifleCaliber.dispose();
-    rifleBarrel.dispose();
     rifleTwist.dispose();
     scopeBrand.dispose();
     scopeMinMag.dispose();
@@ -1021,7 +1006,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   // Plausibility bounds for typed rifle data (application guardrails, not
   // claims about any rifle).
   static const _minCaliberMm = 2.0, _maxCaliberMm = 20.0;
-  static const _minBarrelCm = 5.0, _maxBarrelCm = 150.0;
   static const _minTwistIn = 3.0, _maxTwistIn = 80.0;
 
   String? _textError(TextEditingController c) {
@@ -1045,15 +1029,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? get _modelError => _textError(rifleModel);
   String? get _caliberError =>
       _rangeError(rifleCaliber, _minCaliberMm, _maxCaliberMm);
-  String? get _barrelError =>
-      _rangeError(rifleBarrel, _minBarrelCm, _maxBarrelCm);
   String? get _twistError => _rangeError(rifleTwist, _minTwistIn, _maxTwistIn);
 
   bool get _rifleValid =>
       _brandError == null &&
       _modelError == null &&
       _caliberError == null &&
-      _barrelError == null &&
       _twistError == null &&
       twistDirection != null;
 
@@ -1157,7 +1138,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'brand': rifleBrand.text.trim(),
       'model': rifleModel.text.trim(),
       'caliberMm': _parse(rifleCaliber),
-      'barrelLengthMm': _parse(rifleBarrel)! * 10,
       'twistDirection': twistDirection!.name,
       'twistRateIn': _parse(rifleTwist),
       'sourceName': userCatalogSourceName,
@@ -1508,15 +1488,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       message: 'Namlu yiv yönünü seçin (Sağ / Sol).',
                     ),
                   ),
-                MenzilInput(
-                  key: const Key('rifle-barrel'),
-                  info: ProfileFieldInfo.barrelLength,
-                  controller: rifleBarrel,
-                  label: 'Namlu uzunluğu',
-                  unit: 'cm',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_barrelError, rifleBarrel),
-                ),
                 MenzilInput(
                   key: const Key('rifle-caliber'),
                   info: ProfileFieldInfo.caliber,

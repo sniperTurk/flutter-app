@@ -97,7 +97,6 @@ void main() {
     const order = [
       'Namlu çıkış hızı',
       'Yiv yönü',
-      'Namlu uzunluğu',
       'Kalibre',
       'Yiv oranı',
       'Sight height',
@@ -135,8 +134,10 @@ void main() {
     expect(find.text('260 klik'), findsOneWidget); // 26 mrad / 0.1
     expect(find.text('50 gr Pellet'), findsOneWidget);
     // Gone: separate Regülatör, Odak düzlemi, Klik değeri, Çap, Ağırlık,
-    // Büyütme and Kule ayar aralığı boxes.
+    // Büyütme, Kule ayar aralığı and Namlu boxes.
     for (final gone in const [
+      'Namlu uzunluğu',
+      'Namlu boyu',
       'Regülatör',
       'Odak düzlemi',
       'Klik değeri',

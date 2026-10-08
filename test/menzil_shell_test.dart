@@ -378,7 +378,7 @@ void main() {
     expect(rifle.brand, 'Test Marka');
     expect(rifle.model, 'Test Model');
     expect(rifle.caliberMm, 6.35);
-    expect(rifle.barrelLengthMm, 600);
+    expect(rifle.barrelLengthMm, isNull); // not asked since 2026-10-09
     expect(rifle.twistDirection, TwistDirection.right);
     expect(rifle.twistRateIn, 16);
     expect(rifle.regulatorBar, isNull);

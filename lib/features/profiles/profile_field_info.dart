@@ -8,9 +8,6 @@ abstract final class ProfileFieldInfo {
   static const caliber =
       'Namlunun iç çapı, milimetre olarak. Örnek: 5,5 mm (.22), '
       '6,35 mm (.25), 7,62 mm (.30). Mühimmatın kalibresi buradan alınır.';
-  static const barrelLength =
-      'Namlunun arka ucundan namlu ağzına kadar uzunluğu, santimetre olarak. '
-      'Susturucu veya moderatör dahil değildir. Tüfeğin teknik föyünde yazar.';
   static const twistDirection =
       'Namlunun içindeki yivlerin dönüş yönü. Namluya arkadan bakarken yivler '
       'saat yönünde dönüyorsa Sağ, tersiyse Sol. Namluların çoğu sağdır.';
