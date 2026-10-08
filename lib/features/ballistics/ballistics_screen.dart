@@ -1875,13 +1875,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   title: 'Coriolis',
                   text: EnvironmentFieldInfo.coriolis,
                 ),
-                Switch(
-                  key: const Key('pro-coriolis-switch'),
-                  value: _coriolisOn,
-                  onChanged: (v) {
-                    _coriolisOn = v;
-                    _coriolisChanged();
-                  },
+                // VoiceOver reads the switch with its name.
+                Semantics(
+                  label: 'Coriolis etkisini ekle',
+                  child: Switch(
+                    key: const Key('pro-coriolis-switch'),
+                    value: _coriolisOn,
+                    onChanged: (v) {
+                      _coriolisOn = v;
+                      _coriolisChanged();
+                    },
+                  ),
                 ),
               ],
             ),
