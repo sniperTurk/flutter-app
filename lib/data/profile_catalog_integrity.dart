@@ -40,9 +40,7 @@ class ProfileCatalogIntegrity {
     // platform and caliber. This also protects migrated/hand-edited data.
     if (rifle.platform != ammunition.platform) return null;
     if ((rifle.caliberMm - ammunition.caliberMm).abs() >= 0.001) return null;
-    if (rifle.platform == WeaponPlatform.pcp && profile.pressureBar == null) {
-      return null;
-    }
+    // A PCP profile no longer needs a pressure (owner, 2026-10-09).
     if (rifle.platform == WeaponPlatform.firearm &&
         profile.pressureBar != null) {
       return null;

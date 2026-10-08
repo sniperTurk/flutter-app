@@ -102,7 +102,11 @@ class ManualCatalogStore {
       // deliberately lets the brand stay empty, so an empty brand is valid only
       // for that kind. Without this exception the record could not be saved and
       // an already-stored one would make the whole catalog unreadable.
-      final mayBeEmpty = field == 'brand' && kind == 'custom_ammunition';
+      // Profile ammunition keeps its whole "Marka Model" name in the brand
+      // since 2026-10-09 (one field), so its model may be empty too.
+      final mayBeEmpty =
+          (field == 'brand' && kind == 'custom_ammunition') ||
+          (field == 'model' && (kind == 'ammo' || kind == 'custom_ammunition'));
       if (value is! String ||
           (!mayBeEmpty && value.trim().isEmpty) ||
           value.length > 100) {

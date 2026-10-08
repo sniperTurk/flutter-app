@@ -114,23 +114,21 @@ class _ChronographScreenState extends State<ChronographScreen> {
       return;
     }
     final metric = AppSettingsScope.metricOf(context);
-    final pick = await showDialog<_PickResult>(
+    final pick = await showDialog<RifleProfile>(
       context: context,
       builder: (_) => _ProfilePickDialog(
         profiles: matches,
         newVelocityText: ToolFormat.velocity(stats.meanMps, metric: metric),
         metric: metric,
-        startPressureBar: _validStartPressureBar,
       ),
     );
     if (pick == null || !mounted) return;
-    final chosen = pick.profile;
+    final chosen = pick;
     final RifleProfile updated;
     try {
       updated = ToolProfileUpdate.apply(
         chosen,
         muzzleVelocityMps: double.parse(stats.meanMps.toStringAsFixed(1)),
-        pressureBar: pick.writePressure ? _validStartPressureBar : null,
       );
     } on FormatException catch (e) {
       _snack(e.message);
@@ -414,43 +412,23 @@ class _ChronographScreenState extends State<ChronographScreen> {
     return start - end;
   }
 
-  double? get _validStartPressureBar {
-    if (_platform != WeaponPlatform.pcp || _pressureDropBar == null) {
-      return null;
-    }
-    final value = double.tryParse(_startBar.text.trim().replaceAll(',', '.'));
-    if (value == null ||
-        !value.isFinite ||
-        value <= 0 ||
-        value > ProductionLimits.maxPcpPressureBar) {
-      return null;
-    }
-    return value;
-  }
-
   String _v(double mps, bool metric) => metric
       ? ToolFormat.dec(mps, 1)
       : ToolFormat.dec(UnitSystem.mpsToFps(mps), 0);
 }
 
 /// Lets the user pick which profile receives the new velocity and shows
-/// exactly what will change before anything is saved.
-class _PickResult {
-  final RifleProfile profile;
-  final bool writePressure;
-  const _PickResult(this.profile, this.writePressure);
-}
-
+/// exactly what will change before anything is saved. (The option to also
+/// write the tank pressure to the profile was removed with Regülatör
+/// basıncı, owner 2026-10-09.)
 class _ProfilePickDialog extends StatefulWidget {
   final List<RifleProfile> profiles;
   final String newVelocityText;
   final bool metric;
-  final double? startPressureBar;
   const _ProfilePickDialog({
     required this.profiles,
     required this.newVelocityText,
     required this.metric,
-    this.startPressureBar,
   });
 
   @override
@@ -459,7 +437,6 @@ class _ProfilePickDialog extends StatefulWidget {
 
 class _ProfilePickDialogState extends State<_ProfilePickDialog> {
   RifleProfile? _selected;
-  bool _writePressure = false;
 
   @override
   Widget build(BuildContext context) => AlertDialog(
@@ -487,19 +464,6 @@ class _ProfilePickDialogState extends State<_ProfilePickDialog> {
               ],
             ),
           ),
-          if (widget.startPressureBar != null)
-            CheckboxListTile(
-              key: const Key('chrono-write-pressure'),
-              contentPadding: EdgeInsets.zero,
-              value: _writePressure,
-              onChanged: (v) => setState(() => _writePressure = v ?? false),
-              title: Text(
-                'Atış basıncını ${widget.startPressureBar!.toStringAsFixed(0)} bar yap',
-              ),
-              subtitle: const Text(
-                'İşaretlemezseniz profilin basıncı değişmez.',
-              ),
-            ),
         ],
       ),
     ),
@@ -511,10 +475,7 @@ class _ProfilePickDialogState extends State<_ProfilePickDialog> {
       FilledButton(
         onPressed: _selected == null
             ? null
-            : () => Navigator.pop(
-                context,
-                _PickResult(_selected!, _writePressure),
-              ),
+            : () => Navigator.pop(context, _selected),
         child: const Text('Uygula'),
       ),
     ],

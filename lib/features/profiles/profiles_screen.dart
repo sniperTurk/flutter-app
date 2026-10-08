@@ -445,8 +445,7 @@ class _ProfileRow extends StatelessWidget {
                             ),
                             Text(
                               '${_ProfileUnits.of(context).velocity(profile.muzzleVelocityMps)} • '
-                              'Sıfır ${_ProfileUnits.of(context).distance(profile.zeroRangeM)}'
-                              '${profile.pressureBar == null ? '' : ' • ${profile.pressureBar!.toStringAsFixed(0)} bar'}',
+                              'Sıfır ${_ProfileUnits.of(context).distance(profile.zeroRangeM)}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: MenzilType.caption(c.ink2),
@@ -491,6 +490,44 @@ String _labelled(String? name, bool? userEntered, String fallbackId) =>
     ? '$name — kişisel kayıt, üretici doğrulaması yok'
     : name;
 
+/// "6-36 x 56 FFP" from the scope's magnification, objective and focal
+/// plane; parts that are unknown are left out.
+String _scopeSummary(ScopeOptic s) {
+  final lo = s.minMagnification, hi = s.maxMagnification;
+  final mag = lo == null || hi == null
+      ? ''
+      : lo == hi
+      ? _trimNum(lo)
+      : '${_trimNum(lo)}-${_trimNum(hi)}';
+  final objective = s.objectiveDiameterMm > 0
+      ? _trimNum(s.objectiveDiameterMm)
+      : '';
+  final size = [mag, objective].where((p) => p.isNotEmpty).join(' x ');
+  final focal = s.firstFocalPlane == null
+      ? ''
+      : (s.firstFocalPlane! ? 'FFP' : 'SFP');
+  return [size, focal].where((p) => p.isNotEmpty).join(' ');
+}
+
+/// Total clicks of the top (elevation) turret in the profile's unit, with
+/// the same click Hedef uses (the catalog click when the units match,
+/// otherwise 0.1 MRAD / ¼ MOA); null when the travel is unknown.
+int? _topTurretClicks(ScopeOptic s, AngularUnit unit) {
+  final mrad = s.elevationRangeMrad;
+  if (mrad == null || mrad <= 0 || s.clickValue <= 0) return null;
+  final click = s.clickUnit == unit
+      ? s.clickValue
+      : (unit == AngularUnit.moa ? 0.25 : 0.1);
+  final travel = unit == AngularUnit.moa ? Units.mradToMoa(mrad) : mrad;
+  return (travel / click).round();
+}
+
+String _ammoTypeName(AmmunitionType t) => switch (t) {
+  AmmunitionType.pellet => 'Pellet',
+  AmmunitionType.slug => 'Slug',
+  AmmunitionType.bullet => 'Bullet',
+};
+
 /// Read-only summary of the active profile plus the catalog values it
 /// resolves to. Purely informational: nothing here feeds the solver.
 class _ActiveProfileDetails extends StatelessWidget {
@@ -515,7 +552,6 @@ class _ActiveProfileDetails extends StatelessWidget {
     final scope = CatalogRepository.allScopes
         .where((o) => o.id == profile.scopeId)
         .firstOrNull;
-    final barrelLengthMm = rifle?.barrelLengthMm;
     final ballisticCoefficient = ammo?.ballisticCoefficient;
     final ballisticModelName = ammo?.ballisticModel?.name.toUpperCase() ?? '';
     final units = _ProfileUnits.of(context);
@@ -561,6 +597,8 @@ class _ActiveProfileDetails extends StatelessWidget {
             ),
           ],
         ),
+        // Order and names set by the owner (2026-10-09). Regülatör, Odak
+        // düzlemi and Klik değeri have no box of their own any more.
         MenzilMetricGrid(
           columns: 2,
           metrics: [
@@ -569,78 +607,59 @@ class _ActiveProfileDetails extends StatelessWidget {
               units.velocityValue(profile.muzzleVelocityMps),
               units.velocityUnit,
             ),
-            MenzilMetric(
-              'Sıfırlama mesafesi',
-              units.distanceValue(profile.zeroRangeM),
-              units.distanceUnit,
-            ),
-            MenzilMetric(
-              'Sight height',
-              profile.sightHeightMm.toStringAsFixed(1),
-              'mm',
-            ),
-            MenzilMetric(
-              'Dürbün birimi',
-              profile.angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
-            ),
-            if (profile.mountCantMoa > 0)
-              MenzilMetric(
-                'Dürbün ayağı',
-                _trimNum(profile.mountCantMoa),
-                'MOA',
-              ),
-            if (rifle != null)
-              MenzilMetric('Çap', rifle.caliberMm.toStringAsFixed(2), 'mm'),
-            if (ammo != null)
-              MenzilMetric(
-                'Ağırlık',
-                ammo.grain.toStringAsFixed(ammo.grain % 1 == 0 ? 0 : 1),
-                'gr',
-              ),
-            if (barrelLengthMm != null)
-              MenzilMetric('Namlu boyu', _trimNum(barrelLengthMm / 10), 'cm'),
-            if (rifle?.regulatorBar != null)
-              MenzilMetric('Regülatör', _trimNum(rifle!.regulatorBar!), 'bar'),
-            if (scope?.minMagnification != null &&
-                scope?.maxMagnification != null)
-              MenzilMetric(
-                'Büyütme',
-                '${_trimNum(scope!.minMagnification!)}-${_trimNum(scope.maxMagnification!)}x',
-              ),
-            if (scope?.firstFocalPlane != null)
-              MenzilMetric(
-                'Odak düzlemi',
-                scope!.firstFocalPlane! ? 'FFP' : 'SFP',
-              ),
             if (rifle?.twistDirection != null)
               MenzilMetric(
                 'Yiv yönü',
                 rifle!.twistDirection == TwistDirection.right ? 'Sağ' : 'Sol',
               ),
+            if (rifle != null)
+              MenzilMetric('Kalibre', rifle.caliberMm.toStringAsFixed(2), 'mm'),
             if (rifle?.twistRateIn != null)
               MenzilMetric(
                 'Yiv oranı',
                 '1:${_trimNum(rifle!.twistRateIn!)}',
                 'inç',
               ),
-            if ((scope?.elevationRangeMrad ?? 0) > 0)
-              MenzilMetric(
-                'Kule ayar aralığı',
-                _trimNum(
-                  ((scope!.clickUnit == AngularUnit.moa
-                                  ? Units.mradToMoa(scope.elevationRangeMrad!)
-                                  : scope.elevationRangeMrad!) *
-                              10)
-                          .round() /
-                      10,
-                ),
-                scope.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
-              ),
+            MenzilMetric(
+              'Sight height',
+              profile.sightHeightMm.toStringAsFixed(1),
+              'mm',
+            ),
+            MenzilMetric(
+              'Sıfırlama mesafesi',
+              units.distanceValue(profile.zeroRangeM),
+              units.distanceUnit,
+            ),
             if (scope != null)
               MenzilMetric(
-                'Klik değeri',
-                scope.clickValue.toString(),
-                scope.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
+                'Dürbün Marka Model',
+                // Personal scopes store the designation as their model;
+                // it is shown in the Dürbün box, so only the brand here.
+                scope.userEntered ? scope.brand : scope.displayName,
+              ),
+            if (scope != null && _scopeSummary(scope).isNotEmpty)
+              MenzilMetric('Dürbün', _scopeSummary(scope)),
+            MenzilMetric(
+              'Dürbün ayağı',
+              profile.mountCantMoa > 0 ? _trimNum(profile.mountCantMoa) : 'Yok',
+              profile.mountCantMoa > 0 ? 'MOA' : null,
+            ),
+            MenzilMetric(
+              'Dürbün birimi',
+              profile.angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
+            ),
+            if (scope != null &&
+                _topTurretClicks(scope, profile.angularUnit) != null)
+              MenzilMetric(
+                'Dürbün üst kule',
+                '${_topTurretClicks(scope, profile.angularUnit)}',
+                'klik',
+              ),
+            if (ammo != null)
+              MenzilMetric(
+                'Mühimmat',
+                ammo.grain.toStringAsFixed(ammo.grain % 1 == 0 ? 0 : 1),
+                'gr ${_ammoTypeName(ammo.type)}',
               ),
             MenzilMetric(
               'BC / model',
@@ -751,9 +770,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController rifleBrand;
   late final TextEditingController rifleModel;
   late final TextEditingController rifleCaliber;
-  late final TextEditingController rifleBarrel;
   late final TextEditingController rifleTwist;
-  late final TextEditingController rifleRegulator;
   TwistDirection? twistDirection;
 
   /// The scope is typed in too; stored as a personal scope record.
@@ -773,7 +790,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Ammunition is typed in too. A BC with its G1/G7 model lets the drag
   /// solver compute wind drift (the vacuum baseline keeps wind locked).
   late final TextEditingController ammoBrand;
-  late final TextEditingController ammoModel;
   late final TextEditingController ammoGrain;
   late final TextEditingController ammoBc;
   AmmunitionType? ammoType;
@@ -804,17 +820,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final initialRifle = p == null
         ? null
         : _allRifles.where((r) => r.id == p.rifleId).firstOrNull;
-    // Platform of an unresolved rifle is inferred from the stored pressure
-    // (only PCP profiles carry one) instead of defaulting silently.
-    platform =
-        initialRifle?.platform ??
-        (p != null && p.pressureBar == null
-            ? WeaponPlatform.firearm
-            : WeaponPlatform.pcp);
     rifle = initialRifle;
     ammo = p == null
         ? null
         : _allAmmunition.where((a) => a.id == p.ammunitionId).firstOrNull;
+    // Platform of an unresolved rifle comes from its ammunition, else PCP.
+    // (It used to be guessed from the pressure, but new PCP profiles carry
+    // no pressure since 2026-10-09, so "no pressure" no longer means
+    // firearm.)
+    platform = initialRifle?.platform ?? ammo?.platform ?? WeaponPlatform.pcp;
     scope = p == null
         ? null
         : _allScopes.where((o) => o.id == p.scopeId).firstOrNull;
@@ -823,15 +837,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifleBrand = TextEditingController(text: initialRifle?.brand ?? '');
     rifleModel = TextEditingController(text: initialRifle?.model ?? '');
     rifleCaliber = TextEditingController(text: num(initialRifle?.caliberMm));
-    // Barrel length is entered in cm (owner, 2026-10-07); stored as mm.
-    final barrelMm = initialRifle?.barrelLengthMm;
-    rifleBarrel = TextEditingController(
-      text: barrelMm == null ? '' : num(barrelMm / 10),
-    );
     rifleTwist = TextEditingController(text: num(initialRifle?.twistRateIn));
-    rifleRegulator = TextEditingController(
-      text: num(initialRifle?.regulatorBar),
-    );
     twistDirection = initialRifle?.twistDirection;
     final s0 = scope;
     angularUnit = p?.angularUnit ?? s0?.clickUnit ?? AngularUnit.mrad;
@@ -846,19 +852,23 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
     firstFocalPlane = s0?.firstFocalPlane;
     // "Üst kule klik sayısı": total clicks from end to end of the top
-    // turret, recovered from the stored travel and the scope's click value.
+    // turret, recovered from the stored travel with the SAME unit and click
+    // the form saves with (a MRAD catalog scope on a MOA profile used to
+    // come back 27 % shorter after a save).
     String travel(double? mrad) {
-      if (mrad == null || mrad <= 0 || s0 == null) return '';
-      final clicks = _fromMrad(mrad, s0.clickUnit) / s0.clickValue;
-      return clicks.round().toString();
+      final click = double.tryParse(scopeClick.text);
+      if (mrad == null || mrad <= 0 || click == null || click <= 0) return '';
+      return (_fromMrad(mrad, angularUnit) / click).round().toString();
     }
 
     scopeTravelElevation = TextEditingController(
       text: travel(s0?.elevationRangeMrad),
     );
     final a0 = ammo;
-    ammoBrand = TextEditingController(text: a0?.brand ?? '');
-    ammoModel = TextEditingController(text: a0?.model ?? '');
+    // One "Marka Model" field (owner, 2026-10-09).
+    ammoBrand = TextEditingController(
+      text: a0 == null ? '' : '${a0.brand} ${a0.model}'.trim(),
+    );
     ammoGrain = TextEditingController(text: num(a0?.grain));
     ammoBc = TextEditingController(text: num(a0?.ballisticCoefficient));
     ammoType = a0?.type;
@@ -905,30 +915,29 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       if (m.isNotEmpty) out.add('$name: ${m.join(', ')}');
     }
 
+    // Same order as the form (owner, 2026-10-09).
     section('Tüfek', [
       (_brandError == null, 'Marka'),
       (_modelError == null, 'Model'),
-      (_caliberError == null, 'Kalibre'),
-      (_barrelError == null, 'Namlu uzunluğu'),
-      (twistDirection != null, 'Yiv yönü'),
-      (_twistError == null, 'Yiv oranı'),
-      (_regulatorError == null, 'Regülatör basıncı'),
       (_velocityError == null, 'Namlu çıkış hızı'),
+      (twistDirection != null, 'Yiv yönü'),
+      (_caliberError == null, 'Kalibre'),
+      (_twistError == null, 'Yiv oranı'),
+      (_validSight, 'Sight height'),
       (_zeroError == null, 'Sıfırlama mesafesi'),
     ]);
     section('Dürbün', [
       (_scopeBrandError == null, 'Marka'),
-      (firstFocalPlane != null, 'Odak düzlemi'),
       (_minMagError == null, 'Min. büyütme'),
       (_maxMagError == null, 'Maks. büyütme'),
       (_objectiveError == null, 'Mercek çapı'),
+      (firstFocalPlane != null, 'Odak düzlemi'),
+      // Klik değeri is not asked; it follows the unit and is always valid.
       (_clickError == null, 'Klik değeri'),
       (_travelError(scopeTravelElevation) == null, 'Üst kule klik sayısı'),
-      (_validSight, 'Sight height'),
     ]);
     section('Mühimmat', [
-      (_ammoBrandError == null, 'Marka'),
-      (_ammoModelError == null, 'Model'),
+      (_ammoBrandError == null, 'Marka Model'),
       (_effectiveAmmoType != null, 'Tip'),
       (_grainError == null, 'Ağırlık'),
       (_bcError == null, 'BC'),
@@ -945,9 +954,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifleBrand.dispose();
     rifleModel.dispose();
     rifleCaliber.dispose();
-    rifleBarrel.dispose();
     rifleTwist.dispose();
-    rifleRegulator.dispose();
     scopeBrand.dispose();
     scopeMinMag.dispose();
     scopeMaxMag.dispose();
@@ -955,7 +962,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeClick.dispose();
     scopeTravelElevation.dispose();
     ammoBrand.dispose();
-    ammoModel.dispose();
     ammoGrain.dispose();
     ammoBc.dispose();
     name.dispose();
@@ -1000,7 +1006,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   // Plausibility bounds for typed rifle data (application guardrails, not
   // claims about any rifle).
   static const _minCaliberMm = 2.0, _maxCaliberMm = 20.0;
-  static const _minBarrelCm = 5.0, _maxBarrelCm = 150.0;
   static const _minTwistIn = 3.0, _maxTwistIn = 80.0;
 
   String? _textError(TextEditingController c) {
@@ -1024,20 +1029,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? get _modelError => _textError(rifleModel);
   String? get _caliberError =>
       _rangeError(rifleCaliber, _minCaliberMm, _maxCaliberMm);
-  String? get _barrelError =>
-      _rangeError(rifleBarrel, _minBarrelCm, _maxBarrelCm);
   String? get _twistError => _rangeError(rifleTwist, _minTwistIn, _maxTwistIn);
-  String? get _regulatorError => platform == WeaponPlatform.pcp
-      ? _rangeError(rifleRegulator, 10, ProductionLimits.maxPcpPressureBar)
-      : null;
 
   bool get _rifleValid =>
       _brandError == null &&
       _modelError == null &&
       _caliberError == null &&
-      _barrelError == null &&
       _twistError == null &&
-      _regulatorError == null &&
       twistDirection != null;
 
   String? get _scopeBrandError => _textError(scopeBrand);
@@ -1080,7 +1078,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       firstFocalPlane != null;
 
   String? get _ammoBrandError => _textError(ammoBrand);
-  String? get _ammoModelError => _textError(ammoModel);
   String? get _grainError => _rangeError(ammoGrain, 1, 800);
   String? get _bcError => _rangeError(ammoBc, 0.005, 1.5);
 
@@ -1091,7 +1088,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   bool get _ammoValid =>
       _ammoBrandError == null &&
-      _ammoModelError == null &&
       _grainError == null &&
       _bcError == null &&
       ammoBcModel != null &&
@@ -1142,12 +1138,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'brand': rifleBrand.text.trim(),
       'model': rifleModel.text.trim(),
       'caliberMm': _parse(rifleCaliber),
-      'barrelLengthMm': _parse(rifleBarrel)! * 10,
       'twistDirection': twistDirection!.name,
       'twistRateIn': _parse(rifleTwist),
-      'regulatorBar': platform == WeaponPlatform.pcp
-          ? _parse(rifleRegulator)
-          : null,
       'sourceName': userCatalogSourceName,
     };
   }
@@ -1160,8 +1152,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           : 'manual_ammo_${DateTime.now().microsecondsSinceEpoch}',
       'kind': 'ammo',
       'platform': platform.name,
+      // The whole "Marka Model" text is the name (brand); model stays empty.
       'brand': ammoBrand.text.trim(),
-      'model': ammoModel.text.trim(),
+      'model': '',
       // Caliber follows the rifle, so the pair can never mismatch.
       'caliberMm': _parse(rifleCaliber),
       'grain': _parse(ammoGrain),
@@ -1229,9 +1222,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         zeroRangeText: zero.text,
         sightHeightText: sight.text,
         platform: platform,
-        // V380: the PCP profile pressure is the rifle's regulator pressure
-        // (the separate "Atış basıncı" field was redundant).
-        pressureText: rifleRegulator.text,
+        // Regülatör basıncı is not asked any more (owner, 2026-10-09): no
+        // calculation uses it.
         mountCantMoa: mountCant,
       );
     } on FormatException catch (e) {
@@ -1444,6 +1436,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
+                // Order set by the owner (2026-10-09), as on the summary.
                 MenzilInput(
                   key: const Key('rifle-brand'),
                   controller: rifleBrand,
@@ -1463,23 +1456,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   errorText: _shown(_modelError, rifleModel),
                 ),
                 MenzilInput(
-                  key: const Key('rifle-caliber'),
-                  info: ProfileFieldInfo.caliber,
-                  controller: rifleCaliber,
-                  label: 'Kalibre',
-                  unit: 'mm',
-                  hintText: '5,5 / 6,35 / 7,62',
+                  key: const Key('profile-velocity-fps'),
+                  controller: velocity,
+                  label: 'Namlu çıkış hızı',
+                  info: ProfileFieldInfo.velocity,
+                  unit: 'fps',
                   onChanged: (_) => setState(() {}),
-                  errorText: _shown(_caliberError, rifleCaliber),
-                ),
-                MenzilInput(
-                  key: const Key('rifle-barrel'),
-                  info: ProfileFieldInfo.barrelLength,
-                  controller: rifleBarrel,
-                  label: 'Namlu uzunluğu',
-                  unit: 'cm',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_barrelError, rifleBarrel),
+                  errorText: _shown(_velocityError, velocity),
                 ),
                 MenzilSelect<TwistDirection>(
                   key: const Key('rifle-twist-direction'),
@@ -1498,6 +1481,23 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ],
                   onChanged: (v) => setState(() => twistDirection = v),
                 ),
+                if (_showErrors && twistDirection == null)
+                  const MenzilFullWidth(
+                    child: MenzilNotice(
+                      tone: MenzilNoticeTone.danger,
+                      message: 'Namlu yiv yönünü seçin (Sağ / Sol).',
+                    ),
+                  ),
+                MenzilInput(
+                  key: const Key('rifle-caliber'),
+                  info: ProfileFieldInfo.caliber,
+                  controller: rifleCaliber,
+                  label: 'Kalibre',
+                  unit: 'mm',
+                  hintText: '5,5 / 6,35 / 7,62',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_caliberError, rifleCaliber),
+                ),
                 MenzilInput(
                   key: const Key('rifle-twist-rate'),
                   info: ProfileFieldInfo.twistRate,
@@ -1509,32 +1509,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_twistError, rifleTwist),
                 ),
-                if (platform == WeaponPlatform.pcp)
-                  MenzilInput(
-                    key: const Key('rifle-regulator'),
-                    info: ProfileFieldInfo.regulator,
-                    controller: rifleRegulator,
-                    label: 'Regülatör basıncı',
-                    unit: 'bar',
-                    onChanged: (_) => setState(() {}),
-                    errorText: _shown(_regulatorError, rifleRegulator),
-                  ),
-                if (_showErrors && twistDirection == null)
-                  const MenzilFullWidth(
-                    child: MenzilNotice(
-                      tone: MenzilNoticeTone.danger,
-                      message: 'Namlu yiv yönünü seçin (Sağ / Sol).',
-                    ),
-                  ),
-                // Atış değerleri sit at the end of the Tüfek card.
                 MenzilInput(
-                  key: const Key('profile-velocity-fps'),
-                  controller: velocity,
-                  label: 'Namlu çıkış hızı',
-                  info: ProfileFieldInfo.velocity,
-                  unit: 'fps',
+                  key: const Key('scope-sight-height'),
+                  info: ProfileFieldInfo.sightHeight,
+                  controller: sight,
+                  label: 'Sight height',
+                  unit: 'mm',
                   onChanged: (_) => setState(() {}),
-                  errorText: _shown(_velocityError, velocity),
+                  helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
+                  errorText: sight.text.isNotEmpty && !_validSight
+                      ? '0–300 mm arasında geçerli bir değer girin.'
+                      : null,
                 ),
                 MenzilInput(
                   key: const Key('profile-zero'),
@@ -1544,6 +1529,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   unit: 'm',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_zeroError, zero),
+                ),
+                MenzilFullWidth(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton.icon(
+                      onPressed: _showSightHelp,
+                      icon: const Icon(Icons.info_outline, size: 18),
+                      label: const Text('Sight height nasıl ölçülür?'),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1566,6 +1561,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
+                // Order set by the owner (2026-10-09). Klik değeri is not
+                // shown: it follows Dürbün birimi.
                 MenzilInput(
                   key: const Key('scope-brand'),
                   controller: scopeBrand,
@@ -1574,17 +1571,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   maxLength: 100,
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_scopeBrandError, scopeBrand),
-                ),
-                MenzilSelect<bool>(
-                  key: const Key('scope-focal-plane'),
-                  info: ProfileFieldInfo.focalPlane,
-                  label: 'Odak düzlemi',
-                  initialValue: firstFocalPlane,
-                  items: const [
-                    DropdownMenuItem(value: true, child: Text('FFP')),
-                    DropdownMenuItem(value: false, child: Text('SFP')),
-                  ],
-                  onChanged: (v) => setState(() => firstFocalPlane = v),
                 ),
                 MenzilInput(
                   key: const Key('scope-min-mag'),
@@ -1613,65 +1599,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_objectiveError, scopeObjective),
                 ),
-                MenzilSelect<AngularUnit>(
-                  key: ValueKey('profile-angular-unit-${angularUnit.name}'),
-                  info: ProfileFieldInfo.scopeUnit,
-                  label: 'Dürbün birimi',
-                  initialValue: angularUnit,
+                MenzilSelect<bool>(
+                  key: const Key('scope-focal-plane'),
+                  info: ProfileFieldInfo.focalPlane,
+                  label: 'Odak düzlemi',
+                  initialValue: firstFocalPlane,
                   items: const [
-                    DropdownMenuItem(
-                      value: AngularUnit.mrad,
-                      child: Text('MRAD'),
-                    ),
-                    DropdownMenuItem(
-                      value: AngularUnit.moa,
-                      child: Text('MOA'),
-                    ),
+                    DropdownMenuItem(value: true, child: Text('FFP')),
+                    DropdownMenuItem(value: false, child: Text('SFP')),
                   ],
-                  onChanged: (v) => setState(() {
-                    final next = v ?? AngularUnit.mrad;
-                    // Keep a typed click value; replace only the default
-                    // of the other unit.
-                    final click = _parse(scopeClick);
-                    if (click == null || click == _defaultClick(angularUnit)) {
-                      scopeClick.text = _trimNum(_defaultClick(next));
-                    }
-                    angularUnit = next;
-                  }),
-                ),
-                MenzilInput(
-                  key: const Key('scope-click'),
-                  info: ProfileFieldInfo.click,
-                  controller: scopeClick,
-                  label: 'Klik değeri',
-                  unit: angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
-                  helperText: 'Kulenin bir klikte ayarladığı açı.',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_clickError, scopeClick),
-                ),
-                MenzilInput(
-                  key: const Key('scope-travel-elevation'),
-                  info: ProfileFieldInfo.elevationTravel,
-                  controller: scopeTravelElevation,
-                  label: 'Üst kule klik sayısı',
-                  unit: 'klik',
-                  keyboardType: TextInputType.number,
-                  helperText:
-                      'Baştan sona toplam klik. Bilmiyorsanız boş bırakın.',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _travelError(scopeTravelElevation),
-                ),
-                MenzilInput(
-                  key: const Key('scope-sight-height'),
-                  info: ProfileFieldInfo.sightHeight,
-                  controller: sight,
-                  label: 'Sight height',
-                  unit: 'mm',
-                  onChanged: (_) => setState(() {}),
-                  helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
-                  errorText: sight.text.isNotEmpty && !_validSight
-                      ? '0–300 mm arasında geçerli bir değer girin.'
-                      : null,
+                  onChanged: (v) => setState(() => firstFocalPlane = v),
                 ),
                 MenzilSelect<double>(
                   // Rebuilt when the click value/unit changes so every
@@ -1695,6 +1632,43 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ],
                   onChanged: (v) => setState(() => mountCant = v ?? 0),
                 ),
+                MenzilSelect<AngularUnit>(
+                  key: ValueKey('profile-angular-unit-${angularUnit.name}'),
+                  info: ProfileFieldInfo.scopeUnit,
+                  label: 'Dürbün birimi',
+                  initialValue: angularUnit,
+                  items: const [
+                    DropdownMenuItem(
+                      value: AngularUnit.mrad,
+                      child: Text('MRAD'),
+                    ),
+                    DropdownMenuItem(
+                      value: AngularUnit.moa,
+                      child: Text('MOA'),
+                    ),
+                  ],
+                  onChanged: (v) => setState(() {
+                    final next = v ?? AngularUnit.mrad;
+                    // Klik değeri is not asked any more (owner, 2026-10-09):
+                    // it follows the unit (0.1 MRAD, 1/4 MOA).
+                    if (next != angularUnit) {
+                      scopeClick.text = _trimNum(_defaultClick(next));
+                    }
+                    angularUnit = next;
+                  }),
+                ),
+                MenzilInput(
+                  key: const Key('scope-travel-elevation'),
+                  info: ProfileFieldInfo.elevationTravel,
+                  controller: scopeTravelElevation,
+                  label: 'Üst kule klik sayısı',
+                  unit: 'klik',
+                  keyboardType: TextInputType.number,
+                  helperText:
+                      'Baştan sona toplam klik. Bilmiyorsanız boş bırakın.',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _travelError(scopeTravelElevation),
+                ),
                 MenzilFullWidth(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1712,11 +1686,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                           tone: MenzilNoticeTone.danger,
                           message: 'Odak düzlemini seçin (FFP / SFP).',
                         ),
-                      TextButton.icon(
-                        onPressed: _showSightHelp,
-                        icon: const Icon(Icons.info_outline, size: 18),
-                        label: const Text('Sight height nasıl ölçülür?'),
-                      ),
                     ],
                   ),
                 ),
@@ -1744,20 +1713,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 MenzilInput(
                   key: const Key('ammo-brand'),
                   controller: ammoBrand,
-                  label: 'Marka',
+                  label: 'Marka Model',
+                  hintText: 'JSB King Heavy',
                   keyboardType: TextInputType.text,
                   maxLength: 100,
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_ammoBrandError, ammoBrand),
-                ),
-                MenzilInput(
-                  key: const Key('ammo-model'),
-                  controller: ammoModel,
-                  label: 'Model',
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_ammoModelError, ammoModel),
                 ),
                 if (platform == WeaponPlatform.pcp)
                   MenzilSelect<AmmunitionType>(

@@ -367,7 +367,8 @@ void main() {
     expect(saved.muzzleVelocityMps, closeTo(274.32, 1e-9));
     expect(saved.zeroRangeM, 25);
     expect(saved.sightHeightMm, 60);
-    expect(saved.pressureBar, 120, reason: 'PCP pressure = regulator');
+    // Regülatör basıncı is not asked any more (owner, 2026-10-09).
+    expect(saved.pressureBar, isNull);
     expect(find.text('Yeni Profil'), findsOneWidget);
     // The rifle became a personal record with every typed value.
     final rifle = CatalogRepository.allRifles.singleWhere(
@@ -377,10 +378,10 @@ void main() {
     expect(rifle.brand, 'Test Marka');
     expect(rifle.model, 'Test Model');
     expect(rifle.caliberMm, 6.35);
-    expect(rifle.barrelLengthMm, 600);
+    expect(rifle.barrelLengthMm, isNull); // not asked since 2026-10-09
     expect(rifle.twistDirection, TwistDirection.right);
     expect(rifle.twistRateIn, 16);
-    expect(rifle.regulatorBar, 120);
+    expect(rifle.regulatorBar, isNull);
     final scope = CatalogRepository.allScopes.singleWhere(
       (o) => o.id == saved.scopeId,
     );

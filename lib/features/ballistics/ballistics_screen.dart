@@ -280,8 +280,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
     _loadUnitPreference();
     // Solve the profile as soon as the workspace opens, so the scope's
-    // reticle, hold labels and point of impact work without a manual
-    // "Hesapla" first. The fields are still SI here; a later switch to
+    // reticle, hold labels and point of impact are ready at once. The fields are still SI here; a later switch to
     // imperial only converts the fields, the stored basis stays SI.
     // Failures stay silent (the shot view says why).
     if (widget.view == BallisticsView.environment) _maybeAutoWeather();
@@ -407,11 +406,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         final typedAlt = double.tryParse(
           altitude.text.trim().replaceAll(',', '.'),
         );
-        final altM =
-            gpsAlt ??
-            (_userEdited.contains(altitude) && typedAlt != null
-                ? (metric ? typedAlt : UnitSystem.feetToMeters(typedAlt))
-                : null);
+        // A typed altitude wins over GPS: it is the one shown in the field,
+        // so the pressure must be converted with it too.
+        final altM = _userEdited.contains(altitude) && typedAlt != null
+            ? (metric ? typedAlt : UnitSystem.feetToMeters(typedAlt))
+            : gpsAlt;
         String pressureNote;
         if (obs.pressureKind == PressureKind.station) {
           put(pressure, _pressureText(obs.pressureHpa));
@@ -1307,22 +1306,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     BuildContext context, {
     required bool collapseShotInputs,
   }) {
+    // Only the full "Balistik / DOPE" view shows (and edits) these; the
+    // shell takes them from Profil.
     final shotInputs = MenzilFieldGrid(
       children: [
         MenzilInput(
           key: BallisticsFieldKeys.velocity,
-          // In the shell these come from Profil and are read-only here:
-          // the profile is the single source of the solver inputs.
-          enabled: !collapseShotInputs,
           controller: velocity,
           label: 'Namlu çıkış hızı',
           unit: 'fps',
         ),
         MenzilInput(
           key: BallisticsFieldKeys.grain,
-          // In the shell these come from Profil and are read-only here:
-          // the profile is the single source of the solver inputs.
-          enabled: !collapseShotInputs,
           controller: grain,
           label: 'Mühimmat ağırlığı',
           unit: 'grain',
@@ -1330,18 +1325,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ),
         MenzilInput(
           key: BallisticsFieldKeys.zero,
-          // In the shell these come from Profil and are read-only here:
-          // the profile is the single source of the solver inputs.
-          enabled: !collapseShotInputs,
           controller: zero,
           label: 'Sıfır mesafesi',
           unit: metric ? 'm' : 'yd',
         ),
         MenzilInput(
           key: BallisticsFieldKeys.sight,
-          // In the shell these come from Profil and are read-only here:
-          // the profile is the single source of the solver inputs.
-          enabled: !collapseShotInputs,
           controller: sight,
           label: 'Sight height',
           unit: metric ? 'mm' : 'in',
@@ -1799,11 +1788,26 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Where Coriolis moves the impact at the shot range: (up, right) in
   /// metres, from two solves with and without it. Null when off/unknown.
+  // Last Coriolis effect and what it was computed for: the Pro page rebuilds
+  // on every keystroke, and each effect costs two full solves.
+  Object? _coriolisEffectKey;
+  ({double up, double right})? _coriolisEffectValue;
+
   ({double up, double right})? _coriolisEffect() {
     final basis = _basis;
     final args = _coriolisArgs;
     // The vacuum model has no Coriolis (nor wind): drag mode only.
     if (basis == null || args.lat == null || !_dragMode) return null;
+    final key = (basis, _shotRangeM, _inclineDeg, _cantDeg, args.lat, args.az);
+    if (key == _coriolisEffectKey) return _coriolisEffectValue;
+    _coriolisEffectKey = key;
+    return _coriolisEffectValue = _computeCoriolisEffect(basis, args);
+  }
+
+  ({double up, double right})? _computeCoriolisEffect(
+    _ShotBasis basis,
+    ({double? lat, double? az}) args,
+  ) {
     try {
       const engine = BallisticEngine();
       final base = engine
@@ -1878,7 +1882,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     _coriolisChanged();
   }
 
-  /// Tüfek eğimi and Dürbün eğimi, side by side under the range dial.
+  /// Tüfek eğimi and Dürbün eğimi, side by side (Pro Ayarlar).
   Widget _angleTiles(BuildContext context) {
     final c = MenzilColors.of(context);
     Widget tile({
@@ -2063,11 +2067,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       // No Hesapla button (owner, 2026-10-08): Atış is solved automatically
       // whenever it opens, with the Hava Durumu and Pro Ayarlar values.
       const SizedBox(height: MenzilSpace.xs),
-      // V354: elevation correction/clicks are shown from the vacuum (no-drag)
-      // drop, which is valid trigonometry (atan2(drop, range)) independent of
-      // the unvalidated G1/G7 drag model. Wind stays locked — a vacuum model
-      // has no aerodynamic coupling, so it cannot produce a real wind value
-      // (see BallisticEngine.vacuumDope's windMrad == 0.0 comment).
+      // Without a BC the shot uses the vacuum (no-drag) drop for elevation;
+      // wind stays locked — a vacuum model has no aerodynamic coupling, so
+      // it cannot produce a real wind value (see BallisticEngine.vacuumDope).
+      // With a BC the drag solver (checked against py-ballisticcalc in CI)
+      // gives both.
       Padding(
         padding: const EdgeInsets.only(bottom: MenzilSpace.md),
         child: _referenceShotPanel(shot),

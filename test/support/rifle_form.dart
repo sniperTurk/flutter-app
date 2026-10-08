@@ -1,5 +1,5 @@
 // Fills the profile editor's manual rifle form (Marka, Model, Kalibre, Namlu
-// uzunluğu, Namlu yiv yönü, Yiv oranı).
+// yiv yönü, Yiv oranı). Regülatör basıncı and Namlu uzunluğu are not asked.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -31,19 +31,13 @@ Future<void> fillRifleForm(
   String brand = 'Test Marka',
   String model = 'Test Model',
   String caliber = '6,35',
-  String barrel = '60',
   String twist = '16',
   String direction = 'Sağ',
-  String? regulator = '120',
 }) async {
   await enterRifleField(tester, 'rifle-brand', brand);
   await enterRifleField(tester, 'rifle-model', model);
   await enterRifleField(tester, 'rifle-caliber', caliber);
-  await enterRifleField(tester, 'rifle-barrel', barrel);
   await enterRifleField(tester, 'rifle-twist-rate', twist);
-  if (regulator != null) {
-    await enterRifleField(tester, 'rifle-regulator', regulator);
-  }
   await chooseTwistDirection(tester, direction);
 }
 
@@ -79,8 +73,8 @@ Future<void> fillAmmoForm(
   String bc = '0,08',
   String bcModel = 'G1',
 }) async {
-  await enterRifleField(tester, 'ammo-brand', brand);
-  await enterRifleField(tester, 'ammo-model', model);
+  // One "Marka Model" field since 2026-10-09.
+  await enterRifleField(tester, 'ammo-brand', '$brand $model');
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);
   await enterRifleField(tester, 'ammo-grain', grain);
   await enterRifleField(tester, 'ammo-bc', bc);

@@ -13,14 +13,21 @@ abstract final class ToolProfileUpdate {
     RifleProfile base, {
     double? muzzleVelocityMps,
     double? sightHeightMm,
-    double? pressureBar,
   }) {
     Rifle? rifle;
     for (final r in CatalogRepository.allRifles) {
       if (r.id == base.rifleId) rifle = r;
     }
+    Ammunition? ammo;
+    for (final a in CatalogRepository.allAmmunition) {
+      if (a.id == base.ammunitionId) ammo = a;
+    }
+    // Unresolved rifle: the ammunition says the platform; an older profile's
+    // pressure means PCP; otherwise firearm (whose pressure must be empty —
+    // a PCP profile without pressure validates the same way).
     final platform =
         rifle?.platform ??
+        ammo?.platform ??
         (base.pressureBar != null
             ? WeaponPlatform.pcp
             : WeaponPlatform.firearm);
@@ -31,7 +38,8 @@ abstract final class ToolProfileUpdate {
       zeroRangeText: base.zeroRangeM.toString(),
       sightHeightText: (sightHeightMm ?? base.sightHeightMm).toString(),
       platform: platform,
-      pressureText: (pressureBar ?? base.pressureBar)?.toString(),
+      // An older profile's pressure is kept as it was (no longer asked).
+      pressureText: base.pressureBar?.toString(),
       mountCantMoa: base.mountCantMoa,
     );
     return RifleProfile(

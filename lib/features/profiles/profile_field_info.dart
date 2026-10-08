@@ -8,9 +8,6 @@ abstract final class ProfileFieldInfo {
   static const caliber =
       'Namlunun iç çapı, milimetre olarak. Örnek: 5,5 mm (.22), '
       '6,35 mm (.25), 7,62 mm (.30). Mühimmatın kalibresi buradan alınır.';
-  static const barrelLength =
-      'Namlunun arka ucundan namlu ağzına kadar uzunluğu, santimetre olarak. '
-      'Susturucu veya moderatör dahil değildir. Tüfeğin teknik föyünde yazar.';
   static const twistDirection =
       'Namlunun içindeki yivlerin dönüş yönü. Namluya arkadan bakarken yivler '
       'saat yönünde dönüyorsa Sağ, tersiyse Sol. Namluların çoğu sağdır.';
@@ -18,10 +15,6 @@ abstract final class ProfileFieldInfo {
       'Merminin namlu içinde bir tam tur dönmesi için gereken namlu uzunluğu, '
       'inç olarak. 1:16 = her 16 inçte bir tur; buraya 16 yazılır. Sayı '
       'küçüldükçe dönüş hızlanır. Namlu üreticisinin föyünde yazar.';
-  static const regulator =
-      'PCP regülatörünün namluya gönderdiği sabit çalışma basıncı, bar olarak. '
-      'Tüp dolum basıncı değildir. Tüfeğin föyünde veya regülatör ayarında '
-      'yazar; örnek: 110–140 bar.';
 
   // Mühimmat
   static const ammoType =
@@ -57,11 +50,8 @@ abstract final class ProfileFieldInfo {
       '56.';
   static const scopeUnit =
       'Kulelerin ve retikülün açı birimi: MRAD (mil) veya MOA. Kulenin '
-      'üstünde veya dürbünün föyünde yazar.';
-  static const click =
-      'Kuleyi bir klik çevirince vuruş noktasının kaydığı açı. MRAD '
-      'dürbünlerde genelde 0,1; MOA dürbünlerde genelde 1/4 = 0,25. Kulenin '
-      'üstünde yazar.';
+      'üstünde veya dürbünün föyünde yazar. Bir klik buna göre alınır: '
+      'MRAD\'da 0,1, MOA\'da 1/4.';
   static const sightHeight =
       'Sight height: dürbünün merkez ekseni ile namlunun merkez ekseni '
       'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
@@ -74,10 +64,6 @@ abstract final class ProfileFieldInfo {
       'Kutuda yazar ya da kuleyi çevirip sayarsınız. Uzak atışta kule '
       'yetmezse uygulama bunu söyler. Bilmiyorsanız boş bırakın; hesap '
       'yine çalışır.';
-  static const windageTravel =
-      'Rüzgâr kulesinin (sağ kule) toplam ayar aralığı, dürbün biriminde. '
-      'Föyde "Total windage adjustment" diye yazar; çoğu dürbünde yükseklik '
-      'aralığıyla aynıdır. Örnek: 60 MOA veya 17 MRAD. Boş bırakılabilir.';
   static const mountCant =
       'Dürbün ayağının (montaj rayı veya ayarlı No Limit ayak) dürbüne '
       'verdiği eğim, MOA olarak. Normal düz ayakta "Normal (0 MOA)" seçin. '

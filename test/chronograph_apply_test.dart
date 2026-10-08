@@ -109,8 +109,12 @@ void main() {
   ) async {
     final store = await _store();
     await _openScreen(tester, store);
+    await tester.enterText(find.byKey(const Key('chrono-start-bar')), '200');
+    await tester.enterText(find.byKey(const Key('chrono-end-bar')), '180');
     await _addShots(tester, ['270', '272', '268']);
     await _tapApply(tester);
+    // No "write the pressure too" option any more, even with tank pressures.
+    expect(find.byKey(const Key('chrono-write-pressure')), findsNothing);
     // Uygula stays disabled until a profile is explicitly chosen.
     final apply = tester.widget<FilledButton>(
       find.widgetWithText(FilledButton, 'Uygula'),
@@ -131,33 +135,10 @@ void main() {
     expect(p.scopeId, _original.scopeId);
     expect(p.zeroRangeM, _original.zeroRangeM);
     expect(p.sightHeightMm, _original.sightHeightMm);
-    expect(p.pressureBar, 180, reason: 'pressure untouched without checkbox');
+    // Regülatör basıncı was removed (owner, 2026-10-09): the chronograph
+    // never writes a pressure; an older profile keeps its value.
+    expect(p.pressureBar, 180);
     expect(p.angularUnit, AngularUnit.moa);
-  });
-
-  testWidgets('pressure checkbox updates velocity AND pressure, nothing else', (
-    tester,
-  ) async {
-    final store = await _store();
-    await _openScreen(tester, store);
-    await tester.enterText(find.byKey(const Key('chrono-start-bar')), '200');
-    await tester.enterText(find.byKey(const Key('chrono-end-bar')), '180');
-    await _addShots(tester, ['270', '272', '268']);
-    await _tapApply(tester);
-    await tester.tap(find.text('Hercules akşam'));
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('chrono-write-pressure')));
-    await tester.pump();
-    await tester.tap(find.text('Uygula'));
-    await tester.pumpAndSettle();
-
-    final p = (await store.all()).single;
-    expect(p.muzzleVelocityMps, 270.0);
-    expect(p.pressureBar, 200);
-    expect(p.zeroRangeM, _original.zeroRangeM);
-    expect(p.sightHeightMm, _original.sightHeightMm);
-    expect(p.angularUnit, AngularUnit.moa);
-    expect(p.name, _original.name);
   });
 
   testWidgets('apply stays disabled below three shots', (tester) async {
