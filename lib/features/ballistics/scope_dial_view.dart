@@ -348,19 +348,20 @@ class ScopeDialView extends StatelessWidget {
       onChanged: onElevationChanged,
     );
     // Windage on the same top bar, mirrored so it reads "1L · 0 · 1R".
+    // Windage: a vertical drum on the right, R up / L down (ChairGun).
     final windageDrum = _TurretDrum(
       key: ScopeDialKeys.windageDrum,
-      axis: Axis.horizontal,
-      clicks: -windageClicks,
+      axis: Axis.vertical,
+      clicks: windageClicks,
       clickValue: clickValue,
       unitLabel: unitLabel,
       maxClicks: maxWindageClicks,
-      positiveLetter: 'L',
-      negativeLetter: 'R',
+      positiveLetter: 'R',
+      negativeLetter: 'L',
       semanticName: 'Rüzgâr kulesi',
-      positiveWord: 'sola',
-      negativeWord: 'sağa',
-      onChanged: (v) => onWindageChanged(-v),
+      positiveWord: 'sağa',
+      negativeWord: 'sola',
+      onChanged: onWindageChanged,
     );
 
     return LayoutBuilder(
@@ -373,10 +374,11 @@ class ScopeDialView extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _TurretBar(elevation: elevationDrum, windage: windageDrum),
-            const SizedBox(height: MenzilSpace.xs),
-            Center(
-              child: Semantics(
+            _TurretBar(
+              elevation: elevationDrum,
+              windage: windageDrum,
+              side: side,
+              reticle: Semantics(
                 label: _reticleSemantics(impact),
                 image: true,
                 child: SizedBox.square(
@@ -762,12 +764,20 @@ class ScopeDialView extends StatelessWidget {
 /// time. Horizontal drum: dragging right dials UP. Vertical drum: dragging
 /// down dials RIGHT — the numbers on the drum move toward the pointer the
 /// way a real turret's markings do.
-/// One turret bar on top of the scope, like field apps: the elevation drum,
-/// or — after tapping "L-R" — the windage drum sliding in from the right.
-/// Keeps the scope itself as large as the screen allows.
+/// Turrets around the scope, as in ChairGun: the elevation drum sits on top
+/// (its zero right above the reticle's vertical line); "L-R" slides the
+/// windage drum in from the right over the scope's right edge, its zero on
+/// the reticle's horizontal line. Tapping "L-R" again slides it away, so the
+/// scope keeps the whole width.
 class _TurretBar extends StatefulWidget {
-  final Widget elevation, windage;
-  const _TurretBar({required this.elevation, required this.windage});
+  final Widget elevation, windage, reticle;
+  final double side;
+  const _TurretBar({
+    required this.elevation,
+    required this.windage,
+    required this.reticle,
+    required this.side,
+  });
 
   @override
   State<_TurretBar> createState() => _TurretBarState();
@@ -776,65 +786,98 @@ class _TurretBar extends StatefulWidget {
 class _TurretBarState extends State<_TurretBar> {
   bool _windage = false;
 
+  static const double _drumWidth = 58;
+
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
-    // The drum's zero must sit exactly above the reticle's centre line: the
-    // reticle is centred in the full width, so the drum is too — an empty
-    // slot on the left balances the L-R button on the right.
-    return Row(
+    final side = widget.side;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(width: 52 + MenzilSpace.xs),
-        Expanded(
-          child: ClipRect(
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 260),
-              switchInCurve: Curves.easeOutCubic,
-              switchOutCurve: Curves.easeInCubic,
-              transitionBuilder: (child, animation) {
-                final incoming = child.key == ValueKey(_windage);
-                final begin = Offset(incoming ? 1 : -1, 0);
-                return SlideTransition(
-                  position: Tween(
-                    begin: begin,
-                    end: Offset.zero,
-                  ).animate(animation),
-                  child: child,
-                );
-              },
-              child: KeyedSubtree(
-                key: ValueKey(_windage),
-                child: _windage ? widget.windage : widget.elevation,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: MenzilSpace.xs),
-        Semantics(
-          button: true,
-          label: _windage ? 'Yükseklik kulesine geç' : 'Rüzgâr kulesine geç',
-          child: ExcludeSemantics(
-            child: SizedBox.square(
-              dimension: 52,
-              child: Material(
-                key: ScopeDialKeys.turretToggle,
-                color: c.cyan,
-                shape: const CircleBorder(),
-                child: InkWell(
-                  customBorder: const CircleBorder(),
-                  onTap: () => setState(() => _windage = !_windage),
-                  child: Center(
-                    child: Text(
-                      _windage ? 'U-D' : 'L-R',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15,
+        // An empty slot on the left balances the L-R button on the right,
+        // so the drum (and its zero) is centred over the reticle.
+        Row(
+          children: [
+            const SizedBox(width: 52 + MenzilSpace.xs),
+            Expanded(child: widget.elevation),
+            const SizedBox(width: MenzilSpace.xs),
+            Semantics(
+              button: true,
+              toggled: _windage,
+              label: _windage
+                  ? 'Rüzgâr kulesini gizle'
+                  : 'Rüzgâr kulesini göster',
+              child: ExcludeSemantics(
+                child: SizedBox.square(
+                  dimension: 52,
+                  child: Material(
+                    key: ScopeDialKeys.turretToggle,
+                    color: _windage ? c.ink : c.cyan,
+                    shape: const CircleBorder(),
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () => setState(() => _windage = !_windage),
+                      child: const Center(
+                        child: Text(
+                          'L-R',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
+            ),
+          ],
+        ),
+        const SizedBox(height: MenzilSpace.xs),
+        Center(
+          child: SizedBox.square(
+            dimension: side,
+            child: Stack(
+              children: [
+                Positioned.fill(child: widget.reticle),
+                // Windage drum over the right edge, vertically centred on
+                // the reticle so its zero meets the horizontal line.
+                Positioned(
+                  right: 0,
+                  top: side * 0.18,
+                  bottom: side * 0.18,
+                  width: _drumWidth,
+                  child: ClipRect(
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 260),
+                      switchInCurve: Curves.easeOutCubic,
+                      switchOutCurve: Curves.easeInCubic,
+                      transitionBuilder: (child, animation) => SlideTransition(
+                        position: Tween(
+                          begin: const Offset(1, 0),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
+                      ),
+                      child: _windage
+                          ? DecoratedBox(
+                              key: const ValueKey('windage-open'),
+                              decoration: BoxDecoration(
+                                color: c.surface2,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: c.line),
+                              ),
+                              child: widget.windage,
+                            )
+                          : const SizedBox.shrink(
+                              key: ValueKey('windage-closed'),
+                            ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
