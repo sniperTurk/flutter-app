@@ -130,7 +130,18 @@ void main() {
 
   group('profile value', () {
     test('only the listed mounts are accepted', () {
-      expect(ProductionLimits.mountCantOptionsMoa, [0, 15, 20, 30, 45, 60, 90]);
+      // 10 and 40 MOA added on the owner's request (2026-10-08).
+      expect(ProductionLimits.mountCantOptionsMoa, [
+        0,
+        10,
+        15,
+        20,
+        30,
+        40,
+        45,
+        60,
+        90,
+      ]);
       ProfileInput input(double moa) => ProfileInput.validate(
         name: 'Bir',
         muzzleVelocityText: '270',
@@ -141,7 +152,9 @@ void main() {
       );
       expect(input(0).mountCantMoa, 0);
       expect(input(60).mountCantMoa, 60);
-      for (final bad in const [-1.0, 40.0, 120.0, double.nan]) {
+      expect(input(10).mountCantMoa, 10);
+      expect(input(40).mountCantMoa, 40);
+      for (final bad in const [-1.0, 25.0, 120.0, double.nan]) {
         expect(() => input(bad), throwsFormatException, reason: '$bad');
       }
     });
@@ -155,7 +168,7 @@ void main() {
       final legacy = Map<String, dynamic>.of(json)..remove('mountCantMoa');
       expect(codec.decode(legacy).mountCantMoa, 0);
 
-      for (final bad in <Object>[-5, 40, 500, 'sixty', double.nan]) {
+      for (final bad in <Object>[-5, 25, 500, 'sixty', double.nan]) {
         expect(
           () => codec.decode(Map.of(json)..['mountCantMoa'] = bad),
           throwsFormatException,
@@ -389,11 +402,11 @@ void main() {
       expect(w, isNot(contains('en az')));
 
       // Half travel 120 clicks = 30 MOA: 7.75 MOA missing → 8 MOA, and the
-      // smallest listed mount that fits is 15 MOA.
+      // smallest listed mount that fits is 10 MOA.
       await tester.pumpWidget(_view(requiredUp: 37.8, up: 120, half: 120));
       final ok = _note(tester, ScopeDialKeys.travelNote);
       expect(ok, contains('en az 8 MOA dürbün ayağı gerekir'));
-      expect(ok, contains('listeden: 15 MOA'));
+      expect(ok, contains('listeden: 10 MOA'));
     });
   });
 }

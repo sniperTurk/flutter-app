@@ -625,7 +625,7 @@ class _ActiveProfileDetails extends StatelessWidget {
               ),
             if ((scope?.elevationRangeMrad ?? 0) > 0)
               MenzilMetric(
-                'Kule aralığı',
+                'Kule ayar aralığı',
                 _trimNum(
                   ((scope!.clickUnit == AngularUnit.moa
                                   ? Units.mradToMoa(scope.elevationRangeMrad!)
@@ -763,9 +763,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController scopeObjective;
   late final TextEditingController scopeClick;
 
-  /// Total turret travel (elevation / windage) in [angularUnit]; optional.
+  /// "Üst kule klik sayısı": total clicks of the top turret; optional. The
+  /// side turret's travel is not asked (owner: it is not needed).
   late final TextEditingController scopeTravelElevation;
-  late final TextEditingController scopeTravelWindage;
 
   /// true = FFP, false = SFP, null = not chosen yet.
   bool? firstFocalPlane;
@@ -845,14 +845,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           : num(_defaultClick(angularUnit)),
     );
     firstFocalPlane = s0?.firstFocalPlane;
-    String travel(double? mrad) => mrad == null || mrad <= 0
-        ? ''
-        : _trimTravel(_fromMrad(mrad, angularUnit));
+    // "Üst kule klik sayısı": total clicks from end to end of the top
+    // turret, recovered from the stored travel and the scope's click value.
+    String travel(double? mrad) {
+      if (mrad == null || mrad <= 0 || s0 == null) return '';
+      final clicks = _fromMrad(mrad, s0.clickUnit) / s0.clickValue;
+      return clicks.round().toString();
+    }
+
     scopeTravelElevation = TextEditingController(
       text: travel(s0?.elevationRangeMrad),
-    );
-    scopeTravelWindage = TextEditingController(
-      text: travel(s0?.windageRangeMrad),
     );
     final a0 = ammo;
     ammoBrand = TextEditingController(text: a0?.brand ?? '');
@@ -921,8 +923,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_maxMagError == null, 'Maks. büyütme'),
       (_objectiveError == null, 'Mercek çapı'),
       (_clickError == null, 'Klik değeri'),
-      (_travelError(scopeTravelElevation) == null, 'Kule aralığı (yükseklik)'),
-      (_travelError(scopeTravelWindage) == null, 'Kule aralığı (rüzgâr)'),
+      (_travelError(scopeTravelElevation) == null, 'Üst kule klik sayısı'),
       (_validSight, 'Sight height'),
     ]);
     section('Mühimmat', [
@@ -953,7 +954,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeObjective.dispose();
     scopeClick.dispose();
     scopeTravelElevation.dispose();
-    scopeTravelWindage.dispose();
     ammoBrand.dispose();
     ammoModel.dispose();
     ammoGrain.dispose();
@@ -977,9 +977,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return '$name · +$clicks klik';
   }
 
+  /// Total travel in mrad from a typed click count (clicks × click value).
   double? _travelMrad(TextEditingController c) {
-    final v = _parse(c);
-    return v == null || v <= 0 ? null : _toMrad(v, angularUnit);
+    final clicks = _parse(c);
+    final click = _parse(scopeClick);
+    if (clicks == null || clicks <= 0 || click == null || click <= 0) {
+      return null;
+    }
+    return _toMrad(clicks * click, angularUnit);
   }
 
   bool get _validSight {
@@ -1055,9 +1060,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Turret travel is optional; when typed it must be plausible.
   String? _travelError(TextEditingController c) {
     if (c.text.trim().isEmpty) return null;
-    return angularUnit == AngularUnit.moa
-        ? _rangeError(c, 3, 400)
-        : _rangeError(c, 1, 120);
+    final v = _parse(c);
+    if (v != null && v != v.roundToDouble()) return 'Tam sayı girin.';
+    return _rangeError(c, 10, 3000);
   }
 
   static double _toMrad(double v, AngularUnit u) =>
@@ -1065,12 +1070,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   static double _fromMrad(double v, AngularUnit u) =>
       u == AngularUnit.moa ? Units.mradToMoa(v) : v;
 
-  /// Rounded to 0.1 so a MOA ↔ MRAD switch shows tidy numbers.
-  static String _trimTravel(double v) => _trimNum((v * 10).round() / 10);
-
   bool get _scopeValid =>
       _travelError(scopeTravelElevation) == null &&
-      _travelError(scopeTravelWindage) == null &&
       _scopeBrandError == null &&
       _minMagError == null &&
       _maxMagError == null &&
@@ -1194,8 +1195,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       // Total turret travel in mrad (optional). Windage defaults to the
       // elevation travel, as on most spec sheets.
       'elevationRangeMrad': _travelMrad(scopeTravelElevation),
-      'windageRangeMrad':
-          _travelMrad(scopeTravelWindage) ?? _travelMrad(scopeTravelElevation),
       'sourceName': userCatalogSourceName,
     };
   }
@@ -1637,18 +1636,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     if (click == null || click == _defaultClick(angularUnit)) {
                       scopeClick.text = _trimNum(_defaultClick(next));
                     }
-                    // Typed travel keeps its angle in the new unit.
-                    for (final t in [
-                      scopeTravelElevation,
-                      scopeTravelWindage,
-                    ]) {
-                      final v = _parse(t);
-                      if (v != null && next != angularUnit) {
-                        t.text = _trimTravel(
-                          _fromMrad(_toMrad(v, angularUnit), next),
-                        );
-                      }
-                    }
                     angularUnit = next;
                   }),
                 ),
@@ -1666,21 +1653,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   key: const Key('scope-travel-elevation'),
                   info: ProfileFieldInfo.elevationTravel,
                   controller: scopeTravelElevation,
-                  label: 'Kule ayar aralığı (yükseklik)',
-                  unit: angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
-                  helperText: 'Toplam aralık; föyde yazar. Boş bırakılabilir.',
+                  label: 'Üst kule klik sayısı',
+                  unit: 'klik',
+                  keyboardType: TextInputType.number,
+                  helperText:
+                      'Baştan sona toplam klik. Bilmiyorsanız boş bırakın.',
                   onChanged: (_) => setState(() {}),
                   errorText: _travelError(scopeTravelElevation),
-                ),
-                MenzilInput(
-                  key: const Key('scope-travel-windage'),
-                  info: ProfileFieldInfo.windageTravel,
-                  controller: scopeTravelWindage,
-                  label: 'Kule ayar aralığı (rüzgâr)',
-                  unit: angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
-                  helperText: 'Boşsa yükseklik aralığı kullanılır.',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _travelError(scopeTravelWindage),
                 ),
                 MenzilInput(
                   key: const Key('scope-sight-height'),

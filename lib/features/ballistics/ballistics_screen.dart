@@ -812,10 +812,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       mountCantClicks: mountClicks,
       travelKnown: (s.elevationRangeMrad ?? 0) > 0,
       halfElevationClicks: halfUp,
+      // The side turret's limit only matters for the drum; it is never
+      // asked on Profil, so without catalog data the drum turns freely.
       maxWindageClicks:
-          _halfTravelClicks(click, s.windageRangeMrad) ??
-          _halfTravelClicks(click, s.elevationRangeMrad) ??
-          _unknownTravelClicks,
+          _halfTravelClicks(click, s.windageRangeMrad) ?? _unknownTravelClicks,
       onElevationChanged: (v) => setState(() => _elevationClicks = v),
       onWindageChanged: (v) => setState(() => _windageClicks = v),
       requiredUp: requiredUp,
