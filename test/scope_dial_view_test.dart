@@ -170,7 +170,11 @@ void main() {
       ),
     );
     expect(find.textContaining('Profilde dürbün birimi MOA'), findsOneWidget);
-    expect(find.textContaining('MOA dürbün)'), findsWidgets);
+    // The turret readout counts in MOA (the elevation box is gone).
+    expect(
+      tester.widget<Text>(find.textContaining('Kule:')).data,
+      contains('MOA)'),
+    );
     expect(find.byKey(ScopeDialKeys.workings), findsOneWidget);
     expect(find.textContaining('/ 0.25 ='), findsOneWidget);
   });
