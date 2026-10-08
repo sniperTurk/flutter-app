@@ -159,8 +159,10 @@ void main() {
     await tester.pump();
     await tester.pump();
 
-    // No warning banner; the note only states the calibration status.
+    // No warning banner; an explanatory guide says why and how instead.
     expect(find.byKey(const Key('level-calibration-hint')), findsNothing);
+    expect(find.byKey(const Key('level-calibration-guide')), findsOneWidget);
+    expect(find.textContaining('180° çevirip'), findsWidgets);
     expect(
       tester.widget<Text>(find.byKey(const Key('level-pose'))).data,
       contains('kalibre değil'),
@@ -210,7 +212,65 @@ void main() {
       contains('kalibre'),
     );
     expect(find.text('Seviyede'), findsOneWidget);
+    // Calibrated: the guide is gone.
+    expect(find.byKey(const Key('level-calibration-guide')), findsNothing);
     expect((await store.load())['flat'], isNotNull);
+
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pump();
+  });
+
+  testWidgets('"Daha sonra" hides the guide for this visit', (tester) async {
+    tester.view.physicalSize = const Size(430, 932);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final tilt = TestTilt();
+    await tester.pumpWidget(
+      host(
+        const LevelScreen(),
+        services: testServices(
+          tilt: tilt,
+          levelCalibration: InMemoryLevelCalibrationStore(),
+        ),
+      ),
+    );
+    await tester.pump();
+    tilt.controller.add(TiltAvailable(_tilted(0.2, 0.1)));
+    await tester.pump();
+    await tester.pump();
+    expect(find.byKey(const Key('level-calibration-guide')), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('level-guide-later')));
+    await tester.pump();
+    expect(find.byKey(const Key('level-calibration-guide')), findsNothing);
+
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pump();
+  });
+
+  testWidgets('"Kalibre et" opens the numbered steps', (tester) async {
+    tester.view.physicalSize = const Size(430, 932);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final tilt = TestTilt();
+    await tester.pumpWidget(
+      host(
+        const LevelScreen(),
+        services: testServices(
+          tilt: tilt,
+          levelCalibration: InMemoryLevelCalibrationStore(),
+        ),
+      ),
+    );
+    await tester.pump();
+    tilt.controller.add(TiltAvailable(_tilted(0.2, 0.1)));
+    await tester.pump();
+    await tester.pump();
+
+    await tester.tap(find.byKey(const Key('level-guide-start')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('level-calibrate-normal')), findsOneWidget);
+    expect(find.textContaining('çubuk dolana kadar'), findsOneWidget);
 
     await tester.pumpWidget(const SizedBox.shrink());
     await tester.pump();

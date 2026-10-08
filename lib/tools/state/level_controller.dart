@@ -28,6 +28,7 @@ class LevelController extends ChangeNotifier {
     double? smoothing,
     this.calibrationSamples = 100,
     this.calibrationSettleSamples = 15,
+    this.displayDeadbandDeg = 0.05,
   }) : _filter = smoothing == null
            ? GravityFilter.adaptive()
            : GravityFilter(alpha: smoothing);
@@ -36,6 +37,17 @@ class LevelController extends ChangeNotifier {
   /// game rate) and samples skipped first to let the tap settle.
   final int calibrationSamples;
   final int calibrationSettleSamples;
+
+  /// The shown angles only move once the filtered reading is this far from
+  /// what is on screen. Sensor noise of a few hundredths of a degree then no
+  /// longer flickers the 0.01° read-out or nudges the bubbles; a real change
+  /// of this size or more shows at once. 0 disables it.
+  final double displayDeadbandDeg;
+  double? _shownX, _shownY;
+
+  /// Forgets the shown value so the next read shows the live one exactly
+  /// (used after a reference, calibration or pose change).
+  void _resetShown() => _shownX = _shownY = null;
 
   StillAverager? _averager;
   bool _averagerFlipped = false;
@@ -103,9 +115,30 @@ class LevelController extends ChangeNotifier {
 
   /// Angles shown to the user: raw, minus this mode's flip-calibration bias
   /// (if any), minus the single-point reference offset (if any).
+  ///
+  /// Each axis follows the live value through a [displayDeadbandDeg] dead
+  /// band, so a still phone shows a still number.
   TiltAngles? get angles {
     if (_locked && _lockedAngles != null) return _lockedAngles;
-    return liveAngles;
+    _followShown(liveAngles);
+    final x = _shownX, y = _shownY;
+    return x == null || y == null ? null : TiltAngles(x, y);
+  }
+
+  /// Moves each shown axis to [live] only once it is [displayDeadbandDeg]
+  /// away. Called for every sensor sample and on every read, so the band
+  /// works the same whether or not the screen happened to repaint.
+  void _followShown(TiltAngles? live) {
+    if (live == null) {
+      _resetShown();
+      return;
+    }
+    double follow(double? shown, double now) =>
+        (shown == null || (now - shown).abs() >= displayDeadbandDeg)
+        ? now
+        : shown;
+    _shownX = follow(_shownX, live.xDeg);
+    _shownY = follow(_shownY, live.yDeg);
   }
 
   /// Same as [angles] but never frozen by the lock.
@@ -153,6 +186,7 @@ class LevelController extends ChangeNotifier {
         continue;
       }
       _calibration[mode] = FlipCalibration.restored(TiltAngles(b.xDeg, b.yDeg));
+      _resetShown();
       changed = true;
     }
     if (changed) notifyListeners();
@@ -180,6 +214,7 @@ class LevelController extends ChangeNotifier {
         _unavailable = null;
         if (_autoMode) _followPose(gravity);
         _gravity = _filter.add(gravity);
+        _followShown(liveAngles);
         _feedAverager(gravity);
       case TiltUnavailable(:final reason):
         _finishCapture(false);
@@ -217,6 +252,7 @@ class LevelController extends ChangeNotifier {
   }
 
   void _switchMode(TiltMode m) {
+    _resetShown();
     // A reading half taken flat must not be completed upright.
     _finishCapture(false);
     _mode = m;
@@ -233,7 +269,8 @@ class LevelController extends ChangeNotifier {
       _locked = false;
       _lockedAngles = null;
     } else {
-      final a = liveAngles;
+      // Freeze exactly what is on screen (dead-banded), not the live value.
+      final a = angles;
       if (a == null) return;
       _locked = true;
       _lockedAngles = a;
@@ -248,6 +285,7 @@ class LevelController extends ChangeNotifier {
   }
 
   void setMode(TiltMode m) {
+    _resetShown();
     _autoMode = false;
     if (m == _mode) return;
     _mode = m;
@@ -280,6 +318,7 @@ class LevelController extends ChangeNotifier {
 
   /// Takes the current raw angles as the reference zero.
   void setReferenceHere() {
+    _resetShown();
     final raw = rawAngles;
     if (raw == null) return;
     _offset = raw;
@@ -287,6 +326,7 @@ class LevelController extends ChangeNotifier {
   }
 
   void clearReference() {
+    _resetShown();
     _offset = null;
     if (!_disposed) notifyListeners();
   }
@@ -362,6 +402,7 @@ class LevelController extends ChangeNotifier {
     final existing = _calibration[_mode] ?? const FlipCalibration();
     final next = flipped ? existing.withFlipped(raw) : existing.withNormal(raw);
     _calibration[_mode] = next;
+    _resetShown();
     if (!_disposed) notifyListeners();
     // Only a complete NEW pair replaces what is stored; a half-finished
     // recalibration leaves the saved bias alone.
@@ -372,11 +413,13 @@ class LevelController extends ChangeNotifier {
 
   void clearCalibration(TiltMode mode) {
     _calibration[mode] = const FlipCalibration();
+    _resetShown();
     if (!_disposed) notifyListeners();
     unawaited(_persist(mode));
   }
 
   void clearAllCalibration() {
+    _resetShown();
     _calibration[TiltMode.flat] = const FlipCalibration();
     _calibration[TiltMode.upright] = const FlipCalibration();
     if (!_disposed) notifyListeners();
