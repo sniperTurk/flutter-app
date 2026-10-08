@@ -6,6 +6,7 @@
 // 1/4 MOA scope).
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sniper_turk/core/production_limits.dart';
 import 'package:sniper_turk/core/profile_input.dart';
 import 'package:sniper_turk/core/scope_dial.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
@@ -126,18 +127,20 @@ void main() {
   });
 
   group('profile value', () {
-    test('empty is a normal mount; bounds are enforced', () {
-      expect(ProfileInput.parseMountCant(''), 0);
-      expect(ProfileInput.parseMountCant('  '), 0);
-      expect(ProfileInput.parseMountCant('60'), 60);
-      expect(ProfileInput.parseMountCant('45,5'), 45.5);
-      expect(ProfileInput.parseMountCant('0'), 0);
-      for (final bad in const ['-1', '121', 'abc', 'NaN']) {
-        expect(
-          () => ProfileInput.parseMountCant(bad),
-          throwsFormatException,
-          reason: bad,
-        );
+    test('only the listed mounts are accepted', () {
+      expect(ProductionLimits.mountCantOptionsMoa, [0, 15, 20, 30, 45, 60, 90]);
+      ProfileInput input(double moa) => ProfileInput.validate(
+        name: 'Bir',
+        muzzleVelocityText: '270',
+        zeroRangeText: '25',
+        sightHeightText: '60',
+        platform: WeaponPlatform.firearm,
+        mountCantMoa: moa,
+      );
+      expect(input(0).mountCantMoa, 0);
+      expect(input(60).mountCantMoa, 60);
+      for (final bad in const [-1.0, 40.0, 120.0, double.nan]) {
+        expect(() => input(bad), throwsFormatException, reason: '$bad');
       }
     });
 
@@ -150,7 +153,7 @@ void main() {
       final legacy = Map<String, dynamic>.of(json)..remove('mountCantMoa');
       expect(codec.decode(legacy).mountCantMoa, 0);
 
-      for (final bad in <Object>[-5, 500, 'sixty', double.nan]) {
+      for (final bad in <Object>[-5, 40, 500, 'sixty', double.nan]) {
         expect(
           () => codec.decode(Map.of(json)..['mountCantMoa'] = bad),
           throwsFormatException,
@@ -280,7 +283,7 @@ void main() {
     });
   });
 
-  testWidgets('Profil: "Dürbün ayağı" is typed in MOA and explained', (
+  testWidgets('Profil: "Dürbün ayağı" is picked from a list with ready clicks', (
     tester,
   ) async {
     tester.view.physicalSize = const Size(430, 2400) * 3;
@@ -300,8 +303,12 @@ void main() {
 
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
-    final field = find.byKey(const Key('scope-mount-cant'));
+    final field = find.byKey(
+      const ValueKey('scope-mount-cant-mrad-0.1'),
+      skipOffstage: false,
+    );
     expect(field, findsOneWidget);
+    await tester.ensureVisible(field);
     expect(
       find.descendant(
         of: field,
@@ -309,20 +316,27 @@ void main() {
       ),
       findsWidgets,
     );
-    final input = find.descendant(of: field, matching: find.byType(TextField));
-    expect(tester.widget<TextField>(input).controller!.text, isEmpty);
-
-    await tester.enterText(input, '150');
-    await tester.pump();
+    // A new profile starts on a normal mount.
     expect(
-      find.descendant(of: field, matching: find.textContaining('0–120 MOA')),
+      find.descendant(of: field, matching: find.text('Normal (0 MOA)')),
       findsOneWidget,
     );
-    await tester.enterText(input, '60');
-    await tester.pump();
+    // No free typing: the box is a dropdown, not a text field.
     expect(
-      find.descendant(of: field, matching: find.textContaining('0–120 MOA')),
+      find.descendant(of: field, matching: find.byType(TextField)),
       findsNothing,
+    );
+
+    // Each choice already shows its click gain for the 0.1 mrad default.
+    await tester.tap(find.text('Normal (0 MOA)'));
+    await tester.pumpAndSettle();
+    expect(find.text('30 MOA · +87 klik').last, findsOneWidget);
+    expect(find.text('60 MOA · +174 klik').last, findsOneWidget);
+    await tester.tap(find.text('60 MOA · +174 klik').last);
+    await tester.pumpAndSettle();
+    expect(
+      find.descendant(of: field, matching: find.text('60 MOA · +174 klik')),
+      findsOneWidget,
     );
   });
 }

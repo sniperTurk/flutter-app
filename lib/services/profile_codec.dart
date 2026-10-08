@@ -83,9 +83,7 @@ class ProfileCodec {
     if (cant == null) {
       mountCantMoa = 0;
     } else if (cant is num &&
-        cant.toDouble().isFinite &&
-        cant >= 0 &&
-        cant.toDouble() <= ProductionLimits.maxMountCantMoa) {
+        ProductionLimits.mountCantOptionsMoa.contains(cant.toDouble())) {
       mountCantMoa = cant.toDouble();
     } else {
       throw const FormatException('Invalid profile field: mountCantMoa');

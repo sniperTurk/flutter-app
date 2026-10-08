@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/production_limits.dart';
 import '../../core/profile_input.dart';
+import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/user_catalog.dart';
@@ -766,7 +767,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController velocity;
   late final TextEditingController zero;
   late final TextEditingController sight;
-  late final TextEditingController mountCant;
+  /// Dürbün ayağı in MOA, picked from [ProductionLimits.mountCantOptionsMoa].
+  late double mountCant;
   String? validationError;
   late AngularUnit angularUnit;
 
@@ -848,10 +850,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // user's data (owner, 2026-10-07: "250 m/s nereden geliyor?").
     zero = TextEditingController(text: p == null ? '' : num(p.zeroRangeM));
     sight = TextEditingController(text: p == null ? '' : num(p.sightHeightMm));
-    // Empty = normal mount (0 MOA); old profiles have no value.
-    mountCant = TextEditingController(
-      text: p == null || p.mountCantMoa == 0 ? '' : num(p.mountCantMoa),
-    );
+    // 0 = normal mount; old profiles have no value.
+    mountCant = p?.mountCantMoa ?? 0;
   }
 
   static String _fpsText(double mps) {
@@ -894,7 +894,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_objectiveError == null, 'Mercek çapı'),
       (_clickError == null, 'Klik değeri'),
       (_validSight, 'Sight height'),
-      (_mountCantError == null, 'Dürbün ayağı'),
     ]);
     section('Mühimmat', [
       (_ammoBrandError == null, 'Marka'),
@@ -931,19 +930,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     velocity.dispose();
     zero.dispose();
     sight.dispose();
-    mountCant.dispose();
     super.dispose();
   }
 
-  /// Empty (normal mount) or 0–120 MOA.
-  String? get _mountCantError {
-    try {
-      ProfileInput.parseMountCant(mountCant.text);
-      return null;
-    } on FormatException {
-      return '0–${ProductionLimits.maxMountCantMoa.toStringAsFixed(0)} MOA '
-          'arasında bir değer girin.';
-    }
+  /// One Dürbün ayağı choice with its ready click gain for the scope as
+  /// entered now ("60 MOA · +240 klik"); just the angle while the click
+  /// value is not valid yet.
+  String _mountLabel(double moa) {
+    if (moa == 0) return 'Normal (0 MOA)';
+    final name = '${_trimNum(moa)} MOA';
+    final click = _parse(scopeClick);
+    if (click == null || !click.isFinite || click <= 0) return name;
+    final clicks = ScopeDialMath.mountCantClicks(moa, click, angularUnit);
+    return '$name · +$clicks klik';
   }
 
   bool get _validSight {
@@ -1174,7 +1173,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         // V380: the PCP profile pressure is the rifle's regulator pressure
         // (the separate "Atış basıncı" field was redundant).
         pressureText: rifleRegulator.text,
-        mountCantText: mountCant.text,
+        mountCantMoa: mountCant,
       );
     } on FormatException catch (e) {
       setState(() => validationError = e.message);
@@ -1603,16 +1602,27 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       ? '0–300 mm arasında geçerli bir değer girin.'
                       : null,
                 ),
-                MenzilInput(
-                  key: const Key('scope-mount-cant'),
+                MenzilSelect<double>(
+                  // Rebuilt when the click value/unit changes so every
+                  // choice shows its ready click gain.
+                  key: ValueKey(
+                    'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
+                  ),
                   info: ProfileFieldInfo.mountCant,
-                  controller: mountCant,
                   label: 'Dürbün ayağı',
                   unit: 'MOA',
-                  hintText: 'Normal',
-                  helperText: 'Normal ayak için boş bırakın.',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _mountCantError,
+                  initialValue: mountCant,
+                  items: [
+                    for (final moa in ProductionLimits.mountCantOptionsMoa)
+                      DropdownMenuItem(
+                        value: moa,
+                        child: Text(
+                          _mountLabel(moa),
+                          key: Key('scope-mount-cant-${_trimNum(moa)}'),
+                        ),
+                      ),
+                  ],
+                  onChanged: (v) => setState(() => mountCant = v ?? 0),
                 ),
                 MenzilFullWidth(
                   child: Column(

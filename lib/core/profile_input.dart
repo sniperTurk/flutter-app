@@ -29,7 +29,7 @@ class ProfileInput {
     required String sightHeightText,
     required WeaponPlatform platform,
     String? pressureText,
-    String? mountCantText,
+    double mountCantMoa = 0,
   }) {
     final normalizedName = name.trim();
     if (normalizedName.isEmpty) {
@@ -54,6 +54,9 @@ class ProfileInput {
         'Dürbün eksen yüksekliği 300 mm’den küçük olmalıdır.',
       );
     }
+    if (!ProductionLimits.mountCantOptionsMoa.contains(mountCantMoa)) {
+      throw const FormatException('Dürbün ayağını listeden seçin.');
+    }
     double? pressure;
     if (platform == WeaponPlatform.pcp) {
       pressure = _boundedPositive(
@@ -68,26 +71,8 @@ class ProfileInput {
       zeroRangeM: zero,
       sightHeightMm: sight,
       pressureBar: pressure,
-      mountCantMoa: parseMountCant(mountCantText ?? ''),
+      mountCantMoa: mountCantMoa,
     );
-  }
-
-  /// Dürbün ayağı eğimi (MOA). Empty means a normal mount (0 MOA); a typed
-  /// value must be a number from 0 to [ProductionLimits.maxMountCantMoa].
-  static double parseMountCant(String text) {
-    final t = text.trim();
-    if (t.isEmpty) return 0;
-    final value = double.tryParse(t.replaceAll(',', '.'));
-    if (value == null ||
-        !value.isFinite ||
-        value < 0 ||
-        value > ProductionLimits.maxMountCantMoa) {
-      throw FormatException(
-        'Dürbün ayağı 0–${ProductionLimits.maxMountCantMoa.toStringAsFixed(0)} '
-        'MOA arasında olmalıdır (normal ayak için boş bırakın).',
-      );
-    }
-    return value;
   }
 
   static double _boundedPositive(String text, String label, double max) {
