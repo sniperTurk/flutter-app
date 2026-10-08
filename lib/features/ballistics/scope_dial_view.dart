@@ -19,6 +19,7 @@ abstract final class ScopeDialKeys {
   static const turretToggle = ValueKey('scope-turret-toggle');
   static const fitNote = ValueKey('scope-fit-note');
   static const travelNote = ValueKey('scope-travel-note');
+  static const mountNote = ValueKey('scope-mount-note');
   static const workings = ValueKey('scope-workings');
 }
 
@@ -36,7 +37,23 @@ class ScopeDialView extends StatelessWidget {
   final double clickValue;
   final int elevationClicks;
   final int windageClicks;
+
+  /// UP travel of the elevation turret from zero, in clicks (a canted
+  /// mount is already included).
   final int maxElevationClicks;
+
+  /// DOWN travel from zero, in clicks; null = same as [maxElevationClicks].
+  /// A canted mount takes its clicks from here.
+  final int? maxElevationDownClicks;
+
+  /// Slope of the scope mount (Dürbün ayağı) in MOA and the UP clicks it
+  /// adds; 0 for a normal mount.
+  final double mountCantMoa;
+  final int mountCantClicks;
+
+  /// True when the turret travel comes from the scope's catalog data (not
+  /// the generic fallback), so a mount size can be suggested.
+  final bool travelKnown;
   final int maxWindageClicks;
   final ValueChanged<int> onElevationChanged;
   final ValueChanged<int> onWindageChanged;
@@ -102,6 +119,10 @@ class ScopeDialView extends StatelessWidget {
     required this.elevationClicks,
     required this.windageClicks,
     required this.maxElevationClicks,
+    this.maxElevationDownClicks,
+    this.mountCantMoa = 0,
+    this.mountCantClicks = 0,
+    this.travelKnown = false,
     required this.maxWindageClicks,
     required this.onElevationChanged,
     required this.onWindageChanged,
@@ -183,6 +204,41 @@ class ScopeDialView extends StatelessWidget {
   /// Horizontal marks that carry crosswind labels, in reticle units.
   double get windStep => unit == AngularUnit.moa ? 4 : 1;
 
+  int get _downClicks => maxElevationDownClicks ?? maxElevationClicks;
+
+  static String _trim(double v) => v == v.roundToDouble()
+      ? v.toStringAsFixed(0)
+      : v.toStringAsFixed(1).replaceAll('.', ',');
+
+  /// Why the turret cannot reach [need] clicks, and what would help.
+  String _travelMessage(double req, int need) {
+    final up = need > 0;
+    final limit = up ? maxElevationClicks : _downClicks;
+    final mount = mountCantMoa > 0
+        ? ' (${_trim(mountCantMoa)} MOA dürbün ayağı dahil)'
+        : '';
+    final base =
+        'Kule yetmez: gereken ${need.abs()} klik '
+        '(${_fmt(req.abs())} $unitLabel), kulenin ${up ? 'yukarı' : 'aşağı'} '
+        'yolu $limit klik'
+        '${up ? mount : ''}. ';
+    if (!up) {
+      return '${base}Dürbün ayağının eğimi bu kısa mesafe için fazla; '
+          'retikülde tutuş yapın.';
+    }
+    if (!travelKnown) {
+      return '${base}Mesafeyi kısaltın veya retikülde tutuş yapın.';
+    }
+    // Extra mount slope that would cover the missing clicks.
+    final missing = (need - limit) * clickValue;
+    final missingMoa = unit == AngularUnit.moa
+        ? missing
+        : missing * 10800 / (math.pi * 1000);
+    final suggest = (mountCantMoa + missingMoa).ceil();
+    return '${base}Bu mesafe için en az $suggest MOA dürbün ayağı gerekir; '
+        'veya mesafeyi kısaltın ya da retikülde tutuş yapın.';
+  }
+
   static String _fmt(double v) {
     final r = v.abs() < 0.005 ? 0.0 : v;
     return r.toStringAsFixed(2);
@@ -246,6 +302,7 @@ class ScopeDialView extends StatelessWidget {
       clickValue: clickValue,
       unitLabel: unitLabel,
       maxClicks: maxElevationClicks,
+      maxNegativeClicks: _downClicks,
       positiveLetter: 'U',
       negativeLetter: 'D',
       semanticName: 'Yükseklik kulesi',
@@ -332,18 +389,31 @@ class ScopeDialView extends StatelessWidget {
                 ),
               ),
             if (req != null &&
-                ScopeDialMath.clicksFor(req, clickValue).abs() >
-                    maxElevationClicks)
+                (ScopeDialMath.clicksFor(req, clickValue) >
+                        maxElevationClicks ||
+                    ScopeDialMath.clicksFor(req, clickValue) < -_downClicks))
               Padding(
                 padding: const EdgeInsets.only(top: MenzilSpace.xs),
                 child: MenzilNotice(
                   key: ScopeDialKeys.travelNote,
                   tone: MenzilNoticeTone.warning,
+                  message: _travelMessage(
+                    req,
+                    ScopeDialMath.clicksFor(req, clickValue),
+                  ),
+                ),
+              ),
+            if (mountCantMoa > 0)
+              Padding(
+                padding: const EdgeInsets.only(top: MenzilSpace.xs),
+                child: MenzilNotice(
+                  key: ScopeDialKeys.mountNote,
+                  tone: MenzilNoticeTone.info,
                   message:
-                      'Kule yetmez: gereken ${_fmt(req.abs())} $unitLabel, '
-                      'kulenin bir yöndeki yolu '
-                      '${_fmt(maxElevationClicks * clickValue)} $unitLabel. '
-                      'Mesafeyi kısaltın veya retikülde tutuş yapın.',
+                      'Dürbün ayağı ${_trim(mountCantMoa)} MOA: kulede yukarı '
+                      '+$mountCantClicks klik ek yer (yukarı toplam '
+                      '$maxElevationClicks klik). Gereken klik sayısı '
+                      'değişmez; ayak yalnızca kuleye yer açar.',
                 ),
               ),
             if (hasZoom &&
@@ -375,10 +445,7 @@ class ScopeDialView extends StatelessWidget {
                             );
                             onElevationChanged(
                               clicks
-                                  .clamp(
-                                    -maxElevationClicks,
-                                    maxElevationClicks,
-                                  )
+                                  .clamp(-_downClicks, maxElevationClicks)
                                   .toInt(),
                             );
                             onWindageChanged(
@@ -727,6 +794,9 @@ class _TurretDrum extends StatefulWidget {
   final double clickValue;
   final String unitLabel;
   final int maxClicks;
+
+  /// Travel on the negative side; null = [maxClicks].
+  final int? maxNegativeClicks;
   final String positiveLetter, negativeLetter;
   final String semanticName, positiveWord, negativeWord;
   final ValueChanged<int> onChanged;
@@ -738,6 +808,7 @@ class _TurretDrum extends StatefulWidget {
     required this.clickValue,
     required this.unitLabel,
     required this.maxClicks,
+    this.maxNegativeClicks,
     required this.positiveLetter,
     required this.negativeLetter,
     required this.semanticName,
@@ -755,7 +826,12 @@ class _TurretDrumState extends State<_TurretDrum> {
   double _carry = 0;
 
   void _set(int value) {
-    final v = value.clamp(-widget.maxClicks, widget.maxClicks).toInt();
+    final v = value
+        .clamp(
+          -(widget.maxNegativeClicks ?? widget.maxClicks),
+          widget.maxClicks,
+        )
+        .toInt();
     if (v != widget.clicks) widget.onChanged(v);
   }
 

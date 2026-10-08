@@ -10,12 +10,16 @@ class ProfileInput {
   final double sightHeightMm;
   final double? pressureBar;
 
+  /// Built-in slope of the scope mount, in MOA (0 = normal mount).
+  final double mountCantMoa;
+
   const ProfileInput._({
     required this.name,
     required this.muzzleVelocityMps,
     required this.zeroRangeM,
     required this.sightHeightMm,
     required this.pressureBar,
+    this.mountCantMoa = 0,
   });
 
   factory ProfileInput.validate({
@@ -25,6 +29,7 @@ class ProfileInput {
     required String sightHeightText,
     required WeaponPlatform platform,
     String? pressureText,
+    double mountCantMoa = 0,
   }) {
     final normalizedName = name.trim();
     if (normalizedName.isEmpty) {
@@ -49,6 +54,9 @@ class ProfileInput {
         'Dürbün eksen yüksekliği 300 mm’den küçük olmalıdır.',
       );
     }
+    if (!ProductionLimits.mountCantOptionsMoa.contains(mountCantMoa)) {
+      throw const FormatException('Dürbün ayağını listeden seçin.');
+    }
     double? pressure;
     if (platform == WeaponPlatform.pcp) {
       pressure = _boundedPositive(
@@ -63,6 +71,7 @@ class ProfileInput {
       zeroRangeM: zero,
       sightHeightMm: sight,
       pressureBar: pressure,
+      mountCantMoa: mountCantMoa,
     );
   }
 

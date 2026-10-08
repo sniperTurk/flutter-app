@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/production_limits.dart';
 import '../../core/profile_input.dart';
+import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/user_catalog.dart';
@@ -158,6 +159,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       sightHeightMm: p.sightHeightMm,
       pressureBar: p.pressureBar,
       angularUnit: p.angularUnit,
+      mountCantMoa: p.mountCantMoa,
     );
     try {
       await store.save(copy);
@@ -580,6 +582,12 @@ class _ActiveProfileDetails extends StatelessWidget {
               'Dürbün birimi',
               profile.angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
             ),
+            if (profile.mountCantMoa > 0)
+              MenzilMetric(
+                'Dürbün ayağı',
+                _trimNum(profile.mountCantMoa),
+                'MOA',
+              ),
             if (rifle != null)
               MenzilMetric('Çap', rifle.caliberMm.toStringAsFixed(2), 'mm'),
             if (ammo != null)
@@ -759,6 +767,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController velocity;
   late final TextEditingController zero;
   late final TextEditingController sight;
+
+  /// Dürbün ayağı in MOA, picked from [ProductionLimits.mountCantOptionsMoa].
+  late double mountCant;
   String? validationError;
   late AngularUnit angularUnit;
 
@@ -840,6 +851,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // user's data (owner, 2026-10-07: "250 m/s nereden geliyor?").
     zero = TextEditingController(text: p == null ? '' : num(p.zeroRangeM));
     sight = TextEditingController(text: p == null ? '' : num(p.sightHeightMm));
+    // 0 = normal mount; old profiles have no value.
+    mountCant = p?.mountCantMoa ?? 0;
   }
 
   static String _fpsText(double mps) {
@@ -919,6 +932,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     zero.dispose();
     sight.dispose();
     super.dispose();
+  }
+
+  /// One Dürbün ayağı choice with its ready click gain for the scope as
+  /// entered now ("60 MOA · +240 klik"); just the angle while the click
+  /// value is not valid yet.
+  String _mountLabel(double moa) {
+    if (moa == 0) return 'Normal (0 MOA)';
+    final name = '${_trimNum(moa)} MOA';
+    final click = _parse(scopeClick);
+    if (click == null || !click.isFinite || click <= 0) return name;
+    final clicks = ScopeDialMath.mountCantClicks(moa, click, angularUnit);
+    return '$name · +$clicks klik';
   }
 
   bool get _validSight {
@@ -1149,6 +1174,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         // V380: the PCP profile pressure is the rifle's regulator pressure
         // (the separate "Atış basıncı" field was redundant).
         pressureText: rifleRegulator.text,
+        mountCantMoa: mountCant,
       );
     } on FormatException catch (e) {
       setState(() => validationError = e.message);
@@ -1205,6 +1231,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         sightHeightMm: input.sightHeightMm,
         pressureBar: input.pressureBar,
         angularUnit: angularUnit,
+        mountCantMoa: input.mountCantMoa,
       ),
     );
   }
@@ -1575,6 +1602,28 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   errorText: sight.text.isNotEmpty && !_validSight
                       ? '0–300 mm arasında geçerli bir değer girin.'
                       : null,
+                ),
+                MenzilSelect<double>(
+                  // Rebuilt when the click value/unit changes so every
+                  // choice shows its ready click gain.
+                  key: ValueKey(
+                    'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
+                  ),
+                  info: ProfileFieldInfo.mountCant,
+                  label: 'Dürbün ayağı',
+                  unit: 'MOA',
+                  initialValue: mountCant,
+                  items: [
+                    for (final moa in ProductionLimits.mountCantOptionsMoa)
+                      DropdownMenuItem(
+                        value: moa,
+                        child: Text(
+                          _mountLabel(moa),
+                          key: Key('scope-mount-cant-${_trimNum(moa)}'),
+                        ),
+                      ),
+                  ],
+                  onChanged: (v) => setState(() => mountCant = v ?? 0),
                 ),
                 MenzilFullWidth(
                   child: Column(

@@ -1,3 +1,4 @@
+import re
 import unittest
 from pathlib import Path
 
@@ -42,7 +43,20 @@ class InteractiveScopeDialContract(unittest.TestCase):
     def test_turret_travel_is_bounded_by_catalog_travel(self):
         self.assertIn('s.elevationRangeMrad', self.dial)
         self.assertIn('s.windageRangeMrad', self.dial)
-        self.assertIn('.clamp(-widget.maxClicks, widget.maxClicks)', self.view)
+        # V3xx: the DOWN side may be shorter (a canted "Dürbün ayağı"
+        # takes its clicks from it); null keeps the symmetric bound.
+        flat = re.sub(r'\s+', '', self.view)
+        self.assertIn(
+            '.clamp(-(widget.maxNegativeClicks??widget.maxClicks),widget.maxClicks',
+            flat,
+        )
+
+    def test_mount_cant_widens_up_travel_only(self):
+        # Dürbün ayağı: up = half travel + mount clicks, down = half - mount;
+        # the required correction itself is never changed by the mount.
+        self.assertIn('maxElevationClicks: halfUp + mountClicks', self.dial)
+        self.assertIn('math.max(0, halfUp - mountClicks)', self.dial)
+        self.assertIn('ScopeDialMath.mountCantClicks(', self.dial)
 
     def test_unit_follows_the_profile_unit(self):
         # V375: the profile's "Dürbün birimi" decides reticle and turret unit.

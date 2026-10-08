@@ -69,6 +69,16 @@ abstract final class ProfileFieldInfo {
       'yakın ve uzak mesafedeki düşüş hesabını doğrudan etkiler. Örnek: '
       'havalı tüfekte 45–70 mm. Ölçmek için altındaki "Sight height nasıl '
       'ölçülür?" bağlantısına bakın.';
+  static const mountCant =
+      'Dürbün ayağının (montaj rayı veya ayarlı No Limit ayak) dürbüne '
+      'verdiği eğim, MOA olarak. Normal düz ayakta "Normal (0 MOA)" seçin. '
+      'Ayağın üstünde veya kutusunda yazar; listedeki her seçeneğin yanında '
+      'dürbününüzde kazandırdığı klik hazır yazılıdır. Ayak '
+      'mermi düşüşünü azaltmaz: tüfeği ayakla yeniden sıfırladığınızda '
+      'kulede yukarı doğru bu kadar ek yer açar. 1/4 MOA dürbünde her 1 MOA '
+      '= 4 klik (60 MOA = 240 klik); 0,1 mrad dürbünde 30 MOA ≈ 87 klik. '
+      'Ayak dürbünün yüksekliğini de değiştirir; Sight height\'ı yeniden '
+      'ölçün.';
 
   // Atış değerleri
   static const velocity =
