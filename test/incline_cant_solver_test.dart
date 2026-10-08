@@ -70,15 +70,17 @@ class _World {
   /// East-north-up Ω = ω(0, cos φ, sin φ) seen along the shot azimuth A:
   /// forward = (sin A, cos A, 0), right = (cos A, −sin A, 0).
   _World.coriolis(double latDeg, double azDeg)
-    : omega = () {
-        const w = 7.2921159e-5;
-        final lat = latDeg * math.pi / 180, az = azDeg * math.pi / 180;
-        return [
-          w * math.cos(lat) * math.cos(az),
-          w * math.sin(lat),
-          -w * math.cos(lat) * math.sin(az),
-        ];
-      }();
+    : omega = _earthRotation(latDeg, azDeg);
+
+  static _V _earthRotation(double latDeg, double azDeg) {
+    const w = 7.2921159e-5;
+    final lat = latDeg * math.pi / 180, az = azDeg * math.pi / 180;
+    return [
+      w * math.cos(lat) * math.cos(az),
+      w * math.sin(lat),
+      -w * math.cos(lat) * math.sin(az),
+    ];
+  }
 
   _V _accel(_V v, _V air, EnvironmentData env) {
     final rv = [v[0] - air[0], v[1] - air[1], v[2] - air[2]];
