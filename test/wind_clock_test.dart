@@ -50,7 +50,10 @@ void main() {
     // The ⓘ box shows the 0–315° dial with every 45° labelled.
     await tester.tap(find.byTooltip('Bilgi: Rüzgâr yönü'));
     await tester.pumpAndSettle();
-    expect(find.byKey(const ValueKey('wind-direction-diagram')), findsOneWidget);
+    expect(
+      find.byKey(const ValueKey('wind-direction-diagram')),
+      findsOneWidget,
+    );
     expect(WindDirectionDiagram.labels, [
       '0°',
       '45°',

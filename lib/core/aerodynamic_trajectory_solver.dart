@@ -284,10 +284,7 @@ class AerodynamicTrajectorySolver {
       // even though vz changes, producing a false zero-wind correction.
       dz: s.vz,
       // Coriolis: a = −2·Ω × v (zero when Ω = 0).
-      dvx:
-          scale * relativeVx -
-          _g * f.sinT -
-          2 * (f.oy * s.vz - f.oz * s.vy),
+      dvx: scale * relativeVx - _g * f.sinT - 2 * (f.oy * s.vz - f.oz * s.vy),
       dvy:
           scale * relativeVy -
           _g * f.cosT * f.cosP -

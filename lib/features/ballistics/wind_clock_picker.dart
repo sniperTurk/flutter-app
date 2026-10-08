@@ -275,4 +275,3 @@ class _DiagramPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _DiagramPainter old) => old.colors != colors;
 }
-

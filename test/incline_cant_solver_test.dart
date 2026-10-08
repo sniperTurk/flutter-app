@@ -96,11 +96,7 @@ class _World {
     final cx = o[1] * v[2] - o[2] * v[1];
     final cy = o[2] * v[0] - o[0] * v[2];
     final cz = o[0] * v[1] - o[1] * v[0];
-    return [
-      s * rv[0] - 2 * cx,
-      s * rv[1] - _g - 2 * cy,
-      s * rv[2] - 2 * cz,
-    ];
+    return [s * rv[0] - 2 * cx, s * rv[1] - _g - 2 * cy, s * rv[2] - 2 * cz];
   }
 
   List<double> _step(List<double> st, _V air, EnvironmentData env) {
@@ -339,12 +335,7 @@ void main() {
     TrajectoryPoint at(double? lat, double? az, {double range = 70}) =>
         const BallisticEngine()
             .solve(
-              _input(
-                env: calm,
-                ranges: [range],
-                latitude: lat,
-                azimuth: az,
-              ),
+              _input(env: calm, ranges: [range], latitude: lat, azimuth: az),
             )
             .single;
 

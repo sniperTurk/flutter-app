@@ -185,9 +185,7 @@ void main() {
     expect(text, contains('R (sağa)'));
   });
 
-  testWidgets('velocity field is fps (270 m/s shown as 885.8)', (
-    tester,
-  ) async {
+  testWidgets('velocity field is fps (270 m/s shown as 885.8)', (tester) async {
     tester.view.physicalSize = const Size(430, 2400) * 3;
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
