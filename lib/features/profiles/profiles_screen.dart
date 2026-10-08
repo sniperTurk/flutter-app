@@ -767,6 +767,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController velocity;
   late final TextEditingController zero;
   late final TextEditingController sight;
+
   /// Dürbün ayağı in MOA, picked from [ProductionLimits.mountCantOptionsMoa].
   late double mountCant;
   String? validationError;

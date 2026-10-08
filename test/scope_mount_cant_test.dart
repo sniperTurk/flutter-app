@@ -283,60 +283,61 @@ void main() {
     });
   });
 
-  testWidgets('Profil: "Dürbün ayağı" is picked from a list with ready clicks', (
-    tester,
-  ) async {
-    tester.view.physicalSize = const Size(430, 2400) * 3;
-    tester.view.devicePixelRatio = 3;
-    addTearDown(tester.view.reset);
-    final store = MemoryProfileStore();
-    await store.save(_withMount(60));
-    await tester.pumpWidget(
-      MaterialApp(
-        theme: MenzilTheme.light(),
-        home: ProfilesScreen(store: store, activeProfileId: 'p1'),
-      ),
-    );
-    await tester.pumpAndSettle();
-    // The summary shows the mount.
-    expect(find.textContaining('Dürbün ayağı'), findsWidgets);
+  testWidgets(
+    'Profil: "Dürbün ayağı" is picked from a list with ready clicks',
+    (tester) async {
+      tester.view.physicalSize = const Size(430, 2400) * 3;
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      final store = MemoryProfileStore();
+      await store.save(_withMount(60));
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: MenzilTheme.light(),
+          home: ProfilesScreen(store: store, activeProfileId: 'p1'),
+        ),
+      );
+      await tester.pumpAndSettle();
+      // The summary shows the mount.
+      expect(find.textContaining('Dürbün ayağı'), findsWidgets);
 
-    await tester.tap(find.byTooltip('Yeni profil'));
-    await tester.pumpAndSettle();
-    final field = find.byKey(
-      const ValueKey('scope-mount-cant-mrad-0.1'),
-      skipOffstage: false,
-    );
-    expect(field, findsOneWidget);
-    await tester.ensureVisible(field);
-    expect(
-      find.descendant(
-        of: field,
-        matching: find.textContaining('MOA', findRichText: true),
-      ),
-      findsWidgets,
-    );
-    // A new profile starts on a normal mount.
-    expect(
-      find.descendant(of: field, matching: find.text('Normal (0 MOA)')),
-      findsOneWidget,
-    );
-    // No free typing: the box is a dropdown, not a text field.
-    expect(
-      find.descendant(of: field, matching: find.byType(TextField)),
-      findsNothing,
-    );
+      await tester.tap(find.byTooltip('Yeni profil'));
+      await tester.pumpAndSettle();
+      final field = find.byKey(
+        const ValueKey('scope-mount-cant-mrad-0.1'),
+        skipOffstage: false,
+      );
+      expect(field, findsOneWidget);
+      await tester.ensureVisible(field);
+      expect(
+        find.descendant(
+          of: field,
+          matching: find.textContaining('MOA', findRichText: true),
+        ),
+        findsWidgets,
+      );
+      // A new profile starts on a normal mount.
+      expect(
+        find.descendant(of: field, matching: find.text('Normal (0 MOA)')),
+        findsOneWidget,
+      );
+      // No free typing: the box is a dropdown, not a text field.
+      expect(
+        find.descendant(of: field, matching: find.byType(TextField)),
+        findsNothing,
+      );
 
-    // Each choice already shows its click gain for the 0.1 mrad default.
-    await tester.tap(find.text('Normal (0 MOA)'));
-    await tester.pumpAndSettle();
-    expect(find.text('30 MOA · +87 klik').last, findsOneWidget);
-    expect(find.text('60 MOA · +174 klik').last, findsOneWidget);
-    await tester.tap(find.text('60 MOA · +174 klik').last);
-    await tester.pumpAndSettle();
-    expect(
-      find.descendant(of: field, matching: find.text('60 MOA · +174 klik')),
-      findsOneWidget,
-    );
-  });
+      // Each choice already shows its click gain for the 0.1 mrad default.
+      await tester.tap(find.text('Normal (0 MOA)'));
+      await tester.pumpAndSettle();
+      expect(find.text('30 MOA · +87 klik').last, findsOneWidget);
+      expect(find.text('60 MOA · +174 klik').last, findsOneWidget);
+      await tester.tap(find.text('60 MOA · +174 klik').last);
+      await tester.pumpAndSettle();
+      expect(
+        find.descendant(of: field, matching: find.text('60 MOA · +174 klik')),
+        findsOneWidget,
+      );
+    },
+  );
 }
