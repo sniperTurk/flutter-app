@@ -212,15 +212,22 @@ void main() {
       contains('kalibre'),
     );
     expect(find.text('Seviyede'), findsOneWidget);
-    // Calibrated: the guide is gone.
-    expect(find.byKey(const Key('level-calibration-guide')), findsNothing);
+    // The explanation stays under the numbers and says it is calibrated.
+    expect(find.byKey(const Key('level-calibration-guide')), findsOneWidget);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('level-guide-state'))).data,
+      'Kalibre edildi',
+    );
+    expect(find.text('Yeniden kalibre et'), findsOneWidget);
     expect((await store.load())['flat'], isNotNull);
 
     await tester.pumpWidget(const SizedBox.shrink());
     await tester.pump();
   });
 
-  testWidgets('"Daha sonra" hides the guide for this visit', (tester) async {
+  testWidgets('no title bar; "Su Terazisi" explanation sits under the numbers', (
+    tester,
+  ) async {
     tester.view.physicalSize = const Size(430, 932);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
@@ -238,11 +245,28 @@ void main() {
     tilt.controller.add(TiltAvailable(_tilted(0.2, 0.1)));
     await tester.pump();
     await tester.pump();
-    expect(find.byKey(const Key('level-calibration-guide')), findsOneWidget);
 
-    await tester.tap(find.byKey(const Key('level-guide-later')));
-    await tester.pump();
-    expect(find.byKey(const Key('level-calibration-guide')), findsNothing);
+    expect(find.byType(AppBar), findsNothing);
+    final guide = find.byKey(const Key('level-calibration-guide'));
+    expect(guide, findsOneWidget);
+    // No way to hide it.
+    expect(find.byKey(const Key('level-guide-later')), findsNothing);
+    final title = find.byKey(const Key('level-guide-title'));
+    expect(tester.widget<Text>(title).data, 'Su Terazisi');
+    // Order on the page: vials, numbers, then the titled explanation.
+    final numbersBottom = tester
+        .getBottomLeft(find.byKey(const Key('level-x')))
+        .dy;
+    expect(tester.getTopLeft(title).dy, greaterThan(numbersBottom));
+    expect(
+      tester.getBottomLeft(find.byKey(const Key('level-circle'))).dy,
+      lessThan(tester.getTopLeft(find.byKey(const Key('level-x'))).dy),
+    );
+    // The vials start near the top of the screen.
+    expect(
+      tester.getTopLeft(find.byKey(const Key('level-tube-x'))).dy,
+      lessThan(120),
+    );
 
     await tester.pumpWidget(const SizedBox.shrink());
     await tester.pump();

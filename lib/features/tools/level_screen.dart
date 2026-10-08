@@ -26,10 +26,6 @@ class LevelScreen extends StatefulWidget {
 class _LevelScreenState extends State<LevelScreen> {
   LevelController? _controller;
 
-  /// "Daha sonra" hides the calibration guide for this visit only; it comes
-  /// back next time until the current pose is calibrated.
-  bool _guideDismissed = false;
-
   static const _resolutionNotice =
       'Değerler 0,1° çözünürlükle gösterilir; bu yalnızca ekran çözünürlüğüdür, '
       'telefon ivmeölçerinin doğruluğu değildir. Titreşimi azaltmak için filtre uygulanır; '
@@ -65,67 +61,78 @@ class _LevelScreenState extends State<LevelScreen> {
   Widget build(BuildContext context) {
     final controller = _controller!;
     final c = MenzilColors.of(context);
+    // No app bar (owner, 2026-10-08): the level starts at the top of the
+    // screen; a round back button sits on the backdrop instead.
     return Scaffold(
-      appBar: const MenzilSubPageBar(title: 'Su Terazisi'),
       backgroundColor: c.levelBackdropDeep,
       body: CustomPaint(
         painter: _BackdropPainter(c),
         child: SafeArea(
-          top: false,
           child: ListenableBuilder(
             listenable: controller,
             builder: (context, _) {
               final angles = controller.angles;
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  MenzilSpace.gutter,
-                  MenzilSpace.xl,
-                  MenzilSpace.gutter,
-                  MenzilSpace.md,
-                ),
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: angles == null
-                          ? _unavailable(controller)
-                          : Semantics(
-                              label:
-                                  'Su terazisi. Yatay tüp X ${TiltMath.format(angles.xDeg)} derece, '
-                                  'dikey tüp Y ${TiltMath.format(angles.yDeg)} derece, '
-                                  'dairesel gösterge her iki eksen. '
-                                  '${TiltMath.isLevel(angles) ? 'Seviyede.' : 'Eğik.'}',
-                              child: ExcludeSemantics(
-                                child: _EasedAngles(
-                                  target: angles,
-                                  builder: (shown) => _VialCluster(
-                                    angles: shown,
-                                    viewType: controller.viewType,
+              return LayoutBuilder(
+                builder: (context, constraints) => Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    MenzilSpace.gutter,
+                    MenzilSpace.xs,
+                    MenzilSpace.gutter,
+                    MenzilSpace.md,
+                  ),
+                  child: Column(
+                    children: [
+                      if (Navigator.of(context).canPop())
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: _RoundButton(
+                            key: const Key('level-back'),
+                            size: 44,
+                            icon: Icons.arrow_back_rounded,
+                            label: 'Geri',
+                            onPressed: () => Navigator.of(context).maybePop(),
+                          ),
+                        ),
+                      Expanded(
+                        child: angles == null
+                            ? _unavailable(controller)
+                            : Semantics(
+                                label:
+                                    'Su terazisi. Yatay tüp X ${TiltMath.format(angles.xDeg)} derece, '
+                                    'dikey tüp Y ${TiltMath.format(angles.yDeg)} derece, '
+                                    'dairesel gösterge her iki eksen. '
+                                    '${TiltMath.isLevel(angles) ? 'Seviyede.' : 'Eğik.'}',
+                                child: ExcludeSemantics(
+                                  child: _EasedAngles(
+                                    target: angles,
+                                    builder: (shown) => _VialCluster(
+                                      angles: shown,
+                                      viewType: controller.viewType,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                    ),
-                    if (angles != null) ...[
-                      const SizedBox(height: MenzilSpace.md),
-                      _status(context, controller, angles),
-                      if (!_guideDismissed &&
-                          controller.calibration.bias == null &&
-                          !controller.capturingCalibration) ...[
+                      ),
+                      if (angles != null) ...[
                         const SizedBox(height: MenzilSpace.sm),
-                        // Loose and scrollable so large text on a small phone
-                        // shrinks the vials instead of overflowing the page.
-                        Flexible(
-                          flex: 2,
-                          child: SingleChildScrollView(
-                            child: _calibrationGuide(context, controller),
-                          ),
-                        ),
+                        _status(context, controller, angles),
                       ],
+                      const SizedBox(height: MenzilSpace.sm),
+                      _controlBar(context, controller, angles),
+                      const SizedBox(height: MenzilSpace.md),
+                      // Always shown under the numbers (owner, 2026-10-08).
+                      // Bounded and scrollable so large text on a small
+                      // phone never pushes the vials off the page.
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: constraints.maxHeight * 0.34,
+                        ),
+                        child: SingleChildScrollView(
+                          child: _calibrationGuide(context, controller),
+                        ),
+                      ),
                     ],
-                    const SizedBox(height: MenzilSpace.md),
-                    _controlBar(context, controller, angles),
-                  ],
+                  ),
                 ),
               );
             },
@@ -188,79 +195,97 @@ class _LevelScreenState extends State<LevelScreen> {
     return status;
   }
 
-  /// First-use explanation: why calibrate and how, in four short steps,
-  /// with a direct way in. Shown only while the current pose (flat or
-  /// upright) has no calibration.
+  /// Permanent explanation under the numbers: what the level shows, why
+  /// and how to calibrate, with a direct way in.
   Widget _calibrationGuide(BuildContext context, LevelController controller) {
     final c = MenzilColors.of(context);
     final flat = controller.mode == TiltMode.flat;
+    final calibrated = controller.calibration.bias != null;
     final text = MenzilType.caption(c.levelControlInk);
-    return Container(
+    return Column(
       key: const Key('level-calibration-guide'),
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(
-        MenzilSpace.lg,
-        MenzilSpace.md,
-        MenzilSpace.lg,
-        MenzilSpace.xs,
-      ),
-      decoration: BoxDecoration(
-        color: c.levelControl,
-        borderRadius: BorderRadius.circular(MenzilRadius.card),
-        border: Border.all(color: c.levelBezel, width: 2),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'Su Terazisi',
+          key: const Key('level-guide-title'),
+          style: MenzilType.heading(c.levelControlInk, size: 18),
+        ),
+        const SizedBox(height: MenzilSpace.xs),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.fromLTRB(
+            MenzilSpace.lg,
+            MenzilSpace.md,
+            MenzilSpace.lg,
+            MenzilSpace.xs,
+          ),
+          decoration: BoxDecoration(
+            color: c.levelControl,
+            borderRadius: BorderRadius.circular(MenzilRadius.card),
+            border: Border.all(color: c.levelBezel, width: 2),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.tune, size: 18, color: c.amber),
-              const SizedBox(width: MenzilSpace.xs),
-              Expanded(
-                child: Text(
-                  'İlk kullanımda bir kez kalibre edin',
-                  style: TextStyle(
-                    color: c.levelControlInk,
-                    fontWeight: FontWeight.w700,
+              Text(
+                'Telefonu ölçmek istediğiniz yüzeye koyun; kabarcık iki '
+                'çizginin ortasındaysa yüzey seviyededir. X yatay, Y dikey '
+                'eğimdir.',
+                style: text,
+              ),
+              const SizedBox(height: MenzilSpace.xs),
+              Row(
+                children: [
+                  Icon(
+                    calibrated ? Icons.check_circle_outline : Icons.tune,
+                    size: 18,
+                    color: c.amber,
+                  ),
+                  const SizedBox(width: MenzilSpace.xs),
+                  Expanded(
+                    child: Text(
+                      calibrated
+                          ? 'Kalibre edildi'
+                          : 'İlk kullanımda bir kez kalibre edin',
+                      key: const Key('level-guide-state'),
+                      style: TextStyle(
+                        color: c.levelControlInk,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: MenzilSpace.xxs),
+              Text(
+                'Her telefonun sensöründe küçük, sabit bir sapma vardır; '
+                'kalibrasyon bunu çıkarır ve telefona kaydedilir. '
+                '${flat ? 'Telefonu düz bir yere yatırın' : 'Telefonu dik tutup düz bir kenara dayayın'}, '
+                '1. okumayı alın, aynı yerde 180° çevirip 2. okumayı alın. '
+                'Okuma sırasında telefona dokunmayın.',
+                style: text,
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  key: const Key('level-guide-start'),
+                  onPressed: () => _openSettingsSheet(context, controller),
+                  child: Text(
+                    calibrated ? 'Yeniden kalibre et' : 'Kalibre et',
+                    style: TextStyle(
+                      color: c.amber,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: MenzilSpace.xxs),
-          Text(
-            'Her telefonun sensöründe küçük, sabit bir sapma vardır; '
-            'kalibrasyon bunu çıkarır ve telefona kaydedilir. '
-            '${flat ? 'Telefonu düz bir yere yatırın' : 'Telefonu dik tutup düz bir kenara dayayın'}, '
-            '1. okumayı alın, aynı yerde 180° çevirip 2. okumayı alın. '
-            'Okuma sırasında telefona dokunmayın.',
-            style: text,
-          ),
-          Wrap(
-            alignment: WrapAlignment.end,
-            spacing: MenzilSpace.sm,
-            children: [
-              TextButton(
-                key: const Key('level-guide-later'),
-                onPressed: () => setState(() => _guideDismissed = true),
-                child: Text(
-                  'Daha sonra',
-                  style: TextStyle(color: c.levelControlInk),
-                ),
-              ),
-              TextButton(
-                key: const Key('level-guide-start'),
-                onPressed: () => _openSettingsSheet(context, controller),
-                child: Text(
-                  'Kalibre et',
-                  style: TextStyle(color: c.amber, fontWeight: FontWeight.w700),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
