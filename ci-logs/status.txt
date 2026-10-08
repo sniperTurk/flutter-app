@@ -1,0 +1,5 @@
+pub get exit: 0
+dart fix exit: 0
+format check exit: 0
+analyze exit: 0
+test exit: 0
