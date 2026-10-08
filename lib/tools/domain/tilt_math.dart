@@ -21,7 +21,7 @@ class TiltAngles {
 }
 
 /// Pure tilt maths. All results are derived from the accelerometer's gravity
-/// vector. The 0.01° in the UI is a DISPLAY resolution only: it is not the
+/// vector. The 0.1° in the UI is a DISPLAY resolution only: it is not the
 /// accuracy of a phone accelerometer.
 abstract final class TiltMath {
   /// |g| below this means the vector is not a usable gravity reading
@@ -55,10 +55,12 @@ abstract final class TiltMath {
     return current;
   }
 
-  /// "0,00" style text (Turkish comma) with a fixed 0.01° resolution; never "-0,00".
+  /// "0,0" style text (Turkish comma) with a fixed 0.1° resolution; never
+  /// "-0,0". A phone accelerometer cannot hold a still reading to a
+  /// hundredth of a degree, so a second decimal only showed flicker.
   static String format(double degrees) {
-    final text = degrees.toStringAsFixed(2).replaceAll('.', ',');
-    return text == '-0,00' ? '0,00' : text;
+    final text = degrees.toStringAsFixed(1).replaceAll('.', ',');
+    return text == '-0,0' ? '0,0' : text;
   }
 
   /// UI aid threshold for the "Seviyede" state, NOT a sensor specification.
@@ -182,13 +184,13 @@ class GravityFilter {
       motionMps2 = null,
       assert(alpha > 0 && alpha <= 1, 'alpha must be in (0, 1]');
 
-  /// About 0.5 s time constant while still at the ~50 Hz game rate (noise
-  /// up to ~0.1 m/s², ~0.6°), close to raw response once a sample is
+  /// About 0.7 s time constant while still at the ~50 Hz game rate (noise
+  /// up to ~0.12 m/s², ~0.7°), close to raw response once a sample is
   /// ~0.8 m/s² (~4.5°) off the estimate.
   GravityFilter.adaptive({
-    double still = 0.04,
+    double still = 0.03,
     double moving = 0.6,
-    double stillBand = 0.1,
+    double stillBand = 0.12,
     double motion = 0.8,
   }) : alpha = still,
        stillAlpha = still,
