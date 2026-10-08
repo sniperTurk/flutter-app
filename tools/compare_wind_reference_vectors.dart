@@ -132,7 +132,9 @@ void main(List<String> args) {
       worstVelocity = math.max(worstVelocity, dv);
       worstTime = math.max(worstTime, dt);
       stdout.writeln('$id @ ${range}m: z=${z.toStringAsFixed(4)} ref=${_num(p['windage_m'], 'w').toStringAsFixed(4)} '
-          '|dw|=${dw.toStringAsFixed(5)} |dh|=${dh.toStringAsFixed(5)} |dv|=${dv.toStringAsFixed(4)} |dt|=${dt.toStringAsFixed(5)}');
+          'h=${(-actual[i].dropM).toStringAsFixed(3)} refh=${_num(p['height_m'], 'h').toStringAsFixed(3)} '
+          '|dw|=${dw.toStringAsFixed(5)} |dh|=${dh.toStringAsFixed(5)} (${(dh / range * 1000).toStringAsFixed(3)} mrad) '
+          '|dv|=${dv.toStringAsFixed(4)} |dt|=${dt.toStringAsFixed(5)}');
       if (dw > windTol || dh > heightTol || dv > velocityTol || dt > timeTol) {
         failures.add('$id @ ${range}m');
       }

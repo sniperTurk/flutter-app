@@ -465,6 +465,7 @@ jobs:
           cat pcp-long-range.log
           echo "::notice title=PCP long-range acceptance::$(tail -n 1 pcp-long-range.log)"
           echo "::notice title=PCP long-range per case::$(grep '^case-summary' pcp-long-range.log | head -n 1)"
+          echo "::notice title=PCP long-range points::$(grep ' @ ' pcp-long-range.log | tr '\n' ' ')"
           exit "$status"
 
   # Development-build evidence that does not depend on owner release settings
