@@ -22,3 +22,4 @@ validation/py_ballisticcalc_vectors.json
 .DS_Store
 validation/py_ballisticcalc_wind_vectors.json
 validation/py_ballisticcalc_envelope_vectors.json
+validation/py_ballisticcalc_pcp_long_range_vectors.json

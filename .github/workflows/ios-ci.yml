@@ -455,6 +455,19 @@ jobs:
           echo "::notice title=Envelope per case::$(grep '^case-summary' envelope.log | head -n 1)"
           exit "$status"
 
+      - name: Compare PCP long-range (100–600 m) cases with independent vectors
+        shell: bash
+        run: |
+          set -o pipefail
+          .validator_venv/bin/python tools/generate_wind_reference_vectors.py validation/pcp_long_range_acceptance.json validation/py_ballisticcalc_pcp_long_range_vectors.json
+          status=0
+          dart run tools/compare_wind_reference_vectors.dart validation/pcp_long_range_acceptance.json validation/py_ballisticcalc_pcp_long_range_vectors.json > pcp-long-range.log 2>&1 || status=$?
+          cat pcp-long-range.log
+          echo "::notice title=PCP long-range acceptance::$(tail -n 1 pcp-long-range.log)"
+          echo "::notice title=PCP long-range per case::$(grep '^case-summary' pcp-long-range.log | head -n 1)"
+          echo "::notice title=PCP long-range points::$(grep ' @ ' pcp-long-range.log | tr '\n' ' ')"
+          exit "$status"
+
   # Development-build evidence that does not depend on owner release settings
   # (privacy policy URL, MET Norway contact, signing). The release path in
   # `verify` is unchanged: App Store preflight still gates every release build
