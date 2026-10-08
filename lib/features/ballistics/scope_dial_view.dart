@@ -231,15 +231,13 @@ class ScopeDialView extends StatelessWidget {
           (i * windStep, windFmt(perUnit * i * windStep * sub)),
     ];
 
-    // Auto-fit: when the impact lies outside the optical field the view is
-    // zoomed out (uniformly, reticle and target included) until it fits,
-    // and a note says so. A real scope would not show that point.
+    // The reticle is always drawn at its real scale (zooming the view out
+    // shrank the reticle into a meaningless black cross). An impact outside
+    // the field is shown as an arrow at the edge with its offset, plus a note.
     final impactDistance = impact == null
         ? 0.0
         : math.sqrt(impact.up * impact.up + impact.right * impact.right);
-    final fit = impactDistance * 1.15 > trueHalfField
-        ? impactDistance * 1.15 / trueHalfField
-        : 1.0;
+    final outside = impactDistance > trueHalfField * 0.92;
 
     final elevationDrum = _TurretDrum(
       key: ScopeDialKeys.elevationDrum,
@@ -294,8 +292,8 @@ class ScopeDialView extends StatelessWidget {
                     painter: ScopeReticlePainter(
                       colors: c,
                       halfField: halfField,
-                      reticleHalfField: reticleHalfField * fit,
-                      trueHalfField: trueHalfField * fit,
+                      reticleHalfField: reticleHalfField,
+                      trueHalfField: trueHalfField,
                       targetRadius: targetRadius,
                       markStep: markStep,
                       unitLabel: unitLabel,
@@ -318,16 +316,18 @@ class ScopeDialView extends StatelessWidget {
                 ),
               ),
             ),
-            if (fit > 1)
+            if (outside && impact != null)
               Padding(
                 padding: const EdgeInsets.only(top: MenzilSpace.xs),
                 child: MenzilNotice(
                   key: ScopeDialKeys.fitNote,
                   tone: MenzilNoticeTone.warning,
                   message:
-                      'Vuruş noktası dürbünün görüş alanı dışında; görünüm '
-                      '${fit.toStringAsFixed(1)} kat uzaklaştırıldı. Gerçek '
-                      'dürbünde bu nokta görünmez: kuleyi çevirin veya '
+                      'Vuruş noktası dürbünün görüş alanı dışında: '
+                      '${_fmt(impact.up.abs())} $unitLabel '
+                      '${impact.up >= 0 ? 'yukarıda' : 'aşağıda'}'
+                      '${impact.right.abs() < 0.005 ? '' : ', ${_fmt(impact.right.abs())} $unitLabel ${impact.right >= 0 ? 'sağda' : 'solda'}'}'
+                      '. Kenardaki ok o yönü gösterir. Kuleyi çevirin veya '
                       '"Çözümü kuleye kur"a dokunun.',
                 ),
               ),
@@ -1292,6 +1292,16 @@ class ScopeReticlePainter extends CustomPainter {
           ..close();
         canvas.drawPath(arrow, Paint()..color = colors.amber);
         canvas.drawPath(arrow, ring);
+        // How far out it is, written just inside the arrow.
+        final far = math.sqrt(up * up + right * right);
+        _text(
+          canvas,
+          '${far.toStringAsFixed(far >= 10 ? 0 : 1)} $unitLabel',
+          poi - dir * 30,
+          colors.amberInk,
+          math.max(11.0, size.shortestSide * 0.04),
+          weight: FontWeight.w700,
+        );
       }
     }
     canvas.restore(); // roll

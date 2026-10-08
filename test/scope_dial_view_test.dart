@@ -207,7 +207,7 @@ void main() {
     );
   });
 
-  testWidgets('an impact outside the field zooms the view out to fit', (
+  testWidgets('an impact outside the field is pointed at, the reticle keeps its scale', (
     tester,
   ) async {
     tester.view.physicalSize = const Size(430, 2400) * 3;
@@ -245,8 +245,8 @@ void main() {
     expect(find.byKey(ScopeDialKeys.fitNote), findsNothing);
     expect(find.byKey(ScopeDialKeys.travelNote), findsNothing);
 
-    // 113.7 mrad low at 36x (half field 10 mrad): zoomed out ~13×, and the
-    // 13 mrad turret cannot dial it.
+    // 113.7 mrad low at 36x (half field 10 mrad), and the 13 mrad turret
+    // cannot dial it.
     await tester.pumpWidget(view(113.7));
     expect(find.byKey(ScopeDialKeys.fitNote), findsOneWidget);
     final painter =
@@ -259,7 +259,10 @@ void main() {
                 )
                 .painter!
             as ScopeReticlePainter;
-    expect(painter.trueHalfField, greaterThan(113.7));
+    // The reticle keeps its real scale (no zoom-out); the note names the
+    // offset and the edge arrow points to it.
+    expect(painter.trueHalfField, closeTo(10, 1e-9));
+    expect(find.textContaining('113.70 mrad aşağıda'), findsOneWidget);
     expect(find.byKey(ScopeDialKeys.travelNote), findsOneWidget);
   });
 }
