@@ -331,6 +331,8 @@ void main() {
     await fillRifleForm(tester);
     expect(save(), isNull, reason: 'the scope must be typed in as well');
     await fillScopeForm(tester);
+    // Turret travel from the spec sheet; windage left empty = same travel.
+    await enterRifleField(tester, 'scope-travel-elevation', '17');
     expect(save(), isNull, reason: 'the ammunition must be typed in as well');
     await fillAmmoForm(tester);
     expect(
@@ -390,6 +392,10 @@ void main() {
     expect(scope.firstFocalPlane, isTrue);
     expect(scope.clickValue, 0.1);
     expect(scope.clickUnit, AngularUnit.mrad);
+    // The travel survives the save (it used to be dropped, so every scope
+    // fell back to a guessed 30 mrad each way).
+    expect(scope.elevationRangeMrad, 17);
+    expect(scope.windageRangeMrad, 17);
     final ammo = CatalogRepository.allAmmunition.singleWhere(
       (a) => a.id == saved.ammunitionId,
     );

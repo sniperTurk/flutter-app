@@ -52,11 +52,16 @@ class InteractiveScopeDialContract(unittest.TestCase):
         )
 
     def test_mount_cant_widens_up_travel_only(self):
-        # Dürbün ayağı: up = half travel + mount clicks, down = half - mount;
-        # the required correction itself is never changed by the mount.
-        self.assertIn('maxElevationClicks: halfUp + mountClicks', self.dial)
-        self.assertIn('math.max(0, halfUp - mountClicks)', self.dial)
+        # Dürbün ayağı: up = half travel + mount clicks, capped at the whole
+        # travel; down = half - mount (never below 0). The required correction
+        # itself is never changed by the mount, and an unknown travel is never
+        # guessed (V383).
+        compact = ''.join(self.dial.split())
+        self.assertIn('math.min(halfUp+mountClicks,2*halfUp)', compact)
+        self.assertIn('math.max(0,halfUp-mountClicks)', compact)
+        self.assertIn('maxElevationClicks:upClicks', compact)
         self.assertIn('ScopeDialMath.mountCantClicks(', self.dial)
+        self.assertNotIn(': 30.0;', self.screen)
 
     def test_unit_follows_the_profile_unit(self):
         # V375: the profile's "Dürbün birimi" decides reticle and turret unit.

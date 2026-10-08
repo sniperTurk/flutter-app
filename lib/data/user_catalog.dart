@@ -195,6 +195,9 @@ class UserCatalog {
               },
               minMagnification: _positive(e['minMag']),
               maxMagnification: _positive(e['maxMag']),
+              // Total turret travel from the scope's spec sheet (optional).
+              elevationRangeMrad: _positive(e['elevationRangeMrad']),
+              windageRangeMrad: _positive(e['windageRangeMrad']),
               sourceName: userCatalogSourceName,
               sourceDocument: userCatalogSourceDocument,
               userEntered: true,

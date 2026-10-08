@@ -52,6 +52,7 @@ Widget _view({
   double mountMoa = 0,
   int mountClicks = 0,
   bool travelKnown = true,
+  int? half,
   int elevationClicks = 0,
   ValueChanged<int>? onElevation,
 }) => MaterialApp(
@@ -68,6 +69,7 @@ Widget _view({
         mountCantMoa: mountMoa,
         mountCantClicks: mountClicks,
         travelKnown: travelKnown,
+        halfElevationClicks: half,
         maxWindageClicks: 120,
         onElevationChanged: onElevation ?? (_) {},
         onWindageChanged: (_) {},
@@ -277,9 +279,16 @@ void main() {
       await tester.tap(find.text('Hesapla'));
       await tester.pumpAndSettle();
       // 13 mrad half travel = 130 clicks; 60 MOA = 17.45 mrad = 174 clicks.
+      // UP can never exceed the whole travel (260 clicks), and a mount larger
+      // than half the travel cannot be zeroed: said in red.
       final info = _note(tester, ScopeDialKeys.mountNote);
       expect(info, contains('+174 klik'));
-      expect(info, contains('304 klik'));
+      expect(info, contains('260 klik'));
+      expect(info, isNot(contains('304')));
+      final zero = _note(tester, ScopeDialKeys.mountZeroNote);
+      expect(zero, contains('sıfırlanamaz'));
+      expect(zero, contains('174 klik'));
+      expect(zero, contains('130 klik'));
     });
   });
 
@@ -340,4 +349,51 @@ void main() {
       );
     },
   );
+
+  group('turret travel is never guessed', () {
+    testWidgets('unknown travel: no "Kule yetmez", mount note says why', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(430, 2400) * 3;
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        _view(
+          requiredUp: 300,
+          up: 100000,
+          down: 100000,
+          mountMoa: 30,
+          mountClicks: 120,
+          travelKnown: false,
+        ),
+      );
+      expect(find.byKey(ScopeDialKeys.travelNote), findsNothing);
+      expect(find.byKey(ScopeDialKeys.mountZeroNote), findsNothing);
+      expect(
+        _note(tester, ScopeDialKeys.mountNote),
+        contains('girilmediği için'),
+      );
+    });
+
+    testWidgets('a mount is only suggested while the zero stays possible', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(430, 2400) * 3;
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      // Half travel 60 clicks = 15 MOA; 37.8 MOA needs 22.8 MOA of mount,
+      // more than half the travel: no mount can work.
+      await tester.pumpWidget(_view(requiredUp: 37.8, up: 60, half: 60));
+      final w = _note(tester, ScopeDialKeys.travelNote);
+      expect(w, contains('Hiçbir dürbün ayağı yetmez'));
+      expect(w, isNot(contains('en az')));
+
+      // Half travel 120 clicks = 30 MOA: 7.75 MOA missing → 8 MOA, and the
+      // smallest listed mount that fits is 15 MOA.
+      await tester.pumpWidget(_view(requiredUp: 37.8, up: 120, half: 120));
+      final ok = _note(tester, ScopeDialKeys.travelNote);
+      expect(ok, contains('en az 8 MOA dürbün ayağı gerekir'));
+      expect(ok, contains('listeden: 15 MOA'));
+    });
+  });
 }
