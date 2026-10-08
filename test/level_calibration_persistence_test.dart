@@ -292,6 +292,7 @@ void main() {
     await tester.pump();
     await tester.pump();
 
+    await tester.ensureVisible(find.byKey(const Key('level-guide-start')));
     await tester.tap(find.byKey(const Key('level-guide-start')));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('level-calibrate-normal')), findsOneWidget);

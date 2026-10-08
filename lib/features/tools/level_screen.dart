@@ -215,12 +215,7 @@ class _LevelScreenState extends State<LevelScreen> {
         const SizedBox(height: MenzilSpace.xs),
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.fromLTRB(
-            MenzilSpace.lg,
-            MenzilSpace.md,
-            MenzilSpace.lg,
-            MenzilSpace.xs,
-          ),
+          padding: const EdgeInsets.all(MenzilSpace.md),
           decoration: BoxDecoration(
             color: c.levelControl,
             borderRadius: BorderRadius.circular(MenzilRadius.card),
@@ -257,6 +252,17 @@ class _LevelScreenState extends State<LevelScreen> {
                       ),
                     ),
                   ),
+                  TextButton(
+                    key: const Key('level-guide-start'),
+                    onPressed: () => _openSettingsSheet(context, controller),
+                    child: Text(
+                      calibrated ? 'Yeniden kalibre et' : 'Kalibre et',
+                      style: TextStyle(
+                        color: c.amber,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: MenzilSpace.xxs),
@@ -267,20 +273,6 @@ class _LevelScreenState extends State<LevelScreen> {
                 '1. okumayı alın, aynı yerde 180° çevirip 2. okumayı alın. '
                 'Okuma sırasında telefona dokunmayın.',
                 style: text,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  key: const Key('level-guide-start'),
-                  onPressed: () => _openSettingsSheet(context, controller),
-                  child: Text(
-                    calibrated ? 'Yeniden kalibre et' : 'Kalibre et',
-                    style: TextStyle(
-                      color: c.amber,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
               ),
             ],
           ),
