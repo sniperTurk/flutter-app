@@ -686,9 +686,7 @@ class _TurretBarState extends State<_TurretBar> {
         const SizedBox(width: MenzilSpace.xs),
         Semantics(
           button: true,
-          label: _windage
-              ? 'Yükseklik kulesine geç'
-              : 'Rüzgâr kulesine geç',
+          label: _windage ? 'Yükseklik kulesine geç' : 'Rüzgâr kulesine geç',
           child: ExcludeSemantics(
             child: SizedBox.square(
               dimension: 52,
