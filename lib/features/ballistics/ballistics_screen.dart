@@ -685,15 +685,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   String _windLabel(double mps) =>
       (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
 
-  /// Half of the scope's total adjustment travel, in clicks; falls back to
-  /// 30 mrad (≈103 MOA) of travel each way when the catalog has no value.
-  int _halfTravelClicks(double clickValue, double? totalTravelMrad) {
-    final mrad = (totalTravelMrad != null && totalTravelMrad > 0)
-        ? totalTravelMrad / 2
-        : 30.0;
+  /// Half of the scope's total adjustment travel, in clicks, or null when
+  /// the travel is not known. No travel is ever guessed: the old 30 mrad
+  /// fallback made "Kule yetmez" appear far too late.
+  int? _halfTravelClicks(double clickValue, double? totalTravelMrad) {
+    if (totalTravelMrad == null || totalTravelMrad <= 0) return null;
+    final mrad = totalTravelMrad / 2;
     final inUnit = _scopeUnit == AngularUnit.moa ? Units.mradToMoa(mrad) : mrad;
     return math.max(1, (inUnit / clickValue).floor());
   }
+
+  /// Drum limit when the travel is unknown: the turret simply keeps turning.
+  static const int _unknownTravelClicks = 100000;
 
   /// Elevation correction from 1 m out to the farthest reachable range of
   /// the current basis (drag or vacuum), sampled once per solve.
@@ -790,17 +793,29 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final mountClicks = mountCantMoa > 0
         ? ScopeDialMath.mountCantClicks(mountCantMoa, click, unit)
         : 0;
+    // Known travel: the mount moves the zero down inside the SAME travel,
+    // so UP can never exceed the whole travel and DOWN never goes below 0.
+    final upClicks = halfUp == null
+        ? _unknownTravelClicks
+        : math.min(halfUp + mountClicks, 2 * halfUp);
+    final downClicks = halfUp == null
+        ? _unknownTravelClicks
+        : math.max(0, halfUp - mountClicks);
     return ScopeDialView(
       unit: unit,
       clickValue: click,
       elevationClicks: _elevationClicks,
       windageClicks: _windageClicks,
-      maxElevationClicks: halfUp + mountClicks,
-      maxElevationDownClicks: math.max(0, halfUp - mountClicks),
+      maxElevationClicks: upClicks,
+      maxElevationDownClicks: downClicks,
       mountCantMoa: mountCantMoa,
       mountCantClicks: mountClicks,
       travelKnown: (s.elevationRangeMrad ?? 0) > 0,
-      maxWindageClicks: _halfTravelClicks(click, s.windageRangeMrad),
+      halfElevationClicks: halfUp,
+      maxWindageClicks:
+          _halfTravelClicks(click, s.windageRangeMrad) ??
+          _halfTravelClicks(click, s.elevationRangeMrad) ??
+          _unknownTravelClicks,
       onElevationChanged: (v) => setState(() => _elevationClicks = v),
       onWindageChanged: (v) => setState(() => _windageClicks = v),
       requiredUp: requiredUp,

@@ -100,6 +100,10 @@ class _ManualCatalogDialogState extends State<ManualCatalogDialog> {
     'regulatorBar': kind == 'rifle' ? (existing?['regulatorBar']) : null,
     'minMag': kind == 'scope' ? (existing?['minMag']) : null,
     'maxMag': kind == 'scope' ? (existing?['maxMag']) : null,
+    'elevationRangeMrad': kind == 'scope'
+        ? (existing?['elevationRangeMrad'])
+        : null,
+    'windageRangeMrad': kind == 'scope' ? (existing?['windageRangeMrad']) : null,
     'grain': (kind == 'ammo' || kind == 'custom_ammunition') ? _number(grain) : null,
     'ammoType': (kind == 'ammo' || kind == 'custom_ammunition')
         ? (selectedPlatform == 'firearm' ? 'bullet' : (ammoType == 'bullet' ? 'pellet' : ammoType))

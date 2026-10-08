@@ -233,6 +233,8 @@ void main() {
               windageClicks: 0,
               maxElevationClicks: 130,
               maxWindageClicks: 130,
+              travelKnown: true,
+              halfElevationClicks: 130,
               onElevationChanged: (_) {},
               onWindageChanged: (_) {},
               requiredUp: up,
