@@ -1970,7 +1970,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // The vacuum model has no Coriolis (nor wind): drag mode only.
     if (basis == null || args.lat == null || !_dragMode) return null;
     try {
-      final engine = const BallisticEngine();
+      const engine = BallisticEngine();
       final base = engine
           .solve(
             basis.input(
