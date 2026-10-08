@@ -190,6 +190,9 @@ void main() {
     (0.0, 12.0),
     (25.0, -8.0),
     (-15.0, 20.0),
+    // Beyond vertical and a large cant: no artificial limits.
+    (-102.0, 0.0),
+    (10.0, 120.0),
   ]) {
     test('drag solver = world-frame reference (∠$incline°, cant $cant°)', () {
       final points = const BallisticEngine().solve(
@@ -258,9 +261,10 @@ void main() {
     expect(level.dropM, closeTo(classic.dropM, 1e-12));
   });
 
-  test('incline and cant outside the limits are rejected', () {
-    expect(() => _input(incline: 85), throwsArgumentError);
-    expect(() => _input(cant: -50), throwsArgumentError);
+  test('incline and cant accept the full circle, nothing beyond', () {
+    // Full circle accepted (field apps measure e.g. −102°); beyond it not.
+    expect(() => _input(incline: 181), throwsArgumentError);
+    expect(() => _input(cant: -181), throwsArgumentError);
     expect(() => _input(incline: double.nan), throwsArgumentError);
   });
 }
