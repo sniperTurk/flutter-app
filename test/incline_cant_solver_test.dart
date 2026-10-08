@@ -106,9 +106,13 @@ class _World {
     final up0 = [-math.sin(t), math.cos(t), 0.0];
     const right0 = [0.0, 0.0, 1.0];
     // Clockwise cant: the scope's "up" leans to the right.
-    final up = [for (var i = 0; i < 3; i++) up0[i] * math.cos(p) + right0[i] * math.sin(p)];
+    final up = [
+      for (var i = 0; i < 3; i++)
+        up0[i] * math.cos(p) + right0[i] * math.sin(p),
+    ];
     final right = [
-      for (var i = 0; i < 3; i++) right0[i] * math.cos(p) - up0[i] * math.sin(p),
+      for (var i = 0; i < 3; i++)
+        right0[i] * math.cos(p) - up0[i] * math.sin(p),
     ];
     const h = 0.062;
     final dir = [

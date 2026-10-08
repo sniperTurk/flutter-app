@@ -51,7 +51,10 @@ class AerodynamicTrajectorySolver {
   ///   air(ax, 0, az) → (ax·cosθ, −ax·sinθ·cosφ + az·sinφ,
   ///                     az·cosφ + ax·sinθ·sinφ)
   /// With θ = φ = 0 this is exactly the level solver used before.
-  static _Frame _frameFor({required double inclineDeg, required double cantDeg}) {
+  static _Frame _frameFor({
+    required double inclineDeg,
+    required double cantDeg,
+  }) {
     final t = inclineDeg * math.pi / 180;
     final p = cantDeg * math.pi / 180;
     return _Frame(math.sin(t), math.cos(t), math.sin(p), math.cos(p));

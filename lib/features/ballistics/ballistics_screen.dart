@@ -702,11 +702,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       List<TrajectoryPoint> points;
       try {
         points = ReticleHolds.sample(
-          basis.input(
-            const [1],
-            inclineDeg: _inclineDeg,
-            cantDeg: _cantDeg,
-          ),
+          basis.input(const [1], inclineDeg: _inclineDeg, cantDeg: _cantDeg),
         );
       } on ArgumentError {
         points = const [];
@@ -1604,9 +1600,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   Future<void> _editCant() async {
     final result = await Navigator.of(context).push<double>(
-      MaterialPageRoute(
-        builder: (_) => ScopeCantScreen(initialDeg: _cantDeg),
-      ),
+      MaterialPageRoute(builder: (_) => ScopeCantScreen(initialDeg: _cantDeg)),
     );
     if (!mounted || result == null) return;
     _setAngles(cant: result);

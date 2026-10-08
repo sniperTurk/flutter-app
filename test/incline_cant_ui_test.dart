@@ -103,7 +103,10 @@ void main() {
       // Rolling the phone sideways does not change the incline.
       expect(
         ShotAngleMath.inclineDeg(const GravityVector(5, 8, -2)),
-        closeTo(ShotAngleMath.inclineDeg(const GravityVector(0, 9.434, -2))!, 1e-3),
+        closeTo(
+          ShotAngleMath.inclineDeg(const GravityVector(0, 9.434, -2))!,
+          1e-3,
+        ),
       );
       expect(ShotAngleMath.inclineDeg(const GravityVector(0, 0, 1)), isNull);
     });
@@ -222,7 +225,10 @@ void main() {
     tester,
   ) async {
     await _pumpShot(tester, TestTilt());
-    expect(_cardText(tester, const Key('wind-status-card')), contains('0 girildi'));
+    expect(
+      _cardText(tester, const Key('wind-status-card')),
+      contains('0 girildi'),
+    );
 
     await tester.tap(find.byKey(const Key('shot-cant')));
     await tester.pumpAndSettle();

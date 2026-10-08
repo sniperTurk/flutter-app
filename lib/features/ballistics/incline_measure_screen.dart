@@ -90,13 +90,12 @@ class _InclineMeasureScreenState extends State<InclineMeasureScreen> {
   Widget build(BuildContext context) {
     final angle = _angle;
     const glow = [Shadow(color: Colors.white54, blurRadius: 12)];
-    TextStyle style(double size, {FontWeight w = FontWeight.w600}) =>
-        TextStyle(
-          color: Colors.white,
-          fontSize: size,
-          fontWeight: w,
-          shadows: glow,
-        );
+    TextStyle style(double size, {FontWeight w = FontWeight.w600}) => TextStyle(
+      color: Colors.white,
+      fontSize: size,
+      fontWeight: w,
+      shadows: glow,
+    );
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
