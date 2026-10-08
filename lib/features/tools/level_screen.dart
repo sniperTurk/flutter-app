@@ -26,6 +26,10 @@ class LevelScreen extends StatefulWidget {
 class _LevelScreenState extends State<LevelScreen> {
   LevelController? _controller;
 
+  /// "Daha sonra" hides the calibration guide for this visit only; it comes
+  /// back next time until the current pose is calibrated.
+  bool _guideDismissed = false;
+
   static const _resolutionNotice =
       'Değerler 0,01° çözünürlükle gösterilir; bu yalnızca ekran çözünürlüğüdür, '
       'telefon ivmeölçerinin doğruluğu değildir. Titreşimi azaltmak için filtre uygulanır; '
@@ -82,6 +86,7 @@ class _LevelScreenState extends State<LevelScreen> {
                 child: Column(
                   children: [
                     Expanded(
+                      flex: 3,
                       child: angles == null
                           ? _unavailable(controller)
                           : Semantics(
@@ -104,6 +109,19 @@ class _LevelScreenState extends State<LevelScreen> {
                     if (angles != null) ...[
                       const SizedBox(height: MenzilSpace.md),
                       _status(context, controller, angles),
+                      if (!_guideDismissed &&
+                          controller.calibration.bias == null &&
+                          !controller.capturingCalibration) ...[
+                        const SizedBox(height: MenzilSpace.sm),
+                        // Loose and scrollable so large text on a small phone
+                        // shrinks the vials instead of overflowing the page.
+                        Flexible(
+                          flex: 2,
+                          child: SingleChildScrollView(
+                            child: _calibrationGuide(context, controller),
+                          ),
+                        ),
+                      ],
                     ],
                     const SizedBox(height: MenzilSpace.md),
                     _controlBar(context, controller, angles),
@@ -168,6 +186,85 @@ class _LevelScreenState extends State<LevelScreen> {
     // tenths of a degree (TestFlight: 0.2° on a level floor). Calibration
     // stays one tap away in the bottom-left sheet; the note says its state.
     return status;
+  }
+
+  /// First-use explanation: why calibrate and how, in four short steps,
+  /// with a direct way in. Shown only while the current pose (flat or
+  /// upright) has no calibration.
+  Widget _calibrationGuide(BuildContext context, LevelController controller) {
+    final c = MenzilColors.of(context);
+    final flat = controller.mode == TiltMode.flat;
+    final text = MenzilType.caption(c.levelControlInk);
+    return Container(
+      key: const Key('level-calibration-guide'),
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(
+        MenzilSpace.lg,
+        MenzilSpace.md,
+        MenzilSpace.lg,
+        MenzilSpace.xs,
+      ),
+      decoration: BoxDecoration(
+        color: c.levelControl,
+        borderRadius: BorderRadius.circular(MenzilRadius.card),
+        border: Border.all(color: c.levelBezel, width: 2),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.tune, size: 18, color: c.amber),
+              const SizedBox(width: MenzilSpace.xs),
+              Expanded(
+                child: Text(
+                  'İlk kullanımda bir kez kalibre edin',
+                  style: TextStyle(
+                    color: c.levelControlInk,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: MenzilSpace.xxs),
+          Text(
+            'Her telefonun sensöründe küçük, sabit bir sapma vardır; '
+            'kalibrasyon bunu çıkarır ve telefona kaydedilir. '
+            '${flat ? 'Telefonu düz bir yere yatırın' : 'Telefonu dik tutup düz bir kenara dayayın'}, '
+            '1. okumayı alın, aynı yerde 180° çevirip 2. okumayı alın. '
+            'Okuma sırasında telefona dokunmayın.',
+            style: text,
+          ),
+          Wrap(
+            alignment: WrapAlignment.end,
+            spacing: MenzilSpace.sm,
+            children: [
+              TextButton(
+                key: const Key('level-guide-later'),
+                onPressed: () => setState(() => _guideDismissed = true),
+                child: Text(
+                  'Daha sonra',
+                  style: TextStyle(color: c.levelControlInk),
+                ),
+              ),
+              TextButton(
+                key: const Key('level-guide-start'),
+                onPressed: () => _openSettingsSheet(context, controller),
+                child: Text(
+                  'Kalibre et',
+                  style: TextStyle(
+                    color: c.amber,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _controlBar(
@@ -450,11 +547,36 @@ class _LevelSettingsSheet extends StatelessWidget {
                 ),
                 const SizedBox(height: MenzilSpace.xxs),
                 Text(
-                  'Telefonu düz bir yere koyup 1. okumayı alın, aynı yerde 180° '
-                  'çevirip 2. okumayı alın. Telefona özgü sabit sensör sapması '
-                  'çıkarılır; düz ve dik duruş ayrı kalibre edilir.',
+                  'Telefonun sensörüne özgü sabit sapmayı çıkarır; bir kez '
+                  'yapılır ve telefona kaydedilir. Yüzeyin tam düz olması '
+                  'gerekmez. Düz ve dik duruş ayrı kalibre edilir.',
                   style: MenzilType.caption(c.ink2),
                 ),
+                const SizedBox(height: MenzilSpace.xs),
+                for (final (i, step) in const [
+                  'Telefonu sabit bir yere koyun (kılıf takılıysa ölçerken de takılı olsun).',
+                  '"1. okuma"ya basın; çubuk dolana kadar (~2 sn) telefona dokunmayın.',
+                  'Telefonu aynı yerde, aynı noktada 180° çevirin (üst kenar alta gelsin).',
+                  '"2. okuma"ya basın ve yine dolana kadar bekleyin.',
+                ].indexed)
+                  Padding(
+                    padding: const EdgeInsets.only(top: MenzilSpace.xxs),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 20,
+                          child: Text(
+                            '${i + 1}.',
+                            style: MenzilType.caption(c.ink),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(step, style: MenzilType.caption(c.ink)),
+                        ),
+                      ],
+                    ),
+                  ),
                 const SizedBox(height: MenzilSpace.sm),
                 Row(
                   children: [
@@ -753,8 +875,10 @@ class _VialCluster extends StatelessWidget {
             // A square cluster: tube thickness t, gap g, circle d, with
             // t + g + d equal to the side in both directions.
             final side = math.min(maxW, maxH);
-            final t = (side * 0.19).clamp(36.0, 96.0).toDouble();
-            final g = (side * 0.035).clamp(6.0, 16.0).toDouble();
+            // No minimum sizes: on a very short screen (big text, small
+            // phone) the cluster just gets smaller instead of overflowing.
+            final t = (side * 0.19).clamp(0.0, 96.0).toDouble();
+            final g = (side * 0.035).clamp(0.0, 16.0).toDouble();
             final d = side - t - g;
             return Center(
               child: SizedBox.square(
