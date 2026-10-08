@@ -168,7 +168,7 @@ void main() {
       final legacy = Map<String, dynamic>.of(json)..remove('mountCantMoa');
       expect(codec.decode(legacy).mountCantMoa, 0);
 
-      for (final bad in <Object>[-5, 40, 500, 'sixty', double.nan]) {
+      for (final bad in <Object>[-5, 25, 500, 'sixty', double.nan]) {
         expect(
           () => codec.decode(Map.of(json)..['mountCantMoa'] = bad),
           throwsFormatException,
