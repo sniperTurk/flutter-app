@@ -252,14 +252,19 @@ class _LevelScreenState extends State<LevelScreen> {
                       ),
                     ),
                   ),
-                  TextButton(
-                    key: const Key('level-guide-start'),
-                    onPressed: () => _openSettingsSheet(context, controller),
-                    child: Text(
-                      calibrated ? 'Yeniden kalibre et' : 'Kalibre et',
-                      style: TextStyle(
-                        color: c.amber,
-                        fontWeight: FontWeight.w700,
+                  // Flexible so large text on a narrow phone wraps the
+                  // label instead of overflowing the row.
+                  Flexible(
+                    child: TextButton(
+                      key: const Key('level-guide-start'),
+                      onPressed: () => _openSettingsSheet(context, controller),
+                      child: Text(
+                        calibrated ? 'Yeniden kalibre et' : 'Kalibre et',
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          color: c.amber,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
