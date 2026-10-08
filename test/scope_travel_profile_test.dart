@@ -54,10 +54,7 @@ void main() {
       matching: find.byType(TextField),
     );
     expect(field, findsOneWidget);
-    expect(
-      find.byTooltip('Bilgi: Kule ayar aralığı'),
-      findsOneWidget,
-    );
+    expect(find.byTooltip('Bilgi: Kule ayar aralığı'), findsOneWidget);
     // Empty is allowed: it never appears in the missing list.
     expect(
       tester.widget<Text>(find.byKey(const Key('profile-missing'))).data,

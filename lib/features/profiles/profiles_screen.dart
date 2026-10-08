@@ -1666,7 +1666,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   controller: scopeTravelElevation,
                   label: 'Kule ayar aralığı',
                   unit: angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
-                  helperText: 'Kutuda yazar, ör. 60 MOA. Bilmiyorsanız boş bırakın.',
+                  helperText:
+                      'Kutuda yazar, ör. 60 MOA. Bilmiyorsanız boş bırakın.',
                   onChanged: (_) => setState(() {}),
                   errorText: _travelError(scopeTravelElevation),
                 ),
