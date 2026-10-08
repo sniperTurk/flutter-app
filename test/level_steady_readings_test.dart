@@ -159,14 +159,18 @@ void main() {
       for (final s in _noisy(_tilted(0.3, 0), 300, seed: 11)) {
         tilt.controller.add(TiltAvailable(s));
         await _settle();
-        shown.add(double.parse(TiltMath.format(c.angles!.xDeg).replaceAll(',', '.')));
+        shown.add(
+          double.parse(TiltMath.format(c.angles!.xDeg).replaceAll(',', '.')),
+        );
       }
       // The first samples converge; after that the read-out holds still.
       final tail = <double>{};
       for (final s in _noisy(_tilted(0.3, 0), 300, seed: 12)) {
         tilt.controller.add(TiltAvailable(s));
         await _settle();
-        tail.add(double.parse(TiltMath.format(c.angles!.xDeg).replaceAll(',', '.')));
+        tail.add(
+          double.parse(TiltMath.format(c.angles!.xDeg).replaceAll(',', '.')),
+        );
       }
       // What the user reads (0.1° text) does not change at all.
       expect(tail.length, 1);
