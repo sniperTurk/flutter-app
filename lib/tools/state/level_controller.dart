@@ -29,6 +29,7 @@ class LevelController extends ChangeNotifier {
     this.calibrationSamples = 100,
     this.calibrationSettleSamples = 15,
     this.displayDeadbandDeg = 0.1,
+    this.displaySettleSamples = 40,
   }) : _filter = smoothing == null
            ? GravityFilter.adaptive()
            : GravityFilter(alpha: smoothing);
@@ -43,11 +44,33 @@ class LevelController extends ChangeNotifier {
   /// longer flickers the 0.01° read-out or nudges the bubbles; a real change
   /// of this size or more shows at once. 0 disables it.
   final double displayDeadbandDeg;
+
+  /// Once the reading has stayed put this many samples (~0.8 s at ~50 Hz),
+  /// the shown value settles ONCE onto the live one. Without it the dead
+  /// band kept a value passed while the phone was being set down (TestFlight
+  /// 2026-10-08: back on the calibration spot it showed −0,1 / −0,1 instead
+  /// of 0,0). It settles again only after the next real move, so a still
+  /// phone still shows a still number. 0 disables it.
+  final int displaySettleSamples;
   double? _shownX, _shownY;
+
+  /// Live value the stillness count started from, the count, and whether
+  /// this still period has already settled.
+  TiltAngles? _settleAnchor;
+  int _settleCount = 0;
+  bool _settled = false;
+
+  /// The live reading may wander this much and still count as still.
+  static const _settleStillDeg = 0.03;
 
   /// Forgets the shown value so the next read shows the live one exactly
   /// (used after a reference, calibration or pose change).
-  void _resetShown() => _shownX = _shownY = null;
+  void _resetShown() {
+    _shownX = _shownY = null;
+    _settleAnchor = null;
+    _settleCount = 0;
+    _settled = false;
+  }
 
   StillAverager? _averager;
   bool _averagerFlipped = false;
@@ -128,17 +151,47 @@ class LevelController extends ChangeNotifier {
   /// Moves each shown axis to [live] only once it is [displayDeadbandDeg]
   /// away. Called for every sensor sample and on every read, so the band
   /// works the same whether or not the screen happened to repaint.
-  void _followShown(TiltAngles? live) {
+  /// Returns true when a shown axis moved.
+  bool _followShown(TiltAngles? live) {
     if (live == null) {
       _resetShown();
-      return;
+      return false;
     }
-    double follow(double? shown, double now) =>
-        (shown == null || (now - shown).abs() >= displayDeadbandDeg)
-        ? now
-        : shown;
+    var moved = false;
+    double follow(double? shown, double now) {
+      if (shown == null || (now - shown).abs() >= displayDeadbandDeg) {
+        moved = true;
+        return now;
+      }
+      return shown;
+    }
+
     _shownX = follow(_shownX, live.xDeg);
     _shownY = follow(_shownY, live.yDeg);
+    return moved;
+  }
+
+  /// Per sensor sample: after the dead band, lets a still reading settle
+  /// once onto the live value (see [displaySettleSamples]).
+  void _settleShown(TiltAngles? live, {required bool moved}) {
+    if (live == null || displaySettleSamples <= 0) return;
+    // A dead-band step means the phone moved: the next still period may
+    // settle again.
+    if (moved) _settled = false;
+    final anchor = _settleAnchor;
+    if (anchor == null ||
+        (live.xDeg - anchor.xDeg).abs() > _settleStillDeg ||
+        (live.yDeg - anchor.yDeg).abs() > _settleStillDeg) {
+      _settleAnchor = live;
+      _settleCount = 0;
+      return;
+    }
+    _settleCount++;
+    if (!_settled && _settleCount >= displaySettleSamples) {
+      _shownX = live.xDeg;
+      _shownY = live.yDeg;
+      _settled = true;
+    }
   }
 
   /// Same as [angles] but never frozen by the lock.
@@ -214,7 +267,8 @@ class LevelController extends ChangeNotifier {
         _unavailable = null;
         if (_autoMode) _followPose(gravity);
         _gravity = _filter.add(gravity);
-        _followShown(liveAngles);
+        final live = liveAngles;
+        _settleShown(live, moved: _followShown(live));
         _feedAverager(gravity);
       case TiltUnavailable(:final reason):
         _finishCapture(false);
