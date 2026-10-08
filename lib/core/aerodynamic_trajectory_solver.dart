@@ -82,8 +82,9 @@ class AerodynamicTrajectorySolver {
 
   /// G1/G7 trajectory including vector wind coupling.
   ///
-  /// Wind convention follows the UI: 0° = headwind, 90° = full-value
-  /// crosswind, 180° = tailwind, 270° = opposite crosswind. The wind vector
+  /// Wind degrees (internal): 0° = headwind, 90° = from the LEFT (saat 9),
+  /// 180° = tailwind, 270° = from the right (saat 3); see WindClock. The UI
+  /// shows clock hours only, so users never see these degrees. The wind vector
   /// represents moving air, so drag is computed from projectile velocity
   /// relative to that air mass.
   List<TrajectoryPoint> solve(BallisticInput input) {

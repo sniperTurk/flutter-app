@@ -67,10 +67,6 @@ abstract final class ProfileFieldInfo {
       'Kutuda yazar ya da kuleyi çevirip sayarsınız. Uzak atışta kule '
       'yetmezse uygulama bunu söyler. Bilmiyorsanız boş bırakın; hesap '
       'yine çalışır.';
-  static const windageTravel =
-      'Rüzgâr kulesinin (sağ kule) toplam ayar aralığı, dürbün biriminde. '
-      'Föyde "Total windage adjustment" diye yazar; çoğu dürbünde yükseklik '
-      'aralığıyla aynıdır. Örnek: 60 MOA veya 17 MRAD. Boş bırakılabilir.';
   static const mountCant =
       'Dürbün ayağının (montaj rayı veya ayarlı No Limit ayak) dürbüne '
       'verdiği eğim, MOA olarak. Normal düz ayakta "Normal (0 MOA)" seçin. '

@@ -231,8 +231,11 @@ class ScopeDialView extends StatelessWidget {
         'yolu $limit klik'
         '${up ? mount : ''}. ';
     if (!up) {
-      return '${base}Dürbün ayağının eğimi bu kısa mesafe için fazla; '
-          'retikülde tutuş yapın.';
+      // Only blame the mount when there is one.
+      return mountCantMoa > 0
+          ? '${base}Dürbün ayağının eğimi bu kısa mesafe için fazla; '
+                'retikülde tutuş yapın.'
+          : '${base}Bu kısa mesafe için retikülde tutuş yapın.';
     }
     if (!travelKnown) {
       return '${base}Mesafeyi kısaltın veya retikülde tutuş yapın.';
@@ -347,7 +350,6 @@ class ScopeDialView extends StatelessWidget {
       negativeWord: 'aşağı',
       onChanged: onElevationChanged,
     );
-    // Windage on the same top bar, mirrored so it reads "1L · 0 · 1R".
     // Windage: a vertical drum on the right, R up / L down (ChairGun).
     final windageDrum = _TurretDrum(
       key: ScopeDialKeys.windageDrum,
@@ -697,7 +699,7 @@ class ScopeDialView extends StatelessWidget {
 
   String _reticleSemantics(({double up, double right})? impact) {
     if (impact == null) {
-      return 'Dürbün retikülü. Vuruş noktası için önce hesaplayın.';
+      return 'Dürbün retikülü. Vuruş noktası henüz hesaplanmadı.';
     }
     return 'Dürbün retikülü. Vuruş noktası artı işaretine göre '
         '${_fmt(impact.up.abs())} $unitLabel ${impact.up >= 0 ? 'yukarıda' : 'aşağıda'}, '

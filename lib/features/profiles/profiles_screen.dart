@@ -490,8 +490,6 @@ String _labelled(String? name, bool? userEntered, String fallbackId) =>
     ? '$name — kişisel kayıt, üretici doğrulaması yok'
     : name;
 
-/// Read-only summary of the active profile plus the catalog values it
-/// resolves to. Purely informational: nothing here feeds the solver.
 /// "6-36 x 56 FFP" from the scope's magnification, objective and focal
 /// plane; parts that are unknown are left out.
 String _scopeSummary(ScopeOptic s) {
@@ -511,13 +509,17 @@ String _scopeSummary(ScopeOptic s) {
   return [size, focal].where((p) => p.isNotEmpty).join(' ');
 }
 
-/// Total clicks of the top (elevation) turret, from the stored travel and
-/// the scope's click value; null when the travel is unknown.
-int? _topTurretClicks(ScopeOptic s) {
+/// Total clicks of the top (elevation) turret in the profile's unit, with
+/// the same click Hedef uses (the catalog click when the units match,
+/// otherwise 0.1 MRAD / ¼ MOA); null when the travel is unknown.
+int? _topTurretClicks(ScopeOptic s, AngularUnit unit) {
   final mrad = s.elevationRangeMrad;
   if (mrad == null || mrad <= 0 || s.clickValue <= 0) return null;
-  final travel = s.clickUnit == AngularUnit.moa ? Units.mradToMoa(mrad) : mrad;
-  return (travel / s.clickValue).round();
+  final click = s.clickUnit == unit
+      ? s.clickValue
+      : (unit == AngularUnit.moa ? 0.25 : 0.1);
+  final travel = unit == AngularUnit.moa ? Units.mradToMoa(mrad) : mrad;
+  return (travel / click).round();
 }
 
 String _ammoTypeName(AmmunitionType t) => switch (t) {
@@ -526,6 +528,8 @@ String _ammoTypeName(AmmunitionType t) => switch (t) {
   AmmunitionType.bullet => 'Bullet',
 };
 
+/// Read-only summary of the active profile plus the catalog values it
+/// resolves to. Purely informational: nothing here feeds the solver.
 class _ActiveProfileDetails extends StatelessWidget {
   final RifleProfile profile;
   final VoidCallback onEdit;
@@ -647,10 +651,11 @@ class _ActiveProfileDetails extends StatelessWidget {
               'Dürbün birimi',
               profile.angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
             ),
-            if (scope != null && _topTurretClicks(scope) != null)
+            if (scope != null &&
+                _topTurretClicks(scope, profile.angularUnit) != null)
               MenzilMetric(
                 'Dürbün üst kule',
-                '${_topTurretClicks(scope)}',
+                '${_topTurretClicks(scope, profile.angularUnit)}',
                 'klik',
               ),
             if (ammo != null)
@@ -819,17 +824,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final initialRifle = p == null
         ? null
         : _allRifles.where((r) => r.id == p.rifleId).firstOrNull;
-    // Platform of an unresolved rifle is inferred from the stored pressure
-    // (only PCP profiles carry one) instead of defaulting silently.
-    platform =
-        initialRifle?.platform ??
-        (p != null && p.pressureBar == null
-            ? WeaponPlatform.firearm
-            : WeaponPlatform.pcp);
     rifle = initialRifle;
     ammo = p == null
         ? null
         : _allAmmunition.where((a) => a.id == p.ammunitionId).firstOrNull;
+    // Platform of an unresolved rifle comes from its ammunition, else PCP.
+    // (It used to be guessed from the pressure, but new PCP profiles carry
+    // no pressure since 2026-10-09, so "no pressure" no longer means
+    // firearm.)
+    platform = initialRifle?.platform ?? ammo?.platform ?? WeaponPlatform.pcp;
     scope = p == null
         ? null
         : _allScopes.where((o) => o.id == p.scopeId).firstOrNull;
@@ -858,11 +861,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
     firstFocalPlane = s0?.firstFocalPlane;
     // "Üst kule klik sayısı": total clicks from end to end of the top
-    // turret, recovered from the stored travel and the scope's click value.
+    // turret, recovered from the stored travel with the SAME unit and click
+    // the form saves with (a MRAD catalog scope on a MOA profile used to
+    // come back 27 % shorter after a save).
     String travel(double? mrad) {
-      if (mrad == null || mrad <= 0 || s0 == null) return '';
-      final clicks = _fromMrad(mrad, s0.clickUnit) / s0.clickValue;
-      return clicks.round().toString();
+      final click = double.tryParse(scopeClick.text);
+      if (mrad == null || mrad <= 0 || click == null || click <= 0) return '';
+      return (_fromMrad(mrad, angularUnit) / click).round().toString();
     }
 
     scopeTravelElevation = TextEditingController(

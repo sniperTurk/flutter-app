@@ -18,8 +18,16 @@ abstract final class ToolProfileUpdate {
     for (final r in CatalogRepository.allRifles) {
       if (r.id == base.rifleId) rifle = r;
     }
+    Ammunition? ammo;
+    for (final a in CatalogRepository.allAmmunition) {
+      if (a.id == base.ammunitionId) ammo = a;
+    }
+    // Unresolved rifle: the ammunition says the platform; an older profile's
+    // pressure means PCP; otherwise firearm (whose pressure must be empty —
+    // a PCP profile without pressure validates the same way).
     final platform =
         rifle?.platform ??
+        ammo?.platform ??
         (base.pressureBar != null
             ? WeaponPlatform.pcp
             : WeaponPlatform.firearm);
