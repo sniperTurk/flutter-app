@@ -10,6 +10,10 @@ abstract final class ProductionLimits {
   static const double maxPcpPressureBar = 500;
   static const int maxProfileNameLength = 80;
 
+  /// Canted scope mounts are sold up to 90 MOA; 120 leaves room for
+  /// stacked rail + rings without accepting nonsense.
+  static const double maxMountCantMoa = 120;
+
   /// Shot incline and scope cant accept the full circle, like field apps
   /// (ChairGun measures e.g. −102°). The solver works in the rotated scope
   /// frame, so any angle is geometrically exact; a shot that cannot reach the

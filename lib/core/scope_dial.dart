@@ -48,6 +48,30 @@ abstract final class ScopeDialMath {
     return clicks * clickValue;
   }
 
+  /// Extra UP turret travel, in whole clicks, that a canted scope mount of
+  /// [mountCantMoa] gives a scope with [clickValue] in [unit].
+  ///
+  /// The mount tilts the bore up against the sight line, so re-zeroing
+  /// dials the turret DOWN by the same angle: the zeroed turret sits lower
+  /// in its travel and that much more is left to dial UP (and that much
+  /// less DOWN). The required correction from zero does not change.
+  /// 1/4 MOA scope: 60 MOA × 4 = 240 clicks; 0.1 mrad: 30 MOA ≈ 87 clicks.
+  /// Rounded down, so the gain is never overstated.
+  static int mountCantClicks(
+    double mountCantMoa,
+    double clickValue,
+    AngularUnit unit,
+  ) {
+    _validClickValue(clickValue);
+    if (!mountCantMoa.isFinite || mountCantMoa < 0) {
+      throw ArgumentError.value(mountCantMoa, 'mountCantMoa', 'must be >= 0');
+    }
+    final angle = unit == AngularUnit.moa
+        ? mountCantMoa
+        : Units.moaToMrad(mountCantMoa);
+    return (angle / clickValue + 1e-9).floor();
+  }
+
   /// Nearest whole number of clicks for an angular [correction].
   static int clicksFor(double correction, double clickValue) {
     _validClickValue(clickValue);

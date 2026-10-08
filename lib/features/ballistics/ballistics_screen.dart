@@ -782,12 +782,24 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               '(${s.clickValue} $catalogName/klik). Retikül ve kule $unitName '
               'olarak, $click $unitName/klik ile gösteriliyor. Dürbününüz '
               '$catalogName ise profilde birimi $catalogName yapın.';
+    // Dürbün ayağı: a canted mount moves the zeroed turret down in its
+    // travel. The required correction is unchanged; only the room to dial
+    // UP grows (and the room to dial DOWN shrinks) by the mount's clicks.
+    final halfUp = _halfTravelClicks(click, s.elevationRangeMrad);
+    final mountCantMoa = widget.profile?.mountCantMoa ?? 0;
+    final mountClicks = mountCantMoa > 0
+        ? ScopeDialMath.mountCantClicks(mountCantMoa, click, unit)
+        : 0;
     return ScopeDialView(
       unit: unit,
       clickValue: click,
       elevationClicks: _elevationClicks,
       windageClicks: _windageClicks,
-      maxElevationClicks: _halfTravelClicks(click, s.elevationRangeMrad),
+      maxElevationClicks: halfUp + mountClicks,
+      maxElevationDownClicks: math.max(0, halfUp - mountClicks),
+      mountCantMoa: mountCantMoa,
+      mountCantClicks: mountClicks,
+      travelKnown: (s.elevationRangeMrad ?? 0) > 0,
       maxWindageClicks: _halfTravelClicks(click, s.windageRangeMrad),
       onElevationChanged: (v) => setState(() => _elevationClicks = v),
       onWindageChanged: (v) => setState(() => _windageClicks = v),

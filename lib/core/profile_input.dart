@@ -10,12 +10,16 @@ class ProfileInput {
   final double sightHeightMm;
   final double? pressureBar;
 
+  /// Built-in slope of the scope mount, in MOA (0 = normal mount).
+  final double mountCantMoa;
+
   const ProfileInput._({
     required this.name,
     required this.muzzleVelocityMps,
     required this.zeroRangeM,
     required this.sightHeightMm,
     required this.pressureBar,
+    this.mountCantMoa = 0,
   });
 
   factory ProfileInput.validate({
@@ -25,6 +29,7 @@ class ProfileInput {
     required String sightHeightText,
     required WeaponPlatform platform,
     String? pressureText,
+    String? mountCantText,
   }) {
     final normalizedName = name.trim();
     if (normalizedName.isEmpty) {
@@ -63,7 +68,26 @@ class ProfileInput {
       zeroRangeM: zero,
       sightHeightMm: sight,
       pressureBar: pressure,
+      mountCantMoa: parseMountCant(mountCantText ?? ''),
     );
+  }
+
+  /// Dürbün ayağı eğimi (MOA). Empty means a normal mount (0 MOA); a typed
+  /// value must be a number from 0 to [ProductionLimits.maxMountCantMoa].
+  static double parseMountCant(String text) {
+    final t = text.trim();
+    if (t.isEmpty) return 0;
+    final value = double.tryParse(t.replaceAll(',', '.'));
+    if (value == null ||
+        !value.isFinite ||
+        value < 0 ||
+        value > ProductionLimits.maxMountCantMoa) {
+      throw FormatException(
+        'Dürbün ayağı 0–${ProductionLimits.maxMountCantMoa.toStringAsFixed(0)} '
+        'MOA arasında olmalıdır (normal ayak için boş bırakın).',
+      );
+    }
+    return value;
   }
 
   static double _boundedPositive(String text, String label, double max) {

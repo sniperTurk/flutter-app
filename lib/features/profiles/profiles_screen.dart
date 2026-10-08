@@ -158,6 +158,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       sightHeightMm: p.sightHeightMm,
       pressureBar: p.pressureBar,
       angularUnit: p.angularUnit,
+      mountCantMoa: p.mountCantMoa,
     );
     try {
       await store.save(copy);
@@ -580,6 +581,12 @@ class _ActiveProfileDetails extends StatelessWidget {
               'Dürbün birimi',
               profile.angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
             ),
+            if (profile.mountCantMoa > 0)
+              MenzilMetric(
+                'Dürbün ayağı',
+                _trimNum(profile.mountCantMoa),
+                'MOA',
+              ),
             if (rifle != null)
               MenzilMetric('Çap', rifle.caliberMm.toStringAsFixed(2), 'mm'),
             if (ammo != null)
@@ -759,6 +766,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController velocity;
   late final TextEditingController zero;
   late final TextEditingController sight;
+  late final TextEditingController mountCant;
   String? validationError;
   late AngularUnit angularUnit;
 
@@ -840,6 +848,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // user's data (owner, 2026-10-07: "250 m/s nereden geliyor?").
     zero = TextEditingController(text: p == null ? '' : num(p.zeroRangeM));
     sight = TextEditingController(text: p == null ? '' : num(p.sightHeightMm));
+    // Empty = normal mount (0 MOA); old profiles have no value.
+    mountCant = TextEditingController(
+      text: p == null || p.mountCantMoa == 0 ? '' : num(p.mountCantMoa),
+    );
   }
 
   static String _fpsText(double mps) {
@@ -882,6 +894,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_objectiveError == null, 'Mercek çapı'),
       (_clickError == null, 'Klik değeri'),
       (_validSight, 'Sight height'),
+      (_mountCantError == null, 'Dürbün ayağı'),
     ]);
     section('Mühimmat', [
       (_ammoBrandError == null, 'Marka'),
@@ -918,7 +931,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     velocity.dispose();
     zero.dispose();
     sight.dispose();
+    mountCant.dispose();
     super.dispose();
+  }
+
+  /// Empty (normal mount) or 0–120 MOA.
+  String? get _mountCantError {
+    try {
+      ProfileInput.parseMountCant(mountCant.text);
+      return null;
+    } on FormatException {
+      return '0–${ProductionLimits.maxMountCantMoa.toStringAsFixed(0)} MOA '
+          'arasında bir değer girin.';
+    }
   }
 
   bool get _validSight {
@@ -1149,6 +1174,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         // V380: the PCP profile pressure is the rifle's regulator pressure
         // (the separate "Atış basıncı" field was redundant).
         pressureText: rifleRegulator.text,
+        mountCantText: mountCant.text,
       );
     } on FormatException catch (e) {
       setState(() => validationError = e.message);
@@ -1205,6 +1231,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         sightHeightMm: input.sightHeightMm,
         pressureBar: input.pressureBar,
         angularUnit: angularUnit,
+        mountCantMoa: input.mountCantMoa,
       ),
     );
   }
@@ -1575,6 +1602,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   errorText: sight.text.isNotEmpty && !_validSight
                       ? '0–300 mm arasında geçerli bir değer girin.'
                       : null,
+                ),
+                MenzilInput(
+                  key: const Key('scope-mount-cant'),
+                  info: ProfileFieldInfo.mountCant,
+                  controller: mountCant,
+                  label: 'Dürbün ayağı',
+                  unit: 'MOA',
+                  hintText: 'Normal',
+                  helperText: 'Normal ayak için boş bırakın.',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _mountCantError,
                 ),
                 MenzilFullWidth(
                   child: Column(

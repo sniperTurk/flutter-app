@@ -18,6 +18,7 @@ class ProfileCodec {
         'sightHeightMm': p.sightHeightMm,
         'pressureBar': p.pressureBar,
         'angularUnit': p.angularUnit.name,
+        'mountCantMoa': p.mountCantMoa,
       };
 
   RifleProfile decode(Map<String, dynamic> j) {
@@ -74,6 +75,21 @@ class ProfileCodec {
     } else {
       throw const FormatException('Invalid profile field: pressureBar');
     }
+    // mountCantMoa is absent in profiles saved before the field existed:
+    // those are normal (0 MOA) mounts. A present malformed value is
+    // corruption and must not silently become 0.
+    final cant = j['mountCantMoa'];
+    final double mountCantMoa;
+    if (cant == null) {
+      mountCantMoa = 0;
+    } else if (cant is num &&
+        cant.toDouble().isFinite &&
+        cant >= 0 &&
+        cant.toDouble() <= ProductionLimits.maxMountCantMoa) {
+      mountCantMoa = cant.toDouble();
+    } else {
+      throw const FormatException('Invalid profile field: mountCantMoa');
+    }
     return RifleProfile(
       id: requiredString('id'),
       name: requiredString('name', maxLength: ProductionLimits.maxProfileNameLength),
@@ -85,6 +101,7 @@ class ProfileCodec {
       sightHeightMm: requiredPositive('sightHeightMm', max: ProductionLimits.maxSightHeightMm, maxExclusive: true),
       pressureBar: pressureBar,
       angularUnit: unit,
+      mountCantMoa: mountCantMoa,
     );
   }
 }

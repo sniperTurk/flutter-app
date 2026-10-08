@@ -148,6 +148,12 @@ class RifleProfile {
   final double muzzleVelocityMps, zeroRangeM, sightHeightMm;
   final double? pressureBar;
   final AngularUnit angularUnit;
+
+  /// Built-in slope of the scope mount/rail (e.g. a 30 MOA "No Limit"
+  /// base), in MOA; 0 for a normal flat mount. It does not change the drop
+  /// or the correction from zero: it shifts the zeroed turret down in its
+  /// travel, so the scope has this much more room to dial UP.
+  final double mountCantMoa;
   const RifleProfile({
     required this.id,
     required this.name,
@@ -159,6 +165,7 @@ class RifleProfile {
     required this.sightHeightMm,
     this.pressureBar,
     this.angularUnit = AngularUnit.mrad,
+    this.mountCantMoa = 0,
   });
 }
 

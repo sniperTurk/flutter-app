@@ -32,6 +32,7 @@ abstract final class ToolProfileUpdate {
       sightHeightText: (sightHeightMm ?? base.sightHeightMm).toString(),
       platform: platform,
       pressureText: (pressureBar ?? base.pressureBar)?.toString(),
+      mountCantText: base.mountCantMoa.toString(),
     );
     return RifleProfile(
       id: base.id,
@@ -44,6 +45,7 @@ abstract final class ToolProfileUpdate {
       sightHeightMm: input.sightHeightMm,
       pressureBar: input.pressureBar,
       angularUnit: base.angularUnit,
+      mountCantMoa: input.mountCantMoa,
     );
   }
 }
