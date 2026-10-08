@@ -248,4 +248,55 @@ void main() {
     );
     expect(nameField.controller!.text, 'Yeni Profil 2');
   });
+
+  testWidgets('editor layout: zero beside the mount, aligned scope fields, '
+      'no ammunition Model box', (tester) async {
+    tester.view.physicalSize = const Size(430, 2600) * 3;
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: ProfilesScreen(store: MemoryProfileStore()),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Yeni profil'));
+    await tester.pumpAndSettle();
+
+    Finder field(String key) => find.byKey(Key(key), skipOffstage: false);
+    final mount = find.byKey(
+      const ValueKey('scope-mount-cant-mrad-0.1'),
+      skipOffstage: false,
+    );
+    // Sıfırlama mesafesi is in the Dürbün card, on the Dürbün ayağı row.
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('profile-scope-form')),
+        matching: field('profile-zero'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      tester.getTopLeft(field('profile-zero')).dy,
+      tester.getTopLeft(mount).dy,
+    );
+    expect(
+      tester.getTopLeft(field('profile-zero')).dx,
+      greaterThan(tester.getTopLeft(mount).dx),
+    );
+
+    // A field without ⓘ lines up with its neighbour that has one.
+    Finder box(String key) => find.descendant(
+      of: field(key),
+      matching: find.byType(InputDecorator),
+    );
+    expect(
+      tester.getTopLeft(box('scope-brand')).dy,
+      tester.getTopLeft(box('scope-focal-plane')).dy,
+    );
+
+    // The ammunition card has no Model box any more.
+    expect(field('ammo-model'), findsNothing);
+  });
 }

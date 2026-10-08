@@ -780,7 +780,12 @@ class MenzilFieldLabel extends StatelessWidget {
     final c = MenzilColors.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: MenzilSpace.xxs + 1),
-      child: Row(
+      // Every label row is at least as tall as the ⓘ button (44), so a field
+      // without ⓘ lines up with its neighbour that has one (owner,
+      // 2026-10-08: "Dürbün markası" sat higher than "Odak düzlemi").
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 44),
+        child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
@@ -797,6 +802,7 @@ class MenzilFieldLabel extends StatelessWidget {
           ],
           if (trailing != null) trailing!,
         ],
+      ),
       ),
     );
   }

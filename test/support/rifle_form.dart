@@ -73,14 +73,12 @@ Future<void> chooseInSelect(
 Future<void> fillAmmoForm(
   WidgetTester tester, {
   String brand = 'Test Mühimmat',
-  String model = 'Test Slug',
   String? type = 'Slug',
   String grain = '33,95',
   String bc = '0,08',
   String bcModel = 'G1',
 }) async {
   await enterRifleField(tester, 'ammo-brand', brand);
-  await enterRifleField(tester, 'ammo-model', model);
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);
   await enterRifleField(tester, 'ammo-grain', grain);
   await enterRifleField(tester, 'ammo-bc', bc);

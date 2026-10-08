@@ -755,7 +755,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Ammunition is typed in too. A BC with its G1/G7 model lets the drag
   /// solver compute wind drift (the vacuum baseline keeps wind locked).
   late final TextEditingController ammoBrand;
-  late final TextEditingController ammoModel;
   late final TextEditingController ammoGrain;
   late final TextEditingController ammoBc;
   AmmunitionType? ammoType;
@@ -829,7 +828,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     firstFocalPlane = s0?.firstFocalPlane;
     final a0 = ammo;
     ammoBrand = TextEditingController(text: a0?.brand ?? '');
-    ammoModel = TextEditingController(text: a0?.model ?? '');
     ammoGrain = TextEditingController(text: num(a0?.grain));
     ammoBc = TextEditingController(text: num(a0?.ballisticCoefficient));
     ammoType = a0?.type;
@@ -898,7 +896,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ]);
     section('Mühimmat', [
       (_ammoBrandError == null, 'Marka'),
-      (_ammoModelError == null, 'Model'),
       (_effectiveAmmoType != null, 'Tip'),
       (_grainError == null, 'Ağırlık'),
       (_bcError == null, 'BC'),
@@ -924,7 +921,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeObjective.dispose();
     scopeClick.dispose();
     ammoBrand.dispose();
-    ammoModel.dispose();
     ammoGrain.dispose();
     ammoBc.dispose();
     name.dispose();
@@ -1025,7 +1021,21 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       firstFocalPlane != null;
 
   String? get _ammoBrandError => _textError(ammoBrand);
-  String? get _ammoModelError => _textError(ammoModel);
+  /// The ammunition has no Model box (owner, 2026-10-08); its record name
+  /// is built from what was entered, e.g. "33,95 gr Slug".
+  String get _ammoModelName {
+    final grain = _parse(ammoGrain);
+    final type = switch (_effectiveAmmoType) {
+      AmmunitionType.pellet => 'Pellet',
+      AmmunitionType.slug => 'Slug',
+      AmmunitionType.bullet => 'Mermi',
+      null => '',
+    };
+    return [
+      if (grain != null) '${_trimNum(grain)} gr',
+      type,
+    ].where((p) => p.isNotEmpty).join(' ');
+  }
   String? get _grainError => _rangeError(ammoGrain, 1, 800);
   String? get _bcError => _rangeError(ammoBc, 0.005, 1.5);
 
@@ -1036,7 +1046,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   bool get _ammoValid =>
       _ammoBrandError == null &&
-      _ammoModelError == null &&
       _grainError == null &&
       _bcError == null &&
       ammoBcModel != null &&
@@ -1106,7 +1115,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'kind': 'ammo',
       'platform': platform.name,
       'brand': ammoBrand.text.trim(),
-      'model': ammoModel.text.trim(),
+      'model': _ammoModelName,
       // Caliber follows the rifle, so the pair can never mismatch.
       'caliberMm': _parse(rifleCaliber),
       'grain': _parse(ammoGrain),
@@ -1478,15 +1487,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_velocityError, velocity),
                 ),
-                MenzilInput(
-                  key: const Key('profile-zero'),
-                  controller: zero,
-                  label: 'Sıfırlama mesafesi',
-                  info: ProfileFieldInfo.zero,
-                  unit: 'm',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_zeroError, zero),
-                ),
               ],
             ),
           ),
@@ -1625,6 +1625,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ],
                   onChanged: (v) => setState(() => mountCant = v ?? 0),
                 ),
+                // Next to Dürbün ayağı (owner, 2026-10-08): both describe how
+                // the scope is set up on the rifle.
+                MenzilInput(
+                  key: const Key('profile-zero'),
+                  controller: zero,
+                  label: 'Sıfırlama mesafesi',
+                  info: ProfileFieldInfo.zero,
+                  unit: 'm',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_zeroError, zero),
+                ),
                 MenzilFullWidth(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1679,15 +1690,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   maxLength: 100,
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_ammoBrandError, ammoBrand),
-                ),
-                MenzilInput(
-                  key: const Key('ammo-model'),
-                  controller: ammoModel,
-                  label: 'Model',
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_ammoModelError, ammoModel),
                 ),
                 if (platform == WeaponPlatform.pcp)
                   MenzilSelect<AmmunitionType>(
