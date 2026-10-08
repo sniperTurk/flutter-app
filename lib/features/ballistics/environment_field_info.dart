@@ -26,10 +26,10 @@ abstract final class EnvironmentFieldInfo {
       'doğrusudur. Yan rüzgâr saçmayı yana taşır; sapma BC ile hesaplanır. '
       'Örnek: 3 m/s.';
   static const windDirection =
-      'Rüzgârın NEREDEN estiği, atış yönüne göre derece. 0 = tam karşıdan '
-      '(yüze), 90 = tam soldan, 180 = tam arkadan, 270 = tam sağdan. Saat '
-      'kadranıyla: 9 yönü = 90°, 3 yönü = 270°. Soldan esen rüzgâr saçmayı '
-      'sağa taşır.';
+      'Rüzgârın NEREDEN estiğini saat kadranında seçin. Hedef saat 12 '
+      'yönünde: 12 = karşıdan, 3 = sağdan, 6 = arkadan, 9 = soldan. '
+      'ChairGun, Strelok ve Kestrel de böyle kullanır. Soldan (9) esen '
+      'rüzgâr saçmayı sağa taşır.';
   static const ranges =
       'Tabloda görmek istediğiniz mesafeler, virgülle ayrılmış. Örnek: '
       '10, 20, 30, 40, 50.';

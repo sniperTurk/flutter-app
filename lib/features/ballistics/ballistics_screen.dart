@@ -12,6 +12,7 @@ import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
 import '../../core/units.dart';
+import '../../core/wind_clock.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
 import '../../services/settings_store.dart';
@@ -24,6 +25,7 @@ import 'environment_field_info.dart';
 import 'incline_measure_screen.dart';
 import 'scope_cant_screen.dart';
 import 'scope_dial_view.dart';
+import 'wind_clock_picker.dart';
 
 /// Which part of the ballistic workspace is shown.
 ///
@@ -764,14 +766,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final windMps = basis?.environment.windMps ?? 0;
     if (basis != null && basis.drag && windMps > 0) {
       final dir = basis.environment.windDirectionDeg;
-      final side = math.sin(dir * math.pi / 180);
-      final from = side.abs() < 0.05
-          ? 'önden/arkadan'
-          : (side > 0 ? 'soldan' : 'sağdan');
+      final hour = WindClock.fromDegrees(dir);
+      final from = 'saat $hour, ${WindClock.side(hour)}';
       windNote =
           'Rüzgâr ${_windLabel(windMps)} ${metric ? 'm/s' : 'mph'}, '
-          '${dir.toStringAsFixed(0)}° ($from) ile hesaplandı; 90° = soldan, '
-          '270° = sağdan.';
+          '($from) ile hesaplandı.';
     }
 
     final minMag = s.minMagnification ?? 0, maxMag = s.maxMagnification ?? 0;
@@ -1320,13 +1319,25 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               info: EnvironmentFieldInfo.windSpeed,
               unit: metric ? 'm/s' : 'mph',
             ),
-            MenzilInput(
-              key: BallisticsFieldKeys.windDirection,
-              controller: windDirection,
-              label: 'Rüzgâr yönü',
-              info: EnvironmentFieldInfo.windDirection,
-              unit: '°',
-              helperText: '0 karşı · 90 sol · 180 arka · 270 sağ',
+            // Clock face like ChairGun/Strelok/Kestrel: the hour the wind
+            // comes from (12 = from the front, 3 = from the right). The
+            // solver's degrees stay in [windDirection].
+            MenzilFullWidth(
+              child: WindClockPicker(
+                key: BallisticsFieldKeys.windDirection,
+                info: EnvironmentFieldInfo.windDirection,
+                hour: WindClock.fromDegrees(
+                  double.tryParse(
+                        windDirection.text.trim().replaceAll(',', '.'),
+                      ) ??
+                      90,
+                ),
+                onChanged: (h) => setState(
+                  () => windDirection.text = WindClock.toDegrees(
+                    h,
+                  ).toStringAsFixed(0),
+                ),
+              ),
             ),
           ],
         ),

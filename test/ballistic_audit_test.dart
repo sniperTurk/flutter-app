@@ -9,6 +9,7 @@ import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
+import 'package:sniper_turk/features/ballistics/wind_clock_picker.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
@@ -65,10 +66,12 @@ Future<String> _windCardAfter(
   await tester.tap(find.text('Hava Durumu'));
   await tester.pumpAndSettle();
   await tester.enterText(find.byKey(BallisticsFieldKeys.wind), '4');
-  await tester.enterText(
-    find.byKey(BallisticsFieldKeys.windDirection),
-    direction,
-  );
+  // Clock face: 9 = from the left (90°), 3 = from the right (270°).
+  final hour = direction == '90' ? 9 : 3;
+  final dial = find.byKey(WindClockPicker.hourKey(hour));
+  await tester.ensureVisible(dial);
+  await tester.tap(dial);
+  await tester.pumpAndSettle();
   await tester.tap(find.text('Atış'));
   await tester.pumpAndSettle();
   await tester.tap(find.text('Hesapla'));

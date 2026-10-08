@@ -69,7 +69,7 @@ void main() {
     await tester.pumpWidget(_app(BallisticsView.shot));
     await tester.pumpAndSettle();
     expect(find.byKey(ScopeDialKeys.reticle), findsOneWidget);
-    expect(find.textContaining('(soldan) ile hesaplandı'), findsOneWidget);
+    expect(find.textContaining('soldan) ile hesaplandı'), findsOneWidget);
 
     // Undialled: the shot lands low and is pushed right by the wind.
     final undialled = _impact(tester);
