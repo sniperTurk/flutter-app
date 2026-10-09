@@ -233,7 +233,6 @@ void main() {
     // (M1); Vuruş Olasılığı (hit probability) is a V1.1 standalone stats
     // tool. Qwen/cloud wording must stay absent from the hub either way.
     for (final key in const [
-      'chronograph',
       'sight-height',
       'compass',
       'level',
@@ -244,7 +243,8 @@ void main() {
     ]) {
       expect(find.byKey(Key('tool-$key')), findsOneWidget, reason: key);
     }
-    // Katalog is no longer on the hub (its data is kept).
+    // Katalog and Kronograf are no longer on the hub (their code is kept).
+    expect(find.byKey(const Key('tool-chronograph')), findsNothing);
     expect(find.byKey(const Key('tool-catalog')), findsNothing);
     expect(find.textContaining('Qwen'), findsNothing);
     // V380: Ayarlar was removed (metric only).

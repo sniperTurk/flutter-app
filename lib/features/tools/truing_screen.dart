@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../core/ballistic_input.dart';
+import '../../core/powder_temperature.dart';
 import '../../core/unit_system.dart';
 import '../../core/velocity_truing.dart';
 import '../../data/catalog_repository.dart';
@@ -13,6 +14,7 @@ import '../../services/active_profile_store.dart';
 import '../../services/app_settings.dart';
 import '../../services/manual_catalog_store.dart';
 import '../../services/profile_store.dart';
+import '../../services/shot_settings_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../ballistics/environment_field_info.dart';
@@ -71,6 +73,13 @@ class _TruingScreenState extends State<TruingScreen> {
   TruingResult? _result;
   BcTruingResult? _bcResult;
 
+  /// Pro Ayarlar of the profile (powder temperature data, firearms).
+  ShotSettings? _shotSettings;
+
+  /// Today's / reference velocity from the powder temperature model; 1 when
+  /// it does not apply. Set by the last computation.
+  double _powderFactor = 1;
+
   /// What the observation trues: muzzle velocity (first step) or the BC at
   /// a far range (second step, owner 2026-10-09).
   bool _trueBc = false;
@@ -114,7 +123,16 @@ class _TruingScreenState extends State<TruingScreen> {
     } catch (_) {
       profile = null;
     }
+    ShotSettings? shot;
+    if (profile != null) {
+      try {
+        shot = await const ShotSettingsStore().load(profile.id);
+      } catch (_) {
+        shot = null;
+      }
+    }
     if (!mounted) return;
+    _shotSettings = shot;
     setState(() {
       _loading = false;
       _profile = profile;
@@ -157,16 +175,32 @@ class _TruingScreenState extends State<TruingScreen> {
       _fail('Atmosfer alanlarını kontrol edin; nem %0–100 olmalı.');
       return;
     }
+    final todayC = metric ? t : UnitSystem.fahrenheitToCelsius(t);
+    // Same powder temperature model as Atış: the profile velocity is the
+    // one at the reference temperature (firearms only).
+    final shot = _shotSettings;
+    final f = res.rifle.platform == WeaponPlatform.firearm && shot != null
+        ? PowderTemperature.factor(
+            coefPercentPer15C: double.tryParse(
+              shot.powderCoefText.trim().replaceAll(',', '.'),
+            ),
+            referenceTempC: double.tryParse(
+              shot.powderTempText.trim().replaceAll(',', '.'),
+            ),
+            todayTempC: todayC,
+          )
+        : 1.0;
     final BallisticInput base;
     try {
       base = BallisticInput(
-        muzzleVelocityMps: p.muzzleVelocityMps,
+        muzzleVelocityMps: p.muzzleVelocityMps * f,
+        zeroMuzzleVelocityMps: f == 1 ? null : p.muzzleVelocityMps,
         grain: ammo.grain,
         zeroRangeM: p.zeroRangeM,
         sightHeightMm: p.sightHeightMm,
         rangesM: [p.zeroRangeM],
         environment: EnvironmentData(
-          temperatureC: metric ? t : UnitSystem.fahrenheitToCelsius(t),
+          temperatureC: todayC,
           pressureHpa: metric ? pr : UnitSystem.inHgToHpa(pr),
           humidityPercent: h,
         ),
@@ -192,12 +226,27 @@ class _TruingScreenState extends State<TruingScreen> {
           _error = null;
         });
       } else {
-        final result = MuzzleVelocityTruing.solve(
+        final today = MuzzleVelocityTruing.solve(
           base: base,
           rangeM: rangeM,
           observedCorrectionMrad: observedMrad,
         );
+        // Back to the reference temperature: that is what the profile
+        // stores and what Atış scales again.
+        final result = f == 1
+            ? today
+            : TruingResult(
+                baseMps: p.muzzleVelocityMps,
+                truedMps: double.parse(
+                  (today.truedMps / f).toStringAsFixed(1),
+                ),
+                rangeM: today.rangeM,
+                predictedMrad: today.predictedMrad,
+                observedMrad: today.observedMrad,
+                truedPredictedMrad: today.truedPredictedMrad,
+              );
         setState(() {
+          _powderFactor = f;
           _result = result;
           _bcResult = null;
           _error = null;
@@ -541,6 +590,15 @@ class _TruingScreenState extends State<TruingScreen> {
           MenzilMetric('Kalan fark', angle(r.residualMrad.abs()), u.label),
         ],
       ),
+      if (_powderFactor != 1)
+        MenzilNotice(
+          key: const Key('truing-powder-note'),
+          tone: MenzilNoticeTone.info,
+          message:
+              'Barut sıcaklığı hesaba katıldı (Pro Ayarlar). Bugünkü hız '
+              '${_fps(r.truedMps * _powderFactor)}; profile, ölçüm '
+              'sıcaklığındaki hız (${_fps(r.truedMps)}) yazılır.',
+        ),
       if (r.changePercent.abs() > 5)
         const MenzilNotice(
           tone: MenzilNoticeTone.warning,

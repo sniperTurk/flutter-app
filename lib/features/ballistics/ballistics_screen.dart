@@ -8,6 +8,7 @@ import '../../core/ballistic_engine.dart';
 import '../../core/ballistic_input.dart';
 import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
+import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
@@ -271,10 +272,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Today's velocity from the profile velocity measured at [powderTempCtl]
   /// and the sensitivity [powderCoefCtl] (% per 15 °C); firearms only.
   double _powderAdjusted(double mps, double todayC) {
-    final k = _parsed(powderCoefCtl), t0 = _parsed(powderTempCtl);
-    if (!_isFirearm || k == null || t0 == null) return mps;
-    if (k.abs() > 10 || t0 < -50 || t0 > 60) return mps;
-    return mps * (1 + k / 100 * (todayC - t0) / 15);
+    if (!_isFirearm) return mps;
+    return mps *
+        PowderTemperature.factor(
+          coefPercentPer15C: _parsed(powderCoefCtl),
+          referenceTempC: _parsed(powderTempCtl),
+          todayTempC: todayC,
+        );
   }
 
   /// Spin drift (Litz) as a sideways angle in mrad, + = to the right; null
@@ -616,7 +620,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         } else if (altM != null) {
           put(
             pressure,
-            _pressureText(FieldCalc.stationPressureHpa(obs.pressureHpa, altM)),
+            _pressureText(
+              FieldCalc.stationPressureHpa(
+                obs.pressureHpa,
+                altM,
+                temperatureC: obs.temperatureC,
+              ),
+            ),
           );
           pressureNote =
               'basınç ${altM.round()} m irtifaya göre istasyon basıncına '

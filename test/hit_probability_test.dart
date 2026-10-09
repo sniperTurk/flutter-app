@@ -6,14 +6,29 @@ import 'package:sniper_turk/ui/menzil_theme.dart';
 
 void main() {
   group('HitProbabilityEngine', () {
-    test('probability is exactly the closed-form circular Gaussian value', () {
-      // sigma(100m) for 1 MOA group = (0.5 MOA -> mrad)/1000*100m.
+    test('probability is the closed-form Gaussian value (5-shot group)', () {
+      // sigma = 1 MOA / 3.067 at 300 m; R = 5 cm -> P = 0.7865.
       final p = HitProbabilityEngine.probabilityOfHit(
         groupDiameterMoa: 1.0,
         targetDiameterCm: 10.0,
-        rangeM: 100,
+        rangeM: 300,
       );
-      expect(p, closeTo(0.99729, 0.0001));
+      expect(p, closeTo(0.7865, 0.0005));
+    });
+
+    test('fewer shots in the same group size means more dispersion', () {
+      final three = HitProbabilityEngine.probabilityOfHit(
+        groupDiameterMoa: 1.0,
+        targetDiameterCm: 10.0,
+        rangeM: 300,
+        shots: 3,
+      );
+      expect(three, closeTo(0.6127, 0.0005));
+      expect(HitProbabilityEngine.extremeSpreadFactor(2), closeTo(1.772, 1e-3));
+      expect(
+        () => HitProbabilityEngine.extremeSpreadFactor(1),
+        throwsArgumentError,
+      );
     });
 
     test('probability increases as the target shrinks less than the group', () {

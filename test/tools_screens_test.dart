@@ -27,12 +27,11 @@ Future<void> _unmount(WidgetTester tester) async {
 
 void main() {
   group('Tool hub', () {
-    testWidgets('lists the seven V1 tools and no separate vision tool', (
+    testWidgets('lists the V1 tools and no separate vision tool', (
       tester,
     ) async {
       await tester.pumpWidget(host(const Scaffold(body: ToolsScreen())));
       for (final k in [
-        'chronograph',
         'sight-height',
         'compass',
         'level',
@@ -43,6 +42,7 @@ void main() {
         expect(find.byKey(Key('tool-$k')), findsOneWidget, reason: k);
       }
       expect(find.byKey(const Key('tool-catalog')), findsNothing);
+      expect(find.byKey(const Key('tool-chronograph')), findsNothing);
       // V380: Ayarlar was removed.
       expect(find.byKey(const Key('tool-settings')), findsNothing);
       expect(find.textContaining('Qwen'), findsNothing);

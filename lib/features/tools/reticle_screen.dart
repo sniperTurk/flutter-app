@@ -21,12 +21,30 @@ abstract final class MilDotReticle {
   /// Dots on each arm, centre to centre spacing 1 mil.
   static const dotsPerArm = 4;
 
-  /// Dot diameter in mil (a common specification is 0.2 mil).
-  static const dotDiameterMil = 0.2;
+  /// Dot diameter in mil: the USMC mil-dot specifies 0.25 mil (the Army
+  /// variant 0.22 mil). Was 0.2 before 2026-10-09.
+  static const dotDiameterMil = 0.25;
 
   /// Where the thick posts begin (mil from centre) and where they end.
   static const postStartMil = 5.0;
   static const postEndMil = 10.0;
+}
+
+/// ⓘ texts of the Retikül page (owner rule, 2026-10-07).
+abstract final class ReticleFieldInfo {
+  static const distance =
+      'Hedefe olan mesafe; telemetre ile ölçün. Nokta aralığının hedefte kaç '
+      'cm tuttuğu buna göre hesaplanır. Örnek: 50 m.';
+  static const target =
+      'Hedefin bilinen boyu veya çapı. Retikülde kaç mil kapladığını '
+      'gösterir. Örnek: 4,5 cm (tipik metal silüet).';
+  static const mag =
+      'Dürbünün şu an ayarlı olduğu büyütme; büyütme halkasında yazar. SFP '
+      'dürbünde retikül değeri büyütmeyle değişir. Örnek: 10x.';
+  static const calMag =
+      'SFP dürbünde retikül çizgilerinin doğru mil değerini gösterdiği '
+      'büyütme; dürbün kılavuzunda yazar, çoğunlukla en yüksek büyütmedir. '
+      'Örnek: 10x.';
 }
 
 class ReticleScreen extends StatefulWidget {
@@ -57,12 +75,14 @@ class _ReticleState extends State<ReticleScreen> {
     String unit,
     Key key, {
     String? helper,
+    required String info,
   }) => MenzilInput(
     key: key,
     controller: c,
     label: label,
     unit: unit,
     helperText: helper,
+    info: info,
     keyboardType: _decimal,
     onChanged: (_) => setState(() {}),
   );
@@ -104,6 +124,7 @@ class _ReticleState extends State<ReticleScreen> {
             'Hedef mesafesi',
             'm',
             const Key('reticle-distance'),
+            info: ReticleFieldInfo.distance,
           ),
           const SizedBox(height: MenzilSpace.sm),
           _field(
@@ -111,6 +132,7 @@ class _ReticleState extends State<ReticleScreen> {
             'Hedef boyu (görünen çap veya boy)',
             'cm',
             const Key('reticle-target'),
+            info: ReticleFieldInfo.target,
           ),
           const SizedBox(height: MenzilSpace.sm),
           MenzilChipGroup<bool>(
@@ -123,7 +145,13 @@ class _ReticleState extends State<ReticleScreen> {
           ),
           const SizedBox(height: MenzilSpace.sm),
           if (!_ffp) ...[
-            _field(_mag, 'Şu anki büyütme', 'x', const Key('reticle-mag')),
+            _field(
+              _mag,
+              'Şu anki büyütme',
+              'x',
+              const Key('reticle-mag'),
+              info: ReticleFieldInfo.mag,
+            ),
             const SizedBox(height: MenzilSpace.sm),
             _field(
               _calMag,
@@ -132,6 +160,7 @@ class _ReticleState extends State<ReticleScreen> {
               const Key('reticle-cal-mag'),
               helper:
                   'Çoğu SFP dürbünde en yüksek büyütme. Dürbünün kılavuzuna bakın.',
+              info: ReticleFieldInfo.calMag,
             ),
           ],
           const MenzilSectionHeader(
@@ -168,7 +197,7 @@ class _ReticleState extends State<ReticleScreen> {
                   'cm',
                 ),
                 MenzilMetric(
-                  '0,2 mil nokta çapı',
+                  '0,25 mil nokta çapı',
                   ToolFormat.dec(
                     FieldCalc.spanM(dist, k * MilDotReticle.dotDiameterMil)! *
                         100,

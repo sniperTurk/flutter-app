@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import 'calculators_screen.dart';
-import 'chronograph_screen.dart';
 import 'compass_screen.dart';
 import 'hit_probability_screen.dart';
 import 'level_screen.dart';
@@ -12,13 +11,15 @@ import 'sight_height_screen.dart';
 import 'truing_screen.dart';
 import 'weather_screen.dart';
 
-/// Tool hub (Kronograf, Hız Doğrulama, Sight Height, Haritadan mesafe, Hava & Rüzgâr,
+/// Tool hub (Hız Doğrulama, Sight Height, Haritadan mesafe, Hava & Rüzgâr,
 /// Pusula, Su Terazisi, Vuruş Olasılığı, Hesaplayıcılar). Katalog is no
-/// longer listed here (owner, 2026-10-08); its records and screen remain. Visual assistance is NOT a tool of its own; it only
+/// longer listed here (owner, 2026-10-08); its records and screen remain.
+/// Kronograf was removed from the hub too (owner, 2026-10-09); its screen
+/// and statistics code remain. Visual assistance is NOT a tool of its own; it only
 /// appears inside the Sight Height flow.
 class ToolsScreen extends StatelessWidget {
-  /// Called after any tool route closes. Kronograf, Hız Doğrulama and Sight
-  /// Height can write
+  /// Called after any tool route closes. Hız Doğrulama and Sight Height can
+  /// write
   /// to a profile; the shell must reload so Atış/Tablo never keep using the
   /// previous muzzle velocity or sight height.
   final Future<void> Function()? onProfilesChanged;
@@ -38,13 +39,6 @@ class ToolsScreen extends StatelessWidget {
     final c = MenzilColors.of(context);
     return MenzilPage(
       children: [
-        MenzilToolTile(
-          tileKey: const Key('tool-chronograph'),
-          icon: Icons.speed_outlined,
-          title: 'Kronograf',
-          subtitle: 'Hız serisi: ortalama, SD ve ES; profile aktarım',
-          onTap: () => _open(context, const ChronographScreen()),
-        ),
         MenzilToolTile(
           tileKey: const Key('tool-truing'),
           icon: Icons.tune,

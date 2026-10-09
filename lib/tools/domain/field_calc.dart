@@ -139,9 +139,27 @@ abstract final class FieldCalc {
 
   // ---- Air laboratory ---------------------------------------------------
 
-  /// Station pressure (hPa) from a sea-level pressure and altitude (ISA).
-  static double stationPressureHpa(double seaLevelHpa, double altitudeM) =>
-      seaLevelHpa * math.pow(1 - 2.25577e-5 * altitudeM, 5.25588);
+  /// Station pressure (hPa) from a sea-level pressure and altitude.
+  ///
+  /// Without [temperatureC] the ICAO standard atmosphere is used (exact for
+  /// an altimeter setting, QNH). With the station [temperatureC] the
+  /// meteorological reduction is reversed (hypsometric equation with the
+  /// mean temperature of the air column, standard lapse 0.0065 K/m), which
+  /// matches a weather service's mean-sea-level pressure (2026-10-09: at
+  /// 1000 m and 30 °C ISA was 0.8 % low).
+  static double stationPressureHpa(
+    double seaLevelHpa,
+    double altitudeM, {
+    double? temperatureC,
+  }) {
+    final t = temperatureC;
+    if (t == null || !t.isFinite) {
+      return seaLevelHpa * math.pow(1 - 2.25577e-5 * altitudeM, 5.25588);
+    }
+    const g = 9.80665, rd = 287.05, lapse = 0.0065;
+    final meanK = t + 273.15 + lapse * altitudeM / 2;
+    return seaLevelHpa * math.exp(-g * altitudeM / (rd * meanK));
+  }
 
   /// Dew point (°C), Magnus formula.
   static double dewPointC(double temperatureC, double humidityPercent) {
@@ -170,6 +188,26 @@ abstract final class FieldCalc {
       dewPointC: dewPointC(env.temperatureC, env.humidityPercent),
     );
   }
+
+  // ---- Energy ------------------------------------------------------------
+
+  static const _kgPerGrain = 0.00006479891;
+
+  /// Kinetic energy ½·m·v² in joules for a [grain] bullet at [mps].
+  static double energyJ(double grain, double mps) =>
+      0.5 * grain * _kgPerGrain * mps * mps;
+
+  /// Momentum m·v in N·s.
+  static double momentumNs(double grain, double mps) =>
+      grain * _kgPerGrain * mps;
+
+  /// Power factor = grain × fps / 1000 (IPSC convention).
+  static double powerFactor(double grain, double mps) =>
+      grain * mps / 0.3048 / 1000;
+
+  /// Velocity (m/s) at which a [grain] bullet carries [joules].
+  static double velocityForEnergyMps(double grain, double joules) =>
+      math.sqrt(2 * joules / (grain * _kgPerGrain));
 
   // ---- BC from two velocities -------------------------------------------
 
@@ -268,7 +306,11 @@ class AirLab {
 class ConvUnit {
   final String label;
   final double factor;
-  const ConvUnit(this.label, this.factor);
+
+  /// Added after scaling (base = value · factor + offset); only temperature
+  /// needs it.
+  final double offset;
+  const ConvUnit(this.label, this.factor, [this.offset = 0]);
 }
 
 class ConvCategory {
@@ -278,7 +320,7 @@ class ConvCategory {
   const ConvCategory(this.id, this.title, this.units);
 
   double convert(double value, ConvUnit from, ConvUnit to) =>
-      value * from.factor / to.factor;
+      (value * from.factor + from.offset - to.offset) / to.factor;
 }
 
 abstract final class Converters {
@@ -339,5 +381,21 @@ abstract final class Converters {
     ConvUnit('lbf·in', 0.1129848290276),
     ConvUnit('ozf·in', 0.00706155181423),
     ConvUnit('kgf·m', 9.80665),
+  ]);
+
+  /// Muzzle energy (2026-10-09). 12 ft·lbf (16.27 J) is a common legal
+  /// airgun limit.
+  static const energy = ConvCategory('energy', 'Enerji birimleri', [
+    ConvUnit('joule (J)', 1),
+    ConvUnit('ft·lbf', 1.3558179483314),
+    ConvUnit('kgf·m', 9.80665),
+    ConvUnit('kilojoule (kJ)', 1000),
+  ]);
+
+  /// Base unit kelvin.
+  static const temperature = ConvCategory('temperature', 'Sıcaklık birimleri', [
+    ConvUnit('Celsius (°C)', 1, 273.15),
+    ConvUnit('Fahrenheit (°F)', 5 / 9, 273.15 - 32 * 5 / 9),
+    ConvUnit('Kelvin (K)', 1),
   ]);
 }

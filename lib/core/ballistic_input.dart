@@ -63,6 +63,9 @@ class BallisticInput {
 
   /// The same input with another muzzle velocity (validated again). Used by
   /// truing, which searches the velocity that reproduces an observed hit.
+  ///
+  /// A separate zero-day velocity (powder temperature) is scaled by the same
+  /// ratio, so a velocity error found by truing applies to both days.
   BallisticInput withMuzzleVelocity(double mps) => BallisticInput(
     muzzleVelocityMps: mps,
     grain: grain,
@@ -77,7 +80,9 @@ class BallisticInput {
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
     azimuthDeg: azimuthDeg,
-    zeroMuzzleVelocityMps: zeroMuzzleVelocityMps,
+    zeroMuzzleVelocityMps: zeroMuzzleVelocityMps == null
+        ? null
+        : zeroMuzzleVelocityMps! * mps / muzzleVelocityMps,
   );
 
   /// The same input with another G1/G7 ballistic coefficient (validated

@@ -23,6 +23,7 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
   final _group = TextEditingController(text: '1,0');
   final _target = TextEditingController(text: '10');
   final _range = TextEditingController(text: '100');
+  int _shots = HitProbabilityEngine.defaultShots;
 
   @override
   void dispose() {
@@ -56,11 +57,13 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
         groupDiameterMoa: group,
         targetDiameterCm: target,
         rangeM: range,
+        shots: _shots,
       );
       maxRange80 = HitProbabilityEngine.maxRangeForProbability(
         groupDiameterMoa: group,
         targetDiameterCm: target,
         probability: 0.8,
+        shots: _shots,
       );
     }
 
@@ -86,10 +89,24 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
                 label: 'Grup çapı',
                 unit: 'MOA',
                 helperText: 'Ör. 1,0 MOA',
+                info: HitProbabilityFieldInfo.group,
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
                 ),
                 onChanged: (_) => setState(() {}),
+              ),
+              MenzilSelect<int>(
+                key: const Key('wez-shots'),
+                label: 'Gruptaki atış sayısı',
+                initialValue: _shots,
+                info: HitProbabilityFieldInfo.shots,
+                items: [
+                  for (var n = 2; n <= 10; n++)
+                    DropdownMenuItem(value: n, child: Text('$n atış')),
+                ],
+                onChanged: (v) => setState(
+                  () => _shots = v ?? HitProbabilityEngine.defaultShots,
+                ),
               ),
               MenzilInput(
                 key: const Key('wez-target'),
@@ -97,6 +114,7 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
                 label: 'Hedef çapı',
                 unit: 'cm',
                 helperText: 'Ör. vurulacak bölge',
+                info: HitProbabilityFieldInfo.target,
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
                 ),
@@ -107,6 +125,7 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
                 controller: _range,
                 label: 'Menzil',
                 unit: 'm',
+                info: HitProbabilityFieldInfo.range,
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
                 ),
@@ -139,8 +158,9 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
             ),
             const SizedBox(height: MenzilSpace.sm),
             Text(
-              'Model: dağılımın dairesel ve Gauss olduğu, grup yarıçapının bir sigma kabul edildiği '
-              'basitleştirilmiş bir tahmindir — gerçek atış sonuçlarının yerini tutmaz.',
+              'Model: dağılımın dairesel ve Gauss olduğu kabul edilir; grup çapı atış sayısına '
+              'göre sigmaya çevrilir (5 atışta grup çapı ≈ 3,07 sigma). Basitleştirilmiş bir '
+              'tahmindir — gerçek atış sonuçlarının yerini tutmaz.',
               style: MenzilType.caption(c.ink2),
             ),
           ] else
@@ -155,4 +175,20 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
       ),
     );
   }
+}
+
+/// ⓘ texts of the Vuruş Olasılığı fields (owner rule, 2026-10-07).
+abstract final class HitProbabilityFieldInfo {
+  static const group =
+      'Kâğıtta ölçtüğünüz grubun çapı: en uzak iki deliğin merkezleri arası, '
+      'MOA olarak. 100 m’de 1 MOA ≈ 2,9 cm. Örnek: 100 m’de 2,9 cm’lik grup '
+      '= 1,0 MOA.';
+  static const shots =
+      'Grubu kaç atışla attığınız. Aynı çapta grup, daha çok atışla '
+      'atıldıysa tüfek daha isabetlidir. Örnek: 5 atış.';
+  static const target =
+      'Vurmak istediğiniz bölgenin çapı (öldürücü bölge, gong veya halka). '
+      'Örnek: 10 cm.';
+  static const range =
+      'Hedefe olan mesafe. Telemetre ile ölçün. Örnek: 100 m.';
 }
