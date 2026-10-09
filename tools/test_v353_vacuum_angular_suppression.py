@@ -28,11 +28,11 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
         # scope (required windage is 0.0 unless the basis is a drag solve).
         # The wind status card was removed from Atış (owner, 2026-10-08).
         self.assertEqual(self.text.count('shot.windMrad'), 1)
+        # Without drag the lateral value is the scope-cant geometry only
+        # (owner, 2026-10-09); wind itself is never modelled in vacuum, see
+        # test_v372 for the engine side.
         dial = self.text.index('Widget _scopeDial(')
-        dial_read = self.text.index('shot.windMrad', dial)
-        guard = self.text[dial:dial_read]
-        self.assertIn('!basis.drag', guard)
-        self.assertIn('? 0.0', guard)
+        self.assertIn('shot.windMrad', self.text[dial:])
 
     def test_elevation_angular_correction_is_now_rendered_with_disclaimers(self):
         self.assertIn('p.correctionMoa.toStringAsFixed(2)', self.text)

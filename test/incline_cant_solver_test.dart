@@ -290,6 +290,48 @@ void main() {
     expect(level.dropM, closeTo(classic.dropM, 1e-12));
   });
 
+  test('vacuum: a canted scope moves the shot sideways (geometry only)', () {
+    const calm = EnvironmentData(windMps: 0);
+    TrajectoryPoint at(double cant, {double incline = 0}) =>
+        const BallisticEngine()
+            .solve(
+              _input(
+                drag: false,
+                cant: cant,
+                incline: incline,
+                env: calm,
+                ranges: const [60],
+              ),
+            )
+            .single;
+    expect(at(0).windMrad, 0);
+    final p = at(10);
+    // Right cant → shot right → dial LEFT (windMrad < 0).
+    expect(p.windMrad, lessThan(0));
+    expect(at(-10).windMrad, closeTo(-p.windMrad, 1e-9));
+    // z = ½·g·cosθ·sinφ·t²
+    final z =
+        0.5 *
+        _g *
+        math.sin(10 * math.pi / 180) *
+        p.timeOfFlightS *
+        p.timeOfFlightS;
+    expect(p.windMrad, closeTo(math.atan2(-z, 60) * 1000, 1e-9));
+    // Uphill/downhill shrink it by cosθ.
+    expect(at(10, incline: 40).windMrad.abs(), lessThan(p.windMrad.abs()));
+    // Wind still adds nothing without drag.
+    final windy = const BallisticEngine()
+        .solve(
+          _input(
+            drag: false,
+            env: const EnvironmentData(windMps: 8, windDirectionDeg: 90),
+            ranges: const [60],
+          ),
+        )
+        .single;
+    expect(windy.windMrad, 0);
+  });
+
   test('incline and cant accept the full circle, nothing beyond', () {
     // Full circle accepted (field apps measure e.g. −102°); beyond it not.
     expect(() => _input(incline: 181), throwsArgumentError);

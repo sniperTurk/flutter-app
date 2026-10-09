@@ -113,6 +113,7 @@ class BallisticEngine {
     final phi = cantDeg * math.pi / 180;
     final gAlong = -g * math.sin(theta);
     final gUp = -g * math.cos(theta) * math.cos(phi);
+    final gRight = g * math.cos(theta) * math.sin(phi);
     final vAlong = muzzleVelocityMps * math.cos(boreAngle);
     final vUp = muzzleVelocityMps * math.sin(boreAngle);
     return rangesM
@@ -127,12 +128,14 @@ class BallisticEngine {
           final drop = -projectileY;
           final mrad = correctionMrad(offsetM: drop, rangeM: r);
           // A vacuum trajectory has no aerodynamic coupling to the air, so a
-          // physically meaningful wind drift cannot be computed here. Returning
-          // zero is deliberate: the previous `crossWind * time` approximation
-          // implicitly assumed the projectile instantly acquires the full wind
-          // velocity and materially overstated drift. Wind correction stays
-          // disabled until the validated drag solver is available.
-          const windMrad = 0.0;
+          // physically meaningful WIND drift cannot be computed here: wind
+          // adds nothing (the old `crossWind * time` guess overstated it).
+          // A canted scope, however, tips part of gravity sideways — that is
+          // plain geometry, valid without drag (owner, 2026-10-09): the
+          // pellet goes ½·g·cosθ·sinφ·t² toward the canted side. With no
+          // cant this is exactly zero.
+          final projectileZ = 0.5 * gRight * t * t;
+          final windMrad = math.atan2(-projectileZ, r) * 1000;
           return TrajectoryPoint(
             rangeM: r,
             dropM: drop,
