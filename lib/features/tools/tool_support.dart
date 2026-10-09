@@ -53,6 +53,7 @@ abstract final class ToolProfileUpdate {
       sightHeightMm: input.sightHeightMm,
       pressureBar: input.pressureBar,
       angularUnit: base.angularUnit,
+      distanceUnit: base.distanceUnit,
       mountCantMoa: input.mountCantMoa,
     );
   }

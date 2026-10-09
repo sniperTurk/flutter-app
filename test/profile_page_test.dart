@@ -27,9 +27,10 @@ Future<void> _pumpList(
   required bool metric,
   bool embedded = true,
   VoidCallback? onContinue,
+  RifleProfile profile = _profile,
 }) async {
   final store = MemoryProfileStore();
-  await store.save(_profile);
+  await store.save(profile);
   await tester.pumpWidget(
     AppSettingsScope(
       settings: AppSettings(metric: metric),
@@ -62,10 +63,25 @@ void main() {
     expect(find.textContaining('Zero'), findsNothing);
   });
 
-  testWidgets('imperial: the same SI profile is shown in fps and yd', (
+  testWidgets('a yard profile shows its zero in yd (stored in metres)', (
     tester,
   ) async {
-    await _pumpList(tester, metric: false);
+    // Distances follow the profile's own unit (owner, 2026-10-09).
+    await _pumpList(
+      tester,
+      metric: true,
+      profile: const RifleProfile(
+        id: 'p1',
+        name: 'Bir',
+        rifleId: 'hatsan-hercules-635',
+        ammunitionId: 'gmaz-51',
+        scopeId: 'gazi-6-36',
+        muzzleVelocityMps: 270,
+        zeroRangeM: 25,
+        sightHeightMm: 60,
+        distanceUnit: DistanceUnit.yard,
+      ),
+    );
     // 270 m/s = 885.8 fps; 25 m = 27.3 yd. The stored profile stays SI.
     expect(find.textContaining('886 fps • Sıfır 27.3 yd'), findsOneWidget);
     expect(find.textContaining('m/s', findRichText: true), findsNothing);

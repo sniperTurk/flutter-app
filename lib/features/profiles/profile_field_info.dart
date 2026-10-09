@@ -8,6 +8,10 @@ abstract final class ProfileFieldInfo {
   static const caliber =
       'Namlunun iç çapı, milimetre olarak. Örnek: 5,5 mm (.22), '
       '6,35 mm (.25), 7,62 mm (.30). Mühimmatın kalibresi buradan alınır.';
+  static const caliberFirearm =
+      'Merminin çapı, milimetre olarak. Örnek: 5,56 mm (.223 Rem), '
+      '7,62 mm (.308 Win), 6,5 mm (6.5 Creedmoor), 8,59 mm (.338 Lapua). '
+      'Mühimmatın kalibresi buradan alınır.';
   static const twistDirection =
       'Namlunun içindeki yivlerin dönüş yönü. Namluya arkadan bakarken yivler '
       'saat yönünde dönüyorsa Sağ, tersiyse Sol. Namluların çoğu sağdır.';
@@ -19,10 +23,14 @@ abstract final class ProfileFieldInfo {
   // Mühimmat
   static const ammoType =
       'Pellet: belli ve etek yapılı klasik havalı tüfek saçması. Slug: dolu '
-      'gövdeli, mermi biçimli ağır saçma. Ateşli tüfekte mermi seçilir.';
+      'gövdeli, mermi biçimli ağır saçma.';
   static const grain =
       'Bir saçmanın veya merminin ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: 25,39 gr pellet, 33,95 gr slug.';
+  static const grainFirearm =
+      'Merminin (çekirdeğin) ağırlığı, grain olarak (1 grain = 0,0648 g). '
+      'Kutunun üstünde yazar. Örnek: .223 için 55 gr, .308 için 168 gr, '
+      '6.5 Creedmoor için 140 gr.';
   static const bc =
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
@@ -34,6 +42,17 @@ abstract final class ProfileFieldInfo {
       'verilir. G7: uzun, sivri uzun menzil mermisi. Aynı mermide G7 değeri '
       'G1\'in yaklaşık yarısıdır; yanlış model hesabı ciddi saptırır. Emin '
       'değilseniz G1 seçin.';
+  static const bcFirearm =
+      'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
+      'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
+      'etkilenir. Tipik: G1 0,25–0,60; G7 0,12–0,30. Kutuda veya mermi '
+      'üreticisinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
+  static const bcModelFirearm =
+      'BC sayısının hangi standart mermi şekline göre verildiği. G1: klasik '
+      'av mermisi şekli. G7: uzun, sivri, arka tarafı daralan (boat-tail) '
+      'uzun menzil mermisi; bu mermilerde G7 daha doğrudur. Aynı mermide G7 '
+      'değeri G1\'in yaklaşık yarısıdır; yanlış model hesabı ciddi saptırır. '
+      'Üretici hangisini veriyorsa onu seçin.';
 
   // Dürbün
   static const focalPlane =
@@ -49,9 +68,10 @@ abstract final class ProfileFieldInfo {
       'Ön (objektif) merceğin çapı, milimetre olarak. 6-24x56 bir dürbün için '
       '56.';
   static const scopeUnit =
-      'Kulelerin ve retikülün açı birimi: MRAD (mil) veya MOA. Kulenin '
-      'üstünde veya dürbünün föyünde yazar. Bir klik buna göre alınır: '
-      'MRAD\'da 0,1, MOA\'da 1/4.';
+      'Kulelerin ve retikülün açı birimi: MRAD (mil), MOA veya SMOA. '
+      'Kulenin üstünde veya dürbünün föyünde yazar. "1/4 IN @ 100 YDS" '
+      'yazıyorsa SMOA seçin (100 yard\'da 1 inç; MOA\'dan %4,5 küçük). Bir '
+      'klik buna göre alınır: MRAD\'da 0,1, MOA ve SMOA\'da 1/4.';
   static const sightHeight =
       'Sight height: dürbünün merkez ekseni ile namlunun merkez ekseni '
       'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
@@ -83,4 +103,9 @@ abstract final class ProfileFieldInfo {
   static const zero =
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
       'noktası çakışır. Örnek: havalı tüfekte 25–40 m.';
+  static const distanceUnit =
+      'Mesafelerin birimi: metre veya yard (1 yard = 0,9144 m). Yard '
+      'seçilirse sıfırlama mesafesi, Hedef sayfası, dürbün içindeki mesafe '
+      'sayıları ve tablo yard ile gösterilir. Dürbününüzün odak düğmesi '
+      'yard ile yazılıysa yard seçin.';
 }

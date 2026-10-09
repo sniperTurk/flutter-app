@@ -66,9 +66,8 @@ abstract final class ScopeDialMath {
     if (!mountCantMoa.isFinite || mountCantMoa < 0) {
       throw ArgumentError.value(mountCantMoa, 'mountCantMoa', 'must be >= 0');
     }
-    final angle = unit == AngularUnit.moa
-        ? mountCantMoa
-        : Units.moaToMrad(mountCantMoa);
+    // The mount is sold in true MOA; express it in the turret's unit.
+    final angle = unit.fromMrad(Units.moaToMrad(mountCantMoa));
     return (angle / clickValue + 1e-9).floor();
   }
 
@@ -90,16 +89,13 @@ abstract final class ScopeDialMath {
   }) => (up: dialedUp - requiredUp, right: dialedRight - requiredRight);
 
   /// Turret click used when the profile's unit differs from the catalog
-  /// scope's click unit: 0.1 mrad or ¼ MOA, the common click of each unit.
-  static double standardClick(AngularUnit unit) =>
-      unit == AngularUnit.mrad ? 0.1 : 0.25;
+  /// scope's click unit: 0.1 mrad or ¼ MOA/SMOA, the common click.
+  static double standardClick(AngularUnit unit) => unit.standardClick;
 
-  /// Converts [angle] from [from] to [to] (1 mrad = 3.43775 MOA).
+  /// Converts [angle] from [from] to [to] (1 mrad = 3.43775 MOA = 3.6 SMOA).
   static double convert(double angle, AngularUnit from, AngularUnit to) {
     if (from == to) return angle;
-    return to == AngularUnit.moa
-        ? Units.mradToMoa(angle)
-        : Units.moaToMrad(angle);
+    return to.fromMrad(from.toMrad(angle));
   }
 
   /// Angle, in the reticle's own unit, that ONE reticle unit really covers.
@@ -144,8 +140,7 @@ abstract final class ScopeDialMath {
   }
 
   /// Converts an angle in [unit] to milliradians.
-  static double toMrad(double angle, AngularUnit unit) =>
-      unit == AngularUnit.mrad ? angle : Units.moaToMrad(angle);
+  static double toMrad(double angle, AngularUnit unit) => unit.toMrad(angle);
 
   /// Linear size subtended by [angle] at [rangeM], in metres.
   static double linearAtRange(double angle, double rangeM, AngularUnit unit) =>
@@ -158,14 +153,16 @@ abstract final class ScopeDialMath {
       throw ArgumentError.value(rangeM, 'rangeM', 'must be > 0');
     }
     final mrad = math.atan(sizeM / rangeM) * 1000;
-    return unit == AngularUnit.mrad ? mrad : Units.mradToMoa(mrad);
+    return unit.fromMrad(mrad);
   }
 
   /// Converts a vacuum/drag trajectory point to a [CorrectionSample] in [unit].
   static CorrectionSample sampleOf(TrajectoryPoint p, AngularUnit unit) =>
       CorrectionSample(
         p.rangeM,
-        unit == AngularUnit.mrad ? p.correctionMrad : p.correctionMoa,
+        unit == AngularUnit.moa
+            ? p.correctionMoa
+            : unit.fromMrad(p.correctionMrad),
       );
 
   /// For every mark in [markAngles], the far range at which holding that mark
