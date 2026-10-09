@@ -33,6 +33,14 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
   final Color scopeLine;
   final Color scopeDim;
 
+  /// Paper target in the scope view (white in both themes: paper is white)
+  /// and the hollow point-of-impact ring drawn over it.
+  final Color paperFace;
+  final Color paperRing;
+  final Color paperRingSoft;
+  final Color paperCentre;
+  final Color scopeImpact;
+
   /// The ONLY green exception in the palette: the liquid inside the spirit
   /// level vial (Su Terazisi). Never use it for status text or other widgets.
   final Color levelLiquid;
@@ -67,6 +75,11 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     required this.scopeBg,
     required this.scopeLine,
     required this.scopeDim,
+    required this.paperFace,
+    required this.paperRing,
+    required this.paperRingSoft,
+    required this.paperCentre,
+    required this.scopeImpact,
     required this.levelLiquid,
     required this.levelBackdrop,
     required this.levelBackdropDeep,
@@ -95,6 +108,11 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     scopeBg: Color(0xFFF7FAFB),
     scopeLine: Color(0xFF0F2230),
     scopeDim: Color(0xFF8DA0AE),
+    paperFace: Color(0xFFFFFFFF),
+    paperRing: Color(0xFFC0392B),
+    paperRingSoft: Color(0xFFE57368),
+    paperCentre: Color(0xFFF4B6AE),
+    scopeImpact: Color(0xFF0A84FF),
     levelLiquid: Color(0xFF8CCB12),
     levelBackdrop: Color(0xFF5A5C5E),
     levelBackdropDeep: Color(0xFF2B2C2E),
@@ -123,6 +141,11 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     scopeBg: Color(0xFF0C1A24),
     scopeLine: Color(0xFFE7EFF3),
     scopeDim: Color(0xFF5E7A8E),
+    paperFace: Color(0xFFFFFFFF),
+    paperRing: Color(0xFFC0392B),
+    paperRingSoft: Color(0xFFE57368),
+    paperCentre: Color(0xFFF4B6AE),
+    scopeImpact: Color(0xFF0A84FF),
     levelLiquid: Color(0xFF8CCB12),
     levelBackdrop: Color(0xFF5A5C5E),
     levelBackdropDeep: Color(0xFF2B2C2E),
@@ -159,6 +182,11 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     Color? scopeBg,
     Color? scopeLine,
     Color? scopeDim,
+    Color? paperFace,
+    Color? paperRing,
+    Color? paperRingSoft,
+    Color? paperCentre,
+    Color? scopeImpact,
     Color? levelLiquid,
     Color? levelBackdrop,
     Color? levelBackdropDeep,
@@ -185,6 +213,11 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     scopeBg: scopeBg ?? this.scopeBg,
     scopeLine: scopeLine ?? this.scopeLine,
     scopeDim: scopeDim ?? this.scopeDim,
+    paperFace: paperFace ?? this.paperFace,
+    paperRing: paperRing ?? this.paperRing,
+    paperRingSoft: paperRingSoft ?? this.paperRingSoft,
+    paperCentre: paperCentre ?? this.paperCentre,
+    scopeImpact: scopeImpact ?? this.scopeImpact,
     levelLiquid: levelLiquid ?? this.levelLiquid,
     levelBackdrop: levelBackdrop ?? this.levelBackdrop,
     levelBackdropDeep: levelBackdropDeep ?? this.levelBackdropDeep,
@@ -217,6 +250,11 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
       scopeBg: mix(scopeBg, other.scopeBg),
       scopeLine: mix(scopeLine, other.scopeLine),
       scopeDim: mix(scopeDim, other.scopeDim),
+      paperFace: mix(paperFace, other.paperFace),
+      paperRing: mix(paperRing, other.paperRing),
+      paperRingSoft: mix(paperRingSoft, other.paperRingSoft),
+      paperCentre: mix(paperCentre, other.paperCentre),
+      scopeImpact: mix(scopeImpact, other.scopeImpact),
       levelLiquid: mix(levelLiquid, other.levelLiquid),
       levelBackdrop: mix(levelBackdrop, other.levelBackdrop),
       levelBackdropDeep: mix(levelBackdropDeep, other.levelBackdropDeep),

@@ -1256,7 +1256,27 @@ class ScopeReticlePainter extends CustomPainter {
     double size, {
     bool alignLeft = false,
     FontWeight weight = FontWeight.w600,
+    Color? halo,
   }) {
+    if (halo != null) {
+      final edge = TextPainter(
+        text: TextSpan(
+          text: s,
+          style: TextStyle(
+            fontSize: size,
+            fontWeight: weight,
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 3
+              ..strokeJoin = StrokeJoin.round
+              ..color = halo,
+          ),
+        ),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      final edx = alignLeft ? 0.0 : edge.width / 2;
+      edge.paint(canvas, at - Offset(edx, edge.height / 2));
+    }
     final tp = TextPainter(
       text: TextSpan(
         text: s,
@@ -1292,15 +1312,18 @@ class ScopeReticlePainter extends CustomPainter {
         trueHalfField: trueHalfField,
         targetRadius: tr,
       );
-      canvas.drawCircle(center, px, Paint()..color = colors.surface);
-      final ringPaint = Paint()
-        ..color = colors.ink2
+      // Paper target (owner, 2026-10-09): white face, thin red rings and a
+      // light centre, so the black reticle stays readable on top of it.
+      canvas.drawCircle(center, px, Paint()..color = colors.paperFace);
+      Paint ring(Color c, double w) => Paint()
+        ..color = c
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 1;
-      for (var i = 1; i <= 5; i++) {
-        canvas.drawCircle(center, px * i / 5, ringPaint);
-      }
-      canvas.drawCircle(center, px / 5, Paint()..color = colors.ink2);
+        ..strokeWidth = w;
+      canvas.drawCircle(center, px * 0.75, ring(colors.paperRingSoft, 1));
+      canvas.drawCircle(center, px * 0.5, ring(colors.paperRingSoft, 1));
+      canvas.drawCircle(center, px * 0.25, Paint()..color = colors.paperCentre);
+      canvas.drawCircle(center, px * 0.25, ring(colors.paperRing, 1));
+      canvas.drawCircle(center, px, ring(colors.paperRing, 2));
     }
 
     // Everything of the reticle (lines, marks, labels on marks, impact) is
@@ -1312,21 +1335,36 @@ class ScopeReticlePainter extends CustomPainter {
       canvas.translate(-center.dx, -center.dy);
     }
 
-    final fine = Paint()
-      ..color = ink
-      ..strokeWidth = 1.4;
-    final post = Paint()
-      ..color = ink
-      ..strokeWidth = 7;
+    // A thin background-coloured edge (halo) under every reticle line, mark
+    // and label keeps them readable over the target (owner, 2026-10-09).
+    final halo = colors.scopeBg.withValues(alpha: 0.85);
+    void line(Offset a, Offset b, double width) {
+      canvas.drawLine(
+        a,
+        b,
+        Paint()
+          ..color = halo
+          ..strokeWidth = width + 2.4,
+      );
+      canvas.drawLine(
+        a,
+        b,
+        Paint()
+          ..color = ink
+          ..strokeWidth = width,
+      );
+    }
+
+    const fine = 1.4;
     final postStart = halfField * 0.82 * scale;
     roll();
     // Fine crosshair.
-    canvas.drawLine(
+    line(
       Offset(center.dx - postStart, center.dy),
       Offset(center.dx + postStart, center.dy),
       fine,
     );
-    canvas.drawLine(
+    line(
       Offset(center.dx, center.dy - postStart),
       Offset(center.dx, center.dy + postStart),
       fine,
@@ -1339,12 +1377,13 @@ class ScopeReticlePainter extends CustomPainter {
       Offset(0, -1),
     ];
     for (final d in directions) {
-      canvas.drawLine(center + d * postStart, center + d * radius, post);
+      line(center + d * postStart, center + d * radius, 7);
     }
 
     // Marks.
     final steps = (halfField * 0.8 / markStep).floor();
     final dot = Paint()..color = ink;
+    final dotHalo = Paint()..color = halo;
     final dotR = math.max(
       1.5,
       math.min(size.shortestSide * 0.011, markStep * scale * 0.12),
@@ -1353,21 +1392,15 @@ class ScopeReticlePainter extends CustomPainter {
       if (i == 0) continue;
       final p = i * markStep * scale;
       if (unitLabel == 'mrad') {
-        canvas.drawCircle(center + Offset(p, 0), dotR, dot);
-        canvas.drawCircle(center + Offset(0, p), dotR, dot);
+        for (final at in [center + Offset(p, 0), center + Offset(0, p)]) {
+          canvas.drawCircle(at, dotR + 1.2, dotHalo);
+          canvas.drawCircle(at, dotR, dot);
+        }
       } else {
         final long =
             (i % 5 == 0 ? 9.0 : 5.0) * math.min(1.0, markStep * scale / 12);
-        canvas.drawLine(
-          center + Offset(p, -long),
-          center + Offset(p, long),
-          fine,
-        );
-        canvas.drawLine(
-          center + Offset(-long, p),
-          center + Offset(long, p),
-          fine,
-        );
+        line(center + Offset(p, -long), center + Offset(p, long), fine);
+        line(center + Offset(-long, p), center + Offset(long, p), fine);
       }
     }
     canvas.drawCircle(center, 2.5, Paint()..color = colors.ok);
@@ -1387,6 +1420,7 @@ class ScopeReticlePainter extends CustomPainter {
         math.max(10.0, size.shortestSide * 0.042),
         alignLeft: true,
         weight: FontWeight.w700,
+        halo: halo,
       );
     }
 
@@ -1406,6 +1440,7 @@ class ScopeReticlePainter extends CustomPainter {
           colors.amberInk,
           math.max(9.0, size.shortestSide * 0.036),
           weight: FontWeight.w700,
+          halo: halo,
         );
       }
     }
@@ -1459,14 +1494,17 @@ class ScopeReticlePainter extends CustomPainter {
       if (outside) {
         poi = center + offset / offset.distance * limit;
       }
-      final ring = Paint()
-        ..color = colors.scopeLine
+      Paint stroke(Color c, double w) => Paint()
+        ..color = c
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 2;
+        ..strokeWidth = w;
       if (!outside) {
-        canvas.drawCircle(poi, 11, Paint()..color = colors.amber);
-        canvas.drawCircle(poi, 11, ring);
-        canvas.drawCircle(poi, 3.5, ring);
+        // Hollow ring with a small centre dot: the crosshair stays visible
+        // through it (owner, 2026-10-09).
+        canvas.drawCircle(poi, 9, stroke(halo, 5));
+        canvas.drawCircle(poi, 9, stroke(colors.scopeImpact, 2.5));
+        canvas.drawCircle(poi, 3.2, Paint()..color = halo);
+        canvas.drawCircle(poi, 2.2, Paint()..color = colors.scopeImpact);
       } else {
         // Off-field: an arrow at the edge pointing toward the impact.
         final dir = offset / offset.distance;
@@ -1477,17 +1515,18 @@ class ScopeReticlePainter extends CustomPainter {
           ..lineTo((poi + normal * 9).dx, (poi + normal * 9).dy)
           ..lineTo((poi - normal * 9).dx, (poi - normal * 9).dy)
           ..close();
-        canvas.drawPath(arrow, Paint()..color = colors.amber);
-        canvas.drawPath(arrow, ring);
+        canvas.drawPath(arrow, Paint()..color = colors.scopeImpact);
+        canvas.drawPath(arrow, stroke(halo, 1.5));
         // How far out it is, written just inside the arrow.
         final far = math.sqrt(up * up + right * right);
         _text(
           canvas,
           '${far.toStringAsFixed(far >= 10 ? 0 : 1)} $unitLabel',
           poi - dir * 30,
-          colors.amberInk,
+          colors.scopeImpact,
           math.max(11.0, size.shortestSide * 0.04),
           weight: FontWeight.w700,
+          halo: halo,
         );
       }
     }
