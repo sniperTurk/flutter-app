@@ -1,0 +1,10 @@
+Analyzing flutter-app...                                        
+
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/ballistics/dope_card.dart:58:24 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/ballistics/dope_card.dart:66:24 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/ballistics/dope_card.dart:75:24 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/ballistics/dope_card.dart:86:20 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/ballistics/dope_card.dart:107:32 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/ballistics/dope_card.dart:122:26 • prefer_const_constructors
+
+6 issues found. (ran in 13.2s)
