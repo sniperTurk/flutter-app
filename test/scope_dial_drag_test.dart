@@ -82,5 +82,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(_impact(tester), 'Vuruş noktası: artı işaretinde');
     expect(find.textContaining('klik sol'), findsOneWidget);
+    // The right (windage) turret slides open by itself (owner, 2026-10-09).
+    expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
   });
 }
