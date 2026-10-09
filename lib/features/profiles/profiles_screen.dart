@@ -1630,7 +1630,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   info: ProfileFieldInfo.minMag,
                   controller: scopeMinMag,
                   label: 'Minimum büyütme',
-                  unit: 'x',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_minMagError, scopeMinMag),
                 ),
@@ -1639,7 +1638,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   info: ProfileFieldInfo.maxMag,
                   controller: scopeMaxMag,
                   label: 'Maksimum büyütme',
-                  unit: 'x',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_maxMagError, scopeMaxMag),
                 ),
@@ -1648,7 +1646,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   info: ProfileFieldInfo.objective,
                   controller: scopeObjective,
                   label: 'Mercek çapı',
-                  unit: 'mm',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_objectiveError, scopeObjective),
                 ),
@@ -1671,7 +1668,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ),
                   info: ProfileFieldInfo.mountCant,
                   label: 'Dürbün ayağı',
-                  unit: 'MOA',
                   initialValue: mountCant,
                   // Closed box: just "0 MOA" / "30 MOA"; the list keeps
                   // "Normal" and the click gain.
@@ -1726,7 +1722,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   info: ProfileFieldInfo.elevationTravel,
                   controller: scopeTravelElevation,
                   label: 'Üst kule klik sayısı',
-                  unit: 'klik',
                   keyboardType: TextInputType.number,
                   helperText:
                       'Baştan sona toplam klik. Bilmiyorsanız boş bırakın.',
