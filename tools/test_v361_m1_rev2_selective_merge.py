@@ -16,18 +16,10 @@ class V361SelectiveMergeTests(unittest.TestCase):
         for token in ('sight-muzzle-warning', 'sight-inclined-mount', 'sight-not-landscape', 'minWidth: 44', 'VoiceOver ile hassas işaretleme zordur'):
             self.assertIn(token, src)
 
-    def test_chronograph_optional_pressure_write_uses_validated_update_path(self):
-        # Owner, 2026-10-09: Regülatör basıncı was removed everywhere, so the
-        # chronograph no longer offers to write the tank pressure to the
-        # profile. The pressure-drop statistic stays; updates still go
-        # through the validated ToolProfileUpdate path.
-        chrono = (ROOT/'lib/features/tools/chronograph_screen.dart').read_text(encoding='utf-8')
-        support = (ROOT/'lib/features/tools/tool_support.dart').read_text(encoding='utf-8')
-        for token in ('chrono-start-bar', 'chrono-end-bar', '_pressureDropBar', 'ToolProfileUpdate.apply('):
-            self.assertIn(token, chrono)
-        self.assertNotIn('chrono-write-pressure', chrono)
-        self.assertNotIn('double? pressureBar', support)
-        self.assertIn('pressureText: base.pressureBar?.toString()', support)
+    def test_chronograph_screen_is_removed(self):
+        # Owner, 2026-10-10: Kronograf left the tools hub and its screen was
+        # deleted in the launch clean-up; the statistics stay in the domain.
+        self.assertFalse((ROOT/'lib/features/tools/chronograph_screen.dart').exists())
 
 if __name__ == '__main__':
     unittest.main()

@@ -126,7 +126,14 @@ class AerodynamicTrajectorySolver {
       state = Rk4Integrator.step(
         state: state,
         dt: integrationStepSeconds,
-        derivative: (s) => _derivative(s, drag, bc, input.environment, frame),
+        derivative: (s) => _derivative(
+          s,
+          drag,
+          bc,
+          input.environment,
+          frame,
+          windMps: input.windAt(s.x),
+        ),
       );
       time += integrationStepSeconds;
       if (state.vx <= 0) {
@@ -267,13 +274,16 @@ class AerodynamicTrajectorySolver {
     ReferenceDragModel drag,
     double Function(double) bc,
     EnvironmentData env,
-    _Frame f,
-  ) {
+    _Frame f, {
+    double? windMps,
+  }) {
     final directionRad = env.windDirectionDeg * math.pi / 180;
+    // Rüzgâr bölgeleri: the caller may pass the wind at this distance.
+    final w = windMps ?? env.windMps;
     // 0° is a headwind: air moves toward the shooter (-x). 90° moves in +z.
     // Horizontal (world) components, then rotated into the scope frame.
-    final ax = -env.windMps * math.cos(directionRad);
-    final az = env.windMps * math.sin(directionRad);
+    final ax = -w * math.cos(directionRad);
+    final az = w * math.sin(directionRad);
     final airVx = ax * f.cosT;
     final airVy = -ax * f.sinT * f.cosP + az * f.sinP;
     final airVz = az * f.cosP + ax * f.sinT * f.sinP;

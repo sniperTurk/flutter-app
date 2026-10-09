@@ -14,11 +14,6 @@ class BallisticEngine {
     return math.atan2(offsetM, rangeM) * 1000;
   }
 
-  int clicks({required double correction, required double clickValue}) {
-    if (clickValue <= 0) throw ArgumentError('clickValue must be > 0');
-    return (correction / clickValue).round();
-  }
-
   /// Production entry point.
   ///
   /// With a ballistic coefficient and drag law (G1/G7) the aerodynamic solver

@@ -18,6 +18,8 @@ import 'package:sniper_turk/tools/tools_services.dart';
 
 import 'support/tool_fakes.dart';
 
+import 'support/pro_sections.dart';
+
 const _profile = RifleProfile(
   id: 'p-angle',
   name: 'Eğim',
@@ -231,6 +233,8 @@ void main() {
     expect(find.byKey(const Key('shot-cant')), findsNothing);
 
     await ws.show(BallisticsView.pro);
+    await openProFor(tester, const Key('shot-incline'));
+    await tester.ensureVisible(find.byKey(const Key('shot-incline')));
     await tester.tap(find.byKey(const Key('shot-incline')));
     await tester.pumpAndSettle();
     await tester.enterText(
@@ -259,6 +263,8 @@ void main() {
     expect(_impact(tester).split(' · ').last, startsWith('0.0 cm'));
 
     await ws.show(BallisticsView.pro);
+    await openProFor(tester, const Key('shot-cant'));
+    await tester.ensureVisible(find.byKey(const Key('shot-cant')));
     await tester.tap(find.byKey(const Key('shot-cant')));
     await tester.pumpAndSettle();
     expect(find.text('Dürbün eğim açısı'), findsWidgets);
@@ -283,6 +289,8 @@ void main() {
 
     // Dürbün eğimini sil → back to level.
     await ws.show(BallisticsView.pro);
+    await openProFor(tester, const Key('shot-cant'));
+    await tester.ensureVisible(find.byKey(const Key('shot-cant')));
     await tester.tap(find.byKey(const Key('shot-cant')));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.byKey(ScopeCantScreen.clearKey));

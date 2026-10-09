@@ -37,6 +37,11 @@ abstract final class EnvironmentFieldInfo {
   static const shotRange =
       'Hedefe olan mesafe. Telemetre (lazer mesafe ölçer) ile ölçün veya '
       '"Haritadan" ile seçin. Örnek: 45 m.';
+  static const proShotRange =
+      'Ateş edeceğin hedefin uzaklığı. Telemetre (lazer mesafe ölçer) ile '
+      'ölç ya da bilmiyorsan "Haritadan ölç"e dokunup haritada senin ve '
+      'hedefin yerini işaretle. Hedef ekranı bu mesafeyle açılır ve dürbün '
+      'kurulmuş gelir. Örnek: 85 m.';
   static const incline =
       'Tüfek eğimi: hedefe bakış çizgisinin yatayla yaptığı açı. Yukarı '
       'atışta +, aşağı atışta −. Yokuşta saçma daha az düşer; yukarı ve aşağı '
@@ -75,6 +80,25 @@ abstract final class EnvironmentFieldInfo {
       'ölçtüğünüz değeri yazabilirsiniz; silerseniz yeniden otomatik olur. '
       'Hedef sayfası yan düzeltmeyi bu aralıkta gösterir. Örnek: rüzgâr '
       '2 m/s ise 3.';
+  static const windMid =
+      'Hedefe giden yolun ortasındaki rüzgârın tahmini hızı. Yapraklara, '
+      'çimene veya bayraklara bakarak tahmin et. Örnek: 3 m/s. Boşsa senin '
+      'yanındaki rüzgâr kullanılır.';
+  static const windFar =
+      'Hedefin yanındaki rüzgârın tahmini hızı. Örnek: 4 m/s. Boşsa yol '
+      'ortasındaki (o da boşsa senin yanındaki) rüzgâr kullanılır.';
+  static const zeroUp =
+      'Sıfır mesafesinde grubun ortası artıdan kaç cm yukarıda (+) veya '
+      'aşağıda (−). Örnek: 0,5 ya da -0,3.';
+  static const zeroRight =
+      'Sıfır mesafesinde grubun ortası artıdan kaç cm sağda (+) veya solda '
+      '(−). Örnek: 0,4 ya da -0,2.';
+  static const group =
+      'Sıfır mesafesinde 5 atışlık grubun en uzak iki deliği arası, cm. '
+      'Örnek: 25 m\'de 1,2 cm.';
+  static const sd =
+      'Hız farkı (SD), fps: kronograf cihazının 5–10 atış sonrası gösterdiği '
+      'standart sapma. Örnek: 4 fps. Bilmiyorsan boş bırak.';
   static const targetSpeed =
       'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
       'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '

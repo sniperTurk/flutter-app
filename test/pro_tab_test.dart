@@ -12,6 +12,8 @@ import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
+import 'support/pro_sections.dart';
+
 const _profile = RifleProfile(
   id: 'p-pro',
   name: 'Pro',
@@ -81,12 +83,29 @@ void main() {
     expect(find.text('Pro Ayarlara Geç'), findsOneWidget);
     await _tapKey(tester, 'environment-continue-pro');
 
-    // Pro Ayarlar: incline and cant tiles plus Coriolis (off by default).
+    // Pro Ayarlar: five boxes, all closed at first (owner, 2026-10-09).
     expect(_title(tester), 'Pro Ayarlar');
+    for (final id in ['angle', 'wind', 'coriolis', 'target', 'rifle']) {
+      expect(find.byKey(Key('pro-section-$id')), findsOneWidget, reason: id);
+    }
+    expect(find.byKey(const Key('shot-incline')), findsNothing);
+    // Opening a box shows its fields and its explanation; one box at a time.
+    await openProFor(tester, const Key('shot-incline'));
     expect(find.byKey(const Key('shot-incline')), findsOneWidget);
     expect(find.byKey(const Key('shot-cant')), findsOneWidget);
+    expect(
+      find.textContaining('Telefonu dik tut', findRichText: true),
+      findsWidgets,
+    );
+    await openProFor(tester, const Key('pro-coriolis-switch'));
+    expect(find.byKey(const Key('shot-incline')), findsNothing);
     expect(find.byTooltip('Bilgi: Coriolis'), findsOneWidget);
     expect(find.byKey(const Key('pro-latitude')), findsNothing);
+    // A PCP profile sees no powder temperature, but the PCP spin note.
+    await openProFor(tester, const Key('pro-turret-scale'));
+    expect(find.byKey(const Key('pro-powder-coef')), findsNothing);
+    expect(find.byKey(const Key('pro-spin-pcp-note')), findsOneWidget);
+    await openProFor(tester, const Key('pro-coriolis-switch'));
 
     await _tapKey(tester, 'pro-coriolis-switch');
     expect(find.byKey(const Key('pro-latitude')), findsOneWidget);
