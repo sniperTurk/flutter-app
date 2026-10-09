@@ -1,0 +1,15 @@
+diff --git a/lib/core/velocity_truing.dart b/lib/core/velocity_truing.dart
+index 0f1c21d..ea93dde 100644
+--- a/lib/core/velocity_truing.dart
++++ b/lib/core/velocity_truing.dart
+@@ -207,7 +207,9 @@ abstract final class BallisticCoefficientTruing {
+     if (bc0 == null || base.ballisticModel == null) {
+       throw ArgumentError('BC truing needs a G1/G7 ballistic coefficient');
+     }
+-    if (!rangeM.isFinite || rangeM <= 0 || rangeM > ProductionLimits.maxRangeM) {
++    if (!rangeM.isFinite ||
++        rangeM <= 0 ||
++        rangeM > ProductionLimits.maxRangeM) {
+       throw ArgumentError.value(rangeM, 'rangeM', 'out of range');
+     }
+     if (!observedCorrectionMrad.isFinite) {
