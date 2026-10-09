@@ -6,11 +6,13 @@
 abstract final class ProfileFieldInfo {
   // Tüfek
   static const caliber =
-      'Namlunun iç çapı, milimetre olarak. Örnek: 5,5 mm (.22), '
-      '6,35 mm (.25), 7,62 mm (.30). Mühimmatın kalibresi buradan alınır.';
+      'Namlunun iç çapı, milimetre olarak; listeden seçin. 4,50 mm (.177), '
+      '5,50 mm (.22), 6,35 mm (.25), 7,62 mm (.30), 9,00 mm (.357). '
+      'Mühimmatın kalibresi buradan alınır.';
   static const caliberFirearm =
-      'Merminin çapı, milimetre olarak. Örnek: 5,56 mm (.223 Rem), '
-      '7,62 mm (.308 Win), 6,5 mm (6.5 Creedmoor), 8,59 mm (.338 Lapua). '
+      'Merminin çapı, milimetre olarak; listeden seçin. 5,56 mm (.223 Rem / '
+      '5.56 NATO), 6,17 mm (.243 Win), 6,5 mm (6.5 Creedmoor), 7,62 mm '
+      '(.308 Win / 7.62 NATO / .300 Win Mag), 8,59 mm (.338 Lapua Mag). '
       'Mühimmatın kalibresi buradan alınır.';
   static const twistDirection =
       'Namlunun içindeki yivlerin dönüş yönü. Namluya arkadan bakarken yivler '

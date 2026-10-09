@@ -709,6 +709,52 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController rifleBrand;
   late final TextEditingController rifleModel;
   late final TextEditingController rifleCaliber;
+
+  /// Hides the Ağırlık example while the box is being typed in.
+  final FocusNode _grainFocus = FocusNode();
+
+  /// Kalibre lists (owner, 2026-10-09). Firearm calibers are the ones of the
+  /// app's firearm rifle/ammunition records.
+  static const _pcpCalibers = <(double, String)>[
+    (4.5, '4.50 mm'),
+    (5.5, '5.50 mm'),
+    (6.35, '6.35 mm'),
+    (7.62, '7.62 mm'),
+    (9.0, '9.00 mm'),
+  ];
+  static const _firearmCalibers = <(double, String)>[
+    (5.56, '5.56 mm (.223)'),
+    (6.17, '6.17 mm (.243)'),
+    (6.5, '6.5 mm (6.5 CM)'),
+    (7.62, '7.62 mm (.308)'),
+    (8.59, '8.59 mm (.338)'),
+  ];
+
+  List<(double, String)> get _caliberList =>
+      platform == WeaponPlatform.firearm ? _firearmCalibers : _pcpCalibers;
+
+  double? _caliberItem(double mm) {
+    for (final (v, _) in _caliberList) {
+      if ((v - mm).abs() < 1e-6) return v;
+    }
+    return null;
+  }
+
+  /// The list plus a saved value that is not on it, so it is never lost.
+  List<(double, String)> get _caliberChoices {
+    final cal = _parse(rifleCaliber);
+    if (cal == null || _caliberItem(cal) != null) return _caliberList;
+    return [..._caliberList, (cal, '${_trimDot(cal)} mm')];
+  }
+
+  double? get _selectedCaliber {
+    final cal = _parse(rifleCaliber);
+    if (cal == null) return null;
+    return _caliberItem(cal) ?? cal;
+  }
+
+  static String _trimDot(double v) =>
+      v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
   late final TextEditingController rifleTwist;
   TwistDirection? twistDirection;
 
@@ -779,6 +825,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifleBrand = TextEditingController(text: initialRifle?.brand ?? '');
     rifleModel = TextEditingController(text: initialRifle?.model ?? '');
     rifleCaliber = TextEditingController(text: num(initialRifle?.caliberMm));
+    _grainFocus.addListener(() => setState(() {}));
     rifleTwist = TextEditingController(text: num(initialRifle?.twistRateIn));
     twistDirection = initialRifle?.twistDirection;
     final s0 = scope;
@@ -912,6 +959,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifleBrand.dispose();
     rifleModel.dispose();
     rifleCaliber.dispose();
+    _grainFocus.dispose();
     rifleTwist.dispose();
     scopeBrand.dispose();
     scopeMinMag.dispose();
@@ -1370,6 +1418,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     platform = v!;
                     // Pellet/slug only exist on PCP; firearms use bullets.
                     if (platform == WeaponPlatform.firearm) ammoType = null;
+                    // A caliber of the other list does not carry over.
+                    final cal = _parse(rifleCaliber);
+                    if (cal != null && _caliberItem(cal) == null) {
+                      rifleCaliber.text = '';
+                    }
                   }),
                 ),
               ],
@@ -1444,19 +1497,27 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       message: 'Namlu yiv yönünü seçin (Sağ / Sol).',
                     ),
                   ),
-                MenzilInput(
+                // Kalibre is picked from a list per rifle type (owner,
+                // 2026-10-09); a saved odd value (e.g. 5.52) stays selectable.
+                KeyedSubtree(
                   key: const Key('rifle-caliber'),
-                  // Texts follow the rifle type (owner, 2026-10-09).
-                  info: platform == WeaponPlatform.firearm
-                      ? ProfileFieldInfo.caliberFirearm
-                      : ProfileFieldInfo.caliber,
-                  controller: rifleCaliber,
-                  label: 'Kalibre',
-                  hintText: platform == WeaponPlatform.firearm
-                      ? '5,56 / 7,62 / 8,59'
-                      : '5,5 / 6,35 / 7,62',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_caliberError, rifleCaliber),
+                  child: MenzilSelect<double>(
+                    key: ValueKey(
+                      'rifle-caliber-${platform.name}-${rifleCaliber.text}',
+                    ),
+                    info: platform == WeaponPlatform.firearm
+                        ? ProfileFieldInfo.caliberFirearm
+                        : ProfileFieldInfo.caliber,
+                    label: 'Kalibre',
+                    initialValue: _selectedCaliber,
+                    items: [
+                      for (final (mm, name) in _caliberChoices)
+                        DropdownMenuItem(value: mm, child: Text(name)),
+                    ],
+                    onChanged: (v) => setState(
+                      () => rifleCaliber.text = v == null ? '' : _trimDot(v),
+                    ),
+                  ),
                 ),
                 MenzilInput(
                   key: const Key('rifle-twist-rate'),
@@ -1708,7 +1769,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   key: const Key('ammo-brand'),
                   controller: ammoBrand,
                   label: 'Marka Model',
-                  hintText: 'JSB King Heavy',
+                  // A pellet example only on PCP; empty for a firearm
+                  // (owner, 2026-10-09).
+                  hintText: platform == WeaponPlatform.pcp
+                      ? 'JSB King Heavy'
+                      : null,
                   keyboardType: TextInputType.text,
                   maxLength: 100,
                   onChanged: (_) => setState(() {}),
@@ -1740,7 +1805,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       ? ProfileFieldInfo.grainFirearm
                       : ProfileFieldInfo.grain,
                   controller: ammoGrain,
+                  focusNode: _grainFocus,
                   label: 'Ağırlık',
+                  // An example of how to write it; gone once the box is
+                  // tapped (owner, 2026-10-09).
+                  hintText: _grainFocus.hasFocus
+                      ? null
+                      : platform == WeaponPlatform.firearm
+                      ? '168 gr'
+                      : '25.39 gr',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_grainError, ammoGrain),
                 ),

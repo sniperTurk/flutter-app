@@ -99,7 +99,13 @@ void main() {
           )
           .controller!
           .text;
-      expect(text('rifle-caliber'), '6.35');
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('rifle-caliber')),
+          matching: find.text('6.35 mm'),
+        ),
+        findsOneWidget,
+      );
       // Namlu uzunluğu is not asked any more (owner, 2026-10-09).
       expect(find.byKey(const Key('rifle-barrel')), findsNothing);
       expect(text('rifle-twist-rate'), isEmpty);
@@ -146,11 +152,14 @@ void main() {
     expect(_updateAction(tester), isNull);
     await enterRifleField(tester, 'scope-max-mag', '36');
     expect(_updateAction(tester), isNotNull);
-    await enterRifleField(tester, 'rifle-caliber', '50');
-    expect(find.text('2–20 arasında bir değer girin.'), findsOneWidget);
-    expect(_updateAction(tester), isNull);
-    await enterRifleField(tester, 'rifle-caliber', '6,35');
-    expect(_updateAction(tester), isNotNull);
+    // Kalibre is a list now: no free (out-of-range) typing.
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('rifle-caliber')),
+        matching: find.byType(TextField),
+      ),
+      findsNothing,
+    );
     // A BC outside the plausible range is rejected.
     await enterRifleField(tester, 'ammo-bc', '3');
     expect(find.text('0.005–1.5 arasında bir değer girin.'), findsOneWidget);
@@ -261,21 +270,50 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
-    final caliber = find.descendant(
-      of: find.byKey(const Key('rifle-caliber')),
+    // PCP calibers to pick from.
+    await chooseInSelect(tester, 'rifle-caliber', '5.50 mm');
+    await tester.tap(find.byKey(const Key('rifle-caliber')));
+    await tester.pumpAndSettle();
+    for (final c in const ['4.50 mm', '6.35 mm', '7.62 mm', '9.00 mm']) {
+      expect(find.text(c), findsWidgets, reason: c);
+    }
+    await tester.tap(find.text('9.00 mm').last);
+    await tester.pumpAndSettle();
+    // Ağırlık shows an example until it is tapped.
+    final grain = find.descendant(
+      of: find.byKey(const Key('ammo-grain')),
       matching: find.byType(TextField),
     );
-    expect(
-      tester.widget<TextField>(caliber).decoration!.hintText,
-      '5,5 / 6,35 / 7,62',
-    );
+    await tester.ensureVisible(grain);
+    expect(tester.widget<TextField>(grain).decoration!.hintText, '25.39 gr');
+    await tester.tap(grain);
+    await tester.pump();
+    expect(tester.widget<TextField>(grain).decoration!.hintText, isNull);
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pump();
+
+    await tester.ensureVisible(find.text('PCP Tüfek'));
     await tester.tap(find.text('PCP Tüfek'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Ateşli Tüfek').last);
     await tester.pumpAndSettle();
+    // 9.00 mm is not a firearm caliber here: the choice is cleared, and the
+    // firearm list is offered.
+    expect(find.text('9.00 mm'), findsNothing);
+    await chooseInSelect(tester, 'rifle-caliber', '7.62 mm (.308)');
+    expect(tester.widget<TextField>(grain).decoration!.hintText, '168 gr');
+    // No pellet example in the ammunition name of a firearm.
     expect(
-      tester.widget<TextField>(caliber).decoration!.hintText,
-      '5,56 / 7,62 / 8,59',
+      tester
+          .widget<TextField>(
+            find.descendant(
+              of: find.byKey(const Key('ammo-brand')),
+              matching: find.byType(TextField),
+            ),
+          )
+          .decoration!
+          .hintText,
+      isNull,
     );
     // No pellet/slug choice for a firearm; the note says it is a bullet.
     expect(find.byKey(const Key('ammo-type')), findsNothing);

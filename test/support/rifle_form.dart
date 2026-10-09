@@ -30,13 +30,14 @@ Future<void> fillRifleForm(
   WidgetTester tester, {
   String brand = 'Test Marka',
   String model = 'Test Model',
-  String caliber = '6,35',
+  String caliber = '6.35 mm',
   String twist = '16',
   String direction = 'Sağ',
 }) async {
   await enterRifleField(tester, 'rifle-brand', brand);
   await enterRifleField(tester, 'rifle-model', model);
-  await enterRifleField(tester, 'rifle-caliber', caliber);
+  // Kalibre is picked from a list (owner, 2026-10-09).
+  await chooseInSelect(tester, 'rifle-caliber', caliber);
   await enterRifleField(tester, 'rifle-twist-rate', twist);
   await chooseTwistDirection(tester, direction);
 }

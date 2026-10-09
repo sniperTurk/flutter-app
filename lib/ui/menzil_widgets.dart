@@ -905,6 +905,7 @@ class MenzilInput extends StatelessWidget {
   final bool enabled;
   final int? maxLength;
   final List<TextInputFormatter>? inputFormatters;
+  final FocusNode? focusNode;
 
   /// Explanation shown by the ⓘ button next to the label.
   final String? info;
@@ -925,6 +926,7 @@ class MenzilInput extends StatelessWidget {
     this.maxLength,
     this.inputFormatters,
     this.info,
+    this.focusNode,
   });
 
   String get semanticLabel => unit == null ? label : '$label ($unit)';
@@ -953,6 +955,7 @@ class MenzilInput extends StatelessWidget {
             label: semanticLabel,
             child: TextField(
               controller: controller,
+              focusNode: focusNode,
               enabled: enabled,
               keyboardType: keyboardType,
               textInputAction: textInputAction ?? TextInputAction.next,
