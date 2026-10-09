@@ -1148,7 +1148,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final rows = <(double, double)>[
       for (var i = 0; i < 2; i++)
         if (_parse(ammoBandFps[i]) != null && _parse(ammoBandBc[i]) != null)
-          (UnitSystem.fpsToMps(_parse(ammoBandFps[i])!), _parse(ammoBandBc[i])!),
+          (
+            UnitSystem.fpsToMps(_parse(ammoBandFps[i])!),
+            _parse(ammoBandBc[i])!,
+          ),
     ];
     if (rows.isEmpty) return const [];
     final main = _parse(ammoBc)!;
@@ -1977,7 +1980,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   const MenzilFullWidth(
                     child: MenzilNotice(
                       tone: MenzilNoticeTone.danger,
-                      message: 'Mühimmat tipini ve BC modelini (G1/G7/GA) seçin.',
+                      message:
+                          'Mühimmat tipini ve BC modelini (G1/G7/GA) seçin.',
                     ),
                   ),
               ],
