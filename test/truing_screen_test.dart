@@ -2,6 +2,7 @@
 // old -> new confirmation before the profile is written.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/core/ballistic_engine.dart';
 import 'package:sniper_turk/core/ballistic_input.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
@@ -53,6 +54,7 @@ Future<MemoryProfileStore> _pump(WidgetTester tester, RifleProfile p) async {
 }
 
 void main() {
+  setUp(() => SharedPreferences.setMockInitialValues({}));
   setUp(
     () => CatalogRepository.installUserCatalog(
       const UserCatalog(ammunition: [_bcAmmo]),

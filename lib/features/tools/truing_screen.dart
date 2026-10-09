@@ -123,16 +123,8 @@ class _TruingScreenState extends State<TruingScreen> {
     } catch (_) {
       profile = null;
     }
-    ShotSettings? shot;
-    if (profile != null) {
-      try {
-        shot = await const ShotSettingsStore().load(profile.id);
-      } catch (_) {
-        shot = null;
-      }
-    }
     if (!mounted) return;
-    _shotSettings = shot;
+    if (profile != null) unawaited(_loadShotSettings(profile.id));
     setState(() {
       _loading = false;
       _profile = profile;
@@ -140,6 +132,17 @@ class _TruingScreenState extends State<TruingScreen> {
           ? null
           : const ProfileCatalogIntegrity().resolve(profile);
     });
+  }
+
+  /// Powder temperature data from Pro Ayarlar; loaded in the background so
+  /// the page never waits on storage.
+  Future<void> _loadShotSettings(String profileId) async {
+    try {
+      final shot = await const ShotSettingsStore().load(profileId);
+      if (mounted) _shotSettings = shot;
+    } catch (_) {
+      // No storage: powder temperature is simply not applied.
+    }
   }
 
   /// Namlu çıkış hızı is always shown in fps, as on Profil (owner rule).
