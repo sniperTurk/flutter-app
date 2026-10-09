@@ -24,11 +24,15 @@ class InteractiveScopeDialContract(unittest.TestCase):
         self.assertIn('windageDrum', self.view)
 
     def test_required_windage_only_from_the_drag_solver(self):
-        # The vacuum baseline has no wind model: its required windage is 0
-        # and its wind card stays locked.
-        self.assertIn('!basis.drag', self.dial)
-        self.assertIn('? 0.0', self.dial)
+        # The vacuum baseline has no wind model: its lateral value carries
+        # only the scope-cant geometry (owner, 2026-10-09), never wind; the
+        # crosswind hold labels stay drag-only.
         self.assertIn('shot.windMrad', self.dial)
+        self.assertIn('basis != null && basis.drag', self.dial)
+        engine = (ROOT / 'lib/core/ballistic_engine.dart').read_text(encoding='utf-8')
+        self.assertIn('final gRight = g * math.cos(theta) * math.sin(phi);', engine)
+        self.assertIn('final projectileZ = 0.5 * gRight * t * t;', engine)
+        self.assertNotIn('windMps', engine[engine.index('vacuumDope'):])
         # The wind box itself was removed from Atış (owner, 2026-10-08).
         self.assertEqual(self.screen.count("'KİLİTLİ'"), 0)
 

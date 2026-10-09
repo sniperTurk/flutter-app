@@ -920,7 +920,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         : (unit == AngularUnit.moa ? shot.correctionMoa : shot.correctionMrad);
     // windMrad = atan2(-z, range): the correction toward the RIGHT turret
     // direction, with the solver's +z drawn to the right of the crosshair.
-    final requiredRight = (shot == null || basis == null || !basis.drag)
+    // Without drag (!basis.drag) it holds only the scope-cant part (wind is
+    // not modelled there), so it is 0.0 unless the scope is canted.
+    final requiredRight = (shot == null || basis == null)
         ? 0.0
         : inUnit(shot.windMrad);
 
