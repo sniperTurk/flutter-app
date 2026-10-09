@@ -160,12 +160,12 @@ class ScopeDialView extends StatelessWidget {
       ? ScopeDialMath.angleAtRange(targetDiameterM, rangeM, unit) / 2
       : null;
 
-  String get unitLabel => unit == AngularUnit.moa ? 'MOA' : 'mrad';
+  String get unitLabel => unit == AngularUnit.mrad ? 'mrad' : unit.label;
 
-  String get otherUnitLabel => unit == AngularUnit.moa ? 'mrad' : 'MOA';
+  String get otherUnitLabel => unit == AngularUnit.mrad ? 'MOA' : 'mrad';
 
   AngularUnit get otherUnit =>
-      unit == AngularUnit.moa ? AngularUnit.mrad : AngularUnit.moa;
+      unit == AngularUnit.mrad ? AngularUnit.moa : AngularUnit.mrad;
 
   bool get ffp => firstFocalPlane ?? true;
 
@@ -204,13 +204,13 @@ class ScopeDialView extends StatelessWidget {
   double get reticleHalfField => ffp ? trueHalfField : halfField;
 
   /// Half of the visible reticle field, in reticle units.
-  double get halfField => unit == AngularUnit.moa ? 32 : 10;
+  double get halfField => unit.moaFamily ? 32 : 10;
 
   /// Reticle mark spacing on the vertical stadia, in reticle units.
-  double get markStep => unit == AngularUnit.moa ? 2 : 1;
+  double get markStep => unit.moaFamily ? 2 : 1;
 
   /// Horizontal marks that carry crosswind labels, in reticle units.
-  double get windStep => unit == AngularUnit.moa ? 4 : 1;
+  double get windStep => unit.moaFamily ? 4 : 1;
 
   int get _downClicks => maxElevationDownClicks ?? maxElevationClicks;
 
@@ -244,16 +244,13 @@ class ScopeDialView extends StatelessWidget {
     // only while the zero can still be dialled, i.e. while it is not larger
     // than half of the travel (the zero sits mid-travel).
     final missing = (need - limit) * clickValue;
-    final missingMoa = unit == AngularUnit.moa
-        ? missing
-        : missing * 10800 / (math.pi * 1000);
+    // Mounts are sold in true MOA.
+    final missingMoa = AngularUnit.moa.fromMrad(unit.toMrad(missing));
     final needMoa = mountCantMoa + missingMoa;
     final suggest = needMoa.ceil();
     final half = halfElevationClicks ?? (maxElevationClicks - mountCantClicks);
     final halfAngle = half * clickValue;
-    final halfMoa = unit == AngularUnit.moa
-        ? halfAngle
-        : halfAngle * 10800 / (math.pi * 1000);
+    final halfMoa = AngularUnit.moa.fromMrad(unit.toMrad(halfAngle));
     if (needMoa > halfMoa + 1e-9) {
       return '${base}Hiçbir dürbün ayağı yetmez: gereken ayak ($suggest MOA) '
           'kulenin yarı yolundan (${_trim((halfMoa * 10).floor() / 10)} MOA) '
@@ -597,9 +594,17 @@ class ScopeDialView extends StatelessWidget {
     final r = toDisplayRange(rangeM).round();
     lines.add(
       '1 $unitLabel, $r $distanceUnit mesafede = ${len(1)}'
-      '${unit == AngularUnit.mrad ? '  (mesafe(m) / 10 cm)' : '  (mesafe(m) × 0.02909 cm)'}',
+      '${switch (unit) {
+        AngularUnit.mrad => '  (mesafe(m) / 10 cm)',
+        AngularUnit.moa => '  (mesafe(m) × 0.02909 cm)',
+        AngularUnit.smoa => '  (100 yd\'de 1 inç)',
+      }}',
     );
-    lines.add('1 MOA = 0.29089 mrad · 1 mrad = 3.43775 MOA');
+    lines.add(
+      unit == AngularUnit.smoa
+          ? '1 SMOA = 0.27778 mrad = 0.955 MOA'
+          : '1 MOA = 0.29089 mrad · 1 mrad = 3.43775 MOA',
+    );
     final tRad = targetRadius;
     if (tRad != null) {
       final d = metric

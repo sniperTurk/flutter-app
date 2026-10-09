@@ -18,6 +18,7 @@ class ProfileCodec {
         'sightHeightMm': p.sightHeightMm,
         'pressureBar': p.pressureBar,
         'angularUnit': p.angularUnit.name,
+        'distanceUnit': p.distanceUnit.name,
         'mountCantMoa': p.mountCantMoa,
       };
 
@@ -57,6 +58,19 @@ class ProfileCodec {
       unit = matchingUnits.first;
     } else {
       throw const FormatException('Invalid profile field: angularUnit');
+    }
+
+    // distanceUnit is absent before 2026-10-09: metres. A present unknown
+    // value is corruption (it would change every shown distance).
+    final distanceName = j['distanceUnit'];
+    final DistanceUnit distanceUnit;
+    if (distanceName == null) {
+      distanceUnit = DistanceUnit.meter;
+    } else if (distanceName is String &&
+        DistanceUnit.values.any((u) => u.name == distanceName)) {
+      distanceUnit = DistanceUnit.values.byName(distanceName);
+    } else {
+      throw const FormatException('Invalid profile field: distanceUnit');
     }
 
     // pressureBar is optional for firearm profiles and legacy data, but a
@@ -99,6 +113,7 @@ class ProfileCodec {
       sightHeightMm: requiredPositive('sightHeightMm', max: ProductionLimits.maxSightHeightMm, maxExclusive: true),
       pressureBar: pressureBar,
       angularUnit: unit,
+      distanceUnit: distanceUnit,
       mountCantMoa: mountCantMoa,
     );
   }

@@ -569,6 +569,7 @@ class _HomeScreenState extends State<HomeScreen> {
         profile.zeroRangeM,
         profile.sightHeightMm,
         profile.angularUnit,
+        profile.distanceUnit,
         // Personal catalog records can be edited without changing the
         // profile; the workspace must then start again from the new values.
         (

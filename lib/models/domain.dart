@@ -2,7 +2,51 @@ enum WeaponPlatform { pcp, firearm }
 
 enum AmmunitionType { pellet, slug, bullet }
 
-enum AngularUnit { mrad, moa }
+/// Turret / reticle angle unit. SMOA ("shooter's MOA", IPHY) is 1 inch at
+/// 100 yards — 4.5 % smaller than a true MOA; American turrets marked
+/// "1/4 IN @ 100 YDS" use it.
+enum AngularUnit { mrad, moa, smoa }
+
+/// Every angle conversion goes through these, so a third unit can never be
+/// silently treated as MRAD by a two-way `moa ? … : …` test.
+extension AngularUnitMath on AngularUnit {
+  /// Milliradians in one unit: 1, π/10.8 (true MOA), 1000/3600 (SMOA:
+  /// 0.0254 m / 91.44 m = 1/3600 rad).
+  double get mradPerUnit => switch (this) {
+    AngularUnit.mrad => 1.0,
+    AngularUnit.moa => 3.141592653589793 / 10.8,
+    AngularUnit.smoa => 1000 / 3600,
+  };
+
+  double toMrad(double angle) => angle * mradPerUnit;
+  double fromMrad(double mrad) => mrad / mradPerUnit;
+
+  /// MOA and SMOA share the MOA-style reticle spacing and ¼ clicks.
+  bool get moaFamily => this != AngularUnit.mrad;
+
+  /// "MRAD" / "MOA" / "SMOA".
+  String get label => switch (this) {
+    AngularUnit.mrad => 'MRAD',
+    AngularUnit.moa => 'MOA',
+    AngularUnit.smoa => 'SMOA',
+  };
+
+  /// The common click of the unit: 0.1 MRAD, ¼ MOA, ¼ SMOA (¼ inç @ 100 yd).
+  double get standardClick => this == AngularUnit.mrad ? 0.1 : 0.25;
+}
+
+/// How distances are shown and typed (owner, 2026-10-09). Everything is
+/// stored and solved in metres; yards are only display and input.
+enum DistanceUnit { meter, yard }
+
+extension DistanceUnitMath on DistanceUnit {
+  static const metersPerYard = 0.9144;
+  double fromMeters(double m) =>
+      this == DistanceUnit.yard ? m / metersPerYard : m;
+  double toMeters(double v) =>
+      this == DistanceUnit.yard ? v * metersPerYard : v;
+  String get symbol => this == DistanceUnit.yard ? 'yd' : 'm';
+}
 
 enum BallisticModel { g1, g7 }
 
@@ -155,6 +199,9 @@ class RifleProfile {
   final double? pressureBar;
   final AngularUnit angularUnit;
 
+  /// Metre or yard for every distance shown for this profile.
+  final DistanceUnit distanceUnit;
+
   /// Built-in slope of the scope mount/rail (e.g. a 30 MOA "No Limit"
   /// base), in MOA; 0 for a normal flat mount. It does not change the drop
   /// or the correction from zero: it shifts the zeroed turret down in its
@@ -171,6 +218,7 @@ class RifleProfile {
     required this.sightHeightMm,
     this.pressureBar,
     this.angularUnit = AngularUnit.mrad,
+    this.distanceUnit = DistanceUnit.meter,
     this.mountCantMoa = 0,
   });
 }

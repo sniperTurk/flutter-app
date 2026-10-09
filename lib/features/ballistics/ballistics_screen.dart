@@ -267,7 +267,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       text: UnitSystem.mpsToFps(p?.muzzleVelocityMps ?? 270).toStringAsFixed(1),
     );
     grain = TextEditingController(text: (ammo?.grain ?? 51).toString());
-    zero = TextEditingController(text: (p?.zeroRangeM ?? 25).toString());
+    // A yard profile shows (and takes) its zero in yards, and its shot
+    // range starts at a round 100 yd.
+    if (p?.distanceUnit == DistanceUnit.yard) {
+      _shotRangeM = UnitSystem.yardsToMeters(100);
+    }
+    final zeroM = p?.zeroRangeM ?? 25;
+    zero = TextEditingController(
+      text: p?.distanceUnit == DistanceUnit.yard
+          ? UnitSystem.metersToYards(zeroM).toStringAsFixed(1)
+          : zeroM.toString(),
+    );
     sight = TextEditingController(text: (p?.sightHeightMm ?? 65).toString());
     wind = TextEditingController(text: '0');
     windDirection = TextEditingController(text: '90');
@@ -518,8 +528,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final altitudeM = value(altitude);
     final metricRanges = DopeRanges.parse(ranges.text);
 
-    // Commit only after the complete source form has been validated.
-    zero.text = UnitSystem.metersToYards(zeroM).toStringAsFixed(1);
+    // Commit only after the complete source form has been validated. A
+    // yard profile's distances already are in yards.
+    if (!_profileYards) {
+      zero.text = UnitSystem.metersToYards(zeroM).toStringAsFixed(1);
+    }
     sight.text = UnitSystem.millimetersToInches(sightMm).toStringAsFixed(2);
     wind.text = UnitSystem.mpsToMph(windMps).toStringAsFixed(1);
     temperature.text = UnitSystem.celsiusToFahrenheit(
@@ -527,9 +540,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     ).toStringAsFixed(1);
     pressure.text = UnitSystem.hpaToInHg(pressureHpa).toStringAsFixed(2);
     altitude.text = UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0);
-    ranges.text = metricRanges
-        .map((e) => UnitSystem.metersToYards(e).toStringAsFixed(1))
-        .join(', ');
+    if (!_profileYards) {
+      ranges.text = metricRanges
+          .map((e) => UnitSystem.metersToYards(e).toStringAsFixed(1))
+          .join(', ');
+    }
   }
 
   void solve() {
@@ -584,7 +599,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // Namlu çıkış hızı is entered in fps in every unit system.
     final v = UnitSystem.fpsToMps(rawVelocity!);
     final g = rawGrain!;
-    final z = metric ? rawZero! : UnitSystem.yardsToMeters(rawZero!);
+    final z = _yards ? UnitSystem.yardsToMeters(rawZero!) : rawZero!;
     final s = metric ? rawSight! : UnitSystem.inchesToMillimeters(rawSight!);
     final w = metric ? rawWind! : UnitSystem.mphToMps(rawWind!);
     final wd = rawWindDirection!;
@@ -616,16 +631,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       // DopeRanges receives values in the unit currently shown by the UI.
       // Keep its guardrail equivalent to the canonical 3000 m production
       // limit instead of accidentally treating 2000/3000 yards as metres.
-      final displayMaxRange = metric
-          ? ProductionLimits.maxRangeM
-          : UnitSystem.metersToYards(ProductionLimits.maxRangeM);
+      final displayMaxRange = _displayMaxRange;
       final enteredRanges = DopeRanges.parse(
         ranges.text,
         maxRangeM: displayMaxRange,
       );
-      final requestedRanges = metric
-          ? enteredRanges
-          : enteredRanges.map(UnitSystem.yardsToMeters).toList();
+      final requestedRanges = _yards
+          ? enteredRanges.map(UnitSystem.yardsToMeters).toList()
+          : enteredRanges;
       final environment = EnvironmentData(
         temperatureC: temp,
         pressureHpa: pres,
@@ -739,16 +752,21 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   // Shot (single range) evaluation of the last validated inputs.
   // -------------------------------------------------------------------------
 
-  String get _distanceUnit => metric ? 'm' : 'yd';
+  /// Distances in yards: a yard profile (owner, 2026-10-09) or the legacy
+  /// imperial setting. Everything is still solved in metres.
+  bool get _profileYards => widget.profile?.distanceUnit == DistanceUnit.yard;
+  bool get _yards => !metric || _profileYards;
 
-  double get _displayMaxRange => metric
-      ? ProductionLimits.maxRangeM
-      : UnitSystem.metersToYards(ProductionLimits.maxRangeM);
+  String get _distanceUnit => _yards ? 'yd' : 'm';
+
+  double get _displayMaxRange => _yards
+      ? UnitSystem.metersToYards(ProductionLimits.maxRangeM)
+      : ProductionLimits.maxRangeM;
 
   double _toDisplayRange(double meters) =>
-      metric ? meters : UnitSystem.metersToYards(meters);
+      _yards ? UnitSystem.metersToYards(meters) : meters;
   double _fromDisplayRange(double value) =>
-      metric ? value : UnitSystem.yardsToMeters(value);
+      _yards ? UnitSystem.yardsToMeters(value) : value;
 
   int get _shotDisplay => _toDisplayRange(_shotRangeM).round();
 
@@ -863,7 +881,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   int? _halfTravelClicks(double clickValue, double? totalTravelMrad) {
     if (totalTravelMrad == null || totalTravelMrad <= 0) return null;
     final mrad = totalTravelMrad / 2;
-    final inUnit = _scopeUnit == AngularUnit.moa ? Units.mradToMoa(mrad) : mrad;
+    final inUnit = _scopeUnit.fromMrad(mrad);
     return math.max(1, (inUnit / clickValue).floor());
   }
 
@@ -913,11 +931,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     final unit = _scopeUnit;
     final basis = _basis;
-    double inUnit(double mrad) =>
-        unit == AngularUnit.moa ? Units.mradToMoa(mrad) : mrad;
-    final requiredUp = shot == null
-        ? null
-        : (unit == AngularUnit.moa ? shot.correctionMoa : shot.correctionMrad);
+    double inUnit(double mrad) => unit.fromMrad(mrad);
+    final requiredUp = shot == null ? null : inUnit(shot.correctionMrad);
     // windMrad = atan2(-z, range): the correction toward the RIGHT turret
     // direction, with the solver's +z drawn to the right of the crosshair.
     // Without drag (!basis.drag) it holds only the scope-cant part (wind is
@@ -931,14 +946,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         : null;
     final windMpsPerUnit = mpsPerMil == null
         ? null
-        : mpsPerMil * (unit == AngularUnit.moa ? Units.moaToMrad(1) : 1.0);
+        : mpsPerMil * unit.mradPerUnit;
     // What one reticle unit spans at the selected range.
     final unitSpanM = ScopeDialMath.linearAtRange(1, _shotRangeM, unit);
     final span = metric
         ? '${(unitSpanM * 100).toStringAsFixed(1)} cm'
         : '${UnitSystem.millimetersToInches(unitSpanM * 1000).toStringAsFixed(1)} in';
     final scaleNote =
-        '${unit == AngularUnit.moa ? '1 MOA' : '1 mil'} = $span '
+        '${unit == AngularUnit.mrad ? '1 mil' : '1 ${unit.label}'} = $span '
         '($_shotDisplay $_distanceUnit).';
     String? windNote;
     final windMps = basis?.environment.windMps ?? 0;
@@ -953,8 +968,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
     final minMag = s.minMagnification ?? 0, maxMag = s.maxMagnification ?? 0;
     final zoom = minMag > 0 && maxMag >= minMag;
-    final unitName = unit == AngularUnit.moa ? 'MOA' : 'MRAD';
-    final catalogName = s.clickUnit == AngularUnit.moa ? 'MOA' : 'MRAD';
+    final unitName = unit.label;
+    final catalogName = s.clickUnit.label;
     final unitNote = s.clickUnit == unit
         ? null
         : 'Profilde dürbün birimi $unitName seçili; katalogdaki '
@@ -1293,9 +1308,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     controller: ranges,
     label: 'DOPE mesafeleri',
     info: EnvironmentFieldInfo.ranges,
-    unit: metric ? 'm' : 'yd',
+    unit: _distanceUnit,
     helperText:
-        'Virgülle ayırın, en fazla ${_displayMaxRange.toStringAsFixed(0)} ${metric ? 'm' : 'yd'}.',
+        'Virgülle ayırın, en fazla ${_displayMaxRange.toStringAsFixed(0)} $_distanceUnit.',
     keyboardType: TextInputType.text,
     textInputAction: TextInputAction.done,
   );
@@ -1329,7 +1344,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           key: BallisticsFieldKeys.zero,
           controller: zero,
           label: 'Sıfır mesafesi',
-          unit: metric ? 'm' : 'yd',
+          unit: _distanceUnit,
         ),
         MenzilInput(
           key: BallisticsFieldKeys.sight,
@@ -1527,7 +1542,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             child: DataTable(
               columns: drag
                   ? [
-                      DataColumn(label: Text(metric ? 'm' : 'yd')),
+                      DataColumn(label: Text(_distanceUnit)),
                       DataColumn(
                         label: Text(metric ? 'Düşüş cm' : 'Düşüş in'),
                         numeric: true,
@@ -1563,7 +1578,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                       const DataColumn(label: Text('TOF'), numeric: true),
                     ]
                   : [
-                      DataColumn(label: Text(metric ? 'm' : 'yd')),
+                      DataColumn(label: Text(_distanceUnit)),
                       DataColumn(
                         label: Text(
                           metric ? 'Vakum düşüşü cm*' : 'Vakum düşüşü in*',
@@ -1589,9 +1604,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                       const DataColumn(label: Text('TOF'), numeric: true),
                     ],
               rows: points.map((p) {
-                final displayRange = metric
-                    ? p.rangeM
-                    : UnitSystem.metersToYards(p.rangeM);
+                final displayRange = _toDisplayRange(p.rangeM);
                 final displayEnergy = metric
                     ? p.energyJ
                     : UnitSystem.joulesToFootPounds(p.energyJ);
@@ -1603,7 +1616,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   color: isZero ? WidgetStatePropertyAll(c.amberSoft) : null,
                   cells: [
                     DataCell(
-                      Text(displayRange.toStringAsFixed(metric ? 0 : 1)),
+                      Text(displayRange.toStringAsFixed(_yards ? 1 : 0)),
                     ),
                     DataCell(Text(displayDrop.toStringAsFixed(1))),
                     DataCell(Text(p.correctionMoa.toStringAsFixed(2))),
@@ -1646,7 +1659,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               const SizedBox(width: MenzilSpace.xs),
               Expanded(
                 child: Text(
-                  'Sıfır mesafesi ${_toDisplayRange(zeroM).toStringAsFixed(metric ? 0 : 1)} $_distanceUnit',
+                  'Sıfır mesafesi ${_toDisplayRange(zeroM).toStringAsFixed(_yards ? 1 : 0)} $_distanceUnit',
                   style: MenzilType.caption(c.ink2),
                 ),
               ),

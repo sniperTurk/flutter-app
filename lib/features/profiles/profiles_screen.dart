@@ -4,11 +4,9 @@ import '../../core/production_limits.dart';
 import '../../core/profile_input.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
-import '../../core/units.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
-import '../../services/app_settings.dart';
 import '../../services/manual_catalog_store.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
@@ -160,6 +158,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       sightHeightMm: p.sightHeightMm,
       pressureBar: p.pressureBar,
       angularUnit: p.angularUnit,
+      distanceUnit: p.distanceUnit,
       mountCantMoa: p.mountCantMoa,
     );
     try {
@@ -445,7 +444,7 @@ class _ProfileRow extends StatelessWidget {
                             ),
                             Text(
                               '${_ProfileUnits.of(context).velocity(profile.muzzleVelocityMps)} • '
-                              'Sıfır ${_ProfileUnits.of(context).distance(profile.zeroRangeM)}',
+                              'Sıfır ${_zeroText(profile)}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: MenzilType.caption(c.ink2),
@@ -511,16 +510,24 @@ String _scopeSummary(ScopeOptic s) {
 
 /// Total clicks of the top (elevation) turret in the profile's unit, with
 /// the same click Hedef uses (the catalog click when the units match,
-/// otherwise 0.1 MRAD / ¼ MOA); null when the travel is unknown.
+/// otherwise 0.1 MRAD / ¼ MOA / ¼ SMOA); null when the travel is unknown.
 int? _topTurretClicks(ScopeOptic s, AngularUnit unit) {
   final mrad = s.elevationRangeMrad;
   if (mrad == null || mrad <= 0 || s.clickValue <= 0) return null;
-  final click = s.clickUnit == unit
-      ? s.clickValue
-      : (unit == AngularUnit.moa ? 0.25 : 0.1);
-  final travel = unit == AngularUnit.moa ? Units.mradToMoa(mrad) : mrad;
-  return (travel / click).round();
+  final click = s.clickUnit == unit ? s.clickValue : unit.standardClick;
+  return (unit.fromMrad(mrad) / click).round();
 }
+
+/// The zero in the profile's own distance unit ("25" m, "27.3" yd).
+String _zeroValue(RifleProfile p) {
+  final v = p.distanceUnit.fromMeters(p.zeroRangeM);
+  return p.distanceUnit == DistanceUnit.yard
+      ? _trimNum((v * 10).roundToDouble() / 10)
+      : v.toStringAsFixed(0);
+}
+
+String _zeroText(RifleProfile p) =>
+    '${_zeroValue(p)} ${p.distanceUnit.symbol}';
 
 String _ammoTypeName(AmmunitionType t) => switch (t) {
   AmmunitionType.pellet => 'Pellet',
@@ -627,8 +634,8 @@ class _ActiveProfileDetails extends StatelessWidget {
             ),
             MenzilMetric(
               'Sıfırlama mesafesi',
-              units.distanceValue(profile.zeroRangeM),
-              units.distanceUnit,
+              _zeroValue(profile),
+              profile.distanceUnit.symbol,
             ),
             if (scope != null)
               MenzilMetric(
@@ -646,7 +653,7 @@ class _ActiveProfileDetails extends StatelessWidget {
             ),
             MenzilMetric(
               'Dürbün birimi',
-              profile.angularUnit == AngularUnit.moa ? 'MOA' : 'MRAD',
+              profile.angularUnit.label,
             ),
             if (scope != null &&
                 _topTurretClicks(scope, profile.angularUnit) != null)
@@ -807,6 +814,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? validationError;
   late AngularUnit angularUnit;
 
+  /// Metre or yard for the zero (and every distance of this profile).
+  late DistanceUnit distanceUnit;
+
   /// Editing an existing profile is fail-closed: a stored reference that no
   /// longer resolves is NEVER replaced by another record. Its form is left
   /// empty, the user is told, and saving stays disabled until they type the
@@ -888,7 +898,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
     // New profiles start empty: no placeholder value is ever taken for the
     // user's data (owner, 2026-10-07: "250 m/s nereden geliyor?").
-    zero = TextEditingController(text: p == null ? '' : num(p.zeroRangeM));
+    distanceUnit = p?.distanceUnit ?? DistanceUnit.meter;
+    zero = TextEditingController(
+      text: p == null ? '' : num(_round1(distanceUnit.fromMeters(p.zeroRangeM))),
+    );
     sight = TextEditingController(text: p == null ? '' : num(p.sightHeightMm));
     // 0 = normal mount; old profiles have no value.
     mountCant = p?.mountCantMoa ?? 0;
@@ -901,7 +914,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   // 100–4900 fps (4900 fps ≈ 1494 m/s, inside the 1500 m/s production limit).
   String? get _velocityError => _rangeError(velocity, 100, 4900);
-  String? get _zeroError => _rangeError(zero, 1, ProductionLimits.maxRangeM);
+  String? get _zeroError => _rangeError(
+    zero,
+    1,
+    distanceUnit.fromMeters(ProductionLimits.maxRangeM).floorToDouble(),
+  );
+
+  static double _round1(double v) => (v * 10).roundToDouble() / 10;
+
+  /// The typed zero in metres (the profile stores and solves in metres).
+  String get _zeroMetersText {
+    final v = _parse(zero);
+    return v == null ? zero.text : distanceUnit.toMeters(v).toString();
+  }
 
   /// What is still missing, per section, in the order of the page. Shown
   /// above Kaydet so a disabled button always says why.
@@ -946,8 +971,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return out;
   }
 
-  static double _defaultClick(AngularUnit u) =>
-      u == AngularUnit.moa ? 0.25 : 0.1;
+  static double _defaultClick(AngularUnit u) => u.standardClick;
 
   @override
   void dispose() {
@@ -1051,7 +1075,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   String? get _objectiveError => _rangeError(scopeObjective, 10, 80);
-  String? get _clickError => angularUnit == AngularUnit.moa
+  String? get _clickError => angularUnit.moaFamily
       ? _rangeError(scopeClick, 0.05, 1)
       : _rangeError(scopeClick, 0.01, 0.5);
 
@@ -1063,10 +1087,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return _rangeError(c, 10, 3000);
   }
 
-  static double _toMrad(double v, AngularUnit u) =>
-      u == AngularUnit.moa ? Units.moaToMrad(v) : v;
-  static double _fromMrad(double v, AngularUnit u) =>
-      u == AngularUnit.moa ? Units.mradToMoa(v) : v;
+  static double _toMrad(double v, AngularUnit u) => u.toMrad(v);
+  static double _fromMrad(double v, AngularUnit u) => u.fromMrad(v);
 
   bool get _scopeValid =>
       _travelError(scopeTravelElevation) == null &&
@@ -1219,7 +1241,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       input = ProfileInput.validate(
         name: name.text,
         muzzleVelocityText: mps.toString(),
-        zeroRangeText: zero.text,
+        zeroRangeText: _zeroMetersText,
         sightHeightText: sight.text,
         platform: platform,
         // Regülatör basıncı is not asked any more (owner, 2026-10-09): no
@@ -1281,6 +1303,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         sightHeightMm: input.sightHeightMm,
         pressureBar: input.pressureBar,
         angularUnit: angularUnit,
+        distanceUnit: distanceUnit,
         mountCantMoa: input.mountCantMoa,
       ),
     );
@@ -1490,11 +1513,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ),
                 MenzilInput(
                   key: const Key('rifle-caliber'),
-                  info: ProfileFieldInfo.caliber,
+                  // Texts follow the rifle type (owner, 2026-10-09).
+                  info: platform == WeaponPlatform.firearm
+                      ? ProfileFieldInfo.caliberFirearm
+                      : ProfileFieldInfo.caliber,
                   controller: rifleCaliber,
                   label: 'Kalibre',
                   unit: 'mm',
-                  hintText: '5,5 / 6,35 / 7,62',
+                  hintText: platform == WeaponPlatform.firearm
+                      ? '5,56 / 7,62 / 8,59'
+                      : '5,5 / 6,35 / 7,62',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_caliberError, rifleCaliber),
                 ),
@@ -1521,12 +1549,39 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       ? '0–300 mm arasında geçerli bir değer girin.'
                       : null,
                 ),
+                MenzilSelect<DistanceUnit>(
+                  key: const Key('profile-distance-unit'),
+                  info: ProfileFieldInfo.distanceUnit,
+                  label: 'Mesafe birimi',
+                  initialValue: distanceUnit,
+                  items: const [
+                    DropdownMenuItem(
+                      value: DistanceUnit.meter,
+                      child: Text('Metre'),
+                    ),
+                    DropdownMenuItem(
+                      value: DistanceUnit.yard,
+                      child: Text('Yard'),
+                    ),
+                  ],
+                  onChanged: (v) => setState(() {
+                    final next = v ?? DistanceUnit.meter;
+                    // The typed zero keeps its real distance.
+                    final typed = _parse(zero);
+                    if (typed != null && next != distanceUnit) {
+                      zero.text = _trimNum(
+                        _round1(next.fromMeters(distanceUnit.toMeters(typed))),
+                      );
+                    }
+                    distanceUnit = next;
+                  }),
+                ),
                 MenzilInput(
                   key: const Key('profile-zero'),
                   controller: zero,
                   label: 'Sıfırlama mesafesi',
                   info: ProfileFieldInfo.zero,
-                  unit: 'm',
+                  unit: distanceUnit.symbol,
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_zeroError, zero),
                 ),
@@ -1620,6 +1675,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   label: 'Dürbün ayağı',
                   unit: 'MOA',
                   initialValue: mountCant,
+                  // Closed box: just "0 MOA" / "30 MOA"; the list keeps
+                  // "Normal" and the click gain.
+                  selectedLabels: [
+                    for (final moa in ProductionLimits.mountCantOptionsMoa)
+                      '${_trimNum(moa)} MOA',
+                  ],
                   items: [
                     for (final moa in ProductionLimits.mountCantOptionsMoa)
                       DropdownMenuItem(
@@ -1645,6 +1706,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     DropdownMenuItem(
                       value: AngularUnit.moa,
                       child: Text('MOA'),
+                    ),
+                    // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
+                    DropdownMenuItem(
+                      value: AngularUnit.smoa,
+                      child: Text('SMOA'),
                     ),
                   ],
                   onChanged: (v) => setState(() {
@@ -1742,7 +1808,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ),
                 MenzilInput(
                   key: const Key('ammo-grain'),
-                  info: ProfileFieldInfo.grain,
+                  info: platform == WeaponPlatform.firearm
+                      ? ProfileFieldInfo.grainFirearm
+                      : ProfileFieldInfo.grain,
                   controller: ammoGrain,
                   label: 'Ağırlık',
                   unit: 'grain',
@@ -1751,16 +1819,22 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilInput(
                   key: const Key('ammo-bc'),
-                  info: ProfileFieldInfo.bc,
+                  info: platform == WeaponPlatform.firearm
+                      ? ProfileFieldInfo.bcFirearm
+                      : ProfileFieldInfo.bc,
                   controller: ammoBc,
                   label: 'BC (balistik katsayı)',
-                  hintText: '0,035',
+                  hintText: platform == WeaponPlatform.firearm
+                      ? '0,45'
+                      : '0,035',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_bcError, ammoBc),
                 ),
                 MenzilSelect<BallisticModel>(
                   key: const Key('ammo-bc-model'),
-                  info: ProfileFieldInfo.bcModel,
+                  info: platform == WeaponPlatform.firearm
+                      ? ProfileFieldInfo.bcModelFirearm
+                      : ProfileFieldInfo.bcModel,
                   label: 'BC modeli',
                   initialValue: ammoBcModel,
                   items: const [
@@ -1777,9 +1851,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 MenzilFullWidth(
                   child: Text(
-                    typedCaliber == null
-                        ? 'Kalibre: tüfek bilgilerinden alınır.'
-                        : 'Kalibre: ${_trimNum(typedCaliber)} mm (tüfekten).',
+                    '${typedCaliber == null ? 'Kalibre: tüfek bilgilerinden alınır.' : 'Kalibre: ${_trimNum(typedCaliber)} mm (tüfekten).'}'
+                    '${platform == WeaponPlatform.firearm ? ' Tip: mermi (ateşli tüfekte otomatik).' : ''}',
                     key: const Key('ammo-caliber-note'),
                     style: MenzilType.caption(c.ink2),
                   ),
@@ -1925,24 +1998,16 @@ String _trimNum(double v) =>
 /// Shows the profile's SI values in the user's unit system (Ayarlar). The
 /// stored profile stays SI; only the display converts.
 class _ProfileUnits {
-  final bool metric;
-  const _ProfileUnits(this.metric);
+  const _ProfileUnits();
 
-  static _ProfileUnits of(BuildContext context) =>
-      _ProfileUnits(AppSettingsScope.metricOf(context));
+  static _ProfileUnits of(BuildContext context) => const _ProfileUnits();
 
-  // Muzzle velocity is entered and shown in fps on Profil in both unit
-  // systems (owner decision, 2026-10-07).
+  // Muzzle velocity is entered and shown in fps on Profil (owner decision,
+  // 2026-10-07). Distances follow the profile's own unit (_zeroText).
   String get velocityUnit => 'fps';
-  String get distanceUnit => metric ? 'm' : 'yd';
 
   String velocityValue(double mps) =>
       UnitSystem.mpsToFps(mps).toStringAsFixed(0);
 
-  String distanceValue(double m) => metric
-      ? m.toStringAsFixed(0)
-      : UnitSystem.metersToYards(m).toStringAsFixed(1);
-
   String velocity(double mps) => '${velocityValue(mps)} $velocityUnit';
-  String distance(double m) => '${distanceValue(m)} $distanceUnit';
 }

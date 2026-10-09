@@ -234,6 +234,7 @@ class UserCatalog {
   static AngularUnit? _angularUnit(Object? v) => switch (v) {
     'mrad' => AngularUnit.mrad,
     'moa' => AngularUnit.moa,
+    'smoa' => AngularUnit.smoa,
     _ => null,
   };
 

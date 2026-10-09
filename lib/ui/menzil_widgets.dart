@@ -985,6 +985,10 @@ class MenzilSelect<T> extends StatelessWidget {
   /// Explanation shown by the ⓘ button next to the label.
   final String? info;
 
+  /// Short text for the closed box, per item (same order as [items]); the
+  /// open list keeps the full item text. Null shows the item itself.
+  final List<String>? selectedLabels;
+
   const MenzilSelect({
     super.key,
     required this.label,
@@ -994,6 +998,7 @@ class MenzilSelect<T> extends StatelessWidget {
     required this.onChanged,
     this.semanticLabel,
     this.info,
+    this.selectedLabels,
   });
 
   @override
@@ -1018,6 +1023,22 @@ class MenzilSelect<T> extends StatelessWidget {
               initialValue: initialValue,
               items: items,
               onChanged: onChanged,
+              // The closed box always shows ONE line (owner, 2026-10-09:
+              // "Normal (0 MOA)" wrapped and was cut off).
+              selectedItemBuilder: (context) => [
+                for (var i = 0; i < items.length; i++)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: DefaultTextStyle.merge(
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
+                      child: selectedLabels == null
+                          ? items[i].child
+                          : Text(selectedLabels![i]),
+                    ),
+                  ),
+              ],
               isExpanded: true,
               isDense: true,
               borderRadius: BorderRadius.circular(MenzilRadius.input),
