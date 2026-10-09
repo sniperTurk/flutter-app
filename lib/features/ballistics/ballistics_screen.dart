@@ -1440,7 +1440,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             '${basis.ballisticCoefficient} '
                 '${basis.ballisticModel!.name.toUpperCase()}',
           ),
-        ('Hız', '${UnitSystem.mpsToFps(basis.velocityMps).toStringAsFixed(0)} fps'),
+        (
+          'Hız',
+          '${UnitSystem.mpsToFps(basis.velocityMps).toStringAsFixed(0)} fps',
+        ),
         (
           'Sıfır',
           '${_toDisplayRange(basis.zeroRangeM).round()} $_distanceUnit',

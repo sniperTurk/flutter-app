@@ -31,9 +31,7 @@ Future<void> _loadFont(String family, List<String> paths) async {
   for (final p in paths) {
     final f = File(p);
     if (f.existsSync()) {
-      loader.addFont(
-        Future.value(ByteData.view(f.readAsBytesSync().buffer)),
-      );
+      loader.addFont(Future.value(ByteData.view(f.readAsBytesSync().buffer)));
       any = true;
     }
   }
@@ -97,8 +95,9 @@ void main() {
           find.byKey(boundary).evaluate().single,
         );
         final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
-        File('${out.path}/$name.png')
-            .writeAsBytesSync(bytes!.buffer.asUint8List());
+        File(
+          '${out.path}/$name.png',
+        ).writeAsBytesSync(bytes!.buffer.asUint8List());
       });
     }
 
