@@ -94,6 +94,7 @@ jobs:
         shell: bash
         env:
           SNIPER_TURK_IOS_DEVELOPMENT_TEAM: ${{ vars.IOS_DEVELOPMENT_TEAM }}
+          GOOGLE_MAPS_IOS_API_KEY: ${{ secrets.GOOGLE_MAPS_IOS_API_KEY }}
         run: tools/bootstrap_ios_scaffold.sh
 
       - name: Enforce App Store source preflight
@@ -158,12 +159,17 @@ jobs:
         shell: bash
         env:
           METNO_CONTACT: ${{ vars.METNO_CONTACT }}
+          GOOGLE_MAPS_IOS_API_KEY: ${{ secrets.GOOGLE_MAPS_IOS_API_KEY }}
         run: |
           set -euo pipefail
+          # Google Maps only when the key secret exists (else the Esri map).
+          MAPS=false; [[ -n "${GOOGLE_MAPS_IOS_API_KEY:-}" ]] && MAPS=true
+          echo "Google Maps enabled: $MAPS"
           # Each TestFlight upload needs a unique build number.
           flutter build ios --release --no-codesign \
             --build-number="${GITHUB_RUN_NUMBER}" \
-            --dart-define=METNO_CONTACT="$METNO_CONTACT"
+            --dart-define=METNO_CONTACT="$METNO_CONTACT" \
+            --dart-define=GOOGLE_MAPS_ENABLED="$MAPS"
 
       # The team has no registered devices, so Xcode cannot create a Development
       # profile. Archive unsigned and let the export step sign with Apple's

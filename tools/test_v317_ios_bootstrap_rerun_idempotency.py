@@ -12,6 +12,7 @@ FILES = [
     'check_ios_manual_customizations.py',
     'configure_ios_info_plist.py',
     'configure_ios_signing.py',
+    'configure_ios_google_maps.py',
 ]
 
 
@@ -52,7 +53,19 @@ class IosBootstrapRerunIdempotencyTests(unittest.TestCase):
                 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
                 <plist version="1.0"><dict><key>CFBundleDisplayName</key><string>sniper_turk</string></dict></plist>
                 EOF
-                printf swift > ios/Runner/AppDelegate.swift
+                cat > ios/Runner/AppDelegate.swift <<'EOF'
+                import Flutter
+                import UIKit
+                @main
+                @objc class AppDelegate: FlutterAppDelegate {
+                  override func application(
+                    _ application: UIApplication,
+                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+                  ) -> Bool {
+                    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+                  }
+                }
+                EOF
                 printf debug > ios/Flutter/Debug.xcconfig
                 printf release > ios/Flutter/Release.xcconfig
             '''), encoding='utf-8')
