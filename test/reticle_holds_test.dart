@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sniper_turk/core/ballistic_engine.dart';
 import 'package:sniper_turk/core/ballistic_input.dart';
 import 'package:sniper_turk/core/reticle_holds.dart';
 import 'package:sniper_turk/models/domain.dart';
@@ -72,5 +73,52 @@ void main() {
       ),
       isNull,
     );
+  });
+
+  // Audit 2026-10-10: holds and wind-per-mil must use the same inputs as
+  // the main solution (speed bands, zeroing-day velocity).
+  test('holds follow BC bands and the zeroing-day velocity', () {
+    final base = BallisticInput(
+      muzzleVelocityMps: 816,
+      zeroMuzzleVelocityMps: 800,
+      grain: 168,
+      zeroRangeM: 100,
+      sightHeightMm: 45,
+      rangesM: const [800],
+      ballisticCoefficient: 0.462,
+      ballisticModel: BallisticModel.g1,
+      bcBands: const [BcBand(700, 0.462), BcBand(550, 0.44), BcBand(0, 0.40)],
+    );
+    final main = const BallisticEngine().solve(base).single;
+    final s = ReticleHolds.sample(base);
+    final at800 = s.firstWhere((p) => (p.rangeM - 800).abs() < 1e-6);
+    expect(at800.correctionMrad, closeTo(main.correctionMrad, 1e-6));
+
+    final perMil = ReticleHolds.crosswindForMil(
+      base: base,
+      rangeM: 800,
+      mil: 1,
+    )!;
+    final windy = const BallisticEngine()
+        .solve(
+          BallisticInput(
+            muzzleVelocityMps: 816,
+            zeroMuzzleVelocityMps: 800,
+            grain: 168,
+            zeroRangeM: 100,
+            sightHeightMm: 45,
+            rangesM: const [800],
+            ballisticCoefficient: 0.462,
+            ballisticModel: BallisticModel.g1,
+            bcBands: const [
+              BcBand(700, 0.462),
+              BcBand(550, 0.44),
+              BcBand(0, 0.40),
+            ],
+            environment: EnvironmentData(windMps: perMil, windDirectionDeg: 90),
+          ),
+        )
+        .single;
+    expect(windy.windMrad.abs(), closeTo(1, 0.02));
   });
 }

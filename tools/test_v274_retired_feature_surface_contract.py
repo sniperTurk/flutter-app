@@ -13,7 +13,6 @@ ROOT = Path(__file__).resolve().parents[1]
 
 # Only these feature files may carry tool names.
 ALLOWED_TOOL_FILES = {
-    'lib/features/tools/chronograph_screen.dart',
     'lib/features/tools/sight_height_screen.dart',
     'lib/features/tools/compass_screen.dart',
     'lib/features/tools/level_screen.dart',

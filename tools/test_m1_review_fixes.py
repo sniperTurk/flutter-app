@@ -72,7 +72,7 @@ class CompassTests(unittest.TestCase):
 
 class ProfileIntegrityTests(unittest.TestCase):
     def test_tools_write_profiles_only_through_validation(self):
-        for name in ('chronograph_screen.dart', 'sight_height_screen.dart'):
+        for name in ('sight_height_screen.dart',):
             text = (TOOLS_UI / name).read_text(encoding='utf-8')
             with self.subTest(screen=name):
                 self.assertIn('ToolProfileUpdate.apply(', text)
@@ -101,14 +101,6 @@ class SightHeightTests(unittest.TestCase):
         text = read('lib/features/tools/sight_height_screen.dart')
         self.assertIn('_notLandscape = img.width <= img.height;', text)
         self.assertIn("Key('sight-not-landscape')", text)
-
-
-class ChronographPressureTests(unittest.TestCase):
-    def test_pcp_pressure_is_available(self):
-        text = read('lib/features/tools/chronograph_screen.dart')
-        self.assertIn("Key('chrono-start-bar')", text)
-        self.assertIn("Key('chrono-end-bar')", text)
-        self.assertIn('ProductionLimits.maxPcpPressureBar', text)
 
 
 class WeatherConfigTests(unittest.TestCase):

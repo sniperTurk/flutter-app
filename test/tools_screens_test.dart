@@ -5,7 +5,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sniper_turk/features/tools/chronograph_screen.dart';
 import 'package:sniper_turk/features/tools/compass_screen.dart';
 import 'package:sniper_turk/features/tools/level_screen.dart';
 import 'package:sniper_turk/features/tools/sight_height_screen.dart';
@@ -365,53 +364,6 @@ void main() {
     });
   });
 
-  group('Kronograf', () {
-    testWidgets('records shots and shows count/mean/ES; apply is gated', (
-      tester,
-    ) async {
-      await tester.pumpWidget(host(const ChronographScreen()));
-      await tester.enterText(find.byKey(const Key('chrono-velocity')), '270');
-      await tester.ensureVisible(find.text('Atış ekle'));
-      await tester.tap(find.text('Atış ekle'));
-      await tester.pump();
-      await tester.enterText(find.byKey(const Key('chrono-velocity')), '272');
-      await tester.ensureVisible(find.text('Atış ekle'));
-      await tester.tap(find.text('Atış ekle'));
-      await tester.pump();
-      await tester.scrollUntilVisible(
-        find.text('4 · Sonuç'),
-        300,
-        scrollable: find.byType(Scrollable).first,
-      );
-      expect(find.text('4 · Sonuç'), findsOneWidget);
-      expect(find.textContaining('Aktarım için'), findsOneWidget);
-    });
-
-    testWidgets('PCP session shows pressure drop per shot', (tester) async {
-      await tester.pumpWidget(host(const ChronographScreen()));
-      await tester.enterText(find.byKey(const Key('chrono-start-bar')), '200');
-      await tester.enterText(find.byKey(const Key('chrono-end-bar')), '180');
-      for (final v in ['270', '268', '272']) {
-        await tester.enterText(find.byKey(const Key('chrono-velocity')), v);
-        await tester.ensureVisible(find.text('Atış ekle'));
-        await tester.tap(find.text('Atış ekle'));
-        await tester.pump();
-      }
-      await tester.ensureVisible(find.byKey(const Key('chrono-pressure')));
-      expect(find.text('20 bar'), findsOneWidget);
-      expect(find.text('6,7 bar'), findsOneWidget);
-    });
-
-    testWidgets('invalid velocity is rejected', (tester) async {
-      await tester.pumpWidget(host(const ChronographScreen()));
-      await tester.enterText(find.byKey(const Key('chrono-velocity')), 'abc');
-      await tester.ensureVisible(find.text('Atış ekle'));
-      await tester.tap(find.text('Atış ekle'));
-      await tester.pump();
-      expect(find.text('Geçerli bir hız girin.'), findsOneWidget);
-    });
-  });
-
   group('Sight Height', () {
     Future<void> enter(WidgetTester tester, String key, String text) async {
       await tester.ensureVisible(find.byKey(Key(key)));
@@ -578,7 +530,6 @@ void main() {
               const CompassScreen(),
               const LevelScreen(),
               const WeatherScreen(),
-              const ChronographScreen(),
               const SightHeightScreen(),
             ];
             for (final s in screens) {

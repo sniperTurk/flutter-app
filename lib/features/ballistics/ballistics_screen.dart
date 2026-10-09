@@ -46,13 +46,13 @@ import 'wind_clock_picker.dart';
 /// [pro]: Pro Ayarlar (shot incline, scope cant, Coriolis) — owner, 2026-10-08.
 enum BallisticsView { all, shot, table, environment, pro }
 
-/// Stable keys for the ballistic inputs (used by widget tests).
 /// Seams for widget tests (never set in the app).
 abstract final class BallisticsScreenTestHooks {
   /// Replaces the system share sheet for the DOPE card PDF.
   static Future<void> Function(List<int> bytes, String filename)? sharePdf;
 }
 
+/// Stable keys for the ballistic inputs (used by widget tests).
 abstract final class BallisticsFieldKeys {
   static const velocity = ValueKey('ballistics-velocity');
   static const grain = ValueKey('ballistics-grain');
@@ -1283,6 +1283,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final wind = basis.environment.windMps;
     if (basis.drag && windMax != null && windMax > wind) {
       final args = _coriolisArgs;
+      // With wind zones the gust is taken to strengthen every zone by the
+      // same ratio, so the bracket stays consistent with the shot itself.
+      final z = _windZones;
+      final gust = wind > 0 ? windMax / wind : null;
       try {
         final hi = const BallisticEngine()
             .solve(
@@ -1293,6 +1297,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 latitudeDeg: args.lat,
                 azimuthDeg: args.az,
                 windMps: windMax,
+                windZones: z == null || gust == null
+                    ? null
+                    : WindZones(
+                        rangeM: z.rangeM,
+                        midMps: math.min(z.midMps * gust, 60.0),
+                        farMps: math.min(z.farMps * gust, 60.0),
+                      ),
               ),
             )
             .single;

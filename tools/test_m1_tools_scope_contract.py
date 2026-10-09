@@ -100,7 +100,7 @@ class M1ArchitectureTests(unittest.TestCase):
 
     def test_single_unit_system_used_by_tools(self):
         # Tool screens convert through UnitSystem and read the one metric flag.
-        for name in ('weather_screen.dart', 'chronograph_screen.dart', 'tool_support.dart'):
+        for name in ('weather_screen.dart', 'tool_support.dart'):
             text = (LIB / 'features/tools' / name).read_text(encoding='utf-8')
             self.assertTrue('UnitSystem' in text or 'ToolFormat' in text, name)
         settings = (LIB / 'services/app_settings.dart').read_text(encoding='utf-8')

@@ -27,6 +27,4 @@ class UnitSystem {
   static double celsiusToFahrenheit(double value) => value * 9 / 5 + 32;
   static double joulesToFootPounds(double value) => value / joulesPerFootPound;
   static double mpsToKmh(double value) => value / metersPerSecondPerKmh;
-  static double kmhToMps(double value) => value * metersPerSecondPerKmh;
-  static double mpsToKnots(double value) => value / metersPerSecondPerKnot;
 }
