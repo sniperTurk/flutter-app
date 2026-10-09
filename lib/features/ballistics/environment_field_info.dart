@@ -37,6 +37,11 @@ abstract final class EnvironmentFieldInfo {
   static const shotRange =
       'Hedefe olan mesafe. Telemetre (lazer mesafe ölçer) ile ölçün veya '
       '"Haritadan" ile seçin. Örnek: 45 m.';
+  static const proShotRange =
+      'Ateş edeceğin hedefin uzaklığı. Telemetre (lazer mesafe ölçer) ile '
+      'ölç ya da bilmiyorsan "Haritadan ölç"e dokunup haritada senin ve '
+      'hedefin yerini işaretle. Hedef ekranı bu mesafeyle açılır ve dürbün '
+      'kurulmuş gelir. Örnek: 85 m.';
   static const incline =
       'Tüfek eğimi: hedefe bakış çizgisinin yatayla yaptığı açı. Yukarı '
       'atışta +, aşağı atışta −. Yokuşta saçma daha az düşer; yukarı ve aşağı '

@@ -332,6 +332,34 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Which Pro Ayarlar box is open (one at a time; all closed at first).
   String? _proOpen;
 
+  /// Atış mesafesi typed on Pro (profile distance unit) (owner,
+  /// 2026-10-09): Hedef then opens at it with the solution already dialled
+  /// and the right turret open. Empty = Hedef opens at 100.
+  final TextEditingController proRangeCtl = TextEditingController();
+
+  double? get _proRangeM {
+    final v = _parsed(proRangeCtl);
+    if (v == null || v <= 0 || v > _displayMaxRange) return null;
+    return math.min(_fromDisplayRange(v), ProductionLimits.maxRangeM);
+  }
+
+  /// Set when Hedef opens with a Pro distance; consumed by the next scope
+  /// build once that distance has been solved.
+  bool _autoDialArmed = false;
+
+  Future<void> _proRangeFromMap() async {
+    final meters = await Navigator.push<double>(
+      context,
+      MaterialPageRoute<double>(
+        builder: (_) => const MapDistanceScreen(returnDistance: true),
+      ),
+    );
+    if (!mounted || meters == null || !meters.isFinite || meters <= 0) return;
+    setState(
+      () => proRangeCtl.text = _toDisplayRange(meters).round().toString(),
+    );
+  }
+
   /// Wind zones for the shot at [_shotRangeM], or null when both are empty.
   WindZones? get _windZones {
     double? w(TextEditingController c) {
@@ -617,12 +645,20 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final toShot =
         widget.view == BallisticsView.shot ||
         widget.view == BallisticsView.table;
-    if (widget.view == BallisticsView.shot && old.view != BallisticsView.shot) {
-      _shotRangeM = _defaultShotRangeM;
+    final proRange = _proRangeM;
+    final enteringShot =
+        widget.view == BallisticsView.shot && old.view != BallisticsView.shot;
+    if (enteringShot) {
+      _shotRangeM = proRange ?? _defaultShotRangeM;
     }
     if (toShot && widget.view != old.view) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) _quietSolve();
+        if (!mounted) return;
+        _quietSolve();
+        // Pro distance: dial the fresh solution and open the right turret.
+        if (enteringShot && proRange != null) {
+          setState(() => _autoDialArmed = true);
+        }
       });
     }
   }
@@ -1074,6 +1110,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     bulletLengthCtl.dispose();
     powderCoefCtl.dispose();
     powderTempCtl.dispose();
+    proRangeCtl.dispose();
     for (final c in [
       windMidCtl,
       windFarCtl,
@@ -1514,6 +1551,27 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final downClicks = halfUp == null
         ? _unknownTravelClicks
         : math.max(0, halfUp - mountClicks);
+    final maxWindage =
+        _halfTravelClicks(click, s.windageRangeMrad) ?? _unknownTravelClicks;
+    if (_autoDialArmed && requiredUp != null) {
+      _autoDialArmed = false;
+      final up = ScopeDialMath.clicksFor(
+        requiredUp,
+        click,
+      ).clamp(-downClicks, upClicks).toInt();
+      final right = ScopeDialMath.clicksFor(
+        requiredRight,
+        click,
+      ).clamp(-maxWindage, maxWindage).toInt();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        setState(() {
+          _elevationClicks = up;
+          _windageClicks = right;
+          _windageRevealToken++;
+        });
+      });
+    }
     return ScopeDialView(
       unit: unit,
       clickValue: click,
@@ -1527,8 +1585,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       halfElevationClicks: halfUp,
       // The side turret's limit only matters for the drum; it is never
       // asked on Profil, so without catalog data the drum turns freely.
-      maxWindageClicks:
-          _halfTravelClicks(click, s.windageRangeMrad) ?? _unknownTravelClicks,
+      maxWindageClicks: maxWindage,
       onElevationChanged: (v) => setState(() => _elevationClicks = v),
       onWindageChanged: (v) => setState(() => _windageClicks = v),
       windageRevealToken: _windageRevealToken,
@@ -2361,6 +2418,43 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ? '${(m.abs() * 100).toStringAsFixed(1)} cm'
         : '${UnitSystem.millimetersToInches(m.abs() * 1000).toStringAsFixed(1)} in';
     return [
+      MenzilCard(
+        key: const Key('pro-range-card'),
+        margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            MenzilInput(
+              key: const Key('pro-shot-range'),
+              controller: proRangeCtl,
+              label: 'Atış mesafesi',
+              unit: _distanceUnit,
+              info: EnvironmentFieldInfo.proShotRange,
+              hintText: _yards ? '110' : '100',
+              errorText:
+                  proRangeCtl.text.trim().isNotEmpty && _proRangeM == null
+                  ? '1 ile ${_displayMaxRange.toStringAsFixed(0)} '
+                        '$_distanceUnit arasında olmalı.'
+                  : null,
+              onChanged: (_) => setState(() {}),
+            ),
+            MenzilSecondaryButton(
+              key: const Key('pro-range-map'),
+              label: 'Haritadan ölç',
+              icon: Icons.map_outlined,
+              expand: true,
+              onPressed: _proRangeFromMap,
+            ),
+            const SizedBox(height: MenzilSpace.xs),
+            Text(
+              'Mesafeyi bilmiyorsan haritadan ölç. Hedef\'e geçince dürbün '
+              'bu mesafeye kurulmuş gelir. Boş bırakırsan Hedef '
+              '${_yards ? '100 yd' : '100 m'} ile açılır.',
+              style: MenzilType.caption(c.ink2),
+            ),
+          ],
+        ),
+      ),
       _proBox(
         id: 'angle',
         title: 'Açı',

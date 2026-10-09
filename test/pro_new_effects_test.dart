@@ -144,6 +144,32 @@ void main() {
       expect(before.requiredRight - after.requiredRight, closeTo(d, 1e-3));
     });
 
+    testWidgets('Pro distance: Hedef opens there, dialled, right turret open', (
+      tester,
+    ) async {
+      await sized(tester);
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      // The distance box sits above the closed boxes, always visible.
+      final f = find.descendant(
+        of: find.byKey(const Key('pro-shot-range')),
+        matching: find.byType(TextField),
+      );
+      expect(f, findsOneWidget);
+      expect(find.byKey(const Key('pro-range-map')), findsOneWidget);
+      await tester.enterText(f, '300');
+      await tester.pump();
+
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final d = dial(tester);
+      expect(d.rangeM, closeTo(300, 1e-9));
+      // 300 m with a 100 m zero: the solution is dialled up already.
+      expect(d.elevationClicks, greaterThan(0));
+      expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
+      expect(find.text('Vuruş noktası: artı işaretinde'), findsOneWidget);
+    });
+
     testWidgets('isabet olasılığı appears once a group size is given', (
       tester,
     ) async {
