@@ -80,7 +80,7 @@ class AerodynamicTrajectorySolver {
     return _Frame(sinT, cosT, sinP, cosP, ox, oy, oz);
   }
 
-  /// G1/G7 trajectory including vector wind coupling.
+  /// G1/G7/GA trajectory including vector wind coupling.
   ///
   /// Wind degrees (internal): 0° = headwind, 90° = from the LEFT (saat 9),
   /// 180° = tailwind, 270° = from the right (saat 3); see WindClock. The UI
@@ -89,18 +89,20 @@ class AerodynamicTrajectorySolver {
   /// relative to that air mass.
   List<TrajectoryPoint> solve(BallisticInput input) {
     _validateStep();
-    final bc = input.ballisticCoefficient;
     final model = input.ballisticModel;
-    if (bc == null || model == null) {
+    if (input.ballisticCoefficient == null || model == null) {
       throw ArgumentError(
-        'G1/G7 ballisticCoefficient and ballisticModel are required',
+        'ballisticCoefficient and ballisticModel (G1/G7/GA) are required',
       );
     }
-    final drag = ReferenceDragModel(
-      model == BallisticModel.g1
-          ? StandardDragTables.g1
-          : StandardDragTables.g7,
-    );
+    final drag = ReferenceDragModel(switch (model) {
+      BallisticModel.g1 => StandardDragTables.g1,
+      BallisticModel.g7 => StandardDragTables.g7,
+      BallisticModel.ga => StandardDragTables.ga,
+    });
+    // BC as a function of air-relative speed (çoklu BC; constant without
+    // bands).
+    final bc = input.bcAtSpeed;
     // The sight setting is a mechanical launch angle established at zeroing;
     // it must not be silently re-zeroed for the current shot's wind/weather.
     // Zeroing conditions are distinct from the current shot environment.
@@ -184,7 +186,11 @@ class AerodynamicTrajectorySolver {
     return solve(input);
   }
 
-  double _zeroAngle(BallisticInput input, ReferenceDragModel drag, double bc) {
+  double _zeroAngle(
+    BallisticInput input,
+    ReferenceDragModel drag,
+    double Function(double) bc,
+  ) {
     // Normal rifle/PCP zeroing should live inside this deliberately conservative
     // bracket. Failure is safer than silently selecting a high-angle solution.
     var low = -0.05;
@@ -216,7 +222,7 @@ class AerodynamicTrajectorySolver {
   double _heightAtRange(
     BallisticInput input,
     ReferenceDragModel drag,
-    double bc,
+    double Function(double) bc,
     double angle,
     double range,
   ) {
@@ -259,7 +265,7 @@ class AerodynamicTrajectorySolver {
   Rk4Derivative _derivative(
     Rk4State s,
     ReferenceDragModel drag,
-    double bc,
+    double Function(double) bc,
     EnvironmentData env,
     _Frame f,
   ) {
@@ -281,7 +287,7 @@ class AerodynamicTrajectorySolver {
     );
     final decel = drag.decelerationMps2(
       speedMps: relativeSpeed,
-      ballisticCoefficient: bc,
+      ballisticCoefficient: bc(relativeSpeed),
       environment: env,
     );
     final scale = relativeSpeed == 0 ? 0.0 : -decel / relativeSpeed;

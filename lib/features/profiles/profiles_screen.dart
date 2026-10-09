@@ -777,6 +777,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController ammoBrand;
   late final TextEditingController ammoGrain;
   late final TextEditingController ammoBc;
+
+  /// Hıza göre BC (çoklu BC, owner 2026-10-09): up to two steps "below
+  /// this speed (fps) the BC is …". Empty rows = single BC.
+  late final List<TextEditingController> ammoBandFps;
+  late final List<TextEditingController> ammoBandBc;
   AmmunitionType? ammoType;
   BallisticModel? ammoBcModel;
   bool _saving = false;
@@ -860,6 +865,22 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
     ammoGrain = TextEditingController(text: num(a0?.grain));
     ammoBc = TextEditingController(text: num(a0?.ballisticCoefficient));
+    // Stored bands are fastest first: [(s1, main), (s2, bc1), (0, bc2)].
+    // Row i shows "below s(i+1) fps -> bc(i+1)".
+    final bands = a0?.bcBands ?? const <BcBand>[];
+    String fps(double mps) => UnitSystem.mpsToFps(mps).round().toString();
+    ammoBandFps = [
+      for (var i = 0; i < 2; i++)
+        TextEditingController(
+          text: i + 1 < bands.length ? fps(bands[i].minVelocityMps) : '',
+        ),
+    ];
+    ammoBandBc = [
+      for (var i = 0; i < 2; i++)
+        TextEditingController(
+          text: i + 1 < bands.length ? num(bands[i + 1].bc) : '',
+        ),
+    ];
     ammoType = a0?.type;
     ammoBcModel = a0?.ballisticModel;
     if (p != null) {
@@ -948,6 +969,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_grainError == null, 'Ağırlık'),
       (_bcError == null, 'BC'),
       (ammoBcModel != null, 'BC modeli'),
+      (_bandsValid, 'Hıza göre BC'),
     ]);
     return out;
   }
@@ -970,6 +992,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ammoBrand.dispose();
     ammoGrain.dispose();
     ammoBc.dispose();
+    for (final c in [...ammoBandFps, ...ammoBandBc]) {
+      c.dispose();
+    }
     name.dispose();
     velocity.dispose();
     zero.dispose();
@@ -1085,6 +1110,58 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? get _grainError => _rangeError(ammoGrain, 1, 800);
   String? get _bcError => _rangeError(ammoBc, 0.005, 1.5);
 
+  /// A band row is optional, but half a row (speed without BC or the other
+  /// way round) is an error.
+  String? _bandFpsError(int i) {
+    final f = ammoBandFps[i], b = ammoBandBc[i];
+    if (f.text.trim().isEmpty && b.text.trim().isEmpty) return null;
+    final e = _rangeError(f, 100, 4000);
+    if (e != null) return e;
+    // Thresholds must fall row by row.
+    if (i == 1 && _parse(ammoBandFps[0]) != null) {
+      if (_parse(f)! >= _parse(ammoBandFps[0])!) {
+        return '1. eşikten düşük olmalı.';
+      }
+    }
+    return null;
+  }
+
+  String? _bandBcError(int i) {
+    final f = ammoBandFps[i], b = ammoBandBc[i];
+    if (f.text.trim().isEmpty && b.text.trim().isEmpty) return null;
+    return _rangeError(b, 0.005, 1.5);
+  }
+
+  bool get _bandsValid {
+    for (var i = 0; i < 2; i++) {
+      if (_bandFpsError(i) != null || _bandBcError(i) != null) return false;
+    }
+    // Row 2 needs row 1.
+    final r1 = ammoBandFps[0].text.trim().isNotEmpty;
+    final r2 = ammoBandFps[1].text.trim().isNotEmpty;
+    return r1 || !r2;
+  }
+
+  /// Bands to store: main BC from the first threshold up, each row below
+  /// its threshold; the last band starts at 0.
+  List<Map<String, double>> get _bandEntries {
+    final rows = <(double, double)>[
+      for (var i = 0; i < 2; i++)
+        if (_parse(ammoBandFps[i]) != null && _parse(ammoBandBc[i]) != null)
+          (
+            UnitSystem.fpsToMps(_parse(ammoBandFps[i])!),
+            _parse(ammoBandBc[i])!,
+          ),
+    ];
+    if (rows.isEmpty) return const [];
+    final main = _parse(ammoBc)!;
+    return [
+      {'mps': rows[0].$1, 'bc': main},
+      for (var i = 0; i < rows.length; i++)
+        {'mps': i + 1 < rows.length ? rows[i + 1].$1 : 0.0, 'bc': rows[i].$2},
+    ];
+  }
+
   /// PCP: pellet or slug must be chosen; firearms always use bullets.
   AmmunitionType? get _effectiveAmmoType => platform == WeaponPlatform.firearm
       ? AmmunitionType.bullet
@@ -1094,6 +1171,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _ammoBrandError == null &&
       _grainError == null &&
       _bcError == null &&
+      _bandsValid &&
       ammoBcModel != null &&
       _effectiveAmmoType != null;
 
@@ -1165,6 +1243,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'ammoType': _effectiveAmmoType!.name,
       'bc': _parse(ammoBc),
       'bcModel': ammoBcModel!.name,
+      if (_bandEntries.isNotEmpty) 'bcBands': _bandEntries,
       'sourceName': userCatalogSourceName,
     };
   }
@@ -1837,18 +1916,57 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       : ProfileFieldInfo.bcModel,
                   label: 'BC modeli',
                   initialValue: ammoBcModel,
-                  items: const [
-                    DropdownMenuItem(
+                  items: [
+                    const DropdownMenuItem(
                       value: BallisticModel.g1,
                       child: Text('G1'),
                     ),
-                    DropdownMenuItem(
+                    const DropdownMenuItem(
                       value: BallisticModel.g7,
                       child: Text('G7'),
                     ),
+                    // GA is ChairGun's diabolo pellet model: PCP only (a
+                    // stored firearm GA stays selectable so it shows).
+                    if (platform == WeaponPlatform.pcp ||
+                        ammoBcModel == BallisticModel.ga)
+                      const DropdownMenuItem(
+                        value: BallisticModel.ga,
+                        child: Text('GA (saçma)'),
+                      ),
                   ],
                   onChanged: (v) => setState(() => ammoBcModel = v),
                 ),
+                MenzilFullWidth(
+                  child: Text(
+                    'Hıza göre BC (isteğe bağlı)',
+                    key: const Key('ammo-bands-title'),
+                    style: MenzilType.body(c.ink),
+                  ),
+                ),
+                for (var i = 0; i < 2; i++) ...[
+                  MenzilInput(
+                    key: Key('ammo-band-fps-$i'),
+                    info: ProfileFieldInfo.bandSpeed,
+                    controller: ammoBandFps[i],
+                    label: '${i + 1}. eşik hızı (fps)',
+                    hintText: i == 0
+                        ? (platform == WeaponPlatform.firearm ? '2200' : '800')
+                        : (platform == WeaponPlatform.firearm ? '1800' : '700'),
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_bandFpsError(i), ammoBandFps[i]),
+                  ),
+                  MenzilInput(
+                    key: Key('ammo-band-bc-$i'),
+                    info: ProfileFieldInfo.bandBc,
+                    controller: ammoBandBc[i],
+                    label: 'Eşik altı BC',
+                    hintText: platform == WeaponPlatform.firearm
+                        ? '0,42'
+                        : '0,031',
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_bandBcError(i), ammoBandBc[i]),
+                  ),
+                ],
                 MenzilFullWidth(
                   child: Text(
                     '${typedCaliber == null ? 'Kalibre: tüfek bilgilerinden alınır.' : 'Kalibre: ${_trimNum(typedCaliber)} mm (tüfekten).'}'
@@ -1862,7 +1980,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   const MenzilFullWidth(
                     child: MenzilNotice(
                       tone: MenzilNoticeTone.danger,
-                      message: 'Mühimmat tipini ve BC modelini (G1/G7) seçin.',
+                      message:
+                          'Mühimmat tipini ve BC modelini (G1/G7/GA) seçin.',
                     ),
                   ),
               ],

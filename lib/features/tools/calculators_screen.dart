@@ -785,7 +785,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
   final _press = TextEditingController(text: '1013,25');
   final _rh = TextEditingController(text: '50');
   bool _fps = false;
-  bool _g1 = true;
+  BallisticModel _model = BallisticModel.g1;
 
   @override
   void dispose() {
@@ -815,7 +815,11 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
       } else {
         try {
           bc = FieldCalc.ballisticCoefficientFromTwoVelocities(
-            table: _g1 ? StandardDragTables.g1 : StandardDragTables.g7,
+            table: switch (_model) {
+              BallisticModel.g1 => StandardDragTables.g1,
+              BallisticModel.g7 => StandardDragTables.g7,
+              BallisticModel.ga => StandardDragTables.ga,
+            },
             v1Mps: v1 * f,
             v2Mps: v2 * f,
             distanceM: dist,
@@ -902,10 +906,14 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
           ],
         ),
         _gap(),
-        MenzilChipGroup<bool>(
-          options: const [(true, 'G1'), (false, 'G7')],
-          selected: _g1,
-          onSelected: (v) => setState(() => _g1 = v),
+        MenzilChipGroup<BallisticModel>(
+          options: const [
+            (BallisticModel.g1, 'G1'),
+            (BallisticModel.g7, 'G7'),
+            (BallisticModel.ga, 'GA (saçma)'),
+          ],
+          selected: _model,
+          onSelected: (v) => setState(() => _model = v),
         ),
         _header('3 · Sonuç'),
         if (problem != null)
@@ -916,14 +924,18 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
           MenzilMetricGrid(
             columns: 2,
             metrics: [
-              MenzilMetric('BC (${_g1 ? 'G1' : 'G7'})', _d(bc, 3), 'lb/in²'),
+              MenzilMetric(
+                'BC (${_model.name.toUpperCase()})',
+                _d(bc, 3),
+                'lb/in²',
+              ),
               MenzilMetric('Hız kaybı', _d((v1! - v2!) * f, 1), 'm/s'),
             ],
           ),
         _note(
-          'Bu bir referans hesaptır: standart G1/G7 sürtünme tablosu kullanılır ve '
-          'yörünge hesabına (DOPE) bağlanmaz. Havalı tüfek saçmaları standart '
-          'G1/G7 şeklinden çok farklı olabilir; sonuç mühimmat üreticisinin BC değerinden '
+          'Bu bir referans hesaptır: seçilen G1/G7/GA sürtünme tablosu kullanılır ve '
+          'yörünge hesabına (DOPE) bağlanmaz. Diabolo saçmada GA, G1/G7\'den daha '
+          'uygundur; sonuç mühimmat üreticisinin BC değerinden '
           'sapabilir. Kronograf hatası sonucu güçlü etkiler (%1 hız hatası, BC\'de çok daha büyük hata).',
           tone: MenzilNoticeTone.warning,
         ),

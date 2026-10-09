@@ -193,11 +193,12 @@ class _ManualCatalogDialogState extends State<ManualCatalogDialog> {
           // interchangeable, so a BC requires an explicit G1/G7 choice.
           DropdownButtonFormField<String>(
             key: const ValueKey('bc-model'),
-            initialValue: const ['G1', 'G7'].contains(bcModel.text.trim().toUpperCase()) ? bcModel.text.trim().toUpperCase() : null,
+            initialValue: const ['G1', 'G7', 'GA'].contains(bcModel.text.trim().toUpperCase()) ? bcModel.text.trim().toUpperCase() : null,
             decoration: const InputDecoration(labelText: 'BC sürtünme yasası (G1 / G7)', helperText: 'Üreticinin BC değerini hangi yasaya göre verdiğine bakın; emin değilseniz BC girmeyin.'),
             items: const [
               DropdownMenuItem(value: 'G1', child: Text('G1')),
               DropdownMenuItem(value: 'G7', child: Text('G7')),
+              DropdownMenuItem(value: 'GA', child: Text('GA (saçma)')),
             ],
             onChanged: (v) => setState(() => bcModel.text = v ?? ''),
             validator: (v) => bc.text.trim().isNotEmpty && v == null ? 'BC için G1 veya G7 seçin' : null,

@@ -95,6 +95,9 @@ class _ShotBasis {
   /// Both set (drag solve) or both null (vacuum baseline).
   final double? ballisticCoefficient;
   final BallisticModel? ballisticModel;
+
+  /// Velocity-dependent BC steps (çoklu BC); empty = single BC.
+  final List<BcBand> bcBands;
   const _ShotBasis({
     required this.velocityMps,
     required this.grain,
@@ -103,6 +106,7 @@ class _ShotBasis {
     required this.environment,
     this.ballisticCoefficient,
     this.ballisticModel,
+    this.bcBands = const [],
     this.zeroVelocityMps,
   });
 
@@ -135,6 +139,7 @@ class _ShotBasis {
           ),
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
+    bcBands: bcBands,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
@@ -896,6 +901,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       final useBc = _bcApplies();
       final bc = useBc ? ammo!.ballisticCoefficient : null;
       final model = useBc ? ammo!.ballisticModel : null;
+      final bands = useBc ? ammo!.bcBands : const <BcBand>[];
       final input = BallisticInput(
         muzzleVelocityMps: vToday,
         grain: g,
@@ -905,6 +911,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         environment: environment,
         ballisticCoefficient: bc,
         ballisticModel: model,
+        bcBands: bands,
         zeroMuzzleVelocityMps: vZero,
       );
       final solved = const BallisticEngine().solveReachable(input);
@@ -941,6 +948,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           environment: environment,
           ballisticCoefficient: bc,
           ballisticModel: model,
+          bcBands: bands,
           zeroVelocityMps: vZero,
         );
       });
@@ -1563,7 +1571,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       return const MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:
-            'Deterministik vacuum/gravity temel solver. Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz. Özel mermi kaydına BC ve G1/G7 ekleyerek sürtünmeli hesabı açabilirsiniz.',
+            'Deterministik vacuum/gravity temel solver. Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz. Özel mermi kaydına BC ve G1/G7/GA ekleyerek sürtünmeli hesabı açabilirsiniz.',
       );
     }
     final name = a!.ballisticModel!.name.toUpperCase();
@@ -1580,7 +1588,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return MenzilNotice(
       tone: MenzilNoticeTone.info,
       message:
-          'Sürtünmeli hesap: $name BC ${a.ballisticCoefficient}. BC sizin girdiğiniz değerdir; '
+          'Sürtünmeli hesap: $name BC ${a.ballisticCoefficient}'
+          '${a.bcBands.isEmpty ? '' : ' (hıza göre ${a.bcBands.length} BC)'}. '
+          'BC sizin girdiğiniz değerdir; '
           'gerçek mermiden farklıysa sonuç da kayar. İlk atışta canlı atışla doğrulayın.',
     );
   }

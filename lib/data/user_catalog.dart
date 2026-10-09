@@ -142,7 +142,7 @@ class UserCatalog {
             continue;
           }
           // A BC is only meaningful together with its drag model. Without an
-          // explicit G1/G7 model the value is not attached to the record.
+          // explicit G1/G7/GA model the value is not attached to the record.
           // V378: standard (profile-typed) ammunition carries its model too.
           final bcModel = _ballisticModel(e['bcModel']);
           final bc = bcModel == null ? null : _positive(e['bc']);
@@ -157,6 +157,7 @@ class UserCatalog {
               type: type!,
               ballisticCoefficient: bc,
               ballisticModel: bc == null ? null : bcModel,
+              bcBands: bc == null ? const [] : _bcBands(e['bcBands']),
               sourceName: userCatalogSourceName,
               sourceDocument: custom
                   ? 'Özel yapım mühimmat; doğrulanmamış kişisel kayıt'
@@ -243,7 +244,25 @@ class UserCatalog {
     return switch (v.trim().toUpperCase()) {
       'G1' => BallisticModel.g1,
       'G7' => BallisticModel.g7,
+      'GA' => BallisticModel.ga,
       _ => null,
     };
+  }
+
+  /// Velocity-dependent BC steps; anything malformed yields none (the single
+  /// BC then applies) rather than a guessed curve.
+  static List<BcBand> _bcBands(Object? v) {
+    if (v is! List || v.length > 5) return const [];
+    final out = <BcBand>[];
+    for (final b in v) {
+      if (b is! Map) return const [];
+      final mps = b['mps'], bc = b['bc'];
+      if (mps is! num || bc is! num) return const [];
+      if (!mps.isFinite || !bc.isFinite || mps < 0 || bc <= 0 || bc > 5) {
+        return const [];
+      }
+      out.add(BcBand(mps.toDouble(), bc.toDouble()));
+    }
+    return List.unmodifiable(out);
   }
 }
