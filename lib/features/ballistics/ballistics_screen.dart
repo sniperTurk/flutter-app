@@ -383,9 +383,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// when off or data is missing. Stability from the Miller formula.
   /// Gyroscopic stability (Miller) with the bullet length and length in
   /// calibres, or null when spin drift is off or data is missing.
-  ({double sg, double lCal, TwistDirection dir})? _stability(
-    _ShotBasis basis,
-  ) {
+  ({double sg, double lCal, TwistDirection dir})? _stability(_ShotBasis basis) {
     if (!_spinDriftOn || !basis.drag) return null;
     final rifle = profileResolution?.rifle;
     final twist = rifle?.twistRateIn, dir = rifle?.twistDirection;
@@ -426,7 +424,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (st == null) return null;
     final env = basis.environment;
     // Internal wind degrees: 90° = from the LEFT, 270° = from the right.
-    final fromRightMph = -UnitSystem.mpsToMph(env.windMps) *
+    final fromRightMph =
+        -UnitSystem.mpsToMph(env.windMps) *
         math.sin(env.windDirectionDeg * math.pi / 180);
     final moaPerMph = 0.01 * st.sg - 0.0024 * st.lCal + 0.032;
     final moa =
@@ -1353,8 +1352,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 cantDeg: _cantDeg,
                 latitudeDeg: args.lat,
                 azimuthDeg: args.az,
-                shotVelocityMps:
-                    basis.velocityMps + UnitSystem.fpsToMps(sdFps),
+                shotVelocityMps: basis.velocityMps + UnitSystem.fpsToMps(sdFps),
               ),
             )
             .single;
@@ -1369,7 +1367,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final windMax = _windMaxMps;
     final mpsPerMil = basis.drag ? _evalShot().mpsPerMil : null;
     final wind = basis.environment.windMps;
-    if (windMax != null && windMax > wind && mpsPerMil != null && mpsPerMil > 0) {
+    if (windMax != null &&
+        windMax > wind &&
+        mpsPerMil != null &&
+        mpsPerMil > 0) {
       sigmaH = (windMax - wind) / 2 / mpsPerMil;
     }
     final sx = math.sqrt(sigmaG * sigmaG + sigmaH * sigmaH);
@@ -1445,8 +1446,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final jump = shot == null || basis == null ? null : _aeroJumpMrad(basis);
     final requiredUp = shot == null
         ? null
-        : inUnit(shot.correctionMrad - zeroOff.up - (jump ?? 0)) /
-              _turretScale;
+        : inUnit(shot.correctionMrad - zeroOff.up - (jump ?? 0)) / _turretScale;
     // windMrad = atan2(-z, range): the correction toward the RIGHT turret
     // direction, with the solver's +z drawn to the right of the crosshair.
     // Without drag (!basis.drag) it holds only the scope-cant part (wind is
@@ -2265,10 +2265,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ),
             ),
           ),
-          if (open) ...[
-            const SizedBox(height: MenzilSpace.sm),
-            ...children,
-          ],
+          if (open) ...[const SizedBox(height: MenzilSpace.sm), ...children],
         ],
       ),
     );
@@ -2287,13 +2284,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       ],
     );
     return Padding(
-      padding: const EdgeInsets.only(top: MenzilSpace.sm, bottom: MenzilSpace.xs),
+      padding: const EdgeInsets.only(
+        top: MenzilSpace.sm,
+        bottom: MenzilSpace.xs,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(e.title, style: MenzilType.body(c.ink).copyWith(
-            fontWeight: FontWeight.w700,
-          )),
+          Text(
+            e.title,
+            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: MenzilSpace.xxs),
           Text.rich(
             TextSpan(
@@ -2324,7 +2325,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   String _summaryWind() {
     if (_windZones != null) return 'bölgeli';
     final m = _windMaxMps;
-    return m == null ? 'kapalı' : 'en çok ${_windLabel(m)} ${metric ? 'm/s' : 'mph'}';
+    return m == null
+        ? 'kapalı'
+        : 'en çok ${_windLabel(m)} ${metric ? 'm/s' : 'mph'}';
   }
 
   String _summaryTarget() {

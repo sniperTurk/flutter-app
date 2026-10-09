@@ -66,9 +66,7 @@ void main() {
       final a = engine.solve(_input()).single;
       final b = engine
           .solve(
-            _input(
-              zones: const WindZones(rangeM: 600, midMps: 2, farMps: 2),
-            ),
+            _input(zones: const WindZones(rangeM: 600, midMps: 2, farMps: 2)),
           )
           .single;
       expect(b.windMrad, closeTo(a.windMrad, 1e-12));
@@ -78,9 +76,7 @@ void main() {
       final a = engine.solve(_input()).single;
       final b = engine
           .solve(
-            _input(
-              zones: const WindZones(rangeM: 600, midMps: 2, farMps: 6),
-            ),
+            _input(zones: const WindZones(rangeM: 600, midMps: 2, farMps: 6)),
           )
           .single;
       expect(b.windMrad.abs(), greaterThan(a.windMrad.abs()));

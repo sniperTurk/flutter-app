@@ -93,8 +93,10 @@ void main() {
     await openProFor(tester, const Key('shot-incline'));
     expect(find.byKey(const Key('shot-incline')), findsOneWidget);
     expect(find.byKey(const Key('shot-cant')), findsOneWidget);
-    expect(find.textContaining('Telefonu dik tut', findRichText: true),
-        findsWidgets);
+    expect(
+      find.textContaining('Telefonu dik tut', findRichText: true),
+      findsWidgets,
+    );
     await openProFor(tester, const Key('pro-coriolis-switch'));
     expect(find.byKey(const Key('shot-incline')), findsNothing);
     expect(find.byTooltip('Bilgi: Coriolis'), findsOneWidget);
