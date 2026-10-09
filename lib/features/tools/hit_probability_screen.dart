@@ -189,6 +189,5 @@ abstract final class HitProbabilityFieldInfo {
   static const target =
       'Vurmak istediğiniz bölgenin çapı (öldürücü bölge, gong veya halka). '
       'Örnek: 10 cm.';
-  static const range =
-      'Hedefe olan mesafe. Telemetre ile ölçün. Örnek: 100 m.';
+  static const range = 'Hedefe olan mesafe. Telemetre ile ölçün. Örnek: 100 m.';
 }

@@ -129,12 +129,18 @@ void main() {
   group('Converters', () {
     test('energy and temperature', () {
       expect(_conv(Converters.energy, 'ft', 'joule', 12), closeTo(16.27, 0.01));
-      expect(_conv(Converters.temperature, 'Celsius', 'Fahrenheit', 100),
-          closeTo(212, 1e-9));
-      expect(_conv(Converters.temperature, 'Fahrenheit', 'Celsius', -40),
-          closeTo(-40, 1e-9));
-      expect(_conv(Converters.temperature, 'Celsius', 'Kelvin', 0),
-          closeTo(273.15, 1e-9));
+      expect(
+        _conv(Converters.temperature, 'Celsius', 'Fahrenheit', 100),
+        closeTo(212, 1e-9),
+      );
+      expect(
+        _conv(Converters.temperature, 'Fahrenheit', 'Celsius', -40),
+        closeTo(-40, 1e-9),
+      );
+      expect(
+        _conv(Converters.temperature, 'Celsius', 'Kelvin', 0),
+        closeTo(273.15, 1e-9),
+      );
     });
 
     test('known factors', () {

@@ -279,7 +279,8 @@ class _StadiaState extends State<StadiaScreen> {
         _header('1 · Hedef ve okuma'),
         _field(
           _size,
-          'Hedefin gerçek boyu', info: CalculatorFieldInfo.targetSize,
+          'Hedefin gerçek boyu',
+          info: CalculatorFieldInfo.targetSize,
           unit: _cm ? 'cm' : 'inç',
           changed: () => setState(() {}),
           key: const Key('stadia-size'),
@@ -292,7 +293,8 @@ class _StadiaState extends State<StadiaScreen> {
         _gap(),
         _field(
           _reading,
-          'Dürbündeki okuma (hedefin kapladığı)', info: CalculatorFieldInfo.reading,
+          'Dürbündeki okuma (hedefin kapladığı)',
+          info: CalculatorFieldInfo.reading,
           unit: _mil ? 'MIL' : 'MOA',
           changed: () => setState(() {}),
           key: const Key('stadia-reading'),
@@ -364,14 +366,16 @@ class _CoordState extends State<CoordinateDistanceScreen> {
           children: [
             _field(
               _lat1,
-              'Enlem', info: CalculatorFieldInfo.latitude,
+              'Enlem',
+              info: CalculatorFieldInfo.latitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('coord-lat1'),
             ),
             _field(
               _lon1,
-              'Boylam', info: CalculatorFieldInfo.longitude,
+              'Boylam',
+              info: CalculatorFieldInfo.longitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('coord-lon1'),
@@ -383,14 +387,16 @@ class _CoordState extends State<CoordinateDistanceScreen> {
           children: [
             _field(
               _lat2,
-              'Enlem', info: CalculatorFieldInfo.latitude,
+              'Enlem',
+              info: CalculatorFieldInfo.latitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('coord-lat2'),
             ),
             _field(
               _lon2,
-              'Boylam', info: CalculatorFieldInfo.longitude,
+              'Boylam',
+              info: CalculatorFieldInfo.longitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('coord-lon2'),
@@ -515,14 +521,16 @@ class _CustomLocState extends State<CustomLocationScreen> {
           children: [
             _field(
               _lat,
-              'Enlem', info: CalculatorFieldInfo.latitude,
+              'Enlem',
+              info: CalculatorFieldInfo.latitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('custom-loc-lat'),
             ),
             _field(
               _lon,
-              'Boylam', info: CalculatorFieldInfo.longitude,
+              'Boylam',
+              info: CalculatorFieldInfo.longitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('custom-loc-lon'),
@@ -587,7 +595,8 @@ class _MoaAtDistState extends State<MoaAtDistanceScreen> {
         _header('1 · Girdiler'),
         _field(
           _dist,
-          'Mesafe', info: CalculatorFieldInfo.distance,
+          'Mesafe',
+          info: CalculatorFieldInfo.distance,
           unit: 'm',
           changed: () => setState(() {}),
           key: const Key('moa-dist'),
@@ -595,7 +604,8 @@ class _MoaAtDistState extends State<MoaAtDistanceScreen> {
         _gap(),
         _field(
           _size,
-          'Ölçülecek boy (isteğe bağlı)', info: CalculatorFieldInfo.sizeToMeasure,
+          'Ölçülecek boy (isteğe bağlı)',
+          info: CalculatorFieldInfo.sizeToMeasure,
           unit: 'cm',
           helper: 'Ör. vuruş noktası ile hedef arası',
           changed: () => setState(() {}),
@@ -680,7 +690,8 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _gap(),
         _field(
           _dist,
-          'Mesafe', info: CalculatorFieldInfo.distance,
+          'Mesafe',
+          info: CalculatorFieldInfo.distance,
           unit: 'm',
           changed: () => setState(() {}),
           key: const Key('click-dist'),
@@ -688,7 +699,8 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _gap(),
         _field(
           _clicks,
-          'Çevirdiğin tık sayısı', info: CalculatorFieldInfo.clicks,
+          'Çevirdiğin tık sayısı',
+          info: CalculatorFieldInfo.clicks,
           unit: 'tık',
           changed: () => setState(() {}),
           key: const Key('click-count'),
@@ -696,7 +708,8 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _gap(),
         _field(
           _moved,
-          'Ölçülen kayma', info: CalculatorFieldInfo.shift,
+          'Ölçülen kayma',
+          info: CalculatorFieldInfo.shift,
           unit: 'cm',
           changed: () => setState(() {}),
           key: const Key('click-moved'),
@@ -713,7 +726,8 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _gap(),
         _field(
           _nominal,
-          'Tık başına yazan değer', info: CalculatorFieldInfo.clickValue,
+          'Tık başına yazan değer',
+          info: CalculatorFieldInfo.clickValue,
           unit: unitName,
           changed: () => setState(() {}),
           key: const Key('click-nominal'),
@@ -837,7 +851,8 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
         _gap(),
         _field(
           _v1,
-          'Namlu yakını hız (V1)', info: CalculatorFieldInfo.v1,
+          'Namlu yakını hız (V1)',
+          info: CalculatorFieldInfo.v1,
           unit: _fps ? 'fps' : 'm/s',
           changed: () => setState(() {}),
           key: const Key('bc-v1'),
@@ -845,7 +860,8 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
         _gap(),
         _field(
           _v2,
-          'Uzaktaki hız (V2)', info: CalculatorFieldInfo.v2,
+          'Uzaktaki hız (V2)',
+          info: CalculatorFieldInfo.v2,
           unit: _fps ? 'fps' : 'm/s',
           changed: () => setState(() {}),
           key: const Key('bc-v2'),
@@ -853,7 +869,8 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
         _gap(),
         _field(
           _dist,
-          'İki ölçüm arası mesafe', info: CalculatorFieldInfo.gap,
+          'İki ölçüm arası mesafe',
+          info: CalculatorFieldInfo.gap,
           unit: 'm',
           changed: () => setState(() {}),
           key: const Key('bc-dist'),
@@ -863,17 +880,25 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
           children: [
             _field(
               _temp,
-              'Sıcaklık', info: CalculatorFieldInfo.temperature,
+              'Sıcaklık',
+              info: CalculatorFieldInfo.temperature,
               unit: '°C',
               changed: () => setState(() {}),
             ),
             _field(
               _press,
-              'Basınç', info: CalculatorFieldInfo.pressure,
+              'Basınç',
+              info: CalculatorFieldInfo.pressure,
               unit: 'hPa',
               changed: () => setState(() {}),
             ),
-            _field(_rh, 'Nem', info: CalculatorFieldInfo.humidity, unit: '%', changed: () => setState(() {})),
+            _field(
+              _rh,
+              'Nem',
+              info: CalculatorFieldInfo.humidity,
+              unit: '%',
+              changed: () => setState(() {}),
+            ),
           ],
         ),
         _gap(),
@@ -963,14 +988,16 @@ class _AirLabState extends State<AirLabScreen> {
           children: [
             _field(
               _temp,
-              'Sıcaklık', info: CalculatorFieldInfo.temperature,
+              'Sıcaklık',
+              info: CalculatorFieldInfo.temperature,
               unit: '°C',
               changed: () => setState(() {}),
               key: const Key('air-temp'),
             ),
             _field(
               _rh,
-              'Nem', info: CalculatorFieldInfo.humidity,
+              'Nem',
+              info: CalculatorFieldInfo.humidity,
               unit: '%',
               changed: () => setState(() {}),
               key: const Key('air-rh'),
@@ -980,7 +1007,8 @@ class _AirLabState extends State<AirLabScreen> {
         _gap(),
         _field(
           _press,
-          'Basınç', info: CalculatorFieldInfo.pressure,
+          'Basınç',
+          info: CalculatorFieldInfo.pressure,
           unit: 'hPa',
           changed: () => setState(() {}),
           key: const Key('air-press'),
@@ -998,7 +1026,8 @@ class _AirLabState extends State<AirLabScreen> {
           _gap(),
           _field(
             _alt,
-            'Rakım', info: CalculatorFieldInfo.altitude,
+            'Rakım',
+            info: CalculatorFieldInfo.altitude,
             unit: 'm',
             changed: () => setState(() {}),
             key: const Key('air-alt'),
@@ -1091,7 +1120,8 @@ class _ConverterState extends State<ConverterScreen> {
         _header('1 · Değer ve birim'),
         _field(
           _value,
-          'Değer', info: CalculatorFieldInfo.value,
+          'Değer',
+          info: CalculatorFieldInfo.value,
           changed: () => setState(() {}),
           key: Key('conv-${cat.id}-value'),
         ),

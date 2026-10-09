@@ -237,9 +237,7 @@ class _TruingScreenState extends State<TruingScreen> {
             ? today
             : TruingResult(
                 baseMps: p.muzzleVelocityMps,
-                truedMps: double.parse(
-                  (today.truedMps / f).toStringAsFixed(1),
-                ),
+                truedMps: double.parse((today.truedMps / f).toStringAsFixed(1)),
                 rangeM: today.rangeM,
                 predictedMrad: today.predictedMrad,
                 observedMrad: today.observedMrad,
