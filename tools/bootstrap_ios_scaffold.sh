@@ -99,6 +99,9 @@ python3 tools/configure_ios_info_plist.py ios/Runner/Info.plist
 # PR CI). The AppDelegate guard makes a keyless build use the Esri map.
 python3 tools/configure_ios_google_maps.py ios/Runner/AppDelegate.swift ios/Runner/Info.plist
 
+# App icon and launch screen from the committed branding/ios sources.
+python3 tools/configure_ios_branding.py branding/ios ios/Runner
+
 # Ship an app-owned privacy manifest in Runner.app. The archive gate is strict,
 # so an embedded plugin manifest cannot substitute for this resource.
 command -v ruby >/dev/null 2>&1 || { echo "ruby is required to wire the iOS privacy manifest" >&2; exit 6; }

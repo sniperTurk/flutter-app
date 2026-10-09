@@ -13,6 +13,7 @@ FILES = [
     'configure_ios_info_plist.py',
     'configure_ios_signing.py',
     'configure_ios_google_maps.py',
+    'configure_ios_branding.py',
 ]
 
 
@@ -24,6 +25,7 @@ class IosBootstrapRerunIdempotencyTests(unittest.TestCase):
             tools.mkdir()
             for name in FILES:
                 shutil.copy2(ROOT / 'tools' / name, tools / name)
+            shutil.copytree(ROOT / 'branding', root / 'branding')
             (tools / 'verify_flutter_toolchain.py').write_text('raise SystemExit(0)\n', encoding='utf-8')
             (tools / 'configure_ios_privacy_manifest.rb').write_text('# fixture\n', encoding='utf-8')
 
@@ -66,6 +68,8 @@ class IosBootstrapRerunIdempotencyTests(unittest.TestCase):
                   }
                 }
                 EOF
+                mkdir -p ios/Runner/Base.lproj
+                printf '<view><color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/></view>' > ios/Runner/Base.lproj/LaunchScreen.storyboard
                 printf debug > ios/Flutter/Debug.xcconfig
                 printf release > ios/Flutter/Release.xcconfig
             '''), encoding='utf-8')
