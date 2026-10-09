@@ -142,4 +142,25 @@ for value in raw:
         raise SystemExit(f"Unsupported iOS deployment target after scaffold generation: {value}")
 PYDEPLOY
 
+# iPhone only (owner, 2026-10-10): the layouts are designed for phones and an
+# iPad target would also require iPad App Store screenshots. iPads still run
+# the app in iPhone compatibility mode.
+python3 - <<'PYFAMILY'
+import re
+from pathlib import Path
+p = Path("ios/Runner.xcodeproj/project.pbxproj")
+text = p.read_text(encoding="utf-8")
+text, n = re.subn(r'TARGETED_DEVICE_FAMILY = "?[0-9,]+"?;', "TARGETED_DEVICE_FAMILY = 1;", text)
+if n == 0:
+    text, n = re.subn(r"(\n(\s*)PRODUCT_BUNDLE_IDENTIFIER = com\.sniperturk\.sniperTurk;)",
+                      r"\n\2TARGETED_DEVICE_FAMILY = 1;\1", text)
+if n == 0:
+    raise SystemExit("Could not set TARGETED_DEVICE_FAMILY")
+p.write_text(text, encoding="utf-8")
+PYFAMILY
+grep -q 'TARGETED_DEVICE_FAMILY = 1;' ios/Runner.xcodeproj/project.pbxproj || {
+  echo "iPhone-only device family not applied" >&2
+  exit 6
+}
+
 echo "iOS scaffold contract verified with Flutter $ACTUAL_FLUTTER"
