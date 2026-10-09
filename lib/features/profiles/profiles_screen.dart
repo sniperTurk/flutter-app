@@ -526,8 +526,7 @@ String _zeroValue(RifleProfile p) {
       : v.toStringAsFixed(0);
 }
 
-String _zeroText(RifleProfile p) =>
-    '${_zeroValue(p)} ${p.distanceUnit.symbol}';
+String _zeroText(RifleProfile p) => '${_zeroValue(p)} ${p.distanceUnit.symbol}';
 
 String _ammoTypeName(AmmunitionType t) => switch (t) {
   AmmunitionType.pellet => 'Pellet',
@@ -651,10 +650,7 @@ class _ActiveProfileDetails extends StatelessWidget {
               profile.mountCantMoa > 0 ? _trimNum(profile.mountCantMoa) : 'Yok',
               profile.mountCantMoa > 0 ? 'MOA' : null,
             ),
-            MenzilMetric(
-              'Dürbün birimi',
-              profile.angularUnit.label,
-            ),
+            MenzilMetric('Dürbün birimi', profile.angularUnit.label),
             if (scope != null &&
                 _topTurretClicks(scope, profile.angularUnit) != null)
               MenzilMetric(
@@ -900,7 +896,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // user's data (owner, 2026-10-07: "250 m/s nereden geliyor?").
     distanceUnit = p?.distanceUnit ?? DistanceUnit.meter;
     zero = TextEditingController(
-      text: p == null ? '' : num(_round1(distanceUnit.fromMeters(p.zeroRangeM))),
+      text: p == null
+          ? ''
+          : num(_round1(distanceUnit.fromMeters(p.zeroRangeM))),
     );
     sight = TextEditingController(text: p == null ? '' : num(p.sightHeightMm));
     // 0 = normal mount; old profiles have no value.

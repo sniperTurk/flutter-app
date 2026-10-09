@@ -349,7 +349,9 @@ void main() {
       );
 
       // Each choice already shows its click gain for the 0.1 mrad default.
-      await tester.tap(find.descendant(of: field, matching: find.text('0 MOA')));
+      await tester.tap(
+        find.descendant(of: field, matching: find.text('0 MOA')),
+      );
       await tester.pumpAndSettle();
       expect(find.text('Normal (0 MOA)').last, findsOneWidget);
       expect(find.text('30 MOA · +87 klik').last, findsOneWidget);
