@@ -574,12 +574,9 @@ class _ActiveProfileDetails extends StatelessWidget {
           columns: 2,
           metrics: [
             // The separate Tüfek/Mühimmat/Dürbün name card was removed
-            // (owner, 2026-10-09); the rifle's name is the first box.
-            if (rifle != null)
-              MenzilMetric(
-                'Tüfek Marka Model',
-                '${rifle.brand} ${rifle.model}'.trim(),
-              ),
+            // (owner, 2026-10-09); brand and model have their own boxes.
+            if (rifle != null) MenzilMetric('Tüfek Marka', rifle.brand),
+            if (rifle != null) MenzilMetric('Tüfek Model', rifle.model),
             MenzilMetric(
               'Namlu çıkış hızı',
               units.velocityValue(profile.muzzleVelocityMps),
@@ -629,6 +626,12 @@ class _ActiveProfileDetails extends StatelessWidget {
                 'Dürbün üst kule',
                 '${_topTurretClicks(scope, profile.angularUnit)}',
                 'klik',
+              ),
+            if (ammo != null)
+              MenzilMetric(
+                'Mühimmat Marka',
+                // Personal ammunition keeps its whole name in the brand.
+                '${ammo.brand} ${ammo.model}'.trim(),
               ),
             if (ammo != null)
               MenzilMetric(
