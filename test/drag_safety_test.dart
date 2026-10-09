@@ -66,7 +66,7 @@ void main() {
       expect(w.map((e) => e.kind), [DragWarningKind.airgunWithG7]);
       expect(w.single.level, DragWarningLevel.info);
     });
-    test('firearms are not judged by the airgun BC range', () {
+    test('firearms are not judged by airgun BC or Mach limits', () {
       expect(
         kinds(
           v: 800,
@@ -74,8 +74,9 @@ void main() {
           model: BallisticModel.g7,
           platform: WeaponPlatform.firearm,
         ),
-        [DragWarningKind.supersonicMuzzle],
+        isEmpty,
       );
+      expect(kinds(v: 300, platform: WeaponPlatform.firearm), isEmpty);
     });
     test('no coefficient, no coefficient warnings', () {
       expect(kinds(bc: null, model: null), isEmpty);
