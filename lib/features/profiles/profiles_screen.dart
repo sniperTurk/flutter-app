@@ -1414,7 +1414,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   controller: velocity,
                   label: 'Namlu çıkış hızı',
                   info: ProfileFieldInfo.velocity,
-                  unit: 'fps',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_velocityError, velocity),
                 ),
@@ -1450,7 +1449,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       : ProfileFieldInfo.caliber,
                   controller: rifleCaliber,
                   label: 'Kalibre',
-                  unit: 'mm',
                   hintText: platform == WeaponPlatform.firearm
                       ? '5,56 / 7,62 / 8,59'
                       : '5,5 / 6,35 / 7,62',
@@ -1462,7 +1460,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   info: ProfileFieldInfo.twistRate,
                   controller: rifleTwist,
                   label: 'Yiv oranı (1:…)',
-                  unit: 'inç',
                   hintText: '16',
                   helperText: '1:16" için 16 girin (bir tam dönüş, inç).',
                   onChanged: (_) => setState(() {}),
@@ -1473,7 +1470,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   info: ProfileFieldInfo.sightHeight,
                   controller: sight,
                   label: 'Sight height',
-                  unit: 'mm',
                   onChanged: (_) => setState(() {}),
                   helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
                   errorText: sight.text.isNotEmpty && !_validSight
@@ -1516,7 +1512,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   controller: zero,
                   label: 'Sıfırlama mesafesi',
                   info: ProfileFieldInfo.zero,
-                  unit: distanceUnit.symbol,
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_zeroError, zero),
                 ),
@@ -1743,7 +1738,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       : ProfileFieldInfo.grain,
                   controller: ammoGrain,
                   label: 'Ağırlık',
-                  unit: 'grain',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_grainError, ammoGrain),
                 ),

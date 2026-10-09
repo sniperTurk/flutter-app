@@ -102,7 +102,8 @@ abstract final class ProfileFieldInfo {
       'Örnek: 900 fps ≈ 274 m/s (1 m/s = 3,28 fps).';
   static const zero =
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
-      'noktası çakışır. Örnek: havalı tüfekte 25–40 m.';
+      'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '
+      'yard) girin. Örnek: havalı tüfekte 25–40 m.';
   static const distanceUnit =
       'Mesafelerin birimi: metre veya yard (1 yard = 0,9144 m). Yard '
       'seçilirse sıfırlama mesafesi, Hedef sayfası, dürbün içindeki mesafe '
