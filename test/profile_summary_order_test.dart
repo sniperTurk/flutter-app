@@ -96,10 +96,13 @@ void main() {
 
     // The Tüfek/Mühimmat/Dürbün name card is gone (owner, 2026-10-09).
     expect(find.textContaining('kişisel kayıt'), findsNothing);
-    expect(find.text('Hatsan Hercules'), findsOneWidget);
+    expect(find.text('Hatsan'), findsOneWidget);
+    expect(find.text('Hercules'), findsWidgets); // also the profile name
+    expect(find.text('Engin Sak'), findsOneWidget);
 
     const order = [
-      'Tüfek Marka Model',
+      'Tüfek Marka',
+      'Tüfek Model',
       'Namlu çıkış hızı',
       'Yiv yönü',
       'Kalibre',
@@ -111,6 +114,7 @@ void main() {
       'Dürbün ayağı',
       'Dürbün birimi',
       'Dürbün üst kule',
+      'Mühimmat Marka',
       'Mühimmat',
       'BC / model',
     ];
