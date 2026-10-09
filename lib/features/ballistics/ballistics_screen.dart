@@ -169,6 +169,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   _ShotBasis? _basis;
   double _shotRangeM = 100;
 
+  /// Opens the right (windage) turret after "Çözümü kuleye kur".
+  int _windageRevealToken = 0;
+
+  /// Hedef always opens at 100 m (100 yd on a yard profile) (owner,
+  /// 2026-10-09).
+  double get _defaultShotRangeM =>
+      _profileYards ? UnitSystem.yardsToMeters(100) : 100;
+
   /// Atış: shot incline (+ up, − down) and scope cant (+ clockwise), degrees.
   double _inclineDeg = 0;
   double _cantDeg = 0;
@@ -455,9 +463,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     grain = TextEditingController(text: (ammo?.grain ?? 51).toString());
     // A yard profile shows (and takes) its zero in yards, and its shot
     // range starts at a round 100 yd.
-    if (p?.distanceUnit == DistanceUnit.yard) {
-      _shotRangeM = UnitSystem.yardsToMeters(100);
-    }
+    _shotRangeM = _defaultShotRangeM;
     final zeroM = p?.zeroRangeM ?? 25;
     zero = TextEditingController(
       text: p?.distanceUnit == DistanceUnit.yard
@@ -518,6 +524,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final toShot =
         widget.view == BallisticsView.shot ||
         widget.view == BallisticsView.table;
+    if (widget.view == BallisticsView.shot && old.view != BallisticsView.shot) {
+      _shotRangeM = _defaultShotRangeM;
+    }
     if (toShot && widget.view != old.view) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) _quietSolve();
@@ -1339,6 +1348,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           _halfTravelClicks(click, s.windageRangeMrad) ?? _unknownTravelClicks,
       onElevationChanged: (v) => setState(() => _elevationClicks = v),
       onWindageChanged: (v) => setState(() => _windageClicks = v),
+      windageRevealToken: _windageRevealToken,
+      onSolutionDialed: () => setState(() => _windageRevealToken++),
       requiredUp: requiredUp,
       requiredRight: requiredRight,
       windMpsPerUnit: windMpsPerUnit,

@@ -65,6 +65,13 @@ class ScopeDialView extends StatelessWidget {
   final ValueChanged<int> onElevationChanged;
   final ValueChanged<int> onWindageChanged;
 
+  /// Incremented by the owner after "Çözümü kuleye kur"; each change slides
+  /// the windage (right) turret open (owner, 2026-10-09).
+  final int windageRevealToken;
+
+  /// Called after "Çözümü kuleye kur" has dialled both turrets.
+  final VoidCallback? onSolutionDialed;
+
   /// Required elevation at [rangeM] in [unit] (positive = dial up). Null
   /// until a validated solve exists: no impact marker, no hold labels.
   final double? requiredUp;
@@ -134,6 +141,8 @@ class ScopeDialView extends StatelessWidget {
     required this.maxWindageClicks,
     required this.onElevationChanged,
     required this.onWindageChanged,
+    this.windageRevealToken = 0,
+    this.onSolutionDialed,
     required this.requiredUp,
     this.requiredRight = 0,
     this.windMpsPerUnit,
@@ -374,6 +383,7 @@ class ScopeDialView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _TurretBar(
+              revealToken: windageRevealToken,
               elevation: elevationDrum,
               windage: windageDrum,
               side: side,
@@ -444,6 +454,7 @@ class ScopeDialView extends StatelessWidget {
                                   .clamp(-maxWindageClicks, maxWindageClicks)
                                   .toInt(),
                             );
+                            onSolutionDialed?.call();
                           },
                   ),
                 ),
@@ -781,7 +792,11 @@ class ScopeDialView extends StatelessWidget {
 class _TurretBar extends StatefulWidget {
   final Widget elevation, windage, reticle;
   final double side;
+
+  /// A change opens the windage drum (after "Çözümü kuleye kur").
+  final int revealToken;
   const _TurretBar({
+    required this.revealToken,
     required this.elevation,
     required this.windage,
     required this.reticle,
@@ -794,6 +809,12 @@ class _TurretBar extends StatefulWidget {
 
 class _TurretBarState extends State<_TurretBar> {
   bool _windage = false;
+
+  @override
+  void didUpdateWidget(covariant _TurretBar old) {
+    super.didUpdateWidget(old);
+    if (widget.revealToken != old.revealToken) _windage = true;
+  }
 
   static const double _drumWidth = 58;
 
