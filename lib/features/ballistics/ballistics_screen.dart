@@ -267,6 +267,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (v == null || v <= 0 || v > 30) return null;
     return metric ? v : UnitSystem.mphToMps(v);
   }
+
   String? _coriolisStatus;
 
   double? _parsed(TextEditingController c) {

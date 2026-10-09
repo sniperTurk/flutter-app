@@ -199,7 +199,9 @@ void main() {
           .widget<Text>(find.byKey(const Key('shot-wind-bracket')))
           .data!;
       expect(bracket, contains('2.0–5.0 m/s'));
-      final lead = tester.widget<Text>(find.byKey(const Key('shot-lead'))).data!;
+      final lead = tester
+          .widget<Text>(find.byKey(const Key('shot-lead')))
+          .data!;
       expect(lead, contains('sağına'));
       expect(lead, contains('soldan sağa'));
     });
