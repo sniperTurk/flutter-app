@@ -49,10 +49,11 @@ class PersonalCatalogProfileContract(unittest.TestCase):
     def test_personal_records_are_never_manufacturer_verified(self):
         self.assertIn("const userCatalogSourceName = 'Kullanıcı girdisi';", USER)
         self.assertEqual(USER.count('userEntered: true'), 3)
-        # V378: the profile editor has no catalog dropdowns any more (rifle,
-        # ammo and scope are typed in), so the "(kişisel kayıt)" option label
-        # is gone; the summary still labels every personal record.
-        self.assertIn('kişisel kayıt, üretici doğrulaması yok', PROFILES)
+        # V378: the profile editor has no catalog dropdowns any more, and the
+        # Profil name card with "kişisel kayıt" labels was removed by the
+        # owner (2026-10-09). Personal records stay marked in the data
+        # (userEntered, source 'Kullanıcı girdisi') and on Katalog.
+        self.assertNotIn('kişisel kayıt, üretici doğrulaması yok', PROFILES)
 
     def test_incomplete_records_are_blocked_with_reason(self):
         self.assertIn('ağırlık (grain)', USER)

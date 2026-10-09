@@ -481,14 +481,6 @@ class _ProfileRow extends StatelessWidget {
   }
 }
 
-/// Personal records are never presented as manufacturer data.
-String _labelled(String? name, bool? userEntered, String fallbackId) =>
-    name == null
-    ? fallbackId
-    : userEntered == true
-    ? '$name — kişisel kayıt, üretici doğrulaması yok'
-    : name;
-
 /// "6-36 x 56 FFP" from the scope's magnification, objective and focal
 /// plane; parts that are unknown are left out.
 String _scopeSummary(ScopeOptic s) {
@@ -576,39 +568,18 @@ class _ActiveProfileDetails extends StatelessWidget {
           ),
           padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
         ),
-        _KeyValueCard(
-          rows: [
-            (
-              'Tüfek',
-              _labelled(
-                rifle?.displayName,
-                rifle?.userEntered,
-                profile.rifleId,
-              ),
-            ),
-            (
-              'Mühimmat',
-              _labelled(
-                ammo?.displayName,
-                ammo?.userEntered,
-                profile.ammunitionId,
-              ),
-            ),
-            (
-              'Dürbün',
-              _labelled(
-                scope?.displayName,
-                scope?.userEntered,
-                profile.scopeId,
-              ),
-            ),
-          ],
-        ),
         // Order and names set by the owner (2026-10-09). Regülatör, Odak
-        // düzlemi and Klik değeri have no box of their own any more.
+        // düzlemi, Klik değeri and the name card have no box any more.
         MenzilMetricGrid(
           columns: 2,
           metrics: [
+            // The separate Tüfek/Mühimmat/Dürbün name card was removed
+            // (owner, 2026-10-09); the rifle's name is the first box.
+            if (rifle != null)
+              MenzilMetric(
+                'Tüfek Marka Model',
+                '${rifle.brand} ${rifle.model}'.trim(),
+              ),
             MenzilMetric(
               'Namlu çıkış hızı',
               units.velocityValue(profile.muzzleVelocityMps),
@@ -689,45 +660,6 @@ class _ActiveProfileDetails extends StatelessWidget {
           ),
         ],
       ],
-    );
-  }
-}
-
-class _KeyValueCard extends StatelessWidget {
-  final List<(String, String)> rows;
-  const _KeyValueCard({required this.rows});
-
-  @override
-  Widget build(BuildContext context) {
-    final c = MenzilColors.of(context);
-    return MenzilCard(
-      padding: const EdgeInsets.symmetric(
-        horizontal: MenzilSpace.lg,
-        vertical: MenzilSpace.sm,
-      ),
-      child: Column(
-        children: [
-          for (var i = 0; i < rows.length; i++)
-            Container(
-              decoration: BoxDecoration(
-                border: i == 0 ? null : Border(top: BorderSide(color: c.line)),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: MenzilSpace.sm),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 92,
-                    child: Text(rows[i].$1, style: MenzilType.label(c.ink2)),
-                  ),
-                  Expanded(
-                    child: Text(rows[i].$2, style: MenzilType.body(c.ink)),
-                  ),
-                ],
-              ),
-            ),
-        ],
-      ),
     );
   }
 }
