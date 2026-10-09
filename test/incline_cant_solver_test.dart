@@ -310,7 +310,11 @@ void main() {
     expect(p.windMrad, lessThan(0));
     expect(at(-10).windMrad, closeTo(-p.windMrad, 1e-9));
     // z = ½·g·cosθ·sinφ·t²
-    final z = 0.5 * _g * math.sin(10 * math.pi / 180) * p.timeOfFlightS *
+    final z =
+        0.5 *
+        _g *
+        math.sin(10 * math.pi / 180) *
+        p.timeOfFlightS *
         p.timeOfFlightS;
     expect(p.windMrad, closeTo(math.atan2(-z, 60) * 1000, 1e-9));
     // Uphill/downhill shrink it by cosθ.
