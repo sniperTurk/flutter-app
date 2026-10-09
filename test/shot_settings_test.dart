@@ -216,4 +216,29 @@ void main() {
       expect(lead, contains('soldan sağa'));
     });
   });
+
+  testWidgets('full view: solve after the pressure warning came and went', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      const MaterialApp(home: BallisticsScreen(profile: _profile)),
+    );
+    await tester.pumpAndSettle();
+    Finder field(Key k) => find.byKey(k);
+    Future<void> solve() async {
+      await tester.ensureVisible(find.text('DOPE oluştur'));
+      await tester.tap(find.text('DOPE oluştur'));
+      await tester.pumpAndSettle();
+    }
+
+    await tester.enterText(field(BallisticsFieldKeys.pressure), '900,00');
+    await solve();
+    expect(find.byKey(const Key('environment-pressure-warning')), findsOneWidget);
+    expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
+    await tester.enterText(field(BallisticsFieldKeys.pressure), '1013.25');
+    await tester.enterText(field(BallisticsFieldKeys.humidity), '95');
+    await solve();
+    expect(find.byKey(const Key('environment-pressure-warning')), findsNothing);
+    expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
+  });
 }
