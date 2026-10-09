@@ -1248,7 +1248,6 @@ class ScopeReticlePainter extends CustomPainter {
     required double targetRadius,
   }) => targetRadius * radius / trueHalfField;
 
-
   void _text(
     Canvas canvas,
     String s,
