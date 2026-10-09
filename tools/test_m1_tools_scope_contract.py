@@ -150,7 +150,8 @@ class M1SafetyBoundaryTests(unittest.TestCase):
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         keys = set(mod.USAGE_DESCRIPTIONS)
-        self.assertEqual({'NSLocationWhenInUseUsageDescription', 'NSCameraUsageDescription',
+        self.assertEqual({'NSLocationWhenInUseUsageDescription', 'NSLocationAlwaysAndWhenInUseUsageDescription',
+                          'NSCameraUsageDescription',
                           'NSMotionUsageDescription', 'NSMicrophoneUsageDescription',
                           'NSPhotoLibraryUsageDescription'}, keys)
 

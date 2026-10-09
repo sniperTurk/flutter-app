@@ -16,6 +16,14 @@ USAGE_DESCRIPTIONS = {
         "Konumunuz yalnızca Hava & Rüzgâr ekranında bulunduğunuz yerin hava "
         "verisini almak için kullanılır. Konum kalıcı olarak saklanmaz."
     ),
+    # App Store ITMS-90683: the geolocator plugin's binary references the
+    # "Always" authorization API, so Apple requires this key even though the
+    # app only ever requests when-in-use access. Never requested at runtime.
+    "NSLocationAlwaysAndWhenInUseUsageDescription": (
+        "Konumunuz yalnızca Hava & Rüzgâr ekranı açıkken, bulunduğunuz yerin "
+        "hava verisini almak için kullanılır. Uygulama arka planda konum "
+        "kullanmaz ve konumu saklamaz."
+    ),
     # Sight Height: photos stay in memory on the device.
     "NSCameraUsageDescription": (
         "Kamera yalnızca Sight Height ekranında dürbün yüksekliğini ölçmek için "
