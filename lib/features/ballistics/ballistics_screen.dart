@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import '../../core/wind_clock.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
 import '../../services/settings_store.dart';
+import '../../services/shot_settings_store.dart';
 import '../../tools/domain/field_calc.dart';
 import '../../tools/domain/shot_angle_math.dart';
 import '../../tools/ports/heading_provider.dart';
@@ -155,13 +157,66 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   double _inclineDeg = 0;
   double _cantDeg = 0;
 
-  void _setAngles({double? incline, double? cant}) => setState(() {
-    if (incline != null) _inclineDeg = incline;
-    if (cant != null) _cantDeg = cant;
-    // Every cached shot and hold curve belongs to the old angles.
-    _shotCache.clear();
-    _holdSamples = null;
-  });
+  void _setAngles({double? incline, double? cant}) {
+    setState(() {
+      if (incline != null) _inclineDeg = incline;
+      if (cant != null) _cantDeg = cant;
+      // Every cached shot and hold curve belongs to the old angles.
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    _saveShotSettings();
+  }
+
+  // ---- Pro Ayarlar persistence (owner, 2026-10-09) -----------------------
+
+  static const _shotStore = ShotSettingsStore();
+
+  /// False until the saved values were read: nothing is written before, so
+  /// an early default can never overwrite what the user had.
+  bool _shotSettingsReady = false;
+
+  Future<void> _loadShotSettings() async {
+    final id = widget.profile?.id;
+    if (id == null) return;
+    ShotSettings? saved;
+    try {
+      saved = await _shotStore.load(id);
+    } catch (_) {
+      saved = null; // No storage (e.g. tests): keep the defaults.
+    }
+    if (!mounted) return;
+    final s = saved;
+    if (s != null) {
+      setState(() {
+        _inclineDeg = s.inclineDeg;
+        _cantDeg = s.cantDeg;
+        _coriolisOn = s.coriolisOn;
+        latitudeCtl.text = s.latitudeText;
+        azimuthCtl.text = s.azimuthText;
+        _shotCache.clear();
+        _holdSamples = null;
+      });
+    }
+    _shotSettingsReady = true;
+  }
+
+  void _saveShotSettings() {
+    final id = widget.profile?.id;
+    if (id == null || !_shotSettingsReady) return;
+    final settings = ShotSettings(
+      inclineDeg: _inclineDeg,
+      cantDeg: _cantDeg,
+      coriolisOn: _coriolisOn,
+      latitudeText: latitudeCtl.text.trim(),
+      azimuthText: azimuthCtl.text.trim(),
+    );
+    unawaited(
+      _shotStore.save(id, settings).catchError((Object _) {
+        // A convenience only: the screen keeps its in-memory values.
+      }),
+    );
+  }
 
   /// Pro Ayarlar → Coriolis: off until switched on; latitude (+N) and shot
   /// azimuth (° from north) as typed or taken from GPS / compass.
@@ -191,10 +246,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       ? (lat: _latitude, az: _azimuth)
       : (lat: null, az: null);
 
-  void _coriolisChanged() => setState(() {
-    _shotCache.clear();
-    _holdSamples = null;
-  });
+  void _coriolisChanged() {
+    setState(() {
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    _saveShotSettings();
+  }
 
   /// Drag-mode extras of the last solve (empty in vacuum mode).
   List<DragWarning> _warnings = [];
@@ -288,6 +346,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
     _loadUnitPreference();
+    unawaited(_loadShotSettings());
     // Solve the profile as soon as the workspace opens, so the scope's
     // reticle, hold labels and point of impact are ready at once. The fields are still SI here; a later switch to
     // imperial only converts the fields, the stored basis stays SI.
@@ -346,6 +405,34 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     } finally {
       _silentErrors = false;
     }
+  }
+
+  /// Warns when the typed pressure cannot be the real (station) pressure at
+  /// the typed altitude — usually a sea-level (QNH) value typed by mistake
+  /// (owner, 2026-10-09). Weather keeps sea-level pressure between about
+  /// 950 and 1050 hPa; reduced to the altitude that gives the plausible band.
+  String? get _pressureWarning {
+    double? parse(TextEditingController c) =>
+        double.tryParse(c.text.trim().replaceAll(',', '.'));
+    final p = parse(pressure), a = parse(altitude);
+    if (p == null || a == null || !p.isFinite || !a.isFinite) return null;
+    final pHpa = metric ? p : UnitSystem.inHgToHpa(p);
+    final aM = metric ? a : UnitSystem.feetToMeters(a);
+    if (aM < -500 || aM > 9000) return null;
+    final high = FieldCalc.stationPressureHpa(1050, aM);
+    final low = FieldCalc.stationPressureHpa(950, aM);
+    final typical = FieldCalc.stationPressureHpa(1013.25, aM);
+    if (pHpa > high + 1) {
+      return '${aM.round()} m irtifada gerçek basınç yaklaşık '
+          '${typical.round()} hPa olur; girilen değer deniz seviyesi basıncı '
+          'olabilir. Hava durumu uygulamasındaki basıncı istasyon basıncına '
+          'çevirin ya da "Konumdan yeniden doldur"u kullanın.';
+    }
+    if (pHpa < low - 1) {
+      return '${aM.round()} m irtifa için basınç çok düşük (yaklaşık '
+          '${typical.round()} hPa beklenir). Basıncı ve irtifayı kontrol edin.';
+    }
+    return null;
   }
 
   void _maybeAutoWeather() {
@@ -1386,10 +1473,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               controller: pressure,
               label: 'İstasyon basıncı',
               // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => _userEdited.add(pressure),
+              onChanged: (_) => setState(() => _userEdited.add(pressure)),
               info: EnvironmentFieldInfo.pressure,
               unit: metric ? 'hPa' : 'inHg',
             ),
+            if (_pressureWarning != null)
+              MenzilFullWidth(
+                child: MenzilNotice(
+                  key: const Key('environment-pressure-warning'),
+                  tone: MenzilNoticeTone.warning,
+                  message: _pressureWarning!,
+                ),
+              ),
             MenzilInput(
               key: BallisticsFieldKeys.humidity,
               controller: humidity,
@@ -1404,7 +1499,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               controller: altitude,
               label: 'İrtifa',
               // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => _userEdited.add(altitude),
+              onChanged: (_) => setState(() => _userEdited.add(altitude)),
               info: EnvironmentFieldInfo.altitude,
               unit: metric ? 'm' : 'ft',
               helperText: 'Bilgi amaçlı; hesap basıncı kullanır',
