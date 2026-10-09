@@ -107,7 +107,7 @@ void main() {
       'Yiv yönü',
       'Kalibre',
       'Yiv oranı',
-      'Sight height',
+      'Dürbün yüksekliği',
       'Sıfırlama mesafesi',
       'Dürbün Marka Model',
       'Dürbün',

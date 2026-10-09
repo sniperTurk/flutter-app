@@ -56,7 +56,7 @@ class ToolsScreen extends StatelessWidget {
         MenzilToolTile(
           tileKey: const Key('tool-sight-height'),
           icon: Icons.height,
-          title: 'Sight Height',
+          title: 'Dürbün Yüksekliği',
           subtitle: 'Dürbün eksen yüksekliği: fiziksel ölçüm veya yan fotoğraf',
           onTap: () => _open(context, const SightHeightScreen()),
         ),

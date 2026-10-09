@@ -75,11 +75,11 @@ abstract final class ProfileFieldInfo {
       'yazıyorsa SMOA seçin (100 yard\'da 1 inç; MOA\'dan %4,5 küçük). Bir '
       'klik buna göre alınır: MRAD\'da 0,1, MOA ve SMOA\'da 1/4.';
   static const sightHeight =
-      'Sight height: dürbünün merkez ekseni ile namlunun merkez ekseni '
+      'Dürbün yüksekliği (sight height): dürbünün merkez ekseni ile namlunun merkez ekseni '
       'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
       'aşağıdan çıkar ve önce yükselerek nişan çizgisini keser; bu yüzden '
       'yakın ve uzak mesafedeki düşüş hesabını doğrudan etkiler. Örnek: '
-      'havalı tüfekte 45–70 mm. Ölçmek için altındaki "Sight height nasıl '
+      'havalı tüfekte 45–70 mm. Ölçmek için altındaki "Dürbün yüksekliği nasıl '
       'ölçülür?" bağlantısına bakın.';
   static const elevationTravel =
       'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü. '
@@ -94,7 +94,7 @@ abstract final class ProfileFieldInfo {
       'mermi düşüşünü azaltmaz: tüfeği ayakla yeniden sıfırladığınızda '
       'kulede yukarı doğru bu kadar ek yer açar. 1/4 MOA dürbünde her 1 MOA '
       '= 4 klik (60 MOA = 240 klik); 0,1 mrad dürbünde 30 MOA ≈ 87 klik. '
-      'Ayak dürbünün yüksekliğini de değiştirir; Sight height\'ı yeniden '
+      'Ayak dürbünün yüksekliğini de değiştirir; dürbün yüksekliğini yeniden '
       'ölçün.';
 
   // Atış değerleri

@@ -1348,7 +1348,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         MenzilInput(
           key: BallisticsFieldKeys.sight,
           controller: sight,
-          label: 'Sight height',
+          label: 'Dürbün yüksekliği',
           unit: metric ? 'mm' : 'in',
         ),
       ],

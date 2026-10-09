@@ -294,7 +294,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
     final physical = _physical;
     final vision = ToolsServicesScope.of(context).vision;
     return Scaffold(
-      appBar: const MenzilSubPageBar(title: 'Sight Height'),
+      appBar: const MenzilSubPageBar(title: 'Dürbün Yüksekliği'),
       body: MenzilPage(
         children: [
           MenzilCard(

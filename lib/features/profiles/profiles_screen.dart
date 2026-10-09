@@ -596,7 +596,7 @@ class _ActiveProfileDetails extends StatelessWidget {
                 'inç',
               ),
             MenzilMetric(
-              'Sight height',
+              'Dürbün yüksekliği',
               profile.sightHeightMm.toStringAsFixed(1),
               'mm',
             ),
@@ -929,7 +929,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (twistDirection != null, 'Yiv yönü'),
       (_caliberError == null, 'Kalibre'),
       (_twistError == null, 'Yiv oranı'),
-      (_validSight, 'Sight height'),
+      (_validSight, 'Dürbün yüksekliği'),
       (_zeroError == null, 'Sıfırlama mesafesi'),
     ]);
     section('Dürbün', [
@@ -1533,7 +1533,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   key: const Key('scope-sight-height'),
                   info: ProfileFieldInfo.sightHeight,
                   controller: sight,
-                  label: 'Sight height',
+                  label: 'Dürbün yüksekliği',
                   onChanged: (_) => setState(() {}),
                   helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
                   errorText: sight.text.isNotEmpty && !_validSight
@@ -1585,7 +1585,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     child: TextButton.icon(
                       onPressed: _showSightHelp,
                       icon: const Icon(Icons.info_outline, size: 18),
-                      label: const Text('Sight height nasıl ölçülür?'),
+                      label: const Text('Dürbün yüksekliği nasıl ölçülür?'),
                     ),
                   ),
                 ),
@@ -1881,7 +1881,7 @@ class _SightHeightHelpDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     return AlertDialog(
-      title: const Text('Sight height nasıl ölçülür?'),
+      title: const Text('Dürbün yüksekliği nasıl ölçülür?'),
       content: SizedBox(
         width: 420,
         child: SingleChildScrollView(

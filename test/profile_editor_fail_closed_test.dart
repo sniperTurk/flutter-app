@@ -185,7 +185,7 @@ void main() {
       'Dürbün birimi',
       'Dürbün ayağı',
       'Üst kule klik sayısı',
-      'Sight height',
+      'Dürbün yüksekliği',
       'Namlu çıkış hızı',
       'Sıfırlama mesafesi',
     ]) {
