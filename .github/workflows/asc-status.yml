@@ -1,0 +1,26 @@
+name: ASC status (read-only)
+on:
+  push:
+    branches: [ops/asc-status]
+permissions:
+  contents: write
+jobs:
+  status:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read App Store Connect state
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+        run: |
+          pip install --quiet pyjwt cryptography
+          python3 ops/asc_status.py
+      - name: Publish result
+        run: |
+          git config user.name asc-status; git config user.email asc-status@users.noreply.github.com
+          cp ci-logs/asc.json /tmp/asc.json
+          git checkout -q --orphan ci/asc-status; git rm -rqf . ; mkdir -p ci-logs; cp /tmp/asc.json ci-logs/
+          git add ci-logs/asc.json; git commit -qm "asc status ${GITHUB_RUN_ID}"; git push -qf origin ci/asc-status
