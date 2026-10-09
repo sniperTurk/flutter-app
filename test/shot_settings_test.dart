@@ -119,6 +119,16 @@ void main() {
     expect(find.byKey(warning), findsNothing);
     await type(BallisticsFieldKeys.pressure, '700');
     expect(find.byKey(warning), findsOneWidget);
+    // After the warning came and went, every field still reaches the solve.
+    await type(BallisticsFieldKeys.pressure, '900');
+    await type(BallisticsFieldKeys.humidity, '80');
+    await tester.pumpWidget(_app(BallisticsView.table));
+    await tester.pumpAndSettle();
+    final make = find.text('DOPE oluştur');
+    await tester.ensureVisible(make);
+    await tester.tap(make);
+    await tester.pumpAndSettle();
+    expect(find.byType(DataTable), findsOneWidget);
   });
 
   group('Pro extras', () {

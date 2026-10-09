@@ -62,10 +62,9 @@ void main() {
       expect(warmer, lessThan(baseline));
 
       // Comma decimal separators must be accepted (replaceAll(',', '.')).
-      // (900 hPa at 0 m also shows the implausible-pressure warning, which
-      // moves the button down; ensureVisible keeps the tap on it.)
+      // 960 hPa: lower than standard but plausible at 0 m (no warning).
       await tester.enterText(_fieldFor(BallisticsFieldKeys.temperature), '15');
-      await tester.enterText(_fieldFor(BallisticsFieldKeys.pressure), '900,00');
+      await tester.enterText(_fieldFor(BallisticsFieldKeys.pressure), '960,00');
       await tester.ensureVisible(find.text('DOPE oluştur'));
       await tester.tap(find.text('DOPE oluştur'));
       await tester.pumpAndSettle();

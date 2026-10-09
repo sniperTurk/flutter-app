@@ -195,7 +195,11 @@ class BcTruingResult {
 /// sight height or measurement.
 abstract final class BallisticCoefficientTruing {
   static const double maxChangeFraction = 0.30;
-  static const double minSensitivityMrad = 0.02;
+
+  /// A 10 % BC change must move the far-range correction by at least half
+  /// a 0.1 mrad click, or the observation cannot resolve the BC.
+  static const double sensitivityStep = 0.10;
+  static const double minSensitivityMrad = 0.05;
 
   static BcTruingResult solve({
     required BallisticInput base,
@@ -241,7 +245,8 @@ abstract final class BallisticCoefficientTruing {
     if (!predicted.isFinite) {
       throw const TruingFailure(TruingRejection.unreachable);
     }
-    if ((predict(bc0 * 1.01) - predicted).abs() < minSensitivityMrad) {
+    if ((predict(bc0 * (1 + sensitivityStep)) - predicted).abs() <
+        minSensitivityMrad) {
       throw const TruingFailure(TruingRejection.notSensitive);
     }
     // Correction falls as BC rises. Bracket the root.
