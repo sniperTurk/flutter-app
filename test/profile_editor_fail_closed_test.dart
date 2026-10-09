@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sniper_turk/data/catalog_repository.dart';
+import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/profile_store.dart';
@@ -204,6 +207,9 @@ void _unitsAndFirearmTests() {
   testWidgets('Mesafe birimi Yard converts the zero and is saved', (
     tester,
   ) async {
+    // Saving writes the personal rifle/scope/ammo records too.
+    SharedPreferences.setMockInitialValues({});
+    addTearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
     final store = await _pumpAndOpen(tester, _valid);
     await enterRifleField(tester, 'ammo-bc', '0,08');
     await chooseInSelect(tester, 'ammo-bc-model', 'G1');
