@@ -86,6 +86,9 @@ class BallisticsScreen extends StatefulWidget {
 /// re-parses the (possibly edited, not yet submitted) text fields.
 class _ShotBasis {
   final double velocityMps, grain, zeroRangeM, sightHeightMm;
+
+  /// Velocity on the zeroing day when today's differs (barut sıcaklığı).
+  final double? zeroVelocityMps;
   final EnvironmentData environment;
 
   /// Both set (drag solve) or both null (vacuum baseline).
@@ -99,6 +102,7 @@ class _ShotBasis {
     required this.environment,
     this.ballisticCoefficient,
     this.ballisticModel,
+    this.zeroVelocityMps,
   });
 
   bool get drag => ballisticCoefficient != null && ballisticModel != null;
@@ -134,6 +138,7 @@ class _ShotBasis {
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
     azimuthDeg: azimuthDeg,
+    zeroMuzzleVelocityMps: zeroVelocityMps,
   );
 }
 
@@ -208,6 +213,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         windMaxCtl.text = s.windMaxText;
         targetSpeedCtl.text = s.targetSpeedText;
         _targetMovesRight = s.targetMovesRight;
+        _spinDriftOn = s.spinDriftOn;
+        bulletLengthCtl.text = s.bulletLengthText;
+        powderCoefCtl.text = s.powderCoefText;
+        powderTempCtl.text = s.powderTempText;
         _shotCache.clear();
         _holdSamples = null;
       });
@@ -228,6 +237,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       windMaxText: windMaxCtl.text.trim(),
       targetSpeedText: targetSpeedCtl.text.trim(),
       targetMovesRight: _targetMovesRight,
+      spinDriftOn: _spinDriftOn,
+      bulletLengthText: bulletLengthCtl.text.trim(),
+      powderCoefText: powderCoefCtl.text.trim(),
+      powderTempText: powderTempCtl.text.trim(),
     );
     unawaited(
       _shotStore.save(id, settings).catchError((Object _) {
@@ -247,6 +260,48 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final TextEditingController windMaxCtl = TextEditingController();
   final TextEditingController targetSpeedCtl = TextEditingController();
   bool _targetMovesRight = true;
+  bool _spinDriftOn = false;
+  final TextEditingController bulletLengthCtl = TextEditingController();
+  final TextEditingController powderCoefCtl = TextEditingController();
+  final TextEditingController powderTempCtl = TextEditingController();
+
+  bool get _isFirearm =>
+      profileResolution?.rifle.platform == WeaponPlatform.firearm;
+
+  /// Today's velocity from the profile velocity measured at [powderTempCtl]
+  /// and the sensitivity [powderCoefCtl] (% per 15 °C); firearms only.
+  double _powderAdjusted(double mps, double todayC) {
+    final k = _parsed(powderCoefCtl), t0 = _parsed(powderTempCtl);
+    if (!_isFirearm || k == null || t0 == null) return mps;
+    if (k.abs() > 10 || t0 < -50 || t0 > 60) return mps;
+    return mps * (1 + k / 100 * (todayC - t0) / 15);
+  }
+
+  /// Spin drift (Litz) as a sideways angle in mrad, + = to the right; null
+  /// when off or data is missing. Stability from the Miller formula.
+  double? _spinDriftMrad(TrajectoryPoint shot, _ShotBasis basis) {
+    if (!_spinDriftOn || !basis.drag) return null;
+    final rifle = profileResolution?.rifle;
+    final twist = rifle?.twistRateIn, dir = rifle?.twistDirection;
+    final lengthMm = _parsed(bulletLengthCtl);
+    if (rifle == null || twist == null || dir == null || lengthMm == null) {
+      return null;
+    }
+    if (lengthMm <= 0 || lengthMm > 100) return null;
+    final dIn = rifle.caliberMm / 25.4;
+    final tCal = twist / dIn, lCal = lengthMm / 25.4 / dIn;
+    final vFps = UnitSystem.mpsToFps(basis.velocityMps);
+    final tF = basis.environment.temperatureC * 9 / 5 + 32;
+    final pInHg = basis.environment.pressureHpa * 0.0295299830714;
+    final sg =
+        30 * basis.grain / (tCal * tCal * dIn * dIn * dIn * lCal * (1 + lCal * lCal)) *
+        math.pow(vFps / 2800, 1 / 3) *
+        ((tF + 460) / 519) *
+        (29.92 / pInHg);
+    final driftIn = 1.25 * (sg + 1.2) * math.pow(shot.timeOfFlightS, 1.83);
+    final m = driftIn * 0.0254 * (dir == TwistDirection.right ? 1 : -1);
+    return math.atan(m / _shotRangeM) * 1000;
+  }
 
   /// Real / marked turret travel; 1 when empty or implausible (0.8–1.2).
   double get _turretScale {
@@ -778,11 +833,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         windMps: w,
         windDirectionDeg: wd,
       );
+      // Barut sıcaklığı (Pro, firearms): today's velocity from the profile
+      // velocity; the zero stays solved with the zeroing-day velocity.
+      final vToday = _powderAdjusted(v, temp);
+      final double? vZero = vToday == v ? null : v;
       final density = Atmosphere.densityKgM3(environment);
       final ratio = Atmosphere.densityRatio(environment);
       final sound = Atmosphere.speedOfSoundMps(environment);
       final mach = Atmosphere.machNumber(
-        velocityMps: v,
+        velocityMps: vToday,
         environment: environment,
       );
 
@@ -794,7 +853,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       final bc = useBc ? ammo!.ballisticCoefficient : null;
       final model = useBc ? ammo!.ballisticModel : null;
       final input = BallisticInput(
-        muzzleVelocityMps: v,
+        muzzleVelocityMps: vToday,
         grain: g,
         zeroRangeM: z,
         sightHeightMm: s,
@@ -802,6 +861,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         environment: environment,
         ballisticCoefficient: bc,
         ballisticModel: model,
+        zeroMuzzleVelocityMps: vZero,
       );
       final solved = const BallisticEngine().solveReachable(input);
       if (solved.points.isEmpty) {
@@ -814,7 +874,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       final warnings = bc == null
           ? <DragWarning>[]
           : DragSafety.assess(
-              muzzleVelocityMps: v,
+              muzzleVelocityMps: vToday,
               environment: environment,
               ballisticCoefficient: bc,
               ballisticModel: model,
@@ -830,13 +890,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         speedOfSoundMps = sound;
         muzzleMach = mach;
         _basis = _ShotBasis(
-          velocityMps: v,
+          velocityMps: vToday,
           grain: g,
           zeroRangeM: z,
           sightHeightMm: s,
           environment: environment,
           ballisticCoefficient: bc,
           ballisticModel: model,
+          zeroVelocityMps: vZero,
         );
       });
     } on FormatException catch (e) {
@@ -870,6 +931,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     latitudeCtl.dispose();
     azimuthCtl.dispose();
     turretScaleCtl.dispose();
+    bulletLengthCtl.dispose();
+    powderCoefCtl.dispose();
+    powderTempCtl.dispose();
     windMaxCtl.dispose();
     targetSpeedCtl.dispose();
     super.dispose();
@@ -1053,6 +1117,21 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         // Unreachable at that wind: no bracket line.
       }
     }
+    final spin = _spinDriftMrad(shot, basis);
+    if (spin != null) {
+      final m = math.tan(spin.abs() / 1000) * _shotRangeM;
+      final len = metric
+          ? '${(m * 100).toStringAsFixed(1)} cm'
+          : '${UnitSystem.millimetersToInches(m * 1000).toStringAsFixed(1)} in';
+      lines.add(
+        Text(
+          'Spin drift: $len ${spin >= 0 ? 'sağa' : 'sola'}; kule klikleri '
+          'bunu içerir.',
+          key: const Key('shot-spin-drift'),
+          style: MenzilType.body(c.ink),
+        ),
+      );
+    }
     final speed = _targetSpeedMps;
     if (speed != null) {
       final leadM = speed * shot.timeOfFlightS;
@@ -1148,9 +1227,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // Kule ölçek katsayısı: a turret that moves 0.98 of its marking needs
     // 1/0.98 of the clicks (owner, 2026-10-09).
     final scale = _turretScale;
+    // Spin drift (Pro, owner 2026-10-09): a drift to the right needs LEFT.
+    final spin = shot == null || basis == null
+        ? null
+        : _spinDriftMrad(shot, basis);
     final requiredRight = (shot == null || basis == null)
         ? 0.0
-        : inUnit(shot.windMrad) / scale;
+        : inUnit(shot.windMrad - (spin ?? 0)) / scale;
 
     final mpsPerMil = basis != null && basis.drag
         ? _evalShot().mpsPerMil
@@ -1602,14 +1685,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               info: EnvironmentFieldInfo.pressure,
               unit: metric ? 'hPa' : 'inHg',
             ),
-            if (_pressureWarning != null)
-              MenzilFullWidth(
-                child: MenzilNotice(
-                  key: const Key('environment-pressure-warning'),
-                  tone: MenzilNoticeTone.warning,
-                  message: _pressureWarning!,
-                ),
-              ),
             MenzilInput(
               key: BallisticsFieldKeys.humidity,
               controller: humidity,
@@ -1636,6 +1711,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ],
         ),
       ),
+      // Outside the field grid on purpose: inserting it between the fields
+      // re-parented them and a typed value could be lost.
+      if (_pressureWarning != null)
+        MenzilNotice(
+          key: const Key('environment-pressure-warning'),
+          tone: MenzilNoticeTone.warning,
+          message: _pressureWarning!,
+        ),
       const MenzilSectionHeader(
         'Rüzgâr',
         padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
@@ -2070,6 +2153,109 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ),
         ],
       ),
+      const MenzilSectionHeader(
+        'Spin drift',
+        padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
+      ),
+      MenzilCard(
+        margin: EdgeInsets.zero,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Spin drift ekle',
+                    style: MenzilType.body(c.ink),
+                  ),
+                ),
+                const MenzilInfoButton(
+                  title: 'Spin drift',
+                  text: EnvironmentFieldInfo.spinDrift,
+                ),
+                Semantics(
+                  label: 'Spin drift ekle',
+                  child: Switch(
+                    key: const Key('pro-spin-switch'),
+                    value: _spinDriftOn,
+                    onChanged: (v) {
+                      _spinDriftOn = v;
+                      _coriolisChanged();
+                    },
+                  ),
+                ),
+              ],
+            ),
+            if (_spinDriftOn) ...[
+              MenzilInput(
+                key: const Key('pro-bullet-length'),
+                controller: bulletLengthCtl,
+                label: 'Mermi uzunluğu',
+                unit: 'mm',
+                info: EnvironmentFieldInfo.bulletLength,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+              if (profileResolution?.rifle.twistRateIn == null ||
+                  profileResolution?.rifle.twistDirection == null)
+                const MenzilNotice(
+                  tone: MenzilNoticeTone.warning,
+                  message:
+                      'Profilde yiv yönü veya yiv oranı yok; spin drift '
+                      'hesaplanamaz.',
+                ),
+            ],
+          ],
+        ),
+      ),
+      if (_isFirearm) ...[
+        const MenzilSectionHeader(
+          'Barut sıcaklığı',
+          padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
+        ),
+        MenzilFieldGrid(
+          children: [
+            MenzilInput(
+              key: const Key('pro-powder-coef'),
+              controller: powderCoefCtl,
+              label: 'Katsayı (%/15 °C)',
+              info: EnvironmentFieldInfo.powderCoef,
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: true,
+              ),
+              onChanged: (_) => _coriolisChanged(),
+            ),
+            MenzilInput(
+              key: const Key('pro-powder-temp'),
+              controller: powderTempCtl,
+              label: 'Ölçüm sıcaklığı',
+              unit: '°C',
+              info: EnvironmentFieldInfo.powderTemp,
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: true,
+              ),
+              onChanged: (_) => _coriolisChanged(),
+            ),
+          ],
+        ),
+        Builder(
+          builder: (context) {
+            final v0 = widget.profile?.muzzleVelocityMps;
+            final t = _parsed(temperature);
+            if (v0 == null || t == null) return const SizedBox.shrink();
+            final today = _powderAdjusted(v0, metric ? t : UnitSystem.fahrenheitToCelsius(t));
+            if (today == v0) return const SizedBox.shrink();
+            return Text(
+              'Bugünkü hız: ${UnitSystem.mpsToFps(today).toStringAsFixed(0)} '
+              'fps (profil ${UnitSystem.mpsToFps(v0).toStringAsFixed(0)} fps).',
+              key: const Key('pro-powder-today'),
+              style: MenzilType.body(c.ink),
+            );
+          },
+        ),
+      ],
       const SizedBox(height: MenzilSpace.lg),
       if (widget.onContinueToShot != null)
         MenzilPrimaryButton(

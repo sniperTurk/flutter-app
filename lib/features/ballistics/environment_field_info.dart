@@ -77,6 +77,23 @@ abstract final class EnvironmentFieldInfo {
       'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
       'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '
       'tırıs ~3 m/s.';
+  static const spinDrift =
+      'Dönen mermi uçarken yivin döndüğü yöne doğru yana kayar (sağ yivde '
+      'sağa). Etki uçuş süresiyle büyür; slug ve ateşli tüfekte uzun '
+      'mesafede önemlidir. Litz formülüyle yaklaşık hesaplanır; diabolo '
+      'pellet için geçerli değildir. Yiv yönü ve yiv oranı profilden alınır.';
+  static const bulletLength =
+      'Merminin (slug\'ın) burundan tabana uzunluğu, milimetre olarak. '
+      'Kumpasla ölçün. Dönüş kararlılığı ve spin drift buna göre hesaplanır. '
+      'Örnek: .25 slug ~10 mm, .308 168 gr ~31 mm.';
+  static const powderCoef =
+      'Barut sıcaklık katsayısı: sıcaklık 15 °C değiştiğinde hız yüzde kaç '
+      'değişiyor. İki farklı sıcaklıkta kronografla ölçüp bulun. Örnek: '
+      '%1,5 (15 °C ısınınca hız %1,5 artar). Yalnız ateşli tüfek.';
+  static const powderTemp =
+      'Profildeki namlu çıkış hızının ölçüldüğü (ve tüfeğin sıfırlandığı) '
+      'sıcaklık, °C. Bugünkü hız Hava Durumu\'ndaki sıcaklığa göre buradan '
+      'hesaplanır. Örnek: 20.';
   static const targetDirection =
       'Hedefin hangi yöne hareket ettiği: önüne, yani gittiği yöne nişan '
       'alınır.';

@@ -20,6 +20,14 @@ class ShotSettings {
   final String targetSpeedText;
   final bool targetMovesRight;
 
+  /// Spin drift on/off and the bullet length (mm, as typed); powder
+  /// temperature sensitivity (% per 15 °C) and the temperature the profile
+  /// velocity was measured at (°C), as typed.
+  final bool spinDriftOn;
+  final String bulletLengthText;
+  final String powderCoefText;
+  final String powderTempText;
+
   const ShotSettings({
     this.inclineDeg = 0,
     this.cantDeg = 0,
@@ -30,6 +38,10 @@ class ShotSettings {
     this.windMaxText = '',
     this.targetSpeedText = '',
     this.targetMovesRight = true,
+    this.spinDriftOn = false,
+    this.bulletLengthText = '',
+    this.powderCoefText = '',
+    this.powderTempText = '',
   });
 
   Map<String, dynamic> toJson() => {
@@ -42,6 +54,10 @@ class ShotSettings {
     'windMax': windMaxText,
     'targetSpeed': targetSpeedText,
     'targetRight': targetMovesRight,
+    'spinDrift': spinDriftOn,
+    'bulletLength': bulletLengthText,
+    'powderCoef': powderCoefText,
+    'powderTemp': powderTempText,
   };
 
   /// Unknown or damaged values fall back to the neutral default (level,
@@ -64,6 +80,10 @@ class ShotSettings {
       windMaxText: text(json['windMax']),
       targetSpeedText: text(json['targetSpeed']),
       targetMovesRight: json['targetRight'] != false,
+      spinDriftOn: json['spinDrift'] == true,
+      bulletLengthText: text(json['bulletLength']),
+      powderCoefText: text(json['powderCoef']),
+      powderTempText: text(json['powderTemp']),
     );
   }
 }
