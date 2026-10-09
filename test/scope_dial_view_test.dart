@@ -105,9 +105,8 @@ void main() {
     await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
     await tester.pumpAndSettle();
 
-    await tester.ensureVisible(find.byKey(ScopeDialKeys.turretToggle));
-    await tester.tap(find.byKey(ScopeDialKeys.turretToggle));
-    await tester.pumpAndSettle();
+    // "Çözümü kuleye kur" already slid the windage turret open.
+    expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
     await tester.tap(find.byTooltip('Rüzgâr kulesi 1 klik sağa'));
     await tester.pumpAndSettle();
     // 0.1 mrad at 100 m = 1.0 cm to the right.
