@@ -56,7 +56,8 @@ abstract final class ProSectionInfo {
     how:
         'Senin bir şey girmene gerek yok; uygulama Hava Durumu\'ndaki rüzgârı '
         '1,5 ile çarpıp kendisi yazar. Rüzgâr ölçerin varsa ölçtüğün en '
-        'yüksek değeri yazabilirsin. Silersen yeniden otomatik olur.',
+        'yüksek değeri yazabilirsin. Kullanmak istemezsen kutuyu sil; aralık '
+        'gösterilmez. "Otomatik doldur"a dokunursan yeniden otomatik olur.',
   );
 
   static const windZones = ProExplain(

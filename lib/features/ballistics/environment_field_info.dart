@@ -77,7 +77,8 @@ abstract final class EnvironmentFieldInfo {
   static const windMax =
       'Rüzgârın sert estiği (hamle) andaki hızı. Otomatik doldurulur: Hava '
       'Durumu\'ndaki rüzgâr hızı × 1,5 (karada tipik hamle oranı). Kendi '
-      'ölçtüğünüz değeri yazabilirsiniz; silerseniz yeniden otomatik olur. '
+      'ölçtüğünüz değeri yazabilirsiniz. Silerseniz aralık gösterilmez; '
+      '"Otomatik doldur" yeniden otomatik yapar. '
       'Hedef sayfası yan düzeltmeyi bu aralıkta gösterir. Örnek: rüzgâr '
       '2 m/s ise 3.';
   static const windMid =

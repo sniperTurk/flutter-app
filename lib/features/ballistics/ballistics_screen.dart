@@ -242,8 +242,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         latitudeCtl.text = s.latitudeText;
         azimuthCtl.text = s.azimuthText;
         turretScaleCtl.text = s.turretScaleText;
-        _windMaxAuto = s.windMaxText.isEmpty;
-        if (!_windMaxAuto) windMaxCtl.text = s.windMaxText;
+        _windMaxAuto = s.windMaxText.isEmpty && !s.windMaxOff;
+        windMaxCtl.text = s.windMaxText;
         _autoWindMax();
         targetSpeedCtl.text = s.targetSpeedText;
         _targetMovesRight = s.targetMovesRight;
@@ -275,6 +275,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       azimuthText: azimuthCtl.text.trim(),
       turretScaleText: turretScaleCtl.text.trim(),
       windMaxText: _windMaxAuto ? '' : windMaxCtl.text.trim(),
+      windMaxOff: !_windMaxAuto && windMaxCtl.text.trim().isEmpty,
       targetSpeedText: targetSpeedCtl.text.trim(),
       targetMovesRight: _targetMovesRight,
       spinDriftOn: _spinDriftOn,
@@ -306,8 +307,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final TextEditingController windMaxCtl = TextEditingController();
 
   /// En yüksek rüzgâr is filled automatically from Rüzgâr hızı (owner,
-  /// 2026-10-09) until the shooter types a value; clearing it switches back
-  /// to automatic. An automatic value is not saved.
+  /// 2026-10-09) until the shooter types a value. Clearing it turns the
+  /// bracket off (owner, 2026-10-10: the shooter must be able to delete an
+  /// automatic value); "Otomatik doldur" switches back. An automatic value
+  /// is not saved.
   bool _windMaxAuto = true;
 
   /// Typical gust factor over land: the bracket top is 1.5 × the wind.
@@ -326,7 +329,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   final TextEditingController targetSpeedCtl = TextEditingController();
-  bool _targetMovesRight = true;
+  bool? _targetMovesRight;
   bool _spinDriftOn = false;
   final TextEditingController bulletLengthCtl = TextEditingController();
   final TextEditingController powderCoefCtl = TextEditingController();
@@ -1358,7 +1361,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       );
     }
     final speed = _targetSpeedMps;
-    if (speed != null) {
+    final movesRight = _targetMovesRight;
+    if (speed != null && movesRight == null) {
+      lines.add(
+        Text(
+          'Hareketli hedef: Pro Ayarlar\'da hedefin yönünü seçin.',
+          key: const Key('shot-lead'),
+          style: MenzilType.body(c.ink),
+        ),
+      );
+    }
+    if (speed != null && movesRight != null) {
       final leadM = speed * shot.timeOfFlightS;
       final mrad = math.atan(leadM / _shotRangeM) * 1000;
       final len = metric
@@ -1367,8 +1380,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       lines.add(
         Text(
           'Hareketli hedef (${_windLabel(speed)} ${metric ? 'm/s' : 'mph'}, '
-          '${_targetMovesRight ? 'soldan sağa' : 'sağdan sola'}): '
-          '$len · ${clicks(mrad)} ${_targetMovesRight ? 'sağına' : 'soluna'} '
+          '${movesRight ? 'soldan sağa' : 'sağdan sola'}): '
+          '$len · ${clicks(mrad)} ${movesRight ? 'sağına' : 'soluna'} '
           'nişan alın (uçuş ${shot.timeOfFlightS.toStringAsFixed(2)} s).',
           key: const Key('shot-lead'),
           style: MenzilType.body(c.ink),
@@ -2643,13 +2656,30 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             label: 'En yüksek rüzgâr',
             unit: windUnit,
             info: EnvironmentFieldInfo.windMax,
-            helperText: _windMaxAuto ? 'Otomatik: rüzgâr hızı × 1,5' : null,
+            helperText: _windMaxAuto
+                ? 'Otomatik: rüzgâr hızı × 1,5'
+                : windMaxCtl.text.trim().isEmpty
+                ? 'Boş: rüzgâr aralığı gösterilmez.'
+                : null,
             onChanged: (v) {
-              _windMaxAuto = v.trim().isEmpty;
-              _autoWindMax();
+              _windMaxAuto = false;
               _coriolisChanged();
             },
           ),
+          if (!_windMaxAuto)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                key: const Key('pro-wind-max-auto'),
+                onPressed: () {
+                  _windMaxAuto = true;
+                  _autoWindMax();
+                  _coriolisChanged();
+                },
+                icon: const Icon(Icons.autorenew, size: 18),
+                label: const Text('Otomatik doldur'),
+              ),
+            ),
           _explain(ProSectionInfo.windZones),
           MenzilFieldGrid(
             children: [
@@ -2788,12 +2818,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 label: 'Yönü',
                 info: EnvironmentFieldInfo.targetDirection,
                 initialValue: _targetMovesRight,
+                hint: 'Seçiniz',
                 items: const [
                   DropdownMenuItem(value: true, child: Text('Soldan sağa')),
                   DropdownMenuItem(value: false, child: Text('Sağdan sola')),
                 ],
                 onChanged: (v) {
-                  _targetMovesRight = v ?? true;
+                  _targetMovesRight = v;
                   _coriolisChanged();
                 },
               ),

@@ -226,6 +226,13 @@ void main() {
       await type(tester, const Key('pro-wind-max'), '5');
       expect(find.text('Otomatik: rüzgâr hızı × 1,5'), findsNothing);
       await type(tester, const Key('pro-target-speed'), '2');
+      // The direction starts unchosen ("Seçiniz", owner 2026-10-10).
+      expect(find.text('Seçiniz'), findsOneWidget);
+      await tester.ensureVisible(find.text('Seçiniz'));
+      await tester.tap(find.text('Seçiniz'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Soldan sağa').last);
+      await tester.pumpAndSettle();
 
       await tester.pumpWidget(app(BallisticsView.shot));
       await tester.pumpAndSettle();
@@ -272,5 +279,74 @@ void main() {
     await solve();
     expect(find.byKey(const Key('environment-pressure-warning')), findsNothing);
     expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
+  });
+
+  group('Owner 2026-10-10', () {
+    setUp(() => SharedPreferences.setMockInitialValues({}));
+
+    Widget app(BallisticsView view) => MaterialApp(
+      home: Scaffold(
+        body: BallisticsScreen(profile: _profile, view: view),
+      ),
+    );
+
+    Finder field(Key k) =>
+        find.descendant(of: find.byKey(k), matching: find.byType(TextField));
+
+    testWidgets('En yüksek rüzgâr can be cleared and stays off', (
+      tester,
+    ) async {
+      await _sized(tester);
+      await tester.pumpWidget(app(BallisticsView.environment));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(field(BallisticsFieldKeys.wind));
+      await tester.enterText(field(BallisticsFieldKeys.wind), '2');
+      await tester.pump();
+
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-wind-max'));
+      String text() => tester
+          .widget<TextField>(field(const Key('pro-wind-max')))
+          .controller!
+          .text;
+      expect(text(), '3.0');
+      await tester.ensureVisible(field(const Key('pro-wind-max')));
+      await tester.enterText(field(const Key('pro-wind-max')), '');
+      await tester.pumpAndSettle();
+      expect(text(), '');
+      expect(find.text('Boş: rüzgâr aralığı gösterilmez.'), findsOneWidget);
+
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('shot-wind-bracket')), findsNothing);
+
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-wind-max'));
+      expect(text(), '');
+      await tester.ensureVisible(find.byKey(const Key('pro-wind-max-auto')));
+      await tester.tap(find.byKey(const Key('pro-wind-max-auto')));
+      await tester.pumpAndSettle();
+      expect(text(), '3.0');
+    });
+
+    testWidgets('a target speed without a direction asks for it', (
+      tester,
+    ) async {
+      await _sized(tester);
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-target-speed'));
+      await tester.ensureVisible(field(const Key('pro-target-speed')));
+      await tester.enterText(field(const Key('pro-target-speed')), '2');
+      await tester.pump();
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final lead = tester
+          .widget<Text>(find.byKey(const Key('shot-lead')))
+          .data!;
+      expect(lead, contains('yönünü seçin'));
+    });
   });
 }

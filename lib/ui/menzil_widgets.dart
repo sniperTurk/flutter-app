@@ -1001,6 +1001,9 @@ class MenzilSelect<T> extends StatelessWidget {
   /// open list keeps the full item text. Null shows the item itself.
   final List<String>? selectedLabels;
 
+  /// Shown while nothing is selected (e.g. "Seçiniz").
+  final String? hint;
+
   const MenzilSelect({
     super.key,
     required this.label,
@@ -1011,6 +1014,7 @@ class MenzilSelect<T> extends StatelessWidget {
     this.semanticLabel,
     this.info,
     this.selectedLabels,
+    this.hint,
   });
 
   @override
@@ -1033,6 +1037,9 @@ class MenzilSelect<T> extends StatelessWidget {
             label: semanticLabel ?? label,
             child: DropdownButtonFormField<T>(
               initialValue: initialValue,
+              hint: hint == null
+                  ? null
+                  : Text(hint!, style: TextStyle(color: c.ink2)),
               items: items,
               onChanged: onChanged,
               // The closed box always shows ONE line (owner, 2026-10-09:
