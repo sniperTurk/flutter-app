@@ -94,7 +94,12 @@ void main() {
     );
     expect(selector.width, lessThanOrEqualTo(170));
 
+    // The Tüfek/Mühimmat/Dürbün name card is gone (owner, 2026-10-09).
+    expect(find.textContaining('kişisel kayıt'), findsNothing);
+    expect(find.text('Hatsan Hercules'), findsOneWidget);
+
     const order = [
+      'Tüfek Marka Model',
       'Namlu çıkış hızı',
       'Yiv yönü',
       'Kalibre',

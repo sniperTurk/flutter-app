@@ -808,32 +808,41 @@ class _LabelWithInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = info;
+    // ⓘ sits on the right, vertically centred on the label text (owner,
+    // 2026-10-09).
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(child: label),
         // Without an ⓘ an invisible one of the same size keeps the label row
         // as tall as its neighbour's, so side-by-side fields line up (owner,
         // 2026-10-09: "Dürbün markası" sat lower than "Odak düzlemi").
-        if (text != null)
-          MenzilInfoButton(title: title, text: text)
-        else
-          // Same size as MenzilInfoButton (constraints, density, icon), but
-          // invisible, untappable and silent for VoiceOver.
-          const ExcludeSemantics(
-            child: IgnorePointer(
-              child: Opacity(
-                opacity: 0,
-                child: IconButton(
-                  constraints: BoxConstraints(minWidth: 44, minHeight: 44),
-                  padding: EdgeInsets.zero,
-                  visualDensity: VisualDensity.standard,
-                  icon: Icon(Icons.circle, size: 18),
-                  onPressed: null,
+        // The label keeps a small gap under its text; the same gap under the
+        // ⓘ makes their centres meet.
+        Padding(
+          padding: const EdgeInsets.only(bottom: MenzilSpace.xxs + 1),
+          child: text != null
+              ? MenzilInfoButton(title: title, text: text)
+              // Same size as MenzilInfoButton (constraints, density, icon),
+              // but invisible, untappable and silent for VoiceOver.
+              : const ExcludeSemantics(
+                  child: IgnorePointer(
+                    child: Opacity(
+                      opacity: 0,
+                      child: IconButton(
+                        constraints: BoxConstraints(
+                          minWidth: 44,
+                          minHeight: 44,
+                        ),
+                        padding: EdgeInsets.zero,
+                        visualDensity: VisualDensity.standard,
+                        icon: Icon(Icons.circle, size: 18),
+                        onPressed: null,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
+        ),
       ],
     );
   }

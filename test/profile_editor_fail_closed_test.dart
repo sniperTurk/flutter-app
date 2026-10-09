@@ -226,15 +226,8 @@ void _unitsAndFirearmTests() {
         .text;
     expect(zero(), '25');
     await chooseInSelect(tester, 'profile-distance-unit', 'Yard');
-    // 25 m = 27.3 yd; the field label says yd.
+    // 25 m = 27.3 yd (no unit label next to the field; ⓘ explains it).
     expect(zero(), '27.3');
-    expect(
-      find.descendant(
-        of: find.byKey(const Key('profile-zero')),
-        matching: find.text('yd'),
-      ),
-      findsOneWidget,
-    );
     // SMOA is offered as a turret unit.
     await chooseInSelect(
       tester,
