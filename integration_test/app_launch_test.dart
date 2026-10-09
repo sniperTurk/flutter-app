@@ -88,7 +88,11 @@ void main() {
 
     await type('rifle-brand', 'Test Marka');
     await type('rifle-model', 'Test Model');
-    await type('rifle-caliber', '6,35');
+    await tester.ensureVisible(find.byKey(const Key('rifle-caliber')));
+    await tester.tap(find.byKey(const Key('rifle-caliber')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('6.35 mm').last);
+    await tester.pumpAndSettle();
     await type('rifle-twist-rate', '16');
     await tester.ensureVisible(find.byKey(const Key('rifle-twist-direction')));
     await tester.tap(find.byKey(const Key('rifle-twist-direction')));
