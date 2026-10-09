@@ -13,6 +13,8 @@ import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/shot_settings_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
+import 'support/pro_sections.dart';
+
 const _profile = RifleProfile(
   id: 'p-shot',
   name: 'Kayıt',
@@ -69,8 +71,19 @@ void main() {
     });
     await tester.pumpWidget(_app(BallisticsView.pro));
     await tester.pumpAndSettle();
+    // Boxes start closed; the summaries show the restored values.
+    expect(
+      tester.widget<Text>(find.byKey(const Key('pro-summary-angle'))).data,
+      '-12° / 4°',
+    );
+    expect(
+      tester.widget<Text>(find.byKey(const Key('pro-summary-coriolis'))).data,
+      'açık',
+    );
+    await openProFor(tester, const Key('shot-incline'));
     expect(find.text('∠ −12°'), findsOneWidget);
     expect(find.text('4° sağa'), findsOneWidget);
+    await openProFor(tester, const Key('pro-latitude'));
     expect(find.byKey(const Key('pro-latitude')), findsOneWidget);
     final lat = tester.widget<TextField>(
       find.descendant(
@@ -86,6 +99,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     await tester.pumpWidget(_app(BallisticsView.pro));
     await tester.pumpAndSettle();
+    await openProFor(tester, const Key('pro-coriolis-switch'));
     final sw = find.byKey(const Key('pro-coriolis-switch'));
     await tester.ensureVisible(sw);
     await tester.tap(sw);
@@ -169,6 +183,7 @@ void main() {
     );
 
     Future<void> type(WidgetTester tester, Key key, String v) async {
+      await openProFor(tester, key);
       final f = find.descendant(
         of: find.byKey(key),
         matching: find.byType(TextField),
@@ -205,6 +220,7 @@ void main() {
           )
           .controller!
           .text;
+      await openProFor(tester, const Key('pro-wind-max'));
       expect(windMax(), '3.0');
       expect(find.text('Otomatik: rüzgâr hızı × 1,5'), findsOneWidget);
       await type(tester, const Key('pro-wind-max'), '5');

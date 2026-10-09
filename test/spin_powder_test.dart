@@ -11,6 +11,8 @@ import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
+import 'support/pro_sections.dart';
+
 const _rifle = <String, dynamic>{
   'id': 'manual_rifle_fx',
   'kind': 'rifle',
@@ -103,6 +105,7 @@ void main() {
     );
 
     Future<void> type(WidgetTester tester, Key key, String v) async {
+      await openProFor(tester, key);
       final f = find.descendant(
         of: find.byKey(key),
         matching: find.byType(TextField),
@@ -126,6 +129,7 @@ void main() {
 
       await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-spin-switch'));
       final sw = find.byKey(const Key('pro-spin-switch'));
       await tester.ensureVisible(sw);
       await tester.tap(sw);

@@ -30,6 +30,7 @@ import '../tools/map_distance_screen.dart';
 import '../tools/weather_screen.dart';
 import 'environment_field_info.dart';
 import 'incline_measure_screen.dart';
+import 'pro_section_info.dart';
 import 'scope_cant_screen.dart';
 import 'scope_dial_view.dart';
 import 'wind_clock_picker.dart';
@@ -121,22 +122,28 @@ class _ShotBasis {
     double? latitudeDeg,
     double? azimuthDeg,
     double? windMps,
+    double? windDirectionDeg,
+    WindZones? windZones,
+    double? shotVelocityMps,
   }) => BallisticInput(
-    muzzleVelocityMps: velocityMps,
+    // A shot-to-shot velocity change (SD) keeps the zero of the nominal
+    // velocity.
+    muzzleVelocityMps: shotVelocityMps ?? velocityMps,
     grain: grain,
     zeroRangeM: zeroRangeM,
     sightHeightMm: sightHeightMm,
     rangesM: rangesM,
-    environment: windMps == null
+    environment: windMps == null && windDirectionDeg == null
         ? environment
         : EnvironmentData(
             temperatureC: environment.temperatureC,
             pressureHpa: environment.pressureHpa,
             humidityPercent: environment.humidityPercent,
             altitudeM: environment.altitudeM,
-            windMps: windMps,
-            windDirectionDeg: environment.windDirectionDeg,
+            windMps: windMps ?? environment.windMps,
+            windDirectionDeg: windDirectionDeg ?? environment.windDirectionDeg,
           ),
+    windZones: windZones,
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
     bcBands: bcBands,
@@ -144,7 +151,9 @@ class _ShotBasis {
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
     azimuthDeg: azimuthDeg,
-    zeroMuzzleVelocityMps: zeroVelocityMps,
+    zeroMuzzleVelocityMps: shotVelocityMps == null
+        ? zeroVelocityMps
+        : (zeroVelocityMps ?? velocityMps),
   );
 }
 
@@ -233,6 +242,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         bulletLengthCtl.text = s.bulletLengthText;
         powderCoefCtl.text = s.powderCoefText;
         powderTempCtl.text = s.powderTempText;
+        windMidCtl.text = s.windMidText;
+        windFarCtl.text = s.windFarText;
+        zeroUpCtl.text = s.zeroUpText;
+        zeroRightCtl.text = s.zeroRightText;
+        groupCtl.text = s.groupText;
+        sdCtl.text = s.sdText;
         _shotCache.clear();
         _holdSamples = null;
       });
@@ -257,6 +272,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       bulletLengthText: bulletLengthCtl.text.trim(),
       powderCoefText: powderCoefCtl.text.trim(),
       powderTempText: powderTempCtl.text.trim(),
+      windMidText: windMidCtl.text.trim(),
+      windFarText: windFarCtl.text.trim(),
+      zeroUpText: zeroUpCtl.text.trim(),
+      zeroRightText: zeroRightCtl.text.trim(),
+      groupText: groupCtl.text.trim(),
+      sdText: sdCtl.text.trim(),
     );
     unawaited(
       _shotStore.save(id, settings).catchError((Object _) {
@@ -301,6 +322,47 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final TextEditingController bulletLengthCtl = TextEditingController();
   final TextEditingController powderCoefCtl = TextEditingController();
   final TextEditingController powderTempCtl = TextEditingController();
+  final TextEditingController windMidCtl = TextEditingController();
+  final TextEditingController windFarCtl = TextEditingController();
+  final TextEditingController zeroUpCtl = TextEditingController();
+  final TextEditingController zeroRightCtl = TextEditingController();
+  final TextEditingController groupCtl = TextEditingController();
+  final TextEditingController sdCtl = TextEditingController();
+
+  /// Which Pro Ayarlar box is open (one at a time; all closed at first).
+  String? _proOpen;
+
+  /// Wind zones for the shot at [_shotRangeM], or null when both are empty.
+  WindZones? get _windZones {
+    double? w(TextEditingController c) {
+      final v = _parsed(c);
+      if (v == null || v < 0 || v > 60) return null;
+      return metric ? v : UnitSystem.mphToMps(v);
+    }
+
+    final mid = w(windMidCtl), far = w(windFarCtl);
+    if (mid == null && far == null) return null;
+    final near = _basis?.environment.windMps ?? 0;
+    return WindZones(
+      rangeM: _shotRangeM,
+      midMps: mid ?? near,
+      farMps: far ?? mid ?? near,
+    );
+  }
+
+  /// Sıfır ofseti as angles (mrad; + = the group sat high / right), zero
+  /// when empty.
+  ({double up, double right}) get _zeroOffsetMrad {
+    final z = widget.profile?.zeroRangeM;
+    double a(TextEditingController c) {
+      final v = _parsed(c);
+      if (z == null || z <= 0 || v == null || v.abs() > 100) return 0;
+      final m = metric ? v / 100 : UnitSystem.inchesToMillimeters(v) / 1000;
+      return math.atan(m / z) * 1000;
+    }
+
+    return (up: a(zeroUpCtl), right: a(zeroRightCtl));
+  }
 
   bool get _isFirearm =>
       profileResolution?.rifle.platform == WeaponPlatform.firearm;
@@ -319,7 +381,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Spin drift (Litz) as a sideways angle in mrad, + = to the right; null
   /// when off or data is missing. Stability from the Miller formula.
-  double? _spinDriftMrad(TrajectoryPoint shot, _ShotBasis basis) {
+  /// Gyroscopic stability (Miller) with the bullet length and length in
+  /// calibres, or null when spin drift is off or data is missing.
+  ({double sg, double lCal, TwistDirection dir})? _stability(
+    _ShotBasis basis,
+  ) {
     if (!_spinDriftOn || !basis.drag) return null;
     final rifle = profileResolution?.rifle;
     final twist = rifle?.twistRateIn, dir = rifle?.twistDirection;
@@ -340,9 +406,32 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         math.pow(vFps / 2800, 1 / 3) *
         ((tF + 460) / 519) *
         (29.92 / pInHg);
-    final driftIn = 1.25 * (sg + 1.2) * math.pow(shot.timeOfFlightS, 1.83);
-    final m = driftIn * 0.0254 * (dir == TwistDirection.right ? 1 : -1);
+    return (sg: sg, lCal: lCal, dir: dir);
+  }
+
+  double? _spinDriftMrad(TrajectoryPoint shot, _ShotBasis basis) {
+    final st = _stability(basis);
+    if (st == null) return null;
+    final driftIn = 1.25 * (st.sg + 1.2) * math.pow(shot.timeOfFlightS, 1.83);
+    final m = driftIn * 0.0254 * (st.dir == TwistDirection.right ? 1 : -1);
     return math.atan(m / _shotRangeM) * 1000;
+  }
+
+  /// Aerodynamic jump (Litz): a crosswind at the muzzle tips a spinning
+  /// bullet up or down. Vertical shift in mrad, + = impact moves UP; null
+  /// when spin drift is off. Right-hand twist: wind from the right lifts,
+  /// from the left drops (mirrored for left-hand twist).
+  double? _aeroJumpMrad(_ShotBasis basis) {
+    final st = _stability(basis);
+    if (st == null) return null;
+    final env = basis.environment;
+    // Internal wind degrees: 90° = from the LEFT, 270° = from the right.
+    final fromRightMph = -UnitSystem.mpsToMph(env.windMps) *
+        math.sin(env.windDirectionDeg * math.pi / 180);
+    final moaPerMph = 0.01 * st.sg - 0.0024 * st.lCal + 0.032;
+    final moa =
+        moaPerMph * fromRightMph * (st.dir == TwistDirection.right ? 1 : -1);
+    return moa * math.pi / 10800 * 1000;
   }
 
   /// Real / marked turret travel; 1 when empty or implausible (0.8–1.2).
@@ -986,6 +1075,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     bulletLengthCtl.dispose();
     powderCoefCtl.dispose();
     powderTempCtl.dispose();
+    for (final c in [
+      windMidCtl,
+      windFarCtl,
+      zeroUpCtl,
+      zeroRightCtl,
+      groupCtl,
+      sdCtl,
+    ]) {
+      c.dispose();
+    }
     windMaxCtl.dispose();
     targetSpeedCtl.dispose();
     super.dispose();
@@ -1052,6 +1151,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         cantDeg: _cantDeg,
         latitudeDeg: _coriolisArgs.lat,
         azimuthDeg: _coriolisArgs.az,
+        windZones: basis.drag ? _windZones : null,
       );
       shot = const BallisticEngine().solve(input).first;
       if (basis.drag) {
@@ -1175,11 +1275,28 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       final len = metric
           ? '${(m * 100).toStringAsFixed(1)} cm'
           : '${UnitSystem.millimetersToInches(m * 1000).toStringAsFixed(1)} in';
+      final jump = _aeroJumpMrad(basis);
+      final jm = jump == null ? 0.0 : math.tan(jump.abs() / 1000) * _shotRangeM;
+      final jLen = metric
+          ? '${(jm * 100).toStringAsFixed(1)} cm'
+          : '${UnitSystem.millimetersToInches(jm * 1000).toStringAsFixed(1)} in';
       lines.add(
         Text(
-          'Spin drift: $len ${spin >= 0 ? 'sağa' : 'sola'}; kule klikleri '
-          'bunu içerir.',
+          'Spin drift: $len ${spin >= 0 ? 'sağa' : 'sola'}'
+          '${jump == null || jm < 0.0005 ? '' : '; rüzgâr sıçraması: $jLen ${jump >= 0 ? 'yukarı' : 'aşağı'}'}'
+          '. Kule klikleri bunu içerir.',
           key: const Key('shot-spin-drift'),
+          style: MenzilType.body(c.ink),
+        ),
+      );
+    }
+    final hit = _hitProbability(shot, basis);
+    if (hit != null) {
+      lines.add(
+        Text(
+          'İsabet olasılığı: %${(hit * 100).round()} '
+          '(Ø${metric ? '10 cm' : '3.9 in'} hedef, $_shotDisplay $_distanceUnit).',
+          key: const Key('shot-hit-probability'),
           style: MenzilType.body(c.ink),
         ),
       );
@@ -1207,6 +1324,58 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       const SizedBox(height: MenzilSpace.sm),
       for (final l in lines) ...[l, const SizedBox(height: MenzilSpace.xs)],
     ];
+  }
+
+  /// Chance that one shot lands inside the 10 cm target ring (owner,
+  /// 2026-10-09): rifle group (5-shot extreme spread at the zero range,
+  /// sigma = ES / 3.067), velocity SD (vertical, from a solve at v + SD) and
+  /// the wind bracket (horizontal, half the bracket as one sigma). Elliptic
+  /// Gaussian approximated by P = 1 − exp(−R² / (2·σx·σy)). Null without a
+  /// group size.
+  double? _hitProbability(TrajectoryPoint shot, _ShotBasis basis) {
+    final zero = widget.profile?.zeroRangeM;
+    final g = _parsed(groupCtl);
+    if (zero == null || zero <= 0 || g == null || g <= 0 || g > 100) {
+      return null;
+    }
+    final groupM = metric ? g / 100 : UnitSystem.inchesToMillimeters(g) / 1000;
+    final sigmaG = math.atan(groupM / zero) * 1000 / 3.067;
+    var sigmaV = 0.0;
+    final sdFps = _parsed(sdCtl);
+    if (sdFps != null && sdFps > 0 && sdFps <= 200) {
+      try {
+        final args = _coriolisArgs;
+        final fast = const BallisticEngine()
+            .solve(
+              basis.input(
+                [_shotRangeM],
+                inclineDeg: _inclineDeg,
+                cantDeg: _cantDeg,
+                latitudeDeg: args.lat,
+                azimuthDeg: args.az,
+                shotVelocityMps:
+                    basis.velocityMps + UnitSystem.fpsToMps(sdFps),
+              ),
+            )
+            .single;
+        sigmaV = (fast.correctionMrad - shot.correctionMrad).abs();
+      } on ArgumentError {
+        sigmaV = 0;
+      } on StateError {
+        sigmaV = 0;
+      }
+    }
+    var sigmaH = 0.0;
+    final windMax = _windMaxMps;
+    final mpsPerMil = basis.drag ? _evalShot().mpsPerMil : null;
+    final wind = basis.environment.windMps;
+    if (windMax != null && windMax > wind && mpsPerMil != null && mpsPerMil > 0) {
+      sigmaH = (windMax - wind) / 2 / mpsPerMil;
+    }
+    final sx = math.sqrt(sigmaG * sigmaG + sigmaH * sigmaH);
+    final sy = math.sqrt(sigmaG * sigmaG + sigmaV * sigmaV);
+    final r = math.atan(0.05 / _shotRangeM) * 1000;
+    return (1 - math.exp(-r * r / (2 * sx * sy))).clamp(0.0, 1.0).toDouble();
   }
 
   String _windLabel(double mps) =>
@@ -1269,9 +1438,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final unit = _scopeUnit;
     final basis = _basis;
     double inUnit(double mrad) => unit.fromMrad(mrad);
+    // Sıfır ofseti: a group that sat high/right at the zero lands
+    // high/right everywhere, so less up / more left is needed. Aerodynamic
+    // jump lifts or drops the shot the same way (owner, 2026-10-09).
+    final zeroOff = _zeroOffsetMrad;
+    final jump = shot == null || basis == null ? null : _aeroJumpMrad(basis);
     final requiredUp = shot == null
         ? null
-        : inUnit(shot.correctionMrad) / _turretScale;
+        : inUnit(shot.correctionMrad - zeroOff.up - (jump ?? 0)) /
+              _turretScale;
     // windMrad = atan2(-z, range): the correction toward the RIGHT turret
     // direction, with the solver's +z drawn to the right of the crosshair.
     // Without drag (!basis.drag) it holds only the scope-cant part (wind is
@@ -1285,7 +1460,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         : _spinDriftMrad(shot, basis);
     final requiredRight = (shot == null || basis == null)
         ? 0.0
-        : inUnit(shot.windMrad - (spin ?? 0)) / scale;
+        : inUnit(shot.windMrad - (spin ?? 0) - zeroOff.right) / scale;
 
     final mpsPerMil = basis != null && basis.drag
         ? _evalShot().mpsPerMil
@@ -2035,289 +2210,488 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   // Pro Ayarlar
   // -------------------------------------------------------------------------
 
+  /// One Pro Ayarlar box: a tappable header with a short summary; the
+  /// content (explanation first) shows only while it is the open box
+  /// (owner, 2026-10-09: all boxes start closed, one open at a time).
+  Widget _proBox({
+    required String id,
+    required String title,
+    required String summary,
+    required List<Widget> children,
+  }) {
+    final c = MenzilColors.of(context);
+    final open = _proOpen == id;
+    return MenzilCard(
+      key: Key('pro-box-$id'),
+      margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Semantics(
+            button: true,
+            expanded: open,
+            child: InkWell(
+              key: Key('pro-section-$id'),
+              borderRadius: BorderRadius.circular(12),
+              onTap: () => setState(() => _proOpen = open ? null : id),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: MenzilSpace.xs),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: MenzilType.heading(c.ink, size: 18),
+                      ),
+                    ),
+                    if (!open)
+                      Flexible(
+                        child: Text(
+                          summary,
+                          key: Key('pro-summary-$id'),
+                          textAlign: TextAlign.right,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: MenzilType.caption(c.ink2),
+                        ),
+                      ),
+                    const SizedBox(width: MenzilSpace.xs),
+                    Icon(
+                      open ? Icons.expand_less : Icons.expand_more,
+                      color: c.ink2,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          if (open) ...[
+            const SizedBox(height: MenzilSpace.sm),
+            ...children,
+          ],
+        ],
+      ),
+    );
+  }
+
+  /// Ne? / Neden önemli? / Nasıl? block of one setting.
+  Widget _explain(ProExplain e, {String? note}) {
+    final c = MenzilColors.of(context);
+    TextSpan part(String label, String text) => TextSpan(
+      children: [
+        TextSpan(
+          text: '$label ',
+          style: const TextStyle(fontWeight: FontWeight.w700),
+        ),
+        TextSpan(text: '$text\n'),
+      ],
+    );
+    return Padding(
+      padding: const EdgeInsets.only(top: MenzilSpace.sm, bottom: MenzilSpace.xs),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(e.title, style: MenzilType.body(c.ink).copyWith(
+            fontWeight: FontWeight.w700,
+          )),
+          const SizedBox(height: MenzilSpace.xxs),
+          Text.rich(
+            TextSpan(
+              children: [
+                part('Ne?', e.what),
+                part('Neden önemli?', e.why),
+                part('Nasıl?', e.how),
+              ],
+            ),
+            style: MenzilType.caption(c.ink2).copyWith(height: 1.35),
+          ),
+          if (note != null)
+            Text(
+              note,
+              key: const Key('pro-spin-pcp-note'),
+              style: MenzilType.caption(c.amberInk),
+            ),
+        ],
+      ),
+    );
+  }
+
+  String _summaryAngle() {
+    final i = _inclineDeg.round(), k = _cantDeg.round();
+    return i == 0 && k == 0 ? 'düz' : '$i° / $k°';
+  }
+
+  String _summaryWind() {
+    if (_windZones != null) return 'bölgeli';
+    final m = _windMaxMps;
+    return m == null ? 'kapalı' : 'en çok ${_windLabel(m)} ${metric ? 'm/s' : 'mph'}';
+  }
+
+  String _summaryTarget() {
+    final on = [
+      if (_targetSpeedMps != null) 'hareketli',
+      if ((_parsed(groupCtl) ?? 0) > 0) 'isabet',
+    ];
+    return on.isEmpty ? 'kapalı' : on.join(' · ');
+  }
+
+  String _summaryRifle() {
+    final zero = _zeroOffsetMrad;
+    final n = [
+      turretScaleCtl.text.trim().isNotEmpty,
+      zero.up != 0 || zero.right != 0,
+      _spinDriftOn,
+      _isFirearm &&
+          powderCoefCtl.text.trim().isNotEmpty &&
+          powderTempCtl.text.trim().isNotEmpty,
+    ].where((x) => x).length;
+    return n == 0 ? 'kapalı' : '$n ayar açık';
+  }
+
   List<Widget> _proSection(BuildContext context) {
     final c = MenzilColors.of(context);
     final effect = _coriolisEffect();
+    final windUnit = metric ? 'm/s' : 'mph';
+    final lenUnit = metric ? 'cm' : 'in';
+    const signed = TextInputType.numberWithOptions(decimal: true, signed: true);
     String len(double m) => metric
         ? '${(m.abs() * 100).toStringAsFixed(1)} cm'
         : '${UnitSystem.millimetersToInches(m.abs() * 1000).toStringAsFixed(1)} in';
     return [
-      const MenzilSectionHeader(
-        'Eğim',
-        padding: EdgeInsets.only(bottom: MenzilSpace.sm),
-      ),
-      _angleTiles(context),
-      const MenzilSectionHeader(
-        'Coriolis',
-        padding: EdgeInsets.only(top: MenzilSpace.lg, bottom: MenzilSpace.sm),
-      ),
-      MenzilCard(
-        margin: EdgeInsets.zero,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Coriolis etkisini ekle',
-                    style: MenzilType.body(c.ink),
-                  ),
-                ),
-                const MenzilInfoButton(
-                  title: 'Coriolis',
-                  text: EnvironmentFieldInfo.coriolis,
-                ),
-                // VoiceOver reads the switch with its name.
-                Semantics(
-                  label: 'Coriolis etkisini ekle',
-                  child: Switch(
-                    key: const Key('pro-coriolis-switch'),
-                    value: _coriolisOn,
-                    onChanged: (v) {
-                      _coriolisOn = v;
-                      _coriolisChanged();
-                    },
-                  ),
-                ),
-              ],
-            ),
-            if (_coriolisOn) ...[
-              const SizedBox(height: MenzilSpace.sm),
-              MenzilInput(
-                key: const Key('pro-latitude'),
-                controller: latitudeCtl,
-                label: 'Enlem',
-                unit: '°',
-                info: EnvironmentFieldInfo.latitude,
-                helperText: 'Kuzey +, güney −',
-                errorText: latitudeCtl.text.isNotEmpty && _latitude == null
-                    ? '−90 ile 90 arasında olmalı.'
-                    : null,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                  signed: true,
-                ),
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              MenzilSecondaryButton(
-                key: const Key('pro-latitude-gps'),
-                label: 'Konumdan al',
-                icon: Icons.my_location,
-                expand: true,
-                onPressed: _latitudeFromGps,
-              ),
-              const SizedBox(height: MenzilSpace.md),
-              MenzilInput(
-                key: const Key('pro-azimuth'),
-                controller: azimuthCtl,
-                label: 'Atış yönü (azimut)',
-                unit: '°',
-                info: EnvironmentFieldInfo.azimuth,
-                helperText: 'Kuzey 0 · doğu 90 · güney 180 · batı 270',
-                errorText: azimuthCtl.text.isNotEmpty && _azimuth == null
-                    ? '0 ile 360 arasında olmalı.'
-                    : null,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              MenzilSecondaryButton(
-                key: const Key('pro-azimuth-compass'),
-                label: 'Pusuladan al',
-                icon: Icons.explore_outlined,
-                expand: true,
-                onPressed: _azimuthFromCompass,
-              ),
-              if (_coriolisStatus != null) ...[
-                const SizedBox(height: MenzilSpace.xs),
-                Text(_coriolisStatus!, style: MenzilType.caption(c.ink2)),
-              ],
-              const SizedBox(height: MenzilSpace.sm),
-              Text(
-                effect == null
-                    ? !_dragMode
-                          ? 'Coriolis, BC değeri olan mühimmatla hesaplanır.'
-                          : 'Etkiyi görmek için enlem ve atış yönünü girin.'
-                    : '$_shotDisplay $_distanceUnit\'de Coriolis: '
-                          '${len(effect.up)} ${effect.up >= 0 ? 'yukarı' : 'aşağı'} · '
-                          '${len(effect.right)} ${effect.right >= 0 ? 'sağa' : 'sola'}. '
-                          'Kule klikleri bunu içerir.',
-                key: const Key('pro-coriolis-effect'),
-                style: MenzilType.body(c.ink),
-              ),
-            ],
-          ],
-        ),
-      ),
-      const MenzilSectionHeader(
-        'Kule ölçek katsayısı',
-        padding: EdgeInsets.only(top: MenzilSpace.lg, bottom: MenzilSpace.sm),
-      ),
-      MenzilInput(
-        key: const Key('pro-turret-scale'),
-        controller: turretScaleCtl,
-        label: 'Gerçek / yazan',
-        info: EnvironmentFieldInfo.turretScale,
-        hintText: '1.00',
-        errorText:
-            turretScaleCtl.text.trim().isNotEmpty &&
-                (_parsed(turretScaleCtl) == null ||
-                    _parsed(turretScaleCtl)! < 0.8 ||
-                    _parsed(turretScaleCtl)! > 1.2)
-            ? '0,80 ile 1,20 arasında olmalı.'
-            : null,
-        onChanged: (_) => _coriolisChanged(),
-      ),
-      const MenzilSectionHeader(
-        'Rüzgâr aralığı',
-        padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
-      ),
-      MenzilInput(
-        key: const Key('pro-wind-max'),
-        controller: windMaxCtl,
-        label: 'En yüksek rüzgâr',
-        unit: metric ? 'm/s' : 'mph',
-        info: EnvironmentFieldInfo.windMax,
-        helperText: _windMaxAuto ? 'Otomatik: rüzgâr hızı × 1,5' : null,
-        onChanged: (v) {
-          _windMaxAuto = v.trim().isEmpty;
-          _autoWindMax();
-          _coriolisChanged();
-        },
-      ),
-      const MenzilSectionHeader(
-        'Hareketli hedef',
-        padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
-      ),
-      MenzilFieldGrid(
+      _proBox(
+        id: 'angle',
+        title: 'Açı',
+        summary: _summaryAngle(),
         children: [
+          _angleTiles(context),
+          _explain(ProSectionInfo.incline),
+          _explain(ProSectionInfo.cant),
+        ],
+      ),
+      _proBox(
+        id: 'wind',
+        title: 'Rüzgâr',
+        summary: _summaryWind(),
+        children: [
+          _explain(ProSectionInfo.windMax),
           MenzilInput(
-            key: const Key('pro-target-speed'),
-            controller: targetSpeedCtl,
-            label: 'Hedef hızı',
-            unit: metric ? 'm/s' : 'mph',
-            info: EnvironmentFieldInfo.targetSpeed,
-            onChanged: (_) => _coriolisChanged(),
-          ),
-          MenzilSelect<bool>(
-            key: ValueKey('pro-target-direction-$_targetMovesRight'),
-            label: 'Yönü',
-            info: EnvironmentFieldInfo.targetDirection,
-            initialValue: _targetMovesRight,
-            items: const [
-              DropdownMenuItem(value: true, child: Text('Soldan sağa')),
-              DropdownMenuItem(value: false, child: Text('Sağdan sola')),
-            ],
+            key: const Key('pro-wind-max'),
+            controller: windMaxCtl,
+            label: 'En yüksek rüzgâr',
+            unit: windUnit,
+            info: EnvironmentFieldInfo.windMax,
+            helperText: _windMaxAuto ? 'Otomatik: rüzgâr hızı × 1,5' : null,
             onChanged: (v) {
-              _targetMovesRight = v ?? true;
+              _windMaxAuto = v.trim().isEmpty;
+              _autoWindMax();
               _coriolisChanged();
             },
           ),
+          _explain(ProSectionInfo.windZones),
+          MenzilFieldGrid(
+            children: [
+              MenzilInput(
+                key: const Key('pro-wind-mid'),
+                controller: windMidCtl,
+                label: 'Yol ortası',
+                unit: windUnit,
+                info: EnvironmentFieldInfo.windMid,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+              MenzilInput(
+                key: const Key('pro-wind-far'),
+                controller: windFarCtl,
+                label: 'Hedefte',
+                unit: windUnit,
+                info: EnvironmentFieldInfo.windFar,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+            ],
+          ),
         ],
       ),
-      const MenzilSectionHeader(
-        'Spin drift',
-        padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
+      _proBox(
+        id: 'coriolis',
+        title: 'Coriolis',
+        summary: _coriolisOn ? 'açık' : 'kapalı',
+        children: [
+          _explain(ProSectionInfo.coriolis),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Coriolis etkisini ekle',
+                  style: MenzilType.body(c.ink),
+                ),
+              ),
+              const MenzilInfoButton(
+                title: 'Coriolis',
+                text: EnvironmentFieldInfo.coriolis,
+              ),
+              // VoiceOver reads the switch with its name.
+              Semantics(
+                label: 'Coriolis etkisini ekle',
+                child: Switch(
+                  key: const Key('pro-coriolis-switch'),
+                  value: _coriolisOn,
+                  onChanged: (v) {
+                    _coriolisOn = v;
+                    _coriolisChanged();
+                  },
+                ),
+              ),
+            ],
+          ),
+          if (_coriolisOn) ...[
+            const SizedBox(height: MenzilSpace.sm),
+            MenzilInput(
+              key: const Key('pro-latitude'),
+              controller: latitudeCtl,
+              label: 'Enlem',
+              unit: '°',
+              info: EnvironmentFieldInfo.latitude,
+              helperText: 'Kuzey +, güney −',
+              errorText: latitudeCtl.text.isNotEmpty && _latitude == null
+                  ? '−90 ile 90 arasında olmalı.'
+                  : null,
+              keyboardType: signed,
+              onChanged: (_) => _coriolisChanged(),
+            ),
+            MenzilSecondaryButton(
+              key: const Key('pro-latitude-gps'),
+              label: 'Konumdan al',
+              icon: Icons.my_location,
+              expand: true,
+              onPressed: _latitudeFromGps,
+            ),
+            const SizedBox(height: MenzilSpace.md),
+            MenzilInput(
+              key: const Key('pro-azimuth'),
+              controller: azimuthCtl,
+              label: 'Atış yönü (azimut)',
+              unit: '°',
+              info: EnvironmentFieldInfo.azimuth,
+              helperText: 'Kuzey 0 · doğu 90 · güney 180 · batı 270',
+              errorText: azimuthCtl.text.isNotEmpty && _azimuth == null
+                  ? '0 ile 360 arasında olmalı.'
+                  : null,
+              onChanged: (_) => _coriolisChanged(),
+            ),
+            MenzilSecondaryButton(
+              key: const Key('pro-azimuth-compass'),
+              label: 'Pusuladan al',
+              icon: Icons.explore_outlined,
+              expand: true,
+              onPressed: _azimuthFromCompass,
+            ),
+            if (_coriolisStatus != null) ...[
+              const SizedBox(height: MenzilSpace.xs),
+              Text(_coriolisStatus!, style: MenzilType.caption(c.ink2)),
+            ],
+            const SizedBox(height: MenzilSpace.sm),
+            Text(
+              effect == null
+                  ? !_dragMode
+                        ? 'Coriolis, BC değeri olan mühimmatla hesaplanır.'
+                        : 'Etkiyi görmek için enlem ve atış yönünü girin.'
+                  : '$_shotDisplay $_distanceUnit\'de Coriolis: '
+                        '${len(effect.up)} ${effect.up >= 0 ? 'yukarı' : 'aşağı'} · '
+                        '${len(effect.right)} ${effect.right >= 0 ? 'sağa' : 'sola'}. '
+                        'Kule klikleri bunu içerir.',
+              key: const Key('pro-coriolis-effect'),
+              style: MenzilType.body(c.ink),
+            ),
+          ],
+        ],
       ),
-      MenzilCard(
-        margin: EdgeInsets.zero,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
+      _proBox(
+        id: 'target',
+        title: 'Hedef',
+        summary: _summaryTarget(),
+        children: [
+          _explain(ProSectionInfo.movingTarget),
+          MenzilFieldGrid(
+            children: [
+              MenzilInput(
+                key: const Key('pro-target-speed'),
+                controller: targetSpeedCtl,
+                label: 'Hedef hızı',
+                unit: windUnit,
+                info: EnvironmentFieldInfo.targetSpeed,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+              MenzilSelect<bool>(
+                key: ValueKey('pro-target-direction-$_targetMovesRight'),
+                label: 'Yönü',
+                info: EnvironmentFieldInfo.targetDirection,
+                initialValue: _targetMovesRight,
+                items: const [
+                  DropdownMenuItem(value: true, child: Text('Soldan sağa')),
+                  DropdownMenuItem(value: false, child: Text('Sağdan sola')),
+                ],
+                onChanged: (v) {
+                  _targetMovesRight = v ?? true;
+                  _coriolisChanged();
+                },
+              ),
+            ],
+          ),
+          _explain(ProSectionInfo.hitProbability),
+          MenzilFieldGrid(
+            children: [
+              MenzilInput(
+                key: const Key('pro-group'),
+                controller: groupCtl,
+                label: 'Grup çapı',
+                unit: lenUnit,
+                info: EnvironmentFieldInfo.group,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+              MenzilInput(
+                key: const Key('pro-sd'),
+                controller: sdCtl,
+                label: 'Hız farkı (SD)',
+                unit: 'fps',
+                info: EnvironmentFieldInfo.sd,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+            ],
+          ),
+        ],
+      ),
+      _proBox(
+        id: 'rifle',
+        title: 'Tüfek düzeltmeleri',
+        summary: _summaryRifle(),
+        children: [
+          _explain(ProSectionInfo.turretScale),
+          MenzilInput(
+            key: const Key('pro-turret-scale'),
+            controller: turretScaleCtl,
+            label: 'Gerçek / yazan',
+            info: EnvironmentFieldInfo.turretScale,
+            hintText: '1.00',
+            errorText:
+                turretScaleCtl.text.trim().isNotEmpty &&
+                    (_parsed(turretScaleCtl) == null ||
+                        _parsed(turretScaleCtl)! < 0.8 ||
+                        _parsed(turretScaleCtl)! > 1.2)
+                ? '0,80 ile 1,20 arasında olmalı.'
+                : null,
+            onChanged: (_) => _coriolisChanged(),
+          ),
+          _explain(ProSectionInfo.zeroOffset),
+          MenzilFieldGrid(
+            children: [
+              MenzilInput(
+                key: const Key('pro-zero-up'),
+                controller: zeroUpCtl,
+                label: 'Yukarı (+) / aşağı (−)',
+                unit: lenUnit,
+                info: EnvironmentFieldInfo.zeroUp,
+                keyboardType: signed,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+              MenzilInput(
+                key: const Key('pro-zero-right'),
+                controller: zeroRightCtl,
+                label: 'Sağ (+) / sol (−)',
+                unit: lenUnit,
+                info: EnvironmentFieldInfo.zeroRight,
+                keyboardType: signed,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+            ],
+          ),
+          _explain(
+            ProSectionInfo.spinDrift,
+            note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Text('Spin drift ekle', style: MenzilType.body(c.ink)),
+              ),
+              const MenzilInfoButton(
+                title: 'Spin drift',
+                text: EnvironmentFieldInfo.spinDrift,
+              ),
+              Semantics(
+                label: 'Spin drift ekle',
+                child: Switch(
+                  key: const Key('pro-spin-switch'),
+                  value: _spinDriftOn,
+                  onChanged: (v) {
+                    _spinDriftOn = v;
+                    _coriolisChanged();
+                  },
+                ),
+              ),
+            ],
+          ),
+          if (_spinDriftOn) ...[
+            MenzilInput(
+              key: const Key('pro-bullet-length'),
+              controller: bulletLengthCtl,
+              label: 'Mermi uzunluğu',
+              unit: 'mm',
+              info: EnvironmentFieldInfo.bulletLength,
+              onChanged: (_) => _coriolisChanged(),
+            ),
+            if (profileResolution?.rifle.twistRateIn == null ||
+                profileResolution?.rifle.twistDirection == null)
+              const MenzilNotice(
+                tone: MenzilNoticeTone.warning,
+                message:
+                    'Profilde yiv yönü veya yiv oranı yok; spin drift '
+                    'hesaplanamaz.',
+              ),
+          ],
+          if (_isFirearm) ...[
+            _explain(ProSectionInfo.powder),
+            MenzilFieldGrid(
               children: [
-                Expanded(
-                  child: Text('Spin drift ekle', style: MenzilType.body(c.ink)),
+                MenzilInput(
+                  key: const Key('pro-powder-coef'),
+                  controller: powderCoefCtl,
+                  label: 'Katsayı (%/15 °C)',
+                  info: EnvironmentFieldInfo.powderCoef,
+                  keyboardType: signed,
+                  onChanged: (_) => _coriolisChanged(),
                 ),
-                const MenzilInfoButton(
-                  title: 'Spin drift',
-                  text: EnvironmentFieldInfo.spinDrift,
-                ),
-                Semantics(
-                  label: 'Spin drift ekle',
-                  child: Switch(
-                    key: const Key('pro-spin-switch'),
-                    value: _spinDriftOn,
-                    onChanged: (v) {
-                      _spinDriftOn = v;
-                      _coriolisChanged();
-                    },
-                  ),
+                MenzilInput(
+                  key: const Key('pro-powder-temp'),
+                  controller: powderTempCtl,
+                  label: 'Ölçüm sıcaklığı',
+                  unit: '°C',
+                  info: EnvironmentFieldInfo.powderTemp,
+                  keyboardType: signed,
+                  onChanged: (_) => _coriolisChanged(),
                 ),
               ],
             ),
-            if (_spinDriftOn) ...[
-              MenzilInput(
-                key: const Key('pro-bullet-length'),
-                controller: bulletLengthCtl,
-                label: 'Mermi uzunluğu',
-                unit: 'mm',
-                info: EnvironmentFieldInfo.bulletLength,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              if (profileResolution?.rifle.twistRateIn == null ||
-                  profileResolution?.rifle.twistDirection == null)
-                const MenzilNotice(
-                  tone: MenzilNoticeTone.warning,
-                  message:
-                      'Profilde yiv yönü veya yiv oranı yok; spin drift '
-                      'hesaplanamaz.',
-                ),
-            ],
+            Builder(
+              builder: (context) {
+                final v0 = widget.profile?.muzzleVelocityMps;
+                final t = _parsed(temperature);
+                if (v0 == null || t == null) return const SizedBox.shrink();
+                final today = _powderAdjusted(
+                  v0,
+                  metric ? t : UnitSystem.fahrenheitToCelsius(t),
+                );
+                if (today == v0) return const SizedBox.shrink();
+                return Text(
+                  'Bugünkü hız: ${UnitSystem.mpsToFps(today).toStringAsFixed(0)} '
+                  'fps (profil ${UnitSystem.mpsToFps(v0).toStringAsFixed(0)} fps).',
+                  key: const Key('pro-powder-today'),
+                  style: MenzilType.body(c.ink),
+                );
+              },
+            ),
           ],
-        ),
+        ],
       ),
-      if (_isFirearm) ...[
-        const MenzilSectionHeader(
-          'Barut sıcaklığı',
-          padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
-        ),
-        MenzilFieldGrid(
-          children: [
-            MenzilInput(
-              key: const Key('pro-powder-coef'),
-              controller: powderCoefCtl,
-              label: 'Katsayı (%/15 °C)',
-              info: EnvironmentFieldInfo.powderCoef,
-              keyboardType: const TextInputType.numberWithOptions(
-                decimal: true,
-                signed: true,
-              ),
-              onChanged: (_) => _coriolisChanged(),
-            ),
-            MenzilInput(
-              key: const Key('pro-powder-temp'),
-              controller: powderTempCtl,
-              label: 'Ölçüm sıcaklığı',
-              unit: '°C',
-              info: EnvironmentFieldInfo.powderTemp,
-              keyboardType: const TextInputType.numberWithOptions(
-                decimal: true,
-                signed: true,
-              ),
-              onChanged: (_) => _coriolisChanged(),
-            ),
-          ],
-        ),
-        Builder(
-          builder: (context) {
-            final v0 = widget.profile?.muzzleVelocityMps;
-            final t = _parsed(temperature);
-            if (v0 == null || t == null) return const SizedBox.shrink();
-            final today = _powderAdjusted(
-              v0,
-              metric ? t : UnitSystem.fahrenheitToCelsius(t),
-            );
-            if (today == v0) return const SizedBox.shrink();
-            return Text(
-              'Bugünkü hız: ${UnitSystem.mpsToFps(today).toStringAsFixed(0)} '
-              'fps (profil ${UnitSystem.mpsToFps(v0).toStringAsFixed(0)} fps).',
-              key: const Key('pro-powder-today'),
-              style: MenzilType.body(c.ink),
-            );
-          },
-        ),
-      ],
-      const SizedBox(height: MenzilSpace.lg),
+      const SizedBox(height: MenzilSpace.md),
       if (widget.onContinueToShot != null)
         MenzilPrimaryButton(
           key: const Key('pro-continue-shot'),

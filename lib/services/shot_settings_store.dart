@@ -28,6 +28,21 @@ class ShotSettings {
   final String powderCoefText;
   final String powderTempText;
 
+  /// Rüzgâr bölgeleri: wind at mid-range and at the target (shown unit, as
+  /// typed); empty = the Hava Durumu wind everywhere.
+  final String windMidText;
+  final String windFarText;
+
+  /// Sıfır ofseti: where the group centre sat at the zero range, cm (in on
+  /// imperial), + = high / right.
+  final String zeroUpText;
+  final String zeroRightText;
+
+  /// İsabet olasılığı: group size at the zero range (cm / in) and muzzle
+  /// velocity SD (fps).
+  final String groupText;
+  final String sdText;
+
   const ShotSettings({
     this.inclineDeg = 0,
     this.cantDeg = 0,
@@ -42,6 +57,12 @@ class ShotSettings {
     this.bulletLengthText = '',
     this.powderCoefText = '',
     this.powderTempText = '',
+    this.windMidText = '',
+    this.windFarText = '',
+    this.zeroUpText = '',
+    this.zeroRightText = '',
+    this.groupText = '',
+    this.sdText = '',
   });
 
   Map<String, dynamic> toJson() => {
@@ -58,6 +79,12 @@ class ShotSettings {
     'bulletLength': bulletLengthText,
     'powderCoef': powderCoefText,
     'powderTemp': powderTempText,
+    'windMid': windMidText,
+    'windFar': windFarText,
+    'zeroUp': zeroUpText,
+    'zeroRight': zeroRightText,
+    'group': groupText,
+    'sd': sdText,
   };
 
   /// Unknown or damaged values fall back to the neutral default (level,
@@ -84,6 +111,12 @@ class ShotSettings {
       bulletLengthText: text(json['bulletLength']),
       powderCoefText: text(json['powderCoef']),
       powderTempText: text(json['powderTemp']),
+      windMidText: text(json['windMid']),
+      windFarText: text(json['windFar']),
+      zeroUpText: text(json['zeroUp']),
+      zeroRightText: text(json['zeroRight']),
+      groupText: text(json['group']),
+      sdText: text(json['sd']),
     );
   }
 }

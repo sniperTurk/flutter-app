@@ -1,6 +1,24 @@
 import '../models/domain.dart';
 import 'production_limits.dart';
 
+/// Rüzgâr bölgeleri (owner, 2026-10-09): the shooter's wind (the
+/// environment's) applies over the first third of [rangeM], [midMps] over the
+/// middle third and [farMps] beyond. Same direction everywhere.
+class WindZones {
+  final double rangeM, midMps, farMps;
+  const WindZones({
+    required this.rangeM,
+    required this.midMps,
+    required this.farMps,
+  });
+
+  double at(double downrangeM, double nearMps) {
+    if (downrangeM < rangeM / 3) return nearMps;
+    if (downrangeM < rangeM * 2 / 3) return midMps;
+    return farMps;
+  }
+}
+
 /// Validated boundary object for trajectory calculations.
 /// Keeps malformed UI/profile values out of the solver.
 class BallisticInput {
@@ -21,6 +39,13 @@ class BallisticInput {
   /// Velocity-dependent BC steps (çoklu BC); empty = [ballisticCoefficient]
   /// at every speed. Thresholds are projectile speed through the air.
   final List<BcBand> bcBands;
+
+  /// Wind by distance (shot only; the zero is solved in calm air).
+  final WindZones? windZones;
+
+  /// Wind speed at [downrangeM] for the current shot.
+  double windAt(double downrangeM) =>
+      windZones?.at(downrangeM, environment.windMps) ?? environment.windMps;
 
   /// BC that applies at [speedMps]: the band with the highest threshold the
   /// speed still reaches, else the lowest band, else [ballisticCoefficient].
@@ -73,6 +98,7 @@ class BallisticInput {
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
     bcBands: bcBands,
+    windZones: windZones,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
@@ -96,6 +122,7 @@ class BallisticInput {
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
     bcBands: bcBands,
+    windZones: windZones,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
@@ -122,6 +149,7 @@ class BallisticInput {
       for (final b in bcBands)
         BcBand(b.minVelocityMps, b.bc * bc / ballisticCoefficient!),
     ],
+    windZones: windZones,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
@@ -147,6 +175,7 @@ class BallisticInput {
     this.ballisticCoefficient,
     this.ballisticModel,
     Iterable<BcBand> bcBands = const [],
+    this.windZones,
     this.inclineDeg = 0,
     this.cantDeg = 0,
     this.latitudeDeg,
@@ -158,6 +187,15 @@ class BallisticInput {
          bcBands.toList()
            ..sort((a, b) => b.minVelocityMps.compareTo(a.minVelocityMps)),
        ) {
+    final z = windZones;
+    if (z != null) {
+      _positiveFinite('windZones.rangeM', z.rangeM);
+      for (final w in [z.midMps, z.farMps]) {
+        if (!w.isFinite || w < 0 || w > 60) {
+          throw ArgumentError.value(w, 'windZones', '0..60 m/s');
+        }
+      }
+    }
     if (this.bcBands.length > 5) {
       throw ArgumentError.value(this.bcBands.length, 'bcBands', 'at most 5');
     }
