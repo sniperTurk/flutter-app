@@ -164,10 +164,7 @@ void main() {
       final today = tester
           .widget<Text>(find.byKey(const Key('pro-powder-today')))
           .data!;
-      expect(
-        today,
-        contains('${(812 * 3.280839895).toStringAsFixed(0)} fps'),
-      );
+      expect(today, contains('${(812 * 3.280839895).toStringAsFixed(0)} fps'));
     });
   });
 }

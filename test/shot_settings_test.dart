@@ -233,7 +233,10 @@ void main() {
 
     await tester.enterText(field(BallisticsFieldKeys.pressure), '900,00');
     await solve();
-    expect(find.byKey(const Key('environment-pressure-warning')), findsOneWidget);
+    expect(
+      find.byKey(const Key('environment-pressure-warning')),
+      findsOneWidget,
+    );
     expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
     await tester.enterText(field(BallisticsFieldKeys.pressure), '1013.25');
     await tester.enterText(field(BallisticsFieldKeys.humidity), '95');

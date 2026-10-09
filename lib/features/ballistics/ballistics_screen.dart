@@ -294,7 +294,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final tF = basis.environment.temperatureC * 9 / 5 + 32;
     final pInHg = basis.environment.pressureHpa * 0.0295299830714;
     final sg =
-        30 * basis.grain / (tCal * tCal * dIn * dIn * dIn * lCal * (1 + lCal * lCal)) *
+        30 *
+        basis.grain /
+        (tCal * tCal * dIn * dIn * dIn * lCal * (1 + lCal * lCal)) *
         math.pow(vFps / 2800, 1 / 3) *
         ((tF + 460) / 519) *
         (29.92 / pInHg);
@@ -2165,10 +2167,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                    'Spin drift ekle',
-                    style: MenzilType.body(c.ink),
-                  ),
+                  child: Text('Spin drift ekle', style: MenzilType.body(c.ink)),
                 ),
                 const MenzilInfoButton(
                   title: 'Spin drift',
@@ -2245,7 +2244,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             final v0 = widget.profile?.muzzleVelocityMps;
             final t = _parsed(temperature);
             if (v0 == null || t == null) return const SizedBox.shrink();
-            final today = _powderAdjusted(v0, metric ? t : UnitSystem.fahrenheitToCelsius(t));
+            final today = _powderAdjusted(
+              v0,
+              metric ? t : UnitSystem.fahrenheitToCelsius(t),
+            );
             if (today == v0) return const SizedBox.shrink();
             return Text(
               'Bugünkü hız: ${UnitSystem.mpsToFps(today).toStringAsFixed(0)} '
