@@ -460,41 +460,41 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                 if (googleMapsEnabled)
                   _googleMap(c, dist)
                 else
-                FlutterMap(
-                  key: const Key('map-view'),
-                  mapController: _map,
-                  options: MapOptions(
-                    initialCenter: _turkey,
-                    initialZoom: 6,
-                    minZoom: 2,
-                    maxZoom: 18,
-                    onTap: (_, p) => _onTap(p),
-                  ),
-                  children: [
-                    TileLayer(
-                      urlTemplate: mapImageryUrl,
-                      userAgentPackageName: 'com.sniperturk.sniperTurk',
-                      // Esri has no imagery beyond about zoom 17 in many rural areas; deeper
-                      // zoom levels stretch the zoom-17 tiles instead of showing gaps.
-                      maxNativeZoom: 17,
-                      tileProvider: widget.tileProvider,
+                  FlutterMap(
+                    key: const Key('map-view'),
+                    mapController: _map,
+                    options: MapOptions(
+                      initialCenter: _turkey,
+                      initialZoom: 6,
+                      minZoom: 2,
+                      maxZoom: 18,
+                      onTap: (_, p) => _onTap(p),
                     ),
-                    if (_shooter != null && _target != null)
-                      PolylineLayer(
-                        polylines: [
-                          Polyline(
-                            points: [_shooter!, _target!],
-                            strokeWidth: 3,
-                            color: c.amber,
-                          ),
-                        ],
+                    children: [
+                      TileLayer(
+                        urlTemplate: mapImageryUrl,
+                        userAgentPackageName: 'com.sniperturk.sniperTurk',
+                        // Esri has no imagery beyond about zoom 17 in many rural areas; deeper
+                        // zoom levels stretch the zoom-17 tiles instead of showing gaps.
+                        maxNativeZoom: 17,
+                        tileProvider: widget.tileProvider,
                       ),
-                    MarkerLayer(markers: marker),
-                    const SimpleAttributionWidget(
-                      source: Text('Esri, Maxar, Earthstar Geographics'),
-                    ),
-                  ],
-                ),
+                      if (_shooter != null && _target != null)
+                        PolylineLayer(
+                          polylines: [
+                            Polyline(
+                              points: [_shooter!, _target!],
+                              strokeWidth: 3,
+                              color: c.amber,
+                            ),
+                          ],
+                        ),
+                      MarkerLayer(markers: marker),
+                      const SimpleAttributionWidget(
+                        source: Text('Esri, Maxar, Earthstar Geographics'),
+                      ),
+                    ],
+                  ),
                 IgnorePointer(
                   child: Center(
                     child: Icon(
