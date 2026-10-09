@@ -2456,8 +2456,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               key: Key('pro-section-$id'),
               borderRadius: BorderRadius.circular(12),
               onTap: () => setState(() => _proOpen = open ? null : id),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: MenzilSpace.xs),
+              // 44 pt minimum tap target (VoiceOver / HIG).
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 48),
                 child: Row(
                   children: [
                     Expanded(

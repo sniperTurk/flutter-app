@@ -55,7 +55,7 @@ Future<Uint8List> buildDopeCardPdf(
             children: [
               pw.Text(
                 'SNIPER ',
-                style: pw.TextStyle(
+                style: const pw.TextStyle(
                   fontSize: 20,
                   fontWeight: pw.FontWeight.bold,
                   color: ink,
@@ -63,7 +63,7 @@ Future<Uint8List> buildDopeCardPdf(
               ),
               pw.Text(
                 'TÜRK',
-                style: pw.TextStyle(
+                style: const pw.TextStyle(
                   fontSize: 20,
                   fontWeight: pw.FontWeight.bold,
                   color: red,
@@ -72,7 +72,7 @@ Future<Uint8List> buildDopeCardPdf(
               pw.Spacer(),
               pw.Text(
                 'DOPE KARTI',
-                style: pw.TextStyle(
+                style: const pw.TextStyle(
                   fontSize: 14,
                   fontWeight: pw.FontWeight.bold,
                   color: grey,
@@ -83,7 +83,7 @@ Future<Uint8List> buildDopeCardPdf(
           pw.SizedBox(height: 4),
           pw.Text(
             d.title,
-            style: pw.TextStyle(
+            style: const pw.TextStyle(
               fontSize: 15,
               fontWeight: pw.FontWeight.bold,
               color: ink,
@@ -104,7 +104,7 @@ Future<Uint8List> buildDopeCardPdf(
                       ),
                       pw.TextSpan(
                         text: v,
-                        style: pw.TextStyle(
+                        style: const pw.TextStyle(
                           fontSize: 9,
                           fontWeight: pw.FontWeight.bold,
                           color: ink,
@@ -119,7 +119,7 @@ Future<Uint8List> buildDopeCardPdf(
           pw.TableHelper.fromTextArray(
             headers: d.headers,
             data: d.rows,
-            headerStyle: pw.TextStyle(
+            headerStyle: const pw.TextStyle(
               fontSize: 10,
               fontWeight: pw.FontWeight.bold,
               color: PdfColors.white,
