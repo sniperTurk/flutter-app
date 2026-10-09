@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:printing/printing.dart';
 
 import '../../core/atmosphere.dart';
 import '../../core/ballistic_engine.dart';
@@ -28,6 +30,7 @@ import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../tools/map_distance_screen.dart';
 import '../tools/weather_screen.dart';
+import 'dope_card.dart';
 import 'environment_field_info.dart';
 import 'incline_measure_screen.dart';
 import 'pro_section_info.dart';
@@ -44,6 +47,12 @@ import 'wind_clock_picker.dart';
 enum BallisticsView { all, shot, table, environment, pro }
 
 /// Stable keys for the ballistic inputs (used by widget tests).
+/// Seams for widget tests (never set in the app).
+abstract final class BallisticsScreenTestHooks {
+  /// Replaces the system share sheet for the DOPE card PDF.
+  static Future<void> Function(List<int> bytes, String filename)? sharePdf;
+}
+
 abstract final class BallisticsFieldKeys {
   static const velocity = ValueKey('ballistics-velocity');
   static const grain = ValueKey('ballistics-grain');
@@ -1362,6 +1371,145 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     ];
   }
 
+  /// DOPE kartı rows for the active profile in today's conditions: level,
+  /// no Coriolis; clicks include the zero offset and the turret scale.
+  DopeCardData? _dopeCardData() {
+    final basis = _basis;
+    final s = scope;
+    final click = _scopeClickValue;
+    final p = widget.profile;
+    if (basis == null || s == null || click == null || p == null) return null;
+    final unit = _scopeUnit;
+    final firearm = _isFirearm;
+    final shown = firearm
+        ? [for (var r = 100; r <= 1000; r += 50) r.toDouble()]
+        : [for (var r = 10; r <= 150; r += 10) r.toDouble()];
+    final ranges = [
+      for (final r in shown)
+        if (_fromDisplayRange(r) <= ProductionLimits.maxRangeM)
+          _fromDisplayRange(r),
+    ];
+    const engine = BallisticEngine();
+    final solved = engine.solveReachable(basis.input(ranges));
+    if (solved.points.isEmpty) return null;
+    final windMps = metric ? 3.0 : UnitSystem.mphToMps(5);
+    final windByRange = <double, double>{};
+    if (basis.drag) {
+      try {
+        final w = engine.solveReachable(
+          basis.input(ranges, windMps: windMps, windDirectionDeg: 90),
+        );
+        for (final pt in w.points) {
+          windByRange[pt.rangeM] = pt.windMrad;
+        }
+      } on ArgumentError {
+        // No wind column.
+      }
+    }
+    final zeroOff = _zeroOffsetMrad;
+    final scale = _turretScale;
+    String num1(double v) => v.toStringAsFixed(unit.moaFamily ? 1 : 2);
+    final rows = <List<String>>[];
+    for (final pt in solved.points) {
+      final up = unit.fromMrad(pt.correctionMrad - zeroOff.up) / scale;
+      final clicks = (up / click).round();
+      final w = windByRange[pt.rangeM];
+      final wClicks = w == null
+          ? '—'
+          : (unit.fromMrad(w.abs()) / click / scale).round().toString();
+      rows.add([
+        _toDisplayRange(pt.rangeM).round().toString(),
+        num1(up),
+        '${clicks >= 0 ? '↑' : '↓'} ${clicks.abs()}',
+        wClicks,
+        UnitSystem.mpsToFps(pt.velocityMps).toStringAsFixed(0),
+      ]);
+    }
+    final ammo = ammunition;
+    final env = basis.environment;
+    final now = DateTime.now();
+    String two(int v) => v.toString().padLeft(2, '0');
+    return DopeCardData(
+      title: p.name,
+      info: [
+        ('Tüfek', profileResolution?.rifle.displayName ?? '—'),
+        ('Mühimmat', ammo?.displayName ?? '—'),
+        if (basis.drag)
+          (
+            'BC',
+            '${basis.ballisticCoefficient} '
+                '${basis.ballisticModel!.name.toUpperCase()}',
+          ),
+        ('Hız', '${UnitSystem.mpsToFps(basis.velocityMps).toStringAsFixed(0)} fps'),
+        (
+          'Sıfır',
+          '${_toDisplayRange(basis.zeroRangeM).round()} $_distanceUnit',
+        ),
+        ('Dürbün', '${unit.label}, $click ${unit.label}/klik'),
+        (
+          'Hava',
+          '${metric ? '${env.temperatureC.toStringAsFixed(0)} °C' : '${UnitSystem.celsiusToFahrenheit(env.temperatureC).toStringAsFixed(0)} °F'}, '
+              '${env.pressureHpa.toStringAsFixed(0)} hPa, '
+              'nem %${env.humidityPercent.toStringAsFixed(0)}',
+        ),
+        (
+          'Tarih',
+          '${two(now.day)}.${two(now.month)}.${now.year} '
+              '${two(now.hour)}:${two(now.minute)}',
+        ),
+      ],
+      headers: [
+        'Mesafe ($_distanceUnit)',
+        'Yukarı (${unit.label})',
+        'Tık',
+        'Yan rüzgâr ${metric ? '3 m/s' : '5 mph'} (tık)',
+        'Hız (fps)',
+      ],
+      rows: rows,
+      notes: [
+        'Değerler yukarıdaki hava koşullarıyla hesaplandı; sıcaklık ve basınç '
+            'değişirse uzak mesafede kayar.',
+        'Yan rüzgâr sütunu saat 3 veya 9 yönünden tam yan rüzgâr içindir: '
+            'rüzgâr sağdan esiyorsa sağa, soldan esiyorsa sola çevirin.',
+        if (zeroOff.up != 0 || zeroOff.right != 0)
+          'Sıfır ofseti tıklara dahildir.',
+        if (scale != 1) 'Kule ölçek katsayısı ($scale) tıklara dahildir.',
+        if (!basis.drag)
+          'BC girilmediği için hava direnci yok sayıldı; uzak mesafede gerçek '
+              'düşüş daha fazladır.',
+        if (solved.unreachableM.isNotEmpty)
+          'Mermi ${_toDisplayRange(solved.unreachableM.first).round()} '
+              '$_distanceUnit ve ötesine ulaşamıyor.',
+        'İlk atışta mutlaka canlı atışla doğrulayın.',
+      ],
+    );
+  }
+
+  Future<void> _shareDopeCard() async {
+    final data = _dopeCardData();
+    if (data == null) {
+      _error('DOPE kartı için önce bir çözüm gerekiyor.');
+      return;
+    }
+    try {
+      final bytes = await buildDopeCardPdf(
+        data,
+        regular: await rootBundle.load('assets/fonts/DejaVuSans.ttf'),
+        bold: await rootBundle.load('assets/fonts/DejaVuSans-Bold.ttf'),
+      );
+      final name =
+          'sniper-turk-dope-${widget.profile!.name.replaceAll(RegExp(r'[^A-Za-z0-9]+'), '-')}.pdf';
+      final share = BallisticsScreenTestHooks.sharePdf;
+      if (share != null) {
+        await share(bytes, name);
+      } else {
+        await Printing.sharePdf(bytes: bytes, filename: name);
+      }
+    } catch (_) {
+      if (mounted) _error('DOPE kartı oluşturulamadı.');
+    }
+  }
+
   /// Chance that one shot lands inside the 10 cm target ring (owner,
   /// 2026-10-09): rifle group (5-shot extreme spread at the zero range,
   /// sigma = ES / 3.067), velocity SD (vertical, from a solve at v + SD) and
@@ -1555,14 +1703,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _halfTravelClicks(click, s.windageRangeMrad) ?? _unknownTravelClicks;
     if (_autoDialArmed && requiredUp != null) {
       _autoDialArmed = false;
-      final up = ScopeDialMath.clicksFor(
-        requiredUp,
-        click,
-      ).clamp(-downClicks, upClicks).toInt();
-      final right = ScopeDialMath.clicksFor(
-        requiredRight,
-        click,
-      ).clamp(-maxWindage, maxWindage).toInt();
+      int within(int v, int lo, int hi) => math.max(lo, math.min(hi, v));
+      final up = within(
+        ScopeDialMath.clicksFor(requiredUp, click),
+        -downClicks,
+        upClicks,
+      );
+      final right = within(
+        ScopeDialMath.clicksFor(requiredRight, click),
+        -maxWindage,
+        maxWindage,
+      );
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
         setState(() {
@@ -3089,6 +3240,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         padding: const EdgeInsets.only(bottom: MenzilSpace.md),
         child: _referenceShotPanel(shot),
       ),
+      if (_basis != null)
+        Padding(
+          padding: const EdgeInsets.only(bottom: MenzilSpace.md),
+          child: MenzilSecondaryButton(
+            key: const Key('shot-dope-pdf'),
+            label: 'DOPE kartını paylaş (PDF)',
+            icon: Icons.picture_as_pdf_outlined,
+            expand: true,
+            onPressed: _shareDopeCard,
+          ),
+        ),
       if (_dragMode) ..._dragNotices(),
       if (!_dragMode)
         const Padding(

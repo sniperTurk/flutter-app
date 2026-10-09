@@ -21,6 +21,9 @@ dependencies:
   flutter_map: ^8.2.1
   # Haritadan mesafe: Google Maps (hybrid) when the iOS key is configured.
   google_maps_flutter: ^2.10.0
+  # DOPE kartı: PDF oluşturma ve paylaşma.
+  pdf: ^3.11.0
+  printing: ^5.13.0
   latlong2: ^0.9.1
 dev_dependencies:
   flutter_test:
@@ -30,3 +33,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 flutter:
   uses-material-design: true
+  assets:
+    # DejaVu Sans (Türkçe karakterler) for the DOPE card PDF.
+    - assets/fonts/DejaVuSans.ttf
+    - assets/fonts/DejaVuSans-Bold.ttf

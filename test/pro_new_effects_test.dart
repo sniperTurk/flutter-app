@@ -170,6 +170,34 @@ void main() {
       expect(find.text('Vuruş noktası: artı işaretinde'), findsOneWidget);
     });
 
+    testWidgets('DOPE kartı: the button builds a PDF and hands it to share', (
+      tester,
+    ) async {
+      await sized(tester);
+      List<int>? pdf;
+      String? name;
+      BallisticsScreenTestHooks.sharePdf = (bytes, file) async {
+        pdf = bytes;
+        name = file;
+      };
+      addTearDown(() => BallisticsScreenTestHooks.sharePdf = null);
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final button = find.byKey(const Key('shot-dope-pdf'));
+      await tester.ensureVisible(button);
+      await tester.pumpAndSettle();
+      await tester.runAsync(() async {
+        await tester.tap(button);
+        for (var i = 0; i < 50 && pdf == null; i++) {
+          await Future<void>.delayed(const Duration(milliseconds: 100));
+        }
+      });
+      await tester.pump();
+      expect(pdf, isNotNull);
+      expect(String.fromCharCodes(pdf!.take(4)), '%PDF');
+      expect(name, endsWith('.pdf'));
+    });
+
     testWidgets('isabet olasılığı appears once a group size is given', (
       tester,
     ) async {
