@@ -135,7 +135,8 @@ class ManualCatalogStore {
     // Optional on older records; when present it must be a known unit. Scopes
     // without it stay stored but cannot be selected in a profile.
     final clickUnit = entry['clickUnit'];
-    if (clickUnit != null && clickUnit != 'mrad' && clickUnit != 'moa') {
+    // SMOA = ¼ inç @ 100 yd turrets (owner, 2026-10-09).
+    if (clickUnit != null && !const {'mrad', 'moa', 'smoa'}.contains(clickUnit)) {
       throw const FormatException('Invalid click unit');
     }
     final twist = entry['twistDirection'];
