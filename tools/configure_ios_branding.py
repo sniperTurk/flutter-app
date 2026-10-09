@@ -24,8 +24,8 @@ from pathlib import Path
 
 ICON = "AppIcon-1024.png"
 LAUNCH = ("LaunchImage.png", "LaunchImage@2x.png", "LaunchImage@3x.png")
-# #0B0C0E, the colour the launch logo fades into.
-BG = 'red="0.043" green="0.047" blue="0.055" alpha="1"'
+# #090909, the colour the launch logo fades into.
+BG = 'red="0.035" green="0.035" blue="0.035" alpha="1"'
 BG_TAG = (
     f'<color key="backgroundColor" {BG} colorSpace="custom" '
     'customColorSpace="sRGB"/>'
