@@ -381,14 +381,8 @@ class _TruingScreenState extends State<TruingScreen> {
         metrics: [
           MenzilMetric('Hesaplanan', angle(r.predictedMrad), u.label),
           MenzilMetric('Gözlenen', angle(r.observedMrad), u.label),
-          MenzilMetric(
-            'Profil hızı',
-            _fps(r.baseMps),
-          ),
-          MenzilMetric(
-            'Doğrulanmış hız',
-            _fps(r.truedMps),
-          ),
+          MenzilMetric('Profil hızı', _fps(r.baseMps)),
+          MenzilMetric('Doğrulanmış hız', _fps(r.truedMps)),
           MenzilMetric(
             'Değişim',
             '$sign${ToolFormat.dec(r.changePercent.abs(), 1)}',

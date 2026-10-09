@@ -49,7 +49,8 @@ class ToolsScreen extends StatelessWidget {
           tileKey: const Key('tool-truing'),
           icon: Icons.tune,
           title: 'Hız Doğrulama',
-          subtitle: 'Sahada gözlenen düşümle namlu hızını doğrula; profile aktarım',
+          subtitle:
+              'Sahada gözlenen düşümle namlu hızını doğrula; profile aktarım',
           onTap: () => _open(context, const TruingScreen()),
         ),
         MenzilToolTile(

@@ -92,7 +92,9 @@ abstract final class MuzzleVelocityTruing {
     required double observedCorrectionMrad,
     BallisticEngine engine = const BallisticEngine(),
   }) {
-    if (!rangeM.isFinite || rangeM <= 0 || rangeM > ProductionLimits.maxRangeM) {
+    if (!rangeM.isFinite ||
+        rangeM <= 0 ||
+        rangeM > ProductionLimits.maxRangeM) {
       throw ArgumentError.value(rangeM, 'rangeM', 'out of range');
     }
     if (!observedCorrectionMrad.isFinite) {
@@ -129,10 +131,9 @@ abstract final class MuzzleVelocityTruing {
 
     // Correction falls as velocity rises. Bracket the root.
     var lo = v0 * (1 - maxChangeFraction);
-    var hi = (v0 * (1 + maxChangeFraction)).clamp(
-      v0,
-      ProductionLimits.maxMuzzleVelocityMps,
-    ).toDouble();
+    var hi = (v0 * (1 + maxChangeFraction))
+        .clamp(v0, ProductionLimits.maxMuzzleVelocityMps)
+        .toDouble();
     if (predict(lo) < observedCorrectionMrad ||
         predict(hi) > observedCorrectionMrad) {
       throw const TruingFailure(TruingRejection.outOfBounds);
