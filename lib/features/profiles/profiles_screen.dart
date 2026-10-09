@@ -521,8 +521,9 @@ int? _topTurretClicks(ScopeOptic s, AngularUnit unit) {
 /// The zero in the profile's own distance unit ("25" m, "27.3" yd).
 String _zeroValue(RifleProfile p) {
   final v = p.distanceUnit.fromMeters(p.zeroRangeM);
+  // Same style as the other summary numbers (66.0 mm): a dot.
   return p.distanceUnit == DistanceUnit.yard
-      ? _trimNum((v * 10).roundToDouble() / 10)
+      ? v.toStringAsFixed(1)
       : v.toStringAsFixed(0);
 }
 
@@ -1567,9 +1568,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     // The typed zero keeps its real distance.
                     final typed = _parse(zero);
                     if (typed != null && next != distanceUnit) {
-                      zero.text = _trimNum(
-                        _round1(next.fromMeters(distanceUnit.toMeters(typed))),
+                      final v = _round1(
+                        next.fromMeters(distanceUnit.toMeters(typed)),
                       );
+                      // Same style as the prefilled value ("27.3").
+                      zero.text = v % 1 == 0
+                          ? v.toStringAsFixed(0)
+                          : v.toString();
                     }
                     distanceUnit = next;
                   }),

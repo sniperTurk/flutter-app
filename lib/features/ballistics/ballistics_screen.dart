@@ -11,7 +11,6 @@ import '../../core/production_limits.dart';
 import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
-import '../../core/units.dart';
 import '../../core/wind_clock.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
