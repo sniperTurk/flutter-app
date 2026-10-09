@@ -302,6 +302,19 @@ void _unitsAndFirearmTests() {
     expect(find.text('9.00 mm'), findsNothing);
     await chooseInSelect(tester, 'rifle-caliber', '7.62 mm (.308)');
     expect(tester.widget<TextField>(grain).decoration!.hintText, '168 gr');
+    // No pellet example in the ammunition name of a firearm.
+    expect(
+      tester
+          .widget<TextField>(
+            find.descendant(
+              of: find.byKey(const Key('ammo-brand')),
+              matching: find.byType(TextField),
+            ),
+          )
+          .decoration!
+          .hintText,
+      isNull,
+    );
     // No pellet/slug choice for a firearm; the note says it is a bullet.
     expect(find.byKey(const Key('ammo-type')), findsNothing);
     expect(find.textContaining('Tip: mermi'), findsOneWidget);

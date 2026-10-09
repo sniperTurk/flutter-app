@@ -1769,7 +1769,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   key: const Key('ammo-brand'),
                   controller: ammoBrand,
                   label: 'Marka Model',
-                  hintText: 'JSB King Heavy',
+                  // A pellet example only on PCP; empty for a firearm
+                  // (owner, 2026-10-09).
+                  hintText: platform == WeaponPlatform.pcp
+                      ? 'JSB King Heavy'
+                      : null,
                   keyboardType: TextInputType.text,
                   maxLength: 100,
                   onChanged: (_) => setState(() {}),
