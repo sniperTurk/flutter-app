@@ -46,6 +46,7 @@ void main() {
         '1013.25',
       );
       await tester.enterText(_fieldFor(BallisticsFieldKeys.humidity), '50');
+      await tester.ensureVisible(find.text('DOPE oluştur'));
       await tester.tap(find.text('DOPE oluştur'));
       await tester.pumpAndSettle();
       final baseline = _readDensity(tester);
@@ -54,14 +55,18 @@ void main() {
       // (ideal gas law). If temperature were not actually threaded through to
       // Atmosphere.densityKgM3, this value would stay identical to baseline.
       await tester.enterText(_fieldFor(BallisticsFieldKeys.temperature), '35');
+      await tester.ensureVisible(find.text('DOPE oluştur'));
       await tester.tap(find.text('DOPE oluştur'));
       await tester.pumpAndSettle();
       final warmer = _readDensity(tester);
       expect(warmer, lessThan(baseline));
 
       // Comma decimal separators must be accepted (replaceAll(',', '.')).
+      // (900 hPa at 0 m also shows the implausible-pressure warning; the
+      // following edits must still reach the solve.)
       await tester.enterText(_fieldFor(BallisticsFieldKeys.temperature), '15');
       await tester.enterText(_fieldFor(BallisticsFieldKeys.pressure), '900,00');
+      await tester.ensureVisible(find.text('DOPE oluştur'));
       await tester.tap(find.text('DOPE oluştur'));
       await tester.pumpAndSettle();
       final lowerPressure = _readDensity(tester);
@@ -74,6 +79,7 @@ void main() {
         '1013.25',
       );
       await tester.enterText(_fieldFor(BallisticsFieldKeys.humidity), '95');
+      await tester.ensureVisible(find.text('DOPE oluştur'));
       await tester.tap(find.text('DOPE oluştur'));
       await tester.pumpAndSettle();
       final humid = _readDensity(tester);

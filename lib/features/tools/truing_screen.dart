@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import '../../core/ballistic_input.dart';
 import '../../core/unit_system.dart';
 import '../../core/velocity_truing.dart';
+import '../../data/catalog_repository.dart';
 import '../../data/profile_catalog_integrity.dart';
+import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
 import '../../services/active_profile_store.dart';
 import '../../services/app_settings.dart';
+import '../../services/manual_catalog_store.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
@@ -22,6 +25,11 @@ abstract final class TruingFieldInfo {
       'Doğrulama atışını yaptığınız hedefin mesafesi; telemetre ile ölçün. '
       'Sıfır mesafesinden belirgin uzak olmalı: düşüm ne kadar büyükse hız '
       'o kadar iyi bulunur. Örnek: PCP için 75–100 m, ateşli için 500–800 m.';
+  static const mode =
+      'Namlu çıkış hızı: sıfırdan biraz uzak, orta bir mesafede (PCP 50–75 m, '
+      'ateşli 300–500 m) ölçün; ilk adım budur. Balistik katsayı (BC): hız '
+      'doğrulandıktan sonra, en uzak mesafede (PCP 100 m+, ateşli 700 m+) '
+      'ölçün; uzak mesafedeki düşüşü asıl hava direnci belirler.';
   static const observed =
       'Grubu hedefin tam ortasına getiren, kuleden çevirdiğiniz yükseliş '
       'düzeltmesi (sıfırdan itibaren, yukarı pozitif). Tık sayısını tık '
@@ -61,6 +69,11 @@ class _TruingScreenState extends State<TruingScreen> {
   RifleProfile? _profile;
   ProfileCatalogResolution? _resolution;
   TruingResult? _result;
+  BcTruingResult? _bcResult;
+
+  /// What the observation trues: muzzle velocity (first step) or the BC at
+  /// a far range (second step, owner 2026-10-09).
+  bool _trueBc = false;
   String? _error;
 
   @override
@@ -165,15 +178,31 @@ class _TruingScreenState extends State<TruingScreen> {
       return;
     }
     try {
-      final result = MuzzleVelocityTruing.solve(
-        base: base,
-        rangeM: p.distanceUnit.toMeters(rangeShown),
-        observedCorrectionMrad: p.angularUnit.toMrad(observedShown),
-      );
-      setState(() {
-        _result = result;
-        _error = null;
-      });
+      final rangeM = p.distanceUnit.toMeters(rangeShown);
+      final observedMrad = p.angularUnit.toMrad(observedShown);
+      if (_trueBc) {
+        final r = BallisticCoefficientTruing.solve(
+          base: base,
+          rangeM: rangeM,
+          observedCorrectionMrad: observedMrad,
+        );
+        setState(() {
+          _bcResult = r;
+          _result = null;
+          _error = null;
+        });
+      } else {
+        final result = MuzzleVelocityTruing.solve(
+          base: base,
+          rangeM: rangeM,
+          observedCorrectionMrad: observedMrad,
+        );
+        setState(() {
+          _result = result;
+          _bcResult = null;
+          _error = null;
+        });
+      }
     } on TruingFailure catch (f) {
       _fail(f.message);
     } on ArgumentError {
@@ -183,8 +212,65 @@ class _TruingScreenState extends State<TruingScreen> {
 
   void _fail(String message) => setState(() {
     _result = null;
+    _bcResult = null;
     _error = message;
   });
+
+  /// Writes the trued BC into the personal ammunition record (catalog
+  /// records are never edited), after an old -> new confirmation.
+  Future<void> _applyBc(BcTruingResult r) async {
+    final res = _resolution;
+    if (res == null) return;
+    final ammo = res.ammunition;
+    if (!ammo.userEntered) {
+      _snack(
+        'Bu mühimmat katalog kaydı; BC değiştirilemez. Profilde kendi '
+        'mühimmatınızı girin.',
+      );
+      return;
+    }
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Mühimmata uygula'),
+        content: Text(
+          '${ammo.displayName}\n'
+          'BC: ${r.baseBc} → ${r.truedBc} '
+          '(${ammo.ballisticModel?.name.toUpperCase() ?? ''})',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Vazgeç'),
+          ),
+          FilledButton(
+            key: const Key('truing-bc-confirm'),
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Uygula'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !mounted) return;
+    try {
+      final store = ManualCatalogStore();
+      final entries = await store.all();
+      final entry = entries.where((e) => e['id'] == ammo.id).firstOrNull;
+      if (entry == null) throw StateError('record missing');
+      await store.upsert({...entry, 'bc': r.truedBc});
+      CatalogRepository.installUserCatalog(
+        UserCatalog.fromManualEntries(await store.all()),
+      );
+      if (!mounted) return;
+      setState(() {
+        _resolution = const ProfileCatalogIntegrity().resolve(_profile!);
+        _bcResult = null;
+      });
+      _snack('Doğrulanmış BC mühimmata uygulandı.');
+    } catch (_) {
+      if (mounted) _snack('Mühimmat kaydedilemedi. Mevcut BC korundu.');
+    }
+  }
 
   Future<void> _apply(TruingResult r, bool metric) async {
     final p = _profile;
@@ -287,6 +373,28 @@ class _TruingScreenState extends State<TruingScreen> {
                     'önce mühimmata BC girin.',
               )
             else ...[
+              MenzilSelect<bool>(
+                key: ValueKey('truing-mode-$_trueBc'),
+                label: 'Doğrulanacak değer',
+                info: TruingFieldInfo.mode,
+                initialValue: _trueBc,
+                items: const [
+                  DropdownMenuItem(
+                    value: false,
+                    child: Text('Namlu çıkış hızı'),
+                  ),
+                  DropdownMenuItem(
+                    value: true,
+                    child: Text('Balistik katsayı (BC)'),
+                  ),
+                ],
+                onChanged: (v) => setState(() {
+                  _trueBc = v ?? false;
+                  _result = null;
+                  _bcResult = null;
+                  _error = null;
+                }),
+              ),
               const MenzilSectionHeader(
                 '1 · Gözlem',
                 padding: EdgeInsets.only(bottom: MenzilSpace.sm),
@@ -348,7 +456,7 @@ class _TruingScreenState extends State<TruingScreen> {
               ),
               MenzilPrimaryButton(
                 key: const Key('truing-compute'),
-                label: 'Hızı hesapla',
+                label: _trueBc ? 'BC\'yi hesapla' : 'Hızı hesapla',
                 icon: Icons.tune,
                 onPressed: () => _compute(metric),
               ),
@@ -359,11 +467,53 @@ class _TruingScreenState extends State<TruingScreen> {
                   message: _error!,
                 ),
               if (_result != null) ..._resultSection(_result!, p, metric),
+              if (_bcResult != null) ..._bcResultSection(_bcResult!, p),
             ],
           ],
         ],
       ),
     );
+  }
+
+  List<Widget> _bcResultSection(BcTruingResult r, RifleProfile p) {
+    final u = p.angularUnit;
+    String angle(double mrad) => ToolFormat.dec(u.fromMrad(mrad), 2);
+    final sign = r.changePercent >= 0 ? '+' : '−';
+    return [
+      const MenzilSectionHeader(
+        '3 · Sonuç',
+        padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
+      ),
+      MenzilMetricGrid(
+        key: const Key('truing-bc-result'),
+        columns: 2,
+        metrics: [
+          MenzilMetric('Hesaplanan', angle(r.predictedMrad), u.label),
+          MenzilMetric('Gözlenen', angle(r.observedMrad), u.label),
+          MenzilMetric('Mühimmat BC', r.baseBc.toString()),
+          MenzilMetric('Doğrulanmış BC', r.truedBc.toString()),
+          MenzilMetric(
+            'Değişim',
+            '$sign${ToolFormat.dec(r.changePercent.abs(), 1)}',
+            '%',
+          ),
+          MenzilMetric('Kalan fark', angle(r.residualMrad.abs()), u.label),
+        ],
+      ),
+      if (r.changePercent.abs() > 10)
+        const MenzilNotice(
+          tone: MenzilNoticeTone.warning,
+          message:
+              '%10’dan büyük bir değişim. Önce hızı orta mesafede doğruladığınızdan '
+              've ölçümün doğru olduğundan emin olun.',
+        ),
+      MenzilSecondaryButton(
+        key: const Key('truing-bc-apply'),
+        label: 'Doğrulanmış BC\'yi mühimmata uygula',
+        icon: Icons.save_alt,
+        onPressed: () => _applyBc(r),
+      ),
+    ];
   }
 
   List<Widget> _resultSection(TruingResult r, RifleProfile p, bool metric) {

@@ -220,7 +220,8 @@ class AerodynamicTrajectorySolver {
     double angle,
     double range,
   ) {
-    var state = _initialState(input, angle);
+    // The zero was established with the zero-day velocity.
+    var state = _initialState(input, angle, input.zeroVelocityMps);
     for (var step = 0; step < _maxSteps; step++) {
       final previous = state;
       state = Rk4Integrator.step(
@@ -239,14 +240,21 @@ class AerodynamicTrajectorySolver {
     throw StateError('projectile did not reach zero range');
   }
 
-  Rk4State _initialState(BallisticInput input, double angle) => Rk4State(
-    x: 0,
-    y: -input.sightHeightMm / 1000,
-    z: 0,
-    vx: input.muzzleVelocityMps * math.cos(angle),
-    vy: input.muzzleVelocityMps * math.sin(angle),
-    vz: 0,
-  );
+  Rk4State _initialState(
+    BallisticInput input,
+    double angle, [
+    double? velocityMps,
+  ]) {
+    final v = velocityMps ?? input.muzzleVelocityMps;
+    return Rk4State(
+      x: 0,
+      y: -input.sightHeightMm / 1000,
+      z: 0,
+      vx: v * math.cos(angle),
+      vy: v * math.sin(angle),
+      vz: 0,
+    );
+  }
 
   Rk4Derivative _derivative(
     Rk4State s,

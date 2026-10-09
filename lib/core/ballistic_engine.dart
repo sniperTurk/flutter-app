@@ -69,6 +69,7 @@ class BallisticEngine {
     environment: input.environment,
     inclineDeg: input.inclineDeg,
     cantDeg: input.cantDeg,
+    zeroVelocityMps: input.zeroMuzzleVelocityMps,
   );
 
   /// Deterministic baseline trajectory. This is intentionally documented as a
@@ -83,6 +84,9 @@ class BallisticEngine {
     EnvironmentData environment = const EnvironmentData(),
     double inclineDeg = 0,
     double cantDeg = 0,
+
+    /// Velocity on the zeroing day, when it differs (barut sıcaklığı).
+    double? zeroVelocityMps,
   }) {
     if (muzzleVelocityMps <= 0 || zeroRangeM <= 0) {
       throw ArgumentError('velocity and zero must be > 0');
@@ -96,7 +100,9 @@ class BallisticEngine {
     //   A*u^2 - x*u + (s + A) = 0, A = g*x^2/(2*v^2).
     // Select the low-angle root used by a normal sighted rifle.
     final x = zeroRangeM;
-    final a = g * x * x / (2 * muzzleVelocityMps * muzzleVelocityMps);
+    final vZero = zeroVelocityMps ?? muzzleVelocityMps;
+    if (vZero <= 0) throw ArgumentError('zero velocity must be > 0');
+    final a = g * x * x / (2 * vZero * vZero);
     final discriminant = x * x - 4 * a * (sightM + a);
     if (discriminant < 0) {
       throw ArgumentError(

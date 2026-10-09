@@ -64,4 +64,37 @@ abstract final class EnvironmentFieldInfo {
       'güney 180, batı 270. "Pusuladan al" için telefonu hedefe doğru '
       'tutun. Birkaç derecelik hata Coriolis sonucunu fark edilir '
       'değiştirmez. Örnek: 135.';
+  static const turretScale =
+      'Kulenin yazdığı kadar çevirmeyebilir. Kule testi: dürbünü 10 mrad '
+      '(ya da 30 MOA) yukarı çevirip 100 m\'de ızgaralı hedefte gerçek kaymayı '
+      'ölçün; gerçek / yazan oranını girin. Örnek: gerçek 9,8 mrad ise 0,98. '
+      'Boş bırakırsanız 1 (düzeltme yok). Klikler bu katsayıya göre ayarlanır.';
+  static const windMax =
+      'Rüzgâr sabit değilse en yüksek hızını girin. Hedef sayfası yan '
+      'düzeltmeyi Hava Durumu\'ndaki rüzgârdan bu hıza kadar bir aralık olarak '
+      'gösterir. Örnek: rüzgâr 2–4 m/s arası ise burada 4.';
+  static const targetSpeed =
+      'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
+      'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '
+      'tırıs ~3 m/s.';
+  static const spinDrift =
+      'Dönen mermi uçarken yivin döndüğü yöne doğru yana kayar (sağ yivde '
+      'sağa). Etki uçuş süresiyle büyür; slug ve ateşli tüfekte uzun '
+      'mesafede önemlidir. Litz formülüyle yaklaşık hesaplanır; diabolo '
+      'pellet için geçerli değildir. Yiv yönü ve yiv oranı profilden alınır.';
+  static const bulletLength =
+      'Merminin (slug\'ın) burundan tabana uzunluğu, milimetre olarak. '
+      'Kumpasla ölçün. Dönüş kararlılığı ve spin drift buna göre hesaplanır. '
+      'Örnek: .25 slug ~10 mm, .308 168 gr ~31 mm.';
+  static const powderCoef =
+      'Barut sıcaklık katsayısı: sıcaklık 15 °C değiştiğinde hız yüzde kaç '
+      'değişiyor. İki farklı sıcaklıkta kronografla ölçüp bulun. Örnek: '
+      '%1,5 (15 °C ısınınca hız %1,5 artar). Yalnız ateşli tüfek.';
+  static const powderTemp =
+      'Profildeki namlu çıkış hızının ölçüldüğü (ve tüfeğin sıfırlandığı) '
+      'sıcaklık, °C. Bugünkü hız Hava Durumu\'ndaki sıcaklığa göre buradan '
+      'hesaplanır. Örnek: 20.';
+  static const targetDirection =
+      'Hedefin hangi yöne hareket ettiği: önüne, yani gittiği yöne nişan '
+      'alınır.';
 }

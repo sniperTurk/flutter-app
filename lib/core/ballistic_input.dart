@@ -37,6 +37,12 @@ class BallisticInput {
 
   bool get coriolis => latitudeDeg != null && azimuthDeg != null;
 
+  /// Muzzle velocity the rifle had when it was zeroed, when it differs from
+  /// today's (barut sıcaklığı, owner 2026-10-09). Null = the same velocity.
+  final double? zeroMuzzleVelocityMps;
+
+  double get zeroVelocityMps => zeroMuzzleVelocityMps ?? muzzleVelocityMps;
+
   /// The same input for different [ranges] (validated again).
   BallisticInput withRanges(Iterable<double> ranges) => BallisticInput(
     muzzleVelocityMps: muzzleVelocityMps,
@@ -52,6 +58,7 @@ class BallisticInput {
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
     azimuthDeg: azimuthDeg,
+    zeroMuzzleVelocityMps: zeroMuzzleVelocityMps,
   );
 
   /// The same input with another muzzle velocity (validated again). Used by
@@ -70,6 +77,26 @@ class BallisticInput {
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
     azimuthDeg: azimuthDeg,
+    zeroMuzzleVelocityMps: zeroMuzzleVelocityMps,
+  );
+
+  /// The same input with another G1/G7 ballistic coefficient (validated
+  /// again). Used by BC truing at a far range.
+  BallisticInput withBallisticCoefficient(double bc) => BallisticInput(
+    muzzleVelocityMps: muzzleVelocityMps,
+    grain: grain,
+    zeroRangeM: zeroRangeM,
+    sightHeightMm: sightHeightMm,
+    rangesM: rangesM,
+    environment: environment,
+    zeroEnvironment: zeroEnvironment,
+    ballisticCoefficient: bc,
+    ballisticModel: ballisticModel,
+    inclineDeg: inclineDeg,
+    cantDeg: cantDeg,
+    latitudeDeg: latitudeDeg,
+    azimuthDeg: azimuthDeg,
+    zeroMuzzleVelocityMps: zeroMuzzleVelocityMps,
   );
 
   BallisticInput({
@@ -93,6 +120,7 @@ class BallisticInput {
     this.cantDeg = 0,
     this.latitudeDeg,
     this.azimuthDeg,
+    this.zeroMuzzleVelocityMps,
   }) : rangesM = List.unmodifiable(rangesM) {
     _positiveFinite('muzzleVelocityMps', muzzleVelocityMps);
     _max(
@@ -100,6 +128,11 @@ class BallisticInput {
       muzzleVelocityMps,
       ProductionLimits.maxMuzzleVelocityMps,
     );
+    final zv = zeroMuzzleVelocityMps;
+    if (zv != null) {
+      _positiveFinite('zeroMuzzleVelocityMps', zv);
+      _max('zeroMuzzleVelocityMps', zv, ProductionLimits.maxMuzzleVelocityMps);
+    }
     _positiveFinite('grain', grain);
     _positiveFinite('zeroRangeM', zeroRangeM);
     _max('zeroRangeM', zeroRangeM, ProductionLimits.maxRangeM);

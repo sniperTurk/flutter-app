@@ -26,11 +26,16 @@ class ConfigureIosInfoPlistTests(unittest.TestCase):
             with p.open("rb") as f:
                 data = plistlib.load(f)
             self.assertNotIn("NSPhotoLibraryAddUsageDescription", data)
-            for key in ("NSLocationWhenInUseUsageDescription", "NSCameraUsageDescription", "NSMotionUsageDescription", "NSMicrophoneUsageDescription", "NSPhotoLibraryUsageDescription"):
+            for key in ("NSLocationWhenInUseUsageDescription", "NSLocationAlwaysAndWhenInUseUsageDescription", "NSCameraUsageDescription", "NSMotionUsageDescription", "NSMicrophoneUsageDescription", "NSPhotoLibraryUsageDescription"):
                 self.assertTrue(data[key].strip())
                 self.assertEqual(USAGE_DESCRIPTIONS[key], data[key])
-            # No background/always location and no photo-library write access.
-            for key in ("NSLocationAlwaysAndWhenInUseUsageDescription", "NSLocationAlwaysUsageDescription", "NSPhotoLibraryAddUsageDescription"):
+            # ITMS-90683: Apple requires the always+when-in-use purpose string
+            # because the geolocator binary references that API. The app still
+            # never uses location in the background: the string says so, no
+            # background mode is declared, and no photo-library write access.
+            self.assertIn("arka planda kullanmaz", data["NSLocationAlwaysAndWhenInUseUsageDescription"])
+            self.assertNotIn("UIBackgroundModes", data)
+            for key in ("NSLocationAlwaysUsageDescription", "NSPhotoLibraryAddUsageDescription"):
                 self.assertNotIn(key, data)
 
     def test_declares_landscape_for_the_sight_height_capture_page(self):
