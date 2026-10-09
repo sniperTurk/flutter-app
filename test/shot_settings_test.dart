@@ -195,7 +195,20 @@ void main() {
       await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
       await type(tester, const Key('pro-turret-scale'), '0,9');
+      // En yüksek rüzgâr fills itself: 2 m/s × 1.5 (owner, 2026-10-09).
+      String windMax() => tester
+          .widget<TextField>(
+            find.descendant(
+              of: find.byKey(const Key('pro-wind-max')),
+              matching: find.byType(TextField),
+            ),
+          )
+          .controller!
+          .text;
+      expect(windMax(), '3.0');
+      expect(find.text('Otomatik: rüzgâr hızı × 1,5'), findsOneWidget);
       await type(tester, const Key('pro-wind-max'), '5');
+      expect(find.text('Otomatik: rüzgâr hızı × 1,5'), findsNothing);
       await type(tester, const Key('pro-target-speed'), '2');
 
       await tester.pumpWidget(app(BallisticsView.shot));
