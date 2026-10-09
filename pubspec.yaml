@@ -19,6 +19,8 @@ dependencies:
   http: ^1.6.0
   # Konum için mesafe: satellite map to pick shooter and target.
   flutter_map: ^8.2.1
+  # Haritadan mesafe: Google Maps (hybrid) when the iOS key is configured.
+  google_maps_flutter: ^2.10.0
   latlong2: ^0.9.1
 dev_dependencies:
   flutter_test:

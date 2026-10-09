@@ -95,6 +95,10 @@ done
 # user-facing product name deterministically after scaffold generation.
 python3 tools/configure_ios_info_plist.py ios/Runner/Info.plist
 
+# Google Maps iOS SDK key (GOOGLE_MAPS_IOS_API_KEY, a CI secret; absent in
+# PR CI). The AppDelegate guard makes a keyless build use the Esri map.
+python3 tools/configure_ios_google_maps.py ios/Runner/AppDelegate.swift ios/Runner/Info.plist
+
 # Ship an app-owned privacy manifest in Runner.app. The archive gate is strict,
 # so an embedded plugin manifest cannot substitute for this resource.
 command -v ruby >/dev/null 2>&1 || { echo "ruby is required to wire the iOS privacy manifest" >&2; exit 6; }

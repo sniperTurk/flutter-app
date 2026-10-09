@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' as g;
 import 'package:latlong2/latlong.dart';
 
 import '../../tools/domain/field_calc.dart';
@@ -16,6 +17,12 @@ enum _Pick { shooter, target }
 /// the map as the provider requires.
 const mapImageryUrl =
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+
+/// Google Maps (hybrid satellite) is used when the build was made with the
+/// Google Maps iOS key (owner, 2026-10-09; TestFlight passes
+/// --dart-define=GOOGLE_MAPS_ENABLED=true only when the key secret exists).
+/// Otherwise the keyless Esri map is shown.
+const googleMapsEnabled = bool.fromEnvironment('GOOGLE_MAPS_ENABLED');
 
 /// Konum için mesafe: pick the shooter and the target on a satellite map and
 /// read the straight-line distance and the bearing. Nothing is stored; the
@@ -41,6 +48,10 @@ class MapDistanceScreen extends StatefulWidget {
 
 class _MapDistanceState extends State<MapDistanceScreen> {
   final _map = MapController();
+
+  /// Google Maps state (only when [googleMapsEnabled]).
+  g.GoogleMapController? _gmap;
+  LatLng _gCenter = _turkey;
   _Pick _pick = _Pick.shooter;
   LatLng? _shooter;
   LatLng? _target;
@@ -61,6 +72,7 @@ class _MapDistanceState extends State<MapDistanceScreen> {
 
   @override
   void dispose() {
+    _gmap?.dispose();
     _map.dispose();
     _query.dispose();
     super.dispose();
@@ -81,7 +93,7 @@ class _MapDistanceState extends State<MapDistanceScreen> {
         case LocationFix(:final latitude, :final longitude):
           _shooter = LatLng(latitude, longitude);
           _pick = _Pick.target;
-          _map.move(_shooter!, 17);
+          _moveTo(_shooter!, 17);
         case LocationDenied():
           _message =
               'Konum izni verilmedi. Haritaya dokunarak nişancı konumunu seçebilirsiniz.';
@@ -133,7 +145,18 @@ class _MapDistanceState extends State<MapDistanceScreen> {
       _results = const [];
       _searchMessage = null;
     });
-    _map.move(LatLng(r.latitude, r.longitude), 17);
+    _moveTo(LatLng(r.latitude, r.longitude), 17);
+  }
+
+  static g.LatLng _g(LatLng p) => g.LatLng(p.latitude, p.longitude);
+
+  void _moveTo(LatLng p, double zoom) {
+    if (googleMapsEnabled) {
+      _gCenter = p;
+      _gmap?.moveCamera(g.CameraUpdate.newLatLngZoom(_g(p), zoom));
+    } else {
+      _map.move(p, zoom);
+    }
   }
 
   void _reset() => setState(() {
@@ -152,6 +175,24 @@ class _MapDistanceState extends State<MapDistanceScreen> {
   void _fit() {
     final s = _shooter, t = _target;
     if (s == null || t == null) return;
+    if (googleMapsEnabled) {
+      _gmap?.animateCamera(
+        g.CameraUpdate.newLatLngBounds(
+          g.LatLngBounds(
+            southwest: g.LatLng(
+              s.latitude < t.latitude ? s.latitude : t.latitude,
+              s.longitude < t.longitude ? s.longitude : t.longitude,
+            ),
+            northeast: g.LatLng(
+              s.latitude > t.latitude ? s.latitude : t.latitude,
+              s.longitude > t.longitude ? s.longitude : t.longitude,
+            ),
+          ),
+          72,
+        ),
+      );
+      return;
+    }
     _map.fitCamera(
       CameraFit.coordinates(
         coordinates: [s, t],
@@ -162,7 +203,8 @@ class _MapDistanceState extends State<MapDistanceScreen> {
   }
 
   /// Puts the active pin where the centre crosshair is.
-  void _placeAtCentre() => _onTap(_map.camera.center);
+  void _placeAtCentre() =>
+      _onTap(googleMapsEnabled ? _gCenter : _map.camera.center);
 
   void _onTap(LatLng p) {
     setState(() {
@@ -199,6 +241,64 @@ class _MapDistanceState extends State<MapDistanceScreen> {
 
   static const _names = ['K', 'KD', 'D', 'GD', 'G', 'GB', 'B', 'KB'];
   static String _dir(double deg) => _names[((deg % 360) / 45).round() % 8];
+
+  Widget _googleMap(MenzilColors c, double? dist) {
+    final s = _shooter, t = _target;
+    return g.GoogleMap(
+      key: const Key('map-view'),
+      mapType: g.MapType.hybrid,
+      initialCameraPosition: g.CameraPosition(target: _g(_gCenter), zoom: 6),
+      onMapCreated: (controller) {
+        _gmap = controller;
+        // The location may have arrived before the map existed.
+        final start = _shooter;
+        if (start != null) _moveTo(start, 17);
+      },
+      onCameraMove: (p) =>
+          _gCenter = LatLng(p.target.latitude, p.target.longitude),
+      onTap: (p) => _onTap(LatLng(p.latitude, p.longitude)),
+      myLocationButtonEnabled: false,
+      zoomControlsEnabled: false,
+      mapToolbarEnabled: false,
+      rotateGesturesEnabled: false,
+      tiltGesturesEnabled: false,
+      markers: {
+        if (s != null)
+          g.Marker(
+            markerId: const g.MarkerId('shooter'),
+            position: _g(s),
+            icon: g.BitmapDescriptor.defaultMarkerWithHue(
+              g.BitmapDescriptor.hueOrange,
+            ),
+            infoWindow: const g.InfoWindow(title: 'Nişancı'),
+            onTap: () => setState(() => _pick = _Pick.shooter),
+          ),
+        if (t != null)
+          g.Marker(
+            markerId: const g.MarkerId('target'),
+            position: _g(t),
+            icon: g.BitmapDescriptor.defaultMarkerWithHue(
+              g.BitmapDescriptor.hueRed,
+            ),
+            infoWindow: g.InfoWindow(
+              title: dist == null
+                  ? 'Hedef'
+                  : 'Hedef · ${ToolFormat.dec(dist, 0)} m',
+            ),
+            onTap: () => setState(() => _pick = _Pick.target),
+          ),
+      },
+      polylines: {
+        if (s != null && t != null)
+          g.Polyline(
+            polylineId: const g.PolylineId('line'),
+            points: [_g(s), _g(t)],
+            color: c.amber,
+            width: 3,
+          ),
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -357,6 +457,9 @@ class _MapDistanceState extends State<MapDistanceScreen> {
           Expanded(
             child: Stack(
               children: [
+                if (googleMapsEnabled)
+                  _googleMap(c, dist)
+                else
                 FlutterMap(
                   key: const Key('map-view'),
                   mapController: _map,
