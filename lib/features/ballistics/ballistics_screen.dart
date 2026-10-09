@@ -8,6 +8,7 @@ import '../../core/ballistic_engine.dart';
 import '../../core/ballistic_input.dart';
 import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
+import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
@@ -210,7 +211,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         latitudeCtl.text = s.latitudeText;
         azimuthCtl.text = s.azimuthText;
         turretScaleCtl.text = s.turretScaleText;
-        windMaxCtl.text = s.windMaxText;
+        _windMaxAuto = s.windMaxText.isEmpty;
+        if (!_windMaxAuto) windMaxCtl.text = s.windMaxText;
+        _autoWindMax();
         targetSpeedCtl.text = s.targetSpeedText;
         _targetMovesRight = s.targetMovesRight;
         _spinDriftOn = s.spinDriftOn;
@@ -234,7 +237,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       latitudeText: latitudeCtl.text.trim(),
       azimuthText: azimuthCtl.text.trim(),
       turretScaleText: turretScaleCtl.text.trim(),
-      windMaxText: windMaxCtl.text.trim(),
+      windMaxText: _windMaxAuto ? '' : windMaxCtl.text.trim(),
       targetSpeedText: targetSpeedCtl.text.trim(),
       targetMovesRight: _targetMovesRight,
       spinDriftOn: _spinDriftOn,
@@ -258,6 +261,27 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Pro Ayarlar extras (owner, 2026-10-09).
   final TextEditingController turretScaleCtl = TextEditingController();
   final TextEditingController windMaxCtl = TextEditingController();
+
+  /// En yüksek rüzgâr is filled automatically from Rüzgâr hızı (owner,
+  /// 2026-10-09) until the shooter types a value; clearing it switches back
+  /// to automatic. An automatic value is not saved.
+  bool _windMaxAuto = true;
+
+  /// Typical gust factor over land: the bracket top is 1.5 × the wind.
+  static const windGustFactor = 1.5;
+
+  void _autoWindMax() {
+    if (!_windMaxAuto) return;
+    final w = double.tryParse(wind.text.trim().replaceAll(',', '.'));
+    final text = w == null || !w.isFinite || w <= 0
+        ? ''
+        : (w * windGustFactor).toStringAsFixed(1);
+    if (windMaxCtl.text == text) return;
+    windMaxCtl.text = text;
+    _shotCache.clear();
+    _holdSamples = null;
+  }
+
   final TextEditingController targetSpeedCtl = TextEditingController();
   bool _targetMovesRight = true;
   bool _spinDriftOn = false;
@@ -271,10 +295,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Today's velocity from the profile velocity measured at [powderTempCtl]
   /// and the sensitivity [powderCoefCtl] (% per 15 °C); firearms only.
   double _powderAdjusted(double mps, double todayC) {
-    final k = _parsed(powderCoefCtl), t0 = _parsed(powderTempCtl);
-    if (!_isFirearm || k == null || t0 == null) return mps;
-    if (k.abs() > 10 || t0 < -50 || t0 > 60) return mps;
-    return mps * (1 + k / 100 * (todayC - t0) / 15);
+    if (!_isFirearm) return mps;
+    return mps *
+        PowderTemperature.factor(
+          coefPercentPer15C: _parsed(powderCoefCtl),
+          referenceTempC: _parsed(powderTempCtl),
+          todayTempC: todayC,
+        );
   }
 
   /// Spin drift (Litz) as a sideways angle in mrad, + = to the right; null
@@ -438,7 +465,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           : zeroM.toString(),
     );
     sight = TextEditingController(text: (p?.sightHeightMm ?? 65).toString());
-    wind = TextEditingController(text: '0');
+    wind = TextEditingController(text: '0')..addListener(_autoWindMax);
     windDirection = TextEditingController(text: '90');
     temperature = TextEditingController(text: '15');
     pressure = TextEditingController(text: '1013.25');
@@ -616,7 +643,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         } else if (altM != null) {
           put(
             pressure,
-            _pressureText(FieldCalc.stationPressureHpa(obs.pressureHpa, altM)),
+            _pressureText(
+              FieldCalc.stationPressureHpa(
+                obs.pressureHpa,
+                altM,
+                temperatureC: obs.temperatureC,
+              ),
+            ),
           );
           pressureNote =
               'basınç ${altM.round()} m irtifaya göre istasyon basıncına '
@@ -2123,7 +2156,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         label: 'En yüksek rüzgâr',
         unit: metric ? 'm/s' : 'mph',
         info: EnvironmentFieldInfo.windMax,
-        onChanged: (_) => _coriolisChanged(),
+        helperText: _windMaxAuto ? 'Otomatik: rüzgâr hızı × 1,5' : null,
+        onChanged: (v) {
+          _windMaxAuto = v.trim().isEmpty;
+          _autoWindMax();
+          _coriolisChanged();
+        },
       ),
       const MenzilSectionHeader(
         'Hareketli hedef',

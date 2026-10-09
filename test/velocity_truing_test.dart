@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/core/ballistic_engine.dart';
 import 'package:sniper_turk/core/ballistic_input.dart';
+import 'package:sniper_turk/core/powder_temperature.dart';
 import 'package:sniper_turk/core/velocity_truing.dart';
 import 'package:sniper_turk/models/domain.dart';
 
@@ -179,6 +180,52 @@ void main() {
     expect(faster.ballisticModel, base.ballisticModel);
     expect(faster.environment.pressureHpa, 980);
     expect(() => base.withMuzzleVelocity(-1), throwsArgumentError);
+  });
+
+  test('withMuzzleVelocity keeps the powder temperature ratio', () {
+    // Today 808 m/s, zero day 800 m/s (+1 %): truing to 816 must move the
+    // zero-day velocity by the same ratio.
+    final today = BallisticInput(
+      muzzleVelocityMps: 808,
+      zeroMuzzleVelocityMps: 800,
+      grain: 175,
+      zeroRangeM: 100,
+      sightHeightMm: 45,
+      rangesM: const [600],
+      ballisticCoefficient: 0.25,
+      ballisticModel: BallisticModel.g7,
+      environment: const EnvironmentData(temperatureC: 25, pressureHpa: 980),
+    );
+    final trued = today.withMuzzleVelocity(816);
+    expect(trued.zeroVelocityMps, closeTo(816 * 800 / 808, 1e-9));
+    expect(firearm().withMuzzleVelocity(820).zeroMuzzleVelocityMps, isNull);
+  });
+
+  test('PowderTemperature.factor', () {
+    expect(
+      PowderTemperature.factor(
+        coefPercentPer15C: 1,
+        referenceTempC: 15,
+        todayTempC: 30,
+      ),
+      closeTo(1.01, 1e-12),
+    );
+    expect(
+      PowderTemperature.factor(
+        coefPercentPer15C: null,
+        referenceTempC: 15,
+        todayTempC: 30,
+      ),
+      1,
+    );
+    expect(
+      PowderTemperature.factor(
+        coefPercentPer15C: 20,
+        referenceTempC: 15,
+        todayTempC: 30,
+      ),
+      1,
+    );
   });
 
   group('BallisticCoefficientTruing (second step, far range)', () {

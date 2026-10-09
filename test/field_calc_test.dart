@@ -63,6 +63,17 @@ void main() {
       expect(FieldCalc.dewPointC(20, 50), closeTo(9.3, 0.2));
       expect(FieldCalc.stationPressureHpa(1013.25, 0), closeTo(1013.25, 1e-9));
       expect(FieldCalc.stationPressureHpa(1013.25, 1000), closeTo(898.7, 1));
+      // With the real temperature (weather-service sea-level pressure):
+      // warm air column -> higher station pressure than ISA.
+      expect(
+        FieldCalc.stationPressureHpa(1013.25, 1000, temperatureC: 30),
+        closeTo(906.3, 0.2),
+      );
+      // At the ISA temperature for 1000 m (8.5 °C) both agree.
+      expect(
+        FieldCalc.stationPressureHpa(1013.25, 1000, temperatureC: 8.5),
+        closeTo(898.7, 0.2),
+      );
     });
     test('BC from two velocities round-trips through the drag model', () {
       const env = EnvironmentData(
@@ -104,7 +115,34 @@ void main() {
     });
   });
 
+  group('Energy', () {
+    test('½·m·v², momentum, power factor, velocity for energy', () {
+      // 25.39 gr at 270 m/s.
+      expect(FieldCalc.energyJ(25.39, 270), closeTo(59.97, 0.01));
+      expect(FieldCalc.momentumNs(25.39, 270), closeTo(0.4442, 1e-4));
+      expect(FieldCalc.powerFactor(25.39, 270), closeTo(22.49, 0.01));
+      // 12 ft·lbf (16.27 J) limit for that pellet.
+      expect(FieldCalc.velocityForEnergyMps(25.39, 16.27), closeTo(140.6, 0.1));
+    });
+  });
+
   group('Converters', () {
+    test('energy and temperature', () {
+      expect(_conv(Converters.energy, 'ft', 'joule', 12), closeTo(16.27, 0.01));
+      expect(
+        _conv(Converters.temperature, 'Celsius', 'Fahrenheit', 100),
+        closeTo(212, 1e-9),
+      );
+      expect(
+        _conv(Converters.temperature, 'Fahrenheit', 'Celsius', -40),
+        closeTo(-40, 1e-9),
+      );
+      expect(
+        _conv(Converters.temperature, 'Celsius', 'Kelvin', 0),
+        closeTo(273.15, 1e-9),
+      );
+    });
+
     test('known factors', () {
       expect(_conv(Converters.angle, 'MIL', 'MOA', 1), closeTo(3.43775, 1e-4));
       expect(_conv(Converters.angle, 'Derece', 'MOA', 1), closeTo(60, 1e-9));
@@ -218,6 +256,9 @@ void main() {
         'conv-pressure',
         'conv-length',
         'conv-torque',
+        'calc-energy',
+        'conv-energy',
+        'conv-temperature',
       ]) {
         expect(find.byKey(Key(k)), findsOneWidget, reason: k);
       }
@@ -241,6 +282,19 @@ void main() {
     testWidgets('air lab shows density at standard conditions', (tester) async {
       await tester.pumpWidget(host(const AirLabScreen()));
       expect(find.text('Hava yoğunluğu'), findsOneWidget);
+    });
+
+    testWidgets('energy page shows J and ft·lbf and the needed velocity', (
+      tester,
+    ) async {
+      await tester.pumpWidget(host(const EnergyScreen()));
+      expect(find.byKey(const Key('energy-result')), findsOneWidget);
+      expect(find.textContaining('60,0', findRichText: true), findsWidgets);
+      expect(find.byKey(const Key('energy-need')), findsNothing);
+      await tester.enterText(find.byKey(const Key('energy-target')), '16,27');
+      await tester.pump();
+      expect(find.byKey(const Key('energy-need')), findsOneWidget);
+      expect(find.byTooltip('Bilgi: Ağırlık'), findsOneWidget);
     });
 
     testWidgets('converter lists every unit', (tester) async {

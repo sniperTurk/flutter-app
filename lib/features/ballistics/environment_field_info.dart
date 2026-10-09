@@ -70,9 +70,11 @@ abstract final class EnvironmentFieldInfo {
       'ölçün; gerçek / yazan oranını girin. Örnek: gerçek 9,8 mrad ise 0,98. '
       'Boş bırakırsanız 1 (düzeltme yok). Klikler bu katsayıya göre ayarlanır.';
   static const windMax =
-      'Rüzgâr sabit değilse en yüksek hızını girin. Hedef sayfası yan '
-      'düzeltmeyi Hava Durumu\'ndaki rüzgârdan bu hıza kadar bir aralık olarak '
-      'gösterir. Örnek: rüzgâr 2–4 m/s arası ise burada 4.';
+      'Rüzgârın sert estiği (hamle) andaki hızı. Otomatik doldurulur: Hava '
+      'Durumu\'ndaki rüzgâr hızı × 1,5 (karada tipik hamle oranı). Kendi '
+      'ölçtüğünüz değeri yazabilirsiniz; silerseniz yeniden otomatik olur. '
+      'Hedef sayfası yan düzeltmeyi bu aralıkta gösterir. Örnek: rüzgâr '
+      '2 m/s ise 3.';
   static const targetSpeed =
       'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
       'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '

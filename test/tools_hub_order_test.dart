@@ -36,7 +36,6 @@ void main() {
 
     double y(String key) => tester.getTopLeft(find.byKey(Key(key))).dy;
     final order = [
-      'tool-chronograph',
       'tool-truing',
       'tool-sight-height',
       'tool-map-distance',
@@ -49,5 +48,7 @@ void main() {
     }
     expect(find.byKey(const Key('tool-catalog')), findsNothing);
     expect(find.text('Katalog'), findsNothing);
+    // Kronograf removed from the hub (owner, 2026-10-09).
+    expect(find.byKey(const Key('tool-chronograph')), findsNothing);
   });
 }

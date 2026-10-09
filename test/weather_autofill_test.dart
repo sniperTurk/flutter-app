@@ -74,7 +74,11 @@ void main() {
     // 1012.3 hPa at sea level → station pressure at 900 m.
     expect(
       _text(tester, BallisticsFieldKeys.pressure),
-      FieldCalc.stationPressureHpa(1012.3, 900).toStringAsFixed(1),
+      FieldCalc.stationPressureHpa(
+        1012.3,
+        900,
+        temperatureC: 18.5,
+      ).toStringAsFixed(1),
     );
     expect(find.textContaining('otomatik dolduruldu'), findsOneWidget);
     expect(find.textContaining('900 m irtifaya göre'), findsOneWidget);

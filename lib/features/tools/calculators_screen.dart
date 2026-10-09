@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/standard_drag_tables.dart';
+import '../../core/unit_system.dart';
 import '../../models/domain.dart';
 import '../../tools/domain/field_calc.dart';
 import '../../tools/ports/location_provider.dart';
@@ -18,7 +19,7 @@ double? _p(TextEditingController c) =>
 String _d(double v, int digits) => ToolFormat.dec(v, digits);
 
 /// Hesaplayıcılar: the field calculators (distance, angular size, click
-/// check, BC from two velocities, air lab) and the unit converters.
+/// check, BC from two velocities, energy, air lab) and the unit converters.
 class CalculatorsScreen extends StatelessWidget {
   const CalculatorsScreen({super.key});
 
@@ -104,6 +105,13 @@ class CalculatorsScreen extends StatelessWidget {
             const TwoVelocityBcScreen(),
           ),
           tile(
+            'calc-energy',
+            Icons.bolt_outlined,
+            'Enerji ve güç',
+            'Namlu enerjisi (J, ft·lbf), momentum, güç faktörü',
+            const EnergyScreen(),
+          ),
+          tile(
             'calc-air-lab',
             Icons.cloud_outlined,
             'Hava laboratuvarı',
@@ -116,6 +124,12 @@ class CalculatorsScreen extends StatelessWidget {
           conv('conv-pressure', Icons.compress, Converters.pressure),
           conv('conv-length', Icons.height, Converters.length),
           conv('conv-torque', Icons.build_outlined, Converters.torque),
+          conv('conv-energy', Icons.bolt_outlined, Converters.energy),
+          conv(
+            'conv-temperature',
+            Icons.thermostat_outlined,
+            Converters.temperature,
+          ),
         ],
       ),
     );
@@ -141,6 +155,7 @@ Widget _field(
   String? unit,
   String? helper,
   required VoidCallback changed,
+  required String info,
   Key? key,
 }) => MenzilInput(
   key: key,
@@ -148,11 +163,74 @@ Widget _field(
   label: label,
   unit: unit,
   helperText: helper,
+  info: info,
   keyboardType: _decimal,
   onChanged: (_) => changed(),
 );
 
 Widget _gap() => const SizedBox(height: MenzilSpace.sm);
+
+/// ⓘ texts of the Hesaplayıcılar fields (owner rule, 2026-10-07).
+abstract final class CalculatorFieldInfo {
+  static const targetSize =
+      'Hedefin bilinen gerçek boyu veya genişliği. Örnek: tavşan ~20 cm, '
+      'karga ~45 cm, A4 kâğıt 21 cm.';
+  static const reading =
+      'Hedefin dürbün retikülünde kapladığı aralık (MIL veya MOA). SFP '
+      'dürbünde retikülün doğru olduğu büyütmede okuyun. Örnek: 2,5 MIL.';
+  static const latitude =
+      'Enlem, derece olarak (kuzey +, güney −). Harita uygulamasında konuma '
+      'uzun basınca görünür. Örnek: 39,92.';
+  static const longitude =
+      'Boylam, derece olarak (doğu +, batı −). Harita uygulamasında konuma '
+      'uzun basınca görünür. Örnek: 32,85.';
+  static const distance =
+      'Hedefe olan mesafe; telemetre ile ölçün. Örnek: 50 m.';
+  static const sizeToMeasure =
+      'İsterseniz bir boy girin; mesafede kaç MOA / MIL tuttuğu gösterilir. '
+      'Örnek: 10 cm.';
+  static const clicks =
+      'Test için kuleden çevirdiğiniz toplam tık sayısı. Ne kadar çok tık, o '
+      'kadar doğru sonuç. Örnek: 40 tık.';
+  static const shift =
+      'Bu tıklarla isabet noktasının hedefte kaydığı mesafe (grup merkezleri '
+      'arası), cm olarak. Örnek: 11,6 cm.';
+  static const clickValue =
+      'Dürbünün kulesinde veya kılavuzunda yazan tık değeri. Örnek: 0,1 MRAD '
+      'veya 1/4 MOA.';
+  static const v1 =
+      'Kronografla namluya yakın ölçülen hız (birkaç atışın ortalaması). '
+      'Örnek: 280 m/s.';
+  static const v2 =
+      'Aynı mühimmatın belirli bir mesafede ölçülen hızı (ortalama). V1’den '
+      'küçük olmalı. Örnek: 245 m/s.';
+  static const gap =
+      'İki hız ölçümü arasındaki mesafe. Fark ne kadar büyükse BC o kadar '
+      'doğru çıkar. Örnek: 50 m.';
+  static const temperature =
+      'Ölçüm yerindeki hava sıcaklığı. Telefonun hava durumu yeterlidir. '
+      'Örnek: 18 °C.';
+  static const pressure =
+      'Hava basıncı. İstasyon basıncı seçiliyse bulunduğunuz yerdeki gerçek '
+      'basınç (Kestrel/barometre), değilse hava durumunda yazan deniz '
+      'seviyesi basıncı. Örnek: 1013 hPa.';
+  static const humidity =
+      'Bağıl nem, yüzde olarak; hava durumunda yazar. Örnek: %60.';
+  static const altitude =
+      'Bulunduğunuz yerin deniz seviyesinden yüksekliği; deniz seviyesi '
+      'basıncını istasyon basıncına çevirmek için. Örnek: 900 m.';
+  static const value =
+      'Dönüştürmek istediğiniz sayı; birimini aşağıdan seçin. Örnek: 12.';
+  static const grain =
+      'Saçma veya merminin ağırlığı, grain (gr); kutusunda yazar. Örnek: '
+      '25,39 gr (.22 saçma) veya 168 gr (.308).';
+  static const velocity =
+      'Namlu çıkış hızı; kronografla ölçün veya profildeki değeri girin. '
+      'Örnek: 270 m/s (885 fps).';
+  static const targetEnergy =
+      'İsteğe bağlı: ulaşmak veya aşmamak istediğiniz enerji, joule. Bu '
+      'ağırlıkta gereken hız gösterilir. Örnek: 16,27 J (12 ft·lbf sınırı).';
+}
 
 Widget _header(String text) => MenzilSectionHeader(
   text,
@@ -202,6 +280,7 @@ class _StadiaState extends State<StadiaScreen> {
         _field(
           _size,
           'Hedefin gerçek boyu',
+          info: CalculatorFieldInfo.targetSize,
           unit: _cm ? 'cm' : 'inç',
           changed: () => setState(() {}),
           key: const Key('stadia-size'),
@@ -215,6 +294,7 @@ class _StadiaState extends State<StadiaScreen> {
         _field(
           _reading,
           'Dürbündeki okuma (hedefin kapladığı)',
+          info: CalculatorFieldInfo.reading,
           unit: _mil ? 'MIL' : 'MOA',
           changed: () => setState(() {}),
           key: const Key('stadia-reading'),
@@ -287,6 +367,7 @@ class _CoordState extends State<CoordinateDistanceScreen> {
             _field(
               _lat1,
               'Enlem',
+              info: CalculatorFieldInfo.latitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('coord-lat1'),
@@ -294,6 +375,7 @@ class _CoordState extends State<CoordinateDistanceScreen> {
             _field(
               _lon1,
               'Boylam',
+              info: CalculatorFieldInfo.longitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('coord-lon1'),
@@ -306,6 +388,7 @@ class _CoordState extends State<CoordinateDistanceScreen> {
             _field(
               _lat2,
               'Enlem',
+              info: CalculatorFieldInfo.latitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('coord-lat2'),
@@ -313,6 +396,7 @@ class _CoordState extends State<CoordinateDistanceScreen> {
             _field(
               _lon2,
               'Boylam',
+              info: CalculatorFieldInfo.longitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('coord-lon2'),
@@ -438,6 +522,7 @@ class _CustomLocState extends State<CustomLocationScreen> {
             _field(
               _lat,
               'Enlem',
+              info: CalculatorFieldInfo.latitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('custom-loc-lat'),
@@ -445,6 +530,7 @@ class _CustomLocState extends State<CustomLocationScreen> {
             _field(
               _lon,
               'Boylam',
+              info: CalculatorFieldInfo.longitude,
               unit: '°',
               changed: () => setState(() {}),
               key: const Key('custom-loc-lon'),
@@ -510,6 +596,7 @@ class _MoaAtDistState extends State<MoaAtDistanceScreen> {
         _field(
           _dist,
           'Mesafe',
+          info: CalculatorFieldInfo.distance,
           unit: 'm',
           changed: () => setState(() {}),
           key: const Key('moa-dist'),
@@ -518,6 +605,7 @@ class _MoaAtDistState extends State<MoaAtDistanceScreen> {
         _field(
           _size,
           'Ölçülecek boy (isteğe bağlı)',
+          info: CalculatorFieldInfo.sizeToMeasure,
           unit: 'cm',
           helper: 'Ör. vuruş noktası ile hedef arası',
           changed: () => setState(() {}),
@@ -603,6 +691,7 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _field(
           _dist,
           'Mesafe',
+          info: CalculatorFieldInfo.distance,
           unit: 'm',
           changed: () => setState(() {}),
           key: const Key('click-dist'),
@@ -611,6 +700,7 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _field(
           _clicks,
           'Çevirdiğin tık sayısı',
+          info: CalculatorFieldInfo.clicks,
           unit: 'tık',
           changed: () => setState(() {}),
           key: const Key('click-count'),
@@ -619,6 +709,7 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _field(
           _moved,
           'Ölçülen kayma',
+          info: CalculatorFieldInfo.shift,
           unit: 'cm',
           changed: () => setState(() {}),
           key: const Key('click-moved'),
@@ -636,6 +727,7 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _field(
           _nominal,
           'Tık başına yazan değer',
+          info: CalculatorFieldInfo.clickValue,
           unit: unitName,
           changed: () => setState(() {}),
           key: const Key('click-nominal'),
@@ -760,6 +852,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
         _field(
           _v1,
           'Namlu yakını hız (V1)',
+          info: CalculatorFieldInfo.v1,
           unit: _fps ? 'fps' : 'm/s',
           changed: () => setState(() {}),
           key: const Key('bc-v1'),
@@ -768,6 +861,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
         _field(
           _v2,
           'Uzaktaki hız (V2)',
+          info: CalculatorFieldInfo.v2,
           unit: _fps ? 'fps' : 'm/s',
           changed: () => setState(() {}),
           key: const Key('bc-v2'),
@@ -776,6 +870,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
         _field(
           _dist,
           'İki ölçüm arası mesafe',
+          info: CalculatorFieldInfo.gap,
           unit: 'm',
           changed: () => setState(() {}),
           key: const Key('bc-dist'),
@@ -786,16 +881,24 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
             _field(
               _temp,
               'Sıcaklık',
+              info: CalculatorFieldInfo.temperature,
               unit: '°C',
               changed: () => setState(() {}),
             ),
             _field(
               _press,
               'Basınç',
+              info: CalculatorFieldInfo.pressure,
               unit: 'hPa',
               changed: () => setState(() {}),
             ),
-            _field(_rh, 'Nem', unit: '%', changed: () => setState(() {})),
+            _field(
+              _rh,
+              'Nem',
+              info: CalculatorFieldInfo.humidity,
+              unit: '%',
+              changed: () => setState(() {}),
+            ),
           ],
         ),
         _gap(),
@@ -862,7 +965,7 @@ class _AirLabState extends State<AirLabScreen> {
     if (t != null && pr != null && rh != null && (_station || alt != null)) {
       final station = _station
           ? pr
-          : FieldCalc.stationPressureHpa(pr, alt ?? 0);
+          : FieldCalc.stationPressureHpa(pr, alt ?? 0, temperatureC: t);
       try {
         lab = FieldCalc.airLab(
           EnvironmentData(
@@ -886,6 +989,7 @@ class _AirLabState extends State<AirLabScreen> {
             _field(
               _temp,
               'Sıcaklık',
+              info: CalculatorFieldInfo.temperature,
               unit: '°C',
               changed: () => setState(() {}),
               key: const Key('air-temp'),
@@ -893,6 +997,7 @@ class _AirLabState extends State<AirLabScreen> {
             _field(
               _rh,
               'Nem',
+              info: CalculatorFieldInfo.humidity,
               unit: '%',
               changed: () => setState(() {}),
               key: const Key('air-rh'),
@@ -903,6 +1008,7 @@ class _AirLabState extends State<AirLabScreen> {
         _field(
           _press,
           'Basınç',
+          info: CalculatorFieldInfo.pressure,
           unit: 'hPa',
           changed: () => setState(() {}),
           key: const Key('air-press'),
@@ -921,6 +1027,7 @@ class _AirLabState extends State<AirLabScreen> {
           _field(
             _alt,
             'Rakım',
+            info: CalculatorFieldInfo.altitude,
             unit: 'm',
             changed: () => setState(() {}),
             key: const Key('air-alt'),
@@ -1014,6 +1121,7 @@ class _ConverterState extends State<ConverterScreen> {
         _field(
           _value,
           'Değer',
+          info: CalculatorFieldInfo.value,
           changed: () => setState(() {}),
           key: Key('conv-${cat.id}-value'),
         ),
@@ -1057,6 +1165,121 @@ class _ConverterState extends State<ConverterScreen> {
           _note(
             'MOA gerçek açısal MOA (1/60°); SMOA = 1 inç / 100 yd. NATO mil bir çemberi 6400\'e böler.',
           ),
+      ],
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Enerji ve güç
+// ---------------------------------------------------------------------------
+
+/// Muzzle energy ½·m·v², momentum, power factor and the velocity needed for
+/// a target energy (e.g. the 16.27 J / 12 ft·lbf airgun limit).
+class EnergyScreen extends StatefulWidget {
+  const EnergyScreen({super.key});
+  @override
+  State<EnergyScreen> createState() => _EnergyState();
+}
+
+class _EnergyState extends State<EnergyScreen> {
+  final _grain = TextEditingController(text: '25,39');
+  final _velocity = TextEditingController(text: '270');
+  final _target = TextEditingController();
+  bool _fps = false;
+
+  @override
+  void dispose() {
+    for (final c in [_grain, _velocity, _target]) {
+      c.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final g = _p(_grain), vIn = _p(_velocity), e = _p(_target);
+    final f = _fps ? 0.3048 : 1.0;
+    final ok = g != null && g > 0 && vIn != null && vIn > 0;
+    final v = ok ? vIn * f : null;
+    final joules = ok ? FieldCalc.energyJ(g, v!) : null;
+    final need = (g != null && g > 0 && e != null && e > 0)
+        ? FieldCalc.velocityForEnergyMps(g, e)
+        : null;
+    return _CalcPage(
+      title: 'Enerji ve güç',
+      children: [
+        _header('1 · Mühimmat ve hız'),
+        _field(
+          _grain,
+          'Ağırlık',
+          info: CalculatorFieldInfo.grain,
+          unit: 'gr',
+          changed: () => setState(() {}),
+          key: const Key('energy-grain'),
+        ),
+        _gap(),
+        MenzilChipGroup<bool>(
+          options: const [(false, 'm/s'), (true, 'fps')],
+          selected: _fps,
+          onSelected: (x) => setState(() => _fps = x),
+        ),
+        _gap(),
+        _field(
+          _velocity,
+          'Hız',
+          info: CalculatorFieldInfo.velocity,
+          unit: _fps ? 'fps' : 'm/s',
+          changed: () => setState(() {}),
+          key: const Key('energy-velocity'),
+        ),
+        _gap(),
+        _field(
+          _target,
+          'Hedef enerji (isteğe bağlı)',
+          info: CalculatorFieldInfo.targetEnergy,
+          unit: 'J',
+          changed: () => setState(() {}),
+          key: const Key('energy-target'),
+        ),
+        _header('2 · Sonuç'),
+        if (!ok)
+          _note('Ağırlık ve hız için pozitif sayı girin.')
+        else
+          MenzilMetricGrid(
+            key: const Key('energy-result'),
+            columns: 2,
+            metrics: [
+              MenzilMetric('Enerji', _d(joules!, 1), 'J'),
+              MenzilMetric(
+                'Enerji',
+                _d(UnitSystem.joulesToFootPounds(joules), 1),
+                'ft·lbf',
+              ),
+              MenzilMetric(
+                'Momentum',
+                _d(FieldCalc.momentumNs(g, v!), 3),
+                'N·s',
+              ),
+              MenzilMetric('Güç faktörü', _d(FieldCalc.powerFactor(g, v), 0)),
+            ],
+          ),
+        if (need != null) ...[
+          _gap(),
+          MenzilMetricGrid(
+            key: const Key('energy-need'),
+            columns: 2,
+            metrics: [
+              MenzilMetric('Gereken hız', _d(need, 1), 'm/s'),
+              MenzilMetric('Gereken hız', _d(need / 0.3048, 0), 'fps'),
+            ],
+          ),
+        ],
+        _gap(),
+        _note(
+          'Enerji = ½ · kütle · hız². Güç faktörü = grain × fps / 1000. '
+          'Yasal sınırlar ülkeye göre değişir; kendi mevzuatınızı kontrol edin.',
+        ),
       ],
     );
   }
