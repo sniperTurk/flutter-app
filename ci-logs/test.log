@@ -1,0 +1,573 @@
+00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/test/tools_hub_order_test.dart
+00:00 +0: /Users/runner/work/flutter-app/flutter-app/test/tools_hub_order_test.dart: Araçlar: title, map tool under Sight Height, weather next
+00:00 +1: loading /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart
+00:01 +1: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: profile survives store re-instantiation
+00:01 +2: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: corrupt primary profile JSON recovers last known-good backup
+00:01 +3: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: saving a profile keeps previous valid snapshot as backup
+00:01 +4: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: recovery self-heals corrupt primary snapshot
+00:01 +5: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: duplicate persisted profile ids collapse to newest record
+00:01 +6: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: saving an existing profile id updates instead of duplicating
+00:01 +7: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: concurrent saves across store instances do not lose profiles
+00:01 +8: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: corrupt-primary recovery cannot overwrite a queued save
+00:01 +9: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: corrupt primary and corrupt backup fail closed instead of returning empty profiles
+00:01 +10: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: save refuses to overwrite profiles when both persisted snapshots are corrupt
+00:01 +11: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: missing primary recovers surviving profile backup and self-heals
+00:01 +12: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: first profile write creates a recoverable backup
+00:01 +13: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: corrupt primary without backup fails closed
+00:01 +14: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: empty persisted primary is corruption, not an empty profile collection
+00:01 +15: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: self-heal quarantines the corrupt primary bytes before overwriting them
+00:01 +16: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: first quarantined evidence is never overwritten by later corruption
+00:01 +17: /Users/runner/work/flutter-app/flutter-app/test/profile_store_test.dart: saving over a corrupt primary quarantines it first
+00:01 +18: loading /Users/runner/work/flutter-app/flutter-app/test/wind_clock_test.dart
+00:01 +18: /Users/runner/work/flutter-app/flutter-app/test/wind_clock_test.dart: clock hours map onto the solver degrees
+00:01 +19: /Users/runner/work/flutter-app/flutter-app/test/wind_clock_test.dart: tapping an hour selects it and says where the wind is from
+00:02 +20: loading /Users/runner/work/flutter-app/flutter-app/test/ballistic_input_test.dart
+00:02 +20: /Users/runner/work/flutter-app/flutter-app/test/ballistic_input_test.dart: valid ballistic input is immutable and accepted by solver
+00:02 +21: /Users/runner/work/flutter-app/flutter-app/test/ballistic_input_test.dart: rejects malformed physical inputs before solver
+00:02 +22: /Users/runner/work/flutter-app/flutter-app/test/ballistic_input_test.dart: rejects invalid environment boundaries
+00:02 +23: /Users/runner/work/flutter-app/flutter-app/test/ballistic_input_test.dart: BC and drag model must be supplied as a pair
+00:02 +24: /Users/runner/work/flutter-app/flutter-app/test/ballistic_input_test.dart: validates zeroing environment independently
+00:02 +25: /Users/runner/work/flutter-app/flutter-app/test/ballistic_input_test.dart: rejects finite but physically implausible production inputs
+00:02 +26: loading /Users/runner/work/flutter-app/flutter-app/test/dope_ranges_test.dart
+00:03 +26: /Users/runner/work/flutter-app/flutter-app/test/dope_ranges_test.dart: DOPE ranges are parsed, deduplicated and sorted
+00:03 +27: /Users/runner/work/flutter-app/flutter-app/test/dope_ranges_test.dart: DOPE ranges reject zero, negative and excessive values
+00:03 +28: /Users/runner/work/flutter-app/flutter-app/test/dope_ranges_test.dart: DOPE ranges reject empty input
+00:03 +29: loading /Users/runner/work/flutter-app/flutter-app/test/accessibility_wiring_test.dart
+00:03 +29: /Users/runner/work/flutter-app/flutter-app/test/accessibility_wiring_test.dart: active profile dropdown exposes a labelled, actionable semantics node
+00:04 +30: /Users/runner/work/flutter-app/flutter-app/test/accessibility_wiring_test.dart: home loading state announces progress via a live semantics region
+00:04 +31: loading /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart
+00:04 +31: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart: turrets and reticle are shown on the shot tab
+00:05 +32: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart: dialling the solution centres the impact; reset drops it
+00:05 +33: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart: windage clicks move the impact sideways
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+The finder "Found 0 widgets with widget matching predicate: []" (used in a call to "tap()") could
+not find any matching widgets.
+
+When the exception was thrown, this was the stack:
+#0      WidgetController._getElementPoint (package:flutter_test/src/controller.dart:2095:7)
+#1      WidgetController.getCenter (package:flutter_test/src/controller.dart:1947:12)
+#2      WidgetController.tap (package:flutter_test/src/controller.dart:1080:7)
+#3      main.<anonymous closure> (file:///Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart:111:18)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  windage clicks move the impact sideways
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:06 +33 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart: windage clicks move the impact sideways [E]
+  Test failed. See exception logs above.
+  The test description was: windage clicks move the impact sideways
+  
+00:06 +33 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart: dragging the elevation drum changes the dialled clicks
+00:06 +34 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart: the scope works as soon as Atış opens, without Hesapla
+00:06 +35 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart: a MOA profile shows MOA turret and reticle on a MRAD scope
+00:06 +36 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart: SFP reticle marks scale with magnification
+00:06 +37 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart: an impact outside the field is pointed at, the reticle keeps its scale
+00:06 +38 -1: loading /Users/runner/work/flutter-app/flutter-app/test/menzil_layout_extremes_test.dart
+00:07 +38 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_layout_extremes_test.dart: iPhone SE landscape renders every tab without overflow
+00:08 +39 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_layout_extremes_test.dart: iPhone 15 Pro Max landscape renders every tab without overflow
+00:09 +40 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_layout_extremes_test.dart: iPhone 15 @ text 2.0x renders every tab without overflow
+00:10 +41 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_layout_extremes_test.dart: dark theme renders every tab
+00:10 +42 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_layout_extremes_test.dart: on-screen keyboard on iPhone SE does not break Ortam editing
+00:10 +43 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_layout_extremes_test.dart: a stored imperial choice is ignored: the app stays metric
+00:10 +44 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_layout_extremes_test.dart: VoiceOver prerequisites: labelled controls and 44 pt targets
+00:11 +45 -1: loading /Users/runner/work/flutter-app/flutter-app/test/chronograph_apply_test.dart
+00:11 +45 -1: /Users/runner/work/flutter-app/flutter-app/test/chronograph_apply_test.dart: Vazgeç writes nothing
+00:13 +46 -1: /Users/runner/work/flutter-app/flutter-app/test/chronograph_apply_test.dart: Uygula changes only the velocity; all other fields are kept
+00:14 +47 -1: /Users/runner/work/flutter-app/flutter-app/test/chronograph_apply_test.dart: apply stays disabled below three shots
+00:15 +48 -1: /Users/runner/work/flutter-app/flutter-app/test/chronograph_apply_test.dart: manual ammunition cannot be transferred to a profile
+00:15 +49 -1: loading /Users/runner/work/flutter-app/flutter-app/test/spin_powder_test.dart
+00:16 +49 -1: /Users/runner/work/flutter-app/flutter-app/test/spin_powder_test.dart: zero-day velocity same as today changes nothing
+00:16 +50 -1: /Users/runner/work/flutter-app/flutter-app/test/spin_powder_test.dart: zero-day velocity a faster day hits high at the zero range
+00:16 +51 -1: /Users/runner/work/flutter-app/flutter-app/test/spin_powder_test.dart: zero-day velocity vacuum honours it too
+00:16 +52 -1: /Users/runner/work/flutter-app/flutter-app/test/spin_powder_test.dart: Pro: spin drift and powder temperature right twist drifts right; the turret dials left
+00:17 +53 -1: /Users/runner/work/flutter-app/flutter-app/test/spin_powder_test.dart: Pro: spin drift and powder temperature a warmer day raises today's velocity
+00:17 +54 -1: loading /Users/runner/work/flutter-app/flutter-app/test/ballistics_screen_wiring_test.dart
+00:18 +54 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_screen_wiring_test.dart: new solve request clears a previously shown DOPE table when validation fails
+00:19 +55 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_screen_wiring_test.dart: catalog ammunition without a validated BC still solves via the vacuum baseline
+00:19 +56 -1: loading /Users/runner/work/flutter-app/flutter-app/test/serial_mutation_lock_test.dart
+00:19 +56 -1: /Users/runner/work/flutter-app/flutter-app/test/serial_mutation_lock_test.dart: a profile mutation made from an ended zone does not stall later mutations (root cause of the Home recovery hang)
+00:19 +57 -1: /Users/runner/work/flutter-app/flutter-app/test/serial_mutation_lock_test.dart: manual catalog mutations are equally zone-independent
+00:19 +58 -1: /Users/runner/work/flutter-app/flutter-app/test/serial_mutation_lock_test.dart: the lock serialises, keeps order and is released after errors
+00:19 +59 -1: loading /Users/runner/work/flutter-app/flutter-app/test/active_profile_store_test.dart
+00:19 +59 -1: /Users/runner/work/flutter-app/flutter-app/test/active_profile_store_test.dart: active profile can be selected and cleared
+00:19 +60 -1: loading /Users/runner/work/flutter-app/flutter-app/test/profile_document_codec_test.dart
+00:20 +60 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_document_codec_test.dart: new profile documents carry an explicit schema version
+00:20 +61 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_document_codec_test.dart: legacy bare-list profile documents remain readable
+00:20 +62 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_document_codec_test.dart: future profile schema is rejected instead of guessed
+00:20 +63 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_document_codec_test.dart: malformed record fails closed instead of returning a partial collection
+00:20 +64 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_document_codec_test.dart: non-map profile record also fails closed
+00:20 +65 -1: loading /Users/runner/work/flutter-app/flutter-app/test/weather_autofill_test.dart
+00:20 +65 -1: /Users/runner/work/flutter-app/flutter-app/test/weather_autofill_test.dart: fills temperature, humidity, wind, altitude, station pressure
+00:21 +66 -1: /Users/runner/work/flutter-app/flutter-app/test/weather_autofill_test.dart: without altitude the sea-level pressure is NOT used
+00:21 +67 -1: /Users/runner/work/flutter-app/flutter-app/test/weather_autofill_test.dart: typed values are kept; "yeniden doldur" replaces them
+00:21 +68 -1: /Users/runner/work/flutter-app/flutter-app/test/weather_autofill_test.dart: location refused: fields stay, the user is told
+00:21 +69 -1: /Users/runner/work/flutter-app/flutter-app/test/weather_autofill_test.dart: service down: fields stay, the user is told
+00:21 +70 -1: loading /Users/runner/work/flutter-app/flutter-app/test/catalog_screen_wiring_test.dart
+00:22 +70 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_screen_wiring_test.dart: catalog defaults to PCP and does not mix firearm rifle/ammunition
+00:23 +71 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_screen_wiring_test.dart: switching to firearm filters rifles and ammunition together
+00:24 +72 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_screen_wiring_test.dart: explicit firearm initial platform is honored
+00:24 +73 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_screen_wiring_test.dart: catalog search filters visible records without crossing platform
+00:24 +74 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_screen_wiring_test.dart: catalog search can be cleared
+00:25 +75 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_screen_wiring_test.dart: catalog exposes provenance for ammunition and optics
+00:25 +76 -1: loading /Users/runner/work/flutter-app/flutter-app/test/atmosphere_test.dart
+00:25 +76 -1: /Users/runner/work/flutter-app/flutter-app/test/atmosphere_test.dart: standard dry sea-level air is approximately 1.225 kg/m3
+00:25 +77 -1: /Users/runner/work/flutter-app/flutter-app/test/atmosphere_test.dart: humidity lowers density at equal pressure and temperature
+00:25 +78 -1: /Users/runner/work/flutter-app/flutter-app/test/atmosphere_test.dart: invalid atmosphere is rejected
+00:25 +79 -1: /Users/runner/work/flutter-app/flutter-app/test/atmosphere_test.dart: speed of sound is near ISA value at 15 C
+00:25 +80 -1: /Users/runner/work/flutter-app/flutter-app/test/atmosphere_test.dart: Mach conversion uses local atmosphere and validates velocity
+00:25 +81 -1: loading /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart
+00:26 +81 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart: metric: velocity in fps (Profil rule), zero in m, Turkish
+00:26 +82 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart: a yard profile shows its zero in yd (stored in metres)
+00:26 +83 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart: active profile summary comes before the profile list
+00:26 +84 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart: BC note no longer claims BC is unused
+00:27 +85 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart: continue button calls back; absent outside the shell
+00:27 +86 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart: shell: Profil > Hava Durumu'na geç opens the Hava Durumu tab
+00:27 +87 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart: editor takes velocity in fps and stores m/s
+00:28 +88 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart: a new profile starts empty and lists what is missing
+00:28 +89 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart: new-profile default names never repeat
+00:28 +90 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_page_test.dart: second new profile opens as "Yeni Profil 2"
+00:28 +91 -1: loading /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart
+00:28 +91 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: incline 0 and cant 0 give exactly the level answer
+00:28 +92 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: drag solver = world-frame reference (∠30.0°, cant 0.0°)
+00:28 +93 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: drag solver = world-frame reference (∠-40.0°, cant 0.0°)
+00:28 +94 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: drag solver = world-frame reference (∠0.0°, cant 12.0°)
+00:28 +95 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: drag solver = world-frame reference (∠25.0°, cant -8.0°)
+00:28 +96 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: drag solver = world-frame reference (∠-15.0°, cant 20.0°)
+00:28 +97 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: drag solver = world-frame reference (∠-102.0°, cant 0.0°)
+00:28 +98 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: drag solver = world-frame reference (∠10.0°, cant 120.0°)
+00:28 +99 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: uphill and downhill both need less elevation than level
+00:28 +100 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: cant to the right sends the shot right (dial left)
+00:28 +101 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: vacuum incline matches the closed form in the inclined frame
+00:28 +102 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: vacuum: a canted scope moves the shot sideways (geometry only)
+00:28 +103 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: incline and cant accept the full circle, nothing beyond
+00:28 +104 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: Coriolis drag solver = world-frame reference (φ 45.0°, A 0.0°, ∠0.0°, cant 0.0°)
+00:28 +105 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: Coriolis drag solver = world-frame reference (φ 39.9°, A 90.0°, ∠0.0°, cant 0.0°)
+00:28 +106 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: Coriolis drag solver = world-frame reference (φ 41.0°, A 270.0°, ∠0.0°, cant 0.0°)
+00:28 +107 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: Coriolis drag solver = world-frame reference (φ -33.9°, A 135.0°, ∠0.0°, cant 0.0°)
+00:28 +108 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: Coriolis drag solver = world-frame reference (φ 38.0°, A 200.0°, ∠25.0°, cant -8.0°)
+00:28 +109 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: Coriolis drag solver = world-frame reference (φ 60.0°, A 45.0°, ∠-30.0°, cant 15.0°)
+00:29 +110 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: Coriolis northern hemisphere drifts right, southern left
+00:29 +111 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: Coriolis east shoots high, west low (Eötvös)
+00:29 +112 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: Coriolis horizontal drift ≈ ω·sin φ·R·t
+00:29 +113 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_solver_test.dart: Coriolis latitude and azimuth come together and stay in range
+00:29 +114 -1: loading /Users/runner/work/flutter-app/flutter-app/test/nominatim_parse_test.dart
+00:29 +114 -1: /Users/runner/work/flutter-app/flutter-app/test/nominatim_parse_test.dart: parses jsonv2 results and skips invalid entries
+00:29 +115 -1: /Users/runner/work/flutter-app/flutter-app/test/nominatim_parse_test.dart: a non-list body is a server failure
+00:29 +116 -1: /Users/runner/work/flutter-app/flutter-app/test/nominatim_parse_test.dart: queries shorter than 3 characters return nothing without a request
+00:29 +117 -1: loading /Users/runner/work/flutter-app/flutter-app/test/pro_tab_test.dart
+00:29 +117 -1: /Users/runner/work/flutter-app/flutter-app/test/pro_tab_test.dart: Hava Durumu → Pro Ayarlar → Atış
+00:32 +118 -1: loading /Users/runner/work/flutter-app/flutter-app/test/menzil_shell_test.dart
+00:32 +118 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_shell_test.dart: shell shows page titles and the five tabs
+00:33 +119 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_shell_test.dart: Atış, Tablo and Hava Durumu share one workspace state
+00:34 +120 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_shell_test.dart: range dial steps change the evaluated distance
+00:34 +121 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_shell_test.dart: shot view shows a vacuum elevation correction but keeps wind locked
+00:35 +122 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_shell_test.dart: Araçlar lists the V1 tools plus the V1.1 Vuruş Olasılığı tool
+00:35 +123 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_shell_test.dart: Profil tab activates, copies and confirms before deleting
+00:35 +124 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_shell_test.dart: profile editor saves a typed-in rifle through the stores
+00:37 +125 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_shell_test.dart: MenzilCard hosts ListTile children without ink assertion
+00:37 +126 -1: loading /Users/runner/work/flutter-app/flutter-app/test/catalog_search_test.dart
+00:37 +126 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_search_test.dart: Turkish letters match ASCII keyboard input
+00:37 +127 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_search_test.dart: catalog query terms may be entered in any order
+00:37 +128 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_search_test.dart: empty or whitespace query matches everything
+00:37 +129 -1: loading /Users/runner/work/flutter-app/flutter-app/test/unit_system_test.dart
+00:38 +129 -1: /Users/runner/work/flutter-app/flutter-app/test/unit_system_test.dart: imperial conversions round-trip to canonical SI
+00:38 +130 -1: /Users/runner/work/flutter-app/flutter-app/test/unit_system_test.dart: known display conversions are stable
+00:38 +131 -1: loading /Users/runner/work/flutter-app/flutter-app/test/profile_codec_test.dart
+00:38 +131 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_codec_test.dart: profile codec round trips persisted fields
+00:38 +132 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_codec_test.dart: invalid required numeric fields are rejected
+00:38 +133 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_codec_test.dart: legacy profile without angularUnit still migrates to MRAD
+00:38 +134 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_codec_test.dart: present invalid angularUnit fails closed instead of changing DOPE units
+00:38 +135 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_codec_test.dart: present invalid pressure fails closed instead of erasing PCP pressure
+00:38 +136 -1: loading /Users/runner/work/flutter-app/flutter-app/test/ballistics_profile_gate_test.dart
+00:39 +136 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_profile_gate_test.dart: home disables Ballistics navigation when there is no active profile
+00:39 +137 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_profile_gate_test.dart: Ballistics screen fails closed instead of solving with fallback profile values
+00:39 +138 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_profile_gate_test.dart: Ballistics also fails closed when saved catalog references are stale
+00:39 +139 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_profile_gate_test.dart: Ballistics screen renders normally for a valid, catalog-matched profile
+00:40 +140 -1: loading /Users/runner/work/flutter-app/flutter-app/test/profile_catalog_integrity_test.dart
+00:40 +140 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_catalog_integrity_test.dart: resolves a coherent bundled PCP profile
+00:40 +141 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_catalog_integrity_test.dart: rejects stale catalog references instead of substituting defaults
+00:40 +142 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_catalog_integrity_test.dart: rejects platform/caliber incoherence; PCP pressure is optional
+00:40 +143 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_catalog_integrity_test.dart: rejects persisted numeric values outside production guardrails
+00:40 +144 -1: loading /Users/runner/work/flutter-app/flutter-app/test/rk4_test.dart
+00:40 +144 -1: /Users/runner/work/flutter-app/flutter-app/test/rk4_test.dart: RK4 reproduces constant-gravity analytic motion
+00:40 +145 -1: /Users/runner/work/flutter-app/flutter-app/test/rk4_test.dart: RK4 rejects invalid time step
+00:40 +146 -1: loading /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart
+00:41 +146 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: GravityFilter.adaptive holds a still reading steadier than the old fixed filter
+00:41 +147 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: GravityFilter.adaptive follows a real move quickly
+00:41 +148 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: StillAverager skips the settle samples and averages the rest
+00:41 +149 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: StillAverager moving restarts the collection
+00:41 +150 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: averaged calibration capture a noisy still phone gives an accurate bias
+00:41 +151 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: averaged calibration capture a phone that never stays still stores nothing
+00:41 +152 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: averaged calibration capture a pose change cancels the reading
+00:41 +153 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: display dead band a still, noisy phone shows a still number
+00:41 +154 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: display dead band a real change past the band shows at once
+00:41 +155 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: display dead band setting a reference shows exactly zero, not a held value
+00:41 +156 -1: /Users/runner/work/flutter-app/flutter-app/test/level_steady_readings_test.dart: display dead band set back on the calibration spot it settles to 0,0, not a held -0,1
+00:41 +157 -1: loading /Users/runner/work/flutter-app/flutter-app/test/ballistics_environment_wiring_test.dart
+00:41 +157 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_environment_wiring_test.dart: every environment field reaches the displayed atmosphere output
+00:43 +158 -1: loading /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart
+00:43 +158 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: FieldCalc stadia: 50 cm spanning 5 mil is 100 m
+00:43 +159 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: FieldCalc invalid angular inputs return null
+00:43 +160 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: FieldCalc 1 MOA at 100 m is about 2.909 cm
+00:43 +161 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: FieldCalc real click: 40 clicks moved 40 cm at 100 m is 0.1 mil each
+00:43 +162 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: FieldCalc haversine and bearing
+00:43 +163 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: FieldCalc air lab at ICAO standard
+00:43 +164 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: FieldCalc BC from two velocities round-trips through the drag model
+00:43 +165 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: FieldCalc BC solver refuses impossible inputs
+00:43 +166 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: Energy ½·m·v², momentum, power factor, velocity for energy
+00:43 +167 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: Converters energy and temperature
+00:43 +168 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: Converters known factors
+00:43 +169 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: Converters round trip is the identity
+00:43 +170 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: reticle geometry 1 mil spans 60 cm at 600 m
+00:43 +171 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: reticle geometry FFP covers nominal, SFP scales with magnification
+00:43 +172 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: reticle geometry USMC mil formula: 1.8 m target at 3 mil is 600 m
+00:43 +173 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: Hesaplayıcılar screens hub lists all tools
+00:44 +174 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: Hesaplayıcılar screens reticle shows dot spacing and honest scope note
+00:44 +175 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: Hesaplayıcılar screens stadia shows the distance
+00:44 +176 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: Hesaplayıcılar screens air lab shows density at standard conditions
+00:44 +177 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: Hesaplayıcılar screens energy page shows J and ft·lbf and the needed velocity
+00:44 +178 -1: /Users/runner/work/flutter-app/flutter-app/test/field_calc_test.dart: Hesaplayıcılar screens converter lists every unit
+00:44 +179 -1: loading /Users/runner/work/flutter-app/flutter-app/test/profile_editor_fail_closed_test.dart
+00:45 +179 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_editor_fail_closed_test.dart: Mesafe birimi Yard converts the zero and is saved
+00:47 +180 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_editor_fail_closed_test.dart: Ateşli tüfek: firearm caliber and ammunition texts
+00:48 +181 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_editor_fail_closed_test.dart: editing a profile with unresolved catalog ids never substitutes a catalog entry
+00:48 +182 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_editor_fail_closed_test.dart: a catalog-rifle profile is prefilled but needs the twist before Güncelle
+00:48 +183 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_editor_fail_closed_test.dart: out-of-range rifle values show an error and block saving
+00:49 +184 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_editor_fail_closed_test.dart: every typed value has an ⓘ explanation; BC opens its text
+00:49 +185 -1: loading /Users/runner/work/flutter-app/flutter-app/test/menzil_responsive_test.dart
+00:50 +185 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_responsive_test.dart: iPhone SE @ text 1.0x renders every tab without overflow
+00:51 +186 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_responsive_test.dart: iPhone SE @ text 1.3x renders every tab without overflow
+00:52 +187 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_responsive_test.dart: iPhone 15 (Dynamic Island) @ text 1.0x renders every tab without overflow
+00:53 +188 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_responsive_test.dart: iPhone 15 (Dynamic Island) @ text 1.3x renders every tab without overflow
+00:53 +189 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_responsive_test.dart: iPhone 15 Pro Max @ text 1.0x renders every tab without overflow
+00:54 +190 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_responsive_test.dart: iPhone 15 Pro Max @ text 1.3x renders every tab without overflow
+00:54 +191 -1: /Users/runner/work/flutter-app/flutter-app/test/menzil_responsive_test.dart: dark theme renders the shell
+00:54 +192 -1: loading /Users/runner/work/flutter-app/flutter-app/test/scope_dial_drag_test.dart
+00:55 +192 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_drag_test.dart: drag solve: the scope uses the solver windage
+00:56 +193 -1: loading /Users/runner/work/flutter-app/flutter-app/test/drag_table_test.dart
+00:57 +193 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_table_test.dart: drag table interpolates linearly and clamps endpoints
+00:57 +194 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_table_test.dart: drag table rejects unordered or non-positive coefficient data
+00:57 +195 -1: loading /Users/runner/work/flutter-app/flutter-app/test/profile_summary_order_test.dart
+00:57 +195 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_summary_order_test.dart: summary order, names and the top bar
+00:58 +196 -1: loading /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart
+00:59 +196 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: ScopeDialMath.mountCantClicks MOA scopes follow MOA × (1 / click value)
+00:59 +197 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: ScopeDialMath.mountCantClicks MRAD scopes convert MOA first and never overstate the gain
+00:59 +198 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: profile value only the listed mounts are accepted
+00:59 +199 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: profile value codec round-trips it; old profiles read as 0; junk fails
+00:59 +200 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: profile value tool updates keep the mount
+00:59 +201 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: scope view a mount gives the turret room: no travel warning
+00:59 +202 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: scope view the mount takes its clicks from the DOWN travel
+00:59 +203 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: scope view without catalog travel no mount size is suggested
+00:59 +204 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: scope view the shot tab uses the profile mount
+01:00 +205 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: Profil: "Dürbün ayağı" is picked from a list with ready clicks
+01:00 +206 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: turret travel is never guessed unknown travel: no "Kule yetmez", mount note says why
+01:00 +207 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_mount_cant_test.dart: turret travel is never guessed a mount is only suggested while the zero stays possible
+01:00 +208 -1: loading /Users/runner/work/flutter-app/flutter-app/test/profile_input_test.dart
+01:01 +208 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_input_test.dart: normalizes decimal comma and accepts valid PCP profile input
+01:01 +209 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_input_test.dart: rejects empty name instead of silently inventing one
+01:01 +210 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_input_test.dart: rejects malformed numeric values instead of silently using defaults
+01:01 +211 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_input_test.dart: pressure is optional (owner, 2026-10-09) but a given one is valid
+01:01 +212 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_input_test.dart: rejects values outside shared production guardrails
+01:01 +213 -1: loading /Users/runner/work/flutter-app/flutter-app/test/manual_catalog_dialog_test.dart
+01:01 +213 -1: /Users/runner/work/flutter-app/flutter-app/test/manual_catalog_dialog_test.dart: repeated taps while saving write exactly one record
+01:02 +214 -1: /Users/runner/work/flutter-app/flutter-app/test/manual_catalog_dialog_test.dart: a failed save keeps the dialog and every typed value; a retry targets the same record id
+01:02 +215 -1: /Users/runner/work/flutter-app/flutter-app/test/manual_catalog_dialog_test.dart: controllers outlive the exit animation (cancel and save)
+01:03 +216 -1: /Users/runner/work/flutter-app/flutter-app/test/manual_catalog_dialog_test.dart: editing keeps the stored id and offers a click unit for scopes
+01:03 +217 -1: loading /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart
+01:03 +217 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Tool hub lists the V1 tools and no separate vision tool
+01:04 +218 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Tool hub tiles open their screens
+01:04 +219 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Pusula no sensor data: no heading is invented
+01:04 +220 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Pusula available reading shows degrees and abbreviation
+01:04 +221 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Pusula a still phone keeps its last bearing (iOS sends no event without change)
+01:04 +222 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Pusula invalid (negative) iOS heading shows a reason, not a bearing
+01:04 +223 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Pusula poor accuracy shows the calibration notice
+01:04 +224 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Su Terazisi shows X/Y with 0.1° resolution and the resolution caveat
+01:04 +225 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Su Terazisi bottom bar cycles the view and opens the settings sheet
+01:04 +226 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Su Terazisi state is conveyed by text, not colour alone
+01:04 +227 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Su Terazisi sensor missing shows a message, not a gauge value
+01:04 +228 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Hava & Rüzgâr idle -> fresh data with source and non-measurement notice
+01:04 +229 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Hava & Rüzgâr shows loading while the service is pending
+01:04 +230 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Hava & Rüzgâr offline failure without cache shows an error and retry
+01:04 +231 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Hava & Rüzgâr old data after a failed refresh is labelled stale with its time
+01:04 +232 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Hava & Rüzgâr permanent location denial offers Settings and does not crash
+01:05 +233 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Hava & Rüzgâr location services off is handled
+01:05 +234 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Kronograf records shots and shows count/mean/ES; apply is gated
+01:05 +235 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Kronograf PCP session shows pressure drop per shot
+01:05 +236 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Kronograf invalid velocity is rejected
+01:05 +237 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Sight Height vision is shown as not connected; nothing is uploaded
+01:06 +238 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Sight Height muzzle-device and inclined-mount guidance is shown
+01:06 +239 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Sight Height physical method: 3,18 + 5,80 + 21,40 + 32,00 = 62,4 mm (front/objective end)
+01:06 +240 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Sight Height physical method is independent: no photo, no camera, no gallery needed
+01:06 +241 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Sight Height incomplete physical input gives no total
+01:06 +242 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Sight Height both photo entry points exist: camera and gallery
+01:06 +243 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Sight Height gallery denial shows a message instead of crashing
+01:06 +244 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Sight Height gallery cancel changes nothing
+01:06 +245 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Sight Height camera permission denial shows a message instead of crashing
+01:06 +246 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Sight Height side capture shows the alignment template
+01:07 +247 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Responsive hub and tools fit 320x568 at 1.0x text
+01:07 +248 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Responsive hub and tools fit 320x568 at 1.6x text
+01:07 +249 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Responsive hub and tools fit 393x852 at 1.0x text
+01:07 +250 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Responsive hub and tools fit 393x852 at 1.6x text
+01:08 +251 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Responsive hub and tools fit 430x932 at 1.0x text
+01:08 +252 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_screens_test.dart: Responsive hub and tools fit 430x932 at 1.6x text
+01:08 +253 -1: loading /Users/runner/work/flutter-app/flutter-app/test/ballistics_drag_mode_test.dart
+01:08 +253 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_drag_mode_test.dart: BC + G1 switches the table to the drag solver
+01:09 +254 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_drag_mode_test.dart: a BC without G1/G7 is not used: vacuum baseline stays
+01:10 +255 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_drag_mode_test.dart: editing the grain drops the BC (it belongs to one mass)
+01:10 +256 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_drag_mode_test.dart: muzzle Mach >= 0.8 shows the transonic warning
+01:10 +257 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_drag_mode_test.dart: a normal pellet speed shows no Mach warning
+01:11 +258 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_drag_mode_test.dart: a BC outside the airgun range is flagged
+01:11 +259 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_drag_mode_test.dart: ranges the pellet cannot reach are listed, not invented
+01:11 +260 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_drag_mode_test.dart: crosswind gives a drift column in cm that grows with range
+01:11 +261 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistics_drag_mode_test.dart: shot view shows the wind card instead of the lock
+01:12 +262 -1: loading /Users/runner/work/flutter-app/flutter-app/test/user_catalog_store_test.dart
+01:12 +262 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_store_test.dart: malformed non-map user catalog record fails closed as FormatException
+01:12 +263 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_store_test.dart: persisted user catalog entries are revalidated before use
+01:12 +264 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_store_test.dart: save and remove work on a list returned by all()
+01:12 +265 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_store_test.dart: valid backup recovers and self-heals a corrupt primary catalog
+01:12 +266 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_store_test.dart: missing primary with a valid backup is restored, not treated as empty
+01:12 +267 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_store_test.dart: invalid optional rifle numeric fields fail closed
+01:12 +268 -1: loading /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart
+01:13 +268 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: MuzzleVelocityTruing recovers a slower real velocity from the observed elevation
+01:13 +269 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: MuzzleVelocityTruing recovers a faster real velocity
+01:13 +270 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: MuzzleVelocityTruing keeps the velocity when the observation matches the prediction
+01:13 +271 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: MuzzleVelocityTruing G7 firearm profile with non-standard atmosphere round-trips
+01:13 +272 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: MuzzleVelocityTruing result is rounded to the 0.1 m/s a profile stores
+01:13 +273 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: MuzzleVelocityTruing refuses a range at or inside the zero
+01:13 +274 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: MuzzleVelocityTruing refuses a mismatch that would need more than 15 % velocity
+01:13 +275 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: MuzzleVelocityTruing refuses an observation too close to resolve velocity
+01:13 +276 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: MuzzleVelocityTruing rejects malformed arguments
+01:13 +277 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: MuzzleVelocityTruing every rejection has a Turkish message
+01:13 +278 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: withMuzzleVelocity changes only the velocity and validates it
+01:13 +279 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: withMuzzleVelocity keeps the powder temperature ratio
+01:13 +280 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: PowderTemperature.factor
+01:13 +281 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: BallisticCoefficientTruing (second step, far range) recovers the real BC from the far-range elevation (G1 PCP)
+01:13 +282 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: BallisticCoefficientTruing (second step, far range) recovers the real BC for a G7 firearm at 800 m
+01:13 +283 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: BallisticCoefficientTruing (second step, far range) refuses inside the zero and beyond ±30 %
+01:13 +284 -1: /Users/runner/work/flutter-app/flutter-app/test/velocity_truing_test.dart: BallisticCoefficientTruing (second step, far range) withBallisticCoefficient changes only the BC
+01:13 +285 -1: loading /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart
+01:14 +285 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart: ScopeDialMath clicks convert to angle and back
+01:14 +286 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart: ScopeDialMath impact sits below the crosshair until the turret is dialled up
+01:14 +287 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart: ScopeDialMath required windage shifts the impact sideways
+01:14 +288 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart: ScopeDialMath linear size at range uses the angular unit
+01:14 +289 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart: ScopeDialMath holdovers use only the far (descending) branch
+01:14 +290 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart: ScopeDialMath dialling elevation shifts every hold label farther out
+01:14 +291 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart: ScopeDialMath MOA and MRAD convert with 1 mrad = 3.43775 MOA
+01:14 +292 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart: ScopeDialMath FFP marks are true at every power; SFP only at calibration
+01:14 +293 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart: ScopeDialMath field of view widens as magnification drops
+01:14 +294 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_dial_test.dart: ScopeDialMath unsorted samples are rejected
+01:14 +295 -1: loading /Users/runner/work/flutter-app/flutter-app/test/incline_cant_ui_test.dart
+01:14 +295 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_ui_test.dart: ShotAngleMath incline from the accelerometer
+01:14 +296 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_ui_test.dart: ShotAngleMath cant: clockwise roll is positive
+01:14 +297 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_ui_test.dart: ShotAngleMath clock and degree text
+01:14 +298 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_ui_test.dart: incline screen: live angle, Set 0°, OK returns it
+01:15 +299 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_ui_test.dart: Pro: entering an incline lowers the elevation correction
+01:16 +300 -1: /Users/runner/work/flutter-app/flutter-app/test/incline_cant_ui_test.dart: Pro: a canted scope adds a sideways correction on Atış
+01:17 +301 -1: loading /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart
+01:18 +301 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalog conversion complete records become selectable, personally labelled records
+01:18 +302 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalog conversion incomplete custom ammunition and unit-less scopes are blocked with an explicit reason, never completed with a guess
+01:18 +303 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalog conversion a personal id that collides with a built-in record is blocked
+01:18 +304 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalog conversion BC is attached only together with an explicit G1/G7 model
+01:18 +305 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: profile resolution and platform/caliber filters a profile built from personal records resolves only once installed
+01:18 +306 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: profile resolution and platform/caliber filters personal firearm ammunition never pairs with a PCP rifle
+01:18 +307 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalogLoader migration copies legacy records, keeps the legacy key and existing manual records, and is idempotent
+01:18 +308 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalogLoader ledger write failure a failed ledger write copies nothing, so a later deletion can never be undone by migration
+01:18 +309 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalogLoader ledger write failure an already-present record whose ledger write fails is reported, not silently trusted
+01:18 +310 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalogLoader interruption safety killed after the intent was written but before the copy: the record is NOT treated as migrated and migrates on the next start
+01:18 +311 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalogLoader interruption safety confirmation write fails: the copy is undone, so the record stays migratable and a later deletion is still respected
+01:18 +312 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalogLoader interruption safety confirmation AND undo both fail: restart confirms the present record without duplicating or losing it
+01:18 +313 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalogLoader interruption safety user deletes the unconfirmed copy in the SAME session, then the app restarts: the deletion is preserved (no resurrection)
+01:18 +314 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalogLoader interruption safety deletion with a ledger that never works is still preserved
+01:18 +315 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: UserCatalogLoader interruption safety a deletion that cannot be recorded is refused and deletes nothing
+01:18 +316 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: profile editor personal records prefill the typed-in editor forms
+01:19 +317 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: profile editor without the personal catalog the profile fails closed
+01:19 +318 -1: /Users/runner/work/flutter-app/flutter-app/test/user_catalog_test.dart: home waits for the personal catalog, then hands the personal profile to the solver
+01:20 +319 -1: loading /Users/runner/work/flutter-app/flutter-app/test/map_distance_test.dart
+01:20 +319 -1: /Users/runner/work/flutter-app/flutter-app/test/map_distance_test.dart: uses the device location as shooter, tap sets the target
+01:21 +320 -1: /Users/runner/work/flutter-app/flutter-app/test/map_distance_test.dart: the crosshair button places the active pin at the centre
+01:21 +321 -1: /Users/runner/work/flutter-app/flutter-app/test/map_distance_test.dart: place search lists matches and a result closes the list
+01:21 +322 -1: /Users/runner/work/flutter-app/flutter-app/test/map_distance_test.dart: place search shows the failure message and short queries
+01:21 +323 -1: /Users/runner/work/flutter-app/flutter-app/test/map_distance_test.dart: denied location tells the user to tap the map
+01:21 +324 -1: /Users/runner/work/flutter-app/flutter-app/test/map_distance_test.dart: "Bu mesafeyi kullan" only when asked to return a distance
+01:22 +325 -1: loading /Users/runner/work/flutter-app/flutter-app/test/core_test.dart
+01:22 +325 -1: /Users/runner/work/flutter-app/flutter-app/test/core_test.dart: 90 MOA is about 26.18 MRAD
+01:22 +326 -1: /Users/runner/work/flutter-app/flutter-app/test/core_test.dart: energy is positive
+01:22 +327 -1: /Users/runner/work/flutter-app/flutter-app/test/core_test.dart: vacuum solver intersects line of sight at zero range
+01:22 +328 -1: /Users/runner/work/flutter-app/flutter-app/test/core_test.dart: vacuum solver does not invent aerodynamic wind drift
+01:22 +329 -1: /Users/runner/work/flutter-app/flutter-app/test/core_test.dart: vacuum zero solution remains exact for demanding geometry
+01:22 +330 -1: /Users/runner/work/flutter-app/flutter-app/test/core_test.dart: vacuum solver rejects an unreachable zero instead of returning bogus DOPE
+01:22 +331 -1: /Users/runner/work/flutter-app/flutter-app/test/core_test.dart: production solve uses the drag solver for G1/G7, never vacuum
+01:22 +332 -1: /Users/runner/work/flutter-app/flutter-app/test/core_test.dart: a projectile that cannot reach the range is an error, not a number
+01:22 +333 -1: /Users/runner/work/flutter-app/flutter-app/test/core_test.dart: solveReachable drops the ranges a slow pellet cannot reach
+01:22 +334 -1: /Users/runner/work/flutter-app/flutter-app/test/core_test.dart: solveReachable on vacuum input never drops anything
+01:22 +335 -1: loading /Users/runner/work/flutter-app/flutter-app/test/drag_safety_test.dart
+01:23 +335 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_safety_test.dart: Mach warnings (O13) a normal PCP speed is quiet
+01:23 +336 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_safety_test.dart: Mach warnings (O13) Mach 0.8 and above warns
+01:23 +337 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_safety_test.dart: Mach warnings (O13) supersonic muzzle speed is its own warning
+01:23 +338 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_safety_test.dart: Mach warnings (O13) hot air raises the speed of sound so the same speed is quieter
+01:23 +339 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_safety_test.dart: BC and drag-law checks (O14) a typical pellet G1 coefficient is quiet
+01:23 +340 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_safety_test.dart: BC and drag-law checks (O14) a rifle-bullet sized BC on an airgun warns
+01:23 +341 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_safety_test.dart: BC and drag-law checks (O14) G7 on an airgun is flagged as information
+01:23 +342 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_safety_test.dart: BC and drag-law checks (O14) firearms are not judged by the airgun BC range
+01:23 +343 -1: /Users/runner/work/flutter-app/flutter-app/test/drag_safety_test.dart: BC and drag-law checks (O14) no coefficient, no coefficient warnings
+01:23 +344 -1: loading /Users/runner/work/flutter-app/flutter-app/test/smoa_yard_test.dart
+01:23 +344 -1: /Users/runner/work/flutter-app/flutter-app/test/smoa_yard_test.dart: SMOA 1 SMOA = 1 inch at 100 yd = 1/3600 rad
+01:23 +345 -1: /Users/runner/work/flutter-app/flutter-app/test/smoa_yard_test.dart: SMOA a 30 MOA mount is 125 quarter-SMOA clicks (120 in MOA)
+01:23 +346 -1: /Users/runner/work/flutter-app/flutter-app/test/smoa_yard_test.dart: SMOA 10 cm at 100 m in SMOA
+01:23 +347 -1: /Users/runner/work/flutter-app/flutter-app/test/smoa_yard_test.dart: profile codec distanceUnit and SMOA round-trip; old profiles are metres
+01:23 +348 -1: /Users/runner/work/flutter-app/flutter-app/test/smoa_yard_test.dart: yard profile on Hedef range dial, zero and table are in yards
+01:24 +349 -1: loading /Users/runner/work/flutter-app/flutter-app/test/truing_screen_test.dart
+01:25 +349 -1: /Users/runner/work/flutter-app/flutter-app/test/truing_screen_test.dart: hub lists Hız Doğrulama
+01:25 +350 -1: /Users/runner/work/flutter-app/flutter-app/test/truing_screen_test.dart: no active profile: says so, no inputs
+01:25 +351 -1: /Users/runner/work/flutter-app/flutter-app/test/truing_screen_test.dart: ammunition without BC is refused
+01:25 +352 -1: /Users/runner/work/flutter-app/flutter-app/test/truing_screen_test.dart: computes the trued velocity and saves only after confirm
+01:26 +353 -1: /Users/runner/work/flutter-app/flutter-app/test/truing_screen_test.dart: range inside the zero shows the reason
+01:26 +354 -1: loading /Users/runner/work/flutter-app/flutter-app/test/reticle_holds_test.dart
+01:27 +354 -1: /Users/runner/work/flutter-app/flutter-app/test/reticle_holds_test.dart: samples are dense, ordered and end where the pellet runs out
+01:27 +355 -1: /Users/runner/work/flutter-app/flutter-app/test/reticle_holds_test.dart: a harder hold needs a farther distance (monotone)
+01:27 +356 -1: /Users/runner/work/flutter-app/flutter-app/test/reticle_holds_test.dart: a hold the pellet never needs has no distance
+01:27 +357 -1: /Users/runner/work/flutter-app/flutter-app/test/reticle_holds_test.dart: crosswind for one mil scales with the 1 m/s drift
+01:27 +358 -1: /Users/runner/work/flutter-app/flutter-app/test/reticle_holds_test.dart: an unreachable range gives no wind value
+01:27 +359 -1: loading /Users/runner/work/flutter-app/flutter-app/test/hit_probability_test.dart
+01:28 +359 -1: /Users/runner/work/flutter-app/flutter-app/test/hit_probability_test.dart: HitProbabilityEngine probability is the closed-form Gaussian value (5-shot group)
+01:28 +360 -1: /Users/runner/work/flutter-app/flutter-app/test/hit_probability_test.dart: HitProbabilityEngine fewer shots in the same group size means more dispersion
+01:28 +361 -1: /Users/runner/work/flutter-app/flutter-app/test/hit_probability_test.dart: HitProbabilityEngine probability increases as the target shrinks less than the group
+01:28 +362 -1: /Users/runner/work/flutter-app/flutter-app/test/hit_probability_test.dart: HitProbabilityEngine maxRangeForProbability inverts probabilityOfHit
+01:28 +363 -1: /Users/runner/work/flutter-app/flutter-app/test/hit_probability_test.dart: HitProbabilityEngine rejects non-positive inputs
+01:28 +364 -1: /Users/runner/work/flutter-app/flutter-app/test/hit_probability_test.dart: Vuruş Olasılığı screen shows a result once inputs are valid
+01:28 +365 -1: loading /Users/runner/work/flutter-app/flutter-app/test/scope_travel_profile_test.dart
+01:29 +365 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_travel_profile_test.dart: personal scope records carry the turret travel
+01:29 +366 -1: /Users/runner/work/flutter-app/flutter-app/test/scope_travel_profile_test.dart: Üst kule klik sayısı: ⓘ, optional, whole clicks
+01:30 +367 -1: loading /Users/runner/work/flutter-app/flutter-app/test/reference_drag_model_test.dart
+01:30 +367 -1: /Users/runner/work/flutter-app/flutter-app/test/reference_drag_model_test.dart: zero speed has zero aerodynamic deceleration
+01:30 +368 -1: /Users/runner/work/flutter-app/flutter-app/test/reference_drag_model_test.dart: drag follows dynamic-pressure equation with explicit BC SI conversion
+01:30 +369 -1: /Users/runner/work/flutter-app/flutter-app/test/reference_drag_model_test.dart: BC conversion pins one lb per square inch in SI
+01:30 +370 -1: /Users/runner/work/flutter-app/flutter-app/test/reference_drag_model_test.dart: doubling BC halves drag at identical atmosphere and speed
+01:30 +371 -1: /Users/runner/work/flutter-app/flutter-app/test/reference_drag_model_test.dart: invalid BC fails closed at conversion boundary
+01:30 +372 -1: loading /Users/runner/work/flutter-app/flutter-app/test/home_active_profile_test.dart
+01:31 +372 -1: /Users/runner/work/flutter-app/flutter-app/test/home_active_profile_test.dart: failed active-profile write keeps previous selection and reports error
+01:32 +373 -1: /Users/runner/work/flutter-app/flutter-app/test/home_active_profile_test.dart: successful active-profile write moves form, display and solver
+01:32 +374 -1: /Users/runner/work/flutter-app/flutter-app/test/home_active_profile_test.dart: stale active-profile id is cleared when no profiles remain
+01:32 +375 -1: /Users/runner/work/flutter-app/flutter-app/test/home_active_profile_test.dart: failed stale active-id repair does not block loaded profiles
+01:32 +376 -1: loading /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart
+01:32 +376 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: experimental aerodynamic solver preserves requested range order and zero
+01:33 +377 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: duplicate requested ranges are preserved instead of failing completion check
+01:33 +378 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: drag reduces velocity and energy with distance
+01:33 +379 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: no-wind API fails closed when wind is supplied
+01:33 +380 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: opposite full-value crosswinds produce opposite drift signs
+01:33 +381 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: full-value crosswind integrates non-zero lateral displacement
+01:33 +382 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: crosswind trajectory reports finite positive 3-D velocity and energy
+01:33 +383 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: headwind has no lateral drift in symmetric 2-D setup
+01:33 +384 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: RK4 solution converges when integration step is halved
+01:33 +385 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: higher BC retains more velocity for the same G1 trajectory
+01:33 +386 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: current headwind does not silently re-zero the mechanical sight setting
+01:33 +387 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: mechanical zero is independent of current humidity as well as wind
+01:33 +388 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: explicit zeroing atmosphere is separate from current shot atmosphere
+01:33 +389 -1: /Users/runner/work/flutter-app/flutter-app/test/aerodynamic_trajectory_solver_test.dart: invalid integration steps fail closed
+01:33 +390 -1: loading /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart
+01:33 +390 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: bundled catalog satisfies integrity rules
+01:33 +391 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: repository startup guard validates the exact bundled catalog
+01:33 +392 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: current AirMaks Krait S variants are manufacturer-backed, not generic placeholders
+01:33 +393 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: Krait MKII X HP manufacturer metadata stays variant-specific
+01:33 +394 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: Krait PRO catalog variants preserve manufacturer-backed 6.35 metadata
+01:33 +395 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: Caiman 6.35 variants keep only manufacturer-unambiguous metadata
+01:33 +396 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: AEA Challenger Pro 6.35 record preserves verified retailer provenance
+01:33 +397 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: HATSAN 6.35 flagship PCP metadata matches manufacturer pages
+01:33 +398 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: rejects duplicate ids and incomplete BC metadata
+01:33 +399 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: expanded HATSAN 6.35 catalog keeps manufacturer-backed variant values
+01:33 +400 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: Huğlu Spark 6.35 variants preserve manufacturer configuration pairing
+01:33 +401 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: verified optic metadata keeps lens and physical objective diameter distinct
+01:33 +402 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: scope integrity rejects impossible physical objective diameter
+01:33 +403 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: JSB Exact King .25 family keeps manufacturer-backed weights without invented BC
+01:33 +404 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: verified PCP ammunition preserves manufacturer provenance without invented BC
+01:33 +405 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: FX 6.35 rifle expansion preserves only manufacturer-backed metadata
+01:33 +406 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: FX current 6.35 family expansion keeps provenance and avoids guessed variant data
+01:33 +407 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: ammunition integrity rejects half-specified provenance
+01:33 +408 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: non-manual branded catalog records cannot silently lose provenance
+01:33 +409 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: manual templates remain intentionally usable without fake provenance
+01:33 +410 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: JSB 4.5 and 5.5 manufacturer records keep exact verified weights
+01:33 +411 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: scope lower-bound provenance cannot exist without a published range
+01:33 +412 -1: /Users/runner/work/flutter-app/flutter-app/test/catalog_integrity_test.dart: scope lower-bound provenance is valid when the published ranges exist
+01:33 +413 -1: loading /Users/runner/work/flutter-app/flutter-app/test/shot_settings_test.dart
+01:34 +413 -1: /Users/runner/work/flutter-app/flutter-app/test/shot_settings_test.dart: damaged values fall back to level / off
+01:34 +414 -1: /Users/runner/work/flutter-app/flutter-app/test/shot_settings_test.dart: saved incline, cant and Coriolis come back on Pro
+01:34 +415 -1: /Users/runner/work/flutter-app/flutter-app/test/shot_settings_test.dart: a change is written for the next start
+01:34 +416 -1: /Users/runner/work/flutter-app/flutter-app/test/shot_settings_test.dart: sea-level pressure at altitude is flagged
+01:35 +417 -1: /Users/runner/work/flutter-app/flutter-app/test/shot_settings_test.dart: Pro extras turret scale, wind bracket and moving-target lead
+01:37 +418 -1: /Users/runner/work/flutter-app/flutter-app/test/shot_settings_test.dart: full view: solve after the pressure warning came and went
+01:37 +419 -1: loading /Users/runner/work/flutter-app/flutter-app/test/settings_store_test.dart
+01:37 +419 -1: /Users/runner/work/flutter-app/flutter-app/test/settings_store_test.dart: metric setting defaults to true when no value is stored
+01:37 +420 -1: /Users/runner/work/flutter-app/flutter-app/test/settings_store_test.dart: V380: a stored imperial choice is ignored (metric only)
+01:37 +421 -1: /Users/runner/work/flutter-app/flutter-app/test/settings_store_test.dart: failed preference write is surfaced instead of accepted
+01:37 +422 -1: loading /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart
+01:38 +422 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Hava & Rüzgâr — age timer and resume badge turns stale by itself after 30 min, without refetch
+01:38 +423 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Hava & Rüzgâr — age timer and resume returning to the foreground re-evaluates the age at once
+01:38 +424 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Hava & Rüzgâr — age timer and resume timer and observer are released when the screen closes
+01:38 +425 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Kamera — init failure and cleanup unexpected plugin error shows a message, not a crash
+01:39 +426 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Kamera — init failure and cleanup leaving the capture page disposes the camera session
+01:39 +427 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Kamera — init failure and cleanup closing before the camera opens still disposes the session
+01:39 +428 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Ekran yönü — lock and restore Su Terazisi locks portrait and restores on close
+01:39 +429 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Ekran yönü — lock and restore Pusula locks portrait and restores on close
+01:39 +430 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Ekran yönü — lock and restore side photo forces landscape and restores when popped
+01:39 +431 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Su Terazisi — reference set and clear reference zeroes a tilted surface; Temizle restores it
+01:39 +432 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Su Terazisi — reference set and clear reference is dropped on a pose change; calibration is kept
+01:39 +433 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Su Terazisi — reference set and clear reference needs a reading; without one nothing is stored
+01:39 +434 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_lifecycle_test.dart: Su Terazisi — reference set and clear lock freezes the shown angles until released
+01:39 +435 -1: loading /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart
+01:40 +435 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: CompassMath normalises and names directions
+01:40 +436 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: CompassMath shortest delta wraps across north
+01:40 +437 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: TiltMath flat phone is level
+01:40 +438 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: TiltMath unusable gravity returns null
+01:40 +439 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: TiltMath pose follows gravity with hysteresis
+01:40 +440 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: TiltMath format uses 0,1 resolution and never -0,0
+01:40 +441 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: TiltMath filter only smooths
+01:40 +442 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: WeatherPolicy fresh / stale / expired by download age
+01:40 +443 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: WeatherPolicy coordinates are rounded for any cache key
+01:40 +444 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: ChronographStats mean, sample SD and ES
+01:40 +445 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: ChronographStats single shot has no SD; empty is null
+01:40 +446 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: ChronographStats invalid readings throw
+01:40 +447 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: SightHeightGeometry scales from the objective outer diameter
+01:40 +448 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: SightHeightGeometry a bore point inside the objective disc is rejected
+01:40 +449 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: SightHeightGeometry implausible or degenerate marks give null
+01:40 +450 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: ToolProfileUpdate (review fix) applies a valid value and keeps every other field
+01:40 +451 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: ToolProfileUpdate (review fix) rejects values the profile decoder would refuse later
+01:40 +452 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: ToolProfileUpdate (review fix) chronograph accepts nothing above the profile velocity limit
+01:40 +453 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: SightHeightPhysical bore radius + top wall + front gap + objective OUTER radius
+01:40 +454 -1: /Users/runner/work/flutter-app/flutter-app/test/tools_domain_test.dart: SightHeightPhysical missing, zero, negative or non-finite input gives no result
+01:40 +455 -1: loading /Users/runner/work/flutter-app/flutter-app/test/level_calibration_persistence_test.dart
+01:40 +455 -1: /Users/runner/work/flutter-app/flutter-app/test/level_calibration_persistence_test.dart: flip calibration removes a constant device bias on a level table
+01:40 +456 -1: /Users/runner/work/flutter-app/flutter-app/test/level_calibration_persistence_test.dart: a stored calibration is restored when the level opens again
+01:40 +457 -1: /Users/runner/work/flutter-app/flutter-app/test/level_calibration_persistence_test.dart: half a recalibration keeps the stored bias; clearing removes it
+01:40 +458 -1: /Users/runner/work/flutter-app/flutter-app/test/level_calibration_persistence_test.dart: a failed save is reported, the session calibration still applies
+01:40 +459 -1: /Users/runner/work/flutter-app/flutter-app/test/level_calibration_persistence_test.dart: calibration steps from the bottom-left sheet work
+01:43 +460 -1: /Users/runner/work/flutter-app/flutter-app/test/level_calibration_persistence_test.dart: no title bar; "Su Terazisi" explanation sits under the numbers
+01:43 +461 -1: /Users/runner/work/flutter-app/flutter-app/test/level_calibration_persistence_test.dart: "Kalibre et" opens the numbered steps
+01:43 +462 -1: loading /Users/runner/work/flutter-app/flutter-app/test/profile_recovery_test.dart
+01:44 +462 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_recovery_test.dart: both records corrupt: empty start preserves exact bytes first
+01:44 +463 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_recovery_test.dart: refuses to start empty while storage is readable
+01:44 +464 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_recovery_test.dart: Profil screen: Kapat writes nothing; confirmed empty start keeps copies
+01:46 +465 -1: /Users/runner/work/flutter-app/flutter-app/test/profile_recovery_test.dart: HomeScreen error card (tabs hidden) still offers recovery
+01:48 +466 -1: loading /Users/runner/work/flutter-app/flutter-app/test/ballistic_audit_test.dart
+01:49 +466 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistic_audit_test.dart: angleAtRange: 10 cm at 50 m is 2 mrad (≈ 6.9 MOA)
+01:49 +467 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistic_audit_test.dart: zooming in makes the target bigger (FFP)
+01:49 +468 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistic_audit_test.dart: zooming in makes the target bigger (SFP)
+01:49 +469 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistic_audit_test.dart: a farther target is drawn smaller
+01:49 +470 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistic_audit_test.dart: scope workings state the target size
+01:49 +471 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistic_audit_test.dart: wind from the left: drifts right, dial L
+01:51 +472 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistic_audit_test.dart: wind from the right: drifts left, dial R
+01:53 +473 -1: /Users/runner/work/flutter-app/flutter-app/test/ballistic_audit_test.dart: velocity field is fps (270 m/s shown as 885.8)
+01:53 +474 -1: loading /Users/runner/work/flutter-app/flutter-app/test/standard_drag_tables_test.dart
+01:53 +474 -1: /Users/runner/work/flutter-app/flutter-app/test/standard_drag_tables_test.dart: G1 reference table preserves authoritative anchor values
+01:53 +475 -1: /Users/runner/work/flutter-app/flutter-app/test/standard_drag_tables_test.dart: G7 reference table preserves authoritative anchor values
+01:53 +476 -1: /Users/runner/work/flutter-app/flutter-app/test/standard_drag_tables_test.dart: transonic interpolation is deterministic
+01:53 +477 -1: Some tests failed.
+
+Failing tests:
+  /Users/runner/work/flutter-app/flutter-app/test/scope_dial_view_test.dart: windage clicks move the impact sideways
