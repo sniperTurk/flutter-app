@@ -1166,6 +1166,10 @@ class MenzilSecondaryButton extends StatelessWidget {
   final bool expand;
   final bool destructive;
 
+  /// Filled orange with white text: the control's state is the current one
+  /// (e.g. "Çözüm kuleye kurulu"). Stays orange when disabled.
+  final bool active;
+
   const MenzilSecondaryButton({
     super.key,
     required this.label,
@@ -1173,12 +1177,21 @@ class MenzilSecondaryButton extends StatelessWidget {
     this.icon,
     this.expand = false,
     this.destructive = false,
+    this.active = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
-    final style = destructive
+    final style = active
+        ? OutlinedButton.styleFrom(
+            backgroundColor: MenzilColors.stateOrange,
+            foregroundColor: Colors.white,
+            disabledBackgroundColor: MenzilColors.stateOrange,
+            disabledForegroundColor: Colors.white,
+            side: const BorderSide(color: MenzilColors.stateOrange),
+          )
+        : destructive
         ? OutlinedButton.styleFrom(
             foregroundColor: c.danger,
             side: BorderSide(color: c.danger.withValues(alpha: 0.6)),

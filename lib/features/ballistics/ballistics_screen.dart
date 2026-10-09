@@ -2769,7 +2769,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       ),
       _proBox(
         id: 'target',
-        title: 'Hedef',
+        title: 'Hareketli hedef',
         summary: _summaryTarget(),
         children: [
           _explain(ProSectionInfo.movingTarget),

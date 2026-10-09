@@ -429,51 +429,64 @@ class ScopeDialView extends StatelessWidget {
             // Owner, 2026-10-08: the turret buttons sit right under the
             // magnification; the explanations follow below them.
             const SizedBox(height: MenzilSpace.sm),
-            Row(
-              children: [
-                Expanded(
-                  child: MenzilSecondaryButton(
-                    key: ScopeDialKeys.dialSolution,
-                    label: 'Çözümü kuleye kur',
-                    icon: Icons.tune,
-                    expand: true,
-                    onPressed: req == null
-                        ? null
-                        : () {
-                            final clicks = ScopeDialMath.clicksFor(
-                              req,
-                              clickValue,
-                            );
-                            onElevationChanged(
-                              clicks
-                                  .clamp(-_downClicks, maxElevationClicks)
-                                  .toInt(),
-                            );
-                            onWindageChanged(
-                              ScopeDialMath.clicksFor(requiredRight, clickValue)
-                                  .clamp(-maxWindageClicks, maxWindageClicks)
-                                  .toInt(),
-                            );
-                            onSolutionDialed?.call();
-                          },
-                  ),
-                ),
-                const SizedBox(width: MenzilSpace.sm),
-                Expanded(
-                  child: MenzilSecondaryButton(
-                    key: ScopeDialKeys.reset,
-                    label: 'Kuleleri sıfırla',
-                    icon: Icons.restart_alt,
-                    expand: true,
-                    onPressed: elevationClicks == 0 && windageClicks == 0
-                        ? null
-                        : () {
-                            onElevationChanged(0);
-                            onWindageChanged(0);
-                          },
-                  ),
-                ),
-              ],
+            Builder(
+              builder: (context) {
+                // Owner, 2026-10-10: the button of the turrets' current state
+                // turns orange — the solution dialled, or both at zero.
+                final solElev = req == null
+                    ? null
+                    : ScopeDialMath.clicksFor(
+                        req,
+                        clickValue,
+                      ).clamp(-_downClicks, maxElevationClicks).toInt();
+                final solWind = ScopeDialMath.clicksFor(
+                  requiredRight,
+                  clickValue,
+                ).clamp(-maxWindageClicks, maxWindageClicks).toInt();
+                final dialled =
+                    solElev != null &&
+                    elevationClicks == solElev &&
+                    windageClicks == solWind;
+                final atZero = elevationClicks == 0 && windageClicks == 0;
+                return Row(
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: ScopeDialKeys.dialSolution,
+                        label: dialled
+                            ? 'Çözüm kuleye kurulu'
+                            : 'Çözümü kuleye kur',
+                        icon: dialled ? Icons.check_circle : Icons.tune,
+                        expand: true,
+                        active: dialled,
+                        onPressed: req == null || dialled
+                            ? null
+                            : () {
+                                onElevationChanged(solElev!);
+                                onWindageChanged(solWind);
+                                onSolutionDialed?.call();
+                              },
+                      ),
+                    ),
+                    const SizedBox(width: MenzilSpace.sm),
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: ScopeDialKeys.reset,
+                        label: atZero ? 'Kuleler sıfırda' : 'Kuleleri sıfırla',
+                        icon: atZero ? Icons.check_circle : Icons.restart_alt,
+                        expand: true,
+                        active: atZero,
+                        onPressed: atZero
+                            ? null
+                            : () {
+                                onElevationChanged(0);
+                                onWindageChanged(0);
+                              },
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             if (outside && impact != null)
               Padding(

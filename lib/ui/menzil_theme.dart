@@ -14,6 +14,10 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
   /// Text/icon colour on top of an amber-filled control (both brightnesses).
   static const Color onAmber = Color(0xFF1B1200);
 
+  /// Fill of a state button showing the turrets' current state (white text
+  /// on it, both brightnesses; owner, 2026-10-10).
+  static const Color stateOrange = Color(0xFFE8590C);
+
   final Color bg;
   final Color surface;
   final Color surface2;
