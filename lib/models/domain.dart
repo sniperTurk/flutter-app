@@ -48,7 +48,27 @@ extension DistanceUnitMath on DistanceUnit {
   String get symbol => this == DistanceUnit.yard ? 'yd' : 'm';
 }
 
-enum BallisticModel { g1, g7 }
+/// Drag law a ballistic coefficient refers to. GA is ChairGun's diabolo
+/// pellet model (see StandardDragTables.ga).
+enum BallisticModel { g1, g7, ga }
+
+/// One step of a velocity-dependent BC (çoklu BC): [bc] applies while the
+/// projectile is at least [minVelocityMps] fast (Applied Ballistics / Hornady
+/// convention). Below every threshold the lowest band applies.
+class BcBand {
+  final double minVelocityMps;
+  final double bc;
+  const BcBand(this.minVelocityMps, this.bc);
+
+  @override
+  bool operator ==(Object other) =>
+      other is BcBand &&
+      other.minVelocityMps == minVelocityMps &&
+      other.bc == bc;
+
+  @override
+  int get hashCode => Object.hash(minVelocityMps, bc);
+}
 
 /// Rifling twist direction ("namlu yiv yönü").
 enum TwistDirection { right, left }
@@ -113,6 +133,10 @@ class Ammunition {
   final AmmunitionType type;
   final double? ballisticCoefficient;
   final BallisticModel? ballisticModel;
+
+  /// Optional velocity-dependent BC steps (same drag law); empty = the
+  /// single [ballisticCoefficient] applies at every speed.
+  final List<BcBand> bcBands;
   final String? sourceName, sourceDocument;
 
   /// See [Rifle.userEntered].
@@ -127,6 +151,7 @@ class Ammunition {
     required this.type,
     this.ballisticCoefficient,
     this.ballisticModel,
+    this.bcBands = const [],
     this.sourceName,
     this.sourceDocument,
     this.userEntered = false,

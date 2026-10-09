@@ -143,6 +143,20 @@ class ManualCatalogStore {
     if (twist != null && twist != 'right' && twist != 'left') {
       throw const FormatException('Invalid twist direction');
     }
+    // Velocity-dependent BC (çoklu BC): up to 5 {mps, bc} steps; the slowest
+    // step starts at 0 m/s.
+    final bands = entry['bcBands'];
+    if (bands != null) {
+      if (bands is! List || bands.length > 5) {
+        throw const FormatException('Invalid bcBands');
+      }
+      for (final b in bands) {
+        final v = b is Map ? b['mps'] : null, bc = b is Map ? b['bc'] : null;
+        if (v is! num || bc is! num || !v.isFinite || !bc.isFinite || v < 0 || bc <= 0) {
+          throw const FormatException('Invalid bcBands');
+        }
+      }
+    }
     for (final field in ['caliberMm', 'grain', 'diameterMm', 'lengthMm', 'bc', 'objectiveMm', 'click', 'twistRateIn', 'regulatorBar', 'minMag', 'maxMag', 'elevationRangeMrad', 'windageRangeMrad']) {
       final value = entry[field];
       if (value != null && (value is! num || !value.isFinite || value <= 0)) {

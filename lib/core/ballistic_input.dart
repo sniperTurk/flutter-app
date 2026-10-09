@@ -18,6 +18,24 @@ class BallisticInput {
   final double? ballisticCoefficient;
   final BallisticModel? ballisticModel;
 
+  /// Velocity-dependent BC steps (çoklu BC); empty = [ballisticCoefficient]
+  /// at every speed. Thresholds are projectile speed through the air.
+  final List<BcBand> bcBands;
+
+  /// BC that applies at [speedMps]: the band with the highest threshold the
+  /// speed still reaches, else the lowest band, else [ballisticCoefficient].
+  double bcAtSpeed(double speedMps) {
+    final base = ballisticCoefficient;
+    if (bcBands.isEmpty) {
+      if (base == null) throw StateError('no ballistic coefficient');
+      return base;
+    }
+    for (final b in bcBands) {
+      if (speedMps >= b.minVelocityMps) return b.bc;
+    }
+    return bcBands.last.bc;
+  }
+
   /// Shot incline: angle of the line of sight above (+) or below (−) the
   /// horizontal, degrees. Ranges are measured ALONG the line of sight (what a
   /// laser rangefinder reports). The zero is always solved level.
@@ -54,6 +72,7 @@ class BallisticInput {
     zeroEnvironment: zeroEnvironment,
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
+    bcBands: bcBands,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
@@ -76,6 +95,7 @@ class BallisticInput {
     zeroEnvironment: zeroEnvironment,
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
+    bcBands: bcBands,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
@@ -97,6 +117,11 @@ class BallisticInput {
     zeroEnvironment: zeroEnvironment,
     ballisticCoefficient: bc,
     ballisticModel: ballisticModel,
+    // Truing scales a velocity-dependent BC as a whole.
+    bcBands: [
+      for (final b in bcBands)
+        BcBand(b.minVelocityMps, b.bc * bc / ballisticCoefficient!),
+    ],
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
@@ -121,12 +146,27 @@ class BallisticInput {
     ),
     this.ballisticCoefficient,
     this.ballisticModel,
+    Iterable<BcBand> bcBands = const [],
     this.inclineDeg = 0,
     this.cantDeg = 0,
     this.latitudeDeg,
     this.azimuthDeg,
     this.zeroMuzzleVelocityMps,
-  }) : rangesM = List.unmodifiable(rangesM) {
+  }) : rangesM = List.unmodifiable(rangesM),
+       // Fastest band first, so [bcAtSpeed] takes the first one reached.
+       bcBands = List.unmodifiable(
+         bcBands.toList()
+           ..sort((a, b) => b.minVelocityMps.compareTo(a.minVelocityMps)),
+       ) {
+    if (this.bcBands.length > 5) {
+      throw ArgumentError.value(this.bcBands.length, 'bcBands', 'at most 5');
+    }
+    for (final b in this.bcBands) {
+      _positiveFinite('bcBands.bc', b.bc);
+      if (!b.minVelocityMps.isFinite || b.minVelocityMps < 0) {
+        throw ArgumentError.value(b.minVelocityMps, 'bcBands.minVelocityMps');
+      }
+    }
     _positiveFinite('muzzleVelocityMps', muzzleVelocityMps);
     _max(
       'muzzleVelocityMps',
@@ -157,6 +197,12 @@ class BallisticInput {
       throw ArgumentError(
         'ballisticCoefficient and ballisticModel must be supplied together',
       );
+    }
+    if (this.bcBands.isNotEmpty && ballisticCoefficient == null) {
+      throw ArgumentError('bcBands need a ballisticCoefficient and model');
+    }
+    for (final b in this.bcBands) {
+      _max('bcBands.bc', b.bc, 5);
     }
     if (ballisticCoefficient != null) {
       _positiveFinite('ballisticCoefficient', ballisticCoefficient!);

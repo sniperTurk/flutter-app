@@ -42,8 +42,9 @@ abstract final class ProfileFieldInfo {
       'BC sayısının hangi standart mermi şekline göre verildiği. G1: küt uçlu '
       'klasik şekil; havalı tüfek saçması ve slug için neredeyse her zaman G1 '
       'verilir. G7: uzun, sivri uzun menzil mermisi. Aynı mermide G7 değeri '
-      'G1\'in yaklaşık yarısıdır; yanlış model hesabı ciddi saptırır. Emin '
-      'değilseniz G1 seçin.';
+      'G1\'in yaklaşık yarısıdır. GA (saçma): ChairGun\'ın diabolo saçma '
+      'modeli; BC\'yi ChairGun\'dan alıyorsanız GA seçin, saçmada en doğru '
+      'sonucu verir. Yanlış model hesabı ciddi saptırır. Emin değilseniz G1.';
   static const bcFirearm =
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
@@ -55,6 +56,15 @@ abstract final class ProfileFieldInfo {
       'uzun menzil mermisi; bu mermilerde G7 daha doğrudur. Aynı mermide G7 '
       'değeri G1\'in yaklaşık yarısıdır; yanlış model hesabı ciddi saptırır. '
       'Üretici hangisini veriyorsa onu seçin.';
+
+  static const bandSpeed =
+      'İsteğe bağlı. BC hız düştükçe değişir (özellikle saçma ve slug). Hız '
+      'bu değerin altına inince yandaki BC kullanılır; üstünde ana BC. '
+      'Üretici bazen hız aralıklarıyla birden çok BC verir (ör. Sierra). '
+      'Örnek: 800 fps altında 0,031.';
+  static const bandBc =
+      'Hız, soldaki eşiğin altına düştüğünde kullanılacak BC (aynı model: '
+      'G1/G7/GA). Boş bırakırsanız tek BC kullanılır. Örnek: 0,031.';
 
   // Dürbün
   static const focalPlane =
