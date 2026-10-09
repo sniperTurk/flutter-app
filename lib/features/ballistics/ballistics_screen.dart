@@ -111,13 +111,23 @@ class _ShotBasis {
     double cantDeg = 0,
     double? latitudeDeg,
     double? azimuthDeg,
+    double? windMps,
   }) => BallisticInput(
     muzzleVelocityMps: velocityMps,
     grain: grain,
     zeroRangeM: zeroRangeM,
     sightHeightMm: sightHeightMm,
     rangesM: rangesM,
-    environment: environment,
+    environment: windMps == null
+        ? environment
+        : EnvironmentData(
+            temperatureC: environment.temperatureC,
+            pressureHpa: environment.pressureHpa,
+            humidityPercent: environment.humidityPercent,
+            altitudeM: environment.altitudeM,
+            windMps: windMps,
+            windDirectionDeg: environment.windDirectionDeg,
+          ),
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
     inclineDeg: inclineDeg,
@@ -194,6 +204,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _coriolisOn = s.coriolisOn;
         latitudeCtl.text = s.latitudeText;
         azimuthCtl.text = s.azimuthText;
+        turretScaleCtl.text = s.turretScaleText;
+        windMaxCtl.text = s.windMaxText;
+        targetSpeedCtl.text = s.targetSpeedText;
+        _targetMovesRight = s.targetMovesRight;
         _shotCache.clear();
         _holdSamples = null;
       });
@@ -210,6 +224,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       coriolisOn: _coriolisOn,
       latitudeText: latitudeCtl.text.trim(),
       azimuthText: azimuthCtl.text.trim(),
+      turretScaleText: turretScaleCtl.text.trim(),
+      windMaxText: windMaxCtl.text.trim(),
+      targetSpeedText: targetSpeedCtl.text.trim(),
+      targetMovesRight: _targetMovesRight,
     );
     unawaited(
       _shotStore.save(id, settings).catchError((Object _) {
@@ -223,6 +241,32 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   bool _coriolisOn = false;
   final TextEditingController latitudeCtl = TextEditingController();
   final TextEditingController azimuthCtl = TextEditingController();
+
+  /// Pro Ayarlar extras (owner, 2026-10-09).
+  final TextEditingController turretScaleCtl = TextEditingController();
+  final TextEditingController windMaxCtl = TextEditingController();
+  final TextEditingController targetSpeedCtl = TextEditingController();
+  bool _targetMovesRight = true;
+
+  /// Real / marked turret travel; 1 when empty or implausible (0.8–1.2).
+  double get _turretScale {
+    final v = _parsed(turretScaleCtl);
+    return v != null && v >= 0.8 && v <= 1.2 ? v : 1.0;
+  }
+
+  /// Highest wind of the bracket in m/s (shown unit converted), or null.
+  double? get _windMaxMps {
+    final v = _parsed(windMaxCtl);
+    if (v == null || v <= 0 || v > 60) return null;
+    return metric ? v : UnitSystem.mphToMps(v);
+  }
+
+  /// Moving target speed in m/s, or null.
+  double? get _targetSpeedMps {
+    final v = _parsed(targetSpeedCtl);
+    if (v == null || v <= 0 || v > 30) return null;
+    return metric ? v : UnitSystem.mphToMps(v);
+  }
   String? _coriolisStatus;
 
   double? _parsed(TextEditingController c) {
@@ -824,6 +868,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     ranges.dispose();
     latitudeCtl.dispose();
     azimuthCtl.dispose();
+    turretScaleCtl.dispose();
+    windMaxCtl.dispose();
+    targetSpeedCtl.dispose();
     super.dispose();
   }
 
@@ -953,9 +1000,81 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return MenzilCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [_scopeDial(shot)],
+        children: [_scopeDial(shot), ..._extraShotNotes(shot)],
       ),
     );
+  }
+
+  /// Rüzgâr aralığı and hareketli hedef lines under the scope (owner,
+  /// 2026-10-09). Empty unless set on Pro Ayarlar.
+  List<Widget> _extraShotNotes(TrajectoryPoint? shot) {
+    final basis = _basis;
+    final click = _scopeClickValue;
+    if (shot == null || basis == null) return const [];
+    final c = MenzilColors.of(context);
+    final unit = _scopeUnit;
+    String clicks(double mrad) => click == null
+        ? '${unit.fromMrad(mrad.abs()).toStringAsFixed(2)} ${unit.label}'
+        : '${(unit.fromMrad(mrad.abs()) / click / _turretScale).round()} klik';
+    final lines = <Widget>[];
+    final windMax = _windMaxMps;
+    final wind = basis.environment.windMps;
+    if (basis.drag && windMax != null && windMax > wind) {
+      final args = _coriolisArgs;
+      try {
+        final hi = const BallisticEngine()
+            .solve(
+              basis.input(
+                [_shotRangeM],
+                inclineDeg: _inclineDeg,
+                cantDeg: _cantDeg,
+                latitudeDeg: args.lat,
+                azimuthDeg: args.az,
+                windMps: windMax,
+              ),
+            )
+            .single;
+        // windMrad > 0: dial RIGHT (the shot went left).
+        String side(double m) => m.abs() < 1e-9 ? '' : (m > 0 ? ' R' : ' L');
+        lines.add(
+          Text(
+            'Rüzgâr ${_windLabel(wind)}–${_windLabel(windMax)} '
+            '${metric ? 'm/s' : 'mph'}: yan düzeltme '
+            '${clicks(shot.windMrad)}${side(shot.windMrad)} – '
+            '${clicks(hi.windMrad)}${side(hi.windMrad)}.',
+            key: const Key('shot-wind-bracket'),
+            style: MenzilType.body(c.ink),
+          ),
+        );
+      } on ArgumentError {
+        // Out-of-range wind: no bracket line.
+      } on StateError {
+        // Unreachable at that wind: no bracket line.
+      }
+    }
+    final speed = _targetSpeedMps;
+    if (speed != null) {
+      final leadM = speed * shot.timeOfFlightS;
+      final mrad = math.atan(leadM / _shotRangeM) * 1000;
+      final len = metric
+          ? '${(leadM * 100).toStringAsFixed(0)} cm'
+          : '${UnitSystem.millimetersToInches(leadM * 1000).toStringAsFixed(1)} in';
+      lines.add(
+        Text(
+          'Hareketli hedef (${_windLabel(speed)} ${metric ? 'm/s' : 'mph'}, '
+          '${_targetMovesRight ? 'soldan sağa' : 'sağdan sola'}): '
+          '$len · ${clicks(mrad)} ${_targetMovesRight ? 'sağına' : 'soluna'} '
+          'nişan alın (uçuş ${shot.timeOfFlightS.toStringAsFixed(2)} s).',
+          key: const Key('shot-lead'),
+          style: MenzilType.body(c.ink),
+        ),
+      );
+    }
+    if (lines.isEmpty) return const [];
+    return [
+      const SizedBox(height: MenzilSpace.sm),
+      for (final l in lines) ...[l, const SizedBox(height: MenzilSpace.xs)],
+    ];
   }
 
   String _windLabel(double mps) =>
@@ -1018,14 +1137,19 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final unit = _scopeUnit;
     final basis = _basis;
     double inUnit(double mrad) => unit.fromMrad(mrad);
-    final requiredUp = shot == null ? null : inUnit(shot.correctionMrad);
+    final requiredUp = shot == null
+        ? null
+        : inUnit(shot.correctionMrad) / _turretScale;
     // windMrad = atan2(-z, range): the correction toward the RIGHT turret
     // direction, with the solver's +z drawn to the right of the crosshair.
     // Without drag (!basis.drag) it holds only the scope-cant part (wind is
     // not modelled there), so it is 0.0 unless the scope is canted.
+    // Kule ölçek katsayısı: a turret that moves 0.98 of its marking needs
+    // 1/0.98 of the clicks (owner, 2026-10-09).
+    final scale = _turretScale;
     final requiredRight = (shot == null || basis == null)
         ? 0.0
-        : inUnit(shot.windMrad);
+        : inUnit(shot.windMrad) / scale;
 
     final mpsPerMil = basis != null && basis.drag
         ? _evalShot().mpsPerMil
@@ -1883,6 +2007,67 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             ],
           ],
         ),
+      ),
+      const MenzilSectionHeader(
+        'Kule ölçek katsayısı',
+        padding: EdgeInsets.only(top: MenzilSpace.lg, bottom: MenzilSpace.sm),
+      ),
+      MenzilInput(
+        key: const Key('pro-turret-scale'),
+        controller: turretScaleCtl,
+        label: 'Gerçek / yazan',
+        info: EnvironmentFieldInfo.turretScale,
+        hintText: '1.00',
+        errorText:
+            turretScaleCtl.text.trim().isNotEmpty &&
+                (_parsed(turretScaleCtl) == null ||
+                    _parsed(turretScaleCtl)! < 0.8 ||
+                    _parsed(turretScaleCtl)! > 1.2)
+            ? '0,80 ile 1,20 arasında olmalı.'
+            : null,
+        onChanged: (_) => _coriolisChanged(),
+      ),
+      const MenzilSectionHeader(
+        'Rüzgâr aralığı',
+        padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
+      ),
+      MenzilInput(
+        key: const Key('pro-wind-max'),
+        controller: windMaxCtl,
+        label: 'En yüksek rüzgâr',
+        unit: metric ? 'm/s' : 'mph',
+        info: EnvironmentFieldInfo.windMax,
+        onChanged: (_) => _coriolisChanged(),
+      ),
+      const MenzilSectionHeader(
+        'Hareketli hedef',
+        padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
+      ),
+      MenzilFieldGrid(
+        children: [
+          MenzilInput(
+            key: const Key('pro-target-speed'),
+            controller: targetSpeedCtl,
+            label: 'Hedef hızı',
+            unit: metric ? 'm/s' : 'mph',
+            info: EnvironmentFieldInfo.targetSpeed,
+            onChanged: (_) => _coriolisChanged(),
+          ),
+          MenzilSelect<bool>(
+            key: ValueKey('pro-target-direction-$_targetMovesRight'),
+            label: 'Yönü',
+            info: EnvironmentFieldInfo.targetDirection,
+            initialValue: _targetMovesRight,
+            items: const [
+              DropdownMenuItem(value: true, child: Text('Soldan sağa')),
+              DropdownMenuItem(value: false, child: Text('Sağdan sola')),
+            ],
+            onChanged: (v) {
+              _targetMovesRight = v ?? true;
+              _coriolisChanged();
+            },
+          ),
+        ],
       ),
       const SizedBox(height: MenzilSpace.lg),
       if (widget.onContinueToShot != null)

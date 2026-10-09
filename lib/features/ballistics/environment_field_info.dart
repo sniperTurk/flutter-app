@@ -64,4 +64,20 @@ abstract final class EnvironmentFieldInfo {
       'güney 180, batı 270. "Pusuladan al" için telefonu hedefe doğru '
       'tutun. Birkaç derecelik hata Coriolis sonucunu fark edilir '
       'değiştirmez. Örnek: 135.';
+  static const turretScale =
+      'Kulenin yazdığı kadar çevirmeyebilir. Kule testi: dürbünü 10 mrad '
+      '(ya da 30 MOA) yukarı çevirip 100 m\'de ızgaralı hedefte gerçek kaymayı '
+      'ölçün; gerçek / yazan oranını girin. Örnek: gerçek 9,8 mrad ise 0,98. '
+      'Boş bırakırsanız 1 (düzeltme yok). Klikler bu katsayıya göre ayarlanır.';
+  static const windMax =
+      'Rüzgâr sabit değilse en yüksek hızını girin. Hedef sayfası yan '
+      'düzeltmeyi Hava Durumu\'ndaki rüzgârdan bu hıza kadar bir aralık olarak '
+      'gösterir. Örnek: rüzgâr 2–4 m/s arası ise burada 4.';
+  static const targetSpeed =
+      'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
+      'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '
+      'tırıs ~3 m/s.';
+  static const targetDirection =
+      'Hedefin hangi yöne hareket ettiği: önüne, yani gittiği yöne nişan '
+      'alınır.';
 }

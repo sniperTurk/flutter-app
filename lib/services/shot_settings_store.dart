@@ -13,12 +13,23 @@ class ShotSettings {
   final String latitudeText;
   final String azimuthText;
 
+  /// Kule ölçek katsayısı, Rüzgâr aralığı (en yüksek), hareketli hedef hızı
+  /// (as typed) and its direction.
+  final String turretScaleText;
+  final String windMaxText;
+  final String targetSpeedText;
+  final bool targetMovesRight;
+
   const ShotSettings({
     this.inclineDeg = 0,
     this.cantDeg = 0,
     this.coriolisOn = false,
     this.latitudeText = '',
     this.azimuthText = '',
+    this.turretScaleText = '',
+    this.windMaxText = '',
+    this.targetSpeedText = '',
+    this.targetMovesRight = true,
   });
 
   Map<String, dynamic> toJson() => {
@@ -27,6 +38,10 @@ class ShotSettings {
     'coriolis': coriolisOn,
     'latitude': latitudeText,
     'azimuth': azimuthText,
+    'turretScale': turretScaleText,
+    'windMax': windMaxText,
+    'targetSpeed': targetSpeedText,
+    'targetRight': targetMovesRight,
   };
 
   /// Unknown or damaged values fall back to the neutral default (level,
@@ -45,6 +60,10 @@ class ShotSettings {
       coriolisOn: json['coriolis'] == true,
       latitudeText: text(json['latitude']),
       azimuthText: text(json['azimuth']),
+      turretScaleText: text(json['turretScale']),
+      windMaxText: text(json['windMax']),
+      targetSpeedText: text(json['targetSpeed']),
+      targetMovesRight: json['targetRight'] != false,
     );
   }
 }

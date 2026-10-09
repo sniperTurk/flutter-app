@@ -5,7 +5,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sniper_turk/data/catalog_repository.dart';
+import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
+import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/shot_settings_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
@@ -116,5 +119,89 @@ void main() {
     expect(find.byKey(warning), findsNothing);
     await type(BallisticsFieldKeys.pressure, '700');
     expect(find.byKey(warning), findsOneWidget);
+  });
+
+  group('Pro extras', () {
+    const ammo = <String, dynamic>{
+      'id': 'c-pro-x',
+      'kind': 'custom_ammunition',
+      'platform': 'pcp',
+      'brand': 'Deneme',
+      'model': '.25 slug',
+      'caliberMm': 6.35,
+      'grain': 34,
+      'ammoType': 'slug',
+      'bc': 0.08,
+      'bcModel': 'G1',
+    };
+    const dragProfile = RifleProfile(
+      id: 'p-x',
+      name: 'X',
+      rifleId: 'hatsan-hercules-635',
+      ammunitionId: 'c-pro-x',
+      scopeId: 'gazi-6-36',
+      muzzleVelocityMps: 280,
+      zeroRangeM: 30,
+      sightHeightMm: 60,
+    );
+    setUp(
+      () => CatalogRepository.installUserCatalog(
+        UserCatalog.fromManualEntries([ammo]),
+      ),
+    );
+    tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
+
+    Widget app(BallisticsView view) => MaterialApp(
+      theme: MenzilTheme.light(),
+      home: Scaffold(
+        body: BallisticsScreen(profile: dragProfile, view: view),
+      ),
+    );
+
+    Future<void> type(WidgetTester tester, Key key, String v) async {
+      final f = find.descendant(
+        of: find.byKey(key),
+        matching: find.byType(TextField),
+      );
+      await tester.ensureVisible(f);
+      await tester.enterText(f, v);
+      await tester.pump();
+    }
+
+    testWidgets('turret scale, wind bracket and moving-target lead', (
+      tester,
+    ) async {
+      await _sized(tester);
+      await tester.pumpWidget(app(BallisticsView.environment));
+      await tester.pumpAndSettle();
+      await type(tester, BallisticsFieldKeys.wind, '2');
+
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final plain = tester
+          .widget<ScopeDialView>(find.byType(ScopeDialView))
+          .requiredUp!;
+
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await type(tester, const Key('pro-turret-scale'), '0,9');
+      await type(tester, const Key('pro-wind-max'), '5');
+      await type(tester, const Key('pro-target-speed'), '2');
+
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final scaled = tester
+          .widget<ScopeDialView>(find.byType(ScopeDialView))
+          .requiredUp!;
+      // A turret that moves 0.9 of its marking needs 1/0.9 of the angle.
+      expect(scaled, closeTo(plain / 0.9, 1e-9));
+      final bracket = tester
+          .widget<Text>(find.byKey(const Key('shot-wind-bracket')))
+          .data!;
+      expect(bracket, contains('2.0–5.0 m/s'));
+      final lead = tester.widget<Text>(find.byKey(const Key('shot-lead'))).data!;
+      expect(lead, contains('sağına'));
+      expect(lead, contains('soldan sağa'));
+    });
   });
 }
