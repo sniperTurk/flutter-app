@@ -281,6 +281,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     _shotCache.clear();
     _holdSamples = null;
   }
+
   final TextEditingController targetSpeedCtl = TextEditingController();
   bool _targetMovesRight = true;
   bool _spinDriftOn = false;
