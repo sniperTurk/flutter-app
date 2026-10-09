@@ -27,7 +27,13 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
         # One reader of shot.windMrad, drag-only: the V372 interactive
         # scope (required windage is 0.0 unless the basis is a drag solve).
         # The wind status card was removed from Atış (owner, 2026-10-08).
-        self.assertEqual(self.text.count('shot.windMrad'), 1)
+        # Readers of shot.windMrad: the scope dial (drag-gated windage, plus
+        # the vacuum cant geometry) and the Pro "Rüzgâr aralığı" line, which
+        # is drawn only when `basis.drag` (owner, 2026-10-09).
+        self.assertEqual(self.text.count('shot.windMrad'), 3)
+        notes = self.text.index('List<Widget> _extraShotNotes(')
+        bracket = self.text.index('shot.windMrad', notes)
+        self.assertIn('basis.drag && windMax != null', self.text[notes:bracket])
         # Without drag the lateral value is the scope-cant geometry only
         # (owner, 2026-10-09); wind itself is never modelled in vacuum, see
         # test_v372 for the engine side.

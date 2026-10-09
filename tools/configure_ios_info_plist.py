@@ -13,8 +13,18 @@ USAGE_DESCRIPTIONS = {
     # Hava & Rüzgâr: coordinates are sent to the weather service to fetch
     # forecast data; they are not stored by the app.
     "NSLocationWhenInUseUsageDescription": (
-        "Konumunuz yalnızca Hava & Rüzgâr ekranında bulunduğunuz yerin hava "
-        "verisini almak için kullanılır. Konum kalıcı olarak saklanmaz."
+        "Konumunuz yalnızca uygulama açıkken, bulunduğunuz yerin hava "
+        "verisini almak (Hava Durumu) ve Coriolis için enlemi doldurmak "
+        "amacıyla kullanılır. Konum kalıcı olarak saklanmaz."
+    ),
+    # ITMS-90683 (App Store Connect, build 49): the geolocator plugin binary
+    # references the "always" authorization API, so Apple requires this key
+    # even though the app only ever asks for when-in-use access. The text
+    # says so honestly.
+    "NSLocationAlwaysAndWhenInUseUsageDescription": (
+        "Uygulama konumu arka planda kullanmaz. Konum yalnızca uygulama "
+        "açıkken hava verisi ve Coriolis enlemi için kullanılır; kalıcı "
+        "olarak saklanmaz."
     ),
     # Sight Height: photos stay in memory on the device.
     "NSCameraUsageDescription": (

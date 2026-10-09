@@ -72,6 +72,24 @@ class BallisticInput {
     azimuthDeg: azimuthDeg,
   );
 
+  /// The same input with another G1/G7 ballistic coefficient (validated
+  /// again). Used by BC truing at a far range.
+  BallisticInput withBallisticCoefficient(double bc) => BallisticInput(
+    muzzleVelocityMps: muzzleVelocityMps,
+    grain: grain,
+    zeroRangeM: zeroRangeM,
+    sightHeightMm: sightHeightMm,
+    rangesM: rangesM,
+    environment: environment,
+    zeroEnvironment: zeroEnvironment,
+    ballisticCoefficient: bc,
+    ballisticModel: ballisticModel,
+    inclineDeg: inclineDeg,
+    cantDeg: cantDeg,
+    latitudeDeg: latitudeDeg,
+    azimuthDeg: azimuthDeg,
+  );
+
   BallisticInput({
     required this.muzzleVelocityMps,
     required this.grain,

@@ -180,4 +180,73 @@ void main() {
     expect(faster.environment.pressureHpa, 980);
     expect(() => base.withMuzzleVelocity(-1), throwsArgumentError);
   });
+
+  group('BallisticCoefficientTruing (second step, far range)', () {
+    BallisticInput withBc(BallisticInput b, double bc) =>
+        b.withBallisticCoefficient(bc);
+
+    test('recovers the real BC from the far-range elevation (G1 PCP)', () {
+      final real = withBc(pcp(), 0.105);
+      final observed = correctionAt(real, 100);
+      final r = BallisticCoefficientTruing.solve(
+        base: pcp(),
+        rangeM: 100,
+        observedCorrectionMrad: observed,
+      );
+      expect(r.truedBc, closeTo(0.105, 0.0002));
+      expect(r.baseBc, 0.12);
+      expect(r.residualMrad.abs(), lessThan(0.01));
+    });
+
+    test('recovers the real BC for a G7 firearm at 800 m', () {
+      final real = withBc(firearm(), 0.27);
+      final observed = correctionAt(real, 800);
+      final r = BallisticCoefficientTruing.solve(
+        base: firearm(),
+        rangeM: 800,
+        observedCorrectionMrad: observed,
+      );
+      expect(r.truedBc, closeTo(0.27, 0.0002));
+      expect(r.changePercent, closeTo(8, 0.2));
+    });
+
+    test('refuses inside the zero and beyond ±30 %', () {
+      expect(
+        () => BallisticCoefficientTruing.solve(
+          base: pcp(),
+          rangeM: 20,
+          observedCorrectionMrad: 1,
+        ),
+        throwsA(
+          isA<TruingFailure>().having(
+            (f) => f.reason,
+            'reason',
+            TruingRejection.rangeTooShort,
+          ),
+        ),
+      );
+      final wild = correctionAt(withBc(pcp(), 0.05), 100);
+      expect(
+        () => BallisticCoefficientTruing.solve(
+          base: pcp(),
+          rangeM: 100,
+          observedCorrectionMrad: wild,
+        ),
+        throwsA(
+          isA<TruingFailure>().having(
+            (f) => f.reason,
+            'reason',
+            TruingRejection.bcOutOfBounds,
+          ),
+        ),
+      );
+    });
+
+    test('withBallisticCoefficient changes only the BC', () {
+      final b = firearm().withBallisticCoefficient(0.3);
+      expect(b.ballisticCoefficient, 0.3);
+      expect(b.muzzleVelocityMps, 800);
+      expect(b.ballisticModel, BallisticModel.g7);
+    });
+  });
 }
