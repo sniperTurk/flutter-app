@@ -40,13 +40,15 @@ class V1ToolScopeTests(unittest.TestCase):
             'tool-weather', 'tool-hit-probability', 'tool-calculators',
             # 2026-10-08: Haritadan mesafe moved here from Hesaplayıcılar.
             'tool-map-distance',
+            # V384: Hız Doğrulama (muzzle-velocity truing).
+            'tool-truing',
         ):
             self.assertIn(f"Key('{key}')", hub)
         # V380: Ayarlar removed (the app is metric only).
         self.assertNotIn("Key('tool-settings')", hub)
         # 2026-10-08: Katalog is no longer on the hub; its data is kept.
         self.assertNotIn("Key('tool-catalog')", hub)
-        self.assertEqual(8, hub.count('MenzilToolTile('))
+        self.assertEqual(9, hub.count('MenzilToolTile('))
 
     def test_still_retired_dependencies_and_ios_bridge_stay_absent(self):
         pubspec = (ROOT / 'pubspec.yaml').read_text(encoding='utf-8')

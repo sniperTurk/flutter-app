@@ -54,6 +54,24 @@ class BallisticInput {
     azimuthDeg: azimuthDeg,
   );
 
+  /// The same input with another muzzle velocity (validated again). Used by
+  /// truing, which searches the velocity that reproduces an observed hit.
+  BallisticInput withMuzzleVelocity(double mps) => BallisticInput(
+    muzzleVelocityMps: mps,
+    grain: grain,
+    zeroRangeM: zeroRangeM,
+    sightHeightMm: sightHeightMm,
+    rangesM: rangesM,
+    environment: environment,
+    zeroEnvironment: zeroEnvironment,
+    ballisticCoefficient: ballisticCoefficient,
+    ballisticModel: ballisticModel,
+    inclineDeg: inclineDeg,
+    cantDeg: cantDeg,
+    latitudeDeg: latitudeDeg,
+    azimuthDeg: azimuthDeg,
+  );
+
   BallisticInput({
     required this.muzzleVelocityMps,
     required this.grain,

@@ -37,6 +37,7 @@ void main() {
     double y(String key) => tester.getTopLeft(find.byKey(Key(key))).dy;
     final order = [
       'tool-chronograph',
+      'tool-truing',
       'tool-sight-height',
       'tool-map-distance',
       'tool-weather',
