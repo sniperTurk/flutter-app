@@ -462,28 +462,31 @@ class ScopeDialView extends StatelessWidget {
                 final solWind = rawWind
                     .clamp(-maxWindageClicks, maxWindageClicks)
                     .toInt();
-                // "Kurulu" only when the turrets really hold the solution:
-                // a solution beyond the turret travel is never reported as
-                // dialled (the button keeps dialling to the travel limit).
+                // The turrets hold what the button dials (owner, 2026-10-11:
+                // pressing it must turn it orange). When the solution is
+                // beyond the turret travel the button dials the limit and
+                // says so; the warning below names the missing clicks.
                 final dialled =
                     solElev != null &&
-                    solElev == rawElev &&
-                    solWind == rawWind &&
                     elevationClicks == solElev &&
                     windageClicks == solWind;
+                final atLimit =
+                    dialled && (solElev != rawElev || solWind != rawWind);
                 final atZero = elevationClicks == 0 && windageClicks == 0;
                 return Row(
                   children: [
                     Expanded(
                       child: MenzilSecondaryButton(
                         key: ScopeDialKeys.dialSolution,
-                        label: dialled
-                            ? 'Çözüm kuleye kurulu'
-                            : 'Çözümü kuleye kur',
+                        label: !dialled
+                            ? 'Çözümü kuleye kur'
+                            : atLimit
+                            ? 'Kule sınırına kuruldu'
+                            : 'Çözüm kulelere kuruldu',
                         icon: dialled ? Icons.check_circle : Icons.tune,
                         expand: true,
                         active: dialled,
-                        onPressed: req == null || dialled
+                        onPressed: req == null || (dialled && !atLimit)
                             ? null
                             : () {
                                 onElevationChanged(solElev!);
@@ -496,7 +499,7 @@ class ScopeDialView extends StatelessWidget {
                     Expanded(
                       child: MenzilSecondaryButton(
                         key: ScopeDialKeys.reset,
-                        label: atZero ? 'Kuleler sıfırda' : 'Kuleleri sıfırla',
+                        label: atZero ? 'Kuleler sıfırlandı' : 'Kuleleri sıfırla',
                         icon: atZero ? Icons.check_circle : Icons.restart_alt,
                         expand: true,
                         active: atZero,
