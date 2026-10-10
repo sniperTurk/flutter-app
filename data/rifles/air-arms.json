@@ -1,0 +1,21 @@
+[
+ {
+  "brand": "Air Arms",
+  "model": "Minotaur 4.5 mm",
+  "platform": "pcp",
+  "caliber": "4.5 mm",
+  "bullet_diameter_mm": 4.5,
+  "barrel_length_mm": null,
+  "twist_rate_in": null,
+  "twist_direction": null,
+  "magazine_capacity": null,
+  "weight_kg": null,
+  "overall_length_mm": 850,
+  "regulator_bar": null,
+  "air_capacity_cc": 450.0,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://www.air-arms.co.uk/product/minotaur",
+  "notes": "resmi ürün sayfası teknik özellikleri; sayfa metninde: 450 cc tüp 200 bar; \"3.6 kg bullpup stock\" (tüfek toplam ağırlığı mı belirsiz, boş); sub-12 ft/lb (UK, FAC'siz); 80–100 atış/dolum; çap: nominal; namlu yiv oranı resmi sayfada yok"
+ }
+]
