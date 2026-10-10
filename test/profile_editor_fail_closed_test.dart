@@ -331,11 +331,7 @@ void _unitsAndFirearmTests() {
     // 9.00 mm is not a firearm caliber here: the choice is cleared, and the
     // firearm list is offered.
     expect(find.text('9.00 mm (.357)'), findsNothing);
-    await chooseInSelect(
-      tester,
-      'rifle-caliber',
-      '.308 Win',
-    );
+    await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
     expect(tester.widget<TextField>(grain).decoration!.hintText, '168 gr');
     // No pellet example in the ammunition name of a firearm.
     expect(

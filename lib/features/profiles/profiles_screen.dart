@@ -885,7 +885,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       return items;
     }
     for (final (mm, name) in _pcpCalibers) {
-      items.add(DropdownMenuItem(value: 'mm:${_trimDot(mm)}', child: Text(name)));
+      items.add(
+        DropdownMenuItem(value: 'mm:${_trimDot(mm)}', child: Text(name)),
+      );
     }
     if (cal != null && _caliberItem(cal) == null) {
       items.add(
@@ -1802,13 +1804,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
-                MenzilFullWidth(child: MenzilInput(
-                  key: const Key('profile-name'),
-                  controller: name,
-                  label: 'Profil adı',
-                  keyboardType: TextInputType.text,
-                  maxLength: ProductionLimits.maxProfileNameLength,
-                )),
+                MenzilFullWidth(
+                  child: MenzilInput(
+                    key: const Key('profile-name'),
+                    controller: name,
+                    label: 'Profil adı',
+                    keyboardType: TextInputType.text,
+                    maxLength: ProductionLimits.maxProfileNameLength,
+                  ),
+                ),
                 MenzilSelect<WeaponPlatform>(
                   label: 'Tür',
                   initialValue: platform,
@@ -1882,24 +1886,28 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ),
                 ),
                 // Order set by the owner (2026-10-09), as on the summary.
-                MenzilFullWidth(child: MenzilInput(
-                  key: const Key('rifle-brand'),
-                  controller: rifleBrand,
-                  label: 'Marka',
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_brandError, rifleBrand),
-                )),
-                MenzilFullWidth(child: MenzilInput(
-                  key: const Key('rifle-model'),
-                  controller: rifleModel,
-                  label: 'Model',
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_modelError, rifleModel),
-                )),
+                MenzilFullWidth(
+                  child: MenzilInput(
+                    key: const Key('rifle-brand'),
+                    controller: rifleBrand,
+                    label: 'Marka',
+                    keyboardType: TextInputType.text,
+                    maxLength: 100,
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_brandError, rifleBrand),
+                  ),
+                ),
+                MenzilFullWidth(
+                  child: MenzilInput(
+                    key: const Key('rifle-model'),
+                    controller: rifleModel,
+                    label: 'Model',
+                    keyboardType: TextInputType.text,
+                    maxLength: 100,
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_modelError, rifleModel),
+                  ),
+                ),
                 MenzilInput(
                   key: const Key('profile-velocity-fps'),
                   controller: velocity,
@@ -2059,15 +2067,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 // Order set by the owner (2026-10-09). Klik değeri is not
                 // shown: it follows Dürbün birimi.
-                MenzilFullWidth(child: MenzilInput(
-                  key: const Key('scope-brand'),
-                  controller: scopeBrand,
-                  label: 'Dürbün markası',
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_scopeBrandError, scopeBrand),
-                )),
+                MenzilFullWidth(
+                  child: MenzilInput(
+                    key: const Key('scope-brand'),
+                    controller: scopeBrand,
+                    label: 'Dürbün markası',
+                    keyboardType: TextInputType.text,
+                    maxLength: 100,
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_scopeBrandError, scopeBrand),
+                  ),
+                ),
                 MenzilInput(
                   key: const Key('scope-min-mag'),
                   info: ProfileFieldInfo.minMag,
@@ -2177,23 +2187,25 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _travelError(scopeTravelElevation),
                 ),
-                MenzilFullWidth(child: MenzilSelect<String>(
-                  key: ValueKey('scope-reticle-$_scopePickToken'),
-                  info: ProfileFieldInfo.reticle,
-                  label: 'Retikül',
-                  initialValue: scopeReticle,
-                  items: [
-                    if (scopeReticle != null &&
-                        !Reticles.genericNames.contains(scopeReticle))
-                      DropdownMenuItem(
-                        value: scopeReticle,
-                        child: Text(scopeReticle!),
-                      ),
-                    for (final n in Reticles.genericNames)
-                      DropdownMenuItem(value: n, child: Text(n)),
-                  ],
-                  onChanged: (v) => setState(() => scopeReticle = v),
-                )),
+                MenzilFullWidth(
+                  child: MenzilSelect<String>(
+                    key: ValueKey('scope-reticle-$_scopePickToken'),
+                    info: ProfileFieldInfo.reticle,
+                    label: 'Retikül',
+                    initialValue: scopeReticle,
+                    items: [
+                      if (scopeReticle != null &&
+                          !Reticles.genericNames.contains(scopeReticle))
+                        DropdownMenuItem(
+                          value: scopeReticle,
+                          child: Text(scopeReticle!),
+                        ),
+                      for (final n in Reticles.genericNames)
+                        DropdownMenuItem(value: n, child: Text(n)),
+                    ],
+                    onChanged: (v) => setState(() => scopeReticle = v),
+                  ),
+                ),
                 MenzilFullWidth(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -2325,32 +2337,34 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     onChanged: (_) => setState(() {}),
                     errorText: _shown(_bcError, ammoBc),
                   ),
-                MenzilFullWidth(child: MenzilSelect<String>(
-                  key: const Key('ammo-bc-model'),
-                  info:
-                      (platform == WeaponPlatform.firearm
-                          ? ProfileFieldInfo.bcModelFirearm
-                          : ProfileFieldInfo.bcModel) +
-                      ProfileFieldInfo.bcModelCustom,
-                  label: 'BC modeli',
-                  initialValue: _customCurve ? _customKey : ammoBcModel?.name,
-                  items: [
-                    for (final (m, text) in _bcModelChoices)
-                      DropdownMenuItem(value: m.name, child: Text(text)),
-                    const DropdownMenuItem(
-                      value: _customKey,
-                      child: Text('Özel eğri (Mach–Cd)'),
-                    ),
-                  ],
-                  onChanged: (v) => setState(() {
-                    _customCurve = v == _customKey;
-                    if (!_customCurve) {
-                      ammoBcModel = BallisticModel.values
-                          .where((m) => m.name == v)
-                          .firstOrNull;
-                    }
-                  }),
-                )),
+                MenzilFullWidth(
+                  child: MenzilSelect<String>(
+                    key: const Key('ammo-bc-model'),
+                    info:
+                        (platform == WeaponPlatform.firearm
+                            ? ProfileFieldInfo.bcModelFirearm
+                            : ProfileFieldInfo.bcModel) +
+                        ProfileFieldInfo.bcModelCustom,
+                    label: 'BC modeli',
+                    initialValue: _customCurve ? _customKey : ammoBcModel?.name,
+                    items: [
+                      for (final (m, text) in _bcModelChoices)
+                        DropdownMenuItem(value: m.name, child: Text(text)),
+                      const DropdownMenuItem(
+                        value: _customKey,
+                        child: Text('Özel eğri (Mach–Cd)'),
+                      ),
+                    ],
+                    onChanged: (v) => setState(() {
+                      _customCurve = v == _customKey;
+                      if (!_customCurve) {
+                        ammoBcModel = BallisticModel.values
+                            .where((m) => m.name == v)
+                            .firstOrNull;
+                      }
+                    }),
+                  ),
+                ),
                 if (_customCurve)
                   MenzilFullWidth(
                     child: DragCurveField(
