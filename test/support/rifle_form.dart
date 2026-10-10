@@ -74,6 +74,9 @@ Future<void> chooseInSelect(
       const Offset(0, -300),
     );
   }
+  // Built but below the menu's visible part: scroll it into view.
+  await tester.ensureVisible(item.last);
+  await tester.pumpAndSettle();
   await tester.tap(item.last);
   await tester.pumpAndSettle();
 }
