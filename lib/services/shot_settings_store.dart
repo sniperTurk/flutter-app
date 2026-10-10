@@ -16,6 +16,10 @@ class ShotSettings {
   /// Kule ölçek katsayısı, Rüzgâr aralığı (en yüksek), hareketli hedef hızı
   /// (as typed) and its direction.
   final String turretScaleText;
+
+  /// Yerçekimi: on/off and the local value (m/s², as typed or computed).
+  final bool gravityOn;
+  final String gravityText;
   final String windMaxText;
 
   /// The shooter cleared En yüksek rüzgâr: no wind bracket, no automatic
@@ -56,6 +60,8 @@ class ShotSettings {
     this.latitudeText = '',
     this.azimuthText = '',
     this.turretScaleText = '',
+    this.gravityOn = false,
+    this.gravityText = '',
     this.windMaxText = '',
     this.windMaxOff = false,
     this.targetSpeedText = '',
@@ -79,6 +85,8 @@ class ShotSettings {
     'latitude': latitudeText,
     'azimuth': azimuthText,
     'turretScale': turretScaleText,
+    'gravityOn': gravityOn,
+    'gravity': gravityText,
     'windMax': windMaxText,
     'windMaxOff': windMaxOff,
     'targetSpeed': targetSpeedText,
@@ -112,6 +120,8 @@ class ShotSettings {
       latitudeText: text(json['latitude']),
       azimuthText: text(json['azimuth']),
       turretScaleText: text(json['turretScale']),
+      gravityOn: json['gravityOn'] == true,
+      gravityText: text(json['gravity']),
       windMaxText: text(json['windMax']),
       targetSpeedText: text(json['targetSpeed']),
       windMaxOff: json['windMaxOff'] == true,

@@ -105,8 +105,8 @@ abstract final class ProSectionInfo {
         'kullanır; Sniper Türk bulunduğun noktanın yerçekimiyle hesaplar. Son '
         'milimetreler bile hesapta.',
     how:
-        'Bir şey girmene gerek yok. Enlem konumundan, irtifa Hava '
-        'Durumu\'ndan alınır; yerçekimi kendiliğinden hesaplanır.',
+        'Düğmeyi aç ve "Konumdan hesapla"ya dokun. Enlem konumundan, irtifa '
+        'Hava Durumu\'ndan alınır; yerçekimi kendiliğinden hesaplanır.',
   );
 
   static const movingTarget = ProExplain(
