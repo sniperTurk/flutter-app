@@ -56,8 +56,7 @@ class _RiflePickerScreenState extends State<RiflePickerScreen> {
     ];
   }
 
-  static String _mm(double v) =>
-      v.toStringAsFixed(2).replaceAll('.', ',');
+  static String _mm(double v) => v.toStringAsFixed(2).replaceAll('.', ',');
 
   @override
   Widget build(BuildContext context) {
@@ -110,8 +109,7 @@ class _RiflePickerScreenState extends State<RiflePickerScreen> {
                   '${_mm(RiflePickerScreen.profileCaliber(r))} mm',
                   if (r.barrelLengthMm != null)
                     'namlu ${r.barrelLengthMm!.round()} mm',
-                  if (r.magazineCapacity != null)
-                    '${r.magazineCapacity} atım',
+                  if (r.magazineCapacity != null) '${r.magazineCapacity} atım',
                 ].join(' · ');
                 return MenzilCard(
                   margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
@@ -124,10 +122,7 @@ class _RiflePickerScreenState extends State<RiflePickerScreen> {
                         c.ink,
                       ).copyWith(fontWeight: FontWeight.w700),
                     ),
-                    subtitle: Text(
-                      details,
-                      style: MenzilType.caption(c.ink2),
-                    ),
+                    subtitle: Text(details, style: MenzilType.caption(c.ink2)),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => Navigator.pop(context, r),
                   ),
