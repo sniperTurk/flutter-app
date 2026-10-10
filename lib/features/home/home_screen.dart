@@ -125,7 +125,11 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final first = await SampleProfiles.install(profiles: profiles);
       await activeStore.setActiveProfileId(first.id);
+      // The workspace starts on Pro and then moves to Hedef: entering Hedef
+      // dials the solution and opens the right turret, as after Pro.
+      if (mounted) setState(() => ballisticsView = BallisticsView.pro);
       await _load();
+      await WidgetsBinding.instance.endOfFrame;
       if (mounted) _selectTab(_tabShot);
     } catch (_) {
       if (mounted) {

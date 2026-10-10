@@ -110,6 +110,9 @@ void main() {
     expect(active.value, SampleProfiles.pcpId);
     expect(find.byKey(const Key('shot-sample-note')), findsOneWidget);
     expect(find.byKey(const Key('scope-impact-text')), findsOneWidget);
+    // Hedef opens with the solution dialled and the right turret open.
+    expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
+    expect(find.text('Vuruş noktası: artı işaretinde'), findsOneWidget);
   });
 
   testWidgets(

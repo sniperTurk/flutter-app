@@ -233,7 +233,7 @@ class LockedPreview extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: shot ? MenzilSpace.xl * 2 : MenzilSpace.xl * 4,
+              top: shot ? MenzilSpace.xl * 2 : MenzilSpace.xl * 6,
             ),
             child: MenzilCard(
               child: Column(
