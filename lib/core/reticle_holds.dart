@@ -123,7 +123,7 @@ abstract final class ReticleHolds {
               ballisticCoefficient: base.ballisticCoefficient,
               ballisticModel: base.ballisticModel,
               bcBands: base.bcBands,
-            dragTable: base.dragTable,
+              dragTable: base.dragTable,
               zeroMuzzleVelocityMps: base.zeroMuzzleVelocityMps,
               gravityMps2: base.gravityMps2,
               inclineDeg: base.inclineDeg,

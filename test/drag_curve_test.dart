@@ -74,9 +74,12 @@ void main() {
     test('JSON round trip', () {
       final c = DragCurve.parse(_csv);
       expect(DragCurve.fromJson(DragCurve.toJson(c))!.length, c.length);
-      expect(DragCurve.fromJson([
-        [0, 0.2],
-      ]), isNull);
+      expect(
+        DragCurve.fromJson([
+          [0, 0.2],
+        ]),
+        isNull,
+      );
     });
   });
 

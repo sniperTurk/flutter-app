@@ -119,6 +119,7 @@ class _ShotBasis {
 
   /// Local gravity of the shooting place (m/s²).
   final double gravityMps2;
+
   /// Özel sürüklenme eğrisi of the ammunition; null = standard table.
   final DragTable? dragTable;
   const _ShotBasis({
