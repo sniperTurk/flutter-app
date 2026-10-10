@@ -5,6 +5,7 @@ import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
+import 'package:sniper_turk/features/home/empty_states.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
@@ -314,9 +315,10 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.textContaining('Henüz kayıtlı profil yok'), findsOneWidget);
+    expect(find.byKey(EmptyStateKeys.welcome), findsOneWidget);
 
-    await tester.tap(find.text('Yeni profil'));
+    await tester.ensureVisible(find.text('İlk profilimi oluştur'));
+    await tester.tap(find.text('İlk profilimi oluştur'));
     await tester.pumpAndSettle();
     expect(find.text('Profil Oluştur'), findsOneWidget);
     VoidCallback? save() => tester

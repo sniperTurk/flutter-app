@@ -1,11 +1,16 @@
 // Converted from source-string matching to real widget behaviour tests.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sniper_turk/data/catalog_repository.dart';
+import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
+import 'package:sniper_turk/features/home/empty_states.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
+import 'package:sniper_turk/services/sample_profiles.dart';
 
 const _validProfile = RifleProfile(
   id: 'p1',
@@ -33,7 +38,7 @@ const _staleProfile = RifleProfile(
 
 void main() {
   testWidgets(
-    'home disables Ballistics navigation when there is no active profile',
+    'without a profile Hedef and Pro explain themselves and solve nothing',
     (tester) async {
       await tester.pumpWidget(
         MaterialApp(
@@ -44,24 +49,68 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      // The app opens on Profil; the gate lives in the Atış workspace.
+      // The app opens on Profil with the welcome page (owner, 2026-10-10).
+      expect(find.byKey(EmptyStateKeys.welcome), findsOneWidget);
+
       await tester.tap(find.text('Hedef'));
       await tester.pumpAndSettle();
-
-      expect(
-        find.text('DOPE için önce aktif profil oluşturun'),
-        findsOneWidget,
-      );
-      final tile = tester.widget<ListTile>(
-        find.widgetWithText(ListTile, 'Balistik / DOPE'),
-      );
-      expect(tile.enabled, isFalse);
-
-      await tester.tap(find.text('Balistik / DOPE'));
-      await tester.pumpAndSettle();
+      expect(find.byKey(EmptyStateKeys.shotPreview), findsOneWidget);
+      expect(find.text('Tahmin yok, hesap var.'), findsOneWidget);
       expect(find.byType(BallisticsScreen), findsNothing);
+
+      await tester.tap(find.text('Pro'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(EmptyStateKeys.proPreview), findsOneWidget);
+      expect(find.byType(BallisticsScreen), findsNothing);
+
+      // "Profil oluştur" opens the new-profile form on Profil.
+      await tester.tap(find.byKey(EmptyStateKeys.create));
+      await tester.pumpAndSettle();
+      expect(find.text('Profil Oluştur'), findsOneWidget);
     },
   );
+
+  testWidgets('without a profile Hava Durumu stays usable', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: HomeScreen(
+          profileStore: MemoryProfileStore(),
+          activeProfileStore: MemoryActiveProfileStore(),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Hava Durumu'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('environment-no-profile')), findsOneWidget);
+    expect(find.byKey(BallisticsFieldKeys.temperature), findsOneWidget);
+    expect(find.byKey(const Key('environment-create-profile')), findsOneWidget);
+  });
+
+  testWidgets('"Örnek profille dene" opens Hedef with the sample profile', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    addTearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
+    final store = MemoryProfileStore();
+    final active = MemoryActiveProfileStore();
+    await tester.pumpWidget(
+      MaterialApp(
+        home: HomeScreen(profileStore: store, activeProfileStore: active),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(EmptyStateKeys.sample));
+    await tester.tap(find.byKey(EmptyStateKeys.sample));
+    await tester.pumpAndSettle();
+    expect((await store.all()).map((p) => p.id).toSet(), {
+      SampleProfiles.pcpId,
+      SampleProfiles.firearmId,
+    });
+    expect(active.value, SampleProfiles.pcpId);
+    expect(find.byKey(const Key('shot-sample-note')), findsOneWidget);
+    expect(find.byKey(const Key('scope-impact-text')), findsOneWidget);
+  });
 
   testWidgets(
     'Ballistics screen fails closed instead of solving with fallback profile values',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
+import 'package:sniper_turk/features/home/empty_states.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
@@ -143,9 +144,9 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(activeStore.value, isNull);
-    // Shown in the Atış workspace, which is offstage at start (Profil).
+    // No profile: the workspace shows a preview, offstage at start (Profil).
     expect(
-      find.text('Önce bir tüfek profili oluştur.', skipOffstage: false),
+      find.byKey(EmptyStateKeys.proPreview, skipOffstage: false),
       findsOneWidget,
     );
   });

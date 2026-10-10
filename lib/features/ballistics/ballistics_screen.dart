@@ -18,6 +18,7 @@ import '../../core/unit_system.dart';
 import '../../core/wind_clock.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
+import '../../services/sample_profiles.dart';
 import '../../services/settings_store.dart';
 import '../../services/shot_settings_store.dart';
 import '../../tools/domain/field_calc.dart';
@@ -79,6 +80,10 @@ class BallisticsScreen extends StatefulWidget {
   /// Shell navigation: Hava Durumu → Pro Ayarlar → Atış.
   final VoidCallback? onContinueToPro;
   final VoidCallback? onContinueToShot;
+
+  /// Shell only, no profile yet: Hava Durumu stays usable and offers this
+  /// (owner, 2026-10-10).
+  final VoidCallback? onCreateProfile;
   const BallisticsScreen({
     super.key,
     this.profile,
@@ -86,6 +91,7 @@ class BallisticsScreen extends StatefulWidget {
     this.autoWeather = false,
     this.onContinueToPro,
     this.onContinueToShot,
+    this.onCreateProfile,
   });
 
   @override
@@ -613,6 +619,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     ranges = TextEditingController(
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
+    _EnvironmentCarry.apply(this);
     _loadUnitPreference();
     unawaited(_loadShotSettings());
     // Solve the profile as soon as the workspace opens, so the scope's
@@ -1105,6 +1112,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   @override
   void dispose() {
+    // Weather typed before the first profile carries over to the profile's
+    // workspace (owner, 2026-10-10: "bu değerler hesaba otomatik girer").
+    if (widget.profile == null && widget.onCreateProfile != null) {
+      _EnvironmentCarry.save(this);
+    }
     velocity.dispose();
     grain.dispose();
     zero.dispose();
@@ -1240,6 +1252,62 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   // -------------------------------------------------------------------------
   // Fail-closed states
   // -------------------------------------------------------------------------
+
+  Widget _environmentWithoutProfile(BuildContext context) {
+    final c = MenzilColors.of(context);
+    return MenzilPage(
+      key: const PageStorageKey('ballistics-environment-empty'),
+      children: [
+        MenzilCard(
+          key: const Key('environment-no-profile'),
+          background: c.amberSoft,
+          child: Row(
+            children: [
+              Icon(Icons.wb_sunny_outlined, color: c.amberInk, size: 28),
+              const SizedBox(width: MenzilSpace.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Hava hazır, sıra tüfekte',
+                      style: MenzilType.heading(c.ink, size: 16),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Profil oluşturunca bu değerler her atışın hesabına '
+                      'otomatik girer.',
+                      style: MenzilType.caption(c.amberInk),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: MenzilSpace.sm),
+        MenzilSecondaryButton(
+          key: const Key('environment-open-weather'),
+          label: 'Konumdan canlı hava verisi',
+          icon: Icons.cloud_outlined,
+          expand: true,
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const WeatherScreen()),
+          ),
+        ),
+        const SizedBox(height: MenzilSpace.md),
+        _weatherFillCard(context),
+        ..._environmentInputs(context, collapseShotInputs: true),
+        MenzilPrimaryButton(
+          key: const Key('environment-create-profile'),
+          label: 'Profil oluştur',
+          icon: Icons.add,
+          amber: true,
+          onPressed: widget.onCreateProfile,
+        ),
+      ],
+    );
+  }
 
   Widget _blocked(String message) {
     final body = Center(
@@ -1806,6 +1874,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.profile == null &&
+        widget.view == BallisticsView.environment &&
+        widget.onCreateProfile != null) {
+      return _environmentWithoutProfile(context);
+    }
     if (widget.profile == null) {
       return _blocked(
         'DOPE oluşturmak için önce bir tüfek profili oluşturup aktif profil olarak seçin.',
@@ -3192,6 +3265,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
 
     return [
+      if (SampleProfiles.isSample(widget.profile)) ...[
+        const MenzilNotice(
+          key: Key('shot-sample-note'),
+          icon: Icons.info_outline,
+          message:
+              'Örnek profil. Gerçek atış için kendi tüfeğinin profilini '
+              'oluştur.',
+        ),
+        const SizedBox(height: MenzilSpace.sm),
+      ],
       // Range dial: −5 −1 [value] +1 +5, slider below.
       Row(
         children: [
@@ -3556,5 +3639,65 @@ class _InclineDialogState extends State<_InclineDialog> {
         ),
       ],
     );
+  }
+}
+
+/// Hava Durumu values entered before any profile existed, in SI units, for
+/// the first profile workspace that opens afterwards.
+abstract final class _EnvironmentCarry {
+  static Map<String, double>? _si;
+  static Set<String> _edited = {};
+
+  static void save(_BallisticsScreenState s) {
+    double? n(TextEditingController c) =>
+        double.tryParse(c.text.trim().replaceAll(',', '.'));
+    final t = n(s.temperature), p = n(s.pressure), h = n(s.humidity);
+    final a = n(s.altitude), w = n(s.wind), d = n(s.windDirection);
+    if (t == null || p == null || h == null || a == null || w == null) return;
+    final m = s.metric;
+    _si = {
+      'temperature': m ? t : UnitSystem.fahrenheitToCelsius(t),
+      'pressure': m ? p : UnitSystem.inHgToHpa(p),
+      'humidity': h,
+      'altitude': m ? a : UnitSystem.feetToMeters(a),
+      'wind': m ? w : UnitSystem.mphToMps(w),
+      if (d != null) 'windDirection': d,
+    };
+    _edited = {
+      if (s._userEdited.contains(s.temperature)) 'temperature',
+      if (s._userEdited.contains(s.pressure)) 'pressure',
+      if (s._userEdited.contains(s.humidity)) 'humidity',
+      if (s._userEdited.contains(s.altitude)) 'altitude',
+      if (s._userEdited.contains(s.wind)) 'wind',
+    };
+  }
+
+  /// Fields start in SI; the unit preference converts them afterwards.
+  static void apply(_BallisticsScreenState s) {
+    final si = _si;
+    if (si == null) return;
+    String f(double v) => v == v.roundToDouble()
+        ? v.toStringAsFixed(0)
+        : double.parse(v.toStringAsFixed(2)).toString();
+    final fields = {
+      'temperature': s.temperature,
+      'pressure': s.pressure,
+      'humidity': s.humidity,
+      'altitude': s.altitude,
+      'wind': s.wind,
+      'windDirection': s.windDirection,
+    };
+    for (final MapEntry(:key, :value) in fields.entries) {
+      final v = si[key];
+      if (v == null) continue;
+      value.text = f(v);
+      if (_edited.contains(key)) s._userEdited.add(value);
+    }
+    // A profile workspace takes the values over; a later no-profile page
+    // starts from them again only until then.
+    if (s.widget.profile != null) {
+      _si = null;
+      _edited = {};
+    }
   }
 }

@@ -37,3 +37,6 @@ flutter:
     # DejaVu Sans (Türkçe karakterler) for the DOPE card PDF.
     - assets/fonts/DejaVuSans.ttf
     - assets/fonts/DejaVuSans-Bold.ttf
+    # Line logo for the welcome page (light / dark theme).
+    - assets/branding/logo_line.png
+    - assets/branding/logo_line_dark.png
