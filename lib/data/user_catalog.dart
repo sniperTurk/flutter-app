@@ -241,12 +241,11 @@ class UserCatalog {
 
   static BallisticModel? _ballisticModel(Object? v) {
     if (v is! String) return null;
-    return switch (v.trim().toUpperCase()) {
-      'G1' => BallisticModel.g1,
-      'G7' => BallisticModel.g7,
-      'GA' => BallisticModel.ga,
-      _ => null,
-    };
+    final key = v.trim().toUpperCase();
+    for (final m in BallisticModel.values) {
+      if (m.name.toUpperCase() == key) return m;
+    }
+    return null;
   }
 
   /// Velocity-dependent BC steps; anything malformed yields none (the single

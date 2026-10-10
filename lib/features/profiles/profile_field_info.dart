@@ -47,7 +47,8 @@ abstract final class ProfileFieldInfo {
       'verilir. G7: uzun, sivri uzun menzil mermisi. Aynı mermide G7 değeri '
       'G1\'in yaklaşık yarısıdır. GA (saçma): ChairGun\'ın diabolo saçma '
       'modeli; BC\'yi ChairGun\'dan alıyorsanız GA seçin, saçmada en doğru '
-      'sonucu verir. Yanlış model hesabı ciddi saptırır. Emin değilseniz G1.';
+      'sonucu verir. GS: çelik bilye (BB). Yanlış model hesabı ciddi '
+      'saptırır. Emin değilseniz G1.';
   static const bcFirearm =
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
@@ -58,7 +59,8 @@ abstract final class ProfileFieldInfo {
       'av mermisi şekli. G7: uzun, sivri, arka tarafı daralan (boat-tail) '
       'uzun menzil mermisi; bu mermilerde G7 daha doğrudur. Aynı mermide G7 '
       'değeri G1\'in yaklaşık yarısıdır; yanlış model hesabı ciddi saptırır. '
-      'Üretici hangisini veriyorsa onu seçin.';
+      'RA4: .22 LR gibi rimfire mermiler için. G2, G5, G6, G8 ve GI daha az '
+      'kullanılan standart şekillerdir. Üretici hangisini veriyorsa onu seçin.';
 
   static const bandSpeed =
       'İsteğe bağlı. BC hız düştükçe değişir (özellikle saçma ve slug). Hız '

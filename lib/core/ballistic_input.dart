@@ -1,4 +1,5 @@
 import '../models/domain.dart';
+import 'gravity.dart';
 import 'production_limits.dart';
 
 /// Rüzgâr bölgeleri (owner, 2026-10-09): the shooter's wind (the
@@ -86,6 +87,9 @@ class BallisticInput {
 
   double get zeroVelocityMps => zeroMuzzleVelocityMps ?? muzzleVelocityMps;
 
+  /// Local gravity (m/s²); [Gravity.standard] when the place is unknown.
+  final double gravityMps2;
+
   /// The same input for different [ranges] (validated again).
   BallisticInput withRanges(Iterable<double> ranges) => BallisticInput(
     muzzleVelocityMps: muzzleVelocityMps,
@@ -104,6 +108,7 @@ class BallisticInput {
     latitudeDeg: latitudeDeg,
     azimuthDeg: azimuthDeg,
     zeroMuzzleVelocityMps: zeroMuzzleVelocityMps,
+    gravityMps2: gravityMps2,
   );
 
   /// The same input with another muzzle velocity (validated again). Used by
@@ -130,6 +135,7 @@ class BallisticInput {
     zeroMuzzleVelocityMps: zeroMuzzleVelocityMps == null
         ? null
         : zeroMuzzleVelocityMps! * mps / muzzleVelocityMps,
+    gravityMps2: gravityMps2,
   );
 
   /// The same input with another G1/G7 ballistic coefficient (validated
@@ -155,6 +161,7 @@ class BallisticInput {
     latitudeDeg: latitudeDeg,
     azimuthDeg: azimuthDeg,
     zeroMuzzleVelocityMps: zeroMuzzleVelocityMps,
+    gravityMps2: gravityMps2,
   );
 
   BallisticInput({
@@ -181,6 +188,7 @@ class BallisticInput {
     this.latitudeDeg,
     this.azimuthDeg,
     this.zeroMuzzleVelocityMps,
+    this.gravityMps2 = Gravity.standard,
   }) : rangesM = List.unmodifiable(rangesM),
        // Fastest band first, so [bcAtSpeed] takes the first one reached.
        bcBands = List.unmodifiable(
@@ -211,6 +219,9 @@ class BallisticInput {
       muzzleVelocityMps,
       ProductionLimits.maxMuzzleVelocityMps,
     );
+    if (!gravityMps2.isFinite || gravityMps2 < 9.7 || gravityMps2 > 9.9) {
+      throw ArgumentError.value(gravityMps2, 'gravityMps2', 'must be 9.7–9.9');
+    }
     final zv = zeroMuzzleVelocityMps;
     if (zv != null) {
       _positiveFinite('zeroMuzzleVelocityMps', zv);
