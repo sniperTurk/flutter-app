@@ -1,0 +1,30 @@
+name: ASC submit (ops only)
+on:
+  push:
+    branches: [ops/asc-submit]
+permissions:
+  contents: write
+jobs:
+  write:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Attach build, review contact, submit
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+          REVIEW_FIRST: ${{ secrets.REVIEW_FIRST }}
+          REVIEW_LAST: ${{ secrets.REVIEW_LAST }}
+          REVIEW_PHONE: ${{ secrets.REVIEW_PHONE }}
+        run: |
+          pip install --quiet pyjwt cryptography
+          python3 ops/asc_submit.py || true
+      - name: Publish log
+        if: always()
+        run: |
+          git config user.name asc-write; git config user.email asc-write@users.noreply.github.com
+          cp ci-logs/submit.log /tmp/write.log || echo "no log" > /tmp/write.log
+          git checkout -q --orphan ci/asc-submit; git rm -rqf . ; mkdir -p ci-logs; cp /tmp/write.log ci-logs/
+          git add ci-logs; git commit -qm "asc submit ${GITHUB_RUN_ID}"; git push -qf origin ci/asc-submit
