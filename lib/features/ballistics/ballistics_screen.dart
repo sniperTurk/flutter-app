@@ -1526,10 +1526,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '%$pct',
-                    style: MenzilType.display(c.amber, size: 34),
-                  ),
+                  Text('%$pct', style: MenzilType.display(c.amber, size: 34)),
                   Text(
                     'İsabet olasılığı: %$pct '
                     '(Ø${wez.sizeText} hedef, $_shotDisplay $_distanceUnit).',
@@ -1751,11 +1748,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
     final args = _coriolisArgs;
     // Vertical correction (mrad) with one input changed; null = unsolvable.
-    double? corr({
-      double? range,
-      double? velocity,
-      double? bcScale,
-    }) {
+    double? corr({double? range, double? velocity, double? bcScale}) {
       try {
         var input = basis.input(
           [range ?? _shotRangeM],
@@ -1799,7 +1792,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       }
     }
     final bcErr = _parsed(bcErrorCtl);
-    if (base != null && basis.drag && bcErr != null && bcErr > 0 && bcErr < 50) {
+    if (base != null &&
+        basis.drag &&
+        bcErr != null &&
+        bcErr > 0 &&
+        bcErr < 50) {
       final low = corr(bcScale: 1 - Wez.sigmaOfPlusMinus(bcErr) / 100);
       if (low != null) {
         sources.add(WezSource('BC hatası', sigmaY: (low - base).abs()));
