@@ -54,12 +54,31 @@ void main() {
       expect(find.text('Tahmin yok, hesap var.'), findsOneWidget);
       expect(find.byType(BallisticsScreen), findsNothing);
 
+      // The example scope is dialled for the example load, turret open.
+      expect(find.text('Vuruş noktası: artı işaretinde'), findsOneWidget);
+      expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
+      await tester.tap(find.text('+5'));
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<Text>(find.byKey(const Key('empty-shot-range'))).textSpan!
+            .toPlainText(),
+        '305 m',
+      );
+
       await tester.tap(find.text('Pro'));
       await tester.pumpAndSettle();
       expect(find.byKey(EmptyStateKeys.proPreview), findsOneWidget);
       expect(find.byType(BallisticsScreen), findsNothing);
+      expect(find.byKey(const Key('empty-pro-map')), findsOneWidget);
+      // Boxes start closed and open their explanation.
+      expect(find.text('Dürbün eğimi'), findsNothing);
+      await tester.tap(find.byKey(const Key('empty-pro-section-angle')));
+      await tester.pumpAndSettle();
+      expect(find.text('Dürbün eğimi'), findsOneWidget);
 
       // "Profil oluştur" opens the new-profile form on Profil.
+      await tester.ensureVisible(find.byKey(EmptyStateKeys.create));
+      await tester.pumpAndSettle();
       await tester.tap(find.byKey(EmptyStateKeys.create));
       await tester.pumpAndSettle();
       expect(find.text('Profil Oluştur'), findsOneWidget);

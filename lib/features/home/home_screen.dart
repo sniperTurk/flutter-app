@@ -548,7 +548,10 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       return MenzilPage(
         children: [
-          LockedPreview(shot: tab == _tabShot, onCreate: _createProfile),
+          if (tab == _tabShot)
+            ShotPreview(onCreate: _createProfile)
+          else
+            ProPreview(onCreate: _createProfile),
         ],
       );
     }

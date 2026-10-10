@@ -1,7 +1,18 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
+import '../../core/ballistic_engine.dart';
+import '../../core/ballistic_input.dart';
+import '../../core/reticle_holds.dart';
+import '../../core/scope_dial.dart';
+import '../../models/domain.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import '../ballistics/environment_field_info.dart';
+import '../ballistics/pro_section_info.dart';
+import '../ballistics/scope_dial_view.dart';
+import '../tools/map_distance_screen.dart';
 
 /// Pages shown before the first profile exists (owner, 2026-10-10): instead
 /// of empty locked cards, each page says what it does and offers the next
@@ -123,11 +134,17 @@ class WelcomePanel extends StatelessWidget {
               ),
               step(
                 '2',
+                'Pro ayarlarını yap',
+                'Açı, rüzgâr bölgeleri, Coriolis ve spin drift: '
+                    'profesyonellerin hesabı artık cebinde.',
+              ),
+              step(
+                '3',
                 'Havayı al',
                 'Konumundan sıcaklık, basınç ve rüzgâr otomatik gelir.',
               ),
               step(
-                '3',
+                '4',
                 'Dürbünü kur',
                 'Mesafeyi yaz; kaç klik çevireceğini gösterir.',
               ),
@@ -141,130 +158,354 @@ class WelcomePanel extends StatelessWidget {
   }
 }
 
-/// Hedef and Pro without a profile: a faded preview of the page behind a
-/// short explanation and the action.
-class LockedPreview extends StatelessWidget {
-  final bool shot;
+/// "Tahmin yok, hesap var." with its explanation and "Profil oluştur",
+/// under the Pro and Hedef previews.
+class _SloganCard extends StatelessWidget {
   final VoidCallback? onCreate;
-
-  const LockedPreview({super.key, required this.shot, this.onCreate});
+  const _SloganCard({this.onCreate});
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
-    final title = shot ? 'Tahmin yok, hesap var.' : 'Hassas atış ayarları';
-    final text = shot
-        ? 'Hava koşulları ve Pro hesaplamalarla, kaç klik çevireceğin her '
-              'mesafe için hassas biçimde hesaplanır. Sonuç doğrudan '
-              'retikülünün üzerinde görünür.'
-        : 'Açı, rüzgâr bölgeleri, Coriolis, hareketli hedef ve tüfek '
-              'düzeltmeleri. Profil oluşturunca açılır.';
-    final preview = shot
-        ? AspectRatio(
-            aspectRatio: 1,
-            child: CustomPaint(painter: _ReticleSketch(c.ink, c.danger)),
-          )
-        : Column(
-            children: [
-              for (final (a, b) in const [
-                ('Atış mesafesi', '600 m'),
-                ('Açı', 'düz'),
-                ('Rüzgâr', 'en çok 4.5 m/s'),
-                ('Coriolis', 'kapalı'),
-                ('Hareketli hedef', 'kapalı'),
-                ('Tüfek düzeltmeleri', 'kapalı'),
-              ])
-                MenzilCard(
-                  margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          a,
-                          style: MenzilType.heading(c.ink, size: 18),
-                        ),
-                      ),
-                      Text(b, style: MenzilType.caption(c.ink2)),
-                    ],
-                  ),
-                ),
-            ],
-          );
-    return Semantics(
-      container: true,
-      child: Stack(
-        key: shot ? EmptyStateKeys.shotPreview : EmptyStateKeys.proPreview,
+    return MenzilCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ExcludeSemantics(
-            child: Opacity(opacity: shot ? 0.25 : 0.35, child: preview),
+          Text(
+            'Tahmin yok, hesap var.',
+            textAlign: TextAlign.center,
+            style: MenzilType.heading(c.ink, size: 22),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: shot ? MenzilSpace.xl * 2 : MenzilSpace.xl * 6,
-            ),
-            child: MenzilCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: MenzilType.heading(c.ink, size: shot ? 22 : 19),
-                  ),
-                  const SizedBox(height: MenzilSpace.xs),
-                  Text(
-                    text,
-                    textAlign: TextAlign.center,
-                    style: MenzilType.body(c.ink2),
-                  ),
-                  const SizedBox(height: MenzilSpace.md),
-                  _EmptyActions(onCreate: onCreate),
-                ],
-              ),
-            ),
+          const SizedBox(height: MenzilSpace.xs),
+          Text(
+            'Hava koşulları ve Pro hesaplamalarla, kaç klik çevireceğin her '
+            'mesafe için hassas biçimde hesaplanır. Sonuç doğrudan '
+            'retikülünün üzerinde görünür.',
+            textAlign: TextAlign.center,
+            style: MenzilType.body(c.ink2),
           ),
+          const SizedBox(height: MenzilSpace.md),
+          _EmptyActions(onCreate: onCreate),
         ],
       ),
     );
   }
 }
 
-/// A plain reticle drawing for the Hedef preview.
-class _ReticleSketch extends CustomPainter {
-  final Color ink, red;
-  _ReticleSketch(this.ink, this.red);
+/// Pro Ayarlar before any profile (owner, 2026-10-10): the real layout —
+/// shot distance, "Haritadan ölç" and the closed boxes, each opening its
+/// explanation — so the user sees what is inside.
+class ProPreview extends StatefulWidget {
+  final VoidCallback? onCreate;
+  const ProPreview({super.key, this.onCreate});
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final c = size.center(Offset.zero);
-    final r = size.shortestSide * 0.46;
-    final line = Paint()
-      ..color = ink
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-    canvas.drawCircle(c, r, line);
-    canvas.drawLine(c - Offset(r, 0), c + Offset(r, 0), line);
-    canvas.drawLine(c - Offset(0, r), c + Offset(0, r), line);
-    final dot = Paint()..color = ink;
-    for (var i = 1; i <= 6; i++) {
-      final y = c.dy + i * r / 7;
-      canvas.drawCircle(Offset(c.dx, y), 3, dot);
-      final tp = TextPainter(
-        text: TextSpan(
-          text: '${300 + i * 60}',
-          style: TextStyle(
-            color: red,
-            fontSize: 15,
-            fontWeight: FontWeight.w700,
-          ),
+  State<ProPreview> createState() => _ProPreviewState();
+}
+
+class _ProPreviewState extends State<ProPreview> {
+  final TextEditingController _range = TextEditingController();
+  String? _open;
+
+  @override
+  void dispose() {
+    _range.dispose();
+    super.dispose();
+  }
+
+  Future<void> _fromMap() async {
+    final meters = await Navigator.push<double>(
+      context,
+      MaterialPageRoute<double>(
+        builder: (_) => const MapDistanceScreen(returnDistance: true),
+      ),
+    );
+    if (!mounted || meters == null || !meters.isFinite || meters <= 0) return;
+    setState(() => _range.text = meters.round().toString());
+  }
+
+  Widget _explain(ProExplain e) {
+    final c = MenzilColors.of(context);
+    TextSpan part(String label, String text) => TextSpan(
+      children: [
+        TextSpan(
+          text: '$label ',
+          style: const TextStyle(fontWeight: FontWeight.w700),
         ),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      tp.paint(canvas, Offset(c.dx + 10, y - tp.height / 2));
-    }
+        TextSpan(text: '$text\n'),
+      ],
+    );
+    return Padding(
+      padding: const EdgeInsets.only(top: MenzilSpace.sm),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            e.title,
+            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 2),
+          Text.rich(
+            TextSpan(
+              children: [
+                part('Ne?', e.what),
+                part('Neden önemli?', e.why),
+                part('Nasıl?', e.how),
+              ],
+            ),
+            style: MenzilType.caption(c.ink2).copyWith(height: 1.35),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _box(String id, String title, String summary, List<ProExplain> info) {
+    final c = MenzilColors.of(context);
+    final open = _open == id;
+    return MenzilCard(
+      key: Key('empty-pro-box-$id'),
+      margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Semantics(
+            button: true,
+            expanded: open,
+            child: InkWell(
+              key: Key('empty-pro-section-$id'),
+              borderRadius: BorderRadius.circular(12),
+              onTap: () => setState(() => _open = open ? null : id),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 48),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: MenzilType.heading(c.ink, size: 18),
+                      ),
+                    ),
+                    if (!open)
+                      Text(summary, style: MenzilType.caption(c.ink2)),
+                    const SizedBox(width: MenzilSpace.xs),
+                    Icon(
+                      open ? Icons.expand_less : Icons.expand_more,
+                      color: c.ink2,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          if (open) ...[for (final e in info) _explain(e)],
+        ],
+      ),
+    );
   }
 
   @override
-  bool shouldRepaint(covariant _ReticleSketch old) =>
-      old.ink != ink || old.red != red;
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    return Column(
+      key: EmptyStateKeys.proPreview,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        MenzilCard(
+          margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              MenzilInput(
+                key: const Key('empty-pro-range'),
+                controller: _range,
+                label: 'Atış mesafesi',
+                unit: 'm',
+                info: EnvironmentFieldInfo.proShotRange,
+                hintText: 'örn. 300',
+              ),
+              MenzilSecondaryButton(
+                key: const Key('empty-pro-map'),
+                label: 'Haritadan ölç',
+                icon: Icons.map_outlined,
+                expand: true,
+                onPressed: _fromMap,
+              ),
+              const SizedBox(height: MenzilSpace.xs),
+              Text(
+                'Mesafeyi bilmiyorsan haritadan ölç. Hedef\'e geçince dürbün '
+                'bu mesafeye kurulmuş gelir.',
+                style: MenzilType.caption(c.ink2),
+              ),
+            ],
+          ),
+        ),
+        _box('angle', 'Açı', 'düz', const [
+          ProSectionInfo.incline,
+          ProSectionInfo.cant,
+        ]),
+        _box('wind', 'Rüzgâr', 'bölge yok', const [
+          ProSectionInfo.windMax,
+          ProSectionInfo.windZones,
+        ]),
+        _box('coriolis', 'Coriolis', 'kapalı', const [ProSectionInfo.coriolis]),
+        _box('target', 'Hareketli hedef', 'kapalı', const [
+          ProSectionInfo.movingTarget,
+          ProSectionInfo.hitProbability,
+        ]),
+        _box('rifle', 'Tüfek düzeltmeleri', 'kapalı', const [
+          ProSectionInfo.turretScale,
+          ProSectionInfo.zeroOffset,
+          ProSectionInfo.spinDrift,
+          ProSectionInfo.powder,
+        ]),
+        _SloganCard(onCreate: widget.onCreate),
+      ],
+    );
+  }
+}
+
+/// Hedef before any profile (owner, 2026-10-10): the real scope with open
+/// turrets that can be turned, the distance and its slider on top — solved
+/// live for an example .308 load that is never saved.
+class ShotPreview extends StatefulWidget {
+  final VoidCallback? onCreate;
+  const ShotPreview({super.key, this.onCreate});
+
+  @override
+  State<ShotPreview> createState() => _ShotPreviewState();
+}
+
+class _ShotPreviewState extends State<ShotPreview> {
+  static const _click = 0.1;
+  static const _maxRange = 1000;
+  int _range = 300;
+  int _elev = 0, _wind = 0, _reveal = 0;
+  late final List<CorrectionSample> _samples;
+  double? _mpsPerMil;
+  TrajectoryPoint? _shot;
+
+  static BallisticInput _input(List<double> ranges) => BallisticInput(
+    muzzleVelocityMps: 800,
+    grain: 168,
+    zeroRangeM: 100,
+    sightHeightMm: 45,
+    rangesM: ranges,
+    ballisticCoefficient: 0.462,
+    ballisticModel: BallisticModel.g1,
+    environment: const EnvironmentData(windMps: 3, windDirectionDeg: 90),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _samples = [
+      for (final p in ReticleHolds.sample(_input(const [100])))
+        ScopeDialMath.sampleOf(p, AngularUnit.mrad),
+    ];
+    _solve();
+    final shot = _shot;
+    if (shot != null) {
+      _elev = ScopeDialMath.clicksFor(shot.correctionMrad, _click);
+      _wind = ScopeDialMath.clicksFor(shot.windMrad, _click);
+      _reveal = 1;
+    }
+  }
+
+  void _solve() {
+    try {
+      _shot = const BallisticEngine()
+          .solve(_input([_range.toDouble()]))
+          .single;
+      _mpsPerMil = ReticleHolds.crosswindForMil(
+        base: _input([_range.toDouble()]),
+        rangeM: _range.toDouble(),
+        mil: 1,
+      );
+    } on Object {
+      _shot = null;
+    }
+  }
+
+  void _setRange(int v) => setState(() {
+    _range = math.max(1, math.min(_maxRange, v));
+    _solve();
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    Widget step(String label, int d) => MenzilStepButton(
+      label: label,
+      semanticLabel: 'Mesafe $label',
+      onPressed: () => _setRange(_range + d),
+    );
+    final shot = _shot;
+    return Column(
+      key: EmptyStateKeys.shotPreview,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            step('−5', -5),
+            const SizedBox(width: MenzilSpace.xs),
+            step('−1', -1),
+            Expanded(
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '$_range',
+                      style: MenzilType.display(c.ink, size: 52),
+                    ),
+                    TextSpan(text: ' m', style: MenzilType.unit(c.ink2)),
+                  ],
+                ),
+                key: const Key('empty-shot-range'),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            step('+1', 1),
+            const SizedBox(width: MenzilSpace.xs),
+            step('+5', 5),
+          ],
+        ),
+        Slider(
+          value: _range.toDouble(),
+          min: 1,
+          max: _maxRange.toDouble(),
+          onChanged: (v) => _setRange(v.round()),
+        ),
+        MenzilCard(
+          margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
+          child: ScopeDialView(
+            unit: AngularUnit.mrad,
+            clickValue: _click,
+            elevationClicks: _elev,
+            windageClicks: _wind,
+            maxElevationClicks: 300,
+            maxWindageClicks: 150,
+            onElevationChanged: (v) => setState(() => _elev = v),
+            onWindageChanged: (v) => setState(() => _wind = v),
+            windageRevealToken: _reveal,
+            onSolutionDialed: () => setState(() => _reveal++),
+            requiredUp: shot?.correctionMrad,
+            requiredRight: shot?.windMrad ?? 0,
+            windMpsPerUnit: _mpsPerMil,
+            windText: (mps) => mps.toStringAsFixed(1),
+            firstFocalPlane: true,
+            minMagnification: 5,
+            maxMagnification: 25,
+            magnification: 25,
+            rangeM: _range.toDouble(),
+            samples: _samples,
+            toDisplayRange: (m) => m,
+            distanceUnit: 'm',
+            metric: true,
+          ),
+        ),
+        _SloganCard(onCreate: widget.onCreate),
+      ],
+    );
+  }
 }
