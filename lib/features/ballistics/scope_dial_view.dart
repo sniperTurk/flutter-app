@@ -433,18 +433,26 @@ class ScopeDialView extends StatelessWidget {
               builder: (context) {
                 // Owner, 2026-10-10: the button of the turrets' current state
                 // turns orange — the solution dialled, or both at zero.
-                final solElev = req == null
+                final rawElev = req == null
                     ? null
-                    : ScopeDialMath.clicksFor(
-                        req,
-                        clickValue,
-                      ).clamp(-_downClicks, maxElevationClicks).toInt();
-                final solWind = ScopeDialMath.clicksFor(
+                    : ScopeDialMath.clicksFor(req, clickValue);
+                final rawWind = ScopeDialMath.clicksFor(
                   requiredRight,
                   clickValue,
-                ).clamp(-maxWindageClicks, maxWindageClicks).toInt();
+                );
+                final solElev = rawElev
+                    ?.clamp(-_downClicks, maxElevationClicks)
+                    .toInt();
+                final solWind = rawWind
+                    .clamp(-maxWindageClicks, maxWindageClicks)
+                    .toInt();
+                // "Kurulu" only when the turrets really hold the solution:
+                // a solution beyond the turret travel is never reported as
+                // dialled (the button keeps dialling to the travel limit).
                 final dialled =
                     solElev != null &&
+                    solElev == rawElev &&
+                    solWind == rawWind &&
                     elevationClicks == solElev &&
                     windageClicks == solWind;
                 final atZero = elevationClicks == 0 && windageClicks == 0;
