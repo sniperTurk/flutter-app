@@ -1,0 +1,98 @@
+[
+ {
+  "brand": "Federal",
+  "name": "Terminal Ascent .308 175 gr",
+  "item_number": "PB308TA1",
+  "diameter_in": 0.308,
+  "weight_gr": 175,
+  "g1_bc": 0.52,
+  "g7_bc": 0.258,
+  "length_in": 1.466,
+  "g1_bands": [],
+  "source_url": "https://www.federalpremium.com/reloading/bullets/terminal-ascent-component-bullet/11-PB308TA1.html"
+ },
+ {
+  "brand": "Federal",
+  "name": "Terminal Ascent .264 130 gr",
+  "item_number": "PB264TA1",
+  "diameter_in": 0.264,
+  "weight_gr": 130,
+  "g1_bc": 0.532,
+  "g7_bc": 0.263,
+  "length_in": 1.421,
+  "g1_bands": [],
+  "source_url": "https://www.federalpremium.com/reloading/bullets/terminal-ascent-component-bullet/11-PB264TA1.html"
+ },
+ {
+  "brand": "Federal",
+  "name": "Terminal Ascent .277 136 gr",
+  "item_number": "PB277TA1",
+  "diameter_in": 0.277,
+  "weight_gr": 136,
+  "g1_bc": 0.493,
+  "g7_bc": 0.247,
+  "length_in": 1.354,
+  "g1_bands": [],
+  "source_url": "https://www.federalpremium.com/reloading/bullets/terminal-ascent-component-bullet/11-PB277TA1.html"
+ },
+ {
+  "brand": "Federal",
+  "name": "Terminal Ascent .308 200 gr",
+  "item_number": "PB308TA2",
+  "diameter_in": 0.308,
+  "weight_gr": 200,
+  "g1_bc": 0.608,
+  "g7_bc": 0.304,
+  "length_in": 1.622,
+  "g1_bands": [],
+  "source_url": "https://www.federalpremium.com/reloading/bullets/terminal-ascent-component-bullet/11-PB308TA2.html"
+ },
+ {
+  "brand": "Federal",
+  "name": "Terminal Ascent .284 155 gr",
+  "item_number": "PB284TA1",
+  "diameter_in": 0.284,
+  "weight_gr": 155,
+  "g1_bc": 0.586,
+  "g7_bc": 0.3,
+  "length_in": 1.51,
+  "g1_bands": [],
+  "source_url": "https://www.federalpremium.com/reloading/bullets/terminal-ascent-component-bullet/11-PB284TA1.html"
+ },
+ {
+  "brand": "Federal",
+  "name": "Trophy Bonded Tip .338 200 gr",
+  "item_number": "PB338TT200",
+  "diameter_in": 0.338,
+  "weight_gr": 200,
+  "g1_bc": 0.44,
+  "g7_bc": null,
+  "length_in": 1.395,
+  "g1_bands": [],
+  "source_url": "https://www.federalpremium.com/reloading/bullets/trophy-bonded-tip-component-bullet/11-PB338TT200.html"
+ },
+ {
+  "brand": "Federal",
+  "name": "Trophy Bonded Tip .277 130 gr",
+  "item_number": "PB277TT130",
+  "diameter_in": 0.277,
+  "weight_gr": 130,
+  "g1_bc": 0.44,
+  "g7_bc": null,
+  "length_in": 1.29,
+  "g1_bands": [],
+  "source_url": "https://www.federalpremium.com/reloading/bullets/trophy-bonded-tip-component-bullet/11-PB277TT130.html"
+ },
+ {
+  "brand": "Federal",
+  "name": "Trophy Bonded Tip .277 140 gr",
+  "item_number": "PB277TT140",
+  "diameter_in": 0.277,
+  "weight_gr": 140,
+  "g1_bc": 0.455,
+  "g7_bc": null,
+  "length_in": 1.353,
+  "g1_bands": [],
+  "source_url": "https://www.federalpremium.com/reloading/bullets/trophy-bonded-tip-component-bullet/11-PB277TT140.html"
+ }
+]
