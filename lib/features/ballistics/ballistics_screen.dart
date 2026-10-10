@@ -10,6 +10,7 @@ import '../../core/ballistic_engine.dart';
 import '../../core/ballistic_input.dart';
 import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
+import '../../core/gravity.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle_holds.dart';
@@ -114,6 +115,9 @@ class _ShotBasis {
 
   /// Velocity-dependent BC steps (çoklu BC); empty = single BC.
   final List<BcBand> bcBands;
+
+  /// Local gravity of the shooting place (m/s²).
+  final double gravityMps2;
   const _ShotBasis({
     required this.velocityMps,
     required this.grain,
@@ -124,6 +128,7 @@ class _ShotBasis {
     this.ballisticModel,
     this.bcBands = const [],
     this.zeroVelocityMps,
+    this.gravityMps2 = Gravity.standard,
   });
 
   bool get drag => ballisticCoefficient != null && ballisticModel != null;
@@ -166,6 +171,7 @@ class _ShotBasis {
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
     azimuthDeg: azimuthDeg,
+    gravityMps2: gravityMps2,
     zeroMuzzleVelocityMps: shotVelocityMps == null
         ? zeroVelocityMps
         : (zeroVelocityMps ?? velocityMps),
@@ -511,6 +517,21 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return v != null && v >= -90 && v <= 90 ? v : null;
   }
 
+  /// Latitude of the last live-weather fix (for local gravity).
+  double? _weatherLatitude;
+
+  /// Latitude used for local gravity: the Coriolis latitude, else the
+  /// weather location; null = unknown (standard gravity).
+  double? get _gravityLatitude => _latitude ?? _weatherLatitude;
+
+  /// Local gravity for [altitudeM] (m/s²).
+  double _gravityAt(double altitudeM) {
+    final lat = _gravityLatitude;
+    return lat == null
+        ? Gravity.standard
+        : Gravity.at(latitudeDeg: lat, altitudeM: altitudeM);
+  }
+
   double? get _azimuth {
     final v = _parsed(azimuthCtl);
     return v != null && v >= 0 && v <= 360 ? v : null;
@@ -753,6 +774,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           _ => 'Konum alınamadı; hava değerlerini elle girin.',
         };
       } else {
+        _weatherLatitude = fix.latitude;
         final obs = await services.weather.fetch(fix.latitude, fix.longitude);
         if (!mounted) return;
         if (overwrite) _userEdited.clear();
@@ -1056,6 +1078,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ballisticModel: model,
         bcBands: bands,
         zeroMuzzleVelocityMps: vZero,
+        gravityMps2: _gravityAt(alt),
       );
       final solved = const BallisticEngine().solveReachable(input);
       if (solved.points.isEmpty) {
@@ -1093,6 +1116,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ballisticModel: model,
           bcBands: bands,
           zeroVelocityMps: vZero,
+          gravityMps2: input.gravityMps2,
         );
       });
     } on FormatException catch (e) {
@@ -2626,6 +2650,31 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
+  /// Yerel yerçekimi: the value in use and where it comes from.
+  Widget _gravityLine(BuildContext context) {
+    final c = MenzilColors.of(context);
+    final lat = _gravityLatitude;
+    final altM = _basis?.environment.altitudeM ?? 0;
+    final g = _gravityAt(altM);
+    final where = lat == null
+        ? 'konum bilinmiyor, standart değer'
+        : '${lat.abs().toStringAsFixed(1)}° ${lat >= 0 ? 'K' : 'G'} · '
+              '${altM.round()} m';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _explain(ProSectionInfo.gravity),
+        Text(
+          'Yerçekimi: ${g.toStringAsFixed(4).replaceAll('.', ',')} m/s² '
+          '($where)',
+          key: const Key('pro-gravity'),
+          style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: MenzilSpace.sm),
+      ],
+    );
+  }
+
   String _summaryAngle() {
     final i = _inclineDeg.round(), k = _cantDeg.round();
     return i == 0 && k == 0 ? 'düz' : '$i° / $k°';
@@ -2782,6 +2831,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         summary: _coriolisOn ? 'açık' : 'kapalı',
         children: [
           _explain(ProSectionInfo.coriolis),
+          _gravityLine(context),
           Row(
             children: [
               Expanded(

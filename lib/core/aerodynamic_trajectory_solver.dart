@@ -15,7 +15,6 @@ import 'units.dart';
 /// tolerances of `validation/acceptance.json`; `tools/verify_production_gate.py`
 /// fails the build if that comparison is no longer wired into CI.
 class AerodynamicTrajectorySolver {
-  static const double _g = 9.80665;
   static const int _maxSteps = 4000000;
 
   /// No real shot flies this long. A projectile that has not reached the
@@ -133,6 +132,7 @@ class AerodynamicTrajectorySolver {
           input.environment,
           frame,
           windMps: input.windAt(s.x),
+          g: input.gravityMps2,
         ),
       );
       time += integrationStepSeconds;
@@ -242,7 +242,14 @@ class AerodynamicTrajectorySolver {
         dt: integrationStepSeconds,
         // The zero is established level and without cant.
         derivative: (s) =>
-            _derivative(s, drag, bc, input.zeroEnvironment, _Frame.level),
+            _derivative(
+              s,
+              drag,
+              bc,
+              input.zeroEnvironment,
+              _Frame.level,
+              g: input.gravityMps2,
+            ),
       );
       if (state.x >= range) {
         final f = (range - previous.x) / (state.x - previous.x);
@@ -276,6 +283,7 @@ class AerodynamicTrajectorySolver {
     EnvironmentData env,
     _Frame f, {
     double? windMps,
+    required double g,
   }) {
     final directionRad = env.windDirectionDeg * math.pi / 180;
     // Rüzgâr bölgeleri: the caller may pass the wind at this distance.
@@ -309,14 +317,14 @@ class AerodynamicTrajectorySolver {
       // even though vz changes, producing a false zero-wind correction.
       dz: s.vz,
       // Coriolis: a = −2·Ω × v (zero when Ω = 0).
-      dvx: scale * relativeVx - _g * f.sinT - 2 * (f.oy * s.vz - f.oz * s.vy),
+      dvx: scale * relativeVx - g * f.sinT - 2 * (f.oy * s.vz - f.oz * s.vy),
       dvy:
           scale * relativeVy -
-          _g * f.cosT * f.cosP -
+          g * f.cosT * f.cosP -
           2 * (f.oz * s.vx - f.ox * s.vz),
       dvz:
           scale * relativeVz +
-          _g * f.cosT * f.sinP -
+          g * f.cosT * f.sinP -
           2 * (f.ox * s.vy - f.oy * s.vx),
     );
   }

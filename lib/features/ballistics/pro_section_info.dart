@@ -94,6 +94,21 @@ abstract final class ProSectionInfo {
         'dokunman yeterli.',
   );
 
+  static const gravity = ProExplain(
+    title: 'Yerel yerçekimi: yerçekimi bile hesapta',
+    what:
+        'Yerçekimi dünyanın her yerinde aynı değildir. Dünya kutuplarda '
+        'basık olduğu ve döndüğü için ekvatorda biraz zayıf, kutuplarda biraz '
+        'güçlüdür; dağa çıktıkça da azalır.',
+    why:
+        'Mermiyi aşağı çeken kuvvet budur. Çoğu uygulama her yerde aynı sayıyı '
+        'kullanır; Sniper Türk bulunduğun noktanın yerçekimiyle hesaplar. Son '
+        'milimetreler bile hesapta.',
+    how:
+        'Bir şey girmene gerek yok. Enlem konumundan, irtifa Hava '
+        'Durumu\'ndan alınır; yerçekimi kendiliğinden hesaplanır.',
+  );
+
   static const movingTarget = ProExplain(
     title: 'Hareketli hedef',
     what:
