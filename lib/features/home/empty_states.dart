@@ -286,8 +286,7 @@ class _ProPreviewState extends State<ProPreview> {
                         style: MenzilType.heading(c.ink, size: 18),
                       ),
                     ),
-                    if (!open)
-                      Text(summary, style: MenzilType.caption(c.ink2)),
+                    if (!open) Text(summary, style: MenzilType.caption(c.ink2)),
                     const SizedBox(width: MenzilSpace.xs),
                     Icon(
                       open ? Icons.expand_less : Icons.expand_more,
@@ -414,9 +413,7 @@ class _ShotPreviewState extends State<ShotPreview> {
 
   void _solve() {
     try {
-      _shot = const BallisticEngine()
-          .solve(_input([_range.toDouble()]))
-          .single;
+      _shot = const BallisticEngine().solve(_input([_range.toDouble()])).single;
       _mpsPerMil = ReticleHolds.crosswindForMil(
         base: _input([_range.toDouble()]),
         rangeM: _range.toDouble(),

@@ -60,7 +60,9 @@ void main() {
       await tester.tap(find.text('+5'));
       await tester.pumpAndSettle();
       expect(
-        tester.widget<Text>(find.byKey(const Key('empty-shot-range'))).textSpan!
+        tester
+            .widget<Text>(find.byKey(const Key('empty-shot-range')))
+            .textSpan!
             .toPlainText(),
         '305 m',
       );
