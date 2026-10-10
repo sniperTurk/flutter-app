@@ -473,19 +473,30 @@ class ScopeDialView extends StatelessWidget {
                 final atLimit =
                     dialled && (solElev != rawElev || solWind != rawWind);
                 final atZero = elevationClicks == 0 && windageClicks == 0;
+                // Owner, 2026-10-11: at the zero distance the solution is 0
+                // clicks, so both states would be true at once. Only the
+                // turrets' button turns orange; the solution button says
+                // nothing needs dialling.
+                final noClicks = dialled && !atLimit && atZero;
                 return Row(
                   children: [
                     Expanded(
                       child: MenzilSecondaryButton(
                         key: ScopeDialKeys.dialSolution,
-                        label: !dialled
+                        label: noClicks
+                            ? 'Çözüm: 0 klik'
+                            : !dialled
                             ? 'Çözümü kuleye kur'
                             : atLimit
                             ? 'Kule sınırına kuruldu'
                             : 'Çözüm kulelere kuruldu',
-                        icon: dialled ? Icons.check_circle : Icons.tune,
+                        icon: noClicks
+                            ? Icons.tune
+                            : dialled
+                            ? Icons.check_circle
+                            : Icons.tune,
                         expand: true,
-                        active: dialled,
+                        active: dialled && !noClicks,
                         onPressed: req == null || (dialled && !atLimit)
                             ? null
                             : () {
@@ -499,7 +510,9 @@ class ScopeDialView extends StatelessWidget {
                     Expanded(
                       child: MenzilSecondaryButton(
                         key: ScopeDialKeys.reset,
-                        label: atZero
+                        label: noClicks
+                            ? 'Kuleler sıfırda'
+                            : atZero
                             ? 'Kuleler sıfırlandı'
                             : 'Kuleleri sıfırla',
                         icon: atZero ? Icons.check_circle : Icons.restart_alt,

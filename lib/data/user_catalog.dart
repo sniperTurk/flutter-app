@@ -138,7 +138,7 @@ class UserCatalog {
             block(
               '${custom ? 'Özel yapım mermide' : 'Mühimmatta'} '
               '${missing.join(', ')} eksik; profilde kullanmak için kaydı '
-              'Katalog ekranında tamamlayın.',
+              'Profil sekmesinde yeniden girin.',
             );
             continue;
           }
@@ -179,7 +179,7 @@ class UserCatalog {
           if (missing.isNotEmpty) {
             block(
               'Dürbünde ${missing.join(', ')} eksik; profilde kullanmak için '
-              'kaydı Katalog ekranında tamamlayın.',
+              'kaydı Profil sekmesinde yeniden girin.',
             );
             continue;
           }

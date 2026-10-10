@@ -404,4 +404,49 @@ void main() {
     expect(button(ScopeDialKeys.dialSolution).active, isTrue);
     expect(button(ScopeDialKeys.dialSolution).label, 'Kule sınırına kuruldu');
   });
+
+  testWidgets('a 0-click solution leaves only the turrets button orange', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(430, 2400) * 3;
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    var elev = 0;
+    var wind = 0;
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: StatefulBuilder(
+              builder: (context, setState) => ScopeDialView(
+                unit: AngularUnit.mrad,
+                clickValue: 0.1,
+                elevationClicks: elev,
+                windageClicks: wind,
+                maxElevationClicks: 197,
+                maxWindageClicks: 100,
+                onElevationChanged: (v) => setState(() => elev = v),
+                onWindageChanged: (v) => setState(() => wind = v),
+                // The target is at the zero distance.
+                requiredUp: 0,
+                rangeM: 100,
+                samples: const [],
+                toDisplayRange: (m) => m,
+                distanceUnit: 'm',
+                metric: true,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    MenzilSecondaryButton button(Key k) =>
+        tester.widget<MenzilSecondaryButton>(find.byKey(k));
+    expect(button(ScopeDialKeys.dialSolution).label, 'Çözüm: 0 klik');
+    expect(button(ScopeDialKeys.dialSolution).active, isFalse);
+    expect(button(ScopeDialKeys.dialSolution).onPressed, isNull);
+    expect(button(ScopeDialKeys.reset).label, 'Kuleler sıfırda');
+    expect(button(ScopeDialKeys.reset).active, isTrue);
+  });
 }
