@@ -1468,8 +1468,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         // the turret: spin drift and the right zero offset are taken off
         // (audit 2026-10-11).
         String side(double m) => m.abs() < 1e-9 ? '' : (m > 0 ? ' R' : ' L');
-        final off =
-            (_spinDriftMrad(shot, basis) ?? 0) + _zeroOffsetMrad.right;
+        final off = (_spinDriftMrad(shot, basis) ?? 0) + _zeroOffsetMrad.right;
         final lo = shot.windMrad - off, up = hi.windMrad - off;
         lines.add(
           Text(
