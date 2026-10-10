@@ -18,6 +18,7 @@ import '../../core/reticle.dart';
 import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
+import '../../core/wez.dart';
 import '../../core/wind_clock.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
@@ -279,6 +280,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         zeroRightCtl.text = s.zeroRightText;
         groupCtl.text = s.groupText;
         sdCtl.text = s.sdText;
+        targetSizeCtl.text = s.targetSizeText;
+        rangeErrorCtl.text = s.rangeErrorText;
+        bcErrorCtl.text = s.bcErrorText;
         _shotCache.clear();
         _holdSamples = null;
       });
@@ -312,6 +316,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       zeroRightText: zeroRightCtl.text.trim(),
       groupText: groupCtl.text.trim(),
       sdText: sdCtl.text.trim(),
+      targetSizeText: targetSizeCtl.text.trim(),
+      rangeErrorText: rangeErrorCtl.text.trim(),
+      bcErrorText: bcErrorCtl.text.trim(),
     );
     unawaited(
       _shotStore.save(id, settings).catchError((Object _) {
@@ -364,6 +371,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final TextEditingController zeroRightCtl = TextEditingController();
   final TextEditingController groupCtl = TextEditingController();
   final TextEditingController sdCtl = TextEditingController();
+
+  /// WEZ (owner, 2026-10-10): target diameter (cm/in, empty = 10 cm / 4 in),
+  /// range error (± m/yd, empty = ±1) and BC error (± %, empty = 0).
+  final TextEditingController targetSizeCtl = TextEditingController();
+  final TextEditingController rangeErrorCtl = TextEditingController();
+  final TextEditingController bcErrorCtl = TextEditingController();
 
   /// Which Pro Ayarlar box is open (one at a time; all closed at first).
   String? _proOpen;
@@ -1211,6 +1224,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       zeroRightCtl,
       groupCtl,
       sdCtl,
+      targetSizeCtl,
+      rangeErrorCtl,
+      bcErrorCtl,
     ]) {
       c.dispose();
     }
@@ -1487,14 +1503,49 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ),
       );
     }
-    final hit = _hitProbability(shot, basis);
-    if (hit != null) {
+    final wez = _hitProbability(shot, basis);
+    if (wez != null) {
+      final pct = (wez.result.probability * 100).round();
       lines.add(
-        Text(
-          'İsabet olasılığı: %${(hit * 100).round()} '
-          '(Ø${metric ? '10 cm' : '3.9 in'} hedef, $_shotDisplay $_distanceUnit).',
-          key: const Key('shot-hit-probability'),
-          style: MenzilType.body(c.ink),
+        Row(
+          key: const Key('shot-wez'),
+          children: [
+            SizedBox.square(
+              dimension: 120,
+              child: CustomPaint(
+                key: const Key('shot-wez-target'),
+                painter: _WezPainter(
+                  impacts: wez.result.impacts,
+                  radiusMrad: wez.radiusMrad,
+                  colors: c,
+                ),
+              ),
+            ),
+            const SizedBox(width: MenzilSpace.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '%$pct',
+                    style: MenzilType.display(c.amber, size: 34),
+                  ),
+                  Text(
+                    'İsabet olasılığı: %$pct '
+                    '(Ø${wez.sizeText} hedef, $_shotDisplay $_distanceUnit).',
+                    key: const Key('shot-hit-probability'),
+                    style: MenzilType.body(c.ink),
+                  ),
+                  if (wez.result.dominant != null)
+                    Text(
+                      'En büyük etken: ${wez.result.dominant!.name}.',
+                      key: const Key('shot-wez-dominant'),
+                      style: MenzilType.caption(c.ink2),
+                    ),
+                ],
+              ),
+            ),
+          ],
         ),
       );
     }
@@ -1681,39 +1732,79 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// the wind bracket (horizontal, half the bracket as one sigma). Elliptic
   /// Gaussian approximated by P = 1 − exp(−R² / (2·σx·σy)). Null without a
   /// group size.
-  double? _hitProbability(TrajectoryPoint shot, _ShotBasis basis) {
+  /// WEZ: every error source as a spread on the target, then [Wez.simulate].
+  ({WezResult result, double radiusMrad, String sizeText})? _hitProbability(
+    TrajectoryPoint shot,
+    _ShotBasis basis,
+  ) {
     final zero = widget.profile?.zeroRangeM;
     final g = _parsed(groupCtl);
     if (zero == null || zero <= 0 || g == null || g <= 0 || g > 100) {
       return null;
     }
-    final groupM = metric ? g / 100 : UnitSystem.inchesToMillimeters(g) / 1000;
-    final sigmaG = math.atan(groupM / zero) * 1000 / 3.067;
-    var sigmaV = 0.0;
-    final sdFps = _parsed(sdCtl);
-    if (sdFps != null && sdFps > 0 && sdFps <= 200) {
+    double lenM(double v) =>
+        metric ? v / 100 : UnitSystem.inchesToMillimeters(v) / 1000;
+    final sources = <WezSource>[];
+    final sigmaG = Wez.groupSigmaMrad(lenM(g), zero);
+    sources.add(
+      WezSource('grup (tüfek ve atıcı)', sigmaX: sigmaG, sigmaY: sigmaG),
+    );
+    final args = _coriolisArgs;
+    // Vertical correction (mrad) with one input changed; null = unsolvable.
+    double? corr({
+      double? range,
+      double? velocity,
+      double? bcScale,
+    }) {
       try {
-        final args = _coriolisArgs;
-        final fast = const BallisticEngine()
-            .solve(
-              basis.input(
-                [_shotRangeM],
-                inclineDeg: _inclineDeg,
-                cantDeg: _cantDeg,
-                latitudeDeg: args.lat,
-                azimuthDeg: args.az,
-                shotVelocityMps: basis.velocityMps + UnitSystem.fpsToMps(sdFps),
-              ),
-            )
-            .single;
-        sigmaV = (fast.correctionMrad - shot.correctionMrad).abs();
+        var input = basis.input(
+          [range ?? _shotRangeM],
+          inclineDeg: _inclineDeg,
+          cantDeg: _cantDeg,
+          latitudeDeg: args.lat,
+          azimuthDeg: args.az,
+          shotVelocityMps: velocity,
+        );
+        if (bcScale != null && input.ballisticCoefficient != null) {
+          input = input.withBallisticCoefficient(
+            input.ballisticCoefficient! * bcScale,
+          );
+        }
+        return const BallisticEngine().solve(input).single.correctionMrad;
       } on ArgumentError {
-        sigmaV = 0;
+        return null;
       } on StateError {
-        sigmaV = 0;
+        return null;
       }
     }
-    var sigmaH = 0.0;
+
+    final base = corr();
+    final sdFps = _parsed(sdCtl);
+    if (base != null && sdFps != null && sdFps > 0 && sdFps <= 200) {
+      final fast = corr(
+        velocity: basis.velocityMps + UnitSystem.fpsToMps(sdFps),
+      );
+      if (fast != null) {
+        sources.add(WezSource('hız farkı (SD)', sigmaY: (fast - base).abs()));
+      }
+    }
+    final typedRangeErr = _parsed(rangeErrorCtl);
+    final rangeErr = typedRangeErr == null
+        ? 1.0
+        : (_yards ? UnitSystem.yardsToMeters(typedRangeErr) : typedRangeErr);
+    if (base != null && rangeErr > 0 && rangeErr < 100) {
+      final far = corr(range: _shotRangeM + Wez.sigmaOfPlusMinus(rangeErr));
+      if (far != null) {
+        sources.add(WezSource('mesafe hatası', sigmaY: (far - base).abs()));
+      }
+    }
+    final bcErr = _parsed(bcErrorCtl);
+    if (base != null && basis.drag && bcErr != null && bcErr > 0 && bcErr < 50) {
+      final low = corr(bcScale: 1 - Wez.sigmaOfPlusMinus(bcErr) / 100);
+      if (low != null) {
+        sources.add(WezSource('BC hatası', sigmaY: (low - base).abs()));
+      }
+    }
     final windMax = _windMaxMps;
     final mpsPerMil = basis.drag ? _evalShot().mpsPerMil : null;
     final wind = basis.environment.windMps;
@@ -1721,12 +1812,26 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         windMax > wind &&
         mpsPerMil != null &&
         mpsPerMil > 0) {
-      sigmaH = (windMax - wind) / 2 / mpsPerMil;
+      sources.add(
+        WezSource(
+          'rüzgâr belirsizliği',
+          sigmaX: (windMax - wind) / 2 / mpsPerMil,
+        ),
+      );
     }
-    final sx = math.sqrt(sigmaG * sigmaG + sigmaH * sigmaH);
-    final sy = math.sqrt(sigmaG * sigmaG + sigmaV * sigmaV);
-    final r = math.atan(0.05 / _shotRangeM) * 1000;
-    return (1 - math.exp(-r * r / (2 * sx * sy))).clamp(0.0, 1.0).toDouble();
+    final typedSize = _parsed(targetSizeCtl);
+    final size = typedSize != null && typedSize > 0 && typedSize < 1000
+        ? typedSize
+        : (metric ? 10.0 : 4.0);
+    final radius = math.atan(lenM(size) / 2 / _shotRangeM) * 1000;
+    final sizeText =
+        '${size % 1 == 0 ? size.toStringAsFixed(0) : size.toString()} '
+        '${metric ? 'cm' : 'in'}';
+    return (
+      result: Wez.simulate(sources: sources, targetRadiusMrad: radius),
+      radiusMrad: radius,
+      sizeText: sizeText,
+    );
   }
 
   String _windLabel(double mps) =>
@@ -3123,6 +3228,33 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 info: EnvironmentFieldInfo.sd,
                 onChanged: (_) => _coriolisChanged(),
               ),
+              MenzilInput(
+                key: const Key('pro-target-size'),
+                controller: targetSizeCtl,
+                label: 'Hedef çapı',
+                unit: lenUnit,
+                hintText: metric ? '10' : '4',
+                info: EnvironmentFieldInfo.targetSize,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+              MenzilInput(
+                key: const Key('pro-range-error'),
+                controller: rangeErrorCtl,
+                label: 'Mesafe hatası (±)',
+                unit: _distanceUnit,
+                hintText: '1',
+                info: EnvironmentFieldInfo.rangeError,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+              MenzilInput(
+                key: const Key('pro-bc-error'),
+                controller: bcErrorCtl,
+                label: 'BC hatası (±)',
+                unit: '%',
+                hintText: '0',
+                info: EnvironmentFieldInfo.bcError,
+                onChanged: (_) => _coriolisChanged(),
+              ),
             ],
           ),
         ],
@@ -3889,4 +4021,52 @@ abstract final class _EnvironmentCarry {
       _edited = {};
     }
   }
+}
+
+/// WEZ picture: the target at its size and the simulated impacts (orange
+/// inside, grey outside), scaled so the target fills about half the box.
+class _WezPainter extends CustomPainter {
+  final List<(double, double)> impacts;
+  final double radiusMrad;
+  final MenzilColors colors;
+  _WezPainter({
+    required this.impacts,
+    required this.radiusMrad,
+    required this.colors,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = Offset(size.width / 2, size.height / 2);
+    final rPx = size.shortestSide * 0.36;
+    final k = radiusMrad <= 0 ? 0.0 : rPx / radiusMrad;
+    Paint ring(Color col, double w) => Paint()
+      ..color = col
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = w;
+    canvas.drawCircle(c, rPx, Paint()..color = colors.paperFace);
+    canvas.drawCircle(c, rPx * 0.66, ring(colors.paperRingSoft, 1));
+    canvas.drawCircle(c, rPx * 0.33, ring(colors.paperRingSoft, 1));
+    canvas.drawCircle(c, rPx, ring(colors.paperRing, 2));
+    final inside = Paint()..color = colors.amber;
+    final outside = Paint()..color = colors.ink2;
+    final limit = size.shortestSide / 2 - 2;
+    // Every 4th impact keeps the picture readable.
+    for (var i = 0; i < impacts.length; i += 4) {
+      final (x, y) = impacts[i];
+      final at = c + Offset(x * k, -y * k);
+      if ((at - c).distance > limit) continue;
+      canvas.drawCircle(
+        at,
+        2.2,
+        x * x + y * y <= radiusMrad * radiusMrad ? inside : outside,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _WezPainter old) =>
+      old.impacts != impacts ||
+      old.radiusMrad != radiusMrad ||
+      old.colors != colors;
 }

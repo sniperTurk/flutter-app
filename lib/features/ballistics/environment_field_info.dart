@@ -104,6 +104,15 @@ abstract final class EnvironmentFieldInfo {
   static const sd =
       'Hız farkı (SD), fps: kronograf cihazının 5–10 atış sonrası gösterdiği '
       'standart sapma. Örnek: 4 fps. Bilmiyorsan boş bırak.';
+  static const targetSize =
+      'Vurmak istediğin alanın çapı, cm. Kâğıt hedefte halkanın, avda hayati '
+      'bölgenin çapı. Boş bırakırsan 10 cm. Örnek: tavşan 5 cm, karaca 15 cm.';
+  static const rangeError =
+      'Mesafeyi ne kadar yanlış ölçebileceğin, ±. Lazer mesafe ölçerde '
+      'genelde ±1 m; göz kararında daha fazla. Boş bırakırsan ±1.';
+  static const bcError =
+      'BC değerinden ne kadar emin olduğun, ± %. Üretici değeri için 3–5 %; '
+      'kendin doğruladıysan 1–2 %. Boş bırakırsan hesaba katılmaz.';
   static const targetSpeed =
       'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
       'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '

@@ -127,8 +127,11 @@ abstract final class ProSectionInfo {
   );
 
   static const hitProbability = ProExplain(
-    title: 'İsabet olasılığı',
-    what: 'Bu atışta hedefi vurma şansın; örneğin "%72".',
+    title: 'İsabet olasılığı (WEZ)',
+    what:
+        'Bu atışta hedefi vurma şansın; örneğin "%72". Uygulama atışını 1000 '
+        'kez dener: grup, hız farkı, mesafe, rüzgâr ve BC hatalarıyla kaçının '
+        'hedefe girdiğini sayar ve en büyük etkeni söyler.',
     why:
         '"Buradan vurabilir miyim, yoksa yaklaşmalı mıyım?" sorusunun cevabı. '
         'Avda hayvanı yaralamamak için önemli.',
@@ -138,7 +141,9 @@ abstract final class ProSectionInfo {
         'deliğin arasını ölç.\n'
         '• Hız farkı (SD): Kronograf cihazın atışların hızı ne kadar değişiyor '
         'diye gösterir. Cihazın yoksa boş bırak.\n'
-        'Boş bırakırsan yüzde görünmez.',
+        '• İstersen hedef çapı, mesafe hatası ve BC hatası. Rüzgâr aralığı '
+        'Hava Durumu\'ndaki "en yüksek rüzgâr"dan gelir.\n'
+        'Grup çapını boş bırakırsan yüzde görünmez.',
   );
 
   static const turretScale = ProExplain(

@@ -53,6 +53,11 @@ class ShotSettings {
   final String groupText;
   final String sdText;
 
+  /// WEZ: target diameter, range error (±) and BC error (± %), as typed.
+  final String targetSizeText;
+  final String rangeErrorText;
+  final String bcErrorText;
+
   const ShotSettings({
     this.inclineDeg = 0,
     this.cantDeg = 0,
@@ -76,6 +81,9 @@ class ShotSettings {
     this.zeroRightText = '',
     this.groupText = '',
     this.sdText = '',
+    this.targetSizeText = '',
+    this.rangeErrorText = '',
+    this.bcErrorText = '',
   });
 
   Map<String, dynamic> toJson() => {
@@ -101,6 +109,9 @@ class ShotSettings {
     'zeroRight': zeroRightText,
     'group': groupText,
     'sd': sdText,
+    'targetSize': targetSizeText,
+    'rangeError': rangeErrorText,
+    'bcError': bcErrorText,
   };
 
   /// Unknown or damaged values fall back to the neutral default (level,
@@ -141,6 +152,9 @@ class ShotSettings {
       zeroRightText: text(json['zeroRight']),
       groupText: text(json['group']),
       sdText: text(json['sd']),
+      targetSizeText: text(json['targetSize']),
+      rangeErrorText: text(json['rangeError']),
+      bcErrorText: text(json['bcError']),
     );
   }
 }
