@@ -1,0 +1,21 @@
+[
+ {
+  "brand": "Sig Sauer",
+  "model": "MCX Virtus PCP 5.5 mm",
+  "platform": "pcp",
+  "caliber": "5.5 mm",
+  "bullet_diameter_mm": 5.5,
+  "barrel_length_mm": null,
+  "twist_rate_in": null,
+  "twist_direction": null,
+  "magazine_capacity": 30,
+  "weight_kg": 3.4,
+  "overall_length_mm": 946,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": 600,
+  "source_url": "https://www.sigsauer.com/sig-mcx-virtus-pcp-air-rifle.html",
+  "notes": "Yarı otomatik. Sayfa gövdesi 'up to 600 fps' diyor (başlıkta 700 fps); düşük değer alındı. 37.25 in, 7.5 lb dönüştürüldü."
+ }
+]
