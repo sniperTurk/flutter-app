@@ -1,0 +1,131 @@
+{
+ "ageRating": {
+  "type": "ageRatingDeclarations",
+  "id": "0d674ed8-35a4-41d0-b043-34e3831c4f71",
+  "attributes": {
+   "advertising": false,
+   "alcoholTobaccoOrDrugUseOrReferences": "NONE",
+   "contests": "NONE",
+   "gambling": false,
+   "gamblingSimulated": "NONE",
+   "gunsOrOtherWeapons": "FREQUENT_OR_INTENSE",
+   "healthOrWellnessTopics": false,
+   "kidsAgeBand": null,
+   "lootBox": false,
+   "medicalOrTreatmentInformation": "NONE",
+   "messagingAndChat": false,
+   "parentalControls": false,
+   "profanityOrCrudeHumor": "NONE",
+   "ageAssurance": false,
+   "sexualContentGraphicAndNudity": "NONE",
+   "sexualContentOrNudity": "NONE",
+   "socialMedia": null,
+   "socialMediaAgeRestricted": null,
+   "horrorOrFearThemes": "NONE",
+   "matureOrSuggestiveThemes": "NONE",
+   "unrestrictedWebAccess": false,
+   "userGeneratedContent": false,
+   "violenceCartoonOrFantasy": "NONE",
+   "violenceRealisticProlongedGraphicOrSadistic": "NONE",
+   "violenceRealistic": "NONE",
+   "ageRatingOverride": "NONE",
+   "ageRatingOverrideV2": "NONE",
+   "koreaAgeRatingOverride": "NONE",
+   "gracRatingClassificationNumber": null,
+   "developerAgeRatingInfoUrl": null
+  },
+  "links": {
+   "self": "https://api.appstoreconnect.apple.com/v1/ageRatingDeclarations/0d674ed8-35a4-41d0-b043-34e3831c4f71"
+  }
+ },
+ "builds": [
+  {
+   "id": "4dd4e9d9-54cb-4c21-8d24-451fcf915a5e",
+   "version": "61",
+   "processingState": "VALID",
+   "uploadedDate": "2026-10-10T03:35:03-07:00"
+  },
+  {
+   "id": "81944a92-9658-48e5-ae5a-fc93d412af14",
+   "version": "60",
+   "processingState": "VALID",
+   "uploadedDate": "2026-10-09T19:22:50-07:00"
+  },
+  {
+   "id": "070bc779-e55a-4007-8e7d-db5811b97d34",
+   "version": "59",
+   "processingState": "VALID",
+   "uploadedDate": "2026-10-09T18:04:47-07:00"
+  }
+ ],
+ "pricePoints": [
+  {
+   "id": "eyJzIjoiNjgxOTQ4Mzc4OCIsInQiOiJVU0EiLCJwIjoiMTAwMDAifQ",
+   "customerPrice": "0.0",
+   "proceeds": "0.0"
+  },
+  {
+   "id": "eyJzIjoiNjgxOTQ4Mzc4OCIsInQiOiJVU0EiLCJwIjoiMTAwMDEifQ",
+   "customerPrice": "0.29",
+   "proceeds": "0.25"
+  },
+  {
+   "id": "eyJzIjoiNjgxOTQ4Mzc4OCIsInQiOiJVU0EiLCJwIjoiMTAwMDIifQ",
+   "customerPrice": "0.39",
+   "proceeds": "0.33"
+  }
+ ],
+ "territories": 175,
+ "categories": [
+  "STICKERS_EMOJI_AND_EXPRESSIONS",
+  "GAMES_ACTION",
+  "BUSINESS",
+  "SOCIAL_NETWORKING",
+  "GAMES_STRATEGY",
+  "GAMES_SPORTS",
+  "STICKERS_CELEBRATIONS",
+  "STICKERS",
+  "GAMES",
+  "GAMES_CASUAL",
+  "STICKERS_SPORTS_AND_ACTIVITIES",
+  "GAMES_TRIVIA",
+  "STICKERS_EATING_AND_DRINKING",
+  "STICKERS_CHARACTERS",
+  "MEDICAL",
+  "GAMES_PUZZLE",
+  "GAMES_CASINO",
+  "GAMES_FAMILY",
+  "STICKERS_PLACES_AND_OBJECTS",
+  "FOOD_AND_DRINK",
+  "GAMES_ADVENTURE",
+  "GAMES_BOARD",
+  "EDUCATION",
+  "BOOKS",
+  "SPORTS",
+  "FINANCE",
+  "REFERENCE",
+  "GAMES_RACING",
+  "DEVELOPER_TOOLS",
+  "GRAPHICS_AND_DESIGN",
+  "HEALTH_AND_FITNESS",
+  "MUSIC",
+  "ENTERTAINMENT",
+  "TRAVEL",
+  "WEATHER",
+  "GAMES_WORD",
+  "STICKERS_CELEBRITIES",
+  "LIFESTYLE",
+  "GAMES_MUSIC",
+  "GAMES_ROLE_PLAYING",
+  "STICKERS_MOVIES_AND_TV",
+  "GAMES_CARD",
+  "STICKERS_ANIMALS",
+  "MAGAZINES_AND_NEWSPAPERS",
+  "STICKERS_ART",
+  "STICKERS_FASHION",
+  "UTILITIES",
+  "STICKERS_GAMING",
+  "SHOPPING",
+  "NEWS"
+ ]
+}
