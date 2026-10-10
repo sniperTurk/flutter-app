@@ -20,7 +20,7 @@ jobs:
           REVIEW_PHONE: ${{ secrets.REVIEW_PHONE }}
         run: |
           pip install --quiet pyjwt cryptography
-          python3 ops/asc_submit.py || true
+          python3 ops/asc_release.py || true
       - name: Publish log
         if: always()
         run: |
