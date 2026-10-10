@@ -29,7 +29,7 @@ PRATİK ARAÇLAR
 • DOPE kartı: mesafe/klik tablosunu PDF olarak hazırla, paylaş veya yazdır.
 
 KOLAY KULLANIM
-• Türkiye'de satılan tüfek, mühimmat ve dürbünlerden oluşan katalog.
+• PCP ve ateşli tüfekler için yaygın kalibreler listede hazır.
 • Her girilen değerin yanında ne olduğu, nereden bulunacağı ve örneği.
 • Hesap gerektirmeyen veriler otomatik dolar.
 

@@ -38,11 +38,21 @@ def main():
     if state == "VALID":
         call("PATCH", f"/v1/appStoreVersions/{vid}", {"data": {"type": "appStoreVersions", "id": vid,
              "relationships": {"build": {"data": {"type": "builds", "id": b["id"]}}}}})
+    # Store description (owner, 2026-10-10: no catalog in the app any more).
+    import re as _re
+    text = open("ops/store_text.md", encoding="utf-8").read()
+    description = text.split("Açıklama:\n", 1)[1].strip()
+    locs = call("GET", f"/v1/appStoreVersions/{vid}/appStoreVersionLocalizations")["data"]
+    for l in locs:
+        if l["attributes"]["locale"] == "tr":
+            call("PATCH", f"/v1/appStoreVersionLocalizations/{l['id']}", {"data": {
+                "type": "appStoreVersionLocalizations", "id": l["id"],
+                "attributes": {"description": description}}})
     first, last, phone = (os.environ.get(k, "").strip() for k in ("REVIEW_FIRST", "REVIEW_LAST", "REVIEW_PHONE"))
     attrs = {"contactEmail": "Sekerbirol76@gmail.com", "demoAccountRequired": False,
              "notes": ("SNIPER TÜRK is a ballistic calculator for sport shooting and hunting with PCP air rifles "
-                       "and firearms. No account or login is needed. To try it: Profil → create a profile from the "
-                       "catalog, then open Hedef. Location is used only for the weather (MET Norway) when the user "
+                       "and firearms. No account or login is needed. To try it: Profil → 'İlk profilimi oluştur', "
+                       "type the rifle, ammunition and scope values, save, then open Hedef. Location is used only for the weather (MET Norway) when the user "
                        "asks; the map distance tool uses Google Maps. The app sells nothing and contains no ads.")}
     if first and last and phone:
         attrs.update({"contactFirstName": first, "contactLastName": last, "contactPhone": phone})
