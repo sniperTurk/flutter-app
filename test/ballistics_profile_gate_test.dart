@@ -63,6 +63,8 @@ void main() {
       await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
       await tester.pumpAndSettle();
       expect(find.text('Vuruş noktası: artı işaretinde'), findsOneWidget);
+      await tester.ensureVisible(find.text('+5'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('+5'));
       await tester.pumpAndSettle();
       expect(
