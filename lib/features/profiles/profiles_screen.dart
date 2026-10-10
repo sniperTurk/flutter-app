@@ -2530,6 +2530,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 }
 
+String _trimNum(double v) =>
+    v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
+
+/// Shows the profile's SI values in the user's unit system (Ayarlar). The
+/// stored profile stays SI; only the display converts.
 class _ProfileUnits {
   const _ProfileUnits();
 
