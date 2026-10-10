@@ -6,6 +6,7 @@ import '../../core/production_limits.dart';
 import '../../core/profile_input.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
+import '../../data/bullet_library.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
@@ -14,6 +15,7 @@ import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../home/empty_states.dart';
+import 'bullet_library_screen.dart';
 import 'drag_curve_field.dart';
 import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
@@ -1457,6 +1459,40 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
   }
 
+  /// Fills the ammunition from the bullet library (owner, 2026-10-10).
+  Future<void> _pickFromLibrary() async {
+    final cal = _parse(rifleCaliber);
+    final b = await Navigator.push<LibraryBullet>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => BulletLibraryScreen(platform: platform, caliberMm: cal),
+      ),
+    );
+    if (b == null || !mounted) return;
+    String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
+    setState(() {
+      ammoBrand.text = b.title;
+      ammoGrain.text = n(b.grain);
+      ammoBc.text = n(b.bc);
+      ammoBcModel = b.model;
+      // A library bullet carries its BC, not a custom curve.
+      _customCurve = false;
+      _dragCurve = null;
+      if (platform == WeaponPlatform.pcp) ammoType = b.type;
+      for (var i = 0; i < 2; i++) {
+        final band = i < b.bands.length ? b.bands[i] : null;
+        ammoBandFps[i].text = band == null ? '' : band.$1.toString();
+        ammoBandBc[i].text = band == null ? '' : n(band.$2);
+      }
+      // The ammunition's caliber follows the rifle: a bullet of another
+      // caliber sets it.
+      if (cal == null || (cal - b.caliberMm).abs() > 0.02) {
+        rifleCaliber.text = _trimDot(b.caliberMm);
+        _caliberOther = false;
+      }
+    });
+  }
+
   void _showSightHelp() => showDialog<void>(
     context: context,
     builder: (_) => const _SightHeightHelpDialog(),
@@ -1950,6 +1986,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
+                MenzilFullWidth(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: MenzilSpace.md),
+                    child: MenzilSecondaryButton(
+                      key: const Key('ammo-library'),
+                      label: 'Kütüphaneden seç',
+                      icon: Icons.menu_book_outlined,
+                      expand: true,
+                      onPressed: _pickFromLibrary,
+                    ),
+                  ),
+                ),
                 MenzilInput(
                   key: const Key('ammo-brand'),
                   controller: ammoBrand,
