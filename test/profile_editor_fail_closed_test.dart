@@ -275,7 +275,11 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Ateşli Tüfek').last);
     await tester.pumpAndSettle();
-    await chooseInSelect(tester, 'rifle-caliber', '.270 Win / .270 WSM (7.04 mm)');
+    await chooseInSelect(
+      tester,
+      'rifle-caliber',
+      '.270 Win / .270 WSM (7.04 mm)',
+    );
     expect(find.byKey(const Key('rifle-caliber-other')), findsNothing);
     await chooseInSelect(tester, 'rifle-caliber', 'Diğer (elle yaz)');
     final other = find.descendant(
