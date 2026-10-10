@@ -1,0 +1,23 @@
+<stdin>:15: ResourceWarning: unclosed file <_io.TextIOWrapper name='out/pbc_tables.json' mode='w' encoding='UTF-8'>
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+tables ['TableG1', 'TableG2', 'TableG5', 'TableG6', 'TableG7', 'TableG8', 'TableGI', 'TableGS', 'TableRA4']
+be/ballistics-engine-0.33.0/data/gi.csv
+be/ballistics-engine-0.33.0/data/g7.csv
+be/ballistics-engine-0.33.0/data/g5.csv
+be/ballistics-engine-0.33.0/data/g1.csv
+be/ballistics-engine-0.33.0/data/gs.csv
+be/ballistics-engine-0.33.0/data/g2.csv
+be/ballistics-engine-0.33.0/data/ra4.csv
+LICENSE
+LICENSE-APACHE
+be-data-README.md
+g1.csv
+g2.csv
+g5.csv
+g7.csv
+gi.csv
+gs.csv
+pbc_tables.json
+pip.log
+ra4.csv
+tables.log
