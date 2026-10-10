@@ -301,7 +301,8 @@ void _expectSame(Object a, Object b, String reason) {
       expect(
         _same(a[i][k], b[i][k]),
         isTrue,
-        reason: '$reason\nrow $i ${_fields[k]}: '
+        reason:
+            '$reason\nrow $i ${_fields[k]}: '
             'App Store ${a[i][k]} vs now ${b[i][k]}',
       );
     }
