@@ -1752,26 +1752,29 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         child: KeyedSubtree(
           key: const Key('ammo-brand-select'),
           child: MenzilSelect<String>(
-          key: ValueKey('ammo-brand-select-${platform.name}-${rifleCaliber.text}-$brand'),
-          label: 'Marka',
-          hint: 'Seçiniz',
-          initialValue: brand,
-          items: [
-            for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
-            const DropdownMenuItem(
-              value: _manualKey,
-              child: Text('Listede yok (elle yaz)'),
+            key: ValueKey(
+              'ammo-brand-select-${platform.name}-${rifleCaliber.text}-$brand',
             ),
-          ],
-          onChanged: (v) => setState(() {
-            if (v == _manualKey) {
-              _ammoManual = true;
-              return;
-            }
-            ammoBrand.text = v ?? '';
-            ammoModel.text = '';
-          }),
-        ),
+            label: 'Marka',
+            hint: 'Seçiniz',
+            initialValue: brand,
+            items: [
+              for (final b in brands)
+                DropdownMenuItem(value: b, child: Text(b)),
+              const DropdownMenuItem(
+                value: _manualKey,
+                child: Text('Listede yok (elle yaz)'),
+              ),
+            ],
+            onChanged: (v) => setState(() {
+              if (v == _manualKey) {
+                _ammoManual = true;
+                return;
+              }
+              ammoBrand.text = v ?? '';
+              ammoModel.text = '';
+            }),
+          ),
         ),
       ),
       if (brand != null)
@@ -1779,30 +1782,31 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           child: KeyedSubtree(
             key: const Key('ammo-model-select'),
             child: MenzilSelect<int>(
-            key: ValueKey('ammo-model-select-$brand-${rifleCaliber.text}-$modelIndex'),
-            label: 'Model',
-            hint: 'Seçiniz',
-            initialValue: modelIndex < 0 ? null : modelIndex,
-            items: [
-              for (final (k, b) in models.indexed)
-                DropdownMenuItem(
-                  value: k,
-                  child: Text(
-                    '${_modelOf(b)} · ${_trimDot(b.grain)} gr',
-                    maxLines: 2,
+              key: ValueKey(
+                'ammo-model-select-$brand-${rifleCaliber.text}-$modelIndex',
+              ),
+              label: 'Model',
+              hint: 'Seçiniz',
+              initialValue: modelIndex < 0 ? null : modelIndex,
+              items: [
+                for (final (k, b) in models.indexed)
+                  DropdownMenuItem(
+                    value: k,
+                    child: Text(
+                      '${_modelOf(b)} · ${_trimDot(b.grain)} gr',
+                      maxLines: 2,
+                    ),
                   ),
-                ),
-            ],
-            onChanged: (k) {
-              if (k == null) return;
-              setState(() => _applyBullet(models[k], _parse(rifleCaliber)));
-            },
-          ),
+              ],
+              onChanged: (k) {
+                if (k == null) return;
+                setState(() => _applyBullet(models[k], _parse(rifleCaliber)));
+              },
+            ),
           ),
         ),
     ];
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -2341,34 +2345,36 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     ),
                   ),
                 ),
-                ..._ammoNameFields(texts: [
-                MenzilFullWidth(
-                  child: MenzilInput(
-                    key: const Key('ammo-brand'),
-                    controller: ammoBrand,
-                    label: 'Marka',
-                    // Examples only on PCP; empty for a firearm (owner, 2026-10-09).
-                    hintText: platform == WeaponPlatform.pcp ? 'JSB' : null,
-                    keyboardType: TextInputType.text,
-                    maxLength: 60,
-                    onChanged: (_) => setState(() {}),
-                    errorText: _shown(_ammoBrandError, ammoBrand),
-                  ),
+                ..._ammoNameFields(
+                  texts: [
+                    MenzilFullWidth(
+                      child: MenzilInput(
+                        key: const Key('ammo-brand'),
+                        controller: ammoBrand,
+                        label: 'Marka',
+                        // Examples only on PCP; empty for a firearm (owner, 2026-10-09).
+                        hintText: platform == WeaponPlatform.pcp ? 'JSB' : null,
+                        keyboardType: TextInputType.text,
+                        maxLength: 60,
+                        onChanged: (_) => setState(() {}),
+                        errorText: _shown(_ammoBrandError, ammoBrand),
+                      ),
+                    ),
+                    MenzilFullWidth(
+                      child: MenzilInput(
+                        key: const Key('ammo-model'),
+                        controller: ammoModel,
+                        label: 'Model',
+                        hintText: platform == WeaponPlatform.pcp
+                            ? 'King Heavy'
+                            : null,
+                        keyboardType: TextInputType.text,
+                        maxLength: 80,
+                        onChanged: (_) => setState(() {}),
+                      ),
+                    ),
+                  ],
                 ),
-                MenzilFullWidth(
-                  child: MenzilInput(
-                    key: const Key('ammo-model'),
-                    controller: ammoModel,
-                    label: 'Model',
-                    hintText: platform == WeaponPlatform.pcp
-                        ? 'King Heavy'
-                        : null,
-                    keyboardType: TextInputType.text,
-                    maxLength: 80,
-                    onChanged: (_) => setState(() {}),
-                  ),
-                ),
-                ]),
                 if (platform == WeaponPlatform.pcp)
                   MenzilSelect<AmmunitionType>(
                     key: const Key('ammo-type'),
