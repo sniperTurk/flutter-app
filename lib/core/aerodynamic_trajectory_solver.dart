@@ -95,7 +95,10 @@ class AerodynamicTrajectorySolver {
         'ballisticCoefficient and ballisticModel (G1/G7/GA) are required',
       );
     }
-    final drag = ReferenceDragModel(StandardDragTables.forModel(model));
+    // Özel eğri: the bullet's own Cd curve replaces the standard table.
+    final drag = ReferenceDragModel(
+      input.dragTable ?? StandardDragTables.forModel(model),
+    );
     // BC as a function of air-relative speed (çoklu BC; constant without
     // bands).
     final bc = input.bcAtSpeed;

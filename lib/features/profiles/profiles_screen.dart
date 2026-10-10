@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/drag_curve.dart';
+import '../../core/drag_table.dart';
 import '../../core/production_limits.dart';
 import '../../core/profile_input.dart';
 import '../../core/scope_dial.dart';
@@ -12,6 +14,7 @@ import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../home/empty_states.dart';
+import 'drag_curve_field.dart';
 import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
 
@@ -841,6 +844,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final List<TextEditingController> ammoBandBc;
   AmmunitionType? ammoType;
   BallisticModel? ammoBcModel;
+
+  /// BC modeli "Özel eğri (Mach–Cd)": the bullet's own drag curve replaces
+  /// BC, BC model and the speed bands (owner, 2026-10-10).
+  bool _customCurve = false;
+  List<DragSample>? _dragCurve;
+  static const _customKey = 'custom';
   bool _saving = false;
   Ammunition? ammo;
   ScopeOptic? scope;
@@ -940,6 +949,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ];
     ammoType = a0?.type;
     ammoBcModel = a0?.ballisticModel;
+    _dragCurve = a0?.dragCurve;
+    _customCurve = _dragCurve != null;
+    // The stored "BC" of a curve is the sectional density; not shown.
+    if (_customCurve) ammoBc.text = '';
     if (p != null) {
       if (rifle == null) _unresolved.add('tüfek');
       if (ammo == null) _unresolved.add('mühimmat');
@@ -1024,9 +1037,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_ammoBrandError == null, 'Marka Model'),
       (_effectiveAmmoType != null, 'Tip'),
       (_grainError == null, 'Ağırlık'),
-      (_bcError == null, 'BC'),
-      (ammoBcModel != null, 'BC modeli'),
-      (_bandsValid, 'Hıza göre BC'),
+      if (_customCurve)
+        (_dragCurve != null, 'Sürüklenme eğrisi')
+      else ...[
+        (_bcError == null, 'BC'),
+        (ammoBcModel != null, 'BC modeli'),
+        (_bandsValid, 'Hıza göre BC'),
+      ],
     ]);
     return out;
   }
@@ -1227,10 +1244,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   bool get _ammoValid =>
       _ammoBrandError == null &&
       _grainError == null &&
-      _bcError == null &&
-      _bandsValid &&
-      ammoBcModel != null &&
+      (_customCurve
+          ? _dragCurve != null && _curveSd != null
+          : _bcError == null && _bandsValid && ammoBcModel != null) &&
       _effectiveAmmoType != null;
+
+  /// Sectional density for a custom curve, from the grain and the caliber.
+  double? get _curveSd {
+    final g = _parse(ammoGrain), d = _parse(rifleCaliber);
+    if (g == null || d == null || g <= 0 || d <= 0) return null;
+    return DragCurve.sectionalDensity(grain: g, diameterMm: d);
+  }
 
   /// One-line designation, e.g. "6-24x56 FFP" (empty parts are skipped).
   String get _scopeDesignation {
@@ -1298,9 +1322,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'caliberMm': _parse(rifleCaliber),
       'grain': _parse(ammoGrain),
       'ammoType': _effectiveAmmoType!.name,
-      'bc': _parse(ammoBc),
-      'bcModel': ammoBcModel!.name,
-      if (_bandEntries.isNotEmpty) 'bcBands': _bandEntries,
+      if (_customCurve) ...{
+        'bc': _curveSd,
+        'bcModel': BallisticModel.g1.name,
+        'dragCurve': DragCurve.toJson(_dragCurve!),
+      } else ...{
+        'bc': _parse(ammoBc),
+        'bcModel': ammoBcModel!.name,
+        if (_bandEntries.isNotEmpty) 'bcBands': _bandEntries,
+      },
       'sourceName': userCatalogSourceName,
     };
   }
@@ -1972,6 +2002,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_grainError, ammoGrain),
                 ),
+                if (!_customCurve)
                 MenzilInput(
                   key: const Key('ammo-bc'),
                   info: platform == WeaponPlatform.firearm
@@ -1985,19 +2016,44 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_bcError, ammoBc),
                 ),
-                MenzilSelect<BallisticModel>(
+                MenzilSelect<String>(
                   key: const Key('ammo-bc-model'),
-                  info: platform == WeaponPlatform.firearm
-                      ? ProfileFieldInfo.bcModelFirearm
-                      : ProfileFieldInfo.bcModel,
+                  info:
+                      (platform == WeaponPlatform.firearm
+                          ? ProfileFieldInfo.bcModelFirearm
+                          : ProfileFieldInfo.bcModel) +
+                      ProfileFieldInfo.bcModelCustom,
                   label: 'BC modeli',
-                  initialValue: ammoBcModel,
+                  initialValue: _customCurve ? _customKey : ammoBcModel?.name,
                   items: [
                     for (final (m, text) in _bcModelChoices)
-                      DropdownMenuItem(value: m, child: Text(text)),
+                      DropdownMenuItem(value: m.name, child: Text(text)),
+                    const DropdownMenuItem(
+                      value: _customKey,
+                      child: Text('Özel eğri (Mach–Cd)'),
+                    ),
                   ],
-                  onChanged: (v) => setState(() => ammoBcModel = v),
+                  onChanged: (v) => setState(() {
+                    _customCurve = v == _customKey;
+                    if (!_customCurve) {
+                      ammoBcModel = BallisticModel.values
+                          .where((m) => m.name == v)
+                          .firstOrNull;
+                    }
+                  }),
                 ),
+                if (_customCurve)
+                  MenzilFullWidth(
+                    child: DragCurveField(
+                      key: const Key('ammo-curve'),
+                      curve: _dragCurve,
+                      errorText: _showErrors && _dragCurve == null
+                          ? 'Eğriyi yükleyin.'
+                          : null,
+                      onChanged: (v) => setState(() => _dragCurve = v),
+                    ),
+                  ),
+                if (!_customCurve) ...[
                 MenzilFullWidth(
                   child: Text(
                     'Hıza göre BC (isteğe bağlı)',
@@ -2029,6 +2085,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     errorText: _shown(_bandBcError(i), ammoBandBc[i]),
                   ),
                 ],
+                ],
                 MenzilFullWidth(
                   child: Text(
                     '${typedCaliber == null ? 'Kalibre: tüfek bilgilerinden alınır.' : 'Kalibre: ${_trimNum(typedCaliber)} mm (tüfekten).'}'
@@ -2038,7 +2095,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ),
                 ),
                 if (_showErrors &&
-                    (ammoBcModel == null || _effectiveAmmoType == null))
+                    ((!_customCurve && ammoBcModel == null) ||
+                        _effectiveAmmoType == null))
                   const MenzilFullWidth(
                     child: MenzilNotice(
                       tone: MenzilNoticeTone.danger,

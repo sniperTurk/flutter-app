@@ -10,6 +10,7 @@ import '../../core/ballistic_engine.dart';
 import '../../core/ballistic_input.dart';
 import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
+import '../../core/drag_table.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle_holds.dart';
@@ -114,6 +115,9 @@ class _ShotBasis {
 
   /// Velocity-dependent BC steps (çoklu BC); empty = single BC.
   final List<BcBand> bcBands;
+
+  /// Özel sürüklenme eğrisi of the ammunition; null = standard table.
+  final DragTable? dragTable;
   const _ShotBasis({
     required this.velocityMps,
     required this.grain,
@@ -123,6 +127,7 @@ class _ShotBasis {
     this.ballisticCoefficient,
     this.ballisticModel,
     this.bcBands = const [],
+    this.dragTable,
     this.zeroVelocityMps,
   });
 
@@ -162,6 +167,7 @@ class _ShotBasis {
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
     bcBands: bcBands,
+    dragTable: dragTable,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
@@ -1045,6 +1051,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       final bc = useBc ? ammo!.ballisticCoefficient : null;
       final model = useBc ? ammo!.ballisticModel : null;
       final bands = useBc ? ammo!.bcBands : const <BcBand>[];
+      final dragTable = useBc ? ammo!.dragTable : null;
       final input = BallisticInput(
         muzzleVelocityMps: vToday,
         grain: g,
@@ -1055,6 +1062,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ballisticCoefficient: bc,
         ballisticModel: model,
         bcBands: bands,
+        dragTable: dragTable,
         zeroMuzzleVelocityMps: vZero,
       );
       final solved = const BallisticEngine().solveReachable(input);
@@ -1092,6 +1100,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ballisticCoefficient: bc,
           ballisticModel: model,
           bcBands: bands,
+          dragTable: dragTable,
           zeroVelocityMps: vZero,
         );
       });
@@ -2058,6 +2067,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       );
     }
     final name = a!.ballisticModel!.name.toUpperCase();
+    final curve = a.dragCurve;
+    if (curve != null) {
+      return MenzilNotice(
+        tone: MenzilNoticeTone.info,
+        message: _bcApplies()
+            ? 'Sürtünmeli hesap: özel sürüklenme eğrisi (${curve.length} '
+                  'nokta, Mach ${curve.last.mach.toStringAsFixed(1)}\'e kadar). '
+                  'İlk atışta canlı atışla doğrulayın.'
+            : 'Özel eğri ${a.grain} gr mermi içindir. Grain değiştirildiği '
+                  'için kullanılmıyor; vacuum temel hesap yapılır.',
+      );
+    }
     // Describes the inputs as they are now (the profile is solved on open,
     // so the last solve may predate a grain edit).
     if (!_bcApplies()) {
