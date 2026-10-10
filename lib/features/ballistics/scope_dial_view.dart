@@ -499,7 +499,9 @@ class ScopeDialView extends StatelessWidget {
                     Expanded(
                       child: MenzilSecondaryButton(
                         key: ScopeDialKeys.reset,
-                        label: atZero ? 'Kuleler sıfırlandı' : 'Kuleleri sıfırla',
+                        label: atZero
+                            ? 'Kuleler sıfırlandı'
+                            : 'Kuleleri sıfırla',
                         icon: atZero ? Icons.check_circle : Icons.restart_alt,
                         expand: true,
                         active: atZero,
