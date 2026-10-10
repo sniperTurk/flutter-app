@@ -37,8 +37,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
   final Color scopeLine;
   final Color scopeDim;
 
-  /// Paper target in the scope view (white in both themes: paper is white)
-  /// and the hollow point-of-impact ring drawn over it.
+  /// Round target in the scope view (yellow face, grey ring and edge, the
+  /// same in both themes; owner, 2026-10-10) and the hollow point-of-impact
+  /// ring drawn over it.
   final Color paperFace;
   final Color paperRing;
   final Color paperRingSoft;
@@ -112,9 +113,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     scopeBg: Color(0xFFF7FAFB),
     scopeLine: Color(0xFF0F2230),
     scopeDim: Color(0xFF8DA0AE),
-    paperFace: Color(0xFFFFFFFF),
-    paperRing: Color(0xFFC0392B),
-    paperRingSoft: Color(0xFFE57368),
+    paperFace: Color(0xFFF2D400),
+    paperRing: Color(0xFF8A9096),
+    paperRingSoft: Color(0xFFC9CED3),
     paperCentre: Color(0xFFF4B6AE),
     scopeImpact: Color(0xFF0A84FF),
     levelLiquid: Color(0xFF8CCB12),
@@ -145,9 +146,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     scopeBg: Color(0xFF0C1A24),
     scopeLine: Color(0xFFE7EFF3),
     scopeDim: Color(0xFF5E7A8E),
-    paperFace: Color(0xFFFFFFFF),
-    paperRing: Color(0xFFC0392B),
-    paperRingSoft: Color(0xFFE57368),
+    paperFace: Color(0xFFF2D400),
+    paperRing: Color(0xFF8A9096),
+    paperRingSoft: Color(0xFFC9CED3),
     paperCentre: Color(0xFFF4B6AE),
     scopeImpact: Color(0xFF0A84FF),
     levelLiquid: Color(0xFF8CCB12),

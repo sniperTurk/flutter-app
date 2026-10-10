@@ -315,4 +315,47 @@ void main() {
       expect(find.byKey(ScopeDialKeys.travelNote), findsOneWidget);
     },
   );
+
+  testWidgets('two fingers zoom the reticle; double tap and the eye button', (
+    tester,
+  ) async {
+    await _pumpSolved(tester);
+    ScopeReticlePainter painter() =>
+        tester
+                .widget<CustomPaint>(
+                  find.descendant(
+                    of: find.byKey(ScopeDialKeys.reticle),
+                    matching: find.byType(CustomPaint),
+                  ),
+                )
+                .painter!
+            as ScopeReticlePainter;
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.reticle));
+    await tester.pumpAndSettle();
+    expect(painter().zoom, 1);
+    expect(find.byKey(ScopeDialKeys.zoomReset), findsNothing);
+
+    final c = tester.getCenter(find.byKey(ScopeDialKeys.reticle));
+    final a = await tester.startGesture(c - const Offset(20, 0));
+    final b = await tester.startGesture(c + const Offset(20, 0), pointer: 7);
+    for (var i = 1; i <= 6; i++) {
+      await a.moveTo(c - Offset(20.0 + i * 10, 0));
+      await b.moveTo(c + Offset(20.0 + i * 10, 0));
+      await tester.pump();
+    }
+    await a.up();
+    await b.up();
+    await tester.pumpAndSettle();
+    expect(painter().zoom, greaterThan(2));
+    expect(find.byKey(ScopeDialKeys.zoomReset), findsOneWidget);
+
+    await tester.tap(find.byKey(ScopeDialKeys.zoomReset));
+    await tester.pumpAndSettle();
+    expect(painter().zoom, 1);
+
+    expect(painter().showLabels, isTrue);
+    await tester.tap(find.byKey(ScopeDialKeys.labelsToggle));
+    await tester.pumpAndSettle();
+    expect(painter().showLabels, isFalse);
+  });
 }
