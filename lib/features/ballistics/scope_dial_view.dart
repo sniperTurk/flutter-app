@@ -663,7 +663,10 @@ class ScopeDialView extends StatelessWidget {
           : '${(targetDiameterM * 39.3700787).toStringAsFixed(1)} in';
       lines.add(
         'Hedef halkası Ø$d = ${f(tRad * 2)} $unitLabel; gerçek boyutunda '
-        'çizilir: büyütme arttıkça büyür, mesafe arttıkça küçülür.',
+        'çizilir: büyütme arttıkça büyür, mesafe arttıkça küçülür. Çok '
+        'küçük kaldığında (uzak mesafe) görünsün diye en az dürbün '
+        'görüntüsünün onda biri kadar çizilir. Çapını Pro → İsabet '
+        'olasılığı → Hedef çapı\'ndan değiştirebilirsin.',
       );
     }
     if (inclineDeg.round() != 0) {
@@ -1311,6 +1314,9 @@ class ScopeReticlePainter extends CustomPainter {
   }) : reticleHalfField = reticleHalfField ?? halfField,
        trueHalfField = trueHalfField ?? halfField;
 
+  /// The target is drawn at least this share of the view radius.
+  static const minTargetFraction = 0.10;
+
   /// On-screen radius of the target for a view of [radius] px.
   static double targetRadiusPx({
     required double radius,
@@ -1497,10 +1503,16 @@ class ScopeReticlePainter extends CustomPainter {
     // makes it bigger (it "comes closer"), a longer range makes it smaller.
     final tr = targetRadius;
     if (tr != null && tr > 0) {
-      final px = targetRadiusPx(
-        radius: radius,
-        trueHalfField: trueHalfField,
-        targetRadius: tr,
+      // True size, but never smaller than a tenth of the view: a 10 cm
+      // target at 300 m is ~4 px and vanished under the centre dot (owner,
+      // 2026-10-10).
+      final px = math.max(
+        targetRadiusPx(
+          radius: radius,
+          trueHalfField: trueHalfField,
+          targetRadius: tr,
+        ),
+        radius * minTargetFraction,
       );
       // Paper target (owner, 2026-10-09): white face, thin red rings and a
       // light centre, so the black reticle stays readable on top of it.

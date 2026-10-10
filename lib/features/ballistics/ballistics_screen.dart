@@ -2031,7 +2031,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       toDisplayRange: _toDisplayRange,
       distanceUnit: _distanceUnit,
       metric: metric,
+      targetDiameterM: _targetDiameterM,
     );
+  }
+
+  /// The Pro "Hedef çapı" in metres (10 cm / 4 in when empty).
+  double get _targetDiameterM {
+    final typed = _parsed(targetSizeCtl);
+    final size = typed != null && typed > 0 && typed < 1000
+        ? typed
+        : (metric ? 10.0 : 4.0);
+    return metric ? size / 100 : UnitSystem.inchesToMillimeters(size) / 1000;
   }
 
   /// Lateral wind drift at the point's range, in cm (metric) or inches.
