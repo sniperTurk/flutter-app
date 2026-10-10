@@ -1,0 +1,34 @@
+{
+  "name": "APLR6 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares ETR"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 50,
+  "tree": {
+    "rows": [
+      {
+        "y": 5,
+        "half_width": 5,
+        "dot_step": 1
+      },
+      {
+        "y": 50,
+        "half_width": 20,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/storage/2022/02/Athlon-APLR6-FFP-IR-MOA-Reticle-Manual-Ares-ETR.pdf",
+  "notes": "FFP (föyde 3x ve 18x örnekleri; 3-18x modeli). Föy metninden: 2 MOA yüzen merkez artı, artı ile ilk işaret arasında dört yönde 1 MOA boşluk, 1 MOA işaret aralığı, 5 MOA aralıklı düşüş çizgileri 50 MOA'ya kadar; 1 MOA küçük / 5 MOA büyük noktalar; satır 10 MOA uzunlukta başlar, 50 MOA çizgisinde 40 MOA uzunluk. Föy metni ağaç satırlarını 'X moa length' olarak veriyor; toplam uzunluk kabul edilip half_width = uzunluk/2 yazıldı (föyde 'her yöne' denmiyor). Ara satırların genişlikleri metinde yok, yalnızca ilk ve son satır girildi; ilk satır ilk 5 MOA düşüş çizgisi (y=5) kabul edildi. Yatay/yukarı uzanım metinde yok -> null."
+}

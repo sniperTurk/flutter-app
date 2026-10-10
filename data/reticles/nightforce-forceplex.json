@@ -1,0 +1,19 @@
+{
+  "name": "Forceplex",
+  "brand": "Nightforce",
+  "scopes": ["SHV (ikinci odak düzlemi modeller)"],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_Forceplex_20170920_V2_hi-res_0.pdf",
+  "notes": "Nightforce Forceplex föyü; 'Second focal plane Nightforce SHV riflescopes' (referans büyütme belirtilmemiş). Metin: 0.125 MOA kalınlığında merkez artı (nokta yok). Föy etiketleri A 5.00, B 0.75, D 43.50 MOA ama görselsiz hangi ölçüye ait oldukları (direk başlangıcı/kalınlığı vb.) eşlenemedi -> posts_start null. Kalın direkli basit duplex tipi."
+}

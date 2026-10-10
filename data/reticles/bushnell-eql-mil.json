@@ -1,0 +1,19 @@
+{
+  "name": "EQL",
+  "brand": "Bushnell",
+  "scopes": ["Elite Tactical DMR3 3.5-21x50 (ETDMR3EQL)"],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": 1.0,
+  "numbers_every": 2,
+  "extent_h": 20,
+  "extent_v_up": null,
+  "extent_v_down": 20,
+  "tree": null,
+  "posts_start": 20,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.bushnell.com/on/demandware.static/-/Library-Sites-HuntShootAccessoriesSharedLibrary/default/dw74c33f05/productPdfFiles/DMR3_G4P_EQL_6LIM_042822.pdf",
+  "notes": "Bushnell Elite Tactical DMR3 kılavuzu (FFP, 'RETICLE IS IN FIRST FOCAL PLANE'). Metin: 2/10 MRAD ızgara stili; ana nişan yüzen nokta, ana çizgilerde 1 MRAD aralıklı ikincil yüzen noktalar (major_every=1 buradan). Yatay: 2-4-6-8-10 MRAD numaralı, 0.2 MRAD aralık, 11 MRAD'dan 20 MRAD'a ölçüm bölümü, 20 MRAD'da düz bara dönüşüyor (extent_h ve posts_start=20 bu yorumla). Dikey: 2'den 20 MRAD'a 2'şer numaralı, 0.2 MRAD aralık (6-8 MRAD arası 0.1); extent_v_down=20 dikey numaraların merkez altında olduğu varsayımıyla. Yukarı uzanım metinde yok."
+}

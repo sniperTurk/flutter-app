@@ -1,0 +1,26 @@
+{
+  "name": "VNM-1 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Victoptics SOI 1.5-5x20 (VIOC-01)",
+    "Victoptics SOI 2-7x32 (VIOC-02)",
+    "Victoptics SOI 3-9x40 (VIOC-03)",
+    "Victoptics SOI 4-12x40 (VIOC-04)",
+    "Victoptics SOI 3-9x40 AO (VIOC-05)",
+    "Victoptics SOI 4-12x40 AO (VIOC-06)"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": 1.0,
+  "numbers_every": null,
+  "extent_h": 6,
+  "extent_v_up": 6,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250801/1d16f5bb94520c4b8188ec2eebf29966.pdf",
+  "notes": "SFP; ölçüler en yüksek büyütmede geçerli: 1.5-5x için 5x, 2-7x için 7x, 3-9x için 9x, 4-12x için 12x. Kılavuz metni: dikey çizgide (üst ve alt) 0.5 MIL aralık, yatay çizgide işaretler arası 1 MIL; 2 MIL konumunda 1.5 MIL, 4 MIL konumunda 2 MIL uzunlukta işaret; 'each horizontal line' toplam 6 MIL (her yan kol olarak yorumlandı → extent_h=6; emin değil); dikey üst 6, alt 10 MIL; kalın direk çizgi kalınlığı 0.36 MIL ama başlangıç mesafesi verilmemiş → posts_start null. Merkez nokta bilgisi metinde yok → null. Modeller Vector Optics'in alt markası Victoptics'e ait; liste vectoroptics.com Reticle-Collection sayfasından."
+}

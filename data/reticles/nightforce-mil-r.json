@@ -1,0 +1,19 @@
+{
+  "name": "MIL-R",
+  "brand": "Nightforce",
+  "scopes": ["B.E.A.S.T. 5-25x56 F1", "ATACR 4-16x F1", "ATACR 5-25x F1", "ATACR 5-25x SFP", "NXS 2.5-10x", "NXS 3.5-15x", "NXS 5.5-22x", "NXS 8-32x", "SHV 4-14x50 F1"],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": null,
+  "major_every": 1.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": true,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_MILRsheet_20160114.pdf",
+  "notes": "Nightforce MIL-R föyü; gösterilen F1 (FFP) sürüm, SFP sürümler föyün arka yüzünde (SFP'de ölçüler en yüksek büyütmede geçerli varsayılır, föy metninde referans büyütme yazmıyor). Metin: 'floating center crosshair is precisely 1.0 Mil'; tam, yarım, 0.2 ve 0.1 mil bölmeleri ve rakam göstergeleri var ancak hangi çizgide hangi bölmenin olduğu görselsiz eşlenemedi -> hash_step null. Merkez altı yükseliş sürüme göre 5, 10 veya 15 mil -> null. Model adlarındaki 10x/15x/22x/32x NXS kısaltmaları föyde 'NXS 10x, 15x, 22x, 32x' şeklinde."
+}

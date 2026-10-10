@@ -1,0 +1,22 @@
+{
+  "name": "VVE-1 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Veyron GenII 3-12x44 HD CTR FFP (SCFF-72)",
+    "Veyron GenII 6-24x44 HD CTR FFP (SCFF-74)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Veyron-GenII-6-24x44-HD-CTR-FFP-Rifle-Scope-SCFF-74.html",
+  "notes": "FFP. Ürün sayfaları (SCFF-72/74) ve Veyron GenII tanıtım yazısı: 0.08 MIL aydınlatmalı yüzen (floating) merkez nokta, Christmas tree deseni, ağaçta 0.25 MIL rüzgâr noktaları. Ağaç satırları, işaret aralığı ve uzanımlar metinde yok → tree/ölçüler null. Ortak retikül föyü PDF'i (German #4 & MPR-V7 & MPR-V8 & VVE-1 & VVE-2, https://www.vectoroptics.com/public/uploads/files/20260813/0d1ac0e8beb4a94e51188617c12a8e3b.pdf) metninde 8/10, 0.1, 0.2, 0.5, 1 MIL gibi değerler var ama hangi öğeye ve hangi retiküle ait oldukları metinden ayrıştırılamadı; föy görseli çekilemedi. Tanıtım yazısına göre SCFF-73 de VVE-1 kullanıyor (görevde listelenmediği için eklenmedi)."
+}

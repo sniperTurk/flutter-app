@@ -1,0 +1,21 @@
+{
+  "name": "VOR-7 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Orion Pro Max 4-16x44 HD SFP (SCOL-62)"
+  ],
+  "unit": "mil",
+  "family": "mildot",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Orion-Pro-Max-4-16x44-HD-SFP-Rifle-Scope-SCOL-62.html",
+  "notes": "SFP; VOR-7 MIL SFP retikül kılavuzuna (https://www.vectoroptics.com/public/uploads/files/20241031/d6e953c26f70e456865998e742cb66b6.pdf) göre ölçüler 16x'te geçerli. Ürün sayfası: 0.08 MIL merkez nokta, 'Mil-Dot Reticle' (family=mildot bu ifadeye dayanır), 500 m içi önerilir. Kılavuz diyagram etiketlerinde 0.1/0.125/0.25/0.5/1.0/8.0 değerleri geçiyor ancak hangi öğeye ait oldukları metinde yok → işaret aralıkları ve uzanımlar null; föy görseli okunamadı."
+}

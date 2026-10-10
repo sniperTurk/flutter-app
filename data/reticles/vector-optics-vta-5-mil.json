@@ -1,0 +1,21 @@
+{
+  "name": "VTA-5 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Tauron GenII 3-24x56 ED FFP (SCFF-33)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": 10,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250710/2964be03a0721902ff3a0fa6a35518bc.pdf",
+  "notes": "FFP. Kaynak: VTA-5MIL retikül kılavuzu PDF + SCFF-33 ürün sayfası. Kılavuz: merkez nokta Φ0.055 mil; yatay/dikey çizgilerde işaret aralığı 0.5 mil; her kol 10 mil; 8-10 mil arasında 0.2 mil ince bölmeler; yatay çizginin ucu ile stadia çizgisi arasında 1 mil boşluk (kalın direk olup olmadığı belirsiz → posts_start null). Yatayın altında büyük (Φ0.11) ve küçük (Φ0.055) noktalar; ürün sayfası Christmas tree diyor fakat satır konumları/genişlikleri metinde yok → tree null. Büyük işaret, rakam aralığı → null."
+}

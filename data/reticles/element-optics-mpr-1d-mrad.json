@@ -1,0 +1,21 @@
+{
+  "name": "MPR-1D MRAD",
+  "brand": "Element Optics",
+  "scopes": [
+    "Theos 2-10x42 FFP"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": 1.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://element-optics.com/wp-content/uploads/2025/07/RETICLE-SHEET-MPR-1D-MRAD-THEOS-2-10-FFP.pdf",
+  "notes": "FFP. Föy metninde: 0.075 MRAD merkez nokta, 0.085 MRAD yüzen artı (0.25 MRAD bölümler), 1/2 ve 1 MRAD çizgiler, tam MRAD'larda artılı ve 1/2 MRAD noktalı Christmas tree, dikey eksende rakamlar, incelen barlar. Ağaç satırları, uzanımlar, rakam aralığı föy görselindeydi, okunamadı -> null."
+}

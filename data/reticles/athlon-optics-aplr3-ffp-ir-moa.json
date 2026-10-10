@@ -1,0 +1,35 @@
+{
+  "name": "APLR3 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Athlon 2.5-15x50 FFP",
+    "Athlon 4.5-27x50 FFP"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": 40,
+  "extent_v_up": 40,
+  "extent_v_down": 40,
+  "tree": {
+    "rows": [
+      {
+        "y": 5,
+        "half_width": 2.5,
+        "dot_step": 1
+      },
+      {
+        "y": 40,
+        "half_width": 25,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/storage/2022/02/ATHLON-APLR3-FFP-IR-MOA-Reticle-Manual.pdf",
+  "notes": "FFP. Föyde seri adı yok, ölçü tablosunda 2.5-15x50 ve 4.5-27x50 modelleri geçiyor. Föy metninden: 1 MOA işaretler, 5 MOA düşüş çizgileri 40 MOA'ya kadar, 2 MOA açıklıklı merkez artı, aydınlatmalı artı çizgisi 40 MOA'ya uzanır; düşüş çizgilerinde 1 MOA küçük / 5 MOA büyük noktalar, 5 MOA uzunlukta başlar, 40 MOA çizgisinde 50 MOA uzunluk. Föy metni ağaç satırlarını 'X moa length' olarak veriyor; toplam uzunluk kabul edilip half_width = uzunluk/2 yazıldı (föyde 'her yöne' denmiyor). Ara satırların genişlikleri metinde yok, yalnızca ilk ve son satır girildi; ilk satır ilk 5 MOA düşüş çizgisi (y=5) kabul edildi."
+}

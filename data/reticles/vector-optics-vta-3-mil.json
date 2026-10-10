@@ -1,0 +1,24 @@
+{
+  "name": "VTA-3 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Tauron 6-24x50 HD MIL FFP (SCFF-81)",
+    "Tauron 4-16x44 HD MIL FFP (SCFF-79)",
+    "Tauron 4-16x44 HD MIL (SCFF-45)",
+    "Tauron 6-24x50 HD MIL (SCFF-46)"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.25,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": null,
+  "extent_v_down": 12,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20251112/0b1c4522201d0db4ae822c5693e4feec.pdf",
+  "notes": "FFP. Kaynak: VTA-3MIL FFP retikül kılavuzu PDF + SCFF-81 ürün sayfası. Yatay çizgide işaret aralığı 0.25 mil, dikeyde 0.5 mil (hash_step yatay değer); yatayda 9-10 mil arası 0.125 mil ince bölmeler. Yatayın her yanı 10 mil, merkez altı dikey 12 mil. Merkez nokta 0.04 mil (ürün sayfası; kılavuz etiketlerinde Φ0.05/Φ0.1). Yukarı uzanım, büyük işaret, rakam aralığı metinde yok → null. Ağaç tanımlanmadığı için family=hash (sayfa 'ranging and BDC' diyor)."
+}

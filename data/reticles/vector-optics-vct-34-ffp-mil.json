@@ -1,0 +1,24 @@
+{
+  "name": "VCT-34 FFP (MIL)",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental x6 3-18x50 VCT-34 FFP (SCFF-28)",
+    "Continental x6 4-24x56 VCT-34 FFP (SCFF-29)",
+    "Continental x6 5-30x56 VCT FFP (SCFF-30)",
+    "Continental x6 6-36x56 FFP (SCFF-93; Reticle Collection'a göre — ürün sayfası VEC-MBR2 diyor)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20240819/d1aece51786938abb7e2cc42b692dbe5.pdf",
+  "notes": "FFP; 'VCT-34 MIL' ve 'VCT-34 FFP' üreticide tek retikül (VCT-34FFP MIL FFP). Kaynak: VCT-34 FFP retikül kılavuzu PDF + SCFF-30 ürün sayfası. 0.2 mil işaret aralığı, Christmas tree. Merkez nokta SCFF-30 sayfasında 0.155 mil (meta açıklamada 0.12 mil — çelişkili). Kılavuzdaki konumsuz diyagram etiketleri: 0.2, 0.16, 0.3, 0.06, 0.04, 0.5, 0.38, 1.0, Φ0.11, Φ0.2, Φ0.08. Uzanımlar, ağaç satırları, rakam aralığı metinde yok → null."
+}
