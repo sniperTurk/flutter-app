@@ -1,1 +1,40 @@
-[]
+[
+ {
+  "brand": "Huğlu",
+  "model": "OVIS Alüminyum Dipçik .308 Win",
+  "platform": "firearm",
+  "caliber": ".308 Win",
+  "bullet_diameter_mm": 7.82,
+  "barrel_length_mm": 660,
+  "twist_rate_in": 12.0,
+  "twist_direction": null,
+  "magazine_capacity": 5,
+  "weight_kg": 4.7,
+  "overall_length_mm": 1310,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://huglu.com.tr/upload/files/huglu-2022-tactical-catalog.pdf",
+  "notes": "2022 taktik katalog (resmi PDF); şarjör 5+1; ağırlık 4700±100 g aksesuarsız; toplam uzunluk maks. (ayarlı dipçik); PDF düzeni bozuk, değerler dipçik alanına göre eşlendi; çap: nominal"
+ },
+ {
+  "brand": "Huğlu",
+  "model": "OVIS Ceviz Dipçik .308 Win",
+  "platform": "firearm",
+  "caliber": ".308 Win",
+  "bullet_diameter_mm": 7.82,
+  "barrel_length_mm": 660,
+  "twist_rate_in": 12.0,
+  "twist_direction": null,
+  "magazine_capacity": 3,
+  "weight_kg": 4.5,
+  "overall_length_mm": 1290,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://huglu.com.tr/upload/files/huglu-2022-tactical-catalog.pdf",
+  "notes": "2022 taktik katalog (resmi PDF); şarjör 3+1; ağırlık 4500±100 g aksesuarsız; toplam uzunluk maks. (ayarlı dipçik); PDF düzeni bozuk, değerler dipçik alanına göre eşlendi; çap: nominal"
+ }
+]
