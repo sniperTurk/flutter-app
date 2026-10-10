@@ -20,8 +20,6 @@ abstract final class Gravity {
     final g0 = _ge * (1 + _k * s2) / math.sqrt(1 - _e2 * s2);
     // Free-air gradient, with its small latitude term.
     final h = altitudeM;
-    return g0 -
-        (3.087691e-6 - 4.3977e-9 * s2) * h +
-        7.2125e-13 * h * h;
+    return g0 - (3.087691e-6 - 4.3977e-9 * s2) * h + 7.2125e-13 * h * h;
   }
 }

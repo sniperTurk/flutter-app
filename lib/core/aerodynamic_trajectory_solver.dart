@@ -241,15 +241,14 @@ class AerodynamicTrajectorySolver {
         state: state,
         dt: integrationStepSeconds,
         // The zero is established level and without cant.
-        derivative: (s) =>
-            _derivative(
-              s,
-              drag,
-              bc,
-              input.zeroEnvironment,
-              _Frame.level,
-              g: input.gravityMps2,
-            ),
+        derivative: (s) => _derivative(
+          s,
+          drag,
+          bc,
+          input.zeroEnvironment,
+          _Frame.level,
+          g: input.gravityMps2,
+        ),
       );
       if (state.x >= range) {
         final f = (range - previous.x) / (state.x - previous.x);
