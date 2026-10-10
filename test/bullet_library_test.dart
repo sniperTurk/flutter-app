@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/data/bullet_library.dart';
 import 'package:sniper_turk/features/profiles/bullet_library_screen.dart';
-import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
-import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
 void main() {
@@ -42,66 +40,6 @@ void main() {
       BulletLibrary.all.any((b) => b.platform == WeaponPlatform.pcp),
       isTrue,
     );
-  });
-
-  testWidgets('"Kütüphaneden seç" fills the ammunition', (tester) async {
-    tester.view.physicalSize = const Size(390 * 3, 2400 * 3);
-    tester.view.devicePixelRatio = 3;
-    addTearDown(tester.view.reset);
-    await tester.pumpWidget(
-      MaterialApp(
-        theme: MenzilTheme.light(),
-        home: ProfilesScreen(store: MemoryProfileStore()),
-      ),
-    );
-    await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip('Yeni profil'));
-    await tester.pumpAndSettle();
-    // Firearm.
-    await tester.ensureVisible(find.text('PCP Tüfek'));
-    await tester.tap(find.text('PCP Tüfek'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Ateşli Tüfek').last);
-    await tester.pumpAndSettle();
-
-    await tester.ensureVisible(find.byKey(const Key('ammo-library')));
-    await tester.tap(find.byKey(const Key('ammo-library')));
-    await tester.pumpAndSettle();
-    expect(find.text('Mermi kütüphanesi'), findsOneWidget);
-    await tester.enterText(
-      find.byKey(const Key('library-search')),
-      'ELD Match',
-    );
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('library-item-0')));
-    await tester.pumpAndSettle();
-
-    String text(String key) => tester
-        .widget<TextField>(
-          find.descendant(
-            of: find.byKey(Key(key)),
-            matching: find.byType(TextField),
-          ),
-        )
-        .controller!
-        .text;
-    // Marka and Model show the picked library bullet in their lists.
-    expect(
-      find.descendant(
-        of: find.byKey(const Key('ammo-brand-select')),
-        matching: find.text('Hornady'),
-      ),
-      findsOneWidget,
-    );
-    expect(
-      find.descendant(
-        of: find.byKey(const Key('ammo-model-select')),
-        matching: find.textContaining('ELD Match'),
-      ),
-      findsOneWidget,
-    );
-    expect(text('ammo-grain'), isNotEmpty);
-    expect(text('ammo-bc'), isNotEmpty);
   });
 
   testWidgets('a caliber with no record lists nothing and says so', (

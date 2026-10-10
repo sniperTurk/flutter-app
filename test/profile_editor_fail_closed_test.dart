@@ -173,10 +173,10 @@ void main() {
     for (final label in const [
       'Kalibre',
       'Namlu yiv yönü',
-      'Yiv oranı (1:…)',
+      'Yiv oranı',
       'Tip',
       'Ağırlık',
-      'BC (balistik katsayı)',
+      'BC',
       'BC modeli',
       'Odak düzlemi',
       'Minimum büyütme',
@@ -194,7 +194,7 @@ void main() {
     // Not asked any more (owner, 2026-10-09).
     expect(find.byTooltip('Bilgi: Regülatör basıncı'), findsNothing);
     expect(find.byTooltip('Bilgi: Klik değeri'), findsNothing);
-    final bcInfo = find.byTooltip('Bilgi: BC (balistik katsayı)');
+    final bcInfo = find.byTooltip('Bilgi: BC');
     await tester.ensureVisible(bcInfo);
     await tester.tap(bcInfo);
     await tester.pumpAndSettle();
@@ -336,7 +336,7 @@ void _unitsAndFirearmTests() {
     // Marka is a list of the firearm bullets for this caliber; a typed
     // name only after "Listede yok", and without a pellet example.
     expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
-    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok (elle yaz)');
+    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
     expect(
       tester
           .widget<TextField>(
@@ -349,9 +349,9 @@ void _unitsAndFirearmTests() {
           .hintText,
       isNull,
     );
-    // No pellet/slug choice for a firearm; the note says it is a bullet.
+    // No pellet/slug choice for a firearm: Fabrika fişeği / El dolumu.
     expect(find.byKey(const Key('ammo-type')), findsNothing);
-    expect(find.textContaining('Tip: mermi'), findsOneWidget);
+    expect(find.byKey(const Key('ammo-source')), findsOneWidget);
     final grainInfo = find.byTooltip('Bilgi: Ağırlık');
     await tester.ensureVisible(grainInfo);
     await tester.tap(grainInfo);
@@ -378,7 +378,7 @@ void _unitsAndFirearmTests() {
       of: find.byKey(const Key('ammo-brand')),
       matching: find.byType(TextField),
     );
-    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok (elle yaz)');
+    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
     await tester.ensureVisible(brand);
     await tester.enterText(brand, 'H&N Slug HP');
     await tester.pump();

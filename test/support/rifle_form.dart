@@ -34,6 +34,11 @@ Future<void> fillRifleForm(
   String twist = '16',
   String direction = 'Sağ',
 }) async {
+  // Marka / Model come from the lists; typed names need "Listede yok"
+  // first (owner, 2026-10-11).
+  if (find.byKey(const Key('rifle-brand-select')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'rifle-brand-select', 'Listede yok');
+  }
   await enterRifleField(tester, 'rifle-brand', brand);
   await enterRifleField(tester, 'rifle-model', model);
   // Kalibre is picked from a list (owner, 2026-10-09).
@@ -77,7 +82,7 @@ Future<void> fillAmmoForm(
   // Marka and Model are separate boxes again and come from the library
   // lists; a typed name needs "Listede yok" first (owner, 2026-10-11).
   if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
-    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok (elle yaz)');
+    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
   }
   await enterRifleField(tester, 'ammo-brand', brand);
   await enterRifleField(tester, 'ammo-model', model);
