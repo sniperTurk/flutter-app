@@ -25,7 +25,6 @@ class BulletLibraryScreen extends StatefulWidget {
 
 class _BulletLibraryScreenState extends State<BulletLibraryScreen> {
   final TextEditingController _search = TextEditingController();
-  late bool _onlyCaliber = widget.caliberMm != null;
 
   @override
   void dispose() {
@@ -36,17 +35,24 @@ class _BulletLibraryScreenState extends State<BulletLibraryScreen> {
   static String _num(double v, [int d = 3]) =>
       v.toStringAsFixed(d).replaceAll('.', ',');
 
+  /// The rifle type's records in the rifle's caliber (owner, 2026-10-10:
+  /// no switch). A caliber with no record shows nothing, with a note.
   List<LibraryBullet> get _items {
     final q = _search.text.trim().toLowerCase();
     final cal = widget.caliberMm;
-    return [
+    final own = [
       for (final b in BulletLibrary.all)
-        if (b.platform == widget.platform &&
-            (!_onlyCaliber ||
-                cal == null ||
-                (b.caliberMm - cal).abs() < 0.02) &&
-            (q.isEmpty || b.title.toLowerCase().contains(q)))
-          b,
+        if (b.platform == widget.platform) b,
+    ];
+    final sameCaliber = cal == null
+        ? own
+        : [
+            for (final b in own)
+              if ((b.caliberMm - cal).abs() < 0.02) b,
+          ];
+    return [
+      for (final b in sameCaliber)
+        if (q.isEmpty || b.title.toLowerCase().contains(q)) b,
     ];
   }
 
@@ -77,16 +83,20 @@ class _BulletLibraryScreenState extends State<BulletLibraryScreen> {
                   ),
                   onChanged: (_) => setState(() {}),
                 ),
-                if (widget.caliberMm != null)
-                  SwitchListTile(
-                    key: const Key('library-only-caliber'),
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(
-                      'Sadece tüfeğimin kalibresi',
-                      style: MenzilType.body(c.ink),
+                if (items.isEmpty &&
+                    _search.text.trim().isEmpty &&
+                    widget.caliberMm != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: MenzilSpace.sm),
+                    child: MenzilNotice(
+                      key: const Key('library-no-caliber'),
+                      tone: MenzilNoticeTone.info,
+                      message:
+                          'Bu kalibre '
+                          '(${widget.caliberMm!.toStringAsFixed(2).replaceAll('.', ',')} mm) '
+                          'için kütüphanede mermi yok. Değerleri kutusundan '
+                          'veya üreticinin sitesinden elle girin.',
                     ),
-                    value: _onlyCaliber,
-                    onChanged: (v) => setState(() => _onlyCaliber = v),
                   ),
                 Text(
                   '${items.length} kayıt · değerler üreticilerin kendi '
