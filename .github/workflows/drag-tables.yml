@@ -1,0 +1,48 @@
+name: Drag tables dump (ops only)
+on:
+  push:
+    branches: [ops/drag-tables]
+permissions:
+  contents: write
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dump public-domain drag tables
+        run: |
+          set +e
+          mkdir -p out
+          pip install --quiet py-ballisticcalc > out/pip.log 2>&1
+          python3 - <<'PY' > out/tables.log 2>&1
+          import json
+          out = {}
+          try:
+              import py_ballisticcalc.drag_tables as dt
+              for name in dir(dt):
+                  if name.startswith('Table'):
+                      t = getattr(dt, name)
+                      try:
+                          out[name] = [[float(r['Mach']), float(r['CD'])] for r in t]
+                      except Exception as e:
+                          out[name] = str(e)
+              print('tables', list(out))
+          except Exception as e:
+              print('ERR', e)
+          json.dump(out, open('out/pbc_tables.json', 'w'))
+          PY
+          curl -sSL https://crates.io/api/v1/crates/ballistics-engine/0.33.0/download -o be.crate
+          mkdir be && tar xzf be.crate -C be 2>> out/tables.log
+          find be -name '*.csv' >> out/tables.log
+          for f in $(find be -path '*data*' -name '*.csv'); do cp "$f" out/; done
+          cp be/*/data/README.md out/be-data-README.md 2>/dev/null
+          cp be/*/LICENSE* out/ 2>/dev/null
+          ls out >> out/tables.log
+      - name: Publish
+        if: always()
+        run: |
+          git config user.name drag-tables; git config user.email drag-tables@users.noreply.github.com
+          rm -rf /tmp/o; cp -r out /tmp/o
+          git checkout -q --orphan ci/drag-tables; git rm -rqf . ; cp -r /tmp/o out
+          git add out; git commit -qm "drag tables ${GITHUB_RUN_ID}"; git push -qf origin ci/drag-tables
