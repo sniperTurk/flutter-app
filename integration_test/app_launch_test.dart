@@ -66,7 +66,7 @@ void main() {
     // SharedPreferences-backed stores without mutating user data.
     await tester.tap(find.text('Profil').first);
     await tester.pumpAndSettle();
-    expect(find.text('Profiller'), findsWidgets);
+    // Clean install: the welcome page (owner, 2026-10-10).
     expect(find.text('Nasıl çalışır?'), findsOneWidget);
     expect(tester.takeException(), isNull);
 
@@ -74,6 +74,8 @@ void main() {
     // The rifle is typed in (no catalog rifle is preselected); ammunition and
     // scope keep their defaults. Saving proves validation and the personal
     // catalog + profile persistence wiring on an actual iOS runtime.
+    await tester.ensureVisible(find.text('İlk profilimi oluştur'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('İlk profilimi oluştur'));
     await tester.pumpAndSettle();
     expect(find.text('Profil Oluştur'), findsOneWidget);
