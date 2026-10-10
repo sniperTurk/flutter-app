@@ -815,11 +815,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
       } else {
         try {
           bc = FieldCalc.ballisticCoefficientFromTwoVelocities(
-            table: switch (_model) {
-              BallisticModel.g1 => StandardDragTables.g1,
-              BallisticModel.g7 => StandardDragTables.g7,
-              BallisticModel.ga => StandardDragTables.ga,
-            },
+            table: StandardDragTables.forModel(_model),
             v1Mps: v1 * f,
             v2Mps: v2 * f,
             distanceM: dist,
@@ -911,6 +907,8 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
             (BallisticModel.g1, 'G1'),
             (BallisticModel.g7, 'G7'),
             (BallisticModel.ga, 'GA (saçma)'),
+            (BallisticModel.ra4, 'RA4 (.22 LR)'),
+            (BallisticModel.gs, 'GS (bilye)'),
           ],
           selected: _model,
           onSelected: (v) => setState(() => _model = v),
