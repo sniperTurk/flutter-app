@@ -140,7 +140,7 @@ class WelcomePanel extends StatelessWidget {
               step(
                 '3',
                 'Pro Ayarlarını Yap',
-'Açı, Rüzgâr bölgeleri, Coriolis ve Spin Drift: '
+                'Açı, Rüzgâr bölgeleri, Coriolis ve Spin Drift: '
                     'Profesyonellerin hesabı artık cebinde.',
               ),
               step(
