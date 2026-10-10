@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
+import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/features/home/empty_states.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
@@ -54,9 +55,14 @@ void main() {
       expect(find.text('Tahmin yok, hesap var.'), findsOneWidget);
       expect(find.byType(BallisticsScreen), findsNothing);
 
-      // The example scope is dialled for the example load, turret open.
-      expect(find.text('Vuruş noktası: artı işaretinde'), findsOneWidget);
+      // The example scope starts with both turrets at zero, the right one
+      // open; "Çözümü kuleye kur" dials the example solution.
       expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
+      expect(find.text('Kuleler sıfırda'), findsOneWidget);
+      await tester.ensureVisible(find.byKey(ScopeDialKeys.dialSolution));
+      await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
+      await tester.pumpAndSettle();
+      expect(find.text('Vuruş noktası: artı işaretinde'), findsOneWidget);
       await tester.tap(find.text('+5'));
       await tester.pumpAndSettle();
       expect(

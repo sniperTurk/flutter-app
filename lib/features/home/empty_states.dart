@@ -403,12 +403,11 @@ class _ShotPreviewState extends State<ShotPreview> {
         ScopeDialMath.sampleOf(p, AngularUnit.mrad),
     ];
     _solve();
-    final shot = _shot;
-    if (shot != null) {
-      _elev = ScopeDialMath.clicksFor(shot.correctionMrad, _click);
-      _wind = ScopeDialMath.clicksFor(shot.windMrad, _click);
-      _reveal = 1;
-    }
+    // Turrets start at zero (owner, 2026-10-10); the right one is opened
+    // after the first frame (a token change opens the drum).
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() => _reveal++);
+    });
   }
 
   void _solve() {
