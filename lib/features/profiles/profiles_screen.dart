@@ -744,13 +744,28 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     (7.62, '7.62 mm'),
     (9.0, '9.00 mm'),
   ];
+  // Bullet diameters (owner, 2026-10-10: the list was too short; .308 is a
+  // 7.82 mm bullet, 7.62 is the bore).
   static const _firearmCalibers = <(double, String)>[
-    (5.56, '5.56 mm (.223)'),
-    (6.17, '6.17 mm (.243)'),
-    (6.5, '6.5 mm (6.5 CM)'),
-    (7.62, '7.62 mm (.308)'),
-    (8.59, '8.59 mm (.338)'),
+    (4.37, '.17 HMR (4.37 mm)'),
+    (5.69, '.22 LR / .22 WMR (5.69 mm)'),
+    (5.7, '.222 Rem / .223 / .22-250 (5.70 mm)'),
+    (6.17, '.243 Win / 6mm Creedmoor (6.17 mm)'),
+    (6.71, '6.5 Creedmoor / 6.5x55 / 6.5 PRC (6.71 mm)'),
+    (7.04, '.270 Win / .270 WSM (7.04 mm)'),
+    (7.21, '7mm-08 / 7x64 / 7mm Rem Mag / 7mm PRC (7.21 mm)'),
+    (7.82, '.308 Win / .30-06 / .300 Win Mag / .300 PRC (7.82 mm)'),
+    (7.92, '7.62x39 / 7.62x54R / .303 British (7.92 mm)'),
+    (8.22, '8x57 JS / 8mm Mauser (8.22 mm)'),
+    (8.59, '.338 Lapua / .338 Win Mag (8.59 mm)'),
+    (9.3, '9.3x62 / 9.3x74R (9.30 mm)'),
+    (9.53, '.375 H&H (9.53 mm)'),
+    (12.95, '.50 BMG (12.95 mm)'),
   ];
+
+  /// "Diğer (elle yaz)": a caliber not on the list, typed in mm.
+  static const _otherCaliber = -1.0;
+  bool _caliberOther = false;
 
   List<(double, String)> get _caliberList =>
       platform == WeaponPlatform.firearm ? _firearmCalibers : _pcpCalibers;
@@ -770,6 +785,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   double? get _selectedCaliber {
+    if (_caliberOther) return _otherCaliber;
     final cal = _parse(rifleCaliber);
     if (cal == null) return null;
     return _caliberItem(cal) ?? cal;
@@ -1524,6 +1540,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     if (cal != null && _caliberItem(cal) == null) {
                       rifleCaliber.text = '';
                     }
+                    _caliberOther = false;
                   }),
                 ),
               ],
@@ -1614,12 +1631,30 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     items: [
                       for (final (mm, name) in _caliberChoices)
                         DropdownMenuItem(value: mm, child: Text(name)),
+                      const DropdownMenuItem(
+                        value: _otherCaliber,
+                        child: Text('Diğer (elle yaz)'),
+                      ),
                     ],
-                    onChanged: (v) => setState(
-                      () => rifleCaliber.text = v == null ? '' : _trimDot(v),
-                    ),
+                    onChanged: (v) => setState(() {
+                      _caliberOther = v == _otherCaliber;
+                      rifleCaliber.text = v == null || _caliberOther
+                          ? ''
+                          : _trimDot(v);
+                    }),
                   ),
                 ),
+                if (_caliberOther)
+                  MenzilInput(
+                    key: const Key('rifle-caliber-other'),
+                    info: ProfileFieldInfo.caliberOther,
+                    controller: rifleCaliber,
+                    label: 'Mermi çapı',
+                    unit: 'mm',
+                    hintText: '7.82',
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_caliberError, rifleCaliber),
+                  ),
                 MenzilInput(
                   key: const Key('rifle-twist-rate'),
                   info: ProfileFieldInfo.twistRate,

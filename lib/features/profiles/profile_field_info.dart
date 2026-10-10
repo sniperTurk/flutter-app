@@ -10,10 +10,13 @@ abstract final class ProfileFieldInfo {
       '5,50 mm (.22), 6,35 mm (.25), 7,62 mm (.30), 9,00 mm (.357). '
       'Mühimmatın kalibresi buradan alınır.';
   static const caliberFirearm =
-      'Merminin çapı, milimetre olarak; listeden seçin. 5,56 mm (.223 Rem / '
-      '5.56 NATO), 6,17 mm (.243 Win), 6,5 mm (6.5 Creedmoor), 7,62 mm '
-      '(.308 Win / 7.62 NATO / .300 Win Mag), 8,59 mm (.338 Lapua Mag). '
-      'Mühimmatın kalibresi buradan alınır.';
+      'Tüfeğinin kalibresi; listede merminin gerçek çapıyla yazılıdır. '
+      'Kalibre namlunun üstünde ve mühimmat kutusunda yazar; örneğin .308 '
+      'Win için 7,82 mm. Listede yoksa "Diğer (elle yaz)" seçip mermi '
+      'çapını mm olarak yazın. Mühimmatın kalibresi buradan alınır.';
+  static const caliberOther =
+      'Merminin çapı, milimetre olarak. Mühimmat kutusunda ya da üreticinin '
+      'sitesinde yazar (inç verilmişse 25,4 ile çarpın: .308 inç = 7,82 mm).';
   static const twistDirection =
       'Namlunun içindeki yivlerin dönüş yönü. Namluya arkadan bakarken yivler '
       'saat yönünde dönüyorsa Sağ, tersiyse Sol. Namluların çoğu sağdır.';
