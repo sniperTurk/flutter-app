@@ -159,6 +159,10 @@ class ManualCatalogStore {
         }
       }
     }
+    final reticle = entry['reticle'];
+    if (reticle != null && (reticle is! String || reticle.length > 100)) {
+      throw const FormatException('Invalid reticle');
+    }
     // Özel sürüklenme eğrisi: [[mach, cd], ...], Mach rising.
     final curve = entry['dragCurve'];
     if (curve != null && DragCurve.fromJson(curve) == null) {

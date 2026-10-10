@@ -201,6 +201,11 @@ class UserCatalog {
               // Total turret travel from the scope's spec sheet (optional).
               elevationRangeMrad: _positive(e['elevationRangeMrad']),
               windageRangeMrad: _positive(e['windageRangeMrad']),
+              reticle: switch (e['reticle']) {
+                final String r when r.trim().isNotEmpty && r.length <= 100 =>
+                  r.trim(),
+                _ => null,
+              },
               sourceName: userCatalogSourceName,
               sourceDocument: userCatalogSourceDocument,
               userEntered: true,

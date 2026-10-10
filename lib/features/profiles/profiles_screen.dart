@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/drag_curve.dart';
 import '../../core/drag_table.dart';
 import '../../core/production_limits.dart';
+import '../../core/reticle.dart';
 import '../../core/profile_input.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
@@ -20,6 +21,7 @@ import 'drag_curve_field.dart';
 import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
 import 'rifle_picker_screen.dart';
+import 'scope_picker_screen.dart';
 
 /// Profile list and management.
 ///
@@ -866,6 +868,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? validationError;
   late AngularUnit angularUnit;
 
+  /// Retikül (owner, 2026-10-10): a catalog reticle name or one of
+  /// [Reticles.genericNames]; null = not chosen (plain marks).
+  String? scopeReticle;
+
   /// Metre or yard for the zero (and every distance of this profile).
   late DistanceUnit distanceUnit;
 
@@ -914,6 +920,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           : num(_defaultClick(angularUnit)),
     );
     firstFocalPlane = s0?.firstFocalPlane;
+    scopeReticle = s0?.reticle;
     // "Üst kule klik sayısı": total clicks from end to end of the top
     // turret, recovered from the stored travel with the SAME unit and click
     // the form saves with (a MRAD catalog scope on a MOA profile used to
@@ -1361,6 +1368,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       // Total turret travel in mrad (optional). Windage defaults to the
       // elevation travel, as on most spec sheets.
       'elevationRangeMrad': _travelMrad(scopeTravelElevation),
+      if (scopeReticle != null) 'reticle': scopeReticle,
       'sourceName': userCatalogSourceName,
     };
   }
@@ -1479,6 +1487,40 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       if (r.twistRateIn != null) rifleTwist.text = _trimDot(r.twistRateIn!);
     });
   }
+
+  /// "Listeden seç" for the scope: everything the catalog knows fills the
+  /// form (owner, 2026-10-10).
+  Future<void> _pickScope() async {
+    final s = await Navigator.push<ScopeOptic>(
+      context,
+      MaterialPageRoute(builder: (_) => const ScopePickerScreen()),
+    );
+    if (s == null || !mounted) return;
+    setState(() {
+      final series = ScopePickerScreen.seriesName(s);
+      scopeBrand.text = series.isEmpty ? s.brand : '${s.brand} $series';
+      if (s.minMagnification != null) {
+        scopeMinMag.text = _trimNum(s.minMagnification!);
+      }
+      if (s.maxMagnification != null) {
+        scopeMaxMag.text = _trimNum(s.maxMagnification!);
+      }
+      scopeObjective.text = _trimNum(s.objectiveDiameterMm);
+      if (s.firstFocalPlane != null) firstFocalPlane = s.firstFocalPlane;
+      angularUnit = s.clickUnit;
+      scopeClick.text = _trimNum(s.clickValue);
+      final travel = s.elevationRangeMrad;
+      scopeTravelElevation.text = travel == null || travel <= 0
+          ? ''
+          : (_fromMrad(travel, angularUnit) / s.clickValue).round().toString();
+      scopeReticle = s.reticle;
+      _scopePickToken++;
+    });
+  }
+
+  /// Rebuilds the scope selects after "Listeden seç" (their initial value
+  /// is read once).
+  int _scopePickToken = 0;
 
   Future<void> _pickFromLibrary() async {
     final cal = _parse(rifleCaliber);
@@ -1847,7 +1889,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ),
           const MenzilSectionHeader(
             'Dürbün',
-            subtitle: 'Dürbününüzün bilgilerini kendiniz girin',
+            subtitle: 'Listeden seçin ya da bilgileri kendiniz girin',
             padding: EdgeInsets.only(
               top: MenzilSpace.xxs,
               bottom: MenzilSpace.sm,
@@ -1863,6 +1905,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
+                MenzilFullWidth(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: MenzilSpace.md),
+                    child: MenzilSecondaryButton(
+                      key: const Key('scope-library'),
+                      label: 'Listeden seç',
+                      icon: Icons.list_alt,
+                      expand: true,
+                      onPressed: _pickScope,
+                    ),
+                  ),
+                ),
                 // Order set by the owner (2026-10-09). Klik değeri is not
                 // shown: it follows Dürbün birimi.
                 MenzilInput(
@@ -1898,16 +1952,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_objectiveError, scopeObjective),
                 ),
-                MenzilSelect<bool>(
+                KeyedSubtree(
                   key: const Key('scope-focal-plane'),
-                  info: ProfileFieldInfo.focalPlane,
-                  label: 'Odak düzlemi',
-                  initialValue: firstFocalPlane,
-                  items: const [
-                    DropdownMenuItem(value: true, child: Text('FFP')),
-                    DropdownMenuItem(value: false, child: Text('SFP')),
-                  ],
-                  onChanged: (v) => setState(() => firstFocalPlane = v),
+                  child: MenzilSelect<bool>(
+                    key: ValueKey('scope-focal-plane-$_scopePickToken'),
+                    info: ProfileFieldInfo.focalPlane,
+                    label: 'Odak düzlemi',
+                    initialValue: firstFocalPlane,
+                    items: const [
+                      DropdownMenuItem(value: true, child: Text('FFP')),
+                      DropdownMenuItem(value: false, child: Text('SFP')),
+                    ],
+                    onChanged: (v) => setState(() => firstFocalPlane = v),
+                  ),
                 ),
                 MenzilSelect<double>(
                   // Rebuilt when the click value/unit changes so every
@@ -1937,7 +1994,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (v) => setState(() => mountCant = v ?? 0),
                 ),
                 MenzilSelect<AngularUnit>(
-                  key: ValueKey('profile-angular-unit-${angularUnit.name}'),
+                  key: ValueKey(
+                    'profile-angular-unit-${angularUnit.name}'
+                    '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
+                  ),
                   info: ProfileFieldInfo.scopeUnit,
                   label: 'Dürbün birimi',
                   initialValue: angularUnit,
@@ -1976,6 +2036,23 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       'Baştan sona toplam klik. Bilmiyorsanız boş bırakın.',
                   onChanged: (_) => setState(() {}),
                   errorText: _travelError(scopeTravelElevation),
+                ),
+                MenzilSelect<String>(
+                  key: ValueKey('scope-reticle-$_scopePickToken'),
+                  info: ProfileFieldInfo.reticle,
+                  label: 'Retikül',
+                  initialValue: scopeReticle,
+                  items: [
+                    if (scopeReticle != null &&
+                        !Reticles.genericNames.contains(scopeReticle))
+                      DropdownMenuItem(
+                        value: scopeReticle,
+                        child: Text(scopeReticle!),
+                      ),
+                    for (final n in Reticles.genericNames)
+                      DropdownMenuItem(value: n, child: Text(n)),
+                  ],
+                  onChanged: (v) => setState(() => scopeReticle = v),
                 ),
                 MenzilFullWidth(
                   child: Column(

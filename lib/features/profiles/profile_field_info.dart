@@ -106,6 +106,11 @@ abstract final class ProfileFieldInfo {
       'yakın ve uzak mesafedeki düşüş hesabını doğrudan etkiler. Örnek: '
       'havalı tüfekte 45–70 mm. Ölçmek için altındaki "Sight height nasıl '
       'ölçülür?" bağlantısına bakın.';
+  static const reticle =
+      'Dürbünün içindeki çizgi deseni. Adı dürbün kutusunda veya föyünde '
+      'yazar (ör. VPR-MIL, Mil-Dot). Listeden seçtiğinizde Hedef ekranında '
+      'retikül bu desenle çizilir; bilmiyorsanız MIL dürbünde "MIL çizgili", '
+      'MOA dürbünde "MOA çizgili" seçin. İsteğe bağlı.';
   static const elevationTravel =
       'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü. '
       'Kutuda yazar ya da kuleyi çevirip sayarsınız. Uzak atışta kule '
