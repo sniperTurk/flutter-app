@@ -1,0 +1,125 @@
+=== /Users/runner/.pub-cache/hosted/pub.dev/camera_avfoundation-0.10.3+1/darwin/camera_avfoundation/Sources/camera_avfoundation/Resources/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== /Users/runner/.pub-cache/hosted/pub.dev/file_selector_macos-0.9.5+1/macos/file_selector_macos/Sources/file_selector_macos/Resources/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== /Users/runner/.pub-cache/hosted/pub.dev/geolocator_apple-2.3.14/darwin/geolocator_apple/Sources/geolocator_apple/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== /Users/runner/.pub-cache/hosted/pub.dev/google_maps_flutter_ios-2.18.6/ios/google_maps_flutter_ios/Sources/google_maps_flutter_ios/Resources/PrivacyInfo.xcprivacy
+tracking: False domains: []
+  NSPrivacyCollectedDataTypeCrashData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeDeviceID linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics', 'NSPrivacyCollectedDataTypePurposeAppFunctionality']
+  NSPrivacyCollectedDataTypePerformanceData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeProductInteraction linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeUserID linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+=== /Users/runner/.pub-cache/hosted/pub.dev/image_picker_ios-0.8.13+10/ios/image_picker_ios/Sources/image_picker_ios/Resources/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== /Users/runner/.pub-cache/hosted/pub.dev/image_picker_ios-0.8.13+9/ios/image_picker_ios/Sources/image_picker_ios/Resources/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== /Users/runner/.pub-cache/hosted/pub.dev/package_info_plus-10.2.2/ios/package_info_plus/Sources/package_info_plus/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== /Users/runner/.pub-cache/hosted/pub.dev/package_info_plus-10.2.2/macos/package_info_plus/Sources/package_info_plus/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== /Users/runner/.pub-cache/hosted/pub.dev/sensors_plus-7.1.1/ios/sensors_plus/Sources/sensors_plus/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== /Users/runner/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.7/darwin/shared_preferences_foundation/Sources/shared_preferences_foundation/Resources/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/camera_avfoundation_camera_avfoundation.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/Flutter.framework/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/geolocator_apple_geolocator_apple.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/google_maps_flutter_ios/google_maps_flutter_ios_privacy.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+  NSPrivacyCollectedDataTypeCrashData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeDeviceID linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics', 'NSPrivacyCollectedDataTypePurposeAppFunctionality']
+  NSPrivacyCollectedDataTypePerformanceData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeProductInteraction linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeUserID linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+=== build/ios/Debug-iphonesimulator/GoogleMaps/GoogleMapsResources.bundle/GoogleMaps.bundle/PrivacyInfo.xcprivacy
+tracking: None domains: None
+  NSPrivacyCollectedDataTypeCrashData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeDeviceID linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics', 'NSPrivacyCollectedDataTypePurposeAppFunctionality']
+  NSPrivacyCollectedDataTypeOtherDataTypes linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypePerformanceData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeProductInteraction linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+=== build/ios/Debug-iphonesimulator/image_picker_ios_image_picker_ios.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/package_info_plus_package_info_plus.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/Runner.app/camera_avfoundation_camera_avfoundation.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/Runner.app/Frameworks/Flutter.framework/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/Runner.app/geolocator_apple_geolocator_apple.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/Runner.app/google_maps_flutter_ios_privacy.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+  NSPrivacyCollectedDataTypeCrashData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeDeviceID linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics', 'NSPrivacyCollectedDataTypePurposeAppFunctionality']
+  NSPrivacyCollectedDataTypePerformanceData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeProductInteraction linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeUserID linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+=== build/ios/Debug-iphonesimulator/Runner.app/GoogleMapsResources.bundle/GoogleMaps.bundle/PrivacyInfo.xcprivacy
+tracking: None domains: None
+  NSPrivacyCollectedDataTypeCrashData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeDeviceID linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics', 'NSPrivacyCollectedDataTypePurposeAppFunctionality']
+  NSPrivacyCollectedDataTypeOtherDataTypes linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypePerformanceData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeProductInteraction linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+=== build/ios/Debug-iphonesimulator/Runner.app/image_picker_ios_image_picker_ios.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/Runner.app/package_info_plus_package_info_plus.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/Runner.app/PrivacyInfo.xcprivacy
+tracking: False domains: []
+  NSPrivacyCollectedDataTypeCoarseLocation linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAppFunctionality']
+=== build/ios/Debug-iphonesimulator/Runner.app/sensors_plus_sensors_plus.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/Runner.app/shared_preferences_foundation_shared_preferences_foundation.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/sensors_plus_sensors_plus.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/Debug-iphonesimulator/shared_preferences_foundation_shared_preferences_foundation.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/iphonesimulator/Runner.app/camera_avfoundation_camera_avfoundation.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/iphonesimulator/Runner.app/Frameworks/Flutter.framework/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/iphonesimulator/Runner.app/geolocator_apple_geolocator_apple.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/iphonesimulator/Runner.app/google_maps_flutter_ios_privacy.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+  NSPrivacyCollectedDataTypeCrashData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeDeviceID linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics', 'NSPrivacyCollectedDataTypePurposeAppFunctionality']
+  NSPrivacyCollectedDataTypePerformanceData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeProductInteraction linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeUserID linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+=== build/ios/iphonesimulator/Runner.app/GoogleMapsResources.bundle/GoogleMaps.bundle/PrivacyInfo.xcprivacy
+tracking: None domains: None
+  NSPrivacyCollectedDataTypeCrashData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeDeviceID linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics', 'NSPrivacyCollectedDataTypePurposeAppFunctionality']
+  NSPrivacyCollectedDataTypeOtherDataTypes linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypePerformanceData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeProductInteraction linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+=== build/ios/iphonesimulator/Runner.app/image_picker_ios_image_picker_ios.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/iphonesimulator/Runner.app/package_info_plus_package_info_plus.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/iphonesimulator/Runner.app/PrivacyInfo.xcprivacy
+tracking: False domains: []
+  NSPrivacyCollectedDataTypeCoarseLocation linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAppFunctionality']
+=== build/ios/iphonesimulator/Runner.app/sensors_plus_sensors_plus.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== build/ios/iphonesimulator/Runner.app/shared_preferences_foundation_shared_preferences_foundation.bundle/PrivacyInfo.xcprivacy
+tracking: False domains: []
+=== ios/Pods/GoogleMaps/Maps/Resources/GoogleMapsResources/GoogleMaps.bundle/PrivacyInfo.xcprivacy
+tracking: None domains: None
+  NSPrivacyCollectedDataTypeCrashData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeDeviceID linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics', 'NSPrivacyCollectedDataTypePurposeAppFunctionality']
+  NSPrivacyCollectedDataTypeOtherDataTypes linked= True tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypePerformanceData linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+  NSPrivacyCollectedDataTypeProductInteraction linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAnalytics']
+=== ios/Runner/PrivacyInfo.xcprivacy
+tracking: False domains: []
+  NSPrivacyCollectedDataTypeCoarseLocation linked= False tracking= False purposes= ['NSPrivacyCollectedDataTypePurposeAppFunctionality']
