@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/data/bullet_library.dart';
+import 'package:sniper_turk/features/profiles/bullet_library_screen.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/profile_store.dart';
@@ -72,5 +73,30 @@ void main() {
     expect(text('ammo-brand'), contains('ELD Match'));
     expect(text('ammo-grain'), isNotEmpty);
     expect(text('ammo-bc'), isNotEmpty);
+  });
+
+  testWidgets('a caliber with no record lists nothing and says so', (
+    tester,
+  ) async {
+    Future<void> open(double cal) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: MenzilTheme.light(),
+          home: BulletLibraryScreen(
+            platform: WeaponPlatform.firearm,
+            caliberMm: cal,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+    }
+
+    await open(7.0);
+    expect(find.byKey(const Key('library-no-caliber')), findsOneWidget);
+    expect(find.byKey(const Key('library-item-0')), findsNothing);
+
+    await open(7.82);
+    expect(find.byKey(const Key('library-no-caliber')), findsNothing);
+    expect(find.byKey(const Key('library-item-0')), findsOneWidget);
   });
 }

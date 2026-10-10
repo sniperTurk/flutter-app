@@ -36,7 +36,7 @@ class _BulletLibraryScreenState extends State<BulletLibraryScreen> {
       v.toStringAsFixed(d).replaceAll('.', ',');
 
   /// The rifle type's records in the rifle's caliber (owner, 2026-10-10:
-  /// no switch). A caliber with no record shows every caliber instead.
+  /// no switch). A caliber with no record shows nothing, with a note.
   List<LibraryBullet> get _items {
     final q = _search.text.trim().toLowerCase();
     final cal = widget.caliberMm;
@@ -51,7 +51,7 @@ class _BulletLibraryScreenState extends State<BulletLibraryScreen> {
               if ((b.caliberMm - cal).abs() < 0.02) b,
           ];
     return [
-      for (final b in sameCaliber.isEmpty ? own : sameCaliber)
+      for (final b in sameCaliber)
         if (q.isEmpty || b.title.toLowerCase().contains(q)) b,
     ];
   }
@@ -83,6 +83,21 @@ class _BulletLibraryScreenState extends State<BulletLibraryScreen> {
                   ),
                   onChanged: (_) => setState(() {}),
                 ),
+                if (items.isEmpty &&
+                    _search.text.trim().isEmpty &&
+                    widget.caliberMm != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: MenzilSpace.sm),
+                    child: MenzilNotice(
+                      key: const Key('library-no-caliber'),
+                      tone: MenzilNoticeTone.info,
+                      message:
+                          'Bu kalibre '
+                          '(${widget.caliberMm!.toStringAsFixed(2).replaceAll('.', ',')} mm) '
+                          'için kütüphanede mermi yok. Değerleri kutusundan '
+                          'veya üreticinin sitesinden elle girin.',
+                    ),
+                  ),
                 Text(
                   '${items.length} kayıt · değerler üreticilerin kendi '
                   'sitelerinden; her kaydın kaynağı saklıdır.',
