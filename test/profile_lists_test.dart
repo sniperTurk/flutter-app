@@ -71,8 +71,9 @@ void main() {
       expect(a.muzzleVelocityFps, inInclusiveRange(800, 4500), reason: a.name);
       expect(a.grain, inInclusiveRange(10, 900), reason: a.name);
       expect(a.bc == null, a.model == null, reason: a.name);
-      if (a.bc != null)
+      if (a.bc != null) {
         expect(a.bc, inInclusiveRange(0.05, 1.2), reason: a.name);
+      }
     }
     // MKE velocities measured at 23.7 m are brought back to the muzzle.
     final m80 = FactoryAmmoLibrary.all.firstWhere(
