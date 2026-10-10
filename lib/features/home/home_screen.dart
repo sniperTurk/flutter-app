@@ -115,30 +115,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  /// "Örnek profille dene": installs the sample profiles, makes the PCP one
-  /// active and opens Hedef.
-  Future<void> _trySample() async {
-    if (_installingSample) return;
-    _installingSample = true;
-    try {
-      final first = await SampleProfiles.install(profiles: profiles);
-      await activeStore.setActiveProfileId(first.id);
-      // The workspace starts on Pro and then moves to Hedef: entering Hedef
-      // dials the solution and opens the right turret, as after Pro.
-      if (mounted) setState(() => ballisticsView = BallisticsView.pro);
-      await _load();
-      await WidgetsBinding.instance.endOfFrame;
-      if (mounted) _selectTab(_tabShot);
-    } catch (_) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Örnek profiller eklenemedi.')),
-        );
-      }
-    } finally {
-      _installingSample = false;
-    }
-  }
 
   @override
   void initState() {
@@ -573,7 +549,10 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       return MenzilPage(
         children: [
-          LockedPreview(shot: tab == _tabShot, onCreate: _createProfile),
+          LockedPreview(
+            shot: tab == _tabShot,
+            onCreate: _createProfile,
+          ),
         ],
       );
     }
