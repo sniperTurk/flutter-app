@@ -124,7 +124,10 @@ class WelcomePanel extends StatelessWidget {
         const SizedBox(height: MenzilSpace.md),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.xs),
-          child: Text('Nasıl çalışır?', style: MenzilType.heading(c.ink, size: 17)),
+          child: Text(
+            'Nasıl çalışır?',
+            style: MenzilType.heading(c.ink, size: 17),
+          ),
         ),
         const SizedBox(height: MenzilSpace.sm),
         MenzilCard(
@@ -209,7 +212,10 @@ class LockedPreview extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Text(a, style: MenzilType.heading(c.ink, size: 18)),
+                        child: Text(
+                          a,
+                          style: MenzilType.heading(c.ink, size: 18),
+                        ),
                       ),
                       Text(b, style: MenzilType.caption(c.ink2)),
                     ],
@@ -279,7 +285,11 @@ class _ReticleSketch extends CustomPainter {
       final tp = TextPainter(
         text: TextSpan(
           text: '${300 + i * 60}',
-          style: TextStyle(color: red, fontSize: 15, fontWeight: FontWeight.w700),
+          style: TextStyle(
+            color: red,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
