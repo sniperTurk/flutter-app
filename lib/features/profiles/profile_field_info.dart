@@ -62,6 +62,16 @@ abstract final class ProfileFieldInfo {
       'RA4: .22 LR gibi rimfire mermiler için. G2, G5, G6, G8 ve GI daha az '
       'kullanılan standart şekillerdir. Üretici hangisini veriyorsa onu seçin.';
 
+  static const dragCurve =
+      'Merminin kendi sürüklenme eğrisi: her Mach hızında havanın ne kadar '
+      'frenlediği (Cd). Tek BC sayısından daha doğrudur; uzun menzilde ve ses '
+      'hızına inerken fark eder. Lapua (.drg, QuickTARGET), Doppler radar ölçümü '
+      'veya iki sütunlu CSV (Mach, Cd) yükleyin; örnek satır: 0,90 0,215. Çap '
+      've ağırlık mühimmattan alınır.';
+  static const bcModelCustom =
+      ' Özel eğri (Mach–Cd): merminin kendi eğrisi elinizdeyse (Lapua .drg, '
+      'radar ölçümü) seçin; BC gerekmez.';
+
   static const bandSpeed =
       'İsteğe bağlı. BC hız düştükçe değişir (özellikle saçma ve slug). Hız '
       'bu değerin altına inince yandaki BC kullanılır; üstünde ana BC. '

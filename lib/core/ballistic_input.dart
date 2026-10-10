@@ -1,4 +1,5 @@
 import '../models/domain.dart';
+import 'drag_table.dart';
 import 'gravity.dart';
 import 'production_limits.dart';
 
@@ -40,6 +41,11 @@ class BallisticInput {
   /// Velocity-dependent BC steps (çoklu BC); empty = [ballisticCoefficient]
   /// at every speed. Thresholds are projectile speed through the air.
   final List<BcBand> bcBands;
+
+  /// Özel sürüklenme eğrisi: the bullet's own Cd table. When set it replaces
+  /// the standard table of [ballisticModel], and [ballisticCoefficient] is
+  /// the sectional density (lb/in²). See [DragCurve].
+  final DragTable? dragTable;
 
   /// Wind by distance (shot only; the zero is solved in calm air).
   final WindZones? windZones;
@@ -102,6 +108,7 @@ class BallisticInput {
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
     bcBands: bcBands,
+    dragTable: dragTable,
     windZones: windZones,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
@@ -127,6 +134,7 @@ class BallisticInput {
     ballisticCoefficient: ballisticCoefficient,
     ballisticModel: ballisticModel,
     bcBands: bcBands,
+    dragTable: dragTable,
     windZones: windZones,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
@@ -155,6 +163,7 @@ class BallisticInput {
       for (final b in bcBands)
         BcBand(b.minVelocityMps, b.bc * bc / ballisticCoefficient!),
     ],
+    dragTable: dragTable,
     windZones: windZones,
     inclineDeg: inclineDeg,
     cantDeg: cantDeg,
@@ -182,6 +191,7 @@ class BallisticInput {
     this.ballisticCoefficient,
     this.ballisticModel,
     Iterable<BcBand> bcBands = const [],
+    this.dragTable,
     this.windZones,
     this.inclineDeg = 0,
     this.cantDeg = 0,

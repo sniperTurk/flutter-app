@@ -210,6 +210,7 @@ class _TruingScreenState extends State<TruingScreen> {
         ballisticCoefficient: ammo.ballisticCoefficient,
         ballisticModel: ammo.ballisticModel,
         bcBands: ammo.bcBands,
+        dragTable: ammo.dragTable,
       );
     } on ArgumentError {
       _fail('Atmosfer değerleri geçerli aralığın dışında.');
