@@ -934,6 +934,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeTravelElevation = TextEditingController(
       text: travel(s0?.elevationRangeMrad),
     );
+    // An ammunition of the other rifle type (a PCP slug saved with a
+    // firearm) is not shown; the user picks a bullet again.
+    if (ammo != null && ammo!.platform != platform) ammo = null;
     final a0 = ammo;
     // One "Marka Model" field (owner, 2026-10-09).
     ammoBrand = TextEditingController(
@@ -1522,6 +1525,22 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// is read once).
   int _scopePickToken = 0;
 
+  /// Empties the ammunition part of the form (another rifle type).
+  void _clearAmmo() {
+    ammo = null;
+    ammoBrand.text = '';
+    ammoGrain.text = '';
+    ammoBc.text = '';
+    ammoBcModel = null;
+    ammoType = null;
+    _customCurve = false;
+    _dragCurve = null;
+    for (var i = 0; i < 2; i++) {
+      ammoBandFps[i].text = '';
+      ammoBandBc[i].text = '';
+    }
+  }
+
   Future<void> _pickFromLibrary() async {
     final cal = _parse(rifleCaliber);
     final b = await Navigator.push<LibraryBullet>(
@@ -1679,9 +1698,21 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       )
                       .toList(),
                   onChanged: (v) => setState(() {
+                    final changed = v != platform;
                     platform = v!;
                     // Pellet/slug only exist on PCP; firearms use bullets.
                     if (platform == WeaponPlatform.firearm) ammoType = null;
+                    // The ammunition belongs to the rifle type: an H&N slug
+                    // must not stay in a firearm profile (owner,
+                    // 2026-10-11). A rifle of the other type goes too.
+                    if (changed) {
+                      _clearAmmo();
+                      if (rifle != null && rifle!.platform != platform) {
+                        rifle = null;
+                        rifleBrand.text = '';
+                        rifleModel.text = '';
+                      }
+                    }
                     // A caliber of the other list does not carry over.
                     final cal = _parse(rifleCaliber);
                     if (cal != null && _caliberItem(cal) == null) {
