@@ -1736,7 +1736,8 @@ class ScopeReticlePainter extends CustomPainter {
     final stride = gap <= 0 ? 1 : math.max(1, (16 / gap).ceil());
     final holdFont = math.max(10.0, size.shortestSide * 0.042);
     final holdYs = <double>[];
-    for (final (mark, label) in showLabels ? holdLabels : const <(double, String)>[]) {
+    for (final (mark, label)
+        in showLabels ? holdLabels : const <(double, String)>[]) {
       if ((mark / markStep).round() % stride != 0) continue;
       final y = center.dy + mark * scale;
       holdYs.add(y);
