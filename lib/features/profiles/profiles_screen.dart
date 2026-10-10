@@ -11,6 +11,7 @@ import '../../services/manual_catalog_store.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import '../home/empty_states.dart';
 import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
 
@@ -34,6 +35,13 @@ class ProfilesScreen extends StatefulWidget {
   /// sync with changes made elsewhere.
   final int revision;
 
+  /// Shell only: "Örnek profille dene" on the welcome page.
+  final VoidCallback? onTrySample;
+
+  /// Shell only: bumped when another page asks to create a profile; opens
+  /// the new-profile form.
+  final int createRequest;
+
   const ProfilesScreen({
     super.key,
     this.store,
@@ -43,6 +51,8 @@ class ProfilesScreen extends StatefulWidget {
     this.onProfilesChanged,
     this.onContinue,
     this.revision = 0,
+    this.onTrySample,
+    this.createRequest = 0,
   });
 
   @override
@@ -65,6 +75,11 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   void didUpdateWidget(covariant ProfilesScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.revision != widget.revision) _load();
+    if (oldWidget.createRequest != widget.createRequest) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _add();
+      });
+    }
   }
 
   Future<void> _load() async {
@@ -286,6 +301,13 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   Widget _content(BuildContext context) {
     final c = MenzilColors.of(context);
     final selected = _selected;
+    // First start (or every profile deleted): a welcome page instead of an
+    // empty list (owner, 2026-10-10).
+    if (items.isEmpty && widget.embedded) {
+      return MenzilPage(
+        children: [WelcomePanel(onCreate: _add, onSample: widget.onTrySample)],
+      );
+    }
     return MenzilPage(
       children: [
         // The app opens here: the profile in use comes first, with the next

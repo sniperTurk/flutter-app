@@ -14,7 +14,7 @@ class IosIntegrationSmokeContractTest(unittest.TestCase):
         for label in ('Araçlar', 'Hesaplayıcılar', 'Profil'):
             with self.subTest(label=label):
                 self.assertIn(f"tester.tap(find.text('{label}').first)", source)
-        self.assertIn("DOPE için önce aktif profil oluşturun", source)
+        self.assertIn("Tahmin yok, hesap var.", source)
         self.assertIn("tester.takeException()", source)
 
     def test_catalog_is_not_on_the_tool_hub_but_its_screen_is_kept(self):

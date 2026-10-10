@@ -38,7 +38,8 @@ void main() {
     // stays locked without a profile.
     await tester.tap(find.text('Hedef').first);
     await tester.pumpAndSettle();
-    expect(find.text('DOPE için önce aktif profil oluşturun'), findsOneWidget);
+    // No profile yet: Hedef explains itself instead of a lock (2026-10-10).
+    expect(find.text('Tahmin yok, hesap var.'), findsOneWidget);
     expect(tester.takeException(), isNull);
 
     // Exercise the production Navigator wiring instead of stopping at first
@@ -65,15 +66,17 @@ void main() {
     // SharedPreferences-backed stores without mutating user data.
     await tester.tap(find.text('Profil').first);
     await tester.pumpAndSettle();
-    expect(find.text('Profiller'), findsWidgets);
-    expect(find.textContaining('Henüz kayıtlı profil yok'), findsOneWidget);
+    // Clean install: the welcome page (owner, 2026-10-10).
+    expect(find.text('Nasıl çalışır?'), findsOneWidget);
     expect(tester.takeException(), isNull);
 
     // Exercise the real SharedPreferences write path, not only a read-only route.
     // The rifle is typed in (no catalog rifle is preselected); ammunition and
     // scope keep their defaults. Saving proves validation and the personal
     // catalog + profile persistence wiring on an actual iOS runtime.
-    await tester.tap(find.text('Yeni profil'));
+    await tester.ensureVisible(find.text('İlk profilimi oluştur'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('İlk profilimi oluştur'));
     await tester.pumpAndSettle();
     expect(find.text('Profil Oluştur'), findsOneWidget);
     Future<void> type(String key, String text) async {
@@ -149,7 +152,7 @@ void main() {
     // reload -> active-profile resolution -> ballistic workspace.
     await tester.tap(find.text('Hedef').first);
     await tester.pumpAndSettle();
-    expect(find.text('DOPE için önce aktif profil oluşturun'), findsNothing);
+    expect(find.text('Tahmin yok, hesap var.'), findsNothing);
     // Atış solves on its own when it opens (no Hesapla button).
     // V378: the typed ammo carries a BC with its G1 model, so Atış uses the
     // drag solver and wind is computed (no KİLİTLİ card).

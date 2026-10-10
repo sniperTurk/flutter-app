@@ -10,13 +10,13 @@ class IosProfilePersistenceSmokeContractTest(unittest.TestCase):
     def test_smoke_creates_persists_and_uses_profile(self):
         text = SMOKE.read_text(encoding="utf-8")
         # Menzil shell: profiles are created from the Profil tab's
-        # "Yeni profil" action and DOPE is reached through the Atış/Tablo tabs.
+        # welcome page ("İlk profilimi oluştur") and DOPE is reached through the Atış/Tablo tabs.
         required = (
-            "tester.tap(find.text('Yeni profil'))",
+            "tester.tap(find.text('İlk profilimi oluştur'))",
             "find.text('Profil Oluştur')",
             "tester.tap(find.text('Kaydet'))",
             "find.text('Yeni Profil')",
-            "find.text('DOPE için önce aktif profil oluşturun'), findsNothing",
+            "find.text('Tahmin yok, hesap var.'), findsNothing",
             "tester.tap(find.text('Hedef').first)",
             "find.text('DOPE oluştur')",
         )

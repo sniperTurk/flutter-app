@@ -7,6 +7,7 @@ import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
 import '../../services/active_profile_store.dart';
 import '../../services/profile_store.dart';
+import '../../services/sample_profiles.dart';
 import '../../services/settings_store.dart';
 import '../../services/user_catalog_loader.dart';
 import '../../ui/menzil_icons.dart';
@@ -16,6 +17,7 @@ import '../ballistics/ballistics_screen.dart';
 import '../profiles/profile_recovery_dialog.dart';
 import '../profiles/profiles_screen.dart';
 import '../tools/tools_screen.dart';
+import 'empty_states.dart';
 
 /// Application shell: fixed top bar, five tabs (Profil, Hava Durumu, Pro,
 /// Atış, Araçlar) and the active-profile state shared by all of them.
@@ -102,6 +104,43 @@ class _HomeScreenState extends State<HomeScreen> {
   BallisticsView _shotMode = BallisticsView.shot;
   bool metric = true;
   int _profilesRevision = 0;
+
+  /// Bumped to make the Profil page open the new-profile form (an empty
+  /// page's "Profil oluştur").
+  int _createRequest = 0;
+  bool _installingSample = false;
+
+  void _createProfile() {
+    setState(() {
+      tab = _tabProfile;
+      _createRequest++;
+    });
+  }
+
+  /// "Örnek profille dene": installs the sample profiles, makes the PCP one
+  /// active and opens Hedef.
+  Future<void> _trySample() async {
+    if (_installingSample) return;
+    _installingSample = true;
+    try {
+      final first = await SampleProfiles.install(profiles: profiles);
+      await activeStore.setActiveProfileId(first.id);
+      // The workspace starts on Pro and then moves to Hedef: entering Hedef
+      // dials the solution and opens the right turret, as after Pro.
+      if (mounted) setState(() => ballisticsView = BallisticsView.pro);
+      await _load();
+      await WidgetsBinding.instance.endOfFrame;
+      if (mounted) _selectTab(_tabShot);
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Örnek profiller eklenemedi.')),
+        );
+      }
+    } finally {
+      _installingSample = false;
+    }
+  }
 
   @override
   void initState() {
@@ -400,6 +439,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         onActivate: _choose,
                         onProfilesChanged: _load,
                         onContinue: () => _selectTab(_tabEnvironment),
+                        onTrySample: _trySample,
+                        createRequest: _createRequest,
                       ),
                       _ballisticsTab(context),
                       ToolsScreen(onProfilesChanged: _load),
@@ -522,6 +563,27 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     }
+    // No profile at all (owner, 2026-10-10): Hava Durumu works on its own,
+    // Pro and Hedef show what they do instead of an empty lock.
+    if (profile == null && saved.isEmpty) {
+      if (tab == _tabEnvironment) {
+        return BallisticsScreen(
+          key: const ValueKey('no-profile-environment'),
+          view: BallisticsView.environment,
+          autoWeather: widget.autoWeather,
+          onCreateProfile: _createProfile,
+        );
+      }
+      return MenzilPage(
+        children: [
+          LockedPreview(
+            shot: tab == _tabShot,
+            onCreate: _createProfile,
+            onSample: _trySample,
+          ),
+        ],
+      );
+    }
     if (profile == null || resolution == null) {
       return MenzilPage(
         children: [
@@ -584,6 +646,9 @@ class _HomeScreenState extends State<HomeScreen> {
       )),
       profile: profile,
       view: ballisticsView,
+      initialProRangeM: profile.id == SampleProfiles.pcpId
+          ? SampleProfiles.pcpRangeM
+          : null,
       autoWeather: widget.autoWeather,
       onContinueToPro: () => _selectTab(_tabPro),
       onContinueToShot: () => _selectTab(_tabShot),

@@ -131,7 +131,8 @@ void main() {
       await tester.tap(find.byKey(const Key('recovery-confirm-empty')));
       await _settle(tester);
 
-      expect(find.textContaining('Henüz kayıtlı profil yok'), findsOneWidget);
+      // Empty list after recovery: the welcome page (owner, 2026-10-10).
+      expect(find.text('Nasıl çalışır?'), findsOneWidget);
       final copies = await _stringsWithPrefix('$_key.corrupt.');
       expect(copies.values, containsAll(['{broken-primary', '[broken-backup']));
     },
