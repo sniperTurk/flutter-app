@@ -29,8 +29,9 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
         # The wind status card was removed from Atış (owner, 2026-10-08).
         # Readers of shot.windMrad: the scope dial (drag-gated windage, plus
         # the vacuum cant geometry) and the Pro "Rüzgâr aralığı" line, which
-        # is drawn only when `basis.drag` (owner, 2026-10-09).
-        self.assertEqual(self.text.count('shot.windMrad'), 3)
+        # is drawn only when `basis.drag` (owner, 2026-10-09; since the
+        # 2026-10-11 audit it reads the value once, minus spin/zero offset).
+        self.assertEqual(self.text.count('shot.windMrad'), 2)
         notes = self.text.index('List<Widget> _extraShotNotes(')
         bracket = self.text.index('shot.windMrad', notes)
         self.assertIn('basis.drag && windMax != null', self.text[notes:bracket])

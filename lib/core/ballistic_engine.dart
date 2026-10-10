@@ -65,6 +65,7 @@ class BallisticEngine {
     inclineDeg: input.inclineDeg,
     cantDeg: input.cantDeg,
     zeroVelocityMps: input.zeroMuzzleVelocityMps,
+    gravityMps2: input.gravityMps2,
   );
 
   /// Deterministic baseline trajectory. This is intentionally documented as a
@@ -82,11 +83,15 @@ class BallisticEngine {
 
     /// Velocity on the zeroing day, when it differs (barut sıcaklığı).
     double? zeroVelocityMps,
+
+    /// Local gravity; the drag solver uses the same value (audit
+    /// 2026-10-11).
+    double gravityMps2 = 9.80665,
   }) {
     if (muzzleVelocityMps <= 0 || zeroRangeM <= 0) {
       throw ArgumentError('velocity and zero must be > 0');
     }
-    const g = 9.80665;
+    final g = gravityMps2;
     final sightM = sightHeightMm / 1000;
     // Solve the launch angle against the line of sight exactly for the
     // vacuum model. Using atan((gravityDrop + sightHeight) / zeroRange) is
