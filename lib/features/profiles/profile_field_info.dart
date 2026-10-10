@@ -7,13 +7,14 @@ abstract final class ProfileFieldInfo {
   // Tüfek
   static const caliber =
       'Namlunun iç çapı, milimetre olarak; listeden seçin. 4,50 mm (.177), '
-      '5,50 mm (.22), 6,35 mm (.25), 7,62 mm (.30), 9,00 mm (.357). '
+      '5,50 mm (.22), 6,35 mm (.25), 7,62 mm (.30), 9,00 mm (.357) ve '
+      'büyük çaplar. '
       'Mühimmatın kalibresi buradan alınır.';
   static const caliberFirearm =
       'Tüfeğinin kalibresi; listede merminin gerçek çapıyla yazılıdır. '
       'Kalibre namlunun üstünde ve mühimmat kutusunda yazar; örneğin .308 '
-      'Win için 7,82 mm. Listede yoksa "Diğer (elle yaz)" seçip mermi '
-      'çapını mm olarak yazın. Mühimmatın kalibresi buradan alınır.';
+      'Win için 7,82 mm. Yalnızca listeden seçilir; fişeğin listede yoksa '
+      'bize bildirin. Mühimmatın kalibresi buradan alınır.';
   static const caliberOther =
       'Merminin çapı, milimetre olarak. Mühimmat kutusunda ya da üreticinin '
       'sitesinde yazar (inç verilmişse 25,4 ile çarpın: .308 inç = 7,82 mm).';

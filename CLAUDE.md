@@ -48,3 +48,9 @@ is, where to find it and a typical example. Plain identity fields (brand,
 model, name) may skip it. Profil texts live in
 `lib/features/profiles/profile_field_info.dart`; follow the same pattern for
 other pages.
+
+## UI rule: select over typing, long values full width (owner, 2026-10-11)
+Typed product names and calibers are mistyped, so a value that can be chosen
+from a list is a `MenzilSelect` (Kalibre has no "Diğer (elle yaz)"). A field
+that takes a long value (names, Marka, Model, long select labels) is wrapped
+in `MenzilFullWidth`, never placed next to another box.

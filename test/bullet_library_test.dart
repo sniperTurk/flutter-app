@@ -85,7 +85,8 @@ void main() {
         )
         .controller!
         .text;
-    expect(text('ammo-brand'), contains('ELD Match'));
+    expect(text('ammo-brand'), 'Hornady');
+    expect(text('ammo-model'), contains('ELD Match'));
     expect(text('ammo-grain'), isNotEmpty);
     expect(text('ammo-bc'), isNotEmpty);
   });

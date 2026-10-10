@@ -102,7 +102,7 @@ void main() {
       expect(
         find.descendant(
           of: find.byKey(const Key('rifle-caliber')),
-          matching: find.text('6.35 mm'),
+          matching: find.text('6.35 mm (.25)'),
         ),
         findsOneWidget,
       );
@@ -255,7 +255,7 @@ void _unitsAndFirearmTests() {
     expect(saved.angularUnit, AngularUnit.smoa);
   });
 
-  testWidgets('Ateşli tüfek: long caliber list and "Diğer (elle yaz)"', (
+  testWidgets('Ateşli tüfek: one cartridge per row, no free typing', (
     tester,
   ) async {
     tester.view.physicalSize = const Size(390 * 3, 1800 * 3);
@@ -275,22 +275,10 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Ateşli Tüfek').last);
     await tester.pumpAndSettle();
-    await chooseInSelect(
-      tester,
-      'rifle-caliber',
-      '.270 Win / .270 WSM (7.04 mm)',
-    );
+    await chooseInSelect(tester, 'rifle-caliber', '.30-06 Springfield');
+    expect(find.text('.30-06 Springfield'), findsWidgets);
+    expect(find.text('Diğer (elle yaz)'), findsNothing);
     expect(find.byKey(const Key('rifle-caliber-other')), findsNothing);
-    await chooseInSelect(tester, 'rifle-caliber', 'Diğer (elle yaz)');
-    final other = find.descendant(
-      of: find.byKey(const Key('rifle-caliber-other')),
-      matching: find.byType(TextField),
-    );
-    expect(other, findsOneWidget);
-    expect(tester.widget<TextField>(other).controller!.text, '');
-    await tester.enterText(other, '7.45');
-    await tester.pump();
-    expect(find.text('Diğer (elle yaz)'), findsWidgets);
   });
 
   testWidgets('Ateşli tüfek: firearm caliber and ammunition texts', (
@@ -309,13 +297,18 @@ void _unitsAndFirearmTests() {
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
     // PCP calibers to pick from.
-    await chooseInSelect(tester, 'rifle-caliber', '5.50 mm');
+    await chooseInSelect(tester, 'rifle-caliber', '5.50 mm (.22)');
     await tester.tap(find.byKey(const Key('rifle-caliber')));
     await tester.pumpAndSettle();
-    for (final c in const ['4.50 mm', '6.35 mm', '7.62 mm', '9.00 mm']) {
+    for (final c in const [
+      '4.50 mm (.177)',
+      '6.35 mm (.25)',
+      '7.62 mm (.30)',
+      '9.00 mm (.357)',
+    ]) {
       expect(find.text(c), findsWidgets, reason: c);
     }
-    await tester.tap(find.text('9.00 mm').last);
+    await tester.tap(find.text('9.00 mm (.357)').last);
     await tester.pumpAndSettle();
     // Ağırlık shows an example until it is tapped.
     final grain = find.descendant(
@@ -337,11 +330,11 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     // 9.00 mm is not a firearm caliber here: the choice is cleared, and the
     // firearm list is offered.
-    expect(find.text('9.00 mm'), findsNothing);
+    expect(find.text('9.00 mm (.357)'), findsNothing);
     await chooseInSelect(
       tester,
       'rifle-caliber',
-      '.308 Win / .30-06 / .300 Win Mag / .300 PRC (7.82 mm)',
+      '.308 Win',
     );
     expect(tester.widget<TextField>(grain).decoration!.hintText, '168 gr');
     // No pellet example in the ammunition name of a firearm.

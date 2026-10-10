@@ -30,7 +30,7 @@ Future<void> fillRifleForm(
   WidgetTester tester, {
   String brand = 'Test Marka',
   String model = 'Test Model',
-  String caliber = '6.35 mm',
+  String caliber = '6.35 mm (.25)',
   String twist = '16',
   String direction = 'Sağ',
 }) async {
@@ -74,8 +74,9 @@ Future<void> fillAmmoForm(
   String bc = '0,08',
   String bcModel = 'G1',
 }) async {
-  // One "Marka Model" field since 2026-10-09.
-  await enterRifleField(tester, 'ammo-brand', '$brand $model');
+  // Marka and Model are separate boxes again (owner, 2026-10-11).
+  await enterRifleField(tester, 'ammo-brand', brand);
+  await enterRifleField(tester, 'ammo-model', model);
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);
   await enterRifleField(tester, 'ammo-grain', grain);
   await enterRifleField(tester, 'ammo-bc', bc);
