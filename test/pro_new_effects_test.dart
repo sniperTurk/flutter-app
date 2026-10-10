@@ -225,6 +225,17 @@ void main() {
       tester,
     ) async {
       await sized(tester);
+      // At the zero range gravity changes nothing; look at 600 m.
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find.descendant(
+          of: find.byKey(const Key('pro-shot-range')),
+          matching: find.byType(TextField),
+        ),
+        '600',
+      );
+      await tester.pump();
       await tester.pumpWidget(app(BallisticsView.shot));
       await tester.pumpAndSettle();
       final before = dial(tester).requiredUp!;

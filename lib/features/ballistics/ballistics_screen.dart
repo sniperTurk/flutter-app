@@ -3024,11 +3024,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               builder: (context) {
                 final e = _gravityEffect();
                 final mm = e == null ? null : e * 1000;
+                String mmText(double v) =>
+                    v.abs().toStringAsFixed(1).replaceAll('.', ',');
                 return Text(
                   mm == null
                       ? 'Etkiyi görmek için "Konumdan hesapla"ya dokunun.'
+                      : mm.abs() < 0.05
+                      ? '$_shotDisplay $_distanceUnit\'de yerçekimi farkı '
+                            'yok denecek kadar az (sıfır mesafesinde etkisi '
+                            'sıfırdır; uzak mesafede büyür).'
                       : '$_shotDisplay $_distanceUnit\'de yerçekimi: mermi '
-                            '${mm.abs().toStringAsFixed(1)} mm '
+                            '${mmText(mm)} mm '
                             '${mm >= 0 ? 'daha az' : 'daha çok'} düşer '
                             '(standart 9,80665 m/s²\'ye göre). Kule klikleri '
                             'bunu içerir.',
