@@ -49,6 +49,9 @@ def main():
                 "type": "appStoreVersionLocalizations", "id": l["id"],
                 "attributes": {"description": description}}})
     first, last, phone = (os.environ.get(k, "").strip() for k in ("REVIEW_FIRST", "REVIEW_LAST", "REVIEW_PHONE"))
+    if not (first and last and phone) and os.path.exists("ops/review_contact.json"):
+        rc = json.load(open("ops/review_contact.json", encoding="utf-8"))
+        first, last, phone = rc["first"], rc["last"], rc["phone"]
     attrs = {"contactEmail": "Sekerbirol76@gmail.com", "demoAccountRequired": False,
              "notes": ("SNIPER TÜRK is a ballistic calculator for sport shooting and hunting with PCP air rifles "
                        "and firearms. No account or login is needed. To try it: Profil → 'İlk profilimi oluştur', "
