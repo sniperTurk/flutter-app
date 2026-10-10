@@ -36,7 +36,10 @@ Future<void> _openNew(WidgetTester tester, {bool firearm = false}) async {
 
 String _text(WidgetTester tester, String key) => tester
     .widget<TextField>(
-      find.descendant(of: find.byKey(Key(key)), matching: find.byType(TextField)),
+      find.descendant(
+        of: find.byKey(Key(key)),
+        matching: find.byType(TextField),
+      ),
     )
     .controller!
     .text;
@@ -53,7 +56,11 @@ void main() {
       expect(r.model.trim(), isNotEmpty, reason: r.brand);
       if (r.platform == WeaponPlatform.firearm) {
         // Every firearm caliber is a Kalibre list name with its diameter.
-        expect(Cartridges.diameterOf(r.cartridge), r.diameterMm, reason: r.model);
+        expect(
+          Cartridges.diameterOf(r.cartridge),
+          r.diameterMm,
+          reason: r.model,
+        );
       } else {
         expect(Cartridges.pcp.any((e) => e.$2 == r.cartridge), isTrue);
       }
@@ -64,7 +71,8 @@ void main() {
       expect(a.muzzleVelocityFps, inInclusiveRange(800, 4500), reason: a.name);
       expect(a.grain, inInclusiveRange(10, 900), reason: a.name);
       expect(a.bc == null, a.model == null, reason: a.name);
-      if (a.bc != null) expect(a.bc, inInclusiveRange(0.05, 1.2), reason: a.name);
+      if (a.bc != null)
+        expect(a.bc, inInclusiveRange(0.05, 1.2), reason: a.name);
     }
     // MKE velocities measured at 23.7 m are brought back to the muzzle.
     final m80 = FactoryAmmoLibrary.all.firstWhere(
@@ -100,7 +108,11 @@ void main() {
     await _openNew(tester, firearm: true);
     await chooseInSelect(tester, 'rifle-brand-select', 'Tikka');
     await chooseInSelect(tester, 'rifle-model-select', 'T3x TACT A1');
-    await chooseInSelect(tester, 'rifle-caliber', '.308 Win · 20 in namlu · 1:11');
+    await chooseInSelect(
+      tester,
+      'rifle-caliber',
+      '.308 Win · 20 in namlu · 1:11',
+    );
     expect(_text(tester, 'rifle-twist-rate'), '11');
   });
 
@@ -138,7 +150,11 @@ void main() {
     await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
     expect(_in('ammo-source', find.text('Fabrika fişeği')), findsOneWidget);
     await chooseInSelect(tester, 'ammo-brand-select', 'Hornady');
-    await chooseInSelect(tester, 'ammo-model-select', 'ELD Match 168 gr ELD Match');
+    await chooseInSelect(
+      tester,
+      'ammo-model-select',
+      'ELD Match 168 gr ELD Match',
+    );
     expect(_text(tester, 'ammo-grain'), '168');
     expect(_text(tester, 'ammo-bc'), '0.263');
     expect(_text(tester, 'profile-velocity-fps'), '2700');

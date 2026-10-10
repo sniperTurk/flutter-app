@@ -773,7 +773,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Select key of the current caliber: the cartridge name (firearm) or
   /// "mm:<value>"; a saved value not on the list stays selectable.
   String? get _caliberKey {
-    final variants = _caliberFromModel ? _rifleVariants : const <LibraryRifle>[];
+    final variants = _caliberFromModel
+        ? _rifleVariants
+        : const <LibraryRifle>[];
     if (variants.isNotEmpty) {
       final i = _rifleVariant == null ? -1 : variants.indexOf(_rifleVariant!);
       return i < 0 ? null : 'v:$i';
@@ -892,7 +894,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _caliberByDiameter = true;
       _cartridge = null;
       final cal = _parse(rifleCaliber);
-      if (cal != null && !_bulletDiameters.any((d) => (d - cal).abs() < 0.005)) {
+      if (cal != null &&
+          !_bulletDiameters.any((d) => (d - cal).abs() < 0.005)) {
         rifleCaliber.text = '';
       }
       return;
@@ -2659,24 +2662,24 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     child: KeyedSubtree(
                       key: const Key('ammo-type'),
                       child: MenzilSelect<AmmunitionType>(
-                      key: ValueKey('ammo-type-$ammoType'),
-                      info: ProfileFieldInfo.ammoType,
-                      label: 'Tip',
-                      initialValue: ammoType == AmmunitionType.bullet
-                          ? null
-                          : ammoType,
-                      items: const [
-                        DropdownMenuItem(
-                          value: AmmunitionType.pellet,
-                          child: Text('Pellet'),
-                        ),
-                        DropdownMenuItem(
-                          value: AmmunitionType.slug,
-                          child: Text('Slug'),
-                        ),
-                      ],
-                      onChanged: (v) => setState(() => ammoType = v),
-                    ),
+                        key: ValueKey('ammo-type-$ammoType'),
+                        info: ProfileFieldInfo.ammoType,
+                        label: 'Tip',
+                        initialValue: ammoType == AmmunitionType.bullet
+                            ? null
+                            : ammoType,
+                        items: const [
+                          DropdownMenuItem(
+                            value: AmmunitionType.pellet,
+                            child: Text('Pellet'),
+                          ),
+                          DropdownMenuItem(
+                            value: AmmunitionType.slug,
+                            child: Text('Slug'),
+                          ),
+                        ],
+                        onChanged: (v) => setState(() => ammoType = v),
+                      ),
                     ),
                   ),
                 ..._ammoNameFields(
@@ -2744,9 +2747,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                             : ProfileFieldInfo.bcModel) +
                         ProfileFieldInfo.bcModelCustom,
                     label: 'BC modeli',
-                    initialValue: _customCurve
-                        ? _customKey
-                        : ammoBcModel?.name,
+                    initialValue: _customCurve ? _customKey : ammoBcModel?.name,
                     items: [
                       for (final (m, text) in _bcModelChoices)
                         DropdownMenuItem(value: m.name, child: Text(text)),
