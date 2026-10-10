@@ -14,6 +14,7 @@ import '../../core/drag_table.dart';
 import '../../core/gravity.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
+import '../../core/reticle.dart';
 import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
@@ -1888,6 +1889,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       });
     }
     return ScopeDialView(
+      reticle: Reticles.forName(scope?.reticle, unit),
       unit: unit,
       clickValue: click,
       elevationClicks: _elevationClicks,
