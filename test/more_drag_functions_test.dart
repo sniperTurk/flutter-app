@@ -7,12 +7,25 @@ import 'package:sniper_turk/models/domain.dart';
 void main() {
   test('every drag law has a reference table with BRL anchors', () {
     for (final m in BallisticModel.values) {
-      expect(StandardDragTables.forModel(m).coefficientAtMach(1.0), greaterThan(0), reason: '$m');
+      expect(
+        StandardDragTables.forModel(m).coefficientAtMach(1.0),
+        greaterThan(0),
+        reason: '$m',
+      );
     }
     // Spot values at Mach 0 (BRL tables).
-    expect(StandardDragTables.forModel(BallisticModel.g2).coefficientAtMach(0), closeTo(0.2303, 1e-4));
-    expect(StandardDragTables.forModel(BallisticModel.gs).coefficientAtMach(0), closeTo(0.4662, 1e-4));
-    expect(StandardDragTables.forModel(BallisticModel.ra4).coefficientAtMach(0), closeTo(0.2283, 1e-4));
+    expect(
+      StandardDragTables.forModel(BallisticModel.g2).coefficientAtMach(0),
+      closeTo(0.2303, 1e-4),
+    );
+    expect(
+      StandardDragTables.forModel(BallisticModel.gs).coefficientAtMach(0),
+      closeTo(0.4662, 1e-4),
+    );
+    expect(
+      StandardDragTables.forModel(BallisticModel.ra4).coefficientAtMach(0),
+      closeTo(0.2283, 1e-4),
+    );
   });
 
   test('a .22 LR with RA4 solves to 100 m', () {
