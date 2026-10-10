@@ -2064,7 +2064,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   controller: rifleTwist,
                   label: 'Yiv oranı (1:…)',
                   hintText: '16',
-                  helperText: '1:16" için 16 girin (bir tam dönüş, inç).',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_twistError, rifleTwist),
                 ),
@@ -2267,8 +2266,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   controller: scopeTravelElevation,
                   label: 'Üst kule klik sayısı',
                   keyboardType: TextInputType.number,
-                  helperText:
-                      'Baştan sona toplam klik. Bilmiyorsanız boş bırakın.',
                   onChanged: (_) => setState(() {}),
                   errorText: _travelError(scopeTravelElevation),
                 ),
