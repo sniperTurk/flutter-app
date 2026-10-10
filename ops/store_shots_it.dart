@@ -107,10 +107,21 @@ void main() {
       return;
     }
     await tab('Pro');
-    await tester.tap(find.byKey(const Key('pro-section-coriolis')));
+    await tester.ensureVisible(find.byKey(const Key('pro-section-gravity')));
+    await tester.tap(find.byKey(const Key('pro-section-gravity')));
     await tester.pumpAndSettle();
-    await shot('g1-coriolis');
+    await tester.ensureVisible(find.byKey(const Key('pro-gravity-switch')));
+    await tester.tap(find.byKey(const Key('pro-gravity-switch')));
+    await tester.pumpAndSettle();
+    final gf = find.descendant(
+      of: find.byKey(const Key('pro-gravity')),
+      matching: find.byType(TextField),
+    );
+    await tester.enterText(gf, '9.7988');
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('pro-section-gravity')));
+    await shot('g1-yercekimi');
     await tester.drag(find.byType(Scrollable).first, const Offset(0, -350));
-    await shot('g2-coriolis-alt');
+    await shot('g2-yercekimi-alt');
   });
 }
