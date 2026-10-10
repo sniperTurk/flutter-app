@@ -383,6 +383,6 @@ void main() {
     // Turkey (36–42° N) lies between the equator and the poles.
     expect(Gravity.at(latitudeDeg: 0), closeTo(9.7803253359, 1e-9));
     expect(Gravity.at(latitudeDeg: 90), closeTo(9.8321849378, 1e-9));
-    expect(Gravity.at(latitudeDeg: 45), closeTo(9.8061992, 1e-6));
+    expect(Gravity.at(latitudeDeg: 45), closeTo(9.8061978, 1e-6));
   });
 }
