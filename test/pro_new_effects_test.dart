@@ -242,11 +242,12 @@ void main() {
 
       await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
-      await openProFor(tester, const Key('pro-gravity-switch'));
+      // The summary shows only while the box is closed.
       expect(
         tester.widget<Text>(find.byKey(const Key('pro-summary-gravity'))).data,
         'kapalı',
       );
+      await openProFor(tester, const Key('pro-gravity-switch'));
       final sw = find.byKey(const Key('pro-gravity-switch'));
       await tester.ensureVisible(sw);
       await tester.tap(sw);
