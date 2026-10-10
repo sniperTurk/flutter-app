@@ -546,9 +546,13 @@ class _HomeScreenState extends State<HomeScreen> {
           onCreateProfile: _createProfile,
         );
       }
+      // Separate storage keys: Pro's scroll position must not carry over to
+      // Hedef (both previews share this slot).
+      final shot = tab == _tabShot;
       return MenzilPage(
+        key: PageStorageKey(shot ? 'empty-shot' : 'empty-pro'),
         children: [
-          if (tab == _tabShot)
+          if (shot)
             ShotPreview(onCreate: _createProfile)
           else
             ProPreview(onCreate: _createProfile),
