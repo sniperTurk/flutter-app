@@ -19,6 +19,7 @@ import 'bullet_library_screen.dart';
 import 'drag_curve_field.dart';
 import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
+import 'rifle_picker_screen.dart';
 
 /// Profile list and management.
 ///
@@ -1460,6 +1461,25 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   /// Fills the ammunition from the bullet library (owner, 2026-10-10).
+  /// "Listeden seç" for the rifle: brand, model and Kalibre from the
+  /// manufacturer-sourced catalog (owner, 2026-10-10).
+  Future<void> _pickRifle() async {
+    final r = await Navigator.push<Rifle>(
+      context,
+      MaterialPageRoute(builder: (_) => RiflePickerScreen(platform: platform)),
+    );
+    if (r == null || !mounted) return;
+    setState(() {
+      rifleBrand.text = r.brand;
+      rifleModel.text = r.model;
+      final cal = RiflePickerScreen.profileCaliber(r);
+      _caliberOther = _caliberItem(cal) == null;
+      rifleCaliber.text = _trimDot(cal);
+      if (r.twistDirection != null) twistDirection = r.twistDirection;
+      if (r.twistRateIn != null) rifleTwist.text = _trimDot(r.twistRateIn!);
+    });
+  }
+
   Future<void> _pickFromLibrary() async {
     final cal = _parse(rifleCaliber);
     final b = await Navigator.push<LibraryBullet>(
@@ -1633,7 +1653,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ),
           const MenzilSectionHeader(
             'Tüfek',
-            subtitle: 'Tüfeğinizin bilgilerini kendiniz girin',
+            subtitle: 'Listeden seçin ya da bilgileri kendiniz girin',
             padding: EdgeInsets.only(
               top: MenzilSpace.xxs,
               bottom: MenzilSpace.sm,
@@ -1649,6 +1669,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
+                MenzilFullWidth(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: MenzilSpace.md),
+                    child: MenzilSecondaryButton(
+                      key: const Key('rifle-library'),
+                      label: 'Listeden seç',
+                      icon: Icons.list_alt,
+                      expand: true,
+                      onPressed: _pickRifle,
+                    ),
+                  ),
+                ),
                 // Order set by the owner (2026-10-09), as on the summary.
                 MenzilInput(
                   key: const Key('rifle-brand'),
