@@ -1,3 +1,5 @@
+import '../core/drag_table.dart';
+
 enum WeaponPlatform { pcp, firearm }
 
 enum AmmunitionType { pellet, slug, bullet }
@@ -148,6 +150,11 @@ class Ammunition {
   /// Optional velocity-dependent BC steps (same drag law); empty = the
   /// single [ballisticCoefficient] applies at every speed.
   final List<BcBand> bcBands;
+
+  /// Özel sürüklenme eğrisi: the bullet's own Cd-vs-Mach curve. When set,
+  /// [ballisticCoefficient] holds the sectional density (lb/in²) and
+  /// [ballisticModel] is G1 only for storage; the solver uses this curve.
+  final List<DragSample>? dragCurve;
   final String? sourceName, sourceDocument;
 
   /// See [Rifle.userEntered].
@@ -163,10 +170,17 @@ class Ammunition {
     this.ballisticCoefficient,
     this.ballisticModel,
     this.bcBands = const [],
+    this.dragCurve,
     this.sourceName,
     this.sourceDocument,
     this.userEntered = false,
   });
+
+  /// [dragCurve] as a solver table; null = the standard table of the model.
+  DragTable? get dragTable {
+    final c = dragCurve;
+    return c == null ? null : DragTable(c);
+  }
   String get displayName =>
       '${_joinName(brand, model)} • '
       '${grain.toStringAsFixed(grain % 1 == 0 ? 0 : 1)} gr';

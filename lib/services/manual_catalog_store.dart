@@ -1,6 +1,8 @@
 // dart format off
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../core/drag_curve.dart';
 import 'serial_mutation_lock.dart';
 
 /// User-owned catalog entries; never merged into manufacturer-verified records.
@@ -156,6 +158,11 @@ class ManualCatalogStore {
           throw const FormatException('Invalid bcBands');
         }
       }
+    }
+    // Özel sürüklenme eğrisi: [[mach, cd], ...], Mach rising.
+    final curve = entry['dragCurve'];
+    if (curve != null && DragCurve.fromJson(curve) == null) {
+      throw const FormatException('Invalid dragCurve');
     }
     for (final field in ['caliberMm', 'grain', 'diameterMm', 'lengthMm', 'bc', 'objectiveMm', 'click', 'twistRateIn', 'regulatorBar', 'minMag', 'maxMag', 'elevationRangeMrad', 'windageRangeMrad']) {
       final value = entry[field];

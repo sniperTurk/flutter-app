@@ -25,6 +25,8 @@ dependencies:
   pdf: ^3.11.0
   printing: ^5.13.0
   latlong2: ^0.9.1
+  # Özel sürüklenme eğrisi: .drg/.csv dosyası seçmek (iOS belge seçici).
+  file_selector: ^1.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

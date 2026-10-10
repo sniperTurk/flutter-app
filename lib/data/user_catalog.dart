@@ -1,3 +1,4 @@
+import '../core/drag_curve.dart';
 import '../models/domain.dart';
 import 'catalog_repository.dart';
 
@@ -158,6 +159,7 @@ class UserCatalog {
               ballisticCoefficient: bc,
               ballisticModel: bc == null ? null : bcModel,
               bcBands: bc == null ? const [] : _bcBands(e['bcBands']),
+              dragCurve: bc == null ? null : DragCurve.fromJson(e['dragCurve']),
               sourceName: userCatalogSourceName,
               sourceDocument: custom
                   ? 'Özel yapım mühimmat; doğrulanmamış kişisel kayıt'
