@@ -37,3 +37,14 @@ Sayfaları paralel değil, tek tek ve aralıklı çekin.
 - MTC: mtcoptics.com/riflescopes/, /viper-pro/
 - UTG/Leapers: leapers.com/products/scopes/utg/accushot.html, /products-utg-scp3-u416aoiew.html
 - Nikko Stirling: nikkostirling.com/products/rifle-scopes/diamond-ffp-34mm/nsffp3453056mrad
+
+## 2026-10-10 evening — collected through the owner's Chrome (manufacturer sites only)
+| File | Records | Source |
+|---|---|---|
+| vector_optics.json | 142 | vectoroptics.com product spec tables (3 product pages returned a server error) |
+| athlon.json | 120 | athlonoptics.com product pages (no adjustment travel published) |
+| vortex.json | 66 | vortexoptics.com embedded spec data, one record per reticle variant |
+| barska.json | 49 | shop.barska.com "Detailed Specifications" |
+| kahles.json | 16 | kahles.at technical data (travel m/100 m → mrad) |
+| gazi_sniper.json | 11 | gazisniper.com.tr product pages (Gazi Sniper, MewLite); 13 pages publish specs only as images |
+Unit rule: travel fields are named *_mrad or *_moa after the turret unit.
