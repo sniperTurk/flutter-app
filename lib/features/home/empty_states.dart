@@ -129,23 +129,23 @@ class WelcomePanel extends StatelessWidget {
             children: [
               step(
                 '1',
-                'Tüfeğini tanıt',
+                'TÜFEĞİNİ TANIT',
                 'Tüfek, mermi ve dürbün bilgilerini bir kez gir.',
               ),
               step(
                 '2',
-                'Havayı al',
+                'HAVAYI AL',
                 'Konumundan sıcaklık, basınç ve rüzgâr otomatik gelir.',
               ),
               step(
                 '3',
-                'Pro ayarlarını yap',
+                'PRO AYARLARINI YAP',
                 'Açı, rüzgâr bölgeleri, Coriolis ve spin drift: '
                     'profesyonellerin hesabı artık cebinde.',
               ),
               step(
                 '4',
-                'Dürbünün kurulu gelsin',
+                'DÜRBÜNÜN KURULU GELSİN',
                 'Mesafeyi yaz; kaç klik çevireceğini gösterir.',
               ),
             ],
