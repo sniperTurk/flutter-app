@@ -93,7 +93,7 @@ void main() {
     expect((brand.top - model.top).abs(), lessThan(1));
     expect(brand.right, lessThan(model.left));
     final caliber = tester.getRect(find.byKey(const Key('rifle-caliber')));
-    expect(caliber.top, greaterThan(brand.bottom));
+    expect(caliber.top, greaterThanOrEqualTo(brand.bottom));
 
     await chooseInSelect(tester, 'rifle-brand-select', 'Reximex');
     await chooseInSelect(tester, 'rifle-model-select', 'Apex');

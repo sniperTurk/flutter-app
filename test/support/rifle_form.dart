@@ -65,7 +65,16 @@ Future<void> chooseInSelect(
   await tester.ensureVisible(select);
   await tester.tap(select);
   await tester.pumpAndSettle();
-  await tester.tap(find.text(label).last);
+  // Long lists ("Listede yok" is the last item): scroll the open menu.
+  final item = find.text(label);
+  if (item.evaluate().isEmpty) {
+    await tester.dragUntilVisible(
+      item,
+      find.byType(Scrollable).last,
+      const Offset(0, -300),
+    );
+  }
+  await tester.tap(item.last);
   await tester.pumpAndSettle();
 }
 
