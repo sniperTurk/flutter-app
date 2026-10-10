@@ -11,6 +11,9 @@ abstract final class SampleProfiles {
   static const pcpId = 'sample-pcp';
   static const firearmId = 'sample-308';
 
+  /// Pro "Atış mesafesi" the PCP sample opens Hedef with (dialled).
+  static const pcpRangeM = 75.0;
+
   static bool isSample(RifleProfile? p) =>
       p != null && (p.id == pcpId || p.id == firearmId);
 

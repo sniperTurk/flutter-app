@@ -646,6 +646,9 @@ class _HomeScreenState extends State<HomeScreen> {
       )),
       profile: profile,
       view: ballisticsView,
+      initialProRangeM: profile.id == SampleProfiles.pcpId
+          ? SampleProfiles.pcpRangeM
+          : null,
       autoWeather: widget.autoWeather,
       onContinueToPro: () => _selectTab(_tabPro),
       onContinueToShot: () => _selectTab(_tabShot),
