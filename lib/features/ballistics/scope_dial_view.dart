@@ -1443,15 +1443,18 @@ class ScopeReticlePainter extends CustomPainter {
     // When the marks crowd together (FFP at low power) every n-th is kept.
     final gap = markStep * scale;
     final stride = gap <= 0 ? 1 : math.max(1, (16 / gap).ceil());
+    final holdFont = math.max(10.0, size.shortestSide * 0.042);
+    final holdYs = <double>[];
     for (final (mark, label) in holdLabels) {
       if ((mark / markStep).round() % stride != 0) continue;
       final y = center.dy + mark * scale;
+      holdYs.add(y);
       _text(
         canvas,
         label,
         Offset(center.dx + dotR + 6, y),
         colors.danger,
-        math.max(10.0, size.shortestSide * 0.042),
+        holdFont,
         alignLeft: true,
         weight: FontWeight.w700,
         halo: halo,
@@ -1463,16 +1466,29 @@ class ScopeReticlePainter extends CustomPainter {
     // hold numbers); when marks crowd together every n-th is kept.
     final windGap = windLabels.isEmpty ? 0.0 : windLabels.first.$1 * scale;
     final windStride = windGap <= 0 ? 1 : math.max(1, (38 / windGap).ceil());
+    final windFont = math.max(9.0, size.shortestSide * 0.036);
+    final windY = center.dy - dotR - 11;
+    // A hold number right of the vertical line sharing the wind labels' row
+    // would be overprinted (owner, 2026-10-10: "532" ran into "5.0").
+    final holdInRow = holdYs.any(
+      (y) => (y - windY).abs() < (holdFont + windFont) / 2 + 1,
+    );
+    final holdRight = dotR + 6 + holdFont * 2.0;
     for (final (i, (mark, label)) in windLabels.indexed) {
       if ((i + 1) % windStride != 0) continue;
       if (mark * scale > postStart) continue;
       for (final side in const [-1.0, 1.0]) {
+        if (side > 0 &&
+            holdInRow &&
+            mark * scale - windFont * label.length * 0.3 < holdRight) {
+          continue;
+        }
         _text(
           canvas,
           label,
-          Offset(center.dx + side * mark * scale, center.dy - dotR - 11),
+          Offset(center.dx + side * mark * scale, windY),
           colors.amberInk,
-          math.max(9.0, size.shortestSide * 0.036),
+          windFont,
           weight: FontWeight.w700,
           halo: halo,
         );
