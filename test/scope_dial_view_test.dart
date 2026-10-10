@@ -6,6 +6,7 @@ import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 // Gazi Sniper 6–36×56 FFP: 0.1 mrad clicks, 26 mrad elevation travel.
 const _profile = RifleProfile(
@@ -97,6 +98,33 @@ void main() {
     await tester.tap(find.byKey(ScopeDialKeys.reset));
     await tester.pumpAndSettle();
     expect(_impact(tester), contains('aşağı'));
+  });
+
+  testWidgets('the button of the current turret state turns orange', (
+    tester,
+  ) async {
+    await _pumpSolved(tester);
+    String label(Key k) =>
+        tester.widget<MenzilSecondaryButton>(find.byKey(k)).label;
+    bool active(Key k) =>
+        tester.widget<MenzilSecondaryButton>(find.byKey(k)).active;
+    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kuleye kur');
+    expect(label(ScopeDialKeys.reset), 'Kuleler sıfırda');
+    expect(active(ScopeDialKeys.reset), isTrue);
+
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.dialSolution));
+    await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
+    await tester.pumpAndSettle();
+    expect(label(ScopeDialKeys.dialSolution), 'Çözüm kuleye kurulu');
+    expect(active(ScopeDialKeys.dialSolution), isTrue);
+    expect(label(ScopeDialKeys.reset), 'Kuleleri sıfırla');
+    expect(active(ScopeDialKeys.reset), isFalse);
+
+    await tester.tap(find.byKey(ScopeDialKeys.reset));
+    await tester.pumpAndSettle();
+    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kuleye kur');
+    expect(active(ScopeDialKeys.dialSolution), isFalse);
+    expect(label(ScopeDialKeys.reset), 'Kuleler sıfırda');
   });
 
   testWidgets('windage clicks move the impact sideways', (tester) async {

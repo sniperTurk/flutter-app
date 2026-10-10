@@ -429,51 +429,72 @@ class ScopeDialView extends StatelessWidget {
             // Owner, 2026-10-08: the turret buttons sit right under the
             // magnification; the explanations follow below them.
             const SizedBox(height: MenzilSpace.sm),
-            Row(
-              children: [
-                Expanded(
-                  child: MenzilSecondaryButton(
-                    key: ScopeDialKeys.dialSolution,
-                    label: 'Çözümü kuleye kur',
-                    icon: Icons.tune,
-                    expand: true,
-                    onPressed: req == null
-                        ? null
-                        : () {
-                            final clicks = ScopeDialMath.clicksFor(
-                              req,
-                              clickValue,
-                            );
-                            onElevationChanged(
-                              clicks
-                                  .clamp(-_downClicks, maxElevationClicks)
-                                  .toInt(),
-                            );
-                            onWindageChanged(
-                              ScopeDialMath.clicksFor(requiredRight, clickValue)
-                                  .clamp(-maxWindageClicks, maxWindageClicks)
-                                  .toInt(),
-                            );
-                            onSolutionDialed?.call();
-                          },
-                  ),
-                ),
-                const SizedBox(width: MenzilSpace.sm),
-                Expanded(
-                  child: MenzilSecondaryButton(
-                    key: ScopeDialKeys.reset,
-                    label: 'Kuleleri sıfırla',
-                    icon: Icons.restart_alt,
-                    expand: true,
-                    onPressed: elevationClicks == 0 && windageClicks == 0
-                        ? null
-                        : () {
-                            onElevationChanged(0);
-                            onWindageChanged(0);
-                          },
-                  ),
-                ),
-              ],
+            Builder(
+              builder: (context) {
+                // Owner, 2026-10-10: the button of the turrets' current state
+                // turns orange — the solution dialled, or both at zero.
+                final rawElev = req == null
+                    ? null
+                    : ScopeDialMath.clicksFor(req, clickValue);
+                final rawWind = ScopeDialMath.clicksFor(
+                  requiredRight,
+                  clickValue,
+                );
+                final solElev = rawElev
+                    ?.clamp(-_downClicks, maxElevationClicks)
+                    .toInt();
+                final solWind = rawWind
+                    .clamp(-maxWindageClicks, maxWindageClicks)
+                    .toInt();
+                // "Kurulu" only when the turrets really hold the solution:
+                // a solution beyond the turret travel is never reported as
+                // dialled (the button keeps dialling to the travel limit).
+                final dialled =
+                    solElev != null &&
+                    solElev == rawElev &&
+                    solWind == rawWind &&
+                    elevationClicks == solElev &&
+                    windageClicks == solWind;
+                final atZero = elevationClicks == 0 && windageClicks == 0;
+                return Row(
+                  children: [
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: ScopeDialKeys.dialSolution,
+                        label: dialled
+                            ? 'Çözüm kuleye kurulu'
+                            : 'Çözümü kuleye kur',
+                        icon: dialled ? Icons.check_circle : Icons.tune,
+                        expand: true,
+                        active: dialled,
+                        onPressed: req == null || dialled
+                            ? null
+                            : () {
+                                onElevationChanged(solElev!);
+                                onWindageChanged(solWind);
+                                onSolutionDialed?.call();
+                              },
+                      ),
+                    ),
+                    const SizedBox(width: MenzilSpace.sm),
+                    Expanded(
+                      child: MenzilSecondaryButton(
+                        key: ScopeDialKeys.reset,
+                        label: atZero ? 'Kuleler sıfırda' : 'Kuleleri sıfırla',
+                        icon: atZero ? Icons.check_circle : Icons.restart_alt,
+                        expand: true,
+                        active: atZero,
+                        onPressed: atZero
+                            ? null
+                            : () {
+                                onElevationChanged(0);
+                                onWindageChanged(0);
+                              },
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             if (outside && impact != null)
               Padding(
@@ -1430,15 +1451,18 @@ class ScopeReticlePainter extends CustomPainter {
     // When the marks crowd together (FFP at low power) every n-th is kept.
     final gap = markStep * scale;
     final stride = gap <= 0 ? 1 : math.max(1, (16 / gap).ceil());
+    final holdFont = math.max(10.0, size.shortestSide * 0.042);
+    final holdYs = <double>[];
     for (final (mark, label) in holdLabels) {
       if ((mark / markStep).round() % stride != 0) continue;
       final y = center.dy + mark * scale;
+      holdYs.add(y);
       _text(
         canvas,
         label,
         Offset(center.dx + dotR + 6, y),
         colors.danger,
-        math.max(10.0, size.shortestSide * 0.042),
+        holdFont,
         alignLeft: true,
         weight: FontWeight.w700,
         halo: halo,
@@ -1450,16 +1474,29 @@ class ScopeReticlePainter extends CustomPainter {
     // hold numbers); when marks crowd together every n-th is kept.
     final windGap = windLabels.isEmpty ? 0.0 : windLabels.first.$1 * scale;
     final windStride = windGap <= 0 ? 1 : math.max(1, (38 / windGap).ceil());
+    final windFont = math.max(9.0, size.shortestSide * 0.036);
+    final windY = center.dy - dotR - 11;
+    // A hold number right of the vertical line sharing the wind labels' row
+    // would be overprinted (owner, 2026-10-10: "532" ran into "5.0").
+    final holdInRow = holdYs.any(
+      (y) => (y - windY).abs() < (holdFont + windFont) / 2 + 1,
+    );
+    final holdRight = dotR + 6 + holdFont * 2.0;
     for (final (i, (mark, label)) in windLabels.indexed) {
       if ((i + 1) % windStride != 0) continue;
       if (mark * scale > postStart) continue;
       for (final side in const [-1.0, 1.0]) {
+        if (side > 0 &&
+            holdInRow &&
+            mark * scale - windFont * label.length * 0.3 < holdRight) {
+          continue;
+        }
         _text(
           canvas,
           label,
-          Offset(center.dx + side * mark * scale, center.dy - dotR - 11),
+          Offset(center.dx + side * mark * scale, windY),
           colors.amberInk,
-          math.max(9.0, size.shortestSide * 0.036),
+          windFont,
           weight: FontWeight.w700,
           halo: halo,
         );

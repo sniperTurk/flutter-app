@@ -1001,6 +1001,9 @@ class MenzilSelect<T> extends StatelessWidget {
   /// open list keeps the full item text. Null shows the item itself.
   final List<String>? selectedLabels;
 
+  /// Shown while nothing is selected (e.g. "Seçiniz").
+  final String? hint;
+
   const MenzilSelect({
     super.key,
     required this.label,
@@ -1011,6 +1014,7 @@ class MenzilSelect<T> extends StatelessWidget {
     this.semanticLabel,
     this.info,
     this.selectedLabels,
+    this.hint,
   });
 
   @override
@@ -1033,6 +1037,9 @@ class MenzilSelect<T> extends StatelessWidget {
             label: semanticLabel ?? label,
             child: DropdownButtonFormField<T>(
               initialValue: initialValue,
+              hint: hint == null
+                  ? null
+                  : Text(hint!, style: TextStyle(color: c.ink2)),
               items: items,
               onChanged: onChanged,
               // The closed box always shows ONE line (owner, 2026-10-09:
@@ -1166,6 +1173,10 @@ class MenzilSecondaryButton extends StatelessWidget {
   final bool expand;
   final bool destructive;
 
+  /// Filled orange with white text: the control's state is the current one
+  /// (e.g. "Çözüm kuleye kurulu"). Stays orange when disabled.
+  final bool active;
+
   const MenzilSecondaryButton({
     super.key,
     required this.label,
@@ -1173,12 +1184,21 @@ class MenzilSecondaryButton extends StatelessWidget {
     this.icon,
     this.expand = false,
     this.destructive = false,
+    this.active = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
-    final style = destructive
+    final style = active
+        ? OutlinedButton.styleFrom(
+            backgroundColor: MenzilColors.stateOrange,
+            foregroundColor: Colors.white,
+            disabledBackgroundColor: MenzilColors.stateOrange,
+            disabledForegroundColor: Colors.white,
+            side: const BorderSide(color: MenzilColors.stateOrange),
+          )
+        : destructive
         ? OutlinedButton.styleFrom(
             foregroundColor: c.danger,
             side: BorderSide(color: c.danger.withValues(alpha: 0.6)),

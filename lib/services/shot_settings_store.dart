@@ -17,8 +17,14 @@ class ShotSettings {
   /// (as typed) and its direction.
   final String turretScaleText;
   final String windMaxText;
+
+  /// The shooter cleared En yüksek rüzgâr: no wind bracket, no automatic
+  /// value until "Otomatik doldur" (owner, 2026-10-10).
+  final bool windMaxOff;
   final String targetSpeedText;
-  final bool targetMovesRight;
+
+  /// Moving-target direction; null = not chosen yet ("Seçiniz").
+  final bool? targetMovesRight;
 
   /// Spin drift on/off and the bullet length (mm, as typed); powder
   /// temperature sensitivity (% per 15 °C) and the temperature the profile
@@ -51,8 +57,9 @@ class ShotSettings {
     this.azimuthText = '',
     this.turretScaleText = '',
     this.windMaxText = '',
+    this.windMaxOff = false,
     this.targetSpeedText = '',
-    this.targetMovesRight = true,
+    this.targetMovesRight,
     this.spinDriftOn = false,
     this.bulletLengthText = '',
     this.powderCoefText = '',
@@ -73,6 +80,7 @@ class ShotSettings {
     'azimuth': azimuthText,
     'turretScale': turretScaleText,
     'windMax': windMaxText,
+    'windMaxOff': windMaxOff,
     'targetSpeed': targetSpeedText,
     'targetRight': targetMovesRight,
     'spinDrift': spinDriftOn,
@@ -106,7 +114,13 @@ class ShotSettings {
       turretScaleText: text(json['turretScale']),
       windMaxText: text(json['windMax']),
       targetSpeedText: text(json['targetSpeed']),
-      targetMovesRight: json['targetRight'] != false,
+      windMaxOff: json['windMaxOff'] == true,
+      // Older saves stored "left to right" even when nothing was chosen;
+      // without a target speed that default is dropped.
+      targetMovesRight:
+          json['targetRight'] is bool && text(json['targetSpeed']).isNotEmpty
+          ? json['targetRight'] as bool
+          : null,
       spinDriftOn: json['spinDrift'] == true,
       bulletLengthText: text(json['bulletLength']),
       powderCoefText: text(json['powderCoef']),

@@ -69,7 +69,12 @@ abstract final class DragSafety {
       velocityMps: muzzleVelocityMps,
       environment: environment,
     );
-    if (mach >= supersonicMach) {
+    // Mach limits are airgun rules: G1/G7 were made for supersonic rifle
+    // bullets, so a firearm at Mach 2+ is their home ground (audit,
+    // 2026-10-10: the warning wrongly told .308 shooters the result was
+    // unreliable).
+    final airgun = platform == WeaponPlatform.pcp;
+    if (airgun && mach >= supersonicMach) {
       warnings.add(
         DragWarning(
           DragWarningKind.supersonicMuzzle,
@@ -78,7 +83,7 @@ abstract final class DragSafety {
           'mermisi bu hızda kararsızlaşır; hesap güvenilir değil.',
         ),
       );
-    } else if (mach >= transonicMach) {
+    } else if (airgun && mach >= transonicMach) {
       warnings.add(
         DragWarning(
           DragWarningKind.transonicMuzzle,
