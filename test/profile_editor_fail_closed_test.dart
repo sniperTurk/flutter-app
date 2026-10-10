@@ -255,6 +255,40 @@ void _unitsAndFirearmTests() {
     expect(saved.angularUnit, AngularUnit.smoa);
   });
 
+  testWidgets('Ateşli tüfek: long caliber list and "Diğer (elle yaz)"', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(390 * 3, 1800 * 3);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: ProfilesScreen(store: MemoryProfileStore()),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Yeni profil'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('PCP Tüfek'));
+    await tester.tap(find.text('PCP Tüfek'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Ateşli Tüfek').last);
+    await tester.pumpAndSettle();
+    await chooseInSelect(tester, 'rifle-caliber', '.270 Win / .270 WSM (7.04 mm)');
+    expect(find.byKey(const Key('rifle-caliber-other')), findsNothing);
+    await chooseInSelect(tester, 'rifle-caliber', 'Diğer (elle yaz)');
+    final other = find.descendant(
+      of: find.byKey(const Key('rifle-caliber-other')),
+      matching: find.byType(TextField),
+    );
+    expect(other, findsOneWidget);
+    expect(tester.widget<TextField>(other).controller!.text, '');
+    await tester.enterText(other, '7.45');
+    await tester.pump();
+    expect(find.text('Diğer (elle yaz)'), findsWidgets);
+  });
+
   testWidgets('Ateşli tüfek: firearm caliber and ammunition texts', (
     tester,
   ) async {
@@ -300,7 +334,11 @@ void _unitsAndFirearmTests() {
     // 9.00 mm is not a firearm caliber here: the choice is cleared, and the
     // firearm list is offered.
     expect(find.text('9.00 mm'), findsNothing);
-    await chooseInSelect(tester, 'rifle-caliber', '7.62 mm (.308)');
+    await chooseInSelect(
+      tester,
+      'rifle-caliber',
+      '.308 Win / .30-06 / .300 Win Mag / .300 PRC (7.82 mm)',
+    );
     expect(tester.widget<TextField>(grain).decoration!.hintText, '168 gr');
     // No pellet example in the ammunition name of a firearm.
     expect(
