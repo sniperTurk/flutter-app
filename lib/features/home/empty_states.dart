@@ -498,9 +498,11 @@ class _ShotPreviewState extends State<ShotPreview> {
             toDisplayRange: (m) => m,
             distanceUnit: 'm',
             metric: true,
+            // Owner, 2026-10-10: the card sits between the scope and the
+            // explanations.
+            belowButtons: _SloganCard(onCreate: widget.onCreate),
           ),
         ),
-        _SloganCard(onCreate: widget.onCreate),
       ],
     );
   }

@@ -126,6 +126,10 @@ class ScopeDialView extends StatelessWidget {
   /// the target stays upright, as seen through a canted scope.
   final double cantDeg;
 
+  /// Shown right under the turret buttons, before the notes (the empty
+  /// Hedef page puts its "Profil oluştur" card here).
+  final Widget? belowButtons;
+
   const ScopeDialView({
     super.key,
     required this.unit,
@@ -162,6 +166,7 @@ class ScopeDialView extends StatelessWidget {
     this.targetDiameterM = 0.10,
     this.inclineDeg = 0,
     this.cantDeg = 0,
+    this.belowButtons,
   });
 
   /// Target radius as a true angle in [unit] (null when the range is unknown).
@@ -496,6 +501,10 @@ class ScopeDialView extends StatelessWidget {
                 );
               },
             ),
+            if (belowButtons != null) ...[
+              const SizedBox(height: MenzilSpace.sm),
+              belowButtons!,
+            ],
             if (outside && impact != null)
               Padding(
                 padding: const EdgeInsets.only(top: MenzilSpace.xs),
