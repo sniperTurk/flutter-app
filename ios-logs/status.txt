@@ -1,0 +1,12 @@
+pub get: 0
+scaffold: 0
+build: 0
+select udid: 'DC4CD8B3-4457-4153-9087-A0D7A2F9BFD9' rc=0
+boot: 0
+bootstatus: 0
+install: 0
+launch: 0
+integration: TIMEOUT after 600s
+preflight: 0
+privacy live: 0
+metno contact: 0

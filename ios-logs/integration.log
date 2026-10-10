@@ -1,0 +1,30 @@
+Resolving dependencies...
+Downloading packages...
+  archive 4.3.0 (4.4.0 available)
+  camera_avfoundation 0.10.3+1 (0.11.0 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  dbus 0.7.15 (0.8.0 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  gsettings 0.2.8 (0.2.9 available)
+  image 4.10.1 (4.10.2 available)
+  image_picker 1.2.3 (1.2.4 available)
+  image_picker_ios 0.8.13+9 (0.8.13+10 available)
+  image_picker_platform_interface 2.11.1 (2.11.2 available)
+  latlong2 0.9.1 (0.10.1 available)
+  lints 4.0.0 (6.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  qr 3.0.2 (4.0.0 available)
+  shared_preferences 2.5.5 (2.5.6 available)
+  test_api 0.7.12 (0.7.15 available)
+Got dependencies!
+17 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/app_launch_test.dart
+The following plugins do not support Swift Package Manager for ios:
+  - flutter_compass
+  - google_maps_flutter_ios
+This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
+Running Xcode build...                                          
+Xcode build done.                                           72.3s
+No tests ran.
