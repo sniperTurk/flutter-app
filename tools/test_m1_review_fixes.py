@@ -80,10 +80,6 @@ class ProfileIntegrityTests(unittest.TestCase):
         support = read('lib/features/tools/tool_support.dart')
         self.assertIn('ProfileInput.validate(', support)
 
-    def test_chronograph_limit_matches_profile_limit(self):
-        stats = read('lib/tools/domain/chronograph_stats.dart')
-        self.assertIn('static const maxPlausibleMps = ProductionLimits.maxMuzzleVelocityMps;', stats)
-
     def test_shell_reloads_profiles_after_tools(self):
         hub = read('lib/features/tools/tools_screen.dart')
         self.assertIn('await onProfilesChanged?.call();', hub)

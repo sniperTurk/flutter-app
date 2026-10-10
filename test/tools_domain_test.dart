@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/features/tools/tool_support.dart';
 import 'package:sniper_turk/models/domain.dart';
-import 'package:sniper_turk/tools/domain/chronograph_stats.dart';
 import 'package:sniper_turk/tools/domain/compass_math.dart';
 import 'package:sniper_turk/tools/domain/sight_height_geometry.dart';
 import 'package:sniper_turk/tools/domain/sight_height_physical.dart';
@@ -99,24 +98,6 @@ void main() {
     });
   });
 
-  group('ChronographStats', () {
-    test('mean, sample SD and ES', () {
-      final s = ChronographStats.compute([270, 272, 268])!;
-      expect(s.count, 3);
-      expect(s.meanMps, closeTo(270, 1e-9));
-      expect(s.sdMps, closeTo(2, 1e-9));
-      expect(s.esMps, closeTo(4, 1e-9));
-    });
-    test('single shot has no SD; empty is null', () {
-      expect(ChronographStats.compute([270])!.sdMps, isNull);
-      expect(ChronographStats.compute([]), isNull);
-    });
-    test('invalid readings throw', () {
-      expect(() => ChronographStats.compute([0]), throwsArgumentError);
-      expect(() => ChronographStats.compute([double.nan]), throwsArgumentError);
-    });
-  });
-
   group('SightHeightGeometry', () {
     test('scales from the objective outer diameter', () {
       // Objective 60 mm spans 120 px (0.5 mm/px); bore 130 px below axis.
@@ -195,10 +176,6 @@ void main() {
         () => ToolProfileUpdate.apply(base, sightHeightMm: 300),
         throwsFormatException,
       );
-    });
-
-    test('chronograph accepts nothing above the profile velocity limit', () {
-      expect(() => ChronographStats.compute([1600]), throwsArgumentError);
     });
   });
 

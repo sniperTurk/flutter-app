@@ -1464,14 +1464,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ),
             )
             .single;
-        // windMrad > 0: dial RIGHT (the shot went left).
+        // windMrad > 0: dial RIGHT (the shot went left). Same windage as
+        // the turret: spin drift and the right zero offset are taken off
+        // (audit 2026-10-11).
         String side(double m) => m.abs() < 1e-9 ? '' : (m > 0 ? ' R' : ' L');
+        final off = (_spinDriftMrad(shot, basis) ?? 0) + _zeroOffsetMrad.right;
+        final lo = shot.windMrad - off, up = hi.windMrad - off;
         lines.add(
           Text(
             'Rüzgâr ${_windLabel(wind)}–${_windLabel(windMax)} '
             '${metric ? 'm/s' : 'mph'}: yan düzeltme '
-            '${clicks(shot.windMrad)}${side(shot.windMrad)} – '
-            '${clicks(hi.windMrad)}${side(hi.windMrad)}.',
+            '${clicks(lo)}${side(lo)} – '
+            '${clicks(up)}${side(up)}.',
             key: const Key('shot-wind-bracket'),
             style: MenzilType.body(c.ink),
           ),
@@ -1849,7 +1853,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Elevation correction from 1 m out to the farthest reachable range of
   /// the current basis (drag or vacuum), sampled once per solve.
-  List<CorrectionSample> _holdSamplesFor(_ShotBasis basis, AngularUnit unit) {
+  /// Hold-label samples on the turret's scale (audit 2026-10-11): the
+  /// reticle labels must agree with the turret solution, which subtracts the
+  /// zero offset and aerodynamic jump ([offsetMrad]) and divides by the
+  /// turret scale. A mark m holds where the true correction equals
+  /// scale × dialled + m, i.e. where the sample below equals dialled + m.
+  List<CorrectionSample> _holdSamplesFor(
+    _ShotBasis basis,
+    AngularUnit unit, {
+    double offsetMrad = 0,
+    double scale = 1,
+    double dialedUp = 0,
+  }) {
     if (!identical(basis, _holdSamplesBasis) || _holdSamples == null) {
       List<TrajectoryPoint> points;
       try {
@@ -1870,7 +1885,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _holdSamples = points;
       _holdSamplesBasis = basis;
     }
-    return [for (final p in _holdSamples!) ScopeDialMath.sampleOf(p, unit)];
+    final shift = unit.fromMrad(offsetMrad) + (scale - 1) * dialedUp;
+    return [
+      for (final p in _holdSamples!)
+        if (shift == 0)
+          ScopeDialMath.sampleOf(p, unit)
+        else
+          CorrectionSample(
+            p.rangeM,
+            ScopeDialMath.sampleOf(p, unit).correction - shift,
+          ),
+    ];
   }
 
   /// Interactive scope: turrets change the dialled clicks and the reticle
@@ -2027,7 +2052,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       rangeM: _shotRangeM,
       inclineDeg: _inclineDeg,
       cantDeg: _cantDeg,
-      samples: basis == null ? const [] : _holdSamplesFor(basis, unit),
+      samples: basis == null
+          ? const []
+          : _holdSamplesFor(
+              basis,
+              unit,
+              offsetMrad: zeroOff.up + (jump ?? 0),
+              scale: scale,
+              dialedUp: ScopeDialMath.clicksToAngle(_elevationClicks, click),
+            ),
       toDisplayRange: _toDisplayRange,
       distanceUnit: _distanceUnit,
       metric: metric,

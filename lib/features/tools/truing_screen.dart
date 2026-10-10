@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
 import '../../core/ballistic_input.dart';
+import '../../core/gravity.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/unit_system.dart';
 import '../../core/velocity_truing.dart';
@@ -157,6 +159,32 @@ class _TruingScreenState extends State<TruingScreen> {
   void _snack(String m) =>
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(m)));
 
+  static double? _num(String? text) {
+    final v = double.tryParse((text ?? '').trim().replaceAll(',', '.'));
+    return v != null && v.isFinite ? v : null;
+  }
+
+  /// Pro "Kule ölçek katsayısı", same rule as Atış; 1 when empty.
+  static double _turretScale(ShotSettings? shot) {
+    final v = _num(shot?.turretScaleText);
+    return v != null && v >= 0.8 && v <= 1.2 ? v : 1.0;
+  }
+
+  /// Pro "Sıfır ofseti" upward part in mrad, same rule as Atış.
+  static double _zeroUpMrad(ShotSettings? shot, double zeroM, bool metric) {
+    final v = _num(shot?.zeroUpText);
+    if (zeroM <= 0 || v == null || v.abs() > 100) return 0;
+    final m = metric ? v / 100 : UnitSystem.inchesToMillimeters(v) / 1000;
+    return math.atan(m / zeroM) * 1000;
+  }
+
+  /// Pro "Yerçekimi", same rule as Atış; standard when off.
+  static double _gravity(ShotSettings? shot) {
+    if (shot == null || !shot.gravityOn) return Gravity.standard;
+    final v = _num(shot.gravityText);
+    return v != null && v >= 9.7 && v <= 9.9 ? v : Gravity.standard;
+  }
+
   void _compute(bool metric) {
     final p = _profile, res = _resolution;
     if (p == null || res == null) return;
@@ -211,6 +239,7 @@ class _TruingScreenState extends State<TruingScreen> {
         ballisticModel: ammo.ballisticModel,
         bcBands: ammo.bcBands,
         dragTable: ammo.dragTable,
+        gravityMps2: _gravity(shot),
       );
     } on ArgumentError {
       _fail('Atmosfer değerleri geçerli aralığın dışında.');
@@ -218,7 +247,14 @@ class _TruingScreenState extends State<TruingScreen> {
     }
     try {
       final rangeM = p.distanceUnit.toMeters(rangeShown);
-      final observedMrad = p.angularUnit.toMrad(observedShown);
+      // The shooter enters what the turret showed. Atış dials
+      // (true − zero offset) / turret scale, so the true correction the
+      // solver must match is dialled × scale + zero offset (audit
+      // 2026-10-11). Truing is done in calm air, so there is no
+      // aerodynamic jump to add.
+      final observedMrad =
+          p.angularUnit.toMrad(observedShown) * _turretScale(shot) +
+          _zeroUpMrad(shot, p.zeroRangeM, metric);
       if (_trueBc) {
         final r = BallisticCoefficientTruing.solve(
           base: base,
@@ -309,7 +345,20 @@ class _TruingScreenState extends State<TruingScreen> {
       final entries = await store.all();
       final entry = entries.where((e) => e['id'] == ammo.id).firstOrNull;
       if (entry == null) throw StateError('record missing');
-      await store.upsert({...entry, 'bc': r.truedBc});
+      // Speed bands carry the drag whenever they exist, so they scale with
+      // the main BC (the same rule as BallisticInput.withBallisticCoefficient);
+      // otherwise the trued BC would change nothing (audit 2026-10-11).
+      final ratio = r.truedBc / r.baseBc;
+      final bands = entry['bcBands'];
+      await store.upsert({
+        ...entry,
+        'bc': r.truedBc,
+        if (bands is List)
+          'bcBands': [
+            for (final b in bands)
+              if (b is Map) {...b, 'bc': (b['bc'] as num) * ratio} else b,
+          ],
+      });
       CatalogRepository.installUserCatalog(
         UserCatalog.fromManualEntries(await store.all()),
       );
@@ -385,12 +434,12 @@ class _TruingScreenState extends State<TruingScreen> {
       appBar: const MenzilSubPageBar(title: 'Hız Doğrulama'),
       body: MenzilPage(
         children: [
-          const MenzilNotice(
+          MenzilNotice(
             message:
                 'Sıfır mesafesinden uzak, bilinen bir mesafede grup atın. '
                 'Grubu ortaya getiren gerçek düzeltmeyi girin; uygulama, '
-                'hesabın bu sonuca uyması için gereken namlu çıkış hızını '
-                'bulur. Balistik katsayı değiştirilmez.',
+                'hesabın bu sonuca uyması için gereken '
+                '${_trueBc ? 'balistik katsayıyı bulur. Namlu çıkış hızı değiştirilmez.' : 'namlu çıkış hızını bulur. Balistik katsayı değiştirilmez.'}',
           ),
           if (_loading)
             const Padding(

@@ -293,6 +293,84 @@ def audit_bc():
           f"max rel BC error {worst_bc:.4f} using py velocities as the 'measured' V2; " + "; ".join(detail[:4]))
 
 
+
+# ---------------------------------------------------------------- drag tables
+DART_TABLES = ROOT / "lib" / "core" / "standard_drag_tables.dart"
+
+
+def dart_table(name):
+    text = DART_TABLES.read_text(encoding="utf-8")
+    block = re.search(rf"static final {name} = DragTable\(const \[(.*?)\]\);", text, re.S)
+    if not block:
+        raise ValueError(f"{name} table missing in {DART_TABLES}")
+    return [(float(m), float(c)) for m, c in re.findall(r"DragSample\(([\d.]+),([\d.]+)\)", block.group(1))]
+
+
+def ref_cd(points, mach):
+    # Linear interpolation in the reference table (only used at its own grid
+    # points for the new tables, so the interpolation itself is not tested).
+    for (m0, c0), (m1, c1) in zip(points, points[1:]):
+        if m0 <= mach <= m1:
+            return c0 + (c1 - c0) * (mach - m0) / (m1 - m0)
+    return points[0][1] if mach < points[0][0] else points[-1][1]
+
+
+def audit_drag_tables():
+    import py_ballisticcalc.drag_tables as dt
+    # G1/G7 were validated end to end before the App Store build; the other
+    # BRL functions were added afterwards and must equal the reference values.
+    pairs = {"g1": "TableG1", "g7": "TableG7", "g2": "TableG2", "g5": "TableG5",
+             "g6": "TableG6", "g8": "TableG8", "gi": "TableGI", "gs": "TableGS",
+             "ra4": "TableRA4"}
+    for app_name, ref_name in pairs.items():
+        ref = [(float(r["Mach"]), float(r["CD"])) for r in getattr(dt, ref_name)]
+        app = dart_table(app_name)
+        worst = max(abs(c - ref_cd(ref, m)) for m, c in app)
+        tol = 0.002 if app_name in ("g1", "g7") else 5e-5
+        check(f"drag_table_{app_name}_vs_py_ballisticcalc_{ref_name}", worst <= tol,
+              f"{len(app)} app points vs {len(ref)} ref points, max |dCd| {worst:.5f} (tol {tol})")
+
+
+# ---------------------------------------------------------------- gravity
+def app_gravity(lat_deg, h=0.0):
+    # Re-stated from lib/core/gravity.dart (WGS-84 Somigliana + free air).
+    s2 = math.sin(math.radians(lat_deg)) ** 2
+    g0 = 9.7803253359 * (1 + 0.00193185265241 * s2) / math.sqrt(1 - 0.00669437999013 * s2)
+    return g0 - (3.087691e-6 - 4.3977e-9 * s2) * h + 7.2125e-13 * h * h
+
+
+def audit_gravity():
+    # Independent: the 1980 International Gravity Formula series form and the
+    # textbook free-air gradient 0.3086 mGal/m.
+    worst = 0.0
+    for lat in range(-90, 91, 5):
+        phi = math.radians(lat)
+        igf = 9.780327 * (1 + 0.0053024 * math.sin(phi) ** 2 - 0.0000058 * math.sin(2 * phi) ** 2)
+        worst = max(worst, abs(app_gravity(lat) - igf))
+    check("gravity_sea_level_vs_IGF1980", worst <= 2e-5, f"max |dg| {worst:.2e} m/s2")
+    worst_h = 0.0
+    for lat in (36, 39, 42):
+        for h in (500, 1000, 2000, 3000):
+            ref = app_gravity(lat) - 3.086e-6 * h
+            worst_h = max(worst_h, abs(app_gravity(lat, h) - ref))
+    check("gravity_free_air_vs_0.3086mGal_per_m", worst_h <= 3e-5, f"max |dg| {worst_h:.2e} m/s2")
+    tr = [app_gravity(lat) for lat in (36, 42)]
+    check("gravity_turkey_range", 9.797 < tr[0] < tr[1] < 9.804, f"36N {tr[0]:.5f}, 42N {tr[1]:.5f}")
+
+
+# ---------------------------------------------------------------- own drag curve
+def audit_own_curve():
+    # With the bullet's own Cd curve the app passes the sectional density
+    # (lb/in2) as BC. Its deceleration must equal the physical drag
+    # a = rho * v^2 * Cd * A / (2 m).
+    rho, v, cd = 1.225, 800.0, 0.29
+    m_kg, d_m = 175 * 6.479891e-5, 0.308 * 0.0254
+    sd_lb_in2 = (m_kg / 0.45359237) / (0.308 ** 2)
+    app = 0.5 * rho * cd * (math.pi / 4) * v * v / (sd_lb_in2 * 703.0695796391593)
+    phys = rho * v * v * cd * (math.pi * d_m * d_m / 4) / (2 * m_kg)
+    rel = abs(app - phys) / phys
+    check("own_drag_curve_deceleration_vs_physics", rel <= 1e-9, f"app {app:.6f} vs {phys:.6f} m/s2 (rel {rel:.1e})")
+
 # ---------------------------------------------------------------- statistics
 def audit_hit_probability():
     import numpy as np
@@ -325,7 +403,8 @@ def audit_chrono():
 
 
 def main() -> int:
-    for fn in (audit_air, audit_geo, audit_units, audit_bc, audit_hit_probability, audit_chrono):
+    for fn in (audit_air, audit_geo, audit_units, audit_bc, audit_drag_tables, audit_gravity, audit_own_curve,
+               audit_hit_probability, audit_chrono):
         try:
             fn()
         except Exception as exc:  # a crashed audit must be visible, never a silent pass
