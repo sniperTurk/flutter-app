@@ -94,10 +94,7 @@ class _DragCurveFieldState extends State<DragCurveField> {
         Row(
           children: [
             Expanded(
-              child: Text(
-                'Sürüklenme eğrisi',
-                style: MenzilType.body(c.ink),
-              ),
+              child: Text('Sürüklenme eğrisi', style: MenzilType.body(c.ink)),
             ),
             const MenzilInfoButton(
               title: 'Sürüklenme eğrisi',

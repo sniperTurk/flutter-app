@@ -122,7 +122,7 @@ abstract final class ReticleHolds {
               ballisticCoefficient: base.ballisticCoefficient,
               ballisticModel: base.ballisticModel,
               bcBands: base.bcBands,
-            dragTable: base.dragTable,
+              dragTable: base.dragTable,
               zeroMuzzleVelocityMps: base.zeroMuzzleVelocityMps,
               inclineDeg: base.inclineDeg,
               // Cant adds its own sideways drift; this helper measures only

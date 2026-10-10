@@ -2003,19 +2003,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   errorText: _shown(_grainError, ammoGrain),
                 ),
                 if (!_customCurve)
-                MenzilInput(
-                  key: const Key('ammo-bc'),
-                  info: platform == WeaponPlatform.firearm
-                      ? ProfileFieldInfo.bcFirearm
-                      : ProfileFieldInfo.bc,
-                  controller: ammoBc,
-                  label: 'BC (balistik katsayı)',
-                  hintText: platform == WeaponPlatform.firearm
-                      ? '0,45'
-                      : '0,035',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_bcError, ammoBc),
-                ),
+                  MenzilInput(
+                    key: const Key('ammo-bc'),
+                    info: platform == WeaponPlatform.firearm
+                        ? ProfileFieldInfo.bcFirearm
+                        : ProfileFieldInfo.bc,
+                    controller: ammoBc,
+                    label: 'BC (balistik katsayı)',
+                    hintText: platform == WeaponPlatform.firearm
+                        ? '0,45'
+                        : '0,035',
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_bcError, ammoBc),
+                  ),
                 MenzilSelect<String>(
                   key: const Key('ammo-bc-model'),
                   info:
@@ -2054,37 +2054,41 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     ),
                   ),
                 if (!_customCurve) ...[
-                MenzilFullWidth(
-                  child: Text(
-                    'Hıza göre BC (isteğe bağlı)',
-                    key: const Key('ammo-bands-title'),
-                    style: MenzilType.body(c.ink),
+                  MenzilFullWidth(
+                    child: Text(
+                      'Hıza göre BC (isteğe bağlı)',
+                      key: const Key('ammo-bands-title'),
+                      style: MenzilType.body(c.ink),
+                    ),
                   ),
-                ),
-                for (var i = 0; i < 2; i++) ...[
-                  MenzilInput(
-                    key: Key('ammo-band-fps-$i'),
-                    info: ProfileFieldInfo.bandSpeed,
-                    controller: ammoBandFps[i],
-                    label: '${i + 1}. eşik hızı (fps)',
-                    hintText: i == 0
-                        ? (platform == WeaponPlatform.firearm ? '2200' : '800')
-                        : (platform == WeaponPlatform.firearm ? '1800' : '700'),
-                    onChanged: (_) => setState(() {}),
-                    errorText: _shown(_bandFpsError(i), ammoBandFps[i]),
-                  ),
-                  MenzilInput(
-                    key: Key('ammo-band-bc-$i'),
-                    info: ProfileFieldInfo.bandBc,
-                    controller: ammoBandBc[i],
-                    label: 'Eşik altı BC',
-                    hintText: platform == WeaponPlatform.firearm
-                        ? '0,42'
-                        : '0,031',
-                    onChanged: (_) => setState(() {}),
-                    errorText: _shown(_bandBcError(i), ammoBandBc[i]),
-                  ),
-                ],
+                  for (var i = 0; i < 2; i++) ...[
+                    MenzilInput(
+                      key: Key('ammo-band-fps-$i'),
+                      info: ProfileFieldInfo.bandSpeed,
+                      controller: ammoBandFps[i],
+                      label: '${i + 1}. eşik hızı (fps)',
+                      hintText: i == 0
+                          ? (platform == WeaponPlatform.firearm
+                                ? '2200'
+                                : '800')
+                          : (platform == WeaponPlatform.firearm
+                                ? '1800'
+                                : '700'),
+                      onChanged: (_) => setState(() {}),
+                      errorText: _shown(_bandFpsError(i), ammoBandFps[i]),
+                    ),
+                    MenzilInput(
+                      key: Key('ammo-band-bc-$i'),
+                      info: ProfileFieldInfo.bandBc,
+                      controller: ammoBandBc[i],
+                      label: 'Eşik altı BC',
+                      hintText: platform == WeaponPlatform.firearm
+                          ? '0,42'
+                          : '0,031',
+                      onChanged: (_) => setState(() {}),
+                      errorText: _shown(_bandBcError(i), ammoBandBc[i]),
+                    ),
+                  ],
                 ],
                 MenzilFullWidth(
                   child: Text(

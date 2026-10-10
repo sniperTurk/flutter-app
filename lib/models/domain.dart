@@ -181,6 +181,7 @@ class Ammunition {
     final c = dragCurve;
     return c == null ? null : DragTable(c);
   }
+
   String get displayName =>
       '${_joinName(brand, model)} • '
       '${grain.toStringAsFixed(grain % 1 == 0 ? 0 : 1)} gr';

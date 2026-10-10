@@ -17,7 +17,10 @@ abstract final class DragCurve {
     required double grain,
     required double diameterMm,
   }) {
-    if (!grain.isFinite || grain <= 0 || !diameterMm.isFinite || diameterMm <= 0) {
+    if (!grain.isFinite ||
+        grain <= 0 ||
+        !diameterMm.isFinite ||
+        diameterMm <= 0) {
       throw ArgumentError('grain and diameter must be > 0');
     }
     final inches = diameterMm / 25.4;
