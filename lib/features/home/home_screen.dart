@@ -7,7 +7,6 @@ import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
 import '../../services/active_profile_store.dart';
 import '../../services/profile_store.dart';
-import '../../services/sample_profiles.dart';
 import '../../services/settings_store.dart';
 import '../../services/user_catalog_loader.dart';
 import '../../ui/menzil_icons.dart';
@@ -108,38 +107,12 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Bumped to make the Profil page open the new-profile form (an empty
   /// page's "Profil oluştur").
   int _createRequest = 0;
-  bool _installingSample = false;
 
   void _createProfile() {
     setState(() {
       tab = _tabProfile;
       _createRequest++;
     });
-  }
-
-  /// "Örnek profille dene": installs the sample profiles, makes the PCP one
-  /// active and opens Hedef.
-  Future<void> _trySample() async {
-    if (_installingSample) return;
-    _installingSample = true;
-    try {
-      final first = await SampleProfiles.install(profiles: profiles);
-      await activeStore.setActiveProfileId(first.id);
-      // The workspace starts on Pro and then moves to Hedef: entering Hedef
-      // dials the solution and opens the right turret, as after Pro.
-      if (mounted) setState(() => ballisticsView = BallisticsView.pro);
-      await _load();
-      await WidgetsBinding.instance.endOfFrame;
-      if (mounted) _selectTab(_tabShot);
-    } catch (_) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Örnek profiller eklenemedi.')),
-        );
-      }
-    } finally {
-      _installingSample = false;
-    }
   }
 
   @override
@@ -439,7 +412,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         onActivate: _choose,
                         onProfilesChanged: _load,
                         onContinue: () => _selectTab(_tabEnvironment),
-                        onTrySample: _trySample,
                         createRequest: _createRequest,
                       ),
                       _ballisticsTab(context),
@@ -574,13 +546,16 @@ class _HomeScreenState extends State<HomeScreen> {
           onCreateProfile: _createProfile,
         );
       }
+      // Separate storage keys: Pro's scroll position must not carry over to
+      // Hedef (both previews share this slot).
+      final shot = tab == _tabShot;
       return MenzilPage(
+        key: PageStorageKey(shot ? 'empty-shot' : 'empty-pro'),
         children: [
-          LockedPreview(
-            shot: tab == _tabShot,
-            onCreate: _createProfile,
-            onSample: _trySample,
-          ),
+          if (shot)
+            ShotPreview(onCreate: _createProfile)
+          else
+            ProPreview(onCreate: _createProfile),
         ],
       );
     }
@@ -646,9 +621,6 @@ class _HomeScreenState extends State<HomeScreen> {
       )),
       profile: profile,
       view: ballisticsView,
-      initialProRangeM: profile.id == SampleProfiles.pcpId
-          ? SampleProfiles.pcpRangeM
-          : null,
       autoWeather: widget.autoWeather,
       onContinueToPro: () => _selectTab(_tabPro),
       onContinueToShot: () => _selectTab(_tabShot),
