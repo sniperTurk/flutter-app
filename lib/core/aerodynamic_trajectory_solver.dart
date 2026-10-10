@@ -95,11 +95,7 @@ class AerodynamicTrajectorySolver {
         'ballisticCoefficient and ballisticModel (G1/G7/GA) are required',
       );
     }
-    final drag = ReferenceDragModel(switch (model) {
-      BallisticModel.g1 => StandardDragTables.g1,
-      BallisticModel.g7 => StandardDragTables.g7,
-      BallisticModel.ga => StandardDragTables.ga,
-    });
+    final drag = ReferenceDragModel(StandardDragTables.forModel(model));
     // BC as a function of air-relative speed (çoklu BC; constant without
     // bands).
     final bc = input.bcAtSpeed;

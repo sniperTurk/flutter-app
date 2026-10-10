@@ -785,6 +785,31 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return _caliberItem(cal) ?? cal;
   }
 
+  /// BC model choices per rifle type (owner, 2026-10-10: the other public
+  /// BRL drag laws). A stored model of the other type stays selectable.
+  List<(BallisticModel, String)> get _bcModelChoices {
+    final list = platform == WeaponPlatform.firearm
+        ? const [
+            (BallisticModel.g1, 'G1'),
+            (BallisticModel.g7, 'G7'),
+            (BallisticModel.ra4, 'RA4 (.22 LR rimfire)'),
+            (BallisticModel.g2, 'G2'),
+            (BallisticModel.g5, 'G5'),
+            (BallisticModel.g6, 'G6'),
+            (BallisticModel.g8, 'G8'),
+            (BallisticModel.gi, 'GI (Ingalls)'),
+          ]
+        : const [
+            (BallisticModel.g1, 'G1'),
+            (BallisticModel.g7, 'G7'),
+            (BallisticModel.ga, 'GA (saçma)'),
+            (BallisticModel.gs, 'GS (bilye)'),
+          ];
+    final m = ammoBcModel;
+    if (m == null || list.any((e) => e.$1 == m)) return list;
+    return [...list, (m, m.label)];
+  }
+
   static String _trimDot(double v) =>
       v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
   late final TextEditingController rifleTwist;
@@ -1968,22 +1993,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   label: 'BC modeli',
                   initialValue: ammoBcModel,
                   items: [
-                    const DropdownMenuItem(
-                      value: BallisticModel.g1,
-                      child: Text('G1'),
-                    ),
-                    const DropdownMenuItem(
-                      value: BallisticModel.g7,
-                      child: Text('G7'),
-                    ),
-                    // GA is ChairGun's diabolo pellet model: PCP only (a
-                    // stored firearm GA stays selectable so it shows).
-                    if (platform == WeaponPlatform.pcp ||
-                        ammoBcModel == BallisticModel.ga)
-                      const DropdownMenuItem(
-                        value: BallisticModel.ga,
-                        child: Text('GA (saçma)'),
-                      ),
+                    for (final (m, text) in _bcModelChoices)
+                      DropdownMenuItem(value: m, child: Text(text)),
                   ],
                   onChanged: (v) => setState(() => ammoBcModel = v),
                 ),
