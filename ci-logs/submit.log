@@ -1,0 +1,5 @@
+OK GET /v1/apps/6819483788/appStoreVersions 200
+version 1.0 state=WAITING_FOR_REVIEW release=AFTER_APPROVAL
+OK PATCH /v1/appStoreVersions/7e7dd70a-9af1-4937-95d4-5330e0d8a519 200
+OK GET /v1/appStoreVersions/7e7dd70a-9af1-4937-95d4-5330e0d8a519 200
+now release=MANUAL state=WAITING_FOR_REVIEW
