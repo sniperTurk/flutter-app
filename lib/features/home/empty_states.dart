@@ -145,7 +145,7 @@ class WelcomePanel extends StatelessWidget {
               ),
               step(
                 '4',
-                'Dürbünü kur',
+                'Dürbünün kurulu gelsin',
                 'Mesafeyi yaz; kaç klik çevireceğini gösterir.',
               ),
             ],
