@@ -42,7 +42,9 @@ class _BulletLibraryScreenState extends State<BulletLibraryScreen> {
     return [
       for (final b in BulletLibrary.all)
         if (b.platform == widget.platform &&
-            (!_onlyCaliber || cal == null || (b.caliberMm - cal).abs() < 0.02) &&
+            (!_onlyCaliber ||
+                cal == null ||
+                (b.caliberMm - cal).abs() < 0.02) &&
             (q.isEmpty || b.title.toLowerCase().contains(q)))
           b,
     ];

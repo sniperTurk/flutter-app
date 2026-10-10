@@ -52,7 +52,10 @@ void main() {
     await tester.tap(find.byKey(const Key('ammo-library')));
     await tester.pumpAndSettle();
     expect(find.text('Mermi kütüphanesi'), findsOneWidget);
-    await tester.enterText(find.byKey(const Key('library-search')), 'ELD Match');
+    await tester.enterText(
+      find.byKey(const Key('library-search')),
+      'ELD Match',
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('library-item-0')));
     await tester.pumpAndSettle();
