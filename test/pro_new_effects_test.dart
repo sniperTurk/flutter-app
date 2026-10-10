@@ -221,6 +221,37 @@ void main() {
       expect(pct, greaterThan(90));
     });
 
+    testWidgets('Yerçekimi: stronger gravity drops more, off = standard', (
+      tester,
+    ) async {
+      await sized(tester);
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final before = dial(tester).requiredUp!;
+
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-gravity-switch'));
+      expect(
+        tester.widget<Text>(find.byKey(const Key('pro-summary-gravity'))).data,
+        'kapalı',
+      );
+      final sw = find.byKey(const Key('pro-gravity-switch'));
+      await tester.ensureVisible(sw);
+      await tester.tap(sw);
+      await tester.pumpAndSettle();
+      await type(tester, const Key('pro-gravity'), '9.832');
+      await tester.pumpAndSettle();
+      final effect = tester
+          .widget<Text>(find.byKey(const Key('pro-gravity-effect')))
+          .data!;
+      expect(effect, contains('daha çok'));
+
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      expect(dial(tester).requiredUp!, greaterThan(before));
+    });
+
     testWidgets('a crosswind from the left drops a right-twist bullet', (
       tester,
     ) async {

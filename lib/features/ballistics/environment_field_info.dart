@@ -37,6 +37,10 @@ abstract final class EnvironmentFieldInfo {
   static const shotRange =
       'Hedefe olan mesafe. Telemetre (lazer mesafe ölçer) ile ölçün veya '
       '"Haritadan" ile seçin. Örnek: 45 m.';
+  static const gravity =
+      'Bulunduğun yerdeki yerçekimi, m/s². "Konumdan hesapla" enleminden ve '
+      'irtifandan hesaplar; elle de yazabilirsin. Türkiye\'de yaklaşık 9,80; '
+      'örneğin Ankara (900 m) 9,7988. Kapalıyken standart 9,80665 kullanılır.';
   static const proShotRange =
       'Ateş edeceğin hedefin uzaklığı. Telemetre (lazer mesafe ölçer) ile '
       'ölç ya da bilmiyorsan "Haritadan ölç"e dokunup haritada senin ve '

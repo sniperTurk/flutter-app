@@ -145,6 +145,7 @@ class _ShotBasis {
     double? windDirectionDeg,
     WindZones? windZones,
     double? shotVelocityMps,
+    double? gravity,
   }) => BallisticInput(
     // A shot-to-shot velocity change (SD) keeps the zero of the nominal
     // velocity.
@@ -171,7 +172,7 @@ class _ShotBasis {
     cantDeg: cantDeg,
     latitudeDeg: latitudeDeg,
     azimuthDeg: azimuthDeg,
-    gravityMps2: gravityMps2,
+    gravityMps2: gravity ?? gravityMps2,
     zeroMuzzleVelocityMps: shotVelocityMps == null
         ? zeroVelocityMps
         : (zeroVelocityMps ?? velocityMps),
@@ -251,6 +252,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _inclineDeg = s.inclineDeg;
         _cantDeg = s.cantDeg;
         _coriolisOn = s.coriolisOn;
+        _gravityOn = s.gravityOn;
+        gravityCtl.text = s.gravityText;
         latitudeCtl.text = s.latitudeText;
         azimuthCtl.text = s.azimuthText;
         turretScaleCtl.text = s.turretScaleText;
@@ -283,6 +286,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       inclineDeg: _inclineDeg,
       cantDeg: _cantDeg,
       coriolisOn: _coriolisOn,
+      gravityOn: _gravityOn,
+      gravityText: gravityCtl.text.trim(),
       latitudeText: latitudeCtl.text.trim(),
       azimuthText: azimuthCtl.text.trim(),
       turretScaleText: turretScaleCtl.text.trim(),
@@ -517,19 +522,50 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return v != null && v >= -90 && v <= 90 ? v : null;
   }
 
-  /// Latitude of the last live-weather fix (for local gravity).
-  double? _weatherLatitude;
+  /// Pro → Yerçekimi (owner, 2026-10-10): off = standard gravity; on =
+  /// the local value in [gravityCtl] (computed from the location).
+  bool _gravityOn = false;
+  final TextEditingController gravityCtl = TextEditingController();
+  String? _gravityStatus;
 
-  /// Latitude used for local gravity: the Coriolis latitude, else the
-  /// weather location; null = unknown (standard gravity).
-  double? get _gravityLatitude => _latitude ?? _weatherLatitude;
+  double? get _gravityTyped {
+    final v = _parsed(gravityCtl);
+    return v != null && v >= 9.7 && v <= 9.9 ? v : null;
+  }
 
-  /// Local gravity for [altitudeM] (m/s²).
-  double _gravityAt(double altitudeM) {
-    final lat = _gravityLatitude;
-    return lat == null
-        ? Gravity.standard
-        : Gravity.at(latitudeDeg: lat, altitudeM: altitudeM);
+  /// Gravity handed to the solver (m/s²).
+  double get _gravity =>
+      _gravityOn ? (_gravityTyped ?? Gravity.standard) : Gravity.standard;
+
+  void _gravityChanged() {
+    setState(() {
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    _saveShotSettings();
+    _quietSolve();
+  }
+
+  Future<void> _gravityFromLocation() async {
+    final services = ToolsServicesScope.of(context);
+    setState(() => _gravityStatus = 'Konum alınıyor…');
+    final fix = await services.location.current();
+    if (!mounted) return;
+    if (fix is LocationFix) {
+      // Altitude: the Hava Durumu value, else the GPS height.
+      final typedAlt = _parsed(altitude);
+      final altM = typedAlt != null
+          ? (metric ? typedAlt : UnitSystem.feetToMeters(typedAlt))
+          : (fix.altitudeM ?? 0);
+      final g = Gravity.at(latitudeDeg: fix.latitude, altitudeM: altM);
+      gravityCtl.text = g.toStringAsFixed(4);
+      _gravityStatus =
+          'Konumdan hesaplandı: ${fix.latitude.abs().toStringAsFixed(1)}° '
+          '${fix.latitude >= 0 ? 'K' : 'G'} · ${altM.round()} m.';
+    } else {
+      _gravityStatus = 'Konum alınamadı; yerçekimini elle girin.';
+    }
+    _gravityChanged();
   }
 
   double? get _azimuth {
@@ -774,7 +810,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           _ => 'Konum alınamadı; hava değerlerini elle girin.',
         };
       } else {
-        _weatherLatitude = fix.latitude;
         final obs = await services.weather.fetch(fix.latitude, fix.longitude);
         if (!mounted) return;
         if (overwrite) _userEdited.clear();
@@ -1078,7 +1113,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ballisticModel: model,
         bcBands: bands,
         zeroMuzzleVelocityMps: vZero,
-        gravityMps2: _gravityAt(alt),
+        gravityMps2: _gravity,
       );
       final solved = const BallisticEngine().solveReachable(input);
       if (solved.points.isEmpty) {
@@ -1171,6 +1206,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     windMaxCtl.dispose();
     targetSpeedCtl.dispose();
+    gravityCtl.dispose();
     super.dispose();
   }
 
@@ -2650,29 +2686,37 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
-  /// Yerel yerçekimi: the value in use and where it comes from.
-  Widget _gravityLine(BuildContext context) {
-    final c = MenzilColors.of(context);
-    final lat = _gravityLatitude;
-    final altM = _basis?.environment.altitudeM ?? 0;
-    final g = _gravityAt(altM);
-    final where = lat == null
-        ? 'konum bilinmiyor, standart değer'
-        : '${lat.abs().toStringAsFixed(1)}° ${lat >= 0 ? 'K' : 'G'} · '
-              '${altM.round()} m';
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _explain(ProSectionInfo.gravity),
-        Text(
-          'Yerçekimi: ${g.toStringAsFixed(4).replaceAll('.', ',')} m/s² '
-          '($where)',
-          key: const Key('pro-gravity'),
-          style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: MenzilSpace.sm),
-      ],
-    );
+  /// Yerçekimi effect at the shot distance: how much less (or more) the
+  /// bullet drops than with standard gravity, metres (+ = less drop).
+  Object? _gravityEffectKey;
+  double? _gravityEffectValue;
+
+  double? _gravityEffect() {
+    final basis = _basis;
+    if (basis == null || !_gravityOn || _gravityTyped == null) return null;
+    final key = (basis, _shotRangeM, _inclineDeg, _cantDeg);
+    if (key == _gravityEffectKey) return _gravityEffectValue;
+    _gravityEffectKey = key;
+    try {
+      const engine = BallisticEngine();
+      TrajectoryPoint at(double g) => engine
+          .solve(
+            basis.input(
+              [_shotRangeM],
+              inclineDeg: _inclineDeg,
+              cantDeg: _cantDeg,
+              gravity: g,
+            ),
+          )
+          .single;
+      final std = at(Gravity.standard);
+      final local = at(basis.gravityMps2);
+      return _gravityEffectValue = std.dropM - local.dropM;
+    } on ArgumentError {
+      return _gravityEffectValue = null;
+    } on StateError {
+      return _gravityEffectValue = null;
+    }
   }
 
   String _summaryAngle() {
@@ -2831,7 +2875,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         summary: _coriolisOn ? 'açık' : 'kapalı',
         children: [
           _explain(ProSectionInfo.coriolis),
-          _gravityLine(context),
           Row(
             children: [
               Expanded(
@@ -2916,6 +2959,83 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                         'Kule klikleri bunu içerir.',
               key: const Key('pro-coriolis-effect'),
               style: MenzilType.body(c.ink),
+            ),
+          ],
+        ],
+      ),
+      _proBox(
+        id: 'gravity',
+        title: 'Yerçekimi',
+        summary: _gravityOn ? 'açık' : 'kapalı',
+        children: [
+          _explain(ProSectionInfo.gravity),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Yerçekimi etkisini ekle',
+                  style: MenzilType.body(c.ink),
+                ),
+              ),
+              const MenzilInfoButton(
+                title: 'Yerçekimi',
+                text: EnvironmentFieldInfo.gravity,
+              ),
+              Semantics(
+                label: 'Yerçekimi etkisini ekle',
+                child: Switch(
+                  key: const Key('pro-gravity-switch'),
+                  value: _gravityOn,
+                  onChanged: (v) {
+                    _gravityOn = v;
+                    _gravityChanged();
+                  },
+                ),
+              ),
+            ],
+          ),
+          if (_gravityOn) ...[
+            const SizedBox(height: MenzilSpace.sm),
+            MenzilInput(
+              key: const Key('pro-gravity'),
+              controller: gravityCtl,
+              label: 'Yerçekimi',
+              unit: 'm/s²',
+              info: EnvironmentFieldInfo.gravity,
+              helperText: 'Enlem ve irtifaya göre',
+              errorText: gravityCtl.text.isNotEmpty && _gravityTyped == null
+                  ? '9,7 ile 9,9 arasında olmalı.'
+                  : null,
+              onChanged: (_) => _gravityChanged(),
+            ),
+            MenzilSecondaryButton(
+              key: const Key('pro-gravity-gps'),
+              label: 'Konumdan hesapla',
+              icon: Icons.my_location,
+              expand: true,
+              onPressed: _gravityFromLocation,
+            ),
+            if (_gravityStatus != null) ...[
+              const SizedBox(height: MenzilSpace.xs),
+              Text(_gravityStatus!, style: MenzilType.caption(c.ink2)),
+            ],
+            const SizedBox(height: MenzilSpace.sm),
+            Builder(
+              builder: (context) {
+                final e = _gravityEffect();
+                final mm = e == null ? null : e * 1000;
+                return Text(
+                  mm == null
+                      ? 'Etkiyi görmek için "Konumdan hesapla"ya dokunun.'
+                      : '$_shotDisplay $_distanceUnit\'de yerçekimi: mermi '
+                            '${mm.abs().toStringAsFixed(1)} mm '
+                            '${mm >= 0 ? 'daha az' : 'daha çok'} düşer '
+                            '(standart 9,80665 m/s²\'ye göre). Kule klikleri '
+                            'bunu içerir.',
+                  key: const Key('pro-gravity-effect'),
+                  style: MenzilType.body(c.ink),
+                );
+              },
             ),
           ],
         ],
