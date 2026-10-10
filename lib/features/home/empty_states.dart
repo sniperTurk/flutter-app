@@ -348,6 +348,7 @@ class _ProPreviewState extends State<ProPreview> {
           ProSectionInfo.windZones,
         ]),
         _box('coriolis', 'Coriolis', 'kapalı', const [ProSectionInfo.coriolis]),
+        _box('gravity', 'Yerçekimi', 'kapalı', const [ProSectionInfo.gravity]),
         _box('target', 'Hareketli hedef', 'kapalı', const [
           ProSectionInfo.movingTarget,
           ProSectionInfo.hitProbability,

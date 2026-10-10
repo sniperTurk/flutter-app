@@ -54,6 +54,7 @@ abstract final class ReticleHolds {
             ballisticModel: base.ballisticModel,
             bcBands: base.bcBands,
             zeroMuzzleVelocityMps: base.zeroMuzzleVelocityMps,
+            gravityMps2: base.gravityMps2,
             inclineDeg: base.inclineDeg,
             cantDeg: base.cantDeg,
             latitudeDeg: base.latitudeDeg,
@@ -122,6 +123,7 @@ abstract final class ReticleHolds {
               ballisticModel: base.ballisticModel,
               bcBands: base.bcBands,
               zeroMuzzleVelocityMps: base.zeroMuzzleVelocityMps,
+              gravityMps2: base.gravityMps2,
               inclineDeg: base.inclineDeg,
               // Cant adds its own sideways drift; this helper measures only
               // what the wind does, so the scope is taken as level here.
