@@ -7,7 +7,6 @@ import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
 import '../../services/active_profile_store.dart';
 import '../../services/profile_store.dart';
-import '../../services/sample_profiles.dart';
 import '../../services/settings_store.dart';
 import '../../services/user_catalog_loader.dart';
 import '../../ui/menzil_icons.dart';
@@ -108,7 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Bumped to make the Profil page open the new-profile form (an empty
   /// page's "Profil oluştur").
   int _createRequest = 0;
-  bool _installingSample = false;
 
   void _createProfile() {
     setState(() {
@@ -116,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _createRequest++;
     });
   }
+
 
   /// "Örnek profille dene": installs the sample profiles, makes the PCP one
   /// active and opens Hedef.
@@ -439,7 +438,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         onActivate: _choose,
                         onProfilesChanged: _load,
                         onContinue: () => _selectTab(_tabEnvironment),
-                        onTrySample: _trySample,
                         createRequest: _createRequest,
                       ),
                       _ballisticsTab(context),
@@ -579,7 +577,6 @@ class _HomeScreenState extends State<HomeScreen> {
           LockedPreview(
             shot: tab == _tabShot,
             onCreate: _createProfile,
-            onSample: _trySample,
           ),
         ],
       );
@@ -646,9 +643,6 @@ class _HomeScreenState extends State<HomeScreen> {
       )),
       profile: profile,
       view: ballisticsView,
-      initialProRangeM: profile.id == SampleProfiles.pcpId
-          ? SampleProfiles.pcpRangeM
-          : null,
       autoWeather: widget.autoWeather,
       onContinueToPro: () => _selectTab(_tabPro),
       onContinueToShot: () => _selectTab(_tabShot),

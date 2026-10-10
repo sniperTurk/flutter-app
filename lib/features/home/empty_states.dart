@@ -5,56 +5,39 @@ import '../../ui/menzil_widgets.dart';
 
 /// Pages shown before the first profile exists (owner, 2026-10-10): instead
 /// of empty locked cards, each page says what it does and offers the next
-/// step — create a profile, or try the ready sample profiles.
+/// step: create a profile.
 abstract final class EmptyStateKeys {
   static const welcome = Key('empty-welcome');
   static const create = Key('empty-create-profile');
-  static const sample = Key('empty-try-sample');
   static const shotPreview = Key('empty-shot-preview');
   static const proPreview = Key('empty-pro-preview');
 }
 
-/// The two actions every empty page offers.
+/// The action every empty page offers.
 class _EmptyActions extends StatelessWidget {
   final VoidCallback? onCreate;
-  final VoidCallback? onSample;
   final String createLabel;
 
   const _EmptyActions({
     required this.onCreate,
-    required this.onSample,
     this.createLabel = 'Profil oluştur',
   });
 
   @override
-  Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      MenzilPrimaryButton(
-        key: EmptyStateKeys.create,
-        label: createLabel,
-        icon: Icons.add,
-        amber: true,
-        onPressed: onCreate,
-      ),
-      const SizedBox(height: MenzilSpace.sm),
-      MenzilSecondaryButton(
-        key: EmptyStateKeys.sample,
-        label: 'Örnek profille dene',
-        icon: Icons.play_arrow_rounded,
-        expand: true,
-        onPressed: onSample,
-      ),
-    ],
+  Widget build(BuildContext context) => MenzilPrimaryButton(
+    key: EmptyStateKeys.create,
+    label: createLabel,
+    icon: Icons.add,
+    amber: true,
+    onPressed: onCreate,
   );
 }
 
 /// Profil page without profiles: logo, what the app does, how it works.
 class WelcomePanel extends StatelessWidget {
   final VoidCallback? onCreate;
-  final VoidCallback? onSample;
 
-  const WelcomePanel({super.key, this.onCreate, this.onSample});
+  const WelcomePanel({super.key, this.onCreate});
 
   @override
   Widget build(BuildContext context) {
@@ -152,35 +135,19 @@ class WelcomePanel extends StatelessWidget {
           ),
         ),
         const SizedBox(height: MenzilSpace.md),
-        _EmptyActions(
-          onCreate: onCreate,
-          onSample: onSample,
-          createLabel: 'İlk profilimi oluştur',
-        ),
-        const SizedBox(height: MenzilSpace.xs),
-        Text(
-          'Hazır bir PCP ve .308 profili açılır; istediğin zaman silebilirsin.',
-          textAlign: TextAlign.center,
-          style: MenzilType.caption(c.ink2),
-        ),
+        _EmptyActions(onCreate: onCreate, createLabel: 'İlk profilimi oluştur'),
       ],
     );
   }
 }
 
 /// Hedef and Pro without a profile: a faded preview of the page behind a
-/// short explanation and the two actions.
+/// short explanation and the action.
 class LockedPreview extends StatelessWidget {
   final bool shot;
   final VoidCallback? onCreate;
-  final VoidCallback? onSample;
 
-  const LockedPreview({
-    super.key,
-    required this.shot,
-    this.onCreate,
-    this.onSample,
-  });
+  const LockedPreview({super.key, required this.shot, this.onCreate});
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +218,7 @@ class LockedPreview extends StatelessWidget {
                     style: MenzilType.body(c.ink2),
                   ),
                   const SizedBox(height: MenzilSpace.md),
-                  _EmptyActions(onCreate: onCreate, onSample: onSample),
+                  _EmptyActions(onCreate: onCreate),
                 ],
               ),
             ),

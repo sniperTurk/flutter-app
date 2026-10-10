@@ -18,7 +18,6 @@ import '../../core/unit_system.dart';
 import '../../core/wind_clock.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../models/domain.dart';
-import '../../services/sample_profiles.dart';
 import '../../services/settings_store.dart';
 import '../../services/shot_settings_store.dart';
 import '../../tools/domain/field_calc.dart';
@@ -85,8 +84,6 @@ class BallisticsScreen extends StatefulWidget {
   /// (owner, 2026-10-10).
   final VoidCallback? onCreateProfile;
 
-  /// Pro "Atış mesafesi" to start with (metres), e.g. for a sample profile.
-  final double? initialProRangeM;
   const BallisticsScreen({
     super.key,
     this.profile,
@@ -95,7 +92,6 @@ class BallisticsScreen extends StatefulWidget {
     this.onContinueToPro,
     this.onContinueToShot,
     this.onCreateProfile,
-    this.initialProRangeM,
   });
 
   @override
@@ -624,10 +620,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
     _EnvironmentCarry.apply(this);
-    final startRange = widget.initialProRangeM;
-    if (startRange != null) {
-      proRangeCtl.text = startRange.round().toString();
-    }
     _loadUnitPreference();
     unawaited(_loadShotSettings());
     // Solve the profile as soon as the workspace opens, so the scope's
@@ -3273,16 +3265,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
 
     return [
-      if (SampleProfiles.isSample(widget.profile)) ...[
-        const MenzilNotice(
-          key: Key('shot-sample-note'),
-          icon: Icons.info_outline,
-          message:
-              'Örnek profil. Gerçek atış için kendi tüfeğinin profilini '
-              'oluştur.',
-        ),
-        const SizedBox(height: MenzilSpace.sm),
-      ],
       // Range dial: −5 −1 [value] +1 +5, slider below.
       Row(
         children: [

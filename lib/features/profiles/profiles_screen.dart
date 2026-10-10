@@ -35,9 +35,6 @@ class ProfilesScreen extends StatefulWidget {
   /// sync with changes made elsewhere.
   final int revision;
 
-  /// Shell only: "Örnek profille dene" on the welcome page.
-  final VoidCallback? onTrySample;
-
   /// Shell only: bumped when another page asks to create a profile; opens
   /// the new-profile form.
   final int createRequest;
@@ -51,7 +48,6 @@ class ProfilesScreen extends StatefulWidget {
     this.onProfilesChanged,
     this.onContinue,
     this.revision = 0,
-    this.onTrySample,
     this.createRequest = 0,
   });
 
@@ -305,7 +301,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     // empty list (owner, 2026-10-10).
     if (items.isEmpty && widget.embedded) {
       return MenzilPage(
-        children: [WelcomePanel(onCreate: _add, onSample: widget.onTrySample)],
+        children: [WelcomePanel(onCreate: _add)],
       );
     }
     return MenzilPage(

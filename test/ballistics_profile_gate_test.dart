@@ -1,16 +1,12 @@
 // Converted from source-string matching to real widget behaviour tests.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sniper_turk/data/catalog_repository.dart';
-import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/home/empty_states.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
-import 'package:sniper_turk/services/sample_profiles.dart';
 
 const _validProfile = RifleProfile(
   id: 'p1',
@@ -85,34 +81,6 @@ void main() {
     expect(find.byKey(const Key('environment-no-profile')), findsOneWidget);
     expect(find.byKey(BallisticsFieldKeys.temperature), findsOneWidget);
     expect(find.byKey(const Key('environment-create-profile')), findsOneWidget);
-  });
-
-  testWidgets('"Örnek profille dene" opens Hedef with the sample profile', (
-    tester,
-  ) async {
-    SharedPreferences.setMockInitialValues({});
-    addTearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
-    final store = MemoryProfileStore();
-    final active = MemoryActiveProfileStore();
-    await tester.pumpWidget(
-      MaterialApp(
-        home: HomeScreen(profileStore: store, activeProfileStore: active),
-      ),
-    );
-    await tester.pumpAndSettle();
-    await tester.ensureVisible(find.byKey(EmptyStateKeys.sample));
-    await tester.tap(find.byKey(EmptyStateKeys.sample));
-    await tester.pumpAndSettle();
-    expect((await store.all()).map((p) => p.id).toSet(), {
-      SampleProfiles.pcpId,
-      SampleProfiles.firearmId,
-    });
-    expect(active.value, SampleProfiles.pcpId);
-    expect(find.byKey(const Key('shot-sample-note')), findsOneWidget);
-    expect(find.byKey(const Key('scope-impact-text')), findsOneWidget);
-    // Hedef opens with the solution dialled and the right turret open.
-    expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
-    expect(find.text('Vuruş noktası: artı işaretinde'), findsOneWidget);
   });
 
   testWidgets(
