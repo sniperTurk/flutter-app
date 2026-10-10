@@ -227,9 +227,9 @@ void main() {
       expect(find.text('Otomatik: rüzgâr hızı × 1,5'), findsNothing);
       await type(tester, const Key('pro-target-speed'), '2');
       // The direction starts unchosen ("Seçiniz", owner 2026-10-10).
-      expect(find.text('Seçiniz'), findsOneWidget);
-      await tester.ensureVisible(find.text('Seçiniz'));
-      await tester.tap(find.text('Seçiniz'));
+      expect(find.text('Seçiniz'), findsWidgets);
+      await tester.ensureVisible(find.text('Seçiniz').first);
+      await tester.tap(find.text('Seçiniz').first);
       await tester.pumpAndSettle();
       await tester.tap(find.text('Soldan sağa').last);
       await tester.pumpAndSettle();
@@ -329,6 +329,37 @@ void main() {
       await tester.tap(find.byKey(const Key('pro-wind-max-auto')));
       await tester.pumpAndSettle();
       expect(text(), '3.0');
+    });
+
+    testWidgets('"Seçiniz" stays in the list and takes the choice back', (
+      tester,
+    ) async {
+      await _sized(tester);
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-target-speed'));
+      await tester.ensureVisible(field(const Key('pro-target-speed')));
+      await tester.enterText(field(const Key('pro-target-speed')), '2');
+      await tester.pump();
+      Future<void> pick(String label) async {
+        final box = find.byWidgetPredicate(
+          (w) => w is DropdownButtonFormField<bool>,
+        );
+        await tester.ensureVisible(box);
+        await tester.tap(box);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text(label).last);
+        await tester.pumpAndSettle();
+      }
+
+      await pick('Soldan sağa');
+      await pick('Seçiniz');
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final lead = tester
+          .widget<Text>(find.byKey(const Key('shot-lead')))
+          .data!;
+      expect(lead, contains('yönünü seçin'));
     });
 
     testWidgets('a target speed without a direction asks for it', (
