@@ -366,4 +366,34 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     expect(find.textContaining('.308 için 168 gr'), findsOneWidget);
   });
+
+  testWidgets('switching to Ateşli tüfek empties the PCP ammunition', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(390 * 3, 1800 * 3);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: ProfilesScreen(store: MemoryProfileStore()),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Yeni profil'));
+    await tester.pumpAndSettle();
+    final brand = find.descendant(
+      of: find.byKey(const Key('ammo-brand')),
+      matching: find.byType(TextField),
+    );
+    await tester.ensureVisible(brand);
+    await tester.enterText(brand, 'H&N Slug HP');
+    await tester.pump();
+    await tester.ensureVisible(find.text('PCP Tüfek'));
+    await tester.tap(find.text('PCP Tüfek'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Ateşli Tüfek').last);
+    await tester.pumpAndSettle();
+    expect(tester.widget<TextField>(brand).controller!.text, '');
+  });
 }
