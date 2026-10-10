@@ -1,6 +1,7 @@
 // dart format off
 import '../models/domain.dart';
 import 'catalog_integrity.dart';
+import 'scope_library.dart';
 import 'user_catalog.dart';
 
 class CatalogRepository {
@@ -739,7 +740,8 @@ class CatalogRepository {
       minMagnification:1, maxMagnification:8, elevationRangeMrad:30, windageRangeMrad:30,
       lengthMm:261.62, weightG:595.34, firstFocalPlane:true, zeroStop:false, reticle:'KLGRID MIL', sourceName:'Arken Optics USA',
       sourceDocument:'Arken EP-8 1-8x28 FFP KLGRID official product page, verified 2026-09-27',
-    ),  ];
+    ),    ...ScopeLibrary.all,
+  ];
   /// Validates the catalog shipped with this application build. This is used
   /// at startup as well as by tests so corrupt catalog data cannot silently
   /// reach profile creation or other feature screens.
