@@ -1,0 +1,19 @@
+{
+  "name": "Mil-CF2",
+  "brand": "Nightforce",
+  "scopes": ["NX8 2.5-20x50 F2"],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": 2,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NF_MIL-CF2_Reticle%20Sheet.pdf",
+  "notes": "Nightforce Mil-CF2 föyü; ikinci odak düzlemi (F2), FFP Mil-C'den uyarlanmış. Föy alt tablosu Mil-CF2 için 20x sütunuyla veriliyor -> referans büyütme 20x varsayıldı. Metin: 0.05 MRAD yüzen merkez nokta, 0.2 MRAD ana bölmeler, her iki mil'de bir rakam; ölçek neredeyse tüm görüş alanını dolduruyor (sayı yok). Harf etiketleri (A 16, H 1.0, O 0.5 MRAD vb.) görselsiz eşlenemedi -> uzanımlar null. Çift ölçekli Mil-CF2D (NX8 4-32x50 F2, 16x/32x) ayrı retikül, dosyalanmadı."
+}

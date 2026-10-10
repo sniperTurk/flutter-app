@@ -1,0 +1,21 @@
+{
+  "name": "VEC-MBR2 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental x6 6-36x56 FFP (SCFF-93)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250424/143fa31391e53058b78cab0befb941a4.pdf",
+  "notes": "FFP. Kaynak: VEC-MBR2 FFP retikül kılavuzu PDF + SCFF-93 ürün sayfası (spesifikasyonda Reticle: VEC-MBR2; Reticle Collection sayfası ise SCFF-93'ü VCT-34 altında listeliyor — çelişki). Görevde geçen SCFF-70 üretici sitesinde doğrulanamadı (istek limiti). Merkez nokta 0.035 mil, 0.2 mil işaret aralığı. Kılavuz: aydınlatmalı merkez artı bölgesi yatayda 4 mil, yukarı 4 mil, aşağı 10 mil uzanıyor (bu tüm retikülün uzanımı değil); 3 ve 9 yönünde 10 mil aralıklarla 0.1 mil ince bölmeler; merkezden 1 mil dışarıda yardımcı nişan noktaları; alt bölgede 0.5 mil adımlı 10 mil BDC bölgesi; yatayda 0.5 mil çizgiler; sağ üstte 0.5:1 hızlı mesafe ölçer. Tam uzanımlar ve ağaç satırları metinde yok → null."
+}

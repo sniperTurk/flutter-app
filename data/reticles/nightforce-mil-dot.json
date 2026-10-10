@@ -1,0 +1,19 @@
+{
+  "name": "Mil-Dot",
+  "brand": "Nightforce",
+  "scopes": ["NXS 2.5-10x", "NXS 3.5-15x", "NXS 5.5-22x", "NXS 8-32x", "NXS 12-42x"],
+  "unit": "mil",
+  "family": "mildot",
+  "hash_step": 1.0,
+  "major_every": 1.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": 5,
+  "center_dot": true,
+  "floating_center": false,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_MilDotSheet_20160511.pdf",
+  "notes": "Nightforce NXS Mil-Dot föyü. Noktalar yatay/dikey çizgilerde 1 mil aralıklı (belirtilen büyütmede). Referans (telemetre) büyütme: 2.5-10x'te 10x, 3.5-15x'te 15x, 5.5-22x'te 22x, 8-32x ve 12-42x'te 22x (büyütme halkasında 'R'). Föy SFP/FFP yazmıyor; ölçüler büyütmeye bağlı verildiğinden ikinci odak düzlemi. posts_start=5: föyde 'J: 10 mils (inside edge to inside edge)' -> direk iç uçları arası 10 mil, merkezden 5 mil olarak yorumlandı (görselsiz eşleme, doğrulanmalı). Merkez nokta 1/32 mil (1-4x'te yok). floating_center föyde belirtilmemiş, false varsayıldı."
+}

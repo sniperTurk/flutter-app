@@ -1,0 +1,22 @@
+{
+  "name": "VPR MIL",
+  "brand": "Arken Optics",
+  "scopes": [
+    "EP-5 GENII 5-25x56 FFP",
+    "EPL-4 6-24x50 FFP"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.25,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 12,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://arkenoptics.com/products/ep5-gii-5-25x56-ffp-illuminated-vpr-tor-zero-stop-34mm-tube",
+  "notes": "Arken ürün sayfası metni (FFP): 'A 12 MIL holdover grid', '0.25 MIL subtensions', '0.04-0.08 MIL floating center dot'. hash_step sayfadaki '0.25 MIL subtensions' ifadesinden alındı (hangi çizgiye ait olduğu belirtilmemiş, doğrulanmalı). extent_v_down=12, 12 MIL tutma ızgarasının merkez altına uzandığı varsayımıyla; ızgara satırları, rakam aralığı ve yatay uzanım kılavuz PDF'inde (UM_EP5_GENII5-25x56.pdf) etiketsiz göründüğü için null. Ağaç satırları okunamadı -> tree null. EPL-4 6-24x50 sayfası (arkenopticsusa.com/products/epl-4-6-24x50-ffp-illuminated-vhr-vpr-zero-stop-30mm-tube) aynı değerleri veriyor."
+}

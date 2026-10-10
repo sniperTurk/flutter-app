@@ -1,0 +1,19 @@
+{
+  "name": "ACSS Apollo .308/6.5 Grendel",
+  "brand": "Primary Arms",
+  "scopes": ["SLx 3-18x50 FFP Gen II", "GLx 3-18x44 FFP"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": 1.0,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": 10,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=18747783&c=3901023&h=lYXHrx-geZTQp5SPkbzQRUY1-ml1Lq-9ReCsOeOglxiSaXgg",
+  "notes": "Primary Arms ACSS Apollo .308/6.5GR reticle manual (SLx 3-18x50 FFP). BDC tipi MIL retikül. Merkez: şevron (0.1 MIL aşağı, 0.1 MIL sağ/sol), nokta yok. Büyük işaretler 1.0 MIL, aralarında 0.5 MIL küçük işaretler; yatayda 0.2 MIL kutucuklar (1.0 MIL'de büyük dikdörtgen) ve merkez üst/altında 0.2 MIL aralıklı 0.05 MIL noktalar; yatayda 2 MIL'den itibaren düz çizgi. 'Overall, the reticle extends 10 MIL up, left, and right'. BDC 300 yd'de başlıyor, 50 yd aralıklı işaretlerle 1000 yd'ye; BDC yanlarında 5/10/15/20 mph rüzgâr noktaları. BDC satırlarının merkezden mil cinsinden konumu/genişliği verilmediği için tree ve extent_v_down null."
+}

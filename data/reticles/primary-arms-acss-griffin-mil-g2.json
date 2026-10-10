@@ -1,0 +1,19 @@
+{
+  "name": "ACSS Griffin MIL G2",
+  "brand": "Primary Arms",
+  "scopes": ["PLxC 1-8x24 FFP RDB"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": 5.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=29210993&c=3901023&h=ITYlBc4EGY4iyaQ2KGdumCP-LFABfXCL5AGEAkWaumEd6MuF",
+  "notes": "Primary Arms Compact FFP RDB ACSS Griffin MIL G2 1-8x24 reticle manual (FFP; telemetre her büyütmede geçerli). Metin: merkezde şevron (ucu nişan noktası, 1x'te parlak aydınlatmalı merkez); MIL ızgarası ve dikey telemetre çizgilerinde 5 MIL aralıklarında halter (barbell) işaretler -> major_every=5; düşük büyütme dış artı çizgilerinde 5 ve 10 MIL bölmeleri; BDC şevron ucundan 5. MIL çizgisine (600 yd) kadar. Küçük işaret aralığı, uzanımlar, ızgara satırları ve rakamlar metinde net değil -> null. Bu G2 sürümüdür; ACSS Griffin MIL (G1) için ayrı föy bulunamadı."
+}

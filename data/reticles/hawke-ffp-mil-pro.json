@@ -1,0 +1,23 @@
+{
+  "name": "FFP Mil Pro",
+  "brand": "Hawke",
+  "scopes": [
+    "Frontier 30 FFP 3-15x50",
+    "Frontier 30 FFP 4-20x50",
+    "Frontier 30 FFP 5-25x56"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": 1.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://life.hawkeoptics.com/frontier-ffp-riflescope/",
+  "notes": "FFP (birinci odak düzlemi), ölçüler tüm büyütmelerde geçerli. Hawke metni: 'mil aralıklı, yarım mil aralıklı işaretli, 10 mil holdover'a kadar uzanan retikül' — yalnızca hash_step 0.5, major_every 1.0 ve aşağı 10 mil uzanım metinden alındı. family=hash metinden çıkarım (ağaç/nokta sırası olup olmadığı doğrulanamadı; tree=null 'bilinmiyor' anlamında da olabilir). Diğer alanlar bilinmiyor (null): Hawke retikül kitapçığı PDF'i (Google Drive) ve retikül görselleri robots.txt nedeniyle okunamadı. Model listesi: https://www.hawkeoptics.com/frontier-riflescopes.html (15x/20x/25x sürümleri büyütmeye göre ölçekli çizim varyantları)."
+}

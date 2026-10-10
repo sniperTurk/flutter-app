@@ -1,0 +1,19 @@
+{
+  "name": "FC-MRx",
+  "brand": "Nightforce",
+  "scopes": ["NX6 2-12x42 F1"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 20,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/products/FC-MRx-FC-MRx-MOA-Reticle-Sheet.pdf",
+  "notes": "Nightforce FC-MRx / FC-MRx (MOA) föyü, NX6 2-12x42 F1 (FFP). Metin: 0.2 MRAD merkez nokta; 1 MRAD nişan ızgarası yükseliş ve yan tutmaları için 20 MRAD'a uzanıyor (extent_v_down=20, ızgaranın merkez altında olduğu varsayımı); ızgara eksenleri numaralı (aralık belirtilmemiş); düşük büyütmede bölümlü, yüksekte açık merkez dairesi. Izgara satır genişlikleri, direkler, yüzen merkez belirtilmemiş -> null."
+}

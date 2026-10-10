@@ -1,0 +1,23 @@
+{
+  "name": "VOR-4 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Orion MAX 3-18x44 HD FFP (SCFF-49)",
+    "Orion Pro MAX 4-16x44 HD (SCFF-59)",
+    "Orion Pro Max 6-24x50 MIL HD (SCFF-61)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Orion-MAX-3-18x44-HD-FFP-Rifle-Scope-SCFF-49.html",
+  "notes": "FFP. Ürün sayfası yalnızca '0.08 MIL center dot and 0.5 MIL center aiming circle' ve mesafe tahmini/BDC için 'MIL dot' diyor; işaret aralığı, uzanım, ağaç bilgisi metinde yok → null. family belirlenemedi (null). Model listesi Vector Optics Reticle-Collection sayfasından. VOR-4 MIL FFP retikül kılavuzu PDF'i (https://www.vectoroptics.com/public/uploads/files/20241031/e10f60d1cfb6885d2233024c18ffacd4.pdf) erişim sınırlaması (HTTP 429) nedeniyle okunamadı; föy görselleri çekilemedi."
+}

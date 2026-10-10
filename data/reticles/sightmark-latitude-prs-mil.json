@@ -1,0 +1,19 @@
+{
+  "name": "Latitude PRS",
+  "brand": "Sightmark",
+  "scopes": ["Latitude 6.25-25x56 PRS (SM13042PRS)"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://cdn.shopify.com/s/files/1/0566/9466/9461/files/Latitude_Series_Manual_WEB_0a742826-6a58-41b7-96ac-20f2237bd555.pdf?v=1623698593",
+  "notes": "Sightmark Latitude Series kılavuzu (sightmark.com ürün sayfasından bağlantılı, Sightmark'ın Shopify CDN'i). FFP, mil tabanlı. Metin: dikey ve yatay mil ölçekleri 0.5 mil aralıklı; ölçeklerin üst, sol ve sağ uçları 0.1 mil bölmeli; düşüş çizgilerinde yan rüzgâr tutması için referans noktaları; merkez 0.03 mil ince artı (nokta belirtilmemiş -> false). Rakamlar, uzanımlar ve ağaç satırları metinde yok, görseller okunamadı -> null."
+}

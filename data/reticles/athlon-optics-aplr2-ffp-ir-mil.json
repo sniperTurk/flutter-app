@@ -1,0 +1,34 @@
+{
+  "name": "APLR2 FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Talos BTR"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 9,
+  "tree": {
+    "rows": [
+      {
+        "y": 2,
+        "half_width": 1,
+        "dot_step": 0.2
+      },
+      {
+        "y": 9,
+        "half_width": 4,
+        "dot_step": 0.2
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/storage/2021/05/Athlon-APLR2-FFP-IR-MIL-Reticle-Manual-Talos-BTR.pdf",
+  "notes": "FFP. Föy metninden: 0.2 mil ince işaretler merkezden dört yöne; düşüş çizgilerinde rüzgâr noktaları 2 mil çizgisinde her yöne 1 mil, 9 mil çizgisinde her yöne 4 mil; küçük noktalar 0.2, büyük noktalar 1 mil aralıklı. Ara satırlar, yatay/yukarı uzanım, merkez tipi ve rakam aralığı metinde yok (föy görseli okunamadı) -> null. extent_v_down düşüş çizgilerinin bittiği 9 mil olarak alındı."
+}

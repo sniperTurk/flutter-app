@@ -1,0 +1,19 @@
+{
+  "name": "NP-R1",
+  "brand": "Nightforce",
+  "scopes": ["NXS 3.5-15x", "NXS 5.5-22x", "NXS 8-32x", "NXS 12-42x"],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NP-R1-Sheet.pdf",
+  "notes": "Nightforce NXS NP-R1 föyü (ikinci odak düzlemi; telemetre büyütmesi 3.5-15x'te 15x, 5.5-22x'te 22x, 8-32x ve 12-42x'te halkadaki 'R' ile 22x). Metin: '1 moa elevation spacing, 2 moa windage spacing' (hash_step dikey 1 MOA; yatay 2 MOA). Merkez altı: 3.5-15x'te 30 MOA, diğerlerinde 20 MOA (modele bağlı -> extent_v_down null). Çizgi kalınlığı 0.062 MOA. Rakamlar, merkez, direkler metinde yok -> null."
+}
