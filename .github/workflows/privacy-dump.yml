@@ -1,0 +1,45 @@
+name: Privacy manifest dump (ops only)
+on:
+  push:
+    branches: [ops/privacy-dump]
+permissions:
+  contents: write
+jobs:
+  dump:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+      - name: Dump collected data types from every privacy manifest
+        shell: bash
+        run: |
+          set +e
+          mkdir -p out
+          flutter pub get > out/pub.log 2>&1
+          tools/bootstrap_ios_scaffold.sh > out/bootstrap.log 2>&1
+          flutter build ios --simulator --debug --dart-define=GOOGLE_MAPS_ENABLED=true > out/build.log 2>&1
+          find ios build ~/.pub-cache -name 'PrivacyInfo.xcprivacy' 2>/dev/null | sort -u > out/manifests.txt
+          while read -r f; do
+            echo "=== $f"
+            plutil -convert json -o - "$f" 2>/dev/null | python3 -c "
+          import json,sys
+          d=json.load(sys.stdin)
+          print('tracking:',d.get('NSPrivacyTracking'),'domains:',d.get('NSPrivacyTrackingDomains'))
+          for t in d.get('NSPrivacyCollectedDataTypes',[]):
+              print(' ',t.get('NSPrivacyCollectedDataType'),'linked=',t.get('NSPrivacyCollectedDataTypeLinked'),'tracking=',t.get('NSPrivacyCollectedDataTypeTracking'),'purposes=',t.get('NSPrivacyCollectedDataTypePurposes'))
+          "
+          done < out/manifests.txt > out/privacy.txt
+          cat out/privacy.txt
+      - name: Publish
+        if: always()
+        shell: bash
+        run: |
+          git config user.name privacy-dump; git config user.email privacy-dump@users.noreply.github.com
+          rm -rf /tmp/o; cp -r out /tmp/o
+          git checkout -q --orphan ci/privacy-dump; git rm -rqf . ; cp -r /tmp/o out
+          git add out; git commit -qm "privacy dump ${GITHUB_RUN_ID}"; git push -qf origin ci/privacy-dump
