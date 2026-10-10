@@ -23,13 +23,20 @@ void main() {
       }
     }
     // The data PRs (#74 firearm, #75 PCP) are in.
-    for (final brand in ['Peregrine', 'Woodleigh', 'Swift', 'NSA', 'Zan Projectiles']) {
-      expect(BulletLibrary.all.any((b) => b.brand == brand), isTrue, reason: brand);
+    for (final brand in [
+      'Peregrine',
+      'Woodleigh',
+      'Swift',
+      'NSA',
+      'Zan Projectiles',
+    ]) {
+      expect(
+        BulletLibrary.all.any((b) => b.brand == brand),
+        isTrue,
+        reason: brand,
+      );
     }
-    expect(
-      BulletLibrary.all.any((b) => b.type == AmmunitionType.slug),
-      isTrue,
-    );
+    expect(BulletLibrary.all.any((b) => b.type == AmmunitionType.slug), isTrue);
     // Both rifle types are covered.
     expect(
       BulletLibrary.all.any((b) => b.platform == WeaponPlatform.pcp),
