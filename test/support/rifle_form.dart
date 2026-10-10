@@ -74,7 +74,11 @@ Future<void> fillAmmoForm(
   String bc = '0,08',
   String bcModel = 'G1',
 }) async {
-  // Marka and Model are separate boxes again (owner, 2026-10-11).
+  // Marka and Model are separate boxes again and come from the library
+  // lists; a typed name needs "Listede yok" first (owner, 2026-10-11).
+  if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok (elle yaz)');
+  }
   await enterRifleField(tester, 'ammo-brand', brand);
   await enterRifleField(tester, 'ammo-model', model);
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);

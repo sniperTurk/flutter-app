@@ -105,8 +105,9 @@ abstract final class ProfileFieldInfo {
       'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
       'aşağıdan çıkar ve önce yükselerek nişan çizgisini keser; bu yüzden '
       'yakın ve uzak mesafedeki düşüş hesabını doğrudan etkiler. Örnek: '
-      'havalı tüfekte 45–70 mm. Ölçmek için altındaki "Sight height nasıl '
-      'ölçülür?" bağlantısına bakın.';
+      'havalı tüfekte 45–70 mm. Merkezden merkeze ölçülür: namlunun üst '
+      'yüzeyinden değil, namlu deliğinin merkezinden. Adım adım ölçüm için: '
+      'Araçlar → Sight Height.';
   static const reticle =
       'Dürbünün içindeki çizgi deseni. Adı dürbün kutusunda veya föyünde '
       'yazar (ör. VPR-MIL, Mil-Dot). Listeden seçtiğinizde Hedef ekranında '

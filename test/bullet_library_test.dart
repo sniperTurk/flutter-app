@@ -85,8 +85,21 @@ void main() {
         )
         .controller!
         .text;
-    expect(text('ammo-brand'), 'Hornady');
-    expect(text('ammo-model'), contains('ELD Match'));
+    // Marka and Model show the picked library bullet in their lists.
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('ammo-brand-select')),
+        matching: find.text('Hornady'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('ammo-model-select')),
+        matching: find.textContaining('ELD Match'),
+      ),
+      findsOneWidget,
+    );
     expect(text('ammo-grain'), isNotEmpty);
     expect(text('ammo-bc'), isNotEmpty);
   });

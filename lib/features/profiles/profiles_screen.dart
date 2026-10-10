@@ -962,6 +962,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// Mühimmat Model, separate from Marka (owner, 2026-10-11).
   late final TextEditingController ammoModel;
+
+  /// True: Marka/Model are typed ("Listede yok"); false: picked from the
+  /// library lists (owner, 2026-10-11: typed names are mistyped).
+  bool _ammoManual = false;
   late final TextEditingController ammoGrain;
   late final TextEditingController ammoBc;
 
@@ -1067,6 +1071,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // personal record that kept the whole name in the brand shows it there.
     ammoBrand = TextEditingController(text: a0?.brand ?? '');
     ammoModel = TextEditingController(text: a0?.model ?? '');
+    // A saved personal ammunition stays in the typed boxes.
+    _ammoManual = a0 != null && a0.userEntered;
     ammoGrain = TextEditingController(text: num(a0?.grain));
     ammoBc = TextEditingController(text: num(a0?.ballisticCoefficient));
     // Stored bands are fastest first: [(s1, main), (s2, bc1), (0, bc2)].
@@ -1655,6 +1661,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ammo = null;
     ammoBrand.text = '';
     ammoModel.text = '';
+    _ammoManual = false;
     ammoGrain.text = '';
     ammoBc.text = '';
     ammoBcModel = null;
@@ -1676,8 +1683,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ),
     );
     if (b == null || !mounted) return;
+    setState(() => _applyBullet(b, cal));
+  }
+
+  /// Fills the ammunition from a library record (list or library screen).
+  void _applyBullet(LibraryBullet b, double? cal) {
     String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
-    setState(() {
+    _ammoManual = false;
+    {
       ammoBrand.text = b.brand;
       ammoModel.text = b.name.toLowerCase().startsWith(b.brand.toLowerCase())
           ? b.name.substring(b.brand.length).trim()
@@ -1700,13 +1713,96 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         rifleCaliber.text = _trimDot(b.caliberMm);
         _cartridge = null;
       }
-    });
+    }
   }
 
-  void _showSightHelp() => showDialog<void>(
-    context: context,
-    builder: (_) => const _SightHeightHelpDialog(),
-  );
+  /// Library records for this rifle type and caliber (Marka/Model lists).
+  List<LibraryBullet> get _libraryHere {
+    final cal = _parse(rifleCaliber);
+    return [
+      for (final b in BulletLibrary.all)
+        if (b.platform == platform &&
+            (cal == null || (b.caliberMm - cal).abs() < 0.02))
+          b,
+    ];
+  }
+
+  static String _modelOf(LibraryBullet b) =>
+      b.name.toLowerCase().startsWith(b.brand.toLowerCase())
+      ? b.name.substring(b.brand.length).trim()
+      : b.name;
+
+  static const _manualKey = '__manual';
+
+  /// Marka and Model: lists from the library for this rifle type and
+  /// caliber; the typed boxes only after "Listede yok" or when the library
+  /// has nothing here.
+  List<Widget> _ammoNameFields({required List<Widget> texts}) {
+    final here = _libraryHere;
+    if (_ammoManual || here.isEmpty) return texts;
+    final brands = {for (final b in here) b.brand}.toList()..sort();
+    final brand = brands.contains(ammoBrand.text) ? ammoBrand.text : null;
+    final models = [
+      for (final b in here)
+        if (b.brand == brand) b,
+    ];
+    final modelIndex = models.indexWhere((b) => _modelOf(b) == ammoModel.text);
+    return [
+      MenzilFullWidth(
+        child: KeyedSubtree(
+          key: const Key('ammo-brand-select'),
+          child: MenzilSelect<String>(
+          key: ValueKey('ammo-brand-select-${platform.name}-${rifleCaliber.text}-$brand'),
+          label: 'Marka',
+          hint: 'Seçiniz',
+          initialValue: brand,
+          items: [
+            for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
+            const DropdownMenuItem(
+              value: _manualKey,
+              child: Text('Listede yok (elle yaz)'),
+            ),
+          ],
+          onChanged: (v) => setState(() {
+            if (v == _manualKey) {
+              _ammoManual = true;
+              return;
+            }
+            ammoBrand.text = v ?? '';
+            ammoModel.text = '';
+          }),
+        ),
+        ),
+      ),
+      if (brand != null)
+        MenzilFullWidth(
+          child: KeyedSubtree(
+            key: const Key('ammo-model-select'),
+            child: MenzilSelect<int>(
+            key: ValueKey('ammo-model-select-$brand-${rifleCaliber.text}-$modelIndex'),
+            label: 'Model',
+            hint: 'Seçiniz',
+            initialValue: modelIndex < 0 ? null : modelIndex,
+            items: [
+              for (final (k, b) in models.indexed)
+                DropdownMenuItem(
+                  value: k,
+                  child: Text(
+                    '${_modelOf(b)} · ${_trimDot(b.grain)} gr',
+                    maxLines: 2,
+                  ),
+                ),
+            ],
+            onChanged: (k) {
+              if (k == null) return;
+              setState(() => _applyBullet(models[k], _parse(rifleCaliber)));
+            },
+          ),
+          ),
+        ),
+    ];
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -1978,7 +2074,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   controller: sight,
                   label: 'Sight height',
                   onChanged: (_) => setState(() {}),
-                  helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
                   errorText: sight.text.isNotEmpty && !_validSight
                       ? '0–300 mm arasında geçerli bir değer girin.'
                       : null,
@@ -2021,16 +2116,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   info: ProfileFieldInfo.zero,
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_zeroError, zero),
-                ),
-                MenzilFullWidth(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton.icon(
-                      onPressed: _showSightHelp,
-                      icon: const Icon(Icons.info_outline, size: 18),
-                      label: const Text('Sight height nasıl ölçülür?'),
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -2259,6 +2344,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     ),
                   ),
                 ),
+                ..._ammoNameFields(texts: [
                 MenzilFullWidth(
                   child: MenzilInput(
                     key: const Key('ammo-brand'),
@@ -2285,6 +2371,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     onChanged: (_) => setState(() {}),
                   ),
                 ),
+                ]),
                 if (platform == WeaponPlatform.pcp)
                   MenzilSelect<AmmunitionType>(
                     key: const Key('ammo-type'),
@@ -2440,129 +2527,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 }
 
-class _SightHeightHelpDialog extends StatelessWidget {
-  const _SightHeightHelpDialog();
-
-  @override
-  Widget build(BuildContext context) {
-    final c = MenzilColors.of(context);
-    return AlertDialog(
-      title: const Text('Sight height nasıl ölçülür?'),
-      content: SizedBox(
-        width: 420,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Uygulama bu değeri hesaplamaz. Değeri siz ölçüp profil alanına girersiniz.',
-              ),
-              const SizedBox(height: 16),
-              AspectRatio(
-                aspectRatio: 1.65,
-                child: CustomPaint(
-                  painter: _SightHeightDiagramPainter(
-                    line: c.ink2,
-                    accent: c.amber,
-                    text: c.ink,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                '1. Dürbünün optik eksen merkezini belirleyin.',
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                '2. Namlu deliğinin merkezini belirleyin. Namlu dış yüzeyini referans almayın.',
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                '3. Bu iki merkez arasındaki dikey mesafeyi mm olarak ölçün.',
-              ),
-              const SizedBox(height: 12),
-              const Text(
-                'Önemli: Ölçüm merkezden merkezedir; namlunun üst yüzeyinden dürbüne olan boşluk değildir.',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-      ),
-      actions: [
-        FilledButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Anladım'),
-        ),
-      ],
-    );
-  }
-}
-
-class _SightHeightDiagramPainter extends CustomPainter {
-  final Color line;
-  final Color accent;
-  final Color text;
-  const _SightHeightDiagramPainter({
-    required this.line,
-    required this.accent,
-    required this.text,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final fg = Paint()
-      ..color = line
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-    final red = Paint()
-      ..color = accent
-      ..strokeWidth = 3;
-    final fill = Paint()..color = accent;
-    final cx = size.width * .62;
-    final scopeY = size.height * .27;
-    final barrelY = size.height * .74;
-
-    canvas.drawCircle(Offset(cx, scopeY), size.height * .14, fg);
-    canvas.drawCircle(Offset(cx, barrelY), size.height * .105, fg);
-    canvas.drawCircle(Offset(cx, scopeY), 4, fill);
-    canvas.drawCircle(Offset(cx, barrelY), 4, fill);
-
-    canvas.drawLine(Offset(cx, scopeY + 7), Offset(cx, barrelY - 7), red);
-    canvas.drawLine(Offset(cx - 7, scopeY + 15), Offset(cx, scopeY + 7), red);
-    canvas.drawLine(Offset(cx + 7, scopeY + 15), Offset(cx, scopeY + 7), red);
-    canvas.drawLine(Offset(cx - 7, barrelY - 15), Offset(cx, barrelY - 7), red);
-    canvas.drawLine(Offset(cx + 7, barrelY - 15), Offset(cx, barrelY - 7), red);
-
-    final tp = TextPainter(textDirection: TextDirection.ltr);
-    void label(String t, Offset o) {
-      tp.text = TextSpan(
-        text: t,
-        style: TextStyle(color: text, fontSize: 13),
-      );
-      tp.layout(maxWidth: size.width * .45);
-      tp.paint(canvas, o);
-    }
-
-    label('Dürbün optik merkezi', Offset(8, scopeY - 10));
-    label('Namlu deliği merkezi', Offset(8, barrelY - 10));
-    label('merkezden\nmerkeze', Offset(cx + 18, (scopeY + barrelY) / 2 - 18));
-  }
-
-  @override
-  bool shouldRepaint(covariant _SightHeightDiagramPainter oldDelegate) =>
-      oldDelegate.line != line ||
-      oldDelegate.accent != accent ||
-      oldDelegate.text != text;
-}
-
-String _trimNum(double v) =>
-    v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
-
-/// Shows the profile's SI values in the user's unit system (Ayarlar). The
-/// stored profile stays SI; only the display converts.
 class _ProfileUnits {
   const _ProfileUnits();
 

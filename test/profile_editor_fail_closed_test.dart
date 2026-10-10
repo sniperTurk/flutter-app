@@ -333,7 +333,10 @@ void _unitsAndFirearmTests() {
     expect(find.text('9.00 mm (.357)'), findsNothing);
     await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
     expect(tester.widget<TextField>(grain).decoration!.hintText, '168 gr');
-    // No pellet example in the ammunition name of a firearm.
+    // Marka is a list of the firearm bullets for this caliber; a typed
+    // name only after "Listede yok", and without a pellet example.
+    expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
+    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok (elle yaz)');
     expect(
       tester
           .widget<TextField>(
@@ -375,6 +378,7 @@ void _unitsAndFirearmTests() {
       of: find.byKey(const Key('ammo-brand')),
       matching: find.byType(TextField),
     );
+    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok (elle yaz)');
     await tester.ensureVisible(brand);
     await tester.enterText(brand, 'H&N Slug HP');
     await tester.pump();
@@ -383,6 +387,8 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Ateşli Tüfek').last);
     await tester.pumpAndSettle();
-    expect(tester.widget<TextField>(brand).controller!.text, '');
+    // The typed PCP name is gone; the firearm lists are offered again.
+    expect(find.text('H&N Slug HP'), findsNothing);
+    expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
   });
 }
