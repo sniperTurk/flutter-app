@@ -89,12 +89,33 @@ void main() {
       await tester.pump();
     }
 
+    // Marka / Model come from lists; typed names need "Listede yok" first
+    // (owner, 2026-10-11).
+    Future<void> choose(String key, String label) async {
+      await tester.ensureVisible(find.byKey(Key(key)));
+      await tester.tap(find.byKey(Key(key)));
+      await tester.pumpAndSettle();
+      final item = find.text(label);
+      if (item.evaluate().isEmpty) {
+        await tester.dragUntilVisible(
+          item,
+          find.byType(Scrollable).last,
+          const Offset(0, -300),
+        );
+      }
+      await tester.ensureVisible(item.last);
+      await tester.pumpAndSettle();
+      await tester.tap(item.last);
+      await tester.pumpAndSettle();
+    }
+
+    await choose('rifle-brand-select', 'Listede yok');
     await type('rifle-brand', 'Test Marka');
     await type('rifle-model', 'Test Model');
     await tester.ensureVisible(find.byKey(const Key('rifle-caliber')));
     await tester.tap(find.byKey(const Key('rifle-caliber')));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('6.35 mm').last);
+    await tester.tap(find.text('6.35 mm (.25)').last);
     await tester.pumpAndSettle();
     await type('rifle-twist-rate', '16');
     await tester.ensureVisible(find.byKey(const Key('rifle-twist-direction')));
@@ -102,6 +123,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Sağ').last);
     await tester.pumpAndSettle();
+    await choose('ammo-brand-select', 'Listede yok');
     await type('ammo-brand', 'Test Mühimmat Slug');
     await tester.ensureVisible(find.byKey(const Key('ammo-type')));
     await tester.tap(find.byKey(const Key('ammo-type')));
