@@ -2818,8 +2818,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 label: 'Yönü',
                 info: EnvironmentFieldInfo.targetDirection,
                 initialValue: _targetMovesRight,
-                hint: 'Seçiniz',
+                // "Seçiniz" stays in the list so a choice can be taken back
+                // (owner, 2026-10-10).
                 items: const [
+                  DropdownMenuItem<bool>(child: Text('Seçiniz')),
                   DropdownMenuItem(value: true, child: Text('Soldan sağa')),
                   DropdownMenuItem(value: false, child: Text('Sağdan sola')),
                 ],
