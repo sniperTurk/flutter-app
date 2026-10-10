@@ -115,7 +115,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -549,10 +548,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       return MenzilPage(
         children: [
-          LockedPreview(
-            shot: tab == _tabShot,
-            onCreate: _createProfile,
-          ),
+          LockedPreview(shot: tab == _tabShot, onCreate: _createProfile),
         ],
       );
     }
