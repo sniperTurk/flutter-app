@@ -1409,69 +1409,70 @@ class ScopeReticlePainter extends CustomPainter {
         break;
       case ReticleFamily.milDot:
         {
-        final rPx = math.max(1.6, math.min(4.0, 0.12 * k));
-        for (var i = 1; i * r.hashStep <= r.extentH + 1e-9; i++) {
-          final p = i * r.hashStep * k;
-          for (final at in [
-            c + Offset(p, 0),
-            c + Offset(-p, 0),
-            c + Offset(0, p),
-            c + Offset(0, -p),
-          ]) {
-            drawDot(at, rPx);
+          final rPx = math.max(1.6, math.min(4.0, 0.12 * k));
+          for (var i = 1; i * r.hashStep <= r.extentH + 1e-9; i++) {
+            final p = i * r.hashStep * k;
+            for (final at in [
+              c + Offset(p, 0),
+              c + Offset(-p, 0),
+              c + Offset(0, p),
+              c + Offset(0, -p),
+            ]) {
+              drawDot(at, rPx);
+            }
           }
-        }
         }
       case ReticleFamily.hash:
       case ReticleFamily.tree:
         {
-        final step = r.hashStep;
-        if (step > 0) {
-          // Skip marks closer than ~3 px (low FFP power): keep majors only.
-          final dense = step * k < 3;
-          bool major(double v) =>
-              r.majorEvery > 0 &&
-              ((v / r.majorEvery) - (v / r.majorEvery).round()).abs() < 1e-6;
-          void marks(double extent, Offset dir, Offset across) {
-            for (var i = 1; i * step <= extent + 1e-9; i++) {
-              final v = i * step;
-              final big = major(v);
-              if (dense && !big) continue;
-              final len = (big ? 7.0 : 3.5) * math.min(1.0, step * k / 4 + 0.5);
-              final at = c + dir * (v * k);
-              line(at - across * len, at + across * len, 1.0);
-              final ne = r.numbersEvery;
-              if (ne != null &&
-                  ne > 0 &&
-                  ((v / ne) - (v / ne).round()).abs() < 1e-6) {
-                final off = len + numFont * 0.8;
-                number(
-                  v,
-                  dir.dx != 0
-                      ? at - Offset(0, off)
-                      : at + Offset(off + numFont * 0.4, 0),
-                );
+          final step = r.hashStep;
+          if (step > 0) {
+            // Skip marks closer than ~3 px (low FFP power): keep majors only.
+            final dense = step * k < 3;
+            bool major(double v) =>
+                r.majorEvery > 0 &&
+                ((v / r.majorEvery) - (v / r.majorEvery).round()).abs() < 1e-6;
+            void marks(double extent, Offset dir, Offset across) {
+              for (var i = 1; i * step <= extent + 1e-9; i++) {
+                final v = i * step;
+                final big = major(v);
+                if (dense && !big) continue;
+                final len =
+                    (big ? 7.0 : 3.5) * math.min(1.0, step * k / 4 + 0.5);
+                final at = c + dir * (v * k);
+                line(at - across * len, at + across * len, 1.0);
+                final ne = r.numbersEvery;
+                if (ne != null &&
+                    ne > 0 &&
+                    ((v / ne) - (v / ne).round()).abs() < 1e-6) {
+                  final off = len + numFont * 0.8;
+                  number(
+                    v,
+                    dir.dx != 0
+                        ? at - Offset(0, off)
+                        : at + Offset(off + numFont * 0.4, 0),
+                  );
+                }
+              }
+            }
+
+            marks(r.extentH, const Offset(1, 0), const Offset(0, 1));
+            marks(r.extentH, const Offset(-1, 0), const Offset(0, 1));
+            marks(r.extentUp, const Offset(0, -1), const Offset(1, 0));
+            marks(r.extentDown, const Offset(0, 1), const Offset(1, 0));
+          }
+          if (r.family == ReticleFamily.tree) {
+            final rPx = math.max(1.0, math.min(2.4, 0.08 * k));
+            for (final row in r.tree) {
+              if (row.dotStep * k < 3) continue;
+              final y = c.dy + row.y * k;
+              for (var i = 1; i * row.dotStep <= row.halfWidth + 1e-9; i++) {
+                final x = i * row.dotStep * k;
+                drawDot(Offset(c.dx + x, y), rPx);
+                drawDot(Offset(c.dx - x, y), rPx);
               }
             }
           }
-
-          marks(r.extentH, const Offset(1, 0), const Offset(0, 1));
-          marks(r.extentH, const Offset(-1, 0), const Offset(0, 1));
-          marks(r.extentUp, const Offset(0, -1), const Offset(1, 0));
-          marks(r.extentDown, const Offset(0, 1), const Offset(1, 0));
-        }
-        if (r.family == ReticleFamily.tree) {
-          final rPx = math.max(1.0, math.min(2.4, 0.08 * k));
-          for (final row in r.tree) {
-            if (row.dotStep * k < 3) continue;
-            final y = c.dy + row.y * k;
-            for (var i = 1; i * row.dotStep <= row.halfWidth + 1e-9; i++) {
-              final x = i * row.dotStep * k;
-              drawDot(Offset(c.dx + x, y), rPx);
-              drawDot(Offset(c.dx - x, y), rPx);
-            }
-          }
-        }
         }
     }
     if (r.centerDot) drawDot(c, 2.2);
@@ -1554,50 +1555,59 @@ class ScopeReticlePainter extends CustomPainter {
       math.min(size.shortestSide * 0.011, markStep * scale * 0.12),
     );
     if (spec != null) {
-      _drawSpec(canvas, spec, center, radius, scale * reticleToView, line,
-          halo, ink, size);
+      _drawSpec(
+        canvas,
+        spec,
+        center,
+        radius,
+        scale * reticleToView,
+        line,
+        halo,
+        ink,
+        size,
+      );
     } else {
-    // Fine crosshair.
-    line(
-      Offset(center.dx - postStart, center.dy),
-      Offset(center.dx + postStart, center.dy),
-      fine,
-    );
-    line(
-      Offset(center.dx, center.dy - postStart),
-      Offset(center.dx, center.dy + postStart),
-      fine,
-    );
-    // Thick posts.
-    const directions = [
-      Offset(1, 0),
-      Offset(-1, 0),
-      Offset(0, 1),
-      Offset(0, -1),
-    ];
-    for (final d in directions) {
-      line(center + d * postStart, center + d * radius, 7);
-    }
-
-    // Marks.
-    final steps = (halfField * 0.8 / markStep).floor();
-    final dot = Paint()..color = ink;
-    final dotHalo = Paint()..color = halo;
-    for (var i = -steps; i <= steps; i++) {
-      if (i == 0) continue;
-      final p = i * markStep * scale;
-      if (unitLabel == 'mrad') {
-        for (final at in [center + Offset(p, 0), center + Offset(0, p)]) {
-          canvas.drawCircle(at, dotR + 1.2, dotHalo);
-          canvas.drawCircle(at, dotR, dot);
-        }
-      } else {
-        final long =
-            (i % 5 == 0 ? 9.0 : 5.0) * math.min(1.0, markStep * scale / 12);
-        line(center + Offset(p, -long), center + Offset(p, long), fine);
-        line(center + Offset(-long, p), center + Offset(long, p), fine);
+      // Fine crosshair.
+      line(
+        Offset(center.dx - postStart, center.dy),
+        Offset(center.dx + postStart, center.dy),
+        fine,
+      );
+      line(
+        Offset(center.dx, center.dy - postStart),
+        Offset(center.dx, center.dy + postStart),
+        fine,
+      );
+      // Thick posts.
+      const directions = [
+        Offset(1, 0),
+        Offset(-1, 0),
+        Offset(0, 1),
+        Offset(0, -1),
+      ];
+      for (final d in directions) {
+        line(center + d * postStart, center + d * radius, 7);
       }
-    }
+
+      // Marks.
+      final steps = (halfField * 0.8 / markStep).floor();
+      final dot = Paint()..color = ink;
+      final dotHalo = Paint()..color = halo;
+      for (var i = -steps; i <= steps; i++) {
+        if (i == 0) continue;
+        final p = i * markStep * scale;
+        if (unitLabel == 'mrad') {
+          for (final at in [center + Offset(p, 0), center + Offset(0, p)]) {
+            canvas.drawCircle(at, dotR + 1.2, dotHalo);
+            canvas.drawCircle(at, dotR, dot);
+          }
+        } else {
+          final long =
+              (i % 5 == 0 ? 9.0 : 5.0) * math.min(1.0, markStep * scale / 12);
+          line(center + Offset(p, -long), center + Offset(p, long), fine);
+          line(center + Offset(-long, p), center + Offset(long, p), fine);
+        }
+      }
     }
     canvas.drawCircle(center, 2.5, Paint()..color = colors.ok);
 

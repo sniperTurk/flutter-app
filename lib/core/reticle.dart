@@ -130,9 +130,12 @@ abstract final class Reticles {
     if (name == null || name.trim().isEmpty) return null;
     if (genericNames.contains(name)) return generic(name);
     final n = name.toUpperCase();
-    final moa = n.contains('MOA') ||
+    final moa =
+        n.contains('MOA') ||
         (!n.contains('MIL') && !n.contains('MRAD') && turretUnit.moaFamily);
-    if (n.contains('MILDOT') || n.contains('MIL-DOT') || n.contains('MIL DOT')) {
+    if (n.contains('MILDOT') ||
+        n.contains('MIL-DOT') ||
+        n.contains('MIL DOT')) {
       return _named(generic(milDot), name);
     }
     if (n.contains('DUPLEX') || n.contains('VFD') || n.contains('HUNT')) {

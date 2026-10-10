@@ -118,10 +118,7 @@ class _ScopePickerScreenState extends State<ScopePickerScreen> {
                         c.ink,
                       ).copyWith(fontWeight: FontWeight.w700),
                     ),
-                    subtitle: Text(
-                      details,
-                      style: MenzilType.caption(c.ink2),
-                    ),
+                    subtitle: Text(details, style: MenzilType.caption(c.ink2)),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => Navigator.pop(context, s),
                   ),

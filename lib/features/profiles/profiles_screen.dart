@@ -1955,16 +1955,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 KeyedSubtree(
                   key: const Key('scope-focal-plane'),
                   child: MenzilSelect<bool>(
-                  key: ValueKey('scope-focal-plane-$_scopePickToken'),
-                  info: ProfileFieldInfo.focalPlane,
-                  label: 'Odak düzlemi',
-                  initialValue: firstFocalPlane,
-                  items: const [
-                    DropdownMenuItem(value: true, child: Text('FFP')),
-                    DropdownMenuItem(value: false, child: Text('SFP')),
-                  ],
-                  onChanged: (v) => setState(() => firstFocalPlane = v),
-                ),
+                    key: ValueKey('scope-focal-plane-$_scopePickToken'),
+                    info: ProfileFieldInfo.focalPlane,
+                    label: 'Odak düzlemi',
+                    initialValue: firstFocalPlane,
+                    items: const [
+                      DropdownMenuItem(value: true, child: Text('FFP')),
+                      DropdownMenuItem(value: false, child: Text('SFP')),
+                    ],
+                    onChanged: (v) => setState(() => firstFocalPlane = v),
+                  ),
                 ),
                 MenzilSelect<double>(
                   // Rebuilt when the click value/unit changes so every
