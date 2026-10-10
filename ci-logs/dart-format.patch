@@ -1,0 +1,21 @@
+diff --git a/test/scope_dial_view_test.dart b/test/scope_dial_view_test.dart
+index f708991..3bfc3b4 100644
+--- a/test/scope_dial_view_test.dart
++++ b/test/scope_dial_view_test.dart
+@@ -104,12 +104,10 @@ void main() {
+     tester,
+   ) async {
+     await _pumpSolved(tester);
+-    String label(Key k) => tester
+-        .widget<MenzilSecondaryButton>(find.byKey(k))
+-        .label;
+-    bool active(Key k) => tester
+-        .widget<MenzilSecondaryButton>(find.byKey(k))
+-        .active;
++    String label(Key k) =>
++        tester.widget<MenzilSecondaryButton>(find.byKey(k)).label;
++    bool active(Key k) =>
++        tester.widget<MenzilSecondaryButton>(find.byKey(k)).active;
+     expect(label(ScopeDialKeys.dialSolution), 'Çözümü kuleye kur');
+     expect(label(ScopeDialKeys.reset), 'Kuleler sıfırda');
+     expect(active(ScopeDialKeys.reset), isTrue);
