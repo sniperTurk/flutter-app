@@ -46,5 +46,7 @@ Sayfaları paralel değil, tek tek ve aralıklı çekin.
 | vortex.json | 66 | vortexoptics.com embedded spec data, one record per reticle variant |
 | barska.json | 49 | shop.barska.com "Detailed Specifications" |
 | kahles.json | 16 | kahles.at technical data (travel m/100 m → mrad) |
+| element_optics.json | 19 | global.element-optics.com spec tables (MRAD version) |
+| arken_optics.json | 8 | arkenopticsusa.com specifications (MIL version) |
 | gazi_sniper.json | 11 | gazisniper.com.tr product pages (Gazi Sniper, MewLite); 13 pages publish specs only as images |
 Unit rule: travel fields are named *_mrad or *_moa after the turret unit.
