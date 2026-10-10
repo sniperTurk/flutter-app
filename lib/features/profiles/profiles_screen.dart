@@ -300,9 +300,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     // First start (or every profile deleted): a welcome page instead of an
     // empty list (owner, 2026-10-10).
     if (items.isEmpty && widget.embedded) {
-      return MenzilPage(
-        children: [WelcomePanel(onCreate: _add)],
-      );
+      return MenzilPage(children: [WelcomePanel(onCreate: _add)]);
     }
     return MenzilPage(
       children: [

@@ -115,7 +115,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
   /// "Örnek profille dene": installs the sample profiles, makes the PCP one
   /// active and opens Hedef.
   Future<void> _trySample() async {
@@ -574,10 +573,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       return MenzilPage(
         children: [
-          LockedPreview(
-            shot: tab == _tabShot,
-            onCreate: _createProfile,
-          ),
+          LockedPreview(shot: tab == _tabShot, onCreate: _createProfile),
         ],
       );
     }
