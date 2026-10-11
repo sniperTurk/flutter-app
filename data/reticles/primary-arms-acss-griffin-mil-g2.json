@@ -1,19 +1,22 @@
 {
   "name": "ACSS Griffin MIL G2",
   "brand": "Primary Arms",
-  "scopes": ["PLxC 1-8x24 FFP RDB"],
+  "scopes": [
+    "PLxC 1-8x24 FFP RDB",
+    "PLxC 1.5-12x36 FFP RDB Gen II"
+  ],
   "unit": "mil",
   "family": "tree",
-  "hash_step": null,
+  "hash_step": 0.5,
   "major_every": 5.0,
   "numbers_every": null,
   "extent_h": null,
   "extent_v_up": null,
   "extent_v_down": null,
   "tree": null,
-  "posts_start": null,
-  "center_dot": false,
+  "posts_start": 10,
+  "center_dot": null,
   "floating_center": null,
-  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=29210993&c=3901023&h=ITYlBc4EGY4iyaQ2KGdumCP-LFABfXCL5AGEAkWaumEd6MuF",
-  "notes": "Primary Arms Compact FFP RDB ACSS Griffin MIL G2 1-8x24 reticle manual (FFP; telemetre her büyütmede geçerli). Metin: merkezde şevron (ucu nişan noktası, 1x'te parlak aydınlatmalı merkez); MIL ızgarası ve dikey telemetre çizgilerinde 5 MIL aralıklarında halter (barbell) işaretler -> major_every=5; düşük büyütme dış artı çizgilerinde 5 ve 10 MIL bölmeleri; BDC şevron ucundan 5. MIL çizgisine (600 yd) kadar. Küçük işaret aralığı, uzanımlar, ızgara satırları ve rakamlar metinde net değil -> null. Bu G2 sürümüdür; ACSS Griffin MIL (G1) için ayrı föy bulunamadı."
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=33787268&c=3901023&h=reQkjaRruIoLA9hgPf61PdjYGvxrEHc5KtnffhOwjZdEVwa_",
+  "notes": "Kaynaklar: Primary Arms 'ACSS Griffin MIL G2 Reticle Manual' Compact FFP 1.5-12x36 (source_url) ve 'Compact First Focal Plane RDB ACSS Griffin MIL G2 1-8x24' föyü (media.nl id=29210993). PLxC 1.5-12x36 Gen II ürün sayfası: 'First Focal Plane ACSS Griffin MIL G2 Reticle' -> aynı retikül, scopes'a eklendi. FFP. 'At high magnification, the lateral MIL crosshairs extend from the 2nd to 9th MILs with 0.5 MIL subtensions ... leading to the 10th MIL, which starts on the larger outer crosshair' -> hash_step=0.5; çıkarım: posts_start=10. 'Both your MIL grid and vertical ranging stadia have barbells to indicate 5 MIL increments' -> major_every=5. Düşük büyütmede dış çizgilerde 5 ve 10 MIL bölmeleri. Merkez: yüksek büyütmede şevron ucu; düşük büyütmede 'boldly illuminated center dot' -> center_dot=null (büyütmeye bağlı). BDC şevron ucundan 5. MIL stadia'ya (600 yd) kadar. Yatay telemetre 18\" hedef: 300 yd at nalı (1-8x24 föyü 'şevron' diyor), 400 = 2., 500/550 = 3./4., 600 = 5. MIL stadia; dikey stadia 5'10\" hedefe göre. Föydeki '50 MIL stadia ... barbells' ifadesi 5 MIL'in yazım hatası kabul edildi (çıkarım). Izgara uzanımı/satırları, dikey uzanım, rakam aralığı, yatay ölçeğin toplam uzanımı ve çizgi kalınlıkları belirtilmemiş -> null."
 }

@@ -1,7 +1,10 @@
 {
   "name": "ACSS Apollo .308/6.5 Grendel",
   "brand": "Primary Arms",
-  "scopes": ["SLx 3-18x50 FFP Gen II", "GLx 3-18x44 FFP"],
+  "scopes": [
+    "SLx 3-18x50 FFP Gen II",
+    "GLx 3-18x44 FFP"
+  ],
   "unit": "mil",
   "family": "tree",
   "hash_step": 0.5,
@@ -13,7 +16,7 @@
   "tree": null,
   "posts_start": null,
   "center_dot": false,
-  "floating_center": null,
+  "floating_center": true,
   "source_url": "https://www.primaryarms.com/core/media/media.nl?id=18747783&c=3901023&h=lYXHrx-geZTQp5SPkbzQRUY1-ml1Lq-9ReCsOeOglxiSaXgg",
-  "notes": "Primary Arms ACSS Apollo .308/6.5GR reticle manual (SLx 3-18x50 FFP). BDC tipi MIL retikül. Merkez: şevron (0.1 MIL aşağı, 0.1 MIL sağ/sol), nokta yok. Büyük işaretler 1.0 MIL, aralarında 0.5 MIL küçük işaretler; yatayda 0.2 MIL kutucuklar (1.0 MIL'de büyük dikdörtgen) ve merkez üst/altında 0.2 MIL aralıklı 0.05 MIL noktalar; yatayda 2 MIL'den itibaren düz çizgi. 'Overall, the reticle extends 10 MIL up, left, and right'. BDC 300 yd'de başlıyor, 50 yd aralıklı işaretlerle 1000 yd'ye; BDC yanlarında 5/10/15/20 mph rüzgâr noktaları. BDC satırlarının merkezden mil cinsinden konumu/genişliği verilmediği için tree ve extent_v_down null."
+  "notes": "Kaynak: Primary Arms ACSS Apollo .308/6.5GR Reticle Manual 3-18x50 FFP (aynı metin GLx 3-18x44 kılavuzunda da var, media.nl id=17993726). Merkez: nokta yok, şevron ucu nişan noktası; şevron 0.1 MIL aşağı, 0.1 MIL sağa/sola. Yatayda merkezden 2 MIL'e kadar 0.2 MIL aralıklı kutucuklar (1.0 MIL'de biraz büyük dikdörtgen); merkez üst/altında 0.2 MIL aralıklı 0.05 MIL genişlikte noktalar, toplam 1.0 MIL. 2 MIL'de düz çizgi başlıyor: alternatif üst/alt işaretlerle 0.1 MIL ölçüm bölümü; 3.0 MIL'den itibaren 0.5 MIL işaretler. Büyük işaretler 1.0 MIL, küçükler 0.5 MIL (hash_step 0.5 genel işaret aralığı; 2-3 MIL arasında 0.1 MIL ince bölüm var). Uzanım: 'the reticle extends 10 MIL up, left, and right'. Merkez altı .308/6.5 Grendel BDC 300 yd'de başlıyor, 1000 yd'ye kadar 50 yd aralıklı işaretler, her 100 yd numaralı (numaralar yarda, MIL değil -> numbers_every null); rüzgâr noktaları 5/10/15/20 mph. Sağ üstte telemetre merdiveni (5'10\" boy, 18\" genişlik). Ürün sayfası: '.2 MIL crosshair subtensions'. çıkarım: floating_center=true, çünkü düz çizgi merkezden 2 MIL'de başlıyor, merkez bölümü kutucuk/noktalardan oluşuyor. BDC satırlarının ve rüzgâr noktalarının MIL konumu/genişliği, aşağı uzanım, kalın direkler ve çizgi kalınlığı kılavuzda yok -> tree, extent_v_down, posts_start null."
 }
