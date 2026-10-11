@@ -96,3 +96,18 @@ Norma soğuk hava Academy yazısı (test anlatılıyor ama hız sonuçları yok)
 - Okunan: liste sayfası, 217, 204, MRP (2026'da üretimden kalkıyor), 203-B ürün sayfaları.
 - **Sayı yok, ürüne özgü sıcaklık ifadesi yok → kayıt eklenmedi.** Sayfalardaki tek ifade genel
   ("smokeless powder is ... less sensitive to temperature variations compared to black powder"), ürüne özgü değil.
+
+### Western Powders (Ramshot / Accurate)
+- https://www.westernpowders.com/ iki kez `PROVENANCE_REQUIRED` (görev metninde olmasına rağmen; büyük olasılıkla başka adrese yönlendiriyor).
+- Üreticinin kendi blogu (blog.westernpowders.com, "Dear Labby") http↔https yönlendirme döngüsüne girdi, okunamadı.
+- **Ramshot/Accurate için kayıt eklenmedi.**
+
+### Fabrika fişeği
+- Hornady: 6.5 CM 140 gr ELD Match (görevdeki adres `PROVENANCE_REQUIRED`; doğru adres `/6-5-creedmoor-140-gr-eld-match`),
+  /6.5creedmoor, Ballistics FAQ, Heat Shield sayfası → **sıcaklık ifadesi/sayı yok.** (Superformance kaydı önceden vardı.)
+- Lapua: FAQ (yalnızca depolama: "about 10-15 degrees Celcius ... at least 5 years" — hız değil, alınmadı), TRX sayfası → yok.
+- Sako: /ammunition liste, TRG Defense, TRG Sport → yok.
+- Federal: Berger Hybrid Hunter 243, Gold Medal Berger 223 ürün sayfaları → yok.
+- Norma: FAQ'de "What should you take into account when shooting at low temperatures?" sorusu var, ancak cevap JS ile
+  yükleniyor; https://norma-ammunition.com/en-us/faq/ballistics WebFetch'te boş geldi → okunamadı.
+- **factory_ammo.json'a yeni kayıt eklenmedi** (6 kayıt, değişmedi).
