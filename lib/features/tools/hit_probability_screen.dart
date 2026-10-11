@@ -33,8 +33,11 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
     super.dispose();
   }
 
-  double? _parse(TextEditingController c) =>
-      double.tryParse(c.text.trim().replaceAll(',', '.'));
+  double? _parse(TextEditingController c) {
+    final v = double.tryParse(c.text.trim().replaceAll(',', '.'));
+    // "1e999" parses to Infinity and produced "NaN %" (denetim 2026-10-11).
+    return v != null && v.isFinite ? v : null;
+  }
 
   @override
   Widget build(BuildContext context) {

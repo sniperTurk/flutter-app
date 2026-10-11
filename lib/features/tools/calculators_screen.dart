@@ -14,8 +14,13 @@ import 'tool_support.dart';
 
 const _decimal = TextInputType.numberWithOptions(decimal: true, signed: true);
 
-double? _p(TextEditingController c) =>
-    double.tryParse(c.text.trim().replaceAll(',', '.'));
+/// Typed number, or null when empty/invalid. "1e999", "Infinity" and "NaN"
+/// parse in Dart but are not field values: treated as invalid so no
+/// calculator sees a non-finite number (denetim 2026-10-11).
+double? _p(TextEditingController c) {
+  final v = double.tryParse(c.text.trim().replaceAll(',', '.'));
+  return v != null && v.isFinite ? v : null;
+}
 
 String _d(double v, int digits) => ToolFormat.dec(v, digits);
 
@@ -669,7 +674,10 @@ class _ClickCheckState extends State<ClickCheckScreen> {
     final clicksD = _p(_clicks);
     final movedCm = _p(_moved);
     final nominal = _p(_nominal);
-    final clicks = (clicksD != null && clicksD == clicksD.roundToDouble())
+    final clicks =
+        (clicksD != null &&
+            clicksD.abs() <= 1000000 &&
+            clicksD == clicksD.roundToDouble())
         ? clicksD.toInt()
         : null;
     final real = (dist != null && movedCm != null && clicks != null)
