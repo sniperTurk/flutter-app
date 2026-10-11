@@ -36,7 +36,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/556-mm-x-45-Fisek-M193/165",
-    "notes": "Ham değerler: mermi 3.55 g, hız 964 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 964 ± 12 m/s; mermi 3.55 ± 0.1 g."
+    "notes": "Ham değerler: mermi 3.55 g, hız 964 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 964 ± 12 m/s; mermi 3.55 ± 0.1 g. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/556-mm-x-45-Fisek-M193/165 (erişim 2026-10-11)."
   },
   {
     "product": "5.56×45 Polimer Tip Fişek",
@@ -49,7 +49,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/556-mm-x-45-Polimer-Tip-Fisek/162",
-    "notes": "Ham değerler: mermi 3.2 g, hız 1005 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 1005 ± 15 m/s."
+    "notes": "Ham değerler: mermi 3.2 g, hız 1005 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 1005 ± 15 m/s. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/556-mm-x-45-Polimer-Tip-Fisek/162 (erişim 2026-10-11)."
   },
   {
     "product": "7.62×51 Normal Fişek (M80)",
@@ -101,7 +101,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-51-M118-Fisek/158",
-    "notes": "Ham değerler: mermi 11.46 g, hız 784 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 784 ± 9 m/s. Mermi ağırlığı ürün sayfasında '~11.4 g', katalogda 11,46 g (katalog değeri kullanıldı). Katalog: https://www.mke.gov.tr/Content/D_Dosya/ckResim/Programlar/03-MKE-KATALOG-SMALL%20ARMS%20AMMUNITION.pdf"
+    "notes": "Ham değerler: mermi 11.46 g, hız 784 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 784 ± 9 m/s. Mermi ağırlığı ürün sayfasında '~11.4 g', katalogda 11,46 g (katalog değeri kullanıldı). Katalog: https://www.mke.gov.tr/Content/D_Dosya/ckResim/Programlar/03-MKE-KATALOG-SMALL%20ARMS%20AMMUNITION.pdf | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/762-mm-x-51-M118-Fisek/158 (erişim 2026-10-11)."
   },
   {
     "product": "7.62×51 Subsonic Fişek",
@@ -114,7 +114,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-51-Subsonic-Fisek/156",
-    "notes": "Ham değerler: mermi 13.0 g, hız 305 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 305 m/s."
+    "notes": "Ham değerler: mermi 13.0 g, hız 305 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 305 m/s. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/762-mm-x-51-Subsonic-Fisek/156 (erişim 2026-10-11)."
   },
   {
     "product": "7.62×54R Fişek (Normal)",
@@ -127,7 +127,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-54-Fisek-Normal/155",
-    "notes": "Ham değerler: mermi 9.6 g, hız 828 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. Ürün sayfası 828 m/s, katalog 808 m/s diyor (sayfa değeri kullanıldı)."
+    "notes": "Ham değerler: mermi 9.6 g, hız 828 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. Ürün sayfası 828 m/s, katalog 808 m/s diyor (sayfa değeri kullanıldı). | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/762-mm-x-54-Fisek-Normal/155 (erişim 2026-10-11)."
   },
   {
     "product": "7.62×54R İzli Fişek",
@@ -140,7 +140,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-54-Izli-Fisek/154",
-    "notes": "Ham değerler: mermi 9.1 g, hız 808 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 808 m/sec."
+    "notes": "Ham değerler: mermi 9.1 g, hız 808 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 808 m/sec. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/762-mm-x-54-Izli-Fisek/154 (erişim 2026-10-11)."
   },
   {
     "product": "7.62×39 Fişek (Çelik Çekirdekli)",
@@ -153,7 +153,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-39-Fisek-Celik-Cekirdekli/153",
-    "notes": "Ham değerler: mermi 7.95 g, hız 710 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 710 ± 15 m/s; mermi 7.95 ± 0.1 g."
+    "notes": "Ham değerler: mermi 7.95 g, hız 710 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 710 ± 15 m/s; mermi 7.95 ± 0.1 g. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/762-mm-x-39-Fisek-Celik-Cekirdekli/153 (erişim 2026-10-11)."
   },
   {
     "product": "8.59×70 Fişek (Normal)",
@@ -166,7 +166,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/859-mm-x-70-Fisek-Normal/151",
-    "notes": "Ham değerler: mermi 16.4 g, hız 890 m/s. Çap ve test namlusu MKE tarafından yayınlanmıyor. Sayfada 'Namlu Çıkış Hızı 890 ± 10 m/s' (ölçüm mesafesi belirtilmemiş). Katalog PDF metninde 16,4 g / 15,6 g değerleri BALL/SOLID ile ters eşleşiyor; ürün sayfaları esas alındı."
+    "notes": "Ham değerler: mermi 16.4 g, hız 890 m/s. Çap ve test namlusu MKE tarafından yayınlanmıyor. Sayfada 'Namlu Çıkış Hızı 890 ± 10 m/s' (ölçüm mesafesi belirtilmemiş). Katalog PDF metninde 16,4 g / 15,6 g değerleri BALL/SOLID ile ters eşleşiyor; ürün sayfaları esas alındı. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/859-mm-x-70-Fisek-Normal/151 (erişim 2026-10-11)."
   },
   {
     "product": "8.59×70 Solid Fişek",
@@ -179,7 +179,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/859-mm-x-70-Solid-Fisek/150",
-    "notes": "Ham değerler: mermi 15.6 g, hız 890 m/s. Çap ve test namlusu MKE tarafından yayınlanmıyor. Sayfada 'Namlu Çıkış Hızı 890 ± 10 m/s'. Mermi malzemesi pirinç. Katalog eşleştirme notu için 8.59 Normal kaydına bakın."
+    "notes": "Ham değerler: mermi 15.6 g, hız 890 m/s. Çap ve test namlusu MKE tarafından yayınlanmıyor. Sayfada 'Namlu Çıkış Hızı 890 ± 10 m/s'. Mermi malzemesi pirinç. Katalog eşleştirme notu için 8.59 Normal kaydına bakın. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/859-mm-x-70-Solid-Fisek/150 (erişim 2026-10-11)."
   },
   {
     "product": "8.59×70 AP",
@@ -192,7 +192,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Content/D_Dosya/ckResim/Programlar/03-MKE-KATALOG-SMALL%20ARMS%20AMMUNITION.pdf",
-    "notes": "Ham değerler: mermi 16.1 g, hız 890 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. Sadece katalogda (ürün sayfası yok). Katalog düzeni karışık; blok eşleştirmesi tahmini."
+    "notes": "Ham değerler: mermi 16.1 g, hız 890 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. Sadece katalogda (ürün sayfası yok). Katalog düzeni karışık; blok eşleştirmesi tahmini. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: ürün sayfası yok; MKE Small Arms Ammunition katalog PDF'inde BC/G1/G7 yok (2026-10-11 kontrol). Bakılan kaynak: https://www.mke.gov.tr/Content/D_Dosya/ckResim/Programlar/03-MKE-KATALOG-SMALL%20ARMS%20AMMUNITION.pdf (erişim 2026-10-11)."
   },
   {
     "product": "8.59×70 API",
@@ -205,7 +205,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Content/D_Dosya/ckResim/Programlar/03-MKE-KATALOG-SMALL%20ARMS%20AMMUNITION.pdf",
-    "notes": "Ham değerler: mermi 16.1 g, hız 895 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. Sadece katalogda. Katalog düzeni karışık; blok eşleştirmesi tahmini."
+    "notes": "Ham değerler: mermi 16.1 g, hız 895 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. Sadece katalogda. Katalog düzeni karışık; blok eşleştirmesi tahmini. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: ürün sayfası yok; MKE Small Arms Ammunition katalog PDF'inde BC/G1/G7 yok (2026-10-11 kontrol). Bakılan kaynak: https://www.mke.gov.tr/Content/D_Dosya/ckResim/Programlar/03-MKE-KATALOG-SMALL%20ARMS%20AMMUNITION.pdf (erişim 2026-10-11)."
   },
   {
     "product": "12.7×99 Fişek (M8 API)",
@@ -218,7 +218,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/127-mm-x-99-50-cal-Fisek-M8/139",
-    "notes": "Ham değerler: mermi 43.6 g, hız 887 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 887 ± 9.2 m/s; mermi 43.60 ± 0.2 g."
+    "notes": "Ham değerler: mermi 43.6 g, hız 887 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 887 ± 9.2 m/s; mermi 43.60 ± 0.2 g. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/127-mm-x-99-50-cal-Fisek-M8/139 (erişim 2026-10-11)."
   },
   {
     "product": "12.7×99 Fişek (M17 İzli)",
@@ -231,7 +231,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/127-mm-x-99-50-cal-Fisek-M17/138",
-    "notes": "Ham değerler: mermi 41.7 g, hız 872 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 872 ± 12 m/s."
+    "notes": "Ham değerler: mermi 41.7 g, hız 872 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 872 ± 12 m/s. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/127-mm-x-99-50-cal-Fisek-M17/138 (erişim 2026-10-11)."
   },
   {
     "product": "12.7×99 Fişek (M33 Normal)",
@@ -244,7 +244,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/127-mm-x-99-50-cal-Fisek-M33/137",
-    "notes": "Ham değerler: mermi 42.87 g, hız 887 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. Ürün sayfası: mermi 42.87-1.61 g, 887 ± 9.2 m/s, çelik çekirdek+boraks. Katalog M33 için 41,7 g / 872 m/s veriyor; sayfa M2 AP ile aynı görünüyor, doğrulanmalı."
+    "notes": "Ham değerler: mermi 42.87 g, hız 887 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. Ürün sayfası: mermi 42.87-1.61 g, 887 ± 9.2 m/s, çelik çekirdek+boraks. Katalog M33 için 41,7 g / 872 m/s veriyor; sayfa M2 AP ile aynı görünüyor, doğrulanmalı. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/127-mm-x-99-50-cal-Fisek-M33/137 (erişim 2026-10-11)."
   },
   {
     "product": "12.7×99 Fişek (Solid Keskin Nişancı)",
@@ -257,7 +257,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/127mmx99-50-Cal-Fisek-Solid-Keskin-Nisanci/135",
-    "notes": "Ham değerler: mermi 51.76 g, hız 845 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 845 ± 9.2 m/s; mermi 51.76 ± 0.6 g; dağılım 1 MOA."
+    "notes": "Ham değerler: mermi 51.76 g, hız 845 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 845 ± 9.2 m/s; mermi 51.76 ± 0.6 g; dağılım 1 MOA. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/127mmx99-50-Cal-Fisek-Solid-Keskin-Nisanci/135 (erişim 2026-10-11)."
   },
   {
     "product": "12.7×99 Fişek (M2 AP)",
@@ -270,7 +270,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/127-mm-x-99-Fisek-M2-AP/134",
-    "notes": "Ham değerler: mermi 42.87 g, hız 887 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 887 m/s."
+    "notes": "Ham değerler: mermi 42.87 g, hız 887 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 887 m/s. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/127-mm-x-99-Fisek-M2-AP/134 (erişim 2026-10-11)."
   },
   {
     "product": "12.7×99 Fişek (M8 API Keskin Nişancı)",
@@ -283,7 +283,7 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Urunler/127mm-x-99-Fisek-M8-API-Keskin-Nisanci/133",
-    "notes": "Ham değerler: mermi 43.6 g, hız 887 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 887 ± 9.2 m/s; dağılım 1 MOA."
+    "notes": "Ham değerler: mermi 43.6 g, hız 887 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. 887 ± 9.2 m/s; dağılım 1 MOA. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/127mm-x-99-Fisek-M8-API-Keskin-Nisanci/133 (erişim 2026-10-11)."
   },
   {
     "product": "12.7×99 M20 API-T",
@@ -296,6 +296,6 @@
     "g1_bc": null,
     "g7_bc": null,
     "source_url": "https://www.mke.gov.tr/Content/D_Dosya/ckResim/Programlar/03-MKE-KATALOG-SMALL%20ARMS%20AMMUNITION.pdf",
-    "notes": "Ham değerler: mermi 43.6 g, hız 1036 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. Sadece katalogda; 1036 m/s katalog metninden, düzen karışık olduğundan doğrulanmalı."
+    "notes": "Ham değerler: mermi 43.6 g, hız 1036 m/s (23.7 m'de ölçülen; namlu ağzı değil). Çap ve test namlusu MKE tarafından yayınlanmıyor. Sadece katalogda; 1036 m/s katalog metninden, düzen karışık olduğundan doğrulanmalı. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: ürün sayfası yok; MKE Small Arms Ammunition katalog PDF'inde BC/G1/G7 yok (2026-10-11 kontrol). Bakılan kaynak: https://www.mke.gov.tr/Content/D_Dosya/ckResim/Programlar/03-MKE-KATALOG-SMALL%20ARMS%20AMMUNITION.pdf (erişim 2026-10-11)."
   }
 ]
