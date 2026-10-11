@@ -152,7 +152,9 @@ void main() {
   ) async {
     await _openNew(tester, firearm: true);
     await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
-    expect(_in('ammo-source', find.text('Fabrika fişeği')), findsOneWidget);
+    // Every list box starts on "Seçiniz" (owner, 2026-10-11).
+    expect(_in('ammo-source', find.text('Seçiniz')), findsOneWidget);
+    await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
     await chooseInSelect(tester, 'ammo-brand-select', 'Hornady');
     await chooseInSelect(
       tester,

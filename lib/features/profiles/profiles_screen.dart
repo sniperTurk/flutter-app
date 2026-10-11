@@ -145,6 +145,10 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       try {
         await store.save(p);
         await _changed();
+        // The profile just created or edited becomes the active one: the
+        // user goes on with it (owner, 2026-10-11: going back to pick the
+        // new rifle by hand made no sense).
+        await widget.onActivate?.call(p);
       } catch (_) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -1182,6 +1186,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// Fills the scope form from a catalog record.
   void _applyScope(ScopeOptic s, {String? reticle}) {
+    _angularUnitSet = true; // the catalog scope tells its unit
     final series = ScopePickerScreen.seriesOf(_scopeModelOf(s));
     scopeBrand.text = series.isEmpty ? s.brand : '${s.brand} $series';
     if (s.minMagnification != null) {
@@ -1502,6 +1507,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Metre or yard for the zero (and every distance of this profile).
   late DistanceUnit distanceUnit;
 
+  /// A new profile shows "Seçiniz" in every list box until the user picks
+  /// (owner, 2026-10-11); the stored default only keeps the form working.
+  /// An edited profile starts with everything chosen.
+  bool _distanceUnitSet = true;
+  bool _angularUnitSet = true;
+  bool _mountCantSet = true;
+  bool _ammoSourceSet = true;
+
   /// Editing an existing profile is fail-closed: a stored reference that no
   /// longer resolves is NEVER replaced by another record. Its form is left
   /// empty, the user is told, and saving stays disabled until they type the
@@ -1675,6 +1688,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // New profiles start empty: no placeholder value is ever taken for the
     // user's data (owner, 2026-10-07: "250 m/s nereden geliyor?").
     distanceUnit = p?.distanceUnit ?? DistanceUnit.meter;
+    if (p == null) {
+      _distanceUnitSet = false;
+      _angularUnitSet = false;
+      _mountCantSet = false;
+      _ammoSourceSet = false;
+    }
     zero = TextEditingController(
       text: p == null
           ? ''
@@ -1728,6 +1747,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_twistError == null, 'Yiv oranı'),
       (_validSight, 'Sight height'),
       (_zeroError == null, 'Sıfırlama mesafesi'),
+      (_distanceUnitSet, 'Mesafe birimi'),
     ]);
     section('Dürbün', [
       (_scopeBrandError == null, 'Marka'),
@@ -1735,11 +1755,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_maxMagError == null, 'Maks. büyütme'),
       (_objectiveError == null, 'Mercek çapı'),
       (firstFocalPlane != null, 'Odak düzlemi'),
+      (_angularUnitSet, 'Dürbün birimi'),
+      (_mountCantSet, 'Dürbün ayağı'),
       // Klik değeri is not asked; it follows the unit and is always valid.
       (_clickError == null, 'Klik değeri'),
       (_travelError(scopeTravelElevation) == null, 'Üst kule klik sayısı'),
     ]);
     section('Mühimmat', [
+      if (platform == WeaponPlatform.firearm) (_ammoSourceSet, 'Mühimmat türü'),
       (_ammoBrandError == null, 'Marka'),
       (_effectiveAmmoType != null, 'Tip'),
       (_grainError == null, 'Ağırlık'),
@@ -2250,6 +2273,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ];
   }
 
+  /// Fabrika fişeği with a Kalibre that has no listed round.
+  bool get _noFactoryForCaliber =>
+      platform == WeaponPlatform.firearm &&
+      _factoryAmmo &&
+      _parse(rifleCaliber) != null &&
+      _factoryHere.isEmpty;
+
   static String _factoryLabel(FactoryAmmo a) {
     final g = _trimDot(a.grain);
     return a.name.contains('$g gr') ? a.name : '${a.name} · $g gr';
@@ -2271,6 +2301,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   void _applyFactory(FactoryAmmo a) {
+    _ammoSourceSet = true; // a listed factory round: Fabrika fişeği
     String n(num v) =>
         v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     // Kalibre not chosen yet: the round tells it.
@@ -2723,7 +2754,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   key: const Key('profile-distance-unit'),
                   info: ProfileFieldInfo.distanceUnit,
                   label: 'Mesafe birimi',
-                  initialValue: distanceUnit,
+                  initialValue: _distanceUnitSet ? distanceUnit : null,
                   items: const [
                     DropdownMenuItem(
                       value: DistanceUnit.meter,
@@ -2735,6 +2766,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     ),
                   ],
                   onChanged: (v) => setState(() {
+                    _distanceUnitSet = v != null;
                     final next = v ?? DistanceUnit.meter;
                     // The typed zero keeps its real distance.
                     final typed = _parse(zero);
@@ -2821,65 +2853,75 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     onChanged: (v) => setState(() => firstFocalPlane = v),
                   ),
                 ),
-                MenzilSelect<double>(
-                  // Rebuilt when the click value/unit changes so every
-                  // choice shows its ready click gain.
-                  key: ValueKey(
-                    'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
-                  ),
-                  info: ProfileFieldInfo.mountCant,
-                  label: 'Dürbün ayağı',
-                  initialValue: mountCant,
-                  // Closed box: just "0 MOA" / "30 MOA"; the list keeps
-                  // "Normal" and the click gain.
-                  selectedLabels: [
-                    for (final moa in ProductionLimits.mountCantOptionsMoa)
-                      '${_trimNum(moa)} MOA',
-                  ],
-                  items: [
-                    for (final moa in ProductionLimits.mountCantOptionsMoa)
-                      DropdownMenuItem(
-                        value: moa,
-                        child: Text(
-                          _mountLabel(moa),
-                          key: Key('scope-mount-cant-${_trimNum(moa)}'),
+                KeyedSubtree(
+                  key: const Key('scope-mount'),
+                  child: MenzilSelect<double>(
+                    // Rebuilt when the click value/unit changes so every
+                    // choice shows its ready click gain.
+                    key: ValueKey(
+                      'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
+                    ),
+                    info: ProfileFieldInfo.mountCant,
+                    label: 'Dürbün ayağı',
+                    initialValue: _mountCantSet ? mountCant : null,
+                    // Closed box: just "0 MOA" / "30 MOA"; the list keeps
+                    // "Normal" and the click gain.
+                    selectedLabels: [
+                      for (final moa in ProductionLimits.mountCantOptionsMoa)
+                        '${_trimNum(moa)} MOA',
+                    ],
+                    items: [
+                      for (final moa in ProductionLimits.mountCantOptionsMoa)
+                        DropdownMenuItem(
+                          value: moa,
+                          child: Text(
+                            _mountLabel(moa),
+                            key: Key('scope-mount-cant-${_trimNum(moa)}'),
+                          ),
                         ),
-                      ),
-                  ],
-                  onChanged: (v) => setState(() => mountCant = v ?? 0),
-                ),
-                MenzilSelect<AngularUnit>(
-                  key: ValueKey(
-                    'profile-angular-unit-${angularUnit.name}'
-                    '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
+                    ],
+                    onChanged: (v) => setState(() {
+                      _mountCantSet = v != null;
+                      mountCant = v ?? 0;
+                    }),
                   ),
-                  info: ProfileFieldInfo.scopeUnit,
-                  label: 'Dürbün birimi',
-                  initialValue: angularUnit,
-                  items: const [
-                    DropdownMenuItem(
-                      value: AngularUnit.mrad,
-                      child: Text('MRAD'),
+                ),
+                KeyedSubtree(
+                  key: const Key('scope-unit'),
+                  child: MenzilSelect<AngularUnit>(
+                    key: ValueKey(
+                      'profile-angular-unit-${angularUnit.name}'
+                      '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
                     ),
-                    DropdownMenuItem(
-                      value: AngularUnit.moa,
-                      child: Text('MOA'),
-                    ),
-                    // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
-                    DropdownMenuItem(
-                      value: AngularUnit.smoa,
-                      child: Text('SMOA'),
-                    ),
-                  ],
-                  onChanged: (v) => setState(() {
-                    final next = v ?? AngularUnit.mrad;
-                    // Klik değeri is not asked any more (owner, 2026-10-09):
-                    // it follows the unit (0.1 MRAD, 1/4 MOA).
-                    if (next != angularUnit) {
-                      scopeClick.text = _trimNum(_defaultClick(next));
-                    }
-                    angularUnit = next;
-                  }),
+                    info: ProfileFieldInfo.scopeUnit,
+                    label: 'Dürbün birimi',
+                    initialValue: _angularUnitSet ? angularUnit : null,
+                    items: const [
+                      DropdownMenuItem(
+                        value: AngularUnit.mrad,
+                        child: Text('MRAD'),
+                      ),
+                      DropdownMenuItem(
+                        value: AngularUnit.moa,
+                        child: Text('MOA'),
+                      ),
+                      // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
+                      DropdownMenuItem(
+                        value: AngularUnit.smoa,
+                        child: Text('SMOA'),
+                      ),
+                    ],
+                    onChanged: (v) => setState(() {
+                      _angularUnitSet = v != null;
+                      final next = v ?? AngularUnit.mrad;
+                      // Klik değeri is not asked any more (owner, 2026-10-09):
+                      // it follows the unit (0.1 MRAD, 1/4 MOA).
+                      if (next != angularUnit) {
+                        scopeClick.text = _trimNum(_defaultClick(next));
+                      }
+                      angularUnit = next;
+                    }),
+                  ),
                 ),
                 MenzilInput(
                   key: const Key('scope-travel-elevation'),
@@ -3000,7 +3042,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                             key: ValueKey('ammo-source-$_factoryAmmo'),
                             info: ProfileFieldInfo.ammoSource,
                             label: 'Mühimmat türü',
-                            initialValue: _factoryAmmo,
+                            initialValue: _ammoSourceSet ? _factoryAmmo : null,
                             items: const [
                               DropdownMenuItem(
                                 value: true,
@@ -3012,7 +3054,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                               ),
                             ],
                             onChanged: (v) => setState(() {
-                              if (v == null || v == _factoryAmmo) return;
+                              if (v == null) return;
+                              final was = _ammoSourceSet;
+                              _ammoSourceSet = true;
+                              if (was && v == _factoryAmmo) return;
                               _factoryAmmo = v;
                               _clearAmmo();
                             }),
@@ -3054,6 +3099,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     key: const Key('ammo-brand'),
                     controller: ammoBrand,
                     label: 'Marka',
+                    // The list has no factory round for this Kalibre: say so
+                    // instead of a silently typed box (owner, 2026-10-11).
+                    info: _noFactoryForCaliber
+                        ? 'Bu kalibre için listede henüz fabrika fişeği yok. '
+                              'Fişeğin markasını ve modelini kutunun üstünden '
+                              'okuyup yazın; ağırlık, BC ve hız kutuda veya '
+                              'üreticinin sitesinde yazar. Kendi doldurduğunuz '
+                              'fişekse Mühimmat türünde El dolumu seçin.'
+                        : null,
                     keyboardType: TextInputType.text,
                     maxLength: 60,
                     onChanged: (_) => setState(() {}),

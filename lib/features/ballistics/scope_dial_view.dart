@@ -504,22 +504,16 @@ class ScopeDialView extends StatelessWidget {
                     ),
                     const SizedBox(width: MenzilSpace.sm),
                     Expanded(
-                      child: MenzilSecondaryButton(
-                        key: ScopeDialKeys.reset,
-                        label: noClicks
-                            ? 'Kuleler sıfırda'
-                            : atZero
-                            ? 'Kuleler sıfırlandı'
-                            : 'Kuleleri sıfırla',
-                        expand: true,
-                        twoLines: true,
-                        active: atZero,
-                        onPressed: atZero
-                            ? null
-                            : () {
-                                onElevationChanged(0);
-                                onWindageChanged(0);
-                              },
+                      // Owner, 2026-10-11: opening the page must not show
+                      // either button selected; the reset button turns
+                      // orange only after the user presses it.
+                      child: _ResetTurretsButton(
+                        atZero: atZero,
+                        noClicks: noClicks,
+                        onReset: () {
+                          onElevationChanged(0);
+                          onWindageChanged(0);
+                        },
                       ),
                     ),
                   ],
@@ -678,8 +672,8 @@ class ScopeDialView extends StatelessWidget {
           : '${(targetDiameterM * 39.3700787).toStringAsFixed(1)} in';
       lines.add(
         'Hedef halkası Ø$d = ${f(tRad * 2)} $unitLabel; gerçek boyutunda '
-        'çizilir: büyütme arttıkça büyür, mesafe arttıkça küçülür. Uzakta '
-        'küçük görünür: iki parmakla büyüt, çift dokunuşla geri dön. Göz '
+        'çizilir, bir çizgi aralığından küçükse o boyutta gösterilir. İki '
+        'parmakla büyüt, çift dokunuşla geri dön. Göz '
         'düğmesi yazıları gizler. Çapını Pro → İsabet olasılığı → Hedef '
         'çapı\'ndan değiştirebilirsin.',
       );
@@ -1183,7 +1177,8 @@ class _DrumPainter extends CustomPainter {
           end: axis == Axis.horizontal
               ? Alignment.centerRight
               : Alignment.bottomCenter,
-          colors: [colors.surface2, colors.line, colors.surface2],
+          // Dark metal drum, as in the owner's reference (2026-10-11).
+          colors: [colors.drumDark, colors.drumLight, colors.drumDark],
         ).createShader(rect),
     );
     canvas.save();
@@ -1194,10 +1189,10 @@ class _DrumPainter extends CustomPainter {
     final across = horizontal ? size.height : size.width;
     final mid = length / 2;
     final tick = Paint()
-      ..color = colors.ink
+      ..color = colors.drumInk
       ..strokeWidth = 1.2;
     final reach = (mid / pixelsPerClick).ceil() + 1;
-    final label = colors.ink;
+    final label = colors.drumInk;
     for (var v = clicks - reach; v <= clicks + reach; v++) {
       // Values above the current setting sit before the pointer, so dragging
       // toward the pointer increases the setting.
@@ -1217,7 +1212,7 @@ class _DrumPainter extends CustomPainter {
             canvas,
             '${_num(value)}$letter',
             Offset(p, size.height * 0.40),
-            label,
+            v == clicks ? Colors.white : label,
             15,
           );
         }
@@ -1230,7 +1225,7 @@ class _DrumPainter extends CustomPainter {
             canvas,
             '${_num(value)}$letter',
             Offset(size.width * 0.62, p),
-            label,
+            v == clicks ? Colors.white : label,
             13,
           );
         }
@@ -1251,7 +1246,7 @@ class _DrumPainter extends CustomPainter {
         canvas,
         '← $positiveLetter   $unitLabel   $negativeLetter →',
         Offset(mid, 10),
-        colors.ink2,
+        Colors.white,
         10,
       );
     } else {
@@ -1260,12 +1255,18 @@ class _DrumPainter extends CustomPainter {
         ..lineTo(0, mid + 7)
         ..lineTo(11, mid)
         ..close();
-      _text(canvas, '↑$positiveLetter', Offset(size.width / 2, 10), label, 11);
+      _text(
+        canvas,
+        '↑$positiveLetter',
+        Offset(size.width / 2, 10),
+        Colors.white,
+        11,
+      );
       _text(
         canvas,
         '$negativeLetter↓',
         Offset(size.width / 2, size.height - 10),
-        label,
+        Colors.white,
         11,
       );
     }
@@ -1656,30 +1657,6 @@ class ScopeReticlePainter extends CustomPainter {
       canvas.translate(-center.dx, -center.dy);
     }
 
-    // Round target at the point of aim, at its true angular size, behind the
-    // reticle lines: zooming in makes it bigger (it "comes closer"), a longer
-    // range makes it smaller. A far target is small on purpose; pinch to see
-    // it (owner, 2026-10-10, reference video).
-    final tr = targetRadius;
-    if (tr != null && tr > 0) {
-      final px = targetRadiusPx(
-        radius: radius,
-        trueHalfField: trueHalfField,
-        targetRadius: tr,
-      );
-      // Yellow face inside a grey ring, as in the reference.
-      canvas.drawCircle(center, px, Paint()..color = colors.paperRingSoft);
-      canvas.drawCircle(center, px * 0.62, Paint()..color = colors.paperFace);
-      canvas.drawCircle(
-        center,
-        px,
-        Paint()
-          ..color = colors.paperRing
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = math.max(0.6, 1 / zoom),
-      );
-    }
-
     // Everything of the reticle (lines, marks, labels on marks, impact) is
     // in the scope's own axes: roll it by the cant about the centre.
     void roll() {
@@ -1707,6 +1684,54 @@ class ScopeReticlePainter extends CustomPainter {
           ..color = ink
           ..strokeWidth = width,
       );
+    }
+
+    // Target and point of impact, drawn before the reticle so every line,
+    // mark and number stays on top (owner's reference, 2026-10-11). The
+    // target sits around the point of impact: turning the turrets moves both
+    // together; the green aim point stays at the crosshair. Grey outer ring,
+    // yellow band, grey centre, thin grey outlines and a grey cross. True
+    // size, but never smaller than one reticle mark.
+    {
+      final up = impactUp;
+      final right = impactRight;
+      roll();
+      final poi = up != null && right != null
+          ? center + Offset(right * trueScale, -up * trueScale)
+          : center;
+      final tr = targetRadius;
+      if (tr != null && tr > 0) {
+        final px = math.max(
+          targetRadiusPx(
+            radius: radius,
+            trueHalfField: trueHalfField,
+            targetRadius: tr,
+          ),
+          markStep * scale,
+        );
+        final edge = Paint()
+          ..color = colors.paperRing
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = math.max(0.6, 1 / zoom);
+        canvas.drawCircle(poi, px, Paint()..color = colors.paperRingSoft);
+        canvas.drawCircle(poi, px * 0.66, Paint()..color = colors.paperFace);
+        canvas.drawCircle(
+          poi,
+          px * 0.33,
+          Paint()..color = colors.paperRingSoft,
+        );
+        for (final f in const [1.0, 0.66, 0.33]) {
+          canvas.drawCircle(poi, px * f, edge);
+        }
+        canvas.drawLine(poi - Offset(px, 0), poi + Offset(px, 0), edge);
+        canvas.drawLine(poi - Offset(0, px), poi + Offset(0, px), edge);
+      }
+      if (up != null &&
+          right != null &&
+          (poi - center).distance <= (radius - 14) / zoom) {
+        canvas.drawCircle(poi, 5, Paint()..color = colors.scopeImpact);
+      }
+      canvas.restore();
     }
 
     const fine = 1.4;
@@ -1889,14 +1914,8 @@ class ScopeReticlePainter extends CustomPainter {
         ..color = c
         ..style = PaintingStyle.stroke
         ..strokeWidth = w;
-      if (!outside) {
-        // Hollow ring with a small centre dot: the crosshair stays visible
-        // through it (owner, 2026-10-09).
-        canvas.drawCircle(poi, 9, stroke(halo, 5));
-        canvas.drawCircle(poi, 9, stroke(colors.scopeImpact, 2.5));
-        canvas.drawCircle(poi, 3.2, Paint()..color = halo);
-        canvas.drawCircle(poi, 2.2, Paint()..color = colors.scopeImpact);
-      } else {
+      // Inside the field the ring is drawn under the reticle (above).
+      if (outside) {
         // Off-field: an arrow at the edge pointing toward the impact.
         final dir = offset / offset.distance;
         final normal = Offset(-dir.dy, dir.dx);
@@ -1958,5 +1977,54 @@ class ScopeReticlePainter extends CustomPainter {
       if (a[i] != b[i]) return false;
     }
     return true;
+  }
+}
+
+/// "Kuleleri sıfırla". It is shown as selected only after the user pressed
+/// it, so a freshly opened page has neither button selected.
+class _ResetTurretsButton extends StatefulWidget {
+  const _ResetTurretsButton({
+    required this.atZero,
+    required this.noClicks,
+    required this.onReset,
+  });
+
+  final bool atZero;
+  final bool noClicks;
+  final VoidCallback onReset;
+
+  @override
+  State<_ResetTurretsButton> createState() => _ResetTurretsButtonState();
+}
+
+class _ResetTurretsButtonState extends State<_ResetTurretsButton> {
+  bool _pressed = false;
+
+  @override
+  void didUpdateWidget(_ResetTurretsButton old) {
+    super.didUpdateWidget(old);
+    if (!widget.atZero) _pressed = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final shown = widget.atZero && _pressed;
+    return MenzilSecondaryButton(
+      key: ScopeDialKeys.reset,
+      label: !shown
+          ? 'Kuleleri sıfırla'
+          : widget.noClicks
+          ? 'Kuleler sıfırda'
+          : 'Kuleler sıfırlandı',
+      expand: true,
+      twoLines: true,
+      active: shown,
+      onPressed: shown
+          ? null
+          : () {
+              setState(() => _pressed = true);
+              if (!widget.atZero) widget.onReset();
+            },
+    );
   }
 }

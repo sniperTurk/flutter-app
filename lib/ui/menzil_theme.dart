@@ -45,6 +45,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
   final Color paperRingSoft;
   final Color paperCentre;
   final Color scopeImpact;
+  final Color drumDark;
+  final Color drumLight;
+  final Color drumInk;
 
   /// The ONLY green exception in the palette: the liquid inside the spirit
   /// level vial (Su Terazisi). Never use it for status text or other widgets.
@@ -85,6 +88,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     required this.paperRingSoft,
     required this.paperCentre,
     required this.scopeImpact,
+    required this.drumDark,
+    required this.drumLight,
+    required this.drumInk,
     required this.levelLiquid,
     required this.levelBackdrop,
     required this.levelBackdropDeep,
@@ -118,6 +124,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     paperRingSoft: Color(0xFFC9CED3),
     paperCentre: Color(0xFFF4B6AE),
     scopeImpact: Color(0xFF0A84FF),
+    drumDark: Color(0xFF1E1F21),
+    drumLight: Color(0xFF7C8085),
+    drumInk: Color(0xFFC8CDD2),
     levelLiquid: Color(0xFF8CCB12),
     levelBackdrop: Color(0xFF5A5C5E),
     levelBackdropDeep: Color(0xFF2B2C2E),
@@ -151,6 +160,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     paperRingSoft: Color(0xFFC9CED3),
     paperCentre: Color(0xFFF4B6AE),
     scopeImpact: Color(0xFF0A84FF),
+    drumDark: Color(0xFF1E1F21),
+    drumLight: Color(0xFF7C8085),
+    drumInk: Color(0xFFC8CDD2),
     levelLiquid: Color(0xFF8CCB12),
     levelBackdrop: Color(0xFF5A5C5E),
     levelBackdropDeep: Color(0xFF2B2C2E),
@@ -192,6 +204,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     Color? paperRingSoft,
     Color? paperCentre,
     Color? scopeImpact,
+    Color? drumDark,
+    Color? drumLight,
+    Color? drumInk,
     Color? levelLiquid,
     Color? levelBackdrop,
     Color? levelBackdropDeep,
@@ -223,6 +238,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     paperRingSoft: paperRingSoft ?? this.paperRingSoft,
     paperCentre: paperCentre ?? this.paperCentre,
     scopeImpact: scopeImpact ?? this.scopeImpact,
+    drumDark: drumDark ?? this.drumDark,
+    drumLight: drumLight ?? this.drumLight,
+    drumInk: drumInk ?? this.drumInk,
     levelLiquid: levelLiquid ?? this.levelLiquid,
     levelBackdrop: levelBackdrop ?? this.levelBackdrop,
     levelBackdropDeep: levelBackdropDeep ?? this.levelBackdropDeep,
@@ -260,6 +278,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
       paperRingSoft: mix(paperRingSoft, other.paperRingSoft),
       paperCentre: mix(paperCentre, other.paperCentre),
       scopeImpact: mix(scopeImpact, other.scopeImpact),
+      drumDark: mix(drumDark, other.drumDark),
+      drumLight: mix(drumLight, other.drumLight),
+      drumInk: mix(drumInk, other.drumInk),
       levelLiquid: mix(levelLiquid, other.levelLiquid),
       levelBackdrop: mix(levelBackdrop, other.levelBackdrop),
       levelBackdropDeep: mix(levelBackdropDeep, other.levelBackdropDeep),

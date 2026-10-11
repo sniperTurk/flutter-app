@@ -1138,7 +1138,7 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                 decoration: const InputDecoration(
                   contentPadding: EdgeInsets.zero,
                 ),
-                isEmpty: value == null && w.hint == null,
+                isEmpty: false,
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<T>(
                     value: value,
@@ -1147,9 +1147,12 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                     menuWidth: _boxWidth == null
                         ? null
                         : math.min(_boxWidth!, 260),
-                    hint: w.hint == null
-                        ? null
-                        : Text(w.hint!, style: TextStyle(color: c.ink2)),
+                    // Every list box says "Seçiniz" until something is
+                    // picked (owner, 2026-10-11).
+                    hint: Text(
+                      w.hint ?? 'Seçiniz',
+                      style: TextStyle(color: c.ink2),
+                    ),
                     // List entries in regular weight (owner, 2026-10-11).
                     items: [
                       for (final it in items)
