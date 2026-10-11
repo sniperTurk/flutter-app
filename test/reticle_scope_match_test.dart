@@ -42,6 +42,8 @@ void main() {
     ]);
     expect(ReticleCatalog.options('VPR-MIL / FFP'), ['VPR-MIL']);
     expect(ReticleCatalog.options(null), isEmpty);
+    // Barska's 30/30 is one reticle: only a spaced slash separates.
+    expect(ReticleCatalog.options('30/30'), ['30/30']);
   });
 
   test('glued focal-plane and unit words are not part of the name', () {

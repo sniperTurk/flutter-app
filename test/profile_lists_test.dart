@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/data/cartridges.dart';
 import 'package:sniper_turk/data/factory_ammo_library.dart';
 import 'package:sniper_turk/data/rifle_library.dart';
+import 'package:sniper_turk/features/profiles/profile_field_info.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/profile_store.dart';
@@ -226,6 +227,47 @@ void main() {
     await tester.pumpAndSettle();
     expect(selectedValue<double>(tester, 'scope-max-mag'), 16);
     expect(selectedValue<double>(tester, 'scope-objective'), 56);
+  });
+
+  testWidgets('Dürbün: a record of several reticles lists each on Seçiniz', (
+    tester,
+  ) async {
+    await _openNew(tester);
+    await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
+    await chooseInSelect(tester, 'scope-model-select', 'Titan 5-25x56 FFP MOA');
+    await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
+    // "APR-1C MOA / APR-2D MOA": nothing is chosen for the user.
+    expect(_in('scope-reticle', find.text('Seçiniz')), findsOneWidget);
+    expect(
+      _in('scope-reticle', find.byType(MenzilInfoButton)),
+      findsOneWidget,
+    );
+    await tester.tap(find.byKey(const Key('scope-reticle')));
+    await tester.pumpAndSettle();
+    expect(find.text('APR-1C MOA'), findsWidgets);
+    expect(find.text('APR-2D MOA'), findsWidgets);
+    expect(find.text('APR-1C MOA / APR-2D MOA'), findsNothing);
+    await tester.tap(find.text('APR-2D MOA').last);
+    await tester.pumpAndSettle();
+    expect(_in('scope-reticle', find.text('APR-2D MOA')), findsOneWidget);
+  });
+
+  testWidgets('Dürbün: a single reticle is filled in', (tester) async {
+    await _openNew(tester);
+    await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
+    await chooseInSelect(tester, 'scope-model-select', 'Titan 3-18x50 FFP MOA');
+    await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
+    expect(_in('scope-reticle', find.text('APR-2D MOA')), findsOneWidget);
+    expect(_in('scope-reticle', find.text('Seçiniz')), findsNothing);
+  });
+
+  test('Retikül ⓘ says what it is, where it is written and an example', () {
+    const t = ProfileFieldInfo.reticle;
+    expect(t, contains('çizgi deseni'));
+    expect(t, contains('kutusunda'));
+    expect(t, contains('kılavuzunda'));
+    expect(t, contains('APR-2D MOA'));
+    expect(t, contains('birden çok retikül'));
   });
 
   testWidgets('PCP mühimmat: Marka | Tip, Model on its own row', (

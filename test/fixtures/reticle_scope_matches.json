@@ -374,7 +374,7 @@
   "Mil-Dot": null
  },
  "lib-barska-2-7x32mm-colorado-30-30-rifle-scope": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-3-12x40mm-air-gun-reverse-recoil-ao-mil-dot-rifle-scope": {
   "Mil-Dot": null
@@ -386,22 +386,22 @@
   "Trace Mil-Dot": null
  },
  "lib-barska-3-12x50mm-huntmaster-pro-ir-30-30-rifle-scope": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-3-5-10x40mm-swat-ir-mil-dot-rifle-scope-with-rings-sun-shade": {
   "Mil-Dot": null
  },
  "lib-barska-3-9x32mm-plinker-22-30-30-rifle-scope-with-rings": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-3-9x40mm-colorado-30-30-rifle-scope": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-3-9x40mm-huntmaster-30-30-rifle-scope": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-3-9x40mm-huntmaster-30-30-silver-rifle-scope-with-rings": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-3-9x40mm-huntmaster-easy-shot-rifle-scope": {
   "Easy Shot": null
@@ -410,7 +410,7 @@
   "4A, Mil-Plex": null
  },
  "lib-barska-3-9x42mm-contour-ir-30-30-rifle-scope-with-rings": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-3-9x42mm-contour-ir-mil-dot-rifle-scope-with-rings": {
   "Mil-Dot": null
@@ -422,13 +422,13 @@
   "Mil-Dot": null
  },
  "lib-barska-3-9x50mm-huntmaster-30-30-rifle-scope": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-4-12x40mm-colorado-30-30-rifle-scope": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-4-16x40mm-varmint-ao-30-30-rifle-scope": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-4-16x40mm-varmint-ir-mil-dot-rifle-scope": {
   "Mil Dot": null
@@ -443,7 +443,7 @@
   "Trace MOA": null
  },
  "lib-barska-4-16x50mm-varmint-ao-30-30-rifle-scope": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-4-16x60mm-euro-30-pro-4a-ir-cross-rifle-scope-with-rings": {
   "4A": null
@@ -455,13 +455,13 @@
   "Mil-Dot": null
  },
  "lib-barska-4x32mm-plinker-22-30-30-rifle-scope-with-rings": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-4x32mm-plinker-22-30-30-rifle-scope-with-rings-2": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-4x32mm-plinker-22-ir-30-30-rifle-scope-with-rings": {
-  "30": null
+  "30/30": null
  },
  "lib-barska-5-20x50mm-benchmark-first-focal-plane-mil-dot-rifle-scope-with-": {
   "Mil-Dot": null

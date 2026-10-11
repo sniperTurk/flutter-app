@@ -49,6 +49,8 @@ class OptionsTest(unittest.TestCase):
         )
         self.assertEqual(audit.options('VPR-MIL / FFP'), ['VPR-MIL'])
         self.assertEqual(audit.options(None), [])
+        # Barska's 30/30 is one reticle: only a spaced slash separates.
+        self.assertEqual(audit.options('30/30'), ['30/30'])
         self.assertEqual(audit.options('  '), [])
 
 

@@ -148,10 +148,13 @@ abstract final class ProfileFieldInfo {
       'yüzeyinden değil, namlu deliğinin merkezinden. Adım adım ölçüm için: '
       'Araçlar → Sight Height.';
   static const reticle =
-      'Dürbünün içindeki çizgi deseni. Adı dürbün kutusunda veya föyünde '
-      'yazar (ör. VPR-MIL, Mil-Dot). Listeden seçtiğinizde Hedef ekranında '
-      'retikül bu desenle çizilir; bilmiyorsanız MIL dürbünde "MIL çizgili", '
-      'MOA dürbünde "MOA çizgili" seçin. İsteğe bağlı.';
+      'Dürbünün içindeki çizgi deseni. Adı dürbünün kutusunda, kullanım '
+      'kılavuzunda veya üreticinin ürün sayfasında yazar. Örnek: APR-2D MOA, '
+      'VPR-MIL. Bazı dürbünler birden çok retikülle satılır; listede '
+      'sizinkini seçin. Seçtiğiniz retikül Hedef ekranında dürbüne özel '
+      'çizilir; kaydı yoksa genel çizgili desen görünür. Bilmiyorsanız MIL '
+      'dürbünde "MIL çizgili", MOA dürbünde "MOA çizgili" seçin. İsteğe '
+      'bağlı.';
   static const elevationTravel =
       'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü; '
       'sayı olarak yazılır. Örnek: 0,1 mrad klikli 30 mrad\'lık kule için 300. '

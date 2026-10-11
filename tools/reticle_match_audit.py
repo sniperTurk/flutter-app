@@ -50,7 +50,7 @@ def options(reticle):
     """Reticle names of a scope record ("VPR-MIL / VHR-MIL" is two); a
     focal plane alone is not a reticle."""
     out = []
-    for r in re.split(r'\s*/\s*', reticle or ''):
+    for r in re.split(r'\s+/\s+', reticle or ''):
         r = r.strip()
         if r and r not in FOCAL:
             out.append(r)

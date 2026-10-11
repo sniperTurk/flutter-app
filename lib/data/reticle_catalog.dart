@@ -45,10 +45,11 @@ abstract final class ReticleCatalog {
     return true;
   }
 
-  /// Reticle names of a scope record ("VPR-MIL / VHR-MIL" is two); a
+  /// Reticle names of a scope record ("VPR-MIL / VHR-MIL" is two, "30/30"
+  /// one: only a spaced slash separates names); a
   /// focal plane alone is not a reticle.
   static List<String> options(String? reticle) => [
-    for (final r in (reticle ?? '').split(RegExp(r'\s*/\s*')))
+    for (final r in (reticle ?? '').split(RegExp(r'\s+/\s+')))
       if (r.trim().isNotEmpty && !const {'FFP', 'SFP'}.contains(r.trim()))
         r.trim(),
   ];
