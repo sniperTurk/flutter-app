@@ -140,7 +140,12 @@ void main() {
         name: 'APRS14 FFP MIL',
         unit: 'mil',
       ),
-      ReticleData(id: 'tor', brand: 'Arken Optics', name: 'TOR MIL', unit: 'mil'),
+      ReticleData(
+        id: 'tor',
+        brand: 'Arken Optics',
+        name: 'TOR MIL',
+        unit: 'mil',
+      ),
       ReticleData(id: 'milc', brand: 'Nightforce', name: 'MIL-C', unit: 'mil'),
       ReticleData(
         id: 'l2mil',
