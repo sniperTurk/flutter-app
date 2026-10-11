@@ -21,7 +21,7 @@ void main() {
         grain: 15.9,
         zeroRangeM: 600,
         sightHeightMm: 50,
-        rangesM: const [25, 50, 100],
+        rangesM: const [25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 350],
         ballisticCoefficient: 0.02,
         ballisticModel: BallisticModel.g1,
       );
@@ -29,12 +29,12 @@ void main() {
       final r = const BallisticEngine().solveReachable(input);
       watch.stop();
       expect(r.points, isEmpty);
-      expect(r.unreachableM, [25, 50, 100]);
-      // The zero search used to have no flight-time cap (4 000 000 steps per
-      // bracket evaluation, repeated once per range): tens of seconds on the
-      // UI isolate. With the same 60 s flight cap as the main trajectory it
-      // is a fraction of that.
-      expect(watch.elapsed, lessThan(const Duration(seconds: 8)));
+      expect(r.unreachableM, hasLength(11));
+      // The zero search had no flight-time cap: 4 000 000 RK4 steps per
+      // bracket evaluation, repeated once per requested range (11 × 4 M),
+      // seconds of frozen UI. With the same 60 s flight cap as the main
+      // trajectory it is 11 × 120 000 steps.
+      expect(watch.elapsed, lessThan(const Duration(seconds: 2)));
     },
     timeout: const Timeout(Duration(minutes: 5)),
   );
