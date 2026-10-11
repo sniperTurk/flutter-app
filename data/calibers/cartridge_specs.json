@@ -40,7 +40,7 @@
   "bullet_weight_max_gr": null,
   "standard": null,
   "sources": [],
-  "notes": "Kaynak notu: NOT FOUND: NATO STANAG 2310/4172 specs not publicly published on nato.int/government pages; search returned only Wikipedia/blogs/DTIC reports (not standards). Not in SAAMI drawings list. NATO askerî fişeği (STANAG); STANAG belgeleri kamuya açık değil ve fişek C.I.P. TDCC/SAAMI listesinde bu adla yok. Boyut/basınç boş bırakıldı. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
+  "notes": "NATO askerî fişeği (STANAG); STANAG belgeleri kamuya açık değil ve fişek C.I.P. TDCC/SAAMI listesinde bu adla yok. Boyut/basınç boş bırakıldı. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
   "bullet_diameter_in": 0.3079
  },
  {
@@ -107,7 +107,7 @@
   "bullet_weight_max_gr": null,
   "standard": null,
   "sources": [],
-  "notes": "Kaynak notu: NOT FOUND: STANAG 4172 not public. SAAMI '5.56 Commercial' public introduction exists (https://saami.org/wp-content/uploads/2026/10/Public-Introduction-5.56-Commercial-2026-06-22-FINAL-Rev-3.pdf) but it is a different (commercial) designation, not 5.56x45 NATO; not fetched/used. NATO askerî fişeği (STANAG); STANAG belgeleri kamuya açık değil ve fişek C.I.P. TDCC/SAAMI listesinde bu adla yok. Boyut/basınç boş bırakıldı. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
+  "notes": "NATO askerî fişeği (STANAG); STANAG belgeleri kamuya açık değil ve fişek C.I.P. TDCC/SAAMI listesinde bu adla yok. Boyut/basınç boş bırakıldı. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
   "bullet_diameter_in": 0.2244
  },
  {
@@ -267,7 +267,7 @@
   "bullet_weight_max_gr": null,
   "standard": null,
   "sources": [],
-  "notes": "Kaynak notu: NOT FOUND: STANAG 4383 not public; 50 BMG not present in fetchable portion of SAAMI Z299.4 (tool truncated the PDF before pressure tables). NATO askerî fişeği (STANAG); STANAG belgeleri kamuya açık değil ve fişek C.I.P. TDCC/SAAMI listesinde bu adla yok. Boyut/basınç boş bırakıldı. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
+  "notes": "NATO askerî fişeği (STANAG); STANAG belgeleri kamuya açık değil ve fişek C.I.P. TDCC/SAAMI listesinde bu adla yok. Boyut/basınç boş bırakıldı. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
   "bullet_diameter_in": 0.5098
  },
  {
@@ -407,7 +407,7 @@
   "sources": [
    "https://saami.org/saami-accepts-two-new-cartridges-22arc-22cm/"
   ],
-  "notes": "Kaynak notu: SAAMI announcement: 22 Creedmoor, 80 gr, 3,250 fps, 'Maximum Average Pressure (MAP)' 62,000 psi. Dimensions NOT FOUND: SAAMI drawing PDF https://saami.org/wp-content/uploads/2024/02/Public-Introduction-22-Creedmoor-2024-01-29.pdf failed to fetch (2 attempts); hornady.com/22creedmoor lists no dimensions.",
+  "notes": "Kaynak notu (alıntı): SAAMI announcement: 22 Creedmoor, 80 gr, 3,250 fps, 'Maximum Average Pressure (MAP)' 62,000 psi. Dimensions NOT FOUND: SAAMI drawing PDF https://saami.org/wp-content/uploads/2024/02/Public-Introduction-22-Creedmoor-2024-01-29.pdf failed to fetch (2 attempts); hornady.com/22creedmoor lists no dimensions.",
   "bullet_diameter_in": 0.2244
  },
  {
@@ -615,7 +615,7 @@
   "sources": [
    "https://saami.org/wp-content/uploads/2025/01/Public-Introduction-25-Creedmoor-2025-01-27.pdf"
   ],
-  "notes": "Kaynak notu: SAAMI public introduction drawing (mm as printed by SAAMI). Cartridge: '.2573 - .0030 (6.535 - 0.076)' (bullet dia, only -.0030 dim in cartridge drawing); '1.920 - .020 (48.77 - 0.51)' (case length, inferred from -.020 tol; label not extracted); '2.575 (65.41) MIN – 2.825 (71.76) MAX' under 'MAXIMUM CARTRIDGE'. 'Maximum Average Pressure (MAP)* = 62,000 psi'. 'TWIST RATE: 7.50 (190.5) R.H.' Bore .250 (6.35), Groove .257 (6.53).",
+  "notes": "Kaynak notu (alıntı): SAAMI public introduction drawing (mm as printed by SAAMI). Cartridge: '.2573 - .0030 (6.535 - 0.076)' (bullet dia, only -.0030 dim in cartridge drawing); '1.920 - .020 (48.77 - 0.51)' (case length, inferred from -.020 tol; label not extracted); '2.575 (65.41) MIN – 2.825 (71.76) MAX' under 'MAXIMUM CARTRIDGE'. 'Maximum Average Pressure (MAP)* = 62,000 psi'. 'TWIST RATE: 7.50 (190.5) R.H.' Bore .250 (6.35), Groove .257 (6.53).",
   "bullet_diameter_in": 0.2571
  },
  {
@@ -639,7 +639,7 @@
    "https://saami.org/wp-content/uploads/2026/01/Public-Introduction-25-Weatherby-RPM-2026-01-19.pdf",
    "https://weatherby.com/store/25-weatherby-rpm/"
   ],
-  "notes": "Kaynak notu: SAAMI drawing: 'BULLET(1) .2573 - .0030 (6.535 - .076)'; case length '2.400 - .020 (60.96 - 0.51)' (INFERRED, label not extracted; chamber shows 2.410 (61.21)); '3.200 (81.28) MIN – 3.340 (84.84) MAX' (COL, inferred); 'Maximum Average Pressure (MAP)* = 65,000 psi'; 'TWIST: 7.50 (190.5) R.H.'; Bore .250, Groove .257. CONFLICT: weatherby.com lists 'Max Case Length: 3.34”' which equals SAAMI max COL, i.e. a site mislabel; Weatherby 'Bullet Diameter: .257 (6.35mm)'.",
+  "notes": "Kaynak notu (alıntı): SAAMI drawing: 'BULLET(1) .2573 - .0030 (6.535 - .076)'; case length '2.400 - .020 (60.96 - 0.51)' (INFERRED, label not extracted; chamber shows 2.410 (61.21)); '3.200 (81.28) MIN – 3.340 (84.84) MAX' (COL, inferred); 'Maximum Average Pressure (MAP)* = 65,000 psi'; 'TWIST: 7.50 (190.5) R.H.'; Bore .250, Groove .257. CONFLICT: weatherby.com lists 'Max Case Length: 3.34”' which equals SAAMI max COL, i.e. a site mislabel; Weatherby 'Bullet Diameter: .257 (6.35mm)'.",
   "bullet_diameter_in": 0.2571
  },
  {
@@ -729,7 +729,7 @@
   "bullet_weight_max_gr": null,
   "standard": null,
   "sources": [],
-  "notes": "Kaynak notu: NOT FOUND: wildcat (necked 6.5x47 Lapua); not in SAAMI drawings list; Lapua does not list such a case/cartridge on lapua.com cartridge-case pages. No standards body or maker spec. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
+  "notes": "Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
   "bullet_diameter_in": 0.2571
  },
  {
@@ -867,7 +867,7 @@
   "sources": [
    "https://saami.org/tag/sig-fury/"
   ],
-  "notes": "Kaynak notu: SAAMI: 'was introduced with a maximum average pressure of 80,000 psi' (135 gr, 3,000 fps). Dimensions NOT FOUND: SAAMI PDF https://saami.org/wp-content/uploads/2020/11/277-Sig-Public-Introduction-Orig-2020-11-11.pdf failed to fetch (2 attempts); sigsauer.com product page lists only 'Test Barrel Length (in) 24.0 ± 1/16'. Cartridge listed in SAAMI Z299.4-2025 (p.90) but tool truncated that PDF.",
+  "notes": "Kaynak notu (alıntı): SAAMI: 'was introduced with a maximum average pressure of 80,000 psi' (135 gr, 3,000 fps). Dimensions NOT FOUND: SAAMI PDF https://saami.org/wp-content/uploads/2020/11/277-Sig-Public-Introduction-Orig-2020-11-11.pdf failed to fetch (2 attempts); sigsauer.com product page lists only 'Test Barrel Length (in) 24.0 ± 1/16'. Cartridge listed in SAAMI Z299.4-2025 (p.90) but tool truncated that PDF.",
   "bullet_diameter_in": 0.2772
  },
  {
@@ -914,7 +914,7 @@
    "https://www.nosler.com/media/load_data_assets/pdfs/280-Ackley-Imp-160gr-version-9-0.pdf",
    "https://saami.org/wp-content/uploads/2018/01/206.pdf"
   ],
-  "notes": "Kaynak notu: Nosler (originating SAAMI sponsor) load data: '7mm (.284\")' bullet (0.284 in -> 7.2136 mm); 'BARREL Twist 1-9\"' (Nosler test barrel, 26\" Wiseman; not a SAAMI std twist); '3.330\" TESTED O.A.C.L.' is a load-test length, NOT a max COL. SAAMI Z299.4-2015 crusher table: '280 Ackley Improved 140 3,260 CUP Pressures Not Established'; transducer psi MAP not reachable (PDF truncated by tool). Case length / max COL NOT FOUND.",
+  "notes": "Kaynak notu (alıntı): Nosler (originating SAAMI sponsor) load data: '7mm (.284\")' bullet (0.284 in -> 7.2136 mm); 'BARREL Twist 1-9\"' (Nosler test barrel, 26\" Wiseman; not a SAAMI std twist); '3.330\" TESTED O.A.C.L.' is a load-test length, NOT a max COL. SAAMI Z299.4-2015 crusher table: '280 Ackley Improved 140 3,260 CUP Pressures Not Established'; transducer psi MAP not reachable (PDF truncated by tool). Case length / max COL NOT FOUND.",
   "bullet_diameter_in": 0.2839
  },
  {
@@ -1329,7 +1329,7 @@
    "https://saami.org/tag/weatherby/",
    "https://weatherby.com/store/338-wby-rpm/"
   ],
-  "notes": "Kaynak notu: SAAMI tag page: 338 WBY RPM introduced by Weatherby, 225 gr ~2,800 fps, MAP 65,000 psi. weatherby.com: 'Bullet Diameter: .338 (8.6mm)' (.338 in -> 8.5852 mm), 'Max Case Length: 2.57”' (2.570 in -> 65.278 mm; nominal, 2 decimals). SAAMI drawing PDF https://saami.org/wp-content/uploads/2022/05/Public-Introduction-338-WBY-RPM-2022-05-16.pdf failed to fetch; COL and twist NOT FOUND.",
+  "notes": "Kaynak notu (alıntı): SAAMI tag page: 338 WBY RPM introduced by Weatherby, 225 gr ~2,800 fps, MAP 65,000 psi. weatherby.com: 'Bullet Diameter: .338 (8.6mm)' (.338 in -> 8.5852 mm), 'Max Case Length: 2.57”' (2.570 in -> 65.278 mm; nominal, 2 decimals). SAAMI drawing PDF https://saami.org/wp-content/uploads/2022/05/Public-Introduction-338-WBY-RPM-2022-05-16.pdf failed to fetch; COL and twist NOT FOUND.",
   "bullet_diameter_in": 0.3382
  },
  {
@@ -1534,7 +1534,7 @@
   "bullet_weight_max_gr": null,
   "standard": null,
   "sources": [],
-  "notes": "Kaynak notu: NOT FOUND: only Applied Ballistics pages (excluded by rule) and blogs found; no SAAMI/CIP or rifle/ammo-maker official spec page located. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
+  "notes": "Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
   "bullet_diameter_in": 0.3752
  },
  {
@@ -1834,7 +1834,7 @@
    "https://weatherby.com/wp-content/uploads/2019/09/SpecSheet2020_8_13_21_MS.pdf",
    "https://weatherby.com/store/416-weatherby-magnum/"
   ],
-  "notes": "Kaynak notu: Weatherby rifle spec sheet: 416 WBY. MAG. twist '1-14”' (Mark V Camilla Deluxe/Ultra Lightweight and Weathermark Bronze) - factory rifle twist. weatherby.com cartridge page gives no dims/pressure. In SAAMI Z299.4-2025 (p.151) but PDF truncated by tool. Dims/pressure NOT FOUND.",
+  "notes": "Kaynak notu (alıntı): Weatherby rifle spec sheet: 416 WBY. MAG. twist '1-14”' (Mark V Camilla Deluxe/Ultra Lightweight and Weathermark Bronze) - factory rifle twist. weatherby.com cartridge page gives no dims/pressure. In SAAMI Z299.4-2025 (p.151) but PDF truncated by tool. Dims/pressure NOT FOUND.",
   "bullet_diameter_in": 0.4161
  },
  {
@@ -2223,7 +2223,7 @@
   "bullet_weight_max_gr": null,
   "standard": null,
   "sources": [],
-  "notes": "Kaynak notu: NOT FOUND: not in SAAMI drawings list; not listed among lapua.com cartridge cases (only 6mm BR Norma). Wildcat/improved variant with no official spec located. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
+  "notes": "Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
   "bullet_diameter_in": 0.2429
  },
  {
@@ -2318,7 +2318,7 @@
    "https://weatherby.com/store/6-5-wby-rpm/",
    "https://weatherby.com/wp-content/uploads/2019/09/SpecSheet2020_8_13_21_MS.pdf"
   ],
-  "notes": "Kaynak notu: SAAMI tag page: MAP 65,000 psi (140 gr ~3,075 fps). weatherby.com: 'Bullet Diameter: .264 (6.5mm)' (.264 in -> 6.7056 mm), 'Max Case Length: 2.57”' (-> 65.278 mm). Twist '1-8”' in all Weatherby Mark V models (rifle spec sheet; factory twist, not a SAAMI value). SAAMI drawing PDF https://saami.org/wp-content/uploads/2020/10/6.5-WBY-RPM-Public-Introduction-Orig-2020-09-27.pdf failed to fetch; max COL NOT FOUND.",
+  "notes": "Kaynak notu (alıntı): SAAMI tag page: MAP 65,000 psi (140 gr ~3,075 fps). weatherby.com: 'Bullet Diameter: .264 (6.5mm)' (.264 in -> 6.7056 mm), 'Max Case Length: 2.57”' (-> 65.278 mm). Twist '1-8”' in all Weatherby Mark V models (rifle spec sheet; factory twist, not a SAAMI value). SAAMI drawing PDF https://saami.org/wp-content/uploads/2020/10/6.5-WBY-RPM-Public-Introduction-Orig-2020-09-27.pdf failed to fetch; max COL NOT FOUND.",
   "bullet_diameter_in": 0.2642
  },
  {
@@ -2365,7 +2365,7 @@
    "https://weatherby.com/cartridge-caliber/6-5-300/",
    "https://weatherby.com/wp-content/uploads/2019/09/SpecSheet2020_8_13_21_MS.pdf"
   ],
-  "notes": "Kaynak notu: weatherby.com: 'Bullet Diameter: .264 (6.5mm)' (-> 6.7056 mm), 'Max Case Length: 2.825”' (-> 71.755 mm). Twist '1-8”' across all Weatherby models (rifle spec sheet). Pressure and COL NOT FOUND (SAAMI Z299.4-2025 p.40 lists it but PDF truncated by tool).",
+  "notes": "Kaynak notu (alıntı): weatherby.com: 'Bullet Diameter: .264 (6.5mm)' (-> 6.7056 mm), 'Max Case Length: 2.825”' (-> 71.755 mm). Twist '1-8”' across all Weatherby models (rifle spec sheet). Pressure and COL NOT FOUND (SAAMI Z299.4-2025 p.40 lists it but PDF truncated by tool).",
   "bullet_diameter_in": 0.2642
  },
  {
@@ -2664,7 +2664,7 @@
   "sources": [
    "https://saami.org/wp-content/uploads/2024/04/6mm-GT-Public-Introduction-Rev-2024-03-30.pdf"
   ],
-  "notes": "Kaynak notu: SAAMI public introduction (mm as printed): '.2433 - .0030 (6.180 - 0.076)' (bullet, inferred: only -.0030 dim); '1.725 - .020 (43.82 - 0.51)' (case length, INFERRED, label not extracted); '2.515 (63.88) MIN – 2.640 (67.06) MAX' (COL, inferred); 'Maximum Average Pressure (MAP)* = 62,000 psi'; 'TWIST RATE: 7.50 (190.5) R.H.'; Bore .237 (6.02), Groove .243 (6.17).",
+  "notes": "Kaynak notu (alıntı): SAAMI public introduction (mm as printed): '.2433 - .0030 (6.180 - 0.076)' (bullet, inferred: only -.0030 dim); '1.725 - .020 (43.82 - 0.51)' (case length, INFERRED, label not extracted); '2.515 (63.88) MIN – 2.640 (67.06) MAX' (COL, inferred); 'Maximum Average Pressure (MAP)* = 62,000 psi'; 'TWIST RATE: 7.50 (190.5) R.H.'; Bore .237 (6.02), Groove .243 (6.17).",
   "bullet_diameter_in": 0.2429
  },
  {
@@ -2731,7 +2731,7 @@
   "bullet_weight_max_gr": null,
   "standard": null,
   "sources": [],
-  "notes": "Kaynak notu: NOT FOUND: wildcat of 6.5x47 Lapua; lapua.com lists only 6.5x47 Lapua case; not in SAAMI drawings list. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
+  "notes": "Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş. Wildcat/özel fişek; C.I.P., SAAMI veya üretici resmî teknik föyü bulunamadı. Alanlar boş.",
   "bullet_diameter_in": 0.2429
  },
  {
@@ -2846,7 +2846,7 @@
   "sources": [
    "https://saami.org/wp-content/uploads/2025/01/Public-Introduction-7mm-Backcountry-2025-01-27.pdf"
   ],
-  "notes": "Kaynak notu: SAAMI public introduction (mm as printed): '.2844 - .0030 (7.224 - 0.076)' (bullet, inferred); '2.417 - .020 (61.39 - 0.51)' (case length, INFERRED, label not extracted); '3.090 (78.49) MIN – 3.340 (84.84) MAX' (COL, inferred); 'Maximum Average Pressure (MAP)* = 80,000 psi'; 'TWIST: 8.0 (203.2) R.H. OPTIONAL'; Bore .277 (7.04), Groove .284 (7.21). PDF text extraction is jumbled - verify visually before production use.",
+  "notes": "Kaynak notu (alıntı): SAAMI public introduction (mm as printed): '.2844 - .0030 (7.224 - 0.076)' (bullet, inferred); '2.417 - .020 (61.39 - 0.51)' (case length, INFERRED, label not extracted); '3.090 (78.49) MIN – 3.340 (84.84) MAX' (COL, inferred); 'Maximum Average Pressure (MAP)* = 80,000 psi'; 'TWIST: 8.0 (203.2) R.H. OPTIONAL'; Bore .277 (7.04), Groove .284 (7.21). PDF text extraction is jumbled - verify visually before production use.",
   "bullet_diameter_in": 0.2839
  },
  {
@@ -3099,7 +3099,7 @@
   "sources": [
    "https://saami.org/wp-content/uploads/2026/04/Public-Introduction-8.6-BLACKOUT-2026-04-07.pdf"
   ],
-  "notes": "Kaynak notu: SAAMI public introduction (mm as printed): 'BULLET(1) .339 - .003 (8.61 - 0.08)'; '1.685 - .020 (42.80 - 0.51)' (case length, INFERRED, label not extracted); '2.560 (65.02) MIN – 2.810 (71.37) MAX' (COL, inferred); 'Maximum Average Pressure (MAP)* = 62,000 psi'; 'TWIST: 6.00 (152.4) R.H.'; Bore .330 (8.38), Groove .338 (8.59).",
+  "notes": "Kaynak notu (alıntı): SAAMI public introduction (mm as printed): 'BULLET(1) .339 - .003 (8.61 - 0.08)'; '1.685 - .020 (42.80 - 0.51)' (case length, INFERRED, label not extracted); '2.560 (65.02) MIN – 2.810 (71.37) MAX' (COL, inferred); 'Maximum Average Pressure (MAP)* = 62,000 psi'; 'TWIST: 6.00 (152.4) R.H.'; Bore .330 (8.38), Groove .338 (8.59).",
   "bullet_diameter_in": 0.3382
  },
  {
