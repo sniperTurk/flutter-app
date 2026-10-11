@@ -697,12 +697,12 @@
     "bullet": "ZERO (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 127,
-    "g1_bc": null,
+    "g1_bc": 0.274,
     "g7_bc": null,
     "muzzle_velocity_fps": 2854,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 870 m/s (x3.28084), 8,2 g / 127 gr, barrel 600 mm. Catalogue BC 0.274 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 870 m/s (x3.28084), 8,2 g / 127 gr, barrel 600 mm. Catalogue BC 0.274 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -712,12 +712,12 @@
     "bullet": "SOFTPOINT (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 165,
-    "g1_bc": null,
+    "g1_bc": 0.36,
     "g7_bc": null,
     "muzzle_velocity_fps": 2625,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 800 m/s (x3.28084), 10,7 g / 165 gr, barrel 600 mm. Catalogue BC 0.360 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 800 m/s (x3.28084), 10,7 g / 165 gr, barrel 600 mm. Catalogue BC 0.360 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -727,12 +727,12 @@
     "bullet": "EXPRESS (GECO)",
     "bullet_diameter_in": 0.224,
     "weight_gr": 56,
-    "g1_bc": null,
+    "g1_bc": 0.219,
     "g7_bc": null,
     "muzzle_velocity_fps": 3035,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO EXPRESS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 925 m/s (x3.28084), 3,6 g / 56 gr, barrel 600 mm. Catalogue BC 0.219 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO EXPRESS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 925 m/s (x3.28084), 3,6 g / 56 gr, barrel 600 mm. Catalogue BC 0.219 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -742,12 +742,12 @@
     "bullet": "EXPRESS (GECO)",
     "bullet_diameter_in": 0.264,
     "weight_gr": 140,
-    "g1_bc": null,
+    "g1_bc": 0.428,
     "g7_bc": null,
     "muzzle_velocity_fps": 2395,
     "test_barrel_in": 25.59,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO EXPRESS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 730 m/s (x3.28084), 9,1 g / 140 gr, barrel 650 mm. Catalogue BC 0.428 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO EXPRESS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 730 m/s (x3.28084), 9,1 g / 140 gr, barrel 650 mm. Catalogue BC 0.428 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -757,12 +757,12 @@
     "bullet": "PLUS (GECO)",
     "bullet_diameter_in": 0.264,
     "weight_gr": 156,
-    "g1_bc": null,
+    "g1_bc": 0.308,
     "g7_bc": null,
     "muzzle_velocity_fps": 2461,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO PLUS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 750 m/s (x3.28084), 10,1 g / 156 gr, barrel 600 mm. Catalogue BC 0.308 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO PLUS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 750 m/s (x3.28084), 10,1 g / 156 gr, barrel 600 mm. Catalogue BC 0.308 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -772,12 +772,12 @@
     "bullet": "TARGET HP (GECO)",
     "bullet_diameter_in": 0.264,
     "weight_gr": 130,
-    "g1_bc": null,
+    "g1_bc": 0.548,
     "g7_bc": null,
     "muzzle_velocity_fps": 2690,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO TARGET HP. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 820 m/s (x3.28084), 8,4 g / 130 gr, barrel 600 mm. Catalogue BC 0.548 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO TARGET HP. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 820 m/s (x3.28084), 8,4 g / 130 gr, barrel 600 mm. Catalogue BC 0.548 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -787,12 +787,12 @@
     "bullet": "ZERO (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 127,
-    "g1_bc": null,
+    "g1_bc": 0.274,
     "g7_bc": null,
     "muzzle_velocity_fps": 3084,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 940 m/s (x3.28084), 8,2 g / 127 gr, barrel 600 mm. Catalogue BC 0.274 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 940 m/s (x3.28084), 8,2 g / 127 gr, barrel 600 mm. Catalogue BC 0.274 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -802,12 +802,12 @@
     "bullet": "STAR (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 140,
-    "g1_bc": null,
+    "g1_bc": 0.222,
     "g7_bc": null,
     "muzzle_velocity_fps": 3045,
     "test_barrel_in": 25.59,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO STAR. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 928 m/s (x3.28084), 9,1 g / 140 gr, barrel 650 mm. Catalogue BC 0.222 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO STAR. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 928 m/s (x3.28084), 9,1 g / 140 gr, barrel 650 mm. Catalogue BC 0.222 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -817,12 +817,12 @@
     "bullet": "EXPRESS (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 155,
-    "g1_bc": null,
+    "g1_bc": 0.418,
     "g7_bc": null,
     "muzzle_velocity_fps": 2887,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO EXPRESS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 880 m/s (x3.28084), 10,0 g / 155 gr, barrel 600 mm. Catalogue BC 0.418 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO EXPRESS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 880 m/s (x3.28084), 10,0 g / 155 gr, barrel 600 mm. Catalogue BC 0.418 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -832,12 +832,12 @@
     "bullet": "SOFTPOINT (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 165,
-    "g1_bc": null,
+    "g1_bc": 0.36,
     "g7_bc": null,
     "muzzle_velocity_fps": 2756,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 840 m/s (x3.28084), 10,7 g / 165 gr, barrel 600 mm. Catalogue BC 0.360 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 840 m/s (x3.28084), 10,7 g / 165 gr, barrel 600 mm. Catalogue BC 0.360 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -847,12 +847,12 @@
     "bullet": "PLUS (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 170,
-    "g1_bc": null,
+    "g1_bc": 0.375,
     "g7_bc": null,
     "muzzle_velocity_fps": 2723,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO PLUS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 830 m/s (x3.28084), 11,0 g / 170 gr, barrel 600 mm. Catalogue BC 0.375 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO PLUS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 830 m/s (x3.28084), 11,0 g / 170 gr, barrel 600 mm. Catalogue BC 0.375 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -862,12 +862,12 @@
     "bullet": "ZERO (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 127,
-    "g1_bc": null,
+    "g1_bc": 0.274,
     "g7_bc": null,
     "muzzle_velocity_fps": 2690,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 820 m/s (x3.28084), 8,2 g / 127 gr, barrel 600 mm. Catalogue BC 0.274 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 820 m/s (x3.28084), 8,2 g / 127 gr, barrel 600 mm. Catalogue BC 0.274 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -877,12 +877,12 @@
     "bullet": "SOFTPOINT (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 165,
-    "g1_bc": null,
+    "g1_bc": 0.36,
     "g7_bc": null,
     "muzzle_velocity_fps": 2461,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 750 m/s (x3.28084), 10,7 g / 165 gr, barrel 600 mm. Catalogue BC 0.360 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 750 m/s (x3.28084), 10,7 g / 165 gr, barrel 600 mm. Catalogue BC 0.360 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -892,12 +892,12 @@
     "bullet": "SOFTPOINT (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 165,
-    "g1_bc": null,
+    "g1_bc": 0.36,
     "g7_bc": null,
     "muzzle_velocity_fps": 2723,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 830 m/s (x3.28084), 10,7 g / 165 gr, barrel 600 mm. Catalogue BC 0.360 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 830 m/s (x3.28084), 10,7 g / 165 gr, barrel 600 mm. Catalogue BC 0.360 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -907,12 +907,12 @@
     "bullet": "ZERO (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 127,
-    "g1_bc": null,
+    "g1_bc": 0.274,
     "g7_bc": null,
     "muzzle_velocity_fps": 2920,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 890 m/s (x3.28084), 8,2 g / 127 gr, barrel 600 mm. Catalogue BC 0.274 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 890 m/s (x3.28084), 8,2 g / 127 gr, barrel 600 mm. Catalogue BC 0.274 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -922,12 +922,12 @@
     "bullet": "SOFTPOINT (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 165,
-    "g1_bc": null,
+    "g1_bc": 0.36,
     "g7_bc": null,
     "muzzle_velocity_fps": 2625,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 800 m/s (x3.28084), 10,7 g / 165 gr, barrel 600 mm. Catalogue BC 0.360 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 800 m/s (x3.28084), 10,7 g / 165 gr, barrel 600 mm. Catalogue BC 0.360 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -937,12 +937,12 @@
     "bullet": "PLUS (GECO)",
     "bullet_diameter_in": 0.284,
     "weight_gr": 170,
-    "g1_bc": null,
+    "g1_bc": 0.375,
     "g7_bc": null,
     "muzzle_velocity_fps": 2657,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO PLUS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 810 m/s (x3.28084), 11,0 g / 170 gr, barrel 600 mm. Catalogue BC 0.375 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO PLUS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 810 m/s (x3.28084), 11,0 g / 170 gr, barrel 600 mm. Catalogue BC 0.375 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -952,12 +952,12 @@
     "bullet": "ZERO (GECO)",
     "bullet_diameter_in": 0.323,
     "weight_gr": 139,
-    "g1_bc": null,
+    "g1_bc": 0.225,
     "g7_bc": null,
     "muzzle_velocity_fps": 2789,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 850 m/s (x3.28084), 9,0 g / 139 gr, barrel 600 mm. Catalogue BC 0.225 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 850 m/s (x3.28084), 9,0 g / 139 gr, barrel 600 mm. Catalogue BC 0.225 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -967,12 +967,12 @@
     "bullet": "STAR (GECO)",
     "bullet_diameter_in": 0.323,
     "weight_gr": 160,
-    "g1_bc": null,
+    "g1_bc": 0.251,
     "g7_bc": null,
     "muzzle_velocity_fps": 2743,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO STAR. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 836 m/s (x3.28084), 10,4 g / 160 gr, barrel 600 mm. Catalogue BC 0.251 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO STAR. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 836 m/s (x3.28084), 10,4 g / 160 gr, barrel 600 mm. Catalogue BC 0.251 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -982,12 +982,12 @@
     "bullet": "EXPRESS (GECO)",
     "bullet_diameter_in": 0.323,
     "weight_gr": 181,
-    "g1_bc": null,
+    "g1_bc": 0.367,
     "g7_bc": null,
     "muzzle_velocity_fps": 2474,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO EXPRESS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 754 m/s (x3.28084), 11,7 g / 181 gr, barrel 600 mm. Catalogue BC 0.367 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO EXPRESS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 754 m/s (x3.28084), 11,7 g / 181 gr, barrel 600 mm. Catalogue BC 0.367 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -997,12 +997,12 @@
     "bullet": "SOFTPOINT (GECO)",
     "bullet_diameter_in": 0.323,
     "weight_gr": 185,
-    "g1_bc": null,
+    "g1_bc": 0.245,
     "g7_bc": null,
     "muzzle_velocity_fps": 2493,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 760 m/s (x3.28084), 12,0 g / 185 gr, barrel 600 mm. Catalogue BC 0.245 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 760 m/s (x3.28084), 12,0 g / 185 gr, barrel 600 mm. Catalogue BC 0.245 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -1012,12 +1012,12 @@
     "bullet": "PLUS (GECO)",
     "bullet_diameter_in": 0.323,
     "weight_gr": 196,
-    "g1_bc": null,
+    "g1_bc": 0.346,
     "g7_bc": null,
     "muzzle_velocity_fps": 2329,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO PLUS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 710 m/s (x3.28084), 12,7 g / 196 gr, barrel 600 mm. Catalogue BC 0.346 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO PLUS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 710 m/s (x3.28084), 12,7 g / 196 gr, barrel 600 mm. Catalogue BC 0.346 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -1027,12 +1027,12 @@
     "bullet": "ZERO (GECO)",
     "bullet_diameter_in": 0.366,
     "weight_gr": 184,
-    "g1_bc": null,
+    "g1_bc": 0.241,
     "g7_bc": null,
     "muzzle_velocity_fps": 2707,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 825 m/s (x3.28084), 11,9 g / 184 gr, barrel 600 mm. Catalogue BC 0.241 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO ZERO. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 825 m/s (x3.28084), 11,9 g / 184 gr, barrel 600 mm. Catalogue BC 0.241 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -1042,12 +1042,12 @@
     "bullet": "SOFTPOINT (GECO)",
     "bullet_diameter_in": 0.366,
     "weight_gr": 255,
-    "g1_bc": null,
+    "g1_bc": 0.277,
     "g7_bc": null,
     "muzzle_velocity_fps": 2428,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 740 m/s (x3.28084), 16,5 g / 255 gr, barrel 600 mm. Catalogue BC 0.277 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO SOFTPOINT. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 740 m/s (x3.28084), 16,5 g / 255 gr, barrel 600 mm. Catalogue BC 0.277 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   },
   {
     "brand": "Geco",
@@ -1057,11 +1057,11 @@
     "bullet": "PLUS (GECO)",
     "bullet_diameter_in": 0.366,
     "weight_gr": 255,
-    "g1_bc": null,
+    "g1_bc": 0.335,
     "g7_bc": null,
     "muzzle_velocity_fps": 2395,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
-    "notes": "GECO PLUS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 730 m/s (x3.28084), 16,5 g / 255 gr, barrel 600 mm. Catalogue BC 0.335 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\") -> BC not recorded (owner rule 2026-10-11). Read 2026-10-11."
+    "notes": "GECO PLUS. From GECO Magalogue EN 2026 (official downloads page) ballistic table: V0 730 m/s (x3.28084), 16,5 g / 255 gr, barrel 600 mm. Catalogue BC 0.335 is not labelled G1/G7 (footnote: \"BC value = Ballistic coefficient\"). Read 2026-10-11. Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz."
   }
 ]

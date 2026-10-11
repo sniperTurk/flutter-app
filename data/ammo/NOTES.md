@@ -82,3 +82,6 @@ Sahibin ChatGPT araştırması (data/owner-research: docs/owner-research/chatgpt
 - **Fiocchi:** ürün sayfalarında "Ballistic coefficient g1" ve (bazı ürünlerde) "G7 Litz" etiketli. Hız "Bocca" = namlu ağzı (m/s → fps). Test namlusu yayınlanmıyor. Katalogdaki Exacta SOLID (70A00x) satırları sitede yok ve PDF metni bozuk okundu → eklenmedi. 2 "SHELL" (boş kovan) ürünü dışarıda.
 - **GECO:** katalog BC'si etiketsiz ("BC value = Ballistic coefficient") → yeni 25 kayıtta BC null (ham değer notta). Mevcut 46 kayıt eski kuralla G1 varsayımlı; değiştirilmedi. V0 namlu ağzı. Sahibin verdiği 2024 PDF bağlantısı açılmadı (izin zaman aşımı); resmi indirme sayfasındaki 2026 kataloğu kullanıldı.
 - Hız hepsinde namlu ağzında verildi → muzzle_from dönüşümü gerekmedi.
+
+### Güncelleme (sahibin kararı, 2026-10-11)
+Sahip, etiketsiz BC'lerin G1 kabul edilmesini onayladı: yeni 70 PPU ve 25 GECO kaydında `g1_bc` = üreticinin yazdığı değer. Her kayıt notunda: "Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz." Dayanak: değerlerin büyüklüğü G1 aralığında; PPU Supreme (Sierra mermisi) değerleri Sierra'nın G1 değerleriyle aynı görünüyor.
