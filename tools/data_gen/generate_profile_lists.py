@@ -68,6 +68,18 @@ for _rpm in ('6.5', '.338', '.25'):
     ALIASES[_rpm.lower() + ' wby rpm'] = _rpm + ' Weatherby RPM'
 ALIASES.update({'7x57': '7x57 Mauser', '.45-70 government': '.45-70 Govt', '.300 blk': '.300 Blackout',
                 '6.5x65 r': '6.5x65 R RWS', '5.6x50 mag': '5.6x50 R Mag'})
+# Ithal tüfek turu 3 (2026-10-11): calibers named by the makers' official pages.
+CARTRIDGES.update({
+    '.257 Roberts': 6.53, '.375 Ruger': 9.53, '.416 Ruger': 10.57, '.35 Whelen': 9.09,
+    '.338 ARC': 8.59, '.450 Marlin': 11.63, '.38-55 Win': 9.59, '.17 WSM': 4.37,
+    '.375 EnABELR': 9.53, '6 Dasher': 6.17, '6mm BR Norma': 6.17, '6 BRA': 6.17,
+    '6x47 Lapua': 6.17, '25x47 Lapua': 6.53, '.277 SIG Fury': 7.04,
+    '.378 Weatherby Mag': 9.53, '.416 Weatherby Mag': 10.57, '.460 Weatherby Mag': 11.63,
+    '6mm Rem': 6.17, '.222 Rem Mag': 5.7, '12.7x108': 12.98, '6mm PPC': 6.17,
+    '6x62 R Frères': 6.17, '8x75 RS': 8.22, '.450/.400 NE 3"': 10.44, '.500/.416 NE': 10.57,
+    '.470 NE': 12.07, '.500 NE 3"': 12.95, '.404 Jeffery': 10.74, '.450 Rigby': 11.63,
+})
+ALIASES.update({'6mm norma br': '6mm BR Norma', '.223 wylde': '5.56x45 NATO'})
 PCP = [(4.5, '4.50 mm (.177)'), (5.0, '5.00 mm (.20)'), (5.5, '5.50 mm (.22)'),
        (6.35, '6.35 mm (.25)'), (7.62, '7.62 mm (.30)'), (9.0, '9.00 mm (.357)'),
        (11.43, '11.43 mm (.45)'), (12.7, '12.70 mm (.50)')]
@@ -257,6 +269,8 @@ for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
         name = r['product']
         for token in sorted({r['cartridge'], c}, key=len, reverse=True):
             name = name.replace(token, ' ')
+        # A product written '.223 Rem.' leaves a lone '.' once the cartridge is cut.
+        name = re.sub(r'(^|\s)\.(?=\s|$)', ' ', name)
         name = re.sub(r'\s+', ' ', name).strip(' -')
         # Unlabelled maker BC taken as G1 by the owner's decision (2026-10-11).
         note = None
