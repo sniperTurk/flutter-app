@@ -65,3 +65,20 @@ WebFetch, arama sonuçlarında veya önceden okunan sayfada görünmeyen URL'ler
 - **Kinetic:** bu adla resmi tüfek fişeği üreticisi bulunamadı; sahibin hangi markayı kastettiği netleşmeli.
 - **Yavaşçalar / Zuber:** tüfek (yivli) fişeği ürettiğine dair resmi kaynak bulunamadı (av/tabanca fişeği).
 - **Lapua rimfire:** zaten 8 kayıt vardı; ek yapılmadı.
+
+## 2026-10-11 (2) — Berger, PPU, Fiocchi, GECO eksikleri
+
+Sahibin ChatGPT araştırması (data/owner-research: docs/owner-research/chatgpt-ammo-1.md) yalnızca ipucu olarak kullanıldı; her değer üreticinin kendi sayfasından/kataloğundan okundu.
+
+| Dosya | Eklenen | Kaynak |
+|---|---|---|
+| berger.json | +33 (toplam 34) | bergerbullets.com fişek ürün sayfaları (mermi "lines-and-designs" sayfaları değil) |
+| ppu.json | +70 (toplam 73) | ppu-usa.com Standard / Metric / Match / Supreme kalibre sayfaları |
+| fiocchi.json | +49 (yeni) | fiocchi.com/en ürün sayfaları; Cat. Generale 2024 ile karşılaştırıldı |
+| geco.json | +25 (toplam 71) | GECO Magalogue EN 2026 PDF (resmi indirme sayfasında); mevcut 46 tekrar edilmedi |
+
+- **Berger:** sayfalarda G1 ve G7 birlikte var → üretici G7'yi seçer. Test namlusu sayfada yazılı (20/24/26"). 4 sayfada hız yok → eklenmedi: .30-06 168 gr (URL "165gr" diyor) ve 185 gr Classic Hunter, .300 WSM 185 gr Classic Hunter, .338 Norma Mag 300 gr Hybrid OTM. .223 69 gr OTM ve .300 Norma Mag 245 gr LRHT sayfalarında namlu yok (null). 6.5 PRC 153.5 gr: başlık "Hybrid Target", tablo "Elite Hunter".
+- **PPU:** sayfalar yalnızca "Ballistic Coeficient" yazıyor, G1/G7 yok → yeni kayıtlarda `g1_bc`/`g7_bc` null, ham değer notta. Mevcut 3 adet 7.62x39 kaydı (G1 varsayımıyla) değiştirilmedi; sahibin kararı. Listedeki ama uygulamanın Kalibre listesinde olmayan kalibreler (6.5x52 Carcano, 6.5x54 MS, 7.5x54 French, 7.65x53, 7.92x33 Kurz, 8x50 R Lebel, 8x56 RS, 6mm Rem) okunmadı.
+- **Fiocchi:** ürün sayfalarında "Ballistic coefficient g1" ve (bazı ürünlerde) "G7 Litz" etiketli. Hız "Bocca" = namlu ağzı (m/s → fps). Test namlusu yayınlanmıyor. Katalogdaki Exacta SOLID (70A00x) satırları sitede yok ve PDF metni bozuk okundu → eklenmedi. 2 "SHELL" (boş kovan) ürünü dışarıda.
+- **GECO:** katalog BC'si etiketsiz ("BC value = Ballistic coefficient") → yeni 25 kayıtta BC null (ham değer notta). Mevcut 46 kayıt eski kuralla G1 varsayımlı; değiştirilmedi. V0 namlu ağzı. Sahibin verdiği 2024 PDF bağlantısı açılmadı (izin zaman aşımı); resmi indirme sayfasındaki 2026 kataloğu kullanıldı.
+- Hız hepsinde namlu ağzında verildi → muzzle_from dönüşümü gerekmedi.
