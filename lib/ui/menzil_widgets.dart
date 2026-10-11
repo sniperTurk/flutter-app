@@ -1160,9 +1160,7 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                           onTap: it.onTap,
                           alignment: it.alignment,
                           child: DefaultTextStyle.merge(
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: const TextStyle(fontWeight: FontWeight.w400),
                             child: it.child,
                           ),
                         ),
@@ -1358,7 +1356,10 @@ class MenzilSecondaryButton extends StatelessWidget {
           size -= 0.5;
         }
         final oneLine = TextPainter(
-          text: TextSpan(text: label, style: base.copyWith(fontSize: size)),
+          text: TextSpan(
+            text: label,
+            style: base.copyWith(fontSize: size),
+          ),
           textDirection: dir,
           textScaler: scaler,
           maxLines: 1,
