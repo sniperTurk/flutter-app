@@ -1,0 +1,21 @@
+{
+  "name": "XBR-2 MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Crossfire II 2-7x32 Crossbow"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/vortex-crossfire-ii-2-7x32-crossbow-scope.html",
+  "notes": "Tatar yayı (crossbow) retikülü. Crossfire II 2-7x32 Crossbow sayfası: Second Focal Plane, ayar 1/2 MOA. Metin: 'The XBR-2® reticle is specifically designed for crossbows for a 40-yard zero', 'fast, accurate holdovers from 20-100 yards' ve 'dual illumination, red or green'. Tutma işaretlerinin MOA değerleri metinde yok. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}

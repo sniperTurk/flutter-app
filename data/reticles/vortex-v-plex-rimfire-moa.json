@@ -1,0 +1,21 @@
+{
+  "name": "V-Plex Rimfire MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Crossfire HD 2-7x32"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/crossfire-2-7x32-riflescope.html",
+  "notes": "Crossfire HD 2-7x32 ürün sayfası 'V-Plex Rimfire (MOA)' varyantını sunuyor (data/scopes/vortex.json); okunabilen sayfa metninde açıklama yok. Standart V-Plex için vortex-v-plex-moa kaydına bakın. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}

@@ -1,0 +1,23 @@
+{
+  "name": "VOI-10BDC MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Hugo 3-12x44GT SFP (SCOM-31)",
+    "Hugo 4-16x44GT (SCOL-30)",
+    "Hugo 6-24x50 GT (SCOL-32)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20241031/82dae38f95e9ae4c5b57381e3e75c387.pdf",
+  "notes": "SFP; ölçüler 10x'te geçerli ('suspension is valid at 10x'). Kaynak: VOI-10BDC Reticle User Manual PDF (ReticleInstruction sayfa 5; metin). Kılavuzda dürbün modeli yok → scopes boş. Kılavuz: 'The center point's diameter is 0.75 MOA' → center_dot=true; merkez nokta ile yatay çizgi arası 2 MOA, dikey çizgi arası 1.5 MOA boşluk → floating_center=true; 'Each horizontal line extends 10 MOA in total length' → extent_h=10 (her yan için olduğu ve boşluğu içerip içermediği çıkarım). BDC işaretleri .223/5.56 yörüngesine göre artan aralıklı (200 yd sıfır: 300/400/500/600 yd); aralık değerleri verilmemiş → hash_step null. Konumsuz etiketler 2.0, 0.15, 10, 1.8, 4.3, 7.5, 11. family null (BDC), dikey uzanım, direkler → null. || SFP; 'BDC Reticle Calibarated at 10x Power for Aiming Points up to 650 Yards' (referans büyütme 10x). Kaynaklar: Reticle-Collection + SCOM-31 ürün sayfası. Birim, aile ve ölçüler sayfada yok → null."
+}
