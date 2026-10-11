@@ -308,25 +308,17 @@ abstract final class MenzilSpace {
   static const double twoColumnMinWidth = 300;
 }
 
-/// Typography. Numbers and headings prefer a condensed family (Barlow
-/// Condensed) when one is available on the device or bundled later through
-/// pubspec `fonts:`; otherwise the platform falls back to its system face.
-/// Tabular figures keep values from jittering while they change.
+/// Typography. Tabular figures keep values from jittering while they change.
 abstract final class MenzilType {
-  /// The app's typeface (owner, 2026-10-11): Oswald, bundled in
-  /// assets/fonts (SIL OFL), static weights 300–700.
-  static const String family = 'Oswald';
-
-  static const List<String> numericFallback = [
-    'Barlow Condensed',
-    'Roboto Condensed',
-    'Arial Narrow',
-  ];
+  /// The app's typeface (owner, 2026-10-11, screenshot): the platform system
+  /// face, i.e. San Francisco on iOS. `null` lets Flutter pick it; SF cannot
+  /// be bundled, so nothing is listed here. The DOPE card PDF still embeds
+  /// the bundled Oswald because a PDF needs a font file.
+  static const String? family = null;
   static const List<FontFeature> tabular = [FontFeature.tabularFigures()];
 
   static TextStyle display(Color color, {double size = 60}) => TextStyle(
     fontFamily: family,
-    fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.0,
     fontWeight: FontWeight.w700,
@@ -341,7 +333,6 @@ abstract final class MenzilType {
     FontWeight weight = FontWeight.w600,
   }) => TextStyle(
     fontFamily: family,
-    fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.1,
     fontWeight: weight,
@@ -351,7 +342,6 @@ abstract final class MenzilType {
 
   static TextStyle heading(Color color, {double size = 22}) => TextStyle(
     fontFamily: family,
-    fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.1,
     fontWeight: FontWeight.w700,
@@ -440,7 +430,7 @@ abstract final class MenzilTheme {
 
     return ThemeData(
       useMaterial3: true,
-      // Oswald everywhere, the welcome pages included (owner, 2026-10-11).
+      // System face everywhere, the welcome pages included (owner, 2026-10-11).
       fontFamily: MenzilType.family,
       brightness: brightness,
       colorScheme: scheme,
