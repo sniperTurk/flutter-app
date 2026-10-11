@@ -45,9 +45,24 @@ abstract final class ReticleCatalog {
     return true;
   }
 
+  /// Reticle names of a scope record ("VPR-MIL / VHR-MIL" is two); a
+  /// focal plane alone is not a reticle.
+  static List<String> options(String? reticle) => [
+    for (final r in (reticle ?? '').split(RegExp(r'\s*/\s*')))
+      if (r.trim().isNotEmpty && !const {'FFP', 'SFP'}.contains(r.trim()))
+        r.trim(),
+  ];
+
+  /// A focal-plane or unit word glued to the last part of a hyphenated
+  /// designation: "VCT-34FFP", "VEPG-TMIL".
+  static final _glued = RegExp(
+    r'^(.*-[A-Z0-9]*?[A-Z0-9])(FFP|SFP|MILS|MIL|MRAD|MOA)$',
+  );
+
   /// The reticle's own designation without unit and focal-plane words
-  /// ("APRS14 FFP IR MIL" → APRS14, "TOR-MIL" → TOR) and the unit the name
-  /// states ('mil', 'moa' or null).
+  /// ("APRS14 FFP IR MIL" → APRS14, "TOR-MIL" → TOR, "VCT-34FFP" → VCT34)
+  /// and the unit the name states ('mil', 'moa' or null). "+" is part of
+  /// the name: SKMR4+ is not SKMR4.
   static ({String core, String? unit}) nameKey(String name) {
     String? unit;
     final core = StringBuffer();
@@ -63,37 +78,71 @@ abstract final class ReticleCatalog {
         unit = _units[suffix.group(2)!];
         t = suffix.group(1)!;
       }
+      for (var g = _glued.firstMatch(t); g != null; g = _glued.firstMatch(t)) {
+        t = g.group(1)!;
+        unit = _units[g.group(2)!] ?? unit;
+      }
+      t = t.replaceAll('+', 'PLUS');
       core.write(t.replaceAll(RegExp(r'[^A-Z0-9]'), ''));
     }
     return (core: core.toString(), unit: unit);
   }
 
-  /// The data record for [name] on a [brand] scope, or null. Never picks
-  /// between two records it cannot tell apart.
+  static List<String> _words(String text) => [
+    for (final w in text.toLowerCase().split(RegExp(r'[^a-z0-9]+')))
+      if (w.isNotEmpty) w,
+  ];
+
+  /// True when one of [record]'s manufacturer scope series stands in the
+  /// scope's brand and model words ("Helos BTR GEN2" in "HELOS BTR GEN2
+  /// 6-24x56 …").
+  static bool namesScope(ReticleData record, String brand, String? model) {
+    final words = _words('$brand ${model ?? ''}');
+    for (final entry in record.scopes) {
+      final e = _words(entry);
+      if (e.isEmpty) continue;
+      for (var i = 0; i + e.length <= words.length; i++) {
+        var all = true;
+        for (var j = 0; j < e.length && all; j++) {
+          all = words[i + j] == e[j];
+        }
+        if (all) return true;
+      }
+    }
+    return false;
+  }
+
+  /// The data record for [name] on a [brand] scope, or null. Never
+  /// guesses: a name listing several reticles, a record in the other unit
+  /// than the turret, or two records it cannot tell apart give null.
   static ReticleData? find(
     String? name,
     AngularUnit turretUnit, {
     String? brand,
+    String? model,
     List<ReticleData> library = ReticleLibrary.all,
   }) {
     if (name == null || brand == null) return null;
+    if (options(name).length != 1) return null;
     final key = nameKey(name);
     if (key.core.isEmpty) return null;
+    final turret = turretUnit.moaFamily ? 'moa' : 'mil';
+    if (key.unit != null && key.unit != turret) return null;
     var hits = [
       for (final r in library)
-        if (brandMatches(r.brand, brand) && nameKey(r.name).core == key.core) r,
+        if (r.unit == turret &&
+            brandMatches(r.brand, brand) &&
+            nameKey(r.name).core == key.core)
+          r,
     ];
-    if (key.unit != null) {
-      hits = [
+    if (hits.length > 1) {
+      // Same name twice (with and without illumination): the record whose
+      // manufacturer scope list names this scope, if exactly one does.
+      final named = [
         for (final r in hits)
-          if (r.unit == key.unit) r,
+          if (namesScope(r, brand, model)) r,
       ];
-    } else if (hits.length > 1) {
-      final turret = turretUnit.moaFamily ? 'moa' : 'mil';
-      hits = [
-        for (final r in hits)
-          if (r.unit == turret) r,
-      ];
+      if (named.length == 1) hits = named;
     }
     return hits.length == 1 ? hits.single : null;
   }
@@ -104,6 +153,7 @@ abstract final class ReticleCatalog {
     String? name,
     AngularUnit turretUnit, {
     String? brand,
+    String? model,
   }) {
     if (name == null || name.trim().isEmpty) return null;
     if (!Reticles.genericNames.contains(name)) {
@@ -111,6 +161,7 @@ abstract final class ReticleCatalog {
         name,
         turretUnit,
         brand: brand,
+        model: model,
       )?.toSpec(displayName: name);
       if (spec != null) return spec;
     }

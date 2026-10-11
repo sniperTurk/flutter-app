@@ -13,6 +13,7 @@ import '../../data/cartridges.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/factory_ammo_library.dart';
 import '../../data/factory_powder_temperature.dart';
+import '../../data/reticle_catalog.dart';
 import '../../data/rifle_library.dart';
 import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
@@ -1137,12 +1138,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   ];
 
   /// Reticle names of a record ("VPR-MIL / VHR-MIL" is two).
-  static List<String> _reticlesOf(ScopeOptic s) => [
-    for (final r in (s.reticle ?? '').split(RegExp(r'\s*/\s*')))
-      // A focal plane is not a reticle.
-      if (r.trim().isNotEmpty && !const {'FFP', 'SFP'}.contains(r.trim()))
-        r.trim(),
-  ];
+  static List<String> _reticlesOf(ScopeOptic s) =>
+      ReticleCatalog.options(s.reticle);
 
   /// "Talos HMR 4-16x56 Center-X SFP MOA" -> "Talos HMR 4-16x56 SFP MOA":
   /// the reticles of one model are listed under Retikül.
