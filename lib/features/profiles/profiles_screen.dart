@@ -686,11 +686,7 @@ class _ActiveProfileDetails extends StatelessWidget {
                 '1:${_trimNum(rifle!.twistRateIn!)}',
                 'inç',
               ),
-            MenzilMetric(
-              'Sight height',
-              _trimNum(profile.sightHeightMm),
-              'mm',
-            ),
+            MenzilMetric('Sight height', _trimNum(profile.sightHeightMm), 'mm'),
             MenzilMetric(
               'Sıfırlama mesafesi',
               _zeroValue(profile),
@@ -726,11 +722,7 @@ class _ActiveProfileDetails extends StatelessWidget {
                 'Mühimmat Model',
                 ammoModel.isEmpty ? '—' : ammoModel,
               ),
-              MenzilMetric(
-                'Ağırlık',
-                _trimNum(ammo.grain),
-                'gr',
-              ),
+              MenzilMetric('Ağırlık', _trimNum(ammo.grain), 'gr'),
               MenzilMetric('Tip', _ammoTypeName(ammo.type)),
             ],
             MenzilMetric(
@@ -2193,9 +2185,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// Fills the ammunition from a library record (list or library screen).
   void _applyBullet(LibraryBullet b, double? cal) {
-    String n(num v) => v % 1 == 0
-        ? v.toStringAsFixed(0)
-        : v.toString().replaceAll('.', ',');
+    String n(num v) =>
+        v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     _ammoManual = false;
     {
       ammoBrand.text = b.brand;
@@ -2280,9 +2271,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   void _applyFactory(FactoryAmmo a) {
-    String n(num v) => v % 1 == 0
-        ? v.toStringAsFixed(0)
-        : v.toString().replaceAll('.', ',');
+    String n(num v) =>
+        v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     // Kalibre not chosen yet: the round tells it.
     if (_cartridge == null && rifleCaliber.text.trim().isEmpty) {
       _cartridge = a.cartridge;
@@ -2370,8 +2360,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     } else {
       for (final b in lHere) {
         if (b.brand != brand) continue;
-        if (_modelOf(b) == ammoModel.text &&
-            _parse(ammoGrain) == b.grain) {
+        if (_modelOf(b) == ammoModel.text && _parse(ammoGrain) == b.grain) {
           modelIndex = labels.length;
         }
         final m = _modelOf(b);
