@@ -59,9 +59,7 @@ class ProfileInput {
     );
     final sight = _positive(sightHeightText, 'Sight height');
     if (sight >= ProductionLimits.maxSightHeightMm) {
-      throw const FormatException(
-        'Sight height 300 mm’den küçük olmalıdır.',
-      );
+      throw const FormatException('Sight height 300 mm’den küçük olmalıdır.');
     }
     if (!ProductionLimits.mountCantOptionsMoa.contains(mountCantMoa)) {
       throw const FormatException('Dürbün ayağını listeden seçin.');

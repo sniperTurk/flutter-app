@@ -2011,9 +2011,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     if (c.text.trim().isEmpty) return 'Gerekli.';
     final v = _parse(c);
     if (v == null || v < min || v > max) {
-      String f(double x) => x % 1 == 0
-          ? x.toStringAsFixed(0)
-          : '$x'.replaceAll('.', ',');
+      String f(double x) =>
+          x % 1 == 0 ? x.toStringAsFixed(0) : '$x'.replaceAll('.', ',');
       return '${f(min)}–${f(max)} arasında bir değer girin.';
     }
     return null;

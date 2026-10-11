@@ -1756,7 +1756,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             'rüzgâr sağdan esiyorsa sağa, soldan esiyorsa sola çevirin.',
         if (zeroOff.up != 0 || zeroOff.right != 0)
           'Sıfır ofseti kliklere dahildir.',
-        if (scale != 1) 'Kule ölçek katsayısı (${_decimal(scale)}) kliklere dahildir.',
+        if (scale != 1)
+          'Kule ölçek katsayısı (${_decimal(scale)}) kliklere dahildir.',
         if (!basis.drag)
           'BC girilmediği için hava direnci yok sayıldı; uzak mesafede gerçek '
               'düşüş daha fazladır.',
@@ -1907,10 +1908,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
-  String _windLabel(double mps) =>
-      (metric ? mps : UnitSystem.mpsToMph(mps))
-          .toStringAsFixed(1)
-          .replaceAll('.', ',');
+  String _windLabel(double mps) => (metric ? mps : UnitSystem.mpsToMph(mps))
+      .toStringAsFixed(1)
+      .replaceAll('.', ',');
 
   /// Half of the scope's total adjustment travel, in clicks, or null when
   /// the travel is not known. No travel is ever guessed: the old 30 mrad
@@ -2772,9 +2772,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 return DataRow(
                   color: isZero ? WidgetStatePropertyAll(c.amberSoft) : null,
                   cells: [
-                    DataCell(
-                      Text(_fixed(displayRange, _yards ? 1 : 0)),
-                    ),
+                    DataCell(Text(_fixed(displayRange, _yards ? 1 : 0))),
                     DataCell(Text(_fixed(displayDrop, 1))),
                     DataCell(Text(_fixed(p.correctionMoa, 2))),
                     DataCell(Text(_fixed(p.correctionMrad, 2))),
@@ -3809,7 +3807,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.dropM * 100
                       : UnitSystem.millimetersToInches(shot.dropM * 1000))
-                  .toStringAsFixed(1).replaceAll('.', ','),
+                  .toStringAsFixed(1)
+                  .replaceAll('.', ','),
               metric ? 'cm' : 'in',
             ),
             MenzilMetric(
@@ -3817,7 +3816,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.velocityMps
                       : UnitSystem.mpsToFps(shot.velocityMps))
-                  .toStringAsFixed(0).replaceAll('.', ','),
+                  .toStringAsFixed(0)
+                  .replaceAll('.', ','),
               metric ? 'm/s' : 'fps',
             ),
             MenzilMetric(
@@ -3825,13 +3825,20 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.energyJ
                       : UnitSystem.joulesToFootPounds(shot.energyJ))
-                  .toStringAsFixed(1).replaceAll('.', ','),
+                  .toStringAsFixed(1)
+                  .replaceAll('.', ','),
               metric ? 'J' : 'ft·lbf',
             ),
             if (muzzleMach != null)
-              MenzilMetric('Namlu Mach', muzzleMach!.toStringAsFixed(3).replaceAll('.', ',')),
+              MenzilMetric(
+                'Namlu Mach',
+                muzzleMach!.toStringAsFixed(3).replaceAll('.', ','),
+              ),
             if (densityRatio != null)
-              MenzilMetric('Yoğunluk oranı', densityRatio!.toStringAsFixed(3).replaceAll('.', ',')),
+              MenzilMetric(
+                'Yoğunluk oranı',
+                densityRatio!.toStringAsFixed(3).replaceAll('.', ','),
+              ),
           ],
         ),
       if (shot != null && !_dragMode)
@@ -3847,7 +3854,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.dropM * 100
                       : UnitSystem.millimetersToInches(shot.dropM * 1000))
-                  .toStringAsFixed(1).replaceAll('.', ','),
+                  .toStringAsFixed(1)
+                  .replaceAll('.', ','),
               metric ? 'cm' : 'in',
             ),
             MenzilMetric(
@@ -3855,7 +3863,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.velocityMps
                       : UnitSystem.mpsToFps(shot.velocityMps))
-                  .toStringAsFixed(0).replaceAll('.', ','),
+                  .toStringAsFixed(0)
+                  .replaceAll('.', ','),
               metric ? 'm/s' : 'fps',
             ),
             MenzilMetric(
@@ -3863,13 +3872,20 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.energyJ
                       : UnitSystem.joulesToFootPounds(shot.energyJ))
-                  .toStringAsFixed(1).replaceAll('.', ','),
+                  .toStringAsFixed(1)
+                  .replaceAll('.', ','),
               metric ? 'J' : 'ft·lbf',
             ),
             if (muzzleMach != null)
-              MenzilMetric('Namlu Mach', muzzleMach!.toStringAsFixed(3).replaceAll('.', ',')),
+              MenzilMetric(
+                'Namlu Mach',
+                muzzleMach!.toStringAsFixed(3).replaceAll('.', ','),
+              ),
             if (densityRatio != null)
-              MenzilMetric('Yoğunluk oranı', densityRatio!.toStringAsFixed(3).replaceAll('.', ',')),
+              MenzilMetric(
+                'Yoğunluk oranı',
+                densityRatio!.toStringAsFixed(3).replaceAll('.', ','),
+              ),
           ],
         ),
       Text(
