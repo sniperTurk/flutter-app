@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCREEN = ROOT / "lib/features/ballistics/ballistics_screen.dart"
 HIT_PROB = ROOT / "lib/tools/domain/hit_probability.dart"
 WEZ = ROOT / "lib/core/wez.dart"
+STABILITY = ROOT / "lib/core/stability.dart"
 
 
 class PublishedAnchors(unittest.TestCase):
@@ -150,16 +151,26 @@ class SpinDriftSourceContract(unittest.TestCase):
         cls.src = re.sub(r"\s+", " ", SCREEN.read_text(encoding="utf-8"))
 
     def test_miller(self):
+        # Ö5 (2026-10-11): the Miller formula moved to lib/core/stability.dart;
+        # the screen calls Stability.millerSg with the muzzle velocity.
+        miller = re.sub(r"\s+", " ", STABILITY.read_text(encoding="utf-8"))
         for piece in [
-            "30 * basis.grain / (tCal * tCal * dIn * dIn * dIn * lCal * (1 + lCal * lCal))",
+            "30 * grain / (tCal * tCal * dIn * dIn * dIn * lCal * (1 + lCal * lCal))",
             "math.pow(vFps / 2800, 1 / 3)",
             "((tF + 460) / 519)",
             "(29.92 / pInHg)",
-            "basis.environment.temperatureC * 9 / 5 + 32",
+            "temperatureC * 9 / 5 + 32",
+        ]:
+            self.assertIn(piece, miller)
+        # 1 hPa in inHg (NIST: 1 inHg = 33.8638866667 hPa).
+        self.assertIn(f"pressureHpa * {1 / 33.8638866667:.13f}", miller)
+        for piece in [
+            "Stability.millerSg(",
+            "velocityMps: basis.velocityMps,",
+            "temperatureC: basis.environment.temperatureC,",
+            "pressureHpa: basis.environment.pressureHpa,",
         ]:
             self.assertIn(piece, self.src)
-        # 1 hPa in inHg (NIST: 1 inHg = 33.8638866667 hPa).
-        self.assertIn(f"basis.environment.pressureHpa * {1 / 33.8638866667:.13f}", self.src)
 
     def test_litz_spin_drift_and_jump(self):
         self.assertIn("1.25 * (st.sg + 1.2) * math.pow(shot.timeOfFlightS, 1.83)", self.src)

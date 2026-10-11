@@ -589,12 +589,19 @@ class MenzilNotice extends StatelessWidget {
   final MenzilNoticeTone tone;
   final IconData? icon;
 
+  /// Optional ⓘ explanation shown at the end of the notice; [infoTitle]
+  /// names the dialog (defaults to [title] or "Bilgi").
+  final String? info;
+  final String? infoTitle;
+
   const MenzilNotice({
     super.key,
     this.title,
     required this.message,
     this.tone = MenzilNoticeTone.info,
     this.icon,
+    this.info,
+    this.infoTitle,
   });
 
   @override
@@ -647,6 +654,11 @@ class MenzilNotice extends StatelessWidget {
                   ],
                 ),
               ),
+              if (info != null)
+                MenzilInfoButton(
+                  title: infoTitle ?? title ?? 'Bilgi',
+                  text: info!,
+                ),
             ],
           ),
         ),
