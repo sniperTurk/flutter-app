@@ -1,7 +1,7 @@
 # Simulator screenshots
 
-- Source: `ruzgar-yonu-kutusu` @ `daec8ca56fab9e30cd2158a19f962701208be163`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38145918656
+- Source: `feat/retikul-cizim` @ `daec8ca56fab9e30cd2158a19f962701208be163`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38148982962
 - flutter test exit code: 0 (0 = every step passed)
 - Device: iPhone 17 Pro / iOS 26.2
 
@@ -11,7 +11,7 @@ grant location: 0
 grant location-always: 0
 simulated location: 0
 flutter test exit: 0
-screenshots: 39
+screenshots: 44
 ```
 
 - [01_profil_karsilama.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/01_profil_karsilama.png)
@@ -44,12 +44,17 @@ screenshots: 39
 - [28_profil_olustur_dolu_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/28_profil_olustur_dolu_3.png)
 - [29_profil_olustur_dolu_4.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/29_profil_olustur_dolu_4.png)
 - [30_profil_olustur_dolu_5.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/30_profil_olustur_dolu_5.png)
-- [31_profil_kayitli.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/31_profil_kayitli.png)
-- [32_profil_kayitli_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/32_profil_kayitli_2.png)
-- [33_hava_durumu.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/33_hava_durumu.png)
-- [34_hava_durumu_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/34_hava_durumu_2.png)
-- [35_pro_ayarlar.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/35_pro_ayarlar.png)
-- [36_pro_ayarlar_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/36_pro_ayarlar_2.png)
-- [37_hedef_atis.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/37_hedef_atis.png)
-- [38_hedef_atis_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/38_hedef_atis_2.png)
-- [39_hedef_tablo.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/39_hedef_tablo.png)
+- [31_profil_olustur_dolu_6.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/31_profil_olustur_dolu_6.png)
+- [32_profil_olustur_dolu_7.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/32_profil_olustur_dolu_7.png)
+- [33_profil_kayitli.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/33_profil_kayitli.png)
+- [34_profil_kayitli_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/34_profil_kayitli_2.png)
+- [35_hava_durumu.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/35_hava_durumu.png)
+- [36_hava_durumu_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/36_hava_durumu_2.png)
+- [37_hava_durumu_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/37_hava_durumu_3.png)
+- [38_pro_ayarlar.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/38_pro_ayarlar.png)
+- [39_pro_ayarlar_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/39_pro_ayarlar_2.png)
+- [40_hedef_atis.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/40_hedef_atis.png)
+- [41_hedef_atis_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/41_hedef_atis_2.png)
+- [42_hedef_atis_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/42_hedef_atis_3.png)
+- [43_hedef_tablo.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/43_hedef_tablo.png)
+- [44_hedef_tablo_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/44_hedef_tablo_2.png)

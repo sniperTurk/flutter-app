@@ -1,6 +1,6 @@
 Resolving dependencies...
 Downloading packages...
-  archive 4.3.0 (4.5.0 available)
+  archive 4.3.0 (4.5.1 available)
   camera_avfoundation 0.10.3+1 (0.11.0 available)
   cross_file 0.3.5+5 (0.4.0 available)
   cupertino_icons 1.0.9 (2.0.0 available)
@@ -26,7 +26,7 @@ The following plugins do not support Swift Package Manager for ios:
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           121.4s
+Xcode build done.                                           139.9s
 00:00 +0: screenshot tour of the main pages
 SIMSCREEN:01_profil_karsilama
 SIMSCREEN:02_hava_durumu_bos
@@ -58,15 +58,20 @@ SIMSCREEN:27_profil_olustur_dolu_2
 SIMSCREEN:28_profil_olustur_dolu_3
 SIMSCREEN:29_profil_olustur_dolu_4
 SIMSCREEN:30_profil_olustur_dolu_5
-SIMSCREEN:31_profil_kayitli
-SIMSCREEN:32_profil_kayitli_2
-SIMSCREEN:33_hava_durumu
-SIMSCREEN:34_hava_durumu_2
-SIMSCREEN:35_pro_ayarlar
-SIMSCREEN:36_pro_ayarlar_2
-SIMSCREEN:37_hedef_atis
-SIMSCREEN:38_hedef_atis_2
-SIMSCREEN:39_hedef_tablo
+SIMSCREEN:31_profil_olustur_dolu_6
+SIMSCREEN:32_profil_olustur_dolu_7
+SIMSCREEN:33_profil_kayitli
+SIMSCREEN:34_profil_kayitli_2
+SIMSCREEN:35_hava_durumu
+SIMSCREEN:36_hava_durumu_2
+SIMSCREEN:37_hava_durumu_3
+SIMSCREEN:38_pro_ayarlar
+SIMSCREEN:39_pro_ayarlar_2
+SIMSCREEN:40_hedef_atis
+SIMSCREEN:41_hedef_atis_2
+SIMSCREEN:42_hedef_atis_3
+SIMSCREEN:43_hedef_tablo
+SIMSCREEN:44_hedef_tablo_2
 SIMSCREEN_DONE failures=0
-03:37 +1: (tearDownAll)
-03:42 +1: All tests passed!
+04:24 +1: (tearDownAll)
+04:30 +1: All tests passed!
