@@ -7,12 +7,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.264,
   "weight_gr": 143,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.623,
+  "g7_bc": 0.314,
   "muzzle_velocity_fps": 2700,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6-5-creedmoor-143-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.623 / G7 0.314. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.623 / G7 0.314; 2232\u20132512 fps: G1 0.604 / G7 0.303; <2232 fps: G1 0.584 / G7 0.294. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 6.5mm .264 143 gr ELD-X (#2635) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -22,12 +22,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": 0.264,
   "weight_gr": 140,
-  "g1_bc": null,
+  "g1_bc": 0.61,
   "g7_bc": null,
   "muzzle_velocity_fps": 2710,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6-5-creedmoor-140-gr-eld-match",
-  "notes": "ELD Match line; BC not published on product page"
+  "notes": "ELD Match line; BC not published on product page | BC (2026-10-11): G1 0.61. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 6.5 Creedmoor 140 gr ELD Match #81500 G1 .610. Not: bile\u015fen mermi 140 gr ELD Match G1 .646/G7 .326 (hornady.com/bc); \u00fcr\u00fcn sayfas\u0131 'A-MAX veya ELD Match' diyor, bu y\u00fczden bile\u015fen G7/bantlar\u0131 eklenmedi. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -37,12 +37,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.308,
   "weight_gr": 178,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.552,
+  "g7_bc": 0.278,
   "muzzle_velocity_fps": 2600,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-178-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.552 / G7 0.278. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.552 / G7 0.278; 2232\u20132512 fps: G1 0.543 / G7 0.273; <2232 fps: G1 0.538 / G7 0.271. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal .308 178 gr ELD-X (#3074) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -52,12 +52,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": 0.308,
   "weight_gr": 168,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.523,
+  "g7_bc": 0.263,
   "muzzle_velocity_fps": 2700,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-168-gr-eld-match",
-  "notes": "ELD Match line; BC not published on product page"
+  "notes": "ELD Match line; BC not published on product page | BC (2026-10-11): G1 0.523 / G7 0.263. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.523 / G7 0.263; 2232\u20132512 fps: G1 0.516 / G7 0.259; <2232 fps: G1 0.498 / G7 0.251. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 308 Win 168 gr ELD Match #80966 G1 .523; G7 .263 ve bantlar ayn\u0131 mermi (Hornady 30 Cal 168 gr ELD Match #30506, hornady.com/bc). Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -67,12 +67,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": 0.308,
   "weight_gr": 168,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.523,
+  "g7_bc": 0.263,
   "muzzle_velocity_fps": 2840,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-168-gr-eld-match-superformance-match",
-  "notes": "Superformance Match line; BC not published on product page"
+  "notes": "Superformance Match line; BC not published on product page | BC (2026-10-11): G1 0.523 / G7 0.263. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.523 / G7 0.263; 2232\u20132512 fps: G1 0.516 / G7 0.259; <2232 fps: G1 0.498 / G7 0.251. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: Superformance Match 308 Win 168 gr ELD Match #80963 G1 .523; G7 .263 ve bantlar ayn\u0131 mermi (30 Cal 168 gr ELD Match, hornady.com/bc). Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -82,12 +82,12 @@
   "bullet": "BTHP Match",
   "bullet_diameter_in": 0.308,
   "weight_gr": 178,
-  "g1_bc": null,
+  "g1_bc": 0.53,
   "g7_bc": null,
   "muzzle_velocity_fps": 2600,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-178-gr-bthp-match",
-  "notes": "Match line; BC not published on product page"
+  "notes": "Match line; BC not published on product page | BC (2026-10-11): G1 0.53. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 308 Win 178 gr BTHP Match #8105 G1 .530 (bile\u015fen 30 Cal 178 gr BTHP Match #30715 de .530, G7 yay\u0131mlanm\u0131yor). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -97,12 +97,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.264,
   "weight_gr": 143,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.623,
+  "g7_bc": 0.314,
   "muzzle_velocity_fps": 2960,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6.5-prc-143-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.623 / G7 0.314. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.623 / G7 0.314; 2232\u20132512 fps: G1 0.604 / G7 0.303; <2232 fps: G1 0.584 / G7 0.294. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 6.5mm .264 143 gr ELD-X (#2635) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -112,12 +112,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.308,
   "weight_gr": 200,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.597,
+  "g7_bc": 0.301,
   "muzzle_velocity_fps": 2860,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/300-win-mag-200-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.597 / G7 0.301. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.597 / G7 0.301; 2232\u20132512 fps: G1 0.588 / G7 0.295; <2232 fps: G1 0.578 / G7 0.291. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal .308 200 gr ELD-X (#3076) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -127,12 +127,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.308,
   "weight_gr": 178,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.552,
+  "g7_bc": 0.278,
   "muzzle_velocity_fps": 2960,
   "test_barrel_in": 26,
   "source_url": "https://www.hornady.com/ammunition/rifle/300-win-mag-178gr-eld-x",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.552 / G7 0.278. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.552 / G7 0.278; 2232\u20132512 fps: G1 0.543 / G7 0.273; <2232 fps: G1 0.538 / G7 0.271. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal .308 178 gr ELD-X (#3074) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -142,12 +142,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": 0.308,
   "weight_gr": 195,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.584,
+  "g7_bc": 0.294,
   "muzzle_velocity_fps": 2930,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/300-win-mag-195-gr-eld-match",
-  "notes": "ELD Match line; BC not published on product page"
+  "notes": "ELD Match line; BC not published on product page | BC (2026-10-11): G1 0.584 / G7 0.294. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.584 / G7 0.294; 2232\u20132512 fps: G1 0.573 / G7 0.288; <2232 fps: G1 0.566 / G7 0.285. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 300 Win Mag 195 gr ELD Match #82180 G1 .584; G7 .294 ve bantlar 30 Cal 195 gr ELD Match (#30951, hornady.com/bc). Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -157,12 +157,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.308,
   "weight_gr": 212,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.663,
+  "g7_bc": 0.334,
   "muzzle_velocity_fps": 2860,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/300-prc-212-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.663 / G7 0.334. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.83): 30 Cal .308 212 gr ELD-X #3077 G1 .663 / G7 .334. hornady.com/bc iki twist sat\u0131r\u0131 veriyor (1:10\" .663/.334/.649/.326/.643/.324; 1:7\" .702/.354/.686/.345/.677/.341) \u2014 twist belirsiz, bant eklenmedi. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/83.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -172,12 +172,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": 0.308,
   "weight_gr": 225,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.777,
+  "g7_bc": 0.391,
   "muzzle_velocity_fps": 2810,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/300-prc-225-gr-eld-match",
-  "notes": "ELD Match line; BC not published on product page"
+  "notes": "ELD Match line; BC not published on product page | BC (2026-10-11): G1 0.777 / G7 0.391. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 300 PRC 225 gr ELD Match #82162 G1 .777; G7 .391 katalog bile\u015fen tablosu (s.77, #30904). hornady.com/bc iki twist sat\u0131r\u0131 veriyor (1:10\" .777/.391; 1:7\" .798/.402) \u2014 fabrika de\u011feri 1:10 sat\u0131r\u0131yla ayn\u0131; twist belirsizli\u011fi nedeniyle bant eklenmedi. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -187,12 +187,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.284,
   "weight_gr": 162,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.631,
+  "g7_bc": 0.318,
   "muzzle_velocity_fps": 2975,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/7mm-rem-mag-162-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.631 / G7 0.318. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.631 / G7 0.318; 2232\u20132512 fps: G1 0.626 / G7 0.314; <2232 fps: G1 0.615 / G7 0.308. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 7mm .284 162 gr ELD-X (#2840) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -202,12 +202,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.284,
   "weight_gr": 175,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.689,
+  "g7_bc": 0.347,
   "muzzle_velocity_fps": 3000,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/7mm-prc-175-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.689 / G7 0.347. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.689 / G7 0.347; 2232\u20132512 fps: G1 0.683 / G7 0.343; <2232 fps: G1 0.678 / G7 0.341. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 7mm .284 175 gr ELD-X (#2841) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -217,12 +217,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": 0.284,
   "weight_gr": 180,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.796,
+  "g7_bc": 0.401,
   "muzzle_velocity_fps": 2975,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/7mm-prc-180-gr-eld-match",
-  "notes": "ELD Match line; BC not published on product page"
+  "notes": "ELD Match line; BC not published on product page | BC (2026-10-11): G1 0.796 / G7 0.401. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 7mm PRC 180 gr ELD Match #80711 G1 .796; G7 .401 katalog bile\u015fen tablosu (s.77, #28503). hornady.com/bc iki twist sat\u0131r\u0131 veriyor (1:8.75\" .777/.391; 1:7.5\" .816/.411) \u2014 bant eklenmedi. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -232,12 +232,12 @@
   "bullet": "CX",
   "bullet_diameter_in": 0.284,
   "weight_gr": 160,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.596,
+  "g7_bc": 0.3,
   "muzzle_velocity_fps": 3000,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/7mm-prc-160-gr-cx-outfitter",
-  "notes": "Outfitter line; BC not published on product page"
+  "notes": "Outfitter line; BC not published on product page | BC (2026-10-11): G1 0.596 / G7 0.3. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.85): 7mm .284 160 gr CX #2837 G1 .596 / G7 .300. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/85.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -247,12 +247,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.284,
   "weight_gr": 150,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.574,
+  "g7_bc": 0.289,
   "muzzle_velocity_fps": 2770,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/7mm-08-rem-150-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.574 / G7 0.289. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.574 / G7 0.289; 2232\u20132512 fps: G1 0.563 / G7 0.283; <2232 fps: G1 0.558 / G7 0.281. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 7mm .284 150 gr ELD-X (#2826) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -262,12 +262,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.284,
   "weight_gr": 139,
-  "g1_bc": null,
+  "g1_bc": 0.486,
   "g7_bc": null,
   "muzzle_velocity_fps": 2950,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/7mm-08-rem-139-gr-sst-superformance",
-  "notes": "Superformance line; BC not published on product page"
+  "notes": "Superformance line; BC not published on product page | BC (2026-10-11): G1 0.486. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 7mm 139 gr SST #28202 .486. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -277,12 +277,12 @@
   "bullet": "CX",
   "bullet_diameter_in": 0.284,
   "weight_gr": 139,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.429,
+  "g7_bc": 0.216,
   "muzzle_velocity_fps": 2910,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/7mm-08-rem-139-gr.-cx-superformance",
-  "notes": "Superformance line; BC not published on product page; item number as shown on page (6 digits)"
+  "notes": "Superformance line; BC not published on product page; item number as shown on page (6 digits) | BC (2026-10-11): G1 0.429 / G7 0.216. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.85): 7mm .284 139 gr CX #282704 G1 .429 / G7 .216. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/85.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -292,12 +292,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.243,
   "weight_gr": 90,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.41,
+  "g7_bc": 0.206,
   "muzzle_velocity_fps": 3150,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/243-win-90-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.41 / G7 0.206. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.41 / G7 0.206; 2232\u20132512 fps: G1 0.402 / G7 0.202; <2232 fps: G1 0.399 / G7 0.201. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 6mm .243 90 gr ELD-X (#2441) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. Not: 2026 katalog bile\u015fen tablosu (s.82) G1 .409 / G7 .206 veriyor. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -307,12 +307,12 @@
   "bullet": "InterLock BTSP",
   "bullet_diameter_in": 0.243,
   "weight_gr": 100,
-  "g1_bc": null,
+  "g1_bc": 0.405,
   "g7_bc": null,
   "muzzle_velocity_fps": 2960,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/243-win-100-gr-interlock-btsp-american-whitetail",
-  "notes": "American Whitetail line; BC not published on product page"
+  "notes": "American Whitetail line; BC not published on product page | BC (2026-10-11): G1 0.405. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu InterLock bile\u015fen tablosu (flipbook s.88), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 6mm 100 gr InterLock BTSP #2453 .405. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/88.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -322,12 +322,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.243,
   "weight_gr": 95,
-  "g1_bc": null,
+  "g1_bc": 0.355,
   "g7_bc": null,
   "muzzle_velocity_fps": 2960,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/243-win-95-gr-sst-american-whitetail-tipped",
-  "notes": "American Whitetail TIPPED line; BC not published on product page"
+  "notes": "American Whitetail TIPPED line; BC not published on product page | BC (2026-10-11): G1 0.355. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 6mm 95 gr SST #24532 .355. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -337,12 +337,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.277,
   "weight_gr": 145,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.536,
+  "g7_bc": 0.27,
   "muzzle_velocity_fps": 2970,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/270-win-145-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.536 / G7 0.27. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.536 / G7 0.27; 2232\u20132512 fps: G1 0.521 / G7 0.262; <2232 fps: G1 0.512 / G7 0.257. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 270 Cal .277 145 gr ELD-X (#27356) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -352,12 +352,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.277,
   "weight_gr": 130,
-  "g1_bc": null,
+  "g1_bc": 0.46,
   "g7_bc": null,
   "muzzle_velocity_fps": 3050,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/270-win-130-gr-sst-american-whitetail-tipped",
-  "notes": "American Whitetail TIPPED line; BC not published on product page"
+  "notes": "American Whitetail TIPPED line; BC not published on product page | BC (2026-10-11): G1 0.46. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 270 Cal 130 gr SST #27302 .460. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -367,12 +367,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.308,
   "weight_gr": 150,
-  "g1_bc": null,
+  "g1_bc": 0.415,
   "g7_bc": null,
   "muzzle_velocity_fps": 3080,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/30-06-springfield-150-gr-sst-superformance",
-  "notes": "Superformance line; BC not published on product page"
+  "notes": "Superformance line; BC not published on product page | BC (2026-10-11): G1 0.415. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 30 Cal 150 gr SST #30302 .415 (300 Savage'a \u00f6zel 150 gr SST .370 hari\u00e7). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -382,12 +382,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.308,
   "weight_gr": 180,
-  "g1_bc": null,
+  "g1_bc": 0.48,
   "g7_bc": null,
   "muzzle_velocity_fps": 2820,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/30-06-springfield-180-gr-sst-superformance",
-  "notes": "Superformance line; BC not published on product page"
+  "notes": "Superformance line; BC not published on product page | BC (2026-10-11): G1 0.48. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 30 Cal 180 gr SST #30702 .480. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -397,12 +397,12 @@
   "bullet": "InterLock SP",
   "bullet_diameter_in": 0.308,
   "weight_gr": 150,
-  "g1_bc": null,
+  "g1_bc": 0.338,
   "g7_bc": null,
   "muzzle_velocity_fps": 2910,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/30-06-springfield-150-gr-interlock-sp-american-whitetail",
-  "notes": "American Whitetail line; BC not published on product page"
+  "notes": "American Whitetail line; BC not published on product page | BC (2026-10-11): G1 0.338. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu InterLock bile\u015fen tablosu (flipbook s.89), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 30 Cal 150 gr InterLock SP #3031 .338. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/89.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -412,12 +412,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.308,
   "weight_gr": 165,
-  "g1_bc": null,
+  "g1_bc": 0.447,
   "g7_bc": null,
   "muzzle_velocity_fps": 2960,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/30-06-springfield-165-gr-sst-superformance",
-  "notes": "Superformance line; BC not published on product page"
+  "notes": "Superformance line; BC not published on product page | BC (2026-10-11): G1 0.447. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 30 Cal 165 gr SST #30452 .447. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -427,12 +427,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.308,
   "weight_gr": 165,
-  "g1_bc": null,
+  "g1_bc": 0.447,
   "g7_bc": null,
   "muzzle_velocity_fps": 2900,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/30-06-sprg-165-gr-sst-american-whitetail-tipped",
-  "notes": "American Whitetail TIPPED line; BC not published on product page"
+  "notes": "American Whitetail TIPPED line; BC not published on product page | BC (2026-10-11): G1 0.447. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 30 Cal 165 gr SST #30452 .447. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -442,12 +442,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": 0.338,
   "weight_gr": 270,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.757,
+  "g7_bc": 0.381,
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-lapua-magnum-270-gr-eld-x-precision-hunter",
-  "notes": "Precision Hunter line; BC not published on product page"
+  "notes": "Precision Hunter line; BC not published on product page | BC (2026-10-11): G1 0.757 / G7 0.381. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.757 / G7 0.381; 2232\u20132512 fps: G1 0.745 / G7 0.374; <2232 fps: G1 0.739 / G7 0.372. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 338 Cal 270 gr ELD-X (#33371) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -457,12 +457,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": 0.338,
   "weight_gr": 285,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.829,
+  "g7_bc": 0.417,
   "muzzle_velocity_fps": 2745,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-lapua-285-gr-eld-match",
-  "notes": "ELD Match line; BC not published on product page"
+  "notes": "ELD Match line; BC not published on product page | BC (2026-10-11): G1 0.829 / G7 0.417. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.829 / G7 0.417; 2232\u20132512 fps: G1 0.814 / G7 0.409; <2232 fps: G1 0.796 / G7 0.4. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 338 Lapua Mag 285 gr ELD Match #82300 G1 .829; G7 .417 ve bantlar 338 Cal 285 gr ELD Match (#33381, hornady.com/bc). Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -477,7 +477,7 @@
   "muzzle_velocity_fps": 2550,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rimfire/17-hmr-17-gr-v-max",
-  "notes": "Varmint Express Rimfire line; BC not published on product page"
+  "notes": "Varmint Express Rimfire line; BC not published on product page | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -492,7 +492,7 @@
   "muzzle_velocity_fps": 2375,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rimfire/17-hmr-20-gr-xtp",
-  "notes": "Varmint Express Rimfire line; BC not published on product page"
+  "notes": "Varmint Express Rimfire line; BC not published on product page | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -507,7 +507,7 @@
   "muzzle_velocity_fps": 2525,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rimfire/17-hmr-15.5-gr.-ntx",
-  "notes": "Varmint Express Rimfire line; BC not published on product page"
+  "notes": "Varmint Express Rimfire line; BC not published on product page | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -517,12 +517,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": 0.264,
   "weight_gr": 147,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.697,
+  "g7_bc": 0.351,
   "muzzle_velocity_fps": 2695,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6.5-creedmoor-147-gr-eld-match",
-  "notes": "ELD Match line; BC not published on product page"
+  "notes": "ELD Match line; BC not published on product page | BC (2026-10-11): G1 0.697 / G7 0.351. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.697 / G7 0.351; 2232\u20132512 fps: G1 0.662 / G7 0.332; <2232 fps: G1 0.637 / G7 0.321. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 6.5 Creedmoor 147 gr ELD Match #81501 G1 .697; G7 .351 ve bantlar 6.5mm 147 gr ELD Match (hornady.com/bc). Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -532,12 +532,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": 0.264,
   "weight_gr": 147,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.697,
+  "g7_bc": 0.351,
   "muzzle_velocity_fps": 2910,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6.5-prc-147-gr-eld-match",
-  "notes": "ELD Match line; BC not published on product page"
+  "notes": "ELD Match line; BC not published on product page | BC (2026-10-11): G1 0.697 / G7 0.351. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.697 / G7 0.351; 2232\u20132512 fps: G1 0.662 / G7 0.332; <2232 fps: G1 0.637 / G7 0.321. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 6.5 PRC 147 gr ELD Match #81620 G1 .697; G7 .351 ve bantlar 6.5mm 147 gr ELD Match (hornady.com/bc). Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -547,12 +547,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.264,
   "weight_gr": 129,
-  "g1_bc": null,
+  "g1_bc": 0.485,
   "g7_bc": null,
   "muzzle_velocity_fps": 2810,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6.5-creedmoor-129-gr-sst-american-whitetail-tipped",
-  "notes": "American Whitetail TIPPED line; BC not published on product page"
+  "notes": "American Whitetail TIPPED line; BC not published on product page | BC (2026-10-11): G1 0.485. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 6.5mm 129 gr SST #26202 .485. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -562,12 +562,12 @@
   "bullet": "CX",
   "bullet_diameter_in": 0.264,
   "weight_gr": 120,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.428,
+  "g7_bc": 0.215,
   "muzzle_velocity_fps": 3050,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6.5-creedmoor-120-gr.-cx-superformance",
-  "notes": "Superformance line; BC not published on product page; item number as shown on page (6 digits)"
+  "notes": "Superformance line; BC not published on product page; item number as shown on page (6 digits) | BC (2026-10-11): G1 0.428 / G7 0.215. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.84): 6.5mm .264 120 gr CX #261104 G1 .428 / G7 .215 (G7 s\u00fctunu metinde bozuk; G1/G7 oran\u0131yla e\u015flendi). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/84.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -577,12 +577,12 @@
   "bullet": "CX",
   "bullet_diameter_in": 0.264,
   "weight_gr": 120,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.428,
+  "g7_bc": 0.215,
   "muzzle_velocity_fps": 2925,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6.5-creedmoor-120-gr.-cx-outfitter",
-  "notes": "Outfitter line; BC not published on product page; item number as shown on page (6 digits)"
+  "notes": "Outfitter line; BC not published on product page; item number as shown on page (6 digits) | BC (2026-10-11): G1 0.428 / G7 0.215. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.84): 6.5mm .264 120 gr CX #261104 G1 .428 / G7 .215 (G7 s\u00fctunu metinde bozuk; G1/G7 oran\u0131yla e\u015flendi). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/84.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -592,12 +592,12 @@
   "bullet": "V-MAX",
   "bullet_diameter_in": 0.264,
   "weight_gr": 95,
-  "g1_bc": null,
+  "g1_bc": 0.365,
   "g7_bc": null,
   "muzzle_velocity_fps": 3300,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6.5-creedmoor-95-gr-v-max-varmint-express",
-  "notes": "Varmint Express line; BC not published on product page"
+  "notes": "Varmint Express line; BC not published on product page | BC (2026-10-11): G1 0.365. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu V-MAX bile\u015fen tablosu (flipbook s.92), s\u00fctun 'Ballistic Coef.': 6.5mm .264 95 gr V-MAX #22601 .365. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/92.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -607,12 +607,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.308,
   "weight_gr": 150,
-  "g1_bc": null,
+  "g1_bc": 0.415,
   "g7_bc": null,
   "muzzle_velocity_fps": 3000,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-150-gr-sst-superformance",
-  "notes": "Superformance line; BC not published on product page"
+  "notes": "Superformance line; BC not published on product page | BC (2026-10-11): G1 0.415. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 30 Cal 150 gr SST #30302 .415 (300 Savage'a \u00f6zel 150 gr SST .370 hari\u00e7). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -622,12 +622,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.308,
   "weight_gr": 165,
-  "g1_bc": null,
+  "g1_bc": 0.447,
   "g7_bc": null,
   "muzzle_velocity_fps": 2840,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-165-gr-sst-superformance",
-  "notes": "Superformance line; BC not published on product page"
+  "notes": "Superformance line; BC not published on product page | BC (2026-10-11): G1 0.447. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 30 Cal 165 gr SST #30452 .447. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -637,12 +637,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.308,
   "weight_gr": 150,
-  "g1_bc": null,
+  "g1_bc": 0.415,
   "g7_bc": null,
   "muzzle_velocity_fps": 2810,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-150-gr-sst-american-whitetail-tipped",
-  "notes": "American Whitetail TIPPED line; BC not published on product page"
+  "notes": "American Whitetail TIPPED line; BC not published on product page | BC (2026-10-11): G1 0.415. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 30 Cal 150 gr SST #30302 .415 (300 Savage'a \u00f6zel 150 gr SST .370 hari\u00e7). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -652,12 +652,12 @@
   "bullet": "InterLock SP",
   "bullet_diameter_in": 0.308,
   "weight_gr": 165,
-  "g1_bc": null,
+  "g1_bc": 0.387,
   "g7_bc": null,
   "muzzle_velocity_fps": 2700,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-165-gr-interlock-sp-american-whitetail",
-  "notes": "American Whitetail line; BC not published on product page"
+  "notes": "American Whitetail line; BC not published on product page | BC (2026-10-11): G1 0.387. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu InterLock bile\u015fen tablosu (flipbook s.89), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 30 Cal 165 gr InterLock SP #3040 .387. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/89.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -667,12 +667,12 @@
   "bullet": "InterLock SP",
   "bullet_diameter_in": 0.308,
   "weight_gr": 150,
-  "g1_bc": null,
+  "g1_bc": 0.338,
   "g7_bc": null,
   "muzzle_velocity_fps": 2820,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-150-gr-interlock-sp-american-whitetail",
-  "notes": "American Whitetail line; BC not published on product page"
+  "notes": "American Whitetail line; BC not published on product page | BC (2026-10-11): G1 0.338. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu InterLock bile\u015fen tablosu (flipbook s.89), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 30 Cal 150 gr InterLock SP #3031 .338. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/89.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -682,12 +682,12 @@
   "bullet": "CX",
   "bullet_diameter_in": 0.308,
   "weight_gr": 165,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.44,
+  "g7_bc": 0.221,
   "muzzle_velocity_fps": 2750,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-165-gr.-cx-superformance",
-  "notes": "Superformance line; BC not published on product page"
+  "notes": "Superformance line; BC not published on product page | BC (2026-10-11): G1 0.44 / G7 0.221. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.85): 30 Cal .308 165 gr CX #304704 G1 .440 / G7 .221. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/85.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -697,12 +697,12 @@
   "bullet": "V-MAX",
   "bullet_diameter_in": 0.224,
   "weight_gr": 55,
-  "g1_bc": null,
+  "g1_bc": 0.255,
   "g7_bc": null,
   "muzzle_velocity_fps": 3240,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/223-rem-55-gr-v-max",
-  "notes": "Varmint Express line; BC not published on product page"
+  "notes": "Varmint Express line; BC not published on product page | BC (2026-10-11): G1 0.255. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu V-MAX bile\u015fen tablosu (flipbook s.92), s\u00fctun 'Ballistic Coef.': 22 Cal .224 55 gr V-MAX #22271 .255. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/92.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -712,12 +712,12 @@
   "bullet": "V-MAX",
   "bullet_diameter_in": 0.224,
   "weight_gr": 53,
-  "g1_bc": null,
+  "g1_bc": 0.29,
   "g7_bc": null,
   "muzzle_velocity_fps": 3465,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/223-rem-53-gr-v-max-superformance",
-  "notes": "Superformance line; BC not published on product page"
+  "notes": "Superformance line; BC not published on product page | BC (2026-10-11): G1 0.29. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu V-MAX bile\u015fen tablosu (flipbook s.92), s\u00fctun 'Ballistic Coef.': 22 Cal .224 53 gr V-MAX #22265 .290. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/92.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -727,12 +727,12 @@
   "bullet": "BTHP",
   "bullet_diameter_in": 0.224,
   "weight_gr": 75,
-  "g1_bc": null,
+  "g1_bc": 0.395,
   "g7_bc": null,
   "muzzle_velocity_fps": 2930,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/223-rem-75-gr-bthp-superformance-match",
-  "notes": "Superformance Match line; BC not published on product page"
+  "notes": "Superformance Match line; BC not published on product page | BC (2026-10-11): G1 0.395. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: Superformance Match 223 Rem 75 gr BTHP Match #80264 G1 .395 (G7 yay\u0131mlanm\u0131yor). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -742,12 +742,12 @@
   "bullet": "CX",
   "bullet_diameter_in": 0.224,
   "weight_gr": 50,
-  "g1_bc": null,
+  "g1_bc": 0.164,
   "g7_bc": null,
   "muzzle_velocity_fps": 3300,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/223-rem-50-gr-cx-superformance",
-  "notes": "Superformance line; BC not published on product page"
+  "notes": "Superformance line; BC not published on product page | BC (2026-10-11): G1 0.164. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.84): 22 Cal .224 50 gr CX #22402 G1 .164 (d\u00fc\u015f\u00fck g\u00f6r\u00fcn\u00fcyor ama s\u00fctun s\u0131ras\u0131 SD .142 ile tutarl\u0131; G7 yok/okunamad\u0131). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/84.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -757,12 +757,12 @@
   "bullet": "FMJ",
   "bullet_diameter_in": 0.224,
   "weight_gr": 62,
-  "g1_bc": null,
+  "g1_bc": 0.274,
   "g7_bc": null,
   "muzzle_velocity_fps": 3060,
   "test_barrel_in": 20,
   "source_url": "https://www.hornady.com/ammunition/rifle/5.56-nato-62-gr-fmj-black",
-  "notes": "Hornady BLACK line; BC not published on product page"
+  "notes": "Hornady BLACK line; BC not published on product page | BC (2026-10-11): G1 0.274. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu Traditional & FMJ bile\u015fen tablosu (flipbook s.95), s\u00fctun 'Ballistic Coef.': 22 Cal .224 62 gr FMJ #22760B .274. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/95.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -772,12 +772,12 @@
   "bullet": "SST",
   "bullet_diameter_in": 0.311,
   "weight_gr": 123,
-  "g1_bc": null,
+  "g1_bc": 0.295,
   "g7_bc": null,
   "muzzle_velocity_fps": 2350,
   "test_barrel_in": 20,
   "source_url": "https://www.hornady.com/ammunition/rifle/7.62x39-123-gr-sst-black",
-  "notes": "Hornady BLACK line; BC not published on product page"
+  "notes": "Hornady BLACK line; BC not published on product page | BC (2026-10-11): G1 0.295. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 7.62x39mm .310 123 gr SST #3142 .295. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -787,12 +787,12 @@
   "bullet": "FMJ",
   "bullet_diameter_in": 0.311,
   "weight_gr": 123,
-  "g1_bc": null,
+  "g1_bc": 0.266,
   "g7_bc": null,
   "muzzle_velocity_fps": 2340,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/7.62x39-123-gr-fmj-frontier",
-  "notes": "Frontier line; BC not published on product page"
+  "notes": "Frontier line; BC not published on product page | BC (2026-10-11): G1 0.266. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu Traditional & FMJ bile\u015fen tablosu (flipbook s.95), s\u00fctun 'Ballistic Coef.': 7.62mm .310 123 gr FMJ #3147B .266. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/95.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -802,12 +802,12 @@
   "bullet": "CX",
   "bullet_diameter_in": 0.308,
   "weight_gr": 165,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.44,
+  "g7_bc": 0.221,
   "muzzle_velocity_fps": 2940,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/30-06-sprg-165-gr.-cx-superformance",
-  "notes": "Superformance line; BC not published on product page"
+  "notes": "Superformance line; BC not published on product page | BC (2026-10-11): G1 0.44 / G7 0.221. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.85): 30 Cal .308 165 gr CX #304704 G1 .440 / G7 .221. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/85.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -817,12 +817,12 @@
   "bullet": "CX",
   "bullet_diameter_in": 0.308,
   "weight_gr": 165,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.44,
+  "g7_bc": 0.221,
   "muzzle_velocity_fps": 2610,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/308-win-165-gr.-cx-outfitter",
-  "notes": "Outfitter line; BC not published on product page; item number as shown on page (6 digits)"
+  "notes": "Outfitter line; BC not published on product page; item number as shown on page (6 digits) | BC (2026-10-11): G1 0.44 / G7 0.221. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.85): 30 Cal .308 165 gr CX #304704 G1 .440 / G7 .221. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/85.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -832,12 +832,12 @@
   "bullet": "CX",
   "bullet_diameter_in": 0.308,
   "weight_gr": 180,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.469,
+  "g7_bc": 0.236,
   "muzzle_velocity_fps": 2700,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/30-06-sprg-180-gr.-cx-outfitter",
-  "notes": "Outfitter line; BC not published on product page; item number as shown on page (6 digits)"
+  "notes": "Outfitter line; BC not published on product page; item number as shown on page (6 digits) | BC (2026-10-11): G1 0.469 / G7 0.236. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.85): 30 Cal .308 180 gr CX #301934 G1 .469 / G7 .236. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/85.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -852,7 +852,7 @@
   "muzzle_velocity_fps": 2350,
   "test_barrel_in": 20,
   "source_url": "https://www.hornady.com/ammunition/rifle/7.62-x-39mm-123-gr-hp-match-american-gunner",
-  "notes": "American Gunner line; BC not published on product page"
+  "notes": "American Gunner line; BC not published on product page | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -867,7 +867,7 @@
   "muzzle_velocity_fps": 3240,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/223-rem-55-gr-hp-american-gunner",
-  "notes": "American Gunner line; BC not published on product page"
+  "notes": "American Gunner line; BC not published on product page | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -877,12 +877,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": null,
   "weight_gr": 128,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.633,
+  "g7_bc": 0.319,
   "muzzle_velocity_fps": 2850,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/25-creedmoor-128-gr-eld-x",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.633 / G7 0.319. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.82): 25 Cal .257 128 gr ELD-X #25417 (hornady.com/bc'de yok). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/82.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -897,7 +897,7 @@
   "muzzle_velocity_fps": 3150,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/25-creedmoor-112-gr-cx-superformance",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -907,12 +907,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": null,
   "weight_gr": 134,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.645,
+  "g7_bc": 0.325,
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/25-creedmoor-134-gr-eld-match",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.645 / G7 0.325. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.645 / G7 0.325; 2232\u20132512 fps: G1 0.638 / G7 0.32; <2232 fps: G1 0.632 / G7 0.318. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 25 Cal .257 134 gr ELD Match (#2561) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. Fabrika katalog tablosunda (s.31) bu \u00fcr\u00fcn i\u00e7in BC bas\u0131lmam\u0131\u015f. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -922,12 +922,12 @@
   "bullet": "ELD-VT",
   "bullet_diameter_in": null,
   "weight_gr": 95,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.453,
+  "g7_bc": 0.228,
   "muzzle_velocity_fps": 3250,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/25-creedmoor-95-gr-eld-vt",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.453 / G7 0.228. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.78): 25 Cal .257 95 gr ELD-VT #25412. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/78.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -937,12 +937,12 @@
   "bullet": "ELD-VT",
   "bullet_diameter_in": null,
   "weight_gr": 69,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.424,
+  "g7_bc": 0.214,
   "muzzle_velocity_fps": 3550,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/22-creedmoor-69-gr-eld-vt",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.424 / G7 0.214. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.78): 22 Cal .224 69 gr ELD-VT #22772. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/78.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -952,12 +952,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": null,
   "weight_gr": 80,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.485,
+  "g7_bc": 0.244,
   "muzzle_velocity_fps": 3285,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/22-creedmoor-90-gr.-eld-x-precision-hunter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); URL slug says 90-gr but page title/heading say 80 gr; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); URL slug says 90-gr but page title/heading say 80 gr; read 2026-10-11 | BC (2026-10-11): G1 0.485 / G7 0.244. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.82): 22 Cal .224 80 gr ELD-X #22833. Not: kaynak URL slug'\u0131 '90-gr' diyor, katalog \u00fcr\u00fcn\u00fc 22 Creedmoor 80 gr ELD-X #83412. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/82.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -967,12 +967,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": null,
   "weight_gr": 80,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.485,
+  "g7_bc": 0.244,
   "muzzle_velocity_fps": 3285,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/22-creedmoor-80-gr.-eld-match",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.485 / G7 0.244. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.485 / G7 0.244; 2232\u20132512 fps: G1 0.477 / G7 0.239; <2232 fps: G1 0.462 / G7 0.232. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 22 Cal .224 80 gr ELD Match (#22831) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. Fabrika katalog tablosunda (s.31) bu \u00fcr\u00fcn i\u00e7in BC bas\u0131lmam\u0131\u015f. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -982,12 +982,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": null,
   "weight_gr": 75,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.467,
+  "g7_bc": 0.235,
   "muzzle_velocity_fps": 3075,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/22-arc-75-gr-eld-match-hornady-black",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); page also shows text \"Ballistic data coming soon\" above the table; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); page also shows text \"Ballistic data coming soon\" above the table; read 2026-10-11 | BC (2026-10-11): G1 0.467 / G7 0.235. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.467 / G7 0.235; 2232\u20132512 fps: G1 0.459 / G7 0.23; <2232 fps: G1 0.441 / G7 0.222. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 22 Cal .224 75 gr ELD Match (#22791) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -997,12 +997,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": null,
   "weight_gr": 88,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.545,
+  "g7_bc": 0.274,
   "muzzle_velocity_fps": 2820,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/22-arc-88-gr-eld-match",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.545 / G7 0.274. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.545 / G7 0.274; 2232\u20132512 fps: G1 0.534 / G7 0.268; <2232 fps: G1 0.528 / G7 0.266. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 22 ARC 88 gr ELD Match #81543 G1 .545; G7 .274 ve bantlar 22 Cal 88 gr ELD Match (#22834, hornady.com/bc). Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1012,12 +1012,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": null,
   "weight_gr": 80,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.485,
+  "g7_bc": 0.244,
   "muzzle_velocity_fps": 3010,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/22-arc-80-gr-eld-x-precision-hunter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.485 / G7 0.244. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.82): 22 Cal .224 80 gr ELD-X #22833 (22 ARC 80 gr ELD-X #81544). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/82.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1027,12 +1027,12 @@
   "bullet": "CX",
   "bullet_diameter_in": null,
   "weight_gr": 70,
-  "g1_bc": null,
+  "g1_bc": 0.392,
   "g7_bc": null,
   "muzzle_velocity_fps": 3125,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/22-arc-70-gr-cx-superformance",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.392. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.84): 22 Cal .224 70 gr CX #22813 G1 .392 (G7 s\u00fctunu bozuk, e\u015flenemedi). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/84.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1042,12 +1042,12 @@
   "bullet": "ELD-VT",
   "bullet_diameter_in": null,
   "weight_gr": 62,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.395,
+  "g7_bc": 0.199,
   "muzzle_velocity_fps": 3300,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/22-arc-62-gr-eld-vt-v-match",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.395 / G7 0.199. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.395 / G7 0.199; 2232\u20132512 fps: G1 0.389 / G7 0.195; <2232 fps: G1 0.385 / G7 0.194. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 22 Cal .224 62 gr ELD-VT (#22762) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1062,7 +1062,7 @@
   "muzzle_velocity_fps": 2075,
   "test_barrel_in": 16,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-arc-175-gr-hp-match-black",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1072,12 +1072,12 @@
   "bullet": "Sub-X",
   "bullet_diameter_in": null,
   "weight_gr": 307,
-  "g1_bc": null,
+  "g1_bc": 0.375,
   "g7_bc": null,
   "muzzle_velocity_fps": 1050,
   "test_barrel_in": 16,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-arc-307-gr-sub-x-subsonic",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); subsonic load; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); subsonic load; read 2026-10-11 | BC (2026-10-11): G1 0.375. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu Sub-X bile\u015fen tablosu (flipbook s.94), s\u00fctun 'Ballistic Coef.': 338 Cal 307 gr Sub-X #33394 .375. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/94.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1092,7 +1092,7 @@
   "muzzle_velocity_fps": 2075,
   "test_barrel_in": 16,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-arc-170-gr-monoflex-black",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1107,7 +1107,7 @@
   "muzzle_velocity_fps": 1900,
   "test_barrel_in": 16,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-arc-215-gr-ftx-black",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1122,7 +1122,7 @@
   "muzzle_velocity_fps": 1050,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-arc-285-gr-fmj-frontier",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); subsonic load; Frontier brand by Hornady; page states 24\" test barrel (other 338 ARC loads 16\"); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); subsonic load; Frontier brand by Hornady; page states 24\" test barrel (other 338 ARC loads 16\"); read 2026-10-11 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1132,12 +1132,12 @@
   "bullet": "InterLock",
   "bullet_diameter_in": null,
   "weight_gr": 170,
-  "g1_bc": null,
+  "g1_bc": 0.215,
   "g7_bc": null,
   "muzzle_velocity_fps": 2200,
   "test_barrel_in": 20,
   "source_url": "https://www.hornady.com/ammunition/rifle/350-legend-170-gr-interlock-american-whitetail",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.215. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu InterLock bile\u015fen tablosu (flipbook s.89), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 35 Cal 170 gr SP (350 Legend) #3501 .215. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/89.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1147,12 +1147,12 @@
   "bullet": "FTX",
   "bullet_diameter_in": null,
   "weight_gr": 165,
-  "g1_bc": null,
+  "g1_bc": 0.25,
   "g7_bc": null,
   "muzzle_velocity_fps": 2200,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/350-legend-165-gr-ftx-tipped",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.25. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu FTX bile\u015fen tablosu (flipbook s.96), s\u00fctun 'Ballistic Coef.': 35 Cal .355 165 gr FTX (350 Legend) #3502 .250. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/96.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1162,12 +1162,12 @@
   "bullet": "Sub-X",
   "bullet_diameter_in": null,
   "weight_gr": 250,
-  "g1_bc": null,
+  "g1_bc": 0.265,
   "g7_bc": null,
   "muzzle_velocity_fps": 1050,
   "test_barrel_in": 16,
   "source_url": "https://www.hornady.com/ammunition/rifle/350-legend-250-gr.-sub-x-subsonic",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); subsonic load; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); subsonic load; read 2026-10-11 | BC (2026-10-11): G1 0.265. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu Sub-X bile\u015fen tablosu (flipbook s.94), s\u00fctun 'Ballistic Coef.': 35 Cal .357 250 gr Sub-X (350 Legend) #3503 .265. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/94.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1177,12 +1177,12 @@
   "bullet": "FTX",
   "bullet_diameter_in": null,
   "weight_gr": 250,
-  "g1_bc": null,
+  "g1_bc": 0.21,
   "g7_bc": null,
   "muzzle_velocity_fps": 2200,
   "test_barrel_in": 20,
   "source_url": "https://www.hornady.com/ammunition/rifle/450-bushmaster-250-gr-ftx-tipped",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.21. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu FTX bile\u015fen tablosu (flipbook s.96), s\u00fctun 'Ballistic Coef.': 45 Cal .452 250 gr FTX (450 Bushmaster) #45201 .210. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/96.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1192,12 +1192,12 @@
   "bullet": "InterLock",
   "bullet_diameter_in": null,
   "weight_gr": 245,
-  "g1_bc": null,
+  "g1_bc": 0.165,
   "g7_bc": null,
   "muzzle_velocity_fps": 2200,
   "test_barrel_in": 20,
   "source_url": "https://www.hornady.com/ammunition/rifle/450-bushmaster-245-gr-interlock-american-whitetail",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.165. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu InterLock bile\u015fen tablosu (flipbook s.89), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 45 Cal 245 gr SP (450 Bushmaster) #45204 .165. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/89.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1207,12 +1207,12 @@
   "bullet": "Sub-X",
   "bullet_diameter_in": null,
   "weight_gr": 395,
-  "g1_bc": null,
+  "g1_bc": 0.3,
   "g7_bc": null,
   "muzzle_velocity_fps": 1050,
   "test_barrel_in": 20,
   "source_url": "https://www.hornady.com/ammunition/rifle/450-bushmaster-tbd-gr-sub-x",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); subsonic load; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); subsonic load; read 2026-10-11 | BC (2026-10-11): G1 0.3. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu Sub-X bile\u015fen tablosu (flipbook s.94), s\u00fctun 'Ballistic Coef.': 45 Cal .452 395 gr Sub-X (450 Bushmaster) #45031 .300 (kaynak URL slug'\u0131 'tbd-gr'). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/94.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1227,7 +1227,7 @@
   "muzzle_velocity_fps": 2200,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rimfire/22-wmr-30-gr-v-max",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); rimfire; 50/box; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); rimfire; 50/box; read 2026-10-11 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1237,12 +1237,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": null,
   "weight_gr": 200,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.597,
+  "g7_bc": 0.301,
   "muzzle_velocity_fps": 2960,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/300-weatherby-mag-200-gr-eld-x-precision-hunter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.597 / G7 0.301. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.597 / G7 0.301; 2232\u20132512 fps: G1 0.588 / G7 0.295; <2232 fps: G1 0.578 / G7 0.291. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal .308 200 gr ELD-X (#3076) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1252,12 +1252,12 @@
   "bullet": "CX",
   "bullet_diameter_in": null,
   "weight_gr": 180,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.469,
+  "g7_bc": 0.236,
   "muzzle_velocity_fps": 3100,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/300-wby-mag-180-gr.-cx-outfitter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.469 / G7 0.236. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.85): 30 Cal .308 180 gr CX #301934 G1 .469 / G7 .236. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/85.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1267,12 +1267,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": null,
   "weight_gr": 220,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.654,
+  "g7_bc": 0.329,
   "muzzle_velocity_fps": 3025,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/30-378-weatherby-mag-220-gr-eld-x-precision-hunter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.654 / G7 0.329. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.654 / G7 0.329; 2232\u20132512 fps: G1 0.643 / G7 0.323; <2232 fps: G1 0.643 / G7 0.323. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal .308 220 gr ELD-X (#3078) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1282,12 +1282,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": null,
   "weight_gr": 110,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.465,
+  "g7_bc": 0.234,
   "muzzle_velocity_fps": 3240,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/257-weatherby-magnum-110-gr-eld-x-precision-hunter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.465 / G7 0.234. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.465 / G7 0.234; 2232\u20132512 fps: G1 0.457 / G7 0.229; <2232 fps: G1 0.451 / G7 0.227. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 25 Cal .257 110 gr ELD-X (#25418) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1297,12 +1297,12 @@
   "bullet": "CX",
   "bullet_diameter_in": null,
   "weight_gr": 90,
-  "g1_bc": null,
+  "g1_bc": 0.273,
   "g7_bc": null,
   "muzzle_velocity_fps": 3625,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/257-wby-mag-90-gr.-cx-outfitter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.273. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.84): 25 Cal .257 90 gr CX #254104 G1 .273 (G7 e\u015flenemedi). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/84.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1312,12 +1312,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": null,
   "weight_gr": 162,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.631,
+  "g7_bc": 0.318,
   "muzzle_velocity_fps": 3175,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/28-nosler-162-eld-x-precision-hunter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.631 / G7 0.318. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.631 / G7 0.318; 2232\u20132512 fps: G1 0.626 / G7 0.314; <2232 fps: G1 0.615 / G7 0.308. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 7mm .284 162 gr ELD-X (#2840) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1327,12 +1327,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": null,
   "weight_gr": 230,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.616,
+  "g7_bc": 0.31,
   "muzzle_velocity_fps": 2810,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-win-mag-230-gr-eld-x-precision-hunter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.616 / G7 0.31. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.616 / G7 0.31; 2232\u20132512 fps: G1 0.616 / G7 0.309; <2232 fps: G1 0.608 / G7 0.306. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 338 Cal 230 gr ELD-X (#33210) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1342,12 +1342,12 @@
   "bullet": "SST",
   "bullet_diameter_in": null,
   "weight_gr": 225,
-  "g1_bc": null,
+  "g1_bc": 0.515,
   "g7_bc": null,
   "muzzle_velocity_fps": 2840,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-win-mag-225-gr-sst-superformance",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.515. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 338 Cal 225 gr SST #33202 .515. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1357,12 +1357,12 @@
   "bullet": "CX",
   "bullet_diameter_in": null,
   "weight_gr": 225,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.49,
+  "g7_bc": 0.247,
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-win-mag-225-gr.-cx-outfitter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.49 / G7 0.247. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.85): 338 Cal 225 gr CX #332014 G1 .490 / G7 .247. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/85.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1372,12 +1372,12 @@
   "bullet": "SST",
   "bullet_diameter_in": null,
   "weight_gr": 200,
-  "g1_bc": null,
+  "g1_bc": 0.455,
   "g7_bc": null,
   "muzzle_velocity_fps": 3030,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/338-win-mag-200-gr-sst-superformance",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.455. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 338 Cal 200 gr SST #33102 .455. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1387,12 +1387,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": null,
   "weight_gr": 220,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.654,
+  "g7_bc": 0.329,
   "muzzle_velocity_fps": 2910,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/300-remington-ultra-mag-220-gr-eld-x-precision-hunter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.654 / G7 0.329. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.654 / G7 0.329; 2232\u20132512 fps: G1 0.643 / G7 0.323; <2232 fps: G1 0.643 / G7 0.323. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal .308 220 gr ELD-X (#3078) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1402,12 +1402,12 @@
   "bullet": "CX",
   "bullet_diameter_in": null,
   "weight_gr": 180,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.469,
+  "g7_bc": 0.236,
   "muzzle_velocity_fps": 3200,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/300-rem-ultra-mag-180-gr.-cx-outfitter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.469 / G7 0.236. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.85): 30 Cal .308 180 gr CX #301934 G1 .469 / G7 .236. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/85.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1417,12 +1417,12 @@
   "bullet": "DGX Bonded",
   "bullet_diameter_in": null,
   "weight_gr": 300,
-  "g1_bc": null,
+  "g1_bc": 0.275,
   "g7_bc": null,
   "muzzle_velocity_fps": 2660,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/375-ruger-300-gr-dgx-bonded",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.275. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGX Bonded bile\u015fen tablosu (flipbook s.90), s\u00fctun 'Ballistic Coef.': 375 Cal 300 gr DGX Bonded .275. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/90.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1432,12 +1432,12 @@
   "bullet": "DGS",
   "bullet_diameter_in": null,
   "weight_gr": 300,
-  "g1_bc": null,
+  "g1_bc": 0.275,
   "g7_bc": null,
   "muzzle_velocity_fps": 2660,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/375-ruger-300-gr-dgs",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11 | BC (2026-10-11): G1 0.275. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGS bile\u015fen tablosu (flipbook s.91), s\u00fctun 'Ballistic Coef.': 375 Cal 300 gr DGS #3727 .275. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/91.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1447,12 +1447,12 @@
   "bullet": "InterLock SP-RP",
   "bullet_diameter_in": null,
   "weight_gr": 270,
-  "g1_bc": null,
+  "g1_bc": 0.38,
   "g7_bc": null,
   "muzzle_velocity_fps": 2840,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/375-ruger-270-gr-interlock-sp-rp",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.38. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu InterLock bile\u015fen tablosu (flipbook s.89), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 375 Cal 270 gr SP-RP #3711 .380. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/89.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1462,12 +1462,12 @@
   "bullet": "CX",
   "bullet_diameter_in": null,
   "weight_gr": 250,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.403,
+  "g7_bc": 0.203,
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/375-ruger-250-gr.-cx-outfitter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.403 / G7 0.203. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.85): 375 Cal 250 gr CX #37084 G1 .403 / G7 .203. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/85.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1477,12 +1477,12 @@
   "bullet": "DGX Bonded",
   "bullet_diameter_in": null,
   "weight_gr": 400,
-  "g1_bc": null,
+  "g1_bc": 0.319,
   "g7_bc": null,
   "muzzle_velocity_fps": 2400,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/416-ruger-400-gr-dgx-bonded",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.319. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGX Bonded bile\u015fen tablosu (flipbook s.90), s\u00fctun 'Ballistic Coef.': 416 Cal .416 400 gr DGX Bonded .319. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/90.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1492,12 +1492,12 @@
   "bullet": "DGS",
   "bullet_diameter_in": null,
   "weight_gr": 400,
-  "g1_bc": null,
+  "g1_bc": 0.319,
   "g7_bc": null,
   "muzzle_velocity_fps": 2400,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/416-ruger-400-gr-dgs",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11 | BC (2026-10-11): G1 0.319. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGS bile\u015fen tablosu (flipbook s.91), s\u00fctun 'Ballistic Coef.': 416 Cal 400 gr DGS #4167 .319. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/91.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1507,12 +1507,12 @@
   "bullet": "DGS",
   "bullet_diameter_in": null,
   "weight_gr": 400,
-  "g1_bc": null,
+  "g1_bc": 0.319,
   "g7_bc": null,
   "muzzle_velocity_fps": 2400,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/416-rem-mag-400-gr-dgs",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11 | BC (2026-10-11): G1 0.319. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGS bile\u015fen tablosu (flipbook s.91), s\u00fctun 'Ballistic Coef.': 416 Cal .416 400 gr DGS .319. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/91.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1522,12 +1522,12 @@
   "bullet": "DGX Bonded",
   "bullet_diameter_in": null,
   "weight_gr": 400,
-  "g1_bc": null,
+  "g1_bc": 0.319,
   "g7_bc": null,
   "muzzle_velocity_fps": 2400,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/416-remington-300-gr-dgx-bonded",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); URL slug says 300 gr but page title/text say 400 gr; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); URL slug says 300 gr but page title/text say 400 gr; read 2026-10-11 | BC (2026-10-11): G1 0.319. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGX Bonded bile\u015fen tablosu (flipbook s.90), s\u00fctun 'Ballistic Coef.': 416 Cal .416 400 gr DGX Bonded .319. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/90.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1537,12 +1537,12 @@
   "bullet": "DGS",
   "bullet_diameter_in": null,
   "weight_gr": 400,
-  "g1_bc": null,
+  "g1_bc": 0.319,
   "g7_bc": null,
   "muzzle_velocity_fps": 2415,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/416-rigby-400-gr-dgs",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11 | BC (2026-10-11): G1 0.319. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGS bile\u015fen tablosu (flipbook s.91), s\u00fctun 'Ballistic Coef.': 416 Cal .416 400 gr DGS .319. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/91.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1552,12 +1552,12 @@
   "bullet": "DGX Bonded",
   "bullet_diameter_in": null,
   "weight_gr": 400,
-  "g1_bc": null,
+  "g1_bc": 0.319,
   "g7_bc": null,
   "muzzle_velocity_fps": 2415,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/416-rigby-400-gr-dgx-bonded",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.319. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGX Bonded bile\u015fen tablosu (flipbook s.90), s\u00fctun 'Ballistic Coef.': 416 Cal .416 400 gr DGX Bonded .319. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/90.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1567,12 +1567,12 @@
   "bullet": "DGS",
   "bullet_diameter_in": null,
   "weight_gr": 400,
-  "g1_bc": null,
+  "g1_bc": 0.315,
   "g7_bc": null,
   "muzzle_velocity_fps": 2300,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/404-jeffery-400-gr-dgs",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11 | BC (2026-10-11): G1 0.315. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGS bile\u015fen tablosu (flipbook s.91), s\u00fctun 'Ballistic Coef.': 423 Cal 400 gr DGS .315. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/91.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1582,12 +1582,12 @@
   "bullet": "DGX Bonded",
   "bullet_diameter_in": null,
   "weight_gr": 400,
-  "g1_bc": null,
+  "g1_bc": 0.315,
   "g7_bc": null,
   "muzzle_velocity_fps": 2300,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/404-jeffery-400-gr-dgx-bonded",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.315. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGX Bonded bile\u015fen tablosu (flipbook s.90), s\u00fctun 'Ballistic Coef.': 423 Cal 400 gr DGX Bonded .315. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/90.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1597,12 +1597,12 @@
   "bullet": "DGX Bonded",
   "bullet_diameter_in": null,
   "weight_gr": 500,
-  "g1_bc": null,
+  "g1_bc": 0.295,
   "g7_bc": null,
   "muzzle_velocity_fps": 2300,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/458-lott-500-gr-dgx-bonded",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.295. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGX Bonded bile\u015fen tablosu (flipbook s.90), s\u00fctun 'Ballistic Coef.': 45 Cal .458 500 gr DGX Bonded .295. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/90.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1612,12 +1612,12 @@
   "bullet": "DGS",
   "bullet_diameter_in": null,
   "weight_gr": 500,
-  "g1_bc": null,
+  "g1_bc": 0.295,
   "g7_bc": null,
   "muzzle_velocity_fps": 2300,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/458-lott-500-gr-dgs",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11 | BC (2026-10-11): G1 0.295. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGS bile\u015fen tablosu (flipbook s.91), s\u00fctun 'Ballistic Coef.': 45 Cal .458 500 gr DGS .295. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/91.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1627,12 +1627,12 @@
   "bullet": "DGS",
   "bullet_diameter_in": null,
   "weight_gr": 400,
-  "g1_bc": null,
+  "g1_bc": 0.325,
   "g7_bc": null,
   "muzzle_velocity_fps": 2050,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/450-400-nitro-express-3-400-gr-dgs",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11 | BC (2026-10-11): G1 0.325. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGS bile\u015fen tablosu (flipbook s.91), s\u00fctun 'Ballistic Coef.': 400 Cal .410 400 gr DGS .325. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/91.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1642,12 +1642,12 @@
   "bullet": "DGX Bonded",
   "bullet_diameter_in": null,
   "weight_gr": 400,
-  "g1_bc": null,
+  "g1_bc": 0.325,
   "g7_bc": null,
   "muzzle_velocity_fps": 2050,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/450-400-nitro-express-3-400-gr-dgx-bonded",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.325. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGX Bonded bile\u015fen tablosu (flipbook s.90), s\u00fctun 'Ballistic Coef.': 400 Cal .410 400 gr DGX Bonded .325. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/90.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1657,12 +1657,12 @@
   "bullet": "DGX Bonded",
   "bullet_diameter_in": null,
   "weight_gr": 500,
-  "g1_bc": null,
+  "g1_bc": 0.29,
   "g7_bc": null,
   "muzzle_velocity_fps": 2150,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/470-nitro-express-500-gr-dgx-bonded",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.29. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGX Bonded bile\u015fen tablosu (flipbook s.90), s\u00fctun 'Ballistic Coef.': 470 Cal .474 500 gr DGX Bonded .290. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/90.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1672,12 +1672,12 @@
   "bullet": "DGS",
   "bullet_diameter_in": null,
   "weight_gr": 500,
-  "g1_bc": null,
+  "g1_bc": 0.29,
   "g7_bc": null,
   "muzzle_velocity_fps": 2150,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/470-nitro-express-500-gr-dgs",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11 | BC (2026-10-11): G1 0.29. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGS bile\u015fen tablosu (flipbook s.91), s\u00fctun 'Ballistic Coef.': 470 Cal .474 500 gr DGS .290. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/91.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1687,12 +1687,12 @@
   "bullet": "DGS",
   "bullet_diameter_in": null,
   "weight_gr": 570,
-  "g1_bc": null,
+  "g1_bc": 0.295,
   "g7_bc": null,
   "muzzle_velocity_fps": 2120,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/500-nitro-express-3-570-gr-dgs",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); non-expanding solid; read 2026-10-11 | BC (2026-10-11): G1 0.295. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGS bile\u015fen tablosu (flipbook s.91), s\u00fctun 'Ballistic Coef.': 50 Cal .510 570 gr DGS .295. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/91.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1702,12 +1702,12 @@
   "bullet": "DGX Bonded",
   "bullet_diameter_in": null,
   "weight_gr": 570,
-  "g1_bc": null,
+  "g1_bc": 0.295,
   "g7_bc": null,
   "muzzle_velocity_fps": 2120,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/500-nitro-express-570-gr-dgx-bonded",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); product page name has no \"3\"\" but Hornady 2022 Standard Ballistics Chart lists item 82689 as 500 Nitro Express DG 3\" 570 gr DGX Bonded; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); product page name has no \"3\"\" but Hornady 2022 Standard Ballistics Chart lists item 82689 as 500 Nitro Express DG 3\" 570 gr DGX Bonded; read 2026-10-11 | BC (2026-10-11): G1 0.295. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu DGX Bonded bile\u015fen tablosu (flipbook s.90), s\u00fctun 'Ballistic Coef.': 50 Cal .510 570 gr DGX Bonded .295. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/90.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1717,12 +1717,12 @@
   "bullet": "InterLock SP",
   "bullet_diameter_in": null,
   "weight_gr": 200,
-  "g1_bc": null,
+  "g1_bc": 0.282,
   "g7_bc": null,
   "muzzle_velocity_fps": 2910,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/35-whelen-200-gr-sp-superformance",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); product page names bullet \"SP\"; Hornady 2022 Standard Ballistics Chart lists item 81193 as SF 200 gr InterLock SP; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); product page names bullet \"SP\"; Hornady 2022 Standard Ballistics Chart lists item 81193 as SF 200 gr InterLock SP; read 2026-10-11 | BC (2026-10-11): G1 0.282. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu InterLock bile\u015fen tablosu (flipbook s.89), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 35 Cal .358 200 gr SP #3510 .282. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/89.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1732,12 +1732,12 @@
   "bullet": "InterLock SP",
   "bullet_diameter_in": null,
   "weight_gr": 200,
-  "g1_bc": null,
+  "g1_bc": 0.282,
   "g7_bc": null,
   "muzzle_velocity_fps": 2475,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/358-win-200-gr-sp",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.282. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu InterLock bile\u015fen tablosu (flipbook s.89), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 35 Cal .358 200 gr SP #3510 .282. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/89.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1747,12 +1747,12 @@
   "bullet": "SST",
   "bullet_diameter_in": null,
   "weight_gr": 117,
-  "g1_bc": null,
+  "g1_bc": 0.39,
   "g7_bc": null,
   "muzzle_velocity_fps": 2946,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/257-roberts-p-117-gr-sst-superformance",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); +P load; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); +P load; read 2026-10-11 | BC (2026-10-11): G1 0.39. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 25 Cal 117 gr SST #25522 .390. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1762,12 +1762,12 @@
   "bullet": "SST",
   "bullet_diameter_in": null,
   "weight_gr": 95,
-  "g1_bc": null,
+  "g1_bc": 0.355,
   "g7_bc": null,
   "muzzle_velocity_fps": 3235,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6mm-rem-95-gr-sst-superformance",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.355. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu SST bile\u015fen tablosu (flipbook s.86), s\u00fctun 'Ballistic Coef.' (model belirtilmemi\u015f): 6mm 95 gr SST #24532 .355. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/86.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1777,12 +1777,12 @@
   "bullet": "FTX",
   "bullet_diameter_in": null,
   "weight_gr": 325,
-  "g1_bc": null,
+  "g1_bc": 0.23,
   "g7_bc": null,
   "muzzle_velocity_fps": 2225,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/450-marlin-325-gr-ftx-leverevolution",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.23. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu FTX bile\u015fen tablosu (flipbook s.96), s\u00fctun 'Ballistic Coef.': 45 Cal .458 325 gr FTX #45015 .230 \u2014 katalogda '(45-70 Govt)' etiketli; 450 Marlin ayn\u0131 \u00e7ap/a\u011f\u0131rl\u0131k/isim. BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/96.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1792,12 +1792,12 @@
   "bullet": "A-Tip Match",
   "bullet_diameter_in": null,
   "weight_gr": 750,
-  "g1_bc": null,
+  "g1_bc": 1.05,
   "g7_bc": null,
   "muzzle_velocity_fps": 2815,
   "test_barrel_in": 36,
   "source_url": "https://www.hornady.com/ammunition/rifle/50-bmg-750-gr-a-tip-match",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); 10/box; old URL 50-bmg-750-gr-a-max-match redirects to same A-Tip Match page (item 8270 previously listed as 750 gr A-MAX in Hornady 2022 chart); page lists bullet options generically; read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); 10/box; old URL 50-bmg-750-gr-a-max-match redirects to same A-Tip Match page (item 8270 previously listed as 750 gr A-MAX in Hornady 2022 chart); page lists bullet options generically; read 2026-10-11 | BC (2026-10-11): G1 1.05. Hornady 2026 \u00dcr\u00fcn Katalo\u011fu (flipbook s.31) fabrika m\u00fchimmat tablosu 'G1 BC' s\u00fctunu: 50 BMG 750 gr A-Tip Match G1 1.050 (bile\u015fen .50 Cal 750 gr A-Tip Match #5165 de G1 1.050; G7 katalog metninde yok, hornady.com/bc tablosunda 50 cal sat\u0131r\u0131 yok). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/31.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1807,12 +1807,12 @@
   "bullet": "ELD-X",
   "bullet_diameter_in": null,
   "weight_gr": 162,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.631,
+  "g7_bc": 0.318,
   "muzzle_velocity_fps": 2850,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/280-ackley-162-gr-eld-x-precision-hunter",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.631 / G7 0.318. \u00dcreticinin h\u0131z bantlar\u0131: >2512 fps: G1 0.631 / G7 0.318; 2232\u20132512 fps: G1 0.626 / G7 0.314; <2232 fps: G1 0.615 / G7 0.308. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 7mm .284 162 gr ELD-X (#2840) \u2014 Hornady 'Ballistic Coefficient' sayfas\u0131 (hornady.com/bc); \u00fcr\u00fcn ba\u015fl\u0131\u011f\u0131 ayn\u0131 mermiyi adland\u0131r\u0131yor. Bantlar: Hornady /bc Mach 2.25/2.0/1.75 (2512/2232/1953 fps, ICAO) de\u011ferleri; s\u0131n\u0131rlar referans h\u0131zlard\u0131r (Hornady yaln\u0131z M2.25 i\u00e7in '>2500 fps' der). g1/g7 = Mach 2.25. BC kayna\u011f\u0131: https://www.hornady.com/bc (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1822,12 +1822,12 @@
   "bullet": "ELD Match",
   "bullet_diameter_in": null,
   "weight_gr": 109,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.585,
+  "g7_bc": 0.295,
   "muzzle_velocity_fps": 2870,
   "test_barrel_in": 24,
   "source_url": "https://www.hornady.com/ammunition/rifle/6mm-gt-109-gr-eld-match",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC (2026-10-11): G1 0.585 / G7 0.295. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 2026 Katalo\u011fu bile\u015fen mermi tablosu (flipbook s.76): 6mm .243 109 gr ELD Match #245301 (fabrika tablosunda BC bas\u0131lmam\u0131\u015f; hornady.com/bc'de yok). BC kayna\u011f\u0131: https://static.hornady.media/site/hflipbook/inc/html/76.html (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1842,7 +1842,7 @@
   "muzzle_velocity_fps": 2200,
   "test_barrel_in": 16,
   "source_url": "https://www.hornady.com/ammunition/rifle/400-legend-210-gr-interlock-american-whitetail",
-  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11"
+  "notes": "Hornady product page shows Muz velocity and Test Barrel; no BC published on page (G1/G7 null); read 2026-10-11 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Hornady",
@@ -1857,6 +1857,6 @@
   "muzzle_velocity_fps": 3000,
   "test_barrel_in": 24,
   "source_url": "https://static.hornady.media/presscenter/docs/1410998060-2022-Standard-Ballistics-Chart.pdf",
-  "notes": "From Hornady 2022 Standard Ballistics Chart (row \"V 17 WSM 20 gr. V-MAX 83180\", muzzle 3000 fps); chart footnote \"All data from a 24\" Bbl, unless otherwise noted\" (no note on row); no BC in chart; no current product page found on hornady.com (fetch of guessed URL failed) - product may be discontinued; rimfire; read 2026-10-11"
+  "notes": "From Hornady 2022 Standard Ballistics Chart (row \"V 17 WSM 20 gr. V-MAX 83180\", muzzle 3000 fps); chart footnote \"All data from a 24\" Bbl, unless otherwise noted\" (no note on row); no BC in chart; no current product page found on hornady.com (fetch of guessed URL failed) - product may be discontinued; rimfire; read 2026-10-11 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor. Bak\u0131lan kaynak: - (eri\u015fim 2026-10-11)."
  }
 ]

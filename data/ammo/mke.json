@@ -57,7 +57,7 @@
   "muzzle_velocity_fps": 2572,
   "test_barrel_in": null,
   "source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-51-M118-Fisek/158",
-  "notes": "MKE military cartridge; bullet 11.4 g converted to gr (x15.4324); VELOCITY IS V23.7m (78 ft) per NATO practice, not true muzzle velocity: 784 m/s converted to fps; BC not published; test barrel and product code not published"
+  "notes": "MKE military cartridge; bullet 11.4 g converted to gr (x15.4324); VELOCITY IS V23.7m (78 ft) per NATO practice, not true muzzle velocity: 784 m/s converted to fps; BC not published; test barrel and product code not published | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/762-mm-x-51-M118-Fisek/158 (erişim 2026-10-11)."
  },
  {
   "brand": "MKE",
@@ -72,7 +72,7 @@
   "muzzle_velocity_fps": 1001,
   "test_barrel_in": null,
   "source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-51-Subsonic-Fisek/156",
-  "notes": "MKE military cartridge; bullet 13.0 g converted to gr (x15.4324); VELOCITY IS V23.7m (78 ft) per NATO practice, not true muzzle velocity: 305 m/s converted to fps; BC not published; test barrel and product code not published"
+  "notes": "MKE military cartridge; bullet 13.0 g converted to gr (x15.4324); VELOCITY IS V23.7m (78 ft) per NATO practice, not true muzzle velocity: 305 m/s converted to fps; BC not published; test barrel and product code not published | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/762-mm-x-51-Subsonic-Fisek/156 (erişim 2026-10-11)."
  },
  {
   "brand": "MKE",
@@ -102,7 +102,7 @@
   "muzzle_velocity_fps": 3163,
   "test_barrel_in": null,
   "source_url": "https://www.mke.gov.tr/Urunler/556-mm-x-45-Fisek-M193/165",
-  "notes": "MKE military cartridge; bullet 3.55 g converted to gr (x15.4324); VELOCITY IS V23.7m (78 ft) per NATO practice, not true muzzle velocity: 964 m/s converted to fps; BC not published; test barrel and product code not published"
+  "notes": "MKE military cartridge; bullet 3.55 g converted to gr (x15.4324); VELOCITY IS V23.7m (78 ft) per NATO practice, not true muzzle velocity: 964 m/s converted to fps; BC not published; test barrel and product code not published | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/556-mm-x-45-Fisek-M193/165 (erişim 2026-10-11)."
  },
  {
   "brand": "MKE",
@@ -132,7 +132,7 @@
   "muzzle_velocity_fps": 2717,
   "test_barrel_in": null,
   "source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-54-Fisek-Normal/155",
-  "notes": "MKE military cartridge; bullet 9.6 g converted to gr (x15.4324); VELOCITY IS V23.7m (78 ft) per NATO practice, not true muzzle velocity: 828 m/s converted to fps; BC not published; test barrel and product code not published"
+  "notes": "MKE military cartridge; bullet 9.6 g converted to gr (x15.4324); VELOCITY IS V23.7m (78 ft) per NATO practice, not true muzzle velocity: 828 m/s converted to fps; BC not published; test barrel and product code not published | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/762-mm-x-54-Fisek-Normal/155 (erişim 2026-10-11)."
  },
  {
   "brand": "MKE",
@@ -147,7 +147,7 @@
   "muzzle_velocity_fps": 2329,
   "test_barrel_in": null,
   "source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-39-Fisek-Celik-Cekirdekli/153",
-  "notes": "MKE military cartridge; bullet 7.95 g converted to gr (x15.4324); VELOCITY IS V23.7m (78 ft) per NATO practice, not true muzzle velocity: 710 m/s converted to fps; BC not published; test barrel and product code not published"
+  "notes": "MKE military cartridge; bullet 7.95 g converted to gr (x15.4324); VELOCITY IS V23.7m (78 ft) per NATO practice, not true muzzle velocity: 710 m/s converted to fps; BC not published; test barrel and product code not published | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/762-mm-x-39-Fisek-Celik-Cekirdekli/153 (erişim 2026-10-11)."
  },
  {
   "brand": "MKE",
@@ -162,7 +162,7 @@
   "muzzle_velocity_fps": 2920,
   "test_barrel_in": null,
   "source_url": "https://www.mke.gov.tr/Urunler/859-mm-x-70-Fisek-Normal/151",
-  "notes": "MKE military cartridge; bullet 16.4 g converted to gr (x15.4324); 'Namlu Çıkış Hızı' 890 m/s converted to fps; BC not published; test barrel and product code not published; page lists cartridge weight ~21.8 g, which is inconsistent with bullet weight (site error?)"
+  "notes": "MKE military cartridge; bullet 16.4 g converted to gr (x15.4324); 'Namlu Çıkış Hızı' 890 m/s converted to fps; BC not published; test barrel and product code not published; page lists cartridge weight ~21.8 g, which is inconsistent with bullet weight (site error?) | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/859-mm-x-70-Fisek-Normal/151 (erişim 2026-10-11)."
  },
  {
   "brand": "MKE",
@@ -177,6 +177,6 @@
   "muzzle_velocity_fps": 2920,
   "test_barrel_in": null,
   "source_url": "https://www.mke.gov.tr/Urunler/859-mm-x-70-Solid-Fisek/150",
-  "notes": "MKE military cartridge; bullet 15.6 g converted to gr (x15.4324); 'Namlu Çıkış Hızı' 890 m/s converted to fps; BC not published; test barrel and product code not published; page lists cartridge weight ~21.8 g, which is inconsistent with bullet weight (site error?)"
+  "notes": "MKE military cartridge; bullet 15.6 g converted to gr (x15.4324); 'Namlu Çıkış Hızı' 890 m/s converted to fps; BC not published; test barrel and product code not published; page lists cartridge weight ~21.8 g, which is inconsistent with bullet weight (site error?) | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/859-mm-x-70-Solid-Fisek/150 (erişim 2026-10-11)."
  }
 ]

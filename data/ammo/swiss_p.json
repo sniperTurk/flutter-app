@@ -87,7 +87,7 @@
   "muzzle_velocity_fps": 2871,
   "test_barrel_in": 23.6,
   "source_url": "https://swiss-p.com/en/sniper/p/6-5-creedmoor-swiss-p-target-8-4-g-130-gr",
-  "notes": "V0 875 m/s converted; weight 8.4 g / 130 gr as listed; barrel 600 mm converted; BC not published; SAP number 242.4029"
+  "notes": "V0 875 m/s converted; weight 8.4 g / 130 gr as listed; barrel 600 mm converted; BC not published; SAP number 242.4029 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcr\u00fcn sayfas\u0131nda BC yok; ba\u011fl\u0131 factsheet PDF (swiss-p.com/s/Sniper_factsheet_65-CM-Target-SX_hr-agss.pdf) eri\u015filemedi (robots.txt engeli). Bak\u0131lan kaynak: https://swiss-p.com/en/sniper/p/6-5-creedmoor-swiss-p-target-8-4-g-130-gr (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "SWISS P",
@@ -267,6 +267,6 @@
   "muzzle_velocity_fps": 2871,
   "test_barrel_in": 23.6,
   "source_url": "https://swiss-p.com/en/sport/p/6-5-creedmoor-swiss-p-lr-1-9-3-g",
-  "notes": "V0 875 m/s converted; weight 9.3 g / 143 gr as listed; barrel 600 mm converted; BC not published; SAP number 703.0949"
+  "notes": "V0 875 m/s converted; weight 9.3 g / 143 gr as listed; barrel 600 mm converted; BC not published; SAP number 703.0949 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor (\u00fcr\u00fcn sayfas\u0131nda BC yok, factsheet ba\u011flant\u0131s\u0131 yok). Bak\u0131lan kaynak: https://swiss-p.com/en/sport/p/6-5-creedmoor-swiss-p-lr-1-9-3-g (eri\u015fim 2026-10-11)."
  }
 ]

@@ -12,7 +12,7 @@
   "muzzle_velocity_fps": 3215,
   "test_barrel_in": 24,
   "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-223-rem-55gr---20158022",
-  "notes": "norma-ammunition.com product page; fps as published; BC not published"
+  "notes": "norma-ammunition.com product page; fps as published; BC not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor (\u00fcr\u00fcn sayfas\u0131nda BC yok; Norma ballistics sayfas\u0131nda \u00fcr\u00fcn bazl\u0131 BC/PDF yok; mermi adland\u0131r\u0131lmam\u0131\u015f \"SP\", e\u015fle\u015fen Norma bile\u015fen sayfas\u0131 yok). Bak\u0131lan kaynak: https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-223-rem-55gr---20158022 (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Norma",
@@ -1867,12 +1867,12 @@
   "bullet": "Oryx",
   "bullet_diameter_in": 0.338,
   "weight_gr": 230,
-  "g1_bc": null,
+  "g1_bc": 0.37,
   "g7_bc": null,
   "muzzle_velocity_fps": 2690,
   "test_barrel_in": 24,
   "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-8-5-x-55-blaser-230-gr---20185362",
-  "notes": "Page: 14.9 g / 230 gr Bonded SP, no BC shown, V0 820 m/s / 2690 f/s; 'zeroed with a 610 mm / 24 in barrel'; read 2026-10-11"
+  "notes": "Page: 14.9 g / 230 gr Bonded SP, no BC shown, V0 820 m/s / 2690 f/s; 'zeroed with a 610 mm / 24 in barrel'; read 2026-10-11 | BC (2026-10-11): G1 0.37. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Norma Oryx .338 14,9 g / 230 gr component bullet, Prod. No 20686161, \"Ballistic Coefficient 0.37 G1\". 8,5x55 Blaser uses .338 bullets; ammo page names Oryx 14.9 g/230 gr Bonded SP, so same Norma bullet assumed (Norma does not state the bullet item no. on the ammo page). BC kayna\u011f\u0131: https://www.norma-ammunition.com/en-gb/products/dedicated-hunting/centerfire-rifle-bullet/norma-oryx/norma-oryx-338-230gr---20686161 (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Norma",

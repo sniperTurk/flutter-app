@@ -897,7 +897,7 @@
   "muzzle_velocity_fps": 2820,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
-  "notes": "Super-X Power-Point line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Super-X Power-Point line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — erişildi ama kesin değil: Winchester 2026 katalog tablosunun metin çıktısında sütunlar karışık; değer ürüne güvenle bağlanamadı, tahmin yazılmadı. Bakılan kaynak: https://online.flippingbook.com/view/721179895/34/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1477,12 +1477,12 @@
   "bullet": "Polymer Tip",
   "bullet_diameter_in": 0.172,
   "weight_gr": 17,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 2550,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Varmint HV line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Varmint HV line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1492,12 +1492,12 @@
   "bullet": "Polymer Tip",
   "bullet_diameter_in": 0.172,
   "weight_gr": 15.5,
-  "g1_bc": null,
+  "g1_bc": 0.115,
   "g7_bc": null,
   "muzzle_velocity_fps": 2550,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Varmint LF line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Varmint LF line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC (2026-10-11): G1 0.115. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.115. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1507,12 +1507,12 @@
   "bullet": "Jacketed Hollow Point",
   "bullet_diameter_in": 0.172,
   "weight_gr": 20,
-  "g1_bc": null,
+  "g1_bc": 0.13,
   "g7_bc": null,
   "muzzle_velocity_fps": 2375,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC (2026-10-11): G1 0.13. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.13. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1527,7 +1527,7 @@
   "muzzle_velocity_fps": 1300,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X Super Speed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Super X Super Speed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1542,7 +1542,7 @@
   "muzzle_velocity_fps": 1330,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X Super Speed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Super X Super Speed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1557,7 +1557,7 @@
   "muzzle_velocity_fps": 1300,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. Page lists bullet as 'Power-Point HP Copper Plated'."
+  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. Page lists bullet as 'Power-Point HP Copper Plated'. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1572,7 +1572,7 @@
   "muzzle_velocity_fps": 1090,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "M22 Subsonic line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. S22LRTSU8 lists identical specs."
+  "notes": "M22 Subsonic line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. S22LRTSU8 lists identical specs. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1587,7 +1587,7 @@
   "muzzle_velocity_fps": 1440,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Varmint HV line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Varmint HV line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1597,12 +1597,12 @@
   "bullet": "3-1 Segmenting Expansion",
   "bullet_diameter_in": 0.223,
   "weight_gr": 37,
-  "g1_bc": null,
+  "g1_bc": 0.09,
   "g7_bc": null,
   "muzzle_velocity_fps": 1400,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Varmint HE line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Varmint HE line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC (2026-10-11): G1 0.09. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.09. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1612,12 +1612,12 @@
   "bullet": "Tin Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 26,
-  "g1_bc": null,
+  "g1_bc": 0.062,
   "g7_bc": null,
   "muzzle_velocity_fps": 1650,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Varmint LF line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Varmint LF line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC (2026-10-11): G1 0.062. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.062. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1632,7 +1632,7 @@
   "muzzle_velocity_fps": 1280,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1647,7 +1647,7 @@
   "muzzle_velocity_fps": 1280,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1662,7 +1662,7 @@
   "muzzle_velocity_fps": 1255,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1672,12 +1672,12 @@
   "bullet": "Hollow Point Copper Plated",
   "bullet_diameter_in": 0.223,
   "weight_gr": 36,
-  "g1_bc": null,
+  "g1_bc": 0.084,
   "g7_bc": null,
   "muzzle_velocity_fps": 1280,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "USA line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. Pack variants 22LR222HP, 22LR525HP, 22LR555HP, USA22LR500, 22LR333HPAV, 22LR555HPAV list identical specs."
+  "notes": "USA line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. Pack variants 22LR222HP, 22LR525HP, 22LR555HP, USA22LR500, 22LR333HPAV, 22LR555HPAV list identical specs. | BC (2026-10-11): G1 0.084. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.084. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1692,7 +1692,7 @@
   "muzzle_velocity_fps": 1255,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "M22 line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "M22 line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1707,7 +1707,7 @@
   "muzzle_velocity_fps": 1090,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super Suppressed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Super Suppressed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok; katalog tablosunda iki 45 gr .22 LR satırı (B.C. 0.141, 0.141) var ama SUP22LR'ye ait olduğu metin çıkarımında kesinleştirilemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1722,7 +1722,7 @@
   "muzzle_velocity_fps": 1255,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Wildcat line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Wildcat line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok; WW22LRJUG sembolü katalog tablosunda yok (yalnız WW22LRB/WW22LRSSD) ve 40 gr satırların B.C. eşlemesi belirsiz; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1732,12 +1732,12 @@
   "bullet": "Segmenting Hollow Point Plated",
   "bullet_diameter_in": 0.223,
   "weight_gr": 37,
-  "g1_bc": null,
+  "g1_bc": 0.09,
   "g7_bc": null,
   "muzzle_velocity_fps": 1060,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Silvertip Rimfire line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Silvertip Rimfire line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC (2026-10-11): G1 0.09. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.09. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1747,12 +1747,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 42,
-  "g1_bc": null,
+  "g1_bc": 0.122,
   "g7_bc": null,
   "muzzle_velocity_fps": 1320,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Xpert line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published."
+  "notes": "Xpert line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC (2026-10-11): G1 0.122. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.122. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -1887,7 +1887,7 @@
   "muzzle_velocity_fps": 2920,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — Ürün sayfası X68W1'de BC yok; 2026 katalog s.33 (flipbook 35) 6.8 Western bloğunda X68W1 geçiyor ama ağırlık/B.C. sütunları metin çıkarımında hizalanamadı; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2047,12 +2047,12 @@
   "bullet": "Polymer Tip",
   "bullet_diameter_in": null,
   "weight_gr": 20,
-  "g1_bc": null,
+  "g1_bc": 0.185,
   "g7_bc": null,
   "muzzle_velocity_fps": 3000,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC (2026-10-11): G1 0.185. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.185. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2062,12 +2062,12 @@
   "bullet": "Polymer Tip",
   "bullet_diameter_in": null,
   "weight_gr": 25,
-  "g1_bc": null,
+  "g1_bc": 0.23,
   "g7_bc": null,
   "muzzle_velocity_fps": 2600,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC (2026-10-11): G1 0.23. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.23. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2077,12 +2077,12 @@
   "bullet": "Polymer Tip",
   "bullet_diameter_in": null,
   "weight_gr": 15,
-  "g1_bc": null,
+  "g1_bc": 0.118,
   "g7_bc": null,
   "muzzle_velocity_fps": 3300,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC (2026-10-11): G1 0.118. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.118. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2092,12 +2092,12 @@
   "bullet": "Jacketed Hollow Point",
   "bullet_diameter_in": null,
   "weight_gr": 34,
-  "g1_bc": null,
+  "g1_bc": 0.102,
   "g7_bc": null,
   "muzzle_velocity_fps": 2120,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC (2026-10-11): G1 0.102. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.102. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2112,7 +2112,7 @@
   "muzzle_velocity_fps": 2250,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — erişildi ama kesin değil: Winchester 2026 katalog tablosunun metin çıktısında sütunlar karışık; değer ürüne güvenle bağlanamadı, tahmin yazılmadı. Bakılan kaynak: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2127,7 +2127,7 @@
   "muzzle_velocity_fps": 2250,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — erişildi ama kesin değil: Winchester 2026 katalog tablosunun metin çıktısında sütunlar karışık; değer ürüne güvenle bağlanamadı, tahmin yazılmadı. Bakılan kaynak: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2137,12 +2137,12 @@
   "bullet": "Polymer Tip",
   "bullet_diameter_in": null,
   "weight_gr": 25,
-  "g1_bc": null,
+  "g1_bc": 0.08,
   "g7_bc": null,
   "muzzle_velocity_fps": 2100,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC (2026-10-11): G1 0.08. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.08. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2152,12 +2152,12 @@
   "bullet": "Jacketed Hollow Point",
   "bullet_diameter_in": null,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.11,
   "g7_bc": null,
   "muzzle_velocity_fps": 1910,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC (2026-10-11): G1 0.11. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.11. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2167,12 +2167,12 @@
   "bullet": "Full Metal Jacket",
   "bullet_diameter_in": null,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.11,
   "g7_bc": null,
   "muzzle_velocity_fps": 1910,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC (2026-10-11): G1 0.11. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.11. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2182,12 +2182,12 @@
   "bullet": "Copper Plated DynaPoint",
   "bullet_diameter_in": null,
   "weight_gr": 45,
-  "g1_bc": null,
+  "g1_bc": 0.126,
   "g7_bc": null,
   "muzzle_velocity_fps": 1550,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC (2026-10-11): G1 0.126. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.126. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2197,12 +2197,12 @@
   "bullet": "Jacketed Hollow Point",
   "bullet_diameter_in": null,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.11,
   "g7_bc": null,
   "muzzle_velocity_fps": 1320,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC (2026-10-11): G1 0.11. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.11. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",
@@ -2212,12 +2212,12 @@
   "bullet": "Jacketed Hollow Point",
   "bullet_diameter_in": null,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.11,
   "g7_bc": null,
   "muzzle_velocity_fps": 1320,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11"
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC (2026-10-11): G1 0.11. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.11. BC kaynağı: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
  },
  {
   "brand": "Winchester",

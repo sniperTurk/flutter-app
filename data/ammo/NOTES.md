@@ -132,3 +132,13 @@ hattının veri sayfası yok), 9.3x66 Sako (sako.global listeleri "Show more" ar
 6x47 Lapua, 25x47 Lapua (Lapua yalnız kovan), 6 Dasher, 6 BRA, 6mm PPC (yalnız kovan/el dolumu),
 .375 EnABELR, 6x62 R Frères, 8x75 RS, 12.7x99 NATO (S&B "2027", MKE ve PPU yalnız V23.7/V25),
 12.7x108 (PPU yalnız V25). Kynoch'un resmi sitesi yok (alan adı başka siteye yönleniyor).
+
+## BC tamamlama (2026-10-11)
+BC'si boş 341 kayıt yeniden tarandı; 236'sına üretici kaynağından BC yazıldı, 105'i null kaldı. Her kaydın `notes` alanına BC değeri, model, (varsa) hız bantları, kaynak URL ve erişim tarihi eklendi; bulunamayanlara neden yazıldı.
+- **Hornady (111/124):** hornady.com/bc (G1+G7, Mach 2.25/2.0/1.75 bantları notta) ve Hornady 2026 katalog tabloları (fabrika "G1 BC" sütunu; diğerlerinde ürün başlığındaki aynı Hornady mermisinin bileşen tablosu). Model etiketsiz sütunlar (SST, InterLock, V-MAX, FTX…) G1 kabul edildi. Bulunamayan 13: rimfire (yayımlanmıyor), .338 ARC 4, American Gunner 2, 400 Legend InterLock, 25 CM 112 CX ("TBD").
+- **Nosler (35/36):** Nosler bileşen mermi sayfaları (ürün adı aynı mermiyi veriyor); 3 kayıt 2021 katalogdan (etiketsiz → G1). .222 Rem Mag 50gr FBHP: aynı mermi Nosler'de yok.
+- **Black Hills (32/88):** black-hills.com BC yayımlamıyor; BC yalnızca Black Hills'in adını verdiği mermi üreticisinden (Barnes yükleme PDF'leri, hornady.com/bc). Mermi adı verilmeyen 20 kayıt null; Sierra (10) ve Hornady CX/SST/V-MAX/GMX/Match HP (25) sayfaları BC'yi betikle yüklediği için erişilemedi.
+- **CCI (20/20), Federal (18/19):** her ürünün kendi sayfasındaki "Ballistic Coefficient" satırı (etiketsiz → G1). Federal Small Game #12 shot: "N/A".
+- **Winchester (18/33):** Winchester 2026 kataloğu (winchester.com'dan bağlı resmi flipbook) "B.C." sütunu, etiketsiz → G1. Satır eşleşmesi kesin olmayan 15 kayıt null bırakıldı (tahmin yazılmadı).
+- **Lapua (1/5):** 7.62x39 FMJ → katalogdaki S405 mermi kodu ve Lapua S405 sayfası. **Norma (1/2):** Oryx 8,5x55 Blaser 230 gr → Norma Oryx .338 230 gr bileşen sayfası.
+- Null kalanlar: Geco 3, RWS 1, SWISS P 2 (föy PDF robots.txt ile kapalı), Weatherby 1 (sayfada "320 (G1)" ondalık noktası yok — düzeltme tahmin olacağından yazılmadı), MKE 7 (MKE BC yayımlamıyor).

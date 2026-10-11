@@ -22,12 +22,12 @@
   "bullet": "Copper Plated Round Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.13,
   "g7_bc": null,
   "muzzle_velocity_fps": 1235,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/target-mini-mag/6-30.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.13. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.13. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/target-mini-mag/6-30.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -37,12 +37,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 1435,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/velocitor-hp/6-47.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/velocitor-hp/6-47.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -52,12 +52,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 32,
-  "g1_bc": null,
+  "g1_bc": 0.084,
   "g7_bc": null,
   "muzzle_velocity_fps": 1640,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/stinger/6-50.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown; identical-spec package variants: 50100CC"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown; identical-spec package variants: 50100CC | BC (2026-10-11): G1 0.084. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.084. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/stinger/6-50.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -67,12 +67,12 @@
   "bullet": "Segmented Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.118,
   "g7_bc": null,
   "muzzle_velocity_fps": 1235,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/mini-mag-segmented-hp/6-36CC.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.118. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.118. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/mini-mag-segmented-hp/6-36CC.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -82,12 +82,12 @@
   "bullet": "Lead Flat Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 1235,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/hunter-series/6-3R40LFN.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/hunter-series/6-3R40LFN.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -97,12 +97,12 @@
   "bullet": "Lead Round Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 45,
-  "g1_bc": null,
+  "g1_bc": 0.14,
   "g7_bc": null,
   "muzzle_velocity_fps": 1000,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/clean-22-suppressor/6-980CC.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.14. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.14. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/clean-22-suppressor/6-980CC.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -112,12 +112,12 @@
   "bullet": "Segmented Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.118,
   "g7_bc": null,
   "muzzle_velocity_fps": 710,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/quiet-22-segmented-hp/6-970.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.118. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.118. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/quiet-22-segmented-hp/6-970.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -127,12 +127,12 @@
   "bullet": "Lead Round Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.12,
   "g7_bc": null,
   "muzzle_velocity_fps": 710,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/quiet-22/6-960.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.12. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.12. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/quiet-22/6-960.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -142,12 +142,12 @@
   "bullet": "Soft Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 45,
-  "g1_bc": null,
+  "g1_bc": 0.115,
   "g7_bc": null,
   "muzzle_velocity_fps": 835,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/quiet-22-semi-auto/6-975CC.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.115. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.115. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/quiet-22-semi-auto/6-975CC.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -157,12 +157,12 @@
   "bullet": "Lead Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.12,
   "g7_bc": null,
   "muzzle_velocity_fps": 1050,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/sub-sonic-hp/6-56.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.12. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.12. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/sub-sonic-hp/6-56.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -172,12 +172,12 @@
   "bullet": "Lead Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 45,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 970,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/22-suppressor/6-957.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/22-suppressor/6-957.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -187,12 +187,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 36,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 1260,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/mini-mag/6-31.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/mini-mag/6-31.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -202,12 +202,12 @@
   "bullet": "Full Metal Jacket",
   "bullet_diameter_in": 0.172,
   "weight_gr": 20,
-  "g1_bc": null,
+  "g1_bc": 0.13,
   "g7_bc": null,
   "muzzle_velocity_fps": 2375,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/full-metal-jacket/6-55.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.13. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.13. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/full-metal-jacket/6-55.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -217,12 +217,12 @@
   "bullet": "Jacketed Soft Point",
   "bullet_diameter_in": 0.172,
   "weight_gr": 20,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 2375,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/gamepoint/6-52.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/gamepoint/6-52.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -232,12 +232,12 @@
   "bullet": "Tipped Varmint",
   "bullet_diameter_in": 0.172,
   "weight_gr": 17,
-  "g1_bc": null,
+  "g1_bc": 0.128,
   "g7_bc": null,
   "muzzle_velocity_fps": 2650,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/a17/6-949CC.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown; identical-spec package variants: 950CC"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown; identical-spec package variants: 950CC | BC (2026-10-11): G1 0.128. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.128. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/a17/6-949CC.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -247,12 +247,12 @@
   "bullet": "V-Max",
   "bullet_diameter_in": 0.172,
   "weight_gr": 17,
-  "g1_bc": null,
+  "g1_bc": 0.128,
   "g7_bc": null,
   "muzzle_velocity_fps": 2550,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-49.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.128. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.128. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/v-max/6-49.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -262,12 +262,12 @@
   "bullet": "VNT",
   "bullet_diameter_in": 0.172,
   "weight_gr": 17,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 2650,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-959CC.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown; identical-spec package variants: 923CC"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown; identical-spec package variants: 923CC | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/vnt/6-959CC.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -277,12 +277,12 @@
   "bullet": "Jacketed Hollow Point",
   "bullet_diameter_in": 0.172,
   "weight_gr": 17,
-  "g1_bc": null,
+  "g1_bc": 0.1,
   "g7_bc": null,
   "muzzle_velocity_fps": 2550,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/tnt/6-53.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.1. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.1. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/tnt/6-53.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -292,12 +292,12 @@
   "bullet": "Speer TNT Green Hollow Point",
   "bullet_diameter_in": 0.172,
   "weight_gr": 16,
-  "g1_bc": null,
+  "g1_bc": 0.09,
   "g7_bc": null,
   "muzzle_velocity_fps": 2500,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-951.html",
-  "notes": "Caliber listing tile values; test barrel not published; BC not shown"
+  "notes": "Caliber listing tile values; test barrel not published; BC not shown | BC (2026-10-11): G1 0.09. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.09. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-951.html (erişim 2026-10-11)."
  },
  {
   "brand": "CCI",
@@ -442,11 +442,11 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": null,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.12,
   "g7_bc": null,
   "muzzle_velocity_fps": 1050,
   "test_barrel_in": null,
   "source_url": "https://www.cci-ammunition.com/rimfire/cci/uppercut/6-22WMRUP.html",
-  "notes": "Product page specs (Muzzle Velocity, 'Ballistic Coefficient'); test barrel not stated;  no BC on page; defensive handgun load, barrel length not stated; read 2026-10-11"
+  "notes": "Product page specs (Muzzle Velocity, 'Ballistic Coefficient'); test barrel not stated;  no BC on page; defensive handgun load, barrel length not stated; read 2026-10-11 | BC (2026-10-11): G1 0.12. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.12. BC kaynağı: https://www.cci-ammunition.com/rimfire/cci/uppercut/6-22WMRUP.html (erişim 2026-10-11)."
  }
 ]

@@ -2662,12 +2662,12 @@
   "bullet": "Copper Plated Round Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 45,
-  "g1_bc": null,
+  "g1_bc": 0.13,
   "g7_bc": null,
   "muzzle_velocity_fps": 970,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "American Eagle Rimfire Suppressor line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "American Eagle Rimfire Suppressor line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.13. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.13. BC kaynağı: https://www.federalpremium.com/rimfire/american-eagle/american-eagle-rimfire-suppressor/11-AE22SUP1.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2677,12 +2677,12 @@
   "bullet": "Lead Round Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.139,
   "g7_bc": null,
   "muzzle_velocity_fps": 1240,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Champion Training Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Champion Training Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.139. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.139. BC kaynağı: https://www.federalpremium.com/rimfire/champion/champion-training---rimfire/11-510.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2692,12 +2692,12 @@
   "bullet": "Copper Plated Round Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.139,
   "g7_bc": null,
   "muzzle_velocity_fps": 1240,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Small Game line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Small Game line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.139. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.139. BC kaynağı: https://www.federalpremium.com/rimfire/small-game/11-710.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2707,12 +2707,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 31,
-  "g1_bc": null,
+  "g1_bc": 0.107,
   "g7_bc": null,
   "muzzle_velocity_fps": 1430,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Small Game line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Small Game line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.107. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.107. BC kaynağı: https://www.federalpremium.com/rimfire/small-game/11-724.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2722,12 +2722,12 @@
   "bullet": "Lead Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 36,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 1260,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Champion Training Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Champion Training Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.federalpremium.com/rimfire/champion/champion-training---rimfire/11-749.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2737,12 +2737,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 36,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 1260,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "BYOB line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "BYOB line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.federalpremium.com/rimfire/champion/byob/11-750BTL450.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2752,12 +2752,12 @@
   "bullet": "Jacketed Hollow Point",
   "bullet_diameter_in": 0.172,
   "weight_gr": 17,
-  "g1_bc": null,
+  "g1_bc": 0.11,
   "g7_bc": null,
   "muzzle_velocity_fps": 2530,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "BYOB line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "BYOB line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.11. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.11. BC kaynağı: https://www.federalpremium.com/rimfire/champion/byob/11-770BTL250.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2767,12 +2767,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 38,
-  "g1_bc": null,
+  "g1_bc": 0.131,
   "g7_bc": null,
   "muzzle_velocity_fps": 1260,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "American Eagle Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "American Eagle Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.131. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.131. BC kaynağı: https://www.federalpremium.com/rimfire/american-eagle/11-AE+22.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2782,12 +2782,12 @@
   "bullet": "Lead Round Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.138,
   "g7_bc": null,
   "muzzle_velocity_fps": 1200,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Champion Training Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Champion Training Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.138. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.138. BC kaynağı: https://www.federalpremium.com/rimfire/champion/champion-training---rimfire/11-AM22.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2797,12 +2797,12 @@
   "bullet": "Hornady V-Max",
   "bullet_diameter_in": 0.172,
   "weight_gr": 17,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 2530,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Varmint & Predator line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Varmint & Predator line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.federalpremium.com/rimfire/varmint-and-predator-hornady-v-max/11-P771.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2817,7 +2817,7 @@
   "muzzle_velocity_fps": 1000,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Small Game line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Small Game line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC araması (2026-10-11): bulunamadı — Ürün sayfasında 'Ballistic Coefficient | N/A' (saçma/shot yükü); üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2827,12 +2827,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 38,
-  "g1_bc": null,
+  "g1_bc": 0.131,
   "g7_bc": null,
   "muzzle_velocity_fps": 1260,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Small Game line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Small Game line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.131. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.131. BC kaynağı: https://www.federalpremium.com/rimfire/small-game/11-712.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2842,12 +2842,12 @@
   "bullet": "Speer TNT Jacketed Hollow Point",
   "bullet_diameter_in": 0.172,
   "weight_gr": 17,
-  "g1_bc": null,
+  "g1_bc": 0.11,
   "g7_bc": null,
   "muzzle_velocity_fps": 2530,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Varmint & Predator line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Varmint & Predator line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.11. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.11. BC kaynağı: https://www.federalpremium.com/rimfire/varmint-and-predator-speer-tnt/11-P770.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2857,12 +2857,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 36,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 1260,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Champion Training Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Champion Training Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.federalpremium.com/rimfire/champion/champion-training---rimfire/11-745.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2872,12 +2872,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 36,
-  "g1_bc": null,
+  "g1_bc": 0.125,
   "g7_bc": null,
   "muzzle_velocity_fps": 1260,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "250th Anniversary USA Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "250th Anniversary USA Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.125. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.125. BC kaynağı: https://www.federalpremium.com/rimfire/champion/champion-training---rimfire/11-750USA.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2887,12 +2887,12 @@
   "bullet": "Lead Round Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.138,
   "g7_bc": null,
   "muzzle_velocity_fps": 1200,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Gold Medal Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Gold Medal Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.138. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.138. BC kaynağı: https://www.federalpremium.com/rimfire/gold-medal/gold-medal-rimfire/11-719.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2902,12 +2902,12 @@
   "bullet": "Nickel Plated Flat Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 29,
-  "g1_bc": null,
+  "g1_bc": 0.084,
   "g7_bc": null,
   "muzzle_velocity_fps": 1080,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Personal Defense Punch Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Personal Defense Punch Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.084. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.084. BC kaynağı: https://www.federalpremium.com/rimfire/personal-defense-punch-rimfire/11-PD22L1.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2917,12 +2917,12 @@
   "bullet": "Lead Round Nose",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.138,
   "g7_bc": null,
   "muzzle_velocity_fps": 1080,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "Gold Medal Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "Gold Medal Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.138. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.138. BC kaynağı: https://www.federalpremium.com/rimfire/gold-medal/gold-medal-rimfire/11-711B.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
@@ -2932,12 +2932,12 @@
   "bullet": "Copper Plated Hollow Point",
   "bullet_diameter_in": 0.223,
   "weight_gr": 40,
-  "g1_bc": null,
+  "g1_bc": 0.11,
   "g7_bc": null,
   "muzzle_velocity_fps": 1200,
   "test_barrel_in": null,
   "source_url": "https://www.federalpremium.com/rimfire/?sz=300",
-  "notes": "HammerDown Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published"
+  "notes": "HammerDown Rimfire line; BC/MV from manufacturer listing page; test barrel length not published on page; BC not published | BC (2026-10-11): G1 0.11. Üretici sürüklenme modelini belirtmiyor; G1 kabul edildi. Üreticinin hız bantları: None–None fps: G1 0.11. BC kaynağı: https://www.federalpremium.com/rimfire/hammerdown-rimfire/11-22HAM.html (erişim 2026-10-11)."
  },
  {
   "brand": "Federal",
