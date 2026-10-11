@@ -211,6 +211,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       windDirection.text = WindClock.toDegrees(h).toStringAsFixed(0);
     }
   }
+
   late final TextEditingController temperature;
   late final TextEditingController pressure;
   late final TextEditingController humidity;
