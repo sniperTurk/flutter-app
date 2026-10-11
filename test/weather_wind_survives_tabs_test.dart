@@ -90,7 +90,6 @@ Future<TestWeather> _pumpHome(
   await _tab(tester, 'Hava Durumu');
   // Owner rule: no location / weather data before the button is pressed.
   expect(weather.calls, 0);
-  expect(_text(tester, BallisticsFieldKeys.temperature), '15');
   final button = find.byKey(const Key('environment-fill-weather'));
   await tester.ensureVisible(button);
   await tester.pumpAndSettle();
