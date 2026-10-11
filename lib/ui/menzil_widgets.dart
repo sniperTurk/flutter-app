@@ -1028,7 +1028,7 @@ class MenzilInput extends StatelessWidget {
 /// Selector with the same label row and height as [MenzilInput].
 /// Uses `initialValue` (not the deprecated `value`); callers that need the
 /// selection to reset when its options change must pass a changing [key].
-class MenzilSelect<T> extends StatelessWidget {
+class MenzilSelect<T> extends StatefulWidget {
   final String label;
   final String? unit;
   final T? initialValue;
@@ -1073,8 +1073,29 @@ class MenzilSelect<T> extends StatelessWidget {
       : w;
 
   @override
+  State<MenzilSelect<T>> createState() => _MenzilSelectState<T>();
+}
+
+/// A [DropdownButton] in the field decoration (a form field cannot narrow
+/// its menu): the value lives here, as it did in the form field.
+class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
+  late T? _value = widget.initialValue;
+
+  @override
+  void didUpdateWidget(covariant MenzilSelect<T> old) {
+    super.didUpdateWidget(old);
+    if (widget.initialValue != old.initialValue) _value = widget.initialValue;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    final w = widget;
+    final items = w.items;
+    // A value that is not one of the items shows as empty.
+    final value = items.where((i) => i.value == _value).length == 1
+        ? _value
+        : null;
     return Padding(
       padding: const EdgeInsets.only(bottom: MenzilSpace.md),
       child: Column(
@@ -1082,75 +1103,85 @@ class MenzilSelect<T> extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _LabelWithInfo(
-            title: label,
-            info: info,
+            title: w.label,
+            info: w.info,
             label: ExcludeSemantics(
-              child: MenzilFieldLabel(label: label, unit: unit),
+              child: MenzilFieldLabel(label: w.label, unit: w.unit),
             ),
           ),
           Semantics(
-            label: semanticLabel ?? label,
+            label: w.semanticLabel ?? w.label,
             child: LayoutBuilder(
-              builder: (context, box) => DropdownButtonFormField<T>(
-              // Narrower than a full-width box (owner, 2026-10-11: "sağa
-              // sola da çok açılıyor").
-              menuWidth: box.maxWidth.isFinite
-                  ? math.min(box.maxWidth, 260)
-                  : null,
-              initialValue: initialValue,
-              hint: hint == null
-                  ? null
-                  : Text(hint!, style: TextStyle(color: c.ink2)),
-              // List entries in regular weight: a long one wraps to a second
-              // line and bold made it heavy (owner, 2026-10-11). The closed
-              // box keeps the bold style.
-              items: [
-                for (final it in items)
-                  DropdownMenuItem<T>(
-                    key: it.key,
-                    value: it.value,
-                    enabled: it.enabled,
-                    onTap: it.onTap,
-                    alignment: it.alignment,
-                    child: DefaultTextStyle.merge(
-                      style: const TextStyle(fontWeight: FontWeight.w400),
-                      child: it.child,
+              builder: (context, box) => InputDecorator(
+                decoration: const InputDecoration(),
+                isEmpty: value == null && w.hint == null,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<T>(
+                    value: value,
+                    // Narrower than a full-width box (owner, 2026-10-11:
+                    // "sağa sola da çok açılıyor").
+                    menuWidth: box.maxWidth.isFinite
+                        ? math.min(box.maxWidth, 260)
+                        : null,
+                    hint: w.hint == null
+                        ? null
+                        : Text(w.hint!, style: TextStyle(color: c.ink2)),
+                    // List entries in regular weight (owner, 2026-10-11).
+                    items: [
+                      for (final it in items)
+                        DropdownMenuItem<T>(
+                          key: it.key,
+                          value: it.value,
+                          enabled: it.enabled,
+                          onTap: it.onTap,
+                          alignment: it.alignment,
+                          child: DefaultTextStyle.merge(
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                            ),
+                            child: it.child,
+                          ),
+                        ),
+                    ],
+                    onChanged: w.onChanged == null
+                        ? null
+                        : (v) {
+                            setState(() => _value = v);
+                            w.onChanged!(v);
+                          },
+                    // The closed box always shows ONE line (owner,
+                    // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
+                    selectedItemBuilder: (context) => [
+                      for (var i = 0; i < items.length; i++)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: DefaultTextStyle.merge(
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            child: w.selectedLabels == null
+                                ? MenzilSelect._oneLine(items[i].child)
+                                : Text(w.selectedLabels![i]),
+                          ),
+                        ),
+                    ],
+                    isExpanded: true,
+                    isDense: true,
+                    // A compact list, not a full-screen sheet (owner,
+                    // 2026-10-11: "menüler çok büyük açılıyor").
+                    menuMaxHeight: 300,
+                    borderRadius: BorderRadius.circular(MenzilRadius.input),
+                    dropdownColor: c.surface,
+                    icon: Icon(Icons.expand_more, color: c.ink2),
+                    // Entries a bit smaller and not bold (owner, 2026-10-11).
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: c.ink,
                     ),
                   ),
-              ],
-              onChanged: onChanged,
-              // The closed box always shows ONE line (owner, 2026-10-09:
-              // "Normal (0 MOA)" wrapped and was cut off).
-              selectedItemBuilder: (context) => [
-                for (var i = 0; i < items.length; i++)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: DefaultTextStyle.merge(
-                      maxLines: 1,
-                      softWrap: false,
-                      overflow: TextOverflow.ellipsis,
-                      child: selectedLabels == null
-                          ? _oneLine(items[i].child)
-                          : Text(selectedLabels![i]),
-                    ),
-                  ),
-              ],
-              isExpanded: true,
-              isDense: true,
-              // A compact list, not a full-screen sheet (owner, 2026-10-11:
-              // "menüler çok büyük açılıyor").
-              menuMaxHeight: 300,
-              borderRadius: BorderRadius.circular(MenzilRadius.input),
-              dropdownColor: c.surface,
-              icon: Icon(Icons.expand_more, color: c.ink2),
-              // Entries a bit smaller and not bold (owner, 2026-10-11).
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: c.ink,
+                ),
               ),
-              decoration: const InputDecoration(),
-            ),
             ),
           ),
         ],

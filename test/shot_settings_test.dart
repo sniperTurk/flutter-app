@@ -343,7 +343,7 @@ void main() {
       await tester.pump();
       Future<void> pick(String label) async {
         final box = find.byWidgetPredicate(
-          (w) => w is DropdownButtonFormField<bool>,
+          (w) => w is DropdownButton<bool>,
         );
         await tester.ensureVisible(box);
         await tester.tap(box);
