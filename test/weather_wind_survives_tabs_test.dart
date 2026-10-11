@@ -50,10 +50,8 @@ const _windMax = Key('pro-wind-max');
 const _windMid = Key('pro-wind-mid');
 const _windFar = Key('pro-wind-far');
 
-Finder _field(Key key) => find.descendant(
-  of: find.byKey(key),
-  matching: find.byType(TextField),
-);
+Finder _field(Key key) =>
+    find.descendant(of: find.byKey(key), matching: find.byType(TextField));
 
 String _text(WidgetTester tester, Key key) =>
     tester.widget<TextField>(_field(key)).controller!.text;
@@ -223,7 +221,8 @@ void main() {
     // closes the shell reloads the profiles.
     await _tab(tester, 'Araçlar');
     await store.save(_trued);
-    await tester.widget<ToolsScreen>(find.byType(ToolsScreen))
+    await tester
+        .widget<ToolsScreen>(find.byType(ToolsScreen))
         .onProfilesChanged!();
     await tester.pumpAndSettle();
     await _tab(tester, 'Hava Durumu');
@@ -248,7 +247,8 @@ void main() {
     await _type(tester, _windMax, '9');
     await _tab(tester, 'Araçlar');
     await store.save(_trued);
-    await tester.widget<ToolsScreen>(find.byType(ToolsScreen))
+    await tester
+        .widget<ToolsScreen>(find.byType(ToolsScreen))
         .onProfilesChanged!();
     await tester.pumpAndSettle();
     await _tab(tester, 'Hava Durumu');
@@ -267,7 +267,8 @@ void main() {
     await _tab(tester, 'Profil');
     await store.save(_profile);
     active.value = _profile.id;
-    await tester.widget<ProfilesScreen>(find.byType(ProfilesScreen))
+    await tester
+        .widget<ProfilesScreen>(find.byType(ProfilesScreen))
         .onProfilesChanged!();
     await tester.pumpAndSettle();
     await _tab(tester, 'Hava Durumu');
