@@ -1081,6 +1081,16 @@ class MenzilSelect<T> extends StatefulWidget {
 class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
   late T? _value = widget.initialValue;
 
+  /// The box width after layout (a LayoutBuilder breaks dialogs that ask
+  /// for intrinsic sizes); the menu is at most 260 pt and never wider.
+  double? _boxWidth;
+
+  void _measure(_) {
+    if (!mounted) return;
+    final w = context.size?.width;
+    if (w != null && w != _boxWidth) setState(() => _boxWidth = w);
+  }
+
   @override
   void didUpdateWidget(covariant MenzilSelect<T> old) {
     super.didUpdateWidget(old);
@@ -1092,6 +1102,7 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
     final c = MenzilColors.of(context);
     final w = widget;
     final items = w.items;
+    WidgetsBinding.instance.addPostFrameCallback(_measure);
     // A value that is not one of the items shows as empty.
     final value = items.where((i) => i.value == _value).length == 1
         ? _value
@@ -1111,8 +1122,8 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
           ),
           Semantics(
             label: w.semanticLabel ?? w.label,
-            child: LayoutBuilder(
-              builder: (context, box) => InputDecorator(
+            child: Builder(
+              builder: (context) => InputDecorator(
                 // The padding is the button's own, so the whole box opens
                 // the list, not only the text in its middle.
                 decoration: const InputDecoration(
@@ -1124,9 +1135,9 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                     value: value,
                     // Narrower than a full-width box (owner, 2026-10-11:
                     // "sağa sola da çok açılıyor").
-                    menuWidth: box.maxWidth.isFinite
-                        ? math.min(box.maxWidth, 260)
-                        : null,
+                    menuWidth: _boxWidth == null
+                        ? null
+                        : math.min(_boxWidth!, 260),
                     hint: w.hint == null
                         ? null
                         : Text(w.hint!, style: TextStyle(color: c.ink2)),
