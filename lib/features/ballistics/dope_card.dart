@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
@@ -28,31 +29,64 @@ class DopeCardData {
 }
 
 /// Builds the A4 card. [regular] and [bold] are TrueType fonts with Turkish
-/// glyphs (the built-in PDF fonts have no ı, ş, ğ).
+/// glyphs (the built-in PDF fonts have no ı, ş, ğ); [fallback] supplies the
+/// signs they lack (arrows). [logo] (PNG) sits left of "SNIPER TÜRK" and,
+/// faded, in the middle of the page (owner, 2026-10-11).
 Future<Uint8List> buildDopeCardPdf(
   DopeCardData d, {
   required ByteData regular,
   required ByteData bold,
+  ByteData? fallback,
+  Uint8List? logo,
 }) async {
   final doc = pw.Document(title: d.title, author: 'Sniper Türk');
   final theme = pw.ThemeData.withFont(
     base: pw.Font.ttf(regular),
     bold: pw.Font.ttf(bold),
+    fontFallback: [if (fallback != null) pw.Font.ttf(fallback)],
   );
   const ink = PdfColor.fromInt(0xFF0F2230);
   const red = PdfColor.fromInt(0xFFC8102E);
   const grey = PdfColor.fromInt(0xFF465D6F);
-  const band = PdfColor.fromInt(0xFFEFF3F5);
+  const band = PdfColor.fromInt(0xFFF6F8FA);
+  // The table fills the A4 page (owner, 2026-10-11): rows grow with the
+  // free height left by the header, the info line and the notes.
+  final rowCount = math.max(1, d.rows.length);
+  final free = 842.0 - 56 - 100 - 24 - 26 - d.notes.length * 13.0;
+  // 10 % reserve so a wrapped info line never pushes past the page.
+  final rowH = (free * 0.9 / rowCount).clamp(20.0, 48.0);
+  final cellFont = (rowH * 0.42).clamp(11.0, 17.0);
+  final cellPadV = ((rowH - cellFont * 1.25) / 2).clamp(4.0, 16.0);
   doc.addPage(
     pw.Page(
-      pageFormat: PdfPageFormat.a4,
-      margin: const pw.EdgeInsets.all(28),
-      theme: theme,
+      pageTheme: pw.PageTheme(
+        pageFormat: PdfPageFormat.a4,
+        margin: const pw.EdgeInsets.all(28),
+        theme: theme,
+        // The logo, faded, in the middle of the page. Drawn over the table:
+        // the shaded rows would hide it underneath (owner, 2026-10-11:
+        // "logo hiç belli değil").
+        buildForeground: logo == null
+            ? null
+            : (context) => pw.FullPage(
+                ignoreMargins: true,
+                child: pw.Center(
+                  child: pw.Opacity(
+                    opacity: 0.18,
+                    child: pw.Image(pw.MemoryImage(logo), width: 240),
+                  ),
+                ),
+              ),
+      ),
       build: (context) => pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.stretch,
         children: [
           pw.Row(
             children: [
+              if (logo != null) ...[
+                pw.Image(pw.MemoryImage(logo), height: 34),
+                pw.SizedBox(width: 8),
+              ],
               pw.Text(
                 'SNIPER ',
                 style: const pw.TextStyle(
@@ -119,18 +153,18 @@ Future<Uint8List> buildDopeCardPdf(
           pw.TableHelper.fromTextArray(
             headers: d.headers,
             data: d.rows,
-            headerStyle: const pw.TextStyle(
-              fontSize: 10,
+            headerStyle: pw.TextStyle(
+              fontSize: math.min(13, cellFont),
               fontWeight: pw.FontWeight.bold,
               color: PdfColors.white,
             ),
             headerDecoration: const pw.BoxDecoration(color: ink),
-            cellStyle: const pw.TextStyle(fontSize: 11, color: ink),
+            cellStyle: pw.TextStyle(fontSize: cellFont, color: ink),
             cellAlignment: pw.Alignment.center,
             headerAlignment: pw.Alignment.center,
             oddRowDecoration: const pw.BoxDecoration(color: band),
-            cellPadding: const pw.EdgeInsets.symmetric(
-              vertical: 5,
+            cellPadding: pw.EdgeInsets.symmetric(
+              vertical: cellPadV,
               horizontal: 4,
             ),
             border: pw.TableBorder.all(color: grey, width: 0.4),
