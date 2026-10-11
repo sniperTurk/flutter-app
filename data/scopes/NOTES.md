@@ -51,3 +51,16 @@ Sayfaları paralel değil, tek tek ve aralıklı çekin.
 | discovery_optics.json | 36 | discoveryopt.com technical specifications |
 | gazi_sniper.json | 11 | gazisniper.com.tr product pages (Gazi Sniper, MewLite); 13 pages publish specs only as images |
 Unit rule: travel fields are named *_mrad or *_moa after the turret unit.
+
+## 2026-10-11 — Vortex completed against vortexoptics.com (scheduled run)
+- Current riflescope lineup read from the family category pages on vortexoptics.com
+  (razor, viper, strike-eagle, venom, diamondback, crossfire, golden-eagle, amg, triumph;
+  cross-checked with the use-case category pages): 47 product pages (+2 Venom bundles, not scopes).
+- 28 product pages were already in `vortex.json` (66 reticle-variant records); the 19 missing
+  product pages were added (one record each — every one of them shows a single SKU): 66 → 85 records.
+- New records carry `"accessed": "2026-10-11"` (read date) and the SKU in `notes`.
+- `parallax_min_m` is filled only for adjustable parallax (yards × 0.9144); fixed-parallax scopes stay null
+  and the fixed distance is in `notes`. `zero_stop` is true only where the page names a RevStop/RZR zero
+  system (stated as an inference in `notes`), otherwise null.
+- Not used: the `?p=` listing pages and the vortexoptics.widen.net PDFs (robots.txt disallows them).
+- Crossfire II 2-7x32 is listed among riflescopes but sold as a crossbow scope (noted in its record).
