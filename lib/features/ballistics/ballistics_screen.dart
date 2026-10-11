@@ -213,7 +213,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   _ShotBasis? _basis;
   double _shotRangeM = 100;
 
-  /// Opens the right (windage) turret after "Çözümü kuleye kur".
+  /// Opens the right (windage) turret after "Çözümü kulelere kur".
   int _windageRevealToken = 0;
 
   /// Hedef always opens at 100 m (100 yd on a yard profile) (owner,

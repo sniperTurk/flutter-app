@@ -68,11 +68,11 @@ class ScopeDialView extends StatelessWidget {
   final ValueChanged<int> onElevationChanged;
   final ValueChanged<int> onWindageChanged;
 
-  /// Incremented by the owner after "Çözümü kuleye kur"; each change slides
+  /// Incremented by the owner after "Çözümü kulelere kur"; each change slides
   /// the windage (right) turret open (owner, 2026-10-09).
   final int windageRevealToken;
 
-  /// Called after "Çözümü kuleye kur" has dialled both turrets.
+  /// Called after "Çözümü kulelere kur" has dialled both turrets.
   final VoidCallback? onSolutionDialed;
 
   /// Required elevation at [rangeM] in [unit] (positive = dial up). Null
@@ -486,7 +486,7 @@ class ScopeDialView extends StatelessWidget {
                         label: noClicks
                             ? 'Çözüm: 0 klik'
                             : !dialled
-                            ? 'Çözümü kuleye kur'
+                            ? 'Çözümü kulelere kur'
                             : atLimit
                             ? 'Kule sınırına kuruldu'
                             : 'Çözüm kulelere kuruldu',
@@ -542,7 +542,7 @@ class ScopeDialView extends StatelessWidget {
                       '${impact.up >= 0 ? 'yukarıda' : 'aşağıda'}'
                       '${impact.right.abs() < 0.005 ? '' : ', ${_fmt(impact.right.abs())} $unitLabel ${impact.right >= 0 ? 'sağda' : 'solda'}'}'
                       '. Kenardaki ok o yönü gösterir. Kuleyi çevirin veya '
-                      '"Çözümü kuleye kur"a dokunun.',
+                      '"Çözümü kulelere kur"a dokunun.',
                 ),
               ),
             if (mountBlocksZero)
@@ -851,7 +851,7 @@ class _TurretBar extends StatefulWidget {
   final Widget elevation, windage, reticle;
   final double side;
 
-  /// A change opens the windage drum (after "Çözümü kuleye kur").
+  /// A change opens the windage drum (after "Çözümü kulelere kur").
   final int revealToken;
   const _TurretBar({
     required this.revealToken,
