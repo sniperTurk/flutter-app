@@ -1480,28 +1480,28 @@ class MenzilMetricCard extends StatelessWidget {
                       ),
                     )
                   else
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
-                    child: Text.rich(
-                      TextSpan(
-                        text: metric.value,
-                        style: MenzilType.number(c.ink, size: 22),
-                        children: [
-                          if (metric.unit != null)
-                            TextSpan(
-                              text: ' ${metric.unit}',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: c.ink2,
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text.rich(
+                        TextSpan(
+                          text: metric.value,
+                          style: MenzilType.number(c.ink, size: 22),
+                          children: [
+                            if (metric.unit != null)
+                              TextSpan(
+                                text: ' ${metric.unit}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: c.ink2,
+                                ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
+                        maxLines: 1,
                       ),
-                      maxLines: 1,
                     ),
-                  ),
                 ],
               ),
             ),
