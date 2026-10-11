@@ -1,0 +1,21 @@
+{
+  "name": "HORUS TREMOR3 (Vortex Razor HD Gen II)",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Razor HD Gen II 4.5-27x56 FFP"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/vortex-razor-hd-gen-2-45-27x56-riflescope.html",
+  "notes": "Horus Vision tasarımı; Vortex sürümü. Razor HD Gen II 4.5-27x56 FFP sayfası 'HORUS_TREMOR3_MRAD Reticle Manual (PDF)' (VTX_M-00249-0) bağlantısını listeliyor; açıklama metni yok. Birim kılavuz adındaki MRAD'dan. Ölçüler için başka uygulama/üçüncü taraf verisi kullanılmadı. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}

@@ -1,0 +1,22 @@
+{
+  "name": "WideRange Plex MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Crossfire HD 6-18x50",
+    "Crossfire HD 4-12x44"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/crossfire-hd-6-18x50-riflescope.html",
+  "notes": "Crossfire HD 6-18x50 ve 4-12x44 ürün sayfaları 'WideRange Plex™ (MOA)' varyantını sunuyor (data/scopes/vortex.json). Retikül seçimi JavaScript ile yükleniyor; okunabilen metinde açıklama yok. 'Plex' adı duplex tipini düşündürse de metinde yazmadığı için family null. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}

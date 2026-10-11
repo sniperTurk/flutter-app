@@ -1,0 +1,26 @@
+{
+  "name": "Illuminated Dead-Hold 2A BDC MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Crossfire HD 1-4x24",
+    "Crossfire HD 1.5-5.5x32 Scout",
+    "Crossfire HD 6-18x50",
+    "Crossfire HD 4-12x44",
+    "Crossfire HD 3-9x40",
+    "Crossfire HD 2-7x32"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://vortexoptics.com/crossfire-hd-1-4x24-illuminated-dead-hold-2a-bdc-moa-riflescope.html",
+  "notes": "Crossfire HD 1-4x24 sayfası: Second Focal Plane, ayar 1/2 MOA (1.5-5.5x32 Scout'ta 1/4 MOA). Metin: 'Pairs the trusted holdover and windage guidance of the Dead-Hold® BDC with an illuminated floating center dot for fast, precise aiming in low light.' center_dot=true ve floating_center=true bu ifadeden. Kılavuz VTX_M-00397. Diğer Crossfire HD modelleri data/scopes/vortex.json'daki varyantlardan. SFP referans büyütmesi belirtilmemiş. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}

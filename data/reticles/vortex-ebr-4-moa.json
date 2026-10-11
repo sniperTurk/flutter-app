@@ -3,7 +3,9 @@
   "brand": "Vortex Optics",
   "scopes": [
     "Viper PST Gen II 5-25x50 (SFP)",
-    "Strike Eagle 3-18x44 (SFP)"
+    "Strike Eagle 3-18x44 (SFP)",
+    "Viper PST Gen II 3-15x44 (SFP)",
+    "Viper PST Gen II 2-10x32 FFP"
   ],
   "unit": "moa",
   "family": "hash",
@@ -18,5 +20,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://vortexoptics.com/viper-pst-gen-ii-5-25x50-ebr-4-moa.html",
-  "notes": "Viper PST Gen II 5-25x50 sayfası: Second Focal Plane, ayar 1/4 MOA. Metin: 'Hash-marked ranging reticle using MOA or MRAD based subtension lines for ranging, holdover, and windage corrections.' family=hash bu ifadeden çıkarım. SFP; ölçülerin geçerli olduğu referans büyütme sayfada belirtilmemiş. Strike Eagle 3-18x44 EBR-4 MOA (SFP, 1/4 MOA): https://vortexoptics.com/vortex-strike-eagle-3-18x44-ebr-4-moa-riflescope.html. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). İşaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç/direk ve merkez nokta ölçüleri sayfa metninde yok -> null."
+  "notes": "Viper PST Gen II 5-25x50 sayfası: Second Focal Plane, ayar 1/4 MOA. Metin: 'Hash-marked ranging reticle using MOA or MRAD based subtension lines for ranging, holdover, and windage corrections.' family=hash bu ifadeden çıkarım. SFP; ölçülerin geçerli olduğu referans büyütme sayfada belirtilmemiş. Strike Eagle 3-18x44 EBR-4 MOA (SFP, 1/4 MOA): https://vortexoptics.com/vortex-strike-eagle-3-18x44-ebr-4-moa-riflescope.html. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). İşaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç/direk ve merkez nokta ölçüleri sayfa metninde yok -> null. 2026-10-11: Viper PST Gen II 3-15x44 EBR-4 MOA (PST-3151, SFP, 1/4 MOA): https://vortexoptics.com/viper-pst-gen-ii-3-15x44-ebr-4-moa.html. Viper PST Gen II 2-10x32 FFP sayfası 'EBR-4 MOA Reticle Manual (PDF)' (VTX_M-00368) listeliyor (FFP sürüm; ölçülerin geçerli olduğu büyütme SFP'den farklı olabilir, metinde yok)."
 }
