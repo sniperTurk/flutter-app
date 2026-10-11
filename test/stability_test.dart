@@ -58,7 +58,7 @@ void main() {
     }
   });
 
-  test('ölçek: .308 175 gr 1:10 yiv ~1.9; daha yavaş yiv daha düşük', () {
+  test('ölçek: .308 175 gr 1:10 yiv ~2.4; daha yavaş yiv daha düşük', () {
     final fast = Stability.millerSg(
       grain: 175,
       caliberMm: 7.82,
@@ -77,7 +77,9 @@ void main() {
       temperatureC: 15,
       pressureHpa: 1013.25,
     );
-    expect(fast, inInclusiveRange(1.6, 2.2));
+    // Python reference (tools/test_formula_reference.py): 2.40 at 2600 fps,
+    // 59 °F, 29.92 inHg; here 790 m/s and 15 °C.
+    expect(fast, inInclusiveRange(2.2, 2.7));
     expect(slow, lessThan(fast));
   });
 
