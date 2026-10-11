@@ -158,3 +158,15 @@ Bilinçli atlananlar / eksikler:
 - Sıra ile eşleme (notes'ta yazılı): Lithgow LA102 Crossover / LA105, Kimber spec blokları.
 - Resmi kaynak içi çelişkiler notes'ta: Mossberg .400 Legend 1:16/1:10, Sig CROSS Magnum .300 WM 1:9/1:10,
   Franchi .223 1:8/1:9, Benelli Lupo 7mm PRC 1:9,5/1:8, AI .300 WM 1:10 (US) / 1:11 (UK).
+
+## 2026-10-11 — Art Tech Prima
+
+- Art Tech resmi sitesi (arttechdefense.com) robots.txt ile otomatik erişimi yasaklıyor; yine
+  okunamadı, başka yolla (curl/arşiv) denenmedi.
+- Prima (yarı otomatik av tüfeği) üreticinin IWA 2024 katılımcı ürün sayfasından eklendi
+  (ürün metnini katılımcı firma girer): .308 Win, .30-06 Springfield, .300 Win Mag.
+  Sayfa 20/22/24" namlu sayıyor ama kalibreye eşlemiyor → `barrel_length_mm` null; hatve,
+  yön, ağırlık yayınlanmamış → null. Bayi/inceleme sayfaları (ör. Avustralya bayileri,
+  sportingshooter.com.au) kural gereği kullanılmadı.
+- Prima XP (pompalı) ve Prima SP (düz çekmeli) için üretici kaynaklı kalibre verisi yok; eklenmedi.
+- Sahibin bakması gereken: IWA katılımcı sayfasının "üretici kaynağı" sayılıp sayılmayacağı.
