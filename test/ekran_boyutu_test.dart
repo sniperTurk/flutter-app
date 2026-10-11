@@ -3,11 +3,17 @@
 // (SE 2/3, 375x667), a normal iPhone (15/16, 393x852) and two iPad sizes.
 // Each screen is scrolled to its end so lazily built rows are laid out too.
 //
+// The bundled Oswald font is loaded so text is measured as on the phone (the
+// default test font is about twice as wide and reports cuts that do not
+// happen on a device; see docs/ekran-boyutu/RAPOR.md).
+//
 // Layout errors (RenderFlex overflow and other render exceptions) are
 // collected per screen instead of stopping at the first one, printed as
 // `EKRAN_BULGU|<cihaz>|<ekran>|<hata>` lines and fail the test at the end.
-// Texts cut by maxLines/ellipsis are printed as `EKRAN_KESIK|...` notes (not
-// failures) so the report can list them. No golden files are used.
+// Oswald texts cut by maxLines/ellipsis (`EKRAN_KESIK|...`) fail too, except
+// the few that are cut on purpose ([_cutByDesign]). Text in another font
+// (the closed list boxes use the system font) cannot be measured here and is
+// only printed. No golden files are used.
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -19,6 +25,7 @@ import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
+import 'package:sniper_turk/ui/menzil_theme.dart';
 import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/tool_fakes.dart';
@@ -74,8 +81,11 @@ const _devices = [
 /// `Which: <kind>|<screen>|<text>|<sizes>`.
 final Map<String, Set<String>> _summary = {};
 
-/// When false the scan only reports (diagnostic runs).
-const _failOnLayout = false;
+/// Texts that are cut with an ellipsis on purpose: a user-typed profile name
+/// and the "Kaydetmek için eksik" list, which is capped at three lines above
+/// the Kaydet button.
+bool _cutByDesign(String text) =>
+    text == _profile.name || text.startsWith('Kaydetmek için eksik:');
 
 const _tabs = ['Profil', 'Hava Durumu', 'Pro', 'Hedef', 'Araçlar'];
 
@@ -101,6 +111,7 @@ class _Collector {
   final List<String> layout = [];
   final List<String> other = [];
   final Set<String> cut = {};
+  final Set<String> cutOswald = {};
 
   _Collector(this.device);
 
@@ -146,8 +157,13 @@ void _scanCutTexts(WidgetTester tester, _Collector c) {
       if (text.trim().isEmpty) continue;
       final need = ro.getMaxIntrinsicWidth(double.infinity).ceil();
       final have = ro.size.width.floor();
-      c.cut.add('EKRAN_KESIK|${c.device}|${c.screen}|$text|$have/$need');
+      final line = 'EKRAN_KESIK|${c.device}|${c.screen}|$text|$have/$need';
+      c.cut.add(line);
       _note('KESIK', '${c.screen}|$text', '${c.device} $have/$need');
+      final family = ro.text.style?.fontFamily;
+      if (family == MenzilType.family && !_cutByDesign(text)) {
+        c.cutOswald.add(line);
+      }
     }
   }
 }
@@ -193,30 +209,19 @@ Future<void> _popTop(WidgetTester tester) async {
 
 void main() {
   tearDownAll(() {
-    // Real-font findings first; the deliberately long profile name is cut
-    // with an ellipsis by design and left out.
-    final keys =
-        _summary.keys.where((k) => !k.contains(_profile.name)).toList()
-          ..sort((a, b) {
-            int rank(String k) =>
-                _summary[k]!.any((d) => d.contains('Oswald')) ? 0 : 1;
-            final r = rank(a).compareTo(rank(b));
-            return r != 0 ? r : a.compareTo(b);
-          });
+    final keys = _summary.keys.where((k) => !k.contains(_profile.name)).toList()
+      ..sort();
     for (final k in keys) {
       // ignore: avoid_print
       print('Which: $k|${_summary[k]!.join(', ')}');
     }
   });
 
-  group('Test yazı tipi', () => _scan('test yazı tipi'));
-  group('Oswald', () {
-    setUpAll(_loadOswald);
-    _scan('Oswald');
-  });
+  setUpAll(_loadOswald);
+  _scan();
 }
 
-void _scan(String font) {
+void _scan() {
   for (final device in _devices) {
     for (final textScale in [1.0, if (device.logical.width < 390) 1.3]) {
       testWidgets('${device.name} @ yazı ${textScale}x: ekran taraması', (
@@ -234,7 +239,7 @@ void _scan(String font) {
         addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
 
         final c = _Collector(
-          '${device.logical.width.toInt()}pt ${textScale}x $font',
+          '${device.logical.width.toInt()}pt ${textScale}x',
         );
         final previous = FlutterError.onError;
         FlutterError.onError = c.record;
@@ -314,9 +319,8 @@ void _scan(String font) {
           // ignore: avoid_print
           print(line);
         }
-        if (_failOnLayout) {
-          expect(c.layout, isEmpty, reason: c.layout.join('\n'));
-        }
+        expect(c.layout, isEmpty, reason: c.layout.join('\n'));
+        expect(c.cutOswald, isEmpty, reason: c.cutOswald.join('\n'));
       });
     }
   }
