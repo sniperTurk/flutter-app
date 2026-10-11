@@ -53,3 +53,11 @@ Norma soğuk hava Academy yazısı (test anlatılıyor ama hız sonuçları yok)
 - WebSearch yalnızca bağlantı listesi döndürüyor (içerik yok); bulunan ek üretici bağlantıları:
   RS62-DE/FR/ES PDF'leri (reload-swiss.com/Reload%20Swiss/Produkte/RS62/). Forum sonuçları (thestalkingdirectory) kural gereği kullanılmadı.
 - Çözüm önerisi: görevi etkileşimli oturumda çalıştırın veya URL'leri doğrudan görev metnine yazın (WebFetch, mesajda geçen URL'leri onaysız açabiliyor).
+
+## 2026-10-11 çalışması #2 (URL'ler görev metninde → WebFetch çalıştı)
+İstekler tek tek, 20–25 sn arayla. Paralel giden tek istek `PROVENANCE_REQUIRED` aldı; sıralı tekrarında açıldı.
+
+### Reload Swiss
+- Okunan: RS50/52/60/62/70/76/80 EN PDF föyleri, ana sayfa, ürün listesi, RS62 ürün sayfası (DE).
+- **Sayı yok.** Föylerdeki tek sayısal değerler parti toleransları (v5 ±12 m/s, pmax ±250 bar) — sıcaklığa bağlı değil, alınmadı.
+- Eklenen (raw): RS50, RS52, RS60, RS62, RS80. RS70 ve RS76 föylerinde sıcaklık ifadesi yok → eklenmedi.
