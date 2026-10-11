@@ -550,8 +550,63 @@ String _zeroText(RifleProfile p) => '${_zeroValue(p)} ${p.distanceUnit.symbol}';
 String _ammoTypeName(AmmunitionType t) => switch (t) {
   AmmunitionType.pellet => 'Pellet',
   AmmunitionType.slug => 'Slug',
-  AmmunitionType.bullet => 'Bullet',
+  AmmunitionType.bullet => 'Mermi',
 };
+
+/// Dürbün Marka and a clean Dürbün Model for the summary (owner,
+/// 2026-10-11: no designation, reticle or unit repeated in the name).
+(String, String) _scopeBrandModel(ScopeOptic s) {
+  var brand = s.brand.trim();
+  var rest = s.userEntered ? '' : s.model;
+  if (s.userEntered) {
+    // Personal scopes keep "Brand Series" in the brand.
+    final brands = {
+      for (final o in CatalogRepository.scopes) o.brand,
+    }.toList()..sort((a, b) => b.length.compareTo(a.length));
+    for (final b in brands) {
+      if (brand.toLowerCase().startsWith(b.toLowerCase())) {
+        rest = brand.substring(b.length);
+        brand = b;
+        break;
+      }
+    }
+  }
+  var m = ScopePickerScreen.seriesOf(rest);
+  final reticle = _summaryReticle(s);
+  if (reticle != null) {
+    for (final r in [
+      reticle,
+      reticle.replaceAll(RegExp(r'\s+(MRAD|MOA|MIL|SMOA)$'), ''),
+    ]) {
+      final i = m.toLowerCase().indexOf(r.toLowerCase());
+      if (i >= 0) m = m.substring(0, i) + m.substring(i + r.length);
+    }
+  }
+  m = m
+      .replaceAll(RegExp(r'\((MRAD|MOA|MIL|SMOA)\)'), '')
+      .replaceAll(RegExp(r'\b(MRAD|MOA|MIL|SMOA)\b'), '')
+      .replaceAll(RegExp(r'\s{2,}'), ' ')
+      .trim();
+  m = m.replaceAll(RegExp(r'^[\s\-–/,]+|[\s\-–/,]+$'), '');
+  return (brand, m);
+}
+
+/// The scope's reticle name for the summary; a focal plane is not one.
+String? _summaryReticle(ScopeOptic s) {
+  final r = s.reticle?.trim();
+  if (r == null || r.isEmpty || r == 'FFP' || r == 'SFP') return null;
+  return r;
+}
+
+/// Mühimmat Model without the weight (it has its own box).
+String _ammoModelName(Ammunition a) {
+  final g = a.grain.toStringAsFixed(a.grain % 1 == 0 ? 0 : 1);
+  return a.model
+      .replaceAll(RegExp('\\b${RegExp.escape(g)}\\s*gr\\b'), '')
+      .replaceAll(RegExp(r'\s{2,}'), ' ')
+      .replaceAll(RegExp(r'^[\s·\-]+|[\s·\-]+$'), '')
+      .trim();
+}
 
 /// Read-only summary of the active profile plus the catalog values it
 /// resolves to. Purely informational: nothing here feeds the solver.
@@ -580,6 +635,9 @@ class _ActiveProfileDetails extends StatelessWidget {
     final ballisticCoefficient = ammo?.ballisticCoefficient;
     final ballisticModelName = ammo?.ballisticModel?.name.toUpperCase() ?? '';
     final units = _ProfileUnits.of(context);
+    final scopeNames = scope == null ? null : _scopeBrandModel(scope);
+    final reticle = scope == null ? null : _summaryReticle(scope);
+    final ammoModel = ammo == null ? '' : _ammoModelName(ammo);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -632,21 +690,23 @@ class _ActiveProfileDetails extends StatelessWidget {
               _zeroValue(profile),
               profile.distanceUnit.symbol,
             ),
-            if (scope != null)
+            // Owner, 2026-10-11: each scope fact in one box only.
+            if (scopeNames != null) ...[
+              MenzilMetric('Dürbün Marka', scopeNames.$1),
               MenzilMetric(
-                'Dürbün Marka Model',
-                // Personal scopes store the designation as their model;
-                // it is shown in the Dürbün box, so only the brand here.
-                scope.userEntered ? scope.brand : scope.displayName,
+                'Dürbün Model',
+                scopeNames.$2.isEmpty ? '—' : scopeNames.$2,
               ),
+            ],
             if (scope != null && _scopeSummary(scope).isNotEmpty)
               MenzilMetric('Dürbün', _scopeSummary(scope)),
+            MenzilMetric('Dürbün birimi', profile.angularUnit.label),
+            if (reticle != null) MenzilMetric('Retikül', reticle),
             MenzilMetric(
               'Dürbün ayağı',
               profile.mountCantMoa > 0 ? _trimNum(profile.mountCantMoa) : 'Yok',
               profile.mountCantMoa > 0 ? 'MOA' : null,
             ),
-            MenzilMetric('Dürbün birimi', profile.angularUnit.label),
             if (scope != null &&
                 _topTurretClicks(scope, profile.angularUnit) != null)
               MenzilMetric(
@@ -654,18 +714,19 @@ class _ActiveProfileDetails extends StatelessWidget {
                 '${_topTurretClicks(scope, profile.angularUnit)}',
                 'klik',
               ),
-            if (ammo != null)
+            if (ammo != null) ...[
+              MenzilMetric('Mühimmat Marka', ammo.brand),
               MenzilMetric(
-                'Mühimmat Marka',
-                // Personal ammunition keeps its whole name in the brand.
-                '${ammo.brand} ${ammo.model}'.trim(),
+                'Mühimmat Model',
+                ammoModel.isEmpty ? '—' : ammoModel,
               ),
-            if (ammo != null)
               MenzilMetric(
-                'Mühimmat',
+                'Ağırlık',
                 ammo.grain.toStringAsFixed(ammo.grain % 1 == 0 ? 0 : 1),
-                'gr ${_ammoTypeName(ammo.type)}',
+                'gr',
               ),
+              MenzilMetric('Tip', _ammoTypeName(ammo.type)),
+            ],
             MenzilMetric(
               'BC / model',
               ballisticCoefficient == null
