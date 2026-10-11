@@ -61,3 +61,15 @@ Norma soğuk hava Academy yazısı (test anlatılıyor ama hız sonuçları yok)
 - Okunan: RS50/52/60/62/70/76/80 EN PDF föyleri, ana sayfa, ürün listesi, RS62 ürün sayfası (DE).
 - **Sayı yok.** Föylerdeki tek sayısal değerler parti toleransları (v5 ±12 m/s, pmax ±250 bar) — sıcaklığa bağlı değil, alınmadı.
 - Eklenen (raw): RS50, RS52, RS60, RS62, RS80. RS70 ve RS76 föylerinde sıcaklık ifadesi yok → eklenmedi.
+
+### Explosia / Lovex
+- Katalog PDF (Explosia_kat-Propellants-2023_en.pdf) iki kez `CLIENT_ERROR` (sunucu hatası), CZ yükleme kılavuzu
+  (https://explosia.cz/wp-content/uploads/2025/10/EXPLOSIA_reloading2020_cz.pdf) bir kez `CLIENT_ERROR` → 3 ardışık hata, atlandı.
+- explosia.cz/en/ ana sayfası okundu: bağlantı ve sıcaklık ifadesi yok. **Lovex için kayıt eklenmedi.**
+
+### Alliant
+- Okunan: RL16 Initial Loads PDF, Reloder 10x/15/TS15.5/16/17/19/22/23/25/26/33/50 ürün sayfaları, ana sayfa.
+- **Sayı yok** (RL16 PDF'de hız var ama sıcaklık yok).
+- Eklenen (raw): Reloder 16, 23, 26, TS 15.5.
+- Sıcaklık ifadesi yok: 10x, 15, 19, 22, 25, 33, 50. Reloder 17: yalnızca "maximum velocity even in extreme weather"
+  (sıcaklık hassasiyeti iddiası değil) → eklenmedi. Reloder 7 sayfası okunmadı.
