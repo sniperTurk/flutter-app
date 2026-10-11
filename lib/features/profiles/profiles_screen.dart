@@ -787,7 +787,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   final List<ScopeOptic> _allScopes = CatalogRepository.allScopes;
   final ManualCatalogStore _manualStore = ManualCatalogStore();
 
-  WeaponPlatform platform = WeaponPlatform.pcp;
+  // A new profile starts on Ateşli Tüfek (owner, 2026-10-11).
+  WeaponPlatform platform = WeaponPlatform.firearm;
 
   /// The rifle is typed in by the user (catalog rifle data proved
   /// unreliable). On save it is written as a personal record and the profile
@@ -1170,6 +1171,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return out;
   }
 
+  /// A plain reticle pattern that matches the scope's turret unit: MIL
+  /// patterns for a MRAD scope, the MOA pattern for MOA / SMOA; Duplex fits
+  /// both.
+  bool _genericFitsUnit(String n) {
+    if (n == Reticles.duplex) return true;
+    final moa = angularUnit.moaFamily;
+    return n == Reticles.hashMoa ? moa : !moa;
+  }
+
   /// Fills the scope form from a catalog record.
   void _applyScope(ScopeOptic s, {String? reticle}) {
     final series = ScopePickerScreen.seriesOf(_scopeModelOf(s));
@@ -1513,7 +1523,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // (It used to be guessed from the pressure, but new PCP profiles carry
     // no pressure since 2026-10-09, so "no pressure" no longer means
     // firearm.)
-    platform = initialRifle?.platform ?? ammo?.platform ?? WeaponPlatform.pcp;
+    platform = p == null
+        ? WeaponPlatform.firearm
+        : initialRifle?.platform ?? ammo?.platform ?? WeaponPlatform.pcp;
     scope = p == null
         ? null
         : _allScopes.where((o) => o.id == p.scopeId).firstOrNull;
@@ -2225,11 +2237,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   List<FactoryAmmo> get _factoryHere {
     final cal = _parse(rifleCaliber);
     final c = _cartridge;
+    // No Kalibre yet: every factory round, as El dolumu lists every bullet
+    // (owner, 2026-10-11: Fabrika fişeği came up empty). Picking one fills
+    // the Kalibre.
     return [
       for (final a in FactoryAmmoLibrary.all)
         if (c != null
             ? a.cartridge == c
-            : cal != null && (a.diameterMm - cal).abs() < 0.02)
+            : cal == null || (a.diameterMm - cal).abs() < 0.02)
           a,
     ];
   }
@@ -2240,8 +2255,27 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   /// Fills the ammunition (and the velocity) from a factory cartridge.
+  /// The manufacturer note of the listed factory round now in the form
+  /// (e.g. "BC G1/G7 etiketi olmadan verilmiş; G1 kabul edildi…"), added to
+  /// the BC ⓘ (owner, 2026-10-11: "bilgi notu olacak").
+  String get _factoryBcNote {
+    for (final a in _factoryHere) {
+      if (a.note != null &&
+          a.brand == ammoBrand.text &&
+          a.name == ammoModel.text) {
+        return '\n\nBu fişek: ${a.note}';
+      }
+    }
+    return '';
+  }
+
   void _applyFactory(FactoryAmmo a) {
     String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
+    // Kalibre not chosen yet: the round tells it.
+    if (_cartridge == null && rifleCaliber.text.trim().isEmpty) {
+      _cartridge = a.cartridge;
+      rifleCaliber.text = _trimDot(a.diameterMm);
+    }
     _ammoManual = false;
     ammoBrand.text = a.brand;
     ammoModel.text = a.name;
@@ -2661,7 +2695,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   info: ProfileFieldInfo.twistRate,
                   controller: rifleTwist,
                   label: 'Yiv oranı',
-                  hintText: '16',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_twistError, rifleTwist),
                 ),
@@ -2901,8 +2934,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                                 value: scopeReticle,
                                 child: Text(scopeReticle!),
                               ),
+                            // The manufacturer names no reticle: only the
+                            // plain patterns of the scope's unit (owner,
+                            // 2026-10-11: a MRAD scope listed MOA too).
                             for (final n in Reticles.genericNames)
-                              DropdownMenuItem(value: n, child: Text(n)),
+                              if (_genericFitsUnit(n) || n == scopeReticle)
+                                DropdownMenuItem(value: n, child: Text(n)),
                           ],
                           onChanged: (v) => setState(() => scopeReticle = v),
                         );
@@ -3039,25 +3076,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   label: 'Ağırlık',
                   // An example of how to write it; gone once the box is
                   // tapped (owner, 2026-10-09).
-                  hintText: _grainFocus.hasFocus
-                      ? null
-                      : platform == WeaponPlatform.firearm
-                      ? '168 gr'
-                      : '25.39 gr',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_grainError, ammoGrain),
                 ),
                 if (!_customCurve)
                   MenzilInput(
                     key: const Key('ammo-bc'),
-                    info: platform == WeaponPlatform.firearm
-                        ? ProfileFieldInfo.bcFirearm
-                        : ProfileFieldInfo.bc,
+                    info:
+                        (platform == WeaponPlatform.firearm
+                            ? ProfileFieldInfo.bcFirearm
+                            : ProfileFieldInfo.bc) +
+                        _factoryBcNote,
                     controller: ammoBc,
                     label: 'BC',
-                    hintText: platform == WeaponPlatform.firearm
-                        ? '0,45'
-                        : '0,035',
                     onChanged: (_) => setState(() {}),
                     errorText: _shown(_bcError, ammoBc),
                   ),
@@ -3127,13 +3158,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       info: ProfileFieldInfo.bandSpeed,
                       controller: ammoBandFps[i],
                       label: '${i + 1}. eşik hızı',
-                      hintText: i == 0
-                          ? (platform == WeaponPlatform.firearm
-                                ? '2200'
-                                : '800')
-                          : (platform == WeaponPlatform.firearm
-                                ? '1800'
-                                : '700'),
                       onChanged: (_) => setState(() {}),
                       errorText: _shown(_bandFpsError(i), ammoBandFps[i]),
                     ),
@@ -3142,9 +3166,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       info: ProfileFieldInfo.bandBc,
                       controller: ammoBandBc[i],
                       label: 'Eşik altı BC',
-                      hintText: platform == WeaponPlatform.firearm
-                          ? '0,42'
-                          : '0,031',
                       onChanged: (_) => setState(() {}),
                       errorText: _shown(_bandBcError(i), ammoBandBc[i]),
                     ),

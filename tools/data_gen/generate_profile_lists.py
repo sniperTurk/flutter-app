@@ -270,10 +270,15 @@ for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
         for token in sorted({r['cartridge'], c}, key=len, reverse=True):
             name = name.replace(token, ' ')
         name = re.sub(r'\s+', ' ', name).strip(' -')
+        # Unlabelled maker BC taken as G1 by the owner's decision (2026-10-11).
+        note = None
+        if bcsrc == 'fişek' and model == 'g1' and 'G1 kabul edildi' in (r.get('notes') or ''):
+            note = ("Üretici BC'yi G1/G7 etiketi olmadan veriyor; G1 kabul edildi. "
+                    "BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz.")
         ammo.append(dict(brand=r['brand'], name=name, cartridge=c, dia=dia, grain=r['weight_gr'],
                          bc=bc, model=model, bcsrc=bcsrc, mv=r['muzzle_velocity_fps'],
                          barrel=r.get('test_barrel_in'), item=r.get('item_number'), src=r['source_url'],
-                         note=None))
+                         note=note))
 for r in json.load(open(HERE / 'mke/data/mke/ammo.json')):
     c = cartridge(r['cartridge'])
     notes = r.get('notes') or ''
