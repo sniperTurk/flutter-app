@@ -1,0 +1,25 @@
+{
+  "name": "V-Plex MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Crossfire II 3-9x50",
+    "Crossfire II 6-18x44 AO",
+    "Crossfire II 4-12x50 AO",
+    "Crossfire II 2-7x32 Rimfire",
+    "Crossfire II 2-7x32 Scout"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/crossfire-ii-3-9x50-v-plex-moa.html",
+  "notes": "Crossfire II 3-9x50 sayfası: Second Focal Plane, ayar 1/4 MOA. Metin yalnız: 'A popular all-purpose hunting reticle intended for a wide variety of hunting applications.' Duplex yapısı metinde belirtilmediği için family null bırakıldı; direk başlangıcı, merkez ve tüm ölçüler null. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı)."
+}
