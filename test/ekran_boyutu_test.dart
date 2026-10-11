@@ -8,8 +8,11 @@
 // `EKRAN_BULGU|<cihaz>|<ekran>|<hata>` lines and fail the test at the end.
 // Texts cut by maxLines/ellipsis are printed as `EKRAN_KESIK|...` notes (not
 // failures) so the report can list them. No golden files are used.
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
@@ -67,6 +70,13 @@ const _devices = [
   ),
 ];
 
+/// Findings of every test, de-duplicated across sizes, printed at the end as
+/// `Which: <kind>|<screen>|<text>|<sizes>`.
+final Map<String, Set<String>> _summary = {};
+
+/// When false the scan only reports (diagnostic runs).
+const _failOnLayout = false;
+
 const _tabs = ['Profil', 'Hava Durumu', 'Pro', 'Hedef', 'Araçlar'];
 
 const _tools = [
@@ -110,7 +120,22 @@ class _Collector {
         first.contains('constraints');
     final line = 'EKRAN_BULGU|$device|$screen|$first|$where';
     (isLayout ? layout : other).add(line);
+    _note(isLayout ? 'TASMA' : 'HATA', '$screen|$first|$where', device);
   }
+}
+
+void _note(String kind, String what, String device) {
+  final short = what.length > 220 ? '${what.substring(0, 220)}…' : what;
+  _summary.putIfAbsent('$kind|$short', () => <String>{}).add(device);
+}
+
+Future<void> _loadOswald() async {
+  final loader = FontLoader('Oswald');
+  for (final w in ['Light', 'Regular', 'Medium', 'SemiBold', 'Bold']) {
+    final bytes = File('assets/fonts/Oswald-$w.ttf').readAsBytesSync();
+    loader.addFont(Future.value(ByteData.sublistView(bytes)));
+  }
+  await loader.load();
 }
 
 void _scanCutTexts(WidgetTester tester, _Collector c) {
@@ -120,6 +145,7 @@ void _scanCutTexts(WidgetTester tester, _Collector c) {
       final text = ro.text.toPlainText().replaceAll('\n', ' ');
       if (text.trim().isEmpty) continue;
       c.cut.add('EKRAN_KESIK|${c.device}|${c.screen}|$text');
+      _note('KESIK', '${c.screen}|$text', c.device);
     }
   }
 }
@@ -164,6 +190,22 @@ Future<void> _popTop(WidgetTester tester) async {
 }
 
 void main() {
+  tearDownAll(() {
+    final keys = _summary.keys.toList()..sort();
+    for (final k in keys) {
+      // ignore: avoid_print
+      print('Which: $k|${_summary[k]!.join(', ')}');
+    }
+  });
+
+  group('Test yazı tipi', () => _scan('test yazı tipi'));
+  group('Oswald', () {
+    setUpAll(_loadOswald);
+    _scan('Oswald');
+  });
+}
+
+void _scan(String font) {
   for (final device in _devices) {
     for (final textScale in [1.0, if (device.logical.width < 390) 1.3]) {
       testWidgets('${device.name} @ yazı ${textScale}x: ekran taraması', (
@@ -180,7 +222,9 @@ void main() {
         addTearDown(tester.view.reset);
         addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
 
-        final c = _Collector('${device.name} yazı ${textScale}x');
+        final c = _Collector(
+          '${device.logical.width.toInt()}pt ${textScale}x $font',
+        );
         final previous = FlutterError.onError;
         FlutterError.onError = c.record;
         try {
@@ -259,7 +303,9 @@ void main() {
           // ignore: avoid_print
           print(line);
         }
-        expect(c.layout, isEmpty, reason: c.layout.join('\n'));
+        if (_failOnLayout) {
+          expect(c.layout, isEmpty, reason: c.layout.join('\n'));
+        }
       });
     }
   }
