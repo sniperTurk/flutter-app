@@ -1,0 +1,32 @@
+{
+  "name": "Dead-Hold BDC MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Viper HD 3-15x44",
+    "Viper HD 2-10x42",
+    "Crossfire II 4-12x50 AO",
+    "Crossfire II 3-9x40",
+    "Crossfire II 4-12x40 AO",
+    "Crossfire II 4-16x50 AO",
+    "Crossfire II 6-24x50 AO",
+    "Diamondback 3-9x40",
+    "Diamondback 4-12x40",
+    "Viper 3-9x40",
+    "Viper 3.5-10x50",
+    "Viper 4-12x40 PA"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/viper-hd-3-15x44-dead-holdr-bdc-moa-riflescope.html",
+  "notes": "Viper HD 3-15x44 sayfası: 'Illuminated Dead-Hold BDC (MOA)', Second Focal Plane, ayar 1/4 MOA. Metin: 'Customized hashmark design helps eliminate guesswork on holdover and windage corrections.' family=hash bu ifadeden çıkarım (BDC tipi). SFP; referans büyütme belirtilmemiş. Diğer modeller vortexoptics.com arama sonuçlarındaki Dead-Hold BDC ürün sayfalarından (Viper HD 2-10x42 ve Crossfire II 4-12x50 AO sayfaları aynı metni içeriyor; diğerleri yalnız başlıkta). Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). İşaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç/direk ve merkez nokta ölçüleri sayfa metninde yok -> null."
+}
