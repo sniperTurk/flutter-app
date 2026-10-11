@@ -96,7 +96,12 @@ void main() {
       final rho = Atmosphere.densityKgM3(_dryStandard);
       const v = 300.0, bc = 0.25;
       final expected =
-          0.5 * rho * 0.5 * (math.pi / 4) * v * v /
+          0.5 *
+          rho *
+          0.5 *
+          (math.pi / 4) *
+          v *
+          v /
           (bc * 0.45359237 / (0.0254 * 0.0254));
       expect(
         model.decelerationMps2(
@@ -170,7 +175,10 @@ void main() {
 
     test('G7 ses duvarında Cd sıçrar: Mach 0.9 → 1.05 arası artış', () {
       final g7 = StandardDragTables.g7;
-      expect(g7.coefficientAtMach(1.05), greaterThan(g7.coefficientAtMach(0.9)));
+      expect(
+        g7.coefficientAtMach(1.05),
+        greaterThan(g7.coefficientAtMach(0.9)),
+      );
       expect(g7.coefficientAtMach(0.5), closeTo(0.1194, 1e-12));
     });
   });
@@ -260,27 +268,26 @@ void main() {
       expect(two.probability, closeTo(_rayleigh(2, 1), 0.02));
     });
 
-    test('bağımsız kaynaklar karelerin toplamıyla birleşir (0.6² + 0.8² = 1²)',
-        () {
-      const sources = [
-        WezSource('rüzgâr', sigmaX: 0.6, sigmaY: 0.6),
-        WezSource('hız', sigmaX: 0.8, sigmaY: 0.8),
-      ];
-      final r = Wez.simulate(
-        sources: sources,
-        targetRadiusMrad: 1,
-        count: 4000,
-      );
-      expect(r.probability, closeTo(_rayleigh(1, 1), 0.03));
-      expect(r.dominant?.name, 'hız');
-    });
+    test(
+      'bağımsız kaynaklar karelerin toplamıyla birleşir (0.6² + 0.8² = 1²)',
+      () {
+        const sources = [
+          WezSource('rüzgâr', sigmaX: 0.6, sigmaY: 0.6),
+          WezSource('hız', sigmaX: 0.8, sigmaY: 0.8),
+        ];
+        final r = Wez.simulate(
+          sources: sources,
+          targetRadiusMrad: 1,
+          count: 4000,
+        );
+        expect(r.probability, closeTo(_rayleigh(1, 1), 0.03));
+        expect(r.dominant?.name, 'hız');
+      },
+    );
 
     test('hedef yarıçapı 0 ise isabet 0; aynı tohum aynı sonuç', () {
       const s = [WezSource('a', sigmaX: 0.5)];
-      expect(
-        Wez.simulate(sources: s, targetRadiusMrad: 0).probability,
-        0,
-      );
+      expect(Wez.simulate(sources: s, targetRadiusMrad: 0).probability, 0);
       final a = Wez.simulate(sources: s, targetRadiusMrad: 0.4, seed: 3);
       final b = Wez.simulate(sources: s, targetRadiusMrad: 0.4, seed: 3);
       expect(a.probability, b.probability);
@@ -385,20 +392,22 @@ void main() {
       );
     });
 
-    test('eğimli kaide: 20 MOA = 58 tık (0.1 mrad), 60 MOA = 240 tık (¼ MOA)',
-        () {
-      // 20 MOA = 20·π/10.8 = 5.818 mrad → 58 tam tık (aşağı yuvarlanır).
-      expect(
-        ScopeDialMath.mountCantClicks(20, 0.1, AngularUnit.mrad),
-        (20 * math.pi / 10.8 / 0.1).floor(),
-      );
-      expect(ScopeDialMath.mountCantClicks(60, 0.25, AngularUnit.moa), 240);
-      expect(ScopeDialMath.mountCantClicks(0, 0.1, AngularUnit.mrad), 0);
-      expect(
-        () => ScopeDialMath.mountCantClicks(-1, 0.1, AngularUnit.mrad),
-        throwsArgumentError,
-      );
-    });
+    test(
+      'eğimli kaide: 20 MOA = 58 tık (0.1 mrad), 60 MOA = 240 tık (¼ MOA)',
+      () {
+        // 20 MOA = 20·π/10.8 = 5.818 mrad → 58 tam tık (aşağı yuvarlanır).
+        expect(
+          ScopeDialMath.mountCantClicks(20, 0.1, AngularUnit.mrad),
+          (20 * math.pi / 10.8 / 0.1).floor(),
+        );
+        expect(ScopeDialMath.mountCantClicks(60, 0.25, AngularUnit.moa), 240);
+        expect(ScopeDialMath.mountCantClicks(0, 0.1, AngularUnit.mrad), 0);
+        expect(
+          () => ScopeDialMath.mountCantClicks(-1, 0.1, AngularUnit.mrad),
+          throwsArgumentError,
+        );
+      },
+    );
 
     test('açı ↔ boyut gidiş-dönüş; 10 cm @ 50 m = 2 mrad', () {
       expect(
@@ -407,10 +416,7 @@ void main() {
       );
       for (final unit in AngularUnit.values) {
         final size = ScopeDialMath.linearAtRange(3, 400, unit);
-        expect(
-          ScopeDialMath.angleAtRange(size, 400, unit),
-          closeTo(3, 1e-9),
-        );
+        expect(ScopeDialMath.angleAtRange(size, 400, unit), closeTo(3, 1e-9));
       }
       expect(
         () => ScopeDialMath.angleAtRange(0.1, 0, AngularUnit.mrad),
@@ -522,7 +528,11 @@ void main() {
     });
 
     test('ters tutuşta ±90° ötesi; zayıf vektör null', () {
-      final v = GravityVector(0, -g * math.cos(rad(30)), -g * math.sin(rad(30)));
+      final v = GravityVector(
+        0,
+        -g * math.cos(rad(30)),
+        -g * math.sin(rad(30)),
+      );
       expect(ShotAngleMath.inclineDeg(v), closeTo(150, 1e-9));
       expect(ShotAngleMath.inclineDeg(const GravityVector(0, 1, 1)), isNull);
       expect(ShotAngleMath.cantDeg(const GravityVector(0, 0, g)), isNull);
@@ -567,8 +577,10 @@ void main() {
       )!;
       expect(flat.xDeg, closeTo(3, 1e-9));
       expect(flat.yDeg, closeTo(0, 1e-12));
-      expect(TiltMath.angles(const GravityVector(0, 0, 1), TiltMode.flat),
-          isNull);
+      expect(
+        TiltMath.angles(const GravityVector(0, 0, 1), TiltMode.flat),
+        isNull,
+      );
     });
   });
 }

@@ -86,57 +86,67 @@ void main() {
         expect(p.dropM, closeTo(-y, 1e-9), reason: '$r m düşüş');
         expect(p.timeOfFlightS, closeTo(r / (v * cos), 1e-12));
         expect(p.correctionMrad, closeTo(math.atan2(-y, r) * 1000, 1e-9));
-        expect(p.correctionMoa, closeTo(Units.mradToMoa(p.correctionMrad),
-            1e-12));
+        expect(
+          p.correctionMoa,
+          closeTo(Units.mradToMoa(p.correctionMrad), 1e-12),
+        );
       }
       expect(points[1].dropM.abs(), lessThan(1e-9));
     });
 
     test('namlu ağzına çok yakın mesafede düşüş ≈ nişan yüksekliği', () {
-      final p = engine.vacuumDope(
-        muzzleVelocityMps: 280,
-        grain: 18,
-        zeroRangeM: 30,
-        sightHeightMm: 50,
-        rangesM: const [0.001],
-      ).single;
+      final p = engine
+          .vacuumDope(
+            muzzleVelocityMps: 280,
+            grain: 18,
+            zeroRangeM: 30,
+            sightHeightMm: 50,
+            rangesM: const [0.001],
+          )
+          .single;
       expect(p.dropM, closeTo(0.05, 1e-4));
     });
 
     test('vakumda hız sabit, enerji ½·m·v² (7000 gr = 0.45359237 kg)', () {
-      final p = engine.vacuumDope(
-        muzzleVelocityMps: 300,
-        grain: 7000,
-        zeroRangeM: 50,
-        sightHeightMm: 40,
-        rangesM: const [200],
-      ).single;
+      final p = engine
+          .vacuumDope(
+            muzzleVelocityMps: 300,
+            grain: 7000,
+            zeroRangeM: 50,
+            sightHeightMm: 40,
+            rangesM: const [200],
+          )
+          .single;
       expect(p.velocityMps, 300);
       expect(p.energyJ, closeTo(0.5 * 0.45359237 * 300 * 300, 1e-6));
     });
 
     test('vakumda rüzgâr sapma üretmez', () {
-      final p = engine.vacuumDope(
-        muzzleVelocityMps: 300,
-        grain: 18,
-        zeroRangeM: 50,
-        sightHeightMm: 40,
-        rangesM: const [100],
-        environment: _wind(10, 90),
-      ).single;
+      final p = engine
+          .vacuumDope(
+            muzzleVelocityMps: 300,
+            grain: 18,
+            zeroRangeM: 50,
+            sightHeightMm: 40,
+            rangesM: const [100],
+            environment: _wind(10, 90),
+          )
+          .single;
       expect(p.windMrad, 0);
     });
 
     test('dürbün eğimi φ: yana sapma ½·g·sinφ·t²', () {
       const v = 300.0, phi = 10.0;
-      final p = engine.vacuumDope(
-        muzzleVelocityMps: v,
-        grain: 18,
-        zeroRangeM: 100,
-        sightHeightMm: 0,
-        rangesM: const [200],
-        cantDeg: phi,
-      ).single;
+      final p = engine
+          .vacuumDope(
+            muzzleVelocityMps: v,
+            grain: 18,
+            zeroRangeM: 100,
+            sightHeightMm: 0,
+            rangesM: const [200],
+            cantDeg: phi,
+          )
+          .single;
       final alpha = 0.5 * math.asin(_g * 100 / (v * v));
       final t = 200 / (v * math.cos(alpha));
       final z = 0.5 * _g * math.sin(phi * math.pi / 180) * t * t;
@@ -233,17 +243,19 @@ void main() {
       }
     });
 
-    test('soldan ve sağdan eşit rüzgâr: eşit büyüklük, zıt yön, aynı düşüş',
-        () {
-      final left = _solve(_rifle(environment: _wind(5, 90)));
-      final right = _solve(_rifle(environment: _wind(5, 270)));
-      for (var i = 0; i < left.length; i++) {
-        expect(left[i].windMrad, closeTo(-right[i].windMrad, 1e-9));
-        expect(left[i].dropM, closeTo(right[i].dropM, 1e-9));
-      }
-      // Soldan esen rüzgâr mermiyi sağa iter → sola düzeltme (negatif).
-      expect(left.last.windMrad, lessThan(0));
-    });
+    test(
+      'soldan ve sağdan eşit rüzgâr: eşit büyüklük, zıt yön, aynı düşüş',
+      () {
+        final left = _solve(_rifle(environment: _wind(5, 90)));
+        final right = _solve(_rifle(environment: _wind(5, 270)));
+        for (var i = 0; i < left.length; i++) {
+          expect(left[i].windMrad, closeTo(-right[i].windMrad, 1e-9));
+          expect(left[i].dropM, closeTo(right[i].dropM, 1e-9));
+        }
+        // Soldan esen rüzgâr mermiyi sağa iter → sola düzeltme (negatif).
+        expect(left.last.windMrad, lessThan(0));
+      },
+    );
 
     test('karşıdan rüzgâr arkadan rüzgârdan daha çok düşürür', () {
       final head = _solve(_rifle(environment: _wind(8, 0))).last;
@@ -260,8 +272,10 @@ void main() {
       final m = Units.grainToKg(175);
       for (var i = 0; i < points.length; i++) {
         final p = points[i];
-        expect(p.energyJ, closeTo(0.5 * m * p.velocityMps * p.velocityMps,
-            1e-9));
+        expect(
+          p.energyJ,
+          closeTo(0.5 * m * p.velocityMps * p.velocityMps, 1e-9),
+        );
         if (i > 0) {
           expect(p.velocityMps, lessThan(points[i - 1].velocityMps));
           expect(p.timeOfFlightS, greaterThan(points[i - 1].timeOfFlightS));
@@ -270,24 +284,26 @@ void main() {
       }
     });
 
-    test('ses üstünden ses altına geçiş: hız monoton, Mach 1 bir kez geçilir',
-        () {
-      final ranges = [for (var r = 100.0; r <= 1500; r += 100) r];
-      final points = _solve(_rifle(ranges: ranges, bc: 0.15));
-      final c = Atmosphere.speedOfSoundMps(_standard);
-      expect(points.first.velocityMps, greaterThan(c));
-      expect(points.last.velocityMps, lessThan(c));
-      var crossings = 0;
-      for (var i = 1; i < points.length; i++) {
-        expect(points[i].velocityMps, lessThan(points[i - 1].velocityMps));
-        if ((points[i - 1].velocityMps - c).sign !=
-            (points[i].velocityMps - c).sign) {
-          crossings++;
+    test(
+      'ses üstünden ses altına geçiş: hız monoton, Mach 1 bir kez geçilir',
+      () {
+        final ranges = [for (var r = 100.0; r <= 1500; r += 100) r];
+        final points = _solve(_rifle(ranges: ranges, bc: 0.15));
+        final c = Atmosphere.speedOfSoundMps(_standard);
+        expect(points.first.velocityMps, greaterThan(c));
+        expect(points.last.velocityMps, lessThan(c));
+        var crossings = 0;
+        for (var i = 1; i < points.length; i++) {
+          expect(points[i].velocityMps, lessThan(points[i - 1].velocityMps));
+          if ((points[i - 1].velocityMps - c).sign !=
+              (points[i].velocityMps - c).sign) {
+            crossings++;
+          }
+          expect(points[i].velocityMps.isFinite, isTrue);
         }
-        expect(points[i].velocityMps.isFinite, isTrue);
-      }
-      expect(crossings, 1);
-    });
+        expect(crossings, 1);
+      },
+    );
 
     test('yüksek BC: daha az düşüş, daha çok kalan hız', () {
       final low = _solve(_rifle(bc: 0.2)).last;
@@ -314,9 +330,7 @@ void main() {
     test('yokuş yukarı ve aşağı (±30°): düz atıştan daha az yükseltme', () {
       final level = _solve(_rifle(ranges: const [600])).single;
       final up = _solve(_rifle(ranges: const [600], inclineDeg: 30)).single;
-      final down = _solve(
-        _rifle(ranges: const [600], inclineDeg: -30),
-      ).single;
+      final down = _solve(_rifle(ranges: const [600], inclineDeg: -30)).single;
       expect(up.correctionMrad, lessThan(level.correctionMrad));
       expect(down.correctionMrad, lessThan(level.correctionMrad));
     });
@@ -354,8 +368,7 @@ void main() {
   group('Coriolis — Dünya dönüşü', () {
     const omega = 7.2921159e-5;
 
-    test('kuzey yarıkürede sağa, güneyde sola; büyüklük fiziksel sınırlarda',
-        () {
+    test('kuzey yarıkürede sağa, güneyde sola; büyüklük fiziksel sınırlarda', () {
       const x = 1000.0, v0 = 850.0;
       final north = _solve(
         _rifle(ranges: const [x], latitudeDeg: 45, azimuthDeg: 0),
@@ -477,10 +490,7 @@ void main() {
       final scaled = input.withMuzzleVelocity(410);
       expect(scaled.muzzleVelocityMps, 410);
       expect(scaled.zeroVelocityMps, closeTo(400, 1e-12));
-      expect(
-        _rifle().withMuzzleVelocity(700).zeroMuzzleVelocityMps,
-        isNull,
-      );
+      expect(_rifle().withMuzzleVelocity(700).zeroMuzzleVelocityMps, isNull);
     });
   });
 
@@ -562,18 +572,15 @@ void main() {
             base(zones: const WindZones(rangeM: 500, midMps: 1, farMps: -1)),
         'eğim 180.1°': () => base(incline: 180.1),
         'cant −180.1°': () => base(cant: -180.1),
-        'sıcaklık 61 °C': () => base(
-          environment: const EnvironmentData(temperatureC: 61),
-        ),
-        'basınç 299 hPa': () => base(
-          environment: const EnvironmentData(pressureHpa: 299),
-        ),
+        'sıcaklık 61 °C': () =>
+            base(environment: const EnvironmentData(temperatureC: 61)),
+        'basınç 299 hPa': () =>
+            base(environment: const EnvironmentData(pressureHpa: 299)),
         'rüzgâr 60 m/s': () => base(environment: _wind(60, 90)),
         'rüzgâr yönü 360.1°': () => base(environment: _wind(1, 360.1)),
         'sıfır ortamı rüzgâr 60': () => base(zeroEnvironment: _wind(60, 90)),
-        'sıfır ortamı nem 101': () => base(
-          zeroEnvironment: const EnvironmentData(humidityPercent: 101),
-        ),
+        'sıfır ortamı nem 101': () =>
+            base(zeroEnvironment: const EnvironmentData(humidityPercent: 101)),
         'sıfır ortamı yön −1': () => base(zeroEnvironment: _wind(1, -1)),
       };
       for (final entry in cases.entries) {
@@ -585,8 +592,9 @@ void main() {
       final input = _rifle(ranges: const [100]);
       for (final dt in [0.0, -0.001, 0.0101, double.nan, double.infinity]) {
         expect(
-          () => AerodynamicTrajectorySolver(integrationStepSeconds: dt)
-              .solve(input),
+          () => AerodynamicTrajectorySolver(
+            integrationStepSeconds: dt,
+          ).solve(input),
           throwsArgumentError,
           reason: 'dt = $dt',
         );

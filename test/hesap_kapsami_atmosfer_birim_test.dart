@@ -28,10 +28,7 @@ void main() {
     test('ICAO standardı: ρ = p/(R·T) ve c = √(γ·R·T)', () {
       final env = _dry(15, 1013.25);
       const tK = 288.15;
-      expect(
-        Atmosphere.densityKgM3(env),
-        closeTo(101325 / (_rDry * tK), 1e-9),
-      );
+      expect(Atmosphere.densityKgM3(env), closeTo(101325 / (_rDry * tK), 1e-9));
       expect(
         Atmosphere.speedOfSoundMps(env),
         closeTo(math.sqrt(1.4 * _rDry * tK), 1e-9),
@@ -46,10 +43,7 @@ void main() {
 
     test('yoğunluk basınçla doğru, mutlak sıcaklıkla ters orantılı', () {
       final base = Atmosphere.densityKgM3(_dry(15, 1000));
-      expect(
-        Atmosphere.densityKgM3(_dry(15, 500)),
-        closeTo(base / 2, 1e-12),
-      );
+      expect(Atmosphere.densityKgM3(_dry(15, 500)), closeTo(base / 2, 1e-12));
       // 15 °C → 303.15 K: T oranı 288.15/303.15.
       expect(
         Atmosphere.densityKgM3(_dry(30, 1000)),
@@ -61,31 +55,33 @@ void main() {
       );
     });
 
-    test('aşırı uçlar (−60 °C / 300 hPa, 60 °C / 1100 hPa) sonlu ve fiziksel',
-        () {
-      for (final env in [
-        const EnvironmentData(
-          temperatureC: -60,
-          pressureHpa: 300,
-          humidityPercent: 100,
-        ),
-        const EnvironmentData(
-          temperatureC: 60,
-          pressureHpa: 1100,
-          humidityPercent: 100,
-        ),
-      ]) {
-        final rho = Atmosphere.densityKgM3(env);
-        final c = Atmosphere.speedOfSoundMps(env);
-        expect(rho.isFinite && rho > 0, isTrue);
-        expect(c.isFinite && c > 250 && c < 420, isTrue);
-      }
-      // Sıcak havada ses daha hızlıdır.
-      expect(
-        Atmosphere.speedOfSoundMps(_dry(60, 1013.25)),
-        greaterThan(Atmosphere.speedOfSoundMps(_dry(-60, 1013.25))),
-      );
-    });
+    test(
+      'aşırı uçlar (−60 °C / 300 hPa, 60 °C / 1100 hPa) sonlu ve fiziksel',
+      () {
+        for (final env in [
+          const EnvironmentData(
+            temperatureC: -60,
+            pressureHpa: 300,
+            humidityPercent: 100,
+          ),
+          const EnvironmentData(
+            temperatureC: 60,
+            pressureHpa: 1100,
+            humidityPercent: 100,
+          ),
+        ]) {
+          final rho = Atmosphere.densityKgM3(env);
+          final c = Atmosphere.speedOfSoundMps(env);
+          expect(rho.isFinite && rho > 0, isTrue);
+          expect(c.isFinite && c > 250 && c < 420, isTrue);
+        }
+        // Sıcak havada ses daha hızlıdır.
+        expect(
+          Atmosphere.speedOfSoundMps(_dry(60, 1013.25)),
+          greaterThan(Atmosphere.speedOfSoundMps(_dry(-60, 1013.25))),
+        );
+      },
+    );
 
     test('Magnus doyma basıncı: 0 °C’de 6.112 hPa, sıcaklıkla artar', () {
       expect(Atmosphere.saturationVaporPressureHpa(0), closeTo(6.112, 1e-12));
@@ -152,10 +148,7 @@ void main() {
     test('Mach = v / c; 0 m/s Mach 0, ses hızında Mach 1', () {
       final env = _dry(15, 1013.25);
       final c = Atmosphere.speedOfSoundMps(env);
-      expect(
-        Atmosphere.machNumber(velocityMps: 0, environment: env),
-        0,
-      );
+      expect(Atmosphere.machNumber(velocityMps: 0, environment: env), 0);
       expect(
         Atmosphere.machNumber(velocityMps: c, environment: env),
         closeTo(1, 1e-12),
@@ -180,17 +173,19 @@ void main() {
       }
     });
 
-    test('serbest hava düzeltmesi ≈ 0.3086 mGal/m (1000 m’de ≈ 3.08 mm/s²)',
-        () {
-      final sea = Gravity.at(latitudeDeg: 45);
-      final high = Gravity.at(latitudeDeg: 45, altitudeM: 1000);
-      expect(sea - high, closeTo(3.086e-3, 2e-5));
-      // Türkiye bandı 36–42° K: 9.79–9.81 m/s².
-      for (final lat in [36.0, 39.0, 42.0]) {
-        final g = Gravity.at(latitudeDeg: lat);
-        expect(g, inInclusiveRange(9.79, 9.81));
-      }
-    });
+    test(
+      'serbest hava düzeltmesi ≈ 0.3086 mGal/m (1000 m’de ≈ 3.08 mm/s²)',
+      () {
+        final sea = Gravity.at(latitudeDeg: 45);
+        final high = Gravity.at(latitudeDeg: 45, altitudeM: 1000);
+        expect(sea - high, closeTo(3.086e-3, 2e-5));
+        // Türkiye bandı 36–42° K: 9.79–9.81 m/s².
+        for (final lat in [36.0, 39.0, 42.0]) {
+          final g = Gravity.at(latitudeDeg: lat);
+          expect(g, inInclusiveRange(9.79, 9.81));
+        }
+      },
+    );
   });
 
   group('Birim dönüşümleri — tanımlar ve gidiş-dönüş', () {
@@ -258,10 +253,7 @@ void main() {
       // 1 mil/saat = 1609.344 m / 3600 s.
       expect(UnitSystem.mphToMps(1), closeTo(1609.344 / 3600, 1e-12));
       // 1 knot = 1852 m / 3600 s; 1 km/sa = 1/3.6 m/s.
-      expect(
-        UnitSystem.metersPerSecondPerKnot,
-        closeTo(1852 / 3600, 1e-12),
-      );
+      expect(UnitSystem.metersPerSecondPerKnot, closeTo(1852 / 3600, 1e-12));
       expect(UnitSystem.mpsToKmh(10), closeTo(36, 1e-12));
       // 1 ft·lbf = 0.3048 m × 4.4482216152605 N.
       expect(
@@ -434,8 +426,10 @@ void main() {
 
     test('tam sınır (3000 m) ve özel üst sınır', () {
       expect(DopeRanges.parse('3000'), [3000]);
-      expect(() => DopeRanges.parse('600', maxRangeM: 500),
-          throwsFormatException);
+      expect(
+        () => DopeRanges.parse('600', maxRangeM: 500),
+        throwsFormatException,
+      );
     });
   });
 }
