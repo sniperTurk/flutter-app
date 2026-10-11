@@ -1,19 +1,27 @@
 {
   "name": "VPR MOA",
   "brand": "Arken Optics",
-  "scopes": ["EPL-4 6-24x50 FFP", "EP-5 GENII 5-25x56 FFP"],
+  "scopes": [
+    "EP-5 GENII 5-25x56 FFP",
+    "EP-5 GENII 7-35x56 FFP",
+    "EPL-4 6-24x50 FFP",
+    "EPL-4 4-16x44 FFP",
+    "SH-4 GENII 4-16x50 FFP",
+    "SH-4J GENII 6-24x50 FFP",
+    "LH-4 4-16x44 FFP"
+  ],
   "unit": "moa",
   "family": "tree",
   "hash_step": 1.0,
   "major_every": null,
-  "numbers_every": null,
-  "extent_h": null,
+  "numbers_every": 8,
+  "extent_h": 24,
   "extent_v_up": null,
   "extent_v_down": 40,
   "tree": null,
   "posts_start": null,
   "center_dot": true,
   "floating_center": true,
-  "source_url": "https://www.arkenopticsusa.com/products/epl-4-6-24x50-ffp-illuminated-vhr-vpr-zero-stop-30mm-tube",
-  "notes": "Arken Optics USA EPL-4 6-24x50 sayfası metni (FFP): '12 MIL (40 MOA) holdover grid', '0.25 MIL (1 MOA) subtensions', '0.04-0.08 MIL (0.14-0.28 MOA) floating center dot'. MOA değerleri sayfada parantez içi karşılık olarak verilmiş. extent_v_down=40, 40 MOA tutma ızgarasının merkez altına uzandığı varsayımıyla. Izgara satırları, rakamlar ve yatay uzanım metinde yok -> null."
+  "source_url": "https://cdn.shopify.com/s/files/1/0833/4222/9823/files/UM_EP5_GENII5-25x56.pdf?v=1782452474",
+  "notes": "FFP. Kaynak: Arken EP-5 GENII 5-25x56 kullanım kılavuzu PDF'i (s.10 'VPR Reticle Subtensions', MOA) metin katmanı; EPL-4 6-24x50 ürün sayfası (arkenopticsusa.com/products/epl-4-6-24x50-ffp-illuminated-vhr-vpr-zero-stop-30mm-tube): '12 MIL (40 MOA) holdover grid', '0.25 MIL (1 MOA) subtensions', '0.04-0.08 MIL (0.14-0.28 MOA) floating center dot'. Föy rakamları: yatayda her iki yana 8-16-24, dikeyde 8-16-24-32-40 -> numbers_every=8; extent_v_down=40 (en alt rakam 40). extent_h=24 ÇIKARIM: yatay en dış rakam 24; çizginin daha öteye uzanıp uzanmadığı görsel okunamadığı için doğrulanamadı. Föydeki etiketler (Φ0.14, Φ0.28 nokta çapları; 1.0, 0.1, 1.0, 1.0, 2.0, 1.0, 0.6, 0.6, 4.0, 2.0, 0.6, 0.4, 1, 1.0 MOA) görselsiz eşlenemedi; 0.1 büyük olasılıkla çizgi kalınlığı ama doğrulanmadı. major_every ve tree null. EP-5 GENII 7-35x56 kılavuzu aynı rakam dizisini veriyor. Diğer kapsamlar ürün sayfalarındaki 'MOA/VPR' seçeneğinden; aynı retikül olduğu ad üzerinden varsayıldı."
 }

@@ -1,0 +1,21 @@
+{
+  "name": "Illum. Impact-23 MOA",
+  "brand": "Leupold",
+  "scopes": [
+    "VX-6HD 4-24x52 CDS-TZL3 Side Focus (üretimden kalktı)"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": 4,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 23,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/media/binaryanvil/reticle/Illum._Impact-23_MOA.pdf",
+  "notes": "Leupold retikül sayfası https://www.leupold.com/reticle/impact-23-moa-illum/ ve föy. SFP ('Intended to be used on highest magnification in rear (second) focal plane scope'); kırmızı aydınlatmalı. Metin: 'grid style pattern' / '1 MOA hash marks' (yatay ve dikey), 'Every fourth line is numbered with the MOA value', 'Vertical grid extends down to 23 MOA', 'Wind hold dots are spaced 2 MOA apart'.  family=tree, ızgara + rüzgâr noktalarından çıkarım. Yukarı/yatay uzanım, nokta satırları, direk, merkez tipi metinde yok -> null. Föy PDF metin çıkarımı çizim yerleşimini kaybettiğinden etiketsiz değerler bir öğeye eşlenemedi."
+}

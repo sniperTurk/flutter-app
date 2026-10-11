@@ -1,0 +1,21 @@
+{
+  "name": "MOAK+ (K864)",
+  "brand": "Kahles",
+  "scopes": [
+    "K864"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/MOAK+_K864.pdf",
+  "notes": "Kahles retikül föyü 'MOAK+ / K864' (52020113908-100, 21.01.2026). SFP: K864 sayfası 'Focal plane: 2.'. Tablo 40x: A=1 MOA, B=0,5, C=0,09, D=0,035, E=0,5, F=0,25, G=2 MOA (8x ve 64x sütunları ayrıca var). çıkarım: nominal büyütme 40x. A–G eşlemesi yalnız çizimde -> geometri null."
+}

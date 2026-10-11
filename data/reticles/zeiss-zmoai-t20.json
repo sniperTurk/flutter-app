@@ -1,0 +1,19 @@
+{
+  "name": "ZMOAi-T20",
+  "brand": "Zeiss",
+  "scopes": ["Conquest V4 6-24x50"],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": 10,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 20,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": true,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-zmoai-t20.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-zmoai-t20.pdf",
+  "notes": "Zeiss ZMOAi-T20 (Absehen #65) föyü, 10/2021, yalnız merkez aydınlatmalı, SFP. Metin: 24x'te 0.06 MOA çizgi; MOA işaretleri ve noktaları referans büyütmede 1 MOA aralıklı; 20 MOA mermi düşüşünü kapsar (extent_v_down=20, merkez altı olarak yorumlandı); yan çizgiler ve tutma noktaları rüzgâr için. 24x sütununda J nokta aralığı 2.0, O 32 MOA. Tablo etiketleri: A çizgi kalınlığı, B..F/K..P 'Distance' (görselsiz eşlenemedi), G standart rakam yüksekliği, H '10, 20' rakam yüksekliği, I nokta çapı, J nokta aralığı, Q merkez artı çevresi boşluk. ÇIKARIM: numbers_every=10 'H: 10, 20 Number Height' etiketinden; floating_center=true 'Spacing Around Center Cross' (Q) ölçüsünden (merkez artının çevresinde boşluk). family='tree' metindeki yan rüzgâr çizgileri ve tutma noktalarından; satır yapısı verilmediği için tree null. Merkez noktası ve yatay uzanım yok -> null."
+}

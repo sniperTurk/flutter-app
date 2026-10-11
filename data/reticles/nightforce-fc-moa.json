@@ -1,0 +1,19 @@
+{
+  "name": "FC-MOA",
+  "brand": "Nightforce",
+  "scopes": ["NX8 1-8x24 F1"],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://cdn.nightforceoptics.com/content/files/downloads/NFO_FC-MIL-MOA_20171206-Comm_v7.pdf",
+  "notes": "Nightforce FC-MIL/FC-MOA föyü ve ürün sayfası (nightforceoptics.com/reticles/fc-moa): FFP; 'the clean 1 Minute of Angle (MOA) markings of the FC-MOA' (hash_step 1); '1.25 MOA center dot and segmented circle'; 3, 6 ve 9 yönünde kalın sivri çizgiler (başlangıç yok). Harfler (A 1.25, B 8, C 40, D 2, E 3, F 8, G 1, H 2, I 1, J 5, K 0.25 MOA) eşlenmemiş -> uzanımlar null."
+}

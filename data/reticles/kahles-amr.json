@@ -1,0 +1,22 @@
+{
+  "name": "AMR",
+  "brand": "Kahles",
+  "scopes": [
+    "K525i",
+    "K624i"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": 1,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": true,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/AMR_K525i.pdf",
+  "notes": "Kahles AMR belgesi: 'The basic pattern of the AMR is based on 1 Mil squares, with 0.2 Mil dots'; sayılar 'horizontal and vertical position in 1 Mil steps' (numbers_every=1); 'For the K 525i version we have moved the center of the reticle 2 Mils up from the optical center'; merkez küçük haç içinde 'a hole inside with a diameter of 0,06 mils' (floating_center=true); sağ üst çeyrekte 400–800 m için 5 yatay çizgi (her biri o mesafede 0,5 m); 'only the center of the AMR is illuminated'. family=tree belgedeki 'Xmas tree pattern' ifadesinden. 0.2 Mil nokta boyutudur, aralık değil -> hash_step null; çıkarım (alana yazılmadı): nokta aralığı 1 mil. 'RETICLE DIMENSIONS' sayfası çizim, metinden okunamadı -> tree satırları ve uzanımlar null. center_dot belirtilmemiş -> null. FFP (Kahles K525i haber sayfası). Güncel servis sayfasında AMR listelenmiyor."
+}

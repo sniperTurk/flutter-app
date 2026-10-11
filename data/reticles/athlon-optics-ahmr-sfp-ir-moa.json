@@ -1,0 +1,22 @@
+{
+  "name": "AHMR SFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Midas BTR GEN2 HD",
+    "Midas HMR HD"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": 10,
+  "extent_v_down": 30,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-AHMR-SFP-IR-MOA-Reticle-Manual-Midas-HMR.pdf",
+  "notes": "SFP. Referans büyütme: Midas HMR föyü '15x for 2.5-15x50', Midas BTR GEN2 föyü (https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-AHMR-SFP-IR-MOA-Reticle-Manual-Midas-BTR-GEN2.pdf) '15x for 4.5-27x50'. Föy metninden: 'illuminated 20-moa-span center with a 2 moa center cross and 2 moa increment hash marks extended to 10 moa at each direction'; 'elevation holdovers all the way up to 30 moa with 2 moa increment'. extent_h/extent_v_up=10; extent_v_down=30 tutma cümlesinden çıkarım ('10 moa at each direction' aydınlatmalı bölümü kastediyor olabilir). Merkezde nokta değil artı -> center_dot null. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

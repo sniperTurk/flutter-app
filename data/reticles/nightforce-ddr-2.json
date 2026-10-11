@@ -1,0 +1,19 @@
+{
+  "name": "DDR-2",
+  "brand": "Nightforce",
+  "scopes": ["Competition 15-55x52"],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.nightforceoptics.com/reticles/ddr-2",
+  "notes": "Nightforce ürün sayfası ve Competition föyü (content/files/downloads/NFO_Competition_ReticleSheet_0819.pdf): ikinci odak düzlemi, 40x'te, aydınlatmasız; 'double dot reticle', 'floating 0.095 MOA center dot', 'Elevation hold points at 1, 2, 2.5, and 3 MOA' (merkezin altında olduğu metinde açıkça yazmıyor -> tree/extent null). Şema bu deseni temsil etmediği için family null. Harfler (A 28, B 12.9, C 0.016, D 3.0, E 0.095, F 0.5, G 0.5, H 1.0, I 2.0, J 2.5, K 1.5, L 0.172, M 0.5 MOA) eşlenmemiş."
+}

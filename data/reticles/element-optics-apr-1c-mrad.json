@@ -22,7 +22,7 @@
   "tree": null,
   "posts_start": null,
   "center_dot": true,
-  "floating_center": false,
+  "floating_center": null,
   "source_url": "https://element-optics.com/wp-content/uploads/2025/05/RETICLE-SHEET-APR-1C-MRAD-HELIX-G2-6-24-FFP.pdf",
-  "notes": "Helix Gen 2 6-24 FFP föyü (FFP). Föy metninde: merkez nokta, 0.5 ve 1 MRAD çizgileri, ayrıca eksenlerde 1/10 MIL ölçek (bir bölüm = bir klik), çizgi kalınlığı 0.036 MRAD, dikey eksende rakamlı tutma işaretleri, sol/sağ/altta incelen kalın barlar. Rakam aralığı, uzanımlar ve barların başladığı mesafe föy görselindeydi, görsel okunamadı -> null. floating_center föyde belirtilmemiş (etiket yalnızca 'Center Dot'), false varsayıldı. Diğer modellerde (SFP sürümler dahil) aynı ad kullanılıyor; SFP sürümlerde ölçüler referans büyütmeye bağlıdır."
+  "notes": "Helix Gen 2 6-24 FFP föyü (FFP). Föy metni: merkez nokta (A, 'fine centre dot', boyut yok), eksenlerde 1/10 MIL ölçek (bir bölüm = bir klik), 'hash marks every 0.5 and 1 MRAD', çizgi kalınlığı 0.036 MRAD, dikey eksende rakamlı tutma işaretleri (#), sol/sağ/altta görüş alanı kenarına incelen barlar. Aynı ifadeler Helix 6-24 FFP (2022) föyünde de var: https://element-optics.com/wp-content/uploads/2022/03/RETICLE-SHEET-APR-1C-MRAD-HELIX-6-24.pdf . floating_center null: FFP föyleri 'floating' demiyor; Helix Gen 2 SFP föyü (https://element-optics.com/wp-content/uploads/2025/05/RETICLE-SHEET-APR-1C-MRAD-HELIX-GEN2-SFP.pdf) ve Helix Gen 2 6-24 FFP kılavuzu (https://element-optics.com/wp-content/uploads/2025/05/5x7-HELIX-G2-6-24x50-FFP-Manual-lr.pdf, APR ailesi için genel madde) 'Floating center dot' diyor; kaynaklar çeliştiği için değer girilmedi. Rakam aralığı, uzanımlar ve bar başlangıcı yalnız föy görselinde; görsel metin katmanında değil ve okunamadı -> null. SFP sürümlerde (Helix Gen 2 SFP, HDLR 2-16 SFP) referans büyütme föyde yazmıyor."
 }

@@ -17,5 +17,5 @@
   "center_dot": true,
   "floating_center": true,
   "source_url": "https://element-optics.com/wp-content/uploads/2025/05/RETICLE-SHEET-MPR-1C-MRAD-HELIX-G2-4-16-FFP.pdf",
-  "notes": "FFP. Föy metninde: yüzen merkez nokta, 0.25 MRAD yüzen artı (eksenlerde 0.25 MRAD ince bölüm oluşturur), 0.5 ve 1 MRAD çizgiler, dikey eksende rakamlı tutma işaretleri, merkeze kadar uzanan incelen barlar. Rakam aralığı, uzanımlar ve bar başlangıcı föy görselindeydi, okunamadı -> null."
+  "notes": "Helix Gen 2 4-16 FFP föyü (FFP). Föy metni: A yüzen merkez nokta ('fine', boyut yok), B 0.25 MRAD yüzen artı (daha kalın; merkez yakınında eksenlerde 0.25 MRAD ince bölüm oluşturur), C 0.5 ve D 1 MRAD çizgiler, E dikey eksende rakamlı tutma işaretleri, F sol/sağ/altta incelen barlar (incelme retikül içine uzanır, merkeze yaklaştıkça çizgi kalınlaşır). Çizgi kalınlığı ve nokta boyutu föyde sayısal verilmemiş. Rakam aralığı, uzanımlar ve bar başlangıcı yalnız föy görselinde, okunamadı -> null."
 }

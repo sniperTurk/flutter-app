@@ -1,0 +1,22 @@
+{
+  "name": "Impact-29 MOA",
+  "brand": "Leupold",
+  "scopes": [
+    "VX-5HD 3-15x44 CDS-ZL2 Side Focus",
+    "VX-3i LRP 6.5-20x50 Side Focus (üretimden kalktı)"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": 4,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 29,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/media/manuals/impact_29_moa.pdf",
+  "notes": "Leupold retikül sayfası https://www.leupold.com/reticle/impact-29-moa/ ve föy. SFP; 'will measure (subtend) correctly when the riflescope is set to the highest available magnification' (referans: en yüksek büyütme). Metin: 'grid style pattern' / '1 MOA hash marks' (yatay ve dikey), 'Every fourth line is numbered with the MOA value', 'Vertical grid extends down to 29 MOA', 'Wind hold dots are spaced 2 MOA apart'. numbers_every=4: her dördüncü 1 MOA çizgisi; Leupold beyaz kâğıdında (https://cdnp.leupold.com/content/documents/impact-29moawhitepaper_190422_070644.pdf) 4, 8 ... 28 rakamları görülüyor. family=tree, ızgara + rüzgâr noktalarından çıkarım. Yukarı/yatay uzanım, nokta satırları, direk, merkez tipi metinde yok -> null. Föy PDF metin çıkarımı çizim yerleşimini kaybettiğinden etiketsiz değerler bir öğeye eşlenemedi."
+}

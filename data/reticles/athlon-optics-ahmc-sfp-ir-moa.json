@@ -1,0 +1,21 @@
+{
+  "name": "AHMC SFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Argos HMR"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-AHMC-SFP-IR-MOA-Reticle-Manual-Argos-HMR.pdf",
+  "notes": "SFP; referans büyütme 2-12x42'de 12x, 4-20x50'de 20x. Föy metninden: 'traditional hunting style reticle with an illuminated center-dot', 'tapers down to a fine crosshair with a floating center-dot' (family=duplex bu tanımdan çıkarım). Nokta boyutu ve kalın direk başlangıcı metinde yok -> null. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

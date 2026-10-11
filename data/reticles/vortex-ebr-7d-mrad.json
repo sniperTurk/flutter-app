@@ -1,0 +1,22 @@
+{
+  "name": "EBR-7D MRAD",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Razor HD Gen III 6-36x56 FFP",
+    "Razor HD Gen III 4-24x44 FFP"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/razor-hd-gen-iii-6-36x56+reticle-EBR-7D~MOA",
+  "notes": "Razor HD Gen III 6-36x56 sayfası EBR-7D MRAD kılavuzunu (VTX_M-00313-0) listeliyor; ayrı MRAD sayfası metni okunmadı. Sayfa metni: 'the EBR-7D presents a clean sight picture while still providing ample wind holds and ranging information.' Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). family dahil tüm ölçüler null."
+}

@@ -17,5 +17,5 @@
   "center_dot": true,
   "floating_center": true,
   "source_url": "https://element-optics.com/wp-content/uploads/2025/07/RETICLE-SHEET-MPR-1D-MRAD-THEOS-2-10-FFP.pdf",
-  "notes": "FFP. Föy metninde: 0.075 MRAD merkez nokta, 0.085 MRAD yüzen artı (0.25 MRAD bölümler), 1/2 ve 1 MRAD çizgiler, tam MRAD'larda artılı ve 1/2 MRAD noktalı Christmas tree, dikey eksende rakamlar, incelen barlar. Ağaç satırları, uzanımlar, rakam aralığı föy görselindeydi, okunamadı -> null."
+  "notes": "Theos 2-10 FFP föyü (FFP). Föy metni: A merkez nokta 0.075 MRAD, B yüzen artı 0.085 MRAD (daha kalın; 0.25 MRAD bölümler), C 1/2 MRAD ve D 1 MRAD çizgiler, E dikey eksende rakamlı tutma işaretleri, F sol/sağ/altta incelen barlar, G Christmas tree: tam MRAD'larda kalın artılar, 1/2 MRAD noktalar (düşük büyütmede kaybolur). Not: föy B için 0.085 MRAD veriyor; bunun artının boyutu mu kalınlığı mı olduğu metinde açık değil. Ağaç satırları, uzanımlar, rakam aralığı yalnız föy görselinde, okunamadı -> null."
 }

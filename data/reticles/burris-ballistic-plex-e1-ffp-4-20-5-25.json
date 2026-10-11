@@ -1,0 +1,22 @@
+{
+  "name": "Ballistic Plex E1 FFP (4-20x / 5-25x)",
+  "brand": "Burris",
+  "scopes": [
+    "Veracity 4-20x50mm",
+    "Veracity 5-25x50mm"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/ballistic-plex-e1-ffp-4-20x-and-5-25x",
+  "notes": "Burris sayfası: 'MOA reticle', 'trajectory compensation out to 600 yards', FFP, kalın konik artı çizgileri, 10 mph rüzgâr noktaları (400 yd'de +/- 1.5 in.). Veracity kılavuzu (https://www.burrisoptics.com/sites/default/files/content/files/2022-07/veracity-user-guide.pdf) ölçü tabloları metinden okunamadı. family=duplex 'Plex' adından çıkarım. 2-10x/3-15x sürümünden 'slightly different'. Diğer alanlar -> null."
+}

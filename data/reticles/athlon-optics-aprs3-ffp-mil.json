@@ -30,5 +30,5 @@
   "center_dot": true,
   "floating_center": true,
   "source_url": "https://athlonoptics.com/storage/2021/05/Athlon-APRS3-FFP-MIL-Reticle-Manual-Midas-TAC.pdf",
-  "notes": "FFP, aydınlatmasız. Föy metninden: merkezden sağa/sola 6 mil'e kadar 0.2 mil işaretler, 0.05 mil yüzen merkez nokta; nokta satırları 1 mil düşüş çizgisinde her yöne 1 mil, 10 mil çizgisinde her yöne 4 mil; küçük noktalar 0.2, büyük 1 mil aralıklı. Ara satırlar, yukarı uzanım, büyük işaret ve rakam aralığı metinde yok -> null."
+  "notes": "FFP, aydınlatmasız. Föy metninden: merkezden sağa/sola 6 mil'e kadar 0.2 mil işaretler, 0.05 mil yüzen merkez nokta; nokta satırları 1 mil düşüş çizgisinde her yöne 1 mil, 10 mil çizgisinde her yöne 4 mil; küçük noktalar 0.2, büyük 1 mil aralıklı. Ara satırlar, yukarı uzanım, büyük işaret ve rakam aralığı metinde yok -> null. DİKKAT: 2018 tarihli eski APRS3 föyü (https://athlonoptics.com/wp-content/uploads/2018/12/ATHLON-APRS3-FFP-MIL-Reticle-Manual-2.pdf) farklı satırlar veriyor (2 mil çizgisinde her yöne 1.5 mil, 10 mil çizgisinde her yöne 5 mil); güncel Midas TAC HD föyü kullanıldı. extent_v_down=10 son düşüş çizgisinden çıkarım."
 }
