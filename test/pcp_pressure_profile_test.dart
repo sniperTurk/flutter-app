@@ -2,7 +2,6 @@
 // validation, storage, catalog coherence and the tools keep the values;
 // a firearm never has them; older profiles read the same as before.
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sniper_turk/core/pcp_pressure.dart';
 import 'package:sniper_turk/core/profile_input.dart';
 import 'package:sniper_turk/data/profile_catalog_integrity.dart';
 import 'package:sniper_turk/features/tools/tool_support.dart';
