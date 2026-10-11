@@ -169,13 +169,16 @@ def md() -> str:
     return "\n".join(out).rstrip() + "\n"
 
 
-def dart_str(text: str, indent: int) -> str:
+def dart_str(text: str, indent: int, continuation: int = 0) -> str:
+    """Adjacent string literals as `dart format` lays them out: in a list the
+    second and later literals are indented [continuation] more spaces."""
     esc = text.replace("\\", "\\\\").replace("'", "\\'").replace("$", "\\$")
     width = 80 - indent - 3
     parts = textwrap.wrap(esc, width=width, drop_whitespace=False,
                           break_long_words=False, break_on_hyphens=False)
-    pad = " " * indent
-    return "\n".join(f"{pad}'{p}'" for p in parts)
+    first = " " * indent
+    rest = " " * (indent + continuation)
+    return "\n".join(f"{first if i == 0 else rest}'{p}'" for i, p in enumerate(parts))
 
 
 def dart() -> str:
@@ -203,7 +206,7 @@ def dart() -> str:
     for title, paras in SECTIONS:
         lines.append(f"    UsageGuideSection('{title}', [")
         for p in paras:
-            lines.append(dart_str(p, 6) + ",")
+            lines.append(dart_str(p, 6, 4) + ",")
         lines.append("    ]),")
     lines += ["  ];", "}", ""]
     return "\n".join(lines)
