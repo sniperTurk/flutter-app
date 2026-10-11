@@ -1,7 +1,7 @@
 # Simulator screenshots
 
-- Source: `fix/app-launch-pcp` @ `3018c229ab6f7635c70244f94f1fce8ae424dbad`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38140586516
+- Source: `fix/app-launch-pcp` @ `98c678404996995f53a691bfe6766f61542c2175`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38141842881
 - flutter test exit code: 0 (0 = every step passed)
 - Device: iPhone 17 Pro / iOS 26.2
 
