@@ -113,6 +113,13 @@ abstract final class EnvironmentFieldInfo {
   static const bcError =
       'BC değerinden ne kadar emin olduğun, ± %. Üretici değeri için 3–5 %; '
       'kendin doğruladıysan 1–2 %. Boş bırakırsan hesaba katılmaz.';
+  static const wezShotCount =
+      'Hedefe kaç atış yapmayı düşündüğün. 1 atışta yalnız ilk atış '
+      'isabet olasılığı görünür; daha fazlasında Hedef ekranı bu kadar '
+      'atışta en az bir isabet şansını da gösterir. Atışlar birbirinden '
+      'bağımsız sayılır; mesafe veya rüzgâr hatası düzeltilmeden tekrar '
+      'atarsan gerçek şans biraz daha düşüktür. Örnek: avda 1, hedef '
+      'atışında 3 veya 5.';
   static const targetSpeed =
       'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
       'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '

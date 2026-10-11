@@ -143,6 +143,8 @@ abstract final class ProSectionInfo {
         'diye gösterir. Cihazın yoksa boş bırak.\n'
         '• İstersen hedef çapı, mesafe hatası ve BC hatası. Rüzgâr aralığı '
         'Hava Durumu\'ndaki "en yüksek rüzgâr"dan gelir.\n'
+        '• Atış sayısı: 1\'den fazlasını seçersen o kadar atışta en az bir '
+        'isabet şansı da görünür.\n'
         'Grup çapını boş bırakırsan yüzde görünmez.',
   );
 
