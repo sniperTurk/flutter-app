@@ -549,5 +549,24 @@
   "velocity_fps": null,
   "source_url": "https://www.cadexdefence.com/products/cdx-hunting-rifles/cdx-r7-crbn/",
   "notes": "Resmi ürün sayfası spec tablosu; yiv yönü yayımlanmamış; ağırlık/boy yaklaşık, namlu freni hariç; LA; 26\"; sayfa \"1:9\" or (1:8\")\" iki seçenek veriyor; çap: nominal"
+ },
+ {
+  "brand": "Cadex",
+  "model": "CDX-R7 SHP SA .260 Rem",
+  "platform": "firearm",
+  "caliber": ".260 Rem",
+  "bullet_diameter_mm": 6.71,
+  "barrel_length_mm": 660,
+  "twist_rate_in": 8.0,
+  "twist_direction": null,
+  "magazine_capacity": null,
+  "weight_kg": 5.9,
+  "overall_length_mm": 1204,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://www.cadexdefence.com/product/cdx-r7-shp-sa/",
+  "notes": "yiv yönü yayımlanmamış; Resmi ürün sayfası (SKU CDXR7-SDOG-260-26); 26\"; ağırlık 13 lb (ürün); boy \"Product Length\" 47.4 in; çap: nominal"
  }
 ]
