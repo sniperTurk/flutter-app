@@ -1,0 +1,21 @@
+{
+  "name": "LPR-1D MRAD",
+  "brand": "Element Optics",
+  "scopes": [
+    "Immersive 5x30 (MRAD)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://element-optics.com/wp-content/uploads/2023/06/Immersive-5x30-Manual.pdf",
+  "notes": "[3. tur TR] Element Optics Immersive 5x30 kılavuzu: 'The 5x30 model features our new LPR reticles, designed by ... Ilya Koshkin', 'available in two variants: The LPR-1D MRAD, and the LPR-1D BDC', 'The MRAD variant is paired with MRAD turrets', 'Reticle subtensions in MRAD', 'An illuminated horseshoe provides quick and easy target acquisition ... and christmas-tree hold points allow for use at extended ranges' -> family=tree. Sabit 5x büyütme (odak düzlemi ayrımı yok). Hash aralığı, rakamlar, ağaç satırları, uzanımlar, merkez nokta kılavuz metninde yok; retikül yalnız görsel olarak (https://element-optics.com/wp-content/uploads/2023/06/LPR-1D-MRAD.png), okunamadı -> null. 'Horseshoe' (at nalı) merkezde bir halka/yay olduğunu gösteriyor ama nokta varlığı yazılı değil -> center_dot null. LPR-1D BDC sürümü eklenmedi: kılavuz 'does not have its subtensions in MOA' diyor, açısal ölçü verilmiyor (5.56/.223, 600 yd'ye kadar BDC + menzil ölçeği)."
+}

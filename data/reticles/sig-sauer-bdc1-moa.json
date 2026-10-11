@@ -1,0 +1,22 @@
+{
+  "name": "BDC1",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "WHISKEY4 3-12x44 Exposed Zero Stop SFP (BDC-1; SOW43002 Hellfire BDC1)",
+    "WHISKEY3 3-9x40 SFP (SOW33204 BDC-1 Quadplex)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-WHISKEY4-7404528-01-REV10-WEB-FILE.pdf",
+  "notes": "SFP, ölçüler en yüksek büyütmede ('Units are in MOA at max magnification'; WHISKEY4 3-12x44 için 12x). Kaynak: WHISKEY4 Operator's Manual s.31 'SFP BDC1 RETICLE'. Föy rakamları (çıkarım sırasıyla): 14.50, 0.25, 0.25, 2, 2, 2, 2, 0.25, 0.25, 10, 1.50, 3.75, 6.50, 9.50, 1.50, 2, 1.50 MOA. ÇIKARIM (doğrulanmadı): 1.50 / 3.75 / 6.50 / 9.50 dizisi merkez altındaki BDC tutma noktalarının merkezden mesafesi gibi görünüyor (Buckmasters BDC-1 föyünde de '0 1.5 3.75 6.5 9.5' dizisi var); görselsiz kesinleşmediği için tree/extent alanları null. Ürün sayfası: https://www.sigsauer.com/whiskey4-scope-3-12x44mm-30mm-sfp-bdc1-reticle-locking-0-25-moa-adj-black.html ('Reticle: BDC-1', 'Focal Plane: Second'). WHISKEY3 3-9x40 BDC-1 Quadplex (https://www.sigsauer.com/whiskey3-3-9x40-mm.html) için föy ölçü vermiyor; aynılığı ad üzerinden varsayıldı."
+}

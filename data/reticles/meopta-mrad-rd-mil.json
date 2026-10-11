@@ -1,0 +1,21 @@
+{
+  "name": "MRAD RD",
+  "brand": "Meopta",
+  "scopes": [
+    "MeoPro R6 5-30x56 FFP RD"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.meoptasportsoptics.eu/files/MeoPro_R6_EN.pdf",
+  "notes": "FFP. Kaynak: Meopta MeoPro R6 kullanım kılavuzu retikül-model listesi: '5-30x56 FFP RD – Mrad RD' (aynı model 'Mil-Dot 3' ile de sunuluyor). 2026 katalogu (https://www.meoptasportsoptics.eu/files/katalog_2026_EN.pdf) 'MRAD RD'yi MeoPro R6 retikülleri arasında listeliyor. unit=mil ÇIKARIM: addaki 'MRAD'dan. Föy (https://www.meoptasportsoptics.eu/files/reticle/reticle-MRad-RD.pdf) yalnız görsel, metin yok -> ölçüler null. 'MRAD 1 RD' ile farklı retikül (kılavuz ikisini ayrı sütunlarda veriyor)."
+}

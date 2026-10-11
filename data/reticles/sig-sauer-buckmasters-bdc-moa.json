@@ -1,0 +1,23 @@
+{
+  "name": "Buckmasters BDC-1",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "BUCKMASTERS 3-9x40 BDC SFP",
+    "BUCKMASTERS 3-9x50 BDC SFP",
+    "BUCKMASTERS 3-12x44 BDC SFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/media/sigsauer/resources/21SIG3349_Buckmasters_Manual-7403162-01-R01.pdf",
+  "notes": "SFP, ölçüler en yüksek büyütmede (föy: 'Subtensions in MOA on max magnification'). Kaynak: Buckmasters Owner's Manual, 'MOA BUCKMASTERS BDC-1 SUBTENSIONS' çizimi; metin katmanındaki değerler: '4X 1.5 0.25 TYP 0 1.5 3.75 6.5 9.5' (+ 'DETAIL A'). Etiket eşlemesi görselsiz yapılamadı; ÇIKARIM (doğrulanmadı): 0/1.5/3.75/6.5/9.5 tutma noktalarının merkezden MOA mesafesi, 0.25 TYP çizgi kalınlığı -> alanlar null. sigsauer.com/electro-optics/buckmasters.html: 'custom Buckmasters Bullet Drop Compensation (BDC) Reticle With Holdover Dots Out to 500 Yards'; ürünler 'BUCKMASTERS Rifle Scope 3-9x40MM / 3-9x50MM / 3-12x44MM BDC (SFP)'. TR'de 'BDC' olarak satılan Sig retikülleri için WHISKEY BDC1 ayrı kayıtta (sig-sauer-bdc1-moa.json); ikisinin aynı çizim olduğu kaynakta belirtilmediğinden ayrı tutuldu."
+}

@@ -1,0 +1,25 @@
+{
+  "name": "VFD-2 MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Forester 1-5x24 (SCOC-03II)",
+    "Forester 1-5x24 (SCOC-32)",
+    "Forester 2-10x40 SFP (SCOM-02)",
+    "Forester 3-15x50 SFP (SCOM-16)",
+    "Forester 1-8x24 SFP (SCOC-38)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Forester-3-15x50SFP-Riflescope-SCOM-16.html",
+  "notes": "[3. tur TR] Yeni kayıt. SFP (SCOM-16 ve SCOM-02 ürün sayfaları: 'Reticle | VFD-2 Etched Glass', 'Second Focal Plane', tık 1/4 MOA). unit=moa: 'VFD-2 & VFD-3' föy PDF'inde (https://www.vectoroptics.com/public/uploads/files/20231030/ec4231271b1ec09b35bbb41feaebb221.pdf) 'Setting: 9x, MOA' ve ayar birimi MOA (föy iki retikülü birlikte veriyor; etiketler 1.4, 0.22, 52.5, Φ1.2 hangi retiküle/öğeye ait belirlenemedi). SCOM-02 ürün açıklaması 'German #4 Etched Glass Reticle' diyor; VFD-2'nin German #4 tabanlı olduğu düşünülüyor ama doğrulanmadı -> family null. Model listesi Reticle-Collection. Diğer ölçüler null."
+}

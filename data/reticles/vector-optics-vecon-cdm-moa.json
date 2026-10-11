@@ -1,0 +1,25 @@
+{
+  "name": "VECON-CDM MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental x6 5-30x56 SFP Hunting (SCOL-X22)",
+    "Continental x6 3-18x50 SFP Hunting (SCOL-X21)",
+    "Continental x8 3-24x56 SFP ED Hunting (SCOL-50)",
+    "SCOM-34 (föyde adı geçen model)",
+    "SCOL-51 (föyde adı geçen model)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20240819/cb2dc97da12bca96b45bb8743439e8f9.pdf",
+  "notes": "[3. tur TR] Yeni kayıt (TR başlıklarındaki 'CDM'). SFP (SCOL-50 ürün sayfası: 'Focal Plane | Second Focal Plane', 'VECON-CDM Etched Illuminated BDC Reticle to Compensate for Bullet Drop'). Kaynak: A6 VECON-CDM Reticle Single Page 2024.06.24 PDF metin katmanı. Geçerli büyütme: 'For SCOM-34, SCOL-X22 model, the suspension is valid at its highest magnification ... for SCOL-50 model, the suspension is valid at 20x; for SCOL-51 model, the suspension is valid at 30x.' Föyde üç ayrı ölçü tablosu var (15x / 20x / 30x etiketli); 'Setting: 15x, MOA' -> unit=moa. 'The hashmarks are evenly spaced' ve BDC bölümünde 'with the gap increasing each time' ifadeleri var. Etiket dizisi (15x tablosu): 0.8, 0.6, Φ1.25, Φ0.2, 8, 6, 4, 8, 4, 12, 16, 2, 2.5, 3.0, 3.5, 0.5, 1.0, 1.5, 10; 20x tablosu: 0.6, 0.4, Φ0.16, Φ0.38, ...; 30x tablosu: 0.4, 0.3, Φ0.1, Φ0.25, ... Etiketlerin hangi öğeye ait olduğu metinden çıkarılamadı ve föy görseli bu ortamdan alınamadı -> işaret aralığı, uzanımlar, merkez nokta, family null. BDC (30-06/.308/.270, sıfır 100 yd): A 200 yd 7.5\", B 300 yd 23.5\", C 400 yd 50\", D 500 yd 92\". Ürün sayfası: https://www.vectoroptics.com/rifle-scopes/Continental-x8-3-24x56-SFP-Hunting-Scope-ED-SCOL-50.html"
+}

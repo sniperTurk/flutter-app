@@ -1,0 +1,29 @@
+{
+  "name": "German #4 MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental 1-6x24 (SCOC-23)",
+    "Continental 1.5-9x42 (SCOM-23)",
+    "Continental 2.5-15x56 (SCOM-38)",
+    "Continental 1-8x24 (SCOC-37)",
+    "Paragon 3-15x44 (SCOM-37)",
+    "Paragon 4-20x50 (SCOL-44)",
+    "Matiz 3-9x50 (SCOM-28)",
+    "Grizzly 1-4x24 (SCOC-41)",
+    "Grizzly 3-12x56 (SCOM-09)"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20231030/f62eedbad215f41c1b5abcc67f6e2cff.pdf",
+  "notes": "[3. tur TR] Yeni kayıt. SFP; kılavuz: 'For SCOM-38 model, the suspension is valid at 15x; for SCOC-23 & SCOC-37 model, the suspension is valid at 4x.' Kaynaklar: German #4 Reticle User Manual PDF (SFP MOA; sol, sağ ve altta kalın dış çizgiler, ince iç artı, üstte dikey çizgi, merkez nokta, 6 aydınlatma kademesi -> family=duplex, center_dot=true) + Paragon 4-20x50 SCOL-44 ürün sayfası ('German #4 Etched Glass Reticle in MOA Configuration', Second Focal Plane). Model listesi Reticle-Collection. Ortak föy PDF'inde (https://www.vectoroptics.com/public/uploads/files/20260813/0d1ac0e8beb4a94e51188617c12a8e3b.pdf, 'Setting: MOA') büyütmeye göre etiketler var: 2.0/56/0.72/3.1/28.1/9.7 (4x), 2.0/18.75/1.3/37.5/0.4/6.5 (6x), 0.8/7.5/0.5/15/0.17/2.6 (15x) — hangi öğeye ait oldukları metinden eşlenemedi -> posts_start, kalınlıklar null. Not: G4 Fiber Dot ayrı retikül, bu kayda dahil değil."
+}

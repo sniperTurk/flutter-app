@@ -1,0 +1,25 @@
+{
+  "name": "VOW-10BDC MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Matiz 4-12x40 SFP (SCOM-29)",
+    "Matiz 6-18x44 SFP (SCOL-28)",
+    "Hugo 3-12x44 SFP (SCOM-30)",
+    "Hugo 4-16x44 SFP (SCOL-29)",
+    "Hugo 6-24x50 SFP (SCOL-31)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20241031/cd125750ac5bf9e8565a99f4b8236743.pdf",
+  "notes": "[3. tur TR] Yeni kayıt. SFP; kılavuz: 'For VOW-10BDC reticle, the suspension is valid at 10x' (ölçüler 10x'te). Kaynaklar: VOW-10BDC MOA SFP retikül kullanım kılavuzu PDF (metin katmanı) + Matiz 4-12x40 SCOM-29 ürün sayfası (https://www.vectoroptics.com/rifle-scopes/Matiz-4-12x40SFP-Riflescope-SCOM-29.html: 'VOW-10BDC Could be used for BDC within 650 YDS, .223 zero @ 200 yds, .308 zero @ 100 yds'); model listesi Reticle-Collection sayfasından. Kılavuz: 'The total length of each horizontal line is 8 MOA and each gap is 2 MOA' -> extent_h=8 (her yan kol olarak yorumlandı, emin değil), hash_step=2.0 (yatay çizgi). Dikey çizgi merkezin altında, önceden belirlenmiş mesafeler için noktalarla (200/300/450/550/650 yd, .223 için) iniyor. .308 sıfır 100 yd: 200 yd 1.5 MOA, 300 yd 4.5 MOA, 400 yd 7.5 MOA, 500 yd 11 MOA. extent_v_down=11 ÇIKARIM: en alt etiketli BDC noktası 11 MOA; çizginin daha aşağı uzanıp uzanmadığı belirsiz. Föy etiketleri: Φ0.5, 0.15, 8.0, 11, 2.0, 1.5, 4.5, 7.5, 0.6, 1.0 — Φ0.5 merkez nokta/daire olabilir ama hangisi olduğu metinde yok -> center_dot null. BDC tipi -> family null. [Birleştirme incelemesi] \"each horizontal line is 8 MOA / each gap is 2 MOA\" ifadesi kol uzunluğu/işaret aralığı olarak kesin eşlenemediği için hash_step, extent_h, extent_v_down null yapıldı."
+}

@@ -1,0 +1,21 @@
+{
+  "name": "RAPTR-1S",
+  "brand": "Element Optics",
+  "scopes": [
+    "IRIS 4-12x44 SFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://global.element-optics.com/wp-content/uploads/2024/10/5x7-IRIS-4-12x44-Manual-lr.pdf",
+  "notes": "[3. tur TR] Element Optics IRIS 4-12x44 kılavuzu (bölüm 6). SFP avcılık BDC retikülü; ölçüler 8x'te geçerli ('The RAPTR-1 Hold Marks are designed to correspond at 8x with the drop data for a .308 Winchester shooting a 168gr Bullet at 2600fps, at sea level'). Tablo 'Reticle Subtensions (8x)': Distance (m) 200 / 300 / 400; Drop (MOA) 2.4 / 5.8 / 9.6; Windage (MOA) 0.9 / 1.4 / NONE. 'The WIDTH of the BDC Hashes correspond with a 5mph crosswind' (genişliğin tam genişlik mi yarım genişlik mi olduğu yazmıyor). Merkez nokta: 'use the centre dot' -> center_dot=true; yüzen olup olmadığı yazmıyor -> null. Taret 1/4 MOA, retikül açısal birimde değil BDC; unit=moa kılavuz tablosu MOA verdiği için. Düzensiz BDC çizgileri şemaya (hash/tree) uymadığından family/hash_step/tree null; değerler yalnız bu notta. Çizgi kalınlığı, nokta boyutu, uzanımlar yazmıyor; retikül görseli yalnız PNG (https://global.element-optics.com/wp-content/uploads/2024/10/IRIS-4-12x44-SFP-RAPTR-1S.png), okunamadı -> null. Ürün sayfası: https://global.element-optics.com/product/iris-4-12x44-sfp/ ."
+}

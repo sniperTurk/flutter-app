@@ -1,0 +1,23 @@
+{
+  "name": "20x Half Mil",
+  "brand": "Hawke",
+  "scopes": [
+    "Sidewinder 30 SF 6.5-20x44",
+    "Sidewinder 30 SF 6-24x56",
+    "Sidewinder 30 SF 8-32x56"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://us.hawkeoptics.com/sidewinder-30-sf-riflescopes.html",
+  "notes": "SFP (Sidewinder 30 SF serisi; ürün sayfası https://us.hawkeoptics.com/sidewinder-30-sf-6-24x56-20x-half-mil.html). Ölçüler 20x'te geçerli (ÇIKARIM: addaki '20x'; Hawke Frontier metninde de 'true mil spacing at ... 20x' adlandırması aynı). Modeller: 17150, 17260, 17270. Görevde geçen '20x 1/2 Mil Dot' adı Hawke sitesinde yok; Sidewinder'da '20x Half Mil' olarak listeleniyor. unit=mil addan (ÇIKARIM). Sayısal ölçüler (işaret aralığı, uzanımlar, direk başlangıcı, nokta/çizgi kalınlığı) üretici kaynağında yalnız retikül görsellerinde (us/uk.hawkeoptics.com/hawke/reticles/white/*.svg → robots.txt ROBOTS_DISALLOWED) ve Reticle Booklet / Instruction Manual PDF'lerinde (docs.google.com/uc?... → ROBOTS_DISALLOWED; docs.hawkeoptics.com erişilemedi) bulunuyor; kurallar gereği başka yolla çekilmedi → null."
+}

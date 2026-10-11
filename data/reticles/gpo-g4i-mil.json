@@ -1,0 +1,23 @@
+{
+  "name": "G4i",
+  "brand": "GPO",
+  "scopes": [
+    "SPECTRA 7.5x50i",
+    "SPECTRA 6X 1-6x24i",
+    "SPECTRA 2-12x50i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://gpo-usa.com/wp-content/uploads/2023/05/Spectra-Riflescope-tech-specs-2023-compressed_1.pdf",
+  "notes": "Kaynak: GPO SPECTRA Riflescopes Technical Information PDF (gpo-usa.com). Föy 'Coverage in cm / 100 Meter at [en yüksek büyütme]' veriyor (1 cm/100 m = 0.1 mil); unit=mil bu nedenle seçildi, retikülün kendisi mil ölçekli değil (alman #4 tipi, aydınlatmalı nokta). Değerler (cm/100 m, etiketsiz sırayla): 7.5x50i: 0.9, 13, 6.5, 4.5, 2.8; 1-6x24i @6x: 1, 300, 150, 4, 2.5; 2-12x50i @12x: 1.0, 200, 100, 4.0, 2.5. Harf etiketleri görselsiz eşlenemedi; ÇIKARIM (doğrulanmadı): küçük ilk değer ince tel kalınlığı, ikinci/üçüncü direk uçları arası ve merkezden direğe mesafe, son değer nokta çapı -> ilgili alanlar null. center_dot null: aydınlatmalı merkez nokta olası ama kaynakta açıkça yazmıyor. Odak düzlemi föyde yalnız 4.5-27x50i için yazılı; G4i modelleri için belirtilmemiş. G4i Drop ve G4i Fiber ayrı retiküller, bu kayda dahil değil. [Birleştirme incelemesi] family: German #4 tipi 3 direkli; duplex (4 direk) olarak çizilmemesi için null."
+}

@@ -1,0 +1,24 @@
+{
+  "name": "MPR-V5 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Veyron 4-16x44 IR FFP (SCFF-38)",
+    "Veyron 6-24x44 IR FFP (SCFF-37)",
+    "Veyron 10x44 (SCOM-41)",
+    "Veyron 2-8x32 IR (SCOC-43)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Veyron-4-16x44-IR-First-Focal-Plane-Riflescope-Illuminated-SCFF-38.html",
+  "notes": "[3. tur TR] Yeni kayıt. SCFF-38/37'de FFP ('Focal Plane | First Focal Plane'); SCOM-41 ve SCOC-43 için odak düzlemi kontrol edilmedi. Kaynaklar: SCFF-38 ürün sayfası ('0.1 MIL Center Dot for Precise Aiming', 'Cascading dot for a 10 m.p.h crosswind', '0.5 MIL hashmark increment BDC for .223 zero @ 200yds and .308 zero @100yds') ve Vector Optics Academy Veyron tanıtımı (https://www.vectoroptics.com/Academy/Veyron-Line-Introduction-Which-One-to-Pick.html: 'A 0.1 MIL center dot', '0.5 MIL hashmark increments', 'cascading dot system ... 10 m.p.h crosswind'). Model listesi Reticle-Collection. hash_step=0.5, center_dot=true. Föy PDF'i (https://www.vectoroptics.com/public/uploads/files/20241031/3dcbff69abc78efe560763831b6ef5fb.pdf) metninde konumsuz etiketler: 0.035, 0.4, 0.2, 0.8, 10, 1.0, 1.0, 0.5, 1.0, 0.4, Ø0.1, Ø0.15, Ø0.1, 5.0; referans 6x/12x/24x @100 m — öğe eşlemesi yapılamadı. Kademeli rüzgâr noktaları ağaç olabilir ama üretici 'tree' demiyor -> family null. Uzanımlar, rakamlar, büyük işaret null."
+}
