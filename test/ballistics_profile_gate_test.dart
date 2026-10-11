@@ -58,7 +58,7 @@ void main() {
       // The example scope starts with both turrets at zero, the right one
       // open; "Çözümü kulelere kur" dials the example solution.
       expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
-      expect(find.text('Kuleler sıfırlandı'), findsOneWidget);
+      expect(find.text('Kuleleri sıfırla'), findsOneWidget);
       await tester.ensureVisible(find.byKey(ScopeDialKeys.dialSolution));
       await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
       await tester.pumpAndSettle();

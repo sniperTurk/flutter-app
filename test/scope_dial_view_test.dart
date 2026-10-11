@@ -109,8 +109,10 @@ void main() {
     bool active(Key k) =>
         tester.widget<MenzilSecondaryButton>(find.byKey(k)).active;
     expect(label(ScopeDialKeys.dialSolution), 'Çözümü kulelere kur');
-    expect(label(ScopeDialKeys.reset), 'Kuleler sıfırlandı');
-    expect(active(ScopeDialKeys.reset), isTrue);
+    // Owner, 2026-10-11: a freshly opened page has neither button selected.
+    expect(label(ScopeDialKeys.reset), 'Kuleleri sıfırla');
+    expect(active(ScopeDialKeys.reset), isFalse);
+    expect(active(ScopeDialKeys.dialSolution), isFalse);
 
     await tester.ensureVisible(find.byKey(ScopeDialKeys.dialSolution));
     await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
@@ -396,7 +398,7 @@ void main() {
     );
     MenzilSecondaryButton button(Key k) =>
         tester.widget<MenzilSecondaryButton>(find.byKey(k));
-    expect(button(ScopeDialKeys.reset).label, 'Kuleler sıfırlandı');
+    expect(button(ScopeDialKeys.reset).label, 'Kuleleri sıfırla');
     await tester.ensureVisible(find.byKey(ScopeDialKeys.dialSolution));
     await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
     await tester.pumpAndSettle();
@@ -446,6 +448,11 @@ void main() {
     expect(button(ScopeDialKeys.dialSolution).label, 'Çözüm: 0 klik');
     expect(button(ScopeDialKeys.dialSolution).active, isFalse);
     expect(button(ScopeDialKeys.dialSolution).onPressed, isNull);
+    expect(button(ScopeDialKeys.reset).label, 'Kuleleri sıfırla');
+    expect(button(ScopeDialKeys.reset).active, isFalse);
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.reset));
+    await tester.tap(find.byKey(ScopeDialKeys.reset));
+    await tester.pumpAndSettle();
     expect(button(ScopeDialKeys.reset).label, 'Kuleler sıfırda');
     expect(button(ScopeDialKeys.reset).active, isTrue);
   });

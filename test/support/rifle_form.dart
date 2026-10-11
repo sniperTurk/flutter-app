@@ -97,6 +97,10 @@ Future<void> fillAmmoForm(
   String bc = '0,08',
   String bcModel = 'G1',
 }) async {
+  // Mühimmat türü starts on "Seçiniz" for a firearm (owner, 2026-10-11).
+  if (find.byKey(const Key('ammo-source')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
+  }
   // Marka and Model are separate boxes again and come from the library
   // lists; a typed name needs "Listede yok" first (owner, 2026-10-11).
   if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
@@ -118,6 +122,7 @@ Future<void> fillShotValues(
   String sight = '60',
 }) async {
   await enterRifleField(tester, 'profile-velocity-fps', velocityFps);
+  await chooseInSelect(tester, 'profile-distance-unit', 'Metre');
   await enterRifleField(tester, 'profile-zero', zero);
   await enterRifleField(tester, 'scope-sight-height', sight);
 }
@@ -139,4 +144,7 @@ Future<void> fillScopeForm(
   await enterRifleField(tester, 'scope-max-mag', maxMag);
   await enterRifleField(tester, 'scope-objective', objective);
   await chooseFocalPlane(tester, plane);
+  // Every list box starts on "Seçiniz" (owner, 2026-10-11).
+  await chooseInSelect(tester, 'scope-unit', 'MRAD');
+  await chooseInSelect(tester, 'scope-mount', 'Normal (0 MOA)');
 }
