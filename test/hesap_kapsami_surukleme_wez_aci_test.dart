@@ -210,7 +210,7 @@ void main() {
         environment: _dryStandard,
       );
       final rho = Atmosphere.densityKgM3(_dryStandard);
-      final mass = grain * 0.00006479891;
+      const mass = grain * 0.00006479891;
       final area = math.pi / 4 * math.pow(dMm / 1000, 2);
       expect(a, closeTo(0.5 * rho * cd * area * v * v / mass, 1e-9));
     });
