@@ -560,9 +560,8 @@ String _ammoTypeName(AmmunitionType t) => switch (t) {
   var rest = s.userEntered ? '' : s.model;
   if (s.userEntered) {
     // Personal scopes keep "Brand Series" in the brand.
-    final brands = {
-      for (final o in CatalogRepository.scopes) o.brand,
-    }.toList()..sort((a, b) => b.length.compareTo(a.length));
+    final brands = {for (final o in CatalogRepository.scopes) o.brand}.toList()
+      ..sort((a, b) => b.length.compareTo(a.length));
     for (final b in brands) {
       if (brand.toLowerCase().startsWith(b.toLowerCase())) {
         rest = brand.substring(b.length);
