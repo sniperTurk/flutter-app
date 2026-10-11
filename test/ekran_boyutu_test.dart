@@ -252,6 +252,8 @@ void _scan() {
                 profileStore: store,
                 activeProfileStore: MemoryActiveProfileStore()..value = 'p1',
               ),
+              // host() sets the text scale itself (over the test value).
+              textScale: textScale,
             ),
           );
           await tester.pumpAndSettle();
