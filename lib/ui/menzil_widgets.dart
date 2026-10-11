@@ -1340,6 +1340,8 @@ class MenzilSecondaryButton extends StatelessWidget {
         final scaler = MediaQuery.textScalerOf(context);
         final dir = Directionality.of(context);
         var size = base.fontSize ?? 16;
+        // One line, the font shrinking until it fits (owner, 2026-10-11:
+        // no icon, no second line).
         while (size > 10) {
           final painter = TextPainter(
             text: TextSpan(
@@ -1348,7 +1350,7 @@ class MenzilSecondaryButton extends StatelessWidget {
             ),
             textDirection: dir,
             textScaler: scaler,
-            maxLines: 2,
+            maxLines: 1,
           )..layout(maxWidth: box.maxWidth);
           final fits = !painter.didExceedMaxLines;
           painter.dispose();
@@ -1357,7 +1359,8 @@ class MenzilSecondaryButton extends StatelessWidget {
         }
         return Text(
           label,
-          maxLines: 2,
+          maxLines: 1,
+          softWrap: false,
           overflow: TextOverflow.ellipsis,
           // Never bold, so the pair of dial buttons matches whether a label
           // wraps or not (owner, 2026-10-11).
