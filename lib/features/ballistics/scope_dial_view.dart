@@ -504,22 +504,16 @@ class ScopeDialView extends StatelessWidget {
                     ),
                     const SizedBox(width: MenzilSpace.sm),
                     Expanded(
-                      child: MenzilSecondaryButton(
-                        key: ScopeDialKeys.reset,
-                        label: noClicks
-                            ? 'Kuleler sıfırda'
-                            : atZero
-                            ? 'Kuleler sıfırlandı'
-                            : 'Kuleleri sıfırla',
-                        expand: true,
-                        twoLines: true,
-                        active: atZero,
-                        onPressed: atZero
-                            ? null
-                            : () {
-                                onElevationChanged(0);
-                                onWindageChanged(0);
-                              },
+                      // Owner, 2026-10-11: opening the page must not show
+                      // either button selected; the reset button turns
+                      // orange only after the user presses it.
+                      child: _ResetTurretsButton(
+                        atZero: atZero,
+                        noClicks: noClicks,
+                        onReset: () {
+                          onElevationChanged(0);
+                          onWindageChanged(0);
+                        },
                       ),
                     ),
                   ],
@@ -1958,5 +1952,54 @@ class ScopeReticlePainter extends CustomPainter {
       if (a[i] != b[i]) return false;
     }
     return true;
+  }
+}
+
+/// "Kuleleri sıfırla". It is shown as selected only after the user pressed
+/// it, so a freshly opened page has neither button selected.
+class _ResetTurretsButton extends StatefulWidget {
+  const _ResetTurretsButton({
+    required this.atZero,
+    required this.noClicks,
+    required this.onReset,
+  });
+
+  final bool atZero;
+  final bool noClicks;
+  final VoidCallback onReset;
+
+  @override
+  State<_ResetTurretsButton> createState() => _ResetTurretsButtonState();
+}
+
+class _ResetTurretsButtonState extends State<_ResetTurretsButton> {
+  bool _pressed = false;
+
+  @override
+  void didUpdateWidget(_ResetTurretsButton old) {
+    super.didUpdateWidget(old);
+    if (!widget.atZero) _pressed = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final shown = widget.atZero && _pressed;
+    return MenzilSecondaryButton(
+      key: ScopeDialKeys.reset,
+      label: !shown
+          ? 'Kuleleri sıfırla'
+          : widget.noClicks
+          ? 'Kuleler sıfırda'
+          : 'Kuleler sıfırlandı',
+      expand: true,
+      twoLines: true,
+      active: shown,
+      onPressed: shown
+          ? null
+          : () {
+              setState(() => _pressed = true);
+              if (!widget.atZero) widget.onReset();
+            },
+    );
   }
 }
