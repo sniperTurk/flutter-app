@@ -118,12 +118,9 @@ class _Collector {
   void record(FlutterErrorDetails d) {
     final text = d.toString();
     final first = d.exceptionAsString().split('\n').first;
-    final where = RegExp(r'(lib/[^\s:]+\.dart:\d+)')
-        .allMatches(text)
-        .map((m) => m.group(1))
-        .toSet()
-        .take(3)
-        .join(', ');
+    final where = RegExp(
+      r'(lib/[^\s:]+\.dart:\d+)',
+    ).allMatches(text).map((m) => m.group(1)).toSet().take(3).join(', ');
     final isLayout =
         d.library == 'rendering library' ||
         first.contains('overflowed') ||
@@ -238,9 +235,7 @@ void _scan() {
         addTearDown(tester.view.reset);
         addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
 
-        final c = _Collector(
-          '${device.logical.width.toInt()}pt ${textScale}x',
-        );
+        final c = _Collector('${device.logical.width.toInt()}pt ${textScale}x');
         final previous = FlutterError.onError;
         FlutterError.onError = c.record;
         try {
