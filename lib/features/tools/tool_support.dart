@@ -55,6 +55,9 @@ abstract final class ToolProfileUpdate {
       angularUnit: base.angularUnit,
       distanceUnit: base.distanceUnit,
       mountCantMoa: input.mountCantMoa,
+      // Truing keeps the profile's powder temperature data unchanged.
+      powderTempCoefPercentPer15C: base.powderTempCoefPercentPer15C,
+      powderTempReferenceC: base.powderTempReferenceC,
     );
   }
 }

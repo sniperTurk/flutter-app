@@ -166,6 +166,20 @@ abstract final class ProfileFieldInfo {
       'namlusunda ölçülür (çoğunlukla 24 inç), sizin namlunuzda farklı '
       'olabilir. Kronografla ölçtüyseniz kendi değerinizi yazın. Örnek: '
       '.308 Win 168 gr için 2650 fps.';
+  static const powderCoef =
+      'Barut sıcaklık katsayısı: hava 15 °C ısındığında namlu çıkış hızının '
+      'yüzde kaç arttığı. Atış hesabı hızı Hava Durumu\'ndaki sıcaklığa göre '
+      'bununla düzeltir. Fişek ve barut üreticileri çoğunlukla sayı vermez, '
+      'yalnızca "sıcaklığa duyarsız" yazar; en doğrusu aynı fişeği soğuk ve '
+      'sıcak bir günde kronografla ölçmektir. Örnek: 10 °C\'de 2600 fps, '
+      '25 °C\'de 2639 fps ölçtüyseniz 1,5 yazın. Fabrika fişeğinde üretici '
+      'sayı veriyorsa kendiliğinden dolar. Bilmiyorsanız boş bırakın. '
+      'Yalnızca ateşli tüfek.';
+  static const powderTemp =
+      'Namlu çıkış hızını kronografla ölçtüğünüz günkü hava sıcaklığı, °C. '
+      'Üreticinin hızını kullanıyorsanız üreticinin belirttiği test '
+      'sıcaklığını yazın. Hız bu sıcaklıktan bugünkü sıcaklığa göre '
+      'düzeltilir. Katsayıyla birlikte girilir. Örnek: 20.';
   static const zero =
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
       'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '

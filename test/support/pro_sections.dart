@@ -32,8 +32,7 @@ const _sectionOf = <String, String>{
   'pro-zero-right': 'rifle',
   'pro-spin-switch': 'rifle',
   'pro-bullet-length': 'rifle',
-  'pro-powder-coef': 'rifle',
-  'pro-powder-temp': 'rifle',
+  'pro-powder-source': 'rifle',
   'pro-powder-today': 'rifle',
 };
 

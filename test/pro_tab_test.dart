@@ -118,7 +118,7 @@ void main() {
     expect(find.byKey(const Key('pro-latitude')), findsNothing);
     // A PCP profile sees no powder temperature, but the PCP spin note.
     await openProFor(tester, const Key('pro-turret-scale'));
-    expect(find.byKey(const Key('pro-powder-coef')), findsNothing);
+    expect(find.byKey(const Key('pro-powder-source')), findsNothing);
     expect(find.byKey(const Key('pro-spin-pcp-note')), findsOneWidget);
     await openProFor(tester, const Key('pro-coriolis-switch'));
 
