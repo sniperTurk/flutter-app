@@ -298,6 +298,7 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
+    await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
     // PCP calibers to pick from.
     await chooseInSelect(tester, 'rifle-caliber', '5.50 mm (.22)');
     await tester.tap(find.byKey(const Key('rifle-caliber')));
@@ -372,6 +373,7 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
+    await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
     final brand = find.descendant(
       of: find.byKey(const Key('ammo-brand')),
       matching: find.byType(TextField),

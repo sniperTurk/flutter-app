@@ -34,6 +34,12 @@ Future<void> fillRifleForm(
   String twist = '16',
   String direction = 'Sağ',
 }) async {
+  // A new profile starts on Ateşli Tüfek (owner, 2026-10-11): a PCP
+  // caliber ("6.35 mm (.25)") needs Tür = PCP Tüfek first.
+  if (caliber.contains(' mm (') &&
+      find.byKey(const Key('profile-platform')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
+  }
   // Marka / Model come from the lists; typed names need "Listede yok"
   // first (owner, 2026-10-11).
   if (find.byKey(const Key('rifle-brand-select')).evaluate().isNotEmpty) {
