@@ -417,7 +417,7 @@ class _NavButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: twoLineText ? 76 : 56),
+            constraints: const BoxConstraints(minHeight: 56),
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
