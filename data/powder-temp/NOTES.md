@@ -111,3 +111,15 @@ Norma soğuk hava Academy yazısı (test anlatılıyor ama hız sonuçları yok)
 - Norma: FAQ'de "What should you take into account when shooting at low temperatures?" sorusu var, ancak cevap JS ile
   yükleniyor; https://norma-ammunition.com/en-us/faq/ballistics WebFetch'te boş geldi → okunamadı.
 - **factory_ammo.json'a yeni kayıt eklenmedi** (6 kayıt, değişmedi).
+
+### Özet (çalışma #2 sonu)
+- powders.json: **31 kayıt** (11 → 31; +5 Reload Swiss, +4 Alliant, +7 Hodgdon/IMR/Winchester, +4 Vihtavuori).
+- factory_ammo.json: **6 kayıt** (değişmedi).
+- **Sayısal veri (points / coef_percent_per_15c) olan kayıt: 0.** Okunan hiçbir üretici sayfası, föyü veya kılavuzu
+  sıcaklık–hız tablosu/katsayısı vermiyor; tahmin yapılmadı.
+- "Sıcaklığa duyarsız/kararlı" olarak tanıtılanlar: Hodgdon Varget, H4350, H4831SC, H4895, H1000, Retumbo; IMR Enduron
+  4166/4451/4955/7977/8133; Winchester StaBALL 6.5/Match/HD; Alliant Reloder 16, 23, 26, TS 15.5; Vihtavuori N150, N160,
+  N555, N565, N568; Reload Swiss RS50/52/60/62/80 (nitel "temperature behaviour" ifadesi).
+- Açıkça kararlı OLMAYAN: Hodgdon CFE 223 ("Temperature_Stable: No"). Vihtavuori N570: −20 °C altında ağır yük önerilmiyor.
+- Okunamayan: Explosia/Lovex katalog PDF (4 deneme, sunucu hatası), Western Powders (izin/yönlendirme), Norma FAQ cevabı (JS),
+  Vihtavuori N140 ürün sayfası.
