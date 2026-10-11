@@ -137,7 +137,7 @@ Heym→heymusa.com, Savage 2025 kataloğu→resmi Alman ithalatçısı helmuthof
 Bu ortamda curl üretici alan adlarına kapalı; sayfalar/PDF'ler WebFetch ile okundu. Bilinmeyen alan null +
 notes'ta "resmi kaynakta belirtilmemiş". Yalnızca eksik kalibre×namlu eklendi; renk/kundak farkı tek kayıt.
 
-Eklenen (2 151): Weatherby 276, Savage 185, Christensen 113, Cadex 112, Zastava 95, Steyr 93, Browning 71,
+Eklenen (2 015): Weatherby 276, Savage 185, Christensen 113, Seekins 77, Cadex 112, Zastava 95, Steyr 93, Browning 71,
 Krieghoff 68, Ruger 66, MasterPiece Arms 65, Remington 60, Sauer 60, Keppeler 54, Merkel 54, Mossberg 51,
 Winchester 51, Victrix 50, Proof Research 49, Benelli 46, Blaser 36, Rößler 32, Franchi 29, Haenel 28,
 Kimber 27, Lithgow 26, Sig Sauer 26, Anschütz 23, Mauser 22, Unique Alpine 19, Desert Tech 14,
