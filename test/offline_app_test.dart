@@ -74,7 +74,8 @@ class _NoInternet extends HttpOverrides {
   }
 }
 
-http.Client _failingClient(Object error) => MockClient((_) async => throw error);
+http.Client _failingClient(Object error) =>
+    MockClient((_) async => throw error);
 
 /// Production adapters, offline. GPS still works without internet.
 ToolsServices _offlineServices({Object? error}) {
@@ -114,10 +115,12 @@ class _OfflineTile extends ImageProvider<_OfflineTile> {
       SynchronousFuture(this);
 
   @override
-  ImageStreamCompleter loadImage(_OfflineTile key, ImageDecoderCallback decode) =>
-      OneFrameImageStreamCompleter(
-        Future<ImageInfo>.error(const SocketException('Ağ yok (test)')),
-      );
+  ImageStreamCompleter loadImage(
+    _OfflineTile key,
+    ImageDecoderCallback decode,
+  ) => OneFrameImageStreamCompleter(
+    Future<ImageInfo>.error(const SocketException('Ağ yok (test)')),
+  );
 }
 
 class _OfflineTiles extends TileProvider {
