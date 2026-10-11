@@ -2147,6 +2147,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             const SizedBox(height: MenzilSpace.md),
             _weatherFillCard(context),
             ..._environmentInputs(context, collapseShotInputs: true),
+            _windCorrectionBox(context),
             if (widget.onContinueToPro != null)
               MenzilPrimaryButton(
                 key: const Key('environment-continue-pro'),
@@ -2918,6 +2919,72 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
 
+  /// Rüzgâr düzeltmesi (en yüksek rüzgâr, rüzgâr bölgeleri): on Hava
+  /// Durumu under the wind box (owner, 2026-10-11; it was on Pro Ayarlar).
+  Widget _windCorrectionBox(BuildContext context) {
+    final windUnit = metric ? 'm/s' : 'mph';
+    return
+_proBox(
+      id: 'wind',
+      title: 'Rüzgâr düzeltmesi',
+        summary: _summaryWind(),
+        children: [
+          _explain(ProSectionInfo.windMax),
+          MenzilInput(
+            key: const Key('pro-wind-max'),
+            controller: windMaxCtl,
+            label: 'En yüksek rüzgâr',
+            unit: windUnit,
+            info: EnvironmentFieldInfo.windMax,
+            helperText: _windMaxAuto
+                ? 'Otomatik: rüzgâr hızı × 1,5'
+                : windMaxCtl.text.trim().isEmpty
+                ? 'Boş: rüzgâr aralığı gösterilmez.'
+                : null,
+            onChanged: (v) {
+              _windMaxAuto = false;
+              _coriolisChanged();
+            },
+          ),
+          if (!_windMaxAuto)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                key: const Key('pro-wind-max-auto'),
+                onPressed: () {
+                  _windMaxAuto = true;
+                  _autoWindMax();
+                  _coriolisChanged();
+                },
+                icon: const Icon(Icons.autorenew, size: 18),
+                label: const Text('Otomatik doldur'),
+              ),
+            ),
+          _explain(ProSectionInfo.windZones),
+          MenzilFieldGrid(
+            children: [
+              MenzilInput(
+                key: const Key('pro-wind-mid'),
+                controller: windMidCtl,
+                label: 'Yol ortası',
+                unit: windUnit,
+                info: EnvironmentFieldInfo.windMid,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+              MenzilInput(
+                key: const Key('pro-wind-far'),
+                controller: windFarCtl,
+                label: 'Hedefte',
+                unit: windUnit,
+                info: EnvironmentFieldInfo.windFar,
+                onChanged: (_) => _coriolisChanged(),
+              ),
+            ],
+          ),
+        ],
+      );
+  }
+
   List<Widget> _proSection(BuildContext context) {
     final c = MenzilColors.of(context);
     final effect = _coriolisEffect();
@@ -2973,65 +3040,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           _angleTiles(context),
           _explain(ProSectionInfo.incline),
           _explain(ProSectionInfo.cant),
-        ],
-      ),
-      _proBox(
-        id: 'wind',
-        title: 'Rüzgâr',
-        summary: _summaryWind(),
-        children: [
-          _explain(ProSectionInfo.windMax),
-          MenzilInput(
-            key: const Key('pro-wind-max'),
-            controller: windMaxCtl,
-            label: 'En yüksek rüzgâr',
-            unit: windUnit,
-            info: EnvironmentFieldInfo.windMax,
-            helperText: _windMaxAuto
-                ? 'Otomatik: rüzgâr hızı × 1,5'
-                : windMaxCtl.text.trim().isEmpty
-                ? 'Boş: rüzgâr aralığı gösterilmez.'
-                : null,
-            onChanged: (v) {
-              _windMaxAuto = false;
-              _coriolisChanged();
-            },
-          ),
-          if (!_windMaxAuto)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton.icon(
-                key: const Key('pro-wind-max-auto'),
-                onPressed: () {
-                  _windMaxAuto = true;
-                  _autoWindMax();
-                  _coriolisChanged();
-                },
-                icon: const Icon(Icons.autorenew, size: 18),
-                label: const Text('Otomatik doldur'),
-              ),
-            ),
-          _explain(ProSectionInfo.windZones),
-          MenzilFieldGrid(
-            children: [
-              MenzilInput(
-                key: const Key('pro-wind-mid'),
-                controller: windMidCtl,
-                label: 'Yol ortası',
-                unit: windUnit,
-                info: EnvironmentFieldInfo.windMid,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              MenzilInput(
-                key: const Key('pro-wind-far'),
-                controller: windFarCtl,
-                label: 'Hedefte',
-                unit: windUnit,
-                info: EnvironmentFieldInfo.windFar,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-            ],
-          ),
         ],
       ),
       _proBox(
