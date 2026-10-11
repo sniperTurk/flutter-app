@@ -3389,7 +3389,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   MenzilInput(
                     key: const Key('profile-powder-coef'),
                     controller: powderCoef,
-                    label: 'Barut sıcaklık katsayısı',
+                    // Short label: "Barut sıcaklık katsayısı" next to its
+                    // unit and ⓘ was cut ("…") on 375–393 pt phones; the ⓘ
+                    // text still starts with the full name (2026-10-11).
+                    label: 'Barut katsayısı',
                     unit: '%/15 °C',
                     info: ProfileFieldInfo.powderCoef,
                     keyboardType: const TextInputType.numberWithOptions(

@@ -280,7 +280,7 @@ void main() {
       expect((kr.top - tr.top).abs(), lessThan(1));
       expect(kr.right, lessThan(tr.left));
       // Labels without parentheses; the explanation sits behind ⓘ.
-      expect(find.text('Barut sıcaklık katsayısı'), findsOneWidget);
+      expect(find.text('Barut katsayısı'), findsOneWidget);
       expect(find.text('Hız ölçüm sıcaklığı'), findsOneWidget);
       expect(
         find.descendant(of: k, matching: find.byType(MenzilInfoButton)),
