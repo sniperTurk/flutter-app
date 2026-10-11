@@ -853,7 +853,7 @@ class _LabelWithInfo extends StatelessWidget {
 /// Text that drops its bold weight when it needs a second line (owner,
 /// 2026-10-11: a wrapped bold label or entry reads heavy). One line keeps
 /// [style] as given.
-class MenzilWrapText extends StatelessWidget {
+class MenzilWrapText extends StatefulWidget {
   final String text;
   final TextStyle style;
   final int maxLines;
@@ -868,30 +868,39 @@ class MenzilWrapText extends StatelessWidget {
   });
 
   @override
+  State<MenzilWrapText> createState() => _MenzilWrapTextState();
+}
+
+/// Measured after layout, not with a LayoutBuilder: dialogs ask their
+/// content for intrinsic sizes, which a LayoutBuilder cannot answer.
+class _MenzilWrapTextState extends State<MenzilWrapText> {
+  bool _wraps = false;
+
+  void _measure(_) {
+    if (!mounted) return;
+    final width = context.size?.width;
+    if (width == null || width <= 0) return;
+    final p = TextPainter(
+      text: TextSpan(text: widget.text, style: widget.style),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+      maxLines: 1,
+    )..layout(maxWidth: width + 0.5);
+    final wraps = p.didExceedMaxLines;
+    p.dispose();
+    if (wraps != _wraps) setState(() => _wraps = wraps);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, box) {
-        var s = style;
-        if (box.maxWidth.isFinite) {
-          final p = TextPainter(
-            text: TextSpan(text: text, style: style),
-            textDirection: Directionality.of(context),
-            textScaler: MediaQuery.textScalerOf(context),
-            maxLines: 1,
-          )..layout(maxWidth: box.maxWidth);
-          if (p.didExceedMaxLines) {
-            s = style.copyWith(fontWeight: FontWeight.w400);
-          }
-          p.dispose();
-        }
-        return Text(
-          text,
-          maxLines: maxLines,
-          overflow: TextOverflow.ellipsis,
-          textAlign: textAlign,
-          style: s,
-        );
-      },
+    WidgetsBinding.instance.addPostFrameCallback(_measure);
+    final w = widget;
+    return Text(
+      w.text,
+      maxLines: w.maxLines,
+      overflow: TextOverflow.ellipsis,
+      textAlign: w.textAlign,
+      style: _wraps ? w.style.copyWith(fontWeight: FontWeight.w400) : w.style,
     );
   }
 }
