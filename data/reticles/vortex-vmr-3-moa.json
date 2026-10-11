@@ -1,0 +1,22 @@
+{
+  "name": "VMR-3 MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Viper HD 5-25x50 SFP",
+    "Viper HD 3-15x44"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/riflescopes-viper-hd-3-15x44.html",
+  "notes": "Viper HD 5-25x50 SFP ve Viper HD 3-15x44 ürün sayfaları VMR-3 (MOA) varyantını sunuyor (data/scopes/vortex.json); sayfaların retikül bölümü boş, açıklama metni yok. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}

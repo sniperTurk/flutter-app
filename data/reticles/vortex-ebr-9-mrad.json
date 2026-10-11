@@ -1,0 +1,22 @@
+{
+  "name": "EBR-9 MRAD",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "AMG 1-10x24 FFP",
+    "Razor HD Gen III 1-10x24 FFP"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/amg-1-10x24-ffp-riflescope.html",
+  "notes": "AMG 1-10x24 FFP sayfası: Reticle EBR-9 (MRAD), First Focal Plane, ayar .1 MRAD. Metin: 'Designed for use in close-quarters and long-range shooting, the EBR-9 reticle can be used to effectively determine ranges, holdovers, and windage corrections.' ve 'Glass-Etched Reticle'. Hash yapısı metinde açıkça yazmadığı için family null. Razor HD Gen III 1-10x24 sayfası da 'EBR_9_MRAD Reticle Manual' bağlantısını veriyor. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}
