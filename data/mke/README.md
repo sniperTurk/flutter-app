@@ -17,3 +17,6 @@ Kararlar:
   katalog blokları modele güvenle eşlenemediği için alınmadı.
 - Kapsam dışı: tabanca/MP5/AP5/T-94, 5.7×28, 9 mm vb. tabanca fişekleri, 20 mm ve üstü, büzmeli (manevra) fişekler,
   bombaatar, top, havan, döner namlulu sistemler.
+
+## BC taraması (2026-10-11)
+BC'si boş 18 kaydın tüm MKE ürün sayfaları ve MKE Small Arms Ammunition katalog PDF'i tekrar okundu: hiçbirinde Balistik Katsayı / G1 / G7 yok. Kayıtlar null kaldı; her kaydın `notes` alanına bakılan sayfa ve erişim tarihi eklendi. Uygulama bu kayıtları (hız 23,7 m'de ölçüldüğü ve BC olmadan namlu ağzı hızı hesaplanamadığı için) göstermemeye devam ediyor.
