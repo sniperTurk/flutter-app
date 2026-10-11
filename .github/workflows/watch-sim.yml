@@ -1,6 +1,11 @@
 name: Watch simulator build (manual)
 
-# Elle tetiklenir; otomatik çalışmaz. Saat prototipini derler:
+# Elle tetiklenir; otomatik çalışmaz. İki elle tetikleme yolu:
+#  - workflow_dispatch (dosya ana dalda olduğunda),
+#  - PR'a "watch-sim" etiketi eklemek (dosya yalnızca dalda iken; GitHub
+#    workflow_dispatch'i yalnızca varsayılan daldaki dosyalar için kabul eder).
+# PR açılması/push bu işi ÇALIŞTIRMAZ (yalnızca "labeled" olayı, o da
+# yalnızca bu etiket için). Saat prototipini derler:
 #  1. watch/WatchCore birim testleri (swift test, macOS)
 #  2. watchOS uygulaması, watchOS Simulator için (imzasız)
 #  3. iPhone uygulaması + saat köprüsü, iOS Simulator için (imzasız)
@@ -13,23 +18,26 @@ on:
         description: 'Branch to build'
         required: true
         default: 'feat/apple-watch'
+  pull_request:
+    types: [labeled]
 
 permissions:
   contents: read
 
 concurrency:
-  group: watch-sim-${{ inputs.branch }}
+  group: watch-sim-${{ inputs.branch || github.head_ref }}
   cancel-in-progress: false
 
 jobs:
   build:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'watch-sim'
     runs-on: macos-15
     timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.branch }}
+          ref: ${{ inputs.branch || github.head_ref }}
 
       - name: Select Xcode 26 or newer
         shell: bash
