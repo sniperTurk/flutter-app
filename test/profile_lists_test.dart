@@ -202,10 +202,7 @@ void main() {
     await tester.pumpAndSettle();
     // İthal drops the domestic brand.
     await chooseInSelect(tester, 'rifle-origin', 'İthal');
-    expect(
-      _in('rifle-brand-select', find.text('Hatsan')),
-      findsNothing,
-    );
+    expect(_in('rifle-brand-select', find.text('Hatsan')), findsNothing);
   });
 
   testWidgets('Dürbün: a model lists only its own reticles', (tester) async {

@@ -963,8 +963,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   List<LibraryRifle> get _rifleLib => [
     for (final r in RifleLibrary.all)
       if (r.platform == platform &&
-          (_domestic == null ||
-              _domesticBrands.contains(r.brand) == _domestic))
+          (_domestic == null || _domesticBrands.contains(r.brand) == _domestic))
         r,
   ];
 
@@ -1237,25 +1236,25 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       return [
         MenzilFullWidth(
           child: MenzilInput(
-          key: const Key('rifle-brand'),
-          controller: rifleBrand,
-          label: 'Marka',
-          keyboardType: TextInputType.text,
-          maxLength: 100,
-          onChanged: (_) => setState(() {}),
-          errorText: _shown(_brandError, rifleBrand),
-        ),
+            key: const Key('rifle-brand'),
+            controller: rifleBrand,
+            label: 'Marka',
+            keyboardType: TextInputType.text,
+            maxLength: 100,
+            onChanged: (_) => setState(() {}),
+            errorText: _shown(_brandError, rifleBrand),
+          ),
         ),
         MenzilFullWidth(
           child: MenzilInput(
-          key: const Key('rifle-model'),
-          controller: rifleModel,
-          label: 'Model',
-          keyboardType: TextInputType.text,
-          maxLength: 100,
-          onChanged: (_) => setState(() {}),
-          errorText: _shown(_modelError, rifleModel),
-        ),
+            key: const Key('rifle-model'),
+            controller: rifleModel,
+            label: 'Model',
+            keyboardType: TextInputType.text,
+            maxLength: 100,
+            onChanged: (_) => setState(() {}),
+            errorText: _shown(_modelError, rifleModel),
+          ),
         ),
         if (brands.isNotEmpty)
           MenzilFullWidth(
@@ -1282,57 +1281,58 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return [
       MenzilFullWidth(
         child: KeyedSubtree(
-        key: const Key('rifle-brand-select'),
-        child: MenzilSelect<String>(
-          key: ValueKey('rifle-brand-select-${platform.name}-$brand'),
-          label: 'Marka',
-          hint: 'Seçiniz',
-          initialValue: brand,
-          items: [
-            for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
-            const DropdownMenuItem(
-              value: _manualKey,
-              child: Text('Listede yok'),
-            ),
-          ],
-          onChanged: (v) => setState(() {
-            final before = (rifleCaliber.text, _cartridge);
-            rifleModel.text = '';
-            _clearRifleChoice();
-            _keepAmmoInCaliber(before);
-            if (v == _manualKey) {
-              _rifleManual = true;
-              rifleBrand.text = '';
-              return;
-            }
-            rifleBrand.text = v ?? '';
-          }),
+          key: const Key('rifle-brand-select'),
+          child: MenzilSelect<String>(
+            key: ValueKey('rifle-brand-select-${platform.name}-$brand'),
+            label: 'Marka',
+            hint: 'Seçiniz',
+            initialValue: brand,
+            items: [
+              for (final b in brands)
+                DropdownMenuItem(value: b, child: Text(b)),
+              const DropdownMenuItem(
+                value: _manualKey,
+                child: Text('Listede yok'),
+              ),
+            ],
+            onChanged: (v) => setState(() {
+              final before = (rifleCaliber.text, _cartridge);
+              rifleModel.text = '';
+              _clearRifleChoice();
+              _keepAmmoInCaliber(before);
+              if (v == _manualKey) {
+                _rifleManual = true;
+                rifleBrand.text = '';
+                return;
+              }
+              rifleBrand.text = v ?? '';
+            }),
+          ),
         ),
-      ),
       ),
       MenzilFullWidth(
         child: KeyedSubtree(
-        key: const Key('rifle-model-select'),
-        child: MenzilSelect<String>(
-          key: ValueKey('rifle-model-select-$brand-$model'),
-          label: 'Model',
-          hint: 'Seçiniz',
-          initialValue: model,
-          items: [
-            for (final m in models)
-              DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
-          ],
-          onChanged: (v) => setState(() {
-            final before = (rifleCaliber.text, _cartridge);
-            rifleModel.text = v ?? '';
-            _clearRifleChoice();
-            final variants = _rifleVariants;
-            // One caliber: it is chosen right away.
-            if (variants.length == 1) _applyRifleVariant(variants.first);
-            _keepAmmoInCaliber(before);
-          }),
+          key: const Key('rifle-model-select'),
+          child: MenzilSelect<String>(
+            key: ValueKey('rifle-model-select-$brand-$model'),
+            label: 'Model',
+            hint: 'Seçiniz',
+            initialValue: model,
+            items: [
+              for (final m in models)
+                DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
+            ],
+            onChanged: (v) => setState(() {
+              final before = (rifleCaliber.text, _cartridge);
+              rifleModel.text = v ?? '';
+              _clearRifleChoice();
+              final variants = _rifleVariants;
+              // One caliber: it is chosen right away.
+              if (variants.length == 1) _applyRifleVariant(variants.first);
+              _keepAmmoInCaliber(before);
+            }),
+          ),
         ),
-      ),
       ),
     ];
   }
@@ -2266,52 +2266,49 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       }
     }
     final brandSelect = KeyedSubtree(
-        key: const Key('ammo-brand-select'),
-        child: MenzilSelect<String>(
-          key: ValueKey(
-            'ammo-brand-select-${platform.name}-$factory-'
-            '${rifleCaliber.text}-$brand',
-          ),
-          label: 'Marka',
-          hint: noCaliber ? 'Önce kalibre' : 'Seçiniz',
-          initialValue: brand,
-          items: [
-            for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
-            const DropdownMenuItem(
-              value: _manualKey,
-              child: Text('Listede yok'),
-            ),
-          ],
-          onChanged: (v) => setState(() {
-            if (v == _manualKey) {
-              _clearAmmo();
-              _ammoManual = true;
-              return;
-            }
-            ammoBrand.text = v ?? '';
-            ammoModel.text = '';
-          }),
+      key: const Key('ammo-brand-select'),
+      child: MenzilSelect<String>(
+        key: ValueKey(
+          'ammo-brand-select-${platform.name}-$factory-'
+          '${rifleCaliber.text}-$brand',
         ),
-      );
+        label: 'Marka',
+        hint: noCaliber ? 'Önce kalibre' : 'Seçiniz',
+        initialValue: brand,
+        items: [
+          for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
+          const DropdownMenuItem(value: _manualKey, child: Text('Listede yok')),
+        ],
+        onChanged: (v) => setState(() {
+          if (v == _manualKey) {
+            _clearAmmo();
+            _ammoManual = true;
+            return;
+          }
+          ammoBrand.text = v ?? '';
+          ammoModel.text = '';
+        }),
+      ),
+    );
     final modelSelect = KeyedSubtree(
-        key: const Key('ammo-model-select'),
-        child: MenzilSelect<int>(
-          key: ValueKey(
-            'ammo-model-select-$factory-$brand-${rifleCaliber.text}-$modelIndex',
-          ),
-          label: 'Model',
-          hint: 'Seçiniz',
-          initialValue: modelIndex < 0 ? null : modelIndex,
-          items: [
-            for (final (k, text) in labels.indexed)
-              DropdownMenuItem(value: k, child: Text(text, maxLines: 2)),
-          ],
-          onChanged: (k) {
-            if (k == null) return;
-            setState(picks[k]);
-          },
+      key: const Key('ammo-model-select'),
+      child: MenzilSelect<int>(
+        key: ValueKey(
+          'ammo-model-select-$factory-$brand-${rifleCaliber.text}-$modelIndex',
         ),
-      );
+        label: 'Model',
+        hint: 'Seçiniz',
+        initialValue: modelIndex < 0 ? null : modelIndex,
+        items: [
+          for (final (k, text) in labels.indexed)
+            DropdownMenuItem(value: k, child: Text(text, maxLines: 2)),
+        ],
+        onChanged: (k) {
+          if (k == null) return;
+          setState(picks[k]);
+        },
+      ),
+    );
     return arrange(brandSelect, modelSelect);
   }
 

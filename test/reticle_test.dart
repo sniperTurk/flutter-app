@@ -126,7 +126,10 @@ void main() {
         )
         .controller!
         .text;
-    expect(find.text('Dürbün: Vector Optics Sentinel (SCFF-57) 6-24x50 FFP'), findsOneWidget);
+    expect(
+      find.text('Dürbün: Vector Optics Sentinel (SCFF-57) 6-24x50 FFP'),
+      findsOneWidget,
+    );
     // Its only reticle is chosen.
     expect(
       find.descendant(
