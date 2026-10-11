@@ -119,8 +119,10 @@ void main() {
       find('APRS14', 'Athlon', AngularUnit.mrad)?.id,
       'athlon-optics-aprs14-ffp-mil',
     );
-    expect(find('TOR-MIL', 'Arken Optics', AngularUnit.mrad)?.id,
-        'arken-tor-mil');
+    expect(
+      find('TOR-MIL', 'Arken Optics', AngularUnit.mrad)?.id,
+      'arken-tor-mil',
+    );
     expect(
       find('MIL-C F1', 'Nightforce Optics', AngularUnit.mrad)?.id,
       'nightforce-mil-c',
