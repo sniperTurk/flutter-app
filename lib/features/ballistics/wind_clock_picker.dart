@@ -116,15 +116,8 @@ class _ClockPainter extends CustomPainter {
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.5,
     );
-    // Shooter facing the target (12 o'clock).
-    canvas.drawCircle(center, 7, Paint()..color = colors.ink);
-    canvas.drawLine(
-      center,
-      center + Offset(0, -r * 0.45),
-      Paint()
-        ..color = colors.ink2
-        ..strokeWidth = 2,
-    );
+    // Owner, 2026-10-11: nothing in the middle until an hour is chosen; a
+    // centre line looked like a pre-selected 12.
     final h = hour;
     if (h == null) return; // No direction chosen yet: no arrow.
     final a = h * math.pi / 6;
