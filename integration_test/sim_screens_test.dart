@@ -237,6 +237,7 @@ void main() {
       await choose('ammo-bc-model', 'G1');
       await type('profile-velocity-fps', '900');
       await type('profile-zero', '25');
+      await choose('profile-distance-unit', 'Metre');
       await type('scope-sight-height', '60');
       await choose('scope-brand-select', 'Listede yok');
       await type('scope-brand', 'Test Optik');
@@ -244,6 +245,8 @@ void main() {
       await type('scope-max-mag', '24');
       await type('scope-objective', '56');
       await choose('scope-focal-plane', 'FFP');
+      await choose('scope-unit', 'MRAD');
+      await choose('scope-mount', 'Normal (0 MOA)');
       await page('profil_olustur_dolu');
       await tester.ensureVisible(find.text('Kaydet'));
       await settle();
