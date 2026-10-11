@@ -238,10 +238,7 @@ void main() {
     await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
     // "APR-1C MOA / APR-2D MOA": nothing is chosen for the user.
     expect(_in('scope-reticle', find.text('Seçiniz')), findsOneWidget);
-    expect(
-      _in('scope-reticle', find.byType(MenzilInfoButton)),
-      findsOneWidget,
-    );
+    expect(_in('scope-reticle', find.byType(MenzilInfoButton)), findsOneWidget);
     await tester.tap(find.byKey(const Key('scope-reticle')));
     await tester.pumpAndSettle();
     expect(find.text('APR-1C MOA'), findsWidgets);

@@ -13,7 +13,9 @@ void main() {
   test('every listed scope matches as the audit says', () {
     final fixture =
         jsonDecode(
-              File('test/fixtures/reticle_scope_matches.json').readAsStringSync(),
+              File(
+                'test/fixtures/reticle_scope_matches.json',
+              ).readAsStringSync(),
             )
             as Map<String, dynamic>;
     var matched = 0;
