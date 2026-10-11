@@ -236,6 +236,9 @@ def lib_bc(brand, bullet, grain, dia):
 ammo = []
 for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
     for r in json.load(open(f)):
+        # MKE velocities are V23.7 m; data/mke is read below and corrected.
+        if r['brand'] == 'MKE':
+            continue
         c = cartridge(r['cartridge'])
         if c is None or not r.get('muzzle_velocity_fps'):
             skipped.append(('ammo', r['brand'], r['product'], r['cartridge']))

@@ -9,6 +9,8 @@ import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
+import 'support/rifle_form.dart';
+
 void main() {
   test('catalog reticle names map to a family and unit', () {
     expect(Reticles.forName(null, AngularUnit.mrad), isNull);
@@ -94,7 +96,7 @@ void main() {
     }
   });
 
-  testWidgets('"Listeden seç" fills the scope', (tester) async {
+  testWidgets('Dürbün Marka then Model fills the scope', (tester) async {
     tester.view.physicalSize = const Size(390 * 3, 2400 * 3);
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
@@ -108,17 +110,12 @@ void main() {
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
 
-    await tester.ensureVisible(find.byKey(const Key('scope-library')));
-    await tester.tap(find.byKey(const Key('scope-library')));
-    await tester.pumpAndSettle();
-    expect(find.text('Dürbün listesi'), findsOneWidget);
-    await tester.enterText(
-      find.byKey(const Key('scope-picker-search')),
-      'SCFF-57',
+    await chooseInSelect(tester, 'scope-brand-select', 'Vector Optics');
+    await chooseInSelect(
+      tester,
+      'scope-model-select',
+      'Sentinel 6–24×50 FFP (SCFF-57)',
     );
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('scope-picker-item-0')));
-    await tester.pumpAndSettle();
 
     String text(String key) => tester
         .widget<TextField>(
@@ -129,7 +126,15 @@ void main() {
         )
         .controller!
         .text;
-    expect(text('scope-brand'), contains('Sentinel'));
+    expect(find.text('Dürbün: Vector Optics Sentinel (SCFF-57) 6-24x50 FFP'), findsOneWidget);
+    // Its only reticle is chosen.
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('scope-reticle')),
+        matching: find.text('VSE-3 MOA'),
+      ),
+      findsOneWidget,
+    );
     expect(text('scope-min-mag'), '6');
     expect(text('scope-max-mag'), '24');
     expect(text('scope-objective'), '50');

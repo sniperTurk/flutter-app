@@ -125,6 +125,9 @@ Future<void> fillScopeForm(
   String objective = '56',
   String plane = 'FFP',
 }) async {
+  if (find.byKey(const Key('scope-brand-select')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');
+  }
   await enterRifleField(tester, 'scope-brand', brand);
   await enterRifleField(tester, 'scope-min-mag', minMag);
   await enterRifleField(tester, 'scope-max-mag', maxMag);
