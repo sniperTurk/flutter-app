@@ -91,7 +91,10 @@ void main() {
       final s = _solution();
       final later = s.withTime(DateTime.utc(2027));
       expect(later.contentKey(), s.contentKey());
-      expect(later.toMessage()['at'], DateTime.utc(2027).millisecondsSinceEpoch);
+      expect(
+        later.toMessage()['at'],
+        DateTime.utc(2027).millisecondsSinceEpoch,
+      );
     });
 
     test('no wind entered sends no wind fields', () {
@@ -140,19 +143,22 @@ void main() {
       expect(t.sent.last['at'], now.millisecondsSinceEpoch);
     });
 
-    test('not delivered (no watch) is retried only after the interval', () async {
-      var now = DateTime.utc(2026, 1, 1, 10);
-      final t = _FakeTransport()..result = WatchSendResult.notDelivered;
-      final bridge = WatchBridge(transport: t, clock: () => now);
-      for (var i = 0; i < 30; i++) {
-        await bridge.publish(_solution()); // e.g. every frame of a drag
-      }
-      expect(t.sent, hasLength(1));
-      now = now.add(const Duration(seconds: 61));
-      t.result = WatchSendResult.sent;
-      await bridge.publish(_solution());
-      expect(t.sent, hasLength(2));
-    });
+    test(
+      'not delivered (no watch) is retried only after the interval',
+      () async {
+        var now = DateTime.utc(2026, 1, 1, 10);
+        final t = _FakeTransport()..result = WatchSendResult.notDelivered;
+        final bridge = WatchBridge(transport: t, clock: () => now);
+        for (var i = 0; i < 30; i++) {
+          await bridge.publish(_solution()); // e.g. every frame of a drag
+        }
+        expect(t.sent, hasLength(1));
+        now = now.add(const Duration(seconds: 61));
+        t.result = WatchSendResult.sent;
+        await bridge.publish(_solution());
+        expect(t.sent, hasLength(2));
+      },
+    );
 
     test('goes quiet for good when the native side is missing', () async {
       final t = _FakeTransport()..result = WatchSendResult.unavailable;
