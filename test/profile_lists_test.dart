@@ -160,7 +160,7 @@ void main() {
       'ELD Match 168 gr ELD Match',
     );
     expect(_text(tester, 'ammo-grain'), '168');
-    expect(_text(tester, 'ammo-bc'), '0.263');
+    expect(_text(tester, 'ammo-bc'), '0,263');
     expect(_text(tester, 'profile-velocity-fps'), '2700');
     expect(_in('ammo-bc-model', find.text('G7')), findsOneWidget);
     // Ağırlık | BC and BC modeli | Namlu çıkış hızı are rows of two.

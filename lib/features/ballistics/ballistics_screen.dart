@@ -1614,6 +1614,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// DOPE kartı rows for the active profile in today's conditions: level,
   /// no Coriolis; clicks include the zero offset and the turret scale.
+  /// [v] with [digits] decimals, without a minus on a value that rounds to
+  /// zero ("-0.00" at the zero range read as a wrong-way correction).
+  static String _fixed(double v, int digits) {
+    final s = v.toStringAsFixed(digits);
+    return s.startsWith('-') && double.parse(s) == 0 ? s.substring(1) : s;
+  }
+
   DopeCardData? _dopeCardData() {
     final basis = _basis;
     final s = scope;
@@ -1649,7 +1656,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     final zeroOff = _zeroOffsetMrad;
     final scale = _turretScale;
-    String num1(double v) => v.toStringAsFixed(unit.moaFamily ? 1 : 2);
+    String num1(double v) => _fixed(v, unit.moaFamily ? 1 : 2);
     final rows = <List<String>>[];
     for (final pt in solved.points) {
       final up = unit.fromMrad(pt.correctionMrad - zeroOff.up) / scale;
@@ -2716,12 +2723,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     DataCell(
                       Text(displayRange.toStringAsFixed(_yards ? 1 : 0)),
                     ),
-                    DataCell(Text(displayDrop.toStringAsFixed(1))),
-                    DataCell(Text(p.correctionMoa.toStringAsFixed(2))),
-                    DataCell(Text(p.correctionMrad.toStringAsFixed(2))),
+                    DataCell(Text(_fixed(displayDrop, 1))),
+                    DataCell(Text(_fixed(p.correctionMoa, 2))),
+                    DataCell(Text(_fixed(p.correctionMrad, 2))),
                     if (drag) ...[
                       DataCell(Text(p.windMrad.abs().toStringAsFixed(2))),
-                      DataCell(Text(_windDrift(p).toStringAsFixed(1))),
+                      DataCell(Text(_fixed(_windDrift(p), 1))),
                       DataCell(
                         Text(
                           (metric
@@ -3037,7 +3044,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               label: 'Atış mesafesi',
               unit: _distanceUnit,
               info: EnvironmentFieldInfo.proShotRange,
-              hintText: _yards ? '110' : '100',
               errorText:
                   proRangeCtl.text.trim().isNotEmpty && _proRangeM == null
                   ? '1 ile ${_displayMaxRange.toStringAsFixed(0)} '
@@ -3051,13 +3057,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               icon: Icons.map_outlined,
               expand: true,
               onPressed: _proRangeFromMap,
-            ),
-            const SizedBox(height: MenzilSpace.xs),
-            Text(
-              'Mesafeyi bilmiyorsan haritadan ölç. Hedef\'e geçince dürbün '
-              'bu mesafeye kurulmuş gelir. Boş bırakırsan Hedef '
-              '${_yards ? '100 yd' : '100 m'} ile açılır.',
-              style: MenzilType.caption(c.ink2),
             ),
           ],
         ),

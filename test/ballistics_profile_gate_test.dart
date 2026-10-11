@@ -55,25 +55,11 @@ void main() {
       expect(find.text('Tahmin yok, hesap var.'), findsOneWidget);
       expect(find.byType(BallisticsScreen), findsNothing);
 
-      // The example scope starts with both turrets at zero, the right one
-      // open; "Çözümü kulelere kur" dials the example solution.
-      expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
-      expect(find.text('Kuleler sıfırlandı'), findsOneWidget);
-      await tester.ensureVisible(find.byKey(ScopeDialKeys.dialSolution));
-      await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
-      await tester.pumpAndSettle();
-      expect(find.text('Vuruş noktası: artı işaretinde'), findsOneWidget);
-      await tester.ensureVisible(find.text('+5'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('+5'));
-      await tester.pumpAndSettle();
-      expect(
-        tester
-            .widget<Text>(find.byKey(const Key('empty-shot-range')))
-            .textSpan!
-            .toPlainText(),
-        '305 m',
-      );
+      // No example solution before a profile (owner, 2026-10-11): only the
+      // slogan and "Profil oluştur", no scope and no numbers.
+      expect(find.byType(ScopeDialView), findsNothing);
+      expect(find.textContaining('Vuruş noktası'), findsNothing);
+      expect(find.byKey(const Key('empty-shot-range')), findsNothing);
 
       await tester.tap(find.text('Pro'));
       await tester.pumpAndSettle();

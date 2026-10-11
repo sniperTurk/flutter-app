@@ -47,7 +47,8 @@ abstract final class EnvironmentFieldInfo {
       'Ateş edeceğin hedefin uzaklığı. Telemetre (lazer mesafe ölçer) ile '
       'ölç ya da bilmiyorsan "Haritadan ölç"e dokunup haritada senin ve '
       'hedefin yerini işaretle. Hedef ekranı bu mesafeyle açılır ve dürbün '
-      'kurulmuş gelir. Örnek: 85 m.';
+      'kurulmuş gelir. Boş bırakırsan Hedef 100 m (yarda biriminde 100 yd) '
+      'ile açılır. Örnek: 85 m.';
   static const incline =
       'Tüfek eğimi: hedefe bakış çizgisinin yatayla yaptığı açı. Yukarı '
       'atışta +, aşağı atışta −. Yokuşta saçma daha az düşer; yukarı ve aşağı '

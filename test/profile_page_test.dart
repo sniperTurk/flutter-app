@@ -82,12 +82,12 @@ void main() {
         distanceUnit: DistanceUnit.yard,
       ),
     );
-    // 270 m/s = 885.8 fps; 25 m = 27.3 yd. The stored profile stays SI.
-    expect(find.textContaining('886 fps • Sıfır 27.3 yd'), findsOneWidget);
+    // 270 m/s = 885.8 fps; 25 m = 27,3 yd. The stored profile stays SI.
+    expect(find.textContaining('886 fps • Sıfır 27,3 yd'), findsOneWidget);
     expect(find.textContaining('m/s', findRichText: true), findsNothing);
     // Summary tiles render value and unit as one rich text.
     expect(find.text('886 fps', findRichText: true), findsOneWidget);
-    expect(find.text('27.3 yd', findRichText: true), findsOneWidget);
+    expect(find.text('27,3 yd', findRichText: true), findsOneWidget);
   });
 
   testWidgets('active profile summary comes before the profile list', (

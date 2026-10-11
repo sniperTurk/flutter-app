@@ -42,8 +42,10 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
         self.assertIn('shot.windMrad', self.text[dial:])
 
     def test_elevation_angular_correction_is_now_rendered_with_disclaimers(self):
-        self.assertIn('p.correctionMoa.toStringAsFixed(2)', self.text)
-        self.assertIn('p.correctionMrad.toStringAsFixed(2)', self.text)
+        # _fixed: toStringAsFixed without a minus on a rounded zero
+        # (owner, 2026-10-11: no "-0.00" at the zero range).
+        self.assertIn('_fixed(p.correctionMoa, 2)', self.text)
+        self.assertIn('_fixed(p.correctionMrad, 2)', self.text)
         self.assertIn("'Yükseklik MOA*'", self.text)
         self.assertIn("'Yükseklik mrad*'", self.text)
 
