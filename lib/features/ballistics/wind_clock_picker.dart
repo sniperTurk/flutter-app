@@ -208,7 +208,12 @@ class _DiagramPainter extends CustomPainter {
     final tp = TextPainter(
       text: TextSpan(
         text: s,
-        style: TextStyle(color: color, fontSize: size, fontWeight: weight),
+        style: TextStyle(
+          fontFamily: MenzilType.family,
+          color: color,
+          fontSize: size,
+          fontWeight: weight,
+        ),
       ),
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,

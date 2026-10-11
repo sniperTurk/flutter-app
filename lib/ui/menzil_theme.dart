@@ -360,28 +360,28 @@ abstract final class MenzilType {
   );
 
   // Field labels: a bit smaller, not bold (owner, 2026-10-11).
-  static TextStyle label(Color color) => TextStyle(
+  static TextStyle label(Color color) => TextStyle(fontFamily: MenzilType.family, 
     fontSize: 12.5,
     height: 1.25,
     fontWeight: FontWeight.w400,
     color: color,
   );
 
-  static TextStyle unit(Color color) => TextStyle(
+  static TextStyle unit(Color color) => TextStyle(fontFamily: MenzilType.family, 
     fontSize: 13,
     height: 1.25,
     fontWeight: FontWeight.w500,
     color: color,
   );
 
-  static TextStyle body(Color color) => TextStyle(
+  static TextStyle body(Color color) => TextStyle(fontFamily: MenzilType.family, 
     fontSize: 15,
     height: 1.35,
     fontWeight: FontWeight.w500,
     color: color,
   );
 
-  static TextStyle caption(Color color) => TextStyle(
+  static TextStyle caption(Color color) => TextStyle(fontFamily: MenzilType.family, 
     fontSize: 12.5,
     height: 1.35,
     fontWeight: FontWeight.w400,
@@ -504,7 +504,7 @@ abstract final class MenzilTheme {
           disabledForegroundColor: c.bg,
           minimumSize: minControl,
           shape: controlShape,
-          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          textStyle: const TextStyle(fontFamily: MenzilType.family, fontSize: 15, fontWeight: FontWeight.w700),
           padding: const EdgeInsets.symmetric(horizontal: 16),
         ),
       ),
@@ -514,7 +514,7 @@ abstract final class MenzilTheme {
           minimumSize: minControl,
           shape: controlShape,
           side: BorderSide(color: c.line),
-          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          textStyle: const TextStyle(fontFamily: MenzilType.family, fontSize: 15, fontWeight: FontWeight.w700),
           padding: const EdgeInsets.symmetric(horizontal: 14),
         ),
       ),
@@ -522,7 +522,7 @@ abstract final class MenzilTheme {
         style: TextButton.styleFrom(
           foregroundColor: c.cyanInk,
           minimumSize: const Size(44, 44),
-          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(fontFamily: MenzilType.family, fontSize: 15, fontWeight: FontWeight.w600),
         ),
       ),
       iconButtonTheme: IconButtonThemeData(
@@ -549,7 +549,7 @@ abstract final class MenzilTheme {
             (states) => states.contains(WidgetState.selected) ? c.bg : c.ink2,
           ),
           textStyle: const WidgetStatePropertyAll(
-            TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600),
+            TextStyle(fontFamily: MenzilType.family, fontSize: 13.5, fontWeight: FontWeight.w600),
           ),
         ),
       ),
@@ -575,7 +575,7 @@ abstract final class MenzilTheme {
       progressIndicatorTheme: ProgressIndicatorThemeData(color: c.amber),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: c.ink,
-        contentTextStyle: TextStyle(
+        contentTextStyle: TextStyle(fontFamily: MenzilType.family, 
           color: c.bg,
           fontSize: 14.5,
           fontWeight: FontWeight.w500,
@@ -611,7 +611,7 @@ abstract final class MenzilTheme {
       ),
       dataTableTheme: DataTableThemeData(
         headingRowColor: WidgetStatePropertyAll(c.surface2),
-        headingTextStyle: TextStyle(
+        headingTextStyle: TextStyle(fontFamily: MenzilType.family, 
           fontSize: 12,
           fontWeight: FontWeight.w700,
           color: c.ink,
@@ -629,7 +629,7 @@ abstract final class MenzilTheme {
           color: c.ink,
           borderRadius: BorderRadius.circular(8),
         ),
-        textStyle: TextStyle(color: c.bg, fontSize: 13),
+        textStyle: TextStyle(fontFamily: MenzilType.family, color: c.bg, fontSize: 13),
       ),
     );
   }

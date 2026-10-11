@@ -1157,7 +1157,12 @@ class _DrumPainter extends CustomPainter {
     final tp = TextPainter(
       text: TextSpan(
         text: s,
-        style: TextStyle(color: color, fontSize: size, fontWeight: weight),
+        style: TextStyle(
+          fontFamily: MenzilType.family,
+          color: color,
+          fontSize: size,
+          fontWeight: weight,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -1473,6 +1478,7 @@ class ScopeReticlePainter extends CustomPainter {
         text: TextSpan(
           text: s,
           style: TextStyle(
+            fontFamily: MenzilType.family,
             fontSize: size,
             fontWeight: weight,
             foreground: Paint()
@@ -1490,7 +1496,12 @@ class ScopeReticlePainter extends CustomPainter {
     final tp = TextPainter(
       text: TextSpan(
         text: s,
-        style: TextStyle(color: color, fontSize: size, fontWeight: weight),
+        style: TextStyle(
+          fontFamily: MenzilType.family,
+          color: color,
+          fontSize: size,
+          fontWeight: weight,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
