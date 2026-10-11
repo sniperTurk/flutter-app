@@ -239,14 +239,17 @@ void main() {
       await choose('profile-distance-unit', 'Metre');
       await type('profile-zero', '25');
       await type('scope-sight-height', '60');
-      // A catalog scope whose reticle has manufacturer data, so the Hedef
-      // screenshots show the scope's own reticle drawing.
-      await choose('scope-brand-select', 'Athlon');
-      await choose(
-        'scope-model-select',
-        'CRONUS BTR GEN2 UHD 4.5-29x56 FFP IR MIL',
-      );
-      await choose('scope-reticle', 'APRS1');
+      // A catalog scope sold with two reticles ("APR-1C MOA / APR-2D
+      // MOA"): Retikül lists both, and the Hedef screenshots show the
+      // chosen reticle's own drawing from its manufacturer data.
+      await choose('scope-brand-select', 'Element Optics');
+      await choose('scope-model-select', 'Titan 5-25x56 FFP MOA');
+      await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
+      await tester.tap(find.byKey(const Key('scope-reticle')));
+      await settle();
+      await shot('profil_retikul_liste');
+      await tester.tap(find.text('APR-2D MOA').last);
+      await settle();
       await choose('scope-mount', 'Normal (0 MOA)');
       await page('profil_olustur_dolu');
       await tester.ensureVisible(find.text('Kaydet'));
