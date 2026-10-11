@@ -16,6 +16,7 @@
   "posts_start": null,
   "center_dot": true,
   "floating_center": null,
+  "line_width": 0.005,
   "source_url": "https://deltaoptical.eu/pl/hunting/riflescopes/stryker-hd-5-50x56.html",
-  "notes": "Delta Optical ürün sayfası (SFP, ölçüm büyütmesi 40x). Metin: DLS-1 (MIL) merkez nokta 0.03 Mil (3 mm @100 m), çubuk kalınlığı 0.005 Mil, çentikler 0.2 ve 1 Mil aralıklı (40x'te). major_every=1 bu ifadeden yorumla alındı. SFP olduğundan değerler yalnızca belirtilen 40x'te geçerli. numbers_every, extent_*, tree, posts_start, floating_center metinde yok -> null."
+  "notes": "Delta Optical ürün sayfası (SFP, ölçüm büyütmesi 40x). Metin: DLS-1 (MIL) merkez nokta 0.03 Mil (3 mm @100 m), çubuk kalınlığı 0.005 Mil, çentikler 0.2 ve 1 Mil aralıklı (40x'te). major_every=1 bu ifadeden yorumla alındı. SFP olduğundan değerler yalnızca belirtilen 40x'te geçerli. numbers_every, extent_*, tree, posts_start, floating_center metinde yok -> null. [2. tur] line_width=0.005 doğrudan: '0.005 Mil (0.5mm) crosshairs in the horizontal and vertical' (deltaoptical.eu/en/hunting/riflescopes/stryker/stryker-hd-5-50x56.html); SFP, 40x'te geçerli. Not: DLS-3 (MOA) sayfası 'belka' kalınlığını 0,25 MOA veriyor; 'odpowiednik' denmesine rağmen tutarsız, DLS-3'e girilmedi."
 }
