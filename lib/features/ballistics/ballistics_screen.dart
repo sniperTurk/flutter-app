@@ -194,6 +194,24 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   late final TextEditingController sight;
   late final TextEditingController wind;
   late final TextEditingController windDirection;
+
+  /// Rüzgâr yönü box (owner, 2026-10-11): the clock hour the wind comes
+  /// from, typed by the user. It starts empty so no direction is assumed;
+  /// a valid 1…12 is mirrored into [windDirection] in solver degrees.
+  late final TextEditingController windHour;
+
+  int? get _windHourValue {
+    final h = int.tryParse(windHour.text.trim());
+    return h != null && h >= 1 && h <= 12 ? h : null;
+  }
+
+  void _syncWindHour() {
+    final h = _windHourValue;
+    if (h != null) {
+      windDirection.text = WindClock.toDegrees(h).toStringAsFixed(0);
+    }
+  }
+
   late final TextEditingController temperature;
   late final TextEditingController pressure;
   late final TextEditingController humidity;
@@ -701,6 +719,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     sight = TextEditingController(text: (p?.sightHeightMm ?? 65).toString());
     wind = TextEditingController(text: '0')..addListener(_autoWindMax);
     windDirection = TextEditingController(text: '90');
+    windHour = TextEditingController()..addListener(_syncWindHour);
     temperature = TextEditingController(text: '15');
     pressure = TextEditingController(text: '1013.25');
     humidity = TextEditingController(text: '50');
@@ -1069,6 +1088,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final z = _yards ? UnitSystem.yardsToMeters(rawZero!) : rawZero!;
     final s = metric ? rawSight! : UnitSystem.inchesToMillimeters(rawSight!);
     final w = metric ? rawWind! : UnitSystem.mphToMps(rawWind!);
+    // With wind, the direction must be typed: no silent default.
+    if (w > 0 && _windHourValue == null) {
+      _error(
+        'Rüzgâr yönünü girin: rüzgârın geldiği saat, 1–12 (hedef saat 12).',
+      );
+      return;
+    }
     final wd = rawWindDirection!;
     final temp = metric
         ? rawTemperature!
@@ -1217,6 +1243,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     sight.dispose();
     wind.dispose();
     windDirection.dispose();
+    windHour.dispose();
     temperature.dispose();
     pressure.dispose();
     humidity.dispose();
@@ -2524,24 +2551,22 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               info: EnvironmentFieldInfo.windSpeed,
               unit: metric ? 'm/s' : 'mph',
             ),
-            // Clock face like ChairGun/Strelok/Kestrel: the hour the wind
-            // comes from (12 = from the front, 3 = from the right). The
-            // solver's degrees stay in [windDirection].
+            MenzilInput(
+              key: BallisticsFieldKeys.windDirection,
+              controller: windHour,
+              label: 'Rüzgâr yönü',
+              unit: 'saat',
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              maxLength: 2,
+              onChanged: (_) => setState(() {}),
+              info: EnvironmentFieldInfo.windDirection,
+            ),
+            // Clock face: nothing pre-selected; a tapped hour fills the box.
             MenzilFullWidth(
               child: WindClockPicker(
-                key: BallisticsFieldKeys.windDirection,
-                info: EnvironmentFieldInfo.windDirection,
-                hour: WindClock.fromDegrees(
-                  double.tryParse(
-                        windDirection.text.trim().replaceAll(',', '.'),
-                      ) ??
-                      90,
-                ),
-                onChanged: (h) => setState(
-                  () => windDirection.text = WindClock.toDegrees(
-                    h,
-                  ).toStringAsFixed(0),
-                ),
+                hour: _windHourValue,
+                onChanged: (h) => setState(() => windHour.text = '$h'),
               ),
             ),
           ],
@@ -4042,7 +4067,7 @@ abstract final class _EnvironmentCarry {
       'humidity': h,
       'altitude': m ? a : UnitSystem.feetToMeters(a),
       'wind': m ? w : UnitSystem.mphToMps(w),
-      if (d != null) 'windDirection': d,
+      if (d != null && s._windHourValue != null) 'windDirection': d,
     };
     _edited = {
       if (s._userEdited.contains(s.temperature)) 'temperature',
@@ -4074,6 +4099,8 @@ abstract final class _EnvironmentCarry {
       value.text = f(v);
       if (_edited.contains(key)) s._userEdited.add(value);
     }
+    final wd = si['windDirection'];
+    if (wd != null) s.windHour.text = '${WindClock.fromDegrees(wd)}';
     // A profile workspace takes the values over; a later no-profile page
     // starts from them again only until then.
     if (s.widget.profile != null) {
