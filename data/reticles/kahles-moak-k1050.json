@@ -1,0 +1,21 @@
+{
+  "name": "MOAK (K1050)",
+  "brand": "Kahles",
+  "scopes": [
+    "K1050"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/MOAK_K1050.pdf",
+  "notes": "Kahles retikül föyü 'MOAK / K1050'. SFP: K1050 ürün sayfası 'Focal plane: 2.', 'Non-illuminated'. Tablo 40x sütunu: A=1MOA, B=0,5MOA, C=0,09MOA, D=0,035 MOA, E=0,5MOA, F=0,25MOA, G=2MOA (10x'te 4 katı, 50x'te 0,8 katı). çıkarım: nominal büyütme 40x. A–G harflerinin öğe eşlemesi yalnız çizimde -> geometri null."
+}

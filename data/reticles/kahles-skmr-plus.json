@@ -1,0 +1,22 @@
+{
+  "name": "SKMR+",
+  "brand": "Kahles",
+  "scopes": [
+    "K328i",
+    "K540i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": 2,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/SKMR+_K328i_K540i.pdf",
+  "notes": "Kahles retikül föyü 'SKMR+ / K328i, K540i' (23021111298-103, 11.11.2023). Basılı sayılar yatayda '10 8 6 4 2 2 4 6 8 10', dikeyde '10 8 6 4 2'. çıkarım: numbers_every=2 bu diziden. Etiketsiz değerler: 20MIL, 5MIL, 1MIL, 0,5MIL, 0,3MIL, 0.25MIL, 0,2MIL, 0.17MIL, 0,1MIL, 0,07MIL, 0,035MIL; öğe eşlemesi yalnız çizimde -> diğer geometri null. FFP ('Focal plane: 1.')."
+}
