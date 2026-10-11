@@ -1177,6 +1177,10 @@ class MenzilSecondaryButton extends StatelessWidget {
   /// (e.g. "Çözüm kuleye kurulu"). Stays orange when disabled.
   final bool active;
 
+  /// The label takes at most two lines; a longer one is set smaller until it
+  /// fits (owner, 2026-10-11: "Çözüm kulelere kuruldu" took three lines).
+  final bool twoLines;
+
   const MenzilSecondaryButton({
     super.key,
     required this.label,
@@ -1185,7 +1189,42 @@ class MenzilSecondaryButton extends StatelessWidget {
     this.expand = false,
     this.destructive = false,
     this.active = false,
+    this.twoLines = false,
   });
+
+  Widget _label() {
+    if (!twoLines) return Text(label);
+    return LayoutBuilder(
+      builder: (context, box) {
+        if (!box.maxWidth.isFinite) return Text(label);
+        final base = DefaultTextStyle.of(context).style;
+        final scaler = MediaQuery.textScalerOf(context);
+        final dir = Directionality.of(context);
+        var size = base.fontSize ?? 16;
+        while (size > 10) {
+          final painter = TextPainter(
+            text: TextSpan(
+              text: label,
+              style: base.copyWith(fontSize: size),
+            ),
+            textDirection: dir,
+            textScaler: scaler,
+            maxLines: 2,
+          )..layout(maxWidth: box.maxWidth);
+          final fits = !painter.didExceedMaxLines;
+          painter.dispose();
+          if (fits) break;
+          size -= 0.5;
+        }
+        return Text(
+          label,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontSize: size),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1205,12 +1244,12 @@ class MenzilSecondaryButton extends StatelessWidget {
           )
         : null;
     final button = icon == null
-        ? OutlinedButton(style: style, onPressed: onPressed, child: Text(label))
+        ? OutlinedButton(style: style, onPressed: onPressed, child: _label())
         : OutlinedButton.icon(
             style: style,
             onPressed: onPressed,
             icon: Icon(icon, size: 20),
-            label: Text(label),
+            label: _label(),
           );
     return expand ? SizedBox(width: double.infinity, child: button) : button;
   }

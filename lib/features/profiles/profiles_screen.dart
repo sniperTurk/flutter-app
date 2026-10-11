@@ -1066,7 +1066,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Reticle names of a record ("VPR-MIL / VHR-MIL" is two).
   static List<String> _reticlesOf(ScopeOptic s) => [
     for (final r in (s.reticle ?? '').split(RegExp(r'\s*/\s*')))
-      if (r.trim().isNotEmpty) r.trim(),
+      // A focal plane is not a reticle.
+      if (r.trim().isNotEmpty && !const {'FFP', 'SFP'}.contains(r.trim()))
+        r.trim(),
   ];
 
   /// "Talos HMR 4-16x56 Center-X SFP MOA" -> "Talos HMR 4-16x56 SFP MOA":
@@ -2261,7 +2263,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             _trimDot(b.grain) == ammoGrain.text) {
           modelIndex = labels.length;
         }
-        labels.add('${_modelOf(b)} · ${_trimDot(b.grain)} gr');
+        final m = _modelOf(b);
+        final g = '${_trimDot(b.grain)} gr';
+        labels.add(m.contains(g) ? m : '$m · $g');
         picks.add(() => _applyBullet(b, _parse(rifleCaliber)));
       }
     }
