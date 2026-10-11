@@ -149,6 +149,7 @@ void main() {
     install();
     await _pump(tester);
     await tester.enterText(find.byKey(BallisticsFieldKeys.wind), '4');
+    await tester.enterText(find.byKey(BallisticsFieldKeys.windDirection), '9');
     await tester.tap(find.text('DOPE oluştur'));
     await tester.pumpAndSettle();
     expect(find.text('Rüzgâr sapması cm'), findsOneWidget);
