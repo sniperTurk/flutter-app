@@ -108,6 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
   /// page's "Profil oluştur").
   int _createRequest = 0;
 
+  /// Hava Durumu values survive a rebuilt ballistic workspace.
+  final EnvironmentCarry _environmentCarry = EnvironmentCarry();
+
   void _createProfile() {
     setState(() {
       tab = _tabProfile;
@@ -544,6 +547,7 @@ class _HomeScreenState extends State<HomeScreen> {
           view: BallisticsView.environment,
           autoWeather: widget.autoWeather,
           onCreateProfile: _createProfile,
+          environmentCarry: _environmentCarry,
         );
       }
       // Separate storage keys: Pro's scroll position must not carry over to
@@ -624,6 +628,7 @@ class _HomeScreenState extends State<HomeScreen> {
       autoWeather: widget.autoWeather,
       onContinueToPro: () => _selectTab(_tabPro),
       onContinueToShot: () => _selectTab(_tabShot),
+      environmentCarry: _environmentCarry,
     );
   }
 }
