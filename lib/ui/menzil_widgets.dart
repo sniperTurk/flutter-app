@@ -1500,7 +1500,9 @@ class MenzilMetricGrid extends StatelessWidget {
                 border: Border.all(color: c.line),
                 borderRadius: BorderRadius.circular(MenzilRadius.table),
               ),
-              child: Wrap(
+              child: twoLineText
+                  ? _rows(context, cols, tileWidth)
+                  : Wrap(
                 spacing: 1,
                 runSpacing: 1,
                 children: [
@@ -1528,6 +1530,39 @@ class MenzilMetricGrid extends StatelessWidget {
       ),
     );
   }
+
+  /// Profil summary: rows whose two boxes share one height (a wrapped model
+  /// name grows its row, not a single box).
+  Widget _rows(BuildContext context, int cols, double tileWidth) {
+    final c = MenzilColors.of(context);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (var r = 0; r < metrics.length; r += cols) ...[
+          if (r > 0) const SizedBox(height: 1),
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (var k = 0; k < cols; k++) ...[
+                  if (k > 0) const SizedBox(width: 1),
+                  SizedBox(
+                    width: tileWidth,
+                    child: r + k < metrics.length
+                        ? MenzilMetricCard(
+                            metric: metrics[r + k],
+                            twoLineText: true,
+                          )
+                        : ColoredBox(color: c.surface),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ],
+    );
+  }
 }
 
 /// One metric tile (label above a large condensed number with unit).
@@ -1542,46 +1577,20 @@ class MenzilMetricCard extends StatelessWidget {
     this.twoLineText = false,
   });
 
-  /// A text value that does not fit one line at 22: up to two lines, the
-  /// largest size from 18 down to 12 that fits.
-  Widget _textValue(Color ink) => LayoutBuilder(
-    builder: (context, box) {
-      final scaler = MediaQuery.textScalerOf(context);
-      final dir = Directionality.of(context);
-      TextStyle at(double size) => MenzilType.number(ink, size: size);
-      bool fits(double size, int lines) {
-        final p = TextPainter(
-          text: TextSpan(text: metric.value, style: at(size)),
-          textDirection: dir,
-          textScaler: scaler,
-          maxLines: lines,
-        )..layout(maxWidth: box.maxWidth);
-        final ok = !p.didExceedMaxLines;
-        p.dispose();
-        return ok;
-      }
+  /// Profil summary size: every value as large as a wrapped model name
+  /// (owner, 2026-10-11: "Tüfek model ile aynı boyda yap hepsini").
+  static const double summarySize = 17;
 
-      if (!box.maxWidth.isFinite || fits(22, 1)) {
-        // Profil summary: regular weight, one line too (owner, 2026-10-11:
-        // "bolt yazıyı iptal et").
-        return Text(
-          metric.value,
-          maxLines: 1,
-          style: at(22).copyWith(fontWeight: FontWeight.w400),
-        );
-      }
-      var size = 18.0;
-      while (size > 12 && !fits(size, 2)) {
-        size -= 1;
-      }
-      return Text(
-        metric.value,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        // Two lines: regular weight (owner, 2026-10-11).
-        style: at(size).copyWith(height: 1.15, fontWeight: FontWeight.w400),
-      );
-    },
+  /// A text value: up to two lines at [summarySize], regular weight. No
+  /// LayoutBuilder, so the summary rows can match their heights.
+  Widget _textValue(Color ink) => Text(
+    metric.value,
+    maxLines: 2,
+    overflow: TextOverflow.ellipsis,
+    style: MenzilType.number(
+      ink,
+      size: summarySize,
+    ).copyWith(height: 1.15, fontWeight: FontWeight.w400),
   );
 
   @override
@@ -1590,9 +1599,12 @@ class MenzilMetricCard extends StatelessWidget {
     return ColoredBox(
       color: c.surface,
       child: ConstrainedBox(
-        constraints: BoxConstraints(minHeight: twoLineText ? 76 : 56),
+        // Smaller boxes on the Profil summary (owner, 2026-10-11).
+        constraints: BoxConstraints(minHeight: twoLineText ? 46 : 56),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 7, 10, 8),
+          padding: twoLineText
+              ? const EdgeInsets.fromLTRB(10, 5, 10, 6)
+              : const EdgeInsets.fromLTRB(10, 7, 10, 8),
           child: Semantics(
             label: '${metric.label}: ${metric.value} ${metric.unit ?? ''}',
             child: ExcludeSemantics(
@@ -1607,13 +1619,7 @@ class MenzilMetricCard extends StatelessWidget {
                     style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
                   ),
                   if (twoLineText && metric.unit == null)
-                    SizedBox(
-                      height: 44,
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: _textValue(c.ink),
-                      ),
-                    )
+                    _textValue(c.ink)
                   else
                     FittedBox(
                       fit: BoxFit.scaleDown,
@@ -1624,7 +1630,7 @@ class MenzilMetricCard extends StatelessWidget {
                           style: twoLineText
                               ? MenzilType.number(
                                   c.ink,
-                                  size: 22,
+                                  size: summarySize,
                                 ).copyWith(fontWeight: FontWeight.w400)
                               : MenzilType.number(c.ink, size: 22),
                           children: [

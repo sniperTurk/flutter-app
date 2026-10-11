@@ -313,6 +313,10 @@ abstract final class MenzilSpace {
 /// pubspec `fonts:`; otherwise the platform falls back to its system face.
 /// Tabular figures keep values from jittering while they change.
 abstract final class MenzilType {
+  /// The app's typeface (owner, 2026-10-11): Oswald, bundled in
+  /// assets/fonts (SIL OFL), static weights 300–700.
+  static const String family = 'Oswald';
+
   static const List<String> numericFallback = [
     'Barlow Condensed',
     'Roboto Condensed',
@@ -321,6 +325,7 @@ abstract final class MenzilType {
   static const List<FontFeature> tabular = [FontFeature.tabularFigures()];
 
   static TextStyle display(Color color, {double size = 60}) => TextStyle(
+    fontFamily: family,
     fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.0,
@@ -335,6 +340,7 @@ abstract final class MenzilType {
     double size = 22,
     FontWeight weight = FontWeight.w600,
   }) => TextStyle(
+    fontFamily: family,
     fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.1,
@@ -344,6 +350,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle heading(Color color, {double size = 22}) => TextStyle(
+    fontFamily: family,
     fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.1,
@@ -429,6 +436,8 @@ abstract final class MenzilTheme {
 
     return ThemeData(
       useMaterial3: true,
+      // Oswald everywhere, the welcome pages included (owner, 2026-10-11).
+      fontFamily: MenzilType.family,
       brightness: brightness,
       colorScheme: scheme,
       scaffoldBackgroundColor: c.bg,
