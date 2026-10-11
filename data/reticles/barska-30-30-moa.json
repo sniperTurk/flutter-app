@@ -1,0 +1,26 @@
+{
+  "name": "30/30",
+  "brand": "Barska",
+  "scopes": [
+    "Huntmaster 3-9x40 30/30 (AC10030)",
+    "Huntmaster 3-9x40 30/30 Silver (AC11204)",
+    "Huntmaster 3-9x50 30/30 (AC10034)",
+    "Huntmaster Pro 3-12x50 IR 30/30 (AC10056)",
+    "Varmint AO 4-16x40 30/30 (AC10832)",
+    "Varmint AO 4-16x50 30/30 (AC10042)"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": 14.32,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://cdn.shopify.com/s/files/1/0743/9102/8034/files/BC331_Riflescope_Basics.pdf?v=1737414020",
+  "notes": "SFP, ölçüler 4x'te. Kaynak: Barska 'Riflescope Basics' kılavuzu (shop.barska.com ürün sayfasındaki 'Click Here for Product Manual' bağlantısı, Barska Shopify CDN'i): 'The point to distance of the 30/30 reticle is equal to 30 inches at 100 yards (76cm at 100 meters) @ 4X magnification.' Tablo 4x'te 'Point to Cross Hair' 200 yd, 'Point to Point' 100 yd veriyor -> direk ucundan merkeze mesafe direk uçları arası mesafenin yarısı (15 in @100 yd). posts_start=14.32 ÇIKARIM: 15 in / 1.047 in/MOA @100 yd = 14.32 MOA (4x'te); başka büyütmede ters orantılı değişir (SFP). Kılavuz genel Barska tüfek dürbünü kılavuzu; model başına ayrı 30/30 föyü yok. Kapsam: shop.barska.com/collections/rifle-scopes (2. sayfa) ürün adlarında '30/30' geçen modeller. Çizgi/direk kalınlıkları verilmiyor -> null."
+}

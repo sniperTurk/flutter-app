@@ -1,0 +1,21 @@
+{
+  "name": "HSi-CQB",
+  "brand": "GPO",
+  "scopes": [
+    "CENTURI 4-16x44i FFP HSi-CQB"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://gpo-usa.com/shop/tactical/scopes-tactical/centuri-scopes-tactical/centuri-4-16x44i-ffp-super-compact/",
+  "notes": "FFP. Kaynak: GPO USA CENTURI 4-16x44i ürün sayfası: 'The MIL-base HSi-CQB illuminated reticle', 'FFP I-Control Illuminated Mil-Base Reticle'. Sayfa, GPO reticle-images sayfası (https://gpo-usa.com/reticle-images/) ve teknik bilgi sayfası ölçü vermiyor -> ölçü alanları null. Retikül görseli (https://gpo-usa.com/wp-content/uploads/2025/01/Reticle-1-6x-Tactical-pdf.jpg) okunamadı."
+}

@@ -1,0 +1,22 @@
+{
+  "name": "MRAD 1 RD",
+  "brand": "Meopta",
+  "scopes": [
+    "MeoPro R6 3-18x50 FFP RD",
+    "MeoPro R6 4.5-27x50 FFP RD"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.meoptasportsoptics.eu/files/MeoPro_R6_EN.pdf",
+  "notes": "FFP. Kaynak: Meopta MeoPro R6 kullanım kılavuzu (meoptasportsoptics.eu/download.html) retikül-model listesi: '3-18x50 FFP RD – Mrad 1 RD', '4.5-27x50 FFP RD – Mrad 1 RD'; 2026 katalogu (https://www.meoptasportsoptics.eu/files/katalog_2026_EN.pdf) MeoPro R6 için 'MRAD 1 RD' retikülünü listeliyor. unit=mil ÇIKARIM: retikül adındaki 'MRAD'dan; kılavuz retikül birimini ayrıca yazmıyor (yalnız taret 'Rectification step MIL ...'). Ölçüler yok: Meopta'nın retikül föyleri (https://www.meoptasportsoptics.eu/files/reticle/reticle-MRad1-RD.pdf vb.) yalnız görsel içeriyor, metin katmanı yok, bu ortamda okunamadı -> tüm ölçü alanları null. meopta.com/en/download'daki 'meopta-reticles-en.pdf' de ikili/okunamaz döndü."
+}

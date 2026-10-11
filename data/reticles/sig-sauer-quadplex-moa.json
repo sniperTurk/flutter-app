@@ -1,0 +1,22 @@
+{
+  "name": "Quadplex",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "WHISKEY4 3-12x44 Low Profile SFP (Quadplex / Hellfire Quadplex)",
+    "WHISKEY3 3-9x40 SFP (SOW33202 Quadplex, SOW33206 HellFire QuadPlex)"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-WHISKEY4-7404528-01-REV10-WEB-FILE.pdf",
+  "notes": "SFP, ölçüler en yüksek büyütmede (föy: 'Units are in MOA at max magnification'; WHISKEY4 3-12x44 için 12x). Kaynak: WHISKEY4 Operator's Manual s.30 'SFP QUADPLEX RETICLE'; Hellfire Quadplex aynı retikülün aydınlatmalı adı (manual Bölüm 3.0: 'HELLFIRE QUADPLEX'). Föy rakamları (çıkarım sırasıyla): 0.25, 0.25, 0.5, 0.5, 7.5, 15 MOA; görselsiz hangi ölçüye ait oldukları eşlenemedi (olası: 0.25 ince tel, 0.5 direk kalınlığı, 7.5 merkezden direk başlangıcı, 15 karşılıklı direk uçları arası -> doğrulanmadığı için posts_start/line_width null). center_dot=false ÇIKARIM: föy ve ürün sayfalarında nokta söz edilmiyor. Kapsam: sigsauer.com WHISKEY4 3-12x44 ürün sayfası ('Low Profile ... Hellfire Quadplex' ve 'Quadplex' varyantları) ve https://www.sigsauer.com/whiskey3-3-9x40-mm.html (SOW33202/SOW33206). WHISKEY3 föyü (https://www.sigsauer.com/pub/media/sigsauer/resources/20SIG3160_Whiskey_Manual7402660-01_R03.pdf) ölçü vermiyor; WHISKEY3'te ölçülerin aynı olduğu doğrulanmadı. [Birleştirme incelemesi] center_dot ÇIKARIM olduğu için null."
+}

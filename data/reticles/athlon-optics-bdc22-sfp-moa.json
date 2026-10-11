@@ -1,0 +1,22 @@
+{
+  "name": "BDC 22 Rimfire SFP MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Neos 3-9x40 BDC 22 Rimfire (216003)",
+    "Neos 4-12x40 BDC 22 Rimfire (216010)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/storage/2022/02/Athlon-BDC22-Rimfire-Reticle-Manual-Neos.pdf",
+  "notes": "[3. tur TR] Athlon BDC22 Rimfire retikül föyü (Neos). SFP ('SECOND FOCAL PLANE'); 'For 3-9x40 reticle subtension is valid at 9x', 'For 4-12x40 reticle subtension is valid at 12x'. Metin: '.22 LR with a muzzle velocity of approximately 1,250 feet per second, this reticle is designed to be zeroed at 50 yards, providing bullet drop compensation for 75, 100, 125 and 150 yards'. Föy tablosu 'SUBTENSIONS IN MOA': A1 0.25, A2 0.8, C1 2.3, C2 5.3, C3 8.8, C4 12.5, C5 5, D1 1 (etiketlerin neyi ölçtüğü metinde yazmıyor). ÇIKARIM: C1-C4 (2.3/5.3/8.8/12.5) dört BDC mesafesine (75/100/125/150 yd) karşılık gelen merkezden düşüşler olabilir — dört artan değer dört mesafeyle eşleşiyor; doğrulanmadı. Diğer etiketler (A1, A2, C5, D1) yorumlanmadı. Retikül görseli metin katmanında yok; family/hash/tree, merkez nokta ve uzanımlar null. Ek kaynak (eski yükleme): https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-BDC22-Rimfire-Reticle-Manual-Neos.pdf ; ürün sayfası https://athlonoptics.com/product/rifle-scopes-neos-3-9x40-bdc-22-rimfire/ (0.25 MOA klik)."
+}

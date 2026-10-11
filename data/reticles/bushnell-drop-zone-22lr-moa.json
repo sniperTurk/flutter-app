@@ -1,0 +1,23 @@
+{
+  "name": "Drop Zone-22LR (DZ22)",
+  "brand": "Bushnell",
+  "scopes": [
+    "Rimfire 3-9x40 (RR3940BS4)",
+    "Rimfire 3-9x40 aydınlatmalı (RR3940BS13)",
+    "Prime 3.5-10x36 (RP3103BS4)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://cdn.shopify.com/s/files/1/0947/2796/2920/files/RR3940BS4_RR3940BS13_RimfireRiflescopes_1LIM-1021.pdf",
+  "notes": "[3. tur TR] Bushnell Rimfire kılavuzu: 'The DROP ZONE-22LR Reticle is designed to be sighted-in at 50 yds, with aiming points every 25 yds, out to 125 yds', '.22 Long Rifle high velocity ammunition', 'The scope must also be set to the highest magnification (9x) for the reticle's ballistic feature to function properly' -> SFP, ölçüler en yüksek büyütmede (Rimfire 3-9x40: 9x; Prime 3.5-10x36: 10x, Prime kılavuzu https://cdn.shopify.com/s/files/1/0947/2796/2920/files/Prime_Riflescopes_FullManual_5LIM_324_1.pdf). Çizim etiketleri: '75 YARDS', '100 YARDS', '125 YARDS' ve '2.30 MOA', '5.30 MOA', '8.70 MOA', '15.40 MOA' (her iki kılavuzda aynı). Dört MOA değeri üç menzil etiketine karşılık geldiği için hangi değerin hangi işarete ait olduğu metinden belirlenemiyor (2.30/5.30/8.70 sırasıyla 75/100/125 yd düşüş işaretleri, 15.40 başka bir ölçü olabilir; ÇIKARIM, doğrulanmadı). BDC işaretleri şemaya uymadığından family/hash_step/tree null; çizgi kalınlığı, merkez nokta, uzanımlar yazmıyor -> null."
+}

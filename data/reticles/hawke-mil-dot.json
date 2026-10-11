@@ -8,7 +8,22 @@
     "Vantage 2-7x32 AO",
     "Vantage 4-12x40 AO",
     "Vantage 4-16x50 AO",
-    "Vantage 6-24x50 AO"
+    "Vantage 6-24x50 AO",
+    "Vantage 4x32 AO",
+    "Vantage 3-9x40 AO",
+    "Vantage 3-9x50 AO",
+    "Vantage 4-12x50",
+    "Vantage 4-12x50 AO",
+    "Vantage IR 2-7x32 (Mil Dot IR)",
+    "Vantage IR 2-7x32 AO (Mil Dot IR)",
+    "Vantage IR 3-9x40 (Mil Dot IR)",
+    "Vantage IR 3-9x40 AO (Mil Dot IR)",
+    "Vantage IR 3-9x50 (Mil Dot IR)",
+    "Vantage IR 3-9x50 AO (Mil Dot IR)",
+    "Vantage IR 4-12x50 (Mil Dot IR)",
+    "Vantage IR 4-12x50 AO (Mil Dot IR)",
+    "Vantage IR 4-16x50 AO (Mil Dot IR)",
+    "Vantage IR 6-24x50 AO (Mil Dot IR)"
   ],
   "unit": "mil",
   "family": "mildot",
@@ -23,5 +38,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://life.hawkeoptics.com/first-focal-plane-riflescope/",
-  "notes": "SFP. Hawke metni: 'the Hawke 10x Mil-Dot reticle is designed to give true Mil spacing when on 10x magnification.' Ölçüler yalnız 10x'te geçerli. hash_step=1.0 (noktalar arası 1 mil) 'true Mil spacing' ifadesinden çıkarım; family=mildot retikül adından. Nokta sayısı/uzanımlar, post başlangıcı bilinmiyor (null): görseller ve Reticle Booklet PDF'i robots.txt ile engelli. Model listesi: https://us.hawkeoptics.com/vantage-riflescopes.html (4x32 sabit büyütmeli modelde 10x kalibrasyon ifadesi doğrulanmadı)."
+  "notes": "SFP. Hawke metni: 'the Hawke 10x Mil-Dot reticle is designed to give true Mil spacing when on 10x magnification.' Ölçüler yalnız 10x'te geçerli. hash_step=1.0 (noktalar arası 1 mil) 'true Mil spacing' ifadesinden çıkarım; family=mildot retikül adından. Nokta sayısı/uzanımlar, post başlangıcı bilinmiyor (null): görseller ve Reticle Booklet PDF'i robots.txt ile engelli. Model listesi: https://us.hawkeoptics.com/vantage-riflescopes.html (4x32 sabit büyütmeli modelde 10x kalibrasyon ifadesi doğrulanmadı). [3. tur TR] Model listesi genişletildi (https://us.hawkeoptics.com/reticle-information.html model tablosu ve https://us.hawkeoptics.com/vantage-riflescopes.html: 14101,14102,14111,14121,14123,14131,14133,14141 ve Vantage IR 14209,14211,14221,14225,14230,14232,14250,14252,14260,14265 'Mil Dot'; galeride ayrıca 'Mil Dot IR' görseli). Vantage Mil Dot modellerinde taret ¼ MOA (retikül mil). Sayısal ölçüler (işaret aralığı, uzanımlar, direk başlangıcı, nokta/çizgi kalınlığı) üretici kaynağında yalnız retikül görsellerinde (us/uk.hawkeoptics.com/hawke/reticles/white/*.svg → robots.txt ROBOTS_DISALLOWED) ve Reticle Booklet / Instruction Manual PDF'lerinde (docs.google.com/uc?... → ROBOTS_DISALLOWED; docs.hawkeoptics.com erişilemedi) bulunuyor; kurallar gereği başka yolla çekilmedi → null. Yeni sayısal alan doldurulamadı."
 }

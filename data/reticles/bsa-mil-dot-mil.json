@@ -1,0 +1,26 @@
+{
+  "name": "Mil-Dot",
+  "brand": "BSA Optics",
+  "scopes": [
+    "Tactical Weapon TW-14X24W1PMTB 1-4x24",
+    "Tactical Weapon TW-312X40W1PMTB 3-12x40",
+    "Tactical Weapon TW4X30 4x30",
+    "Outlook AIR4X32AOTB 4x32 AO",
+    "Outlook AIR3-9X40AOTB 3-9x40 AO",
+    "Outlook AIR4-12X44AOIRTB 4-12x44 AO IR"
+  ],
+  "unit": "mil",
+  "family": "mildot",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://bsaoptics.com/wp-content/uploads/2024/03/2024_BSA_Optics_eCatalog.pdf",
+  "notes": "Kaynak: BSA Optics 2024 e-katalog (bsaoptics.com) model tablosu, retikül sütunu 'MIL DOT' / 'Mil-Dot' / 'Mil-Dot Illum.' (TW4X30 için 'MIL DOT METAL'). OUTLOOK hava tüfeği serisi açıklaması 'a Mil-Dot reticle' diyor. unit=mil ÇIKARIM: retikül adından; katalog nokta aralığı, birim, odak düzlemi veya ölçü büyütmesi vermiyor -> ölçü alanları null. Modeller arasında aynı çizim olduğu doğrulanmadı."
+}
