@@ -2671,7 +2671,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ),
                 MenzilInput(
                   key: const Key('scope-sight-height'),
-                  info: ProfileFieldInfo.sightHeight,
+                  info: platform == WeaponPlatform.firearm
+                      ? ProfileFieldInfo.sightHeightFirearm
+                      : ProfileFieldInfo.sightHeight,
                   controller: sight,
                   label: 'Sight height',
                   onChanged: (_) => setState(() {}),
@@ -2714,7 +2716,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   key: const Key('profile-zero'),
                   controller: zero,
                   label: 'Sıfırlama mesafesi',
-                  info: ProfileFieldInfo.zero,
+                  info: platform == WeaponPlatform.firearm
+                      ? ProfileFieldInfo.zeroFirearm
+                      : ProfileFieldInfo.zero,
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_zeroError, zero),
                 ),
