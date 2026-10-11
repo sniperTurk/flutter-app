@@ -1575,7 +1575,13 @@ class MenzilMetricCard extends StatelessWidget {
       }
 
       if (!box.maxWidth.isFinite || fits(22, 1)) {
-        return Text(metric.value, maxLines: 1, style: at(22));
+        // Profil summary: regular weight, one line too (owner, 2026-10-11:
+        // "bolt yazıyı iptal et").
+        return Text(
+          metric.value,
+          maxLines: 1,
+          style: at(22).copyWith(fontWeight: FontWeight.w400),
+        );
       }
       var size = 18.0;
       while (size > 12 && !fits(size, 2)) {
@@ -1628,7 +1634,12 @@ class MenzilMetricCard extends StatelessWidget {
                       child: Text.rich(
                         TextSpan(
                           text: metric.value,
-                          style: MenzilType.number(c.ink, size: 22),
+                          style: twoLineText
+                              ? MenzilType.number(
+                                  c.ink,
+                                  size: 22,
+                                ).copyWith(fontWeight: FontWeight.w400)
+                              : MenzilType.number(c.ink, size: 22),
                           children: [
                             if (metric.unit != null)
                               TextSpan(
