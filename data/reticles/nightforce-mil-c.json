@@ -1,0 +1,19 @@
+{
+  "name": "MIL-C",
+  "brand": "Nightforce",
+  "scopes": ["ATACR 5-25x56 F1"],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": 1.0,
+  "numbers_every": 1,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_Mil-C_20161220.pdf",
+  "notes": "Nightforce MIL-C föyü, FFP (First Focal Plane). Metin: 0.2 mil tutma işaretleri, her tam mil numaralı, basit merkez nokta; ürün sayfası (nightforceoptics.com/reticles/mil-c-f1) merkez noktayı 'floating .05 MRAD center dot' olarak tanımlıyor. Merkez altı yükseliş ölçeği görüş alanının ötesine uzanıyor (sayı verilmemiş) -> extent null. Ofset ters 'T' mil telemetre ölçeği (0.05 mil'e kadar). Föy harf etiketleri (A 10 mil, D .4, E .2, F 1, G .05, J .6, N 2 mil vb.) görselsiz eşlenemedi."
+}

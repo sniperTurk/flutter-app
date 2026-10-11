@@ -239,17 +239,15 @@ void main() {
       await choose('profile-distance-unit', 'Metre');
       await type('profile-zero', '25');
       await type('scope-sight-height', '60');
-      await choose('scope-brand-select', 'Listede yok');
-      await type('scope-brand', 'Test Optik');
-      // Büyütme, Mercek çapı and Klik değeri are picked from lists; every
-      // list box starts on "Seçiniz" (owner, 2026-10-11).
-      await choose('scope-min-mag', '6x');
-      await choose('scope-max-mag', '24x');
-      await choose('scope-objective', '56 mm');
-      await choose('scope-unit', 'MRAD');
-      await choose('scope-click', '0,1 mrad');
+      // A catalog scope whose reticle has manufacturer data, so the Hedef
+      // screenshots show the scope's own reticle drawing.
+      await choose('scope-brand-select', 'Athlon');
+      await choose(
+        'scope-model-select',
+        'CRONUS BTR GEN2 UHD 4.5-29x56 FFP IR MIL',
+      );
+      await choose('scope-reticle', 'APRS1');
       await choose('scope-mount', 'Normal (0 MOA)');
-      await choose('scope-focal-plane', 'FFP');
       await page('profil_olustur_dolu');
       await tester.ensureVisible(find.text('Kaydet'));
       await settle();

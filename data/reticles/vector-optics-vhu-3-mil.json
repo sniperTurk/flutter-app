@@ -1,0 +1,21 @@
+{
+  "name": "VHU-3 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Hugo 3-12x40i Fiber (SCOM-44)"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 6,
+  "extent_v_up": 6,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20241031/9666c2eb1f6b30be9af2a117f57c682e.pdf",
+  "notes": "SFP; kılavuza göre ölçüler 10x'te geçerli (referans büyütme 10x). Kılavuz metni: 'each horizontal line' toplam 6 MIL (her yan kol olarak yorumlandı → extent_h=6; emin değil), yatayda küçük aralıklar 0.5 MIL; dikey merkez altı 10 MIL, üstü 6 MIL; kenarlarda kalın çizgiler var ama başlangıç mesafesi verilmemiş → posts_start null. Merkezde aydınlatmalı fiber nokta (SCOM-44 ürün sayfası, https://www.vectoroptics.com/rifle-scopes/Hugo-3-12x40i-Fiber-Reticle-Rifle-Scope-SCOM-44.html); boyutu metinde yok. Büyük işaret ve rakam aralığı metinde yok → null."
+}

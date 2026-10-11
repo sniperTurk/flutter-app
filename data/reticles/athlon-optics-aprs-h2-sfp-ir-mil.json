@@ -1,0 +1,22 @@
+{
+  "name": "APRS-H2 SFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares HLR 2.5-15x42",
+    "Ares HLR 4-24x50"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 6,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2026/04/Ares-HLR-APRS-H2-IR-MIL-Reticle-Manual.pdf",
+  "notes": "SFP; referans büyütme 2.5-15x42'de 15x, 4-24x50'de 16x. Föy metninden: aydınlatmalı yüzen merkez nokta, 4 mil'e kadar 0.5 mil, sonrasında 0.2 mil işaretler (hash_step en küçük aralık 0.2); sağa/sola 6 mil, aşağı 10 mil işaret uzanımı; üst direk yok; kalın dış çizgiler merkeze doğru incelir (başlangıç mesafesi yazılmamış -> posts_start null). Talos HMR için ayrı föy var (Talos-HMR-APRS-H2-IR-MIL-Reticle-Manual-WEB.pdf), okunmadığı için scopes listesine eklenmedi."
+}

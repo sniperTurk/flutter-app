@@ -1,0 +1,35 @@
+{
+  "name": "APRS14 FFP MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Midas TAC GEN2 HD 4-16x44",
+    "Midas TAC GEN2 HD 6-24x50"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": {
+    "rows": [
+      {
+        "y": 1,
+        "half_width": 1,
+        "dot_step": null
+      },
+      {
+        "y": 10,
+        "half_width": 4,
+        "dot_step": null
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/storage/2025/01/213083-APRS14-FFP-MIL-Reticle-Manual.pdf",
+  "notes": "FFP. Föy metninden: dikeyde 10 mil'e, yatayda 6 mil'e kadar 0.2 mil işaretler, ardından sağa/sola 0.1 mil işaretlere geçiş (yatay toplam uzanım yazılmamış -> extent_h null); 0.05/0.06 yüzen merkez nokta; nokta satırları 1 mil düşüş çizgisinde her yöne 1 mil, 10 mil çizgisinde her yöne 4 mil. Satır nokta aralığı bu föyde yazılmamış -> null. Dikey 10 mil'in yalnız aşağı mı olduğu net değil; extent_v_down=10, yukarı null."
+}

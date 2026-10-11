@@ -1,0 +1,19 @@
+{
+  "name": "ACSS Deka G2",
+  "brand": "Primary Arms",
+  "scopes": ["SLx 4.5-27x56 FFP", "SLx Compact 4-16x44 FFP", "PLxC 2.5-20x48 FFP", "PLxC 4.5-36x56 FFP"],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.1,
+  "major_every": 1.0,
+  "numbers_every": 2,
+  "extent_h": 10,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": 11,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=29650345&c=3901023&h=JxfxyeBRwPDqCA6y12kNMNMvkAKPYqchNPWIYcjHyhfW3N7b",
+  "notes": "Primary Arms SLx 4.5-27x56 ACSS DEKA G2 reticle manual ('COMPACT FIRST FOCAL PLANE', FFP). Merkez: 0.1 MIL nokta, 0.2x0.2 MIL açık merkez, çizgiler merkezden 0.1 MIL sonra başlıyor. Yatayda 0.1 MIL küçük ve 0.2 MIL büyük işaretler dönüşümlü (0.1 MIL çözünürlük); her tam MIL'de 'T' işareti; her 2 MIL'de rakam, 10 MIL'e kadar. 11 MIL'den itibaren kalın çizgiler (yatay ve aşağı), üzerinde her 5 MIL'de işaret, her 10 MIL'de rakam. Ürün sayfası: 'extending out to 10 MILs in all directions'. Yukarı kalın çizgi başlangıcı kılavuzda belirtilmemiş -> extent_v_up null. Ağaç/ızgara yok. Diğer kapsam modelleri primaryarms.com ürün başlıklarından."
+}

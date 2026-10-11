@@ -1,0 +1,19 @@
+{
+  "name": "Latitude Benchrest",
+  "brand": "Sightmark",
+  "scopes": ["Latitude 10-40x60 Benchrest (SM13044BR)"],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://cdn.shopify.com/s/files/1/0566/9466/9461/files/Latitude_Series_Manual_WEB_0a742826-6a58-41b7-96ac-20f2237bd555.pdf?v=1623698593",
+  "notes": "Sightmark Latitude Series kılavuzu. SFP, MOA tabanlı; ölçüler en yüksek büyütmede (40x) geçerli varsayıldı ('At 40x, the reticle has a fine .01 MOA thickness'). Metin: 'The elevation and windage subtensions have 1 MOA increments out to 10 MOA' -> extent_h=10, extent_v_down=10 (yükseliş ölçeğinin merkez altında olduğu varsayımı). Yukarı uzanım, rakamlar ve merkez yapısı metinde yok -> null."
+}

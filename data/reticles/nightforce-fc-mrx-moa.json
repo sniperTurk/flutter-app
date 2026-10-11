@@ -1,0 +1,19 @@
+{
+  "name": "FC-MRx (MOA)",
+  "brand": "Nightforce",
+  "scopes": ["NX6 2-12x42 F1"],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 4.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 64,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/products/FC-MRx-FC-MRx-MOA-Reticle-Sheet.pdf",
+  "notes": "Nightforce FC-MRx / FC-MRx (MOA) föyü, NX6 2-12x42 F1 (FFP). MOA sürümü değerleri föyde MRAD değerlerin yanında verilmiş: 0.75 MOA merkez nokta; ızgara aralığı 4 MOA (1 MRAD karşılığı, föy tablosu D/H=4 MOA), ızgara 64 MOA'ya uzanıyor (extent_v_down=64, merkez altı varsayımı). Rakam aralığı, satır genişlikleri, direkler belirtilmemiş -> null."
+}

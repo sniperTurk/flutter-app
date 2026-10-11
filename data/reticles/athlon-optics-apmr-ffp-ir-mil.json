@@ -1,0 +1,21 @@
+{
+  "name": "APMR FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Argos BTR GEN2"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 9,
+  "extent_v_up": 9,
+  "extent_v_down": 9,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/storage/2021/05/Athlon-APMR-FFP-IR-MIL-Reticle-Manual-Argos-BTR-GEN2.pdf",
+  "notes": "FFP. Föy metninden: 18 mil açıklıklı aydınlatmalı artı çizgileri, 0.5 mil işaretler; 7-9 mil arasında 0.2 mil işaretler; merkezden sol/sağ/yukarı/aşağı 9 mil işaret uzanımı; merkez artı (nokta belirtilmemiş). hash_step ana aralık olan 0.5 yazıldı (7-9 mil bölgesi 0.2). Rakam ve büyük işaret bilgisi yok -> null."
+}

@@ -1,0 +1,22 @@
+{
+  "name": "VTA-8 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Tauron GenII 5-40x56 ED (SCFF-35)",
+    "Tauron 5-25x56 HD MIL FFP PRS (SCFF-71)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.25,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Tauron-5-25x56-HD-MIL-FFP-Rifle-Scope-SCFF-71.html",
+  "notes": "FFP. Kaynak: SCFF-71 ve SCFF-35 ürün sayfaları: 0.25 mil işaret aralığı (rüzgar ve elevasyon), 1 mil uzunluğunda aydınlatmalı merkez artı, Christmas tree. Merkez nokta SCFF-71'de 0.05 mil, SCFF-35'te 0.03 mil (çelişkili). VTA-8 MIL FFP tek sayfa PDF (…/20250326/87f0f9a2f9be35fb85b6fa3b0ad05bf0.pdf) istek limiti nedeniyle okunamadı. Uzanımlar, ağaç satırları, rakam aralığı → null."
+}

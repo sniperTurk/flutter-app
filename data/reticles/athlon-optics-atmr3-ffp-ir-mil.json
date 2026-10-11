@@ -1,0 +1,29 @@
+{
+  "name": "ATMR3 FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares ETR GEN2 UHD 1-10x24"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": {
+    "rows": [
+      {
+        "y": 10,
+        "half_width": 5,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/storage/2024/10/212110-ATMR3-FFP-IR-MIL-Reticle-Manual-1.pdf",
+  "notes": "FFP, LPVO. Föy metninden: aydınlatmalı 10 mil çeyrek halka, 0.35 mil merkez; 1 mil aralıklı nokta satırları 10. mil düşüş çizgisinde her yöne 5 mil'e ulaşır; dikey direğin hemen üstünde siluet mesafe ağacı (çizgi ile kalın çizgi üstü arası 36 inç). İlk satırın yeri, işaret aralığı, uzanımlar ve direk başlangıcı metinde yok -> null."
+}

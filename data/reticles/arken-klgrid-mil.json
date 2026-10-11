@@ -1,0 +1,19 @@
+{
+  "name": "KLGRID",
+  "brand": "Arken Optics",
+  "scopes": ["EP-8 1-8x28 FFP LPVO"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.arkenopticsusa.com/products/ep-8-1-8x28-ffp-lpvo-illum-klbox-34mm-tube",
+  "notes": "Arken Optics USA ürün sayfası metni (FFP LPVO): '10 MIL holdover grid with 0.5 MIL subtensions', '0.12 MIL floating center dot' (aynı sayfanın SSS bölümü merkez noktayı 0.2 MIL diyor - çelişkili); at nalı (horseshoe) 0.2 MIL kalınlığında, çapı belirtilmemiş. extent_v_down=10, 10 MIL tutma ızgarasının merkez altına uzandığı varsayımıyla. Izgara satırları, rakamlar ve yatay uzanım metinde yok -> null."
+}

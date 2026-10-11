@@ -1509,7 +1509,25 @@ class ScopeReticlePainter extends CustomPainter {
     tp.paint(canvas, at - Offset(dx, tp.height / 2));
   }
 
-  /// Draws [r] centred on [c]; [k] = px per reticle unit.
+  /// Size of [s] drawn by [_text].
+  static Size _measure(String s, double size, FontWeight weight) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: s,
+        style: TextStyle(
+          fontFamily: MenzilType.family,
+          fontSize: size,
+          fontWeight: weight,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    return tp.size;
+  }
+
+  /// Draws [r] centred on [c]; [k] = px per reticle unit. The reticle's own
+  /// numbers are left out where they would overprint a hold or wind label
+  /// ([reserved], owner rule: no label over another).
   void _drawSpec(
     Canvas canvas,
     ReticleSpec r,
@@ -1520,21 +1538,29 @@ class ScopeReticlePainter extends CustomPainter {
     Color halo,
     Color ink,
     Size size,
+    List<Rect> reserved,
   ) {
-    const fine = 1.4;
+    // Line thicknesses from the data when known, else the drawing default.
+    final lw = r.lineWidth;
+    final pw = r.postWidth;
+    final fine = lw == null ? 1.4 : (lw * k).clamp(0.8, 4.0).toDouble();
+    final postW = pw == null ? 7.0 : (pw * k).clamp(2.0, 14.0).toDouble();
     final posts = r.postsStart;
     final postPx = posts == null ? radius : math.min(radius, posts * k);
-    // Fine crosshair out to the posts (or the edge).
-    line(Offset(c.dx - postPx, c.dy), Offset(c.dx + postPx, c.dy), fine);
-    line(Offset(c.dx, c.dy - postPx), Offset(c.dx, c.dy + postPx), fine);
+    // A floating centre leaves a gap around the centre, kept inside the
+    // first mark so every mark stays on its line.
+    final gap = r.floatingCenter
+        ? (r.hashStep > 0 ? r.hashStep * k * 0.5 : 6.0)
+              .clamp(2.0, 10.0)
+              .toDouble()
+        : 0.0;
+    const arms = [Offset(1, 0), Offset(-1, 0), Offset(0, 1), Offset(0, -1)];
+    for (final d in arms) {
+      line(c + d * gap, c + d * postPx, fine);
+    }
     if (posts != null) {
-      for (final d in const [
-        Offset(1, 0),
-        Offset(-1, 0),
-        Offset(0, 1),
-        Offset(0, -1),
-      ]) {
-        line(c + d * postPx, c + d * radius, 7);
+      for (final d in arms) {
+        line(c + d * postPx, c + d * radius, postW);
       }
     }
     final dot = Paint()..color = ink;
@@ -1545,15 +1571,17 @@ class ScopeReticlePainter extends CustomPainter {
     }
 
     final numFont = math.max(8.0, size.shortestSide * 0.03);
-    void number(double v, Offset at) => _text(
-      canvas,
-      v % 1 == 0 ? v.toStringAsFixed(0) : v.toStringAsFixed(1),
-      at,
-      ink,
-      numFont,
-      weight: FontWeight.w500,
-      halo: halo,
-    );
+    void number(double v, Offset at) {
+      final s = v % 1 == 0 ? v.toStringAsFixed(0) : v.toStringAsFixed(1);
+      final m = _measure(s, numFont, FontWeight.w500);
+      final box = Rect.fromCenter(
+        center: at,
+        width: m.width + 2,
+        height: m.height,
+      );
+      if (reserved.any((b) => b.overlaps(box))) return;
+      _text(canvas, s, at, ink, numFont, weight: FontWeight.w500, halo: halo);
+    }
 
     switch (r.family) {
       case ReticleFamily.duplex:
@@ -1561,17 +1589,16 @@ class ScopeReticlePainter extends CustomPainter {
       case ReticleFamily.milDot:
         {
           final rPx = math.max(1.6, math.min(4.0, 0.12 * k));
-          for (var i = 1; i * r.hashStep <= r.extentH + 1e-9; i++) {
-            final p = i * r.hashStep * k;
-            for (final at in [
-              c + Offset(p, 0),
-              c + Offset(-p, 0),
-              c + Offset(0, p),
-              c + Offset(0, -p),
-            ]) {
-              drawDot(at, rPx);
+          void dots(double extent, Offset dir) {
+            for (var i = 1; i * r.hashStep <= extent + 1e-9; i++) {
+              drawDot(c + dir * (i * r.hashStep * k), rPx);
             }
           }
+
+          dots(r.extentH, const Offset(1, 0));
+          dots(r.extentH, const Offset(-1, 0));
+          dots(r.extentUp, const Offset(0, -1));
+          dots(r.extentDown, const Offset(0, 1));
         }
       case ReticleFamily.hash:
       case ReticleFamily.tree:
@@ -1626,10 +1653,17 @@ class ScopeReticlePainter extends CustomPainter {
           if (r.family == ReticleFamily.tree) {
             final rPx = math.max(1.0, math.min(2.4, 0.08 * k));
             for (final row in r.tree) {
-              if (row.dotStep * k < 3) continue;
               final y = c.dy + row.y * k;
-              for (var i = 1; i * row.dotStep <= row.halfWidth + 1e-9; i++) {
-                final x = i * row.dotStep * k;
+              final ds = row.dotStep;
+              if (ds == null) {
+                // Spacing not given: only the row's known ends are drawn.
+                drawDot(Offset(c.dx + row.halfWidth * k, y), rPx);
+                drawDot(Offset(c.dx - row.halfWidth * k, y), rPx);
+                continue;
+              }
+              if (ds * k < 3) continue;
+              for (var i = 1; i * ds <= row.halfWidth + 1e-9; i++) {
+                final x = i * ds * k;
                 drawDot(Offset(c.dx + x, y), rPx);
                 drawDot(Offset(c.dx - x, y), rPx);
               }
@@ -1748,6 +1782,61 @@ class ScopeReticlePainter extends CustomPainter {
       1.5,
       math.min(size.shortestSide * 0.011, markStep * scale * 0.12),
     );
+
+    // Range labels next to each hold mark (positive mark = below centre).
+    // When the marks crowd together (FFP at low power) every n-th is kept.
+    // They are laid out before the reticle so its own numbers keep clear
+    // of them.
+    final gap = markStep * scale;
+    final stride = gap <= 0 ? 1 : math.max(1, (16 / gap).ceil());
+    final holdFont = math.max(10.0, size.shortestSide * 0.042);
+    final holdYs = <double>[];
+    final holds = <(String, Offset)>[];
+    final reserved = <Rect>[];
+    for (final (mark, label)
+        in showLabels ? holdLabels : const <(double, String)>[]) {
+      if ((mark / markStep).round() % stride != 0) continue;
+      final y = center.dy + mark * scale;
+      holdYs.add(y);
+      final at = Offset(center.dx + dotR + 6, y);
+      holds.add((label, at));
+      final m = _measure(label, holdFont, FontWeight.w500);
+      reserved.add(Rect.fromLTWH(at.dx, y - m.height / 2, m.width, m.height));
+    }
+
+    // Crosswind speed above each horizontal mark, mirrored left and right.
+    // Keep at least ~38 px between crosswind labels (they are wider than the
+    // hold numbers); when marks crowd together every n-th is kept.
+    final windGap = windLabels.isEmpty ? 0.0 : windLabels.first.$1 * scale;
+    final windStride = windGap <= 0 ? 1 : math.max(1, (38 / windGap).ceil());
+    final windFont = math.max(9.0, size.shortestSide * 0.036);
+    final windY = center.dy - dotR - 11;
+    // A hold number right of the vertical line sharing the wind labels' row
+    // would be overprinted (owner, 2026-10-10: "532" ran into "5.0").
+    final holdInRow = holdYs.any(
+      (y) => (y - windY).abs() < (holdFont + windFont) / 2 + 1,
+    );
+    final holdRight = dotR + 6 + holdFont * 2.0;
+    final winds = <(String, Offset)>[];
+    for (final (i, (mark, label))
+        in (showLabels ? windLabels : const <(double, String)>[]).indexed) {
+      if ((i + 1) % windStride != 0) continue;
+      if (mark * scale > postStart) continue;
+      for (final side in const [-1.0, 1.0]) {
+        if (side > 0 &&
+            holdInRow &&
+            mark * scale - windFont * label.length * 0.3 < holdRight) {
+          continue;
+        }
+        final at = Offset(center.dx + side * mark * scale, windY);
+        winds.add((label, at));
+        final m = _measure(label, windFont, FontWeight.w500);
+        reserved.add(
+          Rect.fromCenter(center: at, width: m.width, height: m.height),
+        );
+      }
+    }
+
     if (spec != null) {
       _drawSpec(
         canvas,
@@ -1759,6 +1848,7 @@ class ScopeReticlePainter extends CustomPainter {
         halo,
         ink,
         size,
+        reserved,
       );
     } else {
       // Fine crosshair.
@@ -1805,21 +1895,11 @@ class ScopeReticlePainter extends CustomPainter {
     }
     canvas.drawCircle(center, 2.5, Paint()..color = colors.ok);
 
-    // Range labels next to each hold mark (positive mark = below centre).
-    // When the marks crowd together (FFP at low power) every n-th is kept.
-    final gap = markStep * scale;
-    final stride = gap <= 0 ? 1 : math.max(1, (16 / gap).ceil());
-    final holdFont = math.max(10.0, size.shortestSide * 0.042);
-    final holdYs = <double>[];
-    for (final (mark, label)
-        in showLabels ? holdLabels : const <(double, String)>[]) {
-      if ((mark / markStep).round() % stride != 0) continue;
-      final y = center.dy + mark * scale;
-      holdYs.add(y);
+    for (final (label, at) in holds) {
       _text(
         canvas,
         label,
-        Offset(center.dx + dotR + 6, y),
+        at,
         colors.danger,
         holdFont,
         alignLeft: true,
@@ -1827,40 +1907,16 @@ class ScopeReticlePainter extends CustomPainter {
         halo: halo,
       );
     }
-
-    // Crosswind speed above each horizontal mark, mirrored left and right.
-    // Keep at least ~38 px between crosswind labels (they are wider than the
-    // hold numbers); when marks crowd together every n-th is kept.
-    final windGap = windLabels.isEmpty ? 0.0 : windLabels.first.$1 * scale;
-    final windStride = windGap <= 0 ? 1 : math.max(1, (38 / windGap).ceil());
-    final windFont = math.max(9.0, size.shortestSide * 0.036);
-    final windY = center.dy - dotR - 11;
-    // A hold number right of the vertical line sharing the wind labels' row
-    // would be overprinted (owner, 2026-10-10: "532" ran into "5.0").
-    final holdInRow = holdYs.any(
-      (y) => (y - windY).abs() < (holdFont + windFont) / 2 + 1,
-    );
-    final holdRight = dotR + 6 + holdFont * 2.0;
-    for (final (i, (mark, label))
-        in (showLabels ? windLabels : const <(double, String)>[]).indexed) {
-      if ((i + 1) % windStride != 0) continue;
-      if (mark * scale > postStart) continue;
-      for (final side in const [-1.0, 1.0]) {
-        if (side > 0 &&
-            holdInRow &&
-            mark * scale - windFont * label.length * 0.3 < holdRight) {
-          continue;
-        }
-        _text(
-          canvas,
-          label,
-          Offset(center.dx + side * mark * scale, windY),
-          colors.amberInk,
-          windFont,
-          weight: FontWeight.w500,
-          halo: halo,
-        );
-      }
+    for (final (label, at) in winds) {
+      _text(
+        canvas,
+        label,
+        at,
+        colors.amberInk,
+        windFont,
+        weight: FontWeight.w500,
+        halo: halo,
+      );
     }
 
     canvas.restore(); // roll
@@ -1973,6 +2029,8 @@ class ScopeReticlePainter extends CustomPainter {
       old.sfpNote != sfpNote ||
       old.zoom != zoom ||
       old.showLabels != showLabels ||
+      old.reticle != reticle ||
+      old.reticleToView != reticleToView ||
       !_sameLabels(old.holdLabels, holdLabels) ||
       !_sameLabels(old.windLabels, windLabels);
 

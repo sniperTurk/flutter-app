@@ -15,13 +15,13 @@ import '../../core/drag_table.dart';
 import '../../core/gravity.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
-import '../../core/reticle.dart';
 import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
 import '../../core/wez.dart';
 import '../../core/wind_clock.dart';
 import '../../data/profile_catalog_integrity.dart';
+import '../../data/reticle_catalog.dart';
 import '../../models/domain.dart';
 import '../../services/settings_store.dart';
 import '../../services/shot_settings_store.dart';
@@ -2085,7 +2085,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     return ScopeDialView(
       firearm: _isFirearm,
-      reticle: Reticles.forName(scope?.reticle, unit),
+      reticle: ReticleCatalog.forScope(
+        scope?.reticle,
+        unit,
+        brand: scope?.brand,
+      ),
       unit: unit,
       clickValue: click,
       elevationClicks: _elevationClicks,

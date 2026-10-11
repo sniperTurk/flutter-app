@@ -7,8 +7,11 @@ enum ReticleFamily { tree, hash, milDot, duplex }
 
 /// One row of a Christmas-tree holdover grid: dots every [dotStep] from
 /// −[halfWidth] to +[halfWidth] at [y] below the centre (reticle units).
+/// A null [dotStep] (not given by the manufacturer) draws only the two end
+/// dots at ±[halfWidth]; the dots in between are never guessed.
 class ReticleTreeRow {
-  final double y, halfWidth, dotStep;
+  final double y, halfWidth;
+  final double? dotStep;
   const ReticleTreeRow(this.y, this.halfWidth, this.dotStep);
 }
 
@@ -33,6 +36,23 @@ class ReticleSpec {
   final double? postsStart;
   final bool centerDot;
 
+  /// The fine lines stop short of the centre, leaving the centre dot (or
+  /// an empty centre) floating.
+  final bool floatingCenter;
+
+  /// Line thicknesses in reticle units from the data file; null = the
+  /// drawing's default widths.
+  final double? lineWidth, postWidth;
+
+  /// Data-file fields that were null and were drawn as the generic grid
+  /// (or left out); empty = the reticle is drawn completely from its data.
+  /// Only reticles from [ReticleData] set [fromData].
+  final List<String> genericParts;
+  final bool fromData;
+
+  /// True when every part of a data-file reticle is known.
+  bool get complete => fromData && genericParts.isEmpty;
+
   const ReticleSpec({
     required this.name,
     required this.unit,
@@ -46,6 +66,11 @@ class ReticleSpec {
     this.tree = const [],
     this.postsStart,
     this.centerDot = false,
+    this.floatingCenter = false,
+    this.lineWidth,
+    this.postWidth,
+    this.genericParts = const [],
+    this.fromData = false,
   });
 
   /// mrad per reticle unit.
@@ -169,45 +194,232 @@ abstract final class Reticles {
     centerDot: s.centerDot,
   );
 
-  /// A reticle from a manufacturer-sourced data file (data/reticles/*.json);
-  /// null when the record is unusable.
-  static ReticleSpec? fromJson(Map<String, Object?> j) {
-    double? d(Object? v) => v is num && v.isFinite ? v.toDouble() : null;
+  /// A reticle from a manufacturer-sourced data file (data/reticles/*.json
+  /// schema); null when the record is unusable. The app itself uses the
+  /// generated constants (lib/data/reticle_library.dart), never JSON.
+  static ReticleSpec? fromJson(Map<String, Object?> j) =>
+      ReticleData.fromJson(j)?.toSpec();
+}
+
+/// One row of [ReticleData.tree]; null = not given by the manufacturer.
+class ReticleDataRow {
+  final double? y, halfWidth, dotStep;
+  const ReticleDataRow({this.y, this.halfWidth, this.dotStep});
+}
+
+/// A reticle's manufacturer-sourced measurements, as generated from
+/// data/reticles/*.json by tools/data_gen/generate_reticles.py. Every
+/// distance is in the reticle's own unit; null = unknown (never guessed).
+class ReticleData {
+  final String id, brand, name;
+
+  /// 'mil' or 'moa'.
+  final String unit;
+
+  /// 'hash', 'tree', 'mildot', 'duplex' or null (unknown).
+  final String? family;
+  final double? hashStep, majorEvery, numbersEvery;
+  final double? extentH, extentUp, extentDown;
+  final List<ReticleDataRow>? tree;
+  final double? postsStart;
+  final bool? centerDot, floatingCenter;
+  final double? lineWidth, postWidth;
+  final List<String> scopes;
+  final String? sourceUrl;
+
+  const ReticleData({
+    required this.id,
+    required this.brand,
+    required this.name,
+    required this.unit,
+    this.family,
+    this.hashStep,
+    this.majorEvery,
+    this.numbersEvery,
+    this.extentH,
+    this.extentUp,
+    this.extentDown,
+    this.tree,
+    this.postsStart,
+    this.centerDot,
+    this.floatingCenter,
+    this.lineWidth,
+    this.postWidth,
+    this.scopes = const [],
+    this.sourceUrl,
+  });
+
+  AngularUnit get angularUnit =>
+      unit == 'moa' ? AngularUnit.moa : AngularUnit.mrad;
+
+  /// Reads one record of the data-file schema (used by tests and to check
+  /// the generator); null when name or unit is missing.
+  static ReticleData? fromJson(Map<String, Object?> j) {
+    double? d(Object? v) =>
+        v is num && v.isFinite && v > 0 ? v.toDouble() : null;
+    bool? b(Object? v) => v is bool ? v : null;
     final name = j['name'];
-    if (name is! String || name.isEmpty) return null;
-    final unit = j['unit'] == 'moa' ? AngularUnit.moa : AngularUnit.mrad;
-    final family = switch (j['family']) {
-      'tree' => ReticleFamily.tree,
-      'mildot' => ReticleFamily.milDot,
-      'duplex' => ReticleFamily.duplex,
-      _ => ReticleFamily.hash,
+    if (name is! String || name.trim().isEmpty) return null;
+    final unit = switch (j['unit']) {
+      'mil' || 'mrad' => 'mil',
+      'moa' => 'moa',
+      _ => null,
     };
-    final rows = <ReticleTreeRow>[];
+    if (unit == null) return null;
+    final family = j['family'];
+    List<ReticleDataRow>? rows;
     final tree = j['tree'];
     if (tree is Map && tree['rows'] is List) {
-      for (final r in tree['rows'] as List) {
-        if (r is! Map) continue;
-        final y = d(r['y']), w = d(r['half_width']), s = d(r['dot_step']);
-        if (y != null && w != null && s != null && s > 0) {
-          rows.add(ReticleTreeRow(y, w, s));
+      rows = [
+        for (final r in tree['rows'] as List)
+          if (r is Map)
+            ReticleDataRow(
+              y: d(r['y']),
+              halfWidth: d(r['half_width']),
+              dotStep: d(r['dot_step']),
+            ),
+      ];
+    }
+    final brand = j['brand'];
+    return ReticleData(
+      id: name,
+      brand: brand is String ? brand : '',
+      name: name.trim(),
+      unit: unit,
+      family: const {'hash', 'tree', 'mildot', 'duplex'}.contains(family)
+          ? family as String
+          : null,
+      hashStep: d(j['hash_step']),
+      majorEvery: d(j['major_every']),
+      numbersEvery: d(j['numbers_every']),
+      extentH: d(j['extent_h']),
+      extentUp: d(j['extent_v_up']),
+      extentDown: d(j['extent_v_down']),
+      tree: rows,
+      postsStart: d(j['posts_start']),
+      centerDot: b(j['center_dot']),
+      floatingCenter: b(j['floating_center']),
+      lineWidth: d(j['line_width']),
+      postWidth: d(j['post_width']),
+    );
+  }
+
+  /// The generic grid of the same unit and family: what the view drew
+  /// before this reticle had data, and what fills its unknown extents.
+  static ReticleSpec _generic(AngularUnit u, ReticleFamily f) {
+    final moa = u.moaFamily;
+    final g = switch (f) {
+      ReticleFamily.tree => Reticles.generic(
+        moa ? Reticles.hashMoa : Reticles.treeMil,
+      ),
+      ReticleFamily.hash => Reticles.generic(
+        moa ? Reticles.hashMoa : Reticles.hashMil,
+      ),
+      ReticleFamily.milDot => Reticles.generic(Reticles.milDot),
+      ReticleFamily.duplex => Reticles.generic(Reticles.duplex),
+    };
+    if (g.unit == u) return g;
+    // Mil-Dot and Duplex are defined in mrad: same angles, MOA numbers.
+    double c(double v) => u.fromMrad(g.unit.toMrad(v));
+    return ReticleSpec(
+      name: g.name,
+      unit: u,
+      family: g.family,
+      hashStep: c(g.hashStep),
+      majorEvery: c(g.majorEvery),
+      extentH: c(g.extentH),
+      extentUp: c(g.extentUp),
+      extentDown: c(g.extentDown),
+      postsStart: g.postsStart == null ? null : c(g.postsStart!),
+    );
+  }
+
+  /// The drawable reticle, or null when too little is known to draw this
+  /// reticle at all (no family, or marks without a spacing): the caller
+  /// then falls back to the generic grid for the name.
+  ///
+  /// Known parts are drawn as given. Unknown extents take the generic
+  /// grid's; unknown major marks, numbers, posts, tree rows, centre dot and
+  /// floating centre are left out. Each such field is listed in
+  /// [ReticleSpec.genericParts].
+  ReticleSpec? toSpec({String? displayName}) {
+    final f = switch (family) {
+      'tree' => ReticleFamily.tree,
+      'hash' => ReticleFamily.hash,
+      'mildot' => ReticleFamily.milDot,
+      'duplex' => ReticleFamily.duplex,
+      _ => null,
+    };
+    if (f == null) return null;
+    final step = hashStep;
+    if (f != ReticleFamily.duplex && step == null) return null;
+    final u = angularUnit;
+    final g = _generic(u, f);
+    final parts = <String>[];
+    double pick(double? v, double fallback, String key) {
+      if (v != null) return v;
+      parts.add(key);
+      return fallback;
+    }
+
+    final marks = f != ReticleFamily.duplex;
+    final h = marks ? pick(extentH, g.extentH, 'extent_h') : 0.0;
+    final up = marks ? pick(extentUp, g.extentUp, 'extent_v_up') : 0.0;
+    final down = marks ? pick(extentDown, g.extentDown, 'extent_v_down') : 0.0;
+    if (marks && f != ReticleFamily.milDot && majorEvery == null) {
+      parts.add('major_every');
+    }
+    if (marks && f != ReticleFamily.milDot && numbersEvery == null) {
+      parts.add('numbers_every');
+    }
+    double? posts = postsStart;
+    if (posts == null) {
+      if (f == ReticleFamily.duplex) {
+        // A duplex is its posts: without the distance it is the generic one.
+        posts = g.postsStart;
+      }
+      parts.add('posts_start');
+    }
+    final rows = <ReticleTreeRow>[];
+    if (f == ReticleFamily.tree) {
+      final t = tree;
+      if (t == null || t.isEmpty) {
+        parts.add('tree');
+      } else {
+        var rowMissing = false, dotMissing = false;
+        for (final r in t) {
+          final y = r.y, w = r.halfWidth;
+          if (y == null || w == null) {
+            rowMissing = true;
+            continue;
+          }
+          if (r.dotStep == null) dotMissing = true;
+          rows.add(ReticleTreeRow(y, w, r.dotStep));
         }
+        if (rowMissing) parts.add('tree.rows');
+        if (dotMissing) parts.add('tree.dot_step');
       }
     }
-    final step = d(j['hash_step']) ?? (unit == AngularUnit.moa ? 2 : 0.2);
-    final h = d(j['extent_h']) ?? (unit == AngularUnit.moa ? 40 : 10);
+    if (centerDot == null) parts.add('center_dot');
+    if (floatingCenter == null) parts.add('floating_center');
     return ReticleSpec(
-      name: name,
-      unit: unit,
-      family: family,
-      hashStep: step,
-      majorEvery: d(j['major_every']) ?? step * 5,
-      numbersEvery: d(j['numbers_every']),
+      name: displayName ?? name,
+      unit: u,
+      family: f,
+      hashStep: step ?? 0,
+      majorEvery: majorEvery ?? 0,
+      numbersEvery: numbersEvery,
       extentH: h,
-      extentUp: d(j['extent_v_up']) ?? h,
-      extentDown: d(j['extent_v_down']) ?? h,
+      extentUp: up,
+      extentDown: down,
       tree: List.unmodifiable(rows),
-      postsStart: d(j['posts_start']),
-      centerDot: j['center_dot'] == true,
+      postsStart: posts,
+      centerDot: centerDot ?? false,
+      floatingCenter: floatingCenter ?? false,
+      lineWidth: lineWidth,
+      postWidth: postWidth,
+      genericParts: List.unmodifiable(parts),
+      fromData: true,
     );
   }
 }

@@ -1,0 +1,21 @@
+{
+  "name": "VSE-3 MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Sentinel 6-24x50 FFP (SCFF-57)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Sentinel-6-24x50-FFP-Rifle-Scope-SCFF-57.html",
+  "notes": "FFP, benchrest amaçlı, BDC (.223 sıfır 200 yd, .308 sıfır 100 yd). Ürün sayfasında merkez nokta çelişkili: retikül bölümünde 0.35 MOA, girişte 0.3 MOA (giriş ayrıca yanlışlıkla 'VSE-4' diyor). İşaret aralığı, uzanım, ağaç bilgisi metinde yok → null; family belirlenemedi. VSE-3 MOA FFP retikül kılavuzu PDF'i (https://www.vectoroptics.com/public/uploads/files/20250707/f6512782ff33eb4c46d9ef38d283e289.pdf) erişim sınırlaması (HTTP 429) nedeniyle okunamadı."
+}

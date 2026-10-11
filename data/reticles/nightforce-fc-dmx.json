@@ -1,0 +1,19 @@
+{
+  "name": "FC-DMx",
+  "brand": "Nightforce",
+  "scopes": ["ATACR 1-8x24 F1", "NX8 1-8x24 F1"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/0322_NF_FC-DMx_Reticle-Sheet_001-1.pdf",
+  "notes": "Nightforce FC-DMx föyü; LPVO için gün ışığında parlak FFP retikül (F1). Metin: 0.2 MRAD merkez nokta; 4 MRAD çaplı bölümlü daire; '10MRAD grid' 1 MRAD çözünürlüklü, 10 MRAD'a kadar yükseliş tutması (extent_v_down=10); satır etiketleri ızgaranın sağ ve solunda dışarıda. Izgara satır genişlikleri, direkler ve harf etiketlerinin (C 20, E 5 MRAD vb.) anlamı metinde yok -> null."
+}

@@ -1,0 +1,19 @@
+{
+  "name": "VPR MOA",
+  "brand": "Arken Optics",
+  "scopes": ["EPL-4 6-24x50 FFP", "EP-5 GENII 5-25x56 FFP"],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 40,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.arkenopticsusa.com/products/epl-4-6-24x50-ffp-illuminated-vhr-vpr-zero-stop-30mm-tube",
+  "notes": "Arken Optics USA EPL-4 6-24x50 sayfası metni (FFP): '12 MIL (40 MOA) holdover grid', '0.25 MIL (1 MOA) subtensions', '0.04-0.08 MIL (0.14-0.28 MOA) floating center dot'. MOA değerleri sayfada parantez içi karşılık olarak verilmiş. extent_v_down=40, 40 MOA tutma ızgarasının merkez altına uzandığı varsayımıyla. Izgara satırları, rakamlar ve yatay uzanım metinde yok -> null."
+}
