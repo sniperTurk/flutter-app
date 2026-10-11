@@ -4,43 +4,35 @@ import 'package:flutter/material.dart';
 
 import '../../core/wind_clock.dart';
 import '../../ui/menzil_theme.dart';
-import '../../ui/menzil_widgets.dart';
 
-/// Clock-face wind direction picker: the shooter is in the centre facing
-/// 12 (the target); tap the hour the wind comes from. An arrow shows the
-/// wind blowing in from that hour.
+/// Clock face under the Rüzgâr yönü box (owner, 2026-10-11): the shooter is
+/// in the centre facing 12 (the target). Nothing is pre-selected: tapping
+/// the hour the wind comes from writes it into the box, and only a value
+/// the user chose (tapped or typed) is highlighted with an arrow.
 class WindClockPicker extends StatelessWidget {
-  final int hour;
+  /// The box's hour when it holds a valid 1…12, else null.
+  final int? hour;
   final ValueChanged<int> onChanged;
-  final String? info;
 
-  const WindClockPicker({
-    super.key,
-    required this.hour,
-    required this.onChanged,
-    this.info,
-  });
+  const WindClockPicker({super.key, this.hour, required this.onChanged});
 
   static ValueKey<String> hourKey(int h) => ValueKey('wind-clock-$h');
+
+  static const instruction =
+      'Rüzgâr hangi yönden geliyorsa kadranda o saate dokunun; değer Rüzgâr '
+      'yönü kutusuna girilir. Hedef saat 12 yönünde.';
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    final h = hour;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: Text('Rüzgâr yönü', style: MenzilType.body(c.ink2)),
-            ),
-            if (info != null)
-              MenzilInfoButton(
-                title: 'Rüzgâr yönü',
-                text: info!,
-                illustration: const WindDirectionDiagram(),
-              ),
-          ],
+        Text(
+          instruction,
+          key: const ValueKey('wind-clock-instruction'),
+          style: MenzilType.body(c.ink2),
         ),
         const SizedBox(height: MenzilSpace.xs),
         Center(
@@ -55,34 +47,34 @@ class WindClockPicker extends StatelessWidget {
                   children: [
                     Positioned.fill(
                       child: CustomPaint(
-                        painter: _ClockPainter(colors: c, hour: hour),
+                        painter: _ClockPainter(colors: c, hour: h),
                       ),
                     ),
-                    for (var h = 1; h <= 12; h++)
+                    for (var i = 1; i <= 12; i++)
                       Positioned(
-                        left: center.dx + r * math.sin(h * math.pi / 6) - 22,
-                        top: center.dy - r * math.cos(h * math.pi / 6) - 22,
+                        left: center.dx + r * math.sin(i * math.pi / 6) - 22,
+                        top: center.dy - r * math.cos(i * math.pi / 6) - 22,
                         width: 44,
                         height: 44,
                         child: Semantics(
                           button: true,
-                          selected: h == hour,
-                          label: 'Saat $h, ${WindClock.side(h)}',
+                          selected: i == h,
+                          label: 'Saat $i, ${WindClock.side(i)}',
                           child: ExcludeSemantics(
                             child: Material(
-                              key: hourKey(h),
-                              color: h == hour ? c.amber : c.surface2,
+                              key: hourKey(i),
+                              color: i == h ? c.amber : c.surface2,
                               shape: CircleBorder(
                                 side: BorderSide(color: c.line),
                               ),
                               child: InkWell(
                                 customBorder: const CircleBorder(),
-                                onTap: () => onChanged(h),
+                                onTap: () => onChanged(i),
                                 child: Center(
                                   child: Text(
-                                    '$h',
+                                    '$i',
                                     style: MenzilType.number(
-                                      h == hour ? c.amberInk : c.ink,
+                                      i == h ? c.amberInk : c.ink,
                                       size: 16,
                                     ),
                                   ),
@@ -98,14 +90,15 @@ class WindClockPicker extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: MenzilSpace.xs),
-        Center(
-          child: Text(
-            'Saat $hour · ${WindClock.side(hour)}',
+        if (h != null) ...[
+          const SizedBox(height: MenzilSpace.xs),
+          Text(
+            'Saat $h · ${WindClock.side(h)}',
             key: const ValueKey('wind-clock-label'),
+            textAlign: TextAlign.center,
             style: MenzilType.body(c.ink),
           ),
-        ),
+        ],
       ],
     );
   }
@@ -113,8 +106,8 @@ class WindClockPicker extends StatelessWidget {
 
 class _ClockPainter extends CustomPainter {
   final MenzilColors colors;
-  final int hour;
-  const _ClockPainter({required this.colors, required this.hour});
+  final int? hour;
+  const _ClockPainter({required this.colors, this.hour});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -129,8 +122,7 @@ class _ClockPainter extends CustomPainter {
         ..strokeWidth = 1.5,
     );
     // Shooter facing the target (12 o'clock).
-    final shooter = Paint()..color = colors.ink;
-    canvas.drawCircle(center, 7, shooter);
+    canvas.drawCircle(center, 7, Paint()..color = colors.ink);
     canvas.drawLine(
       center,
       center + Offset(0, -r * 0.45),
@@ -138,8 +130,9 @@ class _ClockPainter extends CustomPainter {
         ..color = colors.ink2
         ..strokeWidth = 2,
     );
-    // Wind arrow: from the chosen hour towards the shooter.
-    final a = hour * math.pi / 6;
+    final h = hour;
+    if (h == null) return; // No direction chosen yet: no arrow.
+    final a = h * math.pi / 6;
     final dir = Offset(math.sin(a), -math.cos(a));
     final tail = center + dir * (r - 30);
     final tip = center + dir * 16;
@@ -148,7 +141,6 @@ class _ClockPainter extends CustomPainter {
       ..strokeWidth = 4
       ..strokeCap = StrokeCap.round;
     canvas.drawLine(tail, tip, arrow);
-    // Arrow head at the tip, its base back towards the hour.
     final base = tip + dir * 12;
     final normal = Offset(-dir.dy, dir.dx);
     final left = base + normal * 7, right = base - normal * 7;

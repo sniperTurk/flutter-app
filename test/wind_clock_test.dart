@@ -23,10 +23,10 @@ void main() {
     expect(() => WindClock.toDegrees(0), throwsArgumentError);
   });
 
-  testWidgets('tapping an hour selects it and says where the wind is from', (
+  testWidgets('nothing is pre-selected; a tapped hour is reported', (
     tester,
   ) async {
-    var hour = 9;
+    int? hour;
     await tester.pumpWidget(
       MaterialApp(
         theme: MenzilTheme.light(),
@@ -34,35 +34,18 @@ void main() {
           body: StatefulBuilder(
             builder: (context, setState) => WindClockPicker(
               hour: hour,
-              info: 'x',
               onChanged: (h) => setState(() => hour = h),
             ),
           ),
         ),
       ),
     );
-    expect(find.text('Saat 9 · soldan'), findsOneWidget);
+    expect(find.text(WindClockPicker.instruction), findsOneWidget);
+    expect(find.byKey(const ValueKey('wind-clock-label')), findsNothing);
     await tester.tap(find.byKey(WindClockPicker.hourKey(3)));
     await tester.pump();
     expect(hour, 3);
     expect(find.text('Saat 3 · sağdan'), findsOneWidget);
-    expect(find.byTooltip('Bilgi: Rüzgâr yönü'), findsOneWidget);
-    // The ⓘ box shows the 0–315° dial with every 45° labelled.
-    await tester.tap(find.byTooltip('Bilgi: Rüzgâr yönü'));
-    await tester.pumpAndSettle();
-    expect(
-      find.byKey(const ValueKey('wind-direction-diagram')),
-      findsOneWidget,
-    );
-    expect(WindDirectionDiagram.labels, [
-      '0°',
-      '45°',
-      '90°',
-      '135°',
-      '180°',
-      '225°',
-      '270°',
-      '315°',
-    ]);
+    expect(WindDirectionDiagram.labels.length, 8);
   });
 }

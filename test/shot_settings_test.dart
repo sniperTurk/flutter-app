@@ -200,6 +200,7 @@ void main() {
       await tester.pumpWidget(app(BallisticsView.environment));
       await tester.pumpAndSettle();
       await type(tester, BallisticsFieldKeys.wind, '2');
+      await type(tester, BallisticsFieldKeys.windDirection, '9');
 
       await tester.pumpWidget(app(BallisticsView.shot));
       await tester.pumpAndSettle();
@@ -306,6 +307,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.ensureVisible(field(BallisticsFieldKeys.wind));
       await tester.enterText(field(BallisticsFieldKeys.wind), '2');
+      await tester.enterText(field(BallisticsFieldKeys.windDirection), '9');
       await tester.pump();
 
       await openProFor(tester, const Key('pro-wind-max'));
