@@ -355,6 +355,13 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Normal (0 MOA)').last, findsOneWidget);
       expect(find.text('30 MOA · +87 klik').last, findsOneWidget);
+      // The compact menu (owner, 2026-10-11) scrolls to the later choices.
+      await tester.dragUntilVisible(
+        find.text('60 MOA · +174 klik'),
+        find.byType(Scrollable).last,
+        const Offset(0, -100),
+      );
+      await tester.pumpAndSettle();
       expect(find.text('60 MOA · +174 klik').last, findsOneWidget);
       await tester.tap(find.text('60 MOA · +174 klik').last);
       await tester.pumpAndSettle();
