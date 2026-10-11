@@ -230,7 +230,7 @@ class _ProPreviewState extends State<ProPreview> {
       children: [
         TextSpan(
           text: '$label ',
-          style: const TextStyle(fontWeight: FontWeight.w700),
+          style: const TextStyle(fontWeight: FontWeight.w400),
         ),
         TextSpan(text: '$text\n'),
       ],
@@ -242,7 +242,8 @@ class _ProPreviewState extends State<ProPreview> {
         children: [
           Text(
             e.title,
-            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w700),
+            // No bold text in the Pro boxes (owner, 2026-10-11).
+            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w400),
           ),
           const SizedBox(height: 2),
           Text.rich(
@@ -283,7 +284,11 @@ class _ProPreviewState extends State<ProPreview> {
                     Expanded(
                       child: Text(
                         title,
-                        style: MenzilType.heading(c.ink, size: 18),
+                        // No bold box titles (owner, 2026-10-11): regular.
+                        style: MenzilType.heading(
+                          c.ink,
+                          size: 18,
+                        ).copyWith(fontWeight: FontWeight.w400),
                       ),
                     ),
                     if (!open) Text(summary, style: MenzilType.caption(c.ink2)),

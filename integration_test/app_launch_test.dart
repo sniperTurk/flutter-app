@@ -141,6 +141,9 @@ void main() {
     await tester.tap(find.text('G1').last);
     await tester.pumpAndSettle();
     await type('profile-velocity-fps', '900');
+    // Every list box of a new profile starts on "Seçiniz" (owner,
+    // 2026-10-11): Mesafe birimi, Dürbün birimi and Dürbün ayağı are picked.
+    await choose('profile-distance-unit', 'Metre');
     await type('profile-zero', '25');
     // Every list box starts on "Seçiniz" (owner, 2026-10-11).
     await choose('profile-distance-unit', 'Metre');

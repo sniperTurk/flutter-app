@@ -533,7 +533,10 @@ class _TruingScreenState extends State<TruingScreen> {
                     controller: _temperature,
                     label: 'Sıcaklık',
                     unit: metric ? '°C' : '°F',
-                    info: EnvironmentFieldInfo.temperature,
+                    info: EnvironmentFieldInfo.temperatureFor(
+                      firearm:
+                          _resolution?.rifle.platform == WeaponPlatform.firearm,
+                    ),
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,
                       signed: true,

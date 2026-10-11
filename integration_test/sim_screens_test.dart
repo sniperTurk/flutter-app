@@ -236,6 +236,8 @@ void main() {
       await type('ammo-bc', '0,08');
       await choose('ammo-bc-model', 'G1');
       await type('profile-velocity-fps', '900');
+      // List boxes of a new profile start on "Seçiniz" (owner, 2026-10-11).
+      await choose('profile-distance-unit', 'Metre');
       await type('profile-zero', '25');
       await choose('profile-distance-unit', 'Metre');
       await type('scope-sight-height', '60');

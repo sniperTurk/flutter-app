@@ -91,6 +91,18 @@ void main() {
       expect(find.byKey(Key('pro-section-$id')), findsOneWidget, reason: id);
     }
     expect(find.byKey(const Key('pro-section-wind')), findsNothing);
+    // Box titles are regular, not bold (owner, 2026-10-11).
+    for (final id in ['angle', 'coriolis', 'target', 'rifle']) {
+      final title = tester
+          .widgetList<Text>(
+            find.descendant(
+              of: find.byKey(Key('pro-section-$id')),
+              matching: find.byType(Text),
+            ),
+          )
+          .first;
+      expect(title.style?.fontWeight, FontWeight.w400, reason: id);
+    }
     expect(find.byKey(const Key('shot-incline')), findsNothing);
     // Opening a box shows its fields and its explanation; one box at a time.
     await openProFor(tester, const Key('shot-incline'));

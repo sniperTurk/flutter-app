@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/input_error_text.dart';
 import '../../core/standard_drag_tables.dart';
 import '../../core/unit_system.dart';
 import '../../models/domain.dart';
@@ -830,7 +831,10 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
                 'Bu değerlere uyan bir BC (0,005–3,0) bulunamadı. Hızları ve mesafeyi kontrol edin.';
           }
         } on ArgumentError catch (e) {
-          problem = 'Geçersiz atmosfer değeri: ${e.message}';
+          problem = InputErrorText.of(
+            e,
+            fallback: 'Geçersiz atmosfer değeri. Kontrol edip tekrar deneyin.',
+          );
         }
       }
     }
@@ -987,7 +991,10 @@ class _AirLabState extends State<AirLabScreen> {
         );
         if (!lab.densityKgM3.isFinite) lab = null;
       } on ArgumentError catch (e) {
-        problem = 'Geçersiz değer: ${e.message}';
+        problem = InputErrorText.of(
+          e,
+          fallback: 'Geçersiz değer. Kontrol edip tekrar deneyin.',
+        );
       }
     }
     return _CalcPage(
