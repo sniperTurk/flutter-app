@@ -276,11 +276,7 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('PCP Tüfek'));
-    await tester.tap(find.text('PCP Tüfek'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Ateşli Tüfek').last);
-    await tester.pumpAndSettle();
+    await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
     await chooseInSelect(tester, 'rifle-caliber', '.30-06 Springfield');
     expect(find.text('.30-06 Springfield'), findsWidgets);
     expect(find.text('Diğer (elle yaz)'), findsNothing);
@@ -329,11 +325,7 @@ void _unitsAndFirearmTests() {
     FocusManager.instance.primaryFocus?.unfocus();
     await tester.pump();
 
-    await tester.ensureVisible(find.text('PCP Tüfek'));
-    await tester.tap(find.text('PCP Tüfek'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Ateşli Tüfek').last);
-    await tester.pumpAndSettle();
+    await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
     // 9.00 mm is not a firearm caliber here: the choice is cleared, and the
     // firearm list is offered.
     expect(find.text('9.00 mm (.357)'), findsNothing);
@@ -388,11 +380,7 @@ void _unitsAndFirearmTests() {
     await tester.ensureVisible(brand);
     await tester.enterText(brand, 'H&N Slug HP');
     await tester.pump();
-    await tester.ensureVisible(find.text('PCP Tüfek'));
-    await tester.tap(find.text('PCP Tüfek'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Ateşli Tüfek').last);
-    await tester.pumpAndSettle();
+    await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
     // The typed PCP name is gone; the firearm lists are offered again.
     expect(find.text('H&N Slug HP'), findsNothing);
     expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);

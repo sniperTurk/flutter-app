@@ -787,7 +787,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   final List<ScopeOptic> _allScopes = CatalogRepository.allScopes;
   final ManualCatalogStore _manualStore = ManualCatalogStore();
 
-  WeaponPlatform platform = WeaponPlatform.pcp;
+  // A new profile starts on Ateşli Tüfek (owner, 2026-10-11).
+  WeaponPlatform platform = WeaponPlatform.firearm;
 
   /// The rifle is typed in by the user (catalog rifle data proved
   /// unreliable). On save it is written as a personal record and the profile
@@ -1513,7 +1514,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // (It used to be guessed from the pressure, but new PCP profiles carry
     // no pressure since 2026-10-09, so "no pressure" no longer means
     // firearm.)
-    platform = initialRifle?.platform ?? ammo?.platform ?? WeaponPlatform.pcp;
+    platform = p == null
+        ? WeaponPlatform.firearm
+        : initialRifle?.platform ?? ammo?.platform ?? WeaponPlatform.pcp;
     scope = p == null
         ? null
         : _allScopes.where((o) => o.id == p.scopeId).firstOrNull;
