@@ -2237,11 +2237,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   List<FactoryAmmo> get _factoryHere {
     final cal = _parse(rifleCaliber);
     final c = _cartridge;
+    // No Kalibre yet: every factory round, as El dolumu lists every bullet
+    // (owner, 2026-10-11: Fabrika fişeği came up empty). Picking one fills
+    // the Kalibre.
     return [
       for (final a in FactoryAmmoLibrary.all)
         if (c != null
             ? a.cartridge == c
-            : cal != null && (a.diameterMm - cal).abs() < 0.02)
+            : cal == null || (a.diameterMm - cal).abs() < 0.02)
           a,
     ];
   }
@@ -2254,6 +2257,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Fills the ammunition (and the velocity) from a factory cartridge.
   void _applyFactory(FactoryAmmo a) {
     String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
+    // Kalibre not chosen yet: the round tells it.
+    if (_cartridge == null && rifleCaliber.text.trim().isEmpty) {
+      _cartridge = a.cartridge;
+      rifleCaliber.text = _trimDot(a.diameterMm);
+    }
     _ammoManual = false;
     ammoBrand.text = a.brand;
     ammoModel.text = a.name;
