@@ -1762,8 +1762,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_travelError(scopeTravelElevation) == null, 'Üst kule klik sayısı'),
     ]);
     section('Mühimmat', [
-      if (platform == WeaponPlatform.firearm)
-        (_ammoSourceSet, 'Mühimmat türü'),
+      if (platform == WeaponPlatform.firearm) (_ammoSourceSet, 'Mühimmat türü'),
       (_ammoBrandError == null, 'Marka'),
       (_effectiveAmmoType != null, 'Tip'),
       (_grainError == null, 'Ağırlık'),
@@ -2856,72 +2855,72 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 KeyedSubtree(
                   key: const Key('scope-mount'),
                   child: MenzilSelect<double>(
-                  // Rebuilt when the click value/unit changes so every
-                  // choice shows its ready click gain.
-                  key: ValueKey(
-                    'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
-                  ),
-                  info: ProfileFieldInfo.mountCant,
-                  label: 'Dürbün ayağı',
-                  initialValue: _mountCantSet ? mountCant : null,
-                  // Closed box: just "0 MOA" / "30 MOA"; the list keeps
-                  // "Normal" and the click gain.
-                  selectedLabels: [
-                    for (final moa in ProductionLimits.mountCantOptionsMoa)
-                      '${_trimNum(moa)} MOA',
-                  ],
-                  items: [
-                    for (final moa in ProductionLimits.mountCantOptionsMoa)
-                      DropdownMenuItem(
-                        value: moa,
-                        child: Text(
-                          _mountLabel(moa),
-                          key: Key('scope-mount-cant-${_trimNum(moa)}'),
+                    // Rebuilt when the click value/unit changes so every
+                    // choice shows its ready click gain.
+                    key: ValueKey(
+                      'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
+                    ),
+                    info: ProfileFieldInfo.mountCant,
+                    label: 'Dürbün ayağı',
+                    initialValue: _mountCantSet ? mountCant : null,
+                    // Closed box: just "0 MOA" / "30 MOA"; the list keeps
+                    // "Normal" and the click gain.
+                    selectedLabels: [
+                      for (final moa in ProductionLimits.mountCantOptionsMoa)
+                        '${_trimNum(moa)} MOA',
+                    ],
+                    items: [
+                      for (final moa in ProductionLimits.mountCantOptionsMoa)
+                        DropdownMenuItem(
+                          value: moa,
+                          child: Text(
+                            _mountLabel(moa),
+                            key: Key('scope-mount-cant-${_trimNum(moa)}'),
+                          ),
                         ),
-                      ),
-                  ],
-                  onChanged: (v) => setState(() {
-                    _mountCantSet = v != null;
-                    mountCant = v ?? 0;
-                  }),
-                ),
+                    ],
+                    onChanged: (v) => setState(() {
+                      _mountCantSet = v != null;
+                      mountCant = v ?? 0;
+                    }),
+                  ),
                 ),
                 KeyedSubtree(
                   key: const Key('scope-unit'),
                   child: MenzilSelect<AngularUnit>(
-                  key: ValueKey(
-                    'profile-angular-unit-${angularUnit.name}'
-                    '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
+                    key: ValueKey(
+                      'profile-angular-unit-${angularUnit.name}'
+                      '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
+                    ),
+                    info: ProfileFieldInfo.scopeUnit,
+                    label: 'Dürbün birimi',
+                    initialValue: _angularUnitSet ? angularUnit : null,
+                    items: const [
+                      DropdownMenuItem(
+                        value: AngularUnit.mrad,
+                        child: Text('MRAD'),
+                      ),
+                      DropdownMenuItem(
+                        value: AngularUnit.moa,
+                        child: Text('MOA'),
+                      ),
+                      // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
+                      DropdownMenuItem(
+                        value: AngularUnit.smoa,
+                        child: Text('SMOA'),
+                      ),
+                    ],
+                    onChanged: (v) => setState(() {
+                      _angularUnitSet = v != null;
+                      final next = v ?? AngularUnit.mrad;
+                      // Klik değeri is not asked any more (owner, 2026-10-09):
+                      // it follows the unit (0.1 MRAD, 1/4 MOA).
+                      if (next != angularUnit) {
+                        scopeClick.text = _trimNum(_defaultClick(next));
+                      }
+                      angularUnit = next;
+                    }),
                   ),
-                  info: ProfileFieldInfo.scopeUnit,
-                  label: 'Dürbün birimi',
-                  initialValue: _angularUnitSet ? angularUnit : null,
-                  items: const [
-                    DropdownMenuItem(
-                      value: AngularUnit.mrad,
-                      child: Text('MRAD'),
-                    ),
-                    DropdownMenuItem(
-                      value: AngularUnit.moa,
-                      child: Text('MOA'),
-                    ),
-                    // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
-                    DropdownMenuItem(
-                      value: AngularUnit.smoa,
-                      child: Text('SMOA'),
-                    ),
-                  ],
-                  onChanged: (v) => setState(() {
-                    _angularUnitSet = v != null;
-                    final next = v ?? AngularUnit.mrad;
-                    // Klik değeri is not asked any more (owner, 2026-10-09):
-                    // it follows the unit (0.1 MRAD, 1/4 MOA).
-                    if (next != angularUnit) {
-                      scopeClick.text = _trimNum(_defaultClick(next));
-                    }
-                    angularUnit = next;
-                  }),
-                ),
                 ),
                 MenzilInput(
                   key: const Key('scope-travel-elevation'),
