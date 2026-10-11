@@ -30,6 +30,7 @@ import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/tools/adapters/met_no_weather_provider.dart';
 import 'package:sniper_turk/tools/adapters/nominatim_place_search.dart';
 import 'package:sniper_turk/tools/ports/location_provider.dart';
+import 'package:sniper_turk/tools/ports/place_search.dart';
 import 'package:sniper_turk/tools/tools_services.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
@@ -84,6 +85,16 @@ ToolsServices _offlineServices({Object? error}) {
     weather: MetNoWeatherProvider(client: _failingClient(e), userAgent: _ua),
     places: NominatimPlaceSearch(client: _failingClient(e), userAgent: _ua),
   );
+}
+
+/// A place search that breaks its contract (throws something that is not a
+/// [PlaceSearchFailure]); the map must still not hang.
+class _BrokenPlaceSearch implements PlaceSearch {
+  @override
+  String get sourceName => 'Bozuk servis';
+  @override
+  Future<List<PlaceResult>> search(String query) async =>
+      throw StateError('beklenmeyen');
 }
 
 /// 1x1 transparent PNG.
@@ -291,6 +302,31 @@ void main() {
     await tester.pump();
     await tester.pump();
     expect(find.text('İnternet bağlantısı yok.'), findsOneWidget);
+    final go = tester.widget<IconButton>(
+      find.byKey(const Key('map-search-go')),
+    );
+    expect(go.onPressed, isNotNull);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('map place search with an unexpected error does not hang', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      host(
+        MapDistanceScreen(tileProvider: _OkTiles()),
+        services: testServices(places: _BrokenPlaceSearch()),
+      ),
+    );
+    await tester.pump();
+    await tester.enterText(find.byKey(const Key('map-search')), 'Seferihisar');
+    await tester.tap(find.byKey(const Key('map-search-go')));
+    await tester.pump();
+    await tester.pump();
+    expect(
+      find.text('Yer aranamadı. Bağlantıyı kontrol edip tekrar deneyin.'),
+      findsOneWidget,
+    );
     final go = tester.widget<IconButton>(
       find.byKey(const Key('map-search-go')),
     );
