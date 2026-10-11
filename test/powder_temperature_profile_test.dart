@@ -209,7 +209,9 @@ void main() {
   });
 
   group('FactoryPowderTempLibrary', () {
-    tearDown(() => FactoryPowderTempLibrary.records = FactoryPowderTempLibrary.all);
+    tearDown(
+      () => FactoryPowderTempLibrary.records = FactoryPowderTempLibrary.all,
+    );
 
     test('every record is a maker figure for a listed factory round', () {
       for (final r in FactoryPowderTempLibrary.all) {
@@ -221,7 +223,10 @@ void main() {
         );
         expect(
           r.referenceTempC,
-          inInclusiveRange(PowderTemperature.minTempC, PowderTemperature.maxTempC),
+          inInclusiveRange(
+            PowderTemperature.minTempC,
+            PowderTemperature.maxTempC,
+          ),
           reason: r.name,
         );
         expect(
@@ -245,7 +250,10 @@ void main() {
   });
 
   test('the ⓘ texts say what, where and give an example', () {
-    for (final t in [ProfileFieldInfo.powderCoef, ProfileFieldInfo.powderTemp]) {
+    for (final t in [
+      ProfileFieldInfo.powderCoef,
+      ProfileFieldInfo.powderTemp,
+    ]) {
       expect(t, contains('Örnek'));
       expect(t, isNot(contains('(')));
     }
@@ -254,7 +262,9 @@ void main() {
   });
 
   group('Profil > Mühimmat', () {
-    tearDown(() => FactoryPowderTempLibrary.records = FactoryPowderTempLibrary.all);
+    tearDown(
+      () => FactoryPowderTempLibrary.records = FactoryPowderTempLibrary.all,
+    );
 
     testWidgets('firearm: Katsayı | Ölçüm sıcaklığı side by side with ⓘ', (
       tester,

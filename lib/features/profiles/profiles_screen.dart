@@ -1827,8 +1827,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         (ammoBcModel != null, 'BC modeli'),
         (_bandsValid, 'Hıza göre BC'),
       ],
-      if (platform == WeaponPlatform.firearm)
-        (_powderValid, 'Barut sıcaklığı'),
+      if (platform == WeaponPlatform.firearm) (_powderValid, 'Barut sıcaklığı'),
     ]);
     return out;
   }
