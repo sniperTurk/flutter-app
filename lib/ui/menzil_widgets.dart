@@ -1073,6 +1073,9 @@ class MenzilSelect<T> extends StatelessWidget {
               ],
               isExpanded: true,
               isDense: true,
+              // A compact list, not a full-screen sheet (owner, 2026-10-11:
+              // "menüler çok büyük açılıyor").
+              menuMaxHeight: 300,
               borderRadius: BorderRadius.circular(MenzilRadius.input),
               dropdownColor: c.surface,
               icon: Icon(Icons.expand_more, color: c.ink2),
