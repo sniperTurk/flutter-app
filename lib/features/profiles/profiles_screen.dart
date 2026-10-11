@@ -1010,6 +1010,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   static const _domesticBrands = {
     'ATA Arms',
     'Aselkon Arms',
+    'Balıklı',
     'Hatsan',
     'Huğlu',
     'İstanbul Silah',
@@ -1020,6 +1021,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     'Retay',
     'Reximex',
     'Sarsılmaz',
+    'Utaş Arms',
   };
 
   List<LibraryRifle> get _rifleLib => [
