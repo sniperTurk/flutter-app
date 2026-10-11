@@ -1586,11 +1586,22 @@ class ScopeReticlePainter extends CustomPainter {
                     ne > 0 &&
                     ((v / ne) - (v / ne).round()).abs() < 1e-6) {
                   final off = len + numFont * 0.8;
+                  // The reticle's own numbers move to the free side of the
+                  // line when wind labels (above the horizontal line) or
+                  // range labels (right of the lower vertical line) are
+                  // shown (owner, 2026-10-11: "25.7" ran into "10").
+                  final windAbove = showLabels && windLabels.isNotEmpty;
+                  final holdRight =
+                      showLabels && holdLabels.isNotEmpty && dir.dy > 0;
                   number(
                     v,
                     dir.dx != 0
-                        ? at - Offset(0, off)
-                        : at + Offset(off + numFont * 0.4, 0),
+                        ? (windAbove
+                              ? at + Offset(0, off)
+                              : at - Offset(0, off))
+                        : (holdRight
+                              ? at - Offset(off + numFont * 0.4, 0)
+                              : at + Offset(off + numFont * 0.4, 0)),
                   );
                 }
               }
