@@ -1,0 +1,23 @@
+{
+  "name": "Boone & Crockett",
+  "brand": "Leupold",
+  "scopes": [
+    "VX-3HD 4.5-14x40 CDS-ZL",
+    "VX-3i 4.5-14x40 (üretimden kalktı)",
+    "VX-5HD 3-15x44 CDS-ZL2 Side Focus (üretimden kalktı)"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/boone-and-crockett/",
+  "notes": "Leupold Boone & Crockett sayfası; SFP; föy (https://www.leupold.com/media/manuals/boone_crockett.pdf): 'will measure (subtend) correctly when the riflescope is set to the highest available magnification'. Metin: merkez 200 veya 300 yd sıfır, 500-600 yd'ye kadar nişan noktaları, uzun yatay işaretler 10 mph rüzgâr, büyütme halkasıyla mermi grubuna ayar, kalibreye özgü değil. Leupold Ballistics Aiming System kılavuzu (https://cdnp.leupold.com/products/productDownloads/ballistic-aiming-system-manual.pdf, 2015): Duplex kesişiminde sıfır; 300/400/450/500 yd tutma noktaları. Föy değerleri 2.2/3.0/6.3/2.2/4.8/7.8 MOA etiketsiz, eşlenemedi; kılavuz tablosu eski nesle ait olabilir. Düşüş/rüzgâr ölçüleri BDC (mesafe) tabanlı olduğundan ızgara alanları null; family=duplex, Duplex tabanlı tasarımdan çıkarım."
+}
