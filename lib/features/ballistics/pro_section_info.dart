@@ -202,8 +202,9 @@ abstract final class ProSectionInfo {
         'Yazın ölçtüğün hızla kışın atarsan mermi daha yavaş gider ve aşağı '
         'vurursun.',
     how:
-        'Mühimmatın kutusunda ya da üreticinin sitesinde "sıcaklık '
-        'hassasiyeti" yazar (örneğin %1 / 15 °C). Profildeki hızı hangi '
-        'sıcaklıkta ölçtüysen onu da yaz. Bilmiyorsan boş bırak.',
+        'Profil > Mühimmat\'ta barut sıcaklık katsayısını ve hızı ölçtüğün '
+        'sıcaklığı yaz; hız Hava Durumu\'ndaki sıcaklığa göre düzeltilir. '
+        'Üreticiler çoğunlukla sayı vermez; aynı fişeği soğuk ve sıcak bir '
+        'günde kronografla ölçerek bulursun. Bilmiyorsan boş bırak.',
   );
 }

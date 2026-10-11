@@ -75,7 +75,8 @@ class _TruingScreenState extends State<TruingScreen> {
   TruingResult? _result;
   BcTruingResult? _bcResult;
 
-  /// Pro Ayarlar of the profile (powder temperature data, firearms).
+  /// Pro Ayarlar of the profile: powder temperature data of older versions,
+  /// read only when the profile has none.
   ShotSettings? _shotSettings;
 
   /// Today's / reference velocity from the powder temperature model; 1 when
@@ -210,17 +211,17 @@ class _TruingScreenState extends State<TruingScreen> {
     // Same powder temperature model as Atış: the profile velocity is the
     // one at the reference temperature (firearms only).
     final shot = _shotSettings;
-    final f = res.rifle.platform == WeaponPlatform.firearm && shot != null
-        ? PowderTemperature.factor(
-            coefPercentPer15C: double.tryParse(
-              shot.powderCoefText.trim().replaceAll(',', '.'),
-            ),
-            referenceTempC: double.tryParse(
-              shot.powderTempText.trim().replaceAll(',', '.'),
-            ),
-            todayTempC: todayC,
-          )
-        : 1.0;
+    final powder = PowderTemperature.forProfile(
+      profile: p,
+      platform: res.rifle.platform,
+      legacyCoefText: shot?.powderCoefText ?? '',
+      legacyTempText: shot?.powderTempText ?? '',
+    );
+    final f = PowderTemperature.factor(
+      coefPercentPer15C: powder.coef,
+      referenceTempC: powder.referenceC,
+      todayTempC: todayC,
+    );
     final BallisticInput base;
     try {
       base = BallisticInput(
@@ -647,7 +648,7 @@ class _TruingScreenState extends State<TruingScreen> {
           key: const Key('truing-powder-note'),
           tone: MenzilNoticeTone.info,
           message:
-              'Barut sıcaklığı hesaba katıldı (Pro Ayarlar). Bugünkü hız '
+              'Barut sıcaklığı hesaba katıldı. Bugünkü hız '
               '${_fps(r.truedMps * _powderFactor)}; profile, ölçüm '
               'sıcaklığındaki hız (${_fps(r.truedMps)}) yazılır.',
         ),

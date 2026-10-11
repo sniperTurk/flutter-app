@@ -282,7 +282,7 @@ void main() {
       await tester.pumpAndSettle();
       await openProFor(tester, const Key('pro-spin-switch'));
       // A firearm profile sees powder temperature, not the PCP note.
-      expect(find.byKey(const Key('pro-powder-coef')), findsOneWidget);
+      expect(find.byKey(const Key('pro-powder-source')), findsOneWidget);
       expect(find.byKey(const Key('pro-spin-pcp-note')), findsNothing);
       final sw = find.byKey(const Key('pro-spin-switch'));
       await tester.ensureVisible(sw);

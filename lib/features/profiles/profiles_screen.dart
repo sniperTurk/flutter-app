@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/drag_curve.dart';
 import '../../core/drag_table.dart';
+import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle.dart';
 import '../../core/profile_input.dart';
@@ -11,6 +12,7 @@ import '../../data/bullet_library.dart';
 import '../../data/cartridges.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/factory_ammo_library.dart';
+import '../../data/factory_powder_temperature.dart';
 import '../../data/rifle_library.dart';
 import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
@@ -185,6 +187,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       angularUnit: p.angularUnit,
       distanceUnit: p.distanceUnit,
       mountCantMoa: p.mountCantMoa,
+      powderTempCoefPercentPer15C: p.powderTempCoefPercentPer15C,
+      powderTempReferenceC: p.powderTempReferenceC,
     );
     try {
       await store.save(copy);
@@ -1495,6 +1499,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController zero;
   late final TextEditingController sight;
 
+  /// Barut sıcaklığı (firearms): % per 15 °C and the air temperature (°C)
+  /// the velocity was measured at, as typed. [_powderAutoFilled]: the boxes
+  /// hold the maker's figure of the picked factory round, so another pick
+  /// replaces them; typed values are never cleared by a pick.
+  late final TextEditingController powderCoef;
+  late final TextEditingController powderTemp;
+  bool _powderAutoFilled = false;
+
   /// Dürbün ayağı in MOA, picked from [ProductionLimits.mountCantOptionsMoa].
   late double mountCant;
   String? validationError;
@@ -1702,7 +1714,49 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     sight = TextEditingController(text: p == null ? '' : num(p.sightHeightMm));
     // 0 = normal mount; old profiles have no value.
     mountCant = p?.mountCantMoa ?? 0;
+    powderCoef = TextEditingController(
+      text: p?.powderTempCoefPercentPer15C == null
+          ? ''
+          : _trimNum(p!.powderTempCoefPercentPer15C!),
+    );
+    powderTemp = TextEditingController(
+      text: p?.powderTempReferenceC == null
+          ? ''
+          : _trimNum(p!.powderTempReferenceC!),
+    );
   }
+
+  /// Barut sıcaklığı is optional; given, both boxes and the bands of
+  /// [PowderTemperature] apply.
+  String? get _powderCoefError {
+    final t = powderCoef.text.trim();
+    if (t.isEmpty) {
+      return powderTemp.text.trim().isEmpty ? null : 'Katsayıyı da girin.';
+    }
+    final v = _parse(powderCoef);
+    if (v == null || v.abs() > PowderTemperature.maxCoef) {
+      return '-10 ile 10 arasında bir değer girin.';
+    }
+    return null;
+  }
+
+  String? get _powderTempError {
+    final t = powderTemp.text.trim();
+    if (t.isEmpty) {
+      return powderCoef.text.trim().isEmpty ? null : 'Sıcaklığı da girin.';
+    }
+    final v = _parse(powderTemp);
+    if (v == null ||
+        v < PowderTemperature.minTempC ||
+        v > PowderTemperature.maxTempC) {
+      return '-50 ile 60 arasında bir değer girin.';
+    }
+    return null;
+  }
+
+  bool get _powderValid =>
+      platform != WeaponPlatform.firearm ||
+      (_powderCoefError == null && _powderTempError == null);
 
   static String _fpsText(double mps) {
     final fps = UnitSystem.mpsToFps(mps);
@@ -1773,6 +1827,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         (ammoBcModel != null, 'BC modeli'),
         (_bandsValid, 'Hıza göre BC'),
       ],
+      if (platform == WeaponPlatform.firearm)
+        (_powderValid, 'Barut sıcaklığı'),
     ]);
     return out;
   }
@@ -1796,6 +1852,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ammoModel.dispose();
     ammoGrain.dispose();
     ammoBc.dispose();
+    powderCoef.dispose();
+    powderTemp.dispose();
     for (final c in [...ammoBandFps, ...ammoBandBc]) {
       c.dispose();
     }
@@ -1977,7 +2035,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_customCurve
           ? _dragCurve != null && _curveSd != null
           : _bcError == null && _bandsValid && ammoBcModel != null) &&
-      _effectiveAmmoType != null;
+      _effectiveAmmoType != null &&
+      _powderValid;
 
   /// Sectional density for a custom curve, from the grain and the caliber.
   double? get _curveSd {
@@ -2122,6 +2181,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         // Regülatör basıncı is not asked any more (owner, 2026-10-09): no
         // calculation uses it.
         mountCantMoa: mountCant,
+        // Firearms only; ProfileInput drops it on PCP.
+        powderCoefText: powderCoef.text,
+        powderTempText: powderTemp.text,
       );
     } on FormatException catch (e) {
       setState(() => validationError = e.message);
@@ -2180,6 +2242,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         angularUnit: angularUnit,
         distanceUnit: distanceUnit,
         mountCantMoa: input.mountCantMoa,
+        powderTempCoefPercentPer15C: input.powderTempCoefPercentPer15C,
+        powderTempReferenceC: input.powderTempReferenceC,
       ),
     );
   }
@@ -2320,6 +2384,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ammoBandBc[i].text = '';
     }
     velocity.text = n(a.muzzleVelocityFps);
+    // Barut sıcaklığı: the maker's figure when it publishes one; otherwise
+    // only a previous automatic fill goes (typed values stay).
+    final pt = FactoryPowderTempLibrary.lookup(a.brand, a.name);
+    if (pt != null) {
+      powderCoef.text = _trimNum(pt.coefPercentPer15C);
+      powderTemp.text = _trimNum(pt.referenceTempC);
+      _powderAutoFilled = true;
+    } else if (_powderAutoFilled) {
+      powderCoef.text = '';
+      powderTemp.text = '';
+      _powderAutoFilled = false;
+    }
   }
 
   static String _modelOf(LibraryBullet b) =>
@@ -3188,6 +3264,36 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_velocityError, velocity),
                 ),
+                // Barut sıcaklığı: firearms only, never on PCP (owner,
+                // 2026-10-11). Katsayı | Ölçüm sıcaklığı side by side.
+                if (platform == WeaponPlatform.firearm) ...[
+                  MenzilInput(
+                    key: const Key('profile-powder-coef'),
+                    controller: powderCoef,
+                    label: 'Barut sıcaklık katsayısı',
+                    unit: '%/15 °C',
+                    info: ProfileFieldInfo.powderCoef,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                      signed: true,
+                    ),
+                    onChanged: (_) => setState(() => _powderAutoFilled = false),
+                    errorText: _shown(_powderCoefError, powderCoef),
+                  ),
+                  MenzilInput(
+                    key: const Key('profile-powder-temp'),
+                    controller: powderTemp,
+                    label: 'Hız ölçüm sıcaklığı',
+                    unit: '°C',
+                    info: ProfileFieldInfo.powderTemp,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                      signed: true,
+                    ),
+                    onChanged: (_) => setState(() => _powderAutoFilled = false),
+                    errorText: _shown(_powderTempError, powderTemp),
+                  ),
+                ],
                 if (_customCurve)
                   MenzilFullWidth(
                     child: DragCurveField(
