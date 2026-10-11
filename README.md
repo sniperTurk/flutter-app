@@ -1,9 +1,9 @@
 # Simulator screenshots
 
-- Source: `claude/sim-screens` @ `c92da9e1e1059b2f2f3e8afe69be076f622448ed`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38126427648
+- Source: `claude/sim-screens` @ `69488e587cba2c19acd790ba916e50e8dfcdacab`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38127532401
 - flutter test exit code: 0 (0 = every step passed)
-- Device: -- iOS 18.6 --
+- Device: iPhone 17 Pro / iOS 26.2
 
 ```
 install: 0
@@ -11,7 +11,7 @@ grant location: 0
 grant location-always: 0
 simulated location: 0
 flutter test exit: 0
-screenshots: 39
+screenshots: 42
 ```
 
 - [01_profil_karsilama.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/01_profil_karsilama.png)
@@ -38,18 +38,21 @@ screenshots: 39
 - [22_profil_olustur_atesli_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/22_profil_olustur_atesli_3.png)
 - [23_profil_olustur_atesli_4.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/23_profil_olustur_atesli_4.png)
 - [24_profil_olustur_atesli_5.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/24_profil_olustur_atesli_5.png)
-- [25_profil_olustur_dolu.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/25_profil_olustur_dolu.png)
-- [26_profil_olustur_dolu_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/26_profil_olustur_dolu_2.png)
-- [27_profil_olustur_dolu_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/27_profil_olustur_dolu_3.png)
-- [28_profil_kayitli.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/28_profil_kayitli.png)
-- [29_profil_kayitli_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/29_profil_kayitli_2.png)
-- [30_hava_durumu.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/30_hava_durumu.png)
-- [31_hava_durumu_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/31_hava_durumu_2.png)
-- [32_hava_durumu_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/32_hava_durumu_3.png)
-- [33_pro_ayarlar.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/33_pro_ayarlar.png)
-- [34_pro_ayarlar_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/34_pro_ayarlar_2.png)
-- [35_hedef_atis.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/35_hedef_atis.png)
-- [36_hedef_atis_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/36_hedef_atis_2.png)
-- [37_hedef_atis_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/37_hedef_atis_3.png)
-- [38_hedef_tablo.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/38_hedef_tablo.png)
-- [39_hedef_tablo_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/39_hedef_tablo_2.png)
+- [25_profil_olustur_atesli_6.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/25_profil_olustur_atesli_6.png)
+- [26_profil_olustur_dolu.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/26_profil_olustur_dolu.png)
+- [27_profil_olustur_dolu_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/27_profil_olustur_dolu_2.png)
+- [28_profil_olustur_dolu_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/28_profil_olustur_dolu_3.png)
+- [29_profil_olustur_dolu_4.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/29_profil_olustur_dolu_4.png)
+- [30_profil_olustur_dolu_5.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/30_profil_olustur_dolu_5.png)
+- [31_profil_kayitli.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/31_profil_kayitli.png)
+- [32_profil_kayitli_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/32_profil_kayitli_2.png)
+- [33_hava_durumu.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/33_hava_durumu.png)
+- [34_hava_durumu_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/34_hava_durumu_2.png)
+- [35_hava_durumu_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/35_hava_durumu_3.png)
+- [36_pro_ayarlar.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/36_pro_ayarlar.png)
+- [37_pro_ayarlar_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/37_pro_ayarlar_2.png)
+- [38_hedef_atis.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/38_hedef_atis.png)
+- [39_hedef_atis_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/39_hedef_atis_2.png)
+- [40_hedef_atis_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/40_hedef_atis_3.png)
+- [41_hedef_tablo.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/41_hedef_tablo.png)
+- [42_hedef_tablo_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/42_hedef_tablo_2.png)

@@ -26,7 +26,7 @@ The following plugins do not support Swift Package Manager for ios:
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           90.4s
+Xcode build done.                                           92.7s
 00:00 +0: screenshot tour of the main pages
 SIMSCREEN:01_profil_karsilama
 SIMSCREEN:02_hava_durumu_bos
@@ -52,21 +52,24 @@ SIMSCREEN:21_profil_olustur_atesli_2
 SIMSCREEN:22_profil_olustur_atesli_3
 SIMSCREEN:23_profil_olustur_atesli_4
 SIMSCREEN:24_profil_olustur_atesli_5
-SIMSCREEN:25_profil_olustur_dolu
-SIMSCREEN:26_profil_olustur_dolu_2
-SIMSCREEN:27_profil_olustur_dolu_3
-SIMSCREEN:28_profil_kayitli
-SIMSCREEN:29_profil_kayitli_2
-SIMSCREEN:30_hava_durumu
-SIMSCREEN:31_hava_durumu_2
-SIMSCREEN:32_hava_durumu_3
-SIMSCREEN:33_pro_ayarlar
-SIMSCREEN:34_pro_ayarlar_2
-SIMSCREEN:35_hedef_atis
-SIMSCREEN:36_hedef_atis_2
-SIMSCREEN:37_hedef_atis_3
-SIMSCREEN:38_hedef_tablo
-SIMSCREEN:39_hedef_tablo_2
+SIMSCREEN:25_profil_olustur_atesli_6
+SIMSCREEN:26_profil_olustur_dolu
+SIMSCREEN:27_profil_olustur_dolu_2
+SIMSCREEN:28_profil_olustur_dolu_3
+SIMSCREEN:29_profil_olustur_dolu_4
+SIMSCREEN:30_profil_olustur_dolu_5
+SIMSCREEN:31_profil_kayitli
+SIMSCREEN:32_profil_kayitli_2
+SIMSCREEN:33_hava_durumu
+SIMSCREEN:34_hava_durumu_2
+SIMSCREEN:35_hava_durumu_3
+SIMSCREEN:36_pro_ayarlar
+SIMSCREEN:37_pro_ayarlar_2
+SIMSCREEN:38_hedef_atis
+SIMSCREEN:39_hedef_atis_2
+SIMSCREEN:40_hedef_atis_3
+SIMSCREEN:41_hedef_tablo
+SIMSCREEN:42_hedef_tablo_2
 SIMSCREEN_DONE failures=0
-03:47 +1: (tearDownAll)
-03:51 +1: All tests passed!
+03:49 +1: (tearDownAll)
+03:52 +1: All tests passed!
