@@ -1,0 +1,170 @@
+name: Simulator screenshots
+
+# Free fallback for looking at the app without a phone (owner, 2026-10-11):
+# boots an iOS Simulator on a GitHub macOS runner, walks through the main
+# pages with integration_test/sim_screens_test.dart and commits one PNG per
+# screen to branch ci/sim-screens (folder latest/), readable through the
+# contents API or raw URLs. Uses no secret; Google Maps stays off (Esri map).
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch, tag or commit to photograph'
+        required: false
+        default: 'main'
+      test:
+        description: 'Integration test that prints SIMSCREEN:<name> markers'
+        required: false
+        default: 'integration_test/sim_screens_test.dart'
+  pull_request:
+    paths:
+      - '.github/workflows/sim-screens.yml'
+      - 'integration_test/sim_screens_test.dart'
+      - 'tools/sim_screens_run.sh'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sim-screens
+  cancel-in-progress: false
+
+jobs:
+  screens:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.ref || github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Dependencies and iOS scaffold
+        run: |
+          flutter pub get
+          tools/bootstrap_ios_scaffold.sh
+
+      - name: Build Simulator app
+        env:
+          METNO_CONTACT: ${{ vars.METNO_CONTACT }}
+        run: |
+          flutter build ios --simulator --debug \
+            --dart-define=METNO_CONTACT="$METNO_CONTACT"
+
+      - name: Boot an iPhone Simulator
+        id: sim
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Newest iOS runtime, an iPhone (not an iPad), Pro model preferred.
+          UDID="$(xcrun simctl list devices available -j | python3 -c '
+          import json, re, sys
+          data = json.load(sys.stdin)["devices"]
+          best = None
+          for runtime, devices in data.items():
+              m = re.search(r"iOS-(\d+)-(\d+)", runtime)
+              if not m:
+                  continue
+              version = (int(m.group(1)), int(m.group(2)))
+              for d in devices:
+                  name = d.get("name", "")
+                  if not d.get("isAvailable") or not name.startswith("iPhone"):
+                      continue
+                  score = (version, "Pro" in name and "Max" not in name, name)
+                  if best is None or score > best[0]:
+                      best = (score, d["udid"], name, runtime)
+          if best is None:
+              sys.exit("no available iPhone simulator")
+          print(best[1])
+          print(f"{best[2]} / {best[3]}", file=sys.stderr)
+          ')"
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+
+      - name: Screenshot tour
+        id: tour
+        shell: bash
+        env:
+          METNO_CONTACT: ${{ vars.METNO_CONTACT }}
+          SIM_SCREENS_TEST: ${{ github.event.inputs.test || 'integration_test/sim_screens_test.dart' }}
+        run: |
+          set +e
+          tools/sim_screens_run.sh "${{ steps.sim.outputs.udid }}" \
+            build/ios/iphonesimulator/Runner.app sim-out
+          echo "rc=$?" >> "$GITHUB_OUTPUT"
+          xcrun simctl list devices booted > sim-out/device.txt 2>&1
+          exit 0
+
+      - name: Commit screenshots to ci/sim-screens
+        shell: bash
+        env:
+          SRC_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          SRC_REF: ${{ github.event.inputs.ref || github.head_ref || github.ref_name }}
+          TOUR_RC: ${{ steps.tour.outputs.rc }}
+        run: |
+          set -euo pipefail
+          BR=ci/sim-screens
+          SRC="$GITHUB_WORKSPACE/sim-out"
+          git config --global user.name "sim-screens"
+          git config --global user.email "sim-screens@users.noreply.github.com"
+          WT="$RUNNER_TEMP/sim-screens"
+          if git fetch -q --depth 1 origin "$BR" 2> /dev/null; then
+            git worktree add -q -B "$BR" "$WT" FETCH_HEAD
+          else
+            git worktree add -q --detach "$WT"
+            git -C "$WT" checkout -q --orphan "$BR"
+            git -C "$WT" rm -rq --cached .
+            git -C "$WT" clean -fdxq
+          fi
+          cd "$WT"
+          rm -rf latest
+          mkdir -p latest
+          cp "$SRC"/screens/*.png latest/ 2> /dev/null || true
+          cp "$SRC/status.txt" latest/status.txt
+          tail -n 400 "$SRC/flutter-test.log" > latest/flutter-test-tail.log || true
+          cp "$SRC/device.txt" latest/device.txt || true
+          RAW="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/$BR/latest"
+          {
+            echo "# Simulator screenshots"
+            echo
+            echo "- Source: \`$SRC_REF\` @ \`$SRC_SHA\`"
+            echo "- Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo "- flutter test exit code: ${TOUR_RC:-unknown} (0 = every step passed)"
+            echo "- Device: $(grep -m1 '(Booted)' latest/device.txt | sed 's/^ *//; s/ (.*//') / $(grep -B9 '(Booted)' latest/device.txt | grep -- '-- iOS' | tail -n 1 | tr -d '-' | xargs)"
+            echo
+            echo '```'
+            cat latest/status.txt
+            echo '```'
+            echo
+            for f in latest/*.png; do
+              [[ -e "$f" ]] || continue
+              n="$(basename "$f")"
+              echo "- [$n]($RAW/$n)"
+            done
+          } > README.md
+          git add -A README.md latest
+          git commit -q -m "sim screens: $SRC_REF @ ${SRC_SHA:0:7} (run $GITHUB_RUN_ID, rc ${TOUR_RC:-?})"
+          git push -q origin "HEAD:$BR"
+          cat README.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload screenshots as artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sim-screens
+          path: sim-out
+          if-no-files-found: warn
+
+      - name: Fail when the tour failed
+        if: steps.tour.outputs.rc != '0'
+        run: |
+          echo "::error::Screenshot tour failed (flutter test exit ${{ steps.tour.outputs.rc }}); see ci/sim-screens latest/status.txt"
+          exit 1
