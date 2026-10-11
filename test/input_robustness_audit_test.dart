@@ -12,32 +12,28 @@ import 'package:sniper_turk/tools/domain/field_calc.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
 void main() {
-  test(
-    'an unreachable zero (slow pellet, 600 m zero) is reported quickly, not '
-    'after millions of RK4 steps per requested range',
-    () {
-      final input = BallisticInput(
-        muzzleVelocityMps: 244,
-        grain: 15.9,
-        zeroRangeM: 600,
-        sightHeightMm: 50,
-        rangesM: const [25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 350],
-        ballisticCoefficient: 0.02,
-        ballisticModel: BallisticModel.g1,
-      );
-      final watch = Stopwatch()..start();
-      final r = const BallisticEngine().solveReachable(input);
-      watch.stop();
-      expect(r.points, isEmpty);
-      expect(r.unreachableM, hasLength(11));
-      // The zero search had no flight-time cap: 4 000 000 RK4 steps per
-      // bracket evaluation, repeated once per requested range (11 × 4 M),
-      // seconds of frozen UI. With the same 60 s flight cap as the main
-      // trajectory it is 11 × 120 000 steps.
-      expect(watch.elapsed, lessThan(const Duration(seconds: 2)));
-    },
-    timeout: const Timeout(Duration(minutes: 5)),
-  );
+  test('an unreachable zero (slow pellet, 600 m zero) is reported quickly, not '
+      'after millions of RK4 steps per requested range', () {
+    final input = BallisticInput(
+      muzzleVelocityMps: 244,
+      grain: 15.9,
+      zeroRangeM: 600,
+      sightHeightMm: 50,
+      rangesM: const [25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 350],
+      ballisticCoefficient: 0.02,
+      ballisticModel: BallisticModel.g1,
+    );
+    final watch = Stopwatch()..start();
+    final r = const BallisticEngine().solveReachable(input);
+    watch.stop();
+    expect(r.points, isEmpty);
+    expect(r.unreachableM, hasLength(11));
+    // The zero search had no flight-time cap: 4 000 000 RK4 steps per
+    // bracket evaluation, repeated once per requested range (11 × 4 M),
+    // seconds of frozen UI. With the same 60 s flight cap as the main
+    // trajectory it is 11 × 120 000 steps.
+    expect(watch.elapsed, lessThan(const Duration(seconds: 2)));
+  }, timeout: const Timeout(Duration(minutes: 5)));
 
   test('BC from two velocities refuses distances beyond the app range limit '
       '(an endless loop for an infinite distance)', () {
