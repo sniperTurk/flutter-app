@@ -16,6 +16,8 @@
   "posts_start": null,
   "center_dot": true,
   "floating_center": null,
+  "line_width": 0.05,
+  "post_width": 0.4,
   "source_url": "https://deltaoptical.eu/pl/hunting/riflescopes/luneta-celownicza-stryker-hd-45-30x56-ffp.html",
-  "notes": "Delta Optical ürün sayfası (FFP, MIL ölçekli, 1 Mil = 10 cm @100 m). Metin: DLR-1 merkez aydınlatmalı nokta 0.07 Mil (7 mm), ince kol kalınlığı 0.05 Mil, kalın barlar 0.4 Mil; kol çentikleri 0.2, 0.5 ve 1 Mil aralıklı. hash_step=0.2 en küçük belirtilen aralık olarak alındı; major_every, numbers_every, extent_*, tree, posts_start, floating_center metinde yok -> null (reticle PDF yok, yalnızca görsel)."
+  "notes": "Delta Optical ürün sayfası (FFP, MIL ölçekli, 1 Mil = 10 cm @100 m). Metin: DLR-1 merkez aydınlatmalı nokta 0.07 Mil (7 mm), ince kol kalınlığı 0.05 Mil, kalın barlar 0.4 Mil; kol çentikleri 0.2, 0.5 ve 1 Mil aralıklı. hash_step=0.2 en küçük belirtilen aralık olarak alındı; major_every, numbers_every, extent_*, tree, posts_start, floating_center metinde yok -> null (reticle PDF yok, yalnızca görsel). [2. tur] line_width=0.05 ve post_width=0.4 doğrudan: 'Cienkie ramiona krzyża mają grubość 0,05 Mil (5mm), a grube belki krzyża 0,4 Mil (4 cm).' (source_url). Barların merkezden başladığı mesafe yazmıyor -> posts_start null."
 }

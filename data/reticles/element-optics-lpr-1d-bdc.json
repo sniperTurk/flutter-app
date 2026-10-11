@@ -1,0 +1,21 @@
+{
+  "name": "LPR-1D BDC",
+  "brand": "Element Optics",
+  "scopes": [
+    "Immersive Series 5x30 MOA"
+  ],
+  "unit": null,
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://global.element-optics.com/wp-content/uploads/2023/06/Immersive-5x30-Manual.pdf",
+  "notes": "Immersive 5x30 kılavuzu: 'purpose built for 5.56mm / .223 Rem, with BDC hold points out to 600yds', altında mesafe tahmin ölçeği, MRAD sürümüyle aynı kısmi aydınlatma, MOA taretle eşleşir ve 'does not have its subtensions in MOA'. Açısal ölçü verilmediği için unit null (üreteç kaydı atlar; tahmin edilmedi). Föy yalnız PNG: https://global.element-optics.com/wp-content/uploads/2023/06/LPR-1D-BDC.png."
+}
