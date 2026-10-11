@@ -142,6 +142,8 @@ void main() {
     await tester.pumpAndSettle();
     await type('profile-velocity-fps', '900');
     await type('profile-zero', '25');
+    // Every list box starts on "Seçiniz" (owner, 2026-10-11).
+    await choose('profile-distance-unit', 'Metre');
     await type('scope-sight-height', '60');
     await choose('scope-brand-select', 'Listede yok');
     await type('scope-brand', 'Test Optik');
@@ -153,6 +155,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('FFP').last);
     await tester.pumpAndSettle();
+    await choose('scope-unit', 'MRAD');
+    await choose('scope-mount', 'Normal (0 MOA)');
     expect(find.text('Kaydet'), findsOneWidget);
     await tester.tap(find.text('Kaydet'));
     await tester.pumpAndSettle();
