@@ -206,6 +206,8 @@ void main() {
       await tester.tap(find.text('İlk profilimi oluştur'));
       await settle();
       expect(find.text('Profil Oluştur'), findsOneWidget);
+      // A new profile starts on Ateşli Tüfek (owner, 2026-10-11).
+      await choose('profile-platform', 'PCP Tüfek');
       await page('profil_olustur_pcp');
     });
     await step('profil_olustur_atesli', () async {
