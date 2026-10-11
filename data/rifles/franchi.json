@@ -1,0 +1,40 @@
+[
+ {
+  "brand": "Franchi",
+  "model": "Momentum Varmint Elite 6.5 Creedmoor",
+  "platform": "firearm",
+  "caliber": "6.5 Creedmoor",
+  "bullet_diameter_mm": 6.71,
+  "barrel_length_mm": 610,
+  "twist_rate_in": 8.0,
+  "twist_direction": "right",
+  "magazine_capacity": 3,
+  "weight_kg": 4.08,
+  "overall_length_mm": 1187,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://www.franchiusa.com/node/236",
+  "notes": "Resmi Franchi USA basın bülteni (2022-01-18); 24\"; 1:8 RH; ağırlık 9 lb; uzatılmış şarjörle 8; çap: nominal"
+ },
+ {
+  "brand": "Franchi",
+  "model": "Momentum Varmint Elite .308 Win",
+  "platform": "firearm",
+  "caliber": ".308 Win",
+  "bullet_diameter_mm": 7.82,
+  "barrel_length_mm": 610,
+  "twist_rate_in": 11.0,
+  "twist_direction": "right",
+  "magazine_capacity": 3,
+  "weight_kg": 4.08,
+  "overall_length_mm": 1187,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://www.franchiusa.com/node/236",
+  "notes": "Resmi Franchi USA basın bülteni (2022-01-18); 24\"; 1:11 RH; ağırlık 9 lb; uzatılmış şarjörle 8; çap: nominal"
+ }
+]
