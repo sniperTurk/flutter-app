@@ -303,13 +303,9 @@ void main() {
       // The summary shows only while the box is closed.
       expect(
         tester.widget<Text>(find.byKey(const Key('pro-summary-gravity'))).data,
-        'kapalı',
+        'açık',
       );
-      await openProFor(tester, const Key('pro-gravity-switch'));
-      final sw = find.byKey(const Key('pro-gravity-switch'));
-      await tester.ensureVisible(sw);
-      await tester.tap(sw);
-      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-gravity'));
       await type(tester, const Key('pro-gravity'), '9.832');
       await tester.pumpAndSettle();
       final effect = tester
@@ -345,14 +341,10 @@ void main() {
 
       await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
-      await openProFor(tester, const Key('pro-spin-switch'));
+      await openProFor(tester, const Key('pro-bullet-length'));
       // A firearm profile sees powder temperature, not the PCP note.
       expect(find.byKey(const Key('pro-powder-source')), findsOneWidget);
       expect(find.byKey(const Key('pro-spin-pcp-note')), findsNothing);
-      final sw = find.byKey(const Key('pro-spin-switch'));
-      await tester.ensureVisible(sw);
-      await tester.tap(sw);
-      await tester.pumpAndSettle();
       await type(tester, const Key('pro-bullet-length'), '31');
 
       await tester.pumpWidget(app(BallisticsView.shot));

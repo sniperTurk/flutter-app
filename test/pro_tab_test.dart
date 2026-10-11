@@ -83,6 +83,8 @@ void main() {
     expect(find.text('Pro Ayarlara Geç'), findsOneWidget);
     // Rüzgâr düzeltmesi lives on Hava Durumu (owner, 2026-10-11).
     expect(find.byKey(const Key('pro-section-wind')), findsOneWidget);
+    // It starts open so it is not missed (owner, 2026-10-11).
+    expect(find.byKey(const Key('pro-wind-max')), findsOneWidget);
     await _tapKey(tester, 'environment-continue-pro');
 
     // Pro Ayarlar: four boxes, all closed at first (owner, 2026-10-09).
@@ -112,17 +114,16 @@ void main() {
       find.textContaining('Telefonu dik tut', findRichText: true),
       findsWidgets,
     );
-    await openProFor(tester, const Key('pro-coriolis-switch'));
+    await openProFor(tester, const Key('pro-latitude'));
     expect(find.byKey(const Key('shot-incline')), findsNothing);
-    expect(find.byTooltip('Bilgi: Coriolis'), findsOneWidget);
-    expect(find.byKey(const Key('pro-latitude')), findsNothing);
+    // No on/off switch: the data fields are always shown (owner, 2026-10-11).
+    expect(find.byKey(const Key('pro-coriolis-switch')), findsNothing);
+    expect(find.byKey(const Key('pro-latitude')), findsOneWidget);
     // A PCP profile sees no powder temperature, but the PCP spin note.
     await openProFor(tester, const Key('pro-turret-scale'));
     expect(find.byKey(const Key('pro-powder-source')), findsNothing);
     expect(find.byKey(const Key('pro-spin-pcp-note')), findsOneWidget);
-    await openProFor(tester, const Key('pro-coriolis-switch'));
-
-    await _tapKey(tester, 'pro-coriolis-switch');
+    await openProFor(tester, const Key('pro-latitude'));
     expect(find.byKey(const Key('pro-latitude')), findsOneWidget);
     expect(find.byKey(const Key('pro-azimuth')), findsOneWidget);
     // Every entered value explains itself (ⓘ).
