@@ -1,7 +1,7 @@
 # Simulator screenshots
 
-- Source: `claude/sim-screens` @ `69488e587cba2c19acd790ba916e50e8dfcdacab`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38127532401
+- Source: `feat/oswald` @ `1b1c3b080268e46506203eca1cea74ac042c0db3`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38133438036
 - flutter test exit code: 0 (0 = every step passed)
 - Device: iPhone 17 Pro / iOS 26.2
 
