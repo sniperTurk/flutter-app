@@ -1012,6 +1012,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     'Aselkon Arms',
     'Hatsan',
     'Huğlu',
+    'İstanbul Silah',
     'Kale Kalıp',
     'Kral Arms',
     'Kuzey Arms',
