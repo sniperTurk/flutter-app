@@ -122,6 +122,14 @@ abstract final class ProfileFieldInfo {
       'havalı tüfekte 45–70 mm. Merkezden merkeze ölçülür: namlunun üst '
       'yüzeyinden değil, namlu deliğinin merkezinden. Adım adım ölçüm için: '
       'Araçlar → Sight Height.';
+  static const sightHeightFirearm =
+      'Sight height: dürbünün merkez ekseni ile namlunun merkez ekseni '
+      'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
+      'aşağıdan çıkar ve önce yükselerek nişan çizgisini keser; bu yüzden '
+      'yakın ve uzak mesafedeki düşüş hesabını doğrudan etkiler. Örnek: '
+      'ateşli tüfekte 38–60 mm. Merkezden merkeze ölçülür: namlunun üst '
+      'yüzeyinden değil, namlu deliğinin merkezinden. Adım adım ölçüm için: '
+      'Araçlar → Sight Height.';
   static const reticle =
       'Dürbünün içindeki çizgi deseni. Adı dürbün kutusunda veya föyünde '
       'yazar (ör. VPR-MIL, Mil-Dot). Listeden seçtiğinizde Hedef ekranında '
@@ -158,6 +166,10 @@ abstract final class ProfileFieldInfo {
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
       'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '
       'yard) girin. Örnek: havalı tüfekte 25–40 m.';
+  static const zeroFirearm =
+      'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
+      'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '
+      'yard) girin. Örnek: ateşli tüfekte çoğunlukla 100 m (veya 100 yard).';
   static const distanceUnit =
       'Mesafelerin birimi: metre veya yard (1 yard = 0,9144 m). Yard '
       'seçilirse sıfırlama mesafesi, Hedef sayfası, dürbün içindeki mesafe '

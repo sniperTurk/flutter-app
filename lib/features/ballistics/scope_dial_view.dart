@@ -496,6 +496,7 @@ class ScopeDialView extends StatelessWidget {
                             ? Icons.check_circle
                             : Icons.tune,
                         expand: true,
+                        twoLines: true,
                         active: dialled && !noClicks,
                         onPressed: req == null || (dialled && !atLimit)
                             ? null
@@ -517,6 +518,7 @@ class ScopeDialView extends StatelessWidget {
                             : 'Kuleleri sıfırla',
                         icon: atZero ? Icons.check_circle : Icons.restart_alt,
                         expand: true,
+                        twoLines: true,
                         active: atZero,
                         onPressed: atZero
                             ? null
