@@ -1017,6 +1017,19 @@ class MenzilSelect<T> extends StatelessWidget {
     this.hint,
   });
 
+  /// A list item that allows two lines (long model names) still shows one
+  /// line in the closed box (owner, 2026-10-11: the second line overflowed).
+  static Widget _oneLine(Widget w) => w is Text && w.data != null
+      ? Text(
+          w.data!,
+          key: w.key,
+          style: w.style,
+          maxLines: 1,
+          softWrap: false,
+          overflow: TextOverflow.ellipsis,
+        )
+      : w;
+
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
@@ -1053,7 +1066,7 @@ class MenzilSelect<T> extends StatelessWidget {
                       softWrap: false,
                       overflow: TextOverflow.ellipsis,
                       child: selectedLabels == null
-                          ? items[i].child
+                          ? _oneLine(items[i].child)
                           : Text(selectedLabels![i]),
                     ),
                   ),
