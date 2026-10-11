@@ -41,7 +41,8 @@ Kurallar (değer asla tahmin edilmez):
   * El ile doğrulanmış katalogda (lib/data/catalog_repository.dart) olan
     dürbün atlanır (PR #83 kuralı): katalog modeli üretici kodu taşıyorsa
     ("(SCFF-72)") kaynak URL'sinde aynı kod geçen kayıt; taşımıyorsa aynı
-    marka, büyütme aralığı, objektif, odak düzlemi ve klik birimi.
+    marka, büyütme aralığı, objektif, odak düzlemi ve klik birimi; iki
+    tarafta da nesil yazıyorsa (GEN II / Gen III) nesil de aynı olmalı.
   * Kimlik: 'lib-' + marka + model (küçük harf, harf/rakam dışı '-'),
     en çok 74 karakter; aynı kimlik tekrarında '-2', '-3' … eklenir.
   * Vector Optics model adlarındaki 'Rifle Scope' sözcükleri listede
@@ -118,6 +119,18 @@ def _f(v):
 
 
 CODE = re.compile(r'\b(SC[A-Z]{2}-\d+)\b')
+# Model generation ("GEN II", "Gen III", "GEN2", "GENⅢ"): a hand entry of one
+# generation is not the same scope as another generation with equal optics.
+GEN = re.compile(r'\bGEN\s*(III|II|IV|Ⅱ|Ⅲ|Ⅳ|\d)(?![A-Z0-9])', re.I)
+GEN_NUM = {'ii': 2, 'iii': 3, 'iv': 4, 'ⅱ': 2, 'ⅲ': 3, 'ⅳ': 4}
+
+
+def generation(model: str | None):
+    m = GEN.search(model or '')
+    if not m:
+        return None
+    g = m.group(1).lower()
+    return GEN_NUM.get(g) or int(g)
 
 
 def catalog_keys(text: str) -> tuple[set, set]:
@@ -151,7 +164,8 @@ def catalog_keys(text: str) -> tuple[set, set]:
         keys.add(((g('brand') or '').strip("'"), num('minMagnification'),
                   num('maxMagnification'), num('objectiveDiameterMm'),
                   None if ffp is None else ffp == 'true',
-                  (g('clickUnit') or '').split('.')[-1]))
+                  (g('clickUnit') or '').split('.')[-1],
+                  generation(model.group(1) if model else None)))
     return codes, keys
 
 
@@ -160,8 +174,13 @@ def in_catalog(rec: dict, catalog: tuple[set, set]) -> bool:
     code = CODE.search(rec['url'] or '')
     if code and code.group(1) in codes:
         return True
-    return (rec['brand'], rec['min'], rec['max'], rec['objective'],
-            rec['ffp'], rec['unit']) in keys
+    base = (rec['brand'], rec['min'], rec['max'], rec['objective'],
+            rec['ffp'], rec['unit'])
+    gen = generation(rec.get('model'))
+    # Different stated generations (GEN II hand entry vs Gen III record) are
+    # different scopes; a missing generation on either side still matches.
+    return any(k[:6] == base and (k[6] is None or gen is None or k[6] == gen)
+               for k in keys)
 
 
 def known_dates(text: str) -> dict[str, str]:

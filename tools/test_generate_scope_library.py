@@ -201,9 +201,38 @@ class GenerateScopeLibraryTest(unittest.TestCase):
         self.assertGreaterEqual(counts['Vortex'], 85)
         self.assertGreaterEqual(counts['Element Optics'], 30)
         self.assertGreaterEqual(counts['Vector Optics'], 145)
+        self.assertGreaterEqual(counts['Discovery Optics'], 35)
         for line in _lines(text):
             if "brand:'Vector Optics'" in line:
                 self.assertNotIn('Rifle Scope', re.search(r"model:'([^']*)'", line).group(1))
+
+    def test_other_generation_of_a_hand_entry_is_kept(self):
+        cat = CATALOG.replace("model:'Hand 6–24×50 FFP (MRAD)'",
+                              "model:'Hand GEN II 6–24×50 FFP (MRAD)'")
+        hand = dict(min_mag=6.0, max_mag=24.0, objective_mm=50.0, focal='ffp',
+                    click_unit='mrad', click_value=0.1, elevation_travel_moa=None,
+                    elevation_travel_mrad=20.0)
+        recs = [_rec(model='Hand Gen II 6-24x50 FFP', **hand),
+                _rec(model='Hand GEN2 6-24x50 FFP', **hand),
+                _rec(model='Hand Gen III 6-24x50 FFP', **hand),
+                _rec(model='Hand GENⅢ 6-24x50 FFP', **hand),
+                _rec(model='Hand 6-24x50 FFP', **hand)]
+        text, _, n = gen.build({'acme': recs}, cat)
+        self.assertEqual(n, 2)
+        self.assertIn('lib-acme-hand-gen-iii-6-24x50-ffp', text)
+        self.assertIn("model:'Hand GENⅢ 6-24x50 FFP'", text)
+
+    def test_discovery_gen3_and_moa_variants_listed(self):
+        text = OUT.read_text(encoding='utf-8')
+        for model in ('HD Gen III 5-30x56 SFIR FFP', 'ED-ELR Gen III 5-40x56 SFIR FFP',
+                      'ED-PRS Gen II 5-25x56 SFIR FFP Zero Stop MOA',
+                      'HD Gen II 5-30x56 SFIR FFP Zero Stop MOA',
+                      'ED-ELR Gen II 5-40x56 SFIR FFP Zero Stop MOA',
+                      'ED-ELR Gen III 5-40x56 SFIR FFP Zero Stop MOA',
+                      'LHD 8-32x56 SFIR FFP Zero Stop MOA'):
+            self.assertIn(f"brand:'Discovery Optics', model:'{model}'", text, model)
+        # Same scope as the hand-verified discovery-xed-moa: not listed twice.
+        self.assertNotIn("model:'XED 6-36x56 SFIR FFP Zero Stop MOA'", text)
 
     def test_usage_is_documented(self):
         doc = gen.__doc__
