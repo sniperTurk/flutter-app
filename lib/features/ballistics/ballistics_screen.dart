@@ -25,6 +25,8 @@ import '../../data/reticle_catalog.dart';
 import '../../models/domain.dart';
 import '../../services/settings_store.dart';
 import '../../services/shot_settings_store.dart';
+import '../../services/watch/watch_bridge.dart';
+import '../../services/watch/watch_solution.dart';
 import '../../tools/domain/field_calc.dart';
 import '../../tools/domain/shot_angle_math.dart';
 import '../../tools/ports/heading_provider.dart';
@@ -719,6 +721,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // A yard profile shows (and takes) its zero in yards, and its shot
     // range starts at a round 100 yd.
     _shotRangeM = _defaultShotRangeM;
+    if (p != null) {
+      _watchRanges = WatchBridge.instance.rangeRequests.listen(_onWatchRange);
+    }
     final zeroM = p?.zeroRangeM ?? 25;
     zero = TextEditingController(
       text: p?.distanceUnit == DistanceUnit.yard
@@ -1241,6 +1246,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   @override
   void dispose() {
+    unawaited(_watchRanges?.cancel());
     // Weather typed before the first profile carries over to the profile's
     // workspace (owner, 2026-10-10: "bu değerler hesaba otomatik girer").
     if (widget.profile == null && widget.onCreateProfile != null) {
@@ -1968,21 +1974,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     ];
   }
 
-  /// Interactive scope: turrets change the dialled clicks and the reticle
-  /// shows where the shot lands at the selected range. In drag mode the
-  /// required windage and the crosswind labels come from the drag solver;
-  /// the vacuum baseline has no wind model, so its required windage is 0.
-  Widget _scopeDial(TrajectoryPoint? shot) {
-    final s = scope;
-    final click = _scopeClickValue;
-    if (s == null || click == null) {
-      return const MenzilNotice(
-        tone: MenzilNoticeTone.warning,
-        message:
-            'Bu dürbünün klik değeri katalogda yok; kule simülasyonu '
-            'gösterilemiyor. Dürbünü Profil sekmesinden kontrol edin.',
-      );
-    }
+  /// Required turret correction at the selected range, in the scope unit
+  /// (+ up / + right). [up] is null without a solved shot. Shared by the
+  /// interactive scope and the watch so both always show the same numbers.
+  ({double? up, double right, double zeroUp, double? jump, double scale})
+  _requiredTurret(TrajectoryPoint? shot) {
     final unit = _scopeUnit;
     final basis = _basis;
     double inUnit(double mrad) => unit.fromMrad(mrad);
@@ -2008,6 +2004,111 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final requiredRight = (shot == null || basis == null)
         ? 0.0
         : inUnit(shot.windMrad - (spin ?? 0) - zeroOff.right) / scale;
+    return (
+      up: requiredUp,
+      right: requiredRight,
+      zeroUp: zeroOff.up,
+      jump: jump,
+      scale: scale,
+    );
+  }
+
+  // ---- Saat (owner, 2026-10-11) -----------------------------------------
+  // The watch only shows what Atış shows; it never computes. Nothing
+  // happens without a watch (WatchBridge is silent then).
+
+  StreamSubscription<int>? _watchRanges;
+
+  /// Sends the current Atış solution to the watch after this frame.
+  void _publishWatch(
+    ({double? up, double right, double zeroUp, double? jump, double scale})
+    turret,
+    double click,
+  ) {
+    final s = _watchSolution(turret, click);
+    if (s == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(WatchBridge.instance.publish(s));
+    });
+  }
+
+  WatchSolution? _watchSolution(
+    ({double? up, double right, double zeroUp, double? jump, double scale})
+    turret,
+    double click,
+  ) {
+    final p = widget.profile;
+    if (p == null) return null;
+    final now = DateTime.now();
+    final up = turret.up;
+    final right = turret.right;
+    if (up == null || !up.isFinite || !right.isFinite) {
+      return WatchSolution.none(profile: p.name, at: now);
+    }
+    final basis = _basis;
+    final windMps = basis != null && basis.drag
+        ? basis.environment.windMps
+        : 0.0;
+    try {
+      return WatchSolution(
+        ok: true,
+        profile: p.name,
+        range: _shotDisplay,
+        rangeUnit: _distanceUnit,
+        rangeStep: _isFirearm ? 10 : 5,
+        up: ScopeDialMath.clicksFor(up, click),
+        right: ScopeDialMath.clicksFor(right, click),
+        upAngle: up,
+        rightAngle: right,
+        unit: _scopeUnit.label,
+        click: click,
+        windSpeed: windMps > 0
+            ? (metric ? windMps : UnitSystem.mpsToMph(windMps))
+            : null,
+        windUnit: metric ? 'm/s' : 'mph',
+        windClock: windMps > 0 && basis != null
+            ? WindClock.fromDegrees(basis.environment.windDirectionDeg)
+            : null,
+        at: now,
+      );
+    } on ArgumentError {
+      return WatchSolution.none(profile: p.name, at: now);
+    }
+  }
+
+  /// A distance picked on the watch: same path as the Hedef slider, then
+  /// the new solution goes straight back (no frame needed, so it also works
+  /// while the phone screen is off and Flutter is not drawing).
+  void _onWatchRange(int display) {
+    if (!mounted) return;
+    _setShotDisplay(display);
+    final click = _scopeClickValue;
+    if (click == null) return;
+    final s = _watchSolution(_requiredTurret(_shotPoint()), click);
+    if (s != null) unawaited(WatchBridge.instance.publish(s));
+  }
+
+  /// Interactive scope: turrets change the dialled clicks and the reticle
+  /// shows where the shot lands at the selected range. In drag mode the
+  /// required windage and the crosswind labels come from the drag solver;
+  /// the vacuum baseline has no wind model, so its required windage is 0.
+  Widget _scopeDial(TrajectoryPoint? shot) {
+    final s = scope;
+    final click = _scopeClickValue;
+    if (s == null || click == null) {
+      return const MenzilNotice(
+        tone: MenzilNoticeTone.warning,
+        message:
+            'Bu dürbünün klik değeri katalogda yok; kule simülasyonu '
+            'gösterilemiyor. Dürbünü Profil sekmesinden kontrol edin.',
+      );
+    }
+    final unit = _scopeUnit;
+    final basis = _basis;
+    final turret = _requiredTurret(shot);
+    final requiredUp = turret.up;
+    final requiredRight = turret.right;
+    _publishWatch(turret, click);
 
     final mpsPerMil = basis != null && basis.drag
         ? _evalShot().mpsPerMil
@@ -2133,8 +2234,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           : _holdSamplesFor(
               basis,
               unit,
-              offsetMrad: zeroOff.up + (jump ?? 0),
-              scale: scale,
+              offsetMrad: turret.zeroUp + (turret.jump ?? 0),
+              scale: turret.scale,
               dialedUp: ScopeDialMath.clicksToAngle(_elevationClicks, click),
             ),
       toDisplayRange: _toDisplayRange,
