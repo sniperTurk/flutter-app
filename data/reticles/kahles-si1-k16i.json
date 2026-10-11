@@ -1,0 +1,21 @@
+{
+  "name": "SI1",
+  "brand": "Kahles",
+  "scopes": [
+    "K16i"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/SI1_K16i.pdf",
+  "notes": "Kahles retikül föyü 'SI1 / K16i'. SFP (K16i 'Focal plane: 2.'). 6x için etiketler: 15MOA, 10MOA, 5MOA, 1MOA; ayrıca 50cm/100m, 3m/200m (1x). Öğe eşlemesi yalnız çizimde -> geometri null."
+}
