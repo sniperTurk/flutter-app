@@ -1059,7 +1059,23 @@ class MenzilSelect<T> extends StatelessWidget {
               hint: hint == null
                   ? null
                   : Text(hint!, style: TextStyle(color: c.ink2)),
-              items: items,
+              // List entries in regular weight: a long one wraps to a second
+              // line and bold made it heavy (owner, 2026-10-11). The closed
+              // box keeps the bold style.
+              items: [
+                for (final it in items)
+                  DropdownMenuItem<T>(
+                    key: it.key,
+                    value: it.value,
+                    enabled: it.enabled,
+                    onTap: it.onTap,
+                    alignment: it.alignment,
+                    child: DefaultTextStyle.merge(
+                      style: const TextStyle(fontWeight: FontWeight.w400),
+                      child: it.child,
+                    ),
+                  ),
+              ],
               onChanged: onChanged,
               // The closed box always shows ONE line (owner, 2026-10-09:
               // "Normal (0 MOA)" wrapped and was cut off).
