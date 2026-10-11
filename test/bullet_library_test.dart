@@ -34,6 +34,12 @@ void main() {
         reason: brand,
       );
     }
+    // Zan slug BCs from the 2026-10-11 BC completion (data/bullets-bc).
+    final zan = BulletLibrary.all.firstWhere(
+      (b) => b.name == 'ZAN .30 68 gr Slug .300',
+    );
+    expect(zan.bc, 0.134);
+    expect(zan.platform, WeaponPlatform.pcp);
     expect(BulletLibrary.all.any((b) => b.type == AmmunitionType.slug), isTrue);
     // Both rifle types are covered.
     expect(

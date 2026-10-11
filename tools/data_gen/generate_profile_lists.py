@@ -257,10 +257,13 @@ for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
             continue
         dia = CARTRIDGES[c]
         bc, model, bcsrc = None, None, None
+        # BC completion (2026-10-11): the cartridge maker names the bullet and the
+        # BC is that bullet maker's figure -> shown as a bullet BC.
+        from_bullet = 'BC mermi üreticisinden' in (r.get('notes') or '')
         if r.get('g7_bc'):
-            bc, model, bcsrc = r['g7_bc'], 'g7', 'fişek'
+            bc, model, bcsrc = r['g7_bc'], 'g7', 'mermi' if from_bullet else 'fişek'
         elif r.get('g1_bc'):
-            bc, model, bcsrc = r['g1_bc'], 'g1', 'fişek'
+            bc, model, bcsrc = r['g1_bc'], 'g1', 'mermi' if from_bullet else 'fişek'
         else:
             hit = lib_bc(r['brand'], r.get('bullet'), r['weight_gr'], dia)
             if hit:
@@ -284,7 +287,7 @@ for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
         name = re.sub(r'\s+', ' ', name).strip(' -')
         # Unlabelled maker BC taken as G1 by the owner's decision (2026-10-11).
         note = None
-        if bcsrc == 'fişek' and model == 'g1' and 'G1 kabul edildi' in (r.get('notes') or ''):
+        if bcsrc in ('fişek', 'mermi') and model == 'g1' and 'G1 kabul edildi' in (r.get('notes') or ''):
             note = ("Üretici BC'yi G1/G7 etiketi olmadan veriyor; G1 kabul edildi. "
                     "BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz.")
         ammo.append(dict(brand=r['brand'], name=name, cartridge=c, dia=dia, grain=r['weight_gr'],

@@ -254,6 +254,11 @@ class AerodynamicTrajectorySolver {
         return _lerp(previous.y, state.y, f);
       }
       if (state.vx <= 0) break;
+      // Same flight-time cap as solve(): without it a pellet whose speed
+      // decays towards zero short of the zero range ran all _maxSteps
+      // (4 000 000) per bracket evaluation, freezing the UI isolate
+      // (denetim 2026-10-11).
+      if ((step + 1) * integrationStepSeconds > maxFlightTimeS) break;
     }
     throw StateError('projectile did not reach zero range');
   }
