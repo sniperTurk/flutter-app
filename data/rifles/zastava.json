@@ -1,0 +1,21 @@
+[
+ {
+  "brand": "Zastava",
+  "model": "M07 AS .308 Win",
+  "platform": "firearm",
+  "caliber": ".308 Win",
+  "bullet_diameter_mm": 7.82,
+  "barrel_length_mm": 660,
+  "twist_rate_in": 10.0,
+  "twist_direction": null,
+  "magazine_capacity": 5,
+  "weight_kg": null,
+  "overall_length_mm": 1181,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://zastavaarmsusa.com/product/m07-as/",
+  "notes": "yiv yönü yayımlanmamış; Zastava Arms USA (üreticinin ABD iştiraki) ürün sayfası; SKU M07308AS; 26\"; ağırlık yok; çap: nominal"
+ }
+]
