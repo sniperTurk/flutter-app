@@ -1,0 +1,22 @@
+{
+  "name": "KLBOX",
+  "brand": "Arken Optics",
+  "scopes": [
+    "EP-8 1-8x28 FFP LPVO",
+    "LH-6 1-6x24 SFP LPVO"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.arkenopticsusa.com/products/ep-8-1-8x28-ffp-lpvo-illum-klbox-34mm-tube",
+  "notes": "BDC retikül; EP-8'de FFP, LH-6'da SFP ('BDC holdovers are calibrated for 6x' - LH-6 sayfası, arkenopticsusa.com/products/lh-6-1-6x24-sfp-lpvo-illum-klbox-30mm-tube; LH-6 retikül kodu 'KLB-MOA'). EP-8 ürün sayfası: 'streamlined BDC reticle optimized for common 5.56 and 7.62 cartridges', '7 mph (5.56) and 10 mph (7.62) wind holds'; SSS: aydınlatmalı at nalı 0.4 MIL kalınlığında, merkez nokta 0.69 MOA. unit=moa merkez nokta ölçüsü ve LH-6 'KLB-MOA' kodundan; at nalı kalınlığı üreticide MIL ile verilmiş. BDC mesafeleri/düşüşleri, at nalı çapı ve yüzen merkez olup olmadığı metinde yok (kılavuz PDF'leri UM_EP-8_V1 ve UM_LH-6_V1'de KLBOX föyü görsel; metinde ölçü yok) -> family, uzanımlar, floating_center null. BDC şemada temsil edilemediği için family null."
+}

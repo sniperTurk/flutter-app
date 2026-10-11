@@ -1,12 +1,14 @@
 {
   "name": "KLGRID",
   "brand": "Arken Optics",
-  "scopes": ["EP-8 1-8x28 FFP LPVO"],
+  "scopes": [
+    "EP-8 1-8x28 FFP LPVO"
+  ],
   "unit": "mil",
   "family": "tree",
   "hash_step": 0.5,
   "major_every": null,
-  "numbers_every": null,
+  "numbers_every": 2,
   "extent_h": null,
   "extent_v_up": null,
   "extent_v_down": 10,
@@ -14,6 +16,6 @@
   "posts_start": null,
   "center_dot": true,
   "floating_center": true,
-  "source_url": "https://www.arkenopticsusa.com/products/ep-8-1-8x28-ffp-lpvo-illum-klbox-34mm-tube",
-  "notes": "Arken Optics USA ürün sayfası metni (FFP LPVO): '10 MIL holdover grid with 0.5 MIL subtensions', '0.12 MIL floating center dot' (aynı sayfanın SSS bölümü merkez noktayı 0.2 MIL diyor - çelişkili); at nalı (horseshoe) 0.2 MIL kalınlığında, çapı belirtilmemiş. extent_v_down=10, 10 MIL tutma ızgarasının merkez altına uzandığı varsayımıyla. Izgara satırları, rakamlar ve yatay uzanım metinde yok -> null."
+  "source_url": "https://cdn.shopify.com/s/files/1/0701/0458/0182/files/UM_EP-8_V1.pdf?v=1784700477",
+  "notes": "FFP LPVO. Kaynaklar: Arken EP-8 kullanım kılavuzu PDF'i ('Reticle Overview: FFP KLGRID') ve ürün sayfası (arkenopticsusa.com/products/ep-8-1-8x28-ffp-lpvo-illum-klbox-34mm-tube). Kılavuz metni: mil tabanlı 'Christmas tree' ızgara alt bölgede, 'numbered elevation holdovers down to 10 mils', '0.4 and 0.6 mil hashes' (yatay ölçüm), '0.12 mil floating dots'; parlak aydınlatmalı parçalı dış çember (at nalı) ve merkez nokta. Ürün sayfası: '10 MIL holdover grid with 0.5 MIL subtensions', SSS: at nalı 0.2 MIL kalınlığında, merkez nokta 0.2 MIL (ürün metni '0.12 MIL floating center dot' diyor - çelişkili; kılavuz 0.12'yi yüzen noktalar için kullanıyor). extent_v_down=10 (kılavuzda rakamlı tutmalar 10 mil'e kadar). numbers_every=2 ÇIKARIM: diyagram metninde iki yanda 10-8-6-4-2 rakamları var, rakamların düşüş satırlarına ait olduğu kılavuzdaki 'numbered elevation holdovers' ifadesinden çıkarıldı. Diyagramdaki 3.8, 3.4, 0.12, 0.6, 0.4, 0.06 etiketleri görselsiz eşlenemedi (3.8/3.4 muhtemelen at nalı ölçüsü, doğrulanmadı). Ağaç satırları, yatay uzanım, major_every null."
 }
