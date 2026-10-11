@@ -1,0 +1,21 @@
+{
+  "name": "Mil Dot MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Viper 6.5-20x50 PA"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/vortex-viper-6-5-20x50-pa-riflescope.html",
+  "notes": "Viper 6.5-20x50 PA ürün sayfası 'Mil Dot (MOA)' varyantını sunuyor (data/scopes/vortex.json; 1/4 MOA taret, ikinci odak düzlemi). Sayfada retikül açıklaması yok. unit=moa üreticinin '(MOA)' etiketinden (diğer Vortex retikülleriyle aynı kural); 'Mil Dot' adı mil aralıklı nokta düşündürse de nokta aralığı ve birimi metinde açıkça yazmadığı için family ve tüm ölçüler null — çelişki kılavuzda çözülmeli. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}

@@ -1,0 +1,22 @@
+{
+  "name": "VET-RAR MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental x10 1-10x28 ED RAR FDE (SCFF-68)",
+    "Continental x10 1-10x28 ED FFP VET-RAR (SCFF-48)"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20240819/6fc79f29b0e9c32dbca4953d98f997ed.pdf",
+  "notes": "FFP. Kaynak: VET-RAR Reticle User Manual (20240819/6fc79f29….pdf, ReticleInstruction sayfa 9). PDF dürbün adı vermiyor; SCFF-68 ürün adında 'RAR' geçtiği için eşleştirildi (çıkarım). Kılavuz: alt kısım MIL hash ölçek → family=hash; üst kısım USPSA hedef ölçer 45 cm × 75 cm (18 × 30 in), 3 işareti = 300 m; aydınlatmalı merkez daire+nokta → center_dot=true. RAR halkası: 'diameter of 65MIL', çember üzerinde her biri 10 MIL uzunlukta 4 boşluk; 6x'ten itibaren halka görüş alanından çıkar. Konumsuz etiketler: Φ1.8, 40, 10. İşaret aralığı, uzanımlar, rakamlar → null. 'VET-RAR 2' adı 20250625 birleşik PDF'de geçiyor, veri okunamadı. || FFP. Kaynaklar: VET-RAR retikül kılavuzu PDF (index sayfa 14) + Reticle-Collection sayfası (SCFF-48 bağlantısı); SCFF-48 ürün sayfası iki denemede retikül metni vermedi. Kılavuz: RAR halkası 65 MIL çaplı, halkada her biri 10 MIL uzunluğunda 4 boşluk, 6x'ten itibaren halka görüş dışına çıkar; iç kısımda 0.2 MIL nokta (center_dot=true), 1.5 MIL çaplı iç daire, nokta ile daire arası 1 MIL çaplı boşluk; üst kısım 45 cm x 75 cm (USPSA) hızlı mesafe ölçer. family='hash' kılavuzdaki 'MIL Hash Reticle' bölüm başlığından çıkarım. Konumsuz etiketler: 22, 14, 10.5, 0.07, 0.15, 0.5, 1.0, 0.25, 0.05, 2.0, 40, Φ65, Φ1.8. Kılavuz metni bazı yerlerde 'VET-CTR'/'VEC-MBR' adını kullanıyor (şablon kopyası). Merkez halka ile çizgilerin buluşup buluşmadığı belirsiz → floating_center null; işaret aralığı, uzanımlar → null. || FFP. Kaynak: VET-RAR Reticle Single Page PDF (ReticleInstruction sayfa 5; metin). Kılavuzda uygulanan dürbün modeli/SKU yok → scopes boş. Kılavuz: 'MIL hash' retikül; RAR hızlı hedef halkası 'diameter of 65MIL, with 4 space area on the circle, each is 10MIL long'; 6x'ten itibaren halka görüş dışına çıkıyor; üst bölüm 45 cm geniş, 75 cm yüksek (USPSA hedefi; 3 işareti = 300 m). Şekil etiketleri 1x/5x/10x @100m, 'Φ 65', 'Φ 1.8', '40', '10' (Φ 1.8 ve 40'ın anlamı belirtilmemiş). İşaret aralığı, rakam aralığı, uzanımlar, merkez nokta, merkez boşluğu, kalın direkler → metinde yok, null."
+}

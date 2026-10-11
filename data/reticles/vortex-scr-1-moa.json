@@ -1,0 +1,21 @@
+{
+  "name": "SCR-1 MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Golden Eagle HD 15-60x52"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/vortex-golden-eagle-hd.html",
+  "notes": "Golden Eagle HD 15-60x52 ürün sayfası SCR-1 (MOA) varyantını sunuyor (data/scopes/vortex.json); sayfada SCR-1 için kılavuz bağlantısı ve açıklama yok; metin yalnız 'fine second focal plane reticles'. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}

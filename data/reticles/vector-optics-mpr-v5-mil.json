@@ -4,11 +4,11 @@
   "scopes": [
     "Veyron 4-16x44 IR FFP (SCFF-38)",
     "Veyron 6-24x44 IR FFP (SCFF-37)",
-    "Veyron 10x44 (SCOM-41)",
-    "Veyron 2-8x32 IR (SCOC-43)"
+    "Veyron 10x44 SFP (SCOM-41)",
+    "Veyron 2-8x32IR (SCOC-43)"
   ],
   "unit": "mil",
-  "family": null,
+  "family": "hash",
   "hash_step": 0.5,
   "major_every": null,
   "numbers_every": null,
@@ -20,5 +20,5 @@
   "center_dot": true,
   "floating_center": null,
   "source_url": "https://www.vectoroptics.com/rifle-scopes/Veyron-4-16x44-IR-First-Focal-Plane-Riflescope-Illuminated-SCFF-38.html",
-  "notes": "[3. tur TR] Yeni kayıt. SCFF-38/37'de FFP ('Focal Plane | First Focal Plane'); SCOM-41 ve SCOC-43 için odak düzlemi kontrol edilmedi. Kaynaklar: SCFF-38 ürün sayfası ('0.1 MIL Center Dot for Precise Aiming', 'Cascading dot for a 10 m.p.h crosswind', '0.5 MIL hashmark increment BDC for .223 zero @ 200yds and .308 zero @100yds') ve Vector Optics Academy Veyron tanıtımı (https://www.vectoroptics.com/Academy/Veyron-Line-Introduction-Which-One-to-Pick.html: 'A 0.1 MIL center dot', '0.5 MIL hashmark increments', 'cascading dot system ... 10 m.p.h crosswind'). Model listesi Reticle-Collection. hash_step=0.5, center_dot=true. Föy PDF'i (https://www.vectoroptics.com/public/uploads/files/20241031/3dcbff69abc78efe560763831b6ef5fb.pdf) metninde konumsuz etiketler: 0.035, 0.4, 0.2, 0.8, 10, 1.0, 1.0, 0.5, 1.0, 0.4, Ø0.1, Ø0.15, Ø0.1, 5.0; referans 6x/12x/24x @100 m — öğe eşlemesi yapılamadı. Kademeli rüzgâr noktaları ağaç olabilir ama üretici 'tree' demiyor -> family null. Uzanımlar, rakamlar, büyük işaret null."
+  "notes": "SCFF-38/37 FFP, SCOM-41 SFP (SCOC-43 doğrulanmadı). Kaynaklar: Reticle-Collection + SCFF-38 ürün sayfası ('0.1 MIL center dot', '0.5 MIL hashmark increment' → hash_step=0.5, 'Cascading dot for a 10 m.p.h crosswind', 'BDC for .223 zero @ 200yds and .308 zero @100yds') + SCOM-41 ürün sayfası. family=hash 'hashmark increment' ifadesinden çıkarım (rüzgâr için kademeli noktalar da var). Ürün sayfaları retikül kılavuzu içeriğini vermiyor; uzanımlar, rakamlar → null. || SFP kılavuzu: ölçüler SCOM-41 için 10x, SCOC-43 için 8x'te ('Setting: 10x/8x, MIL'; en yüksek büyütme). Kaynaklar: MPR-V5 SFP Reticle User Manual (20241031/659d06c3….pdf) ve MPR-V5 FFP Reticle User Manual (20241031/3dcbff69….pdf), ReticleInstruction sayfa 8. FFP kılavuzunun başlığı SFP, metni FFP diyor (çelişkili); FFP diyagram büyütmeleri 6x/12x/24x. Model adları vectoroptics.com ürün adlarından eşleştirildi (kodlar PDF'de). Kılavuz: merkez nokta ve dikey çizgi boyunca 10 mph yan rüzgâr için kademeli noktalar → center_dot=true. Konumsuz etiketler (SFP): 0.06, 0.4, 0.2, 0.8, 10, 1.0, 0.5, Ø0.15, Ø0.1, 5.0; FFP sürümünde ilk değer 0.035 (çizgi kalınlığı olabilir, çıkarım). Öğeleri metinde yok → aile, işaret aralığı, uzanımlar, rakamlar null."
 }

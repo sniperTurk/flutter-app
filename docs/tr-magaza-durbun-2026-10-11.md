@@ -524,8 +524,8 @@ Sıralama önce mağaza sayısına, sonra model sayısına göredir. Sayılar ya
 | Sıra | Marka | TR'de satılan retikül(ler) | Bu tur |
 |---|---|---|---|
 | 1 | Hawke | Mil Dot, 10x Half Mil Dot, Half Mil (10x/20x), FFP Half Mil Dot, AMX, Mil Pro | 4 yeni kayıt (ad/birim/kapsam/odak düzlemi büyütmesi), Mil Dot kapsamı +15 model; sayısal ölçüler: üretici SVG/föyleri robots.txt ile kapalı → null |
-| 2 | Vector Optics | MBR, CDM, MIL, MOA; Veyron, Paragon, Forester, Matiz, Hugo, Continental | 8 yeni kayıt (VOI-10BDC, VOW-10BDC, MPR-V10, MPR-V5, German #4, VPA-2, VECON CDM, VFD-2); mevcut 29 kayıtta yeni değer yok (ölçüler yalnız görselde) |
-| 3 | Element Optics | APR-1C/2D, RAPTR, MPR-1C, LPR-1D | RAPTR-1S MOA, LPR-1D MRAD yeni; APR/MPR yeni değer yok |
+| 2 | Vector Optics | MBR, CDM, MIL, MOA; Veyron, Paragon, Forester, Matiz, Hugo, Continental | VPA-2 MIL yeni; VOI/VOW-10BDC, MPR-V10/V5, German #4, VECON CDM, VFD-2 Vector 3. turda (#144) zaten eklendi → o sürüm korundu |
+| 3 | Element Optics | APR-1C/2D, RAPTR, MPR-1C, LPR-1D | RAPTR-1S MOA ve LPR-1D MRAD Element 3. turda (#141) zaten eklendi → o sürüm korundu |
 | 4 | Bushnell | Deploy, G4P, Drop Zone, Multi-X, German #4 | Drop Zone-22 LR yeni; Multi-X/German #4/DOA QBR üreticide ölçü yok |
 | 5 | Discovery | (başlıkta retikül adı yok) | Üretici retikül adı/ölçü vermiyor → kayıt açılmadı |
 | 6 | Arken | VPR, TOR, VHR, KLGRID, KLBOX, DLR, FDR | Yeni değer yok (kılavuz PDF metin katmanı boş/konumsuz) |
@@ -536,4 +536,4 @@ Sıralama önce mağaza sayısına, sonra model sayısına göredir. Sayılar ya
 | 11 | Riton, GPO, DNT | PSR, G4i, HSi-CQB, TOR | 5 yeni kayıt (ad/birim/kapsam) |
 | — | Nikon NP, ZCO MPCT, U.S. Optics GEN II XR, 3E EMR | | Üretici kaynağı yok/robots engelli/birim yok → açılmadı |
 
-İnceleme sırasında çıkarılanlar (tahmin yok kuralı): Hawke 30/30 Duplex, 30/30 Centre Cross, Circle Dot, Marksman .223/.308, Rimfire .17 HMR ve Element Duplex — birim yalnız taret klik değerinden çıkarılmıştı; Vector VOI/VOW-10BDC'de yoruma dayalı hash_step/extent alanları null'a çekildi.
+İnceleme sırasında çıkarılanlar (tahmin yok kuralı): Hawke 30/30 Duplex, 30/30 Centre Cross, Circle Dot, Marksman .223/.308, Rimfire .17 HMR ve Element Duplex — birim yalnız taret klik değerinden çıkarılmıştı; (Vector/Element çakışan kayıtlarda #141/#144 sürümü esas alındı.)

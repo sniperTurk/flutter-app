@@ -1,0 +1,21 @@
+{
+  "name": "VMD-2 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Matiz 3-9x40 SFP MIL (SCOM-32)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20231030/134153158254467f38c3d44f255e2797.pdf",
+  "notes": "SFP. Kaynaklar: 'VIS-FMIL & MDL & VMD-2' retikül kılavuzu PDF (index sayfa 13; PDF'de 'VDM-2 (MIL)' yazımı) + SCOM-32 ürün sayfası (Reticle: VMD-2, 1/10 MIL tık) + Reticle-Collection (diğer dürbünler Victoptics: OPSL32/18/21/20/29 — listeye alınmadı). PDF'de 'Setting: 12 x, MOA' satırı MIL etiketleriyle çelişiyor; birim ürün adı ve PDF etiketinden mil. Konumsuz etiketler: rakam dizileri '2 4 6 8 10', '2 4 6 8 10 12 14 16', '10 8 6 4 2' ve 0.32, 0.6, 0.32, 0.16, 0.32, 0.64, Φ0.1, 0.03 — hangi retiküle (VIS-FMIL/MDL/VMD-2) ait olduğu belirsiz → tümü null."
+}
