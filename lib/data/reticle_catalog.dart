@@ -81,8 +81,7 @@ abstract final class ReticleCatalog {
     if (key.core.isEmpty) return null;
     var hits = [
       for (final r in library)
-        if (brandMatches(r.brand, brand) && nameKey(r.name).core == key.core)
-          r,
+        if (brandMatches(r.brand, brand) && nameKey(r.name).core == key.core) r,
     ];
     if (key.unit != null) {
       hits = [
