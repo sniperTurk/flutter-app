@@ -74,6 +74,9 @@ void main() {
       final weight = text.style?.fontWeight ?? FontWeight.w400;
       expect(weight.value, lessThan(FontWeight.w600.value), reason: text.data);
       expect(text.style?.fontFamily, MenzilType.family);
+      if (text.data != null && text.data!.length > 60) {
+        expect(text.textAlign ?? TextAlign.justify, TextAlign.justify);
+      }
     }
     expect(tester.takeException(), isNull);
   });

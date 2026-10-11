@@ -43,7 +43,13 @@ class UsageGuideScreen extends StatelessWidget {
                   for (final paragraph in section.paragraphs)
                     Padding(
                       padding: const EdgeInsets.only(top: MenzilSpace.sm),
-                      child: Text(paragraph, style: textStyle(c.ink)),
+                      child: Text(
+                        paragraph,
+                        // The card's Material resets the page's justified
+                        // DefaultTextStyle; paragraphs stay justified (#172).
+                        textAlign: TextAlign.justify,
+                        style: textStyle(c.ink),
+                      ),
                     ),
                 ],
               ),
