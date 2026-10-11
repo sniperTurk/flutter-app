@@ -3,7 +3,14 @@ name: iOS CI
 on:
   push:
     branches: [main]
+  # Only PRs into main use the (scarce) macOS runners; data-branch PRs
+  # (base data/*) and docs-only changes do not, so TestFlight is not stuck
+  # behind dozens of data checks (2026-10-11).
   pull_request:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
   workflow_dispatch:
 
 permissions:
