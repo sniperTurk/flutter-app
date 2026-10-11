@@ -1,7 +1,7 @@
 # Simulator screenshots
 
-- Source: `feat/retikul-eslestirme` @ `783ba73e49ef0f7e1fc3a1df99f116dd4e99afa0`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38169066737
+- Source: `fix/ekran-boyutu` @ `1ce0f3af7b45bdaa479967d451640d73c25005b2`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38177014829
 - flutter test exit code: 0 (0 = every step passed)
 - Device: iPhone 17 Pro / iOS 26.2
 
@@ -11,7 +11,7 @@ grant location: 0
 grant location-always: 0
 simulated location: 0
 flutter test exit: 0
-screenshots: 40
+screenshots: 42
 ```
 
 - [01_profil_karsilama.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/01_profil_karsilama.png)
@@ -53,4 +53,6 @@ screenshots: 40
 - [37_pro_ayarlar_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/37_pro_ayarlar_2.png)
 - [38_hedef_atis.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/38_hedef_atis.png)
 - [39_hedef_atis_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/39_hedef_atis_2.png)
-- [40_hedef_tablo.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/40_hedef_tablo.png)
+- [40_hedef_atis_3.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/40_hedef_atis_3.png)
+- [41_hedef_tablo.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/41_hedef_tablo.png)
+- [42_hedef_tablo_2.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/42_hedef_tablo_2.png)
