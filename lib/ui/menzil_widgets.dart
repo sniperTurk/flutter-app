@@ -72,7 +72,13 @@ class MenzilSubPageBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) => AppBar(
-    title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
+    // A long title ("Konum için mesafe" with larger iOS text on a 375 pt
+    // phone) shrinks a little instead of ending in "…".
+    title: FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Text(title, maxLines: 1),
+    ),
     actions: [
       ...actions,
       const SizedBox(width: MenzilSpace.xs),
@@ -1637,11 +1643,17 @@ class MenzilMetricCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    metric.label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
+                  // Like the value below: a long label ("%80 için maks.
+                  // menzil" with larger iOS text) shrinks a little instead of
+                  // being cut; at the default size nothing changes.
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      metric.label,
+                      maxLines: 1,
+                      style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
+                    ),
                   ),
                   if (twoLineText && metric.unit == null)
                     _textValue(c.ink)
