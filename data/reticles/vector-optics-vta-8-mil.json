@@ -9,14 +9,14 @@
   "family": "tree",
   "hash_step": 0.25,
   "major_every": null,
-  "numbers_every": null,
-  "extent_h": null,
-  "extent_v_up": null,
-  "extent_v_down": null,
+  "numbers_every": 1,
+  "extent_h": 10,
+  "extent_v_up": 10,
+  "extent_v_down": 10,
   "tree": null,
   "posts_start": null,
   "center_dot": true,
-  "floating_center": null,
-  "source_url": "https://www.vectoroptics.com/rifle-scopes/Tauron-5-25x56-HD-MIL-FFP-Rifle-Scope-SCFF-71.html",
-  "notes": "FFP. Kaynak: SCFF-71 ve SCFF-35 ürün sayfaları: 0.25 mil işaret aralığı (rüzgar ve elevasyon), 1 mil uzunluğunda aydınlatmalı merkez artı, Christmas tree. Merkez nokta SCFF-71'de 0.05 mil, SCFF-35'te 0.03 mil (çelişkili). VTA-8 MIL FFP tek sayfa PDF (…/20250326/87f0f9a2f9be35fb85b6fa3b0ad05bf0.pdf) istek limiti nedeniyle okunamadı. Uzanımlar, ağaç satırları, rakam aralığı → null."
+  "floating_center": true,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250326/87f0f9a2f9be35fb85b6fa3b0ad05bf0.pdf",
+  "notes": "FFP. Kaynaklar: VTA-8 MIL FFP tek sayfa PDF (metin) + SCFF-71 (https://www.vectoroptics.com/rifle-scopes/Tauron-5-25x56-HD-MIL-FFP-Rifle-Scope-SCFF-71.html) ve SCFF-35 ürün sayfaları. Ürün sayfaları: 0.25 mil işaret aralığı (rüzgâr ve elevasyon), Christmas tree. Kılavuz: aydınlatmalı artı çizgileri merkezden 1 MIL yukarı/aşağı/sağa/sola uzanıyor ve kesişmiyor, 0.5 MIL merkez boşluğu → floating_center=true; 'Each side of the horizontal and vertical lines is 10 MIL in total length' → extent_h=extent_v_up=extent_v_down=10; 8-10 MIL arası 0.2 MIL ince bölmeler; yatay çizgi ucu ile stadia çizgisi arasında 1 MIL boşluk (kalın direk olup olmadığı belirsiz → posts_start null). PDF metninde rakam etiketleri 1…10 ardışık geçiyor → numbers_every=1 (çıkarım; konumları teyit edilmedi). Merkez nokta SCFF-71'de 0.05 mil, SCFF-35'te 0.03 mil (kılavuz etiketleri Ø0.03/Ø0.05/Ø0.1). Referans büyütmeler 5x/30x/40x @100 m. Ağaç satırları, büyük işaret → null."
 }

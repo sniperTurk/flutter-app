@@ -1,0 +1,23 @@
+{
+  "name": "VEMP-LR MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Minotaur 10-50x56 MFL",
+    "Minotaur 12-60x60 MFL",
+    "Minotaur 46x60 MFL"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250530/894497139095187c24dc76308af72a16.pdf",
+  "notes": "SFP; kılavuza göre ölçüler 40x'te geçerli ('the subtension is valid at 40x'). Kaynak: VEMP-LR MOA SFP retikül kılavuzu PDF (metin; model listesi kılavuzdan, ürün kodları verilmemiş). Kılavuz: 0.15 MOA merkez nokta; merkez nokta ile mesafe ölçeği arasında 1 MOA çaplı boş halka → floating_center=true; ters 'T' ölçek → family=hash (kılavuz ölçeği 'Mil-radian' diye anıyor ama ayar/etiket MOA; unit=moa). Konumsuz etiketler: 1.0, 0.5, 0.4, 0.04. İşaret aralığı, uzanımlar, rakamlar → null."
+}
