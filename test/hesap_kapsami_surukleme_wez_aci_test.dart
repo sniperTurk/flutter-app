@@ -10,6 +10,7 @@ import 'dart:math' as math;
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/core/atmosphere.dart';
+import 'package:sniper_turk/core/drag_curve.dart';
 import 'package:sniper_turk/core/drag_table.dart';
 import 'package:sniper_turk/core/reference_drag_model.dart';
 import 'package:sniper_turk/core/scope_dial.dart';
@@ -171,6 +172,59 @@ void main() {
       final g7 = StandardDragTables.g7;
       expect(g7.coefficientAtMach(1.05), greaterThan(g7.coefficientAtMach(0.9)));
       expect(g7.coefficientAtMach(0.5), closeTo(0.1194, 1e-12));
+    });
+  });
+
+  group('Özel sürüklenme eğrisi — kesit yoğunluğu', () {
+    test('SD = (gr/7000) / d²(inç); 168 gr .308 (7.82 mm) ≈ 0.253', () {
+      final sd = DragCurve.sectionalDensity(grain: 168, diameterMm: 7.82);
+      expect(sd, closeTo(168 / 7000 / math.pow(7.82 / 25.4, 2), 1e-15));
+      expect(sd, closeTo(0.253, 0.001));
+      for (final (gr, d) in [(0.0, 7.82), (168.0, 0.0), (double.nan, 7.82)]) {
+        expect(
+          () => DragCurve.sectionalDensity(grain: gr, diameterMm: d),
+          throwsArgumentError,
+        );
+      }
+    });
+
+    test('SD ile yavaşlama = ½·ρ·Cd·(π·d²/4)·v²/m (kütle ve alanla aynı)', () {
+      const grain = 168.0, dMm = 7.82, v = 600.0, cd = 0.3;
+      final model = ReferenceDragModel(
+        DragTable(const [DragSample(0, cd), DragSample(10, cd)]),
+      );
+      final a = model.decelerationMps2(
+        speedMps: v,
+        ballisticCoefficient: DragCurve.sectionalDensity(
+          grain: grain,
+          diameterMm: dMm,
+        ),
+        environment: _dryStandard,
+      );
+      final rho = Atmosphere.densityKgM3(_dryStandard);
+      final mass = grain * 0.00006479891;
+      final area = math.pi / 4 * math.pow(dMm / 1000, 2);
+      expect(a, closeTo(0.5 * rho * cd * area * v * v / mass, 1e-9));
+    });
+
+    test('Cd önce, Mach sonra yazılmış .drg sütunları da tanınır', () {
+      const text = '''
+# Cd Mach
+0,230;0.5
+0,231;0.8
+0,350;1.0
+0,330;1.2
+0,300;1.5
+''';
+      final points = DragCurve.parse(text);
+      expect(points.first.mach, 0.5);
+      expect(points.first.coefficient, closeTo(0.23, 1e-12));
+      expect(points.last.mach, 1.5);
+      expect(
+        () => DragCurve.parse('0.5 0.2\n0.6 0.2\n0.7 0.2\n0.8 0.2\n1.1 0.3'),
+        throwsFormatException,
+        reason: 'Mach 1.2’ye ulaşmayan eğri',
+      );
     });
   });
 
