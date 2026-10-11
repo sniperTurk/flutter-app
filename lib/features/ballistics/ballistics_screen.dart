@@ -231,7 +231,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   _ShotBasis? _basis;
   double _shotRangeM = 100;
 
-  /// Opens the right (windage) turret after "Çözümü kuleye kur".
+  /// Opens the right (windage) turret after "Çözümü kulelere kur".
   int _windageRevealToken = 0;
 
   /// Hedef always opens at 100 m (100 yd on a yard profile) (owner,
@@ -1738,8 +1738,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     try {
       final bytes = await buildDopeCardPdf(
         data,
-        regular: await rootBundle.load('assets/fonts/DejaVuSans.ttf'),
-        bold: await rootBundle.load('assets/fonts/DejaVuSans-Bold.ttf'),
+        // Oswald like the app (owner, 2026-10-11); DejaVu only for the
+        // arrows Oswald lacks. The logo heads the card and fades behind it.
+        regular: await rootBundle.load('assets/fonts/Oswald-Regular.ttf'),
+        bold: await rootBundle.load('assets/fonts/Oswald-Medium.ttf'),
+        fallback: await rootBundle.load('assets/fonts/DejaVuSans.ttf'),
+        logo: (await rootBundle.load(
+          'assets/branding/logo_line.png',
+        )).buffer.asUint8List(),
       );
       final name =
           'sniper-turk-dope-${widget.profile!.name.replaceAll(RegExp(r'[^A-Za-z0-9]+'), '-')}.pdf';

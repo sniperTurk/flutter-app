@@ -93,7 +93,7 @@ Future<_Workspace> _pumpShot(WidgetTester tester, TestTilt tilt) async {
 String _impact(WidgetTester tester) =>
     tester.widget<Text>(find.byKey(ScopeDialKeys.impactText)).data!;
 
-/// Taps "Çözümü kuleye kur" and returns the "Kule: …" readout.
+/// Taps "Çözümü kulelere kur" and returns the "Kule: …" readout.
 Future<String> _dialSolution(WidgetTester tester) async {
   final button = find.byKey(ScopeDialKeys.dialSolution);
   await tester.ensureVisible(button);

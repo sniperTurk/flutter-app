@@ -25,13 +25,12 @@ Future<void> _openNew(WidgetTester tester, {bool firearm = false}) async {
   await tester.pumpAndSettle();
   await tester.tap(find.byTooltip('Yeni profil'));
   await tester.pumpAndSettle();
-  if (firearm) {
-    await tester.ensureVisible(find.text('PCP Tüfek'));
-    await tester.tap(find.text('PCP Tüfek'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Ateşli Tüfek').last);
-    await tester.pumpAndSettle();
-  }
+  // A new profile starts on Ateşli Tüfek (owner, 2026-10-11).
+  await chooseInSelect(
+    tester,
+    'profile-platform',
+    firearm ? 'Ateşli Tüfek' : 'PCP Tüfek',
+  );
 }
 
 String _text(WidgetTester tester, String key) => tester

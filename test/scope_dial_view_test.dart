@@ -108,7 +108,7 @@ void main() {
         tester.widget<MenzilSecondaryButton>(find.byKey(k)).label;
     bool active(Key k) =>
         tester.widget<MenzilSecondaryButton>(find.byKey(k)).active;
-    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kuleye kur');
+    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kulelere kur');
     expect(label(ScopeDialKeys.reset), 'Kuleler sıfırlandı');
     expect(active(ScopeDialKeys.reset), isTrue);
 
@@ -122,7 +122,7 @@ void main() {
 
     await tester.tap(find.byKey(ScopeDialKeys.reset));
     await tester.pumpAndSettle();
-    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kuleye kur');
+    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kulelere kur');
     expect(active(ScopeDialKeys.dialSolution), isFalse);
     expect(label(ScopeDialKeys.reset), 'Kuleler sıfırlandı');
   });
@@ -133,7 +133,7 @@ void main() {
     await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
     await tester.pumpAndSettle();
 
-    // "Çözümü kuleye kur" already slid the windage turret open.
+    // "Çözümü kulelere kur" already slid the windage turret open.
     expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
     await tester.tap(find.byTooltip('Rüzgâr kulesi 1 klik sağa'));
     await tester.pumpAndSettle();

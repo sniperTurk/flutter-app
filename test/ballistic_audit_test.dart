@@ -60,7 +60,7 @@ Future<void> _pumpShell(WidgetTester tester) async {
 }
 
 /// The Rüzgâr box left Atış (owner, 2026-10-08): the scope's impact line
-/// says where the pellet goes, "Çözümü kuleye kur" which way to dial.
+/// says where the pellet goes, "Çözümü kulelere kur" which way to dial.
 Future<(String, String)> _windAfter(
   WidgetTester tester, {
   required String direction,
@@ -103,7 +103,7 @@ Future<(String, String)> _windAfter(
 String _impact(WidgetTester tester) =>
     tester.widget<Text>(find.byKey(ScopeDialKeys.impactText)).data!;
 
-/// Taps "Çözümü kuleye kur" and returns the "Kule: …" readout.
+/// Taps "Çözümü kulelere kur" and returns the "Kule: …" readout.
 Future<String> _dialSolution(WidgetTester tester) async {
   final button = find.byKey(ScopeDialKeys.dialSolution);
   await tester.ensureVisible(button);
