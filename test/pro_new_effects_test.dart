@@ -276,6 +276,13 @@ void main() {
       );
       await tester.ensureVisible(wind);
       await tester.enterText(wind, '5');
+      await tester.enterText(
+        find.descendant(
+          of: find.byKey(BallisticsFieldKeys.windDirection),
+          matching: find.byType(TextField),
+        ),
+        '9',
+      );
       await tester.pump();
 
       await tester.pumpWidget(app(BallisticsView.pro));
