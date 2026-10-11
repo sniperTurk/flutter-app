@@ -1,7 +1,7 @@
 # Simulator screenshots
 
-- Source: `feat/retikul-eslestirme` @ `3a0e645ad217c83d53503a33596998e716b2c7d3`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38168174896
+- Source: `feat/retikul-eslestirme` @ `783ba73e49ef0f7e1fc3a1df99f116dd4e99afa0`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38169066737
 - flutter test exit code: 0 (0 = every step passed)
 - Device: iPhone 17 Pro / iOS 26.2
 
