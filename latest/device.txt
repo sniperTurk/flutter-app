@@ -1,0 +1,18 @@
+== Devices ==
+-- iOS 18.5 --
+-- iOS 18.6 --
+-- iOS 26.0 --
+-- iOS 26.1 --
+-- iOS 26.2 --
+    iPhone 17 Pro (E952A9B0-CC78-435C-BF08-06AD47FE1076) (Booted) 
+-- tvOS 18.5 --
+-- tvOS 26.1 --
+-- tvOS 26.2 --
+-- watchOS 11.5 --
+-- watchOS 26.1 --
+-- watchOS 26.2 --
+-- visionOS 2.3 --
+-- visionOS 2.4 --
+-- visionOS 2.5 --
+-- visionOS 26.1 --
+-- visionOS 26.2 --
