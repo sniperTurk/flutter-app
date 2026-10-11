@@ -223,7 +223,7 @@ void main() {
 
 void _scan() {
   for (final device in _devices) {
-    for (final textScale in [1.0, if (device.logical.width < 390) 1.3]) {
+    for (final textScale in [1.0, if (device.logical.width < 500) 1.3]) {
       testWidgets('${device.name} @ yazı ${textScale}x: ekran taraması', (
         tester,
       ) async {
