@@ -1974,74 +1974,26 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     ];
   }
 
-  /// Required turret correction at the selected range, in the scope unit
-  /// (+ up / + right). [up] is null without a solved shot. Shared by the
-  /// interactive scope and the watch so both always show the same numbers.
-  ({double? up, double right, double zeroUp, double? jump, double scale})
-  _requiredTurret(TrajectoryPoint? shot) {
-    final unit = _scopeUnit;
-    final basis = _basis;
-    double inUnit(double mrad) => unit.fromMrad(mrad);
-    // Sıfır ofseti: a group that sat high/right at the zero lands
-    // high/right everywhere, so less up / more left is needed. Aerodynamic
-    // jump lifts or drops the shot the same way (owner, 2026-10-09).
-    final zeroOff = _zeroOffsetMrad;
-    final jump = shot == null || basis == null ? null : _aeroJumpMrad(basis);
-    final requiredUp = shot == null
-        ? null
-        : inUnit(shot.correctionMrad - zeroOff.up - (jump ?? 0)) / _turretScale;
-    // windMrad = atan2(-z, range): the correction toward the RIGHT turret
-    // direction, with the solver's +z drawn to the right of the crosshair.
-    // Without drag (!basis.drag) it holds only the scope-cant part (wind is
-    // not modelled there), so it is 0.0 unless the scope is canted.
-    // Kule ölçek katsayısı: a turret that moves 0.98 of its marking needs
-    // 1/0.98 of the clicks (owner, 2026-10-09).
-    final scale = _turretScale;
-    // Spin drift (Pro, owner 2026-10-09): a drift to the right needs LEFT.
-    final spin = shot == null || basis == null
-        ? null
-        : _spinDriftMrad(shot, basis);
-    final requiredRight = (shot == null || basis == null)
-        ? 0.0
-        : inUnit(shot.windMrad - (spin ?? 0) - zeroOff.right) / scale;
-    return (
-      up: requiredUp,
-      right: requiredRight,
-      zeroUp: zeroOff.up,
-      jump: jump,
-      scale: scale,
-    );
-  }
-
   // ---- Saat (owner, 2026-10-11) -----------------------------------------
   // The watch only shows what Atış shows; it never computes. Nothing
   // happens without a watch (WatchBridge is silent then).
 
   StreamSubscription<int>? _watchRanges;
 
-  /// Sends the current Atış solution to the watch after this frame.
-  void _publishWatch(
-    ({double? up, double right, double zeroUp, double? jump, double scale})
-    turret,
-    double click,
-  ) {
-    final s = _watchSolution(turret, click);
+  /// Sends the Atış turret correction (scope unit, + up / + right) to the
+  /// watch after this frame. [up] is null without a solved shot.
+  void _publishWatch(double? up, double right, double click) {
+    final s = _watchSolution(up, right, click);
     if (s == null) return;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) unawaited(WatchBridge.instance.publish(s));
     });
   }
 
-  WatchSolution? _watchSolution(
-    ({double? up, double right, double zeroUp, double? jump, double scale})
-    turret,
-    double click,
-  ) {
+  WatchSolution? _watchSolution(double? up, double right, double click) {
     final p = widget.profile;
     if (p == null) return null;
     final now = DateTime.now();
-    final up = turret.up;
-    final right = turret.right;
     if (up == null || !up.isFinite || !right.isFinite) {
       return WatchSolution.none(profile: p.name, at: now);
     }
@@ -2076,16 +2028,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
   }
 
-  /// A distance picked on the watch: same path as the Hedef slider, then
-  /// the new solution goes straight back (no frame needed, so it also works
-  /// while the phone screen is off and Flutter is not drawing).
+  /// A distance picked on the watch: same path as the Hedef slider. The
+  /// new solution goes back when Atış rebuilds (the scope view is where
+  /// the turret correction is computed).
   void _onWatchRange(int display) {
-    if (!mounted) return;
-    _setShotDisplay(display);
-    final click = _scopeClickValue;
-    if (click == null) return;
-    final s = _watchSolution(_requiredTurret(_shotPoint()), click);
-    if (s != null) unawaited(WatchBridge.instance.publish(s));
+    if (mounted) _setShotDisplay(display);
   }
 
   /// Interactive scope: turrets change the dialled clicks and the reticle
@@ -2105,10 +2052,31 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     final unit = _scopeUnit;
     final basis = _basis;
-    final turret = _requiredTurret(shot);
-    final requiredUp = turret.up;
-    final requiredRight = turret.right;
-    _publishWatch(turret, click);
+    double inUnit(double mrad) => unit.fromMrad(mrad);
+    // Sıfır ofseti: a group that sat high/right at the zero lands
+    // high/right everywhere, so less up / more left is needed. Aerodynamic
+    // jump lifts or drops the shot the same way (owner, 2026-10-09).
+    final zeroOff = _zeroOffsetMrad;
+    final jump = shot == null || basis == null ? null : _aeroJumpMrad(basis);
+    final requiredUp = shot == null
+        ? null
+        : inUnit(shot.correctionMrad - zeroOff.up - (jump ?? 0)) / _turretScale;
+    // windMrad = atan2(-z, range): the correction toward the RIGHT turret
+    // direction, with the solver's +z drawn to the right of the crosshair.
+    // Without drag (!basis.drag) it holds only the scope-cant part (wind is
+    // not modelled there), so it is 0.0 unless the scope is canted.
+    // Kule ölçek katsayısı: a turret that moves 0.98 of its marking needs
+    // 1/0.98 of the clicks (owner, 2026-10-09).
+    final scale = _turretScale;
+    // Spin drift (Pro, owner 2026-10-09): a drift to the right needs LEFT.
+    final spin = shot == null || basis == null
+        ? null
+        : _spinDriftMrad(shot, basis);
+    final requiredRight = (shot == null || basis == null)
+        ? 0.0
+        : inUnit(shot.windMrad - (spin ?? 0) - zeroOff.right) / scale;
+    // Saat: the same numbers go to the watch (it never computes).
+    _publishWatch(requiredUp, requiredRight, click);
 
     final mpsPerMil = basis != null && basis.drag
         ? _evalShot().mpsPerMil
@@ -2234,8 +2202,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           : _holdSamplesFor(
               basis,
               unit,
-              offsetMrad: turret.zeroUp + (turret.jump ?? 0),
-              scale: turret.scale,
+              offsetMrad: zeroOff.up + (jump ?? 0),
+              scale: scale,
               dialedUp: ScopeDialMath.clicksToAngle(_elevationClicks, click),
             ),
       toDisplayRange: _toDisplayRange,

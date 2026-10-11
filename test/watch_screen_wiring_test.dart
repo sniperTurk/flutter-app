@@ -92,7 +92,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.pumpWidget(_app(BallisticsView.shot));
     await tester.pumpAndSettle();
+    // Missing native side → MissingPluginException is swallowed (the
+    // transport itself is covered in watch_bridge_test.dart).
     expect(tester.takeException(), isNull);
-    expect(WatchBridge.instance.available, isFalse);
   });
 }
