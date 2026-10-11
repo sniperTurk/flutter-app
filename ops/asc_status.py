@@ -7,6 +7,7 @@ tok = jwt.encode({"iss": iss, "iat": int(time.time()), "exp": int(time.time()) +
                   "aud": "appstoreconnect-v1"}, os.environ["ASC_KEY_P8"], algorithm="ES256", headers={"kid": kid})
 BASE = "https://api.appstoreconnect.apple.com"
 
+
 def get(path):
     req = urllib.request.Request(BASE + path, headers={"Authorization": f"Bearer {tok}"})
     try:
@@ -15,18 +16,27 @@ def get(path):
     except urllib.error.HTTPError as e:
         return {"_error": e.code, "_body": e.read().decode()[:800]}
 
-APP = "6819483788"
-out = {}
-infos = get(f"/v1/apps/{APP}/appInfos")
-info = infos["data"][0]["id"]
-ar = get(f"/v1/appInfos/{info}/ageRatingDeclaration")
-out["ageRating"] = ar.get("data", ar)
-out["builds"] = [{"id": b["id"], **{k: b["attributes"].get(k) for k in ("version", "processingState", "uploadedDate")}}
-                 for b in get(f"/v1/builds?filter[app]={APP}&sort=-uploadedDate&limit=3").get("data", [])]
-pp = get(f"/v1/apps/{APP}/appPricePoints?filter[territory]=USA&limit=3")
-out["pricePoints"] = [{"id": p["id"], **p["attributes"]} for p in pp.get("data", [])] if "data" in pp else pp
-out["territories"] = len(get("/v1/territories?limit=200").get("data", []))
-cats = get("/v1/appCategories?filter[platforms]=IOS&limit=50")
-out["categories"] = [c["id"] for c in cats.get("data", [])]
+
+def attrs(items, keys):
+    if "data" not in items:
+        return items
+    return [{"id": d["id"], **{k: d["attributes"].get(k) for k in keys}} for d in items["data"]]
+
+
+out = {"apps": attrs(get("/v1/apps?limit=20"), ("name", "bundleId", "sku", "primaryLocale"))}
+for app in ("6820670293", "6819483788"):
+    a = {}
+    a["versions"] = attrs(get(f"/v1/apps/{app}/appStoreVersions?limit=5"),
+                          ("versionString", "platform", "appStoreState", "appVersionState", "releaseType", "createdDate"))
+    subs = get(f"/v1/reviewSubmissions?filter[app]={app}&limit=10&include=items")
+    a["reviewSubmissions"] = attrs(subs, ("state", "platform", "submittedDate"))
+    if "included" in subs:
+        a["submissionItems"] = [{"id": i["id"], "type": i["type"], **i.get("attributes", {})} for i in subs["included"]]
+    a["builds"] = attrs(get(f"/v1/builds?filter[app]={app}&sort=-uploadedDate&limit=5"),
+                        ("version", "processingState", "uploadedDate", "expired"))
+    for v in a["versions"] if isinstance(a["versions"], list) else []:
+        b = get(f"/v1/appStoreVersions/{v['id']}/build")
+        v["build"] = (b.get("data") or {}).get("attributes", {}).get("version") if isinstance(b.get("data"), dict) else None
+    out[app] = a
 os.makedirs("ci-logs", exist_ok=True)
 json.dump(out, open("ci-logs/asc.json", "w"), indent=1, ensure_ascii=False)
