@@ -238,12 +238,14 @@ void main() {
       await type('profile-velocity-fps', '900');
       await type('profile-zero', '25');
       await type('scope-sight-height', '60');
-      await choose('scope-brand-select', 'Listede yok');
-      await type('scope-brand', 'Test Optik');
-      await type('scope-min-mag', '6');
-      await type('scope-max-mag', '24');
-      await type('scope-objective', '56');
-      await choose('scope-focal-plane', 'FFP');
+      // A catalog scope whose reticle has manufacturer data, so the Hedef
+      // screenshots show the scope's own reticle drawing.
+      await choose('scope-brand-select', 'Athlon');
+      await choose(
+        'scope-model-select',
+        'CRONUS BTR GEN2 UHD 4.5-29x56 FFP IR MIL',
+      );
+      await choose('scope-reticle', 'APRS1');
       await page('profil_olustur_dolu');
       await tester.ensureVisible(find.text('Kaydet'));
       await settle();
