@@ -33,3 +33,9 @@ BC üretici tarafından yayınlanmıyorsa `bc: null`. BC modeli belirtilmemişse
 
 ## Sonraki çalıştırma için
 JSB (tarayıcıyla kaydedilmiş sayfa/PDF gerekiyor), Daystate, Spoton, Altaros, H&N eksik seriler ve Zan Hyper Line BC'leri.
+
+## BC tamamlama (2026-10-11)
+BC'si boş 184 kayıt yeniden tarandı; 58'ine (hepsi Zan) üretici BC'si yazıldı. Zan BC'leri her ağırlık/çap varyantının kendi açıklamasında (zanprojectiles.com mağaza verisi, varyant kimliğiyle) — yalnız 13'ü "G1" diyor, kalanı `bc_model: null`. Test hızı / iki bant varsa notta.
+- Zan null kalan 27: aralık verilmiş (7; ör. ".110–.125"), "TBA" (.20, .303, .457 285, .510), yayımlanmamış (.177 22/24, .357, Fat Boy, BR50/BR100).
+- NSA 4 ("TBD" / yok), FX Halo (sayfada sayı yok; spec görseli sunucu hatası → erişilemedi).
+- RWS 44, Air Arms 11, Crosman 17, Hatsan 15, My Bullet 7: ürün sayfaları ve resmi kataloglar yeniden okundu, üretici BC yayımlamıyor.
