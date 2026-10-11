@@ -34,7 +34,9 @@ void main() {
     // 3 shots with a shared wind error: below the old independent number.
     final three = logs.singleWhere((l) => l.startsWith('SIMNUM:3atis'));
     final series = int.parse(
-      RegExp(r'series="\d+ atışta en az bir isabet: %(\d+)').firstMatch(three)!.group(1)!,
+      RegExp(
+        r'series="\d+ atışta en az bir isabet: %(\d+)',
+      ).firstMatch(three)!.group(1)!,
     );
     final independent = int.parse(
       RegExp(r'independent3=(\d+)').firstMatch(three)!.group(1)!,

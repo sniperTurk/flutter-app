@@ -54,159 +54,154 @@ Future<void> runWezTour(
   required Future<void> Function(String name) shot,
   required void Function(String line) log,
 }) async {
-    CatalogRepository.installUserCatalog(
-      UserCatalog.fromManualEntries([_rifle, _ammo]),
-    );
+  CatalogRepository.installUserCatalog(
+    UserCatalog.fromManualEntries([_rifle, _ammo]),
+  );
 
-
-    Widget app(BallisticsView view) => MaterialApp(
-      theme: MenzilTheme.light(),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: SafeArea(
-          child: BallisticsScreen(profile: _profile, view: view),
-        ),
+  Widget app(BallisticsView view) => MaterialApp(
+    theme: MenzilTheme.light(),
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      body: SafeArea(
+        child: BallisticsScreen(profile: _profile, view: view),
       ),
-    );
+    ),
+  );
 
-    Future<void> settle() async {
-      try {
-        await tester.pumpAndSettle(
-          const Duration(milliseconds: 100),
-          EnginePhase.sendSemanticsUpdate,
-          const Duration(seconds: 8),
-        );
-      } on FlutterError {
-        for (var i = 0; i < 20; i++) {
-          await tester.pump(const Duration(milliseconds: 100));
-        }
+  Future<void> settle() async {
+    try {
+      await tester.pumpAndSettle(
+        const Duration(milliseconds: 100),
+        EnginePhase.sendSemanticsUpdate,
+        const Duration(seconds: 8),
+      );
+    } on FlutterError {
+      for (var i = 0; i < 20; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
       }
     }
+  }
 
-    Future<void> type(Key key, String text) async {
-      await openProFor(tester, key);
-      final field = find.descendant(
-        of: find.byKey(key),
-        matching: find.byType(TextField),
-      );
-      await tester.ensureVisible(field);
-      await tester.enterText(field, text);
-      await tester.pump();
-    }
-
-    Future<void> shots(int n) async {
-      await openProFor(tester, const Key('pro-wez-shots'));
-      final box = find.descendant(
-        of: find.byKey(const Key('pro-wez-shots')),
-        matching: find.byType(DropdownButton<int>),
-      );
-      await tester.ensureVisible(box);
-      await settle();
-      await tester.tap(box);
-      await settle();
-      await tester.tap(find.text('$n atış').last);
-      await settle();
-    }
-
-    /// The shot panel scrolled so the notes under the scope are on screen.
-    Future<void> hedef(String name, {Key? focus}) async {
-      await tester.pumpWidget(app(BallisticsView.shot));
-      await settle();
-      final target = find.byKey(focus ?? const Key('shot-wez'));
-      if (target.evaluate().isNotEmpty) {
-        await tester.ensureVisible(target);
-        await settle();
-      }
-      await shot(name);
-    }
-
-    void logNumbers(String label) {
-      final text = find.byKey(const Key('shot-hit-probability'));
-      final n = find.byKey(const Key('shot-hit-probability-n'));
-      final first = text.evaluate().isEmpty
-          ? null
-          : tester.widget<Text>(text).data;
-      final series = n.evaluate().isEmpty ? null : tester.widget<Text>(n).data;
-      final p = first == null
-          ? null
-          : int.parse(RegExp(r'%(\d+)').firstMatch(first)!.group(1)!) / 100;
-      log(
-        'SIMNUM:$label first="$first" series="$series" '
-        'independent3=${p == null ? '-' : (Wez.atLeastOneHit(p, 3) * 100).round()}',
-      );
-    }
-
-    await tester.pumpWidget(app(BallisticsView.pro));
-    await settle();
-    // 600 m, 30 cm target (radius ≈ 0.25 mrad), 4 cm group at 100 m
-    // (σ ≈ 0.13 mrad), wind bracket up to 3 m/s (shared wind error).
-    await tester.enterText(
-      find.descendant(
-        of: find.byKey(const Key('pro-shot-range')),
-        matching: find.byType(TextField),
-      ),
-      '600',
+  Future<void> type(Key key, String text) async {
+    await openProFor(tester, key);
+    final field = find.descendant(
+      of: find.byKey(key),
+      matching: find.byType(TextField),
     );
+    await tester.ensureVisible(field);
+    await tester.enterText(field, text);
     await tester.pump();
-    await type(const Key('pro-group'), '4');
-    await type(const Key('pro-target-size'), '30');
-    // Rüzgâr düzeltmesi is on Hava Durumu (owner, 2026-10-11).
-    await tester.pumpWidget(app(BallisticsView.environment));
-    await settle();
-    await type(const Key('pro-wind-max'), '3');
+  }
 
-    // Önce: 1 atış, mermi uzunluğu yok (no notice, as on main).
-    await hedef('hedef_1atis_uyarisiz');
-    logNumbers('1atis');
-
-    // Sonra: 3 atış (ortak rüzgâr hatasıyla), uzun mermi Sg ≈ 1.27.
-    await tester.pumpWidget(app(BallisticsView.pro));
-    await settle();
-    await shots(3);
-    await type(const Key('pro-bullet-length'), '38');
-    await hedef('hedef_3atis_sg_sinirda');
-    logNumbers('3atis');
-    await hedef(
-      'hedef_sg_uyarisi',
-      focus: const Key('shot-stability-marginal'),
-    );
-    await tester.tap(
-      find.descendant(
-        of: find.byKey(const Key('shot-stability-marginal')),
-        matching: find.byIcon(Icons.info_outline),
-      ),
-    );
-    await settle();
-    await shot('sg_bilgi');
-    Navigator.of(tester.element(find.byType(AlertDialog))).pop();
-    await settle();
-
-    // Sonra: 1000 m, transonik uyarısı; çok uzun mermi Sg < 1.
-    await tester.pumpWidget(app(BallisticsView.pro));
-    await settle();
-    await tester.enterText(
-      find.descendant(
-        of: find.byKey(const Key('pro-shot-range')),
-        matching: find.byType(TextField),
-      ),
-      '1000',
-    );
-    await tester.pump();
-    await type(const Key('pro-bullet-length'), '45');
-    await hedef('hedef_1000m_transonik', focus: const Key('shot-transonic'));
-
-    // Atış sayısı ⓘ (metin değişti).
-    await tester.pumpWidget(app(BallisticsView.pro));
-    await settle();
+  Future<void> shots(int n) async {
     await openProFor(tester, const Key('pro-wez-shots'));
-    final info = find.descendant(
+    final box = find.descendant(
       of: find.byKey(const Key('pro-wez-shots')),
-      matching: find.byIcon(Icons.info_outline),
+      matching: find.byType(DropdownButton<int>),
     );
-    await tester.ensureVisible(info);
+    await tester.ensureVisible(box);
     await settle();
-    await tester.tap(info);
+    await tester.tap(box);
     await settle();
-    await shot('atis_sayisi_bilgi');
+    await tester.tap(find.text('$n atış').last);
+    await settle();
+  }
 
+  /// The shot panel scrolled so the notes under the scope are on screen.
+  Future<void> hedef(String name, {Key? focus}) async {
+    await tester.pumpWidget(app(BallisticsView.shot));
+    await settle();
+    final target = find.byKey(focus ?? const Key('shot-wez'));
+    if (target.evaluate().isNotEmpty) {
+      await tester.ensureVisible(target);
+      await settle();
+    }
+    await shot(name);
+  }
+
+  void logNumbers(String label) {
+    final text = find.byKey(const Key('shot-hit-probability'));
+    final n = find.byKey(const Key('shot-hit-probability-n'));
+    final first = text.evaluate().isEmpty
+        ? null
+        : tester.widget<Text>(text).data;
+    final series = n.evaluate().isEmpty ? null : tester.widget<Text>(n).data;
+    final p = first == null
+        ? null
+        : int.parse(RegExp(r'%(\d+)').firstMatch(first)!.group(1)!) / 100;
+    log(
+      'SIMNUM:$label first="$first" series="$series" '
+      'independent3=${p == null ? '-' : (Wez.atLeastOneHit(p, 3) * 100).round()}',
+    );
+  }
+
+  await tester.pumpWidget(app(BallisticsView.pro));
+  await settle();
+  // 600 m, 30 cm target (radius ≈ 0.25 mrad), 4 cm group at 100 m
+  // (σ ≈ 0.13 mrad), wind bracket up to 3 m/s (shared wind error).
+  await tester.enterText(
+    find.descendant(
+      of: find.byKey(const Key('pro-shot-range')),
+      matching: find.byType(TextField),
+    ),
+    '600',
+  );
+  await tester.pump();
+  await type(const Key('pro-group'), '4');
+  await type(const Key('pro-target-size'), '30');
+  // Rüzgâr düzeltmesi is on Hava Durumu (owner, 2026-10-11).
+  await tester.pumpWidget(app(BallisticsView.environment));
+  await settle();
+  await type(const Key('pro-wind-max'), '3');
+
+  // Önce: 1 atış, mermi uzunluğu yok (no notice, as on main).
+  await hedef('hedef_1atis_uyarisiz');
+  logNumbers('1atis');
+
+  // Sonra: 3 atış (ortak rüzgâr hatasıyla), uzun mermi Sg ≈ 1.27.
+  await tester.pumpWidget(app(BallisticsView.pro));
+  await settle();
+  await shots(3);
+  await type(const Key('pro-bullet-length'), '38');
+  await hedef('hedef_3atis_sg_sinirda');
+  logNumbers('3atis');
+  await hedef('hedef_sg_uyarisi', focus: const Key('shot-stability-marginal'));
+  await tester.tap(
+    find.descendant(
+      of: find.byKey(const Key('shot-stability-marginal')),
+      matching: find.byIcon(Icons.info_outline),
+    ),
+  );
+  await settle();
+  await shot('sg_bilgi');
+  Navigator.of(tester.element(find.byType(AlertDialog))).pop();
+  await settle();
+
+  // Sonra: 1000 m, transonik uyarısı; çok uzun mermi Sg < 1.
+  await tester.pumpWidget(app(BallisticsView.pro));
+  await settle();
+  await tester.enterText(
+    find.descendant(
+      of: find.byKey(const Key('pro-shot-range')),
+      matching: find.byType(TextField),
+    ),
+    '1000',
+  );
+  await tester.pump();
+  await type(const Key('pro-bullet-length'), '45');
+  await hedef('hedef_1000m_transonik', focus: const Key('shot-transonic'));
+
+  // Atış sayısı ⓘ (metin değişti).
+  await tester.pumpWidget(app(BallisticsView.pro));
+  await settle();
+  await openProFor(tester, const Key('pro-wez-shots'));
+  final info = find.descendant(
+    of: find.byKey(const Key('pro-wez-shots')),
+    matching: find.byIcon(Icons.info_outline),
+  );
+  await tester.ensureVisible(info);
+  await settle();
+  await tester.tap(info);
+  await settle();
+  await shot('atis_sayisi_bilgi');
 }
