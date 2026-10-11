@@ -8,7 +8,7 @@ lib/data/reticle_catalog.dart (ReticleCatalog.find) and prints, per
 brand, how many scopes match and why the others do not.
 
     python3 tools/reticle_match_audit.py            # brand table
-    python3 tools/reticle_match_audit.py --legacy   # rules before #feat/retikul-eslestirme
+    python3 tools/reticle_match_audit.py --legacy   # rules before feat/retikul-eslestirme
     python3 tools/reticle_match_audit.py --missing  # reticles with no record
     python3 tools/reticle_match_audit.py --json
     python3 tools/reticle_match_audit.py --write-fixture
@@ -24,6 +24,12 @@ Reason codes of an unmatched reticle name:
   birim-farki  the brand has the reticle only in the other unit (MIL/MOA)
                than the scope's turret, or the name states the other unit
   belirsiz     two records cannot be told apart
+  coklu        the name lists several reticles (only when a whole record
+               string is matched; the audit matches each listed name)
+
+Columns: cizilir = matched and drawable from its data (a known family
+and, for marked reticles, a step); kismi = some of a scope's listed
+names match.
 """
 
 import argparse
@@ -51,7 +57,8 @@ def options(reticle):
     focal plane alone is not a reticle."""
     out = []
     for r in re.split(r'\s+/\s+', reticle or ''):
-        r = r.strip()
+        # "MIL-C / MIL-XT options": the trailing word names no reticle.
+        r = re.sub(r'\s+options$', '', r.strip(), flags=re.I).strip()
         if r and r not in FOCAL:
             out.append(r)
     return out
@@ -112,7 +119,7 @@ def names_scope(record, brand, model):
     """True when one of the record's manufacturer scope series is in the
     scope's brand + model words ("Helos BTR GEN2" in "HELOS BTR GEN2
     6-24x56 …")."""
-    words = _words(f'{brand} {model}')
+    words = _words(f"{brand or ''} {model or ''}")
     for entry in record.get('scopes', []):
         e = _words(entry)
         if e and any(words[i:i + len(e)] == e

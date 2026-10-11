@@ -45,14 +45,21 @@ abstract final class ReticleCatalog {
     return true;
   }
 
-  /// Reticle names of a scope record ("VPR-MIL / VHR-MIL" is two, "30/30"
-  /// one: only a spaced slash separates names); a
-  /// focal plane alone is not a reticle.
+  /// Reticle names of a scope record: "VPR-MIL / VHR-MIL" is two,
+  /// "30/30" one (only a spaced slash separates names). A focal plane alone
+  /// is not a reticle, and a trailing "options" ("MIL-C / MIL-XT options")
+  /// names none.
   static List<String> options(String? reticle) => [
-    for (final r in (reticle ?? '').split(RegExp(r'\s+/\s+')))
-      if (r.trim().isNotEmpty && !const {'FFP', 'SFP'}.contains(r.trim()))
-        r.trim(),
+    for (final part in (reticle ?? '').split(RegExp(r'\s+/\s+')))
+      if (_option(part).isNotEmpty &&
+          !const {'FFP', 'SFP'}.contains(_option(part)))
+        _option(part),
   ];
+
+  static String _option(String part) => part
+      .trim()
+      .replaceFirst(RegExp(r'\s+options$', caseSensitive: false), '')
+      .trim();
 
   /// A focal-plane or unit word glued to the last part of a hyphenated
   /// designation: "VCT-34FFP", "VEPG-TMIL".

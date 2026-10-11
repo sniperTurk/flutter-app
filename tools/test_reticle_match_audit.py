@@ -51,6 +51,9 @@ class OptionsTest(unittest.TestCase):
         self.assertEqual(audit.options(None), [])
         # Barska's 30/30 is one reticle: only a spaced slash separates.
         self.assertEqual(audit.options('30/30'), ['30/30'])
+        # "MIL-C / MIL-XT options": "options" names no reticle.
+        self.assertEqual(audit.options('MIL-C / MIL-XT options'),
+                         ['MIL-C', 'MIL-XT'])
         self.assertEqual(audit.options('  '), [])
 
 

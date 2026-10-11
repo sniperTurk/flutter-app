@@ -46,6 +46,19 @@ void main() {
     expect(ReticleCatalog.options(null), isEmpty);
     // Barska's 30/30 is one reticle: only a spaced slash separates.
     expect(ReticleCatalog.options('30/30'), ['30/30']);
+    // "MIL-C / MIL-XT options": "options" names no reticle.
+    expect(ReticleCatalog.options('MIL-C / MIL-XT options'), [
+      'MIL-C',
+      'MIL-XT',
+    ]);
+    expect(
+      ReticleCatalog.find(
+        'MIL-XT',
+        AngularUnit.mrad,
+        brand: 'Nightforce Optics',
+      )?.brand,
+      'Nightforce',
+    );
   });
 
   test('glued focal-plane and unit words are not part of the name', () {
@@ -102,6 +115,21 @@ void main() {
         brand: 'Element Optics',
       )?.id,
       'element-optics-apr-1c-moa',
+    );
+  });
+
+  test('SMOA turrets take MOA records, never MIL ones', () {
+    expect(
+      ReticleCatalog.find(
+        'APR-2D',
+        AngularUnit.smoa,
+        brand: 'Element Optics',
+      )?.id,
+      'element-optics-apr-2d-moa',
+    );
+    expect(
+      ReticleCatalog.find('LPR-1D', AngularUnit.smoa, brand: 'Element Optics'),
+      isNull,
     );
   });
 
