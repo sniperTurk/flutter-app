@@ -103,17 +103,30 @@ abstract final class ProfileFieldInfo {
       'sabit görünür; aralıklar yalnız belirli bir büyütmede (genelde en '
       'yüksek) doğrudur. Dürbünün adında veya föyünde yazar.';
   static const minMag =
-      'Dürbünün en düşük büyütmesi. 6-24x56 bir dürbün için 6.';
+      'Dürbünün en düşük büyütmesi; listeden seçin. Dürbünün adında, '
+      'gövdesinde veya kutusunda yazar: 6-24x56 bir dürbün için 6x, '
+      '3-9x40 için 3x. Sabit büyütmeli dürbünde (10x42) Minimum ve '
+      'Maksimum aynıdır.';
   static const maxMag =
-      'Dürbünün en yüksek büyütmesi. 6-24x56 bir dürbün için 24.';
+      'Dürbünün en yüksek büyütmesi; listeden seçin. Dürbünün adında, '
+      'gövdesinde veya kutusunda yazar: 6-24x56 bir dürbün için 24x, '
+      '3-9x40 için 9x. Minimum büyütmeden küçük olamaz.';
   static const objective =
-      'Ön (objektif) merceğin çapı, milimetre olarak. 6-24x56 bir dürbün için '
-      '56.';
+      'Ön (objektif) merceğin çapı, milimetre olarak; listeden seçin. '
+      'Dürbünün adında "x"ten sonraki sayıdır: 6-24x56 için 56 mm, 3-9x40 '
+      'için 40 mm.';
+  static const clickValue =
+      'Üst kuleyi bir klik çevirince nişanın ne kadar kaydığı. Kulenin '
+      'üstünde veya dürbünün föyünde yazar ("1 click = 0.1 MRAD", '
+      '"1/4 MOA"). En yaygını MRAD dürbünde 0,1 mrad, MOA dürbünde 1/4 MOA; '
+      'hassas dürbünlerde 0,05 mrad veya 1/8 MOA olur. Önce Dürbün birimini '
+      'seçin; liste ona göre dolar.';
   static const scopeUnit =
       'Kulelerin ve retikülün açı birimi: MRAD (mil), MOA veya SMOA. '
       'Kulenin üstünde veya dürbünün föyünde yazar. "1/4 IN @ 100 YDS" '
-      'yazıyorsa SMOA seçin (100 yard\'da 1 inç; MOA\'dan %4,5 küçük). Bir '
-      'klik buna göre alınır: MRAD\'da 0,1, MOA ve SMOA\'da 1/4.';
+      'yazıyorsa SMOA seçin (100 yard\'da 1 inç; MOA\'dan %4,5 küçük). Listeden '
+      'seçilen dürbünde klik buna göre alınır: MRAD\'da 0,1, MOA ve '
+      'SMOA\'da 1/4; listede olmayan dürbünde Klik değerini ayrıca seçersiniz.';
   static const sightHeight =
       'Sight height: dürbünün merkez ekseni ile namlunun merkez ekseni '
       'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
@@ -136,7 +149,8 @@ abstract final class ProfileFieldInfo {
       'retikül bu desenle çizilir; bilmiyorsanız MIL dürbünde "MIL çizgili", '
       'MOA dürbünde "MOA çizgili" seçin. İsteğe bağlı.';
   static const elevationTravel =
-      'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü. '
+      'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü; '
+      'sayı olarak yazılır. Örnek: 0,1 mrad klikli 30 mrad\'lık kule için 300. '
       'Kutuda yazar ya da kuleyi çevirip sayarsınız. Uzak atışta kule '
       'yetmezse uygulama bunu söyler. Bilmiyorsanız boş bırakın; hesap '
       'yine çalışır.';

@@ -117,15 +117,6 @@ void main() {
       'Sentinel 6–24×50 FFP (SCFF-57)',
     );
 
-    String text(String key) => tester
-        .widget<TextField>(
-          find.descendant(
-            of: find.byKey(Key(key)),
-            matching: find.byType(TextField),
-          ),
-        )
-        .controller!
-        .text;
     expect(
       find.text('Dürbün: Vector Optics Sentinel (SCFF-57) 6-24x50 FFP'),
       findsOneWidget,
@@ -138,8 +129,8 @@ void main() {
       ),
       findsOneWidget,
     );
-    expect(text('scope-min-mag'), '6');
-    expect(text('scope-max-mag'), '24');
-    expect(text('scope-objective'), '50');
+    expect(selectedValue<double>(tester, 'scope-min-mag'), 6);
+    expect(selectedValue<double>(tester, 'scope-max-mag'), 24);
+    expect(selectedValue<double>(tester, 'scope-objective'), 50);
   });
 }

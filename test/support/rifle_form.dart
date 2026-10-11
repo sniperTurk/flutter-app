@@ -135,16 +135,31 @@ Future<void> fillScopeForm(
   String maxMag = '24',
   String objective = '56',
   String plane = 'FFP',
+  String unit = 'MRAD',
+  String click = '0,1 mrad',
 }) async {
   if (find.byKey(const Key('scope-brand-select')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');
   }
   await enterRifleField(tester, 'scope-brand', brand);
-  await enterRifleField(tester, 'scope-min-mag', minMag);
-  await enterRifleField(tester, 'scope-max-mag', maxMag);
-  await enterRifleField(tester, 'scope-objective', objective);
+  // Büyütme and Mercek çapı are picked from lists (owner, 2026-10-11).
+  await chooseInSelect(tester, 'scope-min-mag', '${minMag}x');
+  await chooseInSelect(tester, 'scope-max-mag', '${maxMag}x');
+  await chooseInSelect(tester, 'scope-objective', '$objective mm');
   await chooseFocalPlane(tester, plane);
   // Every list box starts on "Seçiniz" (owner, 2026-10-11).
-  await chooseInSelect(tester, 'scope-unit', 'MRAD');
+  await chooseInSelect(tester, 'scope-unit', unit);
+  // A typed scope picks its Klik değeri from the unit's list.
+  await chooseInSelect(tester, 'scope-click', click);
   await chooseInSelect(tester, 'scope-mount', 'Normal (0 MOA)');
 }
+
+/// The value picked in the list box under [key] (null: "Seçiniz").
+T? selectedValue<T>(WidgetTester tester, String key) => tester
+    .widget<DropdownButton<T>>(
+      find.descendant(
+        of: find.byKey(Key(key)),
+        matching: find.byType(DropdownButton<T>),
+      ),
+    )
+    .value;

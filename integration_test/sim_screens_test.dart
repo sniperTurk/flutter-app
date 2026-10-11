@@ -236,13 +236,19 @@ void main() {
       await type('ammo-bc', '0,08');
       await choose('ammo-bc-model', 'G1');
       await type('profile-velocity-fps', '900');
+      await choose('profile-distance-unit', 'Metre');
       await type('profile-zero', '25');
       await type('scope-sight-height', '60');
       await choose('scope-brand-select', 'Listede yok');
       await type('scope-brand', 'Test Optik');
-      await type('scope-min-mag', '6');
-      await type('scope-max-mag', '24');
-      await type('scope-objective', '56');
+      // Büyütme, Mercek çapı and Klik değeri are picked from lists; every
+      // list box starts on "Seçiniz" (owner, 2026-10-11).
+      await choose('scope-min-mag', '6x');
+      await choose('scope-max-mag', '24x');
+      await choose('scope-objective', '56 mm');
+      await choose('scope-unit', 'MRAD');
+      await choose('scope-click', '0,1 mrad');
+      await choose('scope-mount', 'Normal (0 MOA)');
       await choose('scope-focal-plane', 'FFP');
       await page('profil_olustur_dolu');
       await tester.ensureVisible(find.text('Kaydet'));
