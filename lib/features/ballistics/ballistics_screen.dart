@@ -278,8 +278,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       setState(() {
         _inclineDeg = s.inclineDeg;
         _cantDeg = s.cantDeg;
-        _coriolisOn = s.coriolisOn;
-        _gravityOn = s.gravityOn;
+        // No on/off switches (owner, 2026-10-11): the fields are always
+        // shown; an effect applies once its data is entered.
         gravityCtl.text = s.gravityText;
         latitudeCtl.text = s.latitudeText;
         azimuthCtl.text = s.azimuthText;
@@ -289,7 +289,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _autoWindMax();
         targetSpeedCtl.text = s.targetSpeedText;
         _targetMovesRight = s.targetMovesRight;
-        _spinDriftOn = s.spinDriftOn;
         bulletLengthCtl.text = s.bulletLengthText;
         powderCoefCtl.text = s.powderCoefText;
         powderTempCtl.text = s.powderTempText;
@@ -350,7 +349,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Pro Ayarlar → Coriolis: off until switched on; latitude (+N) and shot
   /// azimuth (° from north) as typed or taken from GPS / compass.
-  bool _coriolisOn = false;
+  final bool _coriolisOn = true;
   final TextEditingController latitudeCtl = TextEditingController();
   final TextEditingController azimuthCtl = TextEditingController();
 
@@ -382,7 +381,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   final TextEditingController targetSpeedCtl = TextEditingController();
   bool? _targetMovesRight;
-  bool _spinDriftOn = false;
+  final bool _spinDriftOn = true;
   final TextEditingController bulletLengthCtl = TextEditingController();
   final TextEditingController powderCoefCtl = TextEditingController();
   final TextEditingController powderTempCtl = TextEditingController();
@@ -584,7 +583,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Pro → Yerçekimi (owner, 2026-10-10): off = standard gravity; on =
   /// the local value in [gravityCtl] (computed from the location).
-  bool _gravityOn = false;
+  final bool _gravityOn = true;
   final TextEditingController gravityCtl = TextEditingController();
   String? _gravityStatus;
 
@@ -3124,32 +3123,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         summary: _coriolisOn ? 'açık' : 'kapalı',
         children: [
           _explain(ProSectionInfo.coriolis),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Coriolis etkisini ekle',
-                  style: MenzilType.body(c.ink),
-                ),
-              ),
-              MenzilInfoButton(
-                title: 'Coriolis',
-                text: EnvironmentFieldInfo.coriolisFor(firearm: _isFirearm),
-              ),
-              // VoiceOver reads the switch with its name.
-              Semantics(
-                label: 'Coriolis etkisini ekle',
-                child: Switch(
-                  key: const Key('pro-coriolis-switch'),
-                  value: _coriolisOn,
-                  onChanged: (v) {
-                    _coriolisOn = v;
-                    _coriolisChanged();
-                  },
-                ),
-              ),
-            ],
-          ),
           if (_coriolisOn) ...[
             const SizedBox(height: MenzilSpace.sm),
             MenzilInput(
@@ -3216,31 +3189,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         summary: _gravityOn ? 'açık' : 'kapalı',
         children: [
           _explain(ProSectionInfo.gravity),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Yerçekimi etkisini ekle',
-                  style: MenzilType.body(c.ink),
-                ),
-              ),
-              const MenzilInfoButton(
-                title: 'Yerçekimi',
-                text: EnvironmentFieldInfo.gravity,
-              ),
-              Semantics(
-                label: 'Yerçekimi etkisini ekle',
-                child: Switch(
-                  key: const Key('pro-gravity-switch'),
-                  value: _gravityOn,
-                  onChanged: (v) {
-                    _gravityOn = v;
-                    _gravityChanged();
-                  },
-                ),
-              ),
-            ],
-          ),
           if (_gravityOn) ...[
             const SizedBox(height: MenzilSpace.sm),
             MenzilInput(
@@ -3439,28 +3387,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           _explain(
             ProSectionInfo.spinDrift,
             note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Text('Spin drift ekle', style: MenzilType.body(c.ink)),
-              ),
-              const MenzilInfoButton(
-                title: 'Spin drift',
-                text: EnvironmentFieldInfo.spinDrift,
-              ),
-              Semantics(
-                label: 'Spin drift ekle',
-                child: Switch(
-                  key: const Key('pro-spin-switch'),
-                  value: _spinDriftOn,
-                  onChanged: (v) {
-                    _spinDriftOn = v;
-                    _coriolisChanged();
-                  },
-                ),
-              ),
-            ],
           ),
           if (_spinDriftOn) ...[
             MenzilInput(
