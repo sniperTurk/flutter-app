@@ -1711,8 +1711,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     try {
       final bytes = await buildDopeCardPdf(
         data,
-        regular: await rootBundle.load('assets/fonts/DejaVuSans.ttf'),
-        bold: await rootBundle.load('assets/fonts/DejaVuSans-Bold.ttf'),
+        // Oswald like the app (owner, 2026-10-11); DejaVu only for the
+        // arrows Oswald lacks. The logo heads the card and fades behind it.
+        regular: await rootBundle.load('assets/fonts/Oswald-Regular.ttf'),
+        bold: await rootBundle.load('assets/fonts/Oswald-Medium.ttf'),
+        fallback: await rootBundle.load('assets/fonts/DejaVuSans.ttf'),
+        logo: (await rootBundle.load(
+          'assets/branding/logo_line.png',
+        )).buffer.asUint8List(),
       );
       final name =
           'sniper-turk-dope-${widget.profile!.name.replaceAll(RegExp(r'[^A-Za-z0-9]+'), '-')}.pdf';

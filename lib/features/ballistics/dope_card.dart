@@ -28,16 +28,21 @@ class DopeCardData {
 }
 
 /// Builds the A4 card. [regular] and [bold] are TrueType fonts with Turkish
-/// glyphs (the built-in PDF fonts have no ı, ş, ğ).
+/// glyphs (the built-in PDF fonts have no ı, ş, ğ); [fallback] supplies the
+/// signs they lack (arrows). [logo] (PNG) sits left of "SNIPER TÜRK" and,
+/// faded, in the middle of the page (owner, 2026-10-11).
 Future<Uint8List> buildDopeCardPdf(
   DopeCardData d, {
   required ByteData regular,
   required ByteData bold,
+  ByteData? fallback,
+  Uint8List? logo,
 }) async {
   final doc = pw.Document(title: d.title, author: 'Sniper Türk');
   final theme = pw.ThemeData.withFont(
     base: pw.Font.ttf(regular),
     bold: pw.Font.ttf(bold),
+    fontFallback: [if (fallback != null) pw.Font.ttf(fallback)],
   );
   const ink = PdfColor.fromInt(0xFF0F2230);
   const red = PdfColor.fromInt(0xFFC8102E);
@@ -45,14 +50,32 @@ Future<Uint8List> buildDopeCardPdf(
   const band = PdfColor.fromInt(0xFFEFF3F5);
   doc.addPage(
     pw.Page(
-      pageFormat: PdfPageFormat.a4,
-      margin: const pw.EdgeInsets.all(28),
-      theme: theme,
+      pageTheme: pw.PageTheme(
+        pageFormat: PdfPageFormat.a4,
+        margin: const pw.EdgeInsets.all(28),
+        theme: theme,
+        // The logo, faded, in the middle of the page.
+        buildBackground: logo == null
+            ? null
+            : (context) => pw.FullPage(
+                ignoreMargins: true,
+                child: pw.Center(
+                  child: pw.Opacity(
+                    opacity: 0.07,
+                    child: pw.Image(pw.MemoryImage(logo), width: 380),
+                  ),
+                ),
+              ),
+      ),
       build: (context) => pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.stretch,
         children: [
           pw.Row(
             children: [
+              if (logo != null) ...[
+                pw.Image(pw.MemoryImage(logo), height: 34),
+                pw.SizedBox(width: 8),
+              ],
               pw.Text(
                 'SNIPER ',
                 style: const pw.TextStyle(
