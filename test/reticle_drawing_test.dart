@@ -66,10 +66,11 @@ void main() {
     expect(aprs.postsStart, isNull);
     expect(aprs.centerDot, isTrue);
     expect(aprs.floatingCenter, isTrue);
-    // Rows keep their known ends; the unknown dot spacing stays null.
+    // Rows come straight from the manufacturer data (dot spacing 0.2 mil
+    // filled from Athlon's chart in the 2nd data round).
     expect(aprs.tree.map((r) => (r.y, r.halfWidth, r.dotStep)), [
-      (1.0, 1.0, null),
-      (10.0, 4.0, null),
+      (1.0, 1.0, 0.2),
+      (10.0, 4.0, 0.2),
     ]);
     expect(
       aprs.genericParts,
