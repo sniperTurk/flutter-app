@@ -544,12 +544,13 @@ int? _topTurretClicks(ScopeOptic s, AngularUnit unit) {
   return (unit.fromMrad(mrad) / click).round();
 }
 
-/// The zero in the profile's own distance unit ("25" m, "27.3" yd).
+/// The zero in the profile's own distance unit ("25" m, "27,3" yd).
 String _zeroValue(RifleProfile p) {
   final v = p.distanceUnit.fromMeters(p.zeroRangeM);
-  // Same style as the other summary numbers (66.0 mm): a dot.
+  // Same style as the other summary numbers: a decimal comma (owner,
+  // 2026-10-11: one separator on the Profil page).
   return p.distanceUnit == DistanceUnit.yard
-      ? v.toStringAsFixed(1)
+      ? v.toStringAsFixed(1).replaceAll('.', ',')
       : v.toStringAsFixed(0);
 }
 
@@ -607,9 +608,11 @@ String? _summaryReticle(ScopeOptic s) {
 
 /// Mühimmat Model without the weight (it has its own box).
 String _ammoModelName(Ammunition a) {
-  final g = a.grain.toStringAsFixed(a.grain % 1 == 0 ? 0 : 1);
+  final g = RegExp.escape(
+    a.grain % 1 == 0 ? a.grain.toStringAsFixed(0) : a.grain.toString(),
+  ).replaceAll(r'\.', '[.,]');
   return a.model
-      .replaceAll(RegExp('\\b${RegExp.escape(g)}\\s*gr\\b'), '')
+      .replaceAll(RegExp('\\b$g\\s*gr\\b'), '')
       .replaceAll(RegExp(r'\s{2,}'), ' ')
       .replaceAll(RegExp(r'^[\s·\-]+|[\s·\-]+$'), '')
       .trim();
@@ -680,18 +683,18 @@ class _ActiveProfileDetails extends StatelessWidget {
                 rifle!.twistDirection == TwistDirection.right ? 'Sağ' : 'Sol',
               ),
             if (rifle != null)
-              MenzilMetric('Kalibre', rifle.caliberMm.toStringAsFixed(2), 'mm'),
+              MenzilMetric(
+                'Kalibre',
+                rifle.caliberMm.toStringAsFixed(2).replaceAll('.', ','),
+                'mm',
+              ),
             if (rifle?.twistRateIn != null)
               MenzilMetric(
                 'Yiv oranı',
                 '1:${_trimNum(rifle!.twistRateIn!)}',
                 'inç',
               ),
-            MenzilMetric(
-              'Sight height',
-              profile.sightHeightMm.toStringAsFixed(1),
-              'mm',
-            ),
+            MenzilMetric('Sight height', _trimNum(profile.sightHeightMm), 'mm'),
             MenzilMetric(
               'Sıfırlama mesafesi',
               _zeroValue(profile),
@@ -727,18 +730,15 @@ class _ActiveProfileDetails extends StatelessWidget {
                 'Mühimmat Model',
                 ammoModel.isEmpty ? '—' : ammoModel,
               ),
-              MenzilMetric(
-                'Ağırlık',
-                ammo.grain.toStringAsFixed(ammo.grain % 1 == 0 ? 0 : 1),
-                'gr',
-              ),
+              MenzilMetric('Ağırlık', _trimNum(ammo.grain), 'gr'),
               MenzilMetric('Tip', _ammoTypeName(ammo.type)),
             ],
             MenzilMetric(
               'BC / model',
               ballisticCoefficient == null
                   ? '—'
-                  : '$ballisticCoefficient $ballisticModelName'.trim(),
+                  : '${_trimNum(ballisticCoefficient)} $ballisticModelName'
+                        .trim(),
             ),
           ],
         ),
@@ -2271,7 +2271,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// Fills the ammunition from a library record (list or library screen).
   void _applyBullet(LibraryBullet b, double? cal) {
-    String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
+    String n(num v) =>
+        v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     _ammoManual = false;
     {
       ammoBrand.text = b.brand;
@@ -2364,7 +2365,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   void _applyFactory(FactoryAmmo a) {
     _ammoSourceSet = true; // a listed factory round: Fabrika fişeği
-    String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
+    String n(num v) =>
+        v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     // Kalibre not chosen yet: the round tells it.
     if (_cartridge == null && rifleCaliber.text.trim().isEmpty) {
       _cartridge = a.cartridge;
@@ -2455,7 +2457,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     if (factory) {
       for (final a in fHere) {
         if (a.brand != brand) continue;
-        if (a.name == ammoModel.text && _trimDot(a.grain) == ammoGrain.text) {
+        if (a.name == ammoModel.text && _parse(ammoGrain) == a.grain) {
           modelIndex = labels.length;
         }
         labels.add(_factoryLabel(a));
@@ -2464,8 +2466,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     } else {
       for (final b in lHere) {
         if (b.brand != brand) continue;
-        if (_modelOf(b) == ammoModel.text &&
-            _trimDot(b.grain) == ammoGrain.text) {
+        if (_modelOf(b) == ammoModel.text && _parse(ammoGrain) == b.grain) {
           modelIndex = labels.length;
         }
         final m = _modelOf(b);
