@@ -1,0 +1,22 @@
+{
+  "name": "VTA-6 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Tauron 2-16x50 (SCOM-43)",
+    "Tauron 4-32x56 ED SFP (SCOL-56)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": 10,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20241031/83f69ac337d1a2477f103cb7c2d1f39b.pdf",
+  "notes": "SFP; kılavuza göre ölçüler 16x'te geçerli (referans büyütme 16x). Kaynaklar: VTA-6 MIL SFP retikül kılavuzu PDF (metin) + SCOL-56 ürün sayfası (https://www.vectoroptics.com/rifle-scopes/Tauron-4-32x56-ED-SFP-Rifle-Scope-SCOL-56.html: '0.03 MIL center dot under 16x', 'Christmas Tree Pattern' → family=tree). Kılavuz: merkez nokta çapı 0.03 MIL; 'The gap between marks on the horizontal and vertical lines is 0.5 MIL'; 'Each side of the horizontal and vertical lines is 10 MIL in total length' → extent_h=extent_v_up=extent_v_down=10; 8-10 MIL arası 0.2 MIL ince bölmeler. Ağaç satırları, rakamlar, büyük işaret, merkez boşluğu metinde yok → null. Model listesi Reticle-Collection sayfasından."
+}

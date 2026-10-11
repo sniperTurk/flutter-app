@@ -1,0 +1,21 @@
+{
+  "name": "VOS-EHT MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Constantine 1-8x24 SFP (SCOC-27)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 8,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": 10,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20241031/b6914f414aceea3a4e5b64d8721ff48f.pdf",
+  "notes": "SFP; kılavuza göre ölçüler 8x'te geçerli (referans büyütme 8x). Kaynaklar: VOS-EHT MIL SFP retikül kılavuzu PDF (metin) + SCOC-27 ürün sayfası (https://www.vectoroptics.com/rifle-scopes/Constantine-1-8x24-SFP-Riflescope-SCOC-27.html: '0.3 MIL center dot', '2 MIL dia center ring', 'Christmas tree pattern' → family=tree). Kılavuz: yatay çizgide küçük aralıklar 0.5 MIL → hash_step=0.5 (dikey aralık sayısal verilmemiş); yatay çizgi her yanda 8 MIL → extent_h=8; yatay çizgi ile kalın çizgi arası 2 MIL → posts_start=10 (8+2 toplamıyla çıkarım); kalın stadia çizgileri 0.5 MIL genişlikte, her yanda 15 MIL'de çentik; 4.5 MIL'de 0.2 MIL çaplı nokta. Merkez halkanın ölçekle ilişkisi belirsiz → floating_center null. Dikey uzanımlar, ağaç satırları, rakamlar (konumsuz etiketler 0.5, 1.0, 2.0, 5.0, 20, 30) → null. SCOC-27 sayfasına göre model SCOC-58 ile değiştiriliyor; SCOC-58'in retikülü doğrulanmadı."
+}
