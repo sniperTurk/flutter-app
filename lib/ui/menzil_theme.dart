@@ -334,9 +334,10 @@ abstract final class MenzilSpace {
 /// pubspec `fonts:`; otherwise the platform falls back to its system face.
 /// Tabular figures keep values from jittering while they change.
 abstract final class MenzilType {
-  /// The app's typeface (owner, 2026-10-11): Oswald, bundled in
-  /// assets/fonts (SIL OFL), static weights 300–700.
-  static const String family = 'Oswald';
+  /// The app's typeface (owner, 2026-10-12): Inter, bundled in
+  /// assets/fonts (SIL OFL), static weights 300–700. It replaced Oswald,
+  /// which was hard to read in long texts.
+  static const String family = 'Inter';
 
   static const List<String> numericFallback = [
     'Barlow Condensed',
@@ -461,7 +462,7 @@ abstract final class MenzilTheme {
 
     return ThemeData(
       useMaterial3: true,
-      // Oswald everywhere, the welcome pages included (owner, 2026-10-11).
+      // Inter everywhere, the welcome pages included (owner, 2026-10-12).
       fontFamily: MenzilType.family,
       brightness: brightness,
       colorScheme: scheme,
