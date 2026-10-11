@@ -1,6 +1,7 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Time;
+import Toybox.Timer;
 import Toybox.WatchUi;
 
 // Ana ekran (taslak: docs/saat-uygulamasi/taslak/garmin-ana.png).
@@ -11,8 +12,28 @@ const COLOR_DIM = 0x8DA0AE;
 const COLOR_WARN = 0xE8590C;
 
 class MainView extends WatchUi.View {
+    // Ekran görünürken 30 sn'de bir yeniden çiz: saat ve 2 dakikalık
+    // eskime uyarısı tuşa basılmadan da güncel kalsın.
+    var refreshTimer = null;
+
     function initialize() {
         View.initialize();
+    }
+
+    function onShow() as Void {
+        refreshTimer = new Timer.Timer();
+        refreshTimer.start(method(:onRefresh), 30000, true);
+    }
+
+    function onHide() as Void {
+        if (refreshTimer != null) {
+            refreshTimer.stop();
+            refreshTimer = null;
+        }
+    }
+
+    function onRefresh() as Void {
+        WatchUi.requestUpdate();
     }
 
     function onUpdate(dc as Graphics.Dc) as Void {

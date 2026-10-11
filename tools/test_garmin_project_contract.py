@@ -54,6 +54,14 @@ class GarminProjectContract(unittest.TestCase):
         rng = self.sources["RangeView.mc"]
         self.assertIn('{"type" => "setRange", "value" => view.value}', rng)
 
+    def test_main_view_redraws_itself_for_the_stale_warning(self):
+        main = self.sources["MainView.mc"]
+        self.assertIn("refreshTimer.start(method(:onRefresh), 30000, true)", main)
+        self.assertIn("refreshTimer.stop()", main)
+
+    def test_manifest_has_a_version(self):
+        self.assertRegex(self.app.get("version") or "", r"^\d+\.\d+\.\d+$")
+
     def test_no_ballistics_and_no_bold_text(self):
         joined = "\n".join(self.sources.values())
         self.assertNotRegex(joined, r"FONT_[A-Z_]*BOLD")

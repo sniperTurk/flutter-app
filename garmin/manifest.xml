@@ -7,7 +7,7 @@
   Ürün listesi örnektir; SDK Manager'daki cihaz listesiyle doğrulanmalıdır.
 -->
 <iq:manifest version="3" xmlns:iq="http://www.garmin.com/xml/connectiq">
-    <iq:application id="4dde1aef12b64a15b5a6209c2c5944b0" type="watch-app" name="@Strings.AppName" entry="SniperTurkApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="3.2.0">
+    <iq:application id="4dde1aef12b64a15b5a6209c2c5944b0" type="watch-app" version="1.0.0" name="@Strings.AppName" entry="SniperTurkApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="3.2.0">
         <iq:products>
             <iq:product id="fenix7"/>
             <iq:product id="fenix7pro"/>
