@@ -19,5 +19,5 @@
   "center_dot": false,
   "floating_center": true,
   "source_url": "https://element-optics.com/pdfs/RETICLE%20SHEET%20EHR-1C%20TITAN.pdf",
-  "notes": "Titan 5-25 FFP föyü. Föy metninde: yüzen merkez artı, 4 MOA içi boş daire, 2 MOA büyük ve 1 MOA küçük çizgiler, tutma işaretleri, düşük büyütme merkez kılavuzları; 1C sürümünde eksen dışı tutma noktası yok. Merkezde ayrı nokta belirtilmemiş (center_dot false). Uzanımlar ve rakam aralığı föy görselindeydi, okunamadı -> null. Helix SFP sürümünde ölçüler referans büyütmeye bağlıdır (belirtilmemiş)."
+  "notes": "Titan 5-25 FFP föyü. Föy metni: A yüzen merkez artı, B 4 MOA içi boş daire, C 2 MOA büyük ve D 1 MOA küçük çizgi, E yüzen tasarım (@20x), F tutma işareti (#), G düşük büyütme merkez kılavuzları; 'Intuitive markings at 1, 2 and 4 MOA'; 1C sürümünde eksen dışı tutma noktası yok. Merkezde ayrı nokta belirtilmemiş (center_dot false). Nexus 5-20 FFP föyü (https://element-optics.com/pdfs/RETICLE%20SHEET%20EHR-1C%20NEXUS.pdf) aynı etiketleri veriyor. Helix 6-24 SFP föyü (https://element-optics.com/wp-content/uploads/2020/12/RETICLE-SHEET-EHR-1C-HELIX.pdf): 'calibrated at 24x' (SFP referans büyütme 24x; 12x ve 6x'te hesapla kullanılır), aydınlatmasız. Çizgi kalınlığı hiçbir föyde yazmıyor. Uzanımlar ve rakam aralığı yalnız föy görselinde, okunamadı -> null."
 }
