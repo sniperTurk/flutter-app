@@ -1,0 +1,24 @@
+{
+  "name": "Impact-60 MOA FFP",
+  "brand": "Leupold",
+  "scopes": [
+    "Mark 5HD 7-35x56 M1C3 FFP",
+    "Mark 5HD 3.6-18x44 M1C3 FFP (üretimden kalktı)",
+    "Mark 5HD 5-25x56 M1C3 FFP (üretimden kalktı)",
+    "VX-3i LRP 6.5-20x50 Side Focus FFP (üretimden kalktı)"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 2.0,
+  "major_every": null,
+  "numbers_every": 8,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 60,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://leupold.com/media/manuals/ffp_impact_60_moa.pdf",
+  "notes": "Leupold retikül sayfası https://www.leupold.com/reticle/impact-60-moa/ ve föy. FFP ('Front (first) focal plane'). Metin: 'grid style pattern' / '2 MOA hash marks' (yatay ve dikey), 'Every fourth line is numbered with the MOA value', 'Vertical grid extends down to 60 MOA', 'Wind hold dots are spaced 2 MOA apart'. numbers_every=8 ÇIKARIM: 2 MOA aralıklı çizgilerde 'her dördüncü çizgi' = 8 MOA olarak hesaplandı; Leupold değeri açıkça yazmıyor. family=tree, ızgara + rüzgâr noktalarından çıkarım. Yukarı/yatay uzanım, nokta satırları, direk, merkez tipi metinde yok -> null. Föy PDF metin çıkarımı çizim yerleşimini kaybettiğinden etiketsiz değerler bir öğeye eşlenemedi."
+}

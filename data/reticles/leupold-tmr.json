@@ -1,0 +1,26 @@
+{
+  "name": "TMR",
+  "brand": "Leupold",
+  "scopes": [
+    "VX-Freedom AR 4-12x40 Side Focus (üretimden kalktı)",
+    "VX-3i LRP 6.5-20x50 Side Focus (üretimden kalktı)",
+    "VX-3i LRP 8.5-25x50 Side Focus (üretimden kalktı)",
+    "Mark 3HD 4-12x40 P5 Side Focus (üretimden kalktı)",
+    "Mark 3HD 6-18x50 P5 Side Focus (üretimden kalktı)",
+    "Mark 3HD 8-24x50 P5 Side Focus (üretimden kalktı)"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/tmr/",
+  "notes": "Leupold TMR sayfası (SFP: 'Intended to be used on highest magnification in rear (second) focal plane scope'; referans büyütme en yüksek büyütme). Metin: 'Hash marks are spaced 0.5 MIL apart, transitioning to 0.2 MIL spacing on the outer edges' -> hash_step en küçük aralık 0.2 yazıldı. Mark 3HD dürbünleri ayrı sayfadan (https://www.leupold.com/reticle/tmr-mark-3hd/) ve föyden (https://www.leupold.com/media/binaryanvil/reticle/TMR_Reticle_Spec_Sheet.pdf: 'measure (subtend) correctly when the riflescope is set to the highest available magnification'; 6-18x ve 8-24x'te görünür boyut farklı olabilir). TMR kılavuzu (https://www.leupold.com/media/manuals/tactical-milling-reticle-manual.pdf, modelden bağımsız): işaretler 5.0/1.0/0.50/0.40/0.20/0.15/0.10 mil; 'base scale ... .2 milliradians'; ince ölçek eksen başına toplam 10 mil, uç direklerde birer 5 mil işaret, eksen başına toplam 20 mil (sağ/sol/yukarı/aşağı dağılımı yazılmadığından uzanımlar null); 'the intersection of the crosshair is left open, creating a small, clear aperture' -> center_dot=false. Büyük işaret, rakam aralığı ve direk başlangıcı belirtilmemiş -> null. Föy PDF metin çıkarımı çizim yerleşimini kaybettiğinden etiketsiz değerler bir öğeye eşlenemedi. Sayfadaki VX TMR PDF'i (api.leupold.com/asset_repos/tmr_58268.pdf) okunamadı."
+}

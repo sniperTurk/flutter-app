@@ -1,0 +1,26 @@
+{
+  "name": "PR2-MOA FFP",
+  "brand": "Leupold",
+  "scopes": [
+    "Mark 4HD 4.5-18x52 M1C3 Side Focus FFP",
+    "Mark 4HD 6-24x52 M1C3 Side Focus FFP",
+    "Mark 4HD 8-32x56 M1C3 Side Focus FFP",
+    "Mark 5HD 3.6-18x44 M1C3 FFP",
+    "Mark 5HD 5-25x56 M1C3 FFP",
+    "Mark 5HD 7-35x56 M1C3 FFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/media/binaryanvil/reticle/FFP_PR2-MOA_Reticle_Spec_Sheet.pdf",
+  "notes": "Leupold föyü (MARK 5HD, 25x/35x görüş daireleri) ve retikül sayfası https://www.leupold.com/reticle/pr2-moa-ffp/ (FFP, aydınlatmasız; açıklama metni yok). Föy etiketleri: Fine Lines, Dot Diameter, Large Dot Diameter, Small Dot Diameter, Opening Width, Line Breaks; değerler 0.1/0.2/0.25/0.5/1.0/2.0/4.0 MOA. Föy PDF metin çıkarımı çizim yerleşimini kaybettiğinden etiketsiz değerler bir öğeye eşlenemedi. İşaret aralığı, rakamlar, uzanımlar, merkez tipi ve aile -> null."
+}
