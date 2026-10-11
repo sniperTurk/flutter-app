@@ -28,9 +28,15 @@ class TestClock implements Clock {
 class TestLocation implements LocationProvider {
   LocationResult result;
   int settingsOpened = 0;
+
+  /// How many times a location was asked for.
+  int calls = 0;
   TestLocation(this.result);
   @override
-  Future<LocationResult> current() async => result;
+  Future<LocationResult> current() async {
+    calls++;
+    return result;
+  }
   @override
   Future<bool> openSettings() async {
     settingsOpened++;

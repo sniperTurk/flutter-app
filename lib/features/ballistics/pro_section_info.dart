@@ -89,8 +89,9 @@ abstract final class ProSectionInfo {
     why:
         '500 m\'nin ötesinde birkaç santim fark eder. Kısa mesafede gerek yok.',
     how:
-        'Bir şey ölçmene gerek yok. Telefon nerede olduğunu GPS\'ten, hangi '
-        'yöne baktığını pusulasından alır. Telefonu hedefe çevirip iki düğmeye '
+        'Bir şey ölçmene gerek yok. "Konumdan al"a dokununca telefon enlemi '
+        'GPS\'ten, "Pusuladan al"a dokununca atış yönünü pusulasından alır. '
+        'Değerler kendiliğinden dolmaz; telefonu hedefe çevirip iki düğmeye '
         'dokunman yeterli.',
   );
 
@@ -105,8 +106,9 @@ abstract final class ProSectionInfo {
         'kullanır; Sniper Türk bulunduğun noktanın yerçekimiyle hesaplar. Son '
         'milimetreler bile hesapta.',
     how:
-        'Düğmeyi aç ve "Konumdan hesapla"ya dokun. Enlem konumundan, irtifa '
-        'Hava Durumu\'ndan alınır; yerçekimi kendiliğinden hesaplanır.',
+        '"Konumdan hesapla"ya dokun: enlem konumundan, irtifa Hava '
+        'Durumu\'ndan alınır ve yerçekimi hesaplanır. Değer yalnızca '
+        'dokununca dolar; boşken standart değer kullanılır.',
   );
 
   static const movingTarget = ProExplain(

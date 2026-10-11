@@ -62,9 +62,10 @@ abstract final class EnvironmentFieldInfo {
       'Hedefe olan mesafe. Telemetre (lazer mesafe ölçer) ile ölçün veya '
       '"Haritadan" ile seçin. Örnek: 45 m.';
   static const gravity =
-      'Bulunduğun yerdeki yerçekimi, m/s². "Konumdan hesapla" enleminden ve '
-      'irtifandan hesaplar; elle de yazabilirsin. Türkiye\'de yaklaşık 9,80; '
-      'örneğin Ankara (900 m) 9,7988. Kapalıyken standart 9,80665 kullanılır.';
+      'Bulunduğun yerdeki yerçekimi, m/s². Elle yaz ya da "Konumdan '
+      'hesapla"ya dokun: enleminden ve irtifandan hesaplar; değer yalnızca '
+      'dokununca dolar. Türkiye\'de yaklaşık 9,80; örneğin Ankara (900 m) '
+      '9,7988. Boşken standart 9,80665 kullanılır.';
   static const proShotRange =
       'Ateş edeceğin hedefin uzaklığı. Telemetre (lazer mesafe ölçer) ile '
       'ölç ya da bilmiyorsan "Haritadan ölç"e dokunup haritada senin ve '
@@ -99,22 +100,22 @@ abstract final class EnvironmentFieldInfo {
       'Dünyanın dönüşü uçuştaki saçmayı çok az saptırır: kuzey yarımkürede '
       'sağa, doğuya atışta biraz yukarı, batıya atışta biraz aşağı. Uzun '
       'uçuş süresinde (uzun mesafe) önem kazanır; havalı tüfekte 100 m\'de '
-      'milimetre düzeyindedir. Açıkken uygulama enlem ve atış yönüne göre '
+      'milimetre düzeyindedir. Enlem ve atış yönü girilince uygulama '
       'hesaplar ve kule kliklerine ekler.';
   static const coriolisFirearm =
       'Dünyanın dönüşü uçuştaki mermiyi çok az saptırır: kuzey yarımkürede '
       'sağa, doğuya atışta biraz yukarı, batıya atışta biraz aşağı. Uzun '
-      'uçuş süresinde (uzun mesafe) önem kazanır. Açıkken uygulama enlem ve '
-      'atış yönüne göre '
-      'hesaplar ve kule kliklerine ekler.';
+      'uçuş süresinde (uzun mesafe) önem kazanır. Enlem ve atış yönü '
+      'girilince uygulama hesaplar ve kule kliklerine ekler.';
   static const latitude =
       'Bulunduğunuz yerin enlemi, derece. Kuzey yarımküre +, güney −. '
-      'Türkiye için yaklaşık 36–42. "Konumdan al" telefonun konumunu '
-      'kullanır. Örnek: 39,9 (Ankara).';
+      'Türkiye için yaklaşık 36–42. Elle yazın ya da "Konumdan al"a '
+      'dokunun; değer yalnızca dokununca dolar. Örnek: 39,9 (Ankara).';
   static const azimuth =
       'Hedefe atış yönü, kuzeyden saat yönünde derece: kuzey 0, doğu 90, '
-      'güney 180, batı 270. "Pusuladan al" için telefonu hedefe doğru '
-      'tutun. Birkaç derecelik hata Coriolis sonucunu fark edilir '
+      'güney 180, batı 270. Elle yazın ya da telefonu hedefe doğru tutup '
+      '"Pusuladan al"a dokunun; değer yalnızca dokununca dolar. Birkaç '
+      'derecelik hata Coriolis sonucunu fark edilir '
       'değiştirmez. Örnek: 135.';
   static const turretScale =
       'Kulenin yazdığı kadar çevirmeyebilir. Kule testi: dürbünü 10 mrad '

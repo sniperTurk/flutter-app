@@ -279,10 +279,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _inclineDeg = s.inclineDeg;
         _cantDeg = s.cantDeg;
         // No on/off switches (owner, 2026-10-11): the fields are always
-        // shown; an effect applies once its data is entered.
-        gravityCtl.text = s.gravityText;
-        latitudeCtl.text = s.latitudeText;
-        azimuthCtl.text = s.azimuthText;
+        // shown; an effect applies once its data is entered. Enlem, Atış
+        // yönü and Yerçekimi are filled only by the user (typed, or a tap
+        // on "Konumdan al" / "Pusuladan al" / "Konumdan hesapla"; owner,
+        // 2026-10-11). A value an older build kept behind a switch that was
+        // OFF was never in use; showing it now would fill the fields with
+        // no tap, so it is dropped.
+        gravityCtl.text = s.gravityOn ? s.gravityText : '';
+        latitudeCtl.text = s.coriolisOn ? s.latitudeText : '';
+        azimuthCtl.text = s.coriolisOn ? s.azimuthText : '';
         turretScaleCtl.text = s.turretScaleText;
         _windMaxAuto = s.windMaxText.isEmpty && !s.windMaxOff;
         windMaxCtl.text = s.windMaxText;
@@ -347,8 +352,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
-  /// Pro Ayarlar → Coriolis: off until switched on; latitude (+N) and shot
-  /// azimuth (° from north) as typed or taken from GPS / compass.
+  /// Pro Ayarlar → Coriolis: latitude (+N) and shot azimuth (° from north)
+  /// as typed, or taken from GPS / compass ONLY when the user taps "Konumdan
+  /// al" / "Pusuladan al" — never read automatically (owner, 2026-10-11).
   final bool _coriolisOn = true;
   final TextEditingController latitudeCtl = TextEditingController();
   final TextEditingController azimuthCtl = TextEditingController();
@@ -581,8 +587,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return v != null && v >= -90 && v <= 90 ? v : null;
   }
 
-  /// Pro → Yerçekimi (owner, 2026-10-10): off = standard gravity; on =
-  /// the local value in [gravityCtl] (computed from the location).
+  /// Pro → Yerçekimi (owner, 2026-10-10): empty = standard gravity;
+  /// otherwise the value in [gravityCtl], typed or computed from the
+  /// location ONLY when the user taps "Konumdan hesapla" (owner, 2026-10-11).
   final bool _gravityOn = true;
   final TextEditingController gravityCtl = TextEditingController();
   String? _gravityStatus;
