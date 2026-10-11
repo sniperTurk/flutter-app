@@ -1134,8 +1134,17 @@ class _DrumPainter extends CustomPainter {
     required this.pixelsPerClick,
   });
 
-  /// Clicks between labelled major ticks: one whole unit (1 mrad / 1 MOA).
-  int get _major => math.max(1, (1 / clickValue).round());
+  /// Clicks between labelled major ticks: a whole number of units (1, 2, 5,
+  /// 10… mrad / MOA) far enough apart that the labels never overlap
+  /// (owner, 2026-10-11: 1/2 MOA labels ran into each other).
+  int get _major {
+    final perUnit = math.max(1, (1 / clickValue).round());
+    for (final units in const [1, 2, 5, 10, 20, 50, 100]) {
+      final n = perUnit * units;
+      if (n * pixelsPerClick >= 44) return n;
+    }
+    return perUnit * 100;
+  }
 
   void _text(
     Canvas canvas,
