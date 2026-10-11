@@ -3,6 +3,11 @@
 Dal: `fix/ekran-boyutu`. Amaç: taşan yazı, kesilen kutu, üst üste binen öğe,
 kaydırılamayan alan ve RenderFlex overflow aramak.
 
+> Not: Denetim sırasında main'de yazı tipi Oswald'dan **Inter**'e geçti
+> (#173). Tarama ikisiyle de yapıldı; aşağıdaki "Inter" sütunu güncel
+> durumdur. Görevdeki "font Oswald kalır" kuralı main'deki bu karara göre
+> uygulanmadı: yazı tipine dokunulmadı.
+
 ## Nasıl ölçüldü
 
 - `test/ekran_boyutu_test.dart` (Linux widget testi, Mac kuyruğu kullanılmadı).
@@ -12,53 +17,56 @@ kaydırılamayan alan ve RenderFlex overflow aramak.
 - Boyutlar: küçük **iPhone SE 2/3 375x667**, normal **iPhone 15/16 393x852**,
   büyük **iPad 820x1180** ve **iPad Pro 13 1032x1376**. Telefonlarda yazı
   1.0x ve 1.3x (iOS büyük yazı) denendi.
-- Golden yok. Yakalanan: her RenderFlex overflow / çizim hatası ve Oswald
-  yazının `…` ile kesildiği her yer (`didExceedMaxLines`). Bunlar testi
-  kırar; bilerek kesilen iki metin hariç (aşağıda).
-- Testte gömülü Oswald yazı tipi yüklenir. Flutter'ın varsayılan test yazı
-  tipi her harfi kare çizer (Oswald'dan ~2 kat geniş); onunla ilk taramada
-  çıkan kesik başlıklar ve harita taşması cihazda olmayan yanlış alarmlardır
-  (aşağıda "Yalnız test yazı tipinde" bölümü).
-- Görsel kontrol: mevcut simülatör turu (iPhone 17 Pro, 402 pt) ekran
-  görüntüleri incelendi; düzeltmelerden sonra sim-screens bir kez çalıştırıldı.
+- Golden yok. Yakalanan: her RenderFlex overflow / çizim hatası ve uygulama
+  yazısının `…` ile kesildiği her yer (`didExceedMaxLines`). Bunlar testi
+  kırar; bilerek kesilen iki metin ve sahibinin kararını bekleyen bir bulgu
+  (#5) hariç.
+- Testte uygulamanın gömülü yazı tipi (`MenzilType.family`, şu an Inter)
+  yüklenir. Flutter'ın varsayılan test yazı tipi her harfi kare çizer; onunla
+  çıkan uyarılar cihazda olmayan yanlış alarmlardır ("Yalnız test yazı
+  tipinde" bölümü).
+- Görsel kontrol: simülatör turu (iPhone 17 Pro, 402 pt) görüntüleri
+  incelendi; sim-screens bu dal için bir kez çalıştırıldı (Oswald döneminde).
 
 Uygulama yalnız iPhone için yayınlanıyor (`TARGETED_DEVICE_FAMILY = 1`); iPad
-boyutları yine de denendi.
+boyutları yine de denendi: kesik ya da taşma yok.
 
 ## Bulgular
 
 | # | Ekran | Boyut | Sorun | Durum |
 |---|-------|-------|-------|-------|
-| 1 | Profil formu (Ateşli Tüfek), Mühimmat | 375, 393 (1.0x) | "Barut sıcaklık katsayısı" etiketi birim (%/15 °C) ve ⓘ ile aynı satırda iki satıra sığmıyor, "Barut sıcaklık katsa…" diye kesiliyor. Ölçüm: 2 x 53 pt alan / 111 pt metin (375), 2 x 62 / 111 (393). 402 pt'de sığıyor. | **Düzeltildi**: etiket "Barut katsayısı". Tam ad ⓘ metninin başında duruyor. İki kutu yan yana kaldı. |
-| 2 | Alt menü (her sekme) | 375 ve 393, büyük iOS yazısı | Alt menü yazısı 1.2x'e sınırlı; bu ölçekte "Hava Durumu" 76 pt, sekme genişliği 71 pt (375) / 75 pt (393): "Hava Duru…". | **Düzeltildi**: etiket gerekirse `FittedBox` ile biraz küçülür. Varsayılan yazı boyutunda görünüm değişmez. |
-| 3 | Profil formu alt çubuğu | Tüm boyutlar | "Kaydetmek için eksik: …" listesi 3 satırla sınırlı; yeni profilde liste uzun (Oswald ile 4–5 satır), sonu "…" ile kesiliyor (ör. Mühimmat alanları görünmüyor). | **Değiştirilmedi** (bilerek 3 satır). Öneri: kesik kalırsa sona "+N alan" yazmak ya da yalnız bölüm adlarını saymak. Sahibinin kararı. |
-| 4 | Profil formu, kapalı seçim kutuları (ör. Tür: "Ateşli Tüfek") | 375, 393 | Kapalı seçim kutusundaki yazı Oswald değil, sistem yazı tipi (DropdownButton temanın yazı ailesini almıyor). Bu yüzden testte gerçek genişlik ölçülemiyor. 375'te metin alanı 98 pt; "Ateşli Tüfek" sistem yazısıyla ~80 pt, sığıyor. | **Değiştirilmedi.** Gözlem: "font Oswald kalır" kuralıyla tutarsızlık olabilir; değiştirmek tüm seçim kutularının görünümünü değiştirir, sahibinin onayı gerekir. |
+| 1 | Profil formu (Ateşli Tüfek), Mühimmat | 375, 393 (1.0x) | "Barut sıcaklık katsayısı" birim (%/15 °C) ve ⓘ yanında iki satıra sığmıyor, "…katsa…" diye kesiliyordu. Oswald: 2×53 / 111 pt (375), 2×62 / 111 (393). | **Düzeltildi**: etiket "Barut katsayısı" (tam ad ⓘ metninin başında). Inter ile 393'te sığıyor; 375 için #5. |
+| 2 | Alt menü (her sekme) | 375, 393, büyük iOS yazısı | Alt menü yazısı 1.2x'e sınırlı; bu ölçekte "Hava Durumu" sekmeye sığmıyor: "Hava Duru…". | **Düzeltildi**: etiket gerekirse `FittedBox` ile biraz küçülür; varsayılan boyutta görünüm aynı. |
+| 3 | Araçlar > Haritadan mesafe | 375, 393, 1.3x (Inter) | Esri kaynak satırı (flutter_map `SimpleAttributionWidget`) 393 pt'de 58 px **RenderFlex overflow**. | **Düzeltildi**: satır normal yazı boyutunda sabit (`withClampedTextScaling` 1.0); varsayılan boyutta görünüm aynı. |
+| 4 | Vuruş Olasılığı sonuç kutusu; "Konum için mesafe" başlığı | 375, 393, 1.3x (Inter) | "%80 için maks. menzil" (152/171 pt) ve 375'te başlık (281/294 pt) "…" ile kesiliyor. | **Düzeltildi**: değer satırındaki `FittedBox` deseni etikete ve alt sayfa başlığına uygulandı; varsayılan boyutta görünüm aynı. |
+| 5 | Profil formu, "Barut katsayısı" | 375 (1.0x, Inter) | Inter daha geniş: "katsayısı" tek başına 48 pt alana sığmıyor (48/90 pt). 393'te sığıyor. | **Açık, sahibinin kararı.** Her çözüm görünümü değiştirir ve simülatör 402 pt'de olduğu için önce/sonra görüntüsü çekilemez. Seçenekler: (a) sığmayan etiketi biraz küçültmek (genel, yalnız kesilen etiketlerde), (b) birimi "%" yapmak (açıklama ⓘ'de), (c) bu iki kutuyu tam satıra almak (iki kutu kuralına aykırı). Testte bilinen açık bulgu olarak listeli. |
+| 6 | Profil formu alt çubuğu | Tüm boyutlar | "Kaydetmek için eksik: …" listesi 3 satırla sınırlı; yeni profilde liste uzun (Inter ile ~5 satır), sonu "…" ile kesiliyor. | **Değiştirilmedi** (bilerek 3 satır). Öneri: kesik kalırsa sona "+N alan" yazmak ya da yalnız bölüm adlarını saymak. |
+| 7 | Kapalı seçim kutuları (ör. Tür: "Ateşli Tüfek") | 375, 393 | Kutudaki seçili yazı uygulama yazı tipinde değil, sistem yazı tipinde (DropdownButton temanın yazı ailesini almıyor); testte ölçülemiyor. 375'te alan 98 pt; "Ateşli Tüfek" sistem yazısıyla ~80 pt, sığıyor. | **Değiştirilmedi.** Yazı tipi tutarlılığı için sahibinin kararı. |
 
-Başka sonuç yok: 4 boyutun hiçbirinde, 1.0x ve 1.3x yazıda RenderFlex
+Başka sonuç yok: 4 boyutun hiçbirinde, 1.0x ve 1.3x yazıda başka RenderFlex
 overflow ya da çizim hatası çıkmadı; her sayfanın ana kaydırma alanı sonuna
-kadar kaydırılabildi; iPad boyutlarında kesik ya da taşma yok.
+kadar kaydırılabildi.
 
 ### Yalnız test yazı tipinde (cihazda yok)
 
-Varsayılan test yazı tipiyle çıkan, Oswald ile kaybolan uyarılar:
-
-- Araçlar > Haritadan mesafe: Esri kaynak satırı (flutter_map
-  `SimpleAttributionWidget`) 375/393 pt'de 326–344 px taşıyor görünüyordu.
-  Oswald ile taşma yok.
-- Alt sayfa başlıkları ("Hız Doğrulama", "Hava & Rüzgâr", "Konum için mesafe",
-  "Hesaplayıcılar", "Vuruş Olasılığı", "Sight Height"), alt menü "Hava
-  Durumu"/"Araçlar" (1.0x), Hava Durumu etiketleri ("Rüzgâr hızı", "Rüzgâr
-  yönü", "Yol ortası", "İstasyon basıncı"), Vuruş Olasılığı etiketleri: Oswald
-  ile hepsi sığıyor.
+Varsayılan test yazı tipiyle çıkan, gerçek yazı tipiyle kaybolan uyarılar:
+Haritadan mesafe kaynak satırının 1.0x'te 326–344 px taşması; alt sayfa
+başlıkları ("Hız Doğrulama", "Hava & Rüzgâr", "Hesaplayıcılar", "Vuruş
+Olasılığı", "Sight Height"); 1.0x alt menü "Hava Durumu"/"Araçlar"; Hava
+Durumu etiketleri ("Rüzgâr hızı", "Rüzgâr yönü", "Yol ortası", "İstasyon
+basıncı").
 
 ## Düzeltmeler (ayrı commit'ler)
 
 1. `Profil: 'Barut katsayısı' etiketi küçük/normal iPhone'da kesilmez`
 2. `Alt menü: büyük iOS yazısında 'Hava Durumu' kesilmez, hafifçe küçülür`
+3. `Haritadan mesafe: büyük iOS yazısında kaynak satırı taşmaz`
+4. `Büyük iOS yazısı: sonuç kutusu etiketi ve alt sayfa başlığı kesilmez, hafifçe küçülür`
 
-Kurallar korundu: Oswald, "Sight height" İngilizce, su terazisine dokunulmadı,
-kutu altında yardım yazısı yok, etiketlerde parantez yok, kalın yazı
-eklenmedi, iki kutu yan yana düzeni aynı.
+Kurallar korundu: yazı tipine dokunulmadı, "Sight height" İngilizce, su
+terazisine dokunulmadı, kutu altında yardım yazısı yok, etiketlerde parantez
+yok, kalın yazı eklenmedi, iki kutu yan yana düzeni aynı. 2–4 yalnız büyük
+iOS yazısında görünür; varsayılan boyuttaki ekran görüntüsünde fark yoktur.
 
 ## Tekrar çalıştırma
 
