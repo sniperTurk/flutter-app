@@ -85,3 +85,4 @@ Sahibin ChatGPT araştırması (data/owner-research: docs/owner-research/chatgpt
 
 ### Güncelleme (sahibin kararı, 2026-10-11)
 Sahip, etiketsiz BC'lerin G1 kabul edilmesini onayladı: yeni 70 PPU ve 25 GECO kaydında `g1_bc` = üreticinin yazdığı değer. Her kayıt notunda: "Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz." Dayanak: değerlerin büyüklüğü G1 aralığında; PPU Supreme (Sierra mermisi) değerleri Sierra'nın G1 değerleriyle aynı görünüyor.
+Sierra teyidi: PPU Supreme (Sierra MatchKing) değerleri 0.301 (#1380 69 gr), 0.462 (#2200 168 gr), 0.587 (#2650 250 gr) Sierra 2025 katalog posteriyle (sierrabullets.com/content/2025-sierra-bullets-catalog-poster.pdf) birebir aynı; Sierra'nın G7 değerleri (0.167 / 0.224 / 0.295) farklı → bu değerler G1.
