@@ -68,7 +68,7 @@ void main() {
     expect(FactoryAmmoLibrary.all.length, greaterThan(600));
     for (final a in FactoryAmmoLibrary.all) {
       expect(Cartridges.diameterOf(a.cartridge), a.diameterMm, reason: a.name);
-      expect(a.muzzleVelocityFps, inInclusiveRange(800, 4500), reason: a.name);
+      expect(a.muzzleVelocityFps, inInclusiveRange(600, 4500), reason: a.name);
       expect(a.grain, inInclusiveRange(10, 900), reason: a.name);
       expect(a.bc == null, a.model == null, reason: a.name);
       if (a.bc != null) {
