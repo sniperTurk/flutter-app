@@ -73,3 +73,9 @@ Norma soğuk hava Academy yazısı (test anlatılıyor ama hız sonuçları yok)
 - Eklenen (raw): Reloder 16, 23, 26, TS 15.5.
 - Sıcaklık ifadesi yok: 10x, 15, 19, 22, 25, 33, 50. Reloder 17: yalnızca "maximum velocity even in extreme weather"
   (sıcaklık hassasiyeti iddiası değil) → eklenmedi. Reloder 7 sayfası okunmadı.
+
+### Hodgdon / IMR / Winchester (shop.hodgdon.com)
+- Okunan: H1000, Retumbo, CFE 223, Enduron 4451/4955/8133, StaBALL HD (diğerleri önceki çalışmada eklenmişti).
+- **Sayı yok.** Mağaza sayfalarındaki "Temperature_Stable" özellik alanı aynen alındı; müşteri yorumları alınmadı.
+- Dikkat: **CFE 223 → "Temperature_Stable: No"** (üretici sıcaklığa dayanıklı olarak SINIFLANDIRMIYOR).
+- Eklenen: H1000, Retumbo, CFE 223, Enduron 4451, 4955, 8133, StaBALL HD.
