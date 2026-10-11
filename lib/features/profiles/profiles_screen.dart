@@ -2240,6 +2240,20 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   /// Fills the ammunition (and the velocity) from a factory cartridge.
+  /// The manufacturer note of the listed factory round now in the form
+  /// (e.g. "BC G1/G7 etiketi olmadan verilmiş; G1 kabul edildi…"), added to
+  /// the BC ⓘ (owner, 2026-10-11: "bilgi notu olacak").
+  String get _factoryBcNote {
+    for (final a in _factoryHere) {
+      if (a.note != null &&
+          a.brand == ammoBrand.text &&
+          a.name == ammoModel.text) {
+        return '\n\nBu fişek: ${a.note}';
+      }
+    }
+    return '';
+  }
+
   void _applyFactory(FactoryAmmo a) {
     String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
     _ammoManual = false;
@@ -3050,9 +3064,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 if (!_customCurve)
                   MenzilInput(
                     key: const Key('ammo-bc'),
-                    info: platform == WeaponPlatform.firearm
-                        ? ProfileFieldInfo.bcFirearm
-                        : ProfileFieldInfo.bc,
+                    info:
+                        (platform == WeaponPlatform.firearm
+                            ? ProfileFieldInfo.bcFirearm
+                            : ProfileFieldInfo.bc) +
+                        _factoryBcNote,
                     controller: ammoBc,
                     label: 'BC',
                     hintText: platform == WeaponPlatform.firearm
