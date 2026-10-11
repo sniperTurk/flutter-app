@@ -13,6 +13,7 @@ import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
 import '../../core/drag_table.dart';
 import '../../core/gravity.dart';
+import '../../core/pcp_pressure.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle_holds.dart';
@@ -291,6 +292,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _targetMovesRight = s.targetMovesRight;
         bulletLengthCtl.text = s.bulletLengthText;
         powderCoefCtl.text = s.powderCoefText;
+        tubePressureCtl.text = s.tubePressureText;
         powderTempCtl.text = s.powderTempText;
         windMidCtl.text = s.windMidText;
         windFarCtl.text = s.windFarText;
@@ -328,6 +330,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       spinDriftOn: _spinDriftOn,
       bulletLengthText: bulletLengthCtl.text.trim(),
       powderCoefText: powderCoefCtl.text.trim(),
+      tubePressureText: tubePressureCtl.text.trim(),
       powderTempText: powderTempCtl.text.trim(),
       windMidText: windMidCtl.text.trim(),
       windFarText: windFarCtl.text.trim(),
@@ -384,6 +387,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final bool _spinDriftOn = true;
   final TextEditingController bulletLengthCtl = TextEditingController();
   final TextEditingController powderCoefCtl = TextEditingController();
+
+  /// PCP: tube pressure left in the field, bar (Pro > Tüfek düzeltmeleri).
+  final TextEditingController tubePressureCtl = TextEditingController();
   final TextEditingController powderTempCtl = TextEditingController();
   final TextEditingController windMidCtl = TextEditingController();
   final TextEditingController windFarCtl = TextEditingController();
@@ -493,6 +499,25 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           referenceTempC: p.referenceC,
           todayTempC: todayC,
         );
+  }
+
+  bool get _isPcp => profileResolution?.rifle.platform == WeaponPlatform.pcp;
+
+  /// PCP tüp ve regülatör basıncı (owner, 2026-10-12): the velocity at the
+  /// tube pressure typed on Pro, from the profile's regulator pressure and
+  /// basınca göre hız table. Null on a firearm (never applies there).
+  PcpVelocity? _pcpVelocity(double profileMps) {
+    if (!_isPcp) return null;
+    final p = widget.profile;
+    final tube = _parsed(tubePressureCtl);
+    return PcpPressure.velocity(
+      profileMps: profileMps,
+      regulatorBar: p?.pressureBar,
+      tubeBar: tube != null && tube <= ProductionLimits.maxPcpPressureBar
+          ? tube
+          : null,
+      table: p?.pressureVelocityTable ?? const [],
+    );
   }
 
   /// Spin drift (Litz) as a sideways angle in mrad, + = to the right; null
@@ -1151,7 +1176,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       );
       // Barut sıcaklığı (Pro, firearms): today's velocity from the profile
       // velocity; the zero stays solved with the zeroing-day velocity.
-      final vToday = _powderAdjusted(v, temp);
+      // PCP tüp basıncı (Pro): the velocity at the tube pressure left; a
+      // firearm never changes here.
+      final vPowder = _powderAdjusted(v, temp);
+      final vToday = _pcpVelocity(vPowder)?.mps ?? vPowder;
       final double? vZero = vToday == v ? null : v;
       final density = Atmosphere.densityKgM3(environment);
       final ratio = Atmosphere.densityRatio(environment);
@@ -1263,6 +1291,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     turretScaleCtl.dispose();
     bulletLengthCtl.dispose();
     powderCoefCtl.dispose();
+    tubePressureCtl.dispose();
     powderTempCtl.dispose();
     proRangeCtl.dispose();
     for (final c in [
@@ -2998,6 +3027,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       zero.up != 0 || zero.right != 0,
       _spinDriftOn,
       _isFirearm && _powder.coef != null && _powder.referenceC != null,
+      _isPcp && tubePressureCtl.text.trim().isNotEmpty,
     ].where((x) => x).length;
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
@@ -3453,6 +3483,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               },
             ),
           ],
+          // PCP tüp basıncı (owner, 2026-10-12): never on a firearm.
+          if (_isPcp) ..._pcpPressureProFields(c),
         ],
       ),
       const SizedBox(height: MenzilSpace.md),
@@ -3462,6 +3494,68 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           label: 'Hedef\'e geç',
           icon: Icons.arrow_forward,
           onPressed: widget.onContinueToShot,
+        ),
+    ];
+  }
+
+  /// Pro > Tüfek düzeltmeleri, PCP: Kalan tüp basıncı, the regulator
+  /// warning and the velocity used.
+  List<Widget> _pcpPressureProFields(MenzilColors c) {
+    final typed = tubePressureCtl.text.trim();
+    final tube = _parsed(tubePressureCtl);
+    final bad =
+        typed.isNotEmpty &&
+        (tube == null ||
+            tube <= 0 ||
+            tube > ProductionLimits.maxPcpPressureBar);
+    final v0 = widget.profile?.muzzleVelocityMps;
+    final r = v0 == null || bad ? null : _pcpVelocity(v0);
+    final fill = widget.profile?.tubePressureBar;
+    return [
+      _explain(ProSectionInfo.pcpPressure),
+      MenzilFieldGrid(
+        children: [
+          MenzilInput(
+            key: const Key('pro-tube-pressure'),
+            controller: tubePressureCtl,
+            label: 'Kalan tüp basıncı',
+            unit: 'bar',
+            info: EnvironmentFieldInfo.tubePressure,
+            errorText: bad
+                ? '0 ile ${ProductionLimits.maxPcpPressureBar.toStringAsFixed(0)} '
+                      'arasında olmalı.'
+                : null,
+            onChanged: (_) => _coriolisChanged(),
+          ),
+        ],
+      ),
+      if (!bad && tube != null && fill != null && tube > fill)
+        const MenzilNotice(
+          key: Key('pro-pcp-above-fill'),
+          tone: MenzilNoticeTone.warning,
+          message:
+              'Kalan basınç, profildeki tüp basıncından yüksek; manometreyi '
+              'kontrol edin.',
+        ),
+      if (r != null && r.regulatorBypassed)
+        MenzilNotice(
+          key: const Key('pro-pcp-regulator'),
+          tone: MenzilNoticeTone.warning,
+          message: r.fromTable
+              ? 'Tüp basıncı regülatör basıncının altında: regülatör devre '
+                    'dışı, hız düşer. Hız, basınca göre hız ölçümlerinden '
+                    'alındı.'
+              : 'Tüp basıncı regülatör basıncının altında: regülatör devre '
+                    'dışı, hız düşer. Bu basınç için ölçüm yok; hesap profil '
+                    'hızıyla yapılıyor. Profil > Mühimmat\'ta basınca göre '
+                    'hız ölçümü girin.',
+        ),
+      if (r != null && v0 != null && r.mps != v0)
+        Text(
+          'Kullanılan hız: ${UnitSystem.mpsToFps(r.mps).toStringAsFixed(0)} '
+          'fps (profil ${UnitSystem.mpsToFps(v0).toStringAsFixed(0)} fps).',
+          key: const Key('pro-pcp-velocity'),
+          style: MenzilType.body(c.ink),
         ),
     ];
   }
@@ -3650,6 +3744,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     _setAngles(cant: result);
   }
 
+  /// PCP with the Pro tube pressure below the profile's regulator pressure.
+  bool get _pcpRegulatorBypassed {
+    final v0 = widget.profile?.muzzleVelocityMps;
+    if (v0 == null) return false;
+    return _pcpVelocity(v0)?.regulatorBypassed ?? false;
+  }
+
   List<Widget> _shotSection(BuildContext context) {
     final c = MenzilColors.of(context);
     final shot = _shotPoint();
@@ -3738,6 +3839,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         onChanged: (v) => _setShotDisplay(v.round()),
       ),
       const SizedBox(height: MenzilSpace.sm),
+      if (_pcpRegulatorBypassed)
+        const Padding(
+          padding: EdgeInsets.only(bottom: MenzilSpace.sm),
+          child: MenzilNotice(
+            key: Key('shot-pcp-regulator'),
+            tone: MenzilNoticeTone.warning,
+            message:
+                'Regülatör devre dışı: tüp basıncı regülatör basıncının '
+                'altında, hız düşer.',
+          ),
+        ),
       if (shot == null)
         MenzilNotice(
           tone: MenzilNoticeTone.info,

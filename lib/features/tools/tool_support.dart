@@ -40,6 +40,12 @@ abstract final class ToolProfileUpdate {
       platform: platform,
       // An older profile's pressure is kept as it was (no longer asked).
       pressureText: base.pressureBar?.toString(),
+      // Tüp basıncı and basınca göre hız are kept as they were.
+      tubePressureText: base.tubePressureBar?.toString(),
+      pressureTable: [
+        for (final pt in base.pressureVelocityTable)
+          (pt.bar.toString(), UnitSystem.mpsToFps(pt.mps).toString()),
+      ],
       mountCantMoa: base.mountCantMoa,
     );
     return RifleProfile(
@@ -52,6 +58,12 @@ abstract final class ToolProfileUpdate {
       zeroRangeM: input.zeroRangeM,
       sightHeightMm: input.sightHeightMm,
       pressureBar: input.pressureBar,
+      tubePressureBar: input.tubePressureBar,
+      // Validated above; the stored points are kept bit for bit (an
+      // m/s → fps → m/s round trip could change the last digit).
+      pressureVelocityTable: input.pressureVelocityTable.isEmpty
+          ? const []
+          : base.pressureVelocityTable,
       angularUnit: base.angularUnit,
       distanceUnit: base.distanceUnit,
       mountCantMoa: input.mountCantMoa,

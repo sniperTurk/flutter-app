@@ -194,11 +194,15 @@ void main() {
       'Sight height',
       'Namlu çıkış hızı',
       'Sıfırlama mesafesi',
+      // PCP tüp ve regülatör basıncı (owner, 2026-10-12), optional.
+      'Tüp basıncı',
+      'Regülatör basıncı',
+      '1. basınç',
+      '1. hız',
     ]) {
       expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
     }
     // Not asked any more (owner, 2026-10-09).
-    expect(find.byTooltip('Bilgi: Regülatör basıncı'), findsNothing);
     expect(find.byTooltip('Bilgi: Klik değeri'), findsNothing);
     final bcInfo = find.byTooltip('Bilgi: BC');
     await tester.ensureVisible(bcInfo);
