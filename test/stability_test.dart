@@ -101,10 +101,22 @@ void main() {
   test('transonik: ses üstü çıkıp hedefe Mach 1.2 altında varırsa', () {
     expect(Stability.transonicAtTarget(muzzleMach: 2.4, targetMach: 1.1), true);
     expect(Stability.transonicAtTarget(muzzleMach: 2.4, targetMach: 0.9), true);
-    expect(Stability.transonicAtTarget(muzzleMach: 2.4, targetMach: 1.2), false);
-    expect(Stability.transonicAtTarget(muzzleMach: 2.4, targetMach: 1.6), false);
+    expect(
+      Stability.transonicAtTarget(muzzleMach: 2.4, targetMach: 1.2),
+      false,
+    );
+    expect(
+      Stability.transonicAtTarget(muzzleMach: 2.4, targetMach: 1.6),
+      false,
+    );
     // Subsonic loads (PCP, subsonic rifle ammo) never warn.
-    expect(Stability.transonicAtTarget(muzzleMach: 0.9, targetMach: 0.8), false);
-    expect(Stability.transonicAtTarget(muzzleMach: 1.0, targetMach: 0.9), false);
+    expect(
+      Stability.transonicAtTarget(muzzleMach: 0.9, targetMach: 0.8),
+      false,
+    );
+    expect(
+      Stability.transonicAtTarget(muzzleMach: 1.0, targetMach: 0.9),
+      false,
+    );
   });
 }

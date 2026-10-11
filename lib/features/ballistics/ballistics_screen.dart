@@ -1855,10 +1855,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     double radiusMrad,
     String sizeText,
   })?
-  _hitProbability(
-    TrajectoryPoint shot,
-    _ShotBasis basis,
-  ) {
+  _hitProbability(TrajectoryPoint shot, _ShotBasis basis) {
     final zero = widget.profile?.zeroRangeM;
     final g = _parsed(groupCtl);
     if (zero == null || zero <= 0 || g == null || g <= 0 || g > 100) {

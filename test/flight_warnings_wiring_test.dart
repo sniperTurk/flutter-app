@@ -53,7 +53,9 @@ void main() {
 
   Widget app(BallisticsView view) => MaterialApp(
     theme: MenzilTheme.light(),
-    home: Scaffold(body: BallisticsScreen(profile: _profile, view: view)),
+    home: Scaffold(
+      body: BallisticsScreen(profile: _profile, view: view),
+    ),
   );
 
   Future<void> type(WidgetTester tester, Key key, String v) async {

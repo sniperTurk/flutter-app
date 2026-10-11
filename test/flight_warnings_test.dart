@@ -61,10 +61,7 @@ void main() {
   });
 
   test('ses altı yük: transonik uyarısı yok', () {
-    expect(
-      FlightWarnings.notices(muzzleMach: 0.95, targetMach: 0.8),
-      isEmpty,
-    );
+    expect(FlightWarnings.notices(muzzleMach: 0.95, targetMach: 0.8), isEmpty);
   });
 
   test('metinlerde parantez yok', () {

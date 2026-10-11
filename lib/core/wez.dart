@@ -87,8 +87,14 @@ abstract final class Wez {
     }
     final rnd = math.Random(seed);
     final gauss = _gauss(rnd);
-    final shared = [for (final s in sources) if (s.shared) s];
-    final perShot = [for (final s in sources) if (!s.shared) s];
+    final shared = [
+      for (final s in sources)
+        if (s.shared) s,
+    ];
+    final perShot = [
+      for (final s in sources)
+        if (!s.shared) s,
+    ];
     final r2 = targetRadiusMrad * targetRadiusMrad;
     var hits = 0;
     for (var i = 0; i < count; i++) {
