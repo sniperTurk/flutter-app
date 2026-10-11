@@ -51,3 +51,15 @@ Sayfaları paralel değil, tek tek ve aralıklı çekin.
 | discovery_optics.json | 36 | discoveryopt.com technical specifications |
 | gazi_sniper.json | 11 | gazisniper.com.tr product pages (Gazi Sniper, MewLite); 13 pages publish specs only as images |
 Unit rule: travel fields are named *_mrad or *_moa after the turret unit.
+
+## 2026-10-11 — Vector Optics tamamlama (zamanlanmış çalıştırma, yalnız vectoroptics.com)
+- vector_optics.json: 142 → 173 kayıt (+31).
+- Tarama: /rifle-scopes listesi (sayfa metni ~128. üründe kesiliyor), tüm /top-line/, /premium/, /classic/, /entry-level/ seri sayfaları,
+  Discontinued-Products listesi ve Reticle-Collection sayfası. Model kodu (SCxx-nn) ile mevcut kayıtlarla karşılaştırıldı.
+- Yeni güncel modeller (7): Veyron GenII 3-12x44 HD DCR SFP (SCOM-50), Veyron GenII 4-16x44 HD DCR SFP (SCOL-79),
+  Veyron GenII 3-12x44i HD G4 SFP (SCOM-54), Paragon prizma dürbünleri 1x16 (SCPS-M01), 1x18 (SCPS-M10), 3x18 (SCPS-M03), 4x24 (SCPS-M04).
+- Seri sayfalarında hâlâ listelenen ama ürün sayfasında "Discontinued" yazan 24 model de eklendi; notes alanında DISCONTINUED yazıyor
+  (ör. Minotaur GenII, Mustang, Grimlock, Tauron 4-16x44/6-24x50 HD eski FFP sürümleri, Forester GenII 1-5x24, Continental x10 1-10x28 VET-RAR).
+- Kurallar: "≥" değerler alt sınır olarak saklandı; "N yards to infinity" → metre (10 yd = 9.1 m); sabit paralaks (50/100 yd) → parallax_min_m null;
+  zero_stop yalnız spec tablosunda "Zero Stop" yazıyorsa true, aksi halde null. Prizma dürbünlerde tüp çapı/odak düzlemi "N/A" → null.
+- Erişilemeyen: site araması (search.html) sunucu hatası verdi; ilk denemede hata veren 3 Veyron GenII sayfası liste sayfasındaki alternatif URL ile okundu.
