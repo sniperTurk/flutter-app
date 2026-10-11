@@ -80,7 +80,9 @@ M_WATER = 18.01528e-3
 
 
 def cipm2007_density(t_c: float, p_pa: float, rh_percent: float) -> float:
-    """Moist-air density, CIPM-2007 equation (Picard et al. 2008, eq. 1)."""
+    """Moist-air density, CIPM-2007 equation (Picard et al. 2008, eq. 1).
+    Specified for 15–27 °C and 600–1100 hPa; outside that it is an
+    extrapolation (still the best-documented moist-air equation of state)."""
     t = t_c + 273.15
     h = rh_percent / 100.0
     A, B, C, D = 1.2378847e-5, -1.9121316e-2, 33.93711047, -6.3431645e3
@@ -144,8 +146,9 @@ def density_altitude_m(rho: float) -> float:
 
 
 def station_from_msl_pa(p_msl_pa: float, h_m: float, t_station_c: float) -> float:
-    """Hypsometric equation with the mean virtual-less column temperature
-    (WMO-No. 8, 2018, Annex 3.A / Smithsonian Meteorological Tables)."""
+    """Hypsometric equation with the mean (dry, not virtual) column
+    temperature, standard lapse 0.0065 K/m (WMO-No. 8, 2018, Annex 3.A).
+    Same form as the app's: this row only checks the transcription."""
     t_mean = t_station_c + 273.15 + 0.0065 * h_m / 2
     return p_msl_pa * math.exp(-G_STANDARD * h_m / (287.05 * t_mean))
 
@@ -202,8 +205,10 @@ def load_table(name: str) -> list[tuple[float, float]]:
 
 
 class Pchip:
-    """Fritsch–Carlson monotone cubic interpolation (SIAM J. Numer. Anal.
-    17 (1980) 238), clamped to the end values outside the table."""
+    """Monotone piecewise cubic Hermite interpolation (PCHIP): Fritsch–Carlson
+    monotonicity (SIAM J. Numer. Anal. 17 (1980) 238) with the weighted
+    harmonic-mean slopes of Fritsch & Butland (SIAM J. Sci. Stat. Comput. 5
+    (1984) 300), as in SLATEC/SciPy PCHIP; clamped outside the table."""
 
     def __init__(self, pts: list[tuple[float, float]], linear: bool = False):
         self.x = [p[0] for p in pts]
@@ -312,6 +317,16 @@ SCENARIOS: tuple[Scenario, ...] = (
     Scenario("cm65_wind5_2oclock", **CM65, ranges=R308_RANGES,
              env=Env(15, 1013.25, 40, wind_mps=5.0, wind_deg=300.0)),
     Scenario("cm65_altitude3000", **CM65, ranges=R308_RANGES, env=Env(0, 700, 30)),
+    # Combined cases: incline, cant, angled wind and Coriolis together, so
+    # every cross-term of the app's frame rotation is exercised.
+    Scenario("r308_up30_cant10_wind_coriolis", **R308, ranges=(300.0, 600.0, 1000.0),
+             env=Env(20, 950, 40, wind_mps=5.0, wind_deg=300.0), incline_deg=30.0, cant_deg=10.0,
+             lat_deg=39.0, az_deg=45.0),
+    Scenario("r308_down40_cantm15_wind_coriolis_south", **R308, ranges=(300.0, 600.0),
+             env=Env(5, 1010, 70, wind_mps=8.0, wind_deg=45.0), incline_deg=-40.0, cant_deg=-15.0,
+             lat_deg=-30.0, az_deg=200.0),
+    Scenario("pcp22_up10_cant170_wind", **PCP22, ranges=(30.0, 50.0, 75.0),
+             env=Env(25, 1005, 60, wind_mps=3.0, wind_deg=120.0), incline_deg=10.0, cant_deg=170.0),
 )
 
 
@@ -522,7 +537,7 @@ def miller_sg(grain, diameter_in, length_in, twist_in, v_fps, t_f, p_inhg):
     """Miller (2005), "A New Rule for Estimating Rifling Twist", Precision
     Shooting, March 2005: Sg = 30 m / (t² d³ l (1 + l²)), t and l in
     calibres, with fv = (v/2800)^(1/3) and the atmosphere correction
-    (T+460)/(59+460) * 29.92/P (Litz, Applied Ballistics, 2nd ed., ch. 10)."""
+    (T+460)/(59+460) * 29.92/P (Litz, Applied Ballistics for Long Range Shooting, 2009, ch. 10)."""
     t = twist_in / diameter_in
     l = length_in / diameter_in
     sg = 30 * grain / (t ** 2 * diameter_in ** 3 * l * (1 + l * l))

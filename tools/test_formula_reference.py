@@ -129,8 +129,16 @@ class GeneratedVectors(unittest.TestCase):
         text = ref.DART_VECTORS.read_text(encoding="utf-8")
         block = ref.GENERATED_RE.search(text)
         self.assertIsNotNone(block, "generated block missing")
-        self.assertEqual(block.group(0), ref.dart_block(),
-                         "run: python3 tools/formula_reference.py --write-dart")
+        # Numbers are compared with a tolerance: the adaptive integrator
+        # turns a one-ulp libm difference (macOS vs glibc) into ~1e-7.
+        num = re.compile(r"-?\d+(?:\.\d+)?(?:e[-+]?\d+)?")
+        want = ref.dart_block()
+        self.assertEqual(num.sub("#", block.group(0)), num.sub("#", want),
+                         "structure changed: run python3 tools/formula_reference.py --write-dart")
+        for a, b in zip(num.findall(block.group(0)), num.findall(want)):
+            x, y = float(a), float(b)
+            self.assertLessEqual(abs(x - y), 1e-6 * max(1.0, abs(y)),
+                                 f"{a} vs {b}: run python3 tools/formula_reference.py --write-dart")
 
 
 class SpinDriftSourceContract(unittest.TestCase):
@@ -160,9 +168,9 @@ class SpinDriftSourceContract(unittest.TestCase):
     def test_reference_values_for_the_report(self):
         # .308 175 gr, 1.240 in, 1:10 twist, 2600 fps, 59 °F, 29.92 inHg.
         sg = ref.miller_sg(175, 0.308, 1.240, 10, 2600, 59, 29.92)
-        self.assertTrue(1.5 < sg < 2.5, sg)
-        drift = ref.litz_spin_drift_in(sg, 2.057)          # 1000 m flight time
-        self.assertTrue(15 < drift < 30, drift)
+        self.assertAlmostEqual(sg, 2.40, delta=0.01)
+        drift_cm = ref.litz_spin_drift_in(sg, 2.057) * 2.54   # 1000 m flight time
+        self.assertAlmostEqual(drift_cm, 42.8, delta=0.2)
 
 
 class GroupStatistics(unittest.TestCase):

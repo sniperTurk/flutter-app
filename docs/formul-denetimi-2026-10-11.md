@@ -3,7 +3,10 @@
 Kapsam: `lib/core/`, `lib/features/ballistics/` ve hesapta kullanılan
 `lib/tools/domain/` formülleri. Her formül yayımlanmış bir standart veya
 bilimsel kaynakla karşılaştırıldı. Başka balistik uygulamalarının çıktı ya da
-veri tabloları referans olarak **kullanılmadı**.
+veri tabloları referans olarak **kullanılmadı**. Tek istisna mevcut
+`tools/formula_audit.py`'dir: açık kaynak py-ballisticcalc kütüphanesinin BRL
+tablo kopyasını ve RK4 hız değerini ikinci bir kontrol olarak kullanır
+(madde 1, 36); bu denetimin sonuçları ona dayanmaz.
 
 ## Yöntem
 
@@ -13,13 +16,16 @@ veri tabloları referans olarak **kullanılmadı**.
   * ses hızı nemli havanın kendi ısı kapasitesi oranıyla (uygulama: γ = 1,4),
   * sürüklenme ivmesi mermi kütlesi ve çapından form faktörüyle
     (uygulama: π/(8·BC)),
-  * Cd tablosu **PCHIP** (monoton kübik) enterpolasyonu (uygulama: doğrusal),
+  * Cd tablosu **PCHIP** (monoton kübik; Fritsch–Carlson / Fritsch–Butland)
+    enterpolasyonu (uygulama: doğrusal),
   * yörünge **dünya çerçevesinde** (yerçekimi dik, rüzgâr yatay, Dünya dönüşü
     doğu-kuzey-yukarı bileşenlerinden), uyarlamalı **Dormand–Prince 5(4)**;
     sonuç eğik ve cant'lı dürbün eksenlerine izdüşürülür (uygulama: dürbün
     çerçevesinde sabit adımlı RK4).
 * **Dart testleri:** `test/formula_reference_vectors_test.dart` uygulamanın
-  gerçek motorunu (`BallisticEngine`) 15 senaryoda referansla karşılaştırır:
+  gerçek motorunu (`BallisticEngine`) 18 senaryoda referansla karşılaştırır
+  (3'ü eğim + cant + açılı rüzgâr + Coriolis birlikte: dönüşümün bütün çapraz
+  terimleri sınanır):
   * *aynı model* (referans, uygulamanın hava modeli ve doğrusal Cd ile):
     yükseliş/yan ±0,005 mrad, hız ±0,05 m/s, uçuş süresi ±0,2 ms. Yalnız
     integratör, eksen dönüşümleri ve birimler farklıdır; işaret/eksen hatası
@@ -30,6 +36,9 @@ veri tabloları referans olarak **kullanılmadı**.
     (6 nokta), NIST birim tanımları ve **uç girdiler** (−60/+60 °C, 300/1100
     hPa, %100 nem, 59,9 m/s rüzgâr, ±90° eğim, 180° cant, 1500 m/s): her mesafe
     ya sonlu bir değer ya da "ulaşılamıyor" olarak dönmeli; NaN/Infinity yok.
+    Çözücü dışındaki yardımcılar (istasyon basıncı, çiy noktası, WEZ, barut,
+    telefon eğim/cant, dürbün yüksekliği, kule, saat) için de uç girdi testleri
+    vardır.
 * **Python testleri:** `tools/test_formula_reference.py` referansın kendisini
   yayımlanmış değerlere bağlar (ICAO tablosu, WGS-84 kutup/ekvator, ISA ses
   hızı, sürtünmesiz parabol, sabit Cd'de üstel hız kaybı, sürtünmesiz Coriolis
@@ -45,14 +54,16 @@ Senaryolar: .22 PCP 18,13 gr G1 0,035 270 m/s (15–100 m; 20 °C, −10 °C,
 (100–1000 m; ICAO, +40 °C/800 hPa, −10 °C, saat 9'dan 10 m/s + Coriolis 39° K
 doğuya, +30°/−45°/+60° eğim, 5° cant, Coriolis 35° G kuzeye); 6.5 Creedmoor
 140 gr G7 0,315 2710 fps (saat 2'den 5 m/s; 3000 m irtifa 0 °C/700 hPa).
-MOA ve MRAD dürbün birim dönüşümleri ayrıca test edildi.
+Birleşik: .308 +30° eğim, 10° cant, saat 2'den 5 m/s, Coriolis 39° K/45°;
+.308 −40°, −15° cant, 8 m/s, Coriolis 30° G/200°; .22 PCP +10°, 170° cant,
+3 m/s. MOA ve MRAD dürbün birim dönüşümleri ayrıca test edildi.
 
 ## Sonuç özeti
 
 | | Sayı |
 |---|---|
-| Kontrol edilen formül | 38 |
-| DOĞRU | 31 |
+| Kontrol edilen formül | 44 |
+| DOĞRU | 37 |
 | SAPMA (ihmal edilebilir, belgelendi) | 6 |
 | DOĞRULANAMADI (yayımlanmış standart yok) | 1 |
 | HATALI | 0 |
@@ -109,7 +120,7 @@ Kısaltmalar: D = DOĞRU, S = SAPMA, ? = DOĞRULANAMADI.
 |---|---|---|---|---|
 | 25 | Miller kararlılık Sg = 30m/(t²d³l(1+l²))·(v/2800)^⅓·(T+460)/519·29,92/P | `ballistics_screen.dart` `_stability` | Miller, *Precision Shooting*, Mart 2005; Litz, *Applied Ballistics* böl. 10 | D (katsayılar kaynakla aynı) |
 | 26 | Spin drift = 1,25(Sg+1,2)·t^1,83 inç | `_spinDriftMrad` | Litz (2009) denk. 10.1 | D — .308 175 gr 1:10: Sg 2,40, 1000 m'de 42,8 cm sağa |
-| 27 | Aerodinamik sıçrama 0,01Sg − 0,0024L + 0,032 MOA/mph; sağ yiv + sağdan rüzgâr = yukarı | `_aeroJumpMrad` | Litz (2009) böl. 10; açısal momentum türetmesi | D |
+| 27 | Aerodinamik sıçrama 0,01Sg − 0,0024L + 0,032 MOA/mph; sağ yiv + sağdan rüzgâr = yukarı | `_aeroJumpMrad` | Litz (2009) böl. 10; yön: jiroskopik presesyon (sağdan rüzgârda devirme momenti burnu yukarı döndürür; McCoy 1999 böl. 12 doğrusal teori), mevcut `pro_new_effects_test.dart` "a crosswind from the left drops a right-twist bullet" | D |
 
 ### Hız, olasılık, birim
 
@@ -126,6 +137,17 @@ Kısaltmalar: D = DOĞRU, S = SAPMA, ? = DOĞRULANAMADI.
 | 36 | Hız/BC doğrulama (ikiye bölme), iki hızdan BC, kesit yoğunluğu | `velocity_truing.dart`, `field_calc.dart`, `drag_curve.dart` | Tanım; py-ballisticcalc RK4 (formula-audit) | D |
 | 37 | Haversine mesafe, ilk kerteriz, hareketli hedef önü v·t | `field_calc.dart`, ekran | WGS-84 jeodezik (formula-audit) | D |
 | 38 | GA (diabolo saçma) Cd tablosu | `standard_drag_tables.dart` `ga` | Yayımlanmış standart yok (forum dışa aktarımı) | ? |
+
+### Ölçüm yardımcıları (hesaba girdi üretenler)
+
+| # | Formül | Kodda | Referans | Sonuç |
+|---|---|---|---|---|
+| 39 | Telefon ivmeölçerinden atış eğimi atan2(−gz, ±√(gx²+gy²)) ve cant −atan2(gx, gy) | `lib/tools/domain/shot_angle_math.dart` | Yerçekimi tepki vektörü geometrisi; Taylor serisiyle bağımsız işaret testi | D — işaretler çözücünün (+ yukarı, + saat yönü) ile aynı |
+| 40 | Su terazisi asin/atan2, % eğim tanθ·100, çatı eğimi tanθ·12 | `tilt_math.dart` | Trigonometri tanımı | D |
+| 41 | Fotoğraftan dürbün yüksekliği (objektif çapı ölçeği, eksene izdüşüm) | `sight_height_geometry.dart` | Benzer üçgen/izdüşüm geometrisi | D (perspektif hatası belgelenmiş tahmin) |
+| 42 | Fiziksel dürbün yüksekliği = namlu iç yarıçapı + et kalınlığı + boşluk + objektif yarıçapı | `sight_height_physical.dart` | Eksenler arası mesafe tanımı | D |
+| 43 | Pusula açı normalizasyonu, birim çemberde yumuşatma | `compass_math.dart` | Dairesel ortalama (sin/cos) | D |
+| 44 | Retikül rüzgâr tutuşu: 1 m/s tam yan rüzgârın sapmasından doğrusal ölçek | `reticle_holds.dart` `crosswindForMil` | Referans: .308 1000 m'de sapma/rüzgâr 1→20 m/s arasında %0,03 değişir | D |
 
 ## Notlar ve öneriler (kod değişikliği yok)
 
@@ -144,7 +166,21 @@ Kısaltmalar: D = DOĞRU, S = SAPMA, ? = DOĞRULANAMADI.
    değiştirilmedi).
 4. **Miller/Litz** yaklaşık formüllerdir: plastik uçlu/çok uzun mermilerde
    Miller kararlılığı düşük tahmin edebilir (Litz böl. 10).
-5. Ses hızında nem için γ'nın karışımdan hesaplanması (madde 12) sıcak-nemli
+5. **`formula-audit.yml` sonucu (bu dalda):** tek FAIL
+   `velocity_after_vs_py_ballisticcalc` (iki hızdan BC aracı): .22 G1 0,12,
+   270 m/s, 200 m'de 0,266 m/s fark, betiğin kendi koyduğu 0,15 sınırını
+   aşıyor, donmuş kabul sınırı 1,0 m/s içinde (PASS). Kök neden doğrulandı:
+   referans PCHIP Cd ile py-ballisticcalc'ın 210,275 m/s değerini birebir
+   üretir, doğrusal Cd ile 210,091 m/s verir; kalan fark yay/yerçekimi
+   etkisidir. Yani formül hatası değil, madde 2'deki enterpolasyon sapmasıdır
+   (yörüngede ≤0,0074 mrad). main'de de aynı sonuç vardır.
+6. İstasyon basıncının hipsometrik biçimi (madde 14) referansta da aynı
+   denklemle yazıldı; bu satır yalnız aktarımı doğrular. CIPM-2007 15–27 °C /
+   600–1100 hPa için belirtilmiştir; −20…50 °C noktaları dış değerlemedir.
+7. `FieldCalc.stationPressureHpa` sıcaklıksız ~44 km üstünde NaN döner; ekran
+   9000 m'ye kadar çağırır, hesaplayıcıda yoğunluk modeli NaN'ı reddeder ve
+   mesaj gösterilir (test edildi). Kullanıcıya NaN ulaşmaz.
+8. Ses hızında nem için γ'nın karışımdan hesaplanması (madde 12) sıcak-nemli
    havada 1000 m'de ≤1,6 cm kazandırır; donmuş py-ballisticcalc kabul
    vektörlerini değiştireceği için yapılmadı.
 
@@ -169,7 +205,8 @@ Kısaltmalar: D = DOĞRU, S = SAPMA, ? = DOĞRULANAMADI.
   spin drift ve aerodinamik sıçrama, böl. 12 Coriolis); aerodinamik sıçrama
   yönü tartışması: https://forum.accurateshooter.com/threads/aerodynamic-jump.3939113
 * Fritsch, F. N.; Carlson, R. E., *SIAM J. Numer. Anal.* 17 (1980) 238,
-  https://doi.org/10.1137/0717021
+  https://doi.org/10.1137/0717021 ; Fritsch, F. N.; Butland, J., *SIAM J.
+  Sci. Stat. Comput.* 5 (1984) 300, https://doi.org/10.1137/0905021
 * Dormand, J. R.; Prince, P. J., *J. Comput. Appl. Math.* 6 (1980) 19,
   https://doi.org/10.1016/0771-050X(80)90013-3
 

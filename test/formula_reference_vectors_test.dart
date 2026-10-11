@@ -20,10 +20,20 @@ import 'package:sniper_turk/core/atmosphere.dart';
 import 'package:sniper_turk/core/ballistic_engine.dart';
 import 'package:sniper_turk/core/ballistic_input.dart';
 import 'package:sniper_turk/core/gravity.dart';
+import 'package:sniper_turk/core/powder_temperature.dart';
+import 'package:sniper_turk/core/scope_dial.dart';
 import 'package:sniper_turk/core/unit_system.dart';
 import 'package:sniper_turk/core/units.dart';
+import 'package:sniper_turk/core/wez.dart';
+import 'package:sniper_turk/core/wind_clock.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/tools/domain/field_calc.dart';
+import 'package:sniper_turk/tools/domain/hit_probability.dart';
+import 'package:sniper_turk/tools/domain/shot_angle_math.dart';
+import 'package:sniper_turk/tools/domain/sight_height_geometry.dart';
+import 'package:sniper_turk/tools/domain/sight_height_physical.dart';
+import 'package:sniper_turk/tools/domain/tilt_math.dart';
+import 'package:sniper_turk/tools/ports/tilt_provider.dart';
 
 class RefPoint {
   final double rangeM, corrMrad, windMrad, velocityMps, tofS, energyJ;
@@ -119,9 +129,9 @@ void main() {
             closeTo(r.windMrad, _max(0.03, 0.01 * r.windMrad.abs())),
             reason: at,
           );
-          expect(a.velocityMps, closeTo(r.velocityMps, 0.005 * r.velocityMps));
-          expect(a.timeOfFlightS, closeTo(r.tofS, 0.005 * r.tofS));
-          expect(a.energyJ, closeTo(r.energyJ, 0.01 * r.energyJ));
+          expect(a.velocityMps, closeTo(r.velocityMps, 0.005 * r.velocityMps), reason: at);
+          expect(a.timeOfFlightS, closeTo(r.tofS, 0.005 * r.tofS), reason: at);
+          expect(a.energyJ, closeTo(r.energyJ, 0.01 * r.energyJ), reason: at);
         }
       });
     }
@@ -190,6 +200,8 @@ void main() {
     expect(UnitSystem.celsiusToFahrenheit(100), closeTo(212, 1e-12));
   });
 
+  _edgeCases();
+
   group('extreme inputs: a finite answer or a clean refusal, never NaN', () {
     const cases = <(String, EnvironmentData, double, double, double)>[
       // (name, environment, incline, cant, muzzle velocity m/s)
@@ -243,6 +255,142 @@ void main() {
       }
     }
   });
+}
+
+// Edge inputs outside the trajectory solver (review 2026-10-11): each helper
+// returns a finite value, null, or refuses with ArgumentError — never a NaN
+// that reaches the screen.
+void _edgeCases() {
+  group('edge inputs outside the solver', () {
+    test('station pressure above the ISA domain is refused downstream', () {
+      // ISA has no pressure above ~44 km: the helper yields NaN and the
+      // density model refuses it, so the calculator shows a message.
+      final p = FieldCalc.stationPressureHpa(1013.25, 50000);
+      expect(p.isNaN, isTrue);
+      expect(
+        () => Atmosphere.densityKgM3(EnvironmentData(pressureHpa: p)),
+        throwsArgumentError,
+      );
+      expect(FieldCalc.stationPressureHpa(1013.25, 9000).isFinite, isTrue);
+      expect(
+        FieldCalc.stationPressureHpa(1013.25, 9000, temperatureC: -40).isFinite,
+        isTrue,
+      );
+    });
+
+    test('dew point and density altitude stay finite', () {
+      expect(FieldCalc.dewPointC(20, 0).isFinite, isTrue);
+      expect(FieldCalc.dewPointC(-40, 100), closeTo(-40, 1e-9));
+      expect(FieldCalc.densityAltitudeM(1e-4).isFinite, isTrue);
+    });
+
+    test('hit probabilities stay in 0..1', () {
+      expect(Wez.atLeastOneHit(double.nan, 3), 0);
+      expect(Wez.atLeastOneHit(1.5, 3), 1);
+      expect(Wez.atLeastOneHit(0.5, 3), closeTo(0.875, 1e-12));
+      final none = Wez.simulate(sources: const [], targetRadiusMrad: 0);
+      expect(none.probability, 1);
+      final p = HitProbabilityEngine.probabilityOfHit(
+        groupDiameterMoa: 1e-9,
+        targetDiameterCm: 10,
+        rangeM: 3000,
+      );
+      expect(p, inInclusiveRange(0, 1));
+    });
+
+    test('powder temperature ignores unusable data', () {
+      double f(double? k, double? t0, double t) => PowderTemperature.factor(
+        coefPercentPer15C: k,
+        referenceTempC: t0,
+        todayTempC: t,
+      );
+      expect(f(double.nan, 20, 30), 1);
+      expect(f(1.5, 20, double.infinity), 1);
+      expect(f(10, -50, -1000), 1); // would be negative
+      expect(f(1.5, 20, 35), closeTo(1.015, 1e-12));
+    });
+
+    test('phone incline and cant: signs and degenerate readings', () {
+      double rad(double d) => d * 3.141592653589793 / 180;
+      // Upright, back camera tipped 10° up: screen faces slightly down.
+      final up10 = GravityVector(
+        0,
+        9.80665 * _cos(rad(10)),
+        -9.80665 * _sin(rad(10)),
+      );
+      expect(ShotAngleMath.inclineDeg(up10), closeTo(10, 1e-9));
+      // Top edge rolled 5° to the right: positive (clockwise) cant.
+      final cw5 = GravityVector(
+        -9.80665 * _sin(rad(5)),
+        9.80665 * _cos(rad(5)),
+        0,
+      );
+      expect(ShotAngleMath.cantDeg(cw5), closeTo(5, 1e-9));
+      const zero = GravityVector(0, 0, 0);
+      const bad = GravityVector(double.nan, 9.8, 0);
+      expect(ShotAngleMath.inclineDeg(zero), isNull);
+      expect(ShotAngleMath.cantDeg(zero), isNull);
+      expect(ShotAngleMath.inclineDeg(bad), isNull);
+      expect(ShotAngleMath.cantDeg(bad), isNull);
+      expect(TiltMath.angles(zero, TiltMode.flat), isNull);
+      expect(TiltMath.percentGrade(90), isNull);
+      expect(TiltMath.percentGrade(45), closeTo(100, 1e-9));
+    });
+
+    test('sight height helpers refuse impossible marks', () {
+      const pt = PixelPoint(100, 100);
+      expect(
+        SightHeightGeometry.measure(
+          objectiveOuterDiameterMm: 50,
+          objectiveTop: pt,
+          objectiveBottom: pt,
+          boreCentre: pt,
+        ),
+        isNull,
+      );
+      expect(
+        SightHeightPhysical.compute(
+          boreDiameterMm: double.nan,
+          barrelWallMm: 5,
+          gapMm: 5,
+          objectiveOuterDiameterMm: 50,
+        ),
+        isNull,
+      );
+      // Bore radius + wall + gap + objective radius.
+      expect(
+        SightHeightPhysical.compute(
+          boreDiameterMm: 7.82,
+          barrelWallMm: 8,
+          gapMm: 6,
+          objectiveOuterDiameterMm: 56,
+        )!.totalMm,
+        closeTo(3.91 + 8 + 6 + 28, 1e-9),
+      );
+    });
+
+    test('turret and wind-clock helpers refuse bad values', () {
+      expect(() => ScopeDialMath.clicksFor(double.nan, 0.1), throwsArgumentError);
+      expect(() => ScopeDialMath.clicksFor(1, 0), throwsArgumentError);
+      expect(ScopeDialMath.mountCantClicks(90, 0.1, AngularUnit.mrad), 261);
+      expect(() => WindClock.toDegrees(0), throwsArgumentError);
+      expect(Gravity.at(latitudeDeg: 90, altitudeM: 9000).isFinite, isTrue);
+    });
+  });
+}
+
+double _sin(double x) => _series(x, true);
+double _cos(double x) => _series(x, false);
+
+/// Taylor series, so the sign checks above do not reuse dart:math's
+/// functions that the code under test calls.
+double _series(double x, bool sine) {
+  var term = sine ? x : 1.0, sum = term;
+  for (var n = 0; n < 40; n++) {
+    term *= -x * x / ((2 * n + (sine ? 2 : 1)) * (2 * n + (sine ? 3 : 2)));
+    sum += term;
+  }
+  return sum;
 }
 
 // BEGIN GENERATED (python3 tools/formula_reference.py --write-dart)
@@ -480,6 +628,44 @@ const referenceScenarios = <RefScenario>[
       RefPoint(800.0, 6.305608893, -0.0, 569.936880003, 1.166936199, 1473.395237661, 6.304986448, -0.0, 570.000443409, 1.166865443),
       RefPoint(900.0, 7.527023199, -0.0, 541.545897831, 1.346960802, 1330.259231451, 7.526189938, -0.0, 541.614184874, 1.346868634),
       RefPoint(1000.0, 8.839002142, -0.0, 513.825143272, 1.536570977, 1197.557691925, 8.837915949, -0.0, 513.896394961, 1.536453763),
+    ],
+  ),
+  RefScenario(
+    id: 'r308_up30_cant10_wind_coriolis', model: BallisticModel.g7, bc: 0.243,
+    grain: 175.0, mvMps: 792.48, zeroM: 100.0,
+    sightMm: 45.0, g: 9.80665,
+    env: EnvironmentData(temperatureC: 20, pressureHpa: 950, humidityPercent: 40, windMps: 5.0, windDirectionDeg: 300.0),
+    inclineDeg: 30.0, cantDeg: 10.0,
+    latitudeDeg: 39.0, azimuthDeg: 45.0,
+    points: [
+      RefPoint(300.0, 1.123145928, 0.271894867, 627.976243239, 0.425372548, 2235.950487425, 1.123117747, 0.271796768, 627.995498255, 0.42536529),
+      RefPoint(600.0, 4.207253347, 0.566412153, 482.515246716, 0.970131053, 1320.072656688, 4.207045586, 0.566271811, 482.524543903, 0.970106296),
+      RefPoint(1000.0, 10.980989819, 0.977036464, 323.995098254, 1.993410481, 595.185898555, 10.980130661, 0.976443944, 324.096814119, 1.993239146),
+    ],
+  ),
+  RefScenario(
+    id: 'r308_down40_cantm15_wind_coriolis_south', model: BallisticModel.g7, bc: 0.243,
+    grain: 175.0, mvMps: 792.48, zeroM: 100.0,
+    sightMm: 45.0, g: 9.80665,
+    env: EnvironmentData(temperatureC: 5, pressureHpa: 1010, humidityPercent: 70, windMps: 8.0, windDirectionDeg: 45.0),
+    inclineDeg: -40.0, cantDeg: -15.0,
+    latitudeDeg: -30.0, azimuthDeg: 200.0,
+    points: [
+      RefPoint(300.0, 1.793243926, -0.200260284, 615.1446903, 0.429886229, 2145.508863139, 1.792749154, -0.199967843, 615.205777284, 0.42986412),
+      RefPoint(600.0, 5.786850978, -0.384630816, 462.054801252, 0.992531179, 1210.494243121, 5.785233066, -0.38405957, 462.137284284, 0.992427303),
+    ],
+  ),
+  RefScenario(
+    id: 'pcp22_up10_cant170_wind', model: BallisticModel.g1, bc: 0.035,
+    grain: 18.13, mvMps: 270.0, zeroM: 30.0,
+    sightMm: 50.0, g: 9.80665,
+    env: EnvironmentData(temperatureC: 25, pressureHpa: 1005, humidityPercent: 60, windMps: 3.0, windDirectionDeg: 120.0),
+    inclineDeg: 10.0, cantDeg: 170.0,
+    latitudeDeg: null, azimuthDeg: null,
+    points: [
+      RefPoint(30.0, -4.529607471, 0.240526503, 238.370421477, 0.118480574, 33.376457343, -4.529573017, 0.240400548, 238.365449259, 0.118478958),
+      RefPoint(50.0, -6.94762935, 0.368003049, 220.596732431, 0.205745015, 28.584701368, -6.948147983, 0.36905178, 220.476699303, 0.205766317),
+      RefPoint(75.0, -9.737594632, 0.496824159, 200.736743195, 0.324620694, 23.669509408, -9.740545659, 0.500063121, 200.5837535, 0.324726809),
     ],
   ),
 ];
