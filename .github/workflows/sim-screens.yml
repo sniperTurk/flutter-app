@@ -16,11 +16,8 @@ on:
         description: 'Integration test that prints SIMSCREEN:<name> markers'
         required: false
         default: 'integration_test/sim_screens_test.dart'
-  pull_request:
-    paths:
-      - '.github/workflows/sim-screens.yml'
-      - 'integration_test/sim_screens_test.dart'
-      - 'tools/sim_screens_run.sh'
+  # Manual only since 2026-10-11 (no pull_request trigger): it holds a scarce
+  # macOS runner for 15+ minutes and must never queue ahead of TestFlight.
 
 permissions:
   contents: write
@@ -32,7 +29,7 @@ concurrency:
 jobs:
   screens:
     runs-on: macos-15
-    timeout-minutes: 60
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v6
         with:
