@@ -68,11 +68,11 @@ class ScopeDialView extends StatelessWidget {
   final ValueChanged<int> onElevationChanged;
   final ValueChanged<int> onWindageChanged;
 
-  /// Incremented by the owner after "Çözümü kuleye kur"; each change slides
+  /// Incremented by the owner after "Çözümü kulelere kur"; each change slides
   /// the windage (right) turret open (owner, 2026-10-09).
   final int windageRevealToken;
 
-  /// Called after "Çözümü kuleye kur" has dialled both turrets.
+  /// Called after "Çözümü kulelere kur" has dialled both turrets.
   final VoidCallback? onSolutionDialed;
 
   /// Required elevation at [rangeM] in [unit] (positive = dial up). Null
@@ -486,15 +486,10 @@ class ScopeDialView extends StatelessWidget {
                         label: noClicks
                             ? 'Çözüm: 0 klik'
                             : !dialled
-                            ? 'Çözümü kuleye kur'
+                            ? 'Çözümü kulelere kur'
                             : atLimit
                             ? 'Kule sınırına kuruldu'
                             : 'Çözüm kulelere kuruldu',
-                        icon: noClicks
-                            ? Icons.tune
-                            : dialled
-                            ? Icons.check_circle
-                            : Icons.tune,
                         expand: true,
                         twoLines: true,
                         active: dialled && !noClicks,
@@ -516,7 +511,6 @@ class ScopeDialView extends StatelessWidget {
                             : atZero
                             ? 'Kuleler sıfırlandı'
                             : 'Kuleleri sıfırla',
-                        icon: atZero ? Icons.check_circle : Icons.restart_alt,
                         expand: true,
                         twoLines: true,
                         active: atZero,
@@ -548,7 +542,7 @@ class ScopeDialView extends StatelessWidget {
                       '${impact.up >= 0 ? 'yukarıda' : 'aşağıda'}'
                       '${impact.right.abs() < 0.005 ? '' : ', ${_fmt(impact.right.abs())} $unitLabel ${impact.right >= 0 ? 'sağda' : 'solda'}'}'
                       '. Kenardaki ok o yönü gösterir. Kuleyi çevirin veya '
-                      '"Çözümü kuleye kur"a dokunun.',
+                      '"Çözümü kulelere kur"a dokunun.',
                 ),
               ),
             if (mountBlocksZero)
@@ -857,7 +851,7 @@ class _TurretBar extends StatefulWidget {
   final Widget elevation, windage, reticle;
   final double side;
 
-  /// A change opens the windage drum (after "Çözümü kuleye kur").
+  /// A change opens the windage drum (after "Çözümü kulelere kur").
   final int revealToken;
   const _TurretBar({
     required this.revealToken,
@@ -1134,8 +1128,17 @@ class _DrumPainter extends CustomPainter {
     required this.pixelsPerClick,
   });
 
-  /// Clicks between labelled major ticks: one whole unit (1 mrad / 1 MOA).
-  int get _major => math.max(1, (1 / clickValue).round());
+  /// Clicks between labelled major ticks: a whole number of units (1, 2, 5,
+  /// 10… mrad / MOA) far enough apart that the labels never overlap
+  /// (owner, 2026-10-11: 1/2 MOA labels ran into each other).
+  int get _major {
+    final perUnit = math.max(1, (1 / clickValue).round());
+    for (final units in const [1, 2, 5, 10, 20, 50, 100]) {
+      final n = perUnit * units;
+      if (n * pixelsPerClick >= 44) return n;
+    }
+    return perUnit * 100;
+  }
 
   void _text(
     Canvas canvas,
@@ -1148,7 +1151,12 @@ class _DrumPainter extends CustomPainter {
     final tp = TextPainter(
       text: TextSpan(
         text: s,
-        style: TextStyle(color: color, fontSize: size, fontWeight: weight),
+        style: TextStyle(
+          fontFamily: MenzilType.family,
+          color: color,
+          fontSize: size,
+          fontWeight: weight,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -1464,6 +1472,7 @@ class ScopeReticlePainter extends CustomPainter {
         text: TextSpan(
           text: s,
           style: TextStyle(
+            fontFamily: MenzilType.family,
             fontSize: size,
             fontWeight: weight,
             foreground: Paint()
@@ -1481,7 +1490,12 @@ class ScopeReticlePainter extends CustomPainter {
     final tp = TextPainter(
       text: TextSpan(
         text: s,
-        style: TextStyle(color: color, fontSize: size, fontWeight: weight),
+        style: TextStyle(
+          fontFamily: MenzilType.family,
+          color: color,
+          fontSize: size,
+          fontWeight: weight,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -1577,11 +1591,22 @@ class ScopeReticlePainter extends CustomPainter {
                     ne > 0 &&
                     ((v / ne) - (v / ne).round()).abs() < 1e-6) {
                   final off = len + numFont * 0.8;
+                  // The reticle's own numbers move to the free side of the
+                  // line when wind labels (above the horizontal line) or
+                  // range labels (right of the lower vertical line) are
+                  // shown (owner, 2026-10-11: "25.7" ran into "10").
+                  final windAbove = showLabels && windLabels.isNotEmpty;
+                  final holdRight =
+                      showLabels && holdLabels.isNotEmpty && dir.dy > 0;
                   number(
                     v,
                     dir.dx != 0
-                        ? at - Offset(0, off)
-                        : at + Offset(off + numFont * 0.4, 0),
+                        ? (windAbove
+                              ? at + Offset(0, off)
+                              : at - Offset(0, off))
+                        : (holdRight
+                              ? at - Offset(off + numFont * 0.4, 0)
+                              : at + Offset(off + numFont * 0.4, 0)),
                   );
                 }
               }
