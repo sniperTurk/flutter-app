@@ -72,13 +72,14 @@ Future<void> chooseInSelect(
   await tester.tap(select);
   await tester.pumpAndSettle();
   // Long lists ("Listede yok" is the last item): scroll the open menu.
+  // The menu opens at the selected item, so the wanted one may be above it
+  // (a smaller büyütme) or below it: try down first, then up.
   final item = find.text(label);
-  if (item.evaluate().isEmpty) {
-    await tester.dragUntilVisible(
-      item,
-      find.byType(Scrollable).last,
-      const Offset(0, -300),
-    );
+  for (final dy in const [-300.0, 300.0]) {
+    for (var i = 0; i < 20 && item.evaluate().isEmpty; i++) {
+      await tester.drag(find.byType(Scrollable).last, Offset(0, dy));
+      await tester.pumpAndSettle();
+    }
   }
   // Built but below the menu's visible part: scroll it into view.
   await tester.ensureVisible(item.last);
