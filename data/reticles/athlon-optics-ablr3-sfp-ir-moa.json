@@ -1,0 +1,21 @@
+{
+  "name": "ABLR3 SFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares ETR GEN2 UHD 15-60x56"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/storage/2024/10/212117-ABLR3-SFP-IR-MOA-Reticle-Manual-Ares-ETR-GEN2-UHD-15-60x56-1.pdf",
+  "notes": "SFP; ölçüler yalnızca 40x'te geçerli (15-60x56). Benchrest/F-Class. Föy metninden: ince çizgi kalınlığı 0.018 MOA; aydınlatmalı yüzen merkez nokta 0.09 MOA; '0.5 moa markings increment both vertically and horizontally from the 0.09 moa floating center dot'. Uzanımlar, rakam, direk belirtilmemiş -> null. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}
