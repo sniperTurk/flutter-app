@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/core/reticle.dart';
+import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/reticle_catalog.dart';
 import 'package:sniper_turk/data/reticle_library.dart';
+import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
@@ -223,5 +225,42 @@ void main() {
     expect(spec.name, 'APRS14');
     expect(spec.family, ReticleFamily.tree);
     expect(tester.takeException(), isNull);
+  });
+
+  test('a scope saved from the Profil form keeps its data reticle', () {
+    addTearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
+    CatalogRepository.installUserCatalog(
+      UserCatalog.fromManualEntries(const [
+        {
+          'id': 'manual_scope_1',
+          'kind': 'scope',
+          'platform': 'pcp',
+          'brand': 'Athlon',
+          'model': 'CRONUS BTR GEN2 UHD IR MIL 4,5-29x56 FFP',
+          'objectiveMm': 56.0,
+          'click': 0.1,
+          'clickUnit': 'mrad',
+          'focal': 'ffp',
+          'minMag': 4.5,
+          'maxMag': 29.0,
+          'reticle': 'APRS1',
+        },
+      ]),
+    );
+    final scope = CatalogRepository.allScopes.firstWhere(
+      (s) => s.id == 'manual_scope_1',
+    );
+    expect(scope.brand, 'Athlon');
+    expect(scope.reticle, 'APRS1');
+    final spec = ReticleCatalog.forScope(
+      scope.reticle,
+      scope.clickUnit,
+      brand: scope.brand,
+    )!;
+    expect(spec.fromData, isTrue);
+    expect(spec.numbersEvery, isNull);
+    expect(spec.extentH, 6);
+    expect(spec.floatingCenter, isTrue);
+    expect(spec.tree.length, 2);
   });
 }
