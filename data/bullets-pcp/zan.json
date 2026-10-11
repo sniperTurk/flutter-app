@@ -6,12 +6,12 @@
   "caliber_mm": 4.5,
   "head_size_mm": null,
   "weight_gr": 10.0,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.048,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
-  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.048 (G1). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2459 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -20,12 +20,12 @@
   "caliber_mm": 4.5,
   "head_size_mm": null,
   "weight_gr": 13.0,
-  "bc": null,
+  "bc": 0.068,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
-  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.068 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2460 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -34,12 +34,12 @@
   "caliber_mm": 4.5,
   "head_size_mm": null,
   "weight_gr": 16.0,
-  "bc": null,
+  "bc": 0.072,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
-  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.072 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2461 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -48,12 +48,12 @@
   "caliber_mm": 4.5,
   "head_size_mm": null,
   "weight_gr": 20.0,
-  "bc": null,
+  "bc": 0.095,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
-  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.095 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2462 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -67,7 +67,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
-  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor (22 gr varyant açıklamasında BC yok). Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/4128 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -81,7 +81,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
-  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor (24 gr varyant açıklamasında BC yok). Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/4129 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -95,7 +95,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/20-slugs/",
-  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: \"BCA = TBA\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2543 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -109,7 +109,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/20-slugs/",
-  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: \"BCA = TBA\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2544 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -123,7 +123,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/20-slugs/",
-  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Çap varyantı belirtilmemiş. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: \"BCA = TBA\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2545 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -132,12 +132,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 20.0,
-  "bc": null,
+  "bc": 0.07,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.07 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2464 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -146,12 +146,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 20.0,
-  "bc": null,
+  "bc": 0.07,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.07 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2465 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -160,12 +160,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.563,
   "weight_gr": 22.0,
-  "bc": null,
+  "bc": 0.075,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.075 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2490 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -174,12 +174,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 23.0,
-  "bc": null,
+  "bc": 0.075,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.075 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2467 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -188,12 +188,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 23.0,
-  "bc": null,
+  "bc": 0.075,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.075 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2468 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -202,12 +202,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 25.5,
-  "bc": null,
+  "bc": 0.082,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.082 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2470 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -216,12 +216,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 25.5,
-  "bc": null,
+  "bc": 0.082,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.082 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2471 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -230,12 +230,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 28.0,
-  "bc": null,
+  "bc": 0.09,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.09 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2473 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -244,12 +244,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 28.0,
-  "bc": null,
+  "bc": 0.09,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.09 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2474 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -258,12 +258,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.563,
   "weight_gr": 28.0,
-  "bc": null,
+  "bc": 0.09,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.09 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2475 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -277,7 +277,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici tek değer vermiyor, aralık: \"BC 0.110- 0.125 (900-1000 fps)\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2476 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -291,7 +291,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici tek değer vermiyor, aralık: \"BC 0.110- 0.125 (900-1000 fps)\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2477 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -305,7 +305,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici tek değer vermiyor, aralık: \"BC 0.115- 0.130 (990-1000 fps)\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2479 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -319,7 +319,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici tek değer vermiyor, aralık: \"BC 0.115- 0.130 (990-1000 fps)\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2480 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -328,12 +328,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 36.0,
-  "bc": null,
+  "bc": 0.115,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.115 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2482 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -342,12 +342,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 36.0,
-  "bc": null,
+  "bc": 0.115,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.115 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2483 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -361,7 +361,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici tek değer vermiyor, aralık: \"Ballistic coefficient ranging between 0.130 – 0.140\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2485 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -375,7 +375,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici tek değer vermiyor, aralık: \"Ballistic coefficient ranging between 0.130 – 0.140\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2486 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -384,12 +384,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": 6.35,
   "weight_gr": 26.5,
-  "bc": null,
+  "bc": 0.088,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.088 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2511 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -398,12 +398,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": 6.35,
   "weight_gr": 28.0,
-  "bc": null,
+  "bc": 0.091,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.091 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2513 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -412,12 +412,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": 6.35,
   "weight_gr": 30.0,
-  "bc": null,
+  "bc": 0.094,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.094 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2515 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -426,12 +426,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": 6.35,
   "weight_gr": 33.0,
-  "bc": null,
+  "bc": 0.098,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.098 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2529 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -440,12 +440,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": 6.426,
   "weight_gr": 33.0,
-  "bc": null,
+  "bc": 0.097,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.097 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2530 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -454,12 +454,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": 6.35,
   "weight_gr": 35.0,
-  "bc": null,
+  "bc": 0.103,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.103 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2517 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -468,12 +468,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": 6.35,
   "weight_gr": 37.0,
-  "bc": null,
+  "bc": 0.108,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.108 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2519 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -482,12 +482,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": 6.426,
   "weight_gr": 38.0,
-  "bc": null,
+  "bc": 0.104,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.104 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2528 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -496,12 +496,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": 6.35,
   "weight_gr": 41.0,
-  "bc": null,
+  "bc": 0.119,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.119 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2521 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -510,12 +510,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": 6.35,
   "weight_gr": 45.0,
-  "bc": null,
+  "bc": 0.138,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.138 (model belirtilmemiş). Üreticinin hız bantları: 0.138 @ 950 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2523 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -524,12 +524,12 @@
   "caliber_mm": 7.62,
   "head_size_mm": 7.62,
   "weight_gr": 45.5,
-  "bc": null,
+  "bc": 0.107,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/30-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.107 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2534 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -538,12 +538,12 @@
   "caliber_mm": 7.62,
   "head_size_mm": 7.62,
   "weight_gr": 49.0,
-  "bc": null,
+  "bc": 0.117,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/30-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.117 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2535 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -557,7 +557,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/30-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: \"BC: TBA\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2536 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -566,12 +566,12 @@
   "caliber_mm": 7.62,
   "head_size_mm": 7.62,
   "weight_gr": 54.0,
-  "bc": null,
+  "bc": 0.123,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/30-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.123 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2537 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -580,12 +580,12 @@
   "caliber_mm": 7.62,
   "head_size_mm": 7.62,
   "weight_gr": 59.0,
-  "bc": null,
+  "bc": 0.125,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/30-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.125 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2538 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -599,7 +599,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/30-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: \"BC:  TBA\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2539 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -608,12 +608,12 @@
   "caliber_mm": 7.62,
   "head_size_mm": 7.62,
   "weight_gr": 63.0,
-  "bc": null,
+  "bc": 0.13,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/30-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.13 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2540 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -622,12 +622,12 @@
   "caliber_mm": 7.62,
   "head_size_mm": 7.62,
   "weight_gr": 68.0,
-  "bc": null,
+  "bc": 0.134,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/30-slugs/",
-  "notes": "Üretici BC yayınlamıyor."
+  "notes": "Üretici BC yayınlamıyor. | BC (2026-10-11): 0.134 (model belirtilmemiş). BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/2541 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -641,7 +641,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
-  "notes": "Kutuda 100 adet. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 100 adet. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor. Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2440 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -655,7 +655,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
-  "notes": "Kutuda 100 adet. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 100 adet. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor. Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2441 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -669,7 +669,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
-  "notes": "Kutuda 100 adet. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 100 adet. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor. Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2442 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -683,7 +683,7 @@
   "length_mm": 13.3,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
-  "notes": "Kutuda 100 adet. Uzunluk 13.3 mm (açıklama 112 gr için). Üretici BC yayınlamıyor."
+  "notes": "Kutuda 100 adet. Uzunluk 13.3 mm (açıklama 112 gr için). Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor. Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2443 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -697,7 +697,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
-  "notes": "Kutuda 100 adet. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 100 adet. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor. Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/2444 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -711,7 +711,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
-  "notes": "Kutuda 50 adet. Üretici: BC = TBA. Açıklama yalnızca 380 gr için ölçü veriyor. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 50 adet. Üretici: BC = TBA. Açıklama yalnızca 380 gr için ölçü veriyor. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: \"BC = TBA\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/4132 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -720,12 +720,12 @@
   "caliber_mm": 11.43,
   "head_size_mm": 11.608,
   "weight_gr": 380.0,
-  "bc": null,
+  "bc": 0.385,
   "bc_model": null,
   "length_mm": 27.94,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
-  "notes": "Kutuda 50 adet. Üretici: BC = TBA. Açıklama: 380 gr / 24.6 g, uzunluk 1.1\"/27.94 mm. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 50 adet. Üretici: BC = TBA. Açıklama: 380 gr / 24.6 g, uzunluk 1.1\"/27.94 mm. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.385 (model belirtilmemiş). Üreticinin hız bantları: 0.385 @ 847 fps; 0.261 @ 740 fps. İki hız bandı yayımlanmış: 0.385 @847 fps, 0.261 @740 fps; bc alanına üst hız değeri yazıldı. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/4130 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -734,12 +734,12 @@
   "caliber_mm": 11.43,
   "head_size_mm": 11.608,
   "weight_gr": 388.0,
-  "bc": null,
+  "bc": 0.458,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
-  "notes": "Kutuda 50 adet. Üretici: BC = TBA. Açıklama yalnızca 380 gr için ölçü veriyor. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 50 adet. Üretici: BC = TBA. Açıklama yalnızca 380 gr için ölçü veriyor. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.458 (model belirtilmemiş). Üreticinin hız bantları: 0.458 @ 865 fps. Şüphe: varyant 388 gr (SKU 388GN457HP) fakat açıklama metni \"Weight = 380 grains / 25.114 gram\" diyor. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/4131 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -753,7 +753,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/510-1295-mm-slug/",
-  "notes": "Çap .510\" / 12.95 mm, kutuda 50 adet. Üretici BC yayınlamıyor."
+  "notes": "Çap .510\" / 12.95 mm, kutuda 50 adet. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: \"BC : TBA\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/5969 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -767,7 +767,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/510-1295-mm-slug/",
-  "notes": "Çap .510\" / 12.95 mm, kutuda 50 adet. Üretici BC yayınlamıyor."
+  "notes": "Çap .510\" / 12.95 mm, kutuda 50 adet. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: \"BC : TBA\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/5970 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -776,12 +776,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": null,
   "weight_gr": 35.5,
-  "bc": null,
+  "bc": 0.21,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-elr-slugs/",
-  "notes": "Kutuda 200 adet; ürün SKU 3830079160650 (tüm ürün). Çap belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 200 adet; ürün SKU 3830079160650 (tüm ürün). Çap belirtilmemiş. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.21 (model belirtilmemiş). Üreticinin hız bantları: 0.21 @ 945 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/7470 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -795,7 +795,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-elr-slugs/",
-  "notes": "Kutuda 200 adet; ürün SKU 3830079160650 (tüm ürün). Çap belirtilmemiş. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 200 adet; ürün SKU 3830079160650 (tüm ürün). Çap belirtilmemiş. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici tek değer vermiyor, aralık: \"BC .212 – .234 at 939 FPS (depending on the tune)\". Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/7471 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -804,12 +804,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 34.6,
-  "bc": null,
+  "bc": 0.258,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
-  "notes": "Ürün SKU 3830079160650-2 (tüm ürün). Üretici BC yayınlamıyor."
+  "notes": "Ürün SKU 3830079160650-2 (tüm ürün). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.258 (model belirtilmemiş). Üreticinin hız bantları: 0.258 @ 1000 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/5933 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -818,12 +818,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 34.6,
-  "bc": null,
+  "bc": 0.258,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
-  "notes": "Ürün SKU 3830079160650-2 (tüm ürün). Üretici BC yayınlamıyor."
+  "notes": "Ürün SKU 3830079160650-2 (tüm ürün). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.258 (model belirtilmemiş). Üreticinin hız bantları: 0.258 @ 1000 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/5935 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -832,12 +832,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 40.7,
-  "bc": null,
+  "bc": 0.273,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
-  "notes": "Ürün SKU 3830079160650-2 (tüm ürün). Üretici BC yayınlamıyor."
+  "notes": "Ürün SKU 3830079160650-2 (tüm ürün). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.273 (model belirtilmemiş). Üreticinin hız bantları: 0.273 @ 1000 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/5934 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -846,12 +846,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 40.7,
-  "bc": null,
+  "bc": 0.273,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
-  "notes": "Ürün SKU 3830079160650-2 (tüm ürün). Üretici BC yayınlamıyor."
+  "notes": "Ürün SKU 3830079160650-2 (tüm ürün). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.273 (model belirtilmemiş). Üreticinin hız bantları: 0.273 @ 1000 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/5936 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -888,12 +888,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": null,
   "weight_gr": 46.9,
-  "bc": null,
+  "bc": 0.229,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-elr-slugs/",
-  "notes": "Üretici sadece 'yüksek BC' diyor, sayı yok. Ürün SKU 25ELR613GN (tüm ürün). Üretici BC yayınlamıyor."
+  "notes": "Üretici sadece 'yüksek BC' diyor, sayı yok. Ürün SKU 25ELR613GN (tüm ürün). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.229 (model belirtilmemiş). Üreticinin hız bantları: 0.229 @ 975 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6214 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -902,12 +902,12 @@
   "caliber_mm": 6.35,
   "head_size_mm": null,
   "weight_gr": 61.3,
-  "bc": null,
+  "bc": 0.271,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/25-elr-slugs/",
-  "notes": "Üretici sadece 'yüksek BC' diyor, sayı yok. Ürün SKU 25ELR613GN (tüm ürün). Üretici BC yayınlamıyor."
+  "notes": "Üretici sadece 'yüksek BC' diyor, sayı yok. Ürün SKU 25ELR613GN (tüm ürün). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.271 (model belirtilmemiş). Üreticinin hız bantları: 0.271 @ 976 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6215 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -930,12 +930,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 20.0,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.07,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.07 (G1). Üreticinin hız bantları: 0.07 @ 950 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6424 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -944,12 +944,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 23.0,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.075,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.075 (G1). Üreticinin hız bantları: 0.075 @ 950 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6425 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -958,12 +958,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 23.0,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.075,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.075 (G1). Üreticinin hız bantları: 0.075 @ 950 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6426 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -972,12 +972,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 30.5,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.133,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.133 (G1). Üreticinin hız bantları: 0.133 @ 1010 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6427 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -986,12 +986,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 30.5,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.133,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.133 (G1). Üreticinin hız bantları: 0.133 @ 1010 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6428 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1000,12 +1000,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 33.0,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.136,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.136 (G1). Üreticinin hız bantları: 0.136 @ 986 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6429 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1014,12 +1014,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 33.0,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.136,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.136 (G1). Üreticinin hız bantları: 0.136 @ 986 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6430 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1028,12 +1028,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 36.0,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.135,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.135 (G1). Üreticinin hız bantları: 0.135 @ 960 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6431 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1042,12 +1042,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 36.0,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.135,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.135 (G1). Üreticinin hız bantları: 0.135 @ 960 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6432 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1056,12 +1056,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.512,
   "weight_gr": 40.0,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.138,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.138 (G1). Üreticinin hız bantları: 0.138 @ 950 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6433 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1070,12 +1070,12 @@
   "caliber_mm": 5.5,
   "head_size_mm": 5.537,
   "weight_gr": 40.0,
-  "bc": null,
-  "bc_model": null,
+  "bc": 0.138,
+  "bc_model": "G1",
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). FX namlular için .217 önerilir. Üretici BC yayınlamıyor. | BC (2026-10-11): 0.138 (G1). Üreticinin hız bantları: 0.138 @ 950 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/6434 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1084,12 +1084,12 @@
   "caliber_mm": 4.5,
   "head_size_mm": null,
   "weight_gr": 10.0,
-  "bc": null,
+  "bc": 0.065,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/177-4-5mm-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.065 (model belirtilmemiş). Üreticinin hız bantları: 0.065 @ 1015 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/7060 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1098,12 +1098,12 @@
   "caliber_mm": 4.5,
   "head_size_mm": null,
   "weight_gr": 13.0,
-  "bc": null,
+  "bc": 0.08,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/177-4-5mm-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.08 (model belirtilmemiş). Üreticinin hız bantları: 0.08 @ 1022 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/7061 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1112,12 +1112,12 @@
   "caliber_mm": 4.5,
   "head_size_mm": null,
   "weight_gr": 16.0,
-  "bc": null,
+  "bc": 0.087,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/177-4-5mm-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.087 (model belirtilmemiş). Üreticinin hız bantları: 0.087 @ 1020 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/7062 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1126,12 +1126,12 @@
   "caliber_mm": 4.5,
   "head_size_mm": null,
   "weight_gr": 20.0,
-  "bc": null,
+  "bc": 0.095,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/177-4-5mm-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.095 (model belirtilmemiş). Üreticinin hız bantları: 0.095 @ 1010 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/7063 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1140,12 +1140,12 @@
   "caliber_mm": 7.62,
   "head_size_mm": null,
   "weight_gr": 58.0,
-  "bc": null,
+  "bc": 0.129,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/30-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.129 (model belirtilmemiş). Üreticinin hız bantları: 0.129 @ 920 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/7703 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1154,12 +1154,12 @@
   "caliber_mm": 7.62,
   "head_size_mm": null,
   "weight_gr": 68.0,
-  "bc": null,
+  "bc": 0.134,
   "bc_model": null,
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/30-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor. | BC (2026-10-11): 0.134 (model belirtilmemiş). Üreticinin hız bantları: 0.134 @ 920 fps. BC kaynağı: https://zanprojectiles.com/wp-json/wc/store/v1/products/7704 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1173,7 +1173,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/357-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor. Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/7417 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1187,7 +1187,7 @@
   "length_mm": null,
   "type": "slug",
   "source_url": "https://zanprojectiles.com/shop/357-hyper-line-slugs/",
-  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor."
+  "notes": "Varyant BC metni okunamadı (site erişim limiti). Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor. Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/7418 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1201,7 +1201,7 @@
   "length_mm": 9.9,
   "type": "pellet",
   "source_url": "https://zanprojectiles.com/shop/25-fat-boy-pellets/",
-  "notes": "Kutuda 252 adet. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 252 adet. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor. Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/5732 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1215,7 +1215,7 @@
   "length_mm": 9.93,
   "type": "pellet",
   "source_url": "https://zanprojectiles.com/shop/30-pellets-br50/",
-  "notes": "Kutuda 154 adet. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 154 adet. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor. Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/4160 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
@@ -1229,7 +1229,7 @@
   "length_mm": 10.7,
   "type": "pellet",
   "source_url": "https://zanprojectiles.com/shop/30-pellets-br100/",
-  "notes": "Kutuda 154 adet. Üretici BC yayınlamıyor."
+  "notes": "Kutuda 154 adet. Üretici BC yayınlamıyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor. Bakılan kaynak: https://zanprojectiles.com/wp-json/wc/store/v1/products/1705 (erişim 2026-10-11)."
  },
  {
   "brand": "Zan Projectiles",
