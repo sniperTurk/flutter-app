@@ -41,3 +41,33 @@ Eksik kalan markalar ve nedenleri:
   tablosunda hatve yok.
 - Savage, Mossberg, Weatherby, Springfield, Henry: yalnızca aramada çıkan SKU/model
   sayfaları alındı; diğer varyantlar eksik.
+
+## 2026-10-11 yerli yivli tüfek turu
+
+Kaynak kuralı aynı: yalnızca üreticinin kendi sitesi/kataloğu. Bulunmayan değer `null`,
+notes'ta "resmi kaynakta belirtilmemiş".
+
+Eklenen (323 kayıt):
+- İstanbul Silah (monza_katalog.pdf): Monza Varmint (ağır namlu, 22 mm), Monza X Tactical,
+  Monza X Hunter — 6 kalibre × 51/56/61 cm = 54. Katalogda hatve yok → `twist_rate_in` null.
+  Monza X Thumbhole: sitede "yakında", teknik veri yok → eklenmedi.
+- ATA Arms (ataarms.com ürün sayfaları): Turqua Walnut/Synthetic/XT Walnut 47/51/56 cm,
+  Turqua PT 47/51/56/66 cm (PT XL), yeni modeller Adjustable, Monte Carlo, Thumbhole,
+  Walnut Fonex, Laminated Tungsten, Camo (6 kalibre × 4 namlu) = 213. Hatve sayfadaki
+  kalibre tablosundan; ağırlık/toplam uzunluk yalnız 61 cm için verilmiş, diğerleri null
+  (Walnut S/M/L ağırlığı TR "Turqua Ahşap" sayfasından). "XL" yalnız PT için var (66 cm).
+- Huğlu (huglu.com.tr ürün sayfaları): OVIS G2 Ahşap, Sentetik, AL (66 cm), Long Range
+  Ahşap (61 cm) × 4 kalibre = 16. AL ve Long Range sayfalarında tek "1:10 INCH" var;
+  .308 dışı kalibrelerde hatve null. "Ovis Tactical / Ovis Hunter" adlı model sitede yok.
+- Balıklı (balikliarms.com): BLK 300/308/3006 ve Combo 22/223/308/3006/3030 × 51/56/61 cm
+  = 24. Combo sayfalarında hatve yok → null. Combo 9.19 ve 357 (tabanca kalibresi) atlandı.
+- Utaş Arms (utasarms.com): .223 Rem ve .308 Win tüfek, yarı otomatik ve çek bırak = 16.
+  "XTR-223 / XTR-308" adı resmi sitede geçmiyor. 9 mm tüfek (9x19) kalibre listesinde
+  olmadığı için eklenmedi.
+
+Eklenemeyen:
+- Art Tech (arttechdefense.com): site robots.txt ile otomatik erişimi yasaklıyor; Prima,
+  Prima SP/XP verisi alınamadı.
+- Sarsılmaz: sivil yivli tüfek yok (Spor Tüfekleri 12 GA av tüfekleri). SAR 308 ve
+  SAR 308 Versiyon 2: resmi ürün sayfası, teknik föy ve 2025 katalog üçü de 7.62x39 mm
+  yazıyor → mevcut kayıt doğru, değiştirilmedi.
