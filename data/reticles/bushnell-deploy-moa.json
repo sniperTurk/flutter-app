@@ -1,0 +1,23 @@
+{
+  "name": "Deploy MOA",
+  "brand": "Bushnell",
+  "scopes": [
+    "Forge 2.5-15x50 / 3-18x50 / 4.5-27x50 (RF..S1 SFP, RF..F1 FFP)",
+    "Nitro (RN..S1 SFP, RN..F1 FFP)",
+    "Engage (açık taret modelleri)"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": 5.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://cdn.shopify.com/s/files/1/0947/2796/2920/files/Forge_Riflescopes_5LIM_FullManual_web.pdf",
+  "notes": "Bushnell Forge kılavuzu: 'There are hashmarks at every 1 MOA for accurate elevation holdover', 'The reticle has wider markings every 5 MOA', 'Windage hold marks are spaced at 1 MOA intervals, with heavier marks every 5 MOA', '1 MOA marks on vertical (elevation) axis are 2 MOA wide ... 5 MOA marks on vertical axis are 4 MOA wide'. Çizgi kalınlığı: Forge/Match Pro '0.20 MOA thick crosshairs', Nitro/Engage '0.18 MOA'. FFP ve SFP sürümleri var (SFP'de ölçüler en yüksek büyütmede; Forge 4.5-27x50 için 20x, Engage 6-24x50 için 20x). Uzanım, numara, merkez nokta yazılı değil -> null. Ek kaynaklar: https://cdn.shopify.com/s/files/1/0947/2796/2920/files/Nitro_Riflescopes_5LIM_FullManual_incEUskus_web.pdf ; https://cdn.shopify.com/s/files/1/0947/2796/2920/files/EngageRiflescopes_ExpTurtDG_1LIM_web.pdf"
+}
