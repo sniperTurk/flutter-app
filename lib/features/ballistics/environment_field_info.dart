@@ -4,8 +4,26 @@
 /// explanation. Keep them short, concrete and in Turkish; say where the value
 /// can be found and give a typical example.
 abstract final class EnvironmentFieldInfo {
+  // Texts that name the projectile come in two versions: "saçma" for PCP
+  // and "mermi" for a firearm (owner, 2026-10-11). Use the `…For` helpers
+  // with the selected platform.
+  static String temperatureFor({required bool firearm}) =>
+      firearm ? temperatureFirearm : temperature;
+  static String windSpeedFor({required bool firearm}) =>
+      firearm ? windSpeedFirearm : windSpeed;
+  static String inclineFor({required bool firearm}) =>
+      firearm ? inclineFirearm : incline;
+  static String cantFor({required bool firearm}) =>
+      firearm ? cantFirearm : cant;
+  static String coriolisFor({required bool firearm}) =>
+      firearm ? coriolisFirearm : coriolis;
+
   static const temperature =
       'Atış yerindeki hava sıcaklığı. Sıcak hava daha seyrektir; saçma daha '
+      'az yavaşlar ve daha az düşer. Telefonun hava durumu veya bir '
+      'termometre yeterlidir. Örnek: 18 °C.';
+  static const temperatureFirearm =
+      'Atış yerindeki hava sıcaklığı. Sıcak hava daha seyrektir; mermi daha '
       'az yavaşlar ve daha az düşer. Telefonun hava durumu veya bir '
       'termometre yeterlidir. Örnek: 18 °C.';
   static const pressure =
@@ -24,6 +42,10 @@ abstract final class EnvironmentFieldInfo {
   static const windSpeed =
       'Rüzgârın hızı. Anemometre (ör. Kestrel) ile atış yerinde ölçmek en '
       'doğrusudur. Yan rüzgâr saçmayı yana taşır; sapma BC ile hesaplanır. '
+      'Örnek: 3 m/s.';
+  static const windSpeedFirearm =
+      'Rüzgârın hızı. Anemometre (ör. Kestrel) ile atış yerinde ölçmek en '
+      'doğrusudur. Yan rüzgâr mermiyi yana taşır; sapma BC ile hesaplanır. '
       'Örnek: 3 m/s.';
   static const windDirection =
       'Rüzgârın NEREDEN estiği, saat olarak (1–12). Kutunun altındaki '
@@ -54,10 +76,22 @@ abstract final class EnvironmentFieldInfo {
       'atışta düz atıştan daha az yükseltme gerekir. Mesafe, telemetrenin '
       'ölçtüğü eğik mesafedir. "Kamerayla ölç" ile telefonun arka kamerasını '
       'hedefe çevirerek ölçün. Örnek: −15°.';
+  static const inclineFirearm =
+      'Tüfek eğimi: hedefe bakış çizgisinin yatayla yaptığı açı. Yukarı '
+      'atışta +, aşağı atışta −. Yokuşta mermi daha az düşer; yukarı ve aşağı '
+      'atışta düz atıştan daha az yükseltme gerekir. Mesafe, telemetrenin '
+      'ölçtüğü eğik mesafedir. "Kamerayla ölç" ile telefonun arka kamerasını '
+      'hedefe çevirerek ölçün. Örnek: −15°.';
   static const cant =
       'Dürbün eğimi: dürbünün dikey çizgisinin tam dikeyden sağa veya sola '
       'yatma açısı. Sağa (saat 3 yönüne) yatık +, sola −. Yatık dürbünde '
       'saçma yatık tarafa ve biraz aşağı gider; uygulama kule kliklerini '
+      'buna göre düzeltir. Telefonu dürbüne dayayıp "Telefonla ölç" ile '
+      'ölçebilirsiniz. Örnek: 3°.';
+  static const cantFirearm =
+      'Dürbün eğimi: dürbünün dikey çizgisinin tam dikeyden sağa veya sola '
+      'yatma açısı. Sağa (saat 3 yönüne) yatık +, sola −. Yatık dürbünde '
+      'mermi yatık tarafa ve biraz aşağı gider; uygulama kule kliklerini '
       'buna göre düzeltir. Telefonu dürbüne dayayıp "Telefonla ölç" ile '
       'ölçebilirsiniz. Örnek: 3°.';
   static const coriolis =
@@ -65,6 +99,12 @@ abstract final class EnvironmentFieldInfo {
       'sağa, doğuya atışta biraz yukarı, batıya atışta biraz aşağı. Uzun '
       'uçuş süresinde (uzun mesafe) önem kazanır; havalı tüfekte 100 m\'de '
       'milimetre düzeyindedir. Açıkken uygulama enlem ve atış yönüne göre '
+      'hesaplar ve kule kliklerine ekler.';
+  static const coriolisFirearm =
+      'Dünyanın dönüşü uçuştaki mermiyi çok az saptırır: kuzey yarımkürede '
+      'sağa, doğuya atışta biraz yukarı, batıya atışta biraz aşağı. Uzun '
+      'uçuş süresinde (uzun mesafe) önem kazanır. Açıkken uygulama enlem ve '
+      'atış yönüne göre '
       'hesaplar ve kule kliklerine ekler.';
   static const latitude =
       'Bulunduğunuz yerin enlemi, derece. Kuzey yarımküre +, güney −. '

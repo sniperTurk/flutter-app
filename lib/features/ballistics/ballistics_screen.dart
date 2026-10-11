@@ -8,6 +8,7 @@ import 'package:printing/printing.dart';
 import '../../core/atmosphere.dart';
 import '../../core/ballistic_engine.dart';
 import '../../core/ballistic_input.dart';
+import '../../core/input_error_text.dart';
 import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
 import '../../core/drag_table.dart';
@@ -1206,11 +1207,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     } on FormatException catch (e) {
       _error(e.message);
     } on ArgumentError catch (e) {
-      _error(e.message?.toString() ?? 'Balistik girdileri geçersiz.');
-    } on UnsupportedError catch (e) {
-      _error(
-        e.message?.toString() ?? 'Bu balistik model henüz desteklenmiyor.',
-      );
+      // The validators' messages are English developer text: show the
+      // Turkish field name only.
+      _error(InputErrorText.of(e, fallback: 'Balistik girdileri geçersiz.'));
+    } on UnsupportedError {
+      _error('Bu balistik model henüz desteklenmiyor.');
     } on StateError {
       _error(
         'Sürtünmeli çözüm bulunamadı; hız, sıfır mesafesi ve BC uyumsuz olabilir.',
@@ -2049,6 +2050,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       });
     }
     return ScopeDialView(
+      firearm: _isFirearm,
       reticle: Reticles.forName(scope?.reticle, unit),
       unit: unit,
       clickValue: click,
@@ -2468,7 +2470,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               label: 'Sıcaklık',
               // A typed value is the user's: auto fill keeps it.
               onChanged: (_) => _userEdited.add(temperature),
-              info: EnvironmentFieldInfo.temperature,
+              info: EnvironmentFieldInfo.temperatureFor(firearm: _isFirearm),
               unit: metric ? '°C' : '°F',
               keyboardType: const TextInputType.numberWithOptions(
                 decimal: true,
@@ -2536,7 +2538,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               label: 'Rüzgâr hızı',
               // A typed value is the user's: auto fill keeps it.
               onChanged: (_) => _userEdited.add(wind),
-              info: EnvironmentFieldInfo.windSpeed,
+              info: EnvironmentFieldInfo.windSpeedFor(firearm: _isFirearm),
               unit: metric ? 'm/s' : 'mph',
             ),
             MenzilInput(
@@ -2807,7 +2809,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     Expanded(
                       child: Text(
                         title,
-                        style: MenzilType.heading(c.ink, size: 18),
+                        // No bold box titles (owner, 2026-10-11): regular.
+                        style: MenzilType.heading(
+                          c.ink,
+                          size: 18,
+                        ).copyWith(fontWeight: FontWeight.w400),
                       ),
                     ),
                     if (!open)
@@ -2844,7 +2850,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       children: [
         TextSpan(
           text: '$label ',
-          style: const TextStyle(fontWeight: FontWeight.w700),
+          style: const TextStyle(fontWeight: FontWeight.w400),
         ),
         TextSpan(text: '$text\n'),
       ],
@@ -2859,7 +2865,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         children: [
           Text(
             e.title,
-            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w700),
+            // No bold text in the Pro boxes (owner, 2026-10-11).
+            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w400),
           ),
           const SizedBox(height: MenzilSpace.xxs),
           Text.rich(
@@ -3086,9 +3093,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   style: MenzilType.body(c.ink),
                 ),
               ),
-              const MenzilInfoButton(
+              MenzilInfoButton(
                 title: 'Coriolis',
-                text: EnvironmentFieldInfo.coriolis,
+                text: EnvironmentFieldInfo.coriolisFor(firearm: _isFirearm),
               ),
               // VoiceOver reads the switch with its name.
               Semantics(
@@ -3618,7 +3625,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           key: const Key('shot-incline'),
           title: 'Tüfek eğimi',
           value: '∠ ${ShotAngleMath.degrees(_inclineDeg)}',
-          info: EnvironmentFieldInfo.incline,
+          info: EnvironmentFieldInfo.inclineFor(firearm: _isFirearm),
           icon: Icons.terrain_outlined,
           onTap: _editIncline,
         ),
@@ -3630,7 +3637,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ? 'Yok'
               : '${ShotAngleMath.degrees(_cantDeg)} '
                     '${_cantDeg > 0 ? 'sağa' : 'sola'}',
-          info: EnvironmentFieldInfo.cant,
+          info: EnvironmentFieldInfo.cantFor(firearm: _isFirearm),
           icon: Icons.rotate_right,
           onTap: _editCant,
         ),
@@ -3641,7 +3648,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   Future<void> _editIncline() async {
     final result = await showDialog<double>(
       context: context,
-      builder: (_) => _InclineDialog(initial: _inclineDeg),
+      builder: (_) => _InclineDialog(initial: _inclineDeg, firearm: _isFirearm),
     );
     if (!mounted || result == null) return;
     _setAngles(incline: result);
@@ -3649,7 +3656,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   Future<void> _editCant() async {
     final result = await Navigator.of(context).push<double>(
-      MaterialPageRoute(builder: (_) => ScopeCantScreen(initialDeg: _cantDeg)),
+      MaterialPageRoute(builder: (_) => ScopeCantScreen(initialDeg: _cantDeg, firearm: _isFirearm)),
     );
     if (!mounted || result == null) return;
     _setAngles(cant: result);
@@ -3944,7 +3951,8 @@ class _RangeDialogState extends State<_RangeDialog> {
 /// Tüfek eğimi: typed by hand or measured with the camera.
 class _InclineDialog extends StatefulWidget {
   final double initial;
-  const _InclineDialog({required this.initial});
+  final bool firearm;
+  const _InclineDialog({required this.initial, required this.firearm});
 
   @override
   State<_InclineDialog> createState() => _InclineDialogState();
@@ -3996,7 +4004,7 @@ class _InclineDialogState extends State<_InclineDialog> {
             controller: _c,
             label: 'Tüfek eğimi açısı',
             unit: '°',
-            info: EnvironmentFieldInfo.incline,
+            info: EnvironmentFieldInfo.inclineFor(firearm: widget.firearm),
             errorText: value == null ? '−$max ile $max arasında olmalı.' : null,
             keyboardType: const TextInputType.numberWithOptions(
               decimal: true,

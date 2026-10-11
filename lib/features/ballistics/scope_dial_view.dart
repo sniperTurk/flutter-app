@@ -137,6 +137,9 @@ class ScopeDialView extends StatelessWidget {
   /// marks.
   final ReticleSpec? reticle;
 
+  /// Firearm selected: the notes say "mermi" instead of "saçma".
+  final bool firearm;
+
   const ScopeDialView({
     super.key,
     required this.unit,
@@ -175,6 +178,7 @@ class ScopeDialView extends StatelessWidget {
     this.cantDeg = 0,
     this.belowButtons,
     this.reticle,
+    this.firearm = false,
   });
 
   /// Target radius as a true angle in [unit] (null when the range is unknown).
@@ -691,7 +695,8 @@ class ScopeDialView extends StatelessWidget {
     if (cantDeg.round() != 0) {
       lines.add(
         'Dürbün eğimi ${cantDeg.abs().round()}° '
-        '${cantDeg > 0 ? 'sağa' : 'sola'}: saçma yatık tarafa ve aşağı '
+        '${cantDeg > 0 ? 'sağa' : 'sola'}: ${firearm ? 'mermi' : 'saçma'} '
+        'yatık tarafa ve aşağı '
         'kayar; kule değerleri yatık dürbünün kendi eksenlerinde verildi.',
       );
     }

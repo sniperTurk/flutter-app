@@ -3210,7 +3210,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   for (var i = 0; i < 2; i++) ...[
                     MenzilInput(
                       key: Key('ammo-band-fps-$i'),
-                      info: ProfileFieldInfo.bandSpeed,
+                      info: platform == WeaponPlatform.firearm
+                          ? ProfileFieldInfo.bandSpeedFirearm
+                          : ProfileFieldInfo.bandSpeed,
                       controller: ammoBandFps[i],
                       label: '${i + 1}. eşik hızı',
                       onChanged: (_) => setState(() {}),

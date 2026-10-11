@@ -92,6 +92,10 @@ abstract final class ProfileFieldInfo {
       'bu değerin altına inince yandaki BC kullanılır; üstünde ana BC. '
       'Üretici bazen hız aralıklarıyla birden çok BC verir (ör. Sierra). '
       'Örnek: 800 fps altında 0,031.';
+  static const bandSpeedFirearm =
+      'İsteğe bağlı. BC hız düştükçe değişir. Hız bu değerin altına inince '
+      'yandaki BC kullanılır; üstünde ana BC. Üretici bazen hız aralıklarıyla '
+      'birden çok BC verir (ör. Sierra). Örnek: 1800 fps altında 0,450.';
   static const bandBc =
       'Hız, soldaki eşiğin altına düştüğünde kullanılacak BC (aynı model: '
       'G1/G7/GA). Boş bırakırsanız tek BC kullanılır. Örnek: 0,031.';
