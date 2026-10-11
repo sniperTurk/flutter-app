@@ -11,10 +11,8 @@ class UsageGuideScreen extends StatelessWidget {
   const UsageGuideScreen({super.key});
 
   /// Section titles: the heading face at regular weight (no bold).
-  static TextStyle titleStyle(Color color) => MenzilType.heading(
-    color,
-    size: 19,
-  ).copyWith(fontWeight: FontWeight.w400);
+  static TextStyle titleStyle(Color color) =>
+      MenzilType.heading(color, size: 19).copyWith(fontWeight: FontWeight.w400);
 
   /// Paragraphs: the body face at regular weight (no bold).
   static TextStyle textStyle(Color color) =>

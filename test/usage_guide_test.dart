@@ -72,11 +72,7 @@ void main() {
     for (final element in texts.evaluate()) {
       final text = element.widget as Text;
       final weight = text.style?.fontWeight ?? FontWeight.w400;
-      expect(
-        weight.value,
-        lessThan(FontWeight.w600.value),
-        reason: text.data,
-      );
+      expect(weight.value, lessThan(FontWeight.w600.value), reason: text.data);
       expect(text.style?.fontFamily, MenzilType.family);
     }
     expect(tester.takeException(), isNull);

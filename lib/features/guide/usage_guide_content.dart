@@ -21,137 +21,137 @@ abstract final class UsageGuideContent {
   static const List<UsageGuideSection> sections = [
     UsageGuideSection('Başlarken', [
       'Alt çubukta beş sayfa var: Profil, Hava Durumu, Pro, Hedef ve Araçlar. '
-      'Sıra, atışa hazırlanma sırasıdır: önce tüfeği tanıt, sonra havayı gir, '
-      'gerekirse Pro ayarları doldur, en son Hedef\'te kuleleri çevir.',
+          'Sıra, atışa hazırlanma sırasıdır: önce tüfeği tanıt, sonra havayı gir, '
+          'gerekirse Pro ayarları doldur, en son Hedef\'te kuleleri çevir.',
       'Hava Durumu, Pro ve Hedef aynı hesabı paylaşır. Birinde girdiğin değer '
-      'ötekilerde de geçerlidir.',
+          'ötekilerde de geçerlidir.',
       'Hesap bir tahmindir. Uzak mesafeye geçmeden önce sonuçları atış '
-      'alanında doğrula.',
+          'alanında doğrula.',
     ]),
     UsageGuideSection('İlk profil', [
       '1. Profil sayfasında "Profil oluştur"a dokun. Sonraki profiller için '
-      '"Yeni profil" kullanılır.',
+          '"Yeni profil" kullanılır.',
       '2. Profil adını yaz ve Tür seç: Ateşli Tüfek ya da PCP Tüfek. Tür '
-      'değişirse mühimmat seçimi silinir.',
+          'değişirse mühimmat seçimi silinir.',
       '3. Tüfek: Marka, Model ve Kalibre listeden seçilir. Listede yoksa '
-      '"Listede yok" ile elle yaz. Namlu yiv yönü ve Yiv oranı (1:10 için 10 '
-      'yaz) spin drift hesabı için gerekir.',
+          '"Listede yok" ile elle yaz. Namlu yiv yönü ve Yiv oranı (1:10 için 10 '
+          'yaz) spin drift hesabı için gerekir.',
       '4. Sight height: namlu ekseninin merkezi ile dürbün ekseninin merkezi '
-      'arasındaki mesafe, mm. Bilmiyorsan Araçlar\'daki Sight Height ile ölç. '
-      'Ateşli tüfekte çoğunlukla 38–60 mm, PCP\'de 45–70 mm arasındadır.',
+          'arasındaki mesafe, mm. Bilmiyorsan Araçlar\'daki Sight Height ile ölç. '
+          'Ateşli tüfekte çoğunlukla 38–60 mm, PCP\'de 45–70 mm arasındadır.',
       '5. Sıfırlama mesafesi: tüfeğin sıfırlı olduğu mesafe, örneğin 100 m. '
-      'Bütün kule değerleri bu mesafeye göre hesaplanır.',
+          'Bütün kule değerleri bu mesafeye göre hesaplanır.',
       '6. Dürbün: Marka ve Model listeden seçilir; büyütme, mercek çapı, Odak '
-      'düzlemi (FFP/SFP) ve Dürbün birimi (MRAD/MOA) gelir. Listeden seçilen '
-      'dürbünde klik değeri kendiliğinden gelir, elle girilen dürbünde Klik '
-      'değeri yazılır. Eğimli ray kullanıyorsan Dürbün ayağı\'nı (ör. 20 MOA) '
-      'seç. Retikül seçersen Hedef ekranında tutuş noktası retikülün üzerinde '
-      'gösterilir.',
+          'düzlemi (FFP/SFP) ve Dürbün birimi (MRAD/MOA) gelir. Listeden seçilen '
+          'dürbünde klik değeri kendiliğinden gelir, elle girilen dürbünde Klik '
+          'değeri yazılır. Eğimli ray kullanıyorsan Dürbün ayağı\'nı (ör. 20 MOA) '
+          'seç. Retikül seçersen Hedef ekranında tutuş noktası retikülün üzerinde '
+          'gösterilir.',
       '7. Mühimmat: ateşli tüfekte Fabrika fişeği ya da El dolumu, PCP\'de '
-      'Pellet ya da Slug. Marka ve Model seçince ağırlık ve BC gelir. BC '
-      'modelini kutuda yazana göre seç; bilmiyorsan G1.',
+          'Pellet ya da Slug. Marka ve Model seçince ağırlık ve BC gelir. BC '
+          'modelini kutuda yazana göre seç; bilmiyorsan G1.',
       '8. Namlu çıkış hızı (fps): en iyisi kronografla ölçülen ortalama. '
-      'Kronograf yoksa kutudaki değeri yaz, sonra Hız Doğrulama ile düzelt. '
-      'Ateşli tüfekte Barut sıcaklık katsayısı ve Hız ölçüm sıcaklığı isteğe '
-      'bağlıdır, ikisi birlikte girilir.',
+          'Kronograf yoksa kutudaki değeri yaz, sonra Hız Doğrulama ile düzelt. '
+          'Ateşli tüfekte Barut sıcaklık katsayısı ve Hız ölçüm sıcaklığı isteğe '
+          'bağlıdır, ikisi birlikte girilir.',
       '9. Kaydet. Eksik bir değer varsa düğmenin üstünde "Kaydetmek için '
-      'eksik" listesi çıkar.',
+          'eksik" listesi çıkar.',
     ]),
     UsageGuideSection('Sıfırlama', [
       'Uygulama tüfeği sıfırlamaz; sıfırı atış alanında sen yaparsın, uygulama'
-      ' bu sıfırdan hesaplar.',
+          ' bu sıfırdan hesaplar.',
       '1. Profildeki Sıfırlama mesafesinde, sağlam bir dayanakla 3–5 atışlık '
-      'grup at.',
+          'grup at.',
       '2. Grubun ortası artıya gelene kadar kuleleri çevir. Sonra kule '
-      'kapaklarını dürbünün kılavuzuna göre 0\'a getir.',
+          'kapaklarını dürbünün kılavuzuna göre 0\'a getir.',
       '3. Grup biraz kaçık kalıyorsa ve kuleyle düzeltmek istemiyorsan kaymayı'
-      ' Pro > Tüfek düzeltmeleri > Sıfır ofseti\'ne cm olarak yaz: yukarı ve '
-      'sağ artı, aşağı ve sol eksi.',
+          ' Pro > Tüfek düzeltmeleri > Sıfır ofseti\'ne cm olarak yaz: yukarı ve '
+          'sağ artı, aşağı ve sol eksi.',
       '4. Hedef ekranında mesafe sıfır mesafesine eşitken çözüm "Çözüm: 0 '
-      'klik" olmalıdır.',
+          'klik" olmalıdır.',
       '5. Uzak mesafede düşüş hesaptan farklı çıkıyorsa Araçlar > Hız '
-      'Doğrulama ile namlu hızını ya da BC\'yi düzelt.',
+          'Doğrulama ile namlu hızını ya da BC\'yi düzelt.',
     ]),
     UsageGuideSection('Hava Durumu', [
       '"Konumdan canlı hava verisi al" sıcaklık, nem ve rüzgâr hızını '
-      'doldurur; İrtifa boşsa GPS\'ten alır. Senin yazdığın değerlere '
-      'dokunmaz. Rüzgâr yönünü her zaman sen seçersin.',
+          'doldurur; İrtifa boşsa GPS\'ten alır. Senin yazdığın değerlere '
+          'dokunmaz. Rüzgâr yönünü her zaman sen seçersin.',
       'Atmosfer: Sıcaklık, İstasyon basıncı, Bağıl nem ve İrtifa. Basınç, '
-      'bulunduğun yerdeki istasyon basıncıdır; deniz seviyesine indirilmiş QNH'
-      ' değeri değildir.',
+          'bulunduğun yerdeki istasyon basıncıdır; deniz seviyesine indirilmiş QNH'
+          ' değeri değildir.',
       'Rüzgâr: Rüzgâr hızı m/s olarak yazılır. Rüzgâr yönü saat kadranında '
-      'seçilir: rüzgârın geldiği saate dokun. Hedef saat 12\'dedir; sağdan '
-      'gelen rüzgâr 3, arkadan 6, soldan 9.',
+          'seçilir: rüzgârın geldiği saate dokun. Hedef saat 12\'dedir; sağdan '
+          'gelen rüzgâr 3, arkadan 6, soldan 9.',
       'Rüzgâr düzeltmesi kutusu: En yüksek rüzgâr, rüzgâr hızının 1,5 katı '
-      'olarak kendiliğinden yazılır; Hedef ekranı yan düzeltmeyi bu yüzden bir'
-      ' aralık olarak gösterir. Silersen aralık gösterilmez, "Otomatik doldur"'
-      ' geri getirir. Yol ortası ve Hedefte kutularına oradaki rüzgârı yaz; '
-      'boş kalırsa her yerde aynı rüzgâr kullanılır.',
+          'olarak kendiliğinden yazılır; Hedef ekranı yan düzeltmeyi bu yüzden bir'
+          ' aralık olarak gösterir. Silersen aralık gösterilmez, "Otomatik doldur"'
+          ' geri getirir. Yol ortası ve Hedefte kutularına oradaki rüzgârı yaz; '
+          'boş kalırsa her yerde aynı rüzgâr kullanılır.',
       'Üstteki "Konumdan canlı hava verisi" düğmesi servis verisini ayrı bir '
-      'sayfada yalnızca gösterir; hesaba aktarmaz.',
+          'sayfada yalnızca gösterir; hesaba aktarmaz.',
     ]),
     UsageGuideSection('Hedef ekranında atış', [
       'Mesafe: büyük sayıya dokunup yaz, −5 / −1 / +1 / +5 düğmelerini ya da '
-      'kaydırıcıyı kullan. "Haritadan" ile mesafeyi haritada ölçebilirsin. '
-      'Hesap kendiliğinden yenilenir.',
+          'kaydırıcıyı kullan. "Haritadan" ile mesafeyi haritada ölçebilirsin. '
+          'Hesap kendiliğinden yenilenir.',
       'Kuleler: Yükseklik kulesi (U/D) ve Rüzgâr kulesi (R/L) gereken klik '
-      'sayısını gösterir. "Çözümü kulelere kur"a dokun, sonra dürbündeki '
-      'kuleleri aynı yönde aynı sayıda klik çevir. "Kule sınırına kuruldu" '
-      'yazıyorsa kule yetmiyor demektir; kalan kısmı retikülle tut.',
+          'sayısını gösterir. "Çözümü kulelere kur"a dokun, sonra dürbündeki '
+          'kuleleri aynı yönde aynı sayıda klik çevir. "Kule sınırına kuruldu" '
+          'yazıyorsa kule yetmiyor demektir; kalan kısmı retikülle tut.',
       'Retikül: vuruş noktası retikülün üzerinde gösterilir, "1 çizgi = …" '
-      'çizgi aralığını söyler. SFP dürbünde Büyütme kaydırıcısını dürbündeki '
-      'büyütmeye getir; tutuş değerleri ona göre hesaplanır. FFP dürbünde '
-      'değerler her büyütmede aynıdır.',
+          'çizgi aralığını söyler. SFP dürbünde Büyütme kaydırıcısını dürbündeki '
+          'büyütmeye getir; tutuş değerleri ona göre hesaplanır. FFP dürbünde '
+          'değerler her büyütmede aynıdır.',
       'Rüzgâr: yan düzeltme, en yüksek rüzgâr girildiyse bir aralık olarak '
-      'görünür. Spin drift ve isabet olasılığı notları retikülün altındadır.',
+          'görünür. Spin drift ve isabet olasılığı notları retikülün altındadır.',
       'Atıştan sonra "Kuleleri sıfırla" ekrandaki kuleleri sıfıra döndürür; '
-      'dürbündeki kuleleri de sıfıra almayı unutma.',
+          'dürbündeki kuleleri de sıfıra almayı unutma.',
       '"Hesap dökümü" düşüşün ve yan sapmanın hangi etkilerden geldiğini '
-      'gösterir. "DOPE kartını paylaş (PDF)" yazdırılabilir bir kart hazırlar.',
+          'gösterir. "DOPE kartını paylaş (PDF)" yazdırılabilir bir kart hazırlar.',
     ]),
     UsageGuideSection('Pro ayarlar', [
       'Pro\'da açma kapama düğmesi yoktur. Bir kutuya veri girince o etki '
-      'hesaba katılır, boş bırakılan kutu hesaba katılmaz.',
+          'hesaba katılır, boş bırakılan kutu hesaba katılmaz.',
       'Açı: Tüfek eğimi, yokuş yukarı ya da aşağı atışın açısıdır ("Kamerayla '
-      'ölç"). Dürbün eğimi, tüfeğin sağa sola yatıklığıdır ("Telefonla ölç"). '
-      'Düz atışta 0 bırak.',
+          'ölç"). Dürbün eğimi, tüfeğin sağa sola yatıklığıdır ("Telefonla ölç"). '
+          'Düz atışta 0 bırak.',
       'Coriolis: Enlem ("Konumdan al") ve Atış yönü (azimut) ("Pusuladan al") '
-      'ikisi birlikte girilince etkin olur. Etkisi çoğunlukla 500 m\'nin '
-      'ötesinde fark edilir.',
+          'ikisi birlikte girilince etkin olur. Etkisi çoğunlukla 500 m\'nin '
+          'ötesinde fark edilir.',
       'Yerçekimi: "Konumdan hesapla" bulunduğun yerin yerçekimini yazar; boşsa'
-      ' standart değer kullanılır.',
+          ' standart değer kullanılır.',
       'Hareketli hedef: hedefin hızını ve yönünü yaz; Hedef ekranı ne kadar '
-      'önden nişan alacağını gösterir. Grup çapını yazarsan isabet olasılığı '
-      'da hesaplanır.',
+          'önden nişan alacağını gösterir. Grup çapını yazarsan isabet olasılığı '
+          'da hesaplanır.',
       'Tüfek düzeltmeleri: Gerçek / yazan, kare testiyle bulunan kule ölçek '
-      'katsayısıdır. Sıfır ofseti, sıfırdaki küçük kaymadır. Spin drift için '
-      'Mermi uzunluğu\'nu mm olarak yaz; yiv yönü ve yiv oranı profilden '
-      'gelir.',
+          'katsayısıdır. Sıfır ofseti, sıfırdaki küçük kaymadır. Spin drift için '
+          'Mermi uzunluğu\'nu mm olarak yaz; yiv yönü ve yiv oranı profilden '
+          'gelir.',
       'Rüzgâr düzeltmesi Hava Durumu sayfasındadır. Barut sıcaklığı Profil > '
-      'Mühimmat\'ta girilir; Pro\'da yalnızca bugünkü hız gösterilir.',
+          'Mühimmat\'ta girilir; Pro\'da yalnızca bugünkü hız gösterilir.',
     ]),
     UsageGuideSection('Tablo / DOPE', [
       'Hedef sayfasının üstündeki "Tek atış | Tablo" anahtarından Tablo\'ya '
-      'geç.',
+          'geç.',
       'DOPE mesafeleri kutusuna mesafeleri virgülle yaz (ör. 100, 200, 300) ve'
-      ' "DOPE oluştur"a dokun. Tablo, Hava Durumu ve Pro\'daki değerlerle '
-      'hesaplanır.',
+          ' "DOPE oluştur"a dokun. Tablo, Hava Durumu ve Pro\'daki değerlerle '
+          'hesaplanır.',
       'Sütunlar: düşüş (cm), yükseklik düzeltmesi (MOA ve mrad), rüzgâr '
-      'düzeltmesi ve sapması, hız, enerji ve uçuş süresi (TOF). Hava değişince'
-      ' tabloyu yeniden oluştur.',
+          'düzeltmesi ve sapması, hız, enerji ve uçuş süresi (TOF). Hava değişince'
+          ' tabloyu yeniden oluştur.',
     ]),
     UsageGuideSection('Araçlar', [
       'Hız Doğrulama: uzak mesafede gözlenen düşümle namlu hızını ya da BC\'yi'
-      ' düzeltir ve profile aktarır.',
+          ' düzeltir ve profile aktarır.',
       'Sight Height: dürbün eksen yüksekliğini ölçüyle ya da yandan çekilen '
-      'fotoğrafla bulur.',
+          'fotoğrafla bulur.',
       'Haritadan mesafe: uydu haritasında nişancı ve hedef noktasından mesafe '
-      've yön verir.',
+          've yön verir.',
       'Hava & Rüzgâr: konumuna göre servis verisini gösterir.',
       'Pusula ve Su Terazisi: atış yönü ve tüfeğin yatıklığı için.',
       'Vuruş Olasılığı: grup ve hedef çapından tek atış vuruş yüzdesi.',
       'Hesaplayıcılar: mesafe, MOA, tık doğrulama, BC, hava ve birim '
-      'dönüştürücüler.',
+          'dönüştürücüler.',
     ]),
   ];
 }
