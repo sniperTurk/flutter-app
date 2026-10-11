@@ -75,6 +75,30 @@ void main() {
         expect(a.bc, inInclusiveRange(0.05, 1.2), reason: a.name);
       }
     }
+    // BC completion (2026-10-11): maker BCs filled; a bullet maker's BC is
+    // marked as such, an unlabelled one says it was taken as G1.
+    final stinger = FactoryAmmoLibrary.all.firstWhere(
+      (a) => a.brand == 'CCI' && a.name.contains('Stinger'),
+    );
+    expect(stinger.bc, 0.084);
+    expect(stinger.model, BallisticModel.g1);
+    expect(stinger.note, contains('G1 kabul edildi'));
+    final tsx = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Black Hills' &&
+          a.name.contains('62 gr Barnes TSX') &&
+          a.cartridge == '.223 Rem',
+    );
+    expect(tsx.bc, 0.287);
+    expect(tsx.bcFromBullet, isTrue);
+    final eld = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Hornady' &&
+          a.cartridge == '.308 Win' &&
+          a.name.contains('168 gr ELD Match'),
+    );
+    expect(eld.bc, 0.263);
+    expect(eld.model, BallisticModel.g7);
     // MKE velocities measured at 23.7 m are brought back to the muzzle.
     final m80 = FactoryAmmoLibrary.all.firstWhere(
       (a) => a.brand == 'MKE' && a.name.contains('M80'),
