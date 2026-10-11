@@ -1,0 +1,21 @@
+{
+  "name": "RAPTR-1S",
+  "brand": "Element Optics",
+  "scopes": [
+    "Iris 4-12x44 SFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://global.element-optics.com/wp-content/uploads/2024/10/5x7-IRIS-4-12x44-Manual-lr.pdf",
+  "notes": "SFP avcılık BDC retikülü (ürün sayfasında 'RAPTR-1S BDC'; föy yalnız PNG görseli: https://global.element-optics.com/wp-content/uploads/2024/10/IRIS-4-12x44-SFP-RAPTR-1S.png). Kılavuz tablosu 'Reticle Subtensions (8x)' (referans 8x): 200/300/400 için düşüş 2.4/5.8/9.6 MOA, yan 0.9/1.4/'NONE' MOA; BDC çizgilerinin genişliği 5 mph yan rüzgâra karşılık; 'use the centre dot' -> center_dot true. Mesafe birimi metinde net değil. Şema düzensiz BDC işaretlerini taşıyamadığı için family/hash_step/tree null; değerler yalnız bu notta. Çizgi kalınlığı, nokta boyutu yazmıyor -> null."
+}

@@ -2,7 +2,8 @@
   "name": "EBR-8 BDC MOA",
   "brand": "Vortex Optics",
   "scopes": [
-    "Strike Eagle 1-8x24 FFP"
+    "Strike Eagle 1-8x24 FFP",
+    "Strike Eagle 1-10x24 FFP"
   ],
   "unit": "moa",
   "family": null,
@@ -17,5 +18,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://vortexoptics.com/strike-eagle-1-8x24-ffp-riflescope.html",
-  "notes": "Strike Eagle 1-8x24 FFP sayfası: First Focal Plane, ayar 1/4 MOA. Metin: 'Constant subtensions allow accurate holdover and ranging at all magnifications.', '.223/5.56mm and .308/7.62mm' yükleri için 'point blank out to 600 yards', '... using the BDC hashmarks.' İşaret değerleri metinde yok; family null. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı)."
+  "notes": "Strike Eagle 1-8x24 FFP sayfası: First Focal Plane, ayar 1/4 MOA. Metin: 'Constant subtensions allow accurate holdover and ranging at all magnifications.', '.223/5.56mm and .308/7.62mm' yükleri için 'point blank out to 600 yards', '... using the BDC hashmarks.' İşaret değerleri metinde yok; family null. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). 2026-10-11: Strike Eagle 1-10x24 FFP de EBR-8 BDC (MOA) varyantı sunuyor (https://vortexoptics.com/strike-eagle-1-10x24-ffp.html, data/scopes/vortex.json); sayfada ölçü metni yok."
 }
