@@ -9,14 +9,14 @@
   "family": "hash",
   "hash_step": 0.1,
   "major_every": 0.2,
-  "numbers_every": null,
+  "numbers_every": 2,
   "extent_h": null,
   "extent_v_up": null,
   "extent_v_down": null,
   "tree": null,
   "posts_start": null,
   "center_dot": null,
-  "floating_center": null,
+  "floating_center": true,
   "source_url": "https://resources.zerotechoptics.com/images/reticleManuals/rmg3-illum-specs.pdf",
-  "notes": "ZeroTech reticle sayfası: '0.2 MRAD increments', '0.1 MRAD resolution', yüzen merkez artı; scope adları FFP. hash_step=0.1 ve major_every=0.2 bu ifadelerden yorumlandı (çıkarım). PDF (DIMENSIONS (MILS)) harf etiketli ölçüler veriyor, harf-özellik eşlemesi yok; FFP/SFP PDF'te yok. extent, numbers_every, tree, posts_start, center_dot -> null."
+  "notes": "ZeroTech reticle sayfası: '0.2 MRAD increments', '0.1 MRAD resolution', yüzen merkez artı; scope adları FFP. hash_step=0.1 ve major_every=0.2 bu ifadelerden yorumlandı (çıkarım). PDF (DIMENSIONS (MILS)) harf etiketli ölçüler veriyor, harf-özellik eşlemesi yok; FFP/SFP PDF'te yok. extent, numbers_every, tree, posts_start, center_dot -> null. [2. tur] floating_center=true doğrudan: 'Subtended in 0.2 MRAD increments with 0.1 MRAD resolution and a floating center cross' (zerotechoptics.com/product/5-30x56ed-rmg-3-illuminated/). numbers_every=2 ÇIKARIM: rmg3-illum-specs.pdf metninde '10 8 6 4 2 2 4 6 8 10' simetrik dizi (yatay); ayrıca 1-30 arası rakamlar var (konumu belirlenemiyor). center_dot: sayfa 'cross' diyor, PDF'te eşlenmemiş 0.06 dia ölçüler var -> null."
 }
