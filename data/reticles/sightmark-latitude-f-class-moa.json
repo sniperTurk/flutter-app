@@ -1,0 +1,19 @@
+{
+  "name": "Latitude F-Class",
+  "brand": "Sightmark",
+  "scopes": ["Latitude 6.25-25x56 F-Class (SM13042FTR)", "Latitude 8-32x60 F-Class (SM13043FTR)", "Latitude F-Class (SM13044FTR)"],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://cdn.shopify.com/s/files/1/0566/9466/9461/files/Latitude_Series_Manual_WEB_2519b9f8-5187-4cbb-81a3-c43c848b5cd8.pdf?v=1623698983",
+  "notes": "Sightmark Latitude Series kılavuzu. SFP, MOA. Metin: en yüksek büyütmede 0.06 MOA ince nişan noktası (1000 yd'de ~0.6 inç kaplar). Çizgi bölmeleri, uzanımlar ve aile metinde yok -> null; görsel okunamadı. Kılavuz görselleri (ölçü föyü çizimleri) bu ortamdan okunamadı; değerler yalnız PDF metninden alındı."
+}
