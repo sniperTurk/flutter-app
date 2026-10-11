@@ -81,13 +81,16 @@ void main() {
     expect(find.text('Atış girdileri'), findsNothing);
     expect(find.text('Hesapla'), findsNothing);
     expect(find.text('Pro Ayarlara Geç'), findsOneWidget);
+    // Rüzgâr düzeltmesi lives on Hava Durumu (owner, 2026-10-11).
+    expect(find.byKey(const Key('pro-section-wind')), findsOneWidget);
     await _tapKey(tester, 'environment-continue-pro');
 
-    // Pro Ayarlar: five boxes, all closed at first (owner, 2026-10-09).
+    // Pro Ayarlar: four boxes, all closed at first (owner, 2026-10-09).
     expect(_title(tester), 'Pro Ayarlar');
-    for (final id in ['angle', 'wind', 'coriolis', 'target', 'rifle']) {
+    for (final id in ['angle', 'coriolis', 'target', 'rifle']) {
       expect(find.byKey(Key('pro-section-$id')), findsOneWidget, reason: id);
     }
+    expect(find.byKey(const Key('pro-section-wind')), findsNothing);
     expect(find.byKey(const Key('shot-incline')), findsNothing);
     // Opening a box shows its fields and its explanation; one box at a time.
     await openProFor(tester, const Key('shot-incline'));
