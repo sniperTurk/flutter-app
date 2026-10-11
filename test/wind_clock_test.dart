@@ -40,7 +40,8 @@ void main() {
         ),
       ),
     );
-    expect(find.text(WindClockPicker.instruction), findsOneWidget);
+    // No helper text under the field; the instruction lives in the ⓘ.
+    expect(find.text(WindClockPicker.instruction), findsNothing);
     expect(find.byKey(const ValueKey('wind-clock-label')), findsNothing);
     await tester.tap(find.byKey(WindClockPicker.hourKey(3)));
     await tester.pump();

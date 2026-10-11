@@ -18,6 +18,7 @@ class WindClockPicker extends StatelessWidget {
 
   static ValueKey<String> hourKey(int h) => ValueKey('wind-clock-$h');
 
+  /// Shown in the Rüzgâr yönü ⓘ (no helper text under fields).
   static const instruction =
       'Rüzgâr hangi yönden geliyorsa kadranda o saate dokunun; değer Rüzgâr '
       'yönü kutusuna girilir. Hedef saat 12 yönünde.';
@@ -29,12 +30,6 @@ class WindClockPicker extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          instruction,
-          key: const ValueKey('wind-clock-instruction'),
-          style: MenzilType.body(c.ink2),
-        ),
-        const SizedBox(height: MenzilSpace.xs),
         Center(
           child: SizedBox.square(
             dimension: 236,

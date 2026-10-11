@@ -26,7 +26,9 @@ abstract final class EnvironmentFieldInfo {
       'doğrusudur. Yan rüzgâr saçmayı yana taşır; sapma BC ile hesaplanır. '
       'Örnek: 3 m/s.';
   static const windDirection =
-      'Rüzgârın NEREDEN estiği, saat olarak (1–12). Hedefe dönün: hedef saat '
+      'Rüzgârın NEREDEN estiği, saat olarak (1–12). Kutunun altındaki '
+      'kadranda rüzgârın geldiği saate dokunun; değer kutuya girilir. '
+      'Hedefe dönün: hedef saat '
       '12, sağınız saat 3, arkanız saat 6, solunuz saat 9. Hava durumu '
       'rüzgâr yönünü pusulaya göre verir, atış yönünüzü bilmez; bu yüzden '
       'bu değeri siz girin. Örnek: soldan esiyorsa 9, sağ önden esiyorsa 1 '

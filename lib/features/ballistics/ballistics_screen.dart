@@ -2544,7 +2544,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               controller: windHour,
               label: 'Rüzgâr yönü',
               unit: 'saat',
-              hintText: '1–12',
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               maxLength: 2,
