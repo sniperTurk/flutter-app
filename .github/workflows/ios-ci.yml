@@ -29,7 +29,7 @@ permissions:
 # iOS TestFlight uses its own group and cancels PR runs of this workflow when
 # it starts, so a release upload never waits behind PR checks.
 concurrency:
-  group: ios-ci-${{ github.ref }}
+  group: ios-ci-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 # macOS budget (2026-10-11 diagnosis): macos-15 runners are limited to 5
@@ -65,7 +65,8 @@ jobs:
       - name: Install pinned scientific stack for the offline solver cross-check
         # tools/offline_solver_crosscheck.py (run by the regression suite) needs
         # scipy; a missing module must fail the gate, not be skipped.
-        run: python3 -m pip install --disable-pip-version-check scipy==1.18.1 numpy==2.5.3
+        # pyyaml: the workflow guard tests (test_ci_*) parse the YAML.
+        run: python3 -m pip install --disable-pip-version-check scipy==1.18.1 numpy==2.5.3 pyyaml
 
       - name: Run complete offline Python regression suite
         # Discovery is intentional: every tools/test_*.py regression guard must
