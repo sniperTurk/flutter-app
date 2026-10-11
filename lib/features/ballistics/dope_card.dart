@@ -48,7 +48,7 @@ Future<Uint8List> buildDopeCardPdf(
   const ink = PdfColor.fromInt(0xFF0F2230);
   const red = PdfColor.fromInt(0xFFC8102E);
   const grey = PdfColor.fromInt(0xFF465D6F);
-  const band = PdfColor.fromInt(0xFFEFF3F5);
+  const band = PdfColor.fromInt(0xFFF6F8FA);
   // The table fills the A4 page (owner, 2026-10-11): rows grow with the
   // free height left by the header, the info line and the notes.
   final rowCount = math.max(1, d.rows.length);
@@ -72,7 +72,7 @@ Future<Uint8List> buildDopeCardPdf(
                 ignoreMargins: true,
                 child: pw.Center(
                   child: pw.Opacity(
-                    opacity: 0.12,
+                    opacity: 0.18,
                     child: pw.Image(pw.MemoryImage(logo), width: 240),
                   ),
                 ),
