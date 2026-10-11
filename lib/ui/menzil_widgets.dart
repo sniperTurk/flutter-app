@@ -1355,26 +1355,13 @@ class MenzilSecondaryButton extends StatelessWidget {
           if (fits) break;
           size -= 0.5;
         }
-        final oneLine = TextPainter(
-          text: TextSpan(
-            text: label,
-            style: base.copyWith(fontSize: size),
-          ),
-          textDirection: dir,
-          textScaler: scaler,
-          maxLines: 1,
-        )..layout(maxWidth: box.maxWidth);
-        final wraps = oneLine.didExceedMaxLines;
-        oneLine.dispose();
         return Text(
           label,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          // A wrapped label is not bold (owner, 2026-10-11).
-          style: TextStyle(
-            fontSize: size,
-            fontWeight: wraps ? FontWeight.w400 : null,
-          ),
+          // Never bold, so the pair of dial buttons matches whether a label
+          // wraps or not (owner, 2026-10-11).
+          style: TextStyle(fontSize: size, fontWeight: FontWeight.w400),
         );
       },
     );
