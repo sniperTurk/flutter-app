@@ -1,0 +1,27 @@
+{
+  "name": "APR-1C MOA",
+  "brand": "Element Optics",
+  "scopes": [
+    "Helix 6-24x50 FFP Gen 2",
+    "Helix 6-24x50 SFP Gen 2",
+    "Helix 4-16 FFP",
+    "Helix 6-24 FFP",
+    "Helix HDLR 2-16x50 SFP",
+    "Nexus 4-25x50 Gen II",
+    "Immersive"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": 4.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://element-optics.com/wp-content/uploads/2025/05/RETICLE-SHEET-APR-1C-MOA-HELIX-GEN-2-6-24-FFP.pdf",
+  "notes": "Helix Gen 2 6-24 FFP föyü (FFP). Föy metni: A merkez nokta ('fine', boyut yok), B+C 1/4 MOA ölçek (bir bölüm = bir klik), I 1 MOA, D 2 MOA ve E 4 MOA çizgiler, H 4 MOA oklar, F sol/sağ/altta incelen barlar, G dikey eksende rakamlı tutma işaretleri (#); çizgi kalınlığı 0.12 MOA. Nexus Gen 2 föyü (https://element-optics.com/wp-content/uploads/2023/07/RETICLE-SHEET-APR-1C-MOA-NEXUS-GEN2.pdf) aynı: 'hash marks at 1, 2 and 4 MOA', 0.12 MOA. major_every=4.0 çıkarımdır: en büyük çizgi sınıfı 4 MOA olarak etiketlendiği için seçildi. floating_center null: FFP föyleri 'fine centre dot' diyor, Helix Gen 2 SFP föyü (https://element-optics.com/wp-content/uploads/2025/05/RETICLE-SHEET-APR-1C-MOA-HELIX-GEN2-SFP.pdf) 'Floating center dot' diyor -> çelişkili. SFP föyünde referans büyütme yazmıyor. Immersive sürümü yalnız PNG görseli. Rakam aralığı ve uzanımlar yalnız föy görselinde, okunamadı -> null."
+}
