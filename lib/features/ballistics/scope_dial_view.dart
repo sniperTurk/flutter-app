@@ -1182,8 +1182,7 @@ class _DrumPainter extends CustomPainter {
           end: axis == Axis.horizontal
               ? Alignment.centerRight
               : Alignment.bottomCenter,
-          // Dark metal drum, as in the owner's reference (2026-10-11).
-          colors: [colors.drumDark, colors.drumLight, colors.drumDark],
+          colors: [colors.surface2, colors.line, colors.surface2],
         ).createShader(rect),
     );
     canvas.save();
@@ -1194,10 +1193,10 @@ class _DrumPainter extends CustomPainter {
     final across = horizontal ? size.height : size.width;
     final mid = length / 2;
     final tick = Paint()
-      ..color = colors.drumInk
+      ..color = colors.ink
       ..strokeWidth = 1.2;
     final reach = (mid / pixelsPerClick).ceil() + 1;
-    final label = colors.drumInk;
+    final label = colors.ink;
     for (var v = clicks - reach; v <= clicks + reach; v++) {
       // Values above the current setting sit before the pointer, so dragging
       // toward the pointer increases the setting.
@@ -1217,7 +1216,7 @@ class _DrumPainter extends CustomPainter {
             canvas,
             '${_num(value)}$letter',
             Offset(p, size.height * 0.40),
-            v == clicks ? Colors.white : label,
+            label,
             15,
           );
         }
@@ -1230,7 +1229,7 @@ class _DrumPainter extends CustomPainter {
             canvas,
             '${_num(value)}$letter',
             Offset(size.width * 0.62, p),
-            v == clicks ? Colors.white : label,
+            label,
             13,
           );
         }
@@ -1251,7 +1250,7 @@ class _DrumPainter extends CustomPainter {
         canvas,
         '← $positiveLetter   $unitLabel   $negativeLetter →',
         Offset(mid, 10),
-        Colors.white,
+        colors.ink2,
         10,
       );
     } else {
@@ -1260,18 +1259,12 @@ class _DrumPainter extends CustomPainter {
         ..lineTo(0, mid + 7)
         ..lineTo(11, mid)
         ..close();
-      _text(
-        canvas,
-        '↑$positiveLetter',
-        Offset(size.width / 2, 10),
-        Colors.white,
-        11,
-      );
+      _text(canvas, '↑$positiveLetter', Offset(size.width / 2, 10), label, 11);
       _text(
         canvas,
         '$negativeLetter↓',
         Offset(size.width / 2, size.height - 10),
-        Colors.white,
+        label,
         11,
       );
     }
