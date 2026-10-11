@@ -2923,66 +2923,65 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Durumu under the wind box (owner, 2026-10-11; it was on Pro Ayarlar).
   Widget _windCorrectionBox(BuildContext context) {
     final windUnit = metric ? 'm/s' : 'mph';
-    return
-_proBox(
+    return _proBox(
       id: 'wind',
       title: 'Rüzgâr düzeltmesi',
-        summary: _summaryWind(),
-        children: [
-          _explain(ProSectionInfo.windMax),
-          MenzilInput(
-            key: const Key('pro-wind-max'),
-            controller: windMaxCtl,
-            label: 'En yüksek rüzgâr',
-            unit: windUnit,
-            info: EnvironmentFieldInfo.windMax,
-            helperText: _windMaxAuto
-                ? 'Otomatik: rüzgâr hızı × 1,5'
-                : windMaxCtl.text.trim().isEmpty
-                ? 'Boş: rüzgâr aralığı gösterilmez.'
-                : null,
-            onChanged: (v) {
-              _windMaxAuto = false;
-              _coriolisChanged();
-            },
-          ),
-          if (!_windMaxAuto)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton.icon(
-                key: const Key('pro-wind-max-auto'),
-                onPressed: () {
-                  _windMaxAuto = true;
-                  _autoWindMax();
-                  _coriolisChanged();
-                },
-                icon: const Icon(Icons.autorenew, size: 18),
-                label: const Text('Otomatik doldur'),
-              ),
+      summary: _summaryWind(),
+      children: [
+        _explain(ProSectionInfo.windMax),
+        MenzilInput(
+          key: const Key('pro-wind-max'),
+          controller: windMaxCtl,
+          label: 'En yüksek rüzgâr',
+          unit: windUnit,
+          info: EnvironmentFieldInfo.windMax,
+          helperText: _windMaxAuto
+              ? 'Otomatik: rüzgâr hızı × 1,5'
+              : windMaxCtl.text.trim().isEmpty
+              ? 'Boş: rüzgâr aralığı gösterilmez.'
+              : null,
+          onChanged: (v) {
+            _windMaxAuto = false;
+            _coriolisChanged();
+          },
+        ),
+        if (!_windMaxAuto)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(
+              key: const Key('pro-wind-max-auto'),
+              onPressed: () {
+                _windMaxAuto = true;
+                _autoWindMax();
+                _coriolisChanged();
+              },
+              icon: const Icon(Icons.autorenew, size: 18),
+              label: const Text('Otomatik doldur'),
             ),
-          _explain(ProSectionInfo.windZones),
-          MenzilFieldGrid(
-            children: [
-              MenzilInput(
-                key: const Key('pro-wind-mid'),
-                controller: windMidCtl,
-                label: 'Yol ortası',
-                unit: windUnit,
-                info: EnvironmentFieldInfo.windMid,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              MenzilInput(
-                key: const Key('pro-wind-far'),
-                controller: windFarCtl,
-                label: 'Hedefte',
-                unit: windUnit,
-                info: EnvironmentFieldInfo.windFar,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-            ],
           ),
-        ],
-      );
+        _explain(ProSectionInfo.windZones),
+        MenzilFieldGrid(
+          children: [
+            MenzilInput(
+              key: const Key('pro-wind-mid'),
+              controller: windMidCtl,
+              label: 'Yol ortası',
+              unit: windUnit,
+              info: EnvironmentFieldInfo.windMid,
+              onChanged: (_) => _coriolisChanged(),
+            ),
+            MenzilInput(
+              key: const Key('pro-wind-far'),
+              controller: windFarCtl,
+              label: 'Hedefte',
+              unit: windUnit,
+              info: EnvironmentFieldInfo.windFar,
+              onChanged: (_) => _coriolisChanged(),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   List<Widget> _proSection(BuildContext context) {
