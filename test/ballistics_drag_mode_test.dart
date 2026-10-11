@@ -202,6 +202,6 @@ void main() {
           .last,
       startsWith('0,0 cm'),
     );
-    expect(find.textContaining('1 MRAD ='), findsOneWidget);
+    expect(find.textContaining(RegExp(r'1 MRAD = [\d,]+ cm')), findsOneWidget);
   });
 }
