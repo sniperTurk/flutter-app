@@ -80,10 +80,10 @@ void main() {
         'major_every',
         'numbers_every',
         'posts_start',
-        'tree.dot_step',
       ]),
     );
     expect(aprs.genericParts, isNot(contains('extent_v_down')));
+    expect(aprs.genericParts, isNot(contains('tree.dot_step')));
     // Unknown extents follow the generic MIL tree grid.
     expect(aprs.extentH, Reticles.generic(Reticles.treeMil).extentH);
 
