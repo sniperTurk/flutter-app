@@ -83,6 +83,8 @@ void main() {
     expect(find.text('Pro Ayarlara Geç'), findsOneWidget);
     // Rüzgâr düzeltmesi lives on Hava Durumu (owner, 2026-10-11).
     expect(find.byKey(const Key('pro-section-wind')), findsOneWidget);
+    // It starts open so it is not missed (owner, 2026-10-11).
+    expect(find.byKey(const Key('pro-wind-max')), findsOneWidget);
     await _tapKey(tester, 'environment-continue-pro');
 
     // Pro Ayarlar: four boxes, all closed at first (owner, 2026-10-09).

@@ -405,6 +405,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Which Pro Ayarlar box is open (one at a time; all closed at first).
   String? _proOpen;
+  // Rüzgâr düzeltmesi on Hava Durumu starts open so it is not missed
+  // (owner, 2026-10-11); it opens and closes on its own.
+  bool _windOpen = true;
 
   /// Atış mesafesi typed on Pro (profile distance unit) (owner,
   /// 2026-10-09): Hedef then opens at it with the solution already dialled
@@ -2825,7 +2828,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     required List<Widget> children,
   }) {
     final c = MenzilColors.of(context);
-    final open = _proOpen == id;
+    final open = id == 'wind' ? _windOpen : _proOpen == id;
     return MenzilCard(
       key: Key('pro-box-$id'),
       margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
@@ -2838,7 +2841,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             child: InkWell(
               key: Key('pro-section-$id'),
               borderRadius: BorderRadius.circular(12),
-              onTap: () => setState(() => _proOpen = open ? null : id),
+              onTap: () => setState(() {
+                if (id == 'wind') {
+                  _windOpen = !_windOpen;
+                } else {
+                  _proOpen = open ? null : id;
+                }
+              }),
               // 44 pt minimum tap target (VoiceOver / HIG).
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minHeight: 48),
@@ -3001,8 +3010,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       id: 'wind',
       title: 'Rüzgâr düzeltmesi',
       summary: _summaryWind(),
+      // Owner, 2026-10-11: box first, its explanation under it; then the
+      // two zone boxes and their explanation.
       children: [
-        _explain(ProSectionInfo.windMax),
         MenzilInput(
           key: const Key('pro-wind-max'),
           controller: windMaxCtl,
@@ -3033,7 +3043,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               label: const Text('Otomatik doldur'),
             ),
           ),
-        _explain(ProSectionInfo.windZones),
+        _explain(ProSectionInfo.windMax),
         MenzilFieldGrid(
           children: [
             MenzilInput(
@@ -3054,6 +3064,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             ),
           ],
         ),
+        _explain(ProSectionInfo.windZones),
       ],
     );
   }
