@@ -1,0 +1,17 @@
+[
+  {
+    "brand": "Berger",
+    "product": "6.5 mm Creedmoor 140 Grain Elite Hunter Rifle Ammunition",
+    "item_number": "31040",
+    "cartridge": "6.5 Creedmoor",
+    "bullet": "Elite Hunter",
+    "bullet_diameter_in": 0.264,
+    "weight_gr": 140,
+    "g1_bc": 0.606,
+    "g7_bc": 0.31,
+    "muzzle_velocity_fps": 2750,
+    "test_barrel_in": 26,
+    "source_url": "https://bergerbullets.com/product/6-5-mm-creedmoor-140gr-elite-hunter-rifle-ammunition/",
+    "notes": "Elite Hunter; 20ct part #; sea level"
+  }
+]

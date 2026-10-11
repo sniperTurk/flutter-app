@@ -1,0 +1,17 @@
+[
+  {
+    "brand": "Nosler",
+    "product": "6.5 Creedmoor 140gr AccuBond Trophy Grade Ammunition",
+    "item_number": "60080",
+    "cartridge": "6.5 Creedmoor",
+    "bullet": "AccuBond",
+    "bullet_diameter_in": 0.264,
+    "weight_gr": 140,
+    "g1_bc": null,
+    "g7_bc": null,
+    "muzzle_velocity_fps": 2650,
+    "test_barrel_in": 24,
+    "source_url": "https://www.nosler.com/6-5-creedmoor-140gr-accubond-trophy-grade-ammunition.html",
+    "notes": "Trophy Grade; BC not published on page"
+  }
+]
