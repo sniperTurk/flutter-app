@@ -1,0 +1,21 @@
+{
+  "name": "Deploy MIL 2 (DM2)",
+  "brand": "Bushnell",
+  "scopes": [
+    "Match Pro ED 5-30x56 (MP53056DMI)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": 1.0,
+  "numbers_every": 1,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://cdn.shopify.com/s/files/1/0947/2796/2920/files/MP53056DM-DMI_MatchPro_Manual_5LIM_0423.pdf",
+  "notes": "Bushnell MP53056DMI kılavuzu çizim notları: 'RETICLE IS IN FIRST FOCAL PLANE; 2/10's BASED MIL GRID', 'VER AND HOR HASH SPACING TYP. 0.20' (hash_step), 'FLOATING DOTS BELOW MAIN HOR ARE A 1,1 GRID OFFSET AT HALF VALUES RELATIVE TO GRID', 'TYP. 1.00 DOT SPACING'. major_every=1: tam değerlerde ana yatayda daha uzun hash ('0.50 OUT (WHOLE VALUES) MAIN HOR'; ara değerler 0.20/0.30). numbers_every=1: numara etiketleri '2 THRU 10 HOR EVENS ONLY' + '3 THRU 9 HOR ODDS ONLY', '2 THRU 8 VER EVENS'/'3 THRU 7 VER ODDS', '10 THRU 20 VER'/'11 THRU 19 VER ODDS' (çizim etiketlerinden çıkarım); 25 MIL'den görüş alanı sonuna kadar 5 MIL adımlı numaralar. 'MILLING SECTION 1 X 1', '5 MIL BELOW MAIN HOR' (0.1 adımlı ölçüm bölümü). Çizgi kalınlığı: içte 0.025, 1 MIL dışında ana çizgi 0.04. center_dot/floating_center: bushnell.com ürün sayfası 'Illuminated DM2 - 2/10 MRAD Grid Style Tree with Floating Center Dot' (https://www.bushnell.com/products/match-pro-ed-5-30x56-riflescope-dm2-mrad-reticle). Uzanımlar: '3X EXTEND TO MAX. FOV' ve '2X 11.00', '21.00' ölçülerinin neye ait olduğu metinde yok -> null; ağaç satır genişlikleri yok -> tree null."
+}

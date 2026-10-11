@@ -1,7 +1,9 @@
 {
   "name": "G4P",
   "brand": "Bushnell",
-  "scopes": ["Elite Tactical DMR3 3.5-21x50 (ETDMR3G4)", "Elite Tactical XRS3 6-36x56 (ETXRS3G4)"],
+  "scopes": [
+    "Elite Tactical DMR3 3.5-21x50 (ETDMR3G4)"
+  ],
   "unit": "mil",
   "family": "tree",
   "hash_step": 0.25,
@@ -11,9 +13,9 @@
   "extent_v_up": null,
   "extent_v_down": null,
   "tree": null,
-  "posts_start": null,
+  "posts_start": 30,
   "center_dot": null,
   "floating_center": null,
-  "source_url": "https://www.bushnell.com/on/demandware.static/-/Library-Sites-HuntShootAccessoriesSharedLibrary/default/dw74c33f05/productPdfFiles/DMR3_G4P_EQL_6LIM_042822.pdf",
-  "notes": "Bushnell Elite Tactical DMR3 kılavuzu (FFP). Metin: yatayda numaralar yalnız sağda 2 MRAD adımlarla; 1/2 ve 1 MRAD işaretleri 8 MRAD'da bitiyor (extent_h=8); 1, 1.2 ve 1.5 MRAD'da kalın hareketli hedef işaretleri. Dikeyde 1 MRAD içinde 0.25, dışında 0.5 MRAD aralık, 2 MRAD'da bir numara; dikeyde 11. MRAD'dan itibaren 0.1 MRAD ölçüm barları, 30 MRAD'da düz 0.25 MRAD bar başlıyor. Hibrit çizgi-nokta ağacı (yüzen noktalar) var; satır ölçüleri metinde yok -> tree null. hash_step merkezdeki 0.25 MRAD (dışarıda 0.5). Merkez nokta/açık merkez belirtilmemiş -> null. XRS3 kapsamı bushnell.com ürün başlığından."
+  "source_url": "https://cdn.shopify.com/s/files/1/0947/2796/2920/files/DMR3_6LIM_0821.pdf",
+  "notes": "Bushnell Elite Tactical DMR3 kılavuzu (FFP). Metin: yatayda numaralar yalnız sağda 2 MRAD adımlarla; 1/2 ve 1 MRAD işaretleri 8 MRAD'da bitiyor (extent_h=8); 1, 1.2 ve 1.5 MRAD'da kalın hareketli hedef işaretleri. Dikeyde 1 MRAD içinde 0.25, dışında 0.5 MRAD aralık, 2 MRAD'da bir numara; dikeyde 11. MRAD'dan itibaren 0.1 MRAD ölçüm barları, 30 MRAD'da düz 0.25 MRAD bar başlıyor. Hibrit çizgi-nokta ağacı (yüzen noktalar) var; satır ölçüleri metinde yok -> tree null. hash_step merkezdeki 0.25 MRAD (dışarıda 0.5). Merkez nokta/açık merkez belirtilmemiş -> null. posts_start=30: Bushnell ETDMR3G4 kılavuzu metni 'the solid 0.25 MIL wide quick-acquisition bar starts at 30 MILS from the main horizontal stadia' ve 'at 30 MILS from the center, a quick-acquisition solid bar is 0.25 MIL tall'; çizim etiketi '3X 0.25 STADIA THICKNESS STARTS AT 30' (3X = sol, sağ, alt olarak yorumlandı). Çizimde çizgi kalınlığı '6X 0.05 LINE WIDTH', tüm noktalar 'TYP. 0.04', 0.1 ölçüm barları 0.02, 1 MIL ölçüm barları 0.03 kalınlık. Çizimdeki '3X 30.00' / '3X 42.00' ölçülerinin neyi gösterdiği yazılı değil -> uzanımlar null. XRS3 6-36x56 sürümü 30 MIL barı içermediği için ayrı dosyada (bushnell-g4p-xrs3-mil.json). Ek kaynak: https://cdn.shopify.com/s/files/1/0947/2796/2920/files/DMR3_G4P_EQL_6LIM_042822.pdf"
 }
