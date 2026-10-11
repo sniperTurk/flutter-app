@@ -1,0 +1,26 @@
+{
+  "name": "EBR-2C MRAD",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Viper PST Gen II 3-15x44 FFP",
+    "Viper PST Gen II 5-25x50 FFP",
+    "Razor HD Gen II 3-18x50 FFP",
+    "Razor HD Gen II 4.5-27x56 FFP",
+    "Diamondback Tactical 4-16x44 FFP",
+    "Diamondback Tactical 6-24x50 FFP"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/viper-pst-gen-ii-3-15x44-ffp-ebr-2c-mrad.html",
+  "notes": "Viper PST Gen II 3-15x44 FFP (PST-3158) ürün sayfası; spesifikasyon tablosu: First Focal Plane, ayar 0.1 MRAD. Sayfa metni: 'Hash-marked reticle using MOA or MRAD-based subtension lines and floating wind hold dots for ranging, holdover, and windage corrections.' family=hash bu 'Hash-marked' ifadesinden çıkarım. Sayfada 'Letters refer to reticle subtensions listed in chart below' yazıyor ama tablo görsel/PDF. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). İşaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç/direk ve merkez nokta ölçüleri sayfa metninde yok -> null. Diğer dürbün modelleri vortexoptics.com'daki +reticle-EBR-2C~MRAD sayfalarından (o sayfalarda ölçü metni yok)."
+}

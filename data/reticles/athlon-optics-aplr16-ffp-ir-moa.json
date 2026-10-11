@@ -1,0 +1,34 @@
+{
+  "name": "APLR16 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Midas TAC GEN2 HD/UHD 5-30x56"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 50,
+  "tree": {
+    "rows": [
+      {
+        "y": 5,
+        "half_width": 5,
+        "dot_step": 1
+      },
+      {
+        "y": 50,
+        "half_width": 30,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2024/10/213087-APLR16-FFP-IR-MOA-Reticle-Manual.pdf",
+  "notes": "FFP. Föy metninden: 0.2 MOA yüzen merkez nokta, ilk işarete dört yönde 1 MOA (2 MOA açık merkez), 1 MOA işaretler, 'drop lines in 5 moa increments on vertical direction down to 50 moa'; 'smaller dots with 1 moa in between and bigger dots at each 5 moa interval, starting 10 moa length horizontally and end up 60 moa in length at the 50 moa drop line'. Satırlar 'X moa length' (toplam uzunluk) olarak verildiği için half_width = uzunluk/2 (çıkarım); ilk satır ilk 5 MOA düşüş çizgisi (y=5) kabul edildi (çıkarım); ara satır genişlikleri metinde yok. major_every=5 satırdaki büyük nokta aralığından çıkarım. Föy notu: 5-30x56 için 30x. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

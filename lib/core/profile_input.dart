@@ -1,4 +1,5 @@
 import '../models/domain.dart';
+import 'powder_temperature.dart';
 import 'production_limits.dart';
 
 /// Validates profile values before they are persisted.
@@ -13,6 +14,10 @@ class ProfileInput {
   /// Built-in slope of the scope mount, in MOA (0 = normal mount).
   final double mountCantMoa;
 
+  /// Barut sıcaklığı (firearms only): both set or both null.
+  final double? powderTempCoefPercentPer15C;
+  final double? powderTempReferenceC;
+
   const ProfileInput._({
     required this.name,
     required this.muzzleVelocityMps,
@@ -20,6 +25,8 @@ class ProfileInput {
     required this.sightHeightMm,
     required this.pressureBar,
     this.mountCantMoa = 0,
+    this.powderTempCoefPercentPer15C,
+    this.powderTempReferenceC,
   });
 
   factory ProfileInput.validate({
@@ -30,6 +37,8 @@ class ProfileInput {
     required WeaponPlatform platform,
     String? pressureText,
     double mountCantMoa = 0,
+    String? powderCoefText,
+    String? powderTempText,
   }) {
     final normalizedName = name.trim();
     if (normalizedName.isEmpty) {
@@ -69,6 +78,36 @@ class ProfileInput {
         ProductionLimits.maxPcpPressureBar,
       );
     }
+    // Barut sıcaklığı is optional and firearm-only (a PCP never has one).
+    // Given, it needs both values inside the bands the calculation accepts.
+    double? coef, refC;
+    final coefTyped = powderCoefText?.trim() ?? '';
+    final tempTyped = powderTempText?.trim() ?? '';
+    if (platform == WeaponPlatform.firearm &&
+        (coefTyped.isNotEmpty || tempTyped.isNotEmpty)) {
+      if (coefTyped.isEmpty || tempTyped.isEmpty) {
+        throw const FormatException(
+          'Barut sıcaklık katsayısı ile hız ölçüm sıcaklığı birlikte girilmeli.',
+        );
+      }
+      coef = double.tryParse(coefTyped.replaceAll(',', '.'));
+      if (coef == null ||
+          !coef.isFinite ||
+          coef.abs() > PowderTemperature.maxCoef) {
+        throw const FormatException(
+          'Barut sıcaklık katsayısı -10 ile 10 arasında olmalıdır.',
+        );
+      }
+      refC = double.tryParse(tempTyped.replaceAll(',', '.'));
+      if (refC == null ||
+          !refC.isFinite ||
+          refC < PowderTemperature.minTempC ||
+          refC > PowderTemperature.maxTempC) {
+        throw const FormatException(
+          'Hız ölçüm sıcaklığı -50 ile 60 °C arasında olmalıdır.',
+        );
+      }
+    }
     return ProfileInput._(
       name: normalizedName,
       muzzleVelocityMps: velocity,
@@ -76,6 +115,8 @@ class ProfileInput {
       sightHeightMm: sight,
       pressureBar: pressure,
       mountCantMoa: mountCantMoa,
+      powderTempCoefPercentPer15C: coef,
+      powderTempReferenceC: refC,
     );
   }
 

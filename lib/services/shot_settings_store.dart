@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../core/wez.dart';
+
 /// Pro Ayarlar values of one profile that should survive closing the app
 /// (owner, 2026-10-09): Tüfek eğimi, Dürbün eğimi and Coriolis.
 class ShotSettings {
@@ -58,6 +60,9 @@ class ShotSettings {
   final String rangeErrorText;
   final String bcErrorText;
 
+  /// WEZ Atış sayısı for "en az bir isabet" (one of [Wez.shotCounts]).
+  final int wezShotCount;
+
   const ShotSettings({
     this.inclineDeg = 0,
     this.cantDeg = 0,
@@ -84,6 +89,7 @@ class ShotSettings {
     this.targetSizeText = '',
     this.rangeErrorText = '',
     this.bcErrorText = '',
+    this.wezShotCount = Wez.defaultShotCount,
   });
 
   Map<String, dynamic> toJson() => {
@@ -112,6 +118,7 @@ class ShotSettings {
     'targetSize': targetSizeText,
     'rangeError': rangeErrorText,
     'bcError': bcErrorText,
+    'wezShots': wezShotCount,
   };
 
   /// Unknown or damaged values fall back to the neutral default (level,
@@ -155,6 +162,9 @@ class ShotSettings {
       targetSizeText: text(json['targetSize']),
       rangeErrorText: text(json['rangeError']),
       bcErrorText: text(json['bcError']),
+      wezShotCount: Wez.shotCounts.contains(json['wezShots'])
+          ? json['wezShots'] as int
+          : Wez.defaultShotCount,
     );
   }
 }

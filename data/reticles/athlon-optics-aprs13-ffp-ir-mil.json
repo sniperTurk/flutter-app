@@ -1,0 +1,35 @@
+{
+  "name": "APRS13 FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares BTR GEN3 HD 2.5-15x50",
+    "Ares BTR GEN3 HD 4.5-27x50"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": {
+    "rows": [
+      {
+        "y": 1,
+        "half_width": 1,
+        "dot_step": 0.2
+      },
+      {
+        "y": 10,
+        "half_width": 4,
+        "dot_step": 0.2
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2024/10/212015-APRS13-FFP-IR-MIL-Reticle-Manual.pdf",
+  "notes": "FFP. Föy metninden: 'open-center and .05 mil floating dot'; 0.2 mil işaretler merkezden dört yöne (uzanım yazılmamış); nokta satırları 1 mil düşüş çizgisinde her yöne 1 mil, 10 mil çizgisinde her yöne 4 mil; 'smaller size dots with interval at .2 mils and bigger size dots with interval at 1 mil'. Ara satırlar (2-9 mil) metinde yok, yalnızca belirtilen iki satır girildi. extent_v_down=10 son düşüş çizgisinden çıkarım. 'Illuminated from -2 to +6 mils vertically and 2 mils left and right' yalnızca aydınlatma alanı, ölçek uzanımı değil -> extent_h/up null. Föy notu: 15x / 27x. Büyük işaret, rakam, çizgi kalınlığı belirtilmemiş -> null."
+}

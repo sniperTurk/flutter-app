@@ -258,6 +258,13 @@ class RifleProfile {
   /// or the correction from zero: it shifts the zeroed turret down in its
   /// travel, so the scope has this much more room to dial UP.
   final double mountCantMoa;
+
+  /// Barut sıcaklığı (firearms only; null on PCP and when unknown): the
+  /// velocity change in % per 15 °C and the air temperature (°C) at which
+  /// [muzzleVelocityMps] was measured. Today's velocity is scaled from the
+  /// Hava Durumu temperature by [PowderTemperature.factor].
+  final double? powderTempCoefPercentPer15C;
+  final double? powderTempReferenceC;
   const RifleProfile({
     required this.id,
     required this.name,
@@ -271,6 +278,8 @@ class RifleProfile {
     this.angularUnit = AngularUnit.mrad,
     this.distanceUnit = DistanceUnit.meter,
     this.mountCantMoa = 0,
+    this.powderTempCoefPercentPer15C,
+    this.powderTempReferenceC,
   });
 }
 

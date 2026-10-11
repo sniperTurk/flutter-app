@@ -1,0 +1,22 @@
+{
+  "name": "APRS11 FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Argos BTR GEN3 6-24x50",
+    "Argos BTR GEN3 8-34x56"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": 8,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/storage/2025/01/214075-APRS11-FFP-IR-MIL-Reticle-Manual-Web.pdf",
+  "notes": "FFP. Föy metninden: 0.04 mil yüzen merkez nokta, 10 mil boyunca 0.2 mil işaretli çizgiler; sol, sağ ve aşağı 10 mil, yukarı 8 mil işaret uzanımı. Föyde ağaç tarif edilmiyor. Büyük işaret ve rakam aralığı metinde yok -> null. Föy notu: 6-24x50'de 24x, 8-34x56'da 34x (FFP olduğu için tüm büyütmelerde geçerli)."
+}

@@ -1,0 +1,21 @@
+{
+  "name": "VTA-7 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Tauron 3-24x56 ED SFP (SCOL-55)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": 2,
+  "extent_h": 8,
+  "extent_v_up": 8,
+  "extent_v_down": 8,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20241031/e85ff85f86ad7e25d8fbb2442d9258db.pdf",
+  "notes": "SFP; kılavuza göre ölçüler 20x'te geçerli (referans büyütme 20x). Kaynaklar: VTA-7 MIL SFP retikül kılavuzu PDF (metin) + SCOL-55 ürün sayfası (https://www.vectoroptics.com/rifle-scopes/Tauron-3-24x56-ED-SFP-Rifle-Scope-SCOL-55.html: '0.0417MIL center dot', 'Christmas Tree Pattern' → family=tree). Kılavuz: merkez nokta 0.04 MIL; yatay ve dikey çizgilerde işaretler arası 0.5 MIL; her kol 8 MIL → extent_h=extent_v_up=extent_v_down=8; 6-8 MIL arası 0.2 MIL ince bölmeler; rakam etiketleri 2, 4, 6, 8 → numbers_every=2; yatayın altında 0.09 MIL büyük ve 0.05 MIL küçük noktalar (satır konumu/genişlik/aralık metinde yok → tree null); yatay çizgi ucu ile stadia çizgisi arası 1 MIL (kalın direk olup olmadığı belirsiz → posts_start null). Merkez boşluğu, büyük işaret → null."
+}

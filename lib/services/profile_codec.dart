@@ -1,5 +1,6 @@
 // dart format off
 import '../models/domain.dart';
+import '../core/powder_temperature.dart';
 import '../core/production_limits.dart';
 
 /// Version-tolerant profile serialization kept separate from persistence so it
@@ -20,6 +21,8 @@ class ProfileCodec {
         'angularUnit': p.angularUnit.name,
         'distanceUnit': p.distanceUnit.name,
         'mountCantMoa': p.mountCantMoa,
+        'powderTempCoef': p.powderTempCoefPercentPer15C,
+        'powderTempRefC': p.powderTempReferenceC,
       };
 
   RifleProfile decode(Map<String, dynamic> j) {
@@ -102,6 +105,25 @@ class ProfileCodec {
     } else {
       throw const FormatException('Invalid profile field: mountCantMoa');
     }
+    // Barut sıcaklığı (2026-10-11) is absent in older profiles: none. A
+    // present value outside the accepted band, or only one of the pair, is
+    // corruption (it would silently change today's velocity).
+    double? optionalIn(String key, double min, double max) {
+      final value = j[key];
+      if (value == null) return null;
+      if (value is num && value.toDouble().isFinite &&
+          value >= min && value <= max) {
+        return value.toDouble();
+      }
+      throw FormatException('Invalid profile field: $key');
+    }
+    final powderCoef = optionalIn('powderTempCoef',
+        -PowderTemperature.maxCoef, PowderTemperature.maxCoef);
+    final powderRef = optionalIn('powderTempRefC',
+        PowderTemperature.minTempC, PowderTemperature.maxTempC);
+    if ((powderCoef == null) != (powderRef == null)) {
+      throw const FormatException('Invalid profile field: powderTemp');
+    }
     return RifleProfile(
       id: requiredString('id'),
       name: requiredString('name', maxLength: ProductionLimits.maxProfileNameLength),
@@ -115,6 +137,8 @@ class ProfileCodec {
       angularUnit: unit,
       distanceUnit: distanceUnit,
       mountCantMoa: mountCantMoa,
+      powderTempCoefPercentPer15C: powderCoef,
+      powderTempReferenceC: powderRef,
     );
   }
 }

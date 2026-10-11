@@ -1,0 +1,35 @@
+{
+  "name": "APLR3 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares BTR GEN2 HD 2.5-15x50",
+    "Ares BTR GEN2 HD 4.5-27x50"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": 40,
+  "extent_v_up": 40,
+  "extent_v_down": 40,
+  "tree": {
+    "rows": [
+      {
+        "y": 5,
+        "half_width": 2.5,
+        "dot_step": 1
+      },
+      {
+        "y": 40,
+        "half_width": 25,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/storage/2022/02/ATHLON-APLR3-FFP-IR-MOA-Reticle-Manual.pdf",
+  "notes": "FFP. Föyde seri adı yok; athlonoptics.com ürün sayfası (Ares BTR GEN2 HD 4.5-27x50 APLR3 FFP IR MOA, SKU 212008) bu föye bağlanıyor; ölçü tablosunda 2.5-15x50 ve 4.5-27x50 geçiyor. Föy metninden: geniş aydınlatmalı merkez, 1 MOA işaretler, 5 MOA düşüş çizgileri 40 MOA'ya kadar, 2 MOA açıklıklı merkez artı, aydınlatmalı artı çizgisi dikey ve yatayda 40 MOA'ya uzanır; düşüş çizgilerinde 1 MOA küçük / 5 MOA büyük noktalar, 5 MOA uzunlukta başlar, 40 MOA çizgisinde 50 MOA uzunluk. extent_h/extent_v_up = 40 aydınlatmalı artı çizgisinin uzanımıdır; föy 'illuminated portion' dediği için ölçek daha uzun olabilir (çıkarım, en az 40). Satırlar 'X moa length' olarak verildiği için half_width = uzunluk/2 (çıkarım). Ara satır genişlikleri metinde yok; ilk satır y=5 kabul edildi (çıkarım). major_every=5 satırdaki büyük nokta aralığından çıkarım."
+}

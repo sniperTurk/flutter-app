@@ -1,0 +1,21 @@
+{
+  "name": "AAGR1 SFP MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Heras SPR 2-12x42"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": 1,
+  "numbers_every": null,
+  "extent_h": 8,
+  "extent_v_up": 4,
+  "extent_v_down": 9,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2022/11/ATHLON-AAGR1-SFP-MIL-Reticle-Manual-Heras-SPR.pdf",
+  "notes": "SFP; ölçüler yalnızca 12x'te geçerli (2-12x42). Föy metninden: 'The 0.07 mil floating center dot'; 'The dots at every 1 mil with 0.2 mil hash marks in between' (major_every=1 her 1 mil'deki noktalardan çıkarım); '8 mil span hash mark from center left and right, 9 mil hash mark down, and 4 mil hash mark up'. Rakam, kalınlık belirtilmemiş. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

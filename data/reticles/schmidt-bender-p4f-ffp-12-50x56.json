@@ -1,0 +1,21 @@
+{
+  "name": "P4F (12-50x56 PM II)",
+  "brand": "Schmidt & Bender",
+  "scopes": [
+    "12-50x56 PM II"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://schmidtundbender.de/phocadownload/absehen-datenblaetter/Schmidt-Bender-Datasheet-P4F-FFP-12-50x56-PMII.PDF",
+  "notes": "S&B resmi retikül veri föyü (revision 02): 'P4F', '12 - 50 x 56 PMII scope type 78', 'focal plane FFP'. Kapsama tablosu (mrad): A=10, B=0.4, C=0.02, D=1, E=0.2, F=5, M=10, N=16 (cm/100m: 100, 4, 0.18, 10, 2, 50, 100, 160); G/H/K/L için 200/300/400/500 m'de 50 cm satırları (sütun hizası metinde korunmamış). Föydeki harf/değer tablosunun hangi retikül öğesine (bölme aralığı, çizgi kalınlığı, uzanım, kalın çubuk) ait olduğu yalnız çizimde gösteriliyor ve metin olarak okunamadı; tahmin edilmemesi için geometri alanları null. Ölçüler yalnız bu dürbüne ait föyden; diğer P4F dürbünlerine genellenmedi. 5-25x56 P4F föyü proxy 429 nedeniyle okunamadı."
+}

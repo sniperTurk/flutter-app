@@ -1,0 +1,21 @@
+{
+  "name": "ATSR16 SFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Midas BTR GEN2"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 30,
+  "extent_v_up": 30,
+  "extent_v_down": 30,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-ATSR16-SFP-IR-MOA-Reticle-Manual-Midas-BTR-GEN2.pdf",
+  "notes": "SFP; ölçüler yalnızca 6x'te geçerli (1-6x24). Föy metninden: 'illuminated center circle is in 20 moa diameter with a 4 moa center cross and 2 moa hash mark increment extended to 30 MOA at four directions'. Merkezde nokta değil artı -> center_dot null. Direk, kalınlık belirtilmemiş. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

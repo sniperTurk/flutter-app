@@ -1,0 +1,22 @@
+{
+  "name": "APLR13 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares BTR GEN3 HD 2.5-15x50",
+    "Ares BTR GEN3 HD 4.5-27x50"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": 10,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/storage/2024/10/212014-APLR13-FFP-IR-MOA-Reticle-Manual.pdf",
+  "notes": "FFP. Föy metninden: 0.2 MOA yüzen nokta, 2 MOA açık merkez boşluğu, 1 MOA işaretler, 5 MOA'da geniş işaret, 10 MOA'da rakam; ana artı dikeyde -10..+30 MOA, yatayda toplam 20 MOA aydınlatmalı (bunlar aydınlatma sınırları, ölçek uzanımı değil -> extent null). Metinde ağaç tarif edilmediği için family=hash, tree null; görselde ağaç olabilir (föy görseli okunamadı)."
+}

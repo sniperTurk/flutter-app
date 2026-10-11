@@ -25,14 +25,14 @@ const _sectionOf = <String, String>{
   'pro-target-size': 'target',
   'pro-range-error': 'target',
   'pro-bc-error': 'target',
+  'pro-wez-shots': 'target',
   'shot-wez': 'target',
   'pro-turret-scale': 'rifle',
   'pro-zero-up': 'rifle',
   'pro-zero-right': 'rifle',
   'pro-spin-switch': 'rifle',
   'pro-bullet-length': 'rifle',
-  'pro-powder-coef': 'rifle',
-  'pro-powder-temp': 'rifle',
+  'pro-powder-source': 'rifle',
   'pro-powder-today': 'rifle',
 };
 

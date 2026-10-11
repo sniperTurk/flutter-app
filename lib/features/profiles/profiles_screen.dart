@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/drag_curve.dart';
 import '../../core/drag_table.dart';
+import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle.dart';
 import '../../core/profile_input.dart';
@@ -11,6 +12,7 @@ import '../../data/bullet_library.dart';
 import '../../data/cartridges.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/factory_ammo_library.dart';
+import '../../data/factory_powder_temperature.dart';
 import '../../data/rifle_library.dart';
 import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
@@ -185,6 +187,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       angularUnit: p.angularUnit,
       distanceUnit: p.distanceUnit,
       mountCantMoa: p.mountCantMoa,
+      powderTempCoefPercentPer15C: p.powderTempCoefPercentPer15C,
+      powderTempReferenceC: p.powderTempReferenceC,
     );
     try {
       await store.save(copy);
@@ -540,12 +544,13 @@ int? _topTurretClicks(ScopeOptic s, AngularUnit unit) {
   return (unit.fromMrad(mrad) / click).round();
 }
 
-/// The zero in the profile's own distance unit ("25" m, "27.3" yd).
+/// The zero in the profile's own distance unit ("25" m, "27,3" yd).
 String _zeroValue(RifleProfile p) {
   final v = p.distanceUnit.fromMeters(p.zeroRangeM);
-  // Same style as the other summary numbers (66.0 mm): a dot.
+  // Same style as the other summary numbers: a decimal comma (owner,
+  // 2026-10-11: one separator on the Profil page).
   return p.distanceUnit == DistanceUnit.yard
-      ? v.toStringAsFixed(1)
+      ? v.toStringAsFixed(1).replaceAll('.', ',')
       : v.toStringAsFixed(0);
 }
 
@@ -603,9 +608,11 @@ String? _summaryReticle(ScopeOptic s) {
 
 /// Mühimmat Model without the weight (it has its own box).
 String _ammoModelName(Ammunition a) {
-  final g = a.grain.toStringAsFixed(a.grain % 1 == 0 ? 0 : 1);
+  final g = RegExp.escape(
+    a.grain % 1 == 0 ? a.grain.toStringAsFixed(0) : a.grain.toString(),
+  ).replaceAll(r'\.', '[.,]');
   return a.model
-      .replaceAll(RegExp('\\b${RegExp.escape(g)}\\s*gr\\b'), '')
+      .replaceAll(RegExp('\\b$g\\s*gr\\b'), '')
       .replaceAll(RegExp(r'\s{2,}'), ' ')
       .replaceAll(RegExp(r'^[\s·\-]+|[\s·\-]+$'), '')
       .trim();
@@ -676,18 +683,18 @@ class _ActiveProfileDetails extends StatelessWidget {
                 rifle!.twistDirection == TwistDirection.right ? 'Sağ' : 'Sol',
               ),
             if (rifle != null)
-              MenzilMetric('Kalibre', rifle.caliberMm.toStringAsFixed(2), 'mm'),
+              MenzilMetric(
+                'Kalibre',
+                rifle.caliberMm.toStringAsFixed(2).replaceAll('.', ','),
+                'mm',
+              ),
             if (rifle?.twistRateIn != null)
               MenzilMetric(
                 'Yiv oranı',
                 '1:${_trimNum(rifle!.twistRateIn!)}',
                 'inç',
               ),
-            MenzilMetric(
-              'Sight height',
-              profile.sightHeightMm.toStringAsFixed(1),
-              'mm',
-            ),
+            MenzilMetric('Sight height', _trimNum(profile.sightHeightMm), 'mm'),
             MenzilMetric(
               'Sıfırlama mesafesi',
               _zeroValue(profile),
@@ -723,18 +730,15 @@ class _ActiveProfileDetails extends StatelessWidget {
                 'Mühimmat Model',
                 ammoModel.isEmpty ? '—' : ammoModel,
               ),
-              MenzilMetric(
-                'Ağırlık',
-                ammo.grain.toStringAsFixed(ammo.grain % 1 == 0 ? 0 : 1),
-                'gr',
-              ),
+              MenzilMetric('Ağırlık', _trimNum(ammo.grain), 'gr'),
               MenzilMetric('Tip', _ammoTypeName(ammo.type)),
             ],
             MenzilMetric(
               'BC / model',
               ballisticCoefficient == null
                   ? '—'
-                  : '$ballisticCoefficient $ballisticModelName'.trim(),
+                  : '${_trimNum(ballisticCoefficient)} $ballisticModelName'
+                        .trim(),
             ),
           ],
         ),
@@ -1184,6 +1188,96 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return n == Reticles.hashMoa ? moa : !moa;
   }
 
+  // ---- Dürbün values from lists (owner, 2026-10-11: select over typing).
+  // Standard values of real scopes; a stored value outside the list is
+  // added to it so an older profile still shows what it saved.
+
+  /// Minimum büyütme: 1-6, 1.5-6, 2.5-15, 3-9, 4-16, 5-25, 6-24 …
+  static const _minMagOptions = <double>[
+    1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 7, 8, 10, 12, //
+  ];
+
+  /// Maksimum büyütme (a fixed-power scope has min = max).
+  static const _maxMagOptions = <double>[
+    4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 24, 25, 27, 28, //
+    30, 32, 35, 36, 40, 42, 45, 48, 50, 56, 60, //
+  ];
+
+  /// Mercek çapı, mm.
+  static const _objectiveOptions = <double>[
+    20, 24, 28, 30, 32, 33, 36, 40, 42, 44, 45, 50, 52, 54, 56, 58, 60, //
+    62, 64, 72, //
+  ];
+
+  /// Klik değeri of the turret, by unit: 0,1 / 0,05 mrad; 1/4, 1/8, 1/2 MOA.
+  static List<(double, String)> _clickOptions(AngularUnit u) {
+    final name = u == AngularUnit.smoa ? 'SMOA' : 'MOA';
+    return u.moaFamily
+        ? [(0.25, '1/4 $name'), (0.125, '1/8 $name'), (0.5, '1/2 $name')]
+        : const [(0.1, '0,1 mrad'), (0.05, '0,05 mrad')];
+  }
+
+  /// A number picked from [options] into [controller] ("Seçiniz" while
+  /// empty). [suffix] follows the number in the list ("x", " mm").
+  Widget _numberSelect({
+    required String key,
+    required String label,
+    required String info,
+    required TextEditingController controller,
+    required List<double> options,
+    String suffix = '',
+    String? errorText,
+  }) {
+    final current = _parse(controller);
+    final values = [
+      ...options,
+      if (current != null && !options.contains(current)) current,
+    ]..sort();
+    return KeyedSubtree(
+      key: Key(key),
+      child: MenzilSelect<double>(
+        key: ValueKey('$key-$_scopePickToken'),
+        info: info,
+        label: label,
+        initialValue: current,
+        errorText: errorText,
+        items: [
+          for (final v in values)
+            DropdownMenuItem(value: v, child: Text('${_trimNum(v)}$suffix')),
+        ],
+        onChanged: (v) => setState(() {
+          controller.text = v == null ? '' : _trimNum(v);
+        }),
+      ),
+    );
+  }
+
+  /// Klik değeri, asked only for a typed ("Listede yok") scope; a catalog
+  /// scope brings its own. Empty until Dürbün birimi is chosen.
+  Widget _clickSelect() {
+    final options = _angularUnitSet
+        ? _clickOptions(angularUnit)
+        : const <(double, String)>[];
+    final current = _parse(scopeClick);
+    return KeyedSubtree(
+      key: const Key('scope-click'),
+      child: MenzilSelect<double>(
+        key: ValueKey('scope-click-${angularUnit.name}-$_scopePickToken'),
+        info: ProfileFieldInfo.clickValue,
+        label: 'Klik değeri',
+        initialValue: options.any((o) => o.$1 == current) ? current : null,
+        errorText: _showErrors ? _clickError : null,
+        items: [
+          for (final (v, name) in options)
+            DropdownMenuItem(value: v, child: Text(name)),
+        ],
+        onChanged: (v) => setState(() {
+          scopeClick.text = v == null ? '' : _trimNum(v);
+        }),
+      ),
+    );
+  }
+
   /// Fills the scope form from a catalog record.
   void _applyScope(ScopeOptic s, {String? reticle}) {
     _angularUnitSet = true; // the catalog scope tells its unit
@@ -1234,6 +1328,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   _scopeBrandSel = null;
                   _scopeModelKey = null;
                   scopeBrand.text = '';
+                  scopeClick.text = _trimNum(_defaultClick(angularUnit));
                   scopeReticle = null;
                   _scopePickToken++;
                 }),
@@ -1272,6 +1367,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 _scopeManual = true;
                 _scopeBrandSel = null;
                 scopeBrand.text = '';
+                // A typed scope starts empty: every list on "Seçiniz".
+                for (final c in [
+                  scopeMinMag,
+                  scopeMaxMag,
+                  scopeObjective,
+                  scopeClick,
+                  scopeTravelElevation,
+                ]) {
+                  c.clear();
+                }
+                firstFocalPlane = null;
+                _angularUnitSet = false;
                 return;
               }
               _scopeBrandSel = v;
@@ -1495,6 +1602,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController zero;
   late final TextEditingController sight;
 
+  /// Barut sıcaklığı (firearms): % per 15 °C and the air temperature (°C)
+  /// the velocity was measured at, as typed. [_powderAutoFilled]: the boxes
+  /// hold the maker's figure of the picked factory round, so another pick
+  /// replaces them; typed values are never cleared by a pick.
+  late final TextEditingController powderCoef;
+  late final TextEditingController powderTemp;
+  bool _powderAutoFilled = false;
+
   /// Dürbün ayağı in MOA, picked from [ProductionLimits.mountCantOptionsMoa].
   late double mountCant;
   String? validationError;
@@ -1702,7 +1817,49 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     sight = TextEditingController(text: p == null ? '' : num(p.sightHeightMm));
     // 0 = normal mount; old profiles have no value.
     mountCant = p?.mountCantMoa ?? 0;
+    powderCoef = TextEditingController(
+      text: p?.powderTempCoefPercentPer15C == null
+          ? ''
+          : _trimNum(p!.powderTempCoefPercentPer15C!),
+    );
+    powderTemp = TextEditingController(
+      text: p?.powderTempReferenceC == null
+          ? ''
+          : _trimNum(p!.powderTempReferenceC!),
+    );
   }
+
+  /// Barut sıcaklığı is optional; given, both boxes and the bands of
+  /// [PowderTemperature] apply.
+  String? get _powderCoefError {
+    final t = powderCoef.text.trim();
+    if (t.isEmpty) {
+      return powderTemp.text.trim().isEmpty ? null : 'Katsayıyı da girin.';
+    }
+    final v = _parse(powderCoef);
+    if (v == null || v.abs() > PowderTemperature.maxCoef) {
+      return '-10 ile 10 arasında bir değer girin.';
+    }
+    return null;
+  }
+
+  String? get _powderTempError {
+    final t = powderTemp.text.trim();
+    if (t.isEmpty) {
+      return powderCoef.text.trim().isEmpty ? null : 'Sıcaklığı da girin.';
+    }
+    final v = _parse(powderTemp);
+    if (v == null ||
+        v < PowderTemperature.minTempC ||
+        v > PowderTemperature.maxTempC) {
+      return '-50 ile 60 arasında bir değer girin.';
+    }
+    return null;
+  }
+
+  bool get _powderValid =>
+      platform != WeaponPlatform.firearm ||
+      (_powderCoefError == null && _powderTempError == null);
 
   static String _fpsText(double mps) {
     final fps = UnitSystem.mpsToFps(mps);
@@ -1757,7 +1914,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (firstFocalPlane != null, 'Odak düzlemi'),
       (_angularUnitSet, 'Dürbün birimi'),
       (_mountCantSet, 'Dürbün ayağı'),
-      // Klik değeri is not asked; it follows the unit and is always valid.
+      // Asked for a typed scope; a catalog scope brings its own.
       (_clickError == null, 'Klik değeri'),
       (_travelError(scopeTravelElevation) == null, 'Üst kule klik sayısı'),
     ]);
@@ -1773,6 +1930,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         (ammoBcModel != null, 'BC modeli'),
         (_bandsValid, 'Hıza göre BC'),
       ],
+      if (platform == WeaponPlatform.firearm) (_powderValid, 'Barut sıcaklığı'),
     ]);
     return out;
   }
@@ -1796,6 +1954,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ammoModel.dispose();
     ammoGrain.dispose();
     ammoBc.dispose();
+    powderCoef.dispose();
+    powderTemp.dispose();
     for (final c in [...ammoBandFps, ...ammoBandBc]) {
       c.dispose();
     }
@@ -1977,7 +2137,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_customCurve
           ? _dragCurve != null && _curveSd != null
           : _bcError == null && _bandsValid && ammoBcModel != null) &&
-      _effectiveAmmoType != null;
+      _effectiveAmmoType != null &&
+      _powderValid;
 
   /// Sectional density for a custom curve, from the grain and the caliber.
   double? get _curveSd {
@@ -2016,6 +2177,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   bool _showErrors = false;
   String? _shown(String? error, TextEditingController c) =>
       (_showErrors || c.text.isNotEmpty) ? error : null;
+
+  /// A list box shows its error after a save attempt, or once [c] holds a
+  /// picked value (Maksimum below Minimum).
+  String? _shownSelect(String? error, [TextEditingController? c]) =>
+      (_showErrors || (c != null && c.text.isNotEmpty)) ? error : null;
 
   Map<String, dynamic> _rifleEntry() {
     final existing = rifle;
@@ -2122,6 +2288,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         // Regülatör basıncı is not asked any more (owner, 2026-10-09): no
         // calculation uses it.
         mountCantMoa: mountCant,
+        // Firearms only; ProfileInput drops it on PCP.
+        powderCoefText: powderCoef.text,
+        powderTempText: powderTemp.text,
       );
     } on FormatException catch (e) {
       setState(() => validationError = e.message);
@@ -2180,6 +2349,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         angularUnit: angularUnit,
         distanceUnit: distanceUnit,
         mountCantMoa: input.mountCantMoa,
+        powderTempCoefPercentPer15C: input.powderTempCoefPercentPer15C,
+        powderTempReferenceC: input.powderTempReferenceC,
       ),
     );
   }
@@ -2208,7 +2379,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// Fills the ammunition from a library record (list or library screen).
   void _applyBullet(LibraryBullet b, double? cal) {
-    String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
+    String n(num v) =>
+        v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     _ammoManual = false;
     {
       ammoBrand.text = b.brand;
@@ -2301,7 +2473,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   void _applyFactory(FactoryAmmo a) {
     _ammoSourceSet = true; // a listed factory round: Fabrika fişeği
-    String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
+    String n(num v) =>
+        v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     // Kalibre not chosen yet: the round tells it.
     if (_cartridge == null && rifleCaliber.text.trim().isEmpty) {
       _cartridge = a.cartridge;
@@ -2320,6 +2493,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ammoBandBc[i].text = '';
     }
     velocity.text = n(a.muzzleVelocityFps);
+    // Barut sıcaklığı: the maker's figure when it publishes one; otherwise
+    // only a previous automatic fill goes (typed values stay).
+    final pt = FactoryPowderTempLibrary.lookup(a.brand, a.name);
+    if (pt != null) {
+      powderCoef.text = _trimNum(pt.coefPercentPer15C);
+      powderTemp.text = _trimNum(pt.referenceTempC);
+      _powderAutoFilled = true;
+    } else if (_powderAutoFilled) {
+      powderCoef.text = '';
+      powderTemp.text = '';
+      _powderAutoFilled = false;
+    }
   }
 
   static String _modelOf(LibraryBullet b) =>
@@ -2380,7 +2565,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     if (factory) {
       for (final a in fHere) {
         if (a.brand != brand) continue;
-        if (a.name == ammoModel.text && _trimDot(a.grain) == ammoGrain.text) {
+        if (a.name == ammoModel.text && _parse(ammoGrain) == a.grain) {
           modelIndex = labels.length;
         }
         labels.add(_factoryLabel(a));
@@ -2389,8 +2574,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     } else {
       for (final b in lHere) {
         if (b.brand != brand) continue;
-        if (_modelOf(b) == ammoModel.text &&
-            _trimDot(b.grain) == ammoGrain.text) {
+        if (_modelOf(b) == ammoModel.text && _parse(ammoGrain) == b.grain) {
           modelIndex = labels.length;
         }
         final m = _modelOf(b);
@@ -2814,29 +2998,34 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 // Owner, 2026-10-11: Marka, then the models of that brand,
                 // then only that model's reticles.
                 ..._scopeNameFields(),
-                MenzilInput(
-                  key: const Key('scope-min-mag'),
+                // Owner, 2026-10-11: picked from standard values, not
+                // typed; Minimum | Maksimum side by side.
+                _numberSelect(
+                  key: 'scope-min-mag',
+                  label: 'Minimum büyütme',
                   info: ProfileFieldInfo.minMag,
                   controller: scopeMinMag,
-                  label: 'Minimum büyütme',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_minMagError, scopeMinMag),
+                  options: _minMagOptions,
+                  suffix: 'x',
+                  errorText: _shownSelect(_minMagError),
                 ),
-                MenzilInput(
-                  key: const Key('scope-max-mag'),
+                _numberSelect(
+                  key: 'scope-max-mag',
+                  label: 'Maksimum büyütme',
                   info: ProfileFieldInfo.maxMag,
                   controller: scopeMaxMag,
-                  label: 'Maksimum büyütme',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_maxMagError, scopeMaxMag),
+                  options: _maxMagOptions,
+                  suffix: 'x',
+                  errorText: _shownSelect(_maxMagError, scopeMaxMag),
                 ),
-                MenzilInput(
-                  key: const Key('scope-objective'),
+                _numberSelect(
+                  key: 'scope-objective',
+                  label: 'Mercek çapı',
                   info: ProfileFieldInfo.objective,
                   controller: scopeObjective,
-                  label: 'Mercek çapı',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_objectiveError, scopeObjective),
+                  options: _objectiveOptions,
+                  suffix: ' mm',
+                  errorText: _shownSelect(_objectiveError),
                 ),
                 KeyedSubtree(
                   key: const Key('scope-focal-plane'),
@@ -2850,39 +3039,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       DropdownMenuItem(value: false, child: Text('SFP')),
                     ],
                     onChanged: (v) => setState(() => firstFocalPlane = v),
-                  ),
-                ),
-                KeyedSubtree(
-                  key: const Key('scope-mount'),
-                  child: MenzilSelect<double>(
-                    // Rebuilt when the click value/unit changes so every
-                    // choice shows its ready click gain.
-                    key: ValueKey(
-                      'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
-                    ),
-                    info: ProfileFieldInfo.mountCant,
-                    label: 'Dürbün ayağı',
-                    initialValue: _mountCantSet ? mountCant : null,
-                    // Closed box: just "0 MOA" / "30 MOA"; the list keeps
-                    // "Normal" and the click gain.
-                    selectedLabels: [
-                      for (final moa in ProductionLimits.mountCantOptionsMoa)
-                        '${_trimNum(moa)} MOA',
-                    ],
-                    items: [
-                      for (final moa in ProductionLimits.mountCantOptionsMoa)
-                        DropdownMenuItem(
-                          value: moa,
-                          child: Text(
-                            _mountLabel(moa),
-                            key: Key('scope-mount-cant-${_trimNum(moa)}'),
-                          ),
-                        ),
-                    ],
-                    onChanged: (v) => setState(() {
-                      _mountCantSet = v != null;
-                      mountCant = v ?? 0;
-                    }),
                   ),
                 ),
                 KeyedSubtree(
@@ -2913,12 +3069,54 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     onChanged: (v) => setState(() {
                       _angularUnitSet = v != null;
                       final next = v ?? AngularUnit.mrad;
-                      // Klik değeri is not asked any more (owner, 2026-10-09):
-                      // it follows the unit (0.1 MRAD, 1/4 MOA).
-                      if (next != angularUnit) {
+                      // A catalog scope's click follows the unit (0.1 MRAD,
+                      // 1/4 MOA; owner, 2026-10-09).
+                      if (_scopeManual) {
+                        // A typed scope picks its Klik değeri from the
+                        // new unit's list; one that does not fit is cleared.
+                        final click = _parse(scopeClick);
+                        if (!_clickOptions(next).any((o) => o.$1 == click)) {
+                          scopeClick.clear();
+                        }
+                      } else if (next != angularUnit) {
                         scopeClick.text = _trimNum(_defaultClick(next));
                       }
                       angularUnit = next;
+                    }),
+                  ),
+                ),
+                // Typed scope: Dürbün birimi | Klik değeri side by side.
+                if (_scopeManual || _scopeBrands.isEmpty) _clickSelect(),
+                KeyedSubtree(
+                  key: const Key('scope-mount'),
+                  child: MenzilSelect<double>(
+                    // Rebuilt when the click value/unit changes so every
+                    // choice shows its ready click gain.
+                    key: ValueKey(
+                      'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
+                    ),
+                    info: ProfileFieldInfo.mountCant,
+                    label: 'Dürbün ayağı',
+                    initialValue: _mountCantSet ? mountCant : null,
+                    // Closed box: just "0 MOA" / "30 MOA"; the list keeps
+                    // "Normal" and the click gain.
+                    selectedLabels: [
+                      for (final moa in ProductionLimits.mountCantOptionsMoa)
+                        '${_trimNum(moa)} MOA',
+                    ],
+                    items: [
+                      for (final moa in ProductionLimits.mountCantOptionsMoa)
+                        DropdownMenuItem(
+                          value: moa,
+                          child: Text(
+                            _mountLabel(moa),
+                            key: Key('scope-mount-cant-${_trimNum(moa)}'),
+                          ),
+                        ),
+                    ],
+                    onChanged: (v) => setState(() {
+                      _mountCantSet = v != null;
+                      mountCant = v ?? 0;
                     }),
                   ),
                 ),
@@ -3188,6 +3386,36 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_velocityError, velocity),
                 ),
+                // Barut sıcaklığı: firearms only, never on PCP (owner,
+                // 2026-10-11). Katsayı | Ölçüm sıcaklığı side by side.
+                if (platform == WeaponPlatform.firearm) ...[
+                  MenzilInput(
+                    key: const Key('profile-powder-coef'),
+                    controller: powderCoef,
+                    label: 'Barut sıcaklık katsayısı',
+                    unit: '%/15 °C',
+                    info: ProfileFieldInfo.powderCoef,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                      signed: true,
+                    ),
+                    onChanged: (_) => setState(() => _powderAutoFilled = false),
+                    errorText: _shown(_powderCoefError, powderCoef),
+                  ),
+                  MenzilInput(
+                    key: const Key('profile-powder-temp'),
+                    controller: powderTemp,
+                    label: 'Hız ölçüm sıcaklığı',
+                    unit: '°C',
+                    info: ProfileFieldInfo.powderTemp,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                      signed: true,
+                    ),
+                    onChanged: (_) => setState(() => _powderAutoFilled = false),
+                    errorText: _shown(_powderTempError, powderTemp),
+                  ),
+                ],
                 if (_customCurve)
                   MenzilFullWidth(
                     child: DragCurveField(
@@ -3210,7 +3438,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   for (var i = 0; i < 2; i++) ...[
                     MenzilInput(
                       key: Key('ammo-band-fps-$i'),
-                      info: ProfileFieldInfo.bandSpeed,
+                      info: platform == WeaponPlatform.firearm
+                          ? ProfileFieldInfo.bandSpeedFirearm
+                          : ProfileFieldInfo.bandSpeed,
                       controller: ammoBandFps[i],
                       label: '${i + 1}. eşik hızı',
                       onChanged: (_) => setState(() {}),

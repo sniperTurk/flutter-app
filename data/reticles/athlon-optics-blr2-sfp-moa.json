@@ -1,0 +1,21 @@
+{
+  "name": "BLR2 SFP MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Heras SPR 15-60x56"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2023/07/Athlon-BLR2-SFP-MOA-Reticle-Manual-Heras-SPR-1.pdf",
+  "notes": "SFP; ölçüler yalnızca 40x'te geçerli (15-60x56). Benchrest/F-Class. Föy metninden: ince çizgi kalınlığı 0.018 MOA; merkezde nokta yerine 'A 0.075 moa opening at the center' -> center_dot false; '0.5 moa markings increment both vertically and horizontally from the 0.075 moa center opening'. Seri: föy 'Heras SPR riflescope' diyor, ürün sayfası heras-spr-15-60x56-blr2-sfp-moa. Uzanımlar, rakam belirtilmemiş -> null."
+}

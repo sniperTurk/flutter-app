@@ -268,9 +268,19 @@ for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
                 bcsrc = 'mermi'
         name = r['product']
         for token in sorted({r['cartridge'], c}, key=len, reverse=True):
-            name = name.replace(token, ' ')
+            # Not inside a longer word: '7mm Weatherby Mag' must not cut 'Magnum' to 'num'.
+            name = re.sub(re.escape(token) + r'(?![a-z])', ' ', name)
         # A product written '.223 Rem.' leaves a lone '.' once the cartridge is cut.
         name = re.sub(r'(^|\s)\.(?=\s|$)', ' ', name)
+        # Makers often write the cartridge without its leading dot ('22 Creedmoor').
+        for token in sorted({r['cartridge'].lstrip('.'), c.lstrip('.')}, key=len, reverse=True):
+            name = re.sub(r'(?<![\w.])' + re.escape(token) + r'(?!\w)', ' ', name)
+        # Federal/CCI page titles 'Line, 22 Creedmoor, 75 Grain, Bullet, 3300 fps'
+        # -> 'Line 75 gr Bullet 3300 fps' (the style of the earlier Federal records).
+        if re.search(r', \d+(?:\.\d+)? Grain\b', r['product']):
+            name = re.sub(r'\b(\d+(?:\.\d+)?) Grain\b', r'\1 gr', name)
+            name = re.sub(r'(\s*,\s*)+', ' ', name)
+        name = re.sub(r'\s+', ' ', name).strip(' -,/')
         name = re.sub(r'\s+', ' ', name).strip(' -')
         # Unlabelled maker BC taken as G1 by the owner's decision (2026-10-11).
         note = None

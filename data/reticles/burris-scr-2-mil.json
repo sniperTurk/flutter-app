@@ -1,0 +1,29 @@
+{
+  "name": "SCR 2 MIL",
+  "brand": "Burris",
+  "scopes": [
+    "XTR III 3.3-18x50mm",
+    "XTR III 5.5-30x56mm",
+    "XTR III Illuminated 3.3-18x50mm",
+    "XTR III Illuminated 5.5-30x56mm",
+    "XTR PS 3.3-18x50mm",
+    "XTR PS 5.5-30x56mm",
+    "RT-15 3-15x50mm",
+    "RT-25 5-25x56mm",
+    "Six Xe 3-18x56mm"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/scr-2",
+  "notes": "Burris SCR 2 retikül sayfası: 'customer-requested \"tree\" style reticle', 'mrad-based design with 0.2 mrad graduations' -> family=tree, hash_step=0.2. FFP: XTR III kılavuzu ('front focal plane systems', https://www.burrisoptics.com/sites/default/files/content/files/2022-08/xtr-iii-user-guide.pdf) ve XTR PS kılavuzu ('Focal Plane Front', https://www.burrisoptics.com/sites/default/files/content/files/2025-02/INST-9201_XTRPSmanual_REV1.pdf); RT-15/RT-25/Six Xe için odak düzlemi bu kaynaklarda doğrulanmadı. Kılavuz ölçü tablosu (mil, harf etiketli): A .02, B .03, C .05, D .1, E .15, F .2, G .4, H .6, I 1.0, J 2.0, K 5.0; harflerin hangi ölçüye ait olduğu yalnız görselde, görsel okunamadı -> eşlenmedi. Ağaç satırları, uzanımlar, rakam aralığı, merkez nokta metinde yok -> null. XTR PS sürümü sitede ayrı 'SCR 2 XTR PS Reticle' sayfası olarak geçiyor (https://www.burrisoptics.com/reticles/scr-2tm-xtr-ps-reticle); aynı 0.2 mrad tanımı."
+}

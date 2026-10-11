@@ -1,0 +1,19 @@
+{
+  "name": "AHR #90",
+  "brand": "Zeiss",
+  "scopes": ["V8 2.8-20x56", "V8 4.8-35x60"],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": 10,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-90.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-90.pdf",
+  "notes": "Zeiss #90 AHR (Advanced Hunting Reticle) föyü, v2 Kas 2024, aydınlatmalı, SFP, MOA (Kuzey Amerika V8 modelleri). Tablo (2.8-20x56 / 4.8-35x60): A çizgi 0.17/0.10, B aralık 1.00/1.00, C kalın balk 0.85/0.51, D büyük işaret 2.00/1.50, E ana işaret 1.00/1.00, F küçük işaret 0.50/0.50, G aydınlatmalı merkez noktası 0.12/0.08, H açıklık 20.00/20.00. Föy büyütme ve referans büyütme belirtmiyor. ÇIKARIM: hash_step=1.0 B 'Spacing' değerinden; posts_start=10, H 'Opening' 20 MOA'nın balk açıklığı olduğu ve simetrik olduğu varsayımıyla; D/E/F işaret boyları (uzunluk) olarak yorumlandı, uzun işaret aralığı belirtilmemiş -> major_every null. Rakamlar ve uzanımlar yok -> null."
+}

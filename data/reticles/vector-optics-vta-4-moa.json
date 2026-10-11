@@ -1,0 +1,24 @@
+{
+  "name": "VTA-4 MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Tauron 4-16x44 HD MOA FFP (SCFF-80)",
+    "Tauron 6-24x50 HD MOA FFP (SCFF-82)",
+    "Tauron 4-16x44 HD MOA (SCFF-50)",
+    "Tauron 6-24x50 HD MOA (SCFF-51)"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 24,
+  "extent_v_up": null,
+  "extent_v_down": 40,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20241031/4c8d402c5707a6f3dffa26f66e493744.pdf",
+  "notes": "FFP. Kaynak: VTA-4 MOA FFP retikül kılavuzu PDF + SCFF-80 ürün sayfası. Kılavuz: yatay ve dikeyde işaretler arası 1 MOA; yatayda 20-24 MOA arası 0.5 MOA ince bölmeler; yatayın her yanı 24 MOA, merkez altı dikey 40 MOA. Ürün sayfası ise 'elevasyon için 2 MOA, rüzgar için 1 MOA işaret aralığı' diyor (çelişki; kılavuz esas alındı). Merkez nokta 0.125 MOA. Yukarı uzanım, büyük işaret, rakam aralığı → null. SCFF-82 eşleşmesi Reticle Collection sayfasından."
+}

@@ -1,0 +1,19 @@
+{
+  "name": "NP-RF1",
+  "brand": "Nightforce",
+  "scopes": ["NXS 3.5-15x50 F1"],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": 10,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NP-R1F1.pdf",
+  "notes": "Nightforce NP-RF1 föyü (indirme sayfasında 'NP-RF1 (F1) (Discontinued)'), NXS 3.5-15x50 F1, ilk odak düzlemi. Metin: 1 MOA yükseliş ve yan aralıkları; yükseliş noktaları 10, 20 ve 30 MOA'da işaretli; şeffaf direkler (başlangıç mesafesi yok). Harf etiketleri (A 40, K 10 MOA vb.) görselsiz eşlenemedi -> uzanımlar, merkez null."
+}

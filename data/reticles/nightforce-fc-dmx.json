@@ -1,0 +1,19 @@
+{
+  "name": "FC-DMx",
+  "brand": "Nightforce",
+  "scopes": ["ATACR 1-8x24 F1", "NX8 1-8x24 F1"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/0322_NF_FC-DMx_Reticle-Sheet_001-1.pdf",
+  "notes": "Nightforce FC-DMx föyü; LPVO için gün ışığında parlak FFP retikül (F1). Metin: 0.2 MRAD merkez nokta; 4 MRAD çaplı bölümlü daire; '10MRAD grid' 1 MRAD çözünürlüklü, 10 MRAD'a kadar yükseliş tutması (extent_v_down=10); satır etiketleri ızgaranın sağ ve solunda dışarıda. Izgara satır genişlikleri, direkler ve harf etiketlerinin (C 20, E 5 MRAD vb.) anlamı metinde yok -> null. Güncelleme (2026-10): ürün sayfası (nightforceoptics.com/reticles/fc-dmx) 'The open center allows for clarity of the target' ve 'segmented centered circle measures 4 MRAD' diyor; 2025 föyü (content/files/products/FC-DMx-MRAD-MOA-Reticle-Sheet-2025.pdf) 'extends to 10MRAD/ 32MOA'. floating_center=true açık merkez/bölümlü daire ifadesinden çıkarım. Föy harfleri (A 0.2, B Ø4.25, C 20, D 1, E 5, F 2, G 0.06, H 1, I 0.5, J 1.4, K 1 MRAD) metinde eşlenmiyor."
+}

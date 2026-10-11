@@ -1,0 +1,19 @@
+{
+  "name": "#43",
+  "brand": "Zeiss",
+  "scopes": ["Conquest V6 5-30x50", "V8 2.8-20x56", "V8 4.8-35x60"],
+  "unit": "mil",
+  "family": "mildot",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": 5,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-non-illuminated-reticle-43.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-non-illuminated-reticle-43.pdf",
+  "notes": "Zeiss Absehen #43 föyü, 10/2021, SFP. Metin: referans büyütmede noktalar 100 m'de tam 10 cm, aralarındaki açı tam 1 mrad. Aydınlatmasız sürüm yalnız Conquest V6 5-30x50; aydınlatmalı sürüm V8 2.8-20x56, V8 4.8-35x60 ve V6 5-30x50 (https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-43.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-43.pdf). Tablo: E nokta aralığı 10 cm (V6 30x, V8 20x), aynı sütunda F balk açıklığı 100 cm/100 m. ÇIKARIM: posts_start=5, 100 cm/100 m = 10 mil balk açıklığının yarısı. center_dot: aydınlatmalı sürümde aydınlatmalı merkez noktası (D) var, aydınlatmasızda belirtilmemiş -> null. floating_center, rakamlar, uzanımlar belirtilmemiş -> null."
+}

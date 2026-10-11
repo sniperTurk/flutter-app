@@ -8,19 +8,20 @@ import 'package:printing/printing.dart';
 import '../../core/atmosphere.dart';
 import '../../core/ballistic_engine.dart';
 import '../../core/ballistic_input.dart';
+import '../../core/input_error_text.dart';
 import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
 import '../../core/drag_table.dart';
 import '../../core/gravity.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
-import '../../core/reticle.dart';
 import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
 import '../../core/wez.dart';
 import '../../core/wind_clock.dart';
 import '../../data/profile_catalog_integrity.dart';
+import '../../data/reticle_catalog.dart';
 import '../../models/domain.dart';
 import '../../services/settings_store.dart';
 import '../../services/shot_settings_store.dart';
@@ -301,6 +302,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         targetSizeCtl.text = s.targetSizeText;
         rangeErrorCtl.text = s.rangeErrorText;
         bcErrorCtl.text = s.bcErrorText;
+        _wezShotCount = s.wezShotCount;
         _shotCache.clear();
         _holdSamples = null;
       });
@@ -337,6 +339,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       targetSizeText: targetSizeCtl.text.trim(),
       rangeErrorText: rangeErrorCtl.text.trim(),
       bcErrorText: bcErrorCtl.text.trim(),
+      wezShotCount: _wezShotCount,
     );
     unawaited(
       _shotStore.save(id, settings).catchError((Object _) {
@@ -395,6 +398,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final TextEditingController targetSizeCtl = TextEditingController();
   final TextEditingController rangeErrorCtl = TextEditingController();
   final TextEditingController bcErrorCtl = TextEditingController();
+
+  /// WEZ Atış sayısı (owner, 2026-10-11): Hedef shows the first-shot
+  /// probability and, for more than one shot, the chance of at least one hit.
+  int _wezShotCount = Wez.defaultShotCount;
 
   /// Which Pro Ayarlar box is open (one at a time; all closed at first).
   String? _proOpen;
@@ -462,14 +469,26 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   bool get _isFirearm =>
       profileResolution?.rifle.platform == WeaponPlatform.firearm;
 
-  /// Today's velocity from the profile velocity measured at [powderTempCtl]
-  /// and the sensitivity [powderCoefCtl] (% per 15 °C); firearms only.
+  /// Barut sıcaklığı of this profile: Profil > Mühimmat, else the values
+  /// an older version kept on Pro Ayarlar ([powderCoefCtl], [powderTempCtl],
+  /// no longer shown). Null on PCP.
+  ({double? coef, double? referenceC, bool fromProfile}) get _powder =>
+      PowderTemperature.forProfile(
+        profile: widget.profile,
+        platform: profileResolution?.rifle.platform,
+        legacyCoefText: powderCoefCtl.text,
+        legacyTempText: powderTempCtl.text,
+      );
+
+  /// Today's velocity from the profile velocity measured at the reference
+  /// temperature and the sensitivity (% per 15 °C); firearms only.
   double _powderAdjusted(double mps, double todayC) {
     if (!_isFirearm) return mps;
+    final p = _powder;
     return mps *
         PowderTemperature.factor(
-          coefPercentPer15C: _parsed(powderCoefCtl),
-          referenceTempC: _parsed(powderTempCtl),
+          coefPercentPer15C: p.coef,
+          referenceTempC: p.referenceC,
           todayTempC: todayC,
         );
   }
@@ -1206,11 +1225,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     } on FormatException catch (e) {
       _error(e.message);
     } on ArgumentError catch (e) {
-      _error(e.message?.toString() ?? 'Balistik girdileri geçersiz.');
-    } on UnsupportedError catch (e) {
-      _error(
-        e.message?.toString() ?? 'Bu balistik model henüz desteklenmiyor.',
-      );
+      // The validators' messages are English developer text: show the
+      // Turkish field name only.
+      _error(InputErrorText.of(e, fallback: 'Balistik girdileri geçersiz.'));
+    } on UnsupportedError {
+      _error('Bu balistik model henüz desteklenmiyor.');
     } on StateError {
       _error(
         'Sürtünmeli çözüm bulunamadı; hız, sıfır mesafesi ve BC uyumsuz olabilir.',
@@ -1537,6 +1556,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final wez = _hitProbability(shot, basis);
     if (wez != null) {
       final pct = (wez.result.probability * 100).round();
+      final pctN =
+          (Wez.atLeastOneHit(wez.result.probability, _wezShotCount) * 100)
+              .round();
       lines.add(
         Row(
           key: const Key('shot-wez'),
@@ -1559,11 +1581,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 children: [
                   Text('%$pct', style: MenzilType.display(c.amber, size: 34)),
                   Text(
-                    'İsabet olasılığı: %$pct '
+                    'İlk atış isabet olasılığı: %$pct '
                     '(Ø${wez.sizeText} hedef, $_shotDisplay $_distanceUnit).',
                     key: const Key('shot-hit-probability'),
                     style: MenzilType.body(c.ink),
                   ),
+                  if (_wezShotCount > 1)
+                    Text(
+                      '$_wezShotCount atışta en az bir isabet: %$pctN.',
+                      key: const Key('shot-hit-probability-n'),
+                      style: MenzilType.body(c.ink),
+                    ),
                   if (wez.result.dominant != null)
                     Text(
                       'En büyük etken: ${wez.result.dominant!.name}.',
@@ -1614,6 +1642,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// DOPE kartı rows for the active profile in today's conditions: level,
   /// no Coriolis; clicks include the zero offset and the turret scale.
+  /// [v] with [digits] decimals, without a minus on a value that rounds to
+  /// zero ("-0.00" at the zero range read as a wrong-way correction).
+  static String _fixed(double v, int digits) {
+    final s = v.toStringAsFixed(digits);
+    return s.startsWith('-') && double.parse(s) == 0 ? s.substring(1) : s;
+  }
+
   DopeCardData? _dopeCardData() {
     final basis = _basis;
     final s = scope;
@@ -1649,7 +1684,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     final zeroOff = _zeroOffsetMrad;
     final scale = _turretScale;
-    String num1(double v) => v.toStringAsFixed(unit.moaFamily ? 1 : 2);
+    String num1(double v) => _fixed(v, unit.moaFamily ? 1 : 2);
     final rows = <List<String>>[];
     for (final pt in solved.points) {
       final up = unit.fromMrad(pt.correctionMrad - zeroOff.up) / scale;
@@ -2049,7 +2084,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       });
     }
     return ScopeDialView(
-      reticle: Reticles.forName(scope?.reticle, unit),
+      firearm: _isFirearm,
+      reticle: ReticleCatalog.forScope(
+        scope?.reticle,
+        unit,
+        brand: scope?.brand,
+      ),
       unit: unit,
       clickValue: click,
       elevationClicks: _elevationClicks,
@@ -2468,7 +2508,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               label: 'Sıcaklık',
               // A typed value is the user's: auto fill keeps it.
               onChanged: (_) => _userEdited.add(temperature),
-              info: EnvironmentFieldInfo.temperature,
+              info: EnvironmentFieldInfo.temperatureFor(firearm: _isFirearm),
               unit: metric ? '°C' : '°F',
               keyboardType: const TextInputType.numberWithOptions(
                 decimal: true,
@@ -2536,7 +2576,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               label: 'Rüzgâr hızı',
               // A typed value is the user's: auto fill keeps it.
               onChanged: (_) => _userEdited.add(wind),
-              info: EnvironmentFieldInfo.windSpeed,
+              info: EnvironmentFieldInfo.windSpeedFor(firearm: _isFirearm),
               unit: metric ? 'm/s' : 'mph',
             ),
             MenzilInput(
@@ -2716,12 +2756,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     DataCell(
                       Text(displayRange.toStringAsFixed(_yards ? 1 : 0)),
                     ),
-                    DataCell(Text(displayDrop.toStringAsFixed(1))),
-                    DataCell(Text(p.correctionMoa.toStringAsFixed(2))),
-                    DataCell(Text(p.correctionMrad.toStringAsFixed(2))),
+                    DataCell(Text(_fixed(displayDrop, 1))),
+                    DataCell(Text(_fixed(p.correctionMoa, 2))),
+                    DataCell(Text(_fixed(p.correctionMrad, 2))),
                     if (drag) ...[
                       DataCell(Text(p.windMrad.abs().toStringAsFixed(2))),
-                      DataCell(Text(_windDrift(p).toStringAsFixed(1))),
+                      DataCell(Text(_fixed(_windDrift(p), 1))),
                       DataCell(
                         Text(
                           (metric
@@ -2807,7 +2847,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     Expanded(
                       child: Text(
                         title,
-                        style: MenzilType.heading(c.ink, size: 18),
+                        // No bold box titles (owner, 2026-10-11): regular.
+                        style: MenzilType.heading(
+                          c.ink,
+                          size: 18,
+                        ).copyWith(fontWeight: FontWeight.w400),
                       ),
                     ),
                     if (!open)
@@ -2844,7 +2888,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       children: [
         TextSpan(
           text: '$label ',
-          style: const TextStyle(fontWeight: FontWeight.w700),
+          style: const TextStyle(fontWeight: FontWeight.w400),
         ),
         TextSpan(text: '$text\n'),
       ],
@@ -2859,7 +2903,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         children: [
           Text(
             e.title,
-            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w700),
+            // No bold text in the Pro boxes (owner, 2026-10-11).
+            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w400),
           ),
           const SizedBox(height: MenzilSpace.xxs),
           Text.rich(
@@ -2943,9 +2988,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       turretScaleCtl.text.trim().isNotEmpty,
       zero.up != 0 || zero.right != 0,
       _spinDriftOn,
-      _isFirearm &&
-          powderCoefCtl.text.trim().isNotEmpty &&
-          powderTempCtl.text.trim().isNotEmpty,
+      _isFirearm && _powder.coef != null && _powder.referenceC != null,
     ].where((x) => x).length;
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
@@ -3037,7 +3080,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               label: 'Atış mesafesi',
               unit: _distanceUnit,
               info: EnvironmentFieldInfo.proShotRange,
-              hintText: _yards ? '110' : '100',
               errorText:
                   proRangeCtl.text.trim().isNotEmpty && _proRangeM == null
                   ? '1 ile ${_displayMaxRange.toStringAsFixed(0)} '
@@ -3051,13 +3093,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               icon: Icons.map_outlined,
               expand: true,
               onPressed: _proRangeFromMap,
-            ),
-            const SizedBox(height: MenzilSpace.xs),
-            Text(
-              'Mesafeyi bilmiyorsan haritadan ölç. Hedef\'e geçince dürbün '
-              'bu mesafeye kurulmuş gelir. Boş bırakırsan Hedef '
-              '${_yards ? '100 yd' : '100 m'} ile açılır.',
-              style: MenzilType.caption(c.ink2),
             ),
           ],
         ),
@@ -3086,9 +3121,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   style: MenzilType.body(c.ink),
                 ),
               ),
-              const MenzilInfoButton(
+              MenzilInfoButton(
                 title: 'Coriolis',
-                text: EnvironmentFieldInfo.coriolis,
+                text: EnvironmentFieldInfo.coriolisFor(firearm: _isFirearm),
               ),
               // VoiceOver reads the switch with its name.
               Semantics(
@@ -3327,6 +3362,21 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 info: EnvironmentFieldInfo.bcError,
                 onChanged: (_) => _coriolisChanged(),
               ),
+              MenzilSelect<int>(
+                key: const Key('pro-wez-shots'),
+                label: 'Atış sayısı',
+                info: EnvironmentFieldInfo.wezShotCount,
+                initialValue: _wezShotCount,
+                items: [
+                  for (final n in Wez.shotCounts)
+                    DropdownMenuItem(value: n, child: Text('$n atış')),
+                ],
+                onChanged: (v) {
+                  if (v == null) return;
+                  setState(() => _wezShotCount = v);
+                  _saveShotSettings();
+                },
+              ),
             ],
           ),
         ],
@@ -3421,26 +3471,30 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ],
           if (_isFirearm) ...[
             _explain(ProSectionInfo.powder),
-            MenzilFieldGrid(
-              children: [
-                MenzilInput(
-                  key: const Key('pro-powder-coef'),
-                  controller: powderCoefCtl,
-                  label: 'Katsayı (%/15 °C)',
-                  info: EnvironmentFieldInfo.powderCoef,
-                  keyboardType: signed,
-                  onChanged: (_) => _coriolisChanged(),
-                ),
-                MenzilInput(
-                  key: const Key('pro-powder-temp'),
-                  controller: powderTempCtl,
-                  label: 'Ölçüm sıcaklığı',
-                  unit: '°C',
-                  info: EnvironmentFieldInfo.powderTemp,
-                  keyboardType: signed,
-                  onChanged: (_) => _coriolisChanged(),
-                ),
-              ],
+            // The values are entered on Profil > Mühimmat (2026-10-11); here
+            // only what is used and today's velocity.
+            Builder(
+              builder: (context) {
+                final p = _powder;
+                String n(double v) => v % 1 == 0
+                    ? v.toStringAsFixed(0)
+                    : v.toString().replaceAll('.', ',');
+                final k = p.coef, t0 = p.referenceC;
+                final where = p.fromProfile
+                    ? 'Profil > Mühimmat\'tan değiştirilir.'
+                    : 'Önceki sürümde burada girildi; Profil > Mühimmat\'ta '
+                          'girin.';
+                return Text(
+                  k != null && t0 != null
+                      ? 'Katsayı %${n(k)} / 15 °C, hız ölçüm sıcaklığı '
+                            '${n(t0)} °C. $where'
+                      : 'Barut sıcaklık katsayısı ve hız ölçüm sıcaklığı '
+                            'Profil > Mühimmat\'ta girilir; girilmezse hız '
+                            'düzeltilmez.',
+                  key: const Key('pro-powder-source'),
+                  style: MenzilType.body(c.ink),
+                );
+              },
             ),
             Builder(
               builder: (context) {
@@ -3618,7 +3672,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           key: const Key('shot-incline'),
           title: 'Tüfek eğimi',
           value: '∠ ${ShotAngleMath.degrees(_inclineDeg)}',
-          info: EnvironmentFieldInfo.incline,
+          info: EnvironmentFieldInfo.inclineFor(firearm: _isFirearm),
           icon: Icons.terrain_outlined,
           onTap: _editIncline,
         ),
@@ -3630,7 +3684,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ? 'Yok'
               : '${ShotAngleMath.degrees(_cantDeg)} '
                     '${_cantDeg > 0 ? 'sağa' : 'sola'}',
-          info: EnvironmentFieldInfo.cant,
+          info: EnvironmentFieldInfo.cantFor(firearm: _isFirearm),
           icon: Icons.rotate_right,
           onTap: _editCant,
         ),
@@ -3641,7 +3695,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   Future<void> _editIncline() async {
     final result = await showDialog<double>(
       context: context,
-      builder: (_) => _InclineDialog(initial: _inclineDeg),
+      builder: (_) => _InclineDialog(initial: _inclineDeg, firearm: _isFirearm),
     );
     if (!mounted || result == null) return;
     _setAngles(incline: result);
@@ -3649,7 +3703,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   Future<void> _editCant() async {
     final result = await Navigator.of(context).push<double>(
-      MaterialPageRoute(builder: (_) => ScopeCantScreen(initialDeg: _cantDeg)),
+      MaterialPageRoute(
+        builder: (_) =>
+            ScopeCantScreen(initialDeg: _cantDeg, firearm: _isFirearm),
+      ),
     );
     if (!mounted || result == null) return;
     _setAngles(cant: result);
@@ -3944,7 +4001,8 @@ class _RangeDialogState extends State<_RangeDialog> {
 /// Tüfek eğimi: typed by hand or measured with the camera.
 class _InclineDialog extends StatefulWidget {
   final double initial;
-  const _InclineDialog({required this.initial});
+  final bool firearm;
+  const _InclineDialog({required this.initial, required this.firearm});
 
   @override
   State<_InclineDialog> createState() => _InclineDialogState();
@@ -3996,7 +4054,7 @@ class _InclineDialogState extends State<_InclineDialog> {
             controller: _c,
             label: 'Tüfek eğimi açısı',
             unit: '°',
-            info: EnvironmentFieldInfo.incline,
+            info: EnvironmentFieldInfo.inclineFor(firearm: widget.firearm),
             errorText: value == null ? '−$max ile $max arasında olmalı.' : null,
             keyboardType: const TextInputType.numberWithOptions(
               decimal: true,

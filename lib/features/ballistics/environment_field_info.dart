@@ -4,8 +4,26 @@
 /// explanation. Keep them short, concrete and in Turkish; say where the value
 /// can be found and give a typical example.
 abstract final class EnvironmentFieldInfo {
+  // Texts that name the projectile come in two versions: "saçma" for PCP
+  // and "mermi" for a firearm (owner, 2026-10-11). Use the `…For` helpers
+  // with the selected platform.
+  static String temperatureFor({required bool firearm}) =>
+      firearm ? temperatureFirearm : temperature;
+  static String windSpeedFor({required bool firearm}) =>
+      firearm ? windSpeedFirearm : windSpeed;
+  static String inclineFor({required bool firearm}) =>
+      firearm ? inclineFirearm : incline;
+  static String cantFor({required bool firearm}) =>
+      firearm ? cantFirearm : cant;
+  static String coriolisFor({required bool firearm}) =>
+      firearm ? coriolisFirearm : coriolis;
+
   static const temperature =
       'Atış yerindeki hava sıcaklığı. Sıcak hava daha seyrektir; saçma daha '
+      'az yavaşlar ve daha az düşer. Telefonun hava durumu veya bir '
+      'termometre yeterlidir. Örnek: 18 °C.';
+  static const temperatureFirearm =
+      'Atış yerindeki hava sıcaklığı. Sıcak hava daha seyrektir; mermi daha '
       'az yavaşlar ve daha az düşer. Telefonun hava durumu veya bir '
       'termometre yeterlidir. Örnek: 18 °C.';
   static const pressure =
@@ -24,6 +42,10 @@ abstract final class EnvironmentFieldInfo {
   static const windSpeed =
       'Rüzgârın hızı. Anemometre (ör. Kestrel) ile atış yerinde ölçmek en '
       'doğrusudur. Yan rüzgâr saçmayı yana taşır; sapma BC ile hesaplanır. '
+      'Örnek: 3 m/s.';
+  static const windSpeedFirearm =
+      'Rüzgârın hızı. Anemometre (ör. Kestrel) ile atış yerinde ölçmek en '
+      'doğrusudur. Yan rüzgâr mermiyi yana taşır; sapma BC ile hesaplanır. '
       'Örnek: 3 m/s.';
   static const windDirection =
       'Rüzgârın NEREDEN estiği, saat olarak (1–12). Kutunun altındaki '
@@ -47,10 +69,17 @@ abstract final class EnvironmentFieldInfo {
       'Ateş edeceğin hedefin uzaklığı. Telemetre (lazer mesafe ölçer) ile '
       'ölç ya da bilmiyorsan "Haritadan ölç"e dokunup haritada senin ve '
       'hedefin yerini işaretle. Hedef ekranı bu mesafeyle açılır ve dürbün '
-      'kurulmuş gelir. Örnek: 85 m.';
+      'kurulmuş gelir. Boş bırakırsan Hedef 100 m (yarda biriminde 100 yd) '
+      'ile açılır. Örnek: 85 m.';
   static const incline =
       'Tüfek eğimi: hedefe bakış çizgisinin yatayla yaptığı açı. Yukarı '
       'atışta +, aşağı atışta −. Yokuşta saçma daha az düşer; yukarı ve aşağı '
+      'atışta düz atıştan daha az yükseltme gerekir. Mesafe, telemetrenin '
+      'ölçtüğü eğik mesafedir. "Kamerayla ölç" ile telefonun arka kamerasını '
+      'hedefe çevirerek ölçün. Örnek: −15°.';
+  static const inclineFirearm =
+      'Tüfek eğimi: hedefe bakış çizgisinin yatayla yaptığı açı. Yukarı '
+      'atışta +, aşağı atışta −. Yokuşta mermi daha az düşer; yukarı ve aşağı '
       'atışta düz atıştan daha az yükseltme gerekir. Mesafe, telemetrenin '
       'ölçtüğü eğik mesafedir. "Kamerayla ölç" ile telefonun arka kamerasını '
       'hedefe çevirerek ölçün. Örnek: −15°.';
@@ -60,11 +89,23 @@ abstract final class EnvironmentFieldInfo {
       'saçma yatık tarafa ve biraz aşağı gider; uygulama kule kliklerini '
       'buna göre düzeltir. Telefonu dürbüne dayayıp "Telefonla ölç" ile '
       'ölçebilirsiniz. Örnek: 3°.';
+  static const cantFirearm =
+      'Dürbün eğimi: dürbünün dikey çizgisinin tam dikeyden sağa veya sola '
+      'yatma açısı. Sağa (saat 3 yönüne) yatık +, sola −. Yatık dürbünde '
+      'mermi yatık tarafa ve biraz aşağı gider; uygulama kule kliklerini '
+      'buna göre düzeltir. Telefonu dürbüne dayayıp "Telefonla ölç" ile '
+      'ölçebilirsiniz. Örnek: 3°.';
   static const coriolis =
       'Dünyanın dönüşü uçuştaki saçmayı çok az saptırır: kuzey yarımkürede '
       'sağa, doğuya atışta biraz yukarı, batıya atışta biraz aşağı. Uzun '
       'uçuş süresinde (uzun mesafe) önem kazanır; havalı tüfekte 100 m\'de '
       'milimetre düzeyindedir. Açıkken uygulama enlem ve atış yönüne göre '
+      'hesaplar ve kule kliklerine ekler.';
+  static const coriolisFirearm =
+      'Dünyanın dönüşü uçuştaki mermiyi çok az saptırır: kuzey yarımkürede '
+      'sağa, doğuya atışta biraz yukarı, batıya atışta biraz aşağı. Uzun '
+      'uçuş süresinde (uzun mesafe) önem kazanır. Açıkken uygulama enlem ve '
+      'atış yönüne göre '
       'hesaplar ve kule kliklerine ekler.';
   static const latitude =
       'Bulunduğunuz yerin enlemi, derece. Kuzey yarımküre +, güney −. '
@@ -115,6 +156,13 @@ abstract final class EnvironmentFieldInfo {
   static const bcError =
       'BC değerinden ne kadar emin olduğun, ± %. Üretici değeri için 3–5 %; '
       'kendin doğruladıysan 1–2 %. Boş bırakırsan hesaba katılmaz.';
+  static const wezShotCount =
+      'Hedefe kaç atış yapmayı düşündüğün. 1 atışta yalnız ilk atış '
+      'isabet olasılığı görünür; daha fazlasında Hedef ekranı bu kadar '
+      'atışta en az bir isabet şansını da gösterir. Atışlar birbirinden '
+      'bağımsız sayılır; mesafe veya rüzgâr hatası düzeltilmeden tekrar '
+      'atarsan gerçek şans biraz daha düşüktür. Örnek: avda 1, hedef '
+      'atışında 3 veya 5.';
   static const targetSpeed =
       'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
       'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '
@@ -128,14 +176,6 @@ abstract final class EnvironmentFieldInfo {
       'Merminin (slug\'ın) burundan tabana uzunluğu, milimetre olarak. '
       'Kumpasla ölçün. Dönüş kararlılığı ve spin drift buna göre hesaplanır. '
       'Örnek: .25 slug ~10 mm, .308 168 gr ~31 mm.';
-  static const powderCoef =
-      'Barut sıcaklık katsayısı: sıcaklık 15 °C değiştiğinde hız yüzde kaç '
-      'değişiyor. İki farklı sıcaklıkta kronografla ölçüp bulun. Örnek: '
-      '%1,5 (15 °C ısınınca hız %1,5 artar). Yalnız ateşli tüfek.';
-  static const powderTemp =
-      'Profildeki namlu çıkış hızının ölçüldüğü (ve tüfeğin sıfırlandığı) '
-      'sıcaklık, °C. Bugünkü hız Hava Durumu\'ndaki sıcaklığa göre buradan '
-      'hesaplanır. Örnek: 20.';
   static const targetDirection =
       'Hedefin hangi yöne hareket ettiği: önüne, yani gittiği yöne nişan '
       'alınır.';

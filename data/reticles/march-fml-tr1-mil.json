@@ -1,0 +1,24 @@
+{
+  "name": "FML-TR1",
+  "brand": "March Scopes",
+  "scopes": [
+    "4.5x-28x52mm",
+    "5x-42x56mm",
+    "4x-40x52mm Genesis",
+    "6x-60x56mm Genesis"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": 0.5,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://marchscopes.com/first-focal-plane-reticles/",
+  "notes": "March resmi FFP reticle sayfası. Metin: '.2 mrad and .5 mrad hash marks' (hash_step=0.2, major_every=0.5 bu ifadeden; hangisinin hangi işaret olduğu metinde açık değil, 0.5'in majör olması çıkarımdır), dört nokta 'located 0.5 mrad away from the center both vertically and horizontally', merkez nokta ve artı aydınlatmalı. Sayfa birimi MIL başlığıyla veriyor. Tree satırları, uzanımlar, rakam aralığı, floating_center metinde yok -> null."
+}

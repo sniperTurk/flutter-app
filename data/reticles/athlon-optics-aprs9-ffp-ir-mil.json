@@ -1,0 +1,34 @@
+{
+  "name": "APRS9 FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Heras SPR 6-24x56"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 6,
+  "tree": {
+    "rows": [
+      {
+        "y": 1,
+        "half_width": 1,
+        "dot_step": 0.5
+      },
+      {
+        "y": 6,
+        "half_width": 3,
+        "dot_step": 0.5
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2022/11/ATHLON-APRS9-FFP-IR-MIL-Reticle-Manual-Heras-SPR.pdf",
+  "notes": "FFP. Föy metninden: 'floating 0.04 mil center dot'; 'fine 0.2 mil hash mark increments from center to four directions' (uzanım yazılmamış); nokta satırları 1 mil düşüş çizgisinde her yöne 1 mil, 'all the way down to 3 mils on each side at 6 mil drop line'; 'smaller size dots with interval at 0.5 mils and bigger size dots with interval at 1 mil'. extent_v_down=6 son düşüş çizgisinden çıkarım. Ara satırlar, büyük işaret, rakam belirtilmemiş. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

@@ -1,0 +1,34 @@
+{
+  "name": "APLR10 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Talos BTR GEN2 4-14x44"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 40,
+  "tree": {
+    "rows": [
+      {
+        "y": 5,
+        "half_width": 5,
+        "dot_step": 1
+      },
+      {
+        "y": 40,
+        "half_width": 10,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2023/02/Athlon-APLR10-FFP-IR-MOA-Reticle-Manual-Talos-BTR-GEN2.pdf",
+  "notes": "FFP. Föy metninden: 2 MOA yüzen merkez artı, artı ile ilk işaret arası dört yönde 1 MOA, 1 MOA işaretler, 'drop lines in 5 moa increments on vertical direction down to 40 moa'; 1 MOA küçük / 5 MOA büyük noktalar, 'starting 10 moa length horizontally and end up 20 moa in length at the 40 moa drop line'. Satırlar 'X moa length' (toplam uzunluk) olarak verildiği için half_width = uzunluk/2 (çıkarım); ilk satır ilk 5 MOA düşüş çizgisi (y=5) kabul edildi (çıkarım); ara satır genişlikleri metinde yok. major_every=5 satırdaki büyük nokta aralığından çıkarım. Merkezde nokta değil artı var -> center_dot false. Yatay/yukarı uzanım belirtilmemiş. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

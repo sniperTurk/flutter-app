@@ -1,0 +1,21 @@
+{
+  "name": "MSR2 (3-27x56 PM II High Power)",
+  "brand": "Schmidt & Bender",
+  "scopes": [
+    "3-27x56 PM II High Power"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://assets.schmidtundbender.de/media/02/ba/4d/1763378292/Schmidt-Bender-Datasheet-MSR2-FFP-3-27x56%20PMII-High-Power.pdf",
+  "notes": "S&B resmi retikül veri föyü: 'MSR 2', '3-27x56 PM II High Power scope type 69', 'focal plane FFP'. Kapsama tablosu (mrad): A=20, B=0.06, C=0.04, D=1, E=0.4, F=0.13, G=10, H=6, K=2, L=0.2, M=5, N=3, P=0.7; ikinci tablo D=1, R=0.1, S=0.19, T=4; U–Z (900–1300 m) ve AA–AE (400–800 m) için '100 cm' mesafe ölçme işaretleri. unit=mil föydeki 'mrad' satırından. Föydeki harf/değer tablosunun hangi retikül öğesine (bölme aralığı, çizgi kalınlığı, uzanım, kalın çubuk) ait olduğu yalnız çizimde gösteriliyor ve metin olarak okunamadı; tahmin edilmemesi için geometri alanları null. family, center_dot, floating_center metinde yok -> null."
+}

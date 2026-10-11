@@ -92,6 +92,10 @@ abstract final class ProfileFieldInfo {
       'bu değerin altına inince yandaki BC kullanılır; üstünde ana BC. '
       'Üretici bazen hız aralıklarıyla birden çok BC verir (ör. Sierra). '
       'Örnek: 800 fps altında 0,031.';
+  static const bandSpeedFirearm =
+      'İsteğe bağlı. BC hız düştükçe değişir. Hız bu değerin altına inince '
+      'yandaki BC kullanılır; üstünde ana BC. Üretici bazen hız aralıklarıyla '
+      'birden çok BC verir (ör. Sierra). Örnek: 1800 fps altında 0,450.';
   static const bandBc =
       'Hız, soldaki eşiğin altına düştüğünde kullanılacak BC (aynı model: '
       'G1/G7/GA). Boş bırakırsanız tek BC kullanılır. Örnek: 0,031.';
@@ -103,17 +107,30 @@ abstract final class ProfileFieldInfo {
       'sabit görünür; aralıklar yalnız belirli bir büyütmede (genelde en '
       'yüksek) doğrudur. Dürbünün adında veya föyünde yazar.';
   static const minMag =
-      'Dürbünün en düşük büyütmesi. 6-24x56 bir dürbün için 6.';
+      'Dürbünün en düşük büyütmesi; listeden seçin. Dürbünün adında, '
+      'gövdesinde veya kutusunda yazar: 6-24x56 bir dürbün için 6x, '
+      '3-9x40 için 3x. Sabit büyütmeli dürbünde (10x42) Minimum ve '
+      'Maksimum aynıdır.';
   static const maxMag =
-      'Dürbünün en yüksek büyütmesi. 6-24x56 bir dürbün için 24.';
+      'Dürbünün en yüksek büyütmesi; listeden seçin. Dürbünün adında, '
+      'gövdesinde veya kutusunda yazar: 6-24x56 bir dürbün için 24x, '
+      '3-9x40 için 9x. Minimum büyütmeden küçük olamaz.';
   static const objective =
-      'Ön (objektif) merceğin çapı, milimetre olarak. 6-24x56 bir dürbün için '
-      '56.';
+      'Ön (objektif) merceğin çapı, milimetre olarak; listeden seçin. '
+      'Dürbünün adında "x"ten sonraki sayıdır: 6-24x56 için 56 mm, 3-9x40 '
+      'için 40 mm.';
+  static const clickValue =
+      'Üst kuleyi bir klik çevirince nişanın ne kadar kaydığı. Kulenin '
+      'üstünde veya dürbünün föyünde yazar ("1 click = 0.1 MRAD", '
+      '"1/4 MOA"). En yaygını MRAD dürbünde 0,1 mrad, MOA dürbünde 1/4 MOA; '
+      'hassas dürbünlerde 0,05 mrad veya 1/8 MOA olur. Önce Dürbün birimini '
+      'seçin; liste ona göre dolar.';
   static const scopeUnit =
       'Kulelerin ve retikülün açı birimi: MRAD (mil), MOA veya SMOA. '
       'Kulenin üstünde veya dürbünün föyünde yazar. "1/4 IN @ 100 YDS" '
-      'yazıyorsa SMOA seçin (100 yard\'da 1 inç; MOA\'dan %4,5 küçük). Bir '
-      'klik buna göre alınır: MRAD\'da 0,1, MOA ve SMOA\'da 1/4.';
+      'yazıyorsa SMOA seçin (100 yard\'da 1 inç; MOA\'dan %4,5 küçük). Listeden '
+      'seçilen dürbünde klik buna göre alınır: MRAD\'da 0,1, MOA ve '
+      'SMOA\'da 1/4; listede olmayan dürbünde Klik değerini ayrıca seçersiniz.';
   static const sightHeight =
       'Sight height: dürbünün merkez ekseni ile namlunun merkez ekseni '
       'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
@@ -136,7 +153,8 @@ abstract final class ProfileFieldInfo {
       'retikül bu desenle çizilir; bilmiyorsanız MIL dürbünde "MIL çizgili", '
       'MOA dürbünde "MOA çizgili" seçin. İsteğe bağlı.';
   static const elevationTravel =
-      'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü. '
+      'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü; '
+      'sayı olarak yazılır. Örnek: 0,1 mrad klikli 30 mrad\'lık kule için 300. '
       'Kutuda yazar ya da kuleyi çevirip sayarsınız. Uzak atışta kule '
       'yetmezse uygulama bunu söyler. Bilmiyorsanız boş bırakın; hesap '
       'yine çalışır.';
@@ -162,6 +180,20 @@ abstract final class ProfileFieldInfo {
       'namlusunda ölçülür (çoğunlukla 24 inç), sizin namlunuzda farklı '
       'olabilir. Kronografla ölçtüyseniz kendi değerinizi yazın. Örnek: '
       '.308 Win 168 gr için 2650 fps.';
+  static const powderCoef =
+      'Barut sıcaklık katsayısı: hava 15 °C ısındığında namlu çıkış hızının '
+      'yüzde kaç arttığı. Atış hesabı hızı Hava Durumu\'ndaki sıcaklığa göre '
+      'bununla düzeltir. Fişek ve barut üreticileri çoğunlukla sayı vermez, '
+      'yalnızca "sıcaklığa duyarsız" yazar; en doğrusu aynı fişeği soğuk ve '
+      'sıcak bir günde kronografla ölçmektir. Örnek: 10 °C\'de 2600 fps, '
+      '25 °C\'de 2639 fps ölçtüyseniz 1,5 yazın. Fabrika fişeğinde üretici '
+      'sayı veriyorsa kendiliğinden dolar. Bilmiyorsanız boş bırakın. '
+      'Yalnızca ateşli tüfek.';
+  static const powderTemp =
+      'Namlu çıkış hızını kronografla ölçtüğünüz günkü hava sıcaklığı, °C. '
+      'Üreticinin hızını kullanıyorsanız üreticinin belirttiği test '
+      'sıcaklığını yazın. Hız bu sıcaklıktan bugünkü sıcaklığa göre '
+      'düzeltilir. Katsayıyla birlikte girilir. Örnek: 20.';
   static const zero =
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
       'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '
