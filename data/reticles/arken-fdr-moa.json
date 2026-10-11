@@ -1,0 +1,22 @@
+{
+  "name": "FDR",
+  "brand": "Arken Optics",
+  "scopes": [
+    "OUTRIDER 2-12x42 SFP",
+    "OUTRIDER 3-18x50 SFP"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.arkenopticsusa.com/products/outrider-3-18x50-sfp-illuminated-fdr-non-illuminated-dlr-30mm-tube",
+  "notes": "SFP (referans büyütme belirtilmemiş). Fiber Duplex Reticle: ürün sayfaları (OUTRIDER 3-18x50 ve 2-12x42) SSS: 'Second Focal Plane (SFP) Duplex reticles', fiber optik aydınlatmalı merkez nişan noktası, 6 parlaklık kademesi. family=duplex bu metinden; unit=moa sayfadaki 'MOA / FDR' seçeneğinden. Merkez noktanın ayrı bir nokta mı yoksa aydınlatılmış kesişim mi olduğu belirtilmemiş -> center_dot null. Direk başlangıcı, kalınlıklar ve ölçüler sayfada ve kılavuz PDF metninde (OUTRIDER_3-18x50_User_manual-V3, 3661-0070-OUTRIDER_2-12x42_UM-V2) yok -> null."
+}
