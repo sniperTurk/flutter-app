@@ -63,14 +63,16 @@ Future<Uint8List> buildDopeCardPdf(
         pageFormat: PdfPageFormat.a4,
         margin: const pw.EdgeInsets.all(28),
         theme: theme,
-        // The logo, faded, in the middle of the page.
-        buildBackground: logo == null
+        // The logo, faded, in the middle of the page. Drawn over the table:
+        // the shaded rows would hide it underneath (owner, 2026-10-11:
+        // "logo hiç belli değil").
+        buildForeground: logo == null
             ? null
             : (context) => pw.FullPage(
                 ignoreMargins: true,
                 child: pw.Center(
                   child: pw.Opacity(
-                    opacity: 0.15,
+                    opacity: 0.12,
                     child: pw.Image(pw.MemoryImage(logo), width: 240),
                   ),
                 ),
