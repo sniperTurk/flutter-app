@@ -1004,9 +1004,10 @@ class MenzilInput extends StatelessWidget {
               maxLength: maxLength,
               inputFormatters: inputFormatters,
               scrollPadding: const EdgeInsets.only(bottom: 120),
+              // Entries a bit smaller and not bold (owner, 2026-10-11).
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
                 color: c.ink,
                 fontFeatures: MenzilType.tabular,
               ),
@@ -1142,9 +1143,10 @@ class MenzilSelect<T> extends StatelessWidget {
               borderRadius: BorderRadius.circular(MenzilRadius.input),
               dropdownColor: c.surface,
               icon: Icon(Icons.expand_more, color: c.ink2),
+              // Entries a bit smaller and not bold (owner, 2026-10-11).
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
                 color: c.ink,
               ),
               decoration: const InputDecoration(),
