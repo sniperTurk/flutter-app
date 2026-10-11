@@ -26,11 +26,24 @@ abstract final class ReticleCatalog {
     'MOA': 'moa',
   };
 
-  /// "Athlon Optics" and "Athlon" are the same brand.
-  static String brandKey(String brand) => brand
-      .toLowerCase()
-      .replaceAll(RegExp(r'\boptics?\b'), '')
-      .replaceAll(RegExp(r'[^a-z0-9]'), '');
+  /// Words of a brand without "Optics": "Athlon Optics" and "Athlon" are
+  /// the same brand.
+  static List<String> brandWords(String brand) => [
+    for (final w in brand.toLowerCase().split(RegExp(r'[^a-z0-9]+')))
+      if (w.isNotEmpty && w != 'optics' && w != 'optic') w,
+  ];
+
+  /// True when the scope's brand is [dataBrand]. A scope picked from the
+  /// list is saved with its series after the brand ("Athlon CRONUS BTR
+  /// GEN2 UHD IR MIL"), so the data brand's words must lead it.
+  static bool brandMatches(String dataBrand, String scopeBrand) {
+    final d = brandWords(dataBrand), s = brandWords(scopeBrand);
+    if (d.isEmpty || s.length < d.length) return false;
+    for (var i = 0; i < d.length; i++) {
+      if (d[i] != s[i]) return false;
+    }
+    return true;
+  }
 
   /// The reticle's own designation without unit and focal-plane words
   /// ("APRS14 FFP IR MIL" → APRS14, "TOR-MIL" → TOR) and the unit the name
@@ -64,12 +77,12 @@ abstract final class ReticleCatalog {
     List<ReticleData> library = ReticleLibrary.all,
   }) {
     if (name == null || brand == null) return null;
-    final b = brandKey(brand);
     final key = nameKey(name);
-    if (b.isEmpty || key.core.isEmpty) return null;
+    if (key.core.isEmpty) return null;
     var hits = [
       for (final r in library)
-        if (brandKey(r.brand) == b && nameKey(r.name).core == key.core) r,
+        if (brandMatches(r.brand, brand) && nameKey(r.name).core == key.core)
+          r,
     ];
     if (key.unit != null) {
       hits = [

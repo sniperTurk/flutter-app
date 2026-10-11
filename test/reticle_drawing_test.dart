@@ -140,6 +140,9 @@ void main() {
     );
     // Another brand's reticle of the same name is not used.
     expect(find('Mil-Dot', 'Athlon', AngularUnit.mrad), isNull);
+    // A brand only leads: "Athlon CRONUS …" is Athlon, "Athlonx" is not.
+    expect(find('APRS1', 'Athlon CRONUS BTR', AngularUnit.mrad), isNotNull);
+    expect(find('APRS1', 'Athlonx', AngularUnit.mrad), isNull);
     // A bare unit is no reticle name.
     expect(find('MRAD', 'Arken Optics', AngularUnit.mrad), isNull);
     expect(find('APRS14', '', AngularUnit.mrad), isNull);
@@ -235,8 +238,9 @@ void main() {
           'id': 'manual_scope_1',
           'kind': 'scope',
           'platform': 'pcp',
-          'brand': 'Athlon',
-          'model': 'CRONUS BTR GEN2 UHD IR MIL 4,5-29x56 FFP',
+          // The Profil form saves the series with the brand.
+          'brand': 'Athlon CRONUS BTR GEN2 UHD IR MIL',
+          'model': '4,5-29x56 FFP',
           'objectiveMm': 56.0,
           'click': 0.1,
           'clickUnit': 'mrad',
@@ -250,7 +254,6 @@ void main() {
     final scope = CatalogRepository.allScopes.firstWhere(
       (s) => s.id == 'manual_scope_1',
     );
-    expect(scope.brand, 'Athlon');
     expect(scope.reticle, 'APRS1');
     final spec = ReticleCatalog.forScope(
       scope.reticle,
