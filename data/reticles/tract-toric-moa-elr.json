@@ -1,0 +1,21 @@
+{
+  "name": "Glass Etched MOA ELR",
+  "brand": "Tract Optics",
+  "scopes": [
+    "TORIC UHD 4-25x50 34mm MOA ELR"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://tractoptics.com/toric-4-25x50-34mm-moa-elr-rifle-scope",
+  "notes": "Tract ürün sayfası metni (FFP): '.14 MOA floating center dot', yatay/dikey artıda 1 MOA aralık, 5 MOA işaretleri, 5 ve 10 MOA'da büyük çizgiler, üst artıda 0.5 MOA ızgara. hash_step=1 ana artı aralığı olarak alındı (0.5 MOA ızgara yalnız üst artıda; ölçüm ızgarası). Uzanım (160 MOA turret ayarıdır, retikül değil), rakam aralığı, satırlar, posts_start metinde yok -> null."
+}
