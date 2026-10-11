@@ -197,8 +197,7 @@ abstract final class ProSectionInfo {
 
   static const pcpPressure = ProExplain(
     title: 'Tüp basıncı',
-    what:
-        'PCP tüfekte her atışta tüpteki hava biraz azalır, basınç düşer.',
+    what: 'PCP tüfekte her atışta tüpteki hava biraz azalır, basınç düşer.',
     why:
         'Regülatörsüz tüfekte hız basınca göre değişir. Regülatörlü tüfekte '
         'tüp regülatör basıncının altına inince regülatör devre dışı kalır ve '

@@ -11,6 +11,7 @@ class ProfileInput {
   final double muzzleVelocityMps;
   final double zeroRangeM;
   final double sightHeightMm;
+
   /// PCP regülatör basıncı (bar); null = unregulated / firearm.
   final double? pressureBar;
 

@@ -234,7 +234,9 @@ void main() {
       }
       await tester.pumpWidget(app(profile, BallisticsView.shot));
       await tester.pumpAndSettle();
-      return tester.widget<ScopeDialView>(find.byType(ScopeDialView)).requiredUp!;
+      return tester
+          .widget<ScopeDialView>(find.byType(ScopeDialView))
+          .requiredUp!;
     }
 
     testWidgets('firearm: no tube pressure on Pro', (tester) async {

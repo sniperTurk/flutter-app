@@ -1850,11 +1850,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ];
     pvFps = [
       for (var i = 0; i < PcpPressure.tableRows; i++)
-        TextEditingController(
-          text: i < pv.length
-              ? _fpsText(pv[i].mps)
-              : '',
-        ),
+        TextEditingController(text: i < pv.length ? _fpsText(pv[i].mps) : ''),
     ];
   }
 
