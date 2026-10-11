@@ -30,10 +30,15 @@ Future<void> fillRifleForm(
   WidgetTester tester, {
   String brand = 'Test Marka',
   String model = 'Test Model',
-  String caliber = '6.35 mm',
+  String caliber = '6.35 mm (.25)',
   String twist = '16',
   String direction = 'Sağ',
 }) async {
+  // Marka / Model come from the lists; typed names need "Listede yok"
+  // first (owner, 2026-10-11).
+  if (find.byKey(const Key('rifle-brand-select')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'rifle-brand-select', 'Listede yok');
+  }
   await enterRifleField(tester, 'rifle-brand', brand);
   await enterRifleField(tester, 'rifle-model', model);
   // Kalibre is picked from a list (owner, 2026-10-09).
@@ -60,7 +65,19 @@ Future<void> chooseInSelect(
   await tester.ensureVisible(select);
   await tester.tap(select);
   await tester.pumpAndSettle();
-  await tester.tap(find.text(label).last);
+  // Long lists ("Listede yok" is the last item): scroll the open menu.
+  final item = find.text(label);
+  if (item.evaluate().isEmpty) {
+    await tester.dragUntilVisible(
+      item,
+      find.byType(Scrollable).last,
+      const Offset(0, -300),
+    );
+  }
+  // Built but below the menu's visible part: scroll it into view.
+  await tester.ensureVisible(item.last);
+  await tester.pumpAndSettle();
+  await tester.tap(item.last);
   await tester.pumpAndSettle();
 }
 
@@ -74,8 +91,13 @@ Future<void> fillAmmoForm(
   String bc = '0,08',
   String bcModel = 'G1',
 }) async {
-  // One "Marka Model" field since 2026-10-09.
-  await enterRifleField(tester, 'ammo-brand', '$brand $model');
+  // Marka and Model are separate boxes again and come from the library
+  // lists; a typed name needs "Listede yok" first (owner, 2026-10-11).
+  if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
+  }
+  await enterRifleField(tester, 'ammo-brand', brand);
+  await enterRifleField(tester, 'ammo-model', model);
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);
   await enterRifleField(tester, 'ammo-grain', grain);
   await enterRifleField(tester, 'ammo-bc', bc);

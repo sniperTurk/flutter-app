@@ -7,13 +7,18 @@ abstract final class ProfileFieldInfo {
   // Tüfek
   static const caliber =
       'Namlunun iç çapı, milimetre olarak; listeden seçin. 4,50 mm (.177), '
-      '5,50 mm (.22), 6,35 mm (.25), 7,62 mm (.30), 9,00 mm (.357). '
+      '5,50 mm (.22), 6,35 mm (.25), 7,62 mm (.30), 9,00 mm (.357) ve '
+      'büyük çaplar. '
       'Mühimmatın kalibresi buradan alınır.';
   static const caliberFirearm =
       'Tüfeğinin kalibresi; listede merminin gerçek çapıyla yazılıdır. '
       'Kalibre namlunun üstünde ve mühimmat kutusunda yazar; örneğin .308 '
-      'Win için 7,82 mm. Listede yoksa "Diğer (elle yaz)" seçip mermi '
-      'çapını mm olarak yazın. Mühimmatın kalibresi buradan alınır.';
+      'Win için 7,82 mm. Yalnızca listeden seçilir; fişeğin listede yoksa '
+      'bize bildirin. Mühimmatın kalibresi buradan alınır.';
+  static const bulletDiameter =
+      'Fişeğiniz listede yoksa merminin çapını seçin. Çap mermi kutusunda '
+      'veya üreticinin sitesinde inç olarak yazar; örneğin .308 Win için '
+      '.308 in · 7,82 mm, .223 Rem için .224 in · 5,69 mm.';
   static const caliberOther =
       'Merminin çapı, milimetre olarak. Mühimmat kutusunda ya da üreticinin '
       'sitesinde yazar (inç verilmişse 25,4 ile çarpın: .308 inç = 7,82 mm).';
@@ -26,6 +31,11 @@ abstract final class ProfileFieldInfo {
       'küçüldükçe dönüş hızlanır. Namlu üreticisinin föyünde yazar.';
 
   // Mühimmat
+  static const ammoSource =
+      'Fabrika fişeği: hazır alınan kutu fişek; marka ve modelini seçince '
+      'ağırlık, BC ve namlu çıkış hızı üreticinin verisiyle dolar. El '
+      'dolumu: kendi doldurduğunuz fişek; mermiyi seçersiniz, hızı '
+      'kronografla ölçüp kendiniz yazarsınız.';
   static const ammoType =
       'Pellet: belli ve etek yapılı klasik havalı tüfek saçması. Slug: dolu '
       'gövdeli, mermi biçimli ağır saçma.';
@@ -104,8 +114,9 @@ abstract final class ProfileFieldInfo {
       'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
       'aşağıdan çıkar ve önce yükselerek nişan çizgisini keser; bu yüzden '
       'yakın ve uzak mesafedeki düşüş hesabını doğrudan etkiler. Örnek: '
-      'havalı tüfekte 45–70 mm. Ölçmek için altındaki "Sight height nasıl '
-      'ölçülür?" bağlantısına bakın.';
+      'havalı tüfekte 45–70 mm. Merkezden merkeze ölçülür: namlunun üst '
+      'yüzeyinden değil, namlu deliğinin merkezinden. Adım adım ölçüm için: '
+      'Araçlar → Sight Height.';
   static const reticle =
       'Dürbünün içindeki çizgi deseni. Adı dürbün kutusunda veya föyünde '
       'yazar (ör. VPR-MIL, Mil-Dot). Listeden seçtiğinizde Hedef ekranında '
@@ -132,6 +143,12 @@ abstract final class ProfileFieldInfo {
       'Merminin namludan çıktığı andaki hızı, fps (feet/saniye) olarak. En '
       'doğrusu kronografla birkaç atış ölçüp ortalamasını girmektir. '
       'Örnek: 900 fps ≈ 274 m/s (1 m/s = 3,28 fps).';
+  static const velocityFirearm =
+      'Merminin namludan çıktığı andaki hızı, fps (feet/saniye) olarak. '
+      'Fabrika fişeği seçince üreticinin hızı yazılır; bu hız uzun bir test '
+      'namlusunda ölçülür (çoğunlukla 24 inç), sizin namlunuzda farklı '
+      'olabilir. Kronografla ölçtüyseniz kendi değerinizi yazın. Örnek: '
+      '.308 Win 168 gr için 2650 fps.';
   static const zero =
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
       'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '

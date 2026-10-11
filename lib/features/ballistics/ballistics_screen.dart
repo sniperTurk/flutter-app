@@ -2370,8 +2370,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     label: 'DOPE mesafeleri',
     info: EnvironmentFieldInfo.ranges,
     unit: _distanceUnit,
-    helperText:
-        'Virgülle ayırın, en fazla ${_displayMaxRange.toStringAsFixed(0)} $_distanceUnit.',
     keyboardType: TextInputType.text,
     textInputAction: TextInputAction.done,
   );
@@ -2469,7 +2467,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               onChanged: (_) => setState(() => _userEdited.add(altitude)),
               info: EnvironmentFieldInfo.altitude,
               unit: metric ? 'm' : 'ft',
-              helperText: 'Bilgi amaçlı; hesap basıncı kullanır',
               keyboardType: const TextInputType.numberWithOptions(
                 decimal: true,
                 signed: true,
@@ -3077,7 +3074,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               label: 'Enlem',
               unit: '°',
               info: EnvironmentFieldInfo.latitude,
-              helperText: 'Kuzey +, güney −',
               errorText: latitudeCtl.text.isNotEmpty && _latitude == null
                   ? '−90 ile 90 arasında olmalı.'
                   : null,
@@ -3098,7 +3094,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               label: 'Atış yönü (azimut)',
               unit: '°',
               info: EnvironmentFieldInfo.azimuth,
-              helperText: 'Kuzey 0 · doğu 90 · güney 180 · batı 270',
               errorText: azimuthCtl.text.isNotEmpty && _azimuth == null
                   ? '0 ile 360 arasında olmalı.'
                   : null,
@@ -3170,7 +3165,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               label: 'Yerçekimi',
               unit: 'm/s²',
               info: EnvironmentFieldInfo.gravity,
-              helperText: 'Enlem ve irtifaya göre',
               errorText: gravityCtl.text.isNotEmpty && _gravityTyped == null
                   ? '9,7 ile 9,9 arasında olmalı.'
                   : null,
@@ -3965,7 +3959,6 @@ class _InclineDialogState extends State<_InclineDialog> {
             label: 'Tüfek eğimi açısı',
             unit: '°',
             info: EnvironmentFieldInfo.incline,
-            helperText: 'Yukarı +, aşağı −',
             errorText: value == null ? '−$max ile $max arasında olmalı.' : null,
             keyboardType: const TextInputType.numberWithOptions(
               decimal: true,

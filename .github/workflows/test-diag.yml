@@ -36,4 +36,8 @@ jobs:
           grep -nE "\[E\]|Expected:|Actual:|Which:|EXCEPTION|overflowed|Some tests failed" test.log | head -25 | while IFS= read -r line; do
             echo "::error title=test::${line:0:400}"
           done
+          # The lines right after the first exception (what failed and where).
+          grep -n -A14 -m1 "EXCEPTION CAUGHT" test.log | tail -14 | while IFS= read -r line; do
+            echo "::warning title=detail::${line:0:400}"
+          done
           exit $rc

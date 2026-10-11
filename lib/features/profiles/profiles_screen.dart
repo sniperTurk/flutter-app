@@ -8,7 +8,10 @@ import '../../core/profile_input.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
 import '../../data/bullet_library.dart';
+import '../../data/cartridges.dart';
 import '../../data/catalog_repository.dart';
+import '../../data/factory_ammo_library.dart';
+import '../../data/rifle_library.dart';
 import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
 import '../../services/manual_catalog_store.dart';
@@ -16,7 +19,6 @@ import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../home/empty_states.dart';
-import 'bullet_library_screen.dart';
 import 'drag_curve_field.dart';
 import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
@@ -739,58 +741,391 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// Kalibre lists (owner, 2026-10-09). Firearm calibers are the ones of the
   /// app's firearm rifle/ammunition records.
-  static const _pcpCalibers = <(double, String)>[
-    (4.5, '4.50 mm'),
-    (5.5, '5.50 mm'),
-    (6.35, '6.35 mm'),
-    (7.62, '7.62 mm'),
-    (9.0, '9.00 mm'),
-  ];
-  // Bullet diameters (owner, 2026-10-10: the list was too short; .308 is a
-  // 7.82 mm bullet, 7.62 is the bore).
-  static const _firearmCalibers = <(double, String)>[
-    (4.37, '.17 HMR (4.37 mm)'),
-    (5.69, '.22 LR / .22 WMR (5.69 mm)'),
-    (5.7, '.222 Rem / .223 / .22-250 (5.70 mm)'),
-    (6.17, '.243 Win / 6mm Creedmoor (6.17 mm)'),
-    (6.71, '6.5 Creedmoor / 6.5x55 / 6.5 PRC (6.71 mm)'),
-    (7.04, '.270 Win / .270 WSM (7.04 mm)'),
-    (7.21, '7mm-08 / 7x64 / 7mm Rem Mag / 7mm PRC (7.21 mm)'),
-    (7.82, '.308 Win / .30-06 / .300 Win Mag / .300 PRC (7.82 mm)'),
-    (7.92, '7.62x39 / 7.62x54R / .303 British (7.92 mm)'),
-    (8.22, '8x57 JS / 8mm Mauser (8.22 mm)'),
-    (8.59, '.338 Lapua / .338 Win Mag (8.59 mm)'),
-    (9.3, '9.3x62 / 9.3x74R (9.30 mm)'),
-    (9.53, '.375 H&H (9.53 mm)'),
-    (12.95, '.50 BMG (12.95 mm)'),
-  ];
+  static const _pcpCalibers = Cartridges.pcp;
 
-  /// "Diğer (elle yaz)": a caliber not on the list, typed in mm.
-  static const _otherCaliber = -1.0;
-  bool _caliberOther = false;
+  /// Firearm cartridges, one per line, with the bullet diameter the
+  /// solver uses (owner, 2026-10-11: one name per row, no free typing; .308
+  /// is a 7.82 mm bullet, 7.62 is the bore). The first [_popularCount] are
+  /// the common ones, the rest A-Z.
+  static const _popularCount = Cartridges.popularCount;
+  static const _firearmCartridges = Cartridges.firearm;
 
-  List<(double, String)> get _caliberList =>
-      platform == WeaponPlatform.firearm ? _firearmCalibers : _pcpCalibers;
+  /// The firearm cartridge chosen in the list (several share a diameter).
+  String? _cartridge;
 
-  double? _caliberItem(double mm) {
-    for (final (v, _) in _caliberList) {
-      if ((v - mm).abs() < 1e-6) return v;
+  static String? _cartridgeFor(double mm) {
+    for (final (name, d) in _firearmCartridges) {
+      if ((d - mm).abs() < 0.005) return name;
     }
     return null;
   }
 
-  /// The list plus a saved value that is not on it, so it is never lost.
-  List<(double, String)> get _caliberChoices {
-    final cal = _parse(rifleCaliber);
-    if (cal == null || _caliberItem(cal) != null) return _caliberList;
-    return [..._caliberList, (cal, '${_trimDot(cal)} mm')];
+  double? _caliberItem(double mm) {
+    final list = platform == WeaponPlatform.firearm
+        ? [for (final (_, d) in _firearmCartridges) (d, '')]
+        : _pcpCalibers;
+    for (final (v, _) in list) {
+      if ((v - mm).abs() < 0.005) return v;
+    }
+    return null;
   }
 
-  double? get _selectedCaliber {
-    if (_caliberOther) return _otherCaliber;
+  /// Select key of the current caliber: the cartridge name (firearm) or
+  /// "mm:<value>"; a saved value not on the list stays selectable.
+  String? get _caliberKey {
+    final variants = _caliberFromModel
+        ? _rifleVariants
+        : const <LibraryRifle>[];
+    if (variants.isNotEmpty) {
+      final i = _rifleVariant == null ? -1 : variants.indexOf(_rifleVariant!);
+      return i < 0 ? null : 'v:$i';
+    }
+    if (platform == WeaponPlatform.firearm && _caliberByDiameter) {
+      return _noCartridgeKey;
+    }
     final cal = _parse(rifleCaliber);
     if (cal == null) return null;
-    return _caliberItem(cal) ?? cal;
+    if (platform == WeaponPlatform.firearm) {
+      final c = _cartridge;
+      if (c != null && _firearmCartridges.any((e) => e.$1 == c)) return c;
+      return _cartridgeFor(cal) ?? 'mm:${_trimDot(cal)}';
+    }
+    return 'mm:${_trimDot(_caliberItem(cal) ?? cal)}';
+  }
+
+  static const _otherCaliberKey = '!other';
+  static const _noCartridgeKey = '!nodia';
+
+  /// Kalibre shows the chosen model's calibers (owner, 2026-10-11) until
+  /// "Diğer kalibre" opens the whole list.
+  bool get _caliberFromModel =>
+      !_rifleManual && !_caliberAll && _rifleVariants.isNotEmpty;
+
+  List<DropdownMenuItem<String>> get _caliberItems {
+    final cal = _parse(rifleCaliber);
+    final items = <DropdownMenuItem<String>>[];
+    if (_caliberFromModel) {
+      final variants = _rifleVariants;
+      for (final (i, r) in variants.indexed) {
+        items.add(
+          DropdownMenuItem(
+            value: 'v:$i',
+            child: Text(_variantLabel(r, variants), maxLines: 2),
+          ),
+        );
+      }
+      items.add(
+        const DropdownMenuItem(
+          value: _otherCaliberKey,
+          child: Text('Diğer kalibre'),
+        ),
+      );
+      return items;
+    }
+    if (platform == WeaponPlatform.firearm) {
+      DropdownMenuItem<String> header(String key, String text) =>
+          DropdownMenuItem(
+            value: key,
+            enabled: false,
+            child: Text(text, style: const TextStyle(fontSize: 12)),
+          );
+      items.add(header('#popular', 'EN ÇOK KULLANILAN'));
+      for (final (i, (name, d)) in _firearmCartridges.indexed) {
+        if (i == _popularCount) items.add(header('#all', 'DİĞERLERİ (A-Z)'));
+        items.add(
+          DropdownMenuItem(
+            value: name,
+            child: Row(
+              children: [
+                Expanded(child: Text(name)),
+                Text(
+                  '${d.toStringAsFixed(2)} mm',
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+      if (cal != null && !_caliberByDiameter && _cartridgeFor(cal) == null) {
+        items.add(
+          DropdownMenuItem(
+            value: 'mm:${_trimDot(cal)}',
+            child: Text('${_trimDot(cal)} mm (kayıtlı)'),
+          ),
+        );
+      }
+      items.add(
+        const DropdownMenuItem(
+          value: _noCartridgeKey,
+          child: Text('Fişeğim listede yok'),
+        ),
+      );
+      return items;
+    }
+    for (final (mm, name) in _pcpCalibers) {
+      items.add(
+        DropdownMenuItem(value: 'mm:${_trimDot(mm)}', child: Text(name)),
+      );
+    }
+    if (cal != null && _caliberItem(cal) == null) {
+      items.add(
+        DropdownMenuItem(
+          value: 'mm:${_trimDot(cal)}',
+          child: Text('${_trimDot(cal)} mm (kayıtlı)'),
+        ),
+      );
+    }
+    return items;
+  }
+
+  void _onCaliberKey(String? key) {
+    if (key == null || key.startsWith('#')) return;
+    if (key == _otherCaliberKey) {
+      _caliberAll = true;
+      _rifleVariant = null;
+      return;
+    }
+    if (key.startsWith('v:')) {
+      _applyRifleVariant(_rifleVariants[int.parse(key.substring(2))]);
+      return;
+    }
+    if (key == _noCartridgeKey) {
+      _caliberByDiameter = true;
+      _cartridge = null;
+      final cal = _parse(rifleCaliber);
+      if (cal != null &&
+          !_bulletDiameters.any((d) => (d - cal).abs() < 0.005)) {
+        rifleCaliber.text = '';
+      }
+      return;
+    }
+    _caliberByDiameter = false;
+    if (key.startsWith('mm:')) {
+      _cartridge = null;
+      rifleCaliber.text = key.substring(3);
+      return;
+    }
+    _cartridge = key;
+    final mm = _firearmCartridges.firstWhere((e) => e.$1 == key).$2;
+    rifleCaliber.text = _trimDot(mm);
+  }
+
+  /// "Fişeğim listede yok": the bullet diameters of the list, one per inch
+  /// size (.224 in · 5,69 mm), smallest first.
+  static final List<double> _bulletDiameters = () {
+    final seen = <String>{};
+    final out = <double>[];
+    final all = [for (final (_, d) in Cartridges.firearm) d]..sort();
+    for (final d in all) {
+      if (seen.add((d / 25.4).toStringAsFixed(3))) out.add(d);
+    }
+    return out;
+  }();
+
+  static String _diameterLabel(double mm) =>
+      '.${(mm / 25.4).toStringAsFixed(3).split('.').last} in · '
+      '${mm.toStringAsFixed(2).replaceAll('.', ',')} mm';
+
+  // ---- Tüfek Marka / Model / Kalibre lists (owner, 2026-10-11) ----
+
+  /// True after "Listede yok": Marka and Model are typed.
+  bool _rifleManual = false;
+
+  /// The chosen rifle variant (one caliber of a model), or null.
+  LibraryRifle? _rifleVariant;
+
+  /// Kalibre: the whole cartridge list instead of the model's calibers.
+  bool _caliberAll = false;
+
+  /// Kalibre "Fişeğim listede yok": the bullet diameter is picked instead.
+  bool _caliberByDiameter = false;
+
+  List<LibraryRifle> get _rifleLib => [
+    for (final r in RifleLibrary.all)
+      if (r.platform == platform) r,
+  ];
+
+  static int _byName(String a, String b) =>
+      a.toLowerCase().compareTo(b.toLowerCase());
+
+  List<String> get _rifleBrands =>
+      {for (final r in _rifleLib) r.brand}.toList()..sort(_byName);
+
+  List<String> _rifleModels(String brand) => {
+    for (final r in _rifleLib)
+      if (r.brand == brand) r.model,
+  }.toList()..sort(_byName);
+
+  List<LibraryRifle> get _rifleVariants => [
+    for (final r in _rifleLib)
+      if (r.brand == rifleBrand.text && r.model == rifleModel.text) r,
+  ];
+
+  void _applyRifleVariant(LibraryRifle r) {
+    _rifleVariant = r;
+    _caliberAll = false;
+    _caliberByDiameter = false;
+    rifleCaliber.text = _trimDot(r.diameterMm);
+    _cartridge = r.platform == WeaponPlatform.firearm ? r.cartridge : null;
+    if (r.twistRateIn != null) rifleTwist.text = _trimDot(r.twistRateIn!);
+    if (r.twistDirection != null) twistDirection = r.twistDirection;
+  }
+
+  /// "6.5 Creedmoor", or with the barrel / twist when the model has the
+  /// same caliber more than once.
+  static String _variantLabel(LibraryRifle r, List<LibraryRifle> all) {
+    if (all.where((v) => v.cartridge == r.cartridge).length < 2) {
+      return r.cartridge;
+    }
+    final parts = <String>[r.cartridge];
+    final b = r.barrelLengthMm;
+    if (b != null) {
+      final inch = b / 25.4;
+      parts.add(
+        '${inch.toStringAsFixed((inch - inch.round()).abs() < 0.05 ? 0 : 1)} in namlu',
+      );
+    }
+    final t = r.twistRateIn;
+    if (t != null) parts.add('1:${_trimDot(t)}');
+    return parts.join(' · ');
+  }
+
+  /// The rifle variant a saved Marka / Model / caliber points to, if any.
+  LibraryRifle? _variantFor(String brand, String model, double? cal) {
+    final list = [
+      for (final r in _rifleLib)
+        if (r.brand == brand && r.model == model) r,
+    ];
+    if (list.isEmpty) return null;
+    if (cal == null) return null;
+    final c = _cartridge;
+    return list
+            .where(
+              (r) =>
+                  (r.diameterMm - cal).abs() < 0.005 &&
+                  (c == null || r.cartridge == c) &&
+                  (r.twistRateIn == null ||
+                      r.twistRateIn == _parse(rifleTwist)),
+            )
+            .firstOrNull ??
+        list.where((r) => (r.diameterMm - cal).abs() < 0.005).firstOrNull;
+  }
+
+  /// A listed ammunition belongs to its caliber: another caliber empties
+  /// it (a typed one stays).
+  void _keepAmmoInCaliber((String, String?) before) {
+    if (before == (rifleCaliber.text, _cartridge)) return;
+    if (!_ammoManual && ammoBrand.text.isNotEmpty) _clearAmmo();
+  }
+
+  /// Empties the rifle part chosen from the lists.
+  void _clearRifleChoice() {
+    _rifleVariant = null;
+    _caliberAll = false;
+    _caliberByDiameter = false;
+    _cartridge = null;
+    rifleCaliber.text = '';
+  }
+
+  /// Marka | Model of the rifle: two lists side by side; typed boxes after
+  /// "Listede yok" (owner, 2026-10-11).
+  List<Widget> _rifleNameFields() {
+    final brands = _rifleBrands;
+    if (_rifleManual || brands.isEmpty) {
+      return [
+        MenzilInput(
+          key: const Key('rifle-brand'),
+          controller: rifleBrand,
+          label: 'Marka',
+          keyboardType: TextInputType.text,
+          maxLength: 100,
+          onChanged: (_) => setState(() {}),
+          errorText: _shown(_brandError, rifleBrand),
+        ),
+        MenzilInput(
+          key: const Key('rifle-model'),
+          controller: rifleModel,
+          label: 'Model',
+          keyboardType: TextInputType.text,
+          maxLength: 100,
+          onChanged: (_) => setState(() {}),
+          errorText: _shown(_modelError, rifleModel),
+        ),
+        if (brands.isNotEmpty)
+          MenzilFullWidth(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                key: const Key('rifle-back-to-list'),
+                onPressed: () => setState(() {
+                  _rifleManual = false;
+                  rifleBrand.text = '';
+                  rifleModel.text = '';
+                  _clearRifleChoice();
+                }),
+                icon: const Icon(Icons.list_alt, size: 18),
+                label: const Text('Listeden seç'),
+              ),
+            ),
+          ),
+      ];
+    }
+    final brand = brands.contains(rifleBrand.text) ? rifleBrand.text : null;
+    final models = brand == null ? const <String>[] : _rifleModels(brand);
+    final model = models.contains(rifleModel.text) ? rifleModel.text : null;
+    return [
+      KeyedSubtree(
+        key: const Key('rifle-brand-select'),
+        child: MenzilSelect<String>(
+          key: ValueKey('rifle-brand-select-${platform.name}-$brand'),
+          label: 'Marka',
+          hint: 'Seçiniz',
+          initialValue: brand,
+          items: [
+            for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
+            const DropdownMenuItem(
+              value: _manualKey,
+              child: Text('Listede yok'),
+            ),
+          ],
+          onChanged: (v) => setState(() {
+            final before = (rifleCaliber.text, _cartridge);
+            rifleModel.text = '';
+            _clearRifleChoice();
+            _keepAmmoInCaliber(before);
+            if (v == _manualKey) {
+              _rifleManual = true;
+              rifleBrand.text = '';
+              return;
+            }
+            rifleBrand.text = v ?? '';
+          }),
+        ),
+      ),
+      KeyedSubtree(
+        key: const Key('rifle-model-select'),
+        child: MenzilSelect<String>(
+          key: ValueKey('rifle-model-select-$brand-$model'),
+          label: 'Model',
+          hint: 'Seçiniz',
+          initialValue: model,
+          items: [
+            for (final m in models)
+              DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
+          ],
+          onChanged: (v) => setState(() {
+            final before = (rifleCaliber.text, _cartridge);
+            rifleModel.text = v ?? '';
+            _clearRifleChoice();
+            final variants = _rifleVariants;
+            // One caliber: it is chosen right away.
+            if (variants.length == 1) _applyRifleVariant(variants.first);
+            _keepAmmoInCaliber(before);
+          }),
+        ),
+      ),
+    ];
   }
 
   /// BC model choices per rifle type (owner, 2026-10-10: the other public
@@ -840,6 +1175,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Ammunition is typed in too. A BC with its G1/G7 model lets the drag
   /// solver compute wind drift (the vacuum baseline keeps wind locked).
   late final TextEditingController ammoBrand;
+
+  /// Mühimmat Model, separate from Marka (owner, 2026-10-11).
+  late final TextEditingController ammoModel;
+
+  /// True: Marka/Model are typed ("Listede yok"); false: picked from the
+  /// library lists (owner, 2026-10-11: typed names are mistyped).
+  bool _ammoManual = false;
   late final TextEditingController ammoGrain;
   late final TextEditingController ammoBc;
 
@@ -905,9 +1247,34 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifleBrand = TextEditingController(text: initialRifle?.brand ?? '');
     rifleModel = TextEditingController(text: initialRifle?.model ?? '');
     rifleCaliber = TextEditingController(text: num(initialRifle?.caliberMm));
+    _cartridge = initialRifle == null
+        ? null
+        : RiflePickerScreen.cartridgeName(initialRifle);
     _grainFocus.addListener(() => setState(() {}));
     rifleTwist = TextEditingController(text: num(initialRifle?.twistRateIn));
     twistDirection = initialRifle?.twistDirection;
+    // A saved rifle of the lists comes back in the lists; anything else in
+    // the typed boxes (owner, 2026-10-11).
+    if (rifleBrand.text.isNotEmpty) {
+      final known = _rifleLib.any(
+        (r) => r.brand == rifleBrand.text && r.model == rifleModel.text,
+      );
+      _rifleManual = !known;
+      if (known) {
+        _rifleVariant = _variantFor(
+          rifleBrand.text,
+          rifleModel.text,
+          initialRifle?.caliberMm,
+        );
+        if (_rifleVariant != null) {
+          _cartridge = _rifleVariant!.platform == WeaponPlatform.firearm
+              ? _rifleVariant!.cartridge
+              : null;
+        } else {
+          _caliberAll = true;
+        }
+      }
+    }
     final s0 = scope;
     angularUnit = p?.angularUnit ?? s0?.clickUnit ?? AngularUnit.mrad;
     scopeBrand = TextEditingController(text: s0?.brand ?? '');
@@ -938,10 +1305,25 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // firearm) is not shown; the user picks a bullet again.
     if (ammo != null && ammo!.platform != platform) ammo = null;
     final a0 = ammo;
-    // One "Marka Model" field (owner, 2026-10-09).
-    ammoBrand = TextEditingController(
-      text: a0 == null ? '' : '${a0.brand} ${a0.model}'.trim(),
-    );
+    // Marka and Model are separate boxes again (owner, 2026-10-11); a
+    // personal record that kept the whole name in the brand shows it there.
+    ammoBrand = TextEditingController(text: a0?.brand ?? '');
+    ammoModel = TextEditingController(text: a0?.model ?? '');
+    // A saved ammunition of the lists comes back in the lists; anything
+    // else in the typed boxes (owner, 2026-10-11).
+    if (a0 != null) {
+      final inFactory = FactoryAmmoLibrary.all.any(
+        (f) => f.brand == a0.brand && f.name == a0.model,
+      );
+      final inLibrary = BulletLibrary.all.any(
+        (b) =>
+            b.platform == a0.platform &&
+            b.brand == a0.brand &&
+            _modelOf(b) == a0.model,
+      );
+      _factoryAmmo = inFactory || !inLibrary;
+      _ammoManual = !inFactory && !inLibrary;
+    }
     ammoGrain = TextEditingController(text: num(a0?.grain));
     ammoBc = TextEditingController(text: num(a0?.ballisticCoefficient));
     // Stored bands are fastest first: [(s1, main), (s2, bc1), (0, bc2)].
@@ -1047,7 +1429,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_travelError(scopeTravelElevation) == null, 'Üst kule klik sayısı'),
     ]);
     section('Mühimmat', [
-      (_ammoBrandError == null, 'Marka Model'),
+      (_ammoBrandError == null, 'Marka'),
       (_effectiveAmmoType != null, 'Tip'),
       (_grainError == null, 'Ağırlık'),
       if (_customCurve)
@@ -1077,6 +1459,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeClick.dispose();
     scopeTravelElevation.dispose();
     ammoBrand.dispose();
+    ammoModel.dispose();
     ammoGrain.dispose();
     ammoBc.dispose();
     for (final c in [...ammoBandFps, ...ammoBandBc]) {
@@ -1295,9 +1678,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   /// Caliber typed so far, used to list matching ammunition.
-  double? get _typedCaliber =>
-      _caliberError == null ? _parse(rifleCaliber) : null;
-
   /// Show field errors only after the user typed something or tried to save.
   bool _showErrors = false;
   String? _shown(String? error, TextEditingController c) =>
@@ -1328,9 +1708,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           : 'manual_ammo_${DateTime.now().microsecondsSinceEpoch}',
       'kind': 'ammo',
       'platform': platform.name,
-      // The whole "Marka Model" text is the name (brand); model stays empty.
       'brand': ammoBrand.text.trim(),
-      'model': '',
+      'model': ammoModel.text.trim(),
       // Caliber follows the rifle, so the pair can never mismatch.
       'caliberMm': _parse(rifleCaliber),
       'grain': _parse(ammoGrain),
@@ -1471,26 +1850,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
   }
 
-  /// Fills the ammunition from the bullet library (owner, 2026-10-10).
-  /// "Listeden seç" for the rifle: brand, model and Kalibre from the
-  /// manufacturer-sourced catalog (owner, 2026-10-10).
-  Future<void> _pickRifle() async {
-    final r = await Navigator.push<Rifle>(
-      context,
-      MaterialPageRoute(builder: (_) => RiflePickerScreen(platform: platform)),
-    );
-    if (r == null || !mounted) return;
-    setState(() {
-      rifleBrand.text = r.brand;
-      rifleModel.text = r.model;
-      final cal = RiflePickerScreen.profileCaliber(r);
-      _caliberOther = _caliberItem(cal) == null;
-      rifleCaliber.text = _trimDot(cal);
-      if (r.twistDirection != null) twistDirection = r.twistDirection;
-      if (r.twistRateIn != null) rifleTwist.text = _trimDot(r.twistRateIn!);
-    });
-  }
-
   /// "Listeden seç" for the scope: everything the catalog knows fills the
   /// form (owner, 2026-10-10).
   Future<void> _pickScope() async {
@@ -1529,6 +1888,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   void _clearAmmo() {
     ammo = null;
     ammoBrand.text = '';
+    ammoModel.text = '';
+    _ammoManual = false;
     ammoGrain.text = '';
     ammoBc.text = '';
     ammoBcModel = null;
@@ -1541,18 +1902,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     }
   }
 
-  Future<void> _pickFromLibrary() async {
-    final cal = _parse(rifleCaliber);
-    final b = await Navigator.push<LibraryBullet>(
-      context,
-      MaterialPageRoute(
-        builder: (_) => BulletLibraryScreen(platform: platform, caliberMm: cal),
-      ),
-    );
-    if (b == null || !mounted) return;
+  /// Fills the ammunition from a library record (list or library screen).
+  void _applyBullet(LibraryBullet b, double? cal) {
     String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
-    setState(() {
-      ammoBrand.text = b.title;
+    _ammoManual = false;
+    {
+      ammoBrand.text = b.brand;
+      ammoModel.text = b.name.toLowerCase().startsWith(b.brand.toLowerCase())
+          ? b.name.substring(b.brand.length).trim()
+          : b.name;
       ammoGrain.text = n(b.grain);
       ammoBc.text = n(b.bc);
       ammoBcModel = b.model;
@@ -1569,20 +1927,185 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       // caliber sets it.
       if (cal == null || (cal - b.caliberMm).abs() > 0.02) {
         rifleCaliber.text = _trimDot(b.caliberMm);
-        _caliberOther = false;
+        _cartridge = null;
       }
-    });
+    }
   }
 
-  void _showSightHelp() => showDialog<void>(
-    context: context,
-    builder: (_) => const _SightHeightHelpDialog(),
-  );
+  /// Library records for this rifle type and caliber (Marka/Model lists).
+  List<LibraryBullet> get _libraryHere {
+    final cal = _parse(rifleCaliber);
+    return [
+      for (final b in BulletLibrary.all)
+        if (b.platform == platform &&
+            (cal == null || (b.caliberMm - cal).abs() < 0.02) &&
+            (platform != WeaponPlatform.pcp ||
+                ammoType == null ||
+                b.type == ammoType))
+          b,
+    ];
+  }
+
+  /// Firearm ammunition: true = Fabrika fişeği (Marka/Model fill weight,
+  /// BC and velocity), false = El dolumu (the bullet library; the shooter
+  /// types the chronograph velocity). Owner, 2026-10-11.
+  bool _factoryAmmo = true;
+
+  /// Factory cartridges for the chosen Kalibre: the cartridge name when it
+  /// is known, else the bullet diameter.
+  List<FactoryAmmo> get _factoryHere {
+    final cal = _parse(rifleCaliber);
+    final c = _cartridge;
+    return [
+      for (final a in FactoryAmmoLibrary.all)
+        if (c != null
+            ? a.cartridge == c
+            : cal != null && (a.diameterMm - cal).abs() < 0.02)
+          a,
+    ];
+  }
+
+  static String _factoryLabel(FactoryAmmo a) {
+    final g = _trimDot(a.grain);
+    return a.name.contains('$g gr') ? a.name : '${a.name} · $g gr';
+  }
+
+  /// Fills the ammunition (and the velocity) from a factory cartridge.
+  void _applyFactory(FactoryAmmo a) {
+    String n(num v) => v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
+    _ammoManual = false;
+    ammoBrand.text = a.brand;
+    ammoModel.text = a.name;
+    ammoGrain.text = n(a.grain);
+    ammoBc.text = a.bc == null ? '' : n(a.bc!);
+    ammoBcModel = a.model;
+    _customCurve = false;
+    _dragCurve = null;
+    for (var i = 0; i < 2; i++) {
+      ammoBandFps[i].text = '';
+      ammoBandBc[i].text = '';
+    }
+    velocity.text = n(a.muzzleVelocityFps);
+  }
+
+  static String _modelOf(LibraryBullet b) =>
+      b.name.toLowerCase().startsWith(b.brand.toLowerCase())
+      ? b.name.substring(b.brand.length).trim()
+      : b.name;
+
+  static const _manualKey = '__manual';
+
+  /// Marka | Model of the ammunition: two lists side by side (factory
+  /// cartridges or the bullet library for this caliber); the typed boxes
+  /// only after "Listede yok" or when nothing is listed here.
+  List<Widget> _ammoNameFields({required List<Widget> texts}) {
+    final factory = platform == WeaponPlatform.firearm && _factoryAmmo;
+    final fHere = factory ? _factoryHere : const <FactoryAmmo>[];
+    final lHere = factory ? const <LibraryBullet>[] : _libraryHere;
+    // Before a Kalibre is chosen the lists wait for it (nothing is typed).
+    final noCaliber = factory && _parse(rifleCaliber) == null;
+    final empty = !noCaliber && (factory ? fHere.isEmpty : lHere.isEmpty);
+    if (_ammoManual || empty) {
+      return [
+        ...texts,
+        if (!empty)
+          MenzilFullWidth(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                key: const Key('ammo-back-to-list'),
+                onPressed: () => setState(_clearAmmo),
+                icon: const Icon(Icons.list_alt, size: 18),
+                label: const Text('Listeden seç'),
+              ),
+            ),
+          ),
+      ];
+    }
+    final brands = {
+      if (factory)
+        for (final a in fHere) a.brand
+      else
+        for (final b in lHere) b.brand,
+    }.toList()..sort(_byName);
+    final brand = brands.contains(ammoBrand.text) ? ammoBrand.text : null;
+    final labels = <String>[];
+    final picks = <void Function()>[];
+    var modelIndex = -1;
+    if (factory) {
+      for (final a in fHere) {
+        if (a.brand != brand) continue;
+        if (a.name == ammoModel.text && _trimDot(a.grain) == ammoGrain.text) {
+          modelIndex = labels.length;
+        }
+        labels.add(_factoryLabel(a));
+        picks.add(() => _applyFactory(a));
+      }
+    } else {
+      for (final b in lHere) {
+        if (b.brand != brand) continue;
+        if (_modelOf(b) == ammoModel.text &&
+            _trimDot(b.grain) == ammoGrain.text) {
+          modelIndex = labels.length;
+        }
+        labels.add('${_modelOf(b)} · ${_trimDot(b.grain)} gr');
+        picks.add(() => _applyBullet(b, _parse(rifleCaliber)));
+      }
+    }
+    return [
+      KeyedSubtree(
+        key: const Key('ammo-brand-select'),
+        child: MenzilSelect<String>(
+          key: ValueKey(
+            'ammo-brand-select-${platform.name}-$factory-'
+            '${rifleCaliber.text}-$brand',
+          ),
+          label: 'Marka',
+          hint: noCaliber ? 'Önce kalibre' : 'Seçiniz',
+          initialValue: brand,
+          items: [
+            for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
+            const DropdownMenuItem(
+              value: _manualKey,
+              child: Text('Listede yok'),
+            ),
+          ],
+          onChanged: (v) => setState(() {
+            if (v == _manualKey) {
+              _clearAmmo();
+              _ammoManual = true;
+              return;
+            }
+            ammoBrand.text = v ?? '';
+            ammoModel.text = '';
+          }),
+        ),
+      ),
+      KeyedSubtree(
+        key: const Key('ammo-model-select'),
+        child: MenzilSelect<int>(
+          key: ValueKey(
+            'ammo-model-select-$factory-$brand-${rifleCaliber.text}-$modelIndex',
+          ),
+          label: 'Model',
+          hint: 'Seçiniz',
+          initialValue: modelIndex < 0 ? null : modelIndex,
+          items: [
+            for (final (k, text) in labels.indexed)
+              DropdownMenuItem(value: k, child: Text(text, maxLines: 2)),
+          ],
+          onChanged: (k) {
+            if (k == null) return;
+            setState(picks[k]);
+          },
+        ),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
-    final typedCaliber = _typedCaliber;
     final missing = _missing;
     final canSave =
         !_saving &&
@@ -1675,12 +2198,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
-                MenzilInput(
-                  key: const Key('profile-name'),
-                  controller: name,
-                  label: 'Profil adı',
-                  keyboardType: TextInputType.text,
-                  maxLength: ProductionLimits.maxProfileNameLength,
+                MenzilFullWidth(
+                  child: MenzilInput(
+                    key: const Key('profile-name'),
+                    controller: name,
+                    label: 'Profil adı',
+                    keyboardType: TextInputType.text,
+                    maxLength: ProductionLimits.maxProfileNameLength,
+                  ),
                 ),
                 MenzilSelect<WeaponPlatform>(
                   label: 'Tür',
@@ -1707,18 +2232,24 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     // 2026-10-11). A rifle of the other type goes too.
                     if (changed) {
                       _clearAmmo();
-                      if (rifle != null && rifle!.platform != platform) {
+                      _factoryAmmo = true;
+                      // A rifle picked from the other type's lists goes.
+                      if ((rifle != null && rifle!.platform != platform) ||
+                          !_rifleManual) {
                         rifle = null;
                         rifleBrand.text = '';
                         rifleModel.text = '';
                       }
+                      _rifleVariant = null;
+                      _caliberAll = false;
+                      _caliberByDiameter = false;
                     }
                     // A caliber of the other list does not carry over.
                     final cal = _parse(rifleCaliber);
                     if (cal != null && _caliberItem(cal) == null) {
                       rifleCaliber.text = '';
                     }
-                    _caliberOther = false;
+                    _cartridge = null;
                   }),
                 ),
               ],
@@ -1726,7 +2257,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ),
           const MenzilSectionHeader(
             'Tüfek',
-            subtitle: 'Listeden seçin ya da bilgileri kendiniz girin',
             padding: EdgeInsets.only(
               top: MenzilSpace.xxs,
               bottom: MenzilSpace.sm,
@@ -1742,61 +2272,93 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
+                // Owner, 2026-10-11: Marka | Model on one row, Kalibre on
+                // its own row below; all three picked from lists.
+                ..._rifleNameFields(),
                 MenzilFullWidth(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-                    child: MenzilSecondaryButton(
-                      key: const Key('rifle-library'),
-                      label: 'Listeden seç',
-                      icon: Icons.list_alt,
-                      expand: true,
-                      onPressed: _pickRifle,
+                  child: KeyedSubtree(
+                    key: const Key('rifle-caliber'),
+                    child: MenzilSelect<String>(
+                      key: ValueKey(
+                        'rifle-caliber-${platform.name}-${rifleCaliber.text}-'
+                        '$_cartridge-${rifleBrand.text}-${rifleModel.text}-'
+                        '$_caliberAll-$_caliberByDiameter',
+                      ),
+                      info: platform == WeaponPlatform.firearm
+                          ? ProfileFieldInfo.caliberFirearm
+                          : ProfileFieldInfo.caliber,
+                      label: 'Kalibre',
+                      hint: 'Seçiniz',
+                      initialValue: _caliberKey,
+                      items: _caliberItems,
+                      onChanged: (v) => setState(() {
+                        final before = (rifleCaliber.text, _cartridge);
+                        _onCaliberKey(v);
+                        _keepAmmoInCaliber(before);
+                      }),
                     ),
                   ),
                 ),
-                // Order set by the owner (2026-10-09), as on the summary.
-                MenzilInput(
-                  key: const Key('rifle-brand'),
-                  controller: rifleBrand,
-                  label: 'Marka',
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_brandError, rifleBrand),
-                ),
-                MenzilInput(
-                  key: const Key('rifle-model'),
-                  controller: rifleModel,
-                  label: 'Model',
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_modelError, rifleModel),
-                ),
-                MenzilInput(
-                  key: const Key('profile-velocity-fps'),
-                  controller: velocity,
-                  label: 'Namlu çıkış hızı',
-                  info: ProfileFieldInfo.velocity,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_velocityError, velocity),
-                ),
-                MenzilSelect<TwistDirection>(
+                if (platform == WeaponPlatform.firearm && _caliberByDiameter)
+                  MenzilFullWidth(
+                    child: KeyedSubtree(
+                      key: const Key('rifle-bullet-diameter'),
+                      child: MenzilSelect<double>(
+                        key: ValueKey('rifle-diameter-${rifleCaliber.text}'),
+                        info: ProfileFieldInfo.bulletDiameter,
+                        label: 'Mermi çapı',
+                        hint: 'Seçiniz',
+                        initialValue: _bulletDiameters
+                            .where(
+                              (d) =>
+                                  (d - (_parse(rifleCaliber) ?? -1)).abs() <
+                                  0.005,
+                            )
+                            .firstOrNull,
+                        items: [
+                          for (final d in _bulletDiameters)
+                            DropdownMenuItem(
+                              value: d,
+                              child: Text(_diameterLabel(d)),
+                            ),
+                        ],
+                        onChanged: (v) => setState(() {
+                          final before = (rifleCaliber.text, _cartridge);
+                          if (v != null) rifleCaliber.text = _trimDot(v);
+                          _keepAmmoInCaliber(before);
+                        }),
+                      ),
+                    ),
+                  ),
+                KeyedSubtree(
                   key: const Key('rifle-twist-direction'),
-                  info: ProfileFieldInfo.twistDirection,
-                  label: 'Namlu yiv yönü',
-                  initialValue: twistDirection,
-                  items: const [
-                    DropdownMenuItem(
-                      value: TwistDirection.right,
-                      child: Text('Sağ'),
-                    ),
-                    DropdownMenuItem(
-                      value: TwistDirection.left,
-                      child: Text('Sol'),
-                    ),
-                  ],
-                  onChanged: (v) => setState(() => twistDirection = v),
+                  child: MenzilSelect<TwistDirection>(
+                    // Rebuilt when a listed rifle fills the direction.
+                    key: ValueKey('rifle-twist-direction-$twistDirection'),
+                    info: ProfileFieldInfo.twistDirection,
+                    label: 'Namlu yiv yönü',
+                    initialValue: twistDirection,
+                    items: const [
+                      DropdownMenuItem(
+                        value: TwistDirection.right,
+                        child: Text('Sağ'),
+                      ),
+                      DropdownMenuItem(
+                        value: TwistDirection.left,
+                        child: Text('Sol'),
+                      ),
+                    ],
+                    onChanged: (v) => setState(() => twistDirection = v),
+                  ),
+                ),
+                MenzilInput(
+                  key: const Key('rifle-twist-rate'),
+                  info: ProfileFieldInfo.twistRate,
+                  controller: rifleTwist,
+                  label: 'Yiv oranı',
+                  hintText: '16',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_twistError, rifleTwist),
                 ),
                 if (_showErrors && twistDirection == null)
                   const MenzilFullWidth(
@@ -1805,63 +2367,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       message: 'Namlu yiv yönünü seçin (Sağ / Sol).',
                     ),
                   ),
-                // Kalibre is picked from a list per rifle type (owner,
-                // 2026-10-09); a saved odd value (e.g. 5.52) stays selectable.
-                KeyedSubtree(
-                  key: const Key('rifle-caliber'),
-                  child: MenzilSelect<double>(
-                    key: ValueKey(
-                      'rifle-caliber-${platform.name}-${rifleCaliber.text}',
-                    ),
-                    info: platform == WeaponPlatform.firearm
-                        ? ProfileFieldInfo.caliberFirearm
-                        : ProfileFieldInfo.caliber,
-                    label: 'Kalibre',
-                    initialValue: _selectedCaliber,
-                    items: [
-                      for (final (mm, name) in _caliberChoices)
-                        DropdownMenuItem(value: mm, child: Text(name)),
-                      const DropdownMenuItem(
-                        value: _otherCaliber,
-                        child: Text('Diğer (elle yaz)'),
-                      ),
-                    ],
-                    onChanged: (v) => setState(() {
-                      _caliberOther = v == _otherCaliber;
-                      rifleCaliber.text = v == null || _caliberOther
-                          ? ''
-                          : _trimDot(v);
-                    }),
-                  ),
-                ),
-                if (_caliberOther)
-                  MenzilInput(
-                    key: const Key('rifle-caliber-other'),
-                    info: ProfileFieldInfo.caliberOther,
-                    controller: rifleCaliber,
-                    label: 'Mermi çapı',
-                    unit: 'mm',
-                    hintText: '7.82',
-                    onChanged: (_) => setState(() {}),
-                    errorText: _shown(_caliberError, rifleCaliber),
-                  ),
-                MenzilInput(
-                  key: const Key('rifle-twist-rate'),
-                  info: ProfileFieldInfo.twistRate,
-                  controller: rifleTwist,
-                  label: 'Yiv oranı (1:…)',
-                  hintText: '16',
-                  helperText: '1:16" için 16 girin (bir tam dönüş, inç).',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_twistError, rifleTwist),
-                ),
                 MenzilInput(
                   key: const Key('scope-sight-height'),
                   info: ProfileFieldInfo.sightHeight,
                   controller: sight,
                   label: 'Sight height',
                   onChanged: (_) => setState(() {}),
-                  helperText: 'Merkezden merkeze ölçtüğünüz değeri girin.',
                   errorText: sight.text.isNotEmpty && !_validSight
                       ? '0–300 mm arasında geçerli bir değer girin.'
                       : null,
@@ -1905,16 +2416,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_zeroError, zero),
                 ),
-                MenzilFullWidth(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton.icon(
-                      onPressed: _showSightHelp,
-                      icon: const Icon(Icons.info_outline, size: 18),
-                      label: const Text('Sight height nasıl ölçülür?'),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
@@ -1950,14 +2451,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ),
                 // Order set by the owner (2026-10-09). Klik değeri is not
                 // shown: it follows Dürbün birimi.
-                MenzilInput(
-                  key: const Key('scope-brand'),
-                  controller: scopeBrand,
-                  label: 'Dürbün markası',
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_scopeBrandError, scopeBrand),
+                MenzilFullWidth(
+                  child: MenzilInput(
+                    key: const Key('scope-brand'),
+                    controller: scopeBrand,
+                    label: 'Dürbün markası',
+                    keyboardType: TextInputType.text,
+                    maxLength: 100,
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_scopeBrandError, scopeBrand),
+                  ),
                 ),
                 MenzilInput(
                   key: const Key('scope-min-mag'),
@@ -2063,27 +2566,27 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   controller: scopeTravelElevation,
                   label: 'Üst kule klik sayısı',
                   keyboardType: TextInputType.number,
-                  helperText:
-                      'Baştan sona toplam klik. Bilmiyorsanız boş bırakın.',
                   onChanged: (_) => setState(() {}),
                   errorText: _travelError(scopeTravelElevation),
                 ),
-                MenzilSelect<String>(
-                  key: ValueKey('scope-reticle-$_scopePickToken'),
-                  info: ProfileFieldInfo.reticle,
-                  label: 'Retikül',
-                  initialValue: scopeReticle,
-                  items: [
-                    if (scopeReticle != null &&
-                        !Reticles.genericNames.contains(scopeReticle))
-                      DropdownMenuItem(
-                        value: scopeReticle,
-                        child: Text(scopeReticle!),
-                      ),
-                    for (final n in Reticles.genericNames)
-                      DropdownMenuItem(value: n, child: Text(n)),
-                  ],
-                  onChanged: (v) => setState(() => scopeReticle = v),
+                MenzilFullWidth(
+                  child: MenzilSelect<String>(
+                    key: ValueKey('scope-reticle-$_scopePickToken'),
+                    info: ProfileFieldInfo.reticle,
+                    label: 'Retikül',
+                    initialValue: scopeReticle,
+                    items: [
+                      if (scopeReticle != null &&
+                          !Reticles.genericNames.contains(scopeReticle))
+                        DropdownMenuItem(
+                          value: scopeReticle,
+                          child: Text(scopeReticle!),
+                        ),
+                      for (final n in Reticles.genericNames)
+                        DropdownMenuItem(value: n, child: Text(n)),
+                    ],
+                    onChanged: (v) => setState(() => scopeReticle = v),
+                  ),
                 ),
                 MenzilFullWidth(
                   child: Column(
@@ -2110,7 +2613,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ),
           const MenzilSectionHeader(
             'Mühimmat',
-            subtitle: 'BC ve G1/G7 modeli rüzgâr sapması hesabı için gerekir',
             padding: EdgeInsets.only(
               top: MenzilSpace.xxs,
               bottom: MenzilSpace.sm,
@@ -2126,52 +2628,81 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
-                MenzilFullWidth(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-                    child: MenzilSecondaryButton(
-                      key: const Key('ammo-library'),
-                      label: 'Kütüphaneden seç',
-                      icon: Icons.menu_book_outlined,
-                      expand: true,
-                      onPressed: _pickFromLibrary,
+                // Owner, 2026-10-11: the type first, then Marka | Model,
+                // Ağırlık | BC, BC modeli | Namlu çıkış hızı.
+                if (platform == WeaponPlatform.firearm)
+                  MenzilFullWidth(
+                    child: KeyedSubtree(
+                      key: const Key('ammo-source'),
+                      child: MenzilSelect<bool>(
+                        key: ValueKey('ammo-source-$_factoryAmmo'),
+                        info: ProfileFieldInfo.ammoSource,
+                        label: 'Mühimmat türü',
+                        initialValue: _factoryAmmo,
+                        items: const [
+                          DropdownMenuItem(
+                            value: true,
+                            child: Text('Fabrika fişeği'),
+                          ),
+                          DropdownMenuItem(
+                            value: false,
+                            child: Text('El dolumu'),
+                          ),
+                        ],
+                        onChanged: (v) => setState(() {
+                          if (v == null || v == _factoryAmmo) return;
+                          _factoryAmmo = v;
+                          _clearAmmo();
+                        }),
+                      ),
+                    ),
+                  )
+                else
+                  MenzilFullWidth(
+                    child: KeyedSubtree(
+                      key: const Key('ammo-type'),
+                      child: MenzilSelect<AmmunitionType>(
+                        key: ValueKey('ammo-type-$ammoType'),
+                        info: ProfileFieldInfo.ammoType,
+                        label: 'Tip',
+                        initialValue: ammoType == AmmunitionType.bullet
+                            ? null
+                            : ammoType,
+                        items: const [
+                          DropdownMenuItem(
+                            value: AmmunitionType.pellet,
+                            child: Text('Pellet'),
+                          ),
+                          DropdownMenuItem(
+                            value: AmmunitionType.slug,
+                            child: Text('Slug'),
+                          ),
+                        ],
+                        onChanged: (v) => setState(() => ammoType = v),
+                      ),
                     ),
                   ),
+                ..._ammoNameFields(
+                  texts: [
+                    MenzilInput(
+                      key: const Key('ammo-brand'),
+                      controller: ammoBrand,
+                      label: 'Marka',
+                      keyboardType: TextInputType.text,
+                      maxLength: 60,
+                      onChanged: (_) => setState(() {}),
+                      errorText: _shown(_ammoBrandError, ammoBrand),
+                    ),
+                    MenzilInput(
+                      key: const Key('ammo-model'),
+                      controller: ammoModel,
+                      label: 'Model',
+                      keyboardType: TextInputType.text,
+                      maxLength: 80,
+                      onChanged: (_) => setState(() {}),
+                    ),
+                  ],
                 ),
-                MenzilInput(
-                  key: const Key('ammo-brand'),
-                  controller: ammoBrand,
-                  label: 'Marka Model',
-                  // A pellet example only on PCP; empty for a firearm
-                  // (owner, 2026-10-09).
-                  hintText: platform == WeaponPlatform.pcp
-                      ? 'JSB King Heavy'
-                      : null,
-                  keyboardType: TextInputType.text,
-                  maxLength: 100,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_ammoBrandError, ammoBrand),
-                ),
-                if (platform == WeaponPlatform.pcp)
-                  MenzilSelect<AmmunitionType>(
-                    key: const Key('ammo-type'),
-                    info: ProfileFieldInfo.ammoType,
-                    label: 'Tip',
-                    initialValue: ammoType == AmmunitionType.bullet
-                        ? null
-                        : ammoType,
-                    items: const [
-                      DropdownMenuItem(
-                        value: AmmunitionType.pellet,
-                        child: Text('Pellet'),
-                      ),
-                      DropdownMenuItem(
-                        value: AmmunitionType.slug,
-                        child: Text('Slug'),
-                      ),
-                    ],
-                    onChanged: (v) => setState(() => ammoType = v),
-                  ),
                 MenzilInput(
                   key: const Key('ammo-grain'),
                   info: platform == WeaponPlatform.firearm
@@ -2197,38 +2728,53 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                         ? ProfileFieldInfo.bcFirearm
                         : ProfileFieldInfo.bc,
                     controller: ammoBc,
-                    label: 'BC (balistik katsayı)',
+                    label: 'BC',
                     hintText: platform == WeaponPlatform.firearm
                         ? '0,45'
                         : '0,035',
                     onChanged: (_) => setState(() {}),
                     errorText: _shown(_bcError, ammoBc),
                   ),
-                MenzilSelect<String>(
+                KeyedSubtree(
                   key: const Key('ammo-bc-model'),
-                  info:
-                      (platform == WeaponPlatform.firearm
-                          ? ProfileFieldInfo.bcModelFirearm
-                          : ProfileFieldInfo.bcModel) +
-                      ProfileFieldInfo.bcModelCustom,
-                  label: 'BC modeli',
-                  initialValue: _customCurve ? _customKey : ammoBcModel?.name,
-                  items: [
-                    for (final (m, text) in _bcModelChoices)
-                      DropdownMenuItem(value: m.name, child: Text(text)),
-                    const DropdownMenuItem(
-                      value: _customKey,
-                      child: Text('Özel eğri (Mach–Cd)'),
+                  child: MenzilSelect<String>(
+                    key: ValueKey(
+                      'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
                     ),
-                  ],
-                  onChanged: (v) => setState(() {
-                    _customCurve = v == _customKey;
-                    if (!_customCurve) {
-                      ammoBcModel = BallisticModel.values
-                          .where((m) => m.name == v)
-                          .firstOrNull;
-                    }
-                  }),
+                    info:
+                        (platform == WeaponPlatform.firearm
+                            ? ProfileFieldInfo.bcModelFirearm
+                            : ProfileFieldInfo.bcModel) +
+                        ProfileFieldInfo.bcModelCustom,
+                    label: 'BC modeli',
+                    initialValue: _customCurve ? _customKey : ammoBcModel?.name,
+                    items: [
+                      for (final (m, text) in _bcModelChoices)
+                        DropdownMenuItem(value: m.name, child: Text(text)),
+                      const DropdownMenuItem(
+                        value: _customKey,
+                        child: Text('Özel eğri (Mach–Cd)'),
+                      ),
+                    ],
+                    onChanged: (v) => setState(() {
+                      _customCurve = v == _customKey;
+                      if (!_customCurve) {
+                        ammoBcModel = BallisticModel.values
+                            .where((m) => m.name == v)
+                            .firstOrNull;
+                      }
+                    }),
+                  ),
+                ),
+                MenzilInput(
+                  key: const Key('profile-velocity-fps'),
+                  controller: velocity,
+                  label: 'Namlu çıkış hızı',
+                  info: platform == WeaponPlatform.firearm
+                      ? ProfileFieldInfo.velocityFirearm
+                      : ProfileFieldInfo.velocity,
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_velocityError, velocity),
                 ),
                 if (_customCurve)
                   MenzilFullWidth(
@@ -2244,7 +2790,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 if (!_customCurve) ...[
                   MenzilFullWidth(
                     child: Text(
-                      'Hıza göre BC (isteğe bağlı)',
+                      'Hıza göre BC',
                       key: const Key('ammo-bands-title'),
                       style: MenzilType.body(c.ink),
                     ),
@@ -2254,7 +2800,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       key: Key('ammo-band-fps-$i'),
                       info: ProfileFieldInfo.bandSpeed,
                       controller: ammoBandFps[i],
-                      label: '${i + 1}. eşik hızı (fps)',
+                      label: '${i + 1}. eşik hızı',
                       hintText: i == 0
                           ? (platform == WeaponPlatform.firearm
                                 ? '2200'
@@ -2278,14 +2824,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     ),
                   ],
                 ],
-                MenzilFullWidth(
-                  child: Text(
-                    '${typedCaliber == null ? 'Kalibre: tüfek bilgilerinden alınır.' : 'Kalibre: ${_trimNum(typedCaliber)} mm (tüfekten).'}'
-                    '${platform == WeaponPlatform.firearm ? ' Tip: mermi (ateşli tüfekte otomatik).' : ''}',
-                    key: const Key('ammo-caliber-note'),
-                    style: MenzilType.caption(c.ink2),
-                  ),
-                ),
                 if (_showErrors &&
                     ((!_customCurve && ammoBcModel == null) ||
                         _effectiveAmmoType == null))
@@ -2303,124 +2841,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ),
     );
   }
-}
-
-class _SightHeightHelpDialog extends StatelessWidget {
-  const _SightHeightHelpDialog();
-
-  @override
-  Widget build(BuildContext context) {
-    final c = MenzilColors.of(context);
-    return AlertDialog(
-      title: const Text('Sight height nasıl ölçülür?'),
-      content: SizedBox(
-        width: 420,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Uygulama bu değeri hesaplamaz. Değeri siz ölçüp profil alanına girersiniz.',
-              ),
-              const SizedBox(height: 16),
-              AspectRatio(
-                aspectRatio: 1.65,
-                child: CustomPaint(
-                  painter: _SightHeightDiagramPainter(
-                    line: c.ink2,
-                    accent: c.amber,
-                    text: c.ink,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                '1. Dürbünün optik eksen merkezini belirleyin.',
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                '2. Namlu deliğinin merkezini belirleyin. Namlu dış yüzeyini referans almayın.',
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                '3. Bu iki merkez arasındaki dikey mesafeyi mm olarak ölçün.',
-              ),
-              const SizedBox(height: 12),
-              const Text(
-                'Önemli: Ölçüm merkezden merkezedir; namlunun üst yüzeyinden dürbüne olan boşluk değildir.',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-      ),
-      actions: [
-        FilledButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Anladım'),
-        ),
-      ],
-    );
-  }
-}
-
-class _SightHeightDiagramPainter extends CustomPainter {
-  final Color line;
-  final Color accent;
-  final Color text;
-  const _SightHeightDiagramPainter({
-    required this.line,
-    required this.accent,
-    required this.text,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final fg = Paint()
-      ..color = line
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-    final red = Paint()
-      ..color = accent
-      ..strokeWidth = 3;
-    final fill = Paint()..color = accent;
-    final cx = size.width * .62;
-    final scopeY = size.height * .27;
-    final barrelY = size.height * .74;
-
-    canvas.drawCircle(Offset(cx, scopeY), size.height * .14, fg);
-    canvas.drawCircle(Offset(cx, barrelY), size.height * .105, fg);
-    canvas.drawCircle(Offset(cx, scopeY), 4, fill);
-    canvas.drawCircle(Offset(cx, barrelY), 4, fill);
-
-    canvas.drawLine(Offset(cx, scopeY + 7), Offset(cx, barrelY - 7), red);
-    canvas.drawLine(Offset(cx - 7, scopeY + 15), Offset(cx, scopeY + 7), red);
-    canvas.drawLine(Offset(cx + 7, scopeY + 15), Offset(cx, scopeY + 7), red);
-    canvas.drawLine(Offset(cx - 7, barrelY - 15), Offset(cx, barrelY - 7), red);
-    canvas.drawLine(Offset(cx + 7, barrelY - 15), Offset(cx, barrelY - 7), red);
-
-    final tp = TextPainter(textDirection: TextDirection.ltr);
-    void label(String t, Offset o) {
-      tp.text = TextSpan(
-        text: t,
-        style: TextStyle(color: text, fontSize: 13),
-      );
-      tp.layout(maxWidth: size.width * .45);
-      tp.paint(canvas, o);
-    }
-
-    label('Dürbün optik merkezi', Offset(8, scopeY - 10));
-    label('Namlu deliği merkezi', Offset(8, barrelY - 10));
-    label('merkezden\nmerkeze', Offset(cx + 18, (scopeY + barrelY) / 2 - 18));
-  }
-
-  @override
-  bool shouldRepaint(covariant _SightHeightDiagramPainter oldDelegate) =>
-      oldDelegate.line != line ||
-      oldDelegate.accent != accent ||
-      oldDelegate.text != text;
 }
 
 String _trimNum(double v) =>
