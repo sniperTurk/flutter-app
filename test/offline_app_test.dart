@@ -17,6 +17,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
+import 'package:sniper_turk/data/catalog_repository.dart';
+import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
@@ -36,17 +38,31 @@ import 'support/tool_fakes.dart';
 
 const _ua = 'SniperTurk/1.0 test@example.invalid';
 
+// A pellet with a BC, so the full drag solver (not the vacuum one) runs.
 const _profile = RifleProfile(
   id: 'p1',
   name: 'Bir',
   rifleId: 'hatsan-hercules-635',
-  ammunitionId: 'gmaz-51',
+  ammunitionId: 'c-offline',
   scopeId: 'gazi-6-36',
   muzzleVelocityMps: 270,
   zeroRangeM: 25,
   sightHeightMm: 60,
   pressureBar: 200,
 );
+
+const _ammo = <String, dynamic>{
+  'id': 'c-offline',
+  'kind': 'custom_ammunition',
+  'platform': 'pcp',
+  'brand': 'Deneme',
+  'model': '.25 pellet',
+  'caliberMm': 6.35,
+  'grain': 25.4,
+  'ammoType': 'pellet',
+  'bc': 0.04,
+  'bcModel': 'G1',
+};
 
 /// No internet at all: every HttpClient the app tries to make fails.
 class _NoInternet extends HttpOverrides {
@@ -116,11 +132,17 @@ void main() {
   late _NoInternet net;
 
   setUp(() {
+    CatalogRepository.installUserCatalog(
+      UserCatalog.fromManualEntries([_ammo]),
+    );
     previous = HttpOverrides.current;
     net = _NoInternet();
     HttpOverrides.global = net;
   });
-  tearDown(() => HttpOverrides.global = previous);
+  tearDown(() {
+    HttpOverrides.global = previous;
+    CatalogRepository.installUserCatalog(UserCatalog.empty);
+  });
 
   testWidgets('Profil, Hava Durumu, Pro and Hedef work fully offline', (
     tester,
