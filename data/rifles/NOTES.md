@@ -86,3 +86,45 @@ Eklenemeyen:
   broşürü var, ama resmi alan adında olmadığı ve MDT satırlarında hatveler kalibrelerle çelişik
   göründüğü için kullanılmadı. CZ 600 Lux 7.62x39, American .300 Win Mag: resmi CZ 600 tablolarında yok.
 - Accuracy International AT-X MIL .308: sayfa "1:8/1:10" diyor, namluya eşlemiyor → değişmedi.
+
+## 2026-10-11 ithal tüfek turu 2 — Tikka, Sako, Bergara, Howa
+
+İpucu: `docs/owner-research/chatgpt-rifles-2.md` ve `chatgpt-rifles-3.md` (data/owner-research). Kaynak değil;
+her değer üreticide teyit edildi (sako.global ürün sayfası varyant tabloları, media.sako.global kılavuz PDF'leri,
+bergara.online 2026 / 2024 / 2022 INT katalog PDF'leri, Howa'nın resmi ABD ithalatçısı legacysports.com).
+Yalnızca eksik kalibre×namlu kombinasyonları eklendi; aynı kalibre+namlu için renk/tetik/ray farkı tek kayıt.
+
+Eklenen: Bergara +194, Tikka +59, Sako +56, Howa +43 (toplam 352).
+- Tikka: T3x Super Varmint 24, Sporter 13, TACT A1 11, UPR 5, Ace Target 5, Arctic 1.
+- Sako: Sako 90 Quest 22, Peak 13, Adventure 4, Hunter 2 (.222); TRG M10 11; TRG 22/42 A1 4.
+- Bergara: Premier (Highlander, Mountain 2.0, Cima Pro, Elevate, Elite, HMR Pro 6mm CM), B-14 (HMR, BMP,
+  Wilderness Terrain/Ridge/Ridge Carbon/Hunter/HMR Carbon/Sierra, Sporter, Sporter Varmint, Timber, Stoke,
+  Thumbhole, Sierra, Squared Crest/Crest Carbon/Cima CF), rimfire BMR/BMR X/BXR/B-14R Trainer Carbon.
+  2022 katalog kayıtlarında notes "tarihsel, güncel üretim teyit edilmedi".
+- Howa: 1500 Hogue 15, Mini Action 5, Mini Action Excl Lite 5, Superlite 8, Carbon Fiber 4, APC 2,
+  American Flag Chassis 4. Ürün sayfasında hatve yoksa legacysports.com/faq kalibre-hatve tablosu.
+
+Düzeltilen: Tikka T3x Superlite Stainless .270 WSM (hatve null → 1:10) ve 6.5 PRC (null → 1:8).
+
+Resmi kaynaklar kendi içinde çelişen (null bırakıldı):
+- Sako TRG M10 .308 / .300 WM hatvesi: ürün sayfası 1:10, M10 kılavuzu 1:11.
+- Howa 6mm ARC / 6.5 PRC: FAQ 1:7.5, Carbon Fiber sayfası 1:8 (Carbon Fiber'da sayfa değeri, diğerlerinde null).
+
+Mevcut kayıtla INT katalog farkı (pazar farkı olabilir, mevcut kayıt değiştirilmedi):
+- Bergara B-14 Hunter .308 22": US sayfası 1:10, INT katalog 1:12 (1:12 ayrı kayıt eklendi).
+- Bergara B-14R Steel: US 3,67 kg / 965 mm, INT 4,1 kg / 960 mm. Squared Crest .300 WM: US 22", INT yalnız 24".
+
+ChatGPT ↔ resmi kaynak uyuşmazlıkları:
+- Bergara B-14 HMR .22-250 hatvesi: ChatGPT 1:14, resmi 1:9.
+- Bergara Premier HMR Pro 7mm Rem Mag 24" 1:9,5: resmi INT kataloglarında yok.
+- Bergara Premier HMR Pro SKU'ları (BPR20-…): resmi INT SKU'larıyla uyuşmuyor.
+- Sako TRG M10 .300 Norma Mag namlu: ChatGPT 660 mm, resmi 690 mm.
+- Sako TRG 22 A1 .308 / TRG 42 A1 .300 WM hatvesi: ChatGPT 1:11, ürün sayfası 1:10.
+- Sako TRG 22 A1 16" ve TRG 42 A1 23,5" namlu: resmi sayfada yok.
+- Tikka T3x UPR: değerler uyumlu; ChatGPT-2 şarjörü "yok" demiş, resmi 10.
+
+Eklenemeyen (tablo okunamadı / bütçe): Tikka T3x CTR, Varmint, Hunter, Lite, Lite Roughtech, Laminated Stainless
+(SKU-kalibre uyumsuz okundu), Strata, Veil, Forest, Ace Game; Sako S20 Hunter/Precision (139/197 sütun hizalanamadı),
+Sako 90 Hunter (.222 dışı), Bavarian, Finnlight, Varmint, Sako 100; Bergara BA13, Extreme serisi;
+Howa HCR (ayrı resmi sayfa yok), Carbon Stalker / Walnut Hunter (namlu yok), Model 1100.
+Bergara 2021 lineup PDF'i açılamadı (2022 INT katalog kullanıldı).
