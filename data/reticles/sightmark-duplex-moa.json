@@ -1,0 +1,19 @@
+{
+  "name": "Duplex",
+  "brand": "Sightmark",
+  "scopes": ["Core 2.0 HX 3-9x40 DX (SM13100DX, aydınlatmasız)", "Core 2.0 HX 3-9x40 DX (SM13101DX, aydınlatmalı)"],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": 5,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://cdn.shopify.com/s/files/1/0566/9466/9461/files/CORE_2.0_HX_Manual_Web_19b91104-8a9b-4ee2-b69f-b1d7a7bcf67f.pdf?v=1695325908",
+  "notes": "Sightmark CORE 2.0 HX kılavuzu. SFP, MOA, tel retikül. Metin: kalın direkler 0.75 MOA; 'The posts at the center are 5 MOA from the center' -> posts_start=5. Çizim etiketleri (aydınlatmasız): A 5, B 0.25 (ince çizgi kalınlığı olduğu çıkarımı), C 0.75 MOA. Aydınlatmalı SM13101DX'te 0.5 MOA merkez nokta var (etiketler: A 0.5, B 2, C 5, D 0.25, E 0.75 MOA); aydınlatmasız modelde yok -> center_dot=null (iki model ortak dosyada). Referans büyütme belirtilmemiş. Kılavuz görselleri (ölçü föyü çizimleri) bu ortamdan okunamadı; değerler yalnız PDF metninden alındı."
+}
