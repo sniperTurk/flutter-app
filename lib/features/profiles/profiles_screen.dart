@@ -598,6 +598,7 @@ class _ActiveProfileDetails extends StatelessWidget {
         // düzlemi, Klik değeri and the name card have no box any more.
         MenzilMetricGrid(
           columns: 2,
+          twoLineText: true,
           metrics: [
             // The separate Tüfek/Mühimmat/Dürbün name card was removed
             // (owner, 2026-10-09); brand and model have their own boxes.

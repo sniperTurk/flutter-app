@@ -417,7 +417,7 @@ class _NavButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 56),
+            constraints: BoxConstraints(minHeight: twoLineText ? 76 : 56),
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
@@ -1337,7 +1337,17 @@ class MenzilMetricGrid extends StatelessWidget {
   final List<MenzilMetric> metrics;
   final int columns;
 
-  const MenzilMetricGrid({super.key, required this.metrics, this.columns = 3});
+  /// Long text values (brand / model names) take up to two readable lines
+  /// instead of shrinking; every tile keeps the same height so the rows stay
+  /// aligned (owner, 2026-10-11).
+  final bool twoLineText;
+
+  const MenzilMetricGrid({
+    super.key,
+    required this.metrics,
+    this.columns = 3,
+    this.twoLineText = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1369,14 +1379,17 @@ class MenzilMetricGrid extends StatelessWidget {
                   for (final m in metrics)
                     SizedBox(
                       width: tileWidth,
-                      child: MenzilMetricCard(metric: m),
+                      child: MenzilMetricCard(
+                        metric: m,
+                        twoLineText: twoLineText,
+                      ),
                     ),
                   for (var i = 0; i < fillers; i++)
                     SizedBox(
                       width: tileWidth,
                       child: ColoredBox(
                         color: c.surface,
-                        child: const SizedBox(height: 56),
+                        child: SizedBox(height: twoLineText ? 76 : 56),
                       ),
                     ),
                 ],
@@ -1392,7 +1405,49 @@ class MenzilMetricGrid extends StatelessWidget {
 /// One metric tile (label above a large condensed number with unit).
 class MenzilMetricCard extends StatelessWidget {
   final MenzilMetric metric;
-  const MenzilMetricCard({super.key, required this.metric});
+
+  /// See [MenzilMetricGrid.twoLineText].
+  final bool twoLineText;
+  const MenzilMetricCard({
+    super.key,
+    required this.metric,
+    this.twoLineText = false,
+  });
+
+  /// A text value that does not fit one line at 22: up to two lines, the
+  /// largest size from 18 down to 12 that fits.
+  Widget _textValue(Color ink) => LayoutBuilder(
+    builder: (context, box) {
+      final scaler = MediaQuery.textScalerOf(context);
+      final dir = Directionality.of(context);
+      TextStyle at(double size) => MenzilType.number(ink, size: size);
+      bool fits(double size, int lines) {
+        final p = TextPainter(
+          text: TextSpan(text: metric.value, style: at(size)),
+          textDirection: dir,
+          textScaler: scaler,
+          maxLines: lines,
+        )..layout(maxWidth: box.maxWidth);
+        final ok = !p.didExceedMaxLines;
+        p.dispose();
+        return ok;
+      }
+
+      if (!box.maxWidth.isFinite || fits(22, 1)) {
+        return Text(metric.value, maxLines: 1, style: at(22));
+      }
+      var size = 18.0;
+      while (size > 12 && !fits(size, 2)) {
+        size -= 1;
+      }
+      return Text(
+        metric.value,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: at(size).copyWith(height: 1.15),
+      );
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -1400,7 +1455,7 @@ class MenzilMetricCard extends StatelessWidget {
     return ColoredBox(
       color: c.surface,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: 56),
+        constraints: BoxConstraints(minHeight: twoLineText ? 76 : 56),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 7, 10, 8),
           child: Semantics(
@@ -1416,6 +1471,15 @@ class MenzilMetricCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
                   ),
+                  if (twoLineText && metric.unit == null)
+                    SizedBox(
+                      height: 44,
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: _textValue(c.ink),
+                      ),
+                    )
+                  else
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
