@@ -10,6 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
+import 'package:sniper_turk/features/profiles/profiles_screen.dart';
+import 'package:sniper_turk/features/tools/tools_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
@@ -25,6 +27,20 @@ const _profile = RifleProfile(
   ammunitionId: 'gmaz-51',
   scopeId: 'gazi-6-36',
   muzzleVelocityMps: 270,
+  zeroRangeM: 25,
+  sightHeightMm: 60,
+  pressureBar: 200,
+);
+
+/// The same rifle after Araçlar → Hız Doğrulama wrote a trued velocity:
+/// the shell re-keys the workspace on the profile's values.
+const _trued = RifleProfile(
+  id: 'p-wind',
+  name: 'Rüzgâr',
+  rifleId: 'hatsan-hercules-635',
+  ammunitionId: 'gmaz-51',
+  scopeId: 'gazi-6-36',
+  muzzleVelocityMps: 280,
   zeroRangeM: 25,
   sightHeightMm: 60,
   pressureBar: 200,
@@ -59,7 +75,13 @@ Future<void> _tab(WidgetTester tester, String label) async {
   await tester.pumpAndSettle();
 }
 
-Future<TestWeather> _pumpHome(
+typedef _Home = ({
+  TestWeather weather,
+  MemoryProfileStore store,
+  MemoryActiveProfileStore active,
+});
+
+Future<_Home> _pumpHome(
   WidgetTester tester, {
   required bool withProfile,
 }) async {
@@ -96,7 +118,7 @@ Future<TestWeather> _pumpHome(
   await tester.tap(button);
   await tester.pumpAndSettle();
   expect(weather.calls, 1);
-  return weather;
+  return (weather: weather, store: store, active: active);
 }
 
 void _expectAtmosphere(WidgetTester tester) {
@@ -105,12 +127,21 @@ void _expectAtmosphere(WidgetTester tester) {
   expect(_text(tester, BallisticsFieldKeys.altitude), '900');
 }
 
+double _number(WidgetTester tester, Key key) =>
+    double.parse(_text(tester, key));
+
+State _workspace(WidgetTester tester) =>
+    tester.state(find.byType(BallisticsScreen));
+
 void main() {
   for (final away in ['Araçlar', 'Profil', 'Pro', 'Hedef']) {
     testWidgets('profile: wind boxes survive Hava Durumu → $away → back', (
       tester,
     ) async {
-      final weather = await _pumpHome(tester, withProfile: true);
+      final (:weather, store: _, active: _) = await _pumpHome(
+        tester,
+        withProfile: true,
+      );
       _expectAtmosphere(tester);
       expect(_text(tester, BallisticsFieldKeys.wind), '5.0');
       // No gust from the service: wind × 1,5.
@@ -156,7 +187,10 @@ void main() {
     testWidgets('no profile: wind boxes survive Hava Durumu → $away → back', (
       tester,
     ) async {
-      final weather = await _pumpHome(tester, withProfile: false);
+      final (:weather, store: _, active: _) = await _pumpHome(
+        tester,
+        withProfile: false,
+      );
       _expectAtmosphere(tester);
       expect(_text(tester, BallisticsFieldKeys.wind), '5.0');
       await _type(tester, BallisticsFieldKeys.windDirection, '3');
@@ -173,4 +207,74 @@ void main() {
       expect(weather.calls, 1);
     });
   }
+
+  testWidgets('profile: a re-created workspace (Araçlar wrote the profile) '
+      'keeps Hava Durumu and Rüzgâr düzeltmesi', (tester) async {
+    final (:weather, :store, active: _) = await _pumpHome(
+      tester,
+      withProfile: true,
+    );
+    await _type(tester, BallisticsFieldKeys.windDirection, '3');
+    await _type(tester, _windMid, '4');
+    await _type(tester, _windFar, '6');
+    final before = _workspace(tester);
+
+    // Araçlar → a tool (Hız Doğrulama) saves the profile; when its page
+    // closes the shell reloads the profiles.
+    await _tab(tester, 'Araçlar');
+    await store.save(_trued);
+    await tester.widget<ToolsScreen>(find.byType(ToolsScreen))
+        .onProfilesChanged!();
+    await tester.pumpAndSettle();
+    await _tab(tester, 'Hava Durumu');
+
+    // The path really builds a new workspace.
+    expect(_workspace(tester), isNot(same(before)));
+    _expectAtmosphere(tester);
+    expect(_number(tester, BallisticsFieldKeys.wind), closeTo(5.0, 1e-9));
+    expect(_text(tester, BallisticsFieldKeys.windDirection), '3');
+    expect(_number(tester, _windMax), closeTo(7.5, 1e-9));
+    expect(_text(tester, _windMid), '4');
+    expect(_text(tester, _windFar), '6');
+    expect(weather.calls, 1);
+  });
+
+  testWidgets('profile: a typed En yüksek rüzgâr survives a re-created '
+      'workspace', (tester) async {
+    final (weather: _, :store, active: _) = await _pumpHome(
+      tester,
+      withProfile: true,
+    );
+    await _type(tester, _windMax, '9');
+    await _tab(tester, 'Araçlar');
+    await store.save(_trued);
+    await tester.widget<ToolsScreen>(find.byType(ToolsScreen))
+        .onProfilesChanged!();
+    await tester.pumpAndSettle();
+    await _tab(tester, 'Hava Durumu');
+    expect(_number(tester, BallisticsFieldKeys.wind), closeTo(5.0, 1e-9));
+    expect(_text(tester, _windMax), '9');
+  });
+
+  testWidgets('no profile → first profile: the weather and wind carry over', (
+    tester,
+  ) async {
+    final (:weather, :store, :active) = await _pumpHome(
+      tester,
+      withProfile: false,
+    );
+    await _type(tester, BallisticsFieldKeys.windDirection, '3');
+    await _tab(tester, 'Profil');
+    await store.save(_profile);
+    active.value = _profile.id;
+    await tester.widget<ProfilesScreen>(find.byType(ProfilesScreen))
+        .onProfilesChanged!();
+    await tester.pumpAndSettle();
+    await _tab(tester, 'Hava Durumu');
+    _expectAtmosphere(tester);
+    expect(_number(tester, BallisticsFieldKeys.wind), closeTo(5.0, 1e-9));
+    expect(_text(tester, BallisticsFieldKeys.windDirection), '3');
+    expect(_number(tester, _windMax), closeTo(7.5, 1e-9));
+    expect(weather.calls, 1);
+  });
 }
