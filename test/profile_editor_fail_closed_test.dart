@@ -112,7 +112,13 @@ void main() {
       expect(_updateAction(tester), isNull);
 
       // The old catalog scope is prefilled into the scope form.
-      expect(text('scope-brand'), 'Gazi Sniper');
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('scope-brand-select')),
+          matching: find.text('Gazi Sniper'),
+        ),
+        findsOneWidget,
+      );
       expect(text('scope-max-mag'), '36');
       expect(find.text('Dürbün: Gazi Sniper 6-36x56 FFP'), findsOneWidget);
 

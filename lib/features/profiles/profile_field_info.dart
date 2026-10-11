@@ -5,6 +5,11 @@
 /// can be found and give a typical example.
 abstract final class ProfileFieldInfo {
   // Tüfek
+  static const rifleOrigin =
+      'Tüfeğin üretildiği yer. Yerli: Türkiye\'de üretilen markalar '
+      '(Hatsan, Kral Arms, Sarsılmaz, MKE, Ata Arms…). İthal: yurt dışı '
+      'markaları (Tikka, Sako, Daystate, BSA…). Seçim Marka listesini '
+      'süzer; Tümü hepsini gösterir.';
   static const caliber =
       'Namlunun iç çapı, milimetre olarak; listeden seçin. 4,50 mm (.177), '
       '5,50 mm (.22), 6,35 mm (.25), 7,62 mm (.30), 9,00 mm (.357) ve '

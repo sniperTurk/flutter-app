@@ -941,9 +941,30 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Kalibre "Fişeğim listede yok": the bullet diameter is picked instead.
   bool _caliberByDiameter = false;
 
+  /// Kimlik "Üretim": true = Yerli, false = İthal, null = all (owner,
+  /// 2026-10-11). Filters the rifle Marka list.
+  bool? _domestic;
+
+  /// Rifle brands made in Türkiye.
+  static const _domesticBrands = {
+    'ATA Arms',
+    'Aselkon Arms',
+    'Hatsan',
+    'Huğlu',
+    'Kale Kalıp',
+    'Kral Arms',
+    'Kuzey Arms',
+    'MKE',
+    'Retay',
+    'Reximex',
+    'Sarsılmaz',
+  };
+
   List<LibraryRifle> get _rifleLib => [
     for (final r in RifleLibrary.all)
-      if (r.platform == platform) r,
+      if (r.platform == platform &&
+          (_domestic == null || _domesticBrands.contains(r.brand) == _domestic))
+        r,
   ];
 
   static int _byName(String a, String b) =>
@@ -1028,29 +1049,212 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     rifleCaliber.text = '';
   }
 
+  // ---- Dürbün Marka / Model / Retikül lists (owner, 2026-10-11) ----
+
+  /// True after "Listede yok": the scope is typed in.
+  bool _scopeManual = false;
+  String? _scopeBrandSel;
+
+  /// The chosen model: the catalog model without its reticle name.
+  String? _scopeModelKey;
+
+  static List<ScopeOptic> get _scopeLib => [
+    for (final s in CatalogRepository.scopes)
+      if (!s.userEntered) s,
+  ];
+
+  /// Reticle names of a record ("VPR-MIL / VHR-MIL" is two).
+  static List<String> _reticlesOf(ScopeOptic s) => [
+    for (final r in (s.reticle ?? '').split(RegExp(r'\s*/\s*')))
+      if (r.trim().isNotEmpty) r.trim(),
+  ];
+
+  /// "Talos HMR 4-16x56 Center-X SFP MOA" -> "Talos HMR 4-16x56 SFP MOA":
+  /// the reticles of one model are listed under Retikül.
+  static String _scopeModelOf(ScopeOptic s) {
+    var m = s.model;
+    for (final r in _reticlesOf(s)) {
+      final i = m.toLowerCase().indexOf(r.toLowerCase());
+      if (i >= 0) m = m.substring(0, i) + m.substring(i + r.length);
+    }
+    return m.replaceAll(RegExp(r'\s{2,}'), ' ').trim();
+  }
+
+  List<String> get _scopeBrands =>
+      {for (final s in _scopeLib) s.brand}.toList()..sort(_byName);
+
+  List<String> _scopeModels(String brand) => {
+    for (final s in _scopeLib)
+      if (s.brand == brand) _scopeModelOf(s),
+  }.toList()..sort(_byName);
+
+  List<ScopeOptic> get _scopeGroup => [
+    for (final s in _scopeLib)
+      if (s.brand == _scopeBrandSel && _scopeModelOf(s) == _scopeModelKey) s,
+  ];
+
+  /// Retikül choices of the chosen model and the record each one belongs to.
+  List<(String, ScopeOptic)> get _scopeReticleChoices {
+    final out = <(String, ScopeOptic)>[];
+    for (final s in _scopeGroup) {
+      for (final r in _reticlesOf(s)) {
+        if (!out.any((e) => e.$1 == r)) out.add((r, s));
+      }
+    }
+    return out;
+  }
+
+  /// Fills the scope form from a catalog record.
+  void _applyScope(ScopeOptic s, {String? reticle}) {
+    final series = ScopePickerScreen.seriesOf(_scopeModelOf(s));
+    scopeBrand.text = series.isEmpty ? s.brand : '${s.brand} $series';
+    if (s.minMagnification != null) {
+      scopeMinMag.text = _trimNum(s.minMagnification!);
+    }
+    if (s.maxMagnification != null) {
+      scopeMaxMag.text = _trimNum(s.maxMagnification!);
+    }
+    scopeObjective.text = _trimNum(s.objectiveDiameterMm);
+    firstFocalPlane = s.firstFocalPlane;
+    angularUnit = s.clickUnit;
+    scopeClick.text = _trimNum(s.clickValue);
+    final travel = s.elevationRangeMrad;
+    scopeTravelElevation.text = travel == null || travel <= 0
+        ? ''
+        : (_fromMrad(travel, angularUnit) / s.clickValue).round().toString();
+    scopeReticle = reticle;
+    _scopePickToken++;
+  }
+
+  /// Marka and Model of the scope, each on its own row.
+  List<Widget> _scopeNameFields() {
+    final brands = _scopeBrands;
+    if (_scopeManual || brands.isEmpty) {
+      return [
+        MenzilFullWidth(
+          child: MenzilInput(
+            key: const Key('scope-brand'),
+            controller: scopeBrand,
+            label: 'Dürbün markası',
+            keyboardType: TextInputType.text,
+            maxLength: 100,
+            onChanged: (_) => setState(() {}),
+            errorText: _shown(_scopeBrandError, scopeBrand),
+          ),
+        ),
+        if (brands.isNotEmpty)
+          MenzilFullWidth(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                key: const Key('scope-back-to-list'),
+                onPressed: () => setState(() {
+                  _scopeManual = false;
+                  _scopeBrandSel = null;
+                  _scopeModelKey = null;
+                  scopeBrand.text = '';
+                  scopeReticle = null;
+                  _scopePickToken++;
+                }),
+                icon: const Icon(Icons.list_alt, size: 18),
+                label: const Text('Listeden seç'),
+              ),
+            ),
+          ),
+      ];
+    }
+    final brand = brands.contains(_scopeBrandSel) ? _scopeBrandSel : null;
+    final models = brand == null ? const <String>[] : _scopeModels(brand);
+    final model = models.contains(_scopeModelKey) ? _scopeModelKey : null;
+    return [
+      MenzilFullWidth(
+        child: KeyedSubtree(
+          key: const Key('scope-brand-select'),
+          child: MenzilSelect<String>(
+            key: ValueKey('scope-brand-select-$brand'),
+            label: 'Marka',
+            hint: 'Seçiniz',
+            initialValue: brand,
+            items: [
+              for (final b in brands)
+                DropdownMenuItem(value: b, child: Text(b)),
+              const DropdownMenuItem(
+                value: _manualKey,
+                child: Text('Listede yok'),
+              ),
+            ],
+            onChanged: (v) => setState(() {
+              _scopeModelKey = null;
+              scopeReticle = null;
+              _scopePickToken++;
+              if (v == _manualKey) {
+                _scopeManual = true;
+                _scopeBrandSel = null;
+                scopeBrand.text = '';
+                return;
+              }
+              _scopeBrandSel = v;
+              scopeBrand.text = v ?? '';
+            }),
+          ),
+        ),
+      ),
+      MenzilFullWidth(
+        child: KeyedSubtree(
+          key: const Key('scope-model-select'),
+          child: MenzilSelect<String>(
+            key: ValueKey('scope-model-select-$brand-$model'),
+            label: 'Model',
+            hint: 'Seçiniz',
+            initialValue: model,
+            items: [
+              for (final m in models)
+                DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
+            ],
+            onChanged: (v) => setState(() {
+              _scopeModelKey = v;
+              final choices = _scopeReticleChoices;
+              final group = _scopeGroup;
+              if (group.isEmpty) return;
+              // One reticle: chosen right away; otherwise Retikül waits.
+              _applyScope(
+                choices.length == 1 ? choices.first.$2 : group.first,
+                reticle: choices.length == 1 ? choices.first.$1 : null,
+              );
+            }),
+          ),
+        ),
+      ),
+    ];
+  }
+
   /// Marka | Model of the rifle: two lists side by side; typed boxes after
   /// "Listede yok" (owner, 2026-10-11).
   List<Widget> _rifleNameFields() {
     final brands = _rifleBrands;
     if (_rifleManual || brands.isEmpty) {
       return [
-        MenzilInput(
-          key: const Key('rifle-brand'),
-          controller: rifleBrand,
-          label: 'Marka',
-          keyboardType: TextInputType.text,
-          maxLength: 100,
-          onChanged: (_) => setState(() {}),
-          errorText: _shown(_brandError, rifleBrand),
+        MenzilFullWidth(
+          child: MenzilInput(
+            key: const Key('rifle-brand'),
+            controller: rifleBrand,
+            label: 'Marka',
+            keyboardType: TextInputType.text,
+            maxLength: 100,
+            onChanged: (_) => setState(() {}),
+            errorText: _shown(_brandError, rifleBrand),
+          ),
         ),
-        MenzilInput(
-          key: const Key('rifle-model'),
-          controller: rifleModel,
-          label: 'Model',
-          keyboardType: TextInputType.text,
-          maxLength: 100,
-          onChanged: (_) => setState(() {}),
-          errorText: _shown(_modelError, rifleModel),
+        MenzilFullWidth(
+          child: MenzilInput(
+            key: const Key('rifle-model'),
+            controller: rifleModel,
+            label: 'Model',
+            keyboardType: TextInputType.text,
+            maxLength: 100,
+            onChanged: (_) => setState(() {}),
+            errorText: _shown(_modelError, rifleModel),
+          ),
         ),
         if (brands.isNotEmpty)
           MenzilFullWidth(
@@ -1075,54 +1279,59 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final models = brand == null ? const <String>[] : _rifleModels(brand);
     final model = models.contains(rifleModel.text) ? rifleModel.text : null;
     return [
-      KeyedSubtree(
-        key: const Key('rifle-brand-select'),
-        child: MenzilSelect<String>(
-          key: ValueKey('rifle-brand-select-${platform.name}-$brand'),
-          label: 'Marka',
-          hint: 'Seçiniz',
-          initialValue: brand,
-          items: [
-            for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
-            const DropdownMenuItem(
-              value: _manualKey,
-              child: Text('Listede yok'),
-            ),
-          ],
-          onChanged: (v) => setState(() {
-            final before = (rifleCaliber.text, _cartridge);
-            rifleModel.text = '';
-            _clearRifleChoice();
-            _keepAmmoInCaliber(before);
-            if (v == _manualKey) {
-              _rifleManual = true;
-              rifleBrand.text = '';
-              return;
-            }
-            rifleBrand.text = v ?? '';
-          }),
+      MenzilFullWidth(
+        child: KeyedSubtree(
+          key: const Key('rifle-brand-select'),
+          child: MenzilSelect<String>(
+            key: ValueKey('rifle-brand-select-${platform.name}-$brand'),
+            label: 'Marka',
+            hint: 'Seçiniz',
+            initialValue: brand,
+            items: [
+              for (final b in brands)
+                DropdownMenuItem(value: b, child: Text(b)),
+              const DropdownMenuItem(
+                value: _manualKey,
+                child: Text('Listede yok'),
+              ),
+            ],
+            onChanged: (v) => setState(() {
+              final before = (rifleCaliber.text, _cartridge);
+              rifleModel.text = '';
+              _clearRifleChoice();
+              _keepAmmoInCaliber(before);
+              if (v == _manualKey) {
+                _rifleManual = true;
+                rifleBrand.text = '';
+                return;
+              }
+              rifleBrand.text = v ?? '';
+            }),
+          ),
         ),
       ),
-      KeyedSubtree(
-        key: const Key('rifle-model-select'),
-        child: MenzilSelect<String>(
-          key: ValueKey('rifle-model-select-$brand-$model'),
-          label: 'Model',
-          hint: 'Seçiniz',
-          initialValue: model,
-          items: [
-            for (final m in models)
-              DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
-          ],
-          onChanged: (v) => setState(() {
-            final before = (rifleCaliber.text, _cartridge);
-            rifleModel.text = v ?? '';
-            _clearRifleChoice();
-            final variants = _rifleVariants;
-            // One caliber: it is chosen right away.
-            if (variants.length == 1) _applyRifleVariant(variants.first);
-            _keepAmmoInCaliber(before);
-          }),
+      MenzilFullWidth(
+        child: KeyedSubtree(
+          key: const Key('rifle-model-select'),
+          child: MenzilSelect<String>(
+            key: ValueKey('rifle-model-select-$brand-$model'),
+            label: 'Model',
+            hint: 'Seçiniz',
+            initialValue: model,
+            items: [
+              for (final m in models)
+                DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
+            ],
+            onChanged: (v) => setState(() {
+              final before = (rifleCaliber.text, _cartridge);
+              rifleModel.text = v ?? '';
+              _clearRifleChoice();
+              final variants = _rifleVariants;
+              // One caliber: it is chosen right away.
+              if (variants.length == 1) _applyRifleVariant(variants.first);
+              _keepAmmoInCaliber(before);
+            }),
+          ),
         ),
       ),
     ];
@@ -1276,6 +1485,30 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       }
     }
     final s0 = scope;
+    // A catalog scope comes back in the lists; a typed one in the typed box.
+    if (s0 != null) {
+      final hit = s0.userEntered
+          ? _scopeLib
+                .where(
+                  (r) =>
+                      '${r.brand} ${ScopePickerScreen.seriesOf(_scopeModelOf(r))}'
+                              .trim() ==
+                          s0.brand.trim() &&
+                      r.minMagnification == s0.minMagnification &&
+                      r.maxMagnification == s0.maxMagnification &&
+                      r.objectiveDiameterMm == s0.objectiveDiameterMm &&
+                      (s0.reticle == null ||
+                          _reticlesOf(r).contains(s0.reticle)),
+                )
+                .firstOrNull
+          : s0;
+      if (hit == null) {
+        _scopeManual = true;
+      } else {
+        _scopeBrandSel = hit.brand;
+        _scopeModelKey = _scopeModelOf(hit);
+      }
+    }
     angularUnit = p?.angularUnit ?? s0?.clickUnit ?? AngularUnit.mrad;
     scopeBrand = TextEditingController(text: s0?.brand ?? '');
     scopeMinMag = TextEditingController(text: num(s0?.minMagnification));
@@ -1850,36 +2083,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
   }
 
-  /// "Listeden seç" for the scope: everything the catalog knows fills the
-  /// form (owner, 2026-10-10).
-  Future<void> _pickScope() async {
-    final s = await Navigator.push<ScopeOptic>(
-      context,
-      MaterialPageRoute(builder: (_) => const ScopePickerScreen()),
-    );
-    if (s == null || !mounted) return;
-    setState(() {
-      final series = ScopePickerScreen.seriesName(s);
-      scopeBrand.text = series.isEmpty ? s.brand : '${s.brand} $series';
-      if (s.minMagnification != null) {
-        scopeMinMag.text = _trimNum(s.minMagnification!);
-      }
-      if (s.maxMagnification != null) {
-        scopeMaxMag.text = _trimNum(s.maxMagnification!);
-      }
-      scopeObjective.text = _trimNum(s.objectiveDiameterMm);
-      if (s.firstFocalPlane != null) firstFocalPlane = s.firstFocalPlane;
-      angularUnit = s.clickUnit;
-      scopeClick.text = _trimNum(s.clickValue);
-      final travel = s.elevationRangeMrad;
-      scopeTravelElevation.text = travel == null || travel <= 0
-          ? ''
-          : (_fromMrad(travel, angularUnit) / s.clickValue).round().toString();
-      scopeReticle = s.reticle;
-      _scopePickToken++;
-    });
-  }
-
   /// Rebuilds the scope selects after "Listeden seç" (their initial value
   /// is read once).
   int _scopePickToken = 0;
@@ -1998,7 +2201,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Marka | Model of the ammunition: two lists side by side (factory
   /// cartridges or the bullet library for this caliber); the typed boxes
   /// only after "Listede yok" or when nothing is listed here.
-  List<Widget> _ammoNameFields({required List<Widget> texts}) {
+  List<Widget> _ammoNameFields({
+    required Widget type,
+    required Widget brandText,
+    required Widget modelText,
+  }) {
+    final firearm = platform == WeaponPlatform.firearm;
+    // PCP: Marka | Tip; firearm: Mühimmat türü | Marka. Model gets a row.
+    List<Widget> arrange(Widget brand, Widget model) => [
+      if (firearm) ...[type, brand] else ...[brand, type],
+      MenzilFullWidth(child: model),
+    ];
     final factory = platform == WeaponPlatform.firearm && _factoryAmmo;
     final fHere = factory ? _factoryHere : const <FactoryAmmo>[];
     final lHere = factory ? const <LibraryBullet>[] : _libraryHere;
@@ -2007,7 +2220,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final empty = !noCaliber && (factory ? fHere.isEmpty : lHere.isEmpty);
     if (_ammoManual || empty) {
       return [
-        ...texts,
+        ...arrange(brandText, modelText),
         if (!empty)
           MenzilFullWidth(
             child: Align(
@@ -2052,55 +2265,51 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         picks.add(() => _applyBullet(b, _parse(rifleCaliber)));
       }
     }
-    return [
-      KeyedSubtree(
-        key: const Key('ammo-brand-select'),
-        child: MenzilSelect<String>(
-          key: ValueKey(
-            'ammo-brand-select-${platform.name}-$factory-'
-            '${rifleCaliber.text}-$brand',
-          ),
-          label: 'Marka',
-          hint: noCaliber ? 'Önce kalibre' : 'Seçiniz',
-          initialValue: brand,
-          items: [
-            for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
-            const DropdownMenuItem(
-              value: _manualKey,
-              child: Text('Listede yok'),
-            ),
-          ],
-          onChanged: (v) => setState(() {
-            if (v == _manualKey) {
-              _clearAmmo();
-              _ammoManual = true;
-              return;
-            }
-            ammoBrand.text = v ?? '';
-            ammoModel.text = '';
-          }),
+    final brandSelect = KeyedSubtree(
+      key: const Key('ammo-brand-select'),
+      child: MenzilSelect<String>(
+        key: ValueKey(
+          'ammo-brand-select-${platform.name}-$factory-'
+          '${rifleCaliber.text}-$brand',
         ),
+        label: 'Marka',
+        hint: noCaliber ? 'Önce kalibre' : 'Seçiniz',
+        initialValue: brand,
+        items: [
+          for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
+          const DropdownMenuItem(value: _manualKey, child: Text('Listede yok')),
+        ],
+        onChanged: (v) => setState(() {
+          if (v == _manualKey) {
+            _clearAmmo();
+            _ammoManual = true;
+            return;
+          }
+          ammoBrand.text = v ?? '';
+          ammoModel.text = '';
+        }),
       ),
-      KeyedSubtree(
-        key: const Key('ammo-model-select'),
-        child: MenzilSelect<int>(
-          key: ValueKey(
-            'ammo-model-select-$factory-$brand-${rifleCaliber.text}-$modelIndex',
-          ),
-          label: 'Model',
-          hint: 'Seçiniz',
-          initialValue: modelIndex < 0 ? null : modelIndex,
-          items: [
-            for (final (k, text) in labels.indexed)
-              DropdownMenuItem(value: k, child: Text(text, maxLines: 2)),
-          ],
-          onChanged: (k) {
-            if (k == null) return;
-            setState(picks[k]);
-          },
+    );
+    final modelSelect = KeyedSubtree(
+      key: const Key('ammo-model-select'),
+      child: MenzilSelect<int>(
+        key: ValueKey(
+          'ammo-model-select-$factory-$brand-${rifleCaliber.text}-$modelIndex',
         ),
+        label: 'Model',
+        hint: 'Seçiniz',
+        initialValue: modelIndex < 0 ? null : modelIndex,
+        items: [
+          for (final (k, text) in labels.indexed)
+            DropdownMenuItem(value: k, child: Text(text, maxLines: 2)),
+        ],
+        onChanged: (k) {
+          if (k == null) return;
+          setState(picks[k]);
+        },
       ),
-    ];
+    );
+    return arrange(brandSelect, modelSelect);
   }
 
   @override
@@ -2208,6 +2417,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ),
                 ),
                 MenzilSelect<WeaponPlatform>(
+                  key: const Key('profile-platform'),
                   label: 'Tür',
                   initialValue: platform,
                   items: WeaponPlatform.values
@@ -2251,6 +2461,33 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     }
                     _cartridge = null;
                   }),
+                ),
+                KeyedSubtree(
+                  key: const Key('rifle-origin'),
+                  child: MenzilSelect<bool?>(
+                    key: ValueKey('rifle-origin-$_domestic'),
+                    info: ProfileFieldInfo.rifleOrigin,
+                    label: 'Üretim',
+                    initialValue: _domestic,
+                    items: const [
+                      DropdownMenuItem(value: null, child: Text('Tümü')),
+                      DropdownMenuItem(value: true, child: Text('Yerli')),
+                      DropdownMenuItem(value: false, child: Text('İthal')),
+                    ],
+                    onChanged: (v) => setState(() {
+                      _domestic = v;
+                      // A listed rifle of the other origin goes.
+                      if (!_rifleManual &&
+                          rifleBrand.text.isNotEmpty &&
+                          !_rifleBrands.contains(rifleBrand.text)) {
+                        final before = (rifleCaliber.text, _cartridge);
+                        rifleBrand.text = '';
+                        rifleModel.text = '';
+                        _clearRifleChoice();
+                        _keepAmmoInCaliber(before);
+                      }
+                    }),
+                  ),
                 ),
               ],
             ),
@@ -2421,7 +2658,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ),
           const MenzilSectionHeader(
             'Dürbün',
-            subtitle: 'Listeden seçin ya da bilgileri kendiniz girin',
             padding: EdgeInsets.only(
               top: MenzilSpace.xxs,
               bottom: MenzilSpace.sm,
@@ -2437,31 +2673,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
-                MenzilFullWidth(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-                    child: MenzilSecondaryButton(
-                      key: const Key('scope-library'),
-                      label: 'Listeden seç',
-                      icon: Icons.list_alt,
-                      expand: true,
-                      onPressed: _pickScope,
-                    ),
-                  ),
-                ),
-                // Order set by the owner (2026-10-09). Klik değeri is not
-                // shown: it follows Dürbün birimi.
-                MenzilFullWidth(
-                  child: MenzilInput(
-                    key: const Key('scope-brand'),
-                    controller: scopeBrand,
-                    label: 'Dürbün markası',
-                    keyboardType: TextInputType.text,
-                    maxLength: 100,
-                    onChanged: (_) => setState(() {}),
-                    errorText: _shown(_scopeBrandError, scopeBrand),
-                  ),
-                ),
+                // Owner, 2026-10-11: Marka, then the models of that brand,
+                // then only that model's reticles.
+                ..._scopeNameFields(),
                 MenzilInput(
                   key: const Key('scope-min-mag'),
                   info: ProfileFieldInfo.minMag,
@@ -2570,22 +2784,58 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   errorText: _travelError(scopeTravelElevation),
                 ),
                 MenzilFullWidth(
-                  child: MenzilSelect<String>(
-                    key: ValueKey('scope-reticle-$_scopePickToken'),
-                    info: ProfileFieldInfo.reticle,
-                    label: 'Retikül',
-                    initialValue: scopeReticle,
-                    items: [
-                      if (scopeReticle != null &&
-                          !Reticles.genericNames.contains(scopeReticle))
-                        DropdownMenuItem(
-                          value: scopeReticle,
-                          child: Text(scopeReticle!),
-                        ),
-                      for (final n in Reticles.genericNames)
-                        DropdownMenuItem(value: n, child: Text(n)),
-                    ],
-                    onChanged: (v) => setState(() => scopeReticle = v),
+                  child: KeyedSubtree(
+                    key: const Key('scope-reticle'),
+                    child: Builder(
+                      builder: (context) {
+                        final choices = _scopeManual
+                            ? const <(String, ScopeOptic)>[]
+                            : _scopeReticleChoices;
+                        if (choices.isNotEmpty) {
+                          return MenzilSelect<String>(
+                            key: ValueKey(
+                              'scope-reticle-$_scopePickToken-$_scopeModelKey',
+                            ),
+                            info: ProfileFieldInfo.reticle,
+                            label: 'Retikül',
+                            hint: 'Seçiniz',
+                            initialValue:
+                                choices.any((e) => e.$1 == scopeReticle)
+                                ? scopeReticle
+                                : null,
+                            items: [
+                              for (final (r, _) in choices)
+                                DropdownMenuItem(value: r, child: Text(r)),
+                            ],
+                            onChanged: (v) => setState(() {
+                              final hit = choices
+                                  .where((e) => e.$1 == v)
+                                  .firstOrNull;
+                              if (hit != null) {
+                                _applyScope(hit.$2, reticle: hit.$1);
+                              }
+                            }),
+                          );
+                        }
+                        return MenzilSelect<String>(
+                          key: ValueKey('scope-reticle-$_scopePickToken'),
+                          info: ProfileFieldInfo.reticle,
+                          label: 'Retikül',
+                          initialValue: scopeReticle,
+                          items: [
+                            if (scopeReticle != null &&
+                                !Reticles.genericNames.contains(scopeReticle))
+                              DropdownMenuItem(
+                                value: scopeReticle,
+                                child: Text(scopeReticle!),
+                              ),
+                            for (final n in Reticles.genericNames)
+                              DropdownMenuItem(value: n, child: Text(n)),
+                          ],
+                          onChanged: (v) => setState(() => scopeReticle = v),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 MenzilFullWidth(
@@ -2628,80 +2878,84 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
-                // Owner, 2026-10-11: the type first, then Marka | Model,
-                // Ağırlık | BC, BC modeli | Namlu çıkış hızı.
-                if (platform == WeaponPlatform.firearm)
-                  MenzilFullWidth(
-                    child: KeyedSubtree(
-                      key: const Key('ammo-source'),
-                      child: MenzilSelect<bool>(
-                        key: ValueKey('ammo-source-$_factoryAmmo'),
-                        info: ProfileFieldInfo.ammoSource,
-                        label: 'Mühimmat türü',
-                        initialValue: _factoryAmmo,
-                        items: const [
-                          DropdownMenuItem(
-                            value: true,
-                            child: Text('Fabrika fişeği'),
-                          ),
-                          DropdownMenuItem(
-                            value: false,
-                            child: Text('El dolumu'),
-                          ),
-                        ],
-                        onChanged: (v) => setState(() {
-                          if (v == null || v == _factoryAmmo) return;
-                          _factoryAmmo = v;
-                          _clearAmmo();
-                        }),
-                      ),
-                    ),
-                  )
-                else
-                  MenzilFullWidth(
-                    child: KeyedSubtree(
-                      key: const Key('ammo-type'),
-                      child: MenzilSelect<AmmunitionType>(
-                        key: ValueKey('ammo-type-$ammoType'),
-                        info: ProfileFieldInfo.ammoType,
-                        label: 'Tip',
-                        initialValue: ammoType == AmmunitionType.bullet
-                            ? null
-                            : ammoType,
-                        items: const [
-                          DropdownMenuItem(
-                            value: AmmunitionType.pellet,
-                            child: Text('Pellet'),
-                          ),
-                          DropdownMenuItem(
-                            value: AmmunitionType.slug,
-                            child: Text('Slug'),
-                          ),
-                        ],
-                        onChanged: (v) => setState(() => ammoType = v),
-                      ),
-                    ),
-                  ),
+                // Owner, 2026-10-11: PCP Marka | Tip, firearm Mühimmat türü
+                // | Marka; Model on its own row; Ağırlık | BC; BC modeli |
+                // Namlu çıkış hızı.
                 ..._ammoNameFields(
-                  texts: [
-                    MenzilInput(
-                      key: const Key('ammo-brand'),
-                      controller: ammoBrand,
-                      label: 'Marka',
-                      keyboardType: TextInputType.text,
-                      maxLength: 60,
-                      onChanged: (_) => setState(() {}),
-                      errorText: _shown(_ammoBrandError, ammoBrand),
-                    ),
-                    MenzilInput(
-                      key: const Key('ammo-model'),
-                      controller: ammoModel,
-                      label: 'Model',
-                      keyboardType: TextInputType.text,
-                      maxLength: 80,
-                      onChanged: (_) => setState(() {}),
-                    ),
-                  ],
+                  type: platform == WeaponPlatform.firearm
+                      ? KeyedSubtree(
+                          key: const Key('ammo-source'),
+                          child: MenzilSelect<bool>(
+                            key: ValueKey('ammo-source-$_factoryAmmo'),
+                            info: ProfileFieldInfo.ammoSource,
+                            label: 'Mühimmat türü',
+                            initialValue: _factoryAmmo,
+                            items: const [
+                              DropdownMenuItem(
+                                value: true,
+                                child: Text('Fabrika fişeği'),
+                              ),
+                              DropdownMenuItem(
+                                value: false,
+                                child: Text('El dolumu'),
+                              ),
+                            ],
+                            onChanged: (v) => setState(() {
+                              if (v == null || v == _factoryAmmo) return;
+                              _factoryAmmo = v;
+                              _clearAmmo();
+                            }),
+                          ),
+                        )
+                      : KeyedSubtree(
+                          key: const Key('ammo-type'),
+                          child: MenzilSelect<AmmunitionType>(
+                            key: ValueKey('ammo-type-$ammoType'),
+                            info: ProfileFieldInfo.ammoType,
+                            label: 'Tip',
+                            initialValue: ammoType == AmmunitionType.bullet
+                                ? null
+                                : ammoType,
+                            items: const [
+                              DropdownMenuItem(
+                                value: AmmunitionType.pellet,
+                                child: Text('Pellet'),
+                              ),
+                              DropdownMenuItem(
+                                value: AmmunitionType.slug,
+                                child: Text('Slug'),
+                              ),
+                            ],
+                            onChanged: (v) => setState(() {
+                              if (v == ammoType) return;
+                              // A listed model of the other type goes; the
+                              // brand stays.
+                              if (!_ammoManual && ammoModel.text.isNotEmpty) {
+                                final brand = ammoBrand.text;
+                                _clearAmmo();
+                                ammoBrand.text = brand;
+                              }
+                              ammoType = v;
+                            }),
+                          ),
+                        ),
+                  brandText: MenzilInput(
+                    key: const Key('ammo-brand'),
+                    controller: ammoBrand,
+                    label: 'Marka',
+                    keyboardType: TextInputType.text,
+                    maxLength: 60,
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_ammoBrandError, ammoBrand),
+                  ),
+                  modelText: MenzilInput(
+                    key: const Key('ammo-model'),
+                    controller: ammoModel,
+                    label: 'Model',
+                    keyboardType: TextInputType.text,
+                    maxLength: 80,
+                    onChanged: (_) => setState(() {}),
+                  ),
                 ),
                 MenzilInput(
                   key: const Key('ammo-grain'),

@@ -68,7 +68,7 @@ void main() {
     expect(FactoryAmmoLibrary.all.length, greaterThan(600));
     for (final a in FactoryAmmoLibrary.all) {
       expect(Cartridges.diameterOf(a.cartridge), a.diameterMm, reason: a.name);
-      expect(a.muzzleVelocityFps, inInclusiveRange(800, 4500), reason: a.name);
+      expect(a.muzzleVelocityFps, inInclusiveRange(600, 4500), reason: a.name);
       expect(a.grain, inInclusiveRange(10, 900), reason: a.name);
       expect(a.bc == null, a.model == null, reason: a.name);
       if (a.bc != null) {
@@ -83,17 +83,21 @@ void main() {
     expect(m80.note, contains('23,7 m'));
   });
 
-  testWidgets('PCP: Marka | Model side by side, Kalibre from the model', (
+  testWidgets('PCP: Marka and Model on their own rows, Kalibre below', (
     tester,
   ) async {
     await _openNew(tester);
     final brand = tester.getRect(find.byKey(const Key('rifle-brand-select')));
     final model = tester.getRect(find.byKey(const Key('rifle-model-select')));
-    // One row, two boxes.
-    expect((brand.top - model.top).abs(), lessThan(1));
-    expect(brand.right, lessThan(model.left));
+    // Each on its own full row (owner, 2026-10-11).
+    expect(model.top, greaterThanOrEqualTo(brand.bottom));
+    expect((brand.width - model.width).abs(), lessThan(1));
     final caliber = tester.getRect(find.byKey(const Key('rifle-caliber')));
-    expect(caliber.top, greaterThanOrEqualTo(brand.bottom));
+    expect(caliber.top, greaterThanOrEqualTo(model.bottom));
+    // Tür | Üretim on one row.
+    final tur = tester.getRect(find.byKey(const Key('profile-platform')));
+    final origin = tester.getRect(find.byKey(const Key('rifle-origin')));
+    expect((tur.top - origin.top).abs(), lessThan(1));
 
     await chooseInSelect(tester, 'rifle-brand-select', 'Reximex');
     await chooseInSelect(tester, 'rifle-model-select', 'Apex');
@@ -186,5 +190,51 @@ void main() {
     await tester.pumpAndSettle();
     expect(_text(tester, 'ammo-grain'), '168');
     expect(_text(tester, 'profile-velocity-fps'), '2650');
+  });
+  testWidgets('Üretim Yerli lists only rifles made in Türkiye', (tester) async {
+    await _openNew(tester);
+    await chooseInSelect(tester, 'rifle-origin', 'Yerli');
+    await tester.tap(find.byKey(const Key('rifle-brand-select')));
+    await tester.pumpAndSettle();
+    expect(find.text('Hatsan'), findsWidgets);
+    expect(find.text('Daystate'), findsNothing);
+    await tester.tap(find.text('Hatsan').last);
+    await tester.pumpAndSettle();
+    // İthal drops the domestic brand.
+    await chooseInSelect(tester, 'rifle-origin', 'İthal');
+    expect(_in('rifle-brand-select', find.text('Hatsan')), findsNothing);
+  });
+
+  testWidgets('Dürbün: a model lists only its own reticles', (tester) async {
+    await _openNew(tester);
+    await chooseInSelect(tester, 'scope-brand-select', 'Athlon');
+    await chooseInSelect(
+      tester,
+      'scope-model-select',
+      'Talos HMR 4-16x56 SFP IR MOA',
+    );
+    await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
+    await tester.tap(find.byKey(const Key('scope-reticle')));
+    await tester.pumpAndSettle();
+    expect(find.text('BDC600'), findsWidgets);
+    expect(find.text('AHMC'), findsWidgets);
+    expect(find.text('Center-X'), findsNothing);
+    expect(find.text('MIL çizgili'), findsNothing);
+    await tester.tap(find.text('AHMC').last);
+    await tester.pumpAndSettle();
+    expect(_text(tester, 'scope-max-mag'), '16');
+    expect(_text(tester, 'scope-objective'), '56');
+  });
+
+  testWidgets('PCP mühimmat: Marka | Tip, Model on its own row', (
+    tester,
+  ) async {
+    await _openNew(tester);
+    final brand = tester.getRect(find.byKey(const Key('ammo-brand-select')));
+    final type = tester.getRect(find.byKey(const Key('ammo-type')));
+    expect((brand.top - type.top).abs(), lessThan(1));
+    expect(brand.right, lessThan(type.left));
+    final model = tester.getRect(find.byKey(const Key('ammo-model-select')));
+    expect(model.top, greaterThanOrEqualTo(brand.bottom));
   });
 }

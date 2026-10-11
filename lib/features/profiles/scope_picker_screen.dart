@@ -13,7 +13,10 @@ class ScopePickerScreen extends StatefulWidget {
 
   /// The model name without the designation the form builds itself
   /// ("6–24×50", "FFP"), e.g. "Sentinel (SCFF-57)".
-  static String seriesName(ScopeOptic s) => s.model
+  static String seriesName(ScopeOptic s) => seriesOf(s.model);
+
+  /// [seriesName] of a model name.
+  static String seriesOf(String model) => model
       .replaceAll(
         RegExp(r'\s*\d+(?:[.,]\d+)?\s*[–-]\s*\d+(?:[.,]\d+)?\s*[×xX]\s*\d+\w*'),
         '',
