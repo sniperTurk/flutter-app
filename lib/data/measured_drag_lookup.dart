@@ -33,8 +33,7 @@ abstract final class MeasuredDragLookup {
   /// Tests only: replaces [measuredDragCurves] when set.
   static List<MeasuredDragCurve>? debugOverride;
 
-  static List<MeasuredDragCurve> get all =>
-      debugOverride ?? measuredDragCurves;
+  static List<MeasuredDragCurve> get all => debugOverride ?? measuredDragCurves;
 
   /// The measured curve of exactly this library bullet; null = none (the
   /// bullet's G1/G7 BC applies).
