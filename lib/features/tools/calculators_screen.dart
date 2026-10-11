@@ -22,6 +22,10 @@ double? _p(TextEditingController c) {
   return v != null && v.isFinite ? v : null;
 }
 
+/// Largest click count the click check accepts; a bigger (or infinite)
+/// typed value is invalid instead of overflowing toInt().
+const _maxClicks = 1000000;
+
 String _d(double v, int digits) => ToolFormat.dec(v, digits);
 
 /// Hesaplayıcılar: the field calculators (distance, angular size, click
@@ -676,7 +680,7 @@ class _ClickCheckState extends State<ClickCheckScreen> {
     final nominal = _p(_nominal);
     final clicks =
         (clicksD != null &&
-            clicksD.abs() <= 1000000 &&
+            clicksD.abs() <= _maxClicks &&
             clicksD == clicksD.roundToDouble())
         ? clicksD.toInt()
         : null;

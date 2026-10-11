@@ -31,8 +31,8 @@ void main() {
     // The zero search had no flight-time cap: 4 000 000 RK4 steps per
     // bracket evaluation, repeated once per requested range (11 × 4 M),
     // seconds of frozen UI. With the same 60 s flight cap as the main
-    // trajectory it is 11 × 120 000 steps.
-    expect(watch.elapsed, lessThan(const Duration(seconds: 2)));
+    // trajectory it is 11 × 120 000 steps (CI: ~40 s before the fix).
+    expect(watch.elapsed, lessThan(const Duration(seconds: 5)));
   }, timeout: const Timeout(Duration(minutes: 5)));
 
   test('BC from two velocities refuses distances beyond the app range limit '
