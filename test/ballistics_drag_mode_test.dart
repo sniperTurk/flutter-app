@@ -57,13 +57,13 @@ void main() {
   testWidgets('BC + G1 switches the table to the drag solver', (tester) async {
     install();
     await _pump(tester);
-    expect(find.textContaining('Sürtünmeli hesap: G1 BC 0.04'), findsOneWidget);
+    expect(find.textContaining('Sürtünmeli hesap: G1 BC 0,04'), findsOneWidget);
 
     await tester.tap(find.text('DOPE oluştur'));
     await tester.pumpAndSettle();
 
     expect(find.byType(DataTable), findsOneWidget);
-    expect(find.text('Rüzgâr mrad'), findsOneWidget);
+    expect(find.text('Rüzgâr MRAD'), findsOneWidget);
     expect(find.text('Mesafe enerjisi J'), findsOneWidget);
     expect(find.textContaining('Vakum düşüşü'), findsNothing);
     expect(find.textContaining('Namlu enerjisi'), findsNothing);
@@ -80,7 +80,7 @@ void main() {
     );
     await tester.tap(find.text('DOPE oluştur'));
     await tester.pumpAndSettle();
-    expect(find.text('Rüzgâr mrad'), findsNothing);
+    expect(find.text('Rüzgâr MRAD'), findsNothing);
     expect(find.text('Vakum düşüşü cm*'), findsOneWidget);
   });
 
@@ -97,7 +97,7 @@ void main() {
     );
     await tester.tap(find.text('DOPE oluştur'));
     await tester.pumpAndSettle();
-    expect(find.text('Rüzgâr mrad'), findsNothing);
+    expect(find.text('Rüzgâr MRAD'), findsNothing);
   });
 
   testWidgets('muzzle Mach >= 0.8 shows the transonic warning', (tester) async {
@@ -157,13 +157,15 @@ void main() {
     final header = table.columns
         .map((c) => (c.label as Text).data)
         .toList(growable: false);
-    final mradCol = header.indexOf('Rüzgâr mrad');
+    final mradCol = header.indexOf('Rüzgâr MRAD');
     final driftCol = header.indexOf('Rüzgâr sapması cm');
     double cell(DataRow row, int i) =>
-        double.parse((row.cells[i].child as Text).data!);
+        double.parse((row.cells[i].child as Text).data!.replaceAll(',', '.'));
     double? previous;
     for (final row in table.rows) {
-      final range = double.parse((row.cells.first.child as Text).data!);
+      final range = double.parse(
+        (row.cells.first.child as Text).data!.replaceAll(',', '.'),
+      );
       final mrad = cell(row, mradCol);
       final drift = cell(row, driftCol);
       // Same lateral displacement two ways: angle × range vs. the drift.
@@ -198,8 +200,8 @@ void main() {
           .data!
           .split(' · ')
           .last,
-      startsWith('0.0 cm'),
+      startsWith('0,0 cm'),
     );
-    expect(find.textContaining('1 mil ='), findsOneWidget);
+    expect(find.textContaining('1 MRAD ='), findsOneWidget);
   });
 }

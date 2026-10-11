@@ -341,7 +341,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
         if (items.isEmpty)
           MenzilCard(
             child: Text(
-              'Henüz kayıtlı profil yok.\nYeni profil ile ilk profilini oluştur.',
+              'Henüz kayıtlı profil yok.\nYeni profil ile ilk profilinizi oluşturun.',
               textAlign: TextAlign.center,
               style: MenzilType.body(c.ink),
             ),
@@ -910,7 +910,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               children: [
                 Expanded(child: Text(name)),
                 Text(
-                  '${d.toStringAsFixed(2)} mm',
+                  '${d.toStringAsFixed(2).replaceAll('.', ',')} mm',
                   style: const TextStyle(fontSize: 12),
                 ),
               ],
@@ -1211,7 +1211,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final name = u == AngularUnit.smoa ? 'SMOA' : 'MOA';
     return u.moaFamily
         ? [(0.25, '1/4 $name'), (0.125, '1/8 $name'), (0.5, '1/2 $name')]
-        : const [(0.1, '0,1 mrad'), (0.05, '0,05 mrad')];
+        : const [(0.1, '0,1 MRAD'), (0.05, '0,05 MRAD')];
   }
 
   /// A number picked from [options] into [controller] ("Seçiniz" while
@@ -2011,7 +2011,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     if (c.text.trim().isEmpty) return 'Gerekli.';
     final v = _parse(c);
     if (v == null || v < min || v > max) {
-      String f(double x) => x % 1 == 0 ? x.toStringAsFixed(0) : '$x';
+      String f(double x) => x % 1 == 0
+          ? x.toStringAsFixed(0)
+          : '$x'.replaceAll('.', ',');
       return '${f(min)}–${f(max)} arasında bir değer girin.';
     }
     return null;
@@ -2734,6 +2736,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 MenzilSelect<WeaponPlatform>(
                   key: const Key('profile-platform'),
                   label: 'Tür',
+                  info: ProfileFieldInfo.platform,
                   initialValue: platform,
                   items: WeaponPlatform.values
                       .map(

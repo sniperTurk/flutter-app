@@ -121,7 +121,7 @@ void main() {
       await tester.tap(make);
       await tester.pumpAndSettle();
       // The zero is shown as 30 yd.
-      expect(find.textContaining('Sıfır mesafesi 30.0 yd'), findsOneWidget);
+      expect(find.textContaining('Sıfırlama mesafesi 30,0 yd'), findsOneWidget);
     });
   });
 }

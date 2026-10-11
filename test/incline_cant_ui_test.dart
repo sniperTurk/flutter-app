@@ -260,7 +260,7 @@ void main() {
   ) async {
     final ws = await _pumpShot(tester, TestTilt());
     // Calm and level: nothing sideways.
-    expect(_impact(tester).split(' · ').last, startsWith('0.0 cm'));
+    expect(_impact(tester).split(' · ').last, startsWith('0,0 cm'));
 
     await ws.show(BallisticsView.pro);
     await openProFor(tester, const Key('shot-cant'));
@@ -283,7 +283,7 @@ void main() {
     await ws.show(BallisticsView.shot);
     // A right cant moves the shot right: dial left.
     final side = _impact(tester).split(' · ').last;
-    expect(side, isNot(startsWith('0.0 cm')));
+    expect(side, isNot(startsWith('0,0 cm')));
     expect(side, endsWith('sağ'));
     expect(await _dialSolution(tester), contains('klik sol'));
 

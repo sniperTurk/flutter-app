@@ -31,14 +31,14 @@ extension TruingRejectionMessage on TruingRejection {
     TruingRejection.rangeTooShort =>
       'Doğrulama mesafesi sıfır mesafesinden uzak olmalı. Daha uzak bir hedefte ölçün.',
     TruingRejection.notSensitive =>
-      'Bu mesafede hız farkı düşümü yeterince değiştirmiyor. Daha uzak bir hedefte ölçün.',
+      'Bu mesafede hız farkı düşüşü yeterince değiştirmiyor. Daha uzak bir hedefte ölçün.',
     TruingRejection.outOfBounds =>
       'Gözlenen düzeltme hesaplanandan çok farklı (hızda %15’ten fazla değişim gerekirdi). '
-          'Balistik katsayıyı, sıfırı, dürbün yüksekliğini ve ölçümü kontrol edin.',
+          'Balistik katsayıyı, sıfırı, sight height değerini ve ölçümü kontrol edin.',
     TruingRejection.bcOutOfBounds =>
       'Gözlenen düzeltme hesaplanandan çok farklı (BC\'de %30\'dan fazla '
           'değişim gerekirdi). Önce hızı yakın mesafede doğrulayın; sıfırı, '
-          'dürbün yüksekliğini ve ölçümü kontrol edin.',
+          'sight height değerini ve ölçümü kontrol edin.',
     TruingRejection.unreachable =>
       'Mermi bu mesafeye ulaşamıyor; doğrulama yapılamaz.',
   };

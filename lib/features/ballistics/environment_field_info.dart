@@ -60,16 +60,16 @@ abstract final class EnvironmentFieldInfo {
       '10, 20, 30, 40, 50.';
   static const shotRange =
       'Hedefe olan mesafe. Telemetre (lazer mesafe ölçer) ile ölçün veya '
-      '"Haritadan" ile seçin. Örnek: 45 m.';
+      '"Haritadan ölç" ile seçin. Örnek: 45 m.';
   static const gravity =
-      'Bulunduğun yerdeki yerçekimi, m/s². "Konumdan hesapla" enleminden ve '
-      'irtifandan hesaplar; elle de yazabilirsin. Türkiye\'de yaklaşık 9,80; '
+      'Bulunduğunuz yerdeki yerçekimi, m/s². "Konumdan hesapla" enleminizden '
+      've irtifanızdan hesaplar; elle de yazabilirsiniz. Türkiye\'de yaklaşık 9,80; '
       'örneğin Ankara (900 m) 9,7988. Kapalıyken standart 9,80665 kullanılır.';
   static const proShotRange =
-      'Ateş edeceğin hedefin uzaklığı. Telemetre (lazer mesafe ölçer) ile '
-      'ölç ya da bilmiyorsan "Haritadan ölç"e dokunup haritada senin ve '
-      'hedefin yerini işaretle. Hedef ekranı bu mesafeyle açılır ve dürbün '
-      'kurulmuş gelir. Boş bırakırsan Hedef 100 m (yarda biriminde 100 yd) '
+      'Ateş edeceğiniz hedefin uzaklığı. Telemetre (lazer mesafe ölçer) ile '
+      'ölçün ya da bilmiyorsanız "Haritadan ölç"e dokunup haritada kendi '
+      'yerinizi ve hedefin yerini işaretleyin. Hedef ekranı bu mesafeyle açılır ve dürbün '
+      'kurulmuş gelir. Boş bırakırsanız Hedef 100 m (yard biriminde 100 yd) '
       'ile açılır. Örnek: 85 m.';
   static const incline =
       'Tüfek eğimi: hedefe bakış çizgisinin yatayla yaptığı açı. Yukarı '
@@ -117,9 +117,9 @@ abstract final class EnvironmentFieldInfo {
       'tutun. Birkaç derecelik hata Coriolis sonucunu fark edilir '
       'değiştirmez. Örnek: 135.';
   static const turretScale =
-      'Kulenin yazdığı kadar çevirmeyebilir. Kule testi: dürbünü 10 mrad '
+      'Kulenin yazdığı kadar çevirmeyebilir. Kule testi: dürbünü 10 MRAD '
       '(ya da 30 MOA) yukarı çevirip 100 m\'de ızgaralı hedefte gerçek kaymayı '
-      'ölçün; gerçek / yazan oranını girin. Örnek: gerçek 9,8 mrad ise 0,98. '
+      'ölçün; gerçek / yazan oranını girin. Örnek: gerçek 9,8 MRAD ise 0,98. '
       'Boş bırakırsanız 1 (düzeltme yok). Klikler bu katsayıya göre ayarlanır.';
   static const windMax =
       'Rüzgârın sert estiği (hamle) andaki hızı. Otomatik doldurulur: Hava '
@@ -130,11 +130,11 @@ abstract final class EnvironmentFieldInfo {
       '2 m/s ise 3.';
   static const windMid =
       'Hedefe giden yolun ortasındaki rüzgârın tahmini hızı. Yapraklara, '
-      'çimene veya bayraklara bakarak tahmin et. Örnek: 3 m/s. Boşsa senin '
-      'yanındaki rüzgâr kullanılır.';
+      'çimene veya bayraklara bakarak tahmin edin. Örnek: 3 m/s. Boşsa sizin '
+      'yanınızdaki rüzgâr kullanılır.';
   static const windFar =
       'Hedefin yanındaki rüzgârın tahmini hızı. Örnek: 4 m/s. Boşsa yol '
-      'ortasındaki (o da boşsa senin yanındaki) rüzgâr kullanılır.';
+      'ortasındaki (o da boşsa sizin yanınızdaki) rüzgâr kullanılır.';
   static const zeroUp =
       'Sıfır mesafesinde grubun ortası artıdan kaç cm yukarıda (+) veya '
       'aşağıda (−). Örnek: 0,5 ya da -0,3.';
@@ -146,22 +146,22 @@ abstract final class EnvironmentFieldInfo {
       'Örnek: 25 m\'de 1,2 cm.';
   static const sd =
       'Hız farkı (SD), fps: kronograf cihazının 5–10 atış sonrası gösterdiği '
-      'standart sapma. Örnek: 4 fps. Bilmiyorsan boş bırak.';
+      'standart sapma. Örnek: 4 fps. Bilmiyorsanız boş bırakın.';
   static const targetSize =
-      'Vurmak istediğin alanın çapı, cm. Kâğıt hedefte halkanın, avda hayati '
-      'bölgenin çapı. Boş bırakırsan 10 cm. Örnek: tavşan 5 cm, karaca 15 cm.';
+      'Vurmak istediğiniz alanın çapı, cm. Kâğıt hedefte halkanın, avda hayati '
+      'bölgenin çapı. Boş bırakırsanız 10 cm. Örnek: tavşan 5 cm, karaca 15 cm.';
   static const rangeError =
-      'Mesafeyi ne kadar yanlış ölçebileceğin, ±. Lazer mesafe ölçerde '
-      'genelde ±1 m; göz kararında daha fazla. Boş bırakırsan ±1.';
+      'Mesafeyi ne kadar yanlış ölçebileceğiniz, ±. Lazer mesafe ölçerde '
+      'genelde ±1 m; göz kararında daha fazla. Boş bırakırsanız ±1.';
   static const bcError =
-      'BC değerinden ne kadar emin olduğun, ± %. Üretici değeri için 3–5 %; '
-      'kendin doğruladıysan 1–2 %. Boş bırakırsan hesaba katılmaz.';
+      'BC değerinden ne kadar emin olduğunuz, ± %. Üretici değeri için %3–5; '
+      'kendiniz doğruladıysanız %1–2. Boş bırakırsanız hesaba katılmaz.';
   static const wezShotCount =
-      'Hedefe kaç atış yapmayı düşündüğün. 1 atışta yalnız ilk atış '
+      'Hedefe kaç atış yapmayı düşündüğünüz. 1 atışta yalnız ilk atış '
       'isabet olasılığı görünür; daha fazlasında Hedef ekranı bu kadar '
       'atışta en az bir isabet şansını da gösterir. Atışlar birbirinden '
       'bağımsız sayılır; mesafe veya rüzgâr hatası düzeltilmeden tekrar '
-      'atarsan gerçek şans biraz daha düşüktür. Örnek: avda 1, hedef '
+      'atarsanız gerçek şans biraz daha düşüktür. Örnek: avda 1, hedef '
       'atışında 3 veya 5.';
   static const targetSpeed =
       'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '

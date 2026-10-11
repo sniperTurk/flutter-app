@@ -142,7 +142,7 @@ class _InclineMeasureScreenState extends State<InclineMeasureScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Text(
-                    'Nişangahı hedefe yerleştirin ve OK\'a basın.',
+                    'Nişangâhı hedefe yerleştirin ve Tamam\'a basın.',
                     textAlign: TextAlign.center,
                     style: style(15, w: FontWeight.w500),
                   ),
@@ -153,7 +153,7 @@ class _InclineMeasureScreenState extends State<InclineMeasureScreen> {
                   onPressed: _raw == null
                       ? null
                       : () => setState(() => _offset = _raw!),
-                  child: Text('Set 0°', style: style(30)),
+                  child: Text('0°\'a ayarla', style: style(30)),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
@@ -171,7 +171,7 @@ class _InclineMeasureScreenState extends State<InclineMeasureScreen> {
                             : () => Navigator.of(
                                 context,
                               ).pop((angle * 10).round() / 10),
-                        child: Text('OK', style: style(30)),
+                        child: Text('Tamam', style: style(30)),
                       ),
                     ],
                   ),

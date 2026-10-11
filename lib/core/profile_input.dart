@@ -49,18 +49,18 @@ class ProfileInput {
     }
     final velocity = _boundedPositive(
       muzzleVelocityText,
-      'Namlu hızı',
+      'Namlu çıkış hızı',
       ProductionLimits.maxMuzzleVelocityMps,
     );
     final zero = _boundedPositive(
       zeroRangeText,
-      'Sıfır mesafesi',
+      'Sıfırlama mesafesi',
       ProductionLimits.maxRangeM,
     );
-    final sight = _positive(sightHeightText, 'Dürbün eksen yüksekliği');
+    final sight = _positive(sightHeightText, 'Sight height');
     if (sight >= ProductionLimits.maxSightHeightMm) {
       throw const FormatException(
-        'Dürbün eksen yüksekliği 300 mm’den küçük olmalıdır.',
+        'Sight height 300 mm’den küçük olmalıdır.',
       );
     }
     if (!ProductionLimits.mountCantOptionsMoa.contains(mountCantMoa)) {
