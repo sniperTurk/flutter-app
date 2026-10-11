@@ -1171,6 +1171,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return out;
   }
 
+  /// A plain reticle pattern that matches the scope's turret unit: MIL
+  /// patterns for a MRAD scope, the MOA pattern for MOA / SMOA; Duplex fits
+  /// both.
+  bool _genericFitsUnit(String n) {
+    if (n == Reticles.duplex) return true;
+    final moa = angularUnit.moaFamily;
+    return n == Reticles.hashMoa ? moa : !moa;
+  }
+
   /// Fills the scope form from a catalog record.
   void _applyScope(ScopeOptic s, {String? reticle}) {
     final series = ScopePickerScreen.seriesOf(_scopeModelOf(s));
@@ -2903,8 +2912,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                                 value: scopeReticle,
                                 child: Text(scopeReticle!),
                               ),
+                            // The manufacturer names no reticle: only the
+                            // plain patterns of the scope's unit (owner,
+                            // 2026-10-11: a MRAD scope listed MOA too).
                             for (final n in Reticles.genericNames)
-                              DropdownMenuItem(value: n, child: Text(n)),
+                              if (_genericFitsUnit(n) || n == scopeReticle)
+                                DropdownMenuItem(value: n, child: Text(n)),
                           ],
                           onChanged: (v) => setState(() => scopeReticle = v),
                         );
