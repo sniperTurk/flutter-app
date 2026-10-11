@@ -829,7 +829,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       return '${aM.round()} m irtifada gerçek basınç yaklaşık '
           '${typical.round()} hPa olur; girilen değer deniz seviyesi basıncı '
           'olabilir. Hava durumu uygulamasındaki basıncı istasyon basıncına '
-          'çevirin ya da "Konumdan doldur"u kullanın.';
+          'çevirin ya da "Konumdan canlı hava verisi al" düğmesini kullanın.';
     }
     if (pHpa < low - 1) {
       return '${aM.round()} m irtifa için basınç çok düşük (yaklaşık '
@@ -985,7 +985,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         const SizedBox(height: MenzilSpace.xs),
         MenzilSecondaryButton(
           key: const Key('environment-fill-weather'),
-          label: _weatherBusy ? 'Alınıyor…' : 'Konumdan doldur',
+          label: _weatherBusy ? 'Alınıyor…' : 'Konumdan canlı hava verisi al',
           icon: Icons.my_location,
           expand: true,
           onPressed: _weatherBusy ? null : () => _fillWeather(overwrite: true),
