@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="514" height="544" viewBox="0 0 514 544">
+<title>Garmin — saatten mesafe değiştirme</title>
+<rect x="0" y="0" width="514" height="544" fill="#1B1F23"/>
+<circle cx="257.0" cy="257.0" r="241.0" fill="#2A2F35"/>
+<circle cx="257.0" cy="257.0" r="227.0" fill="#000000"/>
+<g transform="translate(30,30)"><text x="227" y="100" font-family="Inter, -apple-system, 'SF Pro', sans-serif" font-size="24" font-weight="400" fill="#8DA0AE" text-anchor="middle" >Hedef mesafesi</text><path d="M209 150 L227 128 L245 150" fill="none" stroke="#8DA0AE" stroke-width="4"/><text x="227" y="255" font-family="Inter, -apple-system, 'SF Pro', sans-serif" font-size="100" font-weight="400" fill="#5CC3E6" text-anchor="middle" >650</text><text x="227" y="295" font-family="Inter, -apple-system, 'SF Pro', sans-serif" font-size="26" font-weight="400" fill="#8DA0AE" text-anchor="middle" >m</text><path d="M209 318 L227 340 L245 318" fill="none" stroke="#8DA0AE" stroke-width="4"/><text x="227" y="378" font-family="Inter, -apple-system, 'SF Pro', sans-serif" font-size="17" font-weight="400" fill="#8DA0AE" text-anchor="middle" >Yukarı/aşağı tuşları · Başlat: gönder</text><text x="227" y="404" font-family="Inter, -apple-system, 'SF Pro', sans-serif" font-size="16" font-weight="400" fill="#8DA0AE" text-anchor="middle" >Hesap telefonda yapılır</text></g>
+<text x="257.0" y="529" font-family="Inter, -apple-system, 'SF Pro', sans-serif" font-size="15" font-weight="400" fill="#8DA0AE" text-anchor="middle" >Garmin — saatten mesafe değiştirme</text>
+</svg>
