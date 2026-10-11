@@ -5,8 +5,14 @@ void main() {
   test('land classes 0–7 with the WMO speed limits (m/s, 10 m)', () {
     final c = Beaufort.classes;
     expect([for (final x in c) x.force], [0, 1, 2, 3, 4, 5, 6, 7]);
-    expect([for (final x in c) x.minMps], [0, 0.3, 1.6, 3.4, 5.5, 8.0, 10.8, 13.9]);
-    expect([for (final x in c) x.maxMps], [0.2, 1.5, 3.3, 5.4, 7.9, 10.7, 13.8, 17.1]);
+    expect(
+      [for (final x in c) x.minMps],
+      [0, 0.3, 1.6, 3.4, 5.5, 8.0, 10.8, 13.9],
+    );
+    expect(
+      [for (final x in c) x.maxMps],
+      [0.2, 1.5, 3.3, 5.4, 7.9, 10.7, 13.8, 17.1],
+    );
   });
 
   test('classes are adjacent: each starts 0.1 m/s above the previous top', () {

@@ -69,9 +69,7 @@ void main() {
     expect(s.label.contains('('), isFalse);
   });
 
-  testWidgets('a class fills Rüzgâr hızı and En yüksek rüzgâr', (
-    tester,
-  ) async {
+  testWidgets('a class fills Rüzgâr hızı and En yüksek rüzgâr', (tester) async {
     await _sized(tester);
     await tester.pumpWidget(_app(BallisticsView.environment));
     await tester.pumpAndSettle();
