@@ -191,7 +191,16 @@ Future<void> _popTop(WidgetTester tester) async {
 
 void main() {
   tearDownAll(() {
-    final keys = _summary.keys.toList()..sort();
+    // Real-font findings first; the deliberately long profile name is cut
+    // with an ellipsis by design and left out.
+    final keys =
+        _summary.keys.where((k) => !k.contains(_profile.name)).toList()
+          ..sort((a, b) {
+            int rank(String k) =>
+                _summary[k]!.any((d) => d.contains('Oswald')) ? 0 : 1;
+            final r = rank(a).compareTo(rank(b));
+            return r != 0 ? r : a.compareTo(b);
+          });
     for (final k in keys) {
       // ignore: avoid_print
       print('Which: $k|${_summary[k]!.join(', ')}');
