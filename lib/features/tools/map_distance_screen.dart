@@ -137,6 +137,14 @@ class _MapDistanceState extends State<MapDistanceScreen> {
         _searching = false;
         _searchMessage = e.message;
       });
+    } catch (_) {
+      // Never leave the search spinning with the button locked.
+      if (!mounted) return;
+      setState(() {
+        _searching = false;
+        _searchMessage =
+            'Yer aranamadı. Bağlantıyı kontrol edip tekrar deneyin.';
+      });
     }
   }
 
