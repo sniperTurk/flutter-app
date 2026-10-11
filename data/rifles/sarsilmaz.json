@@ -131,5 +131,24 @@
   "velocity_fps": null,
   "source_url": "https://www.sarsilmaz.com/tr/urun/sar-56-145",
   "notes": "6 sağ yiv 1/178 mm (1:7\"); dönüştürüldü. Şarjör 30/20/10. Tek/seri atış (askeri). Ağırlık şarjörsüz. çap: nominal."
+ },
+ {
+  "brand": "Sarsılmaz",
+  "model": "SAR 308 Versiyon 2 7.62x39 mm",
+  "platform": "firearm",
+  "caliber": "7.62x39 mm",
+  "bullet_diameter_mm": null,
+  "barrel_length_mm": 410,
+  "twist_rate_in": null,
+  "twist_direction": "right",
+  "magazine_capacity": 30,
+  "weight_kg": 3.35,
+  "overall_length_mm": 900,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://sarsilmaz.com/public/uploads/1760393477tr.pdf",
+  "notes": "Sarsılmaz 2025 Ürün Kataloğu (resmi PDF): 4 yiv-set sağa dönüşlü; hatve katalogda yok. Ağırlık şarjörsüz."
  }
 ]
