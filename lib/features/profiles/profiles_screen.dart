@@ -2664,7 +2664,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   info: ProfileFieldInfo.twistRate,
                   controller: rifleTwist,
                   label: 'Yiv oranı',
-                  hintText: '16',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_twistError, rifleTwist),
                 ),
@@ -3042,11 +3041,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   label: 'Ağırlık',
                   // An example of how to write it; gone once the box is
                   // tapped (owner, 2026-10-09).
-                  hintText: _grainFocus.hasFocus
-                      ? null
-                      : platform == WeaponPlatform.firearm
-                      ? '168 gr'
-                      : '25.39 gr',
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_grainError, ammoGrain),
                 ),
@@ -3058,9 +3052,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                         : ProfileFieldInfo.bc,
                     controller: ammoBc,
                     label: 'BC',
-                    hintText: platform == WeaponPlatform.firearm
-                        ? '0,45'
-                        : '0,035',
                     onChanged: (_) => setState(() {}),
                     errorText: _shown(_bcError, ammoBc),
                   ),
@@ -3130,13 +3121,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       info: ProfileFieldInfo.bandSpeed,
                       controller: ammoBandFps[i],
                       label: '${i + 1}. eşik hızı',
-                      hintText: i == 0
-                          ? (platform == WeaponPlatform.firearm
-                                ? '2200'
-                                : '800')
-                          : (platform == WeaponPlatform.firearm
-                                ? '1800'
-                                : '700'),
                       onChanged: (_) => setState(() {}),
                       errorText: _shown(_bandFpsError(i), ammoBandFps[i]),
                     ),
@@ -3145,9 +3129,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       info: ProfileFieldInfo.bandBc,
                       controller: ammoBandBc[i],
                       label: 'Eşik altı BC',
-                      hintText: platform == WeaponPlatform.firearm
-                          ? '0,42'
-                          : '0,031',
                       onChanged: (_) => setState(() {}),
                       errorText: _shown(_bandBcError(i), ammoBandBc[i]),
                     ),
