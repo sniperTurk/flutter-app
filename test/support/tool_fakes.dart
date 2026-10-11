@@ -37,6 +37,7 @@ class TestLocation implements LocationProvider {
     calls++;
     return result;
   }
+
   @override
   Future<bool> openSettings() async {
     settingsOpened++;
