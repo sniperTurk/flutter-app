@@ -1048,7 +1048,13 @@ class MenzilSelect<T> extends StatelessWidget {
           ),
           Semantics(
             label: semanticLabel ?? label,
-            child: DropdownButtonFormField<T>(
+            child: LayoutBuilder(
+              builder: (context, box) => DropdownButtonFormField<T>(
+              // Narrower than a full-width box (owner, 2026-10-11: "sağa
+              // sola da çok açılıyor").
+              menuWidth: box.maxWidth.isFinite
+                  ? math.min(box.maxWidth, 260)
+                  : null,
               initialValue: initialValue,
               hint: hint == null
                   ? null
@@ -1085,6 +1091,7 @@ class MenzilSelect<T> extends StatelessWidget {
                 color: c.ink,
               ),
               decoration: const InputDecoration(),
+            ),
             ),
           ),
         ],
