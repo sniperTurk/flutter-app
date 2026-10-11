@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
@@ -48,6 +49,14 @@ Future<Uint8List> buildDopeCardPdf(
   const red = PdfColor.fromInt(0xFFC8102E);
   const grey = PdfColor.fromInt(0xFF465D6F);
   const band = PdfColor.fromInt(0xFFEFF3F5);
+  // The table fills the A4 page (owner, 2026-10-11): rows grow with the
+  // free height left by the header, the info line and the notes.
+  final rowCount = math.max(1, d.rows.length);
+  final free = 842.0 - 56 - 100 - 24 - 26 - d.notes.length * 13.0;
+  // 10 % reserve so a wrapped info line never pushes past the page.
+  final rowH = (free * 0.9 / rowCount).clamp(20.0, 48.0);
+  final cellFont = (rowH * 0.42).clamp(11.0, 17.0);
+  final cellPadV = ((rowH - cellFont * 1.25) / 2).clamp(4.0, 16.0);
   doc.addPage(
     pw.Page(
       pageTheme: pw.PageTheme(
@@ -142,18 +151,18 @@ Future<Uint8List> buildDopeCardPdf(
           pw.TableHelper.fromTextArray(
             headers: d.headers,
             data: d.rows,
-            headerStyle: const pw.TextStyle(
-              fontSize: 10,
+            headerStyle: pw.TextStyle(
+              fontSize: math.min(13, cellFont),
               fontWeight: pw.FontWeight.bold,
               color: PdfColors.white,
             ),
             headerDecoration: const pw.BoxDecoration(color: ink),
-            cellStyle: const pw.TextStyle(fontSize: 11, color: ink),
+            cellStyle: pw.TextStyle(fontSize: cellFont, color: ink),
             cellAlignment: pw.Alignment.center,
             headerAlignment: pw.Alignment.center,
             oddRowDecoration: const pw.BoxDecoration(color: band),
-            cellPadding: const pw.EdgeInsets.symmetric(
-              vertical: 5,
+            cellPadding: pw.EdgeInsets.symmetric(
+              vertical: cellPadV,
               horizontal: 4,
             ),
             border: pw.TableBorder.all(color: grey, width: 0.4),
