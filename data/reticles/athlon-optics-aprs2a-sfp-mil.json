@@ -1,0 +1,21 @@
+{
+  "name": "APRS2A SFP MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Talos BTR GEN2 10x42"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 8,
+  "extent_v_up": 8,
+  "extent_v_down": 8,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2023/07/ATHLON-APRS2A-SFP-MIL-Reticle-Manual-Talos-BTR-GEN2.pdf",
+  "notes": "SFP, aydınlatmasız; ölçüler 10x'te geçerli (10x42 sabit büyütme). Föy metninden: 'fine .2 mil hash mark increments from center to 6 mils to both left and right'; '8 mil span in hash marks from center to left and right, up and down'; 'The floating 0.09 center dot'. Extent değerleri 8 mil açıklık cümlesinden; 6-8 mil arası işaret aralığı yazılmamış. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

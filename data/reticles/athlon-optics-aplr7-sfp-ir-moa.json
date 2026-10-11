@@ -1,0 +1,21 @@
+{
+  "name": "APLR7 SFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Heras SPR 6-24x56"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 30,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2022/11/ATHLON-APLR7-SFP-IR-MOA-Reticle-Manual-Heras-SPR.pdf",
+  "notes": "SFP; ölçüler yalnızca 16x'te geçerli (6-24x56). Föy metninden: aydınlatmalı 0.3 MOA yüzen merkez nokta, 1 MOA işaretler; 'The 1 moa increment dots on the drop lines offer ... wind hold over points down to 30 moa below the center' (extent_v_down=30 buradan). Satır genişlikleri ve düşüş çizgisi aralığı metinde yok -> tree null. Yatay/yukarı uzanım, rakam belirtilmemiş. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}
