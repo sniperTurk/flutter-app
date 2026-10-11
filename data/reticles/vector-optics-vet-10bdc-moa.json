@@ -1,0 +1,22 @@
+{
+  "name": "VET-10BDC MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental x6 2-12x50 G4 Hunting MPVO (SCOM-15)",
+    "Continental 2-16x50 ED (SCOM-45)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20231030/1567cb718d181afadefd2aecddca0939.pdf",
+  "notes": "SFP MOA ('VET-10BDC SFP MOA RETICLE'); SCOM-15 için ölçüler 10x'te geçerli. Kaynaklar: VET-10BDC retikül kılavuzu PDF (index sayfa 14) + SCOM-15 ürün sayfası ('G4 pattern', 'BDC design for .223, .308') + Reticle-Collection (SCOM-45). Kılavuz: solda, sağda ve altta kalın dış çizgiler, ince iç artı ve BDC işaretleri; sıfır merkez noktada (center_dot=true, 'zero on center dot' ifadesinden çıkarım). Konumsuz diyagram etiketleri: 2.0, 1.8, 4.5, 7.5, 11, 0.25, Φ0.75, 1.4, 10, 8 — öğelere atanamadı (kalın çizgi başlangıcı, BDC aralıkları belirsiz) → posts_start ve ölçüler null. Aile: G4 tabanlı BDC; tanıma tam uymadığı için null. || SFP; 'Setting: 10x, MOA'. Kaynak: VET-10BDC Reticle Single Page PDF (ReticleInstruction sayfa 6; metin). Kılavuz yalnız SKU kodlarını veriyor (SCOM-15, SCOM-45; seri/model adı yok). Etiketler büyütmeye bağlı: 'Φ 0.75 (10x)', '2.0 (10x)', '10 (10x)', '0.25 (10x)', '1.25 (10x)', '11 (10x)', '7.5 (10x)', '4.5 (10x)' ve 15x için 'Φ 0.5', '1.3', '6.7', '0.2', '0.8', '7.3', '5', '3'; hangi öğeye ait oldukları belirtilmemiş (VOI-10BDC ile benzerlik çıkarım, kullanılmadı). Sol/sağ/alt kalın çizgiler var ama ölçüsüz. .308 örneği: 200/300/400/500 yd için 1.5/4.5/7.5/11 MOA. Tüm geometri alanları null. || SFP; 'For SCOM-15&SCOM-45 model, the suspension is valid at 10x' (referans 10x). Kaynak: VET-10 BDC Reticle User Manual (20240819/c0ee69ec….pdf, ReticleInstruction sayfa 9). Model adları vectoroptics.com ürün adlarından eşleştirildi. BDC: .30-06/.308/.270 için 200/300/400/500 yd'de 4/13.5/30/55 in; .223/5.56 için 300/450/550/650 yd'de 6/18/37.5/66 in düşüş. Konumsuz etiketler 10x: Φ0.75, 2.0, 10, 0.25, 1.25, 11, 7.5, 4.5; 15x: Φ0.5, 1.3, 6.7, 0.2, 0.8, 7.3, 5, 3 — öğeleri metinde yok. BDC tipi; aile, işaret aralığı, uzanımlar, merkez nokta → null."
+}

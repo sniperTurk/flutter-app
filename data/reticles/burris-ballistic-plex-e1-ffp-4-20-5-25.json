@@ -18,5 +18,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://www.burrisoptics.com/reticles/ballistic-plex-e1-ffp-4-20x-and-5-25x",
-  "notes": "Burris sayfası: 'MOA reticle', 'trajectory compensation out to 600 yards', FFP, kalın konik artı çizgileri, 10 mph rüzgâr noktaları (400 yd'de +/- 1.5 in.). Veracity kılavuzu (https://www.burrisoptics.com/sites/default/files/content/files/2022-07/veracity-user-guide.pdf) ölçü tabloları metinden okunamadı. family=duplex 'Plex' adından çıkarım. 2-10x/3-15x sürümünden 'slightly different'. Diğer alanlar -> null."
+  "notes": "Burris sayfası: 'MOA reticle', 'trajectory compensation out to 600 yards', FFP, kalın konik artı çizgileri, 10 mph rüzgâr noktaları (400 yd'de +/- 1.5 in.). Veracity kılavuzu (https://www.burrisoptics.com/sites/default/files/content/files/2022-07/veracity-user-guide.pdf) ölçü tabloları metinden okunamadı. family=duplex 'Plex' adından çıkarım. 2-10x/3-15x sürümünden 'slightly different'. Diğer alanlar -> null. 2. tur: Veracity kılavuzu metninden: tablo (A..K) 4-20x: .38 13 4 1 1 .5 .15 2 .8 1.2 .38, 5-25x: .35 13 4 1 1 .5 .15 2 .8 1.2 .35; 'Diameter = .23'; 'Trajectory Line Length in MOA 1.5 2.5 3.5 4.5 5.5'; 'Windage Dot Center from Vertical Center in MOA 1.54 2.42 3.38 4.43 5.65'. İşaretlerin dikey konumu ve harf eşlemesi metinde yok -> alan doldurulmadı."
 }

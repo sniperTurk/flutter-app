@@ -1,0 +1,19 @@
+{
+  "name": "VEPG-TMIL",
+  "brand": "Vector Optics",
+  "scopes": [],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 5.5,
+  "extent_v_up": null,
+  "extent_v_down": 6,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20241031/87a2162958b0270457a32e1241505945.pdf",
+  "notes": "SFP; metinde 'suspension is valid at 8x', şekillerde 'Setting: 15x, MIL' (çelişkili). Kaynak: VEPG-TMIL SFP Reticle Single Page PDF (ReticleInstruction sayfa 6; metin). Kılavuzda dürbün modeli yok → scopes boş. Kılavuz: merkez nokta 'diameter of 0.15 MIL' → center_dot=true; 'The gap between marks on the horizontal and vertical lines is 0.5 MIL' → hash_step=0.5; 'Each side of the horizontal line is 5.5 MIL in total length' → extent_h=5.5; 'the vertical line below the center point is 6 MIL in total length' → extent_v_down=6; yatayda 4-5 MIL arası küçük aralıklar 0.2 MIL. Konumsuz etiketler 'Φ 0.1', '0.125', '0.25', '0.04'. Yukarı uzanım, rakamlar, merkez boşluğu, direkler → null."
+}

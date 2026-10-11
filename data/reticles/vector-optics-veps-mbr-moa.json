@@ -1,0 +1,19 @@
+{
+  "name": "VEPS-MBR MOA",
+  "brand": "Vector Optics",
+  "scopes": [],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20231030/8a7f4179a641b0fec37856d8918fbaab.pdf",
+  "notes": "Kaynak: VEPS-MBR retikül kılavuzu PDF (index sayfa 14; ayrıca 'VEP-CDR(MOA) & VEPS-MBR' PDF'i …/09f282bb….pdf yalnızca başlık içeriyor). Kılavuzda dürbün modeli ve odak düzlemi yok → scopes boş. Metin: merkez çevresinde kesik daire, merkez nokta (center_dot=true), BDC işaretleri ve rüzgâr noktaları (5 mph); 5.56/.223 55gr FMJ, 100 yd sıfır, 600 yd'ye kadar. BDC tutuşları: A 2.0 MOA (300 yd), B 5.2 MOA (400 yd), C 9.4 MOA (500 yd), D 14.6 MOA (600 yd). İşaret aralığı, uzanımlar, aile metinde yok → null."
+}

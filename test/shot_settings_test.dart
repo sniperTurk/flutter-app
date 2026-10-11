@@ -107,15 +107,18 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     await tester.pumpWidget(_app(BallisticsView.pro));
     await tester.pumpAndSettle();
-    await openProFor(tester, const Key('pro-coriolis-switch'));
-    final sw = find.byKey(const Key('pro-coriolis-switch'));
-    await tester.ensureVisible(sw);
-    await tester.tap(sw);
+    await openProFor(tester, const Key('pro-latitude'));
+    final lat = find.descendant(
+      of: find.byKey(const Key('pro-latitude')),
+      matching: find.byType(TextField),
+    );
+    await tester.ensureVisible(lat);
+    await tester.enterText(lat, '41');
     await tester.pumpAndSettle();
     final prefs = await SharedPreferences.getInstance();
     final raw = prefs.getString(ShotSettingsStore.keyFor('p-shot'));
     expect(raw, isNotNull);
-    expect(ShotSettings.fromJson(jsonDecode(raw!)).coriolisOn, isTrue);
+    expect(ShotSettings.fromJson(jsonDecode(raw!)).latitudeText, '41');
   });
 
   testWidgets('sea-level pressure at altitude is flagged', (tester) async {

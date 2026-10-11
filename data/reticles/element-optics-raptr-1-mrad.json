@@ -16,6 +16,7 @@
   "posts_start": null,
   "center_dot": true,
   "floating_center": true,
+  "line_width": 0.049,
   "source_url": "https://element-optics.com/wp-content/uploads/2022/10/RETICLE-SHEET-RAPTR-1-HELIX-HD-2-16.pdf",
-  "notes": "SFP, avcılık BDC retikülü; föydeki tüm ölçüler 'SUBTENSIONS AT 8X' (referans büyütme 8x). Föy metni (MRAD): A yüzen merkez nokta 0.2, B çizgi kalınlığı 0.049; tutma işaretleri merkezin altında yükseklik/yan: C 0.29/-, D 0.7/0.26, E 1.66/0.41, F 2.82/0.55. Şema bu işaretleri (yükseklikte düzensiz BDC çizgileri) taşıyamadığı için family/hash_step/major_every/tree null; değerler yalnız bu notta. Uzanımlar föyde yazmıyor -> null."
+  "notes": "SFP, avcılık BDC retikülü; föydeki tüm ölçüler 'SUBTENSIONS AT 8X' (referans büyütme 8x). Föy metni (MRAD): A yüzen merkez nokta 0.2, B çizgi kalınlığı 0.049; tutma işaretleri merkezin altında yükseklik/yan: C 0.29/-, D 0.7/0.26, E 1.66/0.41, F 2.82/0.55. Şema bu işaretleri (yükseklikte düzensiz BDC çizgileri) taşıyamadığı için family/hash_step/major_every/tree null; değerler yalnız bu notta. Uzanımlar föyde yazmıyor -> null. 2. tur: line_width=0.049 föydeki 'B Line Thickness: 0.049 MRAD' değeridir; SFP olduğundan yalnız 8x'te geçerlidir. 3. tur (2026-10-11): Ürün sayfası (https://global.element-optics.com/product/helix-hd-2-16x50-sfp/) tek retikül listeliyor: 'RAPTR-1 2-16×50 SFP'. Üretici sitesinde RAPTR-2D adlı bir retikül bulunamadı (retikül dizini, ürün sayfaları ve site araması)."
 }

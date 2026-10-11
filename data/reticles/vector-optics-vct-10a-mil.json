@@ -1,0 +1,22 @@
+{
+  "name": "VCT-10A MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental x6 3-18x50 ARI (SCOL-53)",
+    "Continental x8 2-16x44 ED Tactical (SCOM-T39)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20231030/f07bbdb9ca7ed84710f81a0c2d376937.pdf",
+  "notes": "SFP; ölçüler 10x'te geçerli ('For VCT-10A reticle, the suspension is valid at 10x'). Kaynaklar: VCT-10A retikül kılavuzu PDF (index sayfa 16) + SCOL-53 ürün sayfası (Reticle: VCT-10A, 'Christmas tree pattern') + Reticle-Collection ('VCT-10' adıyla SCOL-53 ve SCOM-T39; SCOM-T39 sayfası kontrol edilmedi). Reticle-Collection'daki 'VCT-10' = 'VCT-10A' eşleşmesi SCOL-53 sayfasından. Kılavuz: Christmas-tree deseni (family=tree), dikey eksende MIL işaretleri. Konumsuz diyagram etiketleri: 10.0, 0.13, 0.25, 10.0, 1.0, 0.5, 0.25, 0.5, 1.0, 1.0, 0.25, Φ0.18, Φ0.1, Φ0.05 — öğelere atanamadı; merkez nokta varlığı metinde açık değil → null. 'VEC-T6M & VCT-10 & VCT-20' PDF'i yalnızca 'Setting:10x, MIL' içeriyor. || SFP; kılavuza göre ölçüler 10x'te geçerli ('the suspension is valid at 10x'). Kaynaklar: VCT-10A Reticle User Manual (20240819/fc211337….pdf, sayfa 10) + VCT-10A Reticle Single Page (20241031/6810815c….pdf, sayfa 7). Kazınmış cam, 6 kademe aydınlatma; kılavuz 'Christmas-tree' desen diyor → family=tree. Konumsuz diyagram etiketleri: Φ0.18, Φ0.1, Φ0.05, 0.5, 0.1, 0.25, 0.13 — öğeleri metinde yok. Diyagram büyütmeleri 3x/9x/18x. PDF'de dürbün modeli/kodu yok → scopes boş. İşaret aralığı, uzanımlar, ağaç satırları, merkez nokta → null."
+}

@@ -1,0 +1,23 @@
+{
+  "name": "VETD-LR MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Minotaur 10-50x60 DOT",
+    "Minotaur 12-60x60 DOT",
+    "Minotaur 46x60 DOT"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250707/2b942ee5828d8e946cfaeb72a47d58f9.pdf",
+  "notes": "SFP; kılavuza göre ölçüler 50x'te geçerli ('For VETD-LR reticle, the subtension is valid at 50x'). Kaynak: VETD-LR SFP retikül kılavuzu PDF (index sayfa 14). Dürbün adları kılavuzdan; SKU kodları kılavuzda yok. Metin: merkezde 0.125 MOA çaplı kırmızı nokta (center_dot=true), 10 gündüz + 1 NV aydınlatma kademesi. Konumsuz diyagram etiketleri: 12, 0.375, Φ0.125 — 12 ve 0.375'in neyi ölçtüğü belirtilmemiş. Aile, işaret aralığı, uzanımlar → null. || SFP; ölçüler 50x'te geçerli ('suspension is valid at 50x'). Kaynak: 'VEMP-LR VETP-LR SFP Reticle Single Page' PDF (ReticleInstruction sayfa 6; metin; PDF içinde ad 'VETD-LR'). Kılavuzda dürbün modeli yok → scopes boş. Kılavuz: 'The central aiming point is a red dot with a diameter of 0.125 MOA' → center_dot=true. Konumsuz etiketler '12', '0.375'. family, işaret aralıkları, uzanımlar, merkez boşluğu → null."
+}

@@ -6,7 +6,11 @@
     "Crossfire II 6-18x44 AO",
     "Crossfire II 4-12x50 AO",
     "Crossfire II 2-7x32 Rimfire",
-    "Crossfire II 2-7x32 Scout"
+    "Crossfire II 2-7x32 Scout",
+    "Diamondback 2-7x35 Rimfire",
+    "Diamondback 3-9x40",
+    "Crossfire HD 3-9x40",
+    "Crossfire HD 2-7x32"
   ],
   "unit": "moa",
   "family": null,
@@ -21,5 +25,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://vortexoptics.com/crossfire-ii-3-9x50-v-plex-moa.html",
-  "notes": "Crossfire II 3-9x50 sayfası: Second Focal Plane, ayar 1/4 MOA. Metin yalnız: 'A popular all-purpose hunting reticle intended for a wide variety of hunting applications.' Duplex yapısı metinde belirtilmediği için family null bırakıldı; direk başlangıcı, merkez ve tüm ölçüler null. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı)."
+  "notes": "Crossfire II 3-9x50 sayfası: Second Focal Plane, ayar 1/4 MOA. Metin yalnız: 'A popular all-purpose hunting reticle intended for a wide variety of hunting applications.' Duplex yapısı metinde belirtilmediği için family null bırakıldı; direk başlangıcı, merkez ve tüm ölçüler null. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). 2026-10-11: Diamondback 2-7x35 Rimfire (DBK-RIM) sayfası: Reticle V-PLEX (MOA), Second Focal Plane, ayar 1/4 MOA; aynı açıklama metni. Diamondback 3-9x40, Crossfire HD 3-9x40 ve 2-7x32 sayfaları V-Plex (MOA) varyantını sunuyor (data/scopes/vortex.json)."
 }
