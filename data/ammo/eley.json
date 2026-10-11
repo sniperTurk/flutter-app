@@ -1,0 +1,17 @@
+[
+ {
+  "brand": "ELEY",
+  "product": "ELEY tenex .22 LR 40 gr",
+  "item_number": null,
+  "cartridge": ".22 LR",
+  "bullet": null,
+  "bullet_diameter_in": 0.223,
+  "weight_gr": 40,
+  "g1_bc": 0.112,
+  "g7_bc": null,
+  "muzzle_velocity_fps": 1062,
+  "test_barrel_in": null,
+  "source_url": "https://eley.co.uk/eley-tenex",
+  "notes": "Page gives batch 'Mean Velocity' RANGE 317-330 m/s (1040-1085 ft/s); value here is the midpoint of the published fps range, not a single published figure; bullet 2.59 g / 40 gr as listed; bullet type not stated; BC 0.112 unlabeled, recorded as G1 (assumed)"
+ }
+]
