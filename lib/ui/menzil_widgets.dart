@@ -41,9 +41,14 @@ class MenzilPage extends StatelessWidget {
         constraints: const BoxConstraints(
           maxWidth: MenzilSpace.maxContentWidth,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: children,
+        // Every paragraph on a page is justified (owner, 2026-10-12);
+        // one-line labels and buttons are not affected by justification.
+        child: DefaultTextStyle.merge(
+          textAlign: TextAlign.justify,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: children,
+          ),
         ),
       ),
     ),
@@ -780,13 +785,13 @@ class MenzilInfoButton extends StatelessWidget {
           title: Text(title),
           content: SingleChildScrollView(
             child: illustration == null
-                ? Text(text)
+                ? Text(text, textAlign: TextAlign.justify)
                 : Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       illustration!,
                       const SizedBox(height: MenzilSpace.md),
-                      Text(text),
+                      Text(text, textAlign: TextAlign.justify),
                     ],
                   ),
           ),
