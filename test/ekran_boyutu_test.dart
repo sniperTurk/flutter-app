@@ -147,16 +147,13 @@ void _note(String kind, String what, String device) {
 
 Future<void> _loadAppFont() async {
   const family = MenzilType.family;
-  final files =
-      Directory('assets/fonts')
-          .listSync()
-          .whereType<File>()
-          .where((f) {
-            final name = f.uri.pathSegments.last;
-            return name.startsWith('$family-') &&
-                (name.endsWith('.ttf') || name.endsWith('.otf'));
-          })
-          .toList();
+  final files = Directory('assets/fonts').listSync().whereType<File>().where((
+    f,
+  ) {
+    final name = f.uri.pathSegments.last;
+    return name.startsWith('$family-') &&
+        (name.endsWith('.ttf') || name.endsWith('.otf'));
+  }).toList();
   expect(files, isNotEmpty, reason: 'no assets/fonts/$family-* files');
   final loader = FontLoader(family);
   for (final f in files) {
