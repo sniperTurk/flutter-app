@@ -109,6 +109,9 @@ void main() {
       await tester.pumpAndSettle();
     }
 
+    // A new profile starts on Ateşli Tüfek (owner, 2026-10-11); this tour
+    // saves a PCP rifle (6.35 mm caliber), so Tür = PCP Tüfek first.
+    await choose('profile-platform', 'PCP Tüfek');
     await choose('rifle-brand-select', 'Listede yok');
     await type('rifle-brand', 'Test Marka');
     await type('rifle-model', 'Test Model');
