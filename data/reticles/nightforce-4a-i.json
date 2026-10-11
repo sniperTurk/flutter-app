@@ -1,0 +1,19 @@
+{
+  "name": "4A-i",
+  "brand": "Nightforce",
+  "scopes": ["NX6 1-6x24", "NX6 2-12x42", "NX6 3-18x50", "NX6 4-24x50"],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/products/4A-i-Reticle-Sheet.pdf",
+  "notes": "Nightforce 4A-i föyü (REV 1025) ve ürün sayfası (nightforceoptics.com/4a-i/): ikinci odak düzlemi, ölçüler en yüksek büyütmede; 'refined version of the world-renowned 4A reticle'; 'Thickened bars along the sides and bottom guide the shooter's eye to the center'; aydınlatmalı merkez nokta. Model başına harfler (1-6/2-12/3-18/4-24): A 2.8/2/1.2/.8, B 44/30/28/20, C .28/.2/.15/.11, D .7/.5/.3/.2, E 22/15/14/10 MOA — metinde eşlenmiyor -> posts_start null."
+}

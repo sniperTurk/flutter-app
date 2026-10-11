@@ -1,7 +1,7 @@
 {
   "name": "MIL-C",
   "brand": "Nightforce",
-  "scopes": ["ATACR 5-25x56 F1"],
+  "scopes": ["ATACR 7-35x56 F1", "ATACR 5-25x56 F1", "ATACR 4-20x50 F1", "ATACR 4-16x42 F1", "NX8 4-32x50 F1", "NX8 2.5-20x50 F1", "NX6 6-36x56 F1", "NX6 5-30x56 F1", "NX6 3-18x50 F1"],
   "unit": "mil",
   "family": "hash",
   "hash_step": 0.2,
@@ -15,5 +15,5 @@
   "center_dot": true,
   "floating_center": true,
   "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_Mil-C_20161220.pdf",
-  "notes": "Nightforce MIL-C föyü, FFP (First Focal Plane). Metin: 0.2 mil tutma işaretleri, her tam mil numaralı, basit merkez nokta; ürün sayfası (nightforceoptics.com/reticles/mil-c-f1) merkez noktayı 'floating .05 MRAD center dot' olarak tanımlıyor. Merkez altı yükseliş ölçeği görüş alanının ötesine uzanıyor (sayı verilmemiş) -> extent null. Ofset ters 'T' mil telemetre ölçeği (0.05 mil'e kadar). Föy harf etiketleri (A 10 mil, D .4, E .2, F 1, G .05, J .6, N 2 mil vb.) görselsiz eşlenemedi."
+  "notes": "Nightforce MIL-C föyü, FFP (First Focal Plane). Metin: 0.2 mil tutma işaretleri, her tam mil numaralı, basit merkez nokta; ürün sayfası (nightforceoptics.com/reticles/mil-c-f1) merkez noktayı 'floating .05 MRAD center dot' olarak tanımlıyor. Merkez altı yükseliş ölçeği görüş alanının ötesine uzanıyor (sayı verilmemiş) -> extent null. Ofset ters 'T' mil telemetre ölçeği (0.05 mil'e kadar). Föy harf etiketleri (A 10 mil, D .4, E .2, F 1, G .05, J .6, N 2 mil vb.) görselsiz eşlenemedi. Güncelleme (2026-10): dürbün listesi 2026 föyünden (cdn.nightforceoptics.com/content/files/products/MIL-C-Reticle-Sheet-2026.pdf). 2026 föyü model başına B/C/H/M tablosu veriyor (ör. ATACR 5-25: B .033, C .033, H .20, M .029 mil); B/C muhtemelen çizgi kalınlığı ama metinde yazmıyor, eşlenmedi."
 }

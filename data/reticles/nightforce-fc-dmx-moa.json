@@ -1,0 +1,19 @@
+{
+  "name": "FC-DMx (MOA)",
+  "brand": "Nightforce",
+  "scopes": ["ATACR 1-8x24 F1", "NX8 1-8x24 F1"],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 32,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.nightforceoptics.com/content/files/products/FC-DMx-MRAD-MOA-Reticle-Sheet-2025.pdf",
+  "notes": "Nightforce FC-DMx MRAD/MOA föyü (2025) ve ürün sayfası (nightforceoptics.com/fc-dmx-moa/): FFP LPVO; 'The 0.75MOA center dot'; 'grid pattern allows for simultaneous elevation and windage holds, and extends to 32MOA' (extent_v_down=32, ızgaranın merkez altında olduğu varsayımı); bölümlü merkez dairesi, açık merkez -> floating_center=true (çıkarım). Izgara aralığı metinde yok (D=4 MOA harfi eşlenmemiş) -> hash_step null. Harfler: A .75, B Ø14, C 64, D 4, E 16, F 7, G .21, H 4, I 2, J 4.8, K 3.44 MOA."
+}

@@ -12,8 +12,8 @@
   "extent_v_down": null,
   "tree": null,
   "posts_start": null,
-  "center_dot": null,
+  "center_dot": false,
   "floating_center": true,
   "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_MILRsheet_20160114.pdf",
-  "notes": "Nightforce MIL-R föyü; gösterilen F1 (FFP) sürüm, SFP sürümler föyün arka yüzünde (SFP'de ölçüler en yüksek büyütmede geçerli varsayılır, föy metninde referans büyütme yazmıyor). Metin: 'floating center crosshair is precisely 1.0 Mil'; tam, yarım, 0.2 ve 0.1 mil bölmeleri ve rakam göstergeleri var ancak hangi çizgide hangi bölmenin olduğu görselsiz eşlenemedi -> hash_step null. Merkez altı yükseliş sürüme göre 5, 10 veya 15 mil -> null. Model adlarındaki 10x/15x/22x/32x NXS kısaltmaları föyde 'NXS 10x, 15x, 22x, 32x' şeklinde."
+  "notes": "Nightforce MIL-R föyü; gösterilen F1 (FFP) sürüm, SFP sürümler föyün arka yüzünde (SFP'de ölçüler en yüksek büyütmede geçerli varsayılır, föy metninde referans büyütme yazmıyor). Metin: 'floating center crosshair is precisely 1.0 Mil'; tam, yarım, 0.2 ve 0.1 mil bölmeleri ve rakam göstergeleri var ancak hangi çizgide hangi bölmenin olduğu görselsiz eşlenemedi -> hash_step null. Merkez altı yükseliş sürüme göre 5, 10 veya 15 mil -> null. Model adlarındaki 10x/15x/22x/32x NXS kısaltmaları föyde 'NXS 10x, 15x, 22x, 32x' şeklinde. Güncelleme (2026-10): ürün sayfaları (reticles/mil-r-f1, mil-r-f1-center-illuminated, mil-r-10-mils, mil-r-5-mils): 'floating center crosshair is exactly 1 MRAD in length', 'On either side of the center are 1, .5, .2, and .1 MRAD hash marks'. Merkez nokta değil yüzen artı olarak tanımlandığı için center_dot=false (çıkarım). SFP sayfaları 'main horizontal stadia that measures 5 MILs and the other measures 10 MILs' diyor (toplam/tek yön belirtilmemiş). Föyün 'R: elevation below center' sürüm tablosu metin çıkarımında model-değer eşleşmesi güvenilir değil -> extent_v_down null. SHV 4-14x50 F1'de yalnız merkez aydınlatmalı."
 }

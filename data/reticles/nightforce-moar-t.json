@@ -12,8 +12,8 @@
   "extent_v_down": null,
   "tree": null,
   "posts_start": null,
-  "center_dot": null,
+  "center_dot": false,
   "floating_center": true,
   "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_MOART_20160906.pdf",
-  "notes": "Nightforce MOAR-T föyü. Föy odak düzlemi yazmıyor; ölçüler belirli büyütmede geçerli (5.5-22x'te 22x, 8-32x'te halkadaki 'R' = 22x, ATACR 5-25x'te 25x) -> ikinci odak düzlemi. Metin: 2x2 MOA aydınlatmalı yüzen merkez artı; 1 MOA yükseliş/yan aralıkları; 10 ve 20 MOA'da göstergeler; 3, 6 ve 9 yönünde direkler (başlangıç mesafesi yok). Harf etiketleri (A 40 MOA vb.) görselsiz eşlenemedi -> uzanımlar null."
+  "notes": "Nightforce MOAR-T föyü. Föy odak düzlemi yazmıyor; ölçüler belirli büyütmede geçerli (5.5-22x'te 22x, 8-32x'te halkadaki 'R' = 22x, ATACR 5-25x'te 25x) -> ikinci odak düzlemi. Metin: 2x2 MOA aydınlatmalı yüzen merkez artı; 1 MOA yükseliş/yan aralıkları; 10 ve 20 MOA'da göstergeler; 3, 6 ve 9 yönünde direkler (başlangıç mesafesi yok). Harf etiketleri (A 40 MOA vb.) görselsiz eşlenemedi -> uzanımlar null. Güncelleme (2026-10): merkez 2x2 MOA yüzen artı olarak tanımlanıyor, nokta anılmıyor -> center_dot=false (çıkarım)."
 }
