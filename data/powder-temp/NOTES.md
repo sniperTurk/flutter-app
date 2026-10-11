@@ -42,3 +42,14 @@ Geco/S&B fişek ürün sayfaları, Hornady/Federal katalog PDF'leri.
 Okunup sıcaklık bilgisi olmayanlar: Norma URP ve barut genel sayfası, Lapua 2022/2023/2025
 katalogları, Sako TRG Precision, Federal Gold Medal Berger/CenterStrike, Federal Terminal Ascent,
 Norma soğuk hava Academy yazısı (test anlatılıyor ama hız sonuçları yok).
+
+## 2026-10-11 çalışması (otomatik, zamanlanmış) — ENGELLENDİ
+- Bu çalışmada da **hiç sayısal veri okunamadı**; tüm `coef_percent_per_15c` / `points` alanları `null` kaldı (tahmin yapılmadı).
+- Neden: WebFetch her URL için kullanıcı onayı istiyor (`PROVENANCE_REQUIRED`); zamanlanmış çalışmada onay veren olmadığı için
+  istekler geri çekildi. 429 değil, izin engeli. İstekler 25–30 sn arayla, tek tek denendi:
+  1. https://www.reload-swiss.com/Reload%20Swiss/Produkte/RS62/RS62-EN.pdf → izin zaman aşımı
+  2. https://explosia.cz/wp-content/uploads/2025/07/Explosia_kat-Propellants-2023_en.pdf → izin zaman aşımı
+  3. https://www.alliantpowder.com/downloads/RL16_Initial_Loads.pdf → izin zaman aşımı
+- WebSearch yalnızca bağlantı listesi döndürüyor (içerik yok); bulunan ek üretici bağlantıları:
+  RS62-DE/FR/ES PDF'leri (reload-swiss.com/Reload%20Swiss/Produkte/RS62/). Forum sonuçları (thestalkingdirectory) kural gereği kullanılmadı.
+- Çözüm önerisi: görevi etkileşimli oturumda çalıştırın veya URL'leri doğrudan görev metnine yazın (WebFetch, mesajda geçen URL'leri onaysız açabiliyor).
