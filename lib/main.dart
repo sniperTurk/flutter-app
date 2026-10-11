@@ -61,7 +61,9 @@ class _SniperTurkAppState extends State<SniperTurkApp> {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: mode,
-            home: const HomeScreen(autoWeather: true),
+            // No data is fetched until the user taps a button (owner,
+            // 2026-10-11): Hava Durumu fills only on "Konumdan doldur".
+            home: const HomeScreen(),
           ),
         ),
       ),
