@@ -79,3 +79,13 @@ Norma soğuk hava Academy yazısı (test anlatılıyor ama hız sonuçları yok)
 - **Sayı yok.** Mağaza sayfalarındaki "Temperature_Stable" özellik alanı aynen alındı; müşteri yorumları alınmadı.
 - Dikkat: **CFE 223 → "Temperature_Stable: No"** (üretici sıcaklığa dayanıklı olarak SINIFLANDIRMIYOR).
 - Eklenen: H1000, Retumbo, CFE 223, Enduron 4451, 4955, 8133, StaBALL HD.
+
+### Vihtavuori
+- Görevdeki N140/N160/N165 bağlantıları (`vihtavuori-n1x0-rifle-powder/`) `CLIENT_ERROR`, N150 bağlantısı `PROVENANCE_REQUIRED` verdi
+  → WebSearch (vihtavuori.com ile sınırlı) doğru adresleri verdi: /powder/n150/, /powder/n160/, /powder/n165-rifle-powder/.
+- Okunan: N150, N160, N165, N550, N555, N560, N565 ürün sayfaları ve **Reloading Guide 2024 PDF**
+  (https://www.vihtavuori.com/wp-content/uploads/2024/01/Vihtavuori_Reloading_Guide_2024_ENG-compressed.pdf).
+- **Sayı yok.** Kılavuzda ayrı sıcaklık bölümü yok; tek sayısal sıcaklık test koşulu (68 °F / 20 °C, %55 nem).
+- Eklenen (raw): N150, N160, N555, N565. N165, N550, N560 sayfalarında sıcaklık ifadesi yok.
+  N568 kılavuzda ayrıca "insensitive to humidity changes" diyor (mevcut kayıt korundu).
+- N140 okunamadı (ürün sayfası adresi bulunamadı; yalnızca blog yazısı var, okunmadı).
