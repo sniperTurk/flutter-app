@@ -777,5 +777,24 @@
   "velocity_fps": null,
   "source_url": "https://www.czub.cz/en/firearms-and-products-product/cz-600-american",
   "notes": "CZ resmi ürün sayfası (czub.cz) teknik parametreler; yiv oranı 1:9.5\" / 4 yiv; yiv yönü yayımlanmamış; çap: nominal"
+ },
+ {
+  "brand": "CZ",
+  "model": "CZ Bren 2 Ms Carbine .223 Rem",
+  "platform": "firearm",
+  "caliber": ".223 Rem",
+  "bullet_diameter_mm": 5.7,
+  "barrel_length_mm": 419,
+  "twist_rate_in": null,
+  "twist_direction": null,
+  "magazine_capacity": null,
+  "weight_kg": null,
+  "overall_length_mm": null,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://www.czfirearms.com/en-us/products/scorpion-bren/cz-bren-2-ms-carbine",
+  "notes": "Kaynak: czfirearms.com (CZ resmi sitesi, ABD) ürün sayfası metni: '223 Rem.' kalibre, 16.5\" namlu → 419 mm; yarı otomatik; teknik tablo yalnızca görsel olduğundan okunamadı; resmi kaynakta belirtilmemiş: twist_rate_in, twist_direction, magazine_capacity, weight_kg, overall_length_mm; çap: nominal"
  }
 ]
