@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+  SNIPER TÜRK Connect IQ watch-app (prototip, derlenmedi).
+  Uygulama kimliği yerelde rastgele üretildi; Connect IQ Store'a yüklemeden
+  önce sahibi kendi kimliğini kullanabilir. Telefon tarafı bu kimlikle
+  (iOS Connect IQ Mobile SDK, IQApp UUID) uygulamayı bulur.
+  Ürün listesi örnektir; SDK Manager'daki cihaz listesiyle doğrulanmalıdır.
+-->
+<iq:manifest version="3" xmlns:iq="http://www.garmin.com/xml/connectiq">
+    <iq:application id="4dde1aef12b64a15b5a6209c2c5944b0" type="watch-app" name="@Strings.AppName" entry="SniperTurkApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="3.2.0">
+        <iq:products>
+            <iq:product id="fenix7"/>
+            <iq:product id="fenix7pro"/>
+            <iq:product id="epix2pro47mm"/>
+            <iq:product id="fr265"/>
+            <iq:product id="fr965"/>
+            <iq:product id="venu3"/>
+        </iq:products>
+        <iq:permissions>
+            <iq:uses-permission id="Communications"/>
+        </iq:permissions>
+        <iq:languages>
+            <iq:language>tur</iq:language>
+        </iq:languages>
+        <iq:barrels/>
+    </iq:application>
+</iq:manifest>
