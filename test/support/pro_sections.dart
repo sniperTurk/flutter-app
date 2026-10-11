@@ -25,6 +25,7 @@ const _sectionOf = <String, String>{
   'pro-target-size': 'target',
   'pro-range-error': 'target',
   'pro-bc-error': 'target',
+  'pro-wez-shots': 'target',
   'shot-wez': 'target',
   'pro-turret-scale': 'rifle',
   'pro-zero-up': 'rifle',

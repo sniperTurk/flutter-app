@@ -39,4 +39,47 @@ void main() {
     expect(Wez.groupSigmaMrad(0.03067, 100), closeTo(0.1, 1e-3));
     expect(Wez.sigmaOfPlusMinus(1), 0.5);
   });
+
+  test('en az bir isabet: 1 − (1 − p)^n', () {
+    // One shot is the first-shot probability itself.
+    expect(Wez.atLeastOneHit(0.6, 1), closeTo(0.6, 1e-12));
+    // 0.5 per shot: 3 shots = 1 − 0.125, 5 shots = 1 − 1/32.
+    expect(Wez.atLeastOneHit(0.5, 3), closeTo(0.875, 1e-12));
+    expect(Wez.atLeastOneHit(0.5, 5), closeTo(0.96875, 1e-12));
+    // 0.2 per shot, 10 shots = 1 − 0.8^10 = 0.892626...
+    expect(Wez.atLeastOneHit(0.2, 10), closeTo(0.8926258176, 1e-9));
+    // Edges: never hit stays 0, always hit stays 1.
+    expect(Wez.atLeastOneHit(0, 10), 0);
+    expect(Wez.atLeastOneHit(1, 3), 1);
+    // More shots never lower the chance.
+    var last = 0.0;
+    for (final n in Wez.shotCounts) {
+      final v = Wez.atLeastOneHit(0.3, n);
+      expect(v, greaterThanOrEqualTo(last));
+      last = v;
+    }
+    // Out-of-range inputs are clamped / rejected.
+    expect(Wez.atLeastOneHit(1.5, 2), 1);
+    expect(Wez.atLeastOneHit(-0.1, 2), 0);
+    expect(() => Wez.atLeastOneHit(0.5, 0), throwsArgumentError);
+  });
+
+  test('atış sayısı list starts at 1 and the default is 1', () {
+    expect(Wez.shotCounts, [1, 3, 5, 10]);
+    expect(Wez.shotCounts.first, Wez.defaultShotCount);
+    expect(Wez.defaultShotCount, 1);
+  });
+
+  test('with a simulated p the n-shot line matches the formula', () {
+    final r = Wez.simulate(
+      sources: const [WezSource('grup', sigmaX: 1, sigmaY: 1)],
+      targetRadiusMrad: 1,
+      count: 20000,
+    );
+    final p = r.probability;
+    expect(
+      Wez.atLeastOneHit(p, 5),
+      closeTo(1 - (1 - p) * (1 - p) * (1 - p) * (1 - p) * (1 - p), 1e-12),
+    );
+  });
 }

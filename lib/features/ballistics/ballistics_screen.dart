@@ -301,6 +301,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         targetSizeCtl.text = s.targetSizeText;
         rangeErrorCtl.text = s.rangeErrorText;
         bcErrorCtl.text = s.bcErrorText;
+        _wezShotCount = s.wezShotCount;
         _shotCache.clear();
         _holdSamples = null;
       });
@@ -337,6 +338,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       targetSizeText: targetSizeCtl.text.trim(),
       rangeErrorText: rangeErrorCtl.text.trim(),
       bcErrorText: bcErrorCtl.text.trim(),
+      wezShotCount: _wezShotCount,
     );
     unawaited(
       _shotStore.save(id, settings).catchError((Object _) {
@@ -395,6 +397,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final TextEditingController targetSizeCtl = TextEditingController();
   final TextEditingController rangeErrorCtl = TextEditingController();
   final TextEditingController bcErrorCtl = TextEditingController();
+
+  /// WEZ Atış sayısı (owner, 2026-10-11): Hedef shows the first-shot
+  /// probability and, for more than one shot, the chance of at least one hit.
+  int _wezShotCount = Wez.defaultShotCount;
 
   /// Which Pro Ayarlar box is open (one at a time; all closed at first).
   String? _proOpen;
@@ -1537,6 +1543,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final wez = _hitProbability(shot, basis);
     if (wez != null) {
       final pct = (wez.result.probability * 100).round();
+      final pctN =
+          (Wez.atLeastOneHit(wez.result.probability, _wezShotCount) * 100)
+              .round();
       lines.add(
         Row(
           key: const Key('shot-wez'),
@@ -1559,11 +1568,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 children: [
                   Text('%$pct', style: MenzilType.display(c.amber, size: 34)),
                   Text(
-                    'İsabet olasılığı: %$pct '
+                    'İlk atış isabet olasılığı: %$pct '
                     '(Ø${wez.sizeText} hedef, $_shotDisplay $_distanceUnit).',
                     key: const Key('shot-hit-probability'),
                     style: MenzilType.body(c.ink),
                   ),
+                  if (_wezShotCount > 1)
+                    Text(
+                      '$_wezShotCount atışta en az bir isabet: %$pctN.',
+                      key: const Key('shot-hit-probability-n'),
+                      style: MenzilType.body(c.ink),
+                    ),
                   if (wez.result.dominant != null)
                     Text(
                       'En büyük etken: ${wez.result.dominant!.name}.',
@@ -3326,6 +3341,21 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 hintText: '0',
                 info: EnvironmentFieldInfo.bcError,
                 onChanged: (_) => _coriolisChanged(),
+              ),
+              MenzilSelect<int>(
+                key: const Key('pro-wez-shots'),
+                label: 'Atış sayısı',
+                info: EnvironmentFieldInfo.wezShotCount,
+                initialValue: _wezShotCount,
+                items: [
+                  for (final n in Wez.shotCounts)
+                    DropdownMenuItem(value: n, child: Text('$n atış')),
+                ],
+                onChanged: (v) {
+                  if (v == null) return;
+                  setState(() => _wezShotCount = v);
+                  _saveShotSettings();
+                },
               ),
             ],
           ),

@@ -40,6 +40,14 @@ Future<void> _sized(WidgetTester tester) async {
 }
 
 void main() {
+  test('WEZ Atış sayısı round-trips; unknown counts fall back to 1', () {
+    const s = ShotSettings(wezShotCount: 5);
+    expect(ShotSettings.fromJson(s.toJson()).wezShotCount, 5);
+    expect(ShotSettings.fromJson({'wezShots': 7}).wezShotCount, 1);
+    expect(ShotSettings.fromJson({'wezShots': '3'}).wezShotCount, 1);
+    expect(ShotSettings.fromJson({}).wezShotCount, 1);
+  });
+
   test('damaged values fall back to level / off', () {
     final s = ShotSettings.fromJson({
       'incline': 'x',

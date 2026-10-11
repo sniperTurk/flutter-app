@@ -29,6 +29,23 @@ class WezResult {
 abstract final class Wez {
   static const shots = 1000;
 
+  /// Atış sayısı choices for "en az bir isabet" (owner, 2026-10-11); the
+  /// list starts at 1 shot, which is also the default.
+  static const shotCounts = [1, 3, 5, 10];
+  static const defaultShotCount = 1;
+
+  /// Chance of at least one hit in [shotCount] shots that each hit with
+  /// [probability]: 1 − (1 − p)^n. Assumes the shots are independent (no
+  /// shared range/wind/BC error), so it is an upper estimate for follow-up
+  /// shots fired without correction.
+  static double atLeastOneHit(double probability, int shotCount) {
+    if (shotCount < 1) {
+      throw ArgumentError.value(shotCount, 'shotCount', 'must be >= 1');
+    }
+    final p = probability.isNaN ? 0.0 : probability.clamp(0.0, 1.0);
+    return 1 - math.pow(1 - p, shotCount).toDouble();
+  }
+
   static WezResult simulate({
     required List<WezSource> sources,
     required double targetRadiusMrad,

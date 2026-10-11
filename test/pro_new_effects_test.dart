@@ -221,6 +221,64 @@ void main() {
       expect(pct, greaterThan(90));
     });
 
+    testWidgets('Atış sayısı: 1 by default, more shows en az bir isabet', (
+      tester,
+    ) async {
+      await sized(tester);
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      // A wide group so one shot is clearly below 100 %.
+      await type(tester, const Key('pro-group'), '20');
+      await type(tester, const Key('pro-target-size'), '5');
+      final select = find.byKey(const Key('pro-wez-shots'));
+      await tester.ensureVisible(select);
+      await tester.pumpAndSettle();
+      expect(
+        tester
+            .widget<DropdownButton<int>>(
+              find.descendant(
+                of: select,
+                matching: find.byType(DropdownButton<int>),
+              ),
+            )
+            .value,
+        1,
+      );
+
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final first = tester
+          .widget<Text>(find.byKey(const Key('shot-hit-probability')))
+          .data!;
+      expect(first, startsWith('İlk atış isabet olasılığı: %'));
+      expect(find.byKey(const Key('shot-hit-probability-n')), findsNothing);
+      final p1 = int.parse(RegExp(r'%(\d+)').firstMatch(first)!.group(1)!);
+      expect(p1, inInclusiveRange(1, 99));
+
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-wez-shots'));
+      final box = find.descendant(
+        of: find.byKey(const Key('pro-wez-shots')),
+        matching: find.byType(DropdownButton<int>),
+      );
+      await tester.ensureVisible(box);
+      await tester.pumpAndSettle();
+      await tester.tap(box);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('5 atış').last);
+      await tester.pumpAndSettle();
+
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final n = tester
+          .widget<Text>(find.byKey(const Key('shot-hit-probability-n')))
+          .data!;
+      expect(n, startsWith('5 atışta en az bir isabet: %'));
+      final p5 = int.parse(RegExp(r'%(\d+)').firstMatch(n)!.group(1)!);
+      expect(p5, greaterThan(p1));
+    });
+
     testWidgets('Yerçekimi: stronger gravity drops more, off = standard', (
       tester,
     ) async {
