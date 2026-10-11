@@ -70,7 +70,7 @@ Future<Uint8List> buildDopeCardPdf(
                 ignoreMargins: true,
                 child: pw.Center(
                   child: pw.Opacity(
-                    opacity: 0.07,
+                    opacity: 0.15,
                     child: pw.Image(pw.MemoryImage(logo), width: 240),
                   ),
                 ),
