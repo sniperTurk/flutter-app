@@ -1,0 +1,19 @@
+{
+  "name": "ZBi",
+  "brand": "Zeiss",
+  "scopes": ["Conquest V4 4-16x44", "Conquest V4 4-16x50", "Conquest V4 6-24x50"],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": true,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-zbi.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-zbi.pdf",
+  "notes": "Zeiss ZBi (Absehen #68) föyü, 10/2021, yalnız merkez aydınlatmalı, SFP. Metin: ağaç biçimli artı; işaretler ve noktalar referans büyütmede 1 MOA aralıklı. Tablo (4-16x'te 16x, 6-24x'te 24x sütunu, MOA): A çizgi 0.10, B 0.25, C 1.00, D 2.00, H düşüş göstergesi yüksekliği 1.00, I çizgi aralığı 5.00, J düşüş göstergesi çizgisi 0.06, K merkeze uzaklık 1.00, L 30.0, N merkez artı çevresi boşluk 1.00. ÇIKARIM: floating_center=true 'Spacing Around Center Cross' ölçüsünden. I=5 'Line Spacing' ve L=30 değerlerinin satır/uzanım eşlemesi görselsiz kurulamadı -> tree, major_every, extent null. Rakamlar ve merkez noktası belirtilmemiş -> null."
+}
