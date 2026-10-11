@@ -1,0 +1,26 @@
+{
+  "name": "ACSS Athena BPR MIL",
+  "brand": "Primary Arms",
+  "scopes": [
+    "GLx 3-18x44 FFP",
+    "GLx 4.5-27x56 FFP",
+    "SLx 3-18x50 FFP Gen II",
+    "SLx 4.5-27x56 FFP",
+    "SLx 5-25x56 FFP",
+    "SLx Compact 4-16x44 FFP"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": 1.0,
+  "numbers_every": 2,
+  "extent_h": 10,
+  "extent_v_up": 10,
+  "extent_v_down": 15,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=17993625&c=3901023&h=H_F2wbZ2QOIaMP-rzLrZu4yMuw82PNz-ZYoaQDCg3yvzrBPz",
+  "notes": "Primary Arms ACSS Athena BPR MIL reticle manual (GLx 3-18x44 FFP). Merkezde nokta yok, küçük şevron (uçları 0.1 MIL aşağı ve sağa/sola). Büyük işaretler 1.0 MIL, küçükler 0.5 MIL; her 5 MIL'de halter (barbell) uçlu işaret. Yatayda 2 MIL'den itibaren 0.1 MIL telemetre bölümü, 3 MIL'den itibaren 0.5 MIL işaretleri. Uzanım: yukarı 10, sağ/sol 10, aşağı 15 MIL. Merkez altı ızgara: 0.5 MIL aralıklı noktalar (her 1.0 MIL'de daha kalın), en geniş yerde 6 MIL sağ/sol, aşağı 15 MIL; ızgara rakamları 2-4-6 (kenar) ve 8-14 (yalnız aşağı). Satır bazında yarı genişlikler kılavuz metninde tek tek verilmediği için tree null. Diğer kapsam modelleri primaryarms.com ürün başlıklarından."
+}

@@ -1,0 +1,21 @@
+{
+  "name": "ATMR1 SFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Talos 6-24x50"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 8,
+  "extent_v_up": 8,
+  "extent_v_down": 8,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/storage/2021/05/Athlon-ATMR1-SFP-IR-MIL-Reticle-Manual-Talos.pdf",
+  "notes": "SFP; ölçüler 6-24x50'de 18x'te geçerli (referans büyütme 18x). Föy metninden: 5 mil açıklıklı aydınlatmalı merkez, 0.5 mil merkez artı, 0.5 mil işaretler yatay ve dikeyde 8 mil'e kadar. Direk, rakam bilgisi yok -> null."
+}

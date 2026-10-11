@@ -1,0 +1,23 @@
+{
+  "name": "MPX1",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Tauron 5-30x56 GenII (SCFF-66)",
+    "Tauron 4-16x44 (SCOL-45)",
+    "Tauron 6-24x50 (SCOL-46)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Tauron-5-30x56-GenII-Rifle-Scope-SCFF-66.html",
+  "notes": "SCFF-66'da FFP (SCOL-45/46 SFP sürümleri; referans büyütme bilinmiyor). Kaynak: SCFF-66 ürün sayfası: 0.1 mil merkez nokta, '.223 200 yd / .308 100 yd sıfır için BDC'. MPX1 FFP retikül kılavuzu PDF (…/20241018/92c5f8288b1daf6524f90501ccb5d57b.pdf) istek limiti nedeniyle okunamadı. Aile (family), işaret aralığı, uzanımlar → bilinmiyor, null."
+}

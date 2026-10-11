@@ -1,0 +1,34 @@
+{
+  "name": "APRS1 FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares ETR UHD"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 6,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": {
+    "rows": [
+      {
+        "y": 1,
+        "half_width": 1,
+        "dot_step": 0.2
+      },
+      {
+        "y": 10,
+        "half_width": 4,
+        "dot_step": 0.2
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.athlonoptics.com/storage/2021/05/Athlon-APRS1-FFP-IR-MIL-Reticle-Manual-Ares-ETR.pdf",
+  "notes": "FFP. Föy metninden: merkezden sağa/sola 6 mil'e kadar 0.2 mil ince işaretler, 0.03 mil yüzen merkez nokta; nokta satırları 1 mil düşüş çizgisinde her yöne 1 mil, 10 mil çizgisinde her yöne 4 mil; küçük noktalar 0.2, büyük noktalar 1 mil aralıklı. Ara satırlar, yukarı uzanım, büyük işaret ve rakam aralığı metinde yok -> null. extent_v_down düşüş çizgilerinin bittiği 10 mil."
+}

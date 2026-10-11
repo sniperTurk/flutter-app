@@ -1,0 +1,19 @@
+{
+  "name": "ACSS Athena BPR MIL G2",
+  "brand": "Primary Arms",
+  "scopes": ["PLxC 2.5-20x48 FFP Compact"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": 1.0,
+  "numbers_every": 2,
+  "extent_h": 10,
+  "extent_v_up": null,
+  "extent_v_down": 15,
+  "tree": null,
+  "posts_start": 11,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=33854938&c=3901023&h=t6s_pbzfs6NuId8M3A07e1bXNzqGgWHzB8Ze6LYCFXmIjIoU",
+  "notes": "Primary Arms PLx 2.5-20x48 Compact FFP, ACSS Athena G2 BPR MIL reticle manual. Merkez: 0.1 MIL açık nokta, çevresinde 0.2 MIL boşluk; çizgiler merkezden 0.1 MIL sonra başlıyor (yüzen merkez). Dış bölüm: her tam MIL'de çizginin üstünde/altında 'I' işareti, her 2 MIL'de bir rakam (10 MIL'e kadar), 5 ve 10 MIL'de 'T'; yatayda 0.5 MIL'de yarım-MIL noktaları (hash_step=0.5). 11 MIL'den dışarı kalın çizgiler, üzerinde her 5 MIL'de işaret, her 10 MIL'de rakam (extent_h=10, posts_start=11 bu yorumla). MIL ızgarası: merkez altında 15 MIL, sağ/sol 6 MIL; 0.5 MIL aralıklı noktalar (her 1 MIL'de kalın); rakamlar 2-4-6 kenarda, 8-14 yalnız aşağı. Satır bazında yarı genişlikler tek tek verilmediği için tree null. Dikey yukarı uzanım belirtilmemiş."
+}

@@ -1,0 +1,21 @@
+{
+  "name": "VSE-5 MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Sentinel 5-25x50 HD FFP (SCFF-58)"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": 2.5,
+  "numbers_every": 10,
+  "extent_h": 30,
+  "extent_v_up": 20,
+  "extent_v_down": 40,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250707/91dae956e694949446014249593f9bc0.pdf",
+  "notes": "FFP. Kaynak: VSE-5 MOA FFP retikül kılavuzu PDF (metin). Yatayda ve merkez üstü dikeyde işaretler 2.5 MOA aralıklı; yatayda 20-30 MOA, yukarıda 10-20 MOA arası 1 MOA ince bölmeler (hash_step=1.0 yalnızca bu dış bölümler için). Merkez altı dikeyde noktalar 5 MOA aralıklı. Rakamlar 10/20/30 (yatay) ve 10/20/30/40 (dikey). Merkez nokta 0.2 MOA. major_every=2.5 ana işaret aralığıdır; hangi işaretlerin uzun olduğu metinde yok. Ağaç tanımlanmamış. Merkezin açık/boşluklu olup olmadığı metinde yok → null."
+}

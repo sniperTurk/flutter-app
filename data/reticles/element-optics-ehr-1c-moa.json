@@ -1,0 +1,23 @@
+{
+  "name": "EHR-1C MOA",
+  "brand": "Element Optics",
+  "scopes": [
+    "Titan 5-25x56 FFP",
+    "Nexus 5-20x50 FFP",
+    "Helix 6-24 SFP"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": 2.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": true,
+  "source_url": "https://element-optics.com/pdfs/RETICLE%20SHEET%20EHR-1C%20TITAN.pdf",
+  "notes": "Titan 5-25 FFP föyü. Föy metninde: yüzen merkez artı, 4 MOA içi boş daire, 2 MOA büyük ve 1 MOA küçük çizgiler, tutma işaretleri, düşük büyütme merkez kılavuzları; 1C sürümünde eksen dışı tutma noktası yok. Merkezde ayrı nokta belirtilmemiş (center_dot false). Uzanımlar ve rakam aralığı föy görselindeydi, okunamadı -> null. Helix SFP sürümünde ölçüler referans büyütmeye bağlıdır (belirtilmemiş)."
+}

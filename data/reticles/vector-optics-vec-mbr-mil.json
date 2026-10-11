@@ -1,0 +1,24 @@
+{
+  "name": "VEC-MBR MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental x6 3-18x50 FFP (SCFF-43)",
+    "Continental x6 4-24x56 FFP VEC-MBR (SCFF-40)",
+    "Continental x6 4-24x56 FFP (SCFF-39)",
+    "Continental x6 5-30x56 FFP (SCFF-41)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20240819/17c72820693200431597719fc8e3516b.pdf",
+  "notes": "FFP. Kaynak: VEC-MBR retikül kılavuzu PDF + SCFF-43/SCFF-40 ürün sayfaları. 0.2 mil işaret aralığı ve Christmas tree metinde açıkça veriliyor. Merkez nokta SCFF-43 sayfası ve kılavuzda 0.06 mil, SCFF-40 sayfasında 0.04 mil (çelişkili). Kılavuz: merkez çevresinde Φ0.2 mil boşluk, her artı çizgisi 0.3 mil; floating_center bu yüzden belirsiz bırakıldı. Sağ üstte 0.5:1 hızlı mesafe ölçer var. Uzanımlar, ağaç satırları, rakam aralığı ve büyük işaret aralığı metinde yok (föy görseli indirilemedi) → null."
+}

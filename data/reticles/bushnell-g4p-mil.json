@@ -1,0 +1,19 @@
+{
+  "name": "G4P",
+  "brand": "Bushnell",
+  "scopes": ["Elite Tactical DMR3 3.5-21x50 (ETDMR3G4)", "Elite Tactical XRS3 6-36x56 (ETXRS3G4)"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.25,
+  "major_every": 1.0,
+  "numbers_every": 2,
+  "extent_h": 8,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.bushnell.com/on/demandware.static/-/Library-Sites-HuntShootAccessoriesSharedLibrary/default/dw74c33f05/productPdfFiles/DMR3_G4P_EQL_6LIM_042822.pdf",
+  "notes": "Bushnell Elite Tactical DMR3 kılavuzu (FFP). Metin: yatayda numaralar yalnız sağda 2 MRAD adımlarla; 1/2 ve 1 MRAD işaretleri 8 MRAD'da bitiyor (extent_h=8); 1, 1.2 ve 1.5 MRAD'da kalın hareketli hedef işaretleri. Dikeyde 1 MRAD içinde 0.25, dışında 0.5 MRAD aralık, 2 MRAD'da bir numara; dikeyde 11. MRAD'dan itibaren 0.1 MRAD ölçüm barları, 30 MRAD'da düz 0.25 MRAD bar başlıyor. Hibrit çizgi-nokta ağacı (yüzen noktalar) var; satır ölçüleri metinde yok -> tree null. hash_step merkezdeki 0.25 MRAD (dışarıda 0.5). Merkez nokta/açık merkez belirtilmemiş -> null. XRS3 kapsamı bushnell.com ürün başlığından."
+}

@@ -1,0 +1,19 @@
+{
+  "name": "ACSS Griffin M10S",
+  "brand": "Primary Arms",
+  "scopes": ["SLx 1-10x28 SFP"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 5,
+  "extent_v_up": null,
+  "extent_v_down": 15,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=16482765&c=3901023&h=BqqFX2Pw25SX0JJVcLY67V2mKoYkefvK2wiNZ-FL83E-uo1-",
+  "notes": "Primary Arms ACSS Griffin M10S reticle manual (SLx 1-10x28, ikinci odak düzlemi). MIL ızgarası ve telemetre yalnızca en yüksek büyütmede (10x) kalibre. Metin: merkezde parlak şevron ve çevresinde at nalı (nokta yok); şevron yanlarında 3/6/9 mph hareketli hedef noktaları; MIL ızgarası merkez altına 15 MIL, her yana 5 MIL tutma (extent_h=5 ızgara genişliği olarak); dikey MIL telemetre çizgileri 1-15 numaralı. Izgara nokta/işaret aralığı ve satır yapısı metinde yok -> null."
+}

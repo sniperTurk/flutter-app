@@ -1,0 +1,21 @@
+{
+  "name": "VOR-6 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Orion Pro Max 6-24x50 HD SFP (SCOL-63)"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.1,
+  "major_every": 0.5,
+  "numbers_every": null,
+  "extent_h": 5,
+  "extent_v_up": 4,
+  "extent_v_down": 5,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20241031/ad63061e11002096ac7ca2e92ad3557d.pdf",
+  "notes": "SFP; kılavuza göre ölçüler 24x'te geçerli (referans büyütme 24x). Kılavuz metni: ana işaretler 0.5 MIL; yukarıda 3-4 MIL, yatayda 4-5 MIL arası 0.1 MIL ince bölmeler (hash_step=0.1 yalnızca bu bölümler için); yatay her yanda 5 MIL, dikey aşağı 5, yukarı 4 MIL; merkez nokta 0.06 MIL; nokta ile ölçek arasında 0.5 MIL çaplı boş alan → floating_center=true. Ürün sayfası (SCOL-63): '0.5 MIL Even Hashmark Increment'. Rakam etiketlerinin yeri metinde yok → null. Model eşleşmesi SCOL-63 ürün sayfasından; başka modeller de kullanıyor olabilir."
+}

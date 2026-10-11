@@ -1,0 +1,19 @@
+{
+  "name": "MIL-XT",
+  "brand": "Nightforce",
+  "scopes": ["ATACR 7-35x56 F1", "ATACR 5-25x56 F1", "ATACR 4-20x50 F1", "ATACR 4-16x42 F1", "NX8 4-32x50 F1", "NX8 2.5-20x50 F1", "SHV 4-14x50 F1"],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": 1.0,
+  "numbers_every": 1,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/0923_NF_MILXT_Reticle-Sheet.pdf",
+  "notes": "Nightforce föyü (F1 = ilk odak düzlemi/FFP modeller). Metin: ana çizgilerde 0.2 mil tutma işaretleri, her tam mil numaralı; merkezde 'floating center-dot'; merkez altında 0.2 mil aralıklı yüzen noktalar, tam mil işaretleri daha büyük, yarım mil işaretleri var. Föy harf etiketleri (B .05, C .1, D .2, E 1, F .4, G .5, H .2, I .6 mil vb.) görselsiz eşlenemedi. Ana çizgi kalınlığı modele göre 0.030-0.043 mil. Uzanımlar föy metninde yok -> null. Nokta ızgarası satır yapısı metinde verilmediği için tree null, family hash seçildi."
+}

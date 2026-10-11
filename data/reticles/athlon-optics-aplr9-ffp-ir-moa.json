@@ -1,0 +1,29 @@
+{
+  "name": "APLR9 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Heras SPR"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 25,
+  "tree": {
+    "rows": [
+      {
+        "y": 25,
+        "half_width": 10,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/storage/2022/11/ATHLON-APLR9-FFP-IR-MOA-Reticle-Manual-Heras-SPR.pdf",
+  "notes": "FFP (föyde 6x ve 24x örnekleri). Föy metninden: 0.3 MOA yüzen merkez nokta, dört yönde 1 MOA boşluk, 1 MOA işaretler, 5 MOA aralıklı düşüş çizgileri 25 MOA'ya kadar; 1 MOA küçük / 5 MOA büyük noktalar; 25 MOA çizgisinde 20 MOA uzunluk. İlk satırın uzunluğu okunan metinde yoktu, yalnızca son satır girildi. Föy satırları 'X moa length' olarak veriyor; toplam uzunluk kabul edilip half_width = uzunluk/2 yazıldı. Ara satır genişlikleri metinde yok."
+}
