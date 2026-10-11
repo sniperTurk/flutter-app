@@ -86,3 +86,49 @@ Sahibin ChatGPT araştırması (data/owner-research: docs/owner-research/chatgpt
 ### Güncelleme (sahibin kararı, 2026-10-11)
 Sahip, etiketsiz BC'lerin G1 kabul edilmesini onayladı: yeni 70 PPU ve 25 GECO kaydında `g1_bc` = üreticinin yazdığı değer. Her kayıt notunda: "Üretici BC'yi G1/G7 etiketi olmadan veriyor; sahibin kararıyla (2026-10-11) G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz." Dayanak: değerlerin büyüklüğü G1 aralığında; PPU Supreme (Sierra mermisi) değerleri Sierra'nın G1 değerleriyle aynı görünüyor.
 Sierra teyidi: PPU Supreme (Sierra MatchKing) değerleri 0.301 (#1380 69 gr), 0.462 (#2200 168 gr), 0.587 (#2650 250 gr) Sierra 2025 katalog posteriyle (sierrabullets.com/content/2025-sierra-bullets-catalog-poster.pdf) birebir aynı; Sierra'nın G7 değerleri (0.167 / 0.224 / 0.295) farklı → bu değerler G1.
+
+## 2026-10-11 (3) — fabrika fişeği olmayan kalibreler
+
+Hedef: `lib/data/rifle_library.dart`'ta tüfeği olup `factory_ammo_library.dart`'ta fişeği olmayan
+77 kalibre (633 tüfek). Yalnız üretici sayfaları / üretici PDF'leri; bayi sonuçları yalnız URL ipucu.
+Hiçbir yaş kapısı onaylanmadı; 429 alınmadı. **+393 kayıt**, 64 kalibre kapandı.
+
+| Dosya | Eklenen | Kaynak |
+|---|---|---|
+| weatherby.json (yeni) | 94 | weatherby.com güncel balistik tablosu (G1 etiketli; test namlusu yok → null); 15 eski Nosler mermili yük 2021 resmi PDF'ten (26" namlu, BC etiketsiz → G1) |
+| hornady.json | +66 | hornady.com ürün sayfaları (BC yayınlanmıyor → null; uygulama BC'yi mermi tablosundan alır); .17 WSM 2022 Hornady balistik tablosu PDF |
+| federal.json | +39 | federalpremium.com ürün hattı listeleri (BC etiketsiz → G1; "G7 BC" etiketliler g7) |
+| nosler.json | +36 | nosler.com ürün sayfaları (test namlusu var; BC yalnız 1 sayfada) |
+| winchester.json | +33 | winchester.com ürün hattı listeleri (BC etiketsiz → G1; rimfire BC yok) |
+| norma.json | +33 | norma-ammunition.com (G1 etiketli; namlu "zeroed with 610/660 mm barrel" cümlesinden, notta) |
+| barnes.json | +27 | Barnes CFR-Imperial.pdf (SKU satırı; BC etiketsiz → G1) |
+| remington.json | +24 | remington.com ürün sayfaları, 2024/2026 katalog |
+| cci.json | +10 | cci-ammunition.com (.22 WMR) |
+| lapua.json | +8 | lapua.com (G1+G7, test namlusu) |
+| rws.json | +6 | rws-ammunition.com (8x68 S; g→gr, m/s→fps, 650 mm namlu) |
+| fiocchi.json | +4 | fiocchiusa.com |
+| sig_sauer.json (yeni) | 4 | sigsauer.com (.277 SIG Fury, G1) |
+| blaser.json (yeni) | 3 | blaser.de "Blaser CDC" balistik PDF (BC etiketsiz → G1) |
+| ppu.json | +2 | prvipartizan.com PPU 2023 katalog (6mm Rem) |
+| barrett.json (yeni) | 2 | barrett.net (.416 Barrett, .50 BMG; G1+G7) |
+| cheytac.json (yeni) | 2 | cheytac.com (.375 / .408 CheyTac; "Velocity" mesafesiz → namlu ağzı sayıldı) |
+
+Dışarıda bırakılanlar: hızı yayınlanmayan ürünler (Hornady 22 CM 65 gr CX, Winchester 6.8 Western
+175 gr LR, Remington .300 RUM Core-Lokt Tipped, Nosler 350/400 Legend, 6 NoslerCustom, Barnes Reserve
+6.8 Western/.257 Wby/6.5-284); tabanca namlusundan ölçülen savunma yükleri (Hornady 22 WMR Critical
+Defense 1.875", Federal 22 WMR Punch 2"); PPU askerî 12.7x99 / 12.7x108 (yalnız V25).
+
+Kontrol edilmesi gerekenler (kayıt notlarında da yazılı):
+- Weatherby .240 72 gr Hammer: BC "320 (G1)" ondalıksız basılmış → null.
+- Weatherby .416 350 gr TTSX: güncel tablo .444, 2021 PDF .345 → güncel kullanıldı.
+- Norma .500 NE 3": 640 m/s ile 2150 f/s uyuşmuyor → 2150 fps yazıldı.
+- RWS 8x68 S Driven Hunt BC 0.152 düşük görünüyor; olduğu gibi yazıldı.
+- CheyTac .375: sayfa hem .988 hem .980 diyor (.988 alındı); hız "approx.".
+- Federal ve Barnes "500 Nitro Express" → `.500 NE 3"` eşlendi.
+- Bazı Federal/Remington/Norma yükleri "Currently Unavailable / Discontinued 2026" — veri hâlâ yayında, notta işaretli.
+
+Hâlâ fabrika fişeği bulunamayan 13 kalibre: .338 Blaser Mag, .375 Blaser Mag (Blaser Magnum
+hattının veri sayfası yok), 9.3x66 Sako (sako.global listeleri "Show more" arkasında, okunamadı),
+6x47 Lapua, 25x47 Lapua (Lapua yalnız kovan), 6 Dasher, 6 BRA, 6mm PPC (yalnız kovan/el dolumu),
+.375 EnABELR, 6x62 R Frères, 8x75 RS, 12.7x99 NATO (S&B "2027", MKE ve PPU yalnız V23.7/V25),
+12.7x108 (PPU yalnız V25). Kynoch'un resmi sitesi yok (alan adı başka siteye yönleniyor).

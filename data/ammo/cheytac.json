@@ -1,0 +1,32 @@
+[
+ {
+  "brand": "CheyTac",
+  "product": "CheyTac® .375/350 gr Ammunition",
+  "item_number": null,
+  "cartridge": ".375 CheyTac",
+  "bullet": "Balanced Flight Projectile",
+  "bullet_diameter_in": 0.375,
+  "weight_gr": 350,
+  "g1_bc": 0.988,
+  "g7_bc": null,
+  "muzzle_velocity_fps": 2970,
+  "test_barrel_in": null,
+  "source_url": "https://cheytac.com/product/cheytac-375-350-gr-ammunition/",
+  "notes": "CheyTac USA official page: 'Velocity: 2,970 fps (approx.)' (no distance given; taken as muzzle); 'Ballistic Coefficient: .988' (description text elsewhere says .980). Üretici BC'yi G1/G7 etiketi olmadan veriyor; G1 kabul edildi. Copper nickel alloy bullet; barrel not stated; out of stock; SKU N/A. Diameter = cartridge nominal. Read 2026-10-11."
+ },
+ {
+  "brand": "CheyTac",
+  "product": "CheyTac® .408/419 gr Ammunition",
+  "item_number": null,
+  "cartridge": ".408 CheyTac",
+  "bullet": "Balanced Flight Projectile",
+  "bullet_diameter_in": 0.408,
+  "weight_gr": 419,
+  "g1_bc": 0.949,
+  "g7_bc": null,
+  "muzzle_velocity_fps": 2752,
+  "test_barrel_in": null,
+  "source_url": "https://cheytac.com/product/cheytac-408-419-gr-ammunition/",
+  "notes": "CheyTac USA official page: 'Velocity: 2752fps / 839mps' (no distance given; taken as muzzle); 'Ballistic Coefficient (G1): .949'. Match grade copper alloy bullet; barrel not stated. Diameter = cartridge nominal. Read 2026-10-11."
+ }
+]

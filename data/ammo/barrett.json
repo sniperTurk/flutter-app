@@ -1,0 +1,32 @@
+[
+ {
+  "brand": "Barrett",
+  "product": "416 Barrett (MRADELR 416 BARRETT) Hornady 500 Grain A-Tip Match",
+  "item_number": null,
+  "cartridge": ".416 Barrett",
+  "bullet": "A-Tip Match",
+  "bullet_diameter_in": 0.416,
+  "weight_gr": 500,
+  "g1_bc": 0.976,
+  "g7_bc": 0.492,
+  "muzzle_velocity_fps": 2850,
+  "test_barrel_in": 36,
+  "source_url": "https://barrett.net/products/accessories/ammunition/416barrett/",
+  "notes": "Official Barrett page: 'Average Muzzle Velocity: 2850 fps (36\" Barrel)'; 'Ballistic Coefficient: 0.976 (G1) / 0.492 (G7)'; bullet diameter .416 stated; twist 1:12. No part number. Read 2026-10-11."
+ },
+ {
+  "brand": "Barrett",
+  "product": "50 BMG Precision (Cutting Edge Bullets MTAC 660 gr)",
+  "item_number": null,
+  "cartridge": ".50 BMG",
+  "bullet": "MTAC",
+  "bullet_diameter_in": null,
+  "weight_gr": 660,
+  "g1_bc": 0.777,
+  "g7_bc": 0.39,
+  "muzzle_velocity_fps": 2800,
+  "test_barrel_in": 32,
+  "source_url": "https://barrett.net/products/accessories/ammunition/50bmg/",
+  "notes": "Official Barrett page: 'Muzzle Velocity: 2800fps (32\" Barrel)'; 'Ballistic Coefficient: 0.777 (G1) / 0.390 (G7)'; Cutting Edge Bullets MTAC 660 gr; bullet diameter not stated; no part number. Read 2026-10-11."
+ }
+]

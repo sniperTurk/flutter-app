@@ -1,0 +1,62 @@
+[
+ {
+  "brand": "SIG Sauer",
+  "product": "277 SIG FURY, 135GR FMJ , ELITE BALL",
+  "item_number": "E277SFB135-20",
+  "cartridge": ".277 SIG Fury",
+  "bullet": "FMJ",
+  "bullet_diameter_in": 0.277,
+  "weight_gr": 135,
+  "g1_bc": 0.475,
+  "g7_bc": null,
+  "muzzle_velocity_fps": 2750,
+  "test_barrel_in": 16.0,
+  "source_url": "https://www.sigsauer.com/elite-ball-fmj-277-sig-fury.html",
+  "notes": "Official page: 'Ballistic Coefficient (G1)' 0.475; test barrel 16.0 in; velocity table 16in 2,750 fps and 24in 3,000 fps (16in value used to match stated test barrel). Diameter = cartridge nominal. Read 2026-10-11."
+ },
+ {
+  "brand": "SIG Sauer",
+  "product": "277 SIG FURY, 150GR HYBRID HUNTER",
+  "item_number": "H277SFAB150-20",
+  "cartridge": ".277 SIG Fury",
+  "bullet": "AccuBond",
+  "bullet_diameter_in": 0.277,
+  "weight_gr": 150,
+  "g1_bc": 0.5,
+  "g7_bc": null,
+  "muzzle_velocity_fps": 3000,
+  "test_barrel_in": 24.0,
+  "source_url": "https://www.sigsauer.com/277-sig-fury-150-hybrid-hunter.html",
+  "notes": "Official page: Nosler AccuBond bullet; BC G1 0.5 as printed; muzzle 3,000 fps; test barrel 24.0 in. Diameter = cartridge nominal. Read 2026-10-11."
+ },
+ {
+  "brand": "SIG Sauer",
+  "product": "277 SIG FURY, 155GR HYBRID MATCH",
+  "item_number": "H277SFOTM155-20",
+  "cartridge": ".277 SIG Fury",
+  "bullet": "Sierra MatchKing HPBT",
+  "bullet_diameter_in": 0.277,
+  "weight_gr": 155,
+  "g1_bc": 0.549,
+  "g7_bc": null,
+  "muzzle_velocity_fps": 3000,
+  "test_barrel_in": 24.0,
+  "source_url": "https://www.sigsauer.com/277-sig-fury-hybrid-match.html",
+  "notes": "Official page: 'Ballistic Coefficient (G1)' 0.549; muzzle 3,000 fps; test barrel 24.0 in. Diameter = cartridge nominal. Read 2026-10-11."
+ },
+ {
+  "brand": "SIG Sauer",
+  "product": "6.8x51, 113GR Hybrid Ball - Can (460rnds)",
+  "item_number": "MH68MM113B-460",
+  "cartridge": ".277 SIG Fury",
+  "bullet": "Solid Copper",
+  "bullet_diameter_in": 0.277,
+  "weight_gr": 113,
+  "g1_bc": 0.33,
+  "g7_bc": null,
+  "muzzle_velocity_fps": 3200,
+  "test_barrel_in": 16.0,
+  "source_url": "https://www.sigsauer.com/6-8x51mm-hybrid-ball-can.html",
+  "notes": "Official page: caliber '277 SIG FURY / 6.8x51mm Hybrid'; BC .330 (G1); muzzle 3,200 fps; test barrel 16.0 in. Same load also sold as 920-rd crate. Diameter = cartridge nominal. Read 2026-10-11."
+ }
+]

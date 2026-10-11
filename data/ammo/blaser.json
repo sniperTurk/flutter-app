@@ -1,0 +1,47 @@
+[
+ {
+  "brand": "Blaser",
+  "product": "Blaser CDC 7mm Blaser Magnum 9.4 g / 145 gr",
+  "item_number": null,
+  "cartridge": "7mm Blaser Mag",
+  "bullet": "CDC",
+  "bullet_diameter_in": 0.284,
+  "weight_gr": 145,
+  "g1_bc": 0.413,
+  "g7_bc": null,
+  "muzzle_velocity_fps": 3100,
+  "test_barrel_in": null,
+  "source_url": "https://www.blaser.de/media/99/c8/c2/1769499423/BLA_JH26_Munitionsvitrine_ballistische_Daten_DINA4_V02_prev%202-69786b29bdb50.pdf?1769499434=",
+  "notes": "Blaser ballistic data sheet (JH26 'Munitionsvitrine ballistische Daten', lead-free 'BLEIFREI', document labelled 'Blaser CDC'; caliber set matches CDC caliber list on blaser.de CDC page): 7mm Blaser Magnum 9.4 g / 145 gr, BC 0.413, V0 945 m/s; m/s→fps ×3.28084; no article no. or barrel length in document; Üretici BC'yi G1/G7 etiketi olmadan veriyor; G1 kabul edildi.; read 2026-10-11"
+ },
+ {
+  "brand": "Blaser",
+  "product": "Blaser CDC .300 Blaser Magnum 10.4 g / 160 gr",
+  "item_number": null,
+  "cartridge": ".300 Blaser Mag",
+  "bullet": "CDC",
+  "bullet_diameter_in": 0.308,
+  "weight_gr": 160,
+  "g1_bc": 0.427,
+  "g7_bc": null,
+  "muzzle_velocity_fps": 3150,
+  "test_barrel_in": null,
+  "source_url": "https://www.blaser.de/media/99/c8/c2/1769499423/BLA_JH26_Munitionsvitrine_ballistische_Daten_DINA4_V02_prev%202-69786b29bdb50.pdf?1769499434=",
+  "notes": "Blaser ballistic data sheet (JH26 'Munitionsvitrine ballistische Daten', lead-free 'BLEIFREI', document labelled 'Blaser CDC'; caliber set matches CDC caliber list on blaser.de CDC page): .300 Blaser Magnum 10.4 g / 160 gr, BC 0.427, V0 960 m/s; m/s→fps ×3.28084; no article no. or barrel length in document; Üretici BC'yi G1/G7 etiketi olmadan veriyor; G1 kabul edildi.; read 2026-10-11"
+ },
+ {
+  "brand": "Blaser",
+  "product": "Blaser CDC 8x68 S 11.0 g / 170 gr",
+  "item_number": null,
+  "cartridge": "8x68 S",
+  "bullet": "CDC",
+  "bullet_diameter_in": 0.323,
+  "weight_gr": 170,
+  "g1_bc": 0.398,
+  "g7_bc": null,
+  "muzzle_velocity_fps": 3035,
+  "test_barrel_in": null,
+  "source_url": "https://www.blaser.de/media/99/c8/c2/1769499423/BLA_JH26_Munitionsvitrine_ballistische_Daten_DINA4_V02_prev%202-69786b29bdb50.pdf?1769499434=",
+  "notes": "Blaser ballistic data sheet (JH26 'Munitionsvitrine ballistische Daten', lead-free 'BLEIFREI', document labelled 'Blaser CDC'; caliber set matches CDC caliber list on blaser.de CDC page): 8x68 S 11.0 g / 170 gr, BC 0.398, V0 925 m/s; m/s→fps ×3.28084; no article no. or barrel length in document; Üretici BC'yi G1/G7 etiketi olmadan veriyor; G1 kabul edildi.; read 2026-10-11"
+ }
+]
