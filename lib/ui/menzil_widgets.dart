@@ -1113,7 +1113,11 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
             label: w.semanticLabel ?? w.label,
             child: LayoutBuilder(
               builder: (context, box) => InputDecorator(
-                decoration: const InputDecoration(),
+                // The padding is the button's own, so the whole box opens
+                // the list, not only the text in its middle.
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.zero,
+                ),
                 isEmpty: value == null && w.hint == null,
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<T>(
@@ -1167,6 +1171,10 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                     ],
                     isExpanded: true,
                     isDense: true,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 13,
+                    ),
                     // A compact list, not a full-screen sheet (owner,
                     // 2026-10-11: "menüler çok büyük açılıyor").
                     menuMaxHeight: 300,
