@@ -210,7 +210,7 @@
  },
  {
   "brand": "Winchester",
-  "model": "XPR .30-06 Sprg",
+  "model": "XPR .30-06 Springfield",
   "platform": "firearm",
   "caliber": ".30-06 Springfield",
   "bullet_diameter_mm": 7.82,
@@ -533,7 +533,7 @@
  },
  {
   "brand": "Winchester",
-  "model": "Model 70 Featherweight .30-06 Sprg",
+  "model": "Model 70 Featherweight .30-06 Springfield",
   "platform": "firearm",
   "caliber": ".30-06 Springfield",
   "bullet_diameter_mm": 7.82,

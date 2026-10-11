@@ -362,7 +362,7 @@
  },
  {
   "brand": "Barrett",
-  "model": "MRAD MK22 7.62x51 mm",
+  "model": "MRAD MK22 7.62x51 NATO",
   "platform": "firearm",
   "caliber": "7.62x51 NATO",
   "bullet_diameter_mm": 7.82,
@@ -609,7 +609,7 @@
  },
  {
   "brand": "Barrett",
-  "model": "REC7 DI 5.56x45 mm",
+  "model": "REC7 DI 5.56x45 NATO",
   "platform": "firearm",
   "caliber": "5.56x45 NATO",
   "bullet_diameter_mm": 5.7,
@@ -628,7 +628,7 @@
  },
  {
   "brand": "Barrett",
-  "model": "REC7 DI 5.56x45 mm",
+  "model": "REC7 DI 5.56x45 NATO",
   "platform": "firearm",
   "caliber": "5.56x45 NATO",
   "bullet_diameter_mm": 5.7,
@@ -647,7 +647,7 @@
  },
  {
   "brand": "Barrett",
-  "model": "REC7 DI 5.56x45 mm",
+  "model": "REC7 DI 5.56x45 NATO",
   "platform": "firearm",
   "caliber": "5.56x45 NATO",
   "bullet_diameter_mm": 5.7,

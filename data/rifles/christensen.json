@@ -1,7 +1,7 @@
 [
  {
   "brand": "Christensen Arms",
-  "model": "Ridgeline FFT 22 Creedmoor 20in",
+  "model": "Ridgeline FFT .22 Creedmoor 20in",
   "platform": "firearm",
   "caliber": ".22 Creedmoor",
   "bullet_diameter_mm": 5.7,
@@ -20,7 +20,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Ridgeline FFT 22 Creedmoor 22in",
+  "model": "Ridgeline FFT .22 Creedmoor 22in",
   "platform": "firearm",
   "caliber": ".22 Creedmoor",
   "bullet_diameter_mm": 5.7,
@@ -39,7 +39,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Ridgeline FFT 25 Creedmoor 20in",
+  "model": "Ridgeline FFT .25 Creedmoor 20in",
   "platform": "firearm",
   "caliber": ".25 Creedmoor",
   "bullet_diameter_mm": 6.53,
@@ -58,7 +58,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Ridgeline FFT 25 Creedmoor 22in",
+  "model": "Ridgeline FFT .25 Creedmoor 22in",
   "platform": "firearm",
   "caliber": ".25 Creedmoor",
   "bullet_diameter_mm": 6.53,
@@ -77,7 +77,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Ridgeline FFT 22-250 Rem 20in",
+  "model": "Ridgeline FFT .22-250 Rem 20in",
   "platform": "firearm",
   "caliber": ".22-250 Rem",
   "bullet_diameter_mm": 5.7,
@@ -286,7 +286,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Ridgeline FFT 280 Ackley Improved 22in",
+  "model": "Ridgeline FFT .280 Ackley Improved 22in",
   "platform": "firearm",
   "caliber": ".280 Ackley Improved",
   "bullet_diameter_mm": 7.21,
@@ -381,7 +381,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Ridgeline FFT 28 Nosler 22in",
+  "model": "Ridgeline FFT .28 Nosler 22in",
   "platform": "firearm",
   "caliber": ".28 Nosler",
   "bullet_diameter_mm": 7.21,
@@ -438,7 +438,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Ridgeline FFT .30-06 Spr 22in",
+  "model": "Ridgeline FFT .30-06 Springfield 22in",
   "platform": "firearm",
   "caliber": ".30-06 Springfield",
   "bullet_diameter_mm": 7.82,
@@ -476,7 +476,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Ridgeline FFT 300 Win Mag 22in",
+  "model": "Ridgeline FFT .300 Win Mag 22in",
   "platform": "firearm",
   "caliber": ".300 Win Mag",
   "bullet_diameter_mm": 7.82,
@@ -533,7 +533,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Ridgeline FFT .375 H&H 22in",
+  "model": "Ridgeline FFT .375 H&H Mag 22in",
   "platform": "firearm",
   "caliber": ".375 H&H Mag",
   "bullet_diameter_mm": 9.53,
@@ -571,7 +571,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Modern Precision Rifle 22 Creedmoor 20in",
+  "model": "Modern Precision Rifle .22 Creedmoor 20in",
   "platform": "firearm",
   "caliber": ".22 Creedmoor",
   "bullet_diameter_mm": 5.7,
@@ -590,7 +590,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Modern Precision Rifle 22 Creedmoor 24in",
+  "model": "Modern Precision Rifle .22 Creedmoor 24in",
   "platform": "firearm",
   "caliber": ".22 Creedmoor",
   "bullet_diameter_mm": 5.7,
@@ -609,7 +609,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Modern Precision Rifle 25 Creedmoor 20in",
+  "model": "Modern Precision Rifle .25 Creedmoor 20in",
   "platform": "firearm",
   "caliber": ".25 Creedmoor",
   "bullet_diameter_mm": 6.53,
@@ -628,7 +628,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Modern Precision Rifle 25 Creedmoor 24in",
+  "model": "Modern Precision Rifle .25 Creedmoor 24in",
   "platform": "firearm",
   "caliber": ".25 Creedmoor",
   "bullet_diameter_mm": 6.53,
@@ -837,7 +837,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Modern Precision Rifle 300 Win Mag 26in",
+  "model": "Modern Precision Rifle .300 Win Mag 26in",
   "platform": "firearm",
   "caliber": ".300 Win Mag",
   "bullet_diameter_mm": 7.82,
@@ -989,7 +989,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Mesa FFT 300 Win Mag 22in",
+  "model": "Mesa FFT .300 Win Mag 22in",
   "platform": "firearm",
   "caliber": ".300 Win Mag",
   "bullet_diameter_mm": 7.82,
@@ -1027,7 +1027,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Evoke 22 Creedmoor 20in",
+  "model": "Evoke .22 Creedmoor 20in",
   "platform": "firearm",
   "caliber": ".22 Creedmoor",
   "bullet_diameter_mm": 5.7,
@@ -1046,7 +1046,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Evoke 25 Creedmoor 20in",
+  "model": "Evoke .25 Creedmoor 20in",
   "platform": "firearm",
   "caliber": ".25 Creedmoor",
   "bullet_diameter_mm": 6.53,
@@ -1236,7 +1236,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Evoke .30-06 Spr 22in",
+  "model": "Evoke .30-06 Springfield 22in",
   "platform": "firearm",
   "caliber": ".30-06 Springfield",
   "bullet_diameter_mm": 7.82,
@@ -1255,7 +1255,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Evoke 300 Win Mag 22in",
+  "model": "Evoke .300 Win Mag 22in",
   "platform": "firearm",
   "caliber": ".300 Win Mag",
   "bullet_diameter_mm": 7.82,
@@ -1293,7 +1293,7 @@
  },
  {
   "brand": "Christensen Arms",
-  "model": "Evoke 450 Bushmaster 20in",
+  "model": "Evoke .450 Bushmaster 20in",
   "platform": "firearm",
   "caliber": ".450 Bushmaster",
   "bullet_diameter_mm": 11.48,

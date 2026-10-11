@@ -115,7 +115,7 @@
  },
  {
   "brand": "Browning",
-  "model": "X-Bolt 2 Hunter .30-06 Spr",
+  "model": "X-Bolt 2 Hunter .30-06 Springfield",
   "platform": "firearm",
   "caliber": ".30-06 Springfield",
   "bullet_diameter_mm": 7.82,
@@ -153,7 +153,7 @@
  },
  {
   "brand": "Browning",
-  "model": "X-Bolt 2 Hunter 300 Win Mag",
+  "model": "X-Bolt 2 Hunter .300 Win Mag",
   "platform": "firearm",
   "caliber": ".300 Win Mag",
   "bullet_diameter_mm": 7.82,
@@ -286,7 +286,7 @@
  },
  {
   "brand": "Browning",
-  "model": "X-Bolt 2 Speed .30-06 Spr",
+  "model": "X-Bolt 2 Speed .30-06 Springfield",
   "platform": "firearm",
   "caliber": ".30-06 Springfield",
   "bullet_diameter_mm": 7.82,
@@ -343,7 +343,7 @@
  },
  {
   "brand": "Browning",
-  "model": "X-Bolt 2 Speed 28 Nosler",
+  "model": "X-Bolt 2 Speed .28 Nosler",
   "platform": "firearm",
   "caliber": ".28 Nosler",
   "bullet_diameter_mm": 7.21,
@@ -362,7 +362,7 @@
  },
  {
   "brand": "Browning",
-  "model": "X-Bolt 2 Speed 300 Win Mag",
+  "model": "X-Bolt 2 Speed .300 Win Mag",
   "platform": "firearm",
   "caliber": ".300 Win Mag",
   "bullet_diameter_mm": 7.82,
@@ -400,7 +400,7 @@
  },
  {
   "brand": "Browning",
-  "model": "X-Bolt 2 Speed 280 Ackley Improved",
+  "model": "X-Bolt 2 Speed .280 Ackley Improved",
   "platform": "firearm",
   "caliber": ".280 Ackley Improved",
   "bullet_diameter_mm": 7.21,
@@ -419,7 +419,7 @@
  },
  {
   "brand": "Browning",
-  "model": "X-Bolt 2 Speed 22 Creedmoor",
+  "model": "X-Bolt 2 Speed .22 Creedmoor",
   "platform": "firearm",
   "caliber": ".22 Creedmoor",
   "bullet_diameter_mm": 5.7,
@@ -438,7 +438,7 @@
  },
  {
   "brand": "Browning",
-  "model": "X-Bolt 2 Speed 25 Creedmoor",
+  "model": "X-Bolt 2 Speed .25 Creedmoor",
   "platform": "firearm",
   "caliber": ".25 Creedmoor",
   "bullet_diameter_mm": 6.53,
@@ -552,7 +552,7 @@
  },
  {
   "brand": "Browning",
-  "model": "X-Bolt 2 Mountain Pro Carbon Fiber 300 Win Mag",
+  "model": "X-Bolt 2 Mountain Pro Carbon Fiber .300 Win Mag",
   "platform": "firearm",
   "caliber": ".300 Win Mag",
   "bullet_diameter_mm": 7.82,
@@ -647,7 +647,7 @@
  },
  {
   "brand": "Browning",
-  "model": "BAR MK3 Stalker 300 Win Mag",
+  "model": "BAR MK3 Stalker .300 Win Mag",
   "platform": "firearm",
   "caliber": ".300 Win Mag",
   "bullet_diameter_mm": 7.82,
