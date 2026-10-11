@@ -3,14 +3,15 @@
 // (SE 2/3, 375x667), a normal iPhone (15/16, 393x852) and two iPad sizes.
 // Each screen is scrolled to its end so lazily built rows are laid out too.
 //
-// The bundled Oswald font is loaded so text is measured as on the phone (the
-// default test font is about twice as wide and reports cuts that do not
-// happen on a device; see docs/ekran-boyutu/RAPOR.md).
+// The app's bundled font (MenzilType.family, read from assets/fonts) is
+// loaded so text is measured as on the phone (the default test font draws
+// every letter as a square and reports cuts that do not happen on a device;
+// see docs/ekran-boyutu/RAPOR.md).
 //
 // Layout errors (RenderFlex overflow and other render exceptions) are
 // collected per screen instead of stopping at the first one, printed as
 // `EKRAN_BULGU|<cihaz>|<ekran>|<hata>` lines and fail the test at the end.
-// Oswald texts cut by maxLines/ellipsis (`EKRAN_KESIK|...`) fail too, except
+// App-font texts cut by maxLines/ellipsis (`EKRAN_KESIK|...`) fail too, except
 // the few that are cut on purpose ([_cutByDesign]). Text in another font
 // (the closed list boxes use the system font) cannot be measured here and is
 // only printed. No golden files are used.
@@ -111,7 +112,7 @@ class _Collector {
   final List<String> layout = [];
   final List<String> other = [];
   final Set<String> cut = {};
-  final Set<String> cutOswald = {};
+  final Set<String> cutAppFont = {};
 
   _Collector(this.device);
 
@@ -137,11 +138,22 @@ void _note(String kind, String what, String device) {
   _summary.putIfAbsent('$kind|$short', () => <String>{}).add(device);
 }
 
-Future<void> _loadOswald() async {
-  final loader = FontLoader('Oswald');
-  for (final w in ['Light', 'Regular', 'Medium', 'SemiBold', 'Bold']) {
-    final bytes = File('assets/fonts/Oswald-$w.ttf').readAsBytesSync();
-    loader.addFont(Future.value(ByteData.sublistView(bytes)));
+Future<void> _loadAppFont() async {
+  const family = MenzilType.family;
+  final files =
+      Directory('assets/fonts')
+          .listSync()
+          .whereType<File>()
+          .where((f) {
+            final name = f.uri.pathSegments.last;
+            return name.startsWith('$family-') &&
+                (name.endsWith('.ttf') || name.endsWith('.otf'));
+          })
+          .toList();
+  expect(files, isNotEmpty, reason: 'no assets/fonts/$family-* files');
+  final loader = FontLoader(family);
+  for (final f in files) {
+    loader.addFont(Future.value(ByteData.sublistView(f.readAsBytesSync())));
   }
   await loader.load();
 }
@@ -159,7 +171,7 @@ void _scanCutTexts(WidgetTester tester, _Collector c) {
       _note('KESIK', '${c.screen}|$text', '${c.device} $have/$need');
       final family = ro.text.style?.fontFamily;
       if (family == MenzilType.family && !_cutByDesign(text)) {
-        c.cutOswald.add(line);
+        c.cutAppFont.add(line);
       }
     }
   }
@@ -214,7 +226,7 @@ void main() {
     }
   });
 
-  setUpAll(_loadOswald);
+  setUpAll(_loadAppFont);
   _scan();
 }
 
@@ -317,7 +329,7 @@ void _scan() {
           print(line);
         }
         expect(c.layout, isEmpty, reason: c.layout.join('\n'));
-        expect(c.cutOswald, isEmpty, reason: c.cutOswald.join('\n'));
+        expect(c.cutAppFont, isEmpty, reason: c.cutAppFont.join('\n'));
       });
     }
   }
