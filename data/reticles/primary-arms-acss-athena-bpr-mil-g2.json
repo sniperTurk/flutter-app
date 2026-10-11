@@ -1,7 +1,9 @@
 {
   "name": "ACSS Athena BPR MIL G2",
   "brand": "Primary Arms",
-  "scopes": ["PLxC 2.5-20x48 FFP Compact"],
+  "scopes": [
+    "PLxC 2.5-20x48 FFP Compact"
+  ],
   "unit": "mil",
   "family": "tree",
   "hash_step": 0.5,
@@ -10,10 +12,38 @@
   "extent_h": 10,
   "extent_v_up": null,
   "extent_v_down": 15,
-  "tree": null,
+  "tree": {
+    "rows": [
+      {
+        "y": 0.5,
+        "half_width": 0.5,
+        "dot_step": 0.5
+      },
+      {
+        "y": 2,
+        "half_width": 2,
+        "dot_step": 0.5
+      },
+      {
+        "y": 4,
+        "half_width": 4,
+        "dot_step": 0.5
+      },
+      {
+        "y": 6,
+        "half_width": 6,
+        "dot_step": 0.5
+      },
+      {
+        "y": 15,
+        "half_width": 6,
+        "dot_step": 0.5
+      }
+    ]
+  },
   "posts_start": 11,
   "center_dot": true,
   "floating_center": true,
   "source_url": "https://www.primaryarms.com/core/media/media.nl?id=33854938&c=3901023&h=t6s_pbzfs6NuId8M3A07e1bXNzqGgWHzB8Ze6LYCFXmIjIoU",
-  "notes": "Primary Arms PLx 2.5-20x48 Compact FFP, ACSS Athena G2 BPR MIL reticle manual. Merkez: 0.1 MIL açık nokta, çevresinde 0.2 MIL boşluk; çizgiler merkezden 0.1 MIL sonra başlıyor (yüzen merkez). Dış bölüm: her tam MIL'de çizginin üstünde/altında 'I' işareti, her 2 MIL'de bir rakam (10 MIL'e kadar), 5 ve 10 MIL'de 'T'; yatayda 0.5 MIL'de yarım-MIL noktaları (hash_step=0.5). 11 MIL'den dışarı kalın çizgiler, üzerinde her 5 MIL'de işaret, her 10 MIL'de rakam (extent_h=10, posts_start=11 bu yorumla). MIL ızgarası: merkez altında 15 MIL, sağ/sol 6 MIL; 0.5 MIL aralıklı noktalar (her 1 MIL'de kalın); rakamlar 2-4-6 kenarda, 8-14 yalnız aşağı. Satır bazında yarı genişlikler tek tek verilmediği için tree null. Dikey yukarı uzanım belirtilmemiş."
+  "notes": "Kaynak: Primary Arms 'ACSS ATHENA BPR MIL G2 RETICLE MANUAL' (PLx 2.5-20x48 Compact, FFP). Merkez: 0.1 MIL nokta; merkezde 0.2x0.2 MIL açık alan, nokta her çizginin başlangıcına 0.1 MIL uzaklıkta (yüzen merkez). Yatay: çizgi merkezden 0.1 MIL sonra başlıyor; çizginin 0.5 MIL üstünde/altında yarım MIL'leri gösteren 0.1 MIL noktalar (hash_step=0.5); her tam MIL'de 'I', 5 ve 10 MIL'de 'T'; her 2 MIL'de rakam, 10 MIL'e kadar (extent_h=10). 'At 11 MILS, the thicker crosshair lines begin' (posts_start=11; kılavuz bunu yatay için açıkça söylüyor). Dikey omurga merkezden 0.1 MIL aşağıda başlıyor: 0.1/0.2 MIL çentikler dönüşümlü, her 1.0 MIL'de 'I', her 5.0 MIL'de uçları çubuklu çentik. MIL ızgarası: merkezin 0.5 MIL altında ve 0.5 MIL sağ/solunda başlıyor, 0.5 MIL aralıklı 0.1 MIL noktalar, her 1.0 MIL'de 0.2 MIL nokta; 'The full grid reaches 15 MIL down and 6 MIL left and right of center' (extent_v_down=15 ızgara derinliği). Tree: y=0.5/half_width=0.5 doğrudan metinden; çıkarım: y=2/4/6'da half_width=2/4/6, kılavuzun 'Numbers 2, 4, and 6 located on the outer edges of the grid represent total MIL' (aşağı ve yana) ifadesinden; y=15/half_width=6 'grid stops expanding ... at 6 MIL' ifadesinden. Çizgi kalınlığı sayısal verilmemiş. Yukarı uzanım belirtilmemiş -> extent_v_up null. Menzil merdiveni 5'7\" boy (en üst çizgi 400 m), yatay 19\" genişlik. SLx/GLx 'Athena BPR MIL' (G2 olmayan) farklı retikül; ayrı dosyada."
 }
