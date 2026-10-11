@@ -42,6 +42,8 @@ class V1ToolScopeTests(unittest.TestCase):
             'tool-map-distance',
             # V384: Hız Doğrulama (muzzle-velocity truing).
             'tool-truing',
+            # 2026-10-11: Kullanım rehberi (draft for the owner's review).
+            'tool-usage-guide',
         ):
             self.assertIn(f"Key('{key}')", hub)
         # V380: Ayarlar removed (the app is metric only).
@@ -50,7 +52,7 @@ class V1ToolScopeTests(unittest.TestCase):
         self.assertNotIn("Key('tool-catalog')", hub)
         # 2026-10-09: Kronograf removed from the hub; its screen is kept.
         self.assertNotIn("Key('tool-chronograph')", hub)
-        self.assertEqual(8, hub.count('MenzilToolTile('))
+        self.assertEqual(9, hub.count('MenzilToolTile('))
 
     def test_still_retired_dependencies_and_ios_bridge_stay_absent(self):
         pubspec = (ROOT / 'pubspec.yaml').read_text(encoding='utf-8')

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import '../guide/usage_guide_screen.dart';
 import 'calculators_screen.dart';
 import 'compass_screen.dart';
 import 'hit_probability_screen.dart';
@@ -12,7 +13,7 @@ import 'truing_screen.dart';
 import 'weather_screen.dart';
 
 /// Tool hub (Hız Doğrulama, Sight Height, Haritadan mesafe, Hava & Rüzgâr,
-/// Pusula, Su Terazisi, Vuruş Olasılığı, Hesaplayıcılar). Katalog is no
+/// Pusula, Su Terazisi, Vuruş Olasılığı, Hesaplayıcılar, Kullanım rehberi). Katalog is no
 /// longer listed here (owner, 2026-10-08); its records and screen remain.
 /// Kronograf was removed from the hub too (owner, 2026-10-09); its screen
 /// and statistics code remain. Visual assistance is NOT a tool of its own; it only
@@ -96,6 +97,13 @@ class ToolsScreen extends StatelessWidget {
           subtitle:
               'Mesafe, MOA, tık doğrulama, BC, hava laboratuvarı, birim dönüştürücüler',
           onTap: () => _open(context, const CalculatorsScreen()),
+        ),
+        MenzilToolTile(
+          tileKey: const Key('tool-usage-guide'),
+          icon: Icons.menu_book_outlined,
+          title: 'Kullanım rehberi',
+          subtitle: 'Profil, sıfırlama, hava, Hedef, Pro ve Tablo kısaca',
+          onTap: () => _open(context, const UsageGuideScreen()),
         ),
         const SizedBox(height: MenzilSpace.md),
         Center(
