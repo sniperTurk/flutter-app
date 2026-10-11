@@ -70,13 +70,13 @@ class RecordError(ValueError):
     pass
 
 
-def _num(rec: dict, key: str, positive: bool = True):
+def _num(rec: dict, key: str, positive: bool = True, zero_ok: bool = False):
     v = rec.get(key)
     if v is None:
         return None
     if isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v):
         raise RecordError(f'{key}: sayı değil ({v!r})')
-    if positive and v <= 0:
+    if positive and (v < 0 or (v == 0 and not zero_ok)):
         raise RecordError(f'{key}: pozitif olmalı ({v!r})')
     return float(v)
 
@@ -138,7 +138,7 @@ def normalize(stem: str, rec: dict) -> dict:
                     raise RecordError('tree.rows öğesi nesne değil')
                 parsed.append({
                     'y': _num(r, 'y'),
-                    'half_width': _num(r, 'half_width'),
+                    'half_width': _num(r, 'half_width', zero_ok=True),  # 0: tek nokta
                     'dot_step': _num(r, 'dot_step'),
                 })
             out['tree'] = sorted(parsed, key=lambda r: (r['y'] is None, r['y'] or 0))

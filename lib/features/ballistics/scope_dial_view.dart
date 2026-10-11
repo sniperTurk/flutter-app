@@ -1655,6 +1655,11 @@ class ScopeReticlePainter extends CustomPainter {
             for (final row in r.tree) {
               final y = c.dy + row.y * k;
               final ds = row.dotStep;
+              if (row.halfWidth == 0) {
+                // A single dot on the vertical line (e.g. Nightforce NP-2DD).
+                drawDot(Offset(c.dx, y), rPx);
+                continue;
+              }
               if (ds == null) {
                 // Spacing not given: only the row's known ends are drawn.
                 drawDot(Offset(c.dx + row.halfWidth * k, y), rPx);

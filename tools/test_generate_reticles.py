@@ -31,7 +31,10 @@ class GenerateReticlesTest(unittest.TestCase):
     def test_generated_file_is_current(self):
         self.assertTrue(OUT.exists())
         text, skipped = gen.build(gen.load_dir(DATA))
-        self.assertEqual(skipped, [])
+        # A record without a unit (e.g. a caliber-specific BDC whose maker
+        # gives no angular values) cannot be drawn; it is skipped, never
+        # guessed. Any other reason is a data error.
+        self.assertEqual([x for x in skipped if 'unit tanınmıyor (None)' not in x], [])
         self.assertEqual(OUT.read_text(encoding='utf-8'), text,
                          'run python3 tools/data_gen/generate_reticles.py')
 
@@ -39,6 +42,8 @@ class GenerateReticlesTest(unittest.TestCase):
         text = OUT.read_text(encoding='utf-8')
         for path in sorted(DATA.glob('*.json')):
             rec = json.loads(path.read_text(encoding='utf-8'))
+            if rec.get('unit') is None:
+                continue  # skipped by the generator (see above)
             line = next((l for l in text.splitlines()
                          if f"ReticleData(id:'{path.stem}'," in l), None)
             self.assertIsNotNone(line, path.stem)
