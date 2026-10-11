@@ -3,6 +3,9 @@ name: iOS CI
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
   # Only PRs into main use the (scarce) macOS runners; data-branch PRs
   # (base data/*) and docs-only changes do not, so TestFlight is not stuck
   # behind dozens of data checks (2026-10-11).
@@ -12,18 +15,36 @@ on:
       - 'docs/**'
       - '**/*.md'
   workflow_dispatch:
+    inputs:
+      dev_simulator:
+        description: 'Also run the separate ios-simulator job (extra macOS runner)'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
 
+# A newer push to the same branch/PR cancels the older run (queued jobs too).
+# iOS TestFlight uses its own group and cancels PR runs of this workflow when
+# it starts, so a release upload never waits behind PR checks.
 concurrency:
   group: ios-ci-${{ github.ref }}
   cancel-in-progress: true
 
+# macOS budget (2026-10-11 diagnosis): macos-15 runners are limited to 5
+# concurrent jobs. Each run used to take 3 of them and ran the simulator smoke
+# test twice. Now `dart-checks` (Linux) runs format/analyze/tests first and
+# `verify` is the only automatic macOS job; it starts only when dart-checks
+# passed and something that can affect the iOS build changed.
 jobs:
   verify:
+    needs: dart-checks
+    if: needs.dart-checks.outputs.ios == 'true'
     runs-on: macos-15
-    timeout-minutes: 60
+    # Successful runs took p50 25 / p95 39 min including the Linux-moved
+    # tests; without them 45 leaves room for one simulator retry.
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -126,9 +147,6 @@ jobs:
       - name: Compare Dart G1/G7 solver with independent vectors
         run: dart run tools/compare_reference_vectors.dart
 
-      - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed lib test integration_test tools
-
       - name: Reject generated and temporary source artifacts
         shell: bash
         run: |
@@ -148,34 +166,6 @@ jobs:
             printf 'Generated/temporary artifact committed to source:\n%s\n' "$BAD_ARTIFACTS" >&2
             exit 1
           fi
-
-      - name: Static analysis
-        run: flutter analyze --fatal-infos --fatal-warnings
-
-      - name: Unit and widget tests
-        shell: bash
-        run: |
-          # Same command as before; the log is also scanned so failing tests
-          # appear as annotations (job logs are not always readable).
-          set -o pipefail
-          flutter test --coverage --reporter=expanded 2>&1 | tee flutter-test.log
-          rc=$?
-          if [ "$rc" -ne 0 ]; then
-            grep -nE "\[E\]|Expected:|Actual:|Which:|EXCEPTION|overflowed|TimeoutException|Some tests failed" flutter-test.log | head -30 | while IFS= read -r line; do
-              echo "::error title=flutter test::${line:0:400}"
-            done
-          fi
-          rm -f flutter-test.log
-          exit $rc
-
-      - name: Upload test coverage
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: flutter-test-coverage
-          path: coverage/lcov.info
-          if-no-files-found: ignore
-          retention-days: 14
 
       - name: Generate and verify pinned iOS scaffold
         shell: bash
@@ -207,6 +197,7 @@ jobs:
         run: flutter build ios --simulator --debug
 
       - name: Boot iOS Simulator and run launch smoke test
+        timeout-minutes: 25
         shell: bash
         run: |
           set -euo pipefail
@@ -257,7 +248,9 @@ jobs:
           # step timeouts). A watchdog turns that hang into a retry. Only a
           # watchdog expiry (exit 142 = SIGALRM) is retried; a real test
           # failure exits non-zero immediately and fails the job.
-          for attempt in 1 2 3; do
+          # Two attempts at most (2 x 10 min): a third attempt rarely helped
+          # and kept a scarce macOS runner busy for 30+ minutes.
+          for attempt in 1 2; do
             set +e
             perl -e 'alarm shift; exec @ARGV' 600 \
               flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded
@@ -388,13 +381,131 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+  # Linux gate for everything that does not need macOS (2026-10-11). `verify`
+  # needs this job, so a format/analyze/test failure no longer occupies a
+  # macOS runner, and docs/data-only changes skip macOS entirely.
+  dart-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      ios: ${{ steps.changes.outputs.ios }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Decide whether macOS jobs are needed
+        id: changes
+        shell: bash
+        env:
+          EVENT: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+        run: |
+          set -uo pipefail
+          # Fail safe: anything unclear builds on macOS (ios=true).
+          ios=true
+          base=""
+          head="$GITHUB_SHA"
+          case "$EVENT" in
+            pull_request) base="$PR_BASE"; head="$PR_HEAD" ;;
+            push) base="$PUSH_BEFORE" ;;
+            workflow_dispatch) base="" ;;
+          esac
+          if [[ -n "$base" && ! "$base" =~ ^0+$ ]] && files="$(git diff --name-only "$base...$head" 2>/dev/null)"; then
+            # Files that never reach the iOS app bundle: docs, Markdown,
+            # catalog source data (data/, catalog_sources/).
+            relevant="$(printf '%s\n' "$files" | grep -vE '^(docs/|data/|catalog_sources/)|\.md$' | grep -v '^$' || true)"
+            if [[ -n "$files" && -z "$relevant" ]]; then
+              ios=false
+            fi
+            printf 'Changed files: %s\n' "$(printf '%s\n' "$files" | wc -l)"
+          fi
+          echo "ios=$ios" >> "$GITHUB_OUTPUT"
+          echo "::notice title=macOS jobs::ios=$ios (event $EVENT)"
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Validate complete Python tools tree
+        run: python3 -m compileall -q tools
+
+      - name: Run dependency-free Dart source hygiene
+        run: python3 tools/offline_dart_lint.py
+
+      - name: Install pinned scientific stack and YAML parser for the offline suite
+        run: python3 -m pip install --disable-pip-version-check scipy==1.18.1 numpy==2.5.3 pyyaml
+
+      - name: Run offline Python regression suite (Linux)
+        run: python3 -m unittest discover -s tools -p 'test_*.py' -v
+
+      - name: Enforce G1/G7 production gate (Linux)
+        run: python3 tools/verify_production_gate.py
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Enforce pinned Flutter release toolchain
+        run: python3 tools/verify_flutter_toolchain.py
+
+      - name: Resolve dependencies without lockfile drift
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s pubspec.lock
+          BEFORE_LOCK_SHA="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          flutter pub get
+          AFTER_LOCK_SHA="$(shasum -a 256 pubspec.lock | awk '{print $1}')"
+          [[ "$BEFORE_LOCK_SHA" == "$AFTER_LOCK_SHA" ]]
+
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed lib test integration_test tools
+
+      - name: Static analysis
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Unit and widget tests
+        shell: bash
+        run: |
+          # Same command as before; the log is also scanned so failing tests
+          # appear as annotations (job logs are not always readable).
+          set -o pipefail
+          flutter test --coverage --reporter=expanded 2>&1 | tee flutter-test.log
+          rc=$?
+          if [ "$rc" -ne 0 ]; then
+            grep -nE "\[E\]|Expected:|Actual:|Which:|EXCEPTION|overflowed|TimeoutException|Some tests failed" flutter-test.log | head -30 | while IFS= read -r line; do
+              echo "::error title=flutter test::${line:0:400}"
+            done
+          fi
+          rm -f flutter-test.log
+          exit $rc
+
+      - name: Upload test coverage
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: flutter-test-coverage
+          path: coverage/lcov.info
+          if-no-files-found: ignore
+          retention-days: 14
+
+
   # Separate acceptance set (validation/README.md): wind is validated apart
   # from the frozen no-wind G1/G7 policy. Independent of `verify`, so a wind
   # result can never hide or be hidden by the main release gate. Results are
   # surfaced as annotations; nothing here opens the production gate.
+  # Pure Dart/Python comparison: runs on Linux since 2026-10-11.
   wind-acceptance:
-    runs-on: macos-15
-    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -480,9 +591,15 @@ jobs:
   # `verify` is unchanged: App Store preflight still gates every release build
   # there. This job only proves the app builds for, installs on and launches in
   # the iOS Simulator and passes the integration smoke test.
+  #
+  # Manual only since 2026-10-11: `verify` already runs the same simulator
+  # build and smoke test, and running both took two macOS runners per run.
+  # Start it with workflow_dispatch and dev_simulator=true when the release
+  # settings (privacy URL, MET Norway contact) block `verify`.
   ios-simulator:
+    if: github.event_name == 'workflow_dispatch' && inputs.dev_simulator
     runs-on: macos-15
-    timeout-minutes: 60
+    timeout-minutes: 35
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -518,6 +635,7 @@ jobs:
         run: flutter build ios --simulator --debug
 
       - name: Boot iOS Simulator and run launch smoke test
+        timeout-minutes: 25
         shell: bash
         run: |
           set -euo pipefail
@@ -571,7 +689,9 @@ jobs:
           # step timeouts). A watchdog turns that hang into a retry. Only a
           # watchdog expiry (exit 142 = SIGALRM) is retried; a real test
           # failure exits non-zero immediately and fails the job.
-          for attempt in 1 2 3; do
+          # Two attempts at most (2 x 10 min): a third attempt rarely helped
+          # and kept a scarce macOS runner busy for 30+ minutes.
+          for attempt in 1 2; do
             set +e
             perl -e 'alarm shift; exec @ARGV' 600 \
               flutter test integration_test/app_launch_test.dart -d "$UDID" --reporter=expanded

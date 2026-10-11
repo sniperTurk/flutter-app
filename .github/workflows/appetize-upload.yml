@@ -13,6 +13,12 @@ name: Appetize upload
 on:
   push:
     branches: [main]
+    # Docs/catalog-data-only pushes do not change the app (2026-10-11).
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+      - 'data/**'
+      - 'catalog_sources/**'
   workflow_run:
     workflows: ['iOS TestFlight']
     types: [completed]
@@ -54,7 +60,7 @@ jobs:
     needs: token
     if: needs.token.outputs.present == 'true'
     runs-on: macos-15
-    timeout-minutes: 40
+    timeout-minutes: 25
     env:
       APPETIZE_API_TOKEN: ${{ secrets.APPETIZE_API_TOKEN }}
     steps:
