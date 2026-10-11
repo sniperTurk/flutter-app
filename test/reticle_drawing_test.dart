@@ -49,10 +49,10 @@ void main() {
   });
 
   test('null fields are never guessed', () {
-    // VSE-3 MOA: family unknown -> no data drawing (generic grid).
-    expect(_record('vector-optics-vse-3-moa').toSpec(), isNull);
-    // MPR-4 MIL: mark spacing unknown -> no data drawing.
-    expect(_record('vector-optics-mpr-4-mil').toSpec(), isNull);
+    // EBR-7C MOA: family unknown -> no data drawing (generic grid).
+    expect(_record('vortex-ebr-7c-moa').toSpec(), isNull);
+    // VOR-4 MIL: mark spacing unknown -> no data drawing.
+    expect(_record('vector-optics-vor-4-mil').toSpec(), isNull);
 
     // APRS14: known parts drawn, unknown listed.
     final aprs = _record('athlon-optics-aprs14-ffp-mil').toSpec()!;
@@ -156,9 +156,9 @@ void main() {
     expect(spec.fromData, isTrue);
     expect(spec.name, 'APRS14');
     final generic = ReticleCatalog.forScope(
-      'VSE-3 MOA',
+      'EBR-7C MOA',
       AngularUnit.moa,
-      brand: 'Vector Optics',
+      brand: 'Vortex Optics',
     )!;
     expect(generic.fromData, isFalse);
     expect(generic.unit, AngularUnit.moa);
