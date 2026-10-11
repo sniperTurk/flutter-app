@@ -1,0 +1,23 @@
+{
+  "name": "RMG MOA",
+  "brand": "ZeroTech Optics",
+  "scopes": [
+    "Trace 4.5-27x50 FFP",
+    "Vengeance 4-16x44 FFP",
+    "Vengeance 6-24x50 FFP"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": 2,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://resources.zerotechoptics.com/images/reticleManuals/rmg-moa-specs.pdf",
+  "notes": "ZeroTech reticle sayfası: 'Subtended in 2 MOA increments', 'integrated ½ MOA measuring bars', yüzen merkez nokta, 3-6-9-12 yönünde ağır çubuklar. major_every=2 ve hash_step=0.5 bu ifadelerden yorumlandı (çıkarım). PDF harf etiketli ölçüler veriyor (ör. JJ=120.0, harf-özellik eşlemesi yok); FFP/SFP PDF'te belirtilmemiş ama scope adları FFP. extent, numbers_every, tree, posts_start -> null."
+}
