@@ -631,6 +631,8 @@ class MenzilNotice extends StatelessWidget {
                       ),
                     Text(
                       message,
+                      // Paragraphs are justified (owner, 2026-10-11).
+                      textAlign: TextAlign.justify,
                       style: TextStyle(
                         fontSize: 13.5,
                         height: 1.35,
