@@ -535,8 +535,7 @@ class _TruingScreenState extends State<TruingScreen> {
                     unit: metric ? '°C' : '°F',
                     info: EnvironmentFieldInfo.temperatureFor(
                       firearm:
-                          _resolution?.rifle.platform ==
-                          WeaponPlatform.firearm,
+                          _resolution?.rifle.platform == WeaponPlatform.firearm,
                     ),
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,

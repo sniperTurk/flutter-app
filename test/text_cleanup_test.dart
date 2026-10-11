@@ -39,7 +39,10 @@ void main() {
     });
 
     test('prefixed and unknown names', () {
-      expect(InputErrorText.labelOf('zeroEnvironment.temperatureC'), 'Sıcaklık');
+      expect(
+        InputErrorText.labelOf('zeroEnvironment.temperatureC'),
+        'Sıcaklık',
+      );
       expect(InputErrorText.labelOf('bcBands.minVelocityMps'), 'Hıza göre BC');
       expect(InputErrorText.labelOf('windZones.rangeM'), 'Yol boyu rüzgâr');
       expect(InputErrorText.labelOf('sightHeightMm'), 'Sight height');

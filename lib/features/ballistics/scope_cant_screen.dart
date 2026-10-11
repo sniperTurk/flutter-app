@@ -20,11 +20,7 @@ class ScopeCantScreen extends StatefulWidget {
 
   /// Firearm selected: the ⓘ says "mermi" instead of "saçma".
   final bool firearm;
-  const ScopeCantScreen({
-    super.key,
-    this.initialDeg = 0,
-    this.firearm = false,
-  });
+  const ScopeCantScreen({super.key, this.initialDeg = 0, this.firearm = false});
 
   static const fieldKey = ValueKey('cant-field');
   static const saveKey = ValueKey('cant-save');

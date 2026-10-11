@@ -3656,7 +3656,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   Future<void> _editCant() async {
     final result = await Navigator.of(context).push<double>(
-      MaterialPageRoute(builder: (_) => ScopeCantScreen(initialDeg: _cantDeg, firearm: _isFirearm)),
+      MaterialPageRoute(
+        builder: (_) =>
+            ScopeCantScreen(initialDeg: _cantDeg, firearm: _isFirearm),
+      ),
     );
     if (!mounted || result == null) return;
     _setAngles(cant: result);
