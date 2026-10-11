@@ -28,3 +28,6 @@ Okunamayan MKE sayfaları (bir sonraki çalışmada denenmeli):
 - https://www.mke.gov.tr/Urunler/127-mm-x-99-50-cal-Fisek-M33/137
 - https://www.mke.gov.tr/Urunler/127-mm-x-99-Fisek-M2-AP/134
 - https://www.mke.gov.tr/Urunler/127mmx99-50-Cal-Fisek-Solid-Keskin-Nisanci/135
+
+## BC taraması (2026-10-11)
+BC'si boş 8 kayıt (MKE M118/M193, M855, M855A1, M80A1, Mk 316, Black Hills Mk 262, Barrett/CBC M33) için üretici sayfaları ve kayıtlarda zaten kaynak olan resmi belgeler okundu; hiçbiri BC sayısı vermiyor. Null kaldı; nedenler kayıt notlarında.

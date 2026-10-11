@@ -31,7 +31,7 @@
     "range_velocity_distance_m": 23.7,
     "source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-51-M118-Fisek/158",
     "source_title": "MKE — 7.62 mm x 51 M118 Fişek ürün sayfası",
-    "notes": "Kaynak: Mermi Ağırlığı '~11.4 g' (yaklaşık; 175.9 gr'a çevrildi); Hız (23.7 m) '784 ± 9 m/s' (2572.2 fps). Hız 23.7 m'de ölçülmüş, namlu çıkış hızı değil. BC ve namlu uzunluğu yayınlanmamış. Kullanıldığı silah: MPT-76, JMK BORA-12. Çap kaynakta yok, nominal."
+    "notes": "Kaynak: Mermi Ağırlığı '~11.4 g' (yaklaşık; 175.9 gr'a çevrildi); Hız (23.7 m) '784 ± 9 m/s' (2572.2 fps). Hız 23.7 m'de ölçülmüş, namlu çıkış hızı değil. BC ve namlu uzunluğu yayınlanmamış. Kullanıldığı silah: MPT-76, JMK BORA-12. Çap kaynakta yok, nominal. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/762-mm-x-51-M118-Fisek/158 (erişim 2026-10-11)."
   },
   {
     "designation": "M193 (MKE 5.56 mm x 45 Fişek)",
@@ -48,7 +48,7 @@
     "range_velocity_distance_m": 23.7,
     "source_url": "https://www.mke.gov.tr/Urunler/556-mm-x-45-Fisek-M193/165",
     "source_title": "MKE — 5.56 mm x 45 Fişek (M193) ürün sayfası",
-    "notes": "Kaynak: Mermi Ağırlığı '3.55 ± 0.1 g' (54.8 gr); Hız (23.7 m) '964 ± 12 m/s' (3162.7 fps). Hız 23.7 m'de ölçülmüş, namlu çıkış hızı değil. BC ve namlu uzunluğu yayınlanmamış. Kullanıldığı silah: HK 33. Çap kaynakta yok, nominal."
+    "notes": "Kaynak: Mermi Ağırlığı '3.55 ± 0.1 g' (54.8 gr); Hız (23.7 m) '964 ± 12 m/s' (3162.7 fps). Hız 23.7 m'de ölçülmüş, namlu çıkış hızı değil. BC ve namlu uzunluğu yayınlanmamış. Kullanıldığı silah: HK 33. Çap kaynakta yok, nominal. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: MKE ürün sayfasında Balistik Katsayı yok (2026-10-11 kontrol); MKE Small Arms Ammunition katalog PDF'inde de BC/G1/G7 yok. Bakılan kaynak: https://www.mke.gov.tr/Urunler/556-mm-x-45-Fisek-M193/165 (erişim 2026-10-11)."
   },
   {
     "designation": "SS109 (MKE 5.56 mm x 45 Normal Fişek)",
@@ -80,7 +80,7 @@
     "g7_bc": null,
     "source_url": "https://apps.dtic.mil/sti/tr/pdf/ADA549416.pdf",
     "source_title": "M855A1 Enhanced Performance Round (EPR) Media Day — LTC Jeffrey K. Woods, PM Small Caliber Ammunition, 4 May 2011 (Distribution A)",
-    "notes": "Sayfa 6: ağırlık '62gr'; namlu çıkış hızı M16'da 3113 ft/s, M4'te 2916 ft/s. Belge namlu boyunu yazmıyor; 20 in, M16A2 namlusu için ARL-TR-5182 s.7'den alındı (https://apps.dtic.mil/sti/tr/pdf/ADA530895.pdf). ARL-TR-5182 aynı yerde M4 namlusunu 16 in diyor, bu yüzden M4 değeri burada namlu boyu olmadan notta. BC yayınlanmamış. ARL-TR-5182 Tablo 1 kütleyi 4.04 g veriyor."
+    "notes": "Sayfa 6: ağırlık '62gr'; namlu çıkış hızı M16'da 3113 ft/s, M4'te 2916 ft/s. Belge namlu boyunu yazmıyor; 20 in, M16A2 namlusu için ARL-TR-5182 s.7'den alındı (https://apps.dtic.mil/sti/tr/pdf/ADA530895.pdf). ARL-TR-5182 aynı yerde M4 namlusunu 16 in diyor, bu yüzden M4 değeri burada namlu boyu olmadan notta. BC yayınlanmamış. ARL-TR-5182 Tablo 1 kütleyi 4.04 g veriyor. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: PM SCA belgesi (ADA549416) BC/G1/G7 vermiyor; yalnızca 'Aero. Coefs./Radar' başlığı var, değer yok. Bakılan kaynak: https://apps.dtic.mil/sti/tr/pdf/ADA549416.pdf (erişim 2026-10-11)."
   },
   {
     "designation": "M855A1 EPR",
@@ -95,7 +95,7 @@
     "g7_bc": null,
     "source_url": "https://apps.dtic.mil/sti/tr/pdf/ADA549416.pdf",
     "source_title": "M855A1 Enhanced Performance Round (EPR) Media Day — LTC Jeffrey K. Woods, PM Small Caliber Ammunition, 4 May 2011 (Distribution A)",
-    "notes": "Sayfa 6: ağırlık '62gr No Change'; namlu çıkış hızı M16'da 3150 ft/s, M4'te 2970 ft/s. Namlu boyu belgede yok; 20 in, M16A2 için ARL-TR-5182 s.7'den. BC yayınlanmamış. Not: kapak Distribution A, slayt 10 başlığında 'Distribution Statement F' yazıyor; değerler slayt 6'dan."
+    "notes": "Sayfa 6: ağırlık '62gr No Change'; namlu çıkış hızı M16'da 3150 ft/s, M4'te 2970 ft/s. Namlu boyu belgede yok; 20 in, M16A2 için ARL-TR-5182 s.7'den. BC yayınlanmamış. Not: kapak Distribution A, slayt 10 başlığında 'Distribution Statement F' yazıyor; değerler slayt 6'dan. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: PM SCA belgesi (ADA549416) BC/G1/G7 vermiyor; yalnızca 'Aero. Coefs./Radar' başlığı var, değer yok. Bakılan kaynak: https://apps.dtic.mil/sti/tr/pdf/ADA549416.pdf (erişim 2026-10-11)."
   },
   {
     "designation": "M80A1 EPR",
@@ -110,7 +110,7 @@
     "g7_bc": null,
     "source_url": "https://ndia.dtic.mil/wp-content/uploads/2016/armament/18325_Phillips.pdf",
     "source_title": "Cased Telescoped Small Arms Systems — Kori Phillips (JSSAP, Picatinny), NDIA Armament Small Arms Forum, 27 Apr 2016 (Distribution A)",
-    "notes": "Slayt 6: 'M80A1: 130 grains, High Drag Shape'. Slayt 10 ve 15 7.62 NATO mermisini 131 gr veriyor; 130 gr seçildi. Namlu çıkış hızı, namlu boyu ve BC erişilebilen açık kaynaklarda bulunamadı. Çap nominal."
+    "notes": "Slayt 6: 'M80A1: 130 grains, High Drag Shape'. Slayt 10 ve 15 7.62 NATO mermisini 131 gr veriyor; 130 gr seçildi. Namlu çıkış hızı, namlu boyu ve BC erişilebilen açık kaynaklarda bulunamadı. Çap nominal. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: JSSAP/NDIA 2016 sunumu yalnızca 'High Drag Shape' diyor, sayısal BC yok. Bakılan kaynak: https://ndia.dtic.mil/wp-content/uploads/2016/armament/18325_Phillips.pdf (erişim 2026-10-11)."
   },
   {
     "designation": "Mk 316 Mod 0",
@@ -125,7 +125,7 @@
     "g7_bc": null,
     "source_url": "https://ndia.dtic.mil/wp-content/uploads/2009/infantrysmallarms/tuesdaysessioniii8524.pdf",
     "source_title": "U.S. Navy Small Arms Ammunition Advancements — Chuck Marsh, Jarod Stoll (US Navy), David Leis (ATK), NDIA 2009 (Distribution A)",
-    "notes": "Kaynak: '175 grain Sierra MatchKing® Projectile'. Hız, namlu boyu ve BC belgede yok. Federal'in kendi sitesi Mk 316'yı anıyor ama değer vermiyor. Çap nominal."
+    "notes": "Kaynak: '175 grain Sierra MatchKing® Projectile'. Hız, namlu boyu ve BC belgede yok. Federal'in kendi sitesi Mk 316'yı anıyor ama değer vermiyor. Çap nominal. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: US Navy/ATK NDIA 2009 sunumunda BC yok; başka resmi üretici kaynağı bulunamadı. Bakılan kaynak: https://ndia.dtic.mil/wp-content/uploads/2009/infantrysmallarms/tuesdaysessioniii8524.pdf (erişim 2026-10-11)."
   },
   {
     "designation": "Mk 262 Mod 1 (Black Hills ticari Mk 262 Mod 1-C)",
@@ -140,7 +140,7 @@
     "g7_bc": null,
     "source_url": "https://www.black-hills.com/shop/mk-262-mod-1-c-mil-pack/556mm/",
     "source_title": "Black Hills Ammunition — MK 262 MOD 1-C, Mil Pack, 5.56mm",
-    "notes": "Kaynak: '77 Gr. MK 262 MOD 1-C', 'Velocity: 2750 FPS', 'NO. 1 20\" TEST BARREL', enerji 1293 ft-lb. Bu, askeri Mk 262 Mod 1'in üreticisinin ticari sürümü; sayfa 'exact construction and performance specs of the U.S. Military round' diyor ama mermiyi Tipped MatchKing olarak veriyor. BC yayınlanmamış. Çap nominal."
+    "notes": "Kaynak: '77 Gr. MK 262 MOD 1-C', 'Velocity: 2750 FPS', 'NO. 1 20\" TEST BARREL', enerji 1293 ft-lb. Bu, askeri Mk 262 Mod 1'in üreticisinin ticari sürümü; sayfa 'exact construction and performance specs of the U.S. Military round' diyor ama mermiyi Tipped MatchKing olarak veriyor. BC yayınlanmamış. Çap nominal. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: Black Hills ürün sayfasında BC yok (yalnızca hız/enerji/test namlusu); arama yalnızca bayi/forum sonucu verdi (yasak). Bakılan kaynak: https://www.black-hills.com/shop/mk-262-mod-1-c-mil-pack/556mm/ (erişim 2026-10-11)."
   },
   {
     "designation": "M33 Ball",
@@ -155,7 +155,7 @@
     "g7_bc": null,
     "source_url": "https://barrett.net/shop/ammo-50-bmg-barrett-headstamp-661-gr-m33-ball-250-rd-case/",
     "source_title": "Barrett — Ammo, .50 BMG, Barrett Headstamp, 661 GR, M33 BALL, 250 Rd Case",
-    "notes": "Ürün başlığı 661 gr, açıklama 660 gr diyor; başlıktaki değer alındı. Açıklamada 'CBC, BARRETT HEADSTAMP' geçiyor. Hız, namlu boyu ve BC yayınlanmamış. Çap nominal."
+    "notes": "Ürün başlığı 661 gr, açıklama 660 gr diyor; başlıktaki değer alındı. Açıklamada 'CBC, BARRETT HEADSTAMP' geçiyor. Hız, namlu boyu ve BC yayınlanmamış. Çap nominal. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: Barrett ürün sayfasında BC yok; CBC Defense ürün broşüründe de BC yok. Bakılan kaynak: https://barrett.net/shop/ammo-50-bmg-barrett-headstamp-661-gr-m33-ball-250-rd-case/ (erişim 2026-10-11)."
   },
   {
     "designation": ".338 Lapua Mag 250 gr Scenar (Lapua 4318017)",
