@@ -89,3 +89,10 @@ Norma soğuk hava Academy yazısı (test anlatılıyor ama hız sonuçları yok)
 - Eklenen (raw): N150, N160, N555, N565. N165, N550, N560 sayfalarında sıcaklık ifadesi yok.
   N568 kılavuzda ayrıca "insensitive to humidity changes" diyor (mevcut kayıt korundu).
 - N140 okunamadı (ürün sayfası adresi bulunamadı; yalnızca blog yazısı var, okunmadı).
+
+### Norma barut
+- https://www.norma-ammunition.com/en-gb/reloading/powder → `CLIENT_ERROR`; WebSearch ile ürün listesi bulundu:
+  https://www.norma-ammunition.com/products/components/gunpowder
+- Okunan: liste sayfası, 217, 204, MRP (2026'da üretimden kalkıyor), 203-B ürün sayfaları.
+- **Sayı yok, ürüne özgü sıcaklık ifadesi yok → kayıt eklenmedi.** Sayfalardaki tek ifade genel
+  ("smokeless powder is ... less sensitive to temperature variations compared to black powder"), ürüne özgü değil.
