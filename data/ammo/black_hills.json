@@ -7,12 +7,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.224,
   "weight_gr": 50,
-  "g1_bc": null,
+  "g1_bc": 0.197,
   "g7_bc": null,
   "muzzle_velocity_fps": 3275,
   "test_barrel_in": 20.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.197. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .224 50gr TSX FB SKU 30174 (22-250 Rem load data, 'G1 B.C'). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/224/22-250-Remington.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -22,12 +22,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.224,
   "weight_gr": 62,
-  "g1_bc": null,
+  "g1_bc": 0.287,
   "g7_bc": null,
   "muzzle_velocity_fps": 3000,
   "test_barrel_in": 20.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.287. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .224 62gr TSX BT SKU 30190 (22-250 Rem load data, 'G1 B.C'). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/224/22-250-Remington.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -42,7 +42,7 @@
   "muzzle_velocity_fps": 3000,
   "test_barrel_in": 20.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -57,7 +57,7 @@
   "muzzle_velocity_fps": 2875,
   "test_barrel_in": 20.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -72,7 +72,7 @@
   "muzzle_velocity_fps": 2875,
   "test_barrel_in": 20.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: sierrabullets.com \u00fcr\u00fcn sayfas\u0131nda BC 'Ballistics' sekmesi JS ile y\u00fckleniyor, metinde de\u011fer yok; Sierra load-data PDF'leri BC yazm\u0131yor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -87,7 +87,7 @@
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 20.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -102,7 +102,7 @@
   "muzzle_velocity_fps": 2750,
   "test_barrel_in": 20.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -117,7 +117,7 @@
   "muzzle_velocity_fps": 2750,
   "test_barrel_in": 20.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: sierrabullets.com \u00fcr\u00fcn sayfas\u0131nda BC 'Ballistics' sekmesi JS ile y\u00fckleniyor, metinde de\u011fer yok; Sierra load-data PDF'leri BC yazm\u0131yor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -132,7 +132,7 @@
   "muzzle_velocity_fps": 3750,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi \u00fcreticisi bu \u00fcr\u00fcn sayfas\u0131nda belirtilmemi\u015f (yaln\u0131z 'Varmint Grenade'). Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -147,7 +147,7 @@
   "muzzle_velocity_fps": 3600,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -162,7 +162,7 @@
   "muzzle_velocity_fps": 3300,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -177,7 +177,7 @@
   "muzzle_velocity_fps": 3250,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -192,7 +192,7 @@
   "muzzle_velocity_fps": 3200,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -207,7 +207,7 @@
   "muzzle_velocity_fps": 3200,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -217,12 +217,12 @@
   "bullet": "Barnes MPG",
   "bullet_diameter_in": 0.224,
   "weight_gr": 55,
-  "g1_bc": null,
+  "g1_bc": 0.225,
   "g7_bc": null,
   "muzzle_velocity_fps": 3100,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.225. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .224 55gr MPG SKU 30195 (22-250 Rem load data, 'G1 B.C'). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/224/22-250-Remington.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -232,12 +232,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.224,
   "weight_gr": 55,
-  "g1_bc": null,
+  "g1_bc": 0.209,
   "g7_bc": null,
   "muzzle_velocity_fps": 3200,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.209. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .224 55gr TSX FB SKU 30182 (22-250 Rem load data, 'G1 B.C'). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/224/22-250-Remington.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -252,7 +252,7 @@
   "muzzle_velocity_fps": 3075,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -267,7 +267,7 @@
   "muzzle_velocity_fps": 3050,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -277,12 +277,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.224,
   "weight_gr": 62,
-  "g1_bc": null,
+  "g1_bc": 0.287,
   "g7_bc": null,
   "muzzle_velocity_fps": 3025,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.287. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .224 62gr TSX BT SKU 30190 (22-250 Rem load data, 'G1 B.C'). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/224/22-250-Remington.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -297,7 +297,7 @@
   "muzzle_velocity_fps": 2850,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -312,7 +312,7 @@
   "muzzle_velocity_fps": 2850,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: sierrabullets.com \u00fcr\u00fcn sayfas\u0131nda BC 'Ballistics' sekmesi JS ile y\u00fckleniyor, metinde de\u011fer yok; Sierra load-data PDF'leri BC yazm\u0131yor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -327,7 +327,7 @@
   "muzzle_velocity_fps": 2750,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -342,7 +342,7 @@
   "muzzle_velocity_fps": 2750,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -357,7 +357,7 @@
   "muzzle_velocity_fps": 2650,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -372,7 +372,7 @@
   "muzzle_velocity_fps": 2600,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -382,12 +382,12 @@
   "bullet": "Barnes TAC-TX",
   "bullet_diameter_in": 0.308,
   "weight_gr": 110,
-  "g1_bc": null,
+  "g1_bc": 0.289,
   "g7_bc": null,
   "muzzle_velocity_fps": 2250,
   "test_barrel_in": 16.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.289. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .308 110gr TAC-TX FB (300 AAC Blackout load data; BC modeli belirtilmemi\u015f; CFR ballistics chart SKU 21548 da 0.289). Not: 308 Win PDF'inde 'TTSX FB / TAC-TX FB 110' .295. BC modeli (G1/G7) PDF'te belirtilmemi\u015f. BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/308/300AACBlackoutV6ForWeb.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -402,7 +402,7 @@
   "muzzle_velocity_fps": 2240,
   "test_barrel_in": 16.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -417,7 +417,7 @@
   "muzzle_velocity_fps": 2100,
   "test_barrel_in": 16.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -432,7 +432,7 @@
   "muzzle_velocity_fps": 2100,
   "test_barrel_in": 16.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: sierrabullets.com \u00fcr\u00fcn sayfas\u0131nda BC 'Ballistics' sekmesi JS ile y\u00fckleniyor, metinde de\u011fer yok; Sierra load-data PDF'leri BC yazm\u0131yor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -447,7 +447,7 @@
   "muzzle_velocity_fps": 1050,
   "test_barrel_in": 16.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -462,7 +462,7 @@
   "muzzle_velocity_fps": 1050,
   "test_barrel_in": 16.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -477,7 +477,7 @@
   "muzzle_velocity_fps": 2860,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/338-lapua/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: sierrabullets.com \u00fcr\u00fcn sayfas\u0131nda BC 'Ballistics' sekmesi JS ile y\u00fckleniyor, metinde de\u011fer yok; Sierra load-data PDF'leri BC yazm\u0131yor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/338-lapua/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -492,7 +492,7 @@
   "muzzle_velocity_fps": 2625,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/338-lapua/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: sierrabullets.com \u00fcr\u00fcn sayfas\u0131nda BC 'Ballistics' sekmesi JS ile y\u00fckleniyor, metinde de\u011fer yok; Sierra load-data PDF'leri BC yazm\u0131yor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/338-lapua/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -507,7 +507,7 @@
   "muzzle_velocity_fps": 2625,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/338-norma-magnum/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: sierrabullets.com \u00fcr\u00fcn sayfas\u0131nda BC 'Ballistics' sekmesi JS ile y\u00fckleniyor, metinde de\u011fer yok; Sierra load-data PDF'leri BC yazm\u0131yor. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/338-norma-magnum/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -522,7 +522,7 @@
   "muzzle_velocity_fps": 2950,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-winchester-magnum/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/shop/new-rifle-ammo/300-winchester-magnum/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -532,12 +532,12 @@
   "bullet": "Barnes Varmint Grenade",
   "bullet_diameter_in": 0.224,
   "weight_gr": 36,
-  "g1_bc": null,
+  "g1_bc": 0.149,
   "g7_bc": null,
   "muzzle_velocity_fps": 4250,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.149. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .224 36gr Varmint Grenade FB SKU 30171 (22-250 Rem load data, 'G1 B.C'). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/224/22-250-Remington.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -552,7 +552,7 @@
   "muzzle_velocity_fps": 3700,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -567,7 +567,7 @@
   "muzzle_velocity_fps": 2650,
   "test_barrel_in": 18.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -577,12 +577,12 @@
   "bullet": "Hornady ELD-X",
   "bullet_diameter_in": 0.243,
   "weight_gr": 103,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.512,
+  "g7_bc": 0.258,
   "muzzle_velocity_fps": 2550,
   "test_barrel_in": 18.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.512 / G7 0.258. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 6mm 103gr ELD-X \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.512 G1/0.258 G7; Mach 2.0 (2232 fps) 0.505/0.253; Mach 1.75 (1953 fps) 0.498/0.251. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -597,7 +597,7 @@
   "muzzle_velocity_fps": 3700,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -612,7 +612,7 @@
   "muzzle_velocity_fps": 3150,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -622,12 +622,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.243,
   "weight_gr": 85,
-  "g1_bc": null,
+  "g1_bc": 0.333,
   "g7_bc": null,
   "muzzle_velocity_fps": 3100,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.333. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes 6mm 85gr TSX BT (243 Win load data, 'G1 B.C'). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/243/243-Winchester.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -642,7 +642,7 @@
   "muzzle_velocity_fps": 2950,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -652,12 +652,12 @@
   "bullet": "Hornady ELD-X",
   "bullet_diameter_in": 0.243,
   "weight_gr": 103,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.512,
+  "g7_bc": 0.258,
   "muzzle_velocity_fps": 2950,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.512 / G7 0.258. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 6mm 103gr ELD-X \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.512 G1/0.258 G7; Mach 2.0 (2232 fps) 0.505/0.253; Mach 1.75 (1953 fps) 0.498/0.251. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -667,12 +667,12 @@
   "bullet": "Hornady ELD Match",
   "bullet_diameter_in": 0.243,
   "weight_gr": 108,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.536,
+  "g7_bc": 0.27,
   "muzzle_velocity_fps": 2900,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.536 / G7 0.27. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 6mm 108gr ELD Match \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.536 G1/0.27 G7; Mach 2.0 (2232 fps) 0.526/0.264; Mach 1.75 (1953 fps) 0.52/0.261. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -682,12 +682,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.257,
   "weight_gr": 100,
-  "g1_bc": null,
+  "g1_bc": 0.336,
   "g7_bc": null,
   "muzzle_velocity_fps": 3200,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.336. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .257 100gr TSX BT SKU 30222 (25-06 Rem load data, 'G1 B.C'). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/257/25-06-Rem.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -702,7 +702,7 @@
   "muzzle_velocity_fps": 3100,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -717,7 +717,7 @@
   "muzzle_velocity_fps": 2850,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -727,12 +727,12 @@
   "bullet": "Hornady ELD Match",
   "bullet_diameter_in": 0.264,
   "weight_gr": 140,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.646,
+  "g7_bc": 0.326,
   "muzzle_velocity_fps": 2700,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.646 / G7 0.326. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 6.5mm 140gr ELD Match \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.646 G1/0.326 G7; Mach 2.0 (2232 fps) 0.637/0.32; Mach 1.75 (1953 fps) 0.616/0.31. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -747,7 +747,7 @@
   "muzzle_velocity_fps": 2900,
   "test_barrel_in": 22.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -762,7 +762,7 @@
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 22.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -772,12 +772,12 @@
   "bullet": "Hornady ELD-X",
   "bullet_diameter_in": 0.264,
   "weight_gr": 143,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.623,
+  "g7_bc": 0.314,
   "muzzle_velocity_fps": 2700,
   "test_barrel_in": 22.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.623 / G7 0.314. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 6.5mm 143gr ELD-X \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.623 G1/0.314 G7; Mach 2.0 (2232 fps) 0.604/0.303; Mach 1.75 (1953 fps) 0.584/0.294. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -787,12 +787,12 @@
   "bullet": "Hornady ELD Match",
   "bullet_diameter_in": 0.264,
   "weight_gr": 147,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.697,
+  "g7_bc": 0.351,
   "muzzle_velocity_fps": 2700,
   "test_barrel_in": 22.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.697 / G7 0.351. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 6.5mm 147gr ELD Match \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.697 G1/0.351 G7; Mach 2.0 (2232 fps) 0.662/0.332; Mach 1.75 (1953 fps) 0.637/0.321. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -802,12 +802,12 @@
   "bullet": "Hornady ELD-X",
   "bullet_diameter_in": 0.264,
   "weight_gr": 143,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.623,
+  "g7_bc": 0.314,
   "muzzle_velocity_fps": 2900,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.623 / G7 0.314. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 6.5mm 143gr ELD-X \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.623 G1/0.314 G7; Mach 2.0 (2232 fps) 0.604/0.303; Mach 1.75 (1953 fps) 0.584/0.294. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -822,7 +822,7 @@
   "muzzle_velocity_fps": 2900,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -837,7 +837,7 @@
   "muzzle_velocity_fps": 2950,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -847,12 +847,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.277,
   "weight_gr": 130,
-  "g1_bc": null,
+  "g1_bc": 0.374,
   "g7_bc": null,
   "muzzle_velocity_fps": 2900,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.374. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .277 130gr TSX BT SKU 30264 (270 Win load data, 'G1 B.C'); not: Barnes CFR ballistics chart (fabrika m\u00fchimmat\u0131) 130 TSX BT i\u00e7in 0.411 yaz\u0131yor. BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/277/270WinchesterForWeb.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -867,7 +867,7 @@
   "muzzle_velocity_fps": 3100,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -877,12 +877,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.284,
   "weight_gr": 140,
-  "g1_bc": null,
+  "g1_bc": 0.394,
   "g7_bc": null,
   "muzzle_velocity_fps": 3100,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.394. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes 7mm 140gr TSX BT SKU 30289 (7mm Rem Mag load data, 'G1 B.C'). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/284/7mm%20Rem%20Mag%20Data.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -897,7 +897,7 @@
   "muzzle_velocity_fps": 3000,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -907,12 +907,12 @@
   "bullet": "Hornady ELD-X",
   "bullet_diameter_in": 0.284,
   "weight_gr": 175,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.689,
+  "g7_bc": 0.347,
   "muzzle_velocity_fps": 2850,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.689 / G7 0.347. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 7mm 175gr ELD-X \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.689 G1/0.347 G7; Mach 2.0 (2232 fps) 0.683/0.343; Mach 1.75 (1953 fps) 0.678/0.341. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -927,7 +927,7 @@
   "muzzle_velocity_fps": 3000,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -942,7 +942,7 @@
   "muzzle_velocity_fps": 2750,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -957,7 +957,7 @@
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -972,7 +972,7 @@
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor; mermi belirtilmemi\u015f. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -982,12 +982,12 @@
   "bullet": "Hornady ELD Match",
   "bullet_diameter_in": 0.308,
   "weight_gr": 155,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.461,
+  "g7_bc": 0.232,
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.461 / G7 0.232. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal 155gr ELD Match \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.461 G1/0.232 G7; Mach 2.0 (2232 fps) 0.451/0.227; Mach 1.75 (1953 fps) 0.439/0.221. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1002,7 +1002,7 @@
   "muzzle_velocity_fps": 2750,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: sierrabullets.com \u00fcr\u00fcn sayfas\u0131nda BC 'Ballistics' sekmesi JS ile y\u00fckleniyor, metinde de\u011fer yok; Sierra load-data PDF'leri BC yazm\u0131yor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1017,7 +1017,7 @@
   "muzzle_velocity_fps": 2675,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1027,12 +1027,12 @@
   "bullet": "Hornady ELD Match",
   "bullet_diameter_in": 0.308,
   "weight_gr": 168,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.523,
+  "g7_bc": 0.263,
   "muzzle_velocity_fps": 2650,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.523 / G7 0.263. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal 168gr ELD Match \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.523 G1/0.263 G7; Mach 2.0 (2232 fps) 0.516/0.259; Mach 1.75 (1953 fps) 0.498/0.251. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1042,12 +1042,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.308,
   "weight_gr": 168,
-  "g1_bc": null,
+  "g1_bc": 0.404,
   "g7_bc": null,
   "muzzle_velocity_fps": 2650,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.404. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .308 168gr TSX BT SKU 30351 (300 Win Mag load data, 'G1 B.C'; 308 Win/30-06 PDF'leri de .404). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/308/300%20Winchester%20Mag%20New.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1062,7 +1062,7 @@
   "muzzle_velocity_fps": 2650,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: sierrabullets.com \u00fcr\u00fcn sayfas\u0131nda BC 'Ballistics' sekmesi JS ile y\u00fckleniyor, metinde de\u011fer yok; Sierra load-data PDF'leri BC yazm\u0131yor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1077,7 +1077,7 @@
   "muzzle_velocity_fps": 2600,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: sierrabullets.com \u00fcr\u00fcn sayfas\u0131nda BC 'Ballistics' sekmesi JS ile y\u00fckleniyor, metinde de\u011fer yok; Sierra load-data PDF'leri BC yazm\u0131yor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1087,12 +1087,12 @@
   "bullet": "Hornady ELD-X",
   "bullet_diameter_in": 0.308,
   "weight_gr": 178,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.552,
+  "g7_bc": 0.278,
   "muzzle_velocity_fps": 2600,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.552 / G7 0.278. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal 178gr ELD-X \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.552 G1/0.278 G7; Mach 2.0 (2232 fps) 0.543/0.273; Mach 1.75 (1953 fps) 0.538/0.271. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1107,7 +1107,7 @@
   "muzzle_velocity_fps": 2900,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1117,12 +1117,12 @@
   "bullet": "Hornady ELD Match",
   "bullet_diameter_in": 0.308,
   "weight_gr": 155,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.461,
+  "g7_bc": 0.232,
   "muzzle_velocity_fps": 2900,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.461 / G7 0.232. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal 155gr ELD Match \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.461 G1/0.232 G7; Mach 2.0 (2232 fps) 0.451/0.227; Mach 1.75 (1953 fps) 0.439/0.221. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1137,7 +1137,7 @@
   "muzzle_velocity_fps": 2750,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1152,7 +1152,7 @@
   "muzzle_velocity_fps": 2700,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1162,12 +1162,12 @@
   "bullet": "Hornady ELD Match",
   "bullet_diameter_in": 0.308,
   "weight_gr": 168,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.523,
+  "g7_bc": 0.263,
   "muzzle_velocity_fps": 2750,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.523 / G7 0.263. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal 168gr ELD Match \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.523 G1/0.263 G7; Mach 2.0 (2232 fps) 0.516/0.259; Mach 1.75 (1953 fps) 0.498/0.251. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1177,12 +1177,12 @@
   "bullet": "Hornady ELD-X",
   "bullet_diameter_in": 0.308,
   "weight_gr": 178,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.552,
+  "g7_bc": 0.278,
   "muzzle_velocity_fps": 2700,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.552 / G7 0.278. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal 178gr ELD-X \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.552 G1/0.278 G7; Mach 2.0 (2232 fps) 0.543/0.273; Mach 1.75 (1953 fps) 0.538/0.271. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1192,12 +1192,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.308,
   "weight_gr": 180,
-  "g1_bc": null,
+  "g1_bc": 0.453,
   "g7_bc": null,
   "muzzle_velocity_fps": 2600,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.453. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .308 180gr TSX BT SKU 30353 (300 Win Mag load data, 'G1 B.C'; 308 Win/30-06 PDF'leri de .453). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/308/300%20Winchester%20Mag%20New.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1212,7 +1212,7 @@
   "muzzle_velocity_fps": 3050,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1227,7 +1227,7 @@
   "muzzle_velocity_fps": 2950,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1237,12 +1237,12 @@
   "bullet": "Barnes TSX",
   "bullet_diameter_in": 0.308,
   "weight_gr": 180,
-  "g1_bc": null,
+  "g1_bc": 0.453,
   "g7_bc": null,
   "muzzle_velocity_fps": 2950,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.453. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Barnes .308 180gr TSX BT SKU 30353 (300 Win Mag load data, 'G1 B.C'; 308 Win/30-06 PDF'leri de .453). BC kayna\u011f\u0131: https://barnesbullets.com/content/barnes-loaddata/rifle/308/300%20Winchester%20Mag%20New.pdf (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1252,12 +1252,12 @@
   "bullet": "Hornady ELD-X",
   "bullet_diameter_in": 0.308,
   "weight_gr": 200,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.597,
+  "g7_bc": 0.301,
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.597 / G7 0.301. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal 200gr ELD-X \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.597 G1/0.301 G7; Mach 2.0 (2232 fps) 0.588/0.295; Mach 1.75 (1953 fps) 0.578/0.291. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1267,12 +1267,12 @@
   "bullet": "Hornady ELD-X",
   "bullet_diameter_in": 0.308,
   "weight_gr": 212,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.663,
+  "g7_bc": 0.334,
   "muzzle_velocity_fps": 2850,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.663 / G7 0.334. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal 212gr ELD-X 1 in 10\" twist sat\u0131r\u0131 (1 in 7\" sat\u0131r\u0131: M2.25 0.702 G1/0.354 G7, M2.0 0.686/0.345, M1.75 0.677/0.341) \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.663 G1/0.334 G7; Mach 2.0 (2232 fps) 0.649/0.326; Mach 1.75 (1953 fps) 0.643/0.324. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1282,12 +1282,12 @@
   "bullet": "Hornady ELD Match",
   "bullet_diameter_in": 0.308,
   "weight_gr": 225,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.777,
+  "g7_bc": 0.391,
   "muzzle_velocity_fps": 2800,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.777 / G7 0.391. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 30 Cal 225gr ELD Match 1 in 10\" twist sat\u0131r\u0131 (1 in 7\" sat\u0131r\u0131: M2.25 0.798 G1/0.402 G7, M2.0 0.782/0.393, M1.75 0.749/0.377) \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.777 G1/0.391 G7; Mach 2.0 (2232 fps) 0.752/0.378; Mach 1.75 (1953 fps) 0.719/0.362. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1302,7 +1302,7 @@
   "muzzle_velocity_fps": 2900,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 eri\u015filemedi: hornady.com bile\u015fen mermi sayfas\u0131nda spesifikasyon/BC metni gelmiyor (JS); 2026 katalog PDF indirilemedi; hornady.com/BC tablosu yaln\u0131z ELD Match/ELD-X/A-Tip/ELD-VT i\u00e7eriyor. Bak\u0131lan kaynak: https://www.black-hills.com/product-category/bh-gold-ammo/ (eri\u015fim 2026-10-11)."
  },
  {
   "brand": "Black Hills",
@@ -1312,11 +1312,11 @@
   "bullet": "Hornady ELD Match",
   "bullet_diameter_in": 0.338,
   "weight_gr": 285,
-  "g1_bc": null,
-  "g7_bc": null,
+  "g1_bc": 0.829,
+  "g7_bc": 0.417,
   "muzzle_velocity_fps": 2700,
   "test_barrel_in": 24.0,
   "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
-  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published"
+  "notes": "Velocity and test barrel from manufacturer category page; BC and item no. not published | BC (2026-10-11): G1 0.829 / G7 0.417. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Hornady 338 Cal 285gr ELD Match \u2014 hornady.com/BC 'Expanded BC Values' tablosu (Mach noktas\u0131 de\u011ferleri, bant de\u011fil): Mach 2.25 (2512 fps) 0.829 G1/0.417 G7; Mach 2.0 (2232 fps) 0.814/0.409; Mach 1.75 (1953 fps) 0.796/0.4. g1/g7 = Mach 2.25 de\u011feri. \u00dcr\u00fcn sayfas\u0131 spesifikasyonlar\u0131 WebFetch ile okunamad\u0131. BC kayna\u011f\u0131: https://www.hornady.com/BC (eri\u015fim 2026-10-11)."
  }
 ]

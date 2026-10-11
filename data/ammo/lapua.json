@@ -57,7 +57,7 @@
   "muzzle_velocity_fps": 2789,
   "test_barrel_in": 20,
   "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
-  "notes": "Lapua Product Catalog 2024; MV 850 m/s converted; test barrel 510 mm; from catalog tactical data chart; BC not given there"
+  "notes": "Lapua Product Catalog 2024; MV 850 m/s converted; test barrel 510 mm; from catalog tactical data chart; BC not given there | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: katalog kartuş tablosunda BC yok; ürün 4315011 / mermi GB541 (Scenar, Scenar-L değil) için lapua.com sayfası yok; GB541 bileşen olarak listelenmiyor (GB544 Scenar-L farklı mermi). Bakılan kaynak: https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf (erişim 2026-10-11)."
  },
  {
   "brand": "Lapua",
@@ -72,7 +72,7 @@
   "muzzle_velocity_fps": 2905,
   "test_barrel_in": 24,
   "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
-  "notes": "Lapua Product Catalog 2024; test barrel 610 mm; BC not published"
+  "notes": "Lapua Product Catalog 2024; test barrel 610 mm; BC not published | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: lapua.com ürün sayfası 4316052 \"BC G1 –\", \"BC G7 –\"; S561 bileşen sayfası yok. Bakılan kaynak: https://www.lapua.com/product/243-win-hunting-target-cartridge-fmj-58g-90gr-4316052/ (erişim 2026-10-11)."
  },
  {
   "brand": "Lapua",
@@ -102,7 +102,7 @@
   "muzzle_velocity_fps": 2986,
   "test_barrel_in": 24,
   "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
-  "notes": "Lapua Product Catalog 2024; MV 910 m/s converted; test barrel 610 mm; from catalog data chart; BC not given there"
+  "notes": "Lapua Product Catalog 2024; MV 910 m/s converted; test barrel 610 mm; from catalog data chart; BC not given there | BC araması (2026-10-11): bulunamadı — sayfa yok: 4316056 / mermi E562 için lapua.com ürün veya bileşen sayfası bulunamadı; katalogda BC yok. Bakılan kaynak: https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf (erişim 2026-10-11)."
  },
  {
   "brand": "Lapua",
@@ -562,12 +562,12 @@
   "bullet": "FMJ",
   "bullet_diameter_in": 0.311,
   "weight_gr": 123,
-  "g1_bc": null,
+  "g1_bc": 0.257,
   "g7_bc": null,
   "muzzle_velocity_fps": 2346,
   "test_barrel_in": 17,
   "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
-  "notes": "Lapua Product Catalog 2024; MV 715 m/s converted; test barrel 420 mm; from catalog data chart; BC not given there"
+  "notes": "Lapua Product Catalog 2024; MV 715 m/s converted; test barrel 420 mm; from catalog data chart; BC not given there | BC (2026-10-11): G1 0.257. BC mermi üreticisinden (fişek üreticisi aynı mermiyi adlandırıyor): Lapua component bullet 8,0 g / 123 gr FMJ S405, 7.62 mm (.311), product no 4PL/HL7045, \"BC G1 0.257\", BC G7 \"–\"; catalog cartridge table ties 7.62x39 8.0 g FMJ 4317235 to bullet code S405. BC kaynağı: https://www.lapua.com/product/311-cal-fmj-bullet-s405-8-0-g-123-gr-fmj/ (erişim 2026-10-11)."
  },
  {
   "brand": "Lapua",
@@ -987,6 +987,6 @@
   "muzzle_velocity_fps": 2789,
   "test_barrel_in": 26.4,
   "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
-  "notes": "Only in detailed ballistics table of Lapua Catalog 2024 (pp. 50-53), not in product listings; bullet GB478 Open Tip Match; V0 850 m/s converted ×3.28084 = 2789 fps; test barrel 670 mm converted = 26.4 in; no BC given; read 2026-10-11"
+  "notes": "Only in detailed ballistics table of Lapua Catalog 2024 (pp. 50-53), not in product listings; bullet GB478 Open Tip Match; V0 850 m/s converted ×3.28084 = 2789 fps; test barrel 670 mm converted = 26.4 in; no BC given; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor: katalog kartuş tablosunda BC yok; 4316046 / mermi GB478 (Scenar) için lapua.com sayfası yok; Scenar-L GB542 (G1 0.472/G7 0.236) farklı mermi, kullanılmadı. Bakılan kaynak: https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf (erişim 2026-10-11)."
  }
 ]

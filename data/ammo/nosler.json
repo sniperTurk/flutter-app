@@ -7,12 +7,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": 0.264,
     "weight_gr": 140,
-    "g1_bc": null,
+    "g1_bc": 0.509,
     "g7_bc": null,
     "muzzle_velocity_fps": 2650,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/6-5-creedmoor-140gr-accubond-trophy-grade-ammunition.html",
-    "notes": "Trophy Grade; BC not published on page"
+    "notes": "Trophy Grade; BC not published on page | BC (2026-10-11): G1 0.509. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"6.5mm 140gr AccuBond (50ct)\", Part #57873; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/6-5mm-140gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -22,12 +22,12 @@
     "bullet": "AccuBond Long Range",
     "bullet_diameter_in": null,
     "weight_gr": 175,
-    "g1_bc": null,
-    "g7_bc": null,
+    "g1_bc": 0.648,
+    "g7_bc": 0.326,
     "muzzle_velocity_fps": 3125,
     "test_barrel_in": 26,
     "source_url": "https://www.nosler.com/28-nosler-175gr-accubond-long-range-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; test barrel twist 1-9; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; test barrel twist 1-9; read 2026-10-11 | BC (2026-10-11): G1 0.648 / G7 0.326. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 175gr AccuBond Long Range (100ct)\", Part #58517; page row \"BC G1\" / \"BC G7\". BC kayna\u011f\u0131: https://www.nosler.com/7mm-175gr-accubond-long-range-100ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -37,12 +37,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": null,
     "weight_gr": 160,
-    "g1_bc": null,
+    "g1_bc": 0.531,
     "g7_bc": null,
     "muzzle_velocity_fps": 3300,
     "test_barrel_in": 26,
     "source_url": "https://www.nosler.com/28-nosler-160gr-accubond-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.531. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 160gr AccuBond (50ct)\", Part #54932; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/7mm-160gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -52,12 +52,12 @@
     "bullet": "Ballistic Tip Hunting",
     "bullet_diameter_in": null,
     "weight_gr": 160,
-    "g1_bc": null,
+    "g1_bc": 0.531,
     "g7_bc": null,
     "muzzle_velocity_fps": 3200,
     "test_barrel_in": 26,
     "source_url": "https://www.nosler.com/28-nosler-160gr-accubond-trophy-grade-ammunition-1.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.531. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 160gr Ballistic Tip Hunting (50ct)\", Part #28125; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/7mm-160gr-ballistic-tip-hunting-50ct-1.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -67,12 +67,12 @@
     "bullet": "Partition",
     "bullet_diameter_in": null,
     "weight_gr": 160,
-    "g1_bc": null,
+    "g1_bc": 0.475,
     "g7_bc": null,
     "muzzle_velocity_fps": 3250,
     "test_barrel_in": 26,
     "source_url": "https://www.nosler.com/28-nosler-160gr-partition-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.475. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 160gr Partition (50ct)\", Part #16327; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/7mm-160gr-partition-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -82,12 +82,12 @@
     "bullet": "Expansion Tip",
     "bullet_diameter_in": null,
     "weight_gr": 150,
-    "g1_bc": null,
+    "g1_bc": 0.498,
     "g7_bc": null,
     "muzzle_velocity_fps": 3250,
     "test_barrel_in": 26,
     "source_url": "https://www.nosler.com/28-nosler-150gr-expansion-tip-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.498. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 150gr Expansion Tip Lead Free (50ct)\", Part #59426; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/7mm-150gr-expansion-tip-lead-free-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -97,12 +97,12 @@
     "bullet": "Custom Competition",
     "bullet_diameter_in": null,
     "weight_gr": 168,
-    "g1_bc": null,
+    "g1_bc": 0.52,
     "g7_bc": null,
     "muzzle_velocity_fps": 3075,
     "test_barrel_in": 26,
     "source_url": "https://www.nosler.com/28-nosler-168gr-custom-competition-match-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 26\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.52. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 168gr HPBT Custom Competition (100ct)\", Part #53418; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/7mm-168gr-hpbt-custom-competition-100ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -112,12 +112,12 @@
     "bullet": "Expansion Tip",
     "bullet_diameter_in": null,
     "weight_gr": 140,
-    "g1_bc": null,
+    "g1_bc": 0.489,
     "g7_bc": null,
     "muzzle_velocity_fps": 3200,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/280-ackley-improved-140gr-expansion-tip-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.489. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 140gr Expansion Tip Lead Free (50ct)\", Part #59955; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/7mm-140gr-expansion-tip-lead-free-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -127,12 +127,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": null,
     "weight_gr": 160,
-    "g1_bc": null,
+    "g1_bc": 0.531,
     "g7_bc": null,
     "muzzle_velocity_fps": 2950,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/280-ackley-improved-160gr-accubond-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; description text says 165gr, title/spec 160gr; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; description text says 165gr, title/spec 160gr; read 2026-10-11 | BC (2026-10-11): G1 0.531. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 160gr AccuBond (50ct)\", Part #54932; page row \"BC G1\"; ammo title/spec say 160gr (description text says 165gr; Nosler lists no 7mm 165gr AccuBond). BC kayna\u011f\u0131: https://www.nosler.com/7mm-160gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -142,12 +142,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": null,
     "weight_gr": 140,
-    "g1_bc": null,
+    "g1_bc": 0.485,
     "g7_bc": null,
     "muzzle_velocity_fps": 3200,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/280-ackley-improved-140gr-accubond-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.485. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 140gr AccuBond (50ct)\", Part #59992; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/7mm-140gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -157,12 +157,12 @@
     "bullet": "Partition",
     "bullet_diameter_in": null,
     "weight_gr": 160,
-    "g1_bc": null,
+    "g1_bc": 0.475,
     "g7_bc": null,
     "muzzle_velocity_fps": 2950,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/280-ackley-improved-160gr-partition-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.475. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 160gr Partition (50ct)\", Part #16327; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/7mm-160gr-partition-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -172,12 +172,12 @@
     "bullet": "AccuBond Long Range",
     "bullet_diameter_in": null,
     "weight_gr": 150,
-    "g1_bc": null,
-    "g7_bc": null,
+    "g1_bc": 0.546,
+    "g7_bc": 0.275,
     "muzzle_velocity_fps": 2930,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/280-ackley-imp-150gr-accubond-long-range-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.546 / G7 0.275. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"7mm 150gr AccuBond Long Range (100ct)\", Part #58734; page row \"BC G1\" / \"BC G7\". BC kayna\u011f\u0131: https://www.nosler.com/7mm-150gr-accubond-long-range-100ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -202,12 +202,12 @@
     "bullet": "Custom Competition",
     "bullet_diameter_in": null,
     "weight_gr": 140,
-    "g1_bc": null,
+    "g1_bc": 0.529,
     "g7_bc": null,
     "muzzle_velocity_fps": 2750,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/6-5-284-norma-140gr-accubond-trophy-grade-ammunition-1.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.529. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"6.5mm 140gr HPBT Custom Competition (100ct)\", Part #26725; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/6-5mm-140gr-hpbt-custom-competition-100ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -217,12 +217,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": null,
     "weight_gr": 140,
-    "g1_bc": null,
+    "g1_bc": 0.509,
     "g7_bc": null,
     "muzzle_velocity_fps": 2750,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/6-5-284-norma-140gr-accubond-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.509. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"6.5mm 140gr AccuBond (50ct)\", Part #57873; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/6-5mm-140gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -232,12 +232,12 @@
     "bullet": "Partition",
     "bullet_diameter_in": null,
     "weight_gr": 210,
-    "g1_bc": null,
+    "g1_bc": 0.4,
     "g7_bc": null,
     "muzzle_velocity_fps": 2850,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/338-win-mag-210gr-partition-trophy-grade-ammunition-1.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.4. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"338 Caliber 210gr Partition (50ct)\", Part #16337; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/338-caliber-210gr-partition-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -247,12 +247,12 @@
     "bullet": "Expansion Tip",
     "bullet_diameter_in": null,
     "weight_gr": 225,
-    "g1_bc": null,
+    "g1_bc": 0.611,
     "g7_bc": null,
     "muzzle_velocity_fps": 2750,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/338-win-mag-225gr-expansion-tip-sp-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.611. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"338 Caliber 225gr Expansion Tip Lead Free (50ct)\", Part #59372; page row \"BC G1\"; same 0.611 printed in Nosler 2024 Product Guide. BC kayna\u011f\u0131: https://www.nosler.com/338-caliber-225gr-expansion-tip-lead-free-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -262,12 +262,12 @@
     "bullet": "Partition",
     "bullet_diameter_in": null,
     "weight_gr": 250,
-    "g1_bc": null,
+    "g1_bc": 0.473,
     "g7_bc": null,
     "muzzle_velocity_fps": 2600,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/338-win-mag-250gr-partition-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.473. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"338 Caliber 250gr Partition (50ct)\", Part #35644; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/338-caliber-250gr-partition-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -277,12 +277,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": null,
     "weight_gr": 225,
-    "g1_bc": null,
+    "g1_bc": 0.55,
     "g7_bc": null,
     "muzzle_velocity_fps": 2750,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/338-win-mag-225gr-accubond-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.55. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"338 Caliber 225gr AccuBond (50ct)\", Part #54357; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/338-caliber-225gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -292,12 +292,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": null,
     "weight_gr": 250,
-    "g1_bc": null,
+    "g1_bc": 0.575,
     "g7_bc": null,
     "muzzle_velocity_fps": 2650,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/338-win-mag-250gr-accubond-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; a BLEM variant of this load is also listed (not duplicated); read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; a BLEM variant of this load is also listed (not duplicated); read 2026-10-11 | BC (2026-10-11): G1 0.575. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"338 Caliber 250gr AccuBond (50ct)\", Part #57287; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/338-caliber-250gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -307,12 +307,12 @@
     "bullet": "Expansion Tip",
     "bullet_diameter_in": null,
     "weight_gr": 180,
-    "g1_bc": null,
+    "g1_bc": 0.523,
     "g7_bc": null,
     "muzzle_velocity_fps": 3200,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/300-rum-180gr-expansion-tip-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.523. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"30 Caliber 180gr Expansion Tip Lead Free (50ct)\", Part #59180; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/30-caliber-180gr-expansion-tip-lead-free-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -322,12 +322,12 @@
     "bullet": "AccuBond Long Range",
     "bullet_diameter_in": null,
     "weight_gr": 210,
-    "g1_bc": null,
-    "g7_bc": null,
+    "g1_bc": 0.661,
+    "g7_bc": 0.333,
     "muzzle_velocity_fps": 2920,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/300-rum-210gr-accubond-long-range-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.661 / G7 0.333. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"30 Caliber 210gr AccuBond Long Range (100ct)\", Part #58317; page row \"BC G1\" / \"BC G7\". BC kayna\u011f\u0131: https://www.nosler.com/30-caliber-210gr-accubond-long-range-100ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -337,12 +337,12 @@
     "bullet": "Partition",
     "bullet_diameter_in": null,
     "weight_gr": 165,
-    "g1_bc": null,
+    "g1_bc": 0.41,
     "g7_bc": null,
     "muzzle_velocity_fps": 3350,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/300-rum-165-partition-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.41. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"30 Caliber 165gr Partition (50ct)\", Part #16330; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/30-caliber-165gr-partition-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -352,12 +352,12 @@
     "bullet": "Partition",
     "bullet_diameter_in": null,
     "weight_gr": 180,
-    "g1_bc": null,
+    "g1_bc": 0.474,
     "g7_bc": null,
     "muzzle_velocity_fps": 3200,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/300-rum-180gr-trophy-grade-partition-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.474. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"30 Caliber 180gr Partition (50ct)\", Part #16331; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/30-caliber-180gr-partition-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -367,12 +367,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": null,
     "weight_gr": 200,
-    "g1_bc": null,
+    "g1_bc": 0.588,
     "g7_bc": null,
     "muzzle_velocity_fps": 3050,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/300-rum-180-accubond-trophy-grade-ammunition-1.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.588. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"30 Caliber 200gr AccuBond (50ct)\", Part #54618; page row \"BC G1\"; ammo page title/spec/description confirm 200gr AccuBond (URL slug says 180), ammo Part #60165. BC kayna\u011f\u0131: https://www.nosler.com/30-caliber-200gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -382,12 +382,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": null,
     "weight_gr": 225,
-    "g1_bc": null,
+    "g1_bc": 0.43,
     "g7_bc": null,
     "muzzle_velocity_fps": 2700,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/35-whelen-225gr-accubond-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.43. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"35 Caliber 225gr AccuBond (50ct)\", Part #50712; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/35-caliber-225gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -397,12 +397,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": null,
     "weight_gr": 110,
-    "g1_bc": null,
+    "g1_bc": 0.418,
     "g7_bc": null,
     "muzzle_velocity_fps": 3050,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/257-rob-p-110gr-accubond-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; +P loading; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; +P loading; read 2026-10-11 | BC (2026-10-11): G1 0.418. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"25 Caliber 110gr AccuBond (50ct)\", Part #53742; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/25-caliber-110gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -412,12 +412,12 @@
     "bullet": "Ballistic Tip Varmint",
     "bullet_diameter_in": null,
     "weight_gr": 50,
-    "g1_bc": null,
+    "g1_bc": 0.238,
     "g7_bc": null,
     "muzzle_velocity_fps": 3340,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/222-remington-magnum-50gr-ballistic-tip-varmint-noslercustom-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.238. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"22 Caliber 50gr Ballistic Tip Varmint (100ct)\", Part #39522; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/22-caliber-50gr-ballistic-tip-varmint-100ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -432,7 +432,7 @@
     "muzzle_velocity_fps": 3325,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/223-remington-55gr-ballistic-tip-varmint-ammunition-4.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; spec table bullet type Varmageddon, description 50gr FBHP; URL slug says 223; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; spec table bullet type Varmageddon, description 50gr FBHP; URL slug says 223; read 2026-10-11 | BC aramas\u0131 (2026-10-11): bulunamad\u0131 \u2014 \u00fcretici yay\u0131mlam\u0131yor: ammo sayfas\u0131 mermiyi \"50gr FBHP\" (tablo: Varmageddon) diye adland\u0131r\u0131yor; Nosler 22 cal 50gr FBHP Varmageddon bile\u015fen mermisi listelemiyor (yaln\u0131z 50gr FB Tipped #17223, BC 0.227 \u2014 farkl\u0131 mermi, kullan\u0131lmad\u0131). Bak\u0131lan kaynak: https://www.nosler.com/products/bullets/product-line/varmageddonr.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -442,12 +442,12 @@
     "bullet": "Partition",
     "bullet_diameter_in": null,
     "weight_gr": 400,
-    "g1_bc": null,
+    "g1_bc": 0.39,
     "g7_bc": null,
     "muzzle_velocity_fps": 2400,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/416-remington-mag-400gr-partition-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.39. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler 2021 Product Guide, Partition bullet table: 416 Cal (.416\") 400 Gr. Spitzer, Part #45200, SD 0.330, printed \"BC. 0.390\" (no G1/G7 label; Nosler website labels its bullet BCs as G1). No current component page on nosler.com. BC kayna\u011f\u0131: https://www.nosler.com/media/catalog/2021_Nosler_Product_Guide.pdf (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -457,12 +457,12 @@
     "bullet": "Partition",
     "bullet_diameter_in": null,
     "weight_gr": 400,
-    "g1_bc": null,
+    "g1_bc": 0.39,
     "g7_bc": null,
     "muzzle_velocity_fps": 2400,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/416-remington-mag-400gr-trophy-grade-safari-partition-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.39. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler 2021 Product Guide, Partition bullet table: 416 Cal (.416\") 400 Gr. Spitzer, Part #45200, SD 0.330, printed \"BC. 0.390\" (no G1/G7 label; Nosler website labels its bullet BCs as G1). No current component page on nosler.com. BC kayna\u011f\u0131: https://www.nosler.com/media/catalog/2021_Nosler_Product_Guide.pdf (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -472,12 +472,12 @@
     "bullet": "Solid",
     "bullet_diameter_in": null,
     "weight_gr": 500,
-    "g1_bc": null,
+    "g1_bc": 0.237,
     "g7_bc": null,
     "muzzle_velocity_fps": 2100,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/470-nitro-express-500gr-solid-safari-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.237. \u00dcretici s\u00fcr\u00fcklenme modelini belirtmiyor; G1 kabul edildi. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler 2021 Product Guide, Solid bullet table (Dangerous Game): 470 NE (.474\") 500 Gr. Solid, Part #28455, SD 0.318, printed \"BC. 0.237\" (no G1/G7 label). Ammo page: \"Solid 500 Grain Flat Nose\", Part #40632. BC kayna\u011f\u0131: https://www.nosler.com/media/catalog/2021_Nosler_Product_Guide.pdf (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -487,12 +487,12 @@
     "bullet": "AccuBond",
     "bullet_diameter_in": null,
     "weight_gr": 180,
-    "g1_bc": null,
+    "g1_bc": 0.507,
     "g7_bc": null,
     "muzzle_velocity_fps": 3175,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/300-weatherby-mag-180gr-accubond-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.507. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"30 Caliber 180gr AccuBond (50ct)\", Part #54825; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/30-caliber-180gr-accubond-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -502,12 +502,12 @@
     "bullet": "Expansion Tip",
     "bullet_diameter_in": null,
     "weight_gr": 180,
-    "g1_bc": null,
+    "g1_bc": 0.523,
     "g7_bc": null,
     "muzzle_velocity_fps": 3050,
     "test_barrel_in": null,
     "source_url": "https://www.nosler.com/300-wby-mag-180g-expansion-tip-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; test barrel not stated; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; test barrel not stated; read 2026-10-11 | BC (2026-10-11): G1 0.523. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"30 Caliber 180gr Expansion Tip Lead Free (50ct)\", Part #59180; page row \"BC G1\". BC kayna\u011f\u0131: https://www.nosler.com/30-caliber-180gr-expansion-tip-lead-free-50ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -517,12 +517,12 @@
     "bullet": "AccuBond Long Range",
     "bullet_diameter_in": null,
     "weight_gr": 210,
-    "g1_bc": null,
-    "g7_bc": null,
+    "g1_bc": 0.661,
+    "g7_bc": 0.333,
     "muzzle_velocity_fps": 2825,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/300-wby-210gr-accubond-long-range-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.661 / G7 0.333. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"30 Caliber 210gr AccuBond Long Range (100ct)\", Part #58317; page row \"BC G1\" / \"BC G7\". BC kayna\u011f\u0131: https://www.nosler.com/30-caliber-210gr-accubond-long-range-100ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -532,12 +532,12 @@
     "bullet": "AccuBond Long Range",
     "bullet_diameter_in": null,
     "weight_gr": 150,
-    "g1_bc": null,
-    "g7_bc": null,
+    "g1_bc": 0.591,
+    "g7_bc": 0.298,
     "muzzle_velocity_fps": 3080,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/270-wby-mag-150gr-accubond-long-range-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.591 / G7 0.298. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"270 Caliber 150gr AccuBond Long Range (100ct)\", Part #58836; page row \"BC G1\" / \"BC G7\". BC kayna\u011f\u0131: https://www.nosler.com/270-caliber-150gr-accubond-long-range-100ct.html (eri\u015fim 2026-10-11)."
   },
   {
     "brand": "Nosler",
@@ -547,11 +547,11 @@
     "bullet": "AccuBond Long Range",
     "bullet_diameter_in": null,
     "weight_gr": 210,
-    "g1_bc": null,
-    "g7_bc": null,
+    "g1_bc": 0.661,
+    "g7_bc": 0.333,
     "muzzle_velocity_fps": 3040,
     "test_barrel_in": 24,
     "source_url": "https://www.nosler.com/30-378-wby-mag-210gr-accubond-long-range-trophy-grade-ammunition.html",
-    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11"
+    "notes": "Nosler product page spec table; no BC on page; muzzle velocity; 24\" test barrel; read 2026-10-11 | BC (2026-10-11): G1 0.661 / G7 0.333. BC mermi \u00fcreticisinden (fi\u015fek \u00fcreticisi ayn\u0131 mermiyi adland\u0131r\u0131yor): Nosler component bullet page \"30 Caliber 210gr AccuBond Long Range (100ct)\", Part #58317; page row \"BC G1\" / \"BC G7\". BC kayna\u011f\u0131: https://www.nosler.com/30-caliber-210gr-accubond-long-range-100ct.html (eri\u015fim 2026-10-11)."
   }
 ]

@@ -27,7 +27,7 @@
     "muzzle_velocity_fps": 2986,
     "test_barrel_in": 23.62,
     "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star/geco-270-win-star-84g",
-    "notes": "GECO STAR. V0 910 m/s / 2986 ft/s as listed on geco-ammunition.com. Weight 8.4 g / 130 gr as listed. BC not published. Test barrel 600 mm."
+    "notes": "GECO STAR. V0 910 m/s / 2986 ft/s as listed on geco-ammunition.com. Weight 8.4 g / 130 gr as listed. BC not published. Test barrel 600 mm. | BC araması (2026-10-11): bulunamadı — ürün sayfasında BC yok (yalnız V/E/yörünge tabloları); ürün PDF datasheet linki erişilemedi (URL fetch sınırını aşıyor / kısaltılmış hali hata verdi). Bakılan kaynak: https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star/geco-270-win-star-84g (erişim 2026-10-11)."
   },
   {
     "brand": "Geco",
@@ -672,7 +672,7 @@
     "muzzle_velocity_fps": 1083,
     "test_barrel_in": 25.59,
     "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-rifle",
-    "notes": "GECO RIFLE (rimfire). V0 330 m/s / 1083 ft/s as listed on geco-ammunition.com. Weight 2.6 g / 40 gr as listed. BC not published. Test barrel 650 mm."
+    "notes": "GECO RIFLE (rimfire). V0 330 m/s / 1083 ft/s as listed on geco-ammunition.com. Weight 2.6 g / 40 gr as listed. BC not published. Test barrel 650 mm. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor (ürün sayfasında BC yok). Bakılan kaynak: https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-rifle (erişim 2026-10-11)."
   },
   {
     "brand": "Geco",
@@ -687,7 +687,7 @@
     "muzzle_velocity_fps": 1148,
     "test_barrel_in": 16.54,
     "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-semi-auto",
-    "notes": "GECO SEMI-AUTO (rimfire). MV 350 m/s converted. Weight 2.6 g / 40 gr as listed. BC not published. Test barrel 420 mm."
+    "notes": "GECO SEMI-AUTO (rimfire). MV 350 m/s converted. Weight 2.6 g / 40 gr as listed. BC not published. Test barrel 420 mm. | BC araması (2026-10-11): bulunamadı — üretici yayımlamıyor (ürün sayfasında BC yok). Bakılan kaynak: https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-semi-auto (erişim 2026-10-11)."
   },
   {
     "brand": "Geco",
