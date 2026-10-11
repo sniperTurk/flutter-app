@@ -1661,16 +1661,28 @@ class ScopeReticlePainter extends CustomPainter {
         trueHalfField: trueHalfField,
         targetRadius: tr,
       );
-      // Yellow face inside a grey ring, as in the reference.
+      // Owner's reference (2026-10-11, every scope view): grey outer ring,
+      // yellow band, white centre, thin grey outlines and a grey cross; all
+      // of it under the reticle.
+      final edge = Paint()
+        ..color = colors.paperRing
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = math.max(0.6, 1 / zoom);
       canvas.drawCircle(center, px, Paint()..color = colors.paperRingSoft);
-      canvas.drawCircle(center, px * 0.62, Paint()..color = colors.paperFace);
-      canvas.drawCircle(
-        center,
-        px,
-        Paint()
-          ..color = colors.paperRing
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = math.max(0.6, 1 / zoom),
+      canvas.drawCircle(center, px * 0.66, Paint()..color = colors.paperFace);
+      canvas.drawCircle(center, px * 0.33, Paint()..color = Colors.white);
+      for (final f in const [1.0, 0.66, 0.33]) {
+        canvas.drawCircle(center, px * f, edge);
+      }
+      canvas.drawLine(
+        center - Offset(px, 0),
+        center + Offset(px, 0),
+        edge,
+      );
+      canvas.drawLine(
+        center - Offset(0, px),
+        center + Offset(0, px),
+        edge,
       );
     }
 
@@ -1701,6 +1713,27 @@ class ScopeReticlePainter extends CustomPainter {
           ..color = ink
           ..strokeWidth = width,
       );
+    }
+
+    // Point of impact inside the field: drawn first so every reticle line,
+    // mark and number stays on top of it (owner, 2026-10-11: "mavi hedef
+    // noktası retikülün altında olacak"). Off-field arrow is drawn last.
+    {
+      final up = impactUp;
+      final right = impactRight;
+      if (up != null && right != null) {
+        roll();
+        final poi = center + Offset(right * trueScale, -up * trueScale);
+        if ((poi - center).distance <= (radius - 14) / zoom) {
+          Paint ring(Color c, double w) => Paint()
+            ..color = c
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = w;
+          canvas.drawCircle(poi, 9, ring(colors.scopeImpact, 2.5));
+          canvas.drawCircle(poi, 3.5, Paint()..color = colors.scopeImpact);
+        }
+        canvas.restore();
+      }
     }
 
     const fine = 1.4;
@@ -1883,14 +1916,8 @@ class ScopeReticlePainter extends CustomPainter {
         ..color = c
         ..style = PaintingStyle.stroke
         ..strokeWidth = w;
-      if (!outside) {
-        // Hollow ring with a small centre dot: the crosshair stays visible
-        // through it (owner, 2026-10-09).
-        canvas.drawCircle(poi, 9, stroke(halo, 5));
-        canvas.drawCircle(poi, 9, stroke(colors.scopeImpact, 2.5));
-        canvas.drawCircle(poi, 3.2, Paint()..color = halo);
-        canvas.drawCircle(poi, 2.2, Paint()..color = colors.scopeImpact);
-      } else {
+      // Inside the field the ring is drawn under the reticle (above).
+      if (outside) {
         // Off-field: an arrow at the edge pointing toward the impact.
         final dir = offset / offset.distance;
         final normal = Offset(-dir.dy, dir.dx);
