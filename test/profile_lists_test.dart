@@ -9,6 +9,7 @@ import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/rifle_form.dart';
 
@@ -223,8 +224,8 @@ void main() {
     expect(find.text('MIL çizgili'), findsNothing);
     await tester.tap(find.text('AHMC').last);
     await tester.pumpAndSettle();
-    expect(_text(tester, 'scope-max-mag'), '16');
-    expect(_text(tester, 'scope-objective'), '56');
+    expect(selectedValue<double>(tester, 'scope-max-mag'), 16);
+    expect(selectedValue<double>(tester, 'scope-objective'), 56);
   });
 
   testWidgets('PCP mühimmat: Marka | Tip, Model on its own row', (
@@ -237,5 +238,62 @@ void main() {
     expect(brand.right, lessThan(type.left));
     final model = tester.getRect(find.byKey(const Key('ammo-model-select')));
     expect(model.top, greaterThanOrEqualTo(brand.bottom));
+  });
+
+  testWidgets('Dürbün "Listede yok": values are picked from lists', (
+    tester,
+  ) async {
+    await _openNew(tester);
+    await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');
+    // Büyütme, Mercek çapı, Odak düzlemi, Dürbün birimi and Klik değeri
+    // are list boxes on "Seçiniz", each with an ⓘ.
+    for (final key in [
+      'scope-min-mag',
+      'scope-max-mag',
+      'scope-objective',
+      'scope-focal-plane',
+      'scope-unit',
+      'scope-click',
+    ]) {
+      expect(_in(key, find.byType(TextField)), findsNothing, reason: key);
+      expect(_in(key, find.text('Seçiniz')), findsOneWidget, reason: key);
+      expect(_in(key, find.byType(MenzilInfoButton)), findsOneWidget);
+    }
+    // Üst kule klik sayısı stays a typed number.
+    expect(
+      _in('scope-travel-elevation', find.byType(TextField)),
+      findsOneWidget,
+    );
+    // Minimum | Maksimum and Dürbün birimi | Klik değeri side by side.
+    Rect r(String k) => tester.getRect(find.byKey(Key(k)));
+    expect(
+      (r('scope-min-mag').top - r('scope-max-mag').top).abs(),
+      lessThan(1),
+    );
+    expect(r('scope-min-mag').right, lessThan(r('scope-max-mag').left));
+    expect((r('scope-unit').top - r('scope-click').top).abs(), lessThan(1));
+
+    // Klik değeri lists the clicks of the chosen unit.
+    await chooseInSelect(tester, 'scope-unit', 'MRAD');
+    await tester.ensureVisible(find.byKey(const Key('scope-click')));
+    await tester.tap(find.byKey(const Key('scope-click')));
+    await tester.pumpAndSettle();
+    expect(find.text('0,05 mrad'), findsWidgets);
+    expect(find.text('1/4 MOA'), findsNothing);
+    await tester.tap(find.text('0,05 mrad').last);
+    await tester.pumpAndSettle();
+    expect(selectedValue<double>(tester, 'scope-click'), 0.05);
+    // A MOA turret: the MRAD click no longer fits and is cleared.
+    await chooseInSelect(tester, 'scope-unit', 'MOA');
+    expect(selectedValue<double>(tester, 'scope-click'), isNull);
+    await chooseInSelect(tester, 'scope-click', '1/8 MOA');
+    expect(selectedValue<double>(tester, 'scope-click'), 0.125);
+
+    await chooseInSelect(tester, 'scope-min-mag', '3x');
+    await chooseInSelect(tester, 'scope-max-mag', '18x');
+    await chooseInSelect(tester, 'scope-objective', '50 mm');
+    await chooseInSelect(tester, 'scope-focal-plane', 'SFP');
+    await enterRifleField(tester, 'scope-brand', 'Test Optik');
+    expect(find.text('Dürbün: Test Optik 3-18x50 SFP'), findsOneWidget);
   });
 }

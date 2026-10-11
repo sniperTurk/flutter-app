@@ -1055,6 +1055,9 @@ class MenzilSelect<T> extends StatefulWidget {
   /// Shown while nothing is selected (e.g. "Seçiniz").
   final String? hint;
 
+  /// Shown under the box in the error colour (e.g. a max below the min).
+  final String? errorText;
+
   const MenzilSelect({
     super.key,
     required this.label,
@@ -1066,6 +1069,7 @@ class MenzilSelect<T> extends StatefulWidget {
     this.info,
     this.selectedLabels,
     this.hint,
+    this.errorText,
   });
 
   /// A list item that allows two lines (long model names) still shows one
@@ -1135,8 +1139,10 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
               builder: (context) => InputDecorator(
                 // The padding is the button's own, so the whole box opens
                 // the list, not only the text in its middle.
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
+                  errorText: w.errorText,
+                  errorMaxLines: 2,
                 ),
                 isEmpty: false,
                 child: DropdownButtonHideUnderline(

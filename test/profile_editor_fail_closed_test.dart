@@ -119,7 +119,7 @@ void main() {
         ),
         findsOneWidget,
       );
-      expect(text('scope-max-mag'), '36');
+      expect(selectedValue<double>(tester, 'scope-max-mag'), 36);
       expect(find.text('Dürbün: Gazi Sniper 6-36x56 FFP'), findsOneWidget);
 
       await enterRifleField(tester, 'rifle-twist-rate', '16');
@@ -153,10 +153,10 @@ void main() {
     await enterRifleField(tester, 'rifle-twist-rate', '9');
     expect(_updateAction(tester), isNotNull);
     // Maximum magnification below the minimum is rejected.
-    await enterRifleField(tester, 'scope-max-mag', '4');
+    await chooseInSelect(tester, 'scope-max-mag', '4x');
     expect(find.text('Minimum büyütmeden küçük olamaz.'), findsOneWidget);
     expect(_updateAction(tester), isNull);
-    await enterRifleField(tester, 'scope-max-mag', '36');
+    await chooseInSelect(tester, 'scope-max-mag', '36x');
     expect(_updateAction(tester), isNotNull);
     // Kalibre is a list now: no free (out-of-range) typing.
     expect(

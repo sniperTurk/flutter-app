@@ -141,25 +141,24 @@ void main() {
     await tester.tap(find.text('G1').last);
     await tester.pumpAndSettle();
     await type('profile-velocity-fps', '900');
-    // Every list box of a new profile starts on "Seçiniz" (owner,
-    // 2026-10-11): Mesafe birimi, Dürbün birimi and Dürbün ayağı are picked.
     await choose('profile-distance-unit', 'Metre');
     await type('profile-zero', '25');
-    // Every list box starts on "Seçiniz" (owner, 2026-10-11).
-    await choose('profile-distance-unit', 'Metre');
     await type('scope-sight-height', '60');
     await choose('scope-brand-select', 'Listede yok');
     await type('scope-brand', 'Test Optik');
-    await type('scope-min-mag', '6');
-    await type('scope-max-mag', '24');
-    await type('scope-objective', '56');
+    // Büyütme, Mercek çapı and Klik değeri are picked from lists; every
+    // list box starts on "Seçiniz" (owner, 2026-10-11).
+    await choose('scope-min-mag', '6x');
+    await choose('scope-max-mag', '24x');
+    await choose('scope-objective', '56 mm');
+    await choose('scope-unit', 'MRAD');
+    await choose('scope-click', '0,1 mrad');
+    await choose('scope-mount', 'Normal (0 MOA)');
     await tester.ensureVisible(find.byKey(const Key('scope-focal-plane')));
     await tester.tap(find.byKey(const Key('scope-focal-plane')));
     await tester.pumpAndSettle();
     await tester.tap(find.text('FFP').last);
     await tester.pumpAndSettle();
-    await choose('scope-unit', 'MRAD');
-    await choose('scope-mount', 'Normal (0 MOA)');
     expect(find.text('Kaydet'), findsOneWidget);
     await tester.tap(find.text('Kaydet'));
     await tester.pumpAndSettle();

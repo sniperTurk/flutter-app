@@ -72,13 +72,14 @@ Future<void> chooseInSelect(
   await tester.tap(select);
   await tester.pumpAndSettle();
   // Long lists ("Listede yok" is the last item): scroll the open menu.
+  // The menu opens at the selected item, so the wanted one may be above it
+  // (a smaller büyütme) or below it: try down first, then up.
   final item = find.text(label);
-  if (item.evaluate().isEmpty) {
-    await tester.dragUntilVisible(
-      item,
-      find.byType(Scrollable).last,
-      const Offset(0, -300),
-    );
+  for (final dy in const [-300.0, 300.0]) {
+    for (var i = 0; i < 20 && item.evaluate().isEmpty; i++) {
+      await tester.drag(find.byType(Scrollable).last, Offset(0, dy));
+      await tester.pumpAndSettle();
+    }
   }
   // Built but below the menu's visible part: scroll it into view.
   await tester.ensureVisible(item.last);
@@ -135,16 +136,31 @@ Future<void> fillScopeForm(
   String maxMag = '24',
   String objective = '56',
   String plane = 'FFP',
+  String unit = 'MRAD',
+  String click = '0,1 mrad',
 }) async {
   if (find.byKey(const Key('scope-brand-select')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');
   }
   await enterRifleField(tester, 'scope-brand', brand);
-  await enterRifleField(tester, 'scope-min-mag', minMag);
-  await enterRifleField(tester, 'scope-max-mag', maxMag);
-  await enterRifleField(tester, 'scope-objective', objective);
+  // Büyütme and Mercek çapı are picked from lists (owner, 2026-10-11).
+  await chooseInSelect(tester, 'scope-min-mag', '${minMag}x');
+  await chooseInSelect(tester, 'scope-max-mag', '${maxMag}x');
+  await chooseInSelect(tester, 'scope-objective', '$objective mm');
   await chooseFocalPlane(tester, plane);
   // Every list box starts on "Seçiniz" (owner, 2026-10-11).
-  await chooseInSelect(tester, 'scope-unit', 'MRAD');
+  await chooseInSelect(tester, 'scope-unit', unit);
+  // A typed scope picks its Klik değeri from the unit's list.
+  await chooseInSelect(tester, 'scope-click', click);
   await chooseInSelect(tester, 'scope-mount', 'Normal (0 MOA)');
 }
+
+/// The value picked in the list box under [key] (null: "Seçiniz").
+T? selectedValue<T>(WidgetTester tester, String key) => tester
+    .widget<DropdownButton<T>>(
+      find.descendant(
+        of: find.byKey(Key(key)),
+        matching: find.byType(DropdownButton<T>),
+      ),
+    )
+    .value;

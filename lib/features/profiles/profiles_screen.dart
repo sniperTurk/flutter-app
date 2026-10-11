@@ -1188,6 +1188,96 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return n == Reticles.hashMoa ? moa : !moa;
   }
 
+  // ---- Dürbün values from lists (owner, 2026-10-11: select over typing).
+  // Standard values of real scopes; a stored value outside the list is
+  // added to it so an older profile still shows what it saved.
+
+  /// Minimum büyütme: 1-6, 1.5-6, 2.5-15, 3-9, 4-16, 5-25, 6-24 …
+  static const _minMagOptions = <double>[
+    1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 7, 8, 10, 12, //
+  ];
+
+  /// Maksimum büyütme (a fixed-power scope has min = max).
+  static const _maxMagOptions = <double>[
+    4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 24, 25, 27, 28, //
+    30, 32, 35, 36, 40, 42, 45, 48, 50, 56, 60, //
+  ];
+
+  /// Mercek çapı, mm.
+  static const _objectiveOptions = <double>[
+    20, 24, 28, 30, 32, 33, 36, 40, 42, 44, 45, 50, 52, 54, 56, 58, 60, //
+    62, 64, 72, //
+  ];
+
+  /// Klik değeri of the turret, by unit: 0,1 / 0,05 mrad; 1/4, 1/8, 1/2 MOA.
+  static List<(double, String)> _clickOptions(AngularUnit u) {
+    final name = u == AngularUnit.smoa ? 'SMOA' : 'MOA';
+    return u.moaFamily
+        ? [(0.25, '1/4 $name'), (0.125, '1/8 $name'), (0.5, '1/2 $name')]
+        : const [(0.1, '0,1 mrad'), (0.05, '0,05 mrad')];
+  }
+
+  /// A number picked from [options] into [controller] ("Seçiniz" while
+  /// empty). [suffix] follows the number in the list ("x", " mm").
+  Widget _numberSelect({
+    required String key,
+    required String label,
+    required String info,
+    required TextEditingController controller,
+    required List<double> options,
+    String suffix = '',
+    String? errorText,
+  }) {
+    final current = _parse(controller);
+    final values = [
+      ...options,
+      if (current != null && !options.contains(current)) current,
+    ]..sort();
+    return KeyedSubtree(
+      key: Key(key),
+      child: MenzilSelect<double>(
+        key: ValueKey('$key-$_scopePickToken'),
+        info: info,
+        label: label,
+        initialValue: current,
+        errorText: errorText,
+        items: [
+          for (final v in values)
+            DropdownMenuItem(value: v, child: Text('${_trimNum(v)}$suffix')),
+        ],
+        onChanged: (v) => setState(() {
+          controller.text = v == null ? '' : _trimNum(v);
+        }),
+      ),
+    );
+  }
+
+  /// Klik değeri, asked only for a typed ("Listede yok") scope; a catalog
+  /// scope brings its own. Empty until Dürbün birimi is chosen.
+  Widget _clickSelect() {
+    final options = _angularUnitSet
+        ? _clickOptions(angularUnit)
+        : const <(double, String)>[];
+    final current = _parse(scopeClick);
+    return KeyedSubtree(
+      key: const Key('scope-click'),
+      child: MenzilSelect<double>(
+        key: ValueKey('scope-click-${angularUnit.name}-$_scopePickToken'),
+        info: ProfileFieldInfo.clickValue,
+        label: 'Klik değeri',
+        initialValue: options.any((o) => o.$1 == current) ? current : null,
+        errorText: _showErrors ? _clickError : null,
+        items: [
+          for (final (v, name) in options)
+            DropdownMenuItem(value: v, child: Text(name)),
+        ],
+        onChanged: (v) => setState(() {
+          scopeClick.text = v == null ? '' : _trimNum(v);
+        }),
+      ),
+    );
+  }
+
   /// Fills the scope form from a catalog record.
   void _applyScope(ScopeOptic s, {String? reticle}) {
     _angularUnitSet = true; // the catalog scope tells its unit
@@ -1238,6 +1328,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   _scopeBrandSel = null;
                   _scopeModelKey = null;
                   scopeBrand.text = '';
+                  scopeClick.text = _trimNum(_defaultClick(angularUnit));
                   scopeReticle = null;
                   _scopePickToken++;
                 }),
@@ -1276,6 +1367,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 _scopeManual = true;
                 _scopeBrandSel = null;
                 scopeBrand.text = '';
+                // A typed scope starts empty: every list on "Seçiniz".
+                for (final c in [
+                  scopeMinMag,
+                  scopeMaxMag,
+                  scopeObjective,
+                  scopeClick,
+                  scopeTravelElevation,
+                ]) {
+                  c.clear();
+                }
+                firstFocalPlane = null;
+                _angularUnitSet = false;
                 return;
               }
               _scopeBrandSel = v;
@@ -1811,7 +1914,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (firstFocalPlane != null, 'Odak düzlemi'),
       (_angularUnitSet, 'Dürbün birimi'),
       (_mountCantSet, 'Dürbün ayağı'),
-      // Klik değeri is not asked; it follows the unit and is always valid.
+      // Asked for a typed scope; a catalog scope brings its own.
       (_clickError == null, 'Klik değeri'),
       (_travelError(scopeTravelElevation) == null, 'Üst kule klik sayısı'),
     ]);
@@ -2074,6 +2177,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   bool _showErrors = false;
   String? _shown(String? error, TextEditingController c) =>
       (_showErrors || c.text.isNotEmpty) ? error : null;
+
+  /// A list box shows its error after a save attempt, or once [c] holds a
+  /// picked value (Maksimum below Minimum).
+  String? _shownSelect(String? error, [TextEditingController? c]) =>
+      (_showErrors || (c != null && c.text.isNotEmpty)) ? error : null;
 
   Map<String, dynamic> _rifleEntry() {
     final existing = rifle;
@@ -2890,29 +2998,34 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 // Owner, 2026-10-11: Marka, then the models of that brand,
                 // then only that model's reticles.
                 ..._scopeNameFields(),
-                MenzilInput(
-                  key: const Key('scope-min-mag'),
+                // Owner, 2026-10-11: picked from standard values, not
+                // typed; Minimum | Maksimum side by side.
+                _numberSelect(
+                  key: 'scope-min-mag',
+                  label: 'Minimum büyütme',
                   info: ProfileFieldInfo.minMag,
                   controller: scopeMinMag,
-                  label: 'Minimum büyütme',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_minMagError, scopeMinMag),
+                  options: _minMagOptions,
+                  suffix: 'x',
+                  errorText: _shownSelect(_minMagError),
                 ),
-                MenzilInput(
-                  key: const Key('scope-max-mag'),
+                _numberSelect(
+                  key: 'scope-max-mag',
+                  label: 'Maksimum büyütme',
                   info: ProfileFieldInfo.maxMag,
                   controller: scopeMaxMag,
-                  label: 'Maksimum büyütme',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_maxMagError, scopeMaxMag),
+                  options: _maxMagOptions,
+                  suffix: 'x',
+                  errorText: _shownSelect(_maxMagError, scopeMaxMag),
                 ),
-                MenzilInput(
-                  key: const Key('scope-objective'),
+                _numberSelect(
+                  key: 'scope-objective',
+                  label: 'Mercek çapı',
                   info: ProfileFieldInfo.objective,
                   controller: scopeObjective,
-                  label: 'Mercek çapı',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_objectiveError, scopeObjective),
+                  options: _objectiveOptions,
+                  suffix: ' mm',
+                  errorText: _shownSelect(_objectiveError),
                 ),
                 KeyedSubtree(
                   key: const Key('scope-focal-plane'),
@@ -2926,39 +3039,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       DropdownMenuItem(value: false, child: Text('SFP')),
                     ],
                     onChanged: (v) => setState(() => firstFocalPlane = v),
-                  ),
-                ),
-                KeyedSubtree(
-                  key: const Key('scope-mount'),
-                  child: MenzilSelect<double>(
-                    // Rebuilt when the click value/unit changes so every
-                    // choice shows its ready click gain.
-                    key: ValueKey(
-                      'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
-                    ),
-                    info: ProfileFieldInfo.mountCant,
-                    label: 'Dürbün ayağı',
-                    initialValue: _mountCantSet ? mountCant : null,
-                    // Closed box: just "0 MOA" / "30 MOA"; the list keeps
-                    // "Normal" and the click gain.
-                    selectedLabels: [
-                      for (final moa in ProductionLimits.mountCantOptionsMoa)
-                        '${_trimNum(moa)} MOA',
-                    ],
-                    items: [
-                      for (final moa in ProductionLimits.mountCantOptionsMoa)
-                        DropdownMenuItem(
-                          value: moa,
-                          child: Text(
-                            _mountLabel(moa),
-                            key: Key('scope-mount-cant-${_trimNum(moa)}'),
-                          ),
-                        ),
-                    ],
-                    onChanged: (v) => setState(() {
-                      _mountCantSet = v != null;
-                      mountCant = v ?? 0;
-                    }),
                   ),
                 ),
                 KeyedSubtree(
@@ -2989,12 +3069,54 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     onChanged: (v) => setState(() {
                       _angularUnitSet = v != null;
                       final next = v ?? AngularUnit.mrad;
-                      // Klik değeri is not asked any more (owner, 2026-10-09):
-                      // it follows the unit (0.1 MRAD, 1/4 MOA).
-                      if (next != angularUnit) {
+                      // A catalog scope's click follows the unit (0.1 MRAD,
+                      // 1/4 MOA; owner, 2026-10-09).
+                      if (_scopeManual) {
+                        // A typed scope picks its Klik değeri from the
+                        // new unit's list; one that does not fit is cleared.
+                        final click = _parse(scopeClick);
+                        if (!_clickOptions(next).any((o) => o.$1 == click)) {
+                          scopeClick.clear();
+                        }
+                      } else if (next != angularUnit) {
                         scopeClick.text = _trimNum(_defaultClick(next));
                       }
                       angularUnit = next;
+                    }),
+                  ),
+                ),
+                // Typed scope: Dürbün birimi | Klik değeri side by side.
+                if (_scopeManual || _scopeBrands.isEmpty) _clickSelect(),
+                KeyedSubtree(
+                  key: const Key('scope-mount'),
+                  child: MenzilSelect<double>(
+                    // Rebuilt when the click value/unit changes so every
+                    // choice shows its ready click gain.
+                    key: ValueKey(
+                      'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
+                    ),
+                    info: ProfileFieldInfo.mountCant,
+                    label: 'Dürbün ayağı',
+                    initialValue: _mountCantSet ? mountCant : null,
+                    // Closed box: just "0 MOA" / "30 MOA"; the list keeps
+                    // "Normal" and the click gain.
+                    selectedLabels: [
+                      for (final moa in ProductionLimits.mountCantOptionsMoa)
+                        '${_trimNum(moa)} MOA',
+                    ],
+                    items: [
+                      for (final moa in ProductionLimits.mountCantOptionsMoa)
+                        DropdownMenuItem(
+                          value: moa,
+                          child: Text(
+                            _mountLabel(moa),
+                            key: Key('scope-mount-cant-${_trimNum(moa)}'),
+                          ),
+                        ),
+                    ],
+                    onChanged: (v) => setState(() {
+                      _mountCantSet = v != null;
+                      mountCant = v ?? 0;
                     }),
                   ),
                 ),
