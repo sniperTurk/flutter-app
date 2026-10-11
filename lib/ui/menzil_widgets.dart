@@ -850,6 +850,52 @@ class _LabelWithInfo extends StatelessWidget {
 
 /// Label row shared by inputs and selectors: label on the left, unit on the
 /// right, constant gap to the control below.
+/// Text that drops its bold weight when it needs a second line (owner,
+/// 2026-10-11: a wrapped bold label or entry reads heavy). One line keeps
+/// [style] as given.
+class MenzilWrapText extends StatelessWidget {
+  final String text;
+  final TextStyle style;
+  final int maxLines;
+  final TextAlign? textAlign;
+
+  const MenzilWrapText(
+    this.text, {
+    super.key,
+    required this.style,
+    this.maxLines = 2,
+    this.textAlign,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, box) {
+        var s = style;
+        if (box.maxWidth.isFinite) {
+          final p = TextPainter(
+            text: TextSpan(text: text, style: style),
+            textDirection: Directionality.of(context),
+            textScaler: MediaQuery.textScalerOf(context),
+            maxLines: 1,
+          )..layout(maxWidth: box.maxWidth);
+          if (p.didExceedMaxLines) {
+            s = style.copyWith(fontWeight: FontWeight.w400);
+          }
+          p.dispose();
+        }
+        return Text(
+          text,
+          maxLines: maxLines,
+          overflow: TextOverflow.ellipsis,
+          textAlign: textAlign,
+          style: s,
+        );
+      },
+    );
+  }
+}
+
 class MenzilFieldLabel extends StatelessWidget {
   final String label;
   final String? unit;
@@ -871,12 +917,7 @@ class MenzilFieldLabel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
-            child: Text(
-              label,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: MenzilType.label(c.ink),
-            ),
+            child: MenzilWrapText(label, style: MenzilType.label(c.ink)),
           ),
           if (unit != null) ...[
             const SizedBox(width: MenzilSpace.xs),
@@ -1255,11 +1296,23 @@ class MenzilSecondaryButton extends StatelessWidget {
           if (fits) break;
           size -= 0.5;
         }
+        final oneLine = TextPainter(
+          text: TextSpan(text: label, style: base.copyWith(fontSize: size)),
+          textDirection: dir,
+          textScaler: scaler,
+          maxLines: 1,
+        )..layout(maxWidth: box.maxWidth);
+        final wraps = oneLine.didExceedMaxLines;
+        oneLine.dispose();
         return Text(
           label,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: size),
+          // A wrapped label is not bold (owner, 2026-10-11).
+          style: TextStyle(
+            fontSize: size,
+            fontWeight: wraps ? FontWeight.w400 : null,
+          ),
         );
       },
     );
@@ -1470,7 +1523,8 @@ class MenzilMetricCard extends StatelessWidget {
         metric.value,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
-        style: at(size).copyWith(height: 1.15),
+        // Two lines: regular weight (owner, 2026-10-11).
+        style: at(size).copyWith(height: 1.15, fontWeight: FontWeight.w400),
       );
     },
   );
