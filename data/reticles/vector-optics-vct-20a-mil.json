@@ -1,0 +1,25 @@
+{
+  "name": "VCT-20A MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental x6 4-24x50 (SCOL-43)",
+    "Continental x6 4-24x50 ARI (SCOL-54)",
+    "Continental x6 5-30x56 (SCOL-47)",
+    "Continental x8 3-24x56 (SCOL-T50)",
+    "Continental x8 4-32x56 (SCOL-T51)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20231030/f9ab5cfa68e87ce066e04d81db79393e.pdf",
+  "notes": "SFP; ölçüler 20x'te geçerli ('For VCT-20A reticle, the suspension is valid at 20x'). Kaynaklar: VCT-20A retikül kılavuzu PDF (index sayfa 16) + SCOL-43 ürün sayfası (Reticle: VCT-20A, 'Christmas tree pattern', family=tree) + Reticle-Collection ('VCT-20' adıyla 5 dürbün; yalnızca SCOL-43 sayfası kontrol edildi). Kılavuz: tamamı aydınlatmalı, dijital çizgi ve noktalar. Konumsuz diyagram etiketleri: 0.25, 0.5, 0.25, 1, 0.125, 0.25, 0.25, 0.5, Φ0.1, Φ0.025, Φ0.05 — öğelere atanamadı → aralıklar, merkez nokta null. || SFP; kılavuza göre ölçüler 20x'te geçerli ('the suspension is valid at 20x', 'Setting: 20x, MIL'). Kaynaklar: VCT-20A Reticle User Manual (20240819/9524378b….pdf, sayfa 10) + VCT-20A Reticle Single Page (20241031/df7f0f52….pdf, sayfa 7). Tamamen aydınlatmalı, 11 kademe. Dikey eksende MIL işaretleri var (aralık değeri metinde yok). Konumsuz diyagram etiketleri: 0.25, 0.125, 0.5, Φ0.1, Φ0.025, Φ0.05, 1.0 — öğeleri metinde yok. Diyagram büyütmeleri 4x/12x/24x. PDF'de dürbün modeli/kodu yok → scopes boş. Aile, işaret aralığı, uzanımlar, merkez nokta → null."
+}
