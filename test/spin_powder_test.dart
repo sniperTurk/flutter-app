@@ -144,11 +144,7 @@ void main() {
 
       await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
-      await openProFor(tester, const Key('pro-spin-switch'));
-      final sw = find.byKey(const Key('pro-spin-switch'));
-      await tester.ensureVisible(sw);
-      await tester.tap(sw);
-      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-bullet-length'));
       await type(tester, const Key('pro-bullet-length'), '31');
 
       await tester.pumpWidget(app(BallisticsView.shot));
