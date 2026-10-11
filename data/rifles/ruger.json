@@ -1100,5 +1100,43 @@
   "velocity_fps": null,
   "source_url": "https://www.ruger.com/products/americanRifleRanchGenII/models.html",
   "notes": "Resmi model tablosu: namlu 16.1\"; hatve/ağırlık tabloda yok (spec sayfasına erişilemedi); çap: nominal"
+ },
+ {
+  "brand": "Ruger",
+  "model": "Ruger Precision Rifle 6.5 Creedmoor (18103)",
+  "platform": "firearm",
+  "caliber": "6.5 Creedmoor",
+  "bullet_diameter_mm": 6.71,
+  "barrel_length_mm": 660.4,
+  "twist_rate_in": 7,
+  "twist_direction": "right",
+  "magazine_capacity": 10,
+  "weight_kg": 5.89,
+  "overall_length_mm": 1250.9,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://ruger.com/products/precisionRifle/specSheets/18103.html",
+  "notes": "Model 18103; namlu/boy inçten dönüştürüldü, ağırlık sayfadaki kg; twist 1:7\" RH (sağ), 5 yiv; çap: nominal"
+ },
+ {
+  "brand": "Ruger",
+  "model": "Ruger Precision Rifle 6mm GT (18109)",
+  "platform": "firearm",
+  "caliber": "6mm GT",
+  "bullet_diameter_mm": null,
+  "barrel_length_mm": 660.4,
+  "twist_rate_in": 7,
+  "twist_direction": "right",
+  "magazine_capacity": 10,
+  "weight_kg": 6.89,
+  "overall_length_mm": 1250.9,
+  "regulator_bar": null,
+  "air_capacity_cc": null,
+  "energy_j": null,
+  "velocity_fps": null,
+  "source_url": "https://ruger.com/products/precisionRifle/specSheets/18109.html",
+  "notes": "Model 18109; namlu/boy inçten dönüştürüldü, ağırlık sayfadaki kg; twist 1:7\" RH (sağ), 5 yiv"
  }
 ]

@@ -71,3 +71,18 @@ Eklenemeyen:
 - Sarsılmaz: sivil yivli tüfek yok (Spor Tüfekleri 12 GA av tüfekleri). SAR 308 ve
   SAR 308 Versiyon 2: resmi ürün sayfası, teknik föy ve 2025 katalog üçü de 7.62x39 mm
   yazıyor → mevcut kayıt doğru, değiştirilmedi.
+
+## 2026-10-11 ithal tüfek turu 1 (sahibinin ChatGPT ipucu listesi doğrulandı)
+
+İpucu: `docs/owner-research/chatgpt-rifles-1.md` (data/owner-research). Kaynak değil; her değer
+üreticide teyit edildi.
+
+- CZ +37: CZ 600 Trail/Range/Ergo/Alpha/Lux → CZ'nin kendi deposundaki "CZ 600 Series technical
+  data" PDF'i (czfirearms.com/en-us/manuals'tan bağlı); CZ 600 American, Ergo 7.62x39, Trail .300 BLK
+  → czub.cz ürün sayfaları. Hatve inç ("1:9 / 6" = 1:9", 6 yiv). Yiv yönü yayımlanmamış.
+- Ruger +2: Precision Rifle 18103 (6.5 CM 26") ve 18109 (6mm GT 26") resmi spec sayfaları.
+- Eklenmedi: CZ 600+ (American/Alpha/Lux/Range/MDT Grey/MDT Deep Bronze/Carbine) — czfirearms.com
+  sayfalarında tablo yalnızca görsel; czub.cz MDT sayfaları yok. Bir bayi sitesinde CZ'nin 600+
+  broşürü var, ama resmi alan adında olmadığı ve MDT satırlarında hatveler kalibrelerle çelişik
+  göründüğü için kullanılmadı. CZ 600 Lux 7.62x39, American .300 Win Mag: resmi CZ 600 tablolarında yok.
+- Accuracy International AT-X MIL .308: sayfa "1:8/1:10" diyor, namluya eşlemiyor → değişmedi.
