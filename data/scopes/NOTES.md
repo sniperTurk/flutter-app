@@ -46,7 +46,7 @@ Sayfaları paralel değil, tek tek ve aralıklı çekin.
 | vortex.json | 66 | vortexoptics.com embedded spec data, one record per reticle variant |
 | barska.json | 49 | shop.barska.com "Detailed Specifications" |
 | kahles.json | 16 | kahles.at technical data (travel m/100 m → mrad) |
-| element_optics.json | 19 | global.element-optics.com spec tables (MRAD version) |
+| element_optics.json | 37 | global.element-optics.com spec tables; MRAD and MOA versions as separate records (2026-10-11) |
 | arken_optics.json | 8 | arkenopticsusa.com specifications (MIL version) |
 | discovery_optics.json | 36 | discoveryopt.com technical specifications |
 | gazi_sniper.json | 11 | gazisniper.com.tr product pages (Gazi Sniper, MewLite); 13 pages publish specs only as images |
@@ -64,3 +64,16 @@ Unit rule: travel fields are named *_mrad or *_moa after the turret unit.
   system (stated as an inference in `notes`), otherwise null.
 - Not used: the `?p=` listing pages and the vortexoptics.widen.net PDFs (robots.txt disallows them).
 - Crossfire II 2-7x32 is listed among riflescopes but sold as a crossbow scope (noted in its record).
+## 2026-10-11 — Element Optics tamamlama (zamanlanmış çalıştırma, yalnız üretici sitesi)
+- Kaynak: global.element-optics.com tüfek dürbünü listesi (2 sayfa, 22 ürün) ve her ürün sayfası;
+  eksik değerler için yalnız üreticinin kılavuz PDF'leri (WebFetch ile okundu; curl CONNECT 403).
+- 19 → 37 kayıt. Yeni modeller: Immersive Series 10x40, Immersive Series 14x50, HYPR-7.
+  Yeni MOA sürümleri: Helix 4-16 FFP, Helix 6-24 FFP/SFP, Helix Gen 2 4-16 FFP, 6-24 FFP/SFP,
+  Helix HDLR 2-16 SFP, Titan 5-25 / 3-18, Nexus Gen 2 4-25, Nexus 5-20, Theos 6-36, Immersive 5x30/10x40/14x50.
+- Mevcut 19 kayıttaki sayılar sayfalarla yeniden karşılaştırıldı, hepsi aynı. Kayıt adları (ve
+  dolayısıyla uygulama kimlikleri) değiştirilmedi; MRAD kayıtlarına MOA kaydı "… MOA" adıyla eklendi.
+  Adlar üreticideki başlıklarla aynı (yalnız büyük/küçük harf ve × → x farkı).
+- reticle alanı ürün sayfasındaki "Reticle Options" listesinden, birime göre; birden çok retikül " / " ile.
+- zero_stop ve parallax_min_m (metre sütunu) dolduruldu; sayfa yarda verdiyse veya "FIXED" ise null.
+- Eklenmeyenler: Theos 2-10 MOA (sayfada MOA model seçeneği/klik/kule yok, kılavuz yalnız MRAD);
+  HYPR-7 klik değeri yok (dijital taret) → click_value null, uygulama listesine girmez.
