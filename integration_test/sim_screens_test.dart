@@ -83,6 +83,11 @@ void main() {
 
     /// Screenshots of the whole page: top, then one per screen height.
     Future<void> page(String name) async {
+      final top = mainScroll();
+      if (top != null && top.pixels > top.minScrollExtent) {
+        top.jumpTo(top.minScrollExtent);
+        await settle();
+      }
       await shot(name);
       for (var part = 2; part <= 10; part++) {
         final position = mainScroll();

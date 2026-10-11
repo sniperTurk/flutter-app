@@ -12,6 +12,10 @@ on:
         description: 'Branch, tag or commit to photograph'
         required: false
         default: 'main'
+      test:
+        description: 'Integration test that prints SIMSCREEN:<name> markers'
+        required: false
+        default: 'integration_test/sim_screens_test.dart'
   pull_request:
     paths:
       - '.github/workflows/sim-screens.yml'
@@ -90,6 +94,7 @@ jobs:
         shell: bash
         env:
           METNO_CONTACT: ${{ vars.METNO_CONTACT }}
+          SIM_SCREENS_TEST: ${{ github.event.inputs.test || 'integration_test/sim_screens_test.dart' }}
         run: |
           set +e
           tools/sim_screens_run.sh "${{ steps.sim.outputs.udid }}" \
@@ -133,7 +138,7 @@ jobs:
             echo "- Source: \`$SRC_REF\` @ \`$SRC_SHA\`"
             echo "- Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
             echo "- flutter test exit code: ${TOUR_RC:-unknown} (0 = every step passed)"
-            echo "- Device: $(head -n 3 latest/device.txt | tail -n 1 | sed 's/^ *//')"
+            echo "- Device: $(grep -m1 '(Booted)' latest/device.txt | sed 's/^ *//; s/ (.*//') / $(grep -B9 '(Booted)' latest/device.txt | grep -- '-- iOS' | tail -n 1 | tr -d '-' | xargs)"
             echo
             echo '```'
             cat latest/status.txt

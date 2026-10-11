@@ -3,6 +3,8 @@
 #
 #   tools/sim_screens_run.sh <udid> <prebuilt Runner.app> <out dir>
 #
+# SIM_SCREENS_TEST picks another tour (default integration_test/sim_screens_test.dart).
+#
 # 1. Installs the prebuilt app once and grants location BEFORE the test runs,
 #    so no permission dialog covers the pages (flutter test installs over it
 #    with `simctl install`, which keeps the grant).
@@ -16,7 +18,7 @@ UDID="$1"
 APP="$2"
 OUT="$3"
 BUNDLE_ID="com.sniperturk.sniperTurk"
-TEST="integration_test/sim_screens_test.dart"
+TEST="${SIM_SCREENS_TEST:-integration_test/sim_screens_test.dart}"
 LIMIT_SECONDS="${SIM_SCREENS_LIMIT_SECONDS:-1500}"
 
 mkdir -p "$OUT/screens"
