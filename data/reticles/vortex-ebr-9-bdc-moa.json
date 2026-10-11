@@ -1,0 +1,21 @@
+{
+  "name": "EBR-9 BDC MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Razor HD Gen III 1-10x24 FFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/vortex-razor-hd-gen-iii-1-10x24-riflescope.html",
+  "notes": "Razor HD Gen III 1-10x24 FFP ürün sayfasında EBR-9 BDC (MOA) varyantı var (spesifikasyon: First Focal Plane, ayar 1/4 MOA — data/scopes/vortex.json). Sayfada retikül açıklama metni yok. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}
