@@ -1503,27 +1503,27 @@ class MenzilMetricGrid extends StatelessWidget {
               child: twoLineText
                   ? _rows(context, cols, tileWidth)
                   : Wrap(
-                spacing: 1,
-                runSpacing: 1,
-                children: [
-                  for (final m in metrics)
-                    SizedBox(
-                      width: tileWidth,
-                      child: MenzilMetricCard(
-                        metric: m,
-                        twoLineText: twoLineText,
-                      ),
+                      spacing: 1,
+                      runSpacing: 1,
+                      children: [
+                        for (final m in metrics)
+                          SizedBox(
+                            width: tileWidth,
+                            child: MenzilMetricCard(
+                              metric: m,
+                              twoLineText: twoLineText,
+                            ),
+                          ),
+                        for (var i = 0; i < fillers; i++)
+                          SizedBox(
+                            width: tileWidth,
+                            child: ColoredBox(
+                              color: c.surface,
+                              child: SizedBox(height: twoLineText ? 76 : 56),
+                            ),
+                          ),
+                      ],
                     ),
-                  for (var i = 0; i < fillers; i++)
-                    SizedBox(
-                      width: tileWidth,
-                      child: ColoredBox(
-                        color: c.surface,
-                        child: SizedBox(height: twoLineText ? 76 : 56),
-                      ),
-                    ),
-                ],
-              ),
             ),
           );
         },
