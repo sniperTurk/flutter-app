@@ -360,7 +360,7 @@ class CatalogRepository {
       objectiveDiameterMm:56, clickValue:0.1, clickUnit:AngularUnit.mrad,
       tubeDiameterMm:34, minMagnification:6, maxMagnification:36,
       elevationRangeMrad:26, windageRangeMrad:14.5, lengthMm:335, weightG:870,
-      firstFocalPlane:true, reticle:'FFP', sourceName:'Gazi Sniper',
+      firstFocalPlane:true, sourceName:'Gazi Sniper',
       sourceDocument:'Gazi Sniper 6-36x56 official product page, verified 2026-09-24',
     ),
     ScopeOptic(

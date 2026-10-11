@@ -345,9 +345,7 @@ void main() {
       await tester.enterText(field(const Key('pro-target-speed')), '2');
       await tester.pump();
       Future<void> pick(String label) async {
-        final box = find.byWidgetPredicate(
-          (w) => w is DropdownButtonFormField<bool>,
-        );
+        final box = find.byWidgetPredicate((w) => w is DropdownButton<bool>);
         await tester.ensureVisible(box);
         await tester.tap(box);
         await tester.pumpAndSettle();

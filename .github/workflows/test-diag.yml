@@ -37,7 +37,11 @@ jobs:
             echo "::error title=test::${line:0:400}"
           done
           # The lines right after the first exception (what failed and where).
-          grep -n -A14 -m1 "EXCEPTION CAUGHT" test.log | tail -14 | while IFS= read -r line; do
+          grep -n -A9 -m1 "EXCEPTION CAUGHT" test.log | tail -9 | while IFS= read -r line; do
             echo "::warning title=detail::${line:0:400}"
+          done
+          # Where in the test file it failed.
+          grep -nE "_test\.dart [0-9]+:[0-9]+|_test\.dart:[0-9]+" test.log | head -8 | while IFS= read -r line; do
+            echo "::error title=where::${line:0:400}"
           done
           exit $rc

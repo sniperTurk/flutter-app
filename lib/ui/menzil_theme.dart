@@ -352,10 +352,11 @@ abstract final class MenzilType {
     color: color,
   );
 
+  // Field labels: a bit smaller, not bold (owner, 2026-10-11).
   static TextStyle label(Color color) => TextStyle(
-    fontSize: 13,
+    fontSize: 12.5,
     height: 1.25,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w400,
     color: color,
   );
 
