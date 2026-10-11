@@ -12,9 +12,6 @@ import 'package:sniper_turk/services/active_profile_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
-ReticleData _record(String id) =>
-    ReticleLibrary.all.firstWhere((r) => r.id == id);
-
 /// Paints [spec] the way the Hedef screen does, with hold and wind labels.
 Widget _painted(BuildContext context, ReticleSpec? spec, {bool labels = true}) {
   final moa = spec != null && spec.unit.moaFamily;
@@ -48,31 +45,55 @@ void main() {
     }
   });
 
+  // The rules are tested on records written here, not on the library:
+  // the brand branches fill the library's nulls over time.
   test('null fields are never guessed', () {
-    // VSE-3 MOA: family unknown -> no data drawing (generic grid).
-    expect(_record('vector-optics-vse-3-moa').toSpec(), isNull);
-    // MPR-4 MIL: mark spacing unknown -> no data drawing.
-    expect(_record('vector-optics-mpr-4-mil').toSpec(), isNull);
+    Map<String, Object?> rec(Map<String, Object?> over) => {
+      'name': 'Kısmi MIL',
+      'brand': 'Test',
+      'unit': 'mil',
+      'family': 'tree',
+      'hash_step': 0.2,
+      'major_every': null,
+      'numbers_every': null,
+      'extent_h': null,
+      'extent_v_up': null,
+      'extent_v_down': 10,
+      'tree': {
+        'rows': [
+          {'y': 1, 'half_width': 1, 'dot_step': null},
+          {'y': 10, 'half_width': 4, 'dot_step': null},
+        ],
+      },
+      'posts_start': null,
+      'center_dot': true,
+      'floating_center': true,
+      ...over,
+    };
+    // Family unknown -> no data drawing (generic grid).
+    expect(ReticleData.fromJson(rec({'family': null}))!.toSpec(), isNull);
+    // Mark spacing unknown -> no data drawing.
+    expect(ReticleData.fromJson(rec({'hash_step': null}))!.toSpec(), isNull);
 
-    // APRS14: known parts drawn, unknown listed.
-    final aprs = _record('athlon-optics-aprs14-ffp-mil').toSpec()!;
-    expect(aprs.fromData, isTrue);
-    expect(aprs.complete, isFalse);
-    expect(aprs.family, ReticleFamily.tree);
-    expect(aprs.hashStep, 0.2);
-    expect(aprs.extentDown, 10);
-    expect(aprs.majorEvery, 0, reason: 'unknown major marks are not drawn');
-    expect(aprs.numbersEvery, isNull);
-    expect(aprs.postsStart, isNull);
-    expect(aprs.centerDot, isTrue);
-    expect(aprs.floatingCenter, isTrue);
+    // Known parts drawn, unknown listed.
+    final part = ReticleData.fromJson(rec({}))!.toSpec()!;
+    expect(part.fromData, isTrue);
+    expect(part.complete, isFalse);
+    expect(part.family, ReticleFamily.tree);
+    expect(part.hashStep, 0.2);
+    expect(part.extentDown, 10);
+    expect(part.majorEvery, 0, reason: 'unknown major marks are not drawn');
+    expect(part.numbersEvery, isNull);
+    expect(part.postsStart, isNull);
+    expect(part.centerDot, isTrue);
+    expect(part.floatingCenter, isTrue);
     // Rows keep their known ends; the unknown dot spacing stays null.
-    expect(aprs.tree.map((r) => (r.y, r.halfWidth, r.dotStep)), [
+    expect(part.tree.map((r) => (r.y, r.halfWidth, r.dotStep)), [
       (1.0, 1.0, null),
       (10.0, 4.0, null),
     ]);
     expect(
-      aprs.genericParts,
+      part.genericParts,
       containsAll([
         'extent_h',
         'extent_v_up',
@@ -82,32 +103,29 @@ void main() {
         'tree.dot_step',
       ]),
     );
-    expect(aprs.genericParts, isNot(contains('extent_v_down')));
+    expect(part.genericParts, isNot(contains('extent_v_down')));
     // Unknown extents follow the generic MIL tree grid.
-    expect(aprs.extentH, Reticles.generic(Reticles.treeMil).extentH);
+    expect(part.extentH, Reticles.generic(Reticles.treeMil).extentH);
 
     // A record with every field known is complete.
-    final full = ReticleData.fromJson({
-      'name': 'Tam',
-      'unit': 'mil',
-      'family': 'tree',
-      'hash_step': 0.2,
-      'major_every': 1,
-      'numbers_every': 2,
-      'extent_h': 8,
-      'extent_v_up': 4,
-      'extent_v_down': 9,
-      'tree': {
-        'rows': [
-          {'y': 2, 'half_width': 1, 'dot_step': 0.5},
-        ],
-      },
-      'posts_start': 10,
-      'center_dot': false,
-      'floating_center': true,
-      'line_width': 0.04,
-      'post_width': 0.4,
-    })!.toSpec()!;
+    final full = ReticleData.fromJson(
+      rec({
+        'major_every': 1,
+        'numbers_every': 2,
+        'extent_h': 8,
+        'extent_v_up': 4,
+        'extent_v_down': 9,
+        'tree': {
+          'rows': [
+            {'y': 2, 'half_width': 1, 'dot_step': 0.5},
+          ],
+        },
+        'posts_start': 10,
+        'center_dot': false,
+        'line_width': 0.04,
+        'post_width': 0.4,
+      }),
+    )!.toSpec()!;
     expect(full.complete, isTrue);
     expect(full.lineWidth, 0.04);
     expect(full.postWidth, 0.4);
@@ -115,34 +133,44 @@ void main() {
   });
 
   test('a scope reticle name finds its data record', () {
-    ReticleData? find(String name, String brand, AngularUnit u) =>
-        ReticleCatalog.find(name, u, brand: brand);
-    expect(
-      find('APRS14', 'Athlon', AngularUnit.mrad)?.id,
-      'athlon-optics-aprs14-ffp-mil',
-    );
-    expect(
-      find('TOR-MIL', 'Arken Optics', AngularUnit.mrad)?.id,
-      'arken-tor-mil',
-    );
-    expect(
-      find('MIL-C F1', 'Nightforce Optics', AngularUnit.mrad)?.id,
-      'nightforce-mil-c',
-    );
+    const library = [
+      ReticleData(
+        id: 'a14',
+        brand: 'Athlon Optics',
+        name: 'APRS14 FFP MIL',
+        unit: 'mil',
+      ),
+      ReticleData(id: 'tor', brand: 'Arken Optics', name: 'TOR MIL', unit: 'mil'),
+      ReticleData(id: 'milc', brand: 'Nightforce', name: 'MIL-C', unit: 'mil'),
+      ReticleData(
+        id: 'l2mil',
+        brand: 'Athlon Optics',
+        name: 'APLR2 FFP IR MIL',
+        unit: 'mil',
+      ),
+      ReticleData(
+        id: 'l2moa',
+        brand: 'Athlon Optics',
+        name: 'APLR2 FFP IR MOA',
+        unit: 'moa',
+      ),
+      ReticleData(id: 'md', brand: 'Nightforce', name: 'Mil-Dot', unit: 'mil'),
+    ];
+    String? find(String name, String brand, AngularUnit u) =>
+        ReticleCatalog.find(name, u, brand: brand, library: library)?.id;
+    expect(find('APRS14', 'Athlon', AngularUnit.mrad), 'a14');
+    expect(find('TOR-MIL', 'Arken Optics', AngularUnit.mrad), 'tor');
+    expect(find('MIL-C F1', 'Nightforce Optics', AngularUnit.mrad), 'milc');
     // Two APLR2 records: the turret unit decides.
-    expect(
-      find('APLR2', 'Athlon', AngularUnit.mrad)?.id,
-      'athlon-optics-aplr2-ffp-ir-mil',
-    );
-    expect(
-      find('APLR2', 'Athlon', AngularUnit.moa)?.id,
-      'athlon-optics-aplr2-ffp-ir-moa',
-    );
+    expect(find('APLR2', 'Athlon', AngularUnit.mrad), 'l2mil');
+    expect(find('APLR2', 'Athlon', AngularUnit.moa), 'l2moa');
+    // The name's own unit wins over the turret.
+    expect(find('APLR2 MOA', 'Athlon', AngularUnit.mrad), 'l2moa');
     // Another brand's reticle of the same name is not used.
     expect(find('Mil-Dot', 'Athlon', AngularUnit.mrad), isNull);
     // A brand only leads: "Athlon CRONUS …" is Athlon, "Athlonx" is not.
-    expect(find('APRS1', 'Athlon CRONUS BTR', AngularUnit.mrad), isNotNull);
-    expect(find('APRS1', 'Athlonx', AngularUnit.mrad), isNull);
+    expect(find('APRS14', 'Athlon CRONUS BTR', AngularUnit.mrad), 'a14');
+    expect(find('APRS14', 'Athlonx', AngularUnit.mrad), isNull);
     // A bare unit is no reticle name.
     expect(find('MRAD', 'Arken Optics', AngularUnit.mrad), isNull);
     expect(find('APRS14', '', AngularUnit.mrad), isNull);
@@ -156,9 +184,9 @@ void main() {
     expect(spec.fromData, isTrue);
     expect(spec.name, 'APRS14');
     final generic = ReticleCatalog.forScope(
-      'VSE-3 MOA',
+      'XYZ-9 MOA',
       AngularUnit.moa,
-      brand: 'Vector Optics',
+      brand: 'Test Marka',
     )!;
     expect(generic.fromData, isFalse);
     expect(generic.unit, AngularUnit.moa);
@@ -226,7 +254,6 @@ void main() {
     final spec = (paint.painter! as ScopeReticlePainter).reticle!;
     expect(spec.fromData, isTrue);
     expect(spec.name, 'APRS14');
-    expect(spec.family, ReticleFamily.tree);
     expect(tester.takeException(), isNull);
   });
 
@@ -261,9 +288,6 @@ void main() {
       brand: scope.brand,
     )!;
     expect(spec.fromData, isTrue);
-    expect(spec.numbersEvery, isNull);
-    expect(spec.extentH, 6);
-    expect(spec.floatingCenter, isTrue);
-    expect(spec.tree.length, 2);
+    expect(spec.name, 'APRS1');
   });
 }
