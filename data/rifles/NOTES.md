@@ -128,3 +128,33 @@ Eklenemeyen (tablo okunamadı / bütçe): Tikka T3x CTR, Varmint, Hunter, Lite, 
 Sako 90 Hunter (.222 dışı), Bavarian, Finnlight, Varmint, Sako 100; Bergara BA13, Extreme serisi;
 Howa HCR (ayrı resmi sayfa yok), Carbon Stalker / Walnut Hunter (namlu yok), Model 1100.
 Bergara 2021 lineup PDF'i açılamadı (2022 INT katalog kullanıldı).
+
+## 2026-10-11 ithal tüfek turu 3 — 37 marka (Howa … Rößler)
+
+Kaynak kuralı aynı: yalnızca üreticinin kendi sitesi, katalog PDF'i, kullanım kılavuzu (veya üreticinin resmi
+ülke iştiraki / resmi ithalatçısı: Howa→legacysports.com, Steyr→steyr-arms.us, Zastava→zastavaarmsusa.com,
+Heym→heymusa.com, Savage 2025 kataloğu→resmi Alman ithalatçısı helmuthofmann.de'de barındırılan Savage PDF'i).
+Bu ortamda curl üretici alan adlarına kapalı; sayfalar/PDF'ler WebFetch ile okundu. Bilinmeyen alan null +
+notes'ta "resmi kaynakta belirtilmemiş". Yalnızca eksik kalibre×namlu eklendi; renk/kundak farkı tek kayıt.
+
+Eklenen (2 151): Weatherby 276, Savage 185, Christensen 113, Cadex 112, Zastava 95, Steyr 93, Browning 71,
+Krieghoff 68, Ruger 66, MasterPiece Arms 65, Remington 60, Sauer 60, Keppeler 54, Merkel 54, Mossberg 51,
+Winchester 51, Victrix 50, Proof Research 49, Benelli 46, Blaser 36, Rößler 32, Franchi 29, Haenel 28,
+Kimber 27, Lithgow 26, Sig Sauer 26, Anschütz 23, Mauser 22, Unique Alpine 19, Desert Tech 14,
+Accuracy International 8, Heym 8, Beretta 7, Howa 7, Barrett 6, CZ 1.
+
+Düzeltilen: Savage 110 Tactical (.308 508 mm hatve/uzunluk; 6.5 PRC ve .300 WM hatve + şarjör 7/5),
+Barrett (MK22/REC7 kalibre adı, MRAD ELR 36" ağırlık/uzunluk, M82A1 ağırlıkları — 2026 katalog),
+AI AXSR hatveleri (AXSR C spec sheet 2024), Cadex CRBN .270 WSM çapı; Browning/Winchester/Christensen/
+Anschütz kalibre adları cartridges.dart adlarına uyduruldu (değer değişmedi).
+
+Bilinçli atlananlar / eksikler:
+- Blaser R8 Silence: PDF metninde bulunurluk işaretleri kayboldu → eklenmedi. R8 600 mm sütunu eşlenemedi.
+- Ritter & Stark, Schultz & Larsen: resmi siteler robots.txt ile erişimi yasaklıyor / yapım aşamasında → 0 kayıt.
+- CZ 457, CZ 600+: resmi tablolar yalnız görsel. Howa: birçok ürün sayfasında kalibre başına namlu yok, 2025 LSI
+  kataloğu görsel PDF. Ruger Scout/SFAR/Hawkeye LRT sayfaları "page not found".
+- Hatve yayımlamayan üreticiler (null): Mauser, Merkel, Krieghoff, Keppeler, Rößler, Unique Alpine,
+  MasterPiece Arms, Steyr av tüfekleri, Beretta, Zastava (zastava-arms.rs), Heym çift namlular.
+- Sıra ile eşleme (notes'ta yazılı): Lithgow LA102 Crossover / LA105, Kimber spec blokları.
+- Resmi kaynak içi çelişkiler notes'ta: Mossberg .400 Legend 1:16/1:10, Sig CROSS Magnum .300 WM 1:9/1:10,
+  Franchi .223 1:8/1:9, Benelli Lupo 7mm PRC 1:9,5/1:8, AI .300 WM 1:10 (US) / 1:11 (UK).
