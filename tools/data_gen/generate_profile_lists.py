@@ -269,6 +269,8 @@ for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
         name = r['product']
         for token in sorted({r['cartridge'], c}, key=len, reverse=True):
             name = name.replace(token, ' ')
+        # A product written '.223 Rem.' leaves a lone '.' once the cartridge is cut.
+        name = re.sub(r'(^|\s)\.(?=\s|$)', ' ', name)
         name = re.sub(r'\s+', ' ', name).strip(' -')
         # Unlabelled maker BC taken as G1 by the owner's decision (2026-10-11).
         note = None
