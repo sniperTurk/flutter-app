@@ -46,8 +46,45 @@ Sayfaları paralel değil, tek tek ve aralıklı çekin.
 | vortex.json | 66 | vortexoptics.com embedded spec data, one record per reticle variant |
 | barska.json | 49 | shop.barska.com "Detailed Specifications" |
 | kahles.json | 16 | kahles.at technical data (travel m/100 m → mrad) |
-| element_optics.json | 19 | global.element-optics.com spec tables (MRAD version) |
+| element_optics.json | 37 | global.element-optics.com spec tables; MRAD and MOA versions as separate records (2026-10-11) |
 | arken_optics.json | 8 | arkenopticsusa.com specifications (MIL version) |
 | discovery_optics.json | 43 | discoveryopt.com technical specifications (2026-10-11: +6 FFP-MOA variants, +ED-AR 1-8x24 without click value) |
 | gazi_sniper.json | 11 | gazisniper.com.tr product pages (Gazi Sniper, MewLite); 13 pages publish specs only as images |
 Unit rule: travel fields are named *_mrad or *_moa after the turret unit.
+
+## 2026-10-11 — Vortex completed against vortexoptics.com (scheduled run)
+- Current riflescope lineup read from the family category pages on vortexoptics.com
+  (razor, viper, strike-eagle, venom, diamondback, crossfire, golden-eagle, amg, triumph;
+  cross-checked with the use-case category pages): 47 product pages (+2 Venom bundles, not scopes).
+- 28 product pages were already in `vortex.json` (66 reticle-variant records); the 19 missing
+  product pages were added (one record each — every one of them shows a single SKU): 66 → 85 records.
+- New records carry `"accessed": "2026-10-11"` (read date) and the SKU in `notes`.
+- `parallax_min_m` is filled only for adjustable parallax (yards × 0.9144); fixed-parallax scopes stay null
+  and the fixed distance is in `notes`. `zero_stop` is true only where the page names a RevStop/RZR zero
+  system (stated as an inference in `notes`), otherwise null.
+- Not used: the `?p=` listing pages and the vortexoptics.widen.net PDFs (robots.txt disallows them).
+- Crossfire II 2-7x32 is listed among riflescopes but sold as a crossbow scope (noted in its record).
+## 2026-10-11 — Element Optics tamamlama (zamanlanmış çalıştırma, yalnız üretici sitesi)
+- Kaynak: global.element-optics.com tüfek dürbünü listesi (2 sayfa, 22 ürün) ve her ürün sayfası;
+  eksik değerler için yalnız üreticinin kılavuz PDF'leri (WebFetch ile okundu; curl CONNECT 403).
+- 19 → 37 kayıt. Yeni modeller: Immersive Series 10x40, Immersive Series 14x50, HYPR-7.
+  Yeni MOA sürümleri: Helix 4-16 FFP, Helix 6-24 FFP/SFP, Helix Gen 2 4-16 FFP, 6-24 FFP/SFP,
+  Helix HDLR 2-16 SFP, Titan 5-25 / 3-18, Nexus Gen 2 4-25, Nexus 5-20, Theos 6-36, Immersive 5x30/10x40/14x50.
+- Mevcut 19 kayıttaki sayılar sayfalarla yeniden karşılaştırıldı, hepsi aynı. Kayıt adları (ve
+  dolayısıyla uygulama kimlikleri) değiştirilmedi; MRAD kayıtlarına MOA kaydı "… MOA" adıyla eklendi.
+  Adlar üreticideki başlıklarla aynı (yalnız büyük/küçük harf ve × → x farkı).
+- reticle alanı ürün sayfasındaki "Reticle Options" listesinden, birime göre; birden çok retikül " / " ile.
+- zero_stop ve parallax_min_m (metre sütunu) dolduruldu; sayfa yarda verdiyse veya "FIXED" ise null.
+- Eklenmeyenler: Theos 2-10 MOA (sayfada MOA model seçeneği/klik/kule yok, kılavuz yalnız MRAD);
+  HYPR-7 klik değeri yok (dijital taret) → click_value null, uygulama listesine girmez.
+## 2026-10-11 — Vector Optics tamamlama (zamanlanmış çalıştırma, yalnız vectoroptics.com)
+- vector_optics.json: 142 → 173 kayıt (+31).
+- Tarama: /rifle-scopes listesi (sayfa metni ~128. üründe kesiliyor), tüm /top-line/, /premium/, /classic/, /entry-level/ seri sayfaları,
+  Discontinued-Products listesi ve Reticle-Collection sayfası. Model kodu (SCxx-nn) ile mevcut kayıtlarla karşılaştırıldı.
+- Yeni güncel modeller (7): Veyron GenII 3-12x44 HD DCR SFP (SCOM-50), Veyron GenII 4-16x44 HD DCR SFP (SCOL-79),
+  Veyron GenII 3-12x44i HD G4 SFP (SCOM-54), Paragon prizma dürbünleri 1x16 (SCPS-M01), 1x18 (SCPS-M10), 3x18 (SCPS-M03), 4x24 (SCPS-M04).
+- Seri sayfalarında hâlâ listelenen ama ürün sayfasında "Discontinued" yazan 24 model de eklendi; notes alanında DISCONTINUED yazıyor
+  (ör. Minotaur GenII, Mustang, Grimlock, Tauron 4-16x44/6-24x50 HD eski FFP sürümleri, Forester GenII 1-5x24, Continental x10 1-10x28 VET-RAR).
+- Kurallar: "≥" değerler alt sınır olarak saklandı; "N yards to infinity" → metre (10 yd = 9.1 m); sabit paralaks (50/100 yd) → parallax_min_m null;
+  zero_stop yalnız spec tablosunda "Zero Stop" yazıyorsa true, aksi halde null. Prizma dürbünlerde tüp çapı/odak düzlemi "N/A" → null.
+- Erişilemeyen: site araması (search.html) sunucu hatası verdi; ilk denemede hata veren 3 Veyron GenII sayfası liste sayfasındaki alternatif URL ile okundu.
