@@ -1,7 +1,7 @@
 # Simulator screenshots
 
-- Source: `fix/ekran-boyutu` @ `1ce0f3af7b45bdaa479967d451640d73c25005b2`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38177014829
+- Source: `main` @ `189812ae3a24a67ba56c1d29aed435a33e79f238`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38180610401
 - flutter test exit code: 0 (0 = every step passed)
 - Device: iPhone 17 Pro / iOS 26.2
 
