@@ -144,8 +144,10 @@ void _scanCutTexts(WidgetTester tester, _Collector c) {
     if (ro is RenderParagraph && ro.hasSize && ro.didExceedMaxLines) {
       final text = ro.text.toPlainText().replaceAll('\n', ' ');
       if (text.trim().isEmpty) continue;
-      c.cut.add('EKRAN_KESIK|${c.device}|${c.screen}|$text');
-      _note('KESIK', '${c.screen}|$text', c.device);
+      final need = ro.getMaxIntrinsicWidth(double.infinity).ceil();
+      final have = ro.size.width.floor();
+      c.cut.add('EKRAN_KESIK|${c.device}|${c.screen}|$text|$have/$need');
+      _note('KESIK', '${c.screen}|$text', '${c.device} $have/$need');
     }
   }
 }
