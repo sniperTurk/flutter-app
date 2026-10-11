@@ -99,6 +99,20 @@ final class WatchFormatTests: XCTestCase {
     XCTAssertEqual(WatchFormat.updated(at, calendar: cal), "Güncellendi 17:32")
   }
 
+  func testPendingRangeUntilThePhoneAnswers() throws {
+    let s = try XCTUnwrap(
+      WatchSolution(message: [
+        "v": 1, "ok": true, "profile": "P", "at": 0, "range": 600, "rangeUnit": "m",
+        "rangeStep": 10, "up": 1, "right": 0, "upAngle": 0.1, "rightAngle": 0.0,
+        "unit": "MRAD", "click": 0.1,
+      ]))
+    XCTAssertNil(WatchFormat.pendingNotice(requested: nil, solution: s))
+    XCTAssertNil(WatchFormat.pendingNotice(requested: 600, solution: s))
+    XCTAssertEqual(
+      WatchFormat.pendingNotice(requested: 650, solution: s),
+      "İstenen 650 m bekleniyor. Telefonda Atış açık olmalı.")
+  }
+
   func testStaleAfterTwoMinutes() {
     let at = Date(timeIntervalSince1970: 1000)
     XCTAssertNil(WatchFormat.staleNotice(at: at, now: at.addingTimeInterval(120)))

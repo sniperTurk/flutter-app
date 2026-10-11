@@ -7,6 +7,9 @@ import WatchCore
 final class WatchSessionStore: NSObject, ObservableObject, WCSessionDelegate {
   @Published private(set) var solution: WatchSolution?
 
+  /// Saatten istenen, telefonun henüz yanıtlamadığı mesafe.
+  @Published private(set) var requestedRange: Int?
+
   override init() {
     super.init()
     guard WCSession.isSupported() else { return }
@@ -23,13 +26,21 @@ final class WatchSessionStore: NSObject, ObservableObject, WCSessionDelegate {
     }
     session.sendMessage(
       RangeRequest.message(value),
-      replyHandler: { _ in DispatchQueue.main.async { completion(true) } },
+      replyHandler: { _ in
+        DispatchQueue.main.async {
+          self.requestedRange = value
+          completion(true)
+        }
+      },
       errorHandler: { _ in DispatchQueue.main.async { completion(false) } })
   }
 
   private func apply(_ context: [String: Any]) {
     guard let s = WatchSolution(message: context) else { return }
-    DispatchQueue.main.async { self.solution = s }
+    DispatchQueue.main.async {
+      self.solution = s
+      if s.ok, s.range == self.requestedRange { self.requestedRange = nil }
+    }
   }
 
   // MARK: - WCSessionDelegate

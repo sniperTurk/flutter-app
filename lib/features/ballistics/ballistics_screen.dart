@@ -723,6 +723,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     _shotRangeM = _defaultShotRangeM;
     if (p != null) {
       _watchRanges = WatchBridge.instance.rangeRequests.listen(_onWatchRange);
+      // Refresh the shown solution's time so an open, unchanged Atış is
+      // never marked stale on the watch (the bridge sends at most 1/min).
+      _watchTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+        final s = _watchLast;
+        if (s != null && mounted) {
+          unawaited(WatchBridge.instance.publish(s.withTime(DateTime.now())));
+        }
+      });
     }
     final zeroM = p?.zeroRangeM ?? 25;
     zero = TextEditingController(
@@ -777,6 +785,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   void didUpdateWidget(covariant BallisticsScreen old) {
     super.didUpdateWidget(old);
+    if (_isShotView(old.view) && !_isShotView(widget.view)) _withdrawWatch();
     if (widget.view == BallisticsView.environment &&
         old.view != BallisticsView.environment) {
       _maybeAutoWeather();
@@ -1247,6 +1256,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   void dispose() {
     unawaited(_watchRanges?.cancel());
+    _watchTimer?.cancel();
     // Weather typed before the first profile carries over to the profile's
     // workspace (owner, 2026-10-10: "bu değerler hesaba otomatik girer").
     if (widget.profile == null && widget.onCreateProfile != null) {
@@ -1979,12 +1989,32 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   // happens without a watch (WatchBridge is silent then).
 
   StreamSubscription<int>? _watchRanges;
+  Timer? _watchTimer;
+
+  /// Last solution sent from Atış; null while Atış is not shown.
+  WatchSolution? _watchLast;
+
+  bool _isShotView(BallisticsView v) =>
+      v == BallisticsView.shot || v == BallisticsView.all;
+
+  /// Atış is not showing a turret correction: the watch shows "Çözüm yok"
+  /// instead of old clicks (inputs may be changing on Hava/Pro).
+  void _withdrawWatch() {
+    final p = widget.profile;
+    _watchLast = null;
+    if (p == null) return;
+    final s = WatchSolution.none(profile: p.name, at: DateTime.now());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(WatchBridge.instance.publish(s));
+    });
+  }
 
   /// Sends the Atış turret correction (scope unit, + up / + right) to the
   /// watch after this frame. [up] is null without a solved shot.
   void _publishWatch(double? up, double right, double click) {
     final s = _watchSolution(up, right, click);
     if (s == null) return;
+    _watchLast = s.ok ? s : null;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) unawaited(WatchBridge.instance.publish(s));
     });
@@ -2043,6 +2073,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final s = scope;
     final click = _scopeClickValue;
     if (s == null || click == null) {
+      _withdrawWatch();
       return const MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:

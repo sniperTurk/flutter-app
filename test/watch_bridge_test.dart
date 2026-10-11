@@ -87,6 +87,13 @@ void main() {
       expect(m.containsKey('range'), isFalse);
     });
 
+    test('withTime only moves the timestamp', () {
+      final s = _solution();
+      final later = s.withTime(DateTime.utc(2027));
+      expect(later.contentKey(), s.contentKey());
+      expect(later.toMessage()['at'], DateTime.utc(2027).millisecondsSinceEpoch);
+    });
+
     test('no wind entered sends no wind fields', () {
       final s = WatchSolution(
         ok: true,
@@ -109,20 +116,39 @@ void main() {
   });
 
   group('WatchBridge', () {
-    test('does not resend the same content with a newer time', () async {
+    test('same content is not resent within the refresh interval', () async {
+      var now = DateTime.utc(2026, 1, 1, 10);
       final t = _FakeTransport();
-      final bridge = WatchBridge(transport: t);
-      await bridge.publish(_solution(at: DateTime.utc(2026, 1, 1, 10)));
-      await bridge.publish(_solution(at: DateTime.utc(2026, 1, 1, 11)));
+      final bridge = WatchBridge(transport: t, clock: () => now);
+      await bridge.publish(_solution());
+      now = now.add(const Duration(seconds: 59));
+      await bridge.publish(_solution());
       expect(t.sent, hasLength(1));
       await bridge.publish(_solution(up: 48));
       expect(t.sent, hasLength(2));
     });
 
-    test('retries when the last send was not delivered', () async {
+    test('same content is refreshed after 60 s so the watch never '
+        'calls an open, current solution stale', () async {
+      var now = DateTime.utc(2026, 1, 1, 10);
+      final t = _FakeTransport();
+      final bridge = WatchBridge(transport: t, clock: () => now);
+      await bridge.publish(_solution(at: now));
+      now = now.add(const Duration(seconds: 60));
+      await bridge.publish(_solution(at: now));
+      expect(t.sent, hasLength(2));
+      expect(t.sent.last['at'], now.millisecondsSinceEpoch);
+    });
+
+    test('not delivered (no watch) is retried only after the interval', () async {
+      var now = DateTime.utc(2026, 1, 1, 10);
       final t = _FakeTransport()..result = WatchSendResult.notDelivered;
-      final bridge = WatchBridge(transport: t);
-      await bridge.publish(_solution());
+      final bridge = WatchBridge(transport: t, clock: () => now);
+      for (var i = 0; i < 30; i++) {
+        await bridge.publish(_solution()); // e.g. every frame of a drag
+      }
+      expect(t.sent, hasLength(1));
+      now = now.add(const Duration(seconds: 61));
       t.result = WatchSendResult.sent;
       await bridge.publish(_solution());
       expect(t.sent, hasLength(2));

@@ -49,6 +49,13 @@ public enum WatchFormat {
     return "Veri eski (\(Int(age / 60)) dk)"
   }
 
+  /// Saatten istenen mesafe henüz telefondan gelen çözümde değilse uyarı.
+  /// Saat kendi hesap yapmaz; telefonun yanıtını bekler.
+  public static func pendingNotice(requested: Int?, solution: WatchSolution) -> String? {
+    guard let requested, solution.ok, solution.range != requested else { return nil }
+    return "İstenen \(requested) \(solution.rangeUnit) bekleniyor. Telefonda Atış açık olmalı."
+  }
+
   /// 4.70 → "4.7", 0.25 → "0.25", 0 → "0.0" (ondalık ayırıcı nokta,
   /// telefondaki gibi).
   static func decimal(_ value: Double) -> String {

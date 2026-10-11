@@ -15,7 +15,9 @@ struct ContentView: View {
     NavigationStack {
       TimelineView(.periodic(from: .now, by: 30)) { context in
         if let s = store.solution {
-          SolutionView(solution: s, now: context.date)
+          SolutionView(
+            solution: s, now: context.date,
+            pending: WatchFormat.pendingNotice(requested: store.requestedRange, solution: s))
         } else {
           MessageView(title: "Telefon bekleniyor", detail: "Telefonda SNIPER TÜRK Atış sekmesini açın")
         }
@@ -43,6 +45,7 @@ struct MessageView: View {
 struct SolutionView: View {
   let solution: WatchSolution
   let now: Date
+  let pending: String?
 
   var body: some View {
     if !solution.ok {
@@ -75,6 +78,12 @@ struct SolutionView: View {
             value: WatchFormat.windage(solution.right),
             detail: WatchFormat.angle(solution.rightAngle, unit: solution.unit),
             color: stale == nil ? .white : Palette.dim, size: 32)
+          if let pending {
+            Text(pending)
+              .font(.system(size: 13, weight: .regular))
+              .foregroundStyle(Palette.warn)
+              .multilineTextAlignment(.center)
+          }
           if let stale {
             VStack(spacing: 2) {
               Text(stale)

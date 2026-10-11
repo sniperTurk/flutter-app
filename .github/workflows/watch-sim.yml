@@ -135,7 +135,9 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           for f in /tmp/watchcore.log /tmp/watch-build.log /tmp/phone-build.log; do
             [ -f "$f" ] || continue
-            grep -nE "error:|failed|Executed .* tests" "$f" | head -20 | while IFS= read -r line; do
-              echo "::warning title=$(basename "$f")::${line:0:400}"
+            { grep -nE "error:|failed|Executed .* tests" "$f" || true; } | head -20 | while IFS= read -r line; do
+              echo "::notice title=$(basename "$f")::${line:0:400}"
             done
           done
+          # The summary only reports; the build steps above carry the result.
+          exit 0

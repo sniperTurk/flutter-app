@@ -33,18 +33,18 @@ public struct WatchSolution: Equatable {
     self.profile = profile
     self.at = Date(timeIntervalSince1970: Double(atMs) / 1000)
     guard ok else {
-      range = 0
-      rangeUnit = "m"
-      rangeStep = 10
-      up = 0
-      right = 0
-      upAngle = 0
-      rightAngle = 0
-      unit = "MRAD"
-      click = 0
-      windSpeed = nil
-      windUnit = nil
-      windClock = nil
+      self.range = 0
+      self.rangeUnit = "m"
+      self.rangeStep = 10
+      self.up = 0
+      self.right = 0
+      self.upAngle = 0
+      self.rightAngle = 0
+      self.unit = "MRAD"
+      self.click = 0
+      self.windSpeed = nil
+      self.windUnit = nil
+      self.windClock = nil
       return
     }
     guard let range = Self.int(m["range"]),
@@ -66,9 +66,9 @@ public struct WatchSolution: Equatable {
     self.rightAngle = rightAngle
     self.unit = unit
     self.click = click
-    windSpeed = Self.double(m["windSpeed"])
-    windUnit = m["windUnit"] as? String
-    windClock = Self.int(m["windClock"])
+    self.windSpeed = Self.double(m["windSpeed"])
+    self.windUnit = m["windUnit"] as? String
+    self.windClock = Self.int(m["windClock"])
   }
 
   /// Tam sayı: Int veya tam değerli NSNumber. 4.5 gibi kesirli sayı nil.

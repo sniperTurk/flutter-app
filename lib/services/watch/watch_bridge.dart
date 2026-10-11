@@ -71,14 +71,25 @@ class MethodChannelWatchTransport implements WatchTransport {
 /// requests. Without a watch (or without the native side) it silently does
 /// nothing: no exception, no retry storm.
 class WatchBridge {
+  /// The same content is sent again after this long, so a watch that marks
+  /// data older than 2 minutes as stale never does so while Atış is open
+  /// and unchanged. It also limits retries when no watch is paired.
+  static const refreshAfter = Duration(seconds: 60);
+
   final WatchTransport _transport;
   final int maxRange;
+  final DateTime Function() _clock;
 
   bool _available = true;
-  Map<String, Object>? _lastSent;
+  Map<String, Object>? _lastKey;
+  DateTime? _lastAttempt;
 
-  WatchBridge({WatchTransport? transport, this.maxRange = 100000})
-    : _transport = transport ?? MethodChannelWatchTransport();
+  WatchBridge({
+    WatchTransport? transport,
+    this.maxRange = 100000,
+    DateTime Function()? clock,
+  }) : _transport = transport ?? MethodChannelWatchTransport(),
+       _clock = clock ?? DateTime.now;
 
   static WatchBridge? _instance;
 
@@ -92,12 +103,22 @@ class WatchBridge {
   /// False once the native side turned out to be missing.
   bool get available => _available;
 
-  /// Sends [solution] unless the watch already has the same content.
+  /// Sends [solution] unless the same content was sent (or tried) less
+  /// than [refreshAfter] ago.
   Future<void> publish(WatchSolution solution) async {
     if (!_available) return;
     final key = solution.contentKey();
-    final last = _lastSent;
-    if (last != null && mapEquals(last, key)) return;
+    final now = _clock();
+    final last = _lastKey;
+    final lastAt = _lastAttempt;
+    if (last != null &&
+        lastAt != null &&
+        mapEquals(last, key) &&
+        now.difference(lastAt) < refreshAfter) {
+      return;
+    }
+    _lastKey = key;
+    _lastAttempt = now;
     WatchSendResult result;
     try {
       result = await _transport.send(solution.toMessage());
@@ -105,15 +126,7 @@ class WatchBridge {
       // A watch must never break the phone app.
       result = WatchSendResult.notDelivered;
     }
-    switch (result) {
-      case WatchSendResult.sent:
-        _lastSent = key;
-      case WatchSendResult.notDelivered:
-        _lastSent = null;
-      case WatchSendResult.unavailable:
-        _available = false;
-        _lastSent = null;
-    }
+    if (result == WatchSendResult.unavailable) _available = false;
   }
 
   /// Distances (in the profile's display unit) the shooter picked on the

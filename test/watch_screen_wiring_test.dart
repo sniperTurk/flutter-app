@@ -76,6 +76,13 @@ void main() {
     expect(answer['ok'], true);
     expect(answer['range'], 60);
     expect(answer['up'], isNot(first['up']));
+
+    // Leaving Atış (inputs may change on Hava/Pro): the watch must not keep
+    // showing the old clicks as current.
+    await tester.pumpWidget(_app(BallisticsView.environment));
+    await tester.pumpAndSettle();
+    expect(t.sent.last['ok'], false);
+    expect(t.sent.last.containsKey('up'), isFalse);
   });
 
   testWidgets('without a native watch side Atış works as before', (

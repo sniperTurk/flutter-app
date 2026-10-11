@@ -51,4 +51,9 @@ Saat edinilince kontrol listesi:
 
 Bilinen sınır: kule düzeltmesi Atış ekranının kendisinde hesaplanıyor
 (hesap koduna dokunulmadı). Bu yüzden telefon uygulaması ön planda ve Atış
-sekmesi açıkken saat güncel kalır.
+sekmesi açıkken saat güncel kalır. Saatten istenen mesafe telefondan yanıt
+gelene kadar saatte "İstenen 650 m bekleniyor. Telefonda Atış açık olmalı."
+olarak görünür; saat eski klikleri yeni mesafeninmiş gibi göstermez. Atış
+sekmesinden çıkılınca saat "Çözüm yok" gösterir; Atış açık ve değişmezken
+telefon çözümü dakikada bir yeniler (2 dakikalık eskime uyarısı yanlışlıkla
+çıkmasın diye).

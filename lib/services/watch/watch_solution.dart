@@ -82,6 +82,25 @@ class WatchSolution {
         at: at,
       );
 
+  /// The same solution, stamped [time] (a refresh of unchanged content).
+  WatchSolution withTime(DateTime time) => WatchSolution(
+    ok: ok,
+    profile: profile,
+    range: range,
+    rangeUnit: rangeUnit,
+    rangeStep: rangeStep,
+    up: up,
+    right: right,
+    upAngle: upAngle,
+    rightAngle: rightAngle,
+    unit: unit,
+    click: click,
+    windSpeed: windSpeed,
+    windUnit: windUnit,
+    windClock: windClock,
+    at: time,
+  );
+
   /// [v] rounded to 2 decimals, never "-0.0".
   static double _round2(double v) {
     final r = (v * 100).roundToDouble() / 100;
