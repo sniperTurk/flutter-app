@@ -2,7 +2,7 @@
   "name": "RAPTR-1F",
   "brand": "Element Optics",
   "scopes": [
-    "Helix HD Compact 2-12x"
+    "Helix HD Compact 2-12x42"
   ],
   "unit": "mil",
   "family": null,
@@ -17,5 +17,5 @@
   "center_dot": true,
   "floating_center": null,
   "source_url": "https://element-optics.com/wp-content/uploads/2024/10/RETICLE-SHEET-RAPTR-1F-HELIX-HD-COMPACT-2-12.pdf",
-  "notes": "SFP, avcılık BDC retikülü; ölçüler 'SUBTENSIONS AT 8X' (referans 8x). Föy metni: A aydınlatmalı merkez nokta ve ince artı (boyut yok), B çizgi kalınlığı '0.45 MOA' (föydeki değer aynen; RAPTR-1 föyündeki 0.049 MRAD ile tutarsız görünüyor), tutma işaretleri yükseklik/yan: C 0.7 MRAD (2.4 MOA)/0.26 MRAD (0.89 MOA), D 1.66 MRAD (5.8 MOA)/0.41 MRAD (1.41 MOA), E 2.82 MRAD (9.6 MOA)/-. Merkez noktanın yüzen olup olmadığı yazmıyor -> floating_center null. Şema BDC işaretlerini taşıyamadığı için family/hash_step/tree null; değerler yalnız bu notta."
+  "notes": "SFP, avcılık BDC retikülü; ölçüler 'SUBTENSIONS AT 8X' (referans 8x). Föy metni: A aydınlatmalı merkez nokta ve ince artı (boyut yok), B çizgi kalınlığı '0.45 MOA' (föydeki değer aynen; RAPTR-1 föyündeki 0.049 MRAD ile tutarsız görünüyor), tutma işaretleri yükseklik/yan: C 0.7 MRAD (2.4 MOA)/0.26 MRAD (0.89 MOA), D 1.66 MRAD (5.8 MOA)/0.41 MRAD (1.41 MOA), E 2.82 MRAD (9.6 MOA)/-. Merkez noktanın yüzen olup olmadığı yazmıyor -> floating_center null. Şema BDC işaretlerini taşıyamadığı için family/hash_step/tree null; değerler yalnız bu notta. 3. tur (2026-10-11): Helix HD Compact kılavuzu (https://global.element-optics.com/wp-content/uploads/2024/10/5x7-Helix-HD-Compact-2-12x42-lr.pdf): 'This model is in Second Focal Plane', 'The reticle is calibrated at 8x', 'The \"F\" in this variant denotes the Fiber Optic illumination', tutma işaretleri 8x'te .308 Win 168 gr 2600 fps (deniz seviyesi) düşüşüne göre; 200/300/400 için düşüş 2.4/5.8/9.6 MOA, yan 0.9/1.4/yok MOA; BDC çizgilerinin genişliği 5 mph yan rüzgâra karşılık. Çizgi kalınlığı ve nokta boyutu kılavuzda yok."
 }
