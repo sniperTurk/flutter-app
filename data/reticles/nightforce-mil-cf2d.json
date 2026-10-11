@@ -1,0 +1,19 @@
+{
+  "name": "Mil-CF2D",
+  "brand": "Nightforce",
+  "scopes": ["NX8 4-32x50 F2"],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": 2,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NF_MIL-CF2_Reticle%20Sheet.pdf",
+  "notes": "Nightforce Mil-CF2/Mil-CF2D föyü ve ürün sayfası (nightforceoptics.com/reticles/mil-cf2d): ikinci odak düzlemi, 'marked with a dual scale for correct subtensions at 16x and 32x'; 'only available in the NX8 4-32x50mm F2'. Değerler 16x ölçeğinde: Mil-CF2 ile aynı 0.05 MRAD yüzen merkez nokta, 0.2 MRAD bölmeler, her iki mil'de rakam (föyde 16x sütunu Mil-CF2'nin 20x değerleriyle aynı -> çıkarım). Harfler 16x/32x (A 20/10, B 0.029/0.015, H 1.0/0.5, O 0.5/0.25 vb.) eşlenmemiş -> uzanımlar null."
+}

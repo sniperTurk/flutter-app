@@ -15,5 +15,5 @@
   "center_dot": true,
   "floating_center": true,
   "source_url": "https://www.nightforceoptics.com/content/files/downloads/0323_NF_MOAXT_Reticle-Sheet.pdf",
-  "notes": "Nightforce MOA-XT föyü (MIL-XT'nin MOA sürümü), F1 (FFP) modeller. Metin: yüzen merkez nokta; ana çizgilerde 1 MOA aralıklı işaretler, her 2 MOA'da etiket; merkez altında yatay nokta ızgarası, sayımı kolaylaştırmak için her 4 MOA'da kalın nokta. Izgara satır yapısı, uzanımlar ve harf etiketlerinin (A 0.13 ... M 2.0 MOA) anlamı metinde yok -> tree ve uzanımlar null."
+  "notes": "Nightforce MOA-XT föyü (MIL-XT'nin MOA sürümü), F1 (FFP) modeller. Metin: yüzen merkez nokta; ana çizgilerde 1 MOA aralıklı işaretler, her 2 MOA'da etiket; merkez altında yatay nokta ızgarası, sayımı kolaylaştırmak için her 4 MOA'da kalın nokta. Izgara satır yapısı, uzanımlar ve harf etiketlerinin (A 0.13 ... M 2.0 MOA) anlamı metinde yok -> tree ve uzanımlar null. Güncelleme (2026-10): ürün sayfası (reticles/moa-xt): 'The main horizontal stadia line includes 1 MOA marks with labels every 2 MOA'; ızgara 'horizontal dots ... broken up by a bold dot every 4 MOA'. 2026 kataloğu NX6 F1 modellerini de listeliyor ama katalog metni dağınık olduğu için dürbün listesine eklenmedi."
 }

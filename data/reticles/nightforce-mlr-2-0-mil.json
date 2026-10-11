@@ -15,5 +15,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://www.nightforceoptics.com/content/files/downloads/MLR2.0May22.pdf",
-  "notes": "Nightforce MLR 2.0 föyü, NXS 3.5-15x50 F1 (FFP). Metin: 0.5 ve 1 mil bölmeler, telemetre 0.2 mil'e kadar; yükseliş noktaları 2-4-6-8 mil, yan noktaları 2 ve 4 mil numaralı. Harf etiketleri (A 10.0, B 0.8, C 0.2, D 1.0, E 2.0, F/G 0.5, L 5.0 mil vb.) görselsiz eşlenemedi; uzanımlar, merkez ve direkler metinde yok -> null."
+  "notes": "Nightforce MLR 2.0 föyü, NXS 3.5-15x50 F1 (FFP). Metin: 0.5 ve 1 mil bölmeler, telemetre 0.2 mil'e kadar; yükseliş noktaları 2-4-6-8 mil, yan noktaları 2 ve 4 mil numaralı. Harf etiketleri (A 10.0, B 0.8, C 0.2, D 1.0, E 2.0, F/G 0.5, L 5.0 mil vb.) görselsiz eşlenemedi; uzanımlar, merkez ve direkler metinde yok -> null. Güncelleme (2026-10): föy başlığı 'MLR2.0 (F1)', 'Discontinued'. 'Elevation points are numerically identified in 2, 4, 6 and 8 mil increments; windage points in 2 and 4' -> numbers_every=2 doğrulandı."
 }

@@ -15,5 +15,5 @@
   "center_dot": false,
   "floating_center": null,
   "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_Forceplex_20170920_V2_hi-res_0.pdf",
-  "notes": "Nightforce Forceplex föyü; 'Second focal plane Nightforce SHV riflescopes' (referans büyütme belirtilmemiş). Metin: 0.125 MOA kalınlığında merkez artı (nokta yok). Föy etiketleri A 5.00, B 0.75, D 43.50 MOA ama görselsiz hangi ölçüye ait oldukları (direk başlangıcı/kalınlığı vb.) eşlenemedi -> posts_start null. Kalın direkli basit duplex tipi."
+  "notes": "Nightforce Forceplex föyü; 'Second focal plane Nightforce SHV riflescopes' (referans büyütme belirtilmemiş). Metin: 0.125 MOA kalınlığında merkez artı (nokta yok). Föy etiketleri A 5.00, B 0.75, D 43.50 MOA ama görselsiz hangi ölçüye ait oldukları (direk başlangıcı/kalınlığı vb.) eşlenemedi -> posts_start null. Kalın direkli basit duplex tipi. Güncelleme (2026-10): üretici sitesinde iki sürüm var: 'Forceplex Center Illuminated' (merkez aydınlatmalı) ve 'Forceplex Non-Illuminated' (nightforceoptics.com/reticles/forceplex-center-illuminated, /forceplex-non-illuminated); ölçüler aynı föyden. Sayfa metni: 'Bold outer portions of the stadia provide quick lines to lead the eye to the center' — direk başlangıcı sayısal verilmiyor -> posts_start null."
 }
