@@ -441,14 +441,20 @@ class _NavButton extends StatelessWidget {
                     children: [
                       MenzilIcon(item.glyph, size: 24, color: fg),
                       const SizedBox(height: 3),
-                      Text(
-                        item.label,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w600,
-                          color: fg,
+                      // With larger iOS text a fifth of a 375–393 pt phone
+                      // is too narrow for "Hava Durumu" ("Hava Duru…"); the
+                      // label shrinks a little instead of being cut. At the
+                      // default text size nothing changes (2026-10-11).
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          item.label,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w600,
+                            color: fg,
+                          ),
                         ),
                       ),
                     ],
