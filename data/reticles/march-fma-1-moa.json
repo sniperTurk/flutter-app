@@ -9,15 +9,15 @@
   "unit": "moa",
   "family": "hash",
   "hash_step": 1,
-  "major_every": null,
-  "numbers_every": null,
-  "extent_h": null,
-  "extent_v_up": null,
-  "extent_v_down": null,
+  "major_every": 5,
+  "numbers_every": 5,
+  "extent_h": 10,
+  "extent_v_up": 10,
+  "extent_v_down": 30,
   "tree": null,
   "posts_start": null,
   "center_dot": true,
   "floating_center": true,
   "source_url": "https://marchscopes.com/first-focal-plane-reticles/",
-  "notes": "March resmi FFP reticle sayfası. Metin: '1/4 MOA floating center dot and 0.2 (1/5) MOA crosshairs' (3-24x; 5-40x56'da crosshair 1/8 MOA), hash '1 MOA increment', sadece aydınlatmalı. hash_step=1 metinden. Diğer alanlar metinde yok -> null."
+  "notes": "March resmi FFP reticle sayfası. Metin: '1/4 MOA floating center dot and 0.2 (1/5) MOA crosshairs' (3-24x; 5-40x56'da crosshair 1/8 MOA), hash '1 MOA increment', sadece aydınlatmalı. hash_step=1 metinden. Diğer alanlar metinde yok -> null. [2. tur, kılavuz] Kaynak: March 'Rifle Scope First Focal Plane Owner's Manual' 2025 PDF (kullanıcı yükledi; marchscopes.com/wp-content/uploads/2025/04/March-Scopes-Owners-manual-FFP-2025.pdf), s.37 'FMA-1 Reticle at 10x' (3x-24x) ve s.51 'at 15x' (5x-40x56) aynı düzen. Rakamlar yatayda 5, 10 ve dikeyde 5...30 -> numbers_every=5 (doğrudan). Çizimden ölçüm (ÇIKARIM, ölçek rakamlardan): 1 MOA işaretler, her 5 MOA'da uzun işaret (10/20/30'da '3 MOA' genişliğinde) -> major_every=5; ölçek yatayda 10, yukarı 10, aşağı 30 MOA -> extent_h=10, extent_v_up=10, extent_v_down=30. Direkler yatayda ve yukarıda 11 MOA ('1 MOA' boşluk etiketi), aşağıda 31 MOA'da -> posts_start null. Çizgi kalınlığı 3-24x'te '0.2 MOA', 5-40x'te '1/8 MOA' -> line_width null."
 }

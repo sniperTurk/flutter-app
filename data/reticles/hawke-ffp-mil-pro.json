@@ -7,17 +7,17 @@
     "Frontier 30 FFP 5-25x56"
   ],
   "unit": "mil",
-  "family": "hash",
+  "family": "tree",
   "hash_step": 0.5,
   "major_every": 1.0,
-  "numbers_every": null,
-  "extent_h": null,
+  "numbers_every": 2,
+  "extent_h": 5,
   "extent_v_up": null,
   "extent_v_down": 10,
   "tree": null,
   "posts_start": null,
-  "center_dot": null,
+  "center_dot": false,
   "floating_center": null,
   "source_url": "https://life.hawkeoptics.com/frontier-ffp-riflescope/",
-  "notes": "FFP (birinci odak düzlemi), ölçüler tüm büyütmelerde geçerli. Hawke metni: 'mil aralıklı, yarım mil aralıklı işaretli, 10 mil holdover'a kadar uzanan retikül' — yalnızca hash_step 0.5, major_every 1.0 ve aşağı 10 mil uzanım metinden alındı. family=hash metinden çıkarım (ağaç/nokta sırası olup olmadığı doğrulanamadı; tree=null 'bilinmiyor' anlamında da olabilir). Diğer alanlar bilinmiyor (null): Hawke retikül kitapçığı PDF'i (Google Drive) ve retikül görselleri robots.txt nedeniyle okunamadı. Model listesi: https://www.hawkeoptics.com/frontier-riflescopes.html (15x/20x/25x sürümleri büyütmeye göre ölçekli çizim varyantları). 2026-10-11 yeniden denendi: life.hawkeoptics.com/frontier-ffp-riflescope ve us.hawkeoptics.com/frontier-30-sf-ffp-riflescopes.html yalnız aynı cümleyi veriyor; SVG görseller, Google Drive kitapçığı (robots.txt) ve reticles.hawkeoptics.com erişilemedi — yeni değer eklenmedi."
+  "notes": "FFP (birinci odak düzlemi), ölçüler tüm büyütmelerde geçerli. Hawke metni: 'mil aralıklı, yarım mil aralıklı işaretli, 10 mil holdover'a kadar uzanan retikül' — yalnızca hash_step 0.5, major_every 1.0 ve aşağı 10 mil uzanım metinden alındı. family=hash metinden çıkarım (ağaç/nokta sırası olup olmadığı doğrulanamadı; tree=null 'bilinmiyor' anlamında da olabilir). Diğer alanlar bilinmiyor (null): Hawke retikül kitapçığı PDF'i (Google Drive) ve retikül görselleri robots.txt nedeniyle okunamadı. Model listesi: https://www.hawkeoptics.com/frontier-riflescopes.html (15x/20x/25x sürümleri büyütmeye göre ölçekli çizim varyantları). 2026-10-11 yeniden denendi: life.hawkeoptics.com/frontier-ffp-riflescope ve us.hawkeoptics.com/frontier-30-sf-ffp-riflescopes.html yalnız aynı cümleyi veriyor; SVG görseller, Google Drive kitapçığı (robots.txt) ve reticles.hawkeoptics.com erişilemedi — yeni değer eklenmedi. [2. tur, kitapçık] Kaynak: Hawke 'FFP Mil Pro' Reticle Booklet PDF (kullanıcı yükledi; hawkeoptics ürün sayfasındaki Google Drive linki). Metin: 'Every second Mil spacing on the lower section is numbered' -> numbers_every=2 (doğrudan); 'FFP Mil Pro (20×) and FFP Mil Pro (25×) models have additional ¼ Mil aim points on the center section'. Çizimler vektör, ölçek etiketli '1 MRAD' aralıklarından. extent_h=5: kırmızı yatay ölçek 5 MRAD uç çubuğuna kadar, 15× ve 20×/25× aynı (çizimden ölçüm, ÇIKARIM). extent_v_down=10 etiketle de doğrulandı ('10 MRAD below center'). Direkler: yatay 8 MRAD, alt 11 MRAD (çizimden ölçüm) -> posts_start null. Direk genişliği 15×'te '0.75 MRAD', 20×/25×'te '0.5 MRAD' (etiket) -> tek kayıtta post_width null. center_dot=false: merkez çizimlerinde nokta yok (ÇIKARIM). family hash->tree düzeltildi (nokta satırları). Ağaç varyanta göre farklı (çizimden ölçüm, yalnız sağ yarı çizili): 15× (3-15x50): 1 MRAD aralık, y=1:1, 2:1, 3:2, 4:2, 8:4, 9:5, 10:5; 20×/25× (4-20x50, 5-25x56): 0.5 MRAD aralık, y=1:1, 2:1.5, 3:2, 4:2.5, 8:4.5, 9:5, 10:5.5. Tek kayıt iki ağacı taşıyamadığı ve sol yarı gösterilmediği için tree null (kayıt 15× ve 20×/25× diye ayrılmalı)."
 }

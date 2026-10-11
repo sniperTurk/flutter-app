@@ -5,17 +5,18 @@
     "Frontier 30 SF 2.5-15x50"
   ],
   "unit": "mil",
-  "family": "hash",
+  "family": "tree",
   "hash_step": 0.5,
   "major_every": 1.0,
-  "numbers_every": null,
-  "extent_h": null,
+  "numbers_every": 2,
+  "extent_h": 5,
   "extent_v_up": null,
-  "extent_v_down": null,
+  "extent_v_down": 10,
   "tree": null,
   "posts_start": null,
-  "center_dot": null,
+  "center_dot": false,
   "floating_center": null,
+  "post_width": 0.75,
   "source_url": "https://us.hawkeoptics.com/frontier-30-sf-riflescopes.html",
-  "notes": "SFP (ikinci odak düzlemi). Hawke metni (https://us.hawkeoptics.com/frontier-30-sf-riflescopes.html ve https://www.hawkeoptics.com/frontier-sf-riflescopes.html): 'Second Focal Plane models include the Mil Pro reticle which uses true mil spacing at 10x on the 2.5-15x50 model and 20x on the 4-24x50 and 5-30x56 models and is designed with half mil indicators and multiple aim points.' Ölçüler yalnız 10x büyütmede geçerlidir; diğer büyütmelerde ölçek 10/büyütme ile değişir. hash_step 0.5 'half mil indicators', major_every 1.0 'true mil spacing' ifadesinden. family=hash çıkarımdır (yarım mil işaretli çizgi; ağaç/nokta düzeni doğrulanamadı). Uzanımlar, rakam aralığı, merkez nokta bilinmiyor (null): retikül görselleri (SVG) robots.txt ile engelli, Reticle Booklet PDF'leri Google Drive'da robots.txt ile engelli, reticles.hawkeoptics.com erişilemedi."
+  "notes": "SFP (ikinci odak düzlemi). Hawke metni (https://us.hawkeoptics.com/frontier-30-sf-riflescopes.html ve https://www.hawkeoptics.com/frontier-sf-riflescopes.html): 'Second Focal Plane models include the Mil Pro reticle which uses true mil spacing at 10x on the 2.5-15x50 model and 20x on the 4-24x50 and 5-30x56 models and is designed with half mil indicators and multiple aim points.' Ölçüler yalnız 10x büyütmede geçerlidir; diğer büyütmelerde ölçek 10/büyütme ile değişir. hash_step 0.5 'half mil indicators', major_every 1.0 'true mil spacing' ifadesinden. family=hash çıkarımdır (yarım mil işaretli çizgi; ağaç/nokta düzeni doğrulanamadı). Uzanımlar, rakam aralığı, merkez nokta bilinmiyor (null): retikül görselleri (SVG) robots.txt ile engelli, Reticle Booklet PDF'leri Google Drive'da robots.txt ile engelli, reticles.hawkeoptics.com erişilemedi. [2. tur, kitapçık] Kaynak: Hawke 'Mil Pro (10×)' Reticle Booklet PDF (kullanıcı yükledi; hawkeoptics ürün sayfasındaki Google Drive linki). Metin: 'half Mil spaced markings extending out to 10 Mil of holdover', 'Every second Mil spacing on the lower section is numbered' -> numbers_every=2 (doğrudan). Çizimler vektör; ölçek etiketli '1 MRAD' aralıklarından (s.15-18). extent_v_down=10: etiket '10 MRAD below center' (doğrudan). extent_h=5: kırmızı yatay ölçek 0.5 MRAD aralıkla 5 MRAD'daki uç çubuğa kadar (çizimden ölçüm, ÇIKARIM); 6-8 MRAD arasında siyah 0.25/0.5 MRAD ince işaretler var (ayrı detay çizimi, başlangıcı kesin değil). Kalın içi boş direkler: yatayda 8 MRAD (çizimden ölçüm), altta 11 MRAD (etiket: 10 MRAD satırı + '1 MRAD' boşluk) -> kollar farklı olduğu için posts_start null. post_width=0.75: direk genişliği etiketi '0.75 MRAD' (doğrudan). center_dot=false: merkez detay çizimlerinde nokta yok, artı (ÇIKARIM). family hash->tree düzeltildi: çizimde dikey çizginin altında nokta satırları var. Satırlar (çizimden ölçüm, noktalar 1 MRAD aralıklı, yalnız sağ yarı çizilmiş): y=1:1 nokta, y=2:1, y=3:2, y=4:2, y=8:4, y=9:5, y=10:5; y=5-7 çizilmemiş. Sol yarının simetrisi kaynakta gösterilmediği için tree null. Yukarı uzanım çizimlerde kesik -> null."
 }

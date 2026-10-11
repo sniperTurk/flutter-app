@@ -8,16 +8,17 @@
   "unit": "mil",
   "family": "hash",
   "hash_step": 0.5,
-  "major_every": null,
+  "major_every": 1,
   "numbers_every": null,
-  "extent_h": null,
-  "extent_v_up": null,
-  "extent_v_down": null,
+  "extent_h": 4,
+  "extent_v_up": 4,
+  "extent_v_down": 4,
   "tree": null,
-  "posts_start": null,
+  "posts_start": 5,
   "center_dot": true,
   "floating_center": true,
   "line_width": 0.07,
+  "post_width": 0.5,
   "source_url": "https://marchscopes.com/first-focal-plane-reticles/",
-  "notes": "March resmi FFP reticle sayfası (3x-24x42mm & 52mm bölümü), FFP sayfasında listelenmiş. Metin: '0.1 MIL floating center dot and 0.07 MIL crosshairs', '0.5 MIL increment' hash. hash_step=0.5 metinden. major_every, numbers_every, uzanımlar, tree, posts_start metinde yok -> null. Sayfa FML-1'i aynı değerlerle ayrıca listeliyor. [2. tur] line_width=0.07 doğrudan: '0.07 MIL crosshairs' (marchscopes.com/first-focal-plane-reticles/, 3x-24x42/52 bölümü)."
+  "notes": "March resmi FFP reticle sayfası (3x-24x42mm & 52mm bölümü), FFP sayfasında listelenmiş. Metin: '0.1 MIL floating center dot and 0.07 MIL crosshairs', '0.5 MIL increment' hash. hash_step=0.5 metinden. major_every, numbers_every, uzanımlar, tree, posts_start metinde yok -> null. Sayfa FML-1'i aynı değerlerle ayrıca listeliyor. [2. tur] line_width=0.07 doğrudan: '0.07 MIL crosshairs' (marchscopes.com/first-focal-plane-reticles/, 3x-24x42/52 bölümü). [2. tur, kılavuz] Kaynak: March 'Rifle Scope First Focal Plane Owner's Manual' 2025 PDF (kullanıcı yükledi; marchscopes.com/wp-content/uploads/2025/04/March-Scopes-Owners-manual-FFP-2025.pdf), s.33 'FML Reticle' detay çizimi (raster). Etiketler: '0.5 MIL', '1 MIL' (işaret aralıkları), '0.07 MIL' (çizgi, line_width doğruladı), 'φ0.1 MIL', direk kalınlığı/uç genişliği '0.5 MIL' -> post_width=0.5 (doğrudan). Çizimden ölçüm (ÇIKARIM, ölçek etiketli 1 MIL aralığından): tam MIL'lerde uzun işaret -> major_every=1; dört kolda ölçek 4 MIL'deki uç çubuğuna kadar -> extent_h/extent_v_up/extent_v_down=4; kalın direkler dört kolda 5 MIL'de başlıyor -> posts_start=5. Retikülde rakam yok (numbers_every null)."
 }

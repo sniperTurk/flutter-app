@@ -11,14 +11,68 @@
   "family": "tree",
   "hash_step": 0.2,
   "major_every": 0.5,
-  "numbers_every": null,
-  "extent_h": null,
+  "numbers_every": 2,
+  "extent_h": 6,
   "extent_v_up": null,
   "extent_v_down": null,
-  "tree": null,
+  "tree": {
+    "rows": [
+      {
+        "y": 1,
+        "half_width": 1,
+        "dot_step": 0.2
+      },
+      {
+        "y": 2,
+        "half_width": 2,
+        "dot_step": 0.2
+      },
+      {
+        "y": 3,
+        "half_width": 3,
+        "dot_step": 0.2
+      },
+      {
+        "y": 4,
+        "half_width": 3,
+        "dot_step": 0.2
+      },
+      {
+        "y": 5,
+        "half_width": 3,
+        "dot_step": 0.2
+      },
+      {
+        "y": 6,
+        "half_width": 4,
+        "dot_step": 0.2
+      },
+      {
+        "y": 7,
+        "half_width": 4,
+        "dot_step": 0.2
+      },
+      {
+        "y": 8,
+        "half_width": 4,
+        "dot_step": 0.2
+      },
+      {
+        "y": 9,
+        "half_width": 5,
+        "dot_step": 0.2
+      },
+      {
+        "y": 10,
+        "half_width": 5,
+        "dot_step": 0.2
+      }
+    ]
+  },
   "posts_start": null,
   "center_dot": true,
-  "floating_center": null,
+  "floating_center": true,
+  "post_width": 0.3,
   "source_url": "https://marchscopes.com/first-focal-plane-reticles/",
-  "notes": "March resmi FFP reticle sayfası. Metin: '.2 mrad and .5 mrad hash marks' (hash_step=0.2, major_every=0.5 bu ifadeden; hangisinin hangi işaret olduğu metinde açık değil, 0.5'in majör olması çıkarımdır), dört nokta 'located 0.5 mrad away from the center both vertically and horizontally', merkez nokta ve artı aydınlatmalı. Sayfa birimi MIL başlığıyla veriyor. Tree satırları, uzanımlar, rakam aralığı, floating_center metinde yok -> null."
+  "notes": "March resmi FFP reticle sayfası. Metin: '.2 mrad and .5 mrad hash marks' (hash_step=0.2, major_every=0.5 bu ifadeden; hangisinin hangi işaret olduğu metinde açık değil, 0.5'in majör olması çıkarımdır), dört nokta 'located 0.5 mrad away from the center both vertically and horizontally', merkez nokta ve artı aydınlatmalı. Sayfa birimi MIL başlığıyla veriyor. Tree satırları, uzanımlar, rakam aralığı, floating_center metinde yok -> null. [2. tur, kılavuz] Kaynak: March 'Rifle Scope First Focal Plane Owner's Manual' 2025 PDF (kullanıcı yükledi; marchscopes.com/wp-content/uploads/2025/04/March-Scopes-Owners-manual-FFP-2025.pdf), s.43 'FML-3 & TR1 reticle subtensions' (4.5-28x52 FML-TR1 çizimi, raster 930x736) ve s.58 harf tablosu (J: 10 = merkezden yatay direk işaretine '10MIL' oku). Ölçek '10MIL' okundan (48.2 px/MIL), rakamlarla doğrulandı. Rakamlar yatayda 2,4,6, ağaç satırlarında 2,4,6,8,10 -> numbers_every=2 (doğrudan). Yatay ölçek 0.2 MIL ince, 0.5 orta, 1 MIL uzun işaretle 6 MIL'e kadar -> extent_h=6 (çizimden ölçüm, ÇIKARIM). Tree (çizimden ölçüm, ÇIKARIM; çizim iki yanı simetrik gösteriyor): her MIL satırında 0.2 MIL aralıklı noktalar, half_width y=1:1, 2:2, 3-5:3, 6-8:4, 9-10:5; 4/6/8/10 satırlarında 3 MIL konumunda nokta yerine rakam. Ayrıca her yarım MIL satırında (0.5...9.5) ±0.5 MIL'de tek nokta, 1.5 satırında ±1.5'te de nokta ve merkezin 1 MIL üstünde 0.4-1.0 MIL noktalar var (şema/çizici bunları ayrı göstermiyor, girilmedi). Merkez noktası çevresinde boşluklu kırmızı artı -> floating_center=true (çizim). post_width=0.3: sağ direk kalınlığı etiketi '0.3MIL' (doğrudan). Çizgi 0.03 MIL (merkeze yakın) / 0.06 MIL (dışta) -> line_width tek değer değil, null. Yatay direk yaklaşık 6.2 MIL'de başlıyor (etiketsiz) ve 10 MIL'de işaret var; dikey direkler çizimde yok -> posts_start null. extent_v_up/down: çizim 10 MIL'de kesik -> null. Çizim 4.5-28x52'ye ait; diğer dürbünlerde (5-42x56, Genesis) aynı düzen varsayılmadı ama kayıt onları da kapsıyor."
 }
