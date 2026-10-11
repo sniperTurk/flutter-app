@@ -2315,7 +2315,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final factory = platform == WeaponPlatform.firearm && _factoryAmmo;
     final fHere = factory ? _factoryHere : const <FactoryAmmo>[];
     final lHere = factory ? const <LibraryBullet>[] : _libraryHere;
-    // Before a Kalibre is chosen the lists wait for it (nothing is typed).
+    // Without a Kalibre the factory list shows every round (picking one
+    // fills the Kalibre), so it is never treated as empty.
     final noCaliber = factory && _parse(rifleCaliber) == null;
     final empty = !noCaliber && (factory ? fHere.isEmpty : lHere.isEmpty);
     if (_ammoManual || empty) {
@@ -2375,7 +2376,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           '${rifleCaliber.text}-$brand',
         ),
         label: 'Marka',
-        hint: noCaliber ? 'Önce kalibre' : 'Seçiniz',
+        hint: 'Seçiniz',
         initialValue: brand,
         items: [
           for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
