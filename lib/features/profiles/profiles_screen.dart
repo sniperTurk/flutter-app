@@ -1541,8 +1541,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           hint: 'Seçiniz',
           initialValue: brand,
           items: [
-            for (final b in brands)
-              DropdownMenuItem(value: b, child: Text(b)),
+            for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
             const DropdownMenuItem(
               value: _manualKey,
               child: Text('Listede yok'),
@@ -1588,9 +1587,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Model of a catalog scope, listed by its full product name and narrowed
   /// by the boxes above it (owner, 2026-10-13).
   Widget _scopeModelSelect() {
-    final brand = _scopeBrands.contains(_scopeBrandSel)
-        ? _scopeBrandSel
-        : null;
+    final brand = _scopeBrands.contains(_scopeBrandSel) ? _scopeBrandSel : null;
     final models = brand == null ? const <String>[] : _scopeModels(brand);
     final model = models.contains(_scopeModelKey) ? _scopeModelKey : null;
     return KeyedSubtree(
@@ -3136,14 +3133,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 : _scopeReticleChoices;
             if (choices.isNotEmpty) {
               return MenzilSelect<String>(
-                key: ValueKey(
-                  'scope-reticle-$_scopePickToken-$_scopeModelKey',
-                ),
+                key: ValueKey('scope-reticle-$_scopePickToken-$_scopeModelKey'),
                 info: ProfileFieldInfo.reticle,
                 label: 'Retikül',
                 hint: 'Seçiniz',
-                initialValue:
-                    choices.any((e) => e.$1 == scopeReticle)
+                initialValue: choices.any((e) => e.$1 == scopeReticle)
                     ? scopeReticle
                     : null,
                 items: [
@@ -3151,9 +3145,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     DropdownMenuItem(value: r, child: Text(r)),
                 ],
                 onChanged: (v) => setState(() {
-                  final hit = choices
-                      .where((e) => e.$1 == v)
-                      .firstOrNull;
+                  final hit = choices.where((e) => e.$1 == v).firstOrNull;
                   if (hit != null) {
                     _applyScope(hit.$2, reticle: hit.$1);
                   }
