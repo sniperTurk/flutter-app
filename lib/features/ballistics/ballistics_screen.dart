@@ -38,6 +38,7 @@ import '../../tools/tools_services.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../tools/map_distance_screen.dart';
+import '../tools/parallax_screen.dart';
 import '../tools/weather_screen.dart';
 import 'dope_card.dart';
 import '../profiles/profile_field_info.dart';
@@ -490,6 +491,23 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Set when Hedef opens with a Pro distance; consumed by the next scope
   /// build once that distance has been solved.
   bool _autoDialArmed = false;
+
+  /// Paralaks Mesafesi (PCP, owner 2026-10-12): the distance read from the
+  /// side-focus wheel table is written to Atış mesafesi; still editable.
+  Future<void> _proRangeFromParallax() async {
+    final p = widget.profile;
+    if (p == null) return;
+    final meters = await Navigator.push<double>(
+      context,
+      MaterialPageRoute<double>(
+        builder: (_) => ParallaxScreen(profile: p, returnDistance: true),
+      ),
+    );
+    if (!mounted || meters == null || !meters.isFinite || meters <= 0) return;
+    setState(
+      () => proRangeCtl.text = _toDisplayRange(meters).round().toString(),
+    );
+  }
 
   Future<void> _proRangeFromMap() async {
     final meters = await Navigator.push<double>(
@@ -3338,13 +3356,38 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   : null,
               onChanged: (_) => setState(() {}),
             ),
-            MenzilSecondaryButton(
-              key: const Key('pro-range-map'),
-              label: 'Haritadan ölç',
-              icon: Icons.map_outlined,
-              expand: true,
-              onPressed: _proRangeFromMap,
-            ),
+            if (profileResolution?.rifle.platform == WeaponPlatform.pcp)
+              Row(
+                children: [
+                  Expanded(
+                    child: MenzilSecondaryButton(
+                      key: const Key('pro-range-map'),
+                      label: 'Haritadan ölç',
+                      icon: Icons.map_outlined,
+                      expand: true,
+                      onPressed: _proRangeFromMap,
+                    ),
+                  ),
+                  const SizedBox(width: MenzilSpace.sm),
+                  Expanded(
+                    child: MenzilSecondaryButton(
+                      key: const Key('pro-range-parallax'),
+                      label: 'Paralakstan',
+                      icon: Icons.center_focus_strong_outlined,
+                      expand: true,
+                      onPressed: _proRangeFromParallax,
+                    ),
+                  ),
+                ],
+              )
+            else
+              MenzilSecondaryButton(
+                key: const Key('pro-range-map'),
+                label: 'Haritadan ölç',
+                icon: Icons.map_outlined,
+                expand: true,
+                onPressed: _proRangeFromMap,
+              ),
           ],
         ),
       ),
