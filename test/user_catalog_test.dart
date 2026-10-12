@@ -562,8 +562,8 @@ void main() {
           .controller!
           .text;
       expect(text('rifle-brand'), 'Atölye');
-      expect(text('ammo-brand'), 'Kendi');
-      expect(text('ammo-model'), 'Diabolo');
+      // PCP shows no Marka/Model boxes (owner, 2026-10-13); BC prefills.
+      expect(find.byKey(const Key('ammo-brand')), findsNothing);
       expect(text('ammo-bc'), '0.03');
       expect(text('scope-brand'), 'Optik');
       expect(find.text('Dürbün: Optik 4-16x44 SFP'), findsOneWidget);
