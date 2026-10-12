@@ -1322,8 +1322,95 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   List<String> _scopeModels(String brand) => {
     for (final s in _scopeLib)
-      if (s.brand == brand) _scopeModelOf(s),
+      if (s.brand == brand && _scopeFilterAccepts(s)) _scopeModelOf(s),
   }.toList()..sort(_byName);
+
+  // ---- Dürbün filters (owner, 2026-10-12): Birim, Odak düzlemi and En
+  // yüksek büyütme narrow the Model list; "Seçiniz" = no filter.
+  AngularUnit? _scopeUnitFilter;
+  bool? _scopeFfpFilter;
+  int? _scopeMagFilter;
+
+  /// En yüksek büyütme bands: (label, lowest, highest) inclusive.
+  static const _scopeMagBands = <(String, double, double)>[
+    ('10x\'e kadar', 0, 10),
+    ('11–25x', 10.01, 25),
+    ('26–40x', 25.01, 40),
+    ('40x üstü', 40.01, 1000),
+  ];
+
+  bool _scopeFilterAccepts(ScopeOptic s) {
+    final unit = _scopeUnitFilter;
+    if (unit != null && s.clickUnit != unit) return false;
+    final ffp = _scopeFfpFilter;
+    if (ffp != null && s.firstFocalPlane != ffp) return false;
+    final band = _scopeMagFilter;
+    if (band != null) {
+      final max = s.maxMagnification;
+      final (_, lo, hi) = _scopeMagBands[band];
+      if (max == null || max < lo || max > hi) return false;
+    }
+    return true;
+  }
+
+  List<Widget> _scopeFilterFields() {
+    void changed(VoidCallback f) => setState(() {
+      f();
+      // A chosen model that the filter drops goes back to "Seçiniz".
+      final brand = _scopeBrandSel;
+      if (brand != null &&
+          _scopeModelKey != null &&
+          !_scopeModels(brand).contains(_scopeModelKey)) {
+        _scopeModelKey = null;
+        scopeReticle = null;
+      }
+      _scopePickToken++;
+    });
+    return [
+      MenzilSelect<AngularUnit>(
+        key: ValueKey('scope-filter-unit-$_scopeUnitFilter'),
+        label: 'Birim filtresi',
+        hint: 'Seçiniz',
+        info: ProfileFieldInfo.scopeFilterUnit,
+        initialValue: _scopeUnitFilter,
+        items: const [
+          DropdownMenuItem<AngularUnit>(child: Text('Seçiniz')),
+          DropdownMenuItem(value: AngularUnit.mrad, child: Text('MRAD')),
+          DropdownMenuItem(value: AngularUnit.moa, child: Text('MOA')),
+          DropdownMenuItem(value: AngularUnit.smoa, child: Text('SMOA')),
+        ],
+        onChanged: (v) => changed(() => _scopeUnitFilter = v),
+      ),
+      MenzilSelect<bool>(
+        key: ValueKey('scope-filter-ffp-$_scopeFfpFilter'),
+        label: 'Odak filtresi',
+        hint: 'Seçiniz',
+        info: ProfileFieldInfo.scopeFilterFocal,
+        initialValue: _scopeFfpFilter,
+        items: const [
+          DropdownMenuItem<bool>(child: Text('Seçiniz')),
+          DropdownMenuItem(value: true, child: Text('FFP')),
+          DropdownMenuItem(value: false, child: Text('SFP')),
+        ],
+        onChanged: (v) => changed(() => _scopeFfpFilter = v),
+      ),
+      MenzilFullWidth(
+        child: MenzilSelect<int>(
+          key: ValueKey('scope-filter-mag-$_scopeMagFilter'),
+          label: 'Büyütme filtresi',
+          hint: 'Seçiniz',
+          info: ProfileFieldInfo.scopeFilterMag,
+          initialValue: _scopeMagFilter,
+          items: [
+            const DropdownMenuItem<int>(child: Text('Seçiniz')),
+            for (var i = 0; i < _scopeMagBands.length; i++)
+              DropdownMenuItem(value: i, child: Text(_scopeMagBands[i].$1)),
+          ],
+          onChanged: (v) => changed(() => _scopeMagFilter = v),
+        ),
+      ),
+    ];
+  }
 
   List<ScopeOptic> get _scopeGroup => [
     for (final s in _scopeLib)
@@ -1549,11 +1636,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ),
         ),
       ),
+      if (brand != null) ..._scopeFilterFields(),
       MenzilFullWidth(
         child: KeyedSubtree(
           key: const Key('scope-model-select'),
           child: MenzilSelect<String>(
-            key: ValueKey('scope-model-select-$brand-$model'),
+            key: ValueKey(
+              'scope-model-select-$brand-$model-$_scopeUnitFilter-'
+              '$_scopeFfpFilter-$_scopeMagFilter',
+            ),
             label: 'Model',
             hint: 'Seçiniz',
             initialValue: model,

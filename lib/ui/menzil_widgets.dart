@@ -198,7 +198,14 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                         // Owner, 2026-10-12: no wide gap between the title and
                         // the profile box; the title takes only its width and
                         // the profile box the rest.
-                        Flexible(
+                        // A Flexible title kept half the free width for
+                        // itself and left a gap on the right (owner,
+                        // 2026-10-12: "sağda çok boşluk var"); a width cap
+                        // lets the profile box take everything else.
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: constraints.maxWidth * 0.42,
+                          ),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             widthFactor: 1,
@@ -220,7 +227,11 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                                     ),
                                   )
                                 : showBrand
-                                ? MenzilBrand(compact: compact)
+                                ? FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    alignment: Alignment.centerLeft,
+                                    child: MenzilBrand(compact: compact),
+                                  )
                                 : const SizedBox.shrink(),
                           ),
                         ),
@@ -1411,14 +1422,16 @@ class MenzilPrimaryButton extends StatelessWidget {
       final b = FilledButton(
         style: (style ?? const ButtonStyle()).merge(
           FilledButton.styleFrom(
-            padding: const EdgeInsets.only(left: 10, right: 8),
+            // Icon and label nearer the left edge (owner, 2026-10-12:
+            // "+ biraz daha sola kayabilir… sağda mesafe az").
+            padding: const EdgeInsets.only(left: 2, right: 14),
           ),
         ),
         onPressed: onPressed,
         child: Row(
           children: [
             Icon(icon, size: 20),
-            const SizedBox(width: 4),
+            const SizedBox(width: 2),
             Expanded(child: Center(child: text)),
           ],
         ),
@@ -1548,7 +1561,13 @@ class MenzilSecondaryButton extends StatelessWidget {
     final button = icon == null
         ? OutlinedButton(style: style, onPressed: onPressed, child: _label())
         : OutlinedButton.icon(
-            style: style,
+            // Equal space left and right of icon + label (owner,
+            // 2026-10-12: "sağda ve solda aynı boşluk kalsın").
+            style: (style ?? const ButtonStyle()).merge(
+              OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+              ),
+            ),
             onPressed: onPressed,
             icon: Icon(icon, size: 20),
             label: _label(),
