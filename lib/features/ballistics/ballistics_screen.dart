@@ -8,6 +8,7 @@ import 'package:printing/printing.dart';
 import '../../core/atmosphere.dart';
 import '../../core/ballistic_engine.dart';
 import '../../core/ballistic_input.dart';
+import '../../core/beaufort.dart';
 import '../../core/input_error_text.dart';
 import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
@@ -21,6 +22,7 @@ import '../../core/stability.dart';
 import '../../core/unit_system.dart';
 import '../../core/wez.dart';
 import '../../core/wind_clock.dart';
+import '../../core/wind_zone_shares.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../data/reticle_catalog.dart';
 import '../../models/domain.dart';
@@ -376,6 +378,29 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Typical gust factor over land: the bracket top is 1.5 × the wind.
   static const windGustFactor = 1.5;
+
+  /// Rüzgâr gözlemi (Ö2): the chosen Beaufort force, null = "Seçiniz".
+  /// Not saved; the wind values it writes are. A typed wind clears it.
+  int? _windObservation;
+  int _windObservationToken = 0;
+
+  void _pickWindObservation(int? force) {
+    final b = force == null ? null : Beaufort.classes[force];
+    setState(() {
+      _windObservation = force;
+      if (b == null) return;
+      String v(double mps) =>
+          (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
+      // The class top is the shooter's own gust value, not ×1.5.
+      _windMaxAuto = false;
+      windMaxCtl.text = v(b.maxMps);
+      wind.text = v(b.midMps);
+      _userEdited.add(wind);
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    _saveShotSettings();
+  }
 
   void _autoWindMax() {
     if (!_windMaxAuto) return;
@@ -1377,6 +1402,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (basis == null) return (shot: null, mpsPerMil: null);
     final cached = _shotCache[_shotRangeM];
     if (cached != null) return cached;
+    _zoneShares.remove(_shotRangeM);
     TrajectoryPoint? shot;
     double? mpsPerMil;
     try {
@@ -1408,6 +1434,26 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   TrajectoryPoint? _shotPoint() => _evalShot().shot;
+
+  /// Rüzgâr etkisi shares per range; an entry is dropped whenever
+  /// [_evalShot] solves that range again (inputs changed).
+  final Map<double, WindZoneShares?> _zoneShares = {};
+
+  WindZoneShares? _windZoneSharesAt(_ShotBasis basis) {
+    _evalShot();
+    if (_zoneShares.containsKey(_shotRangeM)) return _zoneShares[_shotRangeM];
+    WindZoneShares? s;
+    try {
+      s = WindZoneShares.compute(
+        basis.input([_shotRangeM], inclineDeg: _inclineDeg),
+        _shotRangeM,
+      );
+    } on ArgumentError {
+      s = null;
+    }
+    if (_zoneShares.length > 24) _zoneShares.clear();
+    return _zoneShares[_shotRangeM] = s;
+  }
 
   Future<void> _editShotRange() async {
     final result = await showDialog<double>(
@@ -1574,6 +1620,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       } on StateError {
         // Unreachable at that wind: no bracket line.
       }
+    }
+    // Ö2: where along the path the wind matters (a result, not help text).
+    final shares = basis.drag ? _windZoneSharesAt(basis) : null;
+    if (shares != null) {
+      lines.add(
+        Text(
+          'Rüzgâr etkisi: yakın %${shares.nearPct} · '
+          'orta %${shares.midPct} · uzak %${shares.farPct}',
+          key: const Key('shot-wind-zone-shares'),
+          style: MenzilType.body(c.ink),
+        ),
+      );
     }
     final spin = _spinDriftMrad(shot, basis);
     if (spin != null) {
@@ -2643,12 +2701,40 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ),
         child: MenzilFieldGrid(
           children: [
+            // Ö2: Beaufort over land; long item texts, so a full row.
+            MenzilFullWidth(
+              child: MenzilSelect<int>(
+                key: ValueKey('wind-observation-$_windObservationToken'),
+                label: 'Rüzgâr gözlemi',
+                hint: 'Seçiniz',
+                info: EnvironmentFieldInfo.windObservation,
+                initialValue: _windObservation,
+                items: [
+                  for (final b in Beaufort.classes)
+                    DropdownMenuItem(
+                      value: b.force,
+                      child: Text('${b.name}: ${b.land}', maxLines: 2),
+                    ),
+                ],
+                selectedLabels: [for (final b in Beaufort.classes) b.name],
+                onChanged: _pickWindObservation,
+              ),
+            ),
             MenzilInput(
               key: BallisticsFieldKeys.wind,
               controller: wind,
               label: 'Rüzgâr hızı',
-              // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => _userEdited.add(wind),
+              // A typed value is the user's: auto fill keeps it. It no
+              // longer comes from the Rüzgâr gözlemi class.
+              onChanged: (_) {
+                _userEdited.add(wind);
+                if (_windObservation != null) {
+                  setState(() {
+                    _windObservation = null;
+                    _windObservationToken++;
+                  });
+                }
+              },
               info: EnvironmentFieldInfo.windSpeedFor(firearm: _isFirearm),
               unit: metric ? 'm/s' : 'mph',
             ),

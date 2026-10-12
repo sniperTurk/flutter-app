@@ -128,6 +128,15 @@ abstract final class EnvironmentFieldInfo {
       '"Otomatik doldur" yeniden otomatik yapar. '
       'Hedef sayfası yan düzeltmeyi bu aralıkta gösterir. Örnek: rüzgâr '
       '2 m/s ise 3.';
+  static const windObservation =
+      'Anemometre yoksa rüzgârı çevreden okuyun: duman, yaprak, dal, toz. '
+      'Listedeki tarifler Beaufort ölçeğinin kara tanımlarıdır (WMO, '
+      'MeteoSwiss). Seçtiğiniz sınıfın orta değeri Rüzgâr hızına, üst '
+      'değeri En yüksek rüzgâra yazılır; ikisini de elle değiştirebilirsiniz. '
+      'Dikkat: bu hızlar açık arazide 10 m yükseklik içindir. Atıcının '
+      'durduğu 1–2 m yükseklikte rüzgâr genellikle daha zayıftır; uygulama '
+      'bunu düzeltmez, gerekirse değeri elle küçültün. Örnek: yapraklar ve '
+      'ince dallar durmadan kıpırdıyorsa Orta, 4,4 m/s.';
   static const windMid =
       'Hedefe giden yolun ortasındaki rüzgârın tahmini hızı. Yapraklara, '
       'çimene veya bayraklara bakarak tahmin edin. Örnek: 3 m/s. Boşsa sizin '
