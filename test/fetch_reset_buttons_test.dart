@@ -43,7 +43,7 @@ Future<void> _pump(WidgetTester tester) async {
   addTearDown(tester.view.reset);
   await tester.pumpWidget(
     host(
-      Scaffold(
+      const Scaffold(
         body: BallisticsScreen(
           profile: _profile,
           view: BallisticsView.environment,
@@ -127,7 +127,7 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(
       host(
-        Scaffold(
+        const Scaffold(
           body: BallisticsScreen(profile: _profile, view: BallisticsView.pro),
         ),
         services: testServices(

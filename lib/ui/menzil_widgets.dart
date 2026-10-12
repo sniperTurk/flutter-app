@@ -1372,6 +1372,11 @@ class MenzilSecondaryButton extends StatelessWidget {
   /// fits (owner, 2026-10-11: "Çözüm kulelere kuruldu" took three lines).
   final bool twoLines;
 
+  /// With [twoLines]: how many lines the shrinking label may take. Side by
+  /// side fetch / reset buttons use 2 so long labels fit on an iPhone SE
+  /// (owner, 2026-10-12).
+  final int maxLabelLines;
+
   const MenzilSecondaryButton({
     super.key,
     required this.label,
@@ -1381,6 +1386,7 @@ class MenzilSecondaryButton extends StatelessWidget {
     this.destructive = false,
     this.active = false,
     this.twoLines = false,
+    this.maxLabelLines = 1,
   });
 
   Widget _label() {
@@ -1402,7 +1408,7 @@ class MenzilSecondaryButton extends StatelessWidget {
             ),
             textDirection: dir,
             textScaler: scaler,
-            maxLines: 1,
+            maxLines: maxLabelLines,
           )..layout(maxWidth: box.maxWidth);
           final fits = !painter.didExceedMaxLines;
           painter.dispose();
@@ -1411,8 +1417,9 @@ class MenzilSecondaryButton extends StatelessWidget {
         }
         return Text(
           label,
-          maxLines: 1,
-          softWrap: false,
+          maxLines: maxLabelLines,
+          softWrap: maxLabelLines > 1,
+          textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
           // Never bold, so the pair of dial buttons matches whether a label
           // wraps or not (owner, 2026-10-11).
