@@ -93,14 +93,12 @@ void main() {
     await tester.pumpWidget(_app(BallisticsView.environment));
     await tester.pumpAndSettle();
     await _pick(tester, 'Orta: ');
+    // A wind needs its direction before Hedef solves.
+    await tester.ensureVisible(_field(BallisticsFieldKeys.windDirection));
+    await tester.enterText(_field(BallisticsFieldKeys.windDirection), '9');
+    await tester.pump();
     await tester.pumpWidget(_app(BallisticsView.shot));
     await tester.pumpAndSettle();
-    // Under the scope, past the lazily built part of the list.
-    await tester.scrollUntilVisible(
-      find.byKey(const Key('shot-wind-zone-shares')),
-      300,
-      scrollable: find.byType(Scrollable).first,
-    );
     final line = tester
         .widget<Text>(find.byKey(const Key('shot-wind-zone-shares')))
         .data!;
