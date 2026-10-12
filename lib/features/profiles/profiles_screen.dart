@@ -1369,7 +1369,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return [
       MenzilSelect<AngularUnit>(
         key: ValueKey('scope-filter-unit-$_scopeUnitFilter'),
-        label: 'Birim',
+        label: 'Birim filtresi',
         hint: 'Seçiniz',
         info: ProfileFieldInfo.scopeFilterUnit,
         initialValue: _scopeUnitFilter,
@@ -1383,7 +1383,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ),
       MenzilSelect<bool>(
         key: ValueKey('scope-filter-ffp-$_scopeFfpFilter'),
-        label: 'Odak düzlemi',
+        label: 'Odak filtresi',
         hint: 'Seçiniz',
         info: ProfileFieldInfo.scopeFilterFocal,
         initialValue: _scopeFfpFilter,
@@ -1397,7 +1397,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       MenzilFullWidth(
         child: MenzilSelect<int>(
           key: ValueKey('scope-filter-mag-$_scopeMagFilter'),
-          label: 'En yüksek büyütme',
+          label: 'Büyütme filtresi',
           hint: 'Seçiniz',
           info: ProfileFieldInfo.scopeFilterMag,
           initialValue: _scopeMagFilter,
