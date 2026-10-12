@@ -2,6 +2,8 @@ import '../../core/profile_input.dart';
 import '../../core/unit_system.dart';
 import '../../data/catalog_repository.dart';
 import '../../models/domain.dart';
+import '../../services/active_profile_store.dart';
+import '../../services/profile_store.dart';
 
 /// Updates written by the tools go through the SAME validation as the
 /// profile editor ([ProfileInput.validate]). Saving a value the decoder
@@ -84,6 +86,24 @@ abstract final class ToolProfileUpdate {
           : input.powderTempReferenceC,
     );
   }
+}
+
+/// The active profile for a tool page; null when there is none or the
+/// stores cannot be read (the page then says so instead of guessing).
+Future<RifleProfile?> loadActiveToolProfile(
+  ProfileStore profiles,
+  ActiveProfileStore active,
+) async {
+  try {
+    final id = await active.getActiveProfileId();
+    if (id == null) return null;
+    for (final p in await profiles.all()) {
+      if (p.id == id) return p;
+    }
+  } catch (_) {
+    return null;
+  }
+  return null;
 }
 
 /// Display helpers shared by the tool screens (pure, unit-aware).

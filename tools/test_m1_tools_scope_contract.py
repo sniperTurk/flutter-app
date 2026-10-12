@@ -112,7 +112,11 @@ class M1ArchitectureTests(unittest.TestCase):
             # The Hesaplayicilar screen has a user-requested scope click-value
             # CHECK (measures the real click size). It may name clicks, but it
             # must still never give a firing/hold instruction.
-            forbidden_words = ('tambur', 'holdover') if p.name == 'calculators_screen.dart' else ('klik', 'click', 'tambur', 'holdover')
+            # Sıfır Grubu (Ö10, owner 2026-10-12) states how well the group
+            # centre is known in clicks ("merkez belirsizliği X klik"): a
+            # measurement precision, not a firing instruction.
+            measured = ('calculators_screen.dart', 'zero_group_screen.dart')
+            forbidden_words = ('tambur', 'holdover') if p.name in measured else ('klik', 'click', 'tambur', 'holdover')
             for forbidden in forbidden_words:
                 self.assertNotIn(forbidden, text, rel(p))
         calc = (LIB / 'features/tools/calculators_screen.dart').read_text(encoding='utf-8').lower()
