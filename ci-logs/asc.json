@@ -1,0 +1,150 @@
+{
+ "apps": [
+  {
+   "id": "6819483788",
+   "name": "SNIPER TÜRK",
+   "bundleId": "com.sniperturk.sniperTurk",
+   "sku": "sniperturk-v1",
+   "primaryLocale": "tr"
+  },
+  {
+   "id": "6820670293",
+   "name": "DreamLife House: Ev Oyunu",
+   "bundleId": "com.birolseker.dreamlifehouse",
+   "sku": "dreamlifehouse2026",
+   "primaryLocale": "tr"
+  }
+ ],
+ "6820670293": {
+  "versions": [
+   {
+    "id": "c45efa23-109b-4320-b6ff-4433d75e3d26",
+    "versionString": "1.0",
+    "platform": "IOS",
+    "appStoreState": "REJECTED",
+    "appVersionState": "REJECTED",
+    "releaseType": "AFTER_APPROVAL",
+    "createdDate": "2026-10-08T12:17:26-07:00",
+    "build": "121"
+   }
+  ],
+  "reviewSubmissions": [
+   {
+    "id": "d36c2dae-3ef6-4834-8e1b-1f2e8af62f5c",
+    "state": "UNRESOLVED_ISSUES",
+    "platform": "IOS",
+    "submittedDate": "2026-10-09T07:50:42.19Z"
+   }
+  ],
+  "submissionItems": [
+   {
+    "id": "ZDM2YzJkYWUtM2VmNi00ODM0LThlMWItMWYyZThhZjYyZjVjfDZ8ODkyNzkwMjAz",
+    "type": "reviewSubmissionItems",
+    "state": "REJECTED"
+   }
+  ],
+  "builds": [
+   {
+    "id": "471fb943-3df3-4b2d-b5ee-aea0da7ef7a6",
+    "version": "122",
+    "processingState": "VALID",
+    "uploadedDate": "2026-10-09T01:03:52-07:00",
+    "expired": false
+   },
+   {
+    "id": "bc31e0a8-7250-4cd7-9d7c-eaed081ce014",
+    "version": "121",
+    "processingState": "VALID",
+    "uploadedDate": "2026-10-09T00:47:09-07:00",
+    "expired": false
+   },
+   {
+    "id": "8675a28b-5a53-453f-be9b-3173492c32c0",
+    "version": "119",
+    "processingState": "VALID",
+    "uploadedDate": "2026-10-09T00:00:23-07:00",
+    "expired": false
+   },
+   {
+    "id": "d03c78c2-bcff-47b4-8922-651e077434a7",
+    "version": "118",
+    "processingState": "VALID",
+    "uploadedDate": "2026-10-08T23:43:00-07:00",
+    "expired": false
+   },
+   {
+    "id": "503c8303-6d15-4ad2-bbaf-61c21c1ca8c2",
+    "version": "117",
+    "processingState": "VALID",
+    "uploadedDate": "2026-10-08T23:37:03-07:00",
+    "expired": false
+   }
+  ]
+ },
+ "6819483788": {
+  "versions": [
+   {
+    "id": "7e7dd70a-9af1-4937-95d4-5330e0d8a519",
+    "versionString": "1.0",
+    "platform": "IOS",
+    "appStoreState": "REJECTED",
+    "appVersionState": "REJECTED",
+    "releaseType": "MANUAL",
+    "createdDate": "2026-10-05T17:39:24-07:00",
+    "build": "62"
+   }
+  ],
+  "reviewSubmissions": [
+   {
+    "id": "bfbbdb07-9f0b-4108-8b7f-2480930c30fe",
+    "state": "UNRESOLVED_ISSUES",
+    "platform": "IOS",
+    "submittedDate": "2026-10-10T13:40:13.408Z"
+   }
+  ],
+  "submissionItems": [
+   {
+    "id": "YmZiYmRiMDctOWYwYi00MTA4LThiN2YtMjQ4MDkzMGMzMGZlfDZ8ODkyNTkzODgw",
+    "type": "reviewSubmissionItems",
+    "state": "REJECTED"
+   }
+  ],
+  "builds": [
+   {
+    "id": "17dc9c41-7f5b-4e47-9cd7-0b007f539525",
+    "version": "89",
+    "processingState": "VALID",
+    "uploadedDate": "2026-10-12T10:54:01-07:00",
+    "expired": false
+   },
+   {
+    "id": "b5f09412-150c-411a-99f0-04b063b54c6f",
+    "version": "88",
+    "processingState": "VALID",
+    "uploadedDate": "2026-10-12T09:08:23-07:00",
+    "expired": false
+   },
+   {
+    "id": "946187ed-cdf7-4768-b0e6-d57f44bc8b08",
+    "version": "87",
+    "processingState": "VALID",
+    "uploadedDate": "2026-10-12T08:21:15-07:00",
+    "expired": false
+   },
+   {
+    "id": "6f79eedd-5908-443c-ab8d-35ee47139721",
+    "version": "86",
+    "processingState": "VALID",
+    "uploadedDate": "2026-10-12T05:24:13-07:00",
+    "expired": false
+   },
+   {
+    "id": "166b41a4-8718-4674-99af-556399acbe13",
+    "version": "85",
+    "processingState": "VALID",
+    "uploadedDate": "2026-10-12T03:46:06-07:00",
+    "expired": false
+   }
+  ]
+ }
+}
