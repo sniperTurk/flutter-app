@@ -348,8 +348,18 @@ void main() {
       expect(text(), '3.0');
       expect(find.text('Rüzgâr düzeltmesi alındı'), findsOneWidget);
 
+      await tester.ensureVisible(field(const Key('pro-wind-mid')));
+      await tester.enterText(field(const Key('pro-wind-mid')), '4');
+      await tester.enterText(field(const Key('pro-wind-far')), '6');
+      await tester.pumpAndSettle();
+      await tap(const Key('pro-wind-max-fill'));
       await tap(const Key('pro-wind-max-reset'));
       expect(text(), '');
+      // Sıfırla empties Yol ortası and Hedefte too.
+      String of(Key k) =>
+          tester.widget<TextField>(field(k)).controller!.text;
+      expect(of(const Key('pro-wind-mid')), '');
+      expect(of(const Key('pro-wind-far')), '');
       expect(find.text('Veriler sıfırlandı'), findsOneWidget);
       expect(find.text('Tekrar rüzgâr düzeltmesi al'), findsOneWidget);
     });

@@ -56,8 +56,9 @@ abstract final class ProSectionInfo {
     how:
         'Kutu boş gelir. "Rüzgâr düzeltmesi al"a dokunursan Hava '
         'Durumu\'ndaki rüzgâr hızı 1,5 ile çarpılıp yazılır. Rüzgâr ölçerin '
-        'varsa ölçtüğün en yüksek değeri kendin yaz. "Sıfırla" kutuyu '
-        'boşaltır; kutu boşken aralık gösterilmez.',
+        'varsa ölçtüğün en yüksek değeri kendin yaz. "Sıfırla" bu kutuyu ve '
+        'Yol ortası ile Hedefte kutularını boşaltır; kutu boşken aralık '
+        'gösterilmez.',
   );
 
   static const windZones = ProExplain(

@@ -421,6 +421,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   void _resetWindMax() {
     setState(() {
       windMaxCtl.text = '';
+      // Yol ortası and Hedefte are cleared too (owner, 2026-10-12).
+      windMidCtl.text = '';
+      windFarCtl.text = '';
       _windMaxFilled = false;
       _windMaxWasReset = true;
       _shotCache.clear();
