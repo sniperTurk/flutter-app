@@ -80,6 +80,14 @@ CARTRIDGES.update({
     '.470 NE': 12.07, '.500 NE 3"': 12.95, '.404 Jeffery': 10.74, '.450 Rigby': 11.63,
 })
 ALIASES.update({'6mm norma br': '6mm BR Norma', '.223 wylde': '5.56x45 NATO'})
+# Tüfek tamamlama (2026-10-12): calibers named by Henry, Marlin, Nosler and
+# Sabatti official pages; diameters are the SAAMI/C.I.P. nominal bullet size.
+CARTRIDGES.update({
+    '.35 Rem': 9.09, '.360 Buckhammer': 9.09, '.357 Mag': 9.07, '.44 Rem Mag': 10.9,
+    '.45 Colt': 11.48, '.327 Fed Mag': 7.92, '.41 Rem Mag': 10.41, '.26 Nosler': 6.71,
+    '.27 Nosler': 7.04, '.30 Nosler': 7.82, '.33 Nosler': 8.59, '.450 NE': 11.63,
+})
+ALIASES.update({'.500 ne': '.500 NE 3"'})
 PCP = [(4.5, '4.50 mm (.177)'), (5.0, '5.00 mm (.20)'), (5.5, '5.50 mm (.22)'),
        (6.35, '6.35 mm (.25)'), (7.62, '7.62 mm (.30)'), (9.0, '9.00 mm (.357)'),
        (11.43, '11.43 mm (.45)'), (12.7, '12.70 mm (.50)')]
