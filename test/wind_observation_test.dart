@@ -176,11 +176,11 @@ void main() {
     expect(p[1], greaterThan(p[2]));
   });
 
-  testWidgets('no shares without a usable BC: the vacuum model has no wind', (
+  testWidgets('no usable BC: Hedef says the estimated BC is used', (
     tester,
   ) async {
-    // A BC without its drag law is not used, and (having a BC) gets no
-    // estimated one either: the vacuum baseline runs.
+    // A BC without its drag law is dropped; the typical BC is used instead
+    // (owner, 2026-10-13) and Hedef says so.
     CatalogRepository.installUserCatalog(
       UserCatalog.fromManualEntries([
         {
@@ -219,6 +219,6 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('shot-wind-zone-shares')), findsNothing);
+    expect(find.byKey(const Key('shot-estimated-bc')), findsOneWidget);
   });
 }

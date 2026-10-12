@@ -1058,6 +1058,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         : estimatedSlugBc;
   }
 
+  /// What the screen says while [_estimatedBc] is used; null otherwise.
+  String? get _estimatedBcText {
+    final estimated = _estimatedBc;
+    if (estimated == null) return null;
+    final kind = ammunition!.type == AmmunitionType.pellet ? 'saçma' : 'slug';
+    return 'Tahmini BC ile hesaplandı: bu mühimmatın BC\'si yok, $kind için '
+        'tipik G1 ${_decimal(estimated)} kullanıldı. Düşüş ve rüzgâr sapması '
+        'yaklaşıktır; gerçek BC\'yi Profil → Mühimmat → BC\'ye girin ve '
+        'ilk atışta canlı atışla doğrulayın.';
+  }
+
   /// Whether results shown (or about to be computed) use the drag solver.
   bool get _dragMode => _basis != null ? _basis!.drag : _bcApplies();
 
@@ -3042,17 +3053,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   Widget _bcNotice() {
     final a = ammunition;
-    final estimated = _estimatedBc;
+    final estimated = _estimatedBcText;
     if (estimated != null) {
-      final kind = a!.type == AmmunitionType.pellet ? 'saçma' : 'slug';
-      return MenzilNotice(
-        tone: MenzilNoticeTone.warning,
-        message:
-            'Tahmini BC ile hesaplandı: bu mühimmatın BC\'si yok, $kind için '
-            'tipik G1 ${_decimal(estimated)} kullanıldı. Düşüş ve rüzgâr '
-            'sapması yaklaşıktır; gerçek BC\'yi Profil → Mühimmat → BC\'ye '
-            'girin ve ilk atışta canlı atışla doğrulayın.',
-      );
+      return MenzilNotice(tone: MenzilNoticeTone.warning, message: estimated);
     }
     if (a?.ballisticCoefficient == null || a?.ballisticModel == null) {
       return const MenzilNotice(
@@ -4825,6 +4828,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             icon: Icons.picture_as_pdf_outlined,
             expand: true,
             onPressed: _shareDopeCard,
+          ),
+        ),
+      if (_dragMode && _estimatedBcText != null)
+        Padding(
+          padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
+          child: MenzilNotice(
+            key: const Key('shot-estimated-bc'),
+            tone: MenzilNoticeTone.warning,
+            message: _estimatedBcText!,
           ),
         ),
       if (_dragMode) ..._dragNotices(),
