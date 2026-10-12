@@ -580,8 +580,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       // The class top is the shooter's own gust value, not ×1.5.
       _weatherFilled = false;
       _weatherWasReset = false;
-      _windMaxAuto = false;
-      windMaxCtl.text = v(b.maxMps);
+      // Only Rüzgâr hızı (owner, 2026-10-12): Rüzgâr düzeltmesi is filled
+      // by its own button.
       wind.text = v(b.midMps);
       _userEdited.add(wind);
       _shotCache.clear();
@@ -1152,13 +1152,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       temperature.text = '';
       humidity.text = '';
       wind.text = '';
-      altitude.text = '';
-      for (final c in [temperature, humidity, wind, altitude]) {
+      for (final c in [temperature, humidity, wind]) {
         _userEdited.remove(c);
-      }
-      if (!_pressureFilled) {
-        pressure.text = '';
-        _userEdited.remove(pressure);
       }
       _weatherFilled = false;
       _weatherWasReset = true;
@@ -1173,7 +1168,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   void _resetPressure() {
     setState(() {
       pressure.text = '';
-      _userEdited.remove(pressure);
+      altitude.text = '';
+      _userEdited
+        ..remove(pressure)
+        ..remove(altitude);
       _pressureFilled = false;
       _pressureWasReset = true;
       _pressureStatus = null;
@@ -1308,56 +1306,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           (metric ? obs.windSpeedMps : UnitSystem.mpsToMph(obs.windSpeedMps))
               .toStringAsFixed(1),
         );
-        // Station pressure needs the altitude: from GPS, or from a value
-        // the user typed. Sea-level pressure is never used as station
-        // pressure (that was the audit's density trap).
-        final gpsAlt = fix.altitudeM;
-        if (gpsAlt != null) {
-          put(
-            altitude,
-            (metric ? gpsAlt : UnitSystem.metersToFeet(gpsAlt)).toStringAsFixed(
-              0,
-            ),
-          );
-        }
-        final typedAlt = double.tryParse(
-          altitude.text.trim().replaceAll(',', '.'),
-        );
-        // A typed altitude wins over GPS: it is the one shown in the field,
-        // so the pressure must be converted with it too.
-        final altM = _userEdited.contains(altitude) && typedAlt != null
-            ? (metric ? typedAlt : UnitSystem.feetToMeters(typedAlt))
-            : gpsAlt;
-        String pressureNote;
-        if (obs.pressureKind == PressureKind.station) {
-          put(pressure, _pressureText(obs.pressureHpa));
-          pressureNote = 'basınç istasyon basıncı';
-        } else if (altM != null) {
-          put(
-            pressure,
-            _pressureText(
-              FieldCalc.stationPressureHpa(
-                obs.pressureHpa,
-                altM,
-                temperatureC: obs.temperatureC,
-              ),
-            ),
-          );
-          pressureNote =
-              'basınç ${altM.round()} m irtifaya göre istasyon basıncına '
-              'çevrildi';
-        } else {
-          pressureNote =
-              'irtifa bilinmediği için basınç doldurulmadı (İrtifa girin, '
-              'sonra Yeniden doldur)';
-        }
+        // Pressure and altitude come only from "Basıncı telefondan al"
+        // (owner, 2026-10-12: each box is filled by its own button).
         final t = obs.validAt.toLocal();
         final hh = t.hour.toString().padLeft(2, '0');
         final mm = t.minute.toString().padLeft(2, '0');
         status =
-            'Hava verisi konumdan dolduruldu (${obs.sourceName}, $hh:$mm; '
-            '$pressureNote). Rüzgâr yönünü siz seçin. Değerleri '
-            'değiştirebilirsiniz; değiştirdikleriniz korunur.';
+            'Hava verisi konumdan dolduruldu (${obs.sourceName}, $hh:$mm). '
+            'Basınç ve irtifa için "Basıncı telefondan al". Rüzgâr yönünü '
+            'siz seçin.';
       }
     } on WeatherFailure {
       failed = true;
@@ -1399,17 +1356,25 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// replaces it).
   Future<void> _readPhonePressure() async {
     if (_pressureBusy) return;
-    final sensor = ToolsServicesScope.of(context).pressure;
+    final services = ToolsServicesScope.of(context);
+    final sensor = services.pressure;
     setState(() {
       _pressureBusy = true;
       _pressureStatus = null;
     });
+    // İrtifa from the phone's GPS on the same tap (owner, 2026-10-12).
+    final altitudeFuture = services.location
+        .current()
+        .timeout(const Duration(seconds: 8))
+        .then<double?>((f) => f is LocationFix ? f.altitudeM : null)
+        .catchError((Object _) => null);
     PressureReading reading;
     try {
       reading = await sensor.read();
     } catch (_) {
       reading = const PressureUnavailable();
     }
+    final gpsAlt = await altitudeFuture;
     if (!mounted) return;
     setState(() {
       _pressureBusy = false;
@@ -1419,10 +1384,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _pressureFailed = false;
         _pressureFilled = true;
         _pressureWasReset = false;
+        if (gpsAlt != null && gpsAlt.isFinite) {
+          altitude.text = (metric ? gpsAlt : UnitSystem.metersToFeet(gpsAlt))
+              .toStringAsFixed(0);
+          _userEdited.add(altitude);
+        }
         _pressureStatus =
             'Basınç telefondan alındı: '
             '${_pressureText(reading.hpa).replaceAll('.', ',')} '
-            '${metric ? 'hPa' : 'inHg'}.';
+            '${metric ? 'hPa' : 'inHg'}'
+            '${gpsAlt != null && gpsAlt.isFinite ? ' · irtifa GPS\'ten ${altitude.text} ${metric ? 'm' : 'ft'}' : ' · irtifa alınamadı, elle girin'}.';
       } else {
         _pressureFailed = true;
         final u = reading as PressureUnavailable;
@@ -2819,10 +2790,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       minMagnification: zoom ? minMag : null,
       maxMagnification: zoom ? maxMag : null,
       magnification: zoom
-          // Starts at 20x, the clearest view for reading the reticle
-          // (owner, 2026-10-12); a scope that cannot reach 20x uses the
-          // nearest end of its range.
-          ? (_magnification ?? 20.0).clamp(minMag, maxMag).toDouble()
+          // Starts 15 % under the scope's highest magnification, rounded
+          // (owner, 2026-10-12: a fixed 20x drew too small; "yüzde 15
+          // aşağı hesaplasın"), never under the lowest magnification.
+          ? (_magnification ?? (maxMag * 0.85).roundToDouble())
+                .clamp(minMag, maxMag)
+                .toDouble()
           : null,
       onMagnificationChanged: zoom
           ? (v) => setState(() => _magnification = v)
@@ -4664,121 +4637,104 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _displayMaxRange.floorToDouble(),
     );
 
-    final appDark = Theme.of(context).brightness == Brightness.dark;
     return [
-      // Range dial: −5 −1 [value] +1 +5, slider below. Light like the scope
-      // inside in both themes, dark numbers (owner, 2026-10-12: "rakamlar
-      // çok beyaz, göz yoruyor").
-      Theme(
-        data: MenzilTheme.light(),
-        child: Builder(
-          builder: (context) {
-            final c = MenzilColors.of(context);
-            return DecoratedBox(
-              decoration: BoxDecoration(
-                color: appDark
-                    ? MenzilColors.scopeBgDim
-                    : MenzilColors.light.scopeBg,
-                borderRadius: BorderRadius.circular(MenzilRadius.card),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  MenzilSpace.sm,
-                  MenzilSpace.sm,
-                  MenzilSpace.sm,
-                  0,
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        MenzilStepButton(
-                          label: '−5',
-                          semanticLabel: '5 azalt',
-                          onPressed: () => _setShotDisplay(display - 5),
-                        ),
-                        const SizedBox(width: MenzilSpace.xs),
-                        MenzilStepButton(
-                          label: '−1',
-                          semanticLabel: '1 azalt',
-                          small: true,
-                          onPressed: () => _setShotDisplay(display - 1),
-                        ),
-                        Expanded(
-                          child: Semantics(
-                            button: true,
-                            label:
-                                'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
-                            child: ExcludeSemantics(
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(
-                                  MenzilRadius.button,
-                                ),
-                                onTap: _editShotRange,
-                                child: SizedBox(
-                                  height: 64,
-                                  child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.baseline,
-                                      textBaseline: TextBaseline.alphabetic,
-                                      children: [
-                                        Text(
-                                          '$display',
-                                          style: MenzilType.display(
-                                            c.ink,
-                                            size: display >= 1000 ? 44 : 52,
-                                          ),
+      // Range dial: −5 −1 [value] +1 +5, slider below. Dark like the rest of
+      // the page; numbers in soft grey, not bright white (owner,
+      // 2026-10-12: "rakamlar çok beyaz, göz yoruyor"; the field stays dark).
+      Builder(
+        builder: (context) {
+          final c = MenzilColors.of(context);
+          return DecoratedBox(
+            decoration: const BoxDecoration(),
+            child: Padding(
+              padding: EdgeInsets.zero,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      MenzilStepButton(
+                        label: '−5',
+                        semanticLabel: '5 azalt',
+                        onPressed: () => _setShotDisplay(display - 5),
+                      ),
+                      const SizedBox(width: MenzilSpace.xs),
+                      MenzilStepButton(
+                        label: '−1',
+                        semanticLabel: '1 azalt',
+                        small: true,
+                        onPressed: () => _setShotDisplay(display - 1),
+                      ),
+                      Expanded(
+                        child: Semantics(
+                          button: true,
+                          label:
+                              'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
+                          child: ExcludeSemantics(
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(
+                                MenzilRadius.button,
+                              ),
+                              onTap: _editShotRange,
+                              child: SizedBox(
+                                height: 64,
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.baseline,
+                                    textBaseline: TextBaseline.alphabetic,
+                                    children: [
+                                      Text(
+                                        '$display',
+                                        style: MenzilType.display(
+                                          c.ink,
+                                          size: display >= 1000 ? 44 : 52,
                                         ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          _distanceUnit,
-                                          style: MenzilType.number(
-                                            c.ink2,
-                                            size: 18,
-                                          ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        _distanceUnit,
+                                        style: MenzilType.number(
+                                          c.ink2,
+                                          size: 18,
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        MenzilStepButton(
-                          label: '+1',
-                          semanticLabel: '1 artır',
-                          small: true,
-                          onPressed: () => _setShotDisplay(display + 1),
-                        ),
-                        const SizedBox(width: MenzilSpace.xs),
-                        MenzilStepButton(
-                          label: '+5',
-                          semanticLabel: '5 artır',
-                          onPressed: () => _setShotDisplay(display + 5),
-                        ),
-                      ],
-                    ),
-                    Slider(
-                      value: display
-                          .toDouble()
-                          .clamp(1.0, sliderMax)
-                          .toDouble(),
-                      min: 1,
-                      max: sliderMax,
-                      label: '$display $_distanceUnit',
-                      semanticFormatterCallback: (v) =>
-                          '${v.round()} $_distanceUnit',
-                      onChanged: (v) => _setShotDisplay(v.round()),
-                    ),
-                  ],
-                ),
+                      ),
+                      MenzilStepButton(
+                        label: '+1',
+                        semanticLabel: '1 artır',
+                        small: true,
+                        onPressed: () => _setShotDisplay(display + 1),
+                      ),
+                      const SizedBox(width: MenzilSpace.xs),
+                      MenzilStepButton(
+                        label: '+5',
+                        semanticLabel: '5 artır',
+                        onPressed: () => _setShotDisplay(display + 5),
+                      ),
+                    ],
+                  ),
+                  Slider(
+                    value: display.toDouble().clamp(1.0, sliderMax).toDouble(),
+                    min: 1,
+                    max: sliderMax,
+                    label: '$display $_distanceUnit',
+                    semanticFormatterCallback: (v) =>
+                        '${v.round()} $_distanceUnit',
+                    onChanged: (v) => _setShotDisplay(v.round()),
+                  ),
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
       const SizedBox(height: MenzilSpace.sm),
       if (_pcpRegulatorBypassed)

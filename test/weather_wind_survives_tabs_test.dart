@@ -123,7 +123,9 @@ Future<_Home> _pumpHome(
 void _expectAtmosphere(WidgetTester tester) {
   expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
   expect(_text(tester, BallisticsFieldKeys.humidity), '55');
-  expect(_text(tester, BallisticsFieldKeys.altitude), '900');
+  // İrtifa comes from "Basıncı telefondan al", not the weather button
+  // (owner, 2026-10-12).
+  expect(_text(tester, BallisticsFieldKeys.altitude), '');
 }
 
 double _number(WidgetTester tester, Key key) =>

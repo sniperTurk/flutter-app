@@ -109,13 +109,14 @@ void main() {
     expect(s.label.contains('('), isFalse);
   });
 
-  testWidgets('a class fills Rüzgâr hızı and En yüksek rüzgâr', (tester) async {
+  testWidgets('a class fills Rüzgâr hızı only', (tester) async {
     await _sized(tester);
     await tester.pumpWidget(_app(BallisticsView.environment));
     await tester.pumpAndSettle();
     await _pick(tester, 'Hafif: ');
     expect(_text(tester, BallisticsFieldKeys.wind), '2.5');
-    expect(await _windMaxOnPro(tester), '3.3');
+    // Rüzgâr düzeltmesi is filled by its own button (owner, 2026-10-12).
+    expect(await _windMaxOnPro(tester), '');
     // Rüzgâr is further down since Basınç ölçer (2026-10-12): scroll to it.
     await tester.ensureVisible(_select);
     await tester.pumpAndSettle();
@@ -129,7 +130,7 @@ void main() {
     await tester.enterText(_field(BallisticsFieldKeys.wind), '4');
     await tester.pumpAndSettle();
     expect(tester.widget<MenzilSelect<int>>(_select).initialValue, isNull);
-    expect(await _windMaxOnPro(tester), '3.3');
+    expect(await _windMaxOnPro(tester), '');
   });
 
   testWidgets('"Seçiniz" in the list leaves without changing the wind', (

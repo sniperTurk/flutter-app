@@ -195,9 +195,13 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                         // shrinks instead of overflowing on narrow phones.
                         // Owner, 2026-10-12: every page title the same,
                         // smaller size so the profile box is not squeezed.
-                        Expanded(
+                        // Owner, 2026-10-12: no wide gap between the title and
+                        // the profile box; the title takes only its width and
+                        // the profile box the rest.
+                        Flexible(
                           child: Align(
                             alignment: Alignment.centerLeft,
+                            widthFactor: 1,
                             child: title != null
                                 ? FittedBox(
                                     fit: BoxFit.scaleDown,
@@ -220,15 +224,8 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                                 : const SizedBox.shrink(),
                           ),
                         ),
-                        const SizedBox(width: MenzilSpace.sm),
-                        // The selector is only as wide as a profile name needs
-                        // (owner, 2026-10-09: it was needlessly long).
-                        Flexible(
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 170),
-                            child: profileSelector,
-                          ),
-                        ),
+                        const SizedBox(width: MenzilSpace.md),
+                        Expanded(child: profileSelector),
                         const SizedBox(width: MenzilSpace.sm),
                         if (unitLabel != null) ...[
                           MenzilBarButton(
@@ -309,19 +306,19 @@ class MenzilBarButton extends StatelessWidget {
         child: ExcludeSemantics(
           child: Material(
             color: c.surface,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(MenzilRadius.button),
-              side: BorderSide(color: c.line),
-            ),
+            // Same height and rounding as the profile box beside it, with
+            // room above the bar's bottom line (owner, 2026-10-12).
+            shape: StadiumBorder(side: BorderSide(color: c.line)),
             child: InkWell(
-              borderRadius: BorderRadius.circular(MenzilRadius.button),
+              customBorder: const StadiumBorder(),
               onTap: onPressed,
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
                   child: Center(
                     widthFactor: 1,
+                    heightFactor: 1,
                     child: Text(
                       label,
                       style: TextStyle(
@@ -1598,8 +1595,9 @@ class MenzilStepButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   label,
+                  // Soft grey, not bright white (owner, 2026-10-12).
                   style: MenzilType.number(
-                    small ? c.ink2 : c.ink,
+                    c.ink2,
                     size: 19,
                     weight: small ? FontWeight.w500 : FontWeight.w600,
                   ),

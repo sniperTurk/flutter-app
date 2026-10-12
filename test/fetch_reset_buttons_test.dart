@@ -117,9 +117,12 @@ void main() {
     await _tap(tester, const Key('environment-phone-pressure'));
     expect(find.text('Basınç telefondan alındı'), findsOneWidget);
     expect(_text(tester, BallisticsFieldKeys.pressure), '912.4');
+    // İrtifa comes from the GPS on the same tap (owner, 2026-10-12).
+    expect(_text(tester, BallisticsFieldKeys.altitude), '900');
 
     await _tap(tester, reset);
     expect(_text(tester, BallisticsFieldKeys.pressure), '');
+    expect(_text(tester, BallisticsFieldKeys.altitude), '');
     expect(find.text('Basıncı telefondan al'), findsOneWidget);
     expect(find.text('Veriler sıfırlandı'), findsOneWidget);
   });
