@@ -12,7 +12,7 @@
   "muzzle_velocity_fps": 3700,
   "test_barrel_in": null,
   "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
-  "notes": "Weatherby ballistics chart page, B/C printed as G1; muzzle velocity; test barrel not stated on page (older 2021 PDF chart says 26-inch barrels); BC printed as '320 (G1)' (missing decimal point) on chart and store page, left null; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — üretici B/C değerini ondalık noktasız \"320 (G1)\" basıyor (ballistics chart + store sayfası, ürün kodu M24072HCB); 2021 PDF chart bu yükü içermiyor; Hammer Bullets sitesinde 72gr .243 mermi yok; doğrulanamadığı için null (muhtemelen .320 G1). Bakılan kaynak: https://weatherby.com/ammunition-org/ballistics-charts/ (erişim 2026-10-11)."
+  "notes": "Weatherby ballistics chart page, B/C printed as G1; muzzle velocity; test barrel not stated on page (older 2021 PDF chart says 26-inch barrels); BC printed as '320 (G1)' (missing decimal point) on chart and store page, left null; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — üretici B/C değerini ondalık noktasız \"320 (G1)\" basıyor (ballistics chart + store sayfası, ürün kodu M24072HCB); 2021 PDF chart bu yükü içermiyor; Hammer Bullets sitesinde 72gr .243 mermi yok; doğrulanamadığı için null (muhtemelen .320 G1). Bakılan kaynak: https://weatherby.com/ammunition-org/ballistics-charts/ (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — Weatherby sayfası WebFetch hız sınırı (HTTP 429) nedeniyle okunamadı; Hammer Bullets'ın .243 ürünleri arasında 72 gr mermi görülmedi (yalnız arama sonuç başlıkları), ağırlık eşleşmesi kurulamadı."
  },
  {
   "brand": "Weatherby",
