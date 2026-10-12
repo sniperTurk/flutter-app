@@ -59,12 +59,9 @@ Future<void> _openShot(WidgetTester tester) async {
 String? _title(WidgetTester tester) =>
     tester.widget<Text>(find.byKey(const Key('top-bar-title'))).data;
 
-/// The DOPE table is the second mode of the Atış tab.
-Future<void> _openTable(WidgetTester tester) async {
-  await _openShot(tester);
-  await tester.tap(find.byKey(const Key('shot-mode-table')));
-  await tester.pumpAndSettle();
-}
+/// No Tablo mode any more (owner, 2026-10-12): DOPE is made from the scope
+/// view of Hedef.
+Future<void> _openTable(WidgetTester tester) => _openShot(tester);
 
 void main() {
   testWidgets('shell shows page titles and the five tabs', (tester) async {
@@ -86,7 +83,7 @@ void main() {
     expect(find.text('Tablo'), findsNothing);
     expect(find.text('Ortam'), findsNothing);
     // Profil is the start tab and the leftmost one.
-    expect(find.text('Aktif profil'), findsOneWidget);
+    expect(find.text('Namlu çıkış hızı'), findsOneWidget);
     expect(find.text('Hesapla'), findsNothing);
     // Left to right: Profil, Hava Durumu, Pro, Atış, Araçlar.
     var previousX = double.negativeInfinity;
@@ -100,8 +97,9 @@ void main() {
     await _openShot(tester);
     expect(find.text('Menzil'), findsNothing);
     expect(_title(tester), 'Hedef Görünümü');
-    expect(find.byKey(const Key('shot-mode-shot')), findsOneWidget);
-    expect(find.byKey(const Key('shot-mode-table')), findsOneWidget);
+    // No "Tek atış | Tablo" switch (owner, 2026-10-12).
+    expect(find.byKey(const Key('shot-mode-shot')), findsNothing);
+    expect(find.byKey(const Key('shot-mode-table')), findsNothing);
     expect(find.text('Hesapla'), findsNothing);
     // The Yukarı/Rüzgâr boxes are gone; the scope shows the impact.
     expect(find.byKey(const Key('elevation-status-card')), findsNothing);
@@ -127,9 +125,6 @@ void main() {
     await tester.enterText(find.byKey(BallisticsFieldKeys.temperature), '30');
 
     await _openTable(tester);
-    await tester.tap(find.text('DOPE oluştur'));
-    await tester.pumpAndSettle();
-    expect(find.byType(DataTable), findsOneWidget);
 
     // Back on Hava Durumu the edited value survived the tab switches, and
     // the atmosphere result of the same solve is shown.
@@ -148,12 +143,9 @@ void main() {
     expect(field.controller!.text, '30');
     expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
 
-    // Atış remembers the table mode; switching to the single shot uses the
-    // same validated solve: no "calculate first" prompt.
+    // Back on Hedef the scope view uses the same validated solve: no
+    // "calculate first" prompt.
     await tester.tap(find.text('Hedef'));
-    await tester.pumpAndSettle();
-    expect(find.text('DOPE oluştur'), findsOneWidget);
-    await tester.tap(find.byKey(const Key('shot-mode-shot')));
     await tester.pumpAndSettle();
     expect(
       find.textContaining('Değerleri görmek için hesaplayın'),
@@ -271,7 +263,7 @@ void main() {
 
     await tester.tap(find.text('Profil'));
     await tester.pumpAndSettle();
-    expect(find.text('Aktif profil'), findsOneWidget);
+    expect(find.text('Namlu çıkış hızı'), findsOneWidget);
 
     // Tapping a row makes it active (persisted through the shell). The list
     // sits below the active-profile summary.

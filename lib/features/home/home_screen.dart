@@ -98,9 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int tab = _tabProfile;
   BallisticsView ballisticsView = BallisticsView.shot;
 
-  /// Atış shows either the single shot or the DOPE table; the choice is kept
-  /// while visiting other tabs.
-  BallisticsView _shotMode = BallisticsView.shot;
   bool metric = true;
   int _profilesRevision = 0;
 
@@ -269,16 +266,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void _selectTab(int index) {
     setState(() {
       tab = index;
-      if (index == _tabShot) ballisticsView = _shotMode;
+      if (index == _tabShot) ballisticsView = BallisticsView.shot;
       if (index == _tabEnvironment) ballisticsView = BallisticsView.environment;
       if (index == _tabPro) ballisticsView = BallisticsView.pro;
-    });
-  }
-
-  void _selectShotMode(BallisticsView mode) {
-    setState(() {
-      _shotMode = mode;
-      if (tab == _tabShot) ballisticsView = mode;
     });
   }
 
@@ -301,7 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // Each page shows its own name instead of Menzil (owner, 2026-10-08).
         // The tab is "Hedef"; its single shot is "Hedef Görünümü" (owner,
         // 2026-10-08).
-        title: tab == _tabShot && _shotMode == BallisticsView.shot
+        title: tab == _tabShot
             ? 'Hedef Görünümü'
             : _titles[tab],
       ),
@@ -383,19 +373,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                if (tab == _tabShot && active != null)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      MenzilSpace.gutter,
-                      MenzilSpace.md,
-                      MenzilSpace.gutter,
-                      0,
-                    ),
-                    child: _ShotModeSwitch(
-                      selected: _shotMode,
-                      onSelected: _selectShotMode,
-                    ),
-                  ),
+                // No "Tek atış | Tablo" switch above the scope (owner,
+                // 2026-10-12): the DOPE card is made from the scope view.
                 Expanded(
                   key: const ValueKey('menzil-tabs'),
                   child: IndexedStack(
@@ -632,76 +611,6 @@ class _HomeScreenState extends State<HomeScreen> {
       onContinueToPro: () => _selectTab(_tabPro),
       onContinueToShot: () => _selectTab(_tabShot),
       environmentCarry: _environmentCarry,
-    );
-  }
-}
-
-/// "Tek atış | Tablo" switch above the Atış workspace. Each half is a full
-/// 44 pt tap target and announces its selected state to VoiceOver.
-class _ShotModeSwitch extends StatelessWidget {
-  final BallisticsView selected;
-  final ValueChanged<BallisticsView> onSelected;
-
-  const _ShotModeSwitch({required this.selected, required this.onSelected});
-
-  @override
-  Widget build(BuildContext context) {
-    final c = MenzilColors.of(context);
-    Widget half(BallisticsView value, String label, IconData icon) {
-      final on = value == selected;
-      return Expanded(
-        child: Semantics(
-          button: true,
-          selected: on,
-          child: Material(
-            color: on ? c.ink : c.surface,
-            child: InkWell(
-              key: Key('shot-mode-${value.name}'),
-              onTap: () => onSelected(value),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: 44),
-                child: Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(icon, size: 18, color: on ? c.bg : c.ink2),
-                      const SizedBox(width: MenzilSpace.xs),
-                      Flexible(
-                        child: Text(
-                          label,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 13.5,
-                            fontWeight: FontWeight.w600,
-                            color: on ? c.bg : c.ink2,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(MenzilRadius.chip),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border.all(color: c.line),
-          borderRadius: BorderRadius.circular(MenzilRadius.chip),
-        ),
-        child: Row(
-          children: [
-            half(BallisticsView.shot, 'Tek atış', Icons.gps_fixed),
-            half(BallisticsView.table, 'Tablo', Icons.table_rows_outlined),
-          ],
-        ),
-      ),
     );
   }
 }

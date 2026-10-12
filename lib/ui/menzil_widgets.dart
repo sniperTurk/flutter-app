@@ -1394,6 +1394,27 @@ class MenzilPrimaryButton extends StatelessWidget {
             child: Text(label, maxLines: 1, softWrap: false),
           )
         : Text(label);
+    // One line with an icon (owner, 2026-10-12: "+ işareti sola kayacak"):
+    // the icon sits at the left edge and the label takes the space it frees,
+    // at the same size as the neighbouring buttons when it fits.
+    if (oneLine && icon != null) {
+      final b = FilledButton(
+        style: (style ?? const ButtonStyle()).merge(
+          FilledButton.styleFrom(
+            padding: const EdgeInsets.only(left: 10, right: 8),
+          ),
+        ),
+        onPressed: onPressed,
+        child: Row(
+          children: [
+            Icon(icon, size: 20),
+            const SizedBox(width: 4),
+            Expanded(child: Center(child: text)),
+          ],
+        ),
+      );
+      return expand ? SizedBox(width: double.infinity, child: b) : b;
+    }
     final button = icon == null
         ? FilledButton(style: style, onPressed: onPressed, child: text)
         : FilledButton.icon(

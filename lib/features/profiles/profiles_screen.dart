@@ -822,17 +822,8 @@ class _ActiveProfileDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        MenzilSectionHeader(
-          // The name is already in the top-bar selector and the list; it is
-          // not repeated here (owner, 2026-10-08).
-          'Aktif profil',
-          trailing: TextButton.icon(
-            onPressed: onEdit,
-            icon: const Icon(Icons.edit_outlined, size: 18),
-            label: const Text('Düzenle'),
-          ),
-          padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
-        ),
+        // No "Aktif profil" title or Düzenle here (owner, 2026-10-12): the
+        // list below shows the active profile with its edit pencil.
         // Order and names set by the owner (2026-10-09). Regülatör, Odak
         // düzlemi, Klik değeri and the name card have no box any more.
         MenzilMetricGrid(

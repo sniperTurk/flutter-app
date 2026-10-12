@@ -2818,7 +2818,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       minMagnification: zoom ? minMag : null,
       maxMagnification: zoom ? maxMag : null,
       magnification: zoom
-          ? (_magnification ?? maxMag).clamp(minMag, maxMag).toDouble()
+          // Starts at 20x, the clearest view for reading the reticle
+          // (owner, 2026-10-12); a scope that cannot reach 20x uses the
+          // nearest end of its range.
+          ? (_magnification ?? 20.0).clamp(minMag, maxMag).toDouble()
           : null,
       onMagnificationChanged: zoom
           ? (v) => setState(() => _magnification = v)
@@ -3717,7 +3720,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   /// Ne? / Neden önemli? / Nasıl? block of one setting.
-  Widget _explain(ProExplain e, {String? note}) {
+  Widget _explain(ProExplain e, {String? note, bool showTitle = true}) {
     final c = MenzilColors.of(context);
     TextSpan part(String label, String text) => TextSpan(
       children: [
@@ -3736,12 +3739,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            e.title,
-            // No bold text in the Pro boxes (owner, 2026-10-11).
-            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(height: MenzilSpace.xxs),
+          // A title equal to the box title is not repeated (owner,
+          // 2026-10-12).
+          if (showTitle) ...[
+            Text(
+              e.title,
+              // No bold text in the Pro boxes (owner, 2026-10-11).
+              style: MenzilType.body(
+                c.ink,
+              ).copyWith(fontWeight: FontWeight.w400),
+            ),
+            const SizedBox(height: MenzilSpace.xxs),
+          ],
           Text.rich(
             TextSpan(
               children: [
@@ -4147,7 +4156,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         title: 'Hareketli hedef',
         summary: _summaryTarget(),
         children: [
-          _explain(ProSectionInfo.movingTarget),
+          // Owner, 2026-10-12: boxes first, the explanation under them;
+          // Verileri sil under the boxes, the WEZ explanation last.
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -4177,7 +4187,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ),
             ],
           ),
-          _explain(ProSectionInfo.hitProbability),
+          _explain(ProSectionInfo.movingTarget, showTitle: false),
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -4254,6 +4264,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             expand: true,
             onPressed: _clearTargetBox,
           ),
+          _explain(ProSectionInfo.hitProbability),
         ],
       ),
       _proBox(
@@ -4261,7 +4272,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         title: 'Tüfek düzeltmeleri',
         summary: _summaryRifle(),
         children: [
-          _explain(ProSectionInfo.turretScale),
+          // Owner, 2026-10-12: boxes first, each explanation under them.
           MenzilInput(
             key: const Key('pro-turret-scale'),
             controller: turretScaleCtl,
@@ -4276,7 +4287,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 : null,
             onChanged: (_) => _coriolisChanged(),
           ),
-          _explain(ProSectionInfo.zeroOffset),
+          _explain(ProSectionInfo.turretScale),
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -4299,10 +4310,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ),
             ],
           ),
-          _explain(
-            ProSectionInfo.spinDrift,
-            note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
-          ),
+          _explain(ProSectionInfo.zeroOffset),
           if (_spinDriftOn) ...[
             MenzilInput(
               key: const Key('pro-bullet-length'),
@@ -4321,8 +4329,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     'hesaplanamaz.',
               ),
           ],
+          _explain(
+            ProSectionInfo.spinDrift,
+            note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
+          ),
           if (_isFirearm) ...[
-            _explain(ProSectionInfo.powder),
             // The values are entered on Profil > Mühimmat (2026-10-11); here
             // only what is used and today's velocity.
             Builder(
@@ -4366,6 +4377,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 );
               },
             ),
+            _explain(ProSectionInfo.powder),
           ],
           // PCP tüp basıncı (owner, 2026-10-12): never on a firearm.
           if (_isPcp) ..._pcpPressureProFields(c),

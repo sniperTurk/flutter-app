@@ -136,15 +136,12 @@ SECTIONS = [
         "Barut sıcaklığı Profil > Mühimmat'ta girilir; Pro'da yalnızca bugünkü "
         "hız gösterilir.",
     ]),
-    ("Tablo / DOPE", [
-        "Hedef sayfasının üstündeki \"Tek atış | Tablo\" anahtarından Tablo'ya "
-        "geç.",
-        "DOPE mesafeleri kutusuna mesafeleri virgülle yaz (ör. 100, 200, 300) "
-        "ve \"DOPE oluştur\"a dokun. Tablo, Hava Durumu ve Pro'daki değerlerle "
-        "hesaplanır.",
-        "Sütunlar: düşüş (cm), yükseklik düzeltmesi (MOA ve mrad), rüzgâr "
-        "düzeltmesi ve sapması, hız, enerji ve uçuş süresi (TOF). Hava "
-        "değişince tabloyu yeniden oluştur.",
+    ("DOPE kartı", [
+        "Hedef sayfasında dürbün görüntüsünün altındaki \"DOPE kartını paylaş "
+        "(PDF)\" düğmesiyle kart oluşturulur; Hava Durumu ve Pro'daki "
+        "değerlerle hesaplanır.",
+        "Kartta düşüş, yükseklik ve rüzgâr düzeltmesi, hız, enerji ve uçuş "
+        "süresi bulunur. Hava değişince kartı yeniden oluştur.",
     ]),
     ("Araçlar", [
         "Hız Doğrulama: uzak mesafede gözlenen düşümle namlu hızını ya da "

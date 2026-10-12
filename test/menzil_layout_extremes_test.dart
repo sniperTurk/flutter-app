@@ -88,12 +88,10 @@ Future<void> _visitEveryTab(WidgetTester tester) async {
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull, reason: tab);
   }
-  // Tablo is the second mode of Atış.
+  // No Tablo mode any more (owner, 2026-10-12).
   await tester.tap(_tab('Hedef'));
   await tester.pumpAndSettle();
-  await tester.tap(find.byKey(const Key('shot-mode-table')));
-  await tester.pumpAndSettle();
-  expect(tester.takeException(), isNull, reason: 'Atış > Tablo');
+  expect(find.byKey(const Key('shot-mode-table')), findsNothing);
 }
 
 void main() {
