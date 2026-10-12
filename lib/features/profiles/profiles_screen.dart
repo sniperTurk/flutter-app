@@ -1339,23 +1339,80 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ('40x üstü', 40.01, 1000),
   ];
 
-  bool _scopeFilterAccepts(ScopeOptic s) {
+  /// The filters narrow step by step (owner, 2026-10-13: "süzerek gider"):
+  /// Marka → Birim → Odak → Büyütme → Model. [level] says how many of the
+  /// filters apply: 1 = Birim, 2 = Birim + Odak, 3 = all three.
+  bool _scopeFilterAccepts(ScopeOptic s, [int level = 3]) {
     final unit = _scopeUnitFilter;
-    if (unit != null && s.clickUnit != unit) return false;
+    if (level >= 1 && unit != null && s.clickUnit != unit) return false;
     final ffp = _scopeFfpFilter;
-    if (ffp != null && s.firstFocalPlane != ffp) return false;
+    if (level >= 2 && ffp != null && s.firstFocalPlane != ffp) return false;
     final band = _scopeMagFilter;
-    if (band != null) {
-      final max = s.maxMagnification;
-      final (_, lo, hi) = _scopeMagBands[band];
-      if (max == null || max < lo || max > hi) return false;
-    }
+    if (level >= 3 && band != null && !_inMagBand(s, band)) return false;
     return true;
+  }
+
+  bool _inMagBand(ScopeOptic s, int band) {
+    final max = s.maxMagnification;
+    final (_, lo, hi) = _scopeMagBands[band];
+    return max != null && max >= lo && max <= hi;
+  }
+
+  /// Scopes of the chosen brand that pass the filters before [level].
+  Iterable<ScopeOptic> _scopesBefore(int level) => _scopeLib.where(
+    (s) => s.brand == _scopeBrandSel && _scopeFilterAccepts(s, level - 1),
+  );
+
+  /// Only the choices that the scopes left over really have, so a filter
+  /// never leads to an empty Model list.
+  List<AngularUnit> get _scopeUnitChoices {
+    final have = {for (final s in _scopesBefore(1)) s.clickUnit};
+    return [
+      for (final u in const [AngularUnit.mrad, AngularUnit.moa, AngularUnit.smoa])
+        if (have.contains(u)) u,
+    ];
+  }
+
+  List<bool> get _scopeFfpChoices {
+    final have = {
+      for (final s in _scopesBefore(2))
+        if (s.firstFocalPlane != null) s.firstFocalPlane!,
+    };
+    return [
+      for (final f in const [true, false])
+        if (have.contains(f)) f,
+    ];
+  }
+
+  List<int> get _scopeMagChoices {
+    final left = _scopesBefore(3).toList();
+    return [
+      for (var i = 0; i < _scopeMagBands.length; i++)
+        if (left.any((s) => _inMagBand(s, i))) i,
+    ];
+  }
+
+  /// After a change, a later filter whose choice is no longer offered goes
+  /// back to "Seçiniz".
+  void _dropUnavailableScopeFilters() {
+    if (_scopeUnitFilter != null &&
+        !_scopeUnitChoices.contains(_scopeUnitFilter)) {
+      _scopeUnitFilter = null;
+    }
+    if (_scopeFfpFilter != null &&
+        !_scopeFfpChoices.contains(_scopeFfpFilter)) {
+      _scopeFfpFilter = null;
+    }
+    if (_scopeMagFilter != null &&
+        !_scopeMagChoices.contains(_scopeMagFilter)) {
+      _scopeMagFilter = null;
+    }
   }
 
   List<Widget> _scopeFilterFields() {
     void changed(VoidCallback f) => setState(() {
       f();
+      _dropUnavailableScopeFilters();
       // A chosen model that the filter drops goes back to "Seçiniz".
       final brand = _scopeBrandSel;
       if (brand != null &&
@@ -1373,11 +1430,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         hint: 'Seçiniz',
         info: ProfileFieldInfo.scopeFilterUnit,
         initialValue: _scopeUnitFilter,
-        items: const [
-          DropdownMenuItem<AngularUnit>(child: Text('Seçiniz')),
-          DropdownMenuItem(value: AngularUnit.mrad, child: Text('MRAD')),
-          DropdownMenuItem(value: AngularUnit.moa, child: Text('MOA')),
-          DropdownMenuItem(value: AngularUnit.smoa, child: Text('SMOA')),
+        items: [
+          const DropdownMenuItem<AngularUnit>(child: Text('Seçiniz')),
+          for (final u in _scopeUnitChoices)
+            DropdownMenuItem(
+              value: u,
+              child: Text(switch (u) {
+                AngularUnit.mrad => 'MRAD',
+                AngularUnit.moa => 'MOA',
+                AngularUnit.smoa => 'SMOA',
+              }),
+            ),
         ],
         onChanged: (v) => changed(() => _scopeUnitFilter = v),
       ),
@@ -1387,10 +1450,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         hint: 'Seçiniz',
         info: ProfileFieldInfo.scopeFilterFocal,
         initialValue: _scopeFfpFilter,
-        items: const [
-          DropdownMenuItem<bool>(child: Text('Seçiniz')),
-          DropdownMenuItem(value: true, child: Text('FFP')),
-          DropdownMenuItem(value: false, child: Text('SFP')),
+        items: [
+          const DropdownMenuItem<bool>(child: Text('Seçiniz')),
+          for (final f in _scopeFfpChoices)
+            DropdownMenuItem(value: f, child: Text(f ? 'FFP' : 'SFP')),
         ],
         onChanged: (v) => changed(() => _scopeFfpFilter = v),
       ),
@@ -1403,7 +1466,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           initialValue: _scopeMagFilter,
           items: [
             const DropdownMenuItem<int>(child: Text('Seçiniz')),
-            for (var i = 0; i < _scopeMagBands.length; i++)
+            for (final i in _scopeMagChoices)
               DropdownMenuItem(value: i, child: Text(_scopeMagBands[i].$1)),
           ],
           onChanged: (v) => changed(() => _scopeMagFilter = v),
@@ -1632,6 +1695,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               }
               _scopeBrandSel = v;
               scopeBrand.text = v ?? '';
+              // Filters the new brand does not have go back to "Seçiniz".
+              _dropUnavailableScopeFilters();
             }),
           ),
         ),
