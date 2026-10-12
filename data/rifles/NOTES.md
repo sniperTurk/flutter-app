@@ -207,3 +207,13 @@ Eklenemeyen (429 / robots / resmi veri yok) — sonraki tur:
   Hatsan yeni PCP'ler (Blitz, Barrage, Hercules — resmi URL'ler bulundu, 429), Ekol/Voltran ESP serisi (429).
 - Ateşli: Kral Arms KR22/KR223 ve Derya TM22 (Türk, resmi sayfa var, 429), Voere, Verney-Carron, Daniel Defense Delta 5,
   PGM (429). Akdaş bir döküm firması (silah üreticisi değil) → boş kalıyor. Armsan, Canik, Tisaş, Torun, Asil: yivli tüfek yok.
+
+### 2026-10-12 ek tur — yerli markalar (429 sonrası yeniden deneme)
+Eklenen 74: Hatsan PCP +33 (Blitz, Hercules, Galatian / Carbine / 5-6-Tact Auto, Barrage, AT44 / AT44-10 —
+resmi kılavuz PDF'leri ve sayfalar), Derya 17 (TM22 / TM22M .22 LR / .22 WMR, resmi 2026 katalog PDF'i),
+Kral Arms ateşli +12 (KR22, KR223, KR556, KR762, Ridgepoint; kralarms.com), Ekol 12 (Voltran P1–P4 PCP;
+ekol.com.tr / voltran.com.tr robots ile kapalı, IWA katılımcı sayfasının Voltran resmi sitesi olarak verdiği
+blank-pistol.com kullanıldı — sahibin teyidi önerilir).
+Bilinçli çıkarılanlar: Derya 9x19 karabinalar (9x19 tüfek kalibresi listede yok, Utaş'taki gibi), Hatsan Jet II
+(PCP tabanca/karabina). Kral Ridgepoint 6.5 Creedmoor hatvesi null (sayfa tüm kalibrelere tek 1:10 veriyor).
+Ekol ESP 1550H/2635H/3635H/4635H resmi sitede yok → eklenmedi.
