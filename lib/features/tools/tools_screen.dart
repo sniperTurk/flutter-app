@@ -106,7 +106,8 @@ class ToolsScreen extends StatelessWidget {
           tileKey: const Key('tool-checklist'),
           icon: Icons.checklist,
           title: 'Atış Öncesi Kontrol',
-          subtitle: 'Profil, kule birimi ve turu, paralaks, su terazisi, büyütme',
+          subtitle:
+              'Profil, kule birimi ve turu, paralaks, su terazisi, büyütme',
           onTap: () => _open(context, const PreShotChecklistScreen()),
         ),
         MenzilToolTile(

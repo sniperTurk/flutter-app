@@ -23,7 +23,9 @@ abstract final class PreShotChecklist {
     return [
       ChecklistItem(
         'profile',
-        profileName == null ? 'Doğru profil seçili' : 'Doğru profil: $profileName',
+        profileName == null
+            ? 'Doğru profil seçili'
+            : 'Doğru profil: $profileName',
         'Hedef ekranındaki düzeltmeler aktif profile göre hesaplanır. Üstteki '
             'profil kutusunda tüfek, fişek ve dürbünün elinizdekiyle aynı '
             'olduğuna bakın. Örnek: 175 gr fişek atarken 168 gr profili yanlış '

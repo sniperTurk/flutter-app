@@ -43,8 +43,11 @@ const _profile = RifleProfile(
   sightHeightMm: 60,
 );
 
-Future<void> _pump(WidgetTester tester, Widget Function(
-  ProfileStore, ActiveProfileStore) build, {bool withProfile = true}) async {
+Future<void> _pump(
+  WidgetTester tester,
+  Widget Function(ProfileStore, ActiveProfileStore) build, {
+  bool withProfile = true,
+}) async {
   tester.view.physicalSize = const Size(430, 2400);
   tester.view.devicePixelRatio = 1.0;
   addTearDown(tester.view.reset);
@@ -107,7 +110,11 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
     await tester.pumpWidget(host(const Scaffold(body: ToolsScreen())));
-    for (final k in ['tool-checklist', 'tool-zero-group', 'tool-shot-journal']) {
+    for (final k in [
+      'tool-checklist',
+      'tool-zero-group',
+      'tool-shot-journal',
+    ]) {
       expect(find.byKey(Key(k)), findsOneWidget, reason: k);
     }
   });
@@ -116,7 +123,8 @@ void main() {
     testWidgets('FFP scope: five items, counter, ready, clear', (tester) async {
       await _pump(
         tester,
-        (s, a) => PreShotChecklistScreen(profileStore: s, activeProfileStore: a),
+        (s, a) =>
+            PreShotChecklistScreen(profileStore: s, activeProfileStore: a),
       );
       expect(find.text('Doğru profil: Hercules'), findsOneWidget);
       expect(find.byKey(const Key('check-sfp')), findsNothing);
@@ -140,7 +148,8 @@ void main() {
     testWidgets('no profile: list still works, SFP item shown', (tester) async {
       await _pump(
         tester,
-        (s, a) => PreShotChecklistScreen(profileStore: s, activeProfileStore: a),
+        (s, a) =>
+            PreShotChecklistScreen(profileStore: s, activeProfileStore: a),
         withProfile: false,
       );
       expect(find.text('Doğru profil seçili'), findsOneWidget);
@@ -190,9 +199,7 @@ void main() {
       await threeShots(tester);
       expect(find.text('3'), findsWidgets);
       // sigma = 1,15 cm, click 0,25 cm at 25 m -> 22 shots in total.
-      final more = tester
-          .widget<Text>(find.byKey(const Key('zg-more')))
-          .data!;
+      final more = tester.widget<Text>(find.byKey(const Key('zg-more'))).data!;
       expect(more, contains('19 atış daha'));
       expect(more, contains('1 klikten büyük'));
     });
@@ -295,7 +302,13 @@ void main() {
     testWidgets('five consistent first shots: approve after confirmation', (
       tester,
     ) async {
-      for (final (i, up) in [(1, 1.9), (2, 2.1), (3, 2.0), (4, 1.8), (5, 2.2)]) {
+      for (final (i, up) in [
+        (1, 1.9),
+        (2, 2.1),
+        (3, 2.0),
+        (4, 1.8),
+        (5, 2.2),
+      ]) {
         await const ShotJournalStore().add(_first('r$i', up));
       }
       await _pump(
@@ -326,7 +339,13 @@ void main() {
 
   group('Hedef: soğuk namlu satırı', () {
     Future<void> seed({required bool approve}) async {
-      for (final (i, up) in [(1, 1.9), (2, 2.1), (3, 2.0), (4, 1.8), (5, 2.2)]) {
+      for (final (i, up) in [
+        (1, 1.9),
+        (2, 2.1),
+        (3, 2.0),
+        (4, 1.8),
+        (5, 2.2),
+      ]) {
         await const ShotJournalStore().add(_first('r$i', up));
       }
       if (approve) {

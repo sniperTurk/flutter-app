@@ -95,7 +95,10 @@ void main() {
     await shot('araclar');
 
     await show(
-      PreShotChecklistScreen(profileStore: profiles, activeProfileStore: active),
+      PreShotChecklistScreen(
+        profileStore: profiles,
+        activeProfileStore: active,
+      ),
     );
     for (final id in ['profile', 'unit', 'turret']) {
       await tester.tap(find.byKey(Key('check-$id')));

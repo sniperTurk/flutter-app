@@ -97,9 +97,7 @@ class _PreShotChecklistScreenState extends State<PreShotChecklistScreen> {
                   key: const Key('check-clear'),
                   label: 'Temizle',
                   expand: true,
-                  onPressed: _done.isEmpty
-                      ? null
-                      : () => setState(_done.clear),
+                  onPressed: _done.isEmpty ? null : () => setState(_done.clear),
                 ),
               ],
             ),
@@ -123,29 +121,29 @@ class _CheckRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     return MenzilCard(
-        margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
-        padding: EdgeInsets.zero,
-        child: Semantics(
-          checked: checked,
-          child: InkWell(
-            onTap: () => onChanged(!checked),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 52),
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: checked,
-                    onChanged: (v) => onChanged(v ?? false),
-                  ),
-                  Expanded(
-                    child: Text(item.title, style: MenzilType.body(c.ink)),
-                  ),
-                  MenzilInfoButton(title: item.title, text: item.info),
-                ],
-              ),
+      margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
+      padding: EdgeInsets.zero,
+      child: Semantics(
+        checked: checked,
+        child: InkWell(
+          onTap: () => onChanged(!checked),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 52),
+            child: Row(
+              children: [
+                Checkbox(
+                  value: checked,
+                  onChanged: (v) => onChanged(v ?? false),
+                ),
+                Expanded(
+                  child: Text(item.title, style: MenzilType.body(c.ink)),
+                ),
+                MenzilInfoButton(title: item.title, text: item.info),
+              ],
             ),
           ),
         ),
+      ),
     );
   }
 }

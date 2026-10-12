@@ -34,7 +34,10 @@ void main() {
 
   test('click size: 0.1 mrad at 100 m is 1 cm', () {
     expect(GroupCenter.clickCm(clickMrad: 0.1, rangeM: 100), closeTo(1, 1e-12));
-    expect(GroupCenter.clickCm(clickMrad: 0.1, rangeM: 25), closeTo(0.25, 1e-12));
+    expect(
+      GroupCenter.clickCm(clickMrad: 0.1, rangeM: 25),
+      closeTo(0.25, 1e-12),
+    );
   });
 
   group('shots', () {

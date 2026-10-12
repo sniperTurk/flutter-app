@@ -36,7 +36,11 @@ abstract final class ZeroGroupFieldInfo {
 class ZeroGroupScreen extends StatefulWidget {
   final ProfileStore? profileStore;
   final ActiveProfileStore? activeProfileStore;
-  const ZeroGroupScreen({super.key, this.profileStore, this.activeProfileStore});
+  const ZeroGroupScreen({
+    super.key,
+    this.profileStore,
+    this.activeProfileStore,
+  });
 
   @override
   State<ZeroGroupScreen> createState() => _ZeroGroupScreenState();
@@ -220,7 +224,9 @@ class _ZeroGroupScreenState extends State<ZeroGroupScreen> {
                 for (final g in _gridSizes)
                   DropdownMenuItem(
                     value: g,
-                    child: Text('${ToolFormat.dec(g, g == g.roundToDouble() ? 0 : 1)} cm'),
+                    child: Text(
+                      '${ToolFormat.dec(g, g == g.roundToDouble() ? 0 : 1)} cm',
+                    ),
                   ),
               ],
               onChanged: (v) => setState(() => _gridCm = v),
@@ -229,9 +235,7 @@ class _ZeroGroupScreenState extends State<ZeroGroupScreen> {
         ),
         Row(
           children: [
-            Expanded(
-              child: Text('Hedef', style: MenzilType.label(c.ink2)),
-            ),
+            Expanded(child: Text('Hedef', style: MenzilType.label(c.ink2))),
             const MenzilInfoButton(
               title: 'Hedef',
               text: ZeroGroupFieldInfo.target,
@@ -320,8 +324,9 @@ class _ZeroGroupScreenState extends State<ZeroGroupScreen> {
         ),
       ];
     }
-    String side(double v, String plus, String minus) =>
-        v.abs() < 0.05 ? '0 cm' : '${ToolFormat.dec(v.abs(), 1)} cm ${v > 0 ? plus : minus}';
+    String side(double v, String plus, String minus) => v.abs() < 0.05
+        ? '0 cm'
+        : '${ToolFormat.dec(v.abs(), 1)} cm ${v > 0 ? plus : minus}';
     final click = clickCm!;
     final more = GroupCenter.moreShots(s, clickCm: click);
     final se = s.centerUncertaintyCm;
@@ -434,5 +439,7 @@ class _TargetPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _TargetPainter old) =>
-      old.taps.length != taps.length || old.center != center || old.colors != colors;
+      old.taps.length != taps.length ||
+      old.center != center ||
+      old.colors != colors;
 }

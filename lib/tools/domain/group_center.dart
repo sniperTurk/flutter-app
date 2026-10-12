@@ -51,7 +51,8 @@ abstract final class GroupCenter {
     if (n >= 2) {
       var ss = 0.0;
       for (final p in points) {
-        ss += (p.rightCm - mx) * (p.rightCm - mx) + (p.upCm - my) * (p.upCm - my);
+        ss +=
+            (p.rightCm - mx) * (p.rightCm - mx) + (p.upCm - my) * (p.upCm - my);
       }
       sigma = math.sqrt(ss / (2 * (n - 1)));
       se = sigma / math.sqrt(n);

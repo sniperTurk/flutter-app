@@ -253,9 +253,8 @@ class _ShotJournalScreenState extends State<ShotJournalScreen> {
   }
 
   static String _recordText(ShotRecord r) {
-    String miss(double v, String plus, String minus) => v == 0
-        ? ''
-        : '${ToolFormat.dec(v.abs(), 1)} ${v > 0 ? plus : minus}';
+    String miss(double v, String plus, String minus) =>
+        v == 0 ? '' : '${ToolFormat.dec(v.abs(), 1)} ${v > 0 ? plus : minus}';
     final up = miss(r.missUpCm, 'yukarı', 'aşağı');
     final right = miss(r.missRightCm, 'sağ', 'sol');
     final missText = up.isEmpty && right.isEmpty
@@ -426,10 +425,7 @@ class _ShotJournalScreenState extends State<ShotJournalScreen> {
     }
 
     final lines = <Widget>[
-      Text(
-        '$state · ${s.firstShots} ilk atış',
-        style: MenzilType.body(c.ink2),
-      ),
+      Text('$state · ${s.firstShots} ilk atış', style: MenzilType.body(c.ink2)),
     ];
     final text = ColdBoreFormat.correction(s, u);
     switch (s.verdict) {

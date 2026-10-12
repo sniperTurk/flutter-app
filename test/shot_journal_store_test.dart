@@ -39,18 +39,21 @@ void main() {
     expect((await store.load()).length, 2);
   });
 
-  test('damaged storage: unreadable JSON is empty, bad records skipped', () async {
-    SharedPreferences.setMockInitialValues({ShotJournalStore.key: '{nope'});
-    expect(await const ShotJournalStore().load(), isEmpty);
-    SharedPreferences.setMockInitialValues({
-      ShotJournalStore.key: jsonEncode([
-        _rec('ok').toJson(),
-        {'id': 'bad', 'rangeM': 'x'},
-        {..._rec('nan').toJson(), 'rangeM': -5},
-      ]),
-    });
-    expect((await const ShotJournalStore().load()).map((r) => r.id), ['ok']);
-  });
+  test(
+    'damaged storage: unreadable JSON is empty, bad records skipped',
+    () async {
+      SharedPreferences.setMockInitialValues({ShotJournalStore.key: '{nope'});
+      expect(await const ShotJournalStore().load(), isEmpty);
+      SharedPreferences.setMockInitialValues({
+        ShotJournalStore.key: jsonEncode([
+          _rec('ok').toJson(),
+          {'id': 'bad', 'rangeM': 'x'},
+          {..._rec('nan').toJson(), 'rangeM': -5},
+        ]),
+      });
+      expect((await const ShotJournalStore().load()).map((r) => r.id), ['ok']);
+    },
+  );
 
   test('keeps at most maxRecords, dropping the oldest', () async {
     final many = [
