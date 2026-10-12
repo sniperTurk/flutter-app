@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="700" viewBox="0 0 1180 700" font-family="Oswald, 'Oswald', sans-serif" font-weight="400">
+<style>@font-face{font-family:"Oswald";src:url("../../../assets/fonts/Oswald-Regular.ttf");font-weight:400;} text{font-family:"Oswald",sans-serif;font-weight:400;}</style>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<rect x="30.0" y="30.0" width="390.0" height="600.0" rx="28" fill="#E6ECEF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="225.0" y="70.0" font-size="20" fill="#0F2230" text-anchor="middle">Hedef</text>
+<text x="225.0" y="92.0" font-size="13" fill="#465D6F" text-anchor="middle">PCP</text>
+<rect x="46.0" y="108.0" width="358.0" height="34.0" rx="17" fill="#F7FAFB" stroke="#BCCAD3" stroke-width="1"/>
+<text x="225.0" y="130.0" font-size="13.5" fill="#465D6F" text-anchor="middle">PCP profil · .25</text>
+<rect x="46.0" y="154.0" width="358.0" height="210.0" rx="16" fill="#F7FAFB" stroke="#BCCAD3" stroke-width="1"/>
+<circle cx="225.0" cy="259.0" r="80" fill="#FFFFFF" stroke="#0F2230" stroke-width="1.2"/>
+<path d="M145.0,259 L305.0,259 M225.0,179 L225.0,339" stroke="#0F2230" stroke-width="1"/>
+<text x="225.0" y="359.0" font-size="12" fill="#465D6F" text-anchor="middle">Hedef görünümü · bugünkü gibi</text>
+<rect x="46.0" y="376.0" width="173.0" height="62.0" rx="14" fill="#F7FAFB" stroke="#BCCAD3" stroke-width="1"/>
+<text x="60.0" y="398.0" font-size="13" fill="#465D6F" text-anchor="start">Yukarı</text>
+<text x="60.0" y="426.0" font-size="22" fill="#0F2230" text-anchor="start">3,2 MIL</text>
+<rect x="231.0" y="376.0" width="173.0" height="62.0" rx="14" fill="#F7FAFB" stroke="#BCCAD3" stroke-width="1"/>
+<text x="245.0" y="398.0" font-size="13" fill="#465D6F" text-anchor="start">Sağa</text>
+<text x="245.0" y="426.0" font-size="22" fill="#0F2230" text-anchor="start">0,4 MIL</text>
+<text x="50.0" y="466.0" font-size="13.5" fill="#465D6F" text-anchor="start">Tüp 140 bar · Regülatör 150 bar · Hız 837 fps</text>
+<rect x="46.0" y="478.0" width="358.0" height="54.0" rx="12" fill="#F7E6BD"/>
+<rect x="46.0" y="478.0" width="5.0" height="54.0" rx="2" fill="#E9A00C"/>
+<text x="62.0" y="502.0" font-size="13.5" fill="#0F2230" text-anchor="start">Tüp regülatör basıncının altında.</text>
+<text x="62.0" y="521.0" font-size="13.5" fill="#0F2230" text-anchor="start">Hız, ölçümlerinizden hesaplandı: 837 fps.</text>
+<rect x="50.0" y="444.0" width="350.0" height="96.0" rx="12" fill="none" stroke="#6A2C91" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="406.0" cy="454.0" r="10" fill="#6A2C91"/>
+<text x="406.0" y="458.5" font-size="12" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="460.0" y="60.0" font-size="17" fill="#6A2C91" text-anchor="start">Taslak notları · Hedef · yalnız PCP</text>
+<circle cx="470.0" cy="87.0" r="10" fill="#6A2C91"/>
+<text x="470.0" y="91.5" font-size="12" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="488.0" y="92.0" font-size="14.5" fill="#0F2230" text-anchor="start">Durum satırı ve uyarı · giriş kutusu yok, değer Pro'dan</text>
+<text x="488.0" y="112.0" font-size="13" fill="#465D6F" text-anchor="start">Tüp basıncı girilmemişse satır ve uyarı hiç görünmez.</text>
+<text x="460.0" y="150.0" font-size="14" fill="#0F2230" text-anchor="start">Yaklaşıyor · uyarı</text>
+<rect x="460.0" y="160.0" width="400.0" height="54.0" rx="12" fill="#F7E6BD"/>
+<rect x="460.0" y="160.0" width="5.0" height="54.0" rx="2" fill="#E9A00C"/>
+<text x="476.0" y="184.0" font-size="13.5" fill="#0F2230" text-anchor="start">Tüp basıncı regülatör basıncına yaklaştı.</text>
+<text x="476.0" y="203.0" font-size="13.5" fill="#0F2230" text-anchor="start">Birkaç atış sonra hız düşer; tüpü doldurun.</text>
+<text x="460.0" y="246.0" font-size="14" fill="#0F2230" text-anchor="start">Regülatör altında, ölçüm var · uyarı</text>
+<rect x="460.0" y="256.0" width="400.0" height="54.0" rx="12" fill="#F7E6BD"/>
+<rect x="460.0" y="256.0" width="5.0" height="54.0" rx="2" fill="#E9A00C"/>
+<text x="476.0" y="280.0" font-size="13.5" fill="#0F2230" text-anchor="start">Tüp regülatör basıncının altında.</text>
+<text x="476.0" y="299.0" font-size="13.5" fill="#0F2230" text-anchor="start">Hız, ölçümlerinizden hesaplandı: 837 fps.</text>
+<text x="460.0" y="342.0" font-size="14" fill="#0F2230" text-anchor="start">Regülatör altında, ölçüm yok · tehlike</text>
+<rect x="460.0" y="352.0" width="400.0" height="92.0" rx="12" fill="#F6D9D6"/>
+<rect x="460.0" y="352.0" width="5.0" height="92.0" rx="2" fill="#B3261E"/>
+<text x="476.0" y="376.0" font-size="13.5" fill="#0F2230" text-anchor="start">Tüp regülatör basıncının altında; hız düşer</text>
+<text x="476.0" y="395.0" font-size="13.5" fill="#0F2230" text-anchor="start">ama ne kadar düştüğü ölçülmedi. Hesap profildeki</text>
+<text x="476.0" y="414.0" font-size="13.5" fill="#0F2230" text-anchor="start">hızı kullanıyor, isabet aşağı kayabilir.</text>
+<text x="476.0" y="433.0" font-size="13.5" fill="#0F2230" text-anchor="start">Tüpü doldurun.</text>
+<text x="460.0" y="476.0" font-size="14" fill="#0F2230" text-anchor="start">Regülatörsüz, ölçüm aralığı dışında · uyarı</text>
+<rect x="460.0" y="486.0" width="400.0" height="54.0" rx="12" fill="#F7E6BD"/>
+<rect x="460.0" y="486.0" width="5.0" height="54.0" rx="2" fill="#E9A00C"/>
+<text x="476.0" y="510.0" font-size="13.5" fill="#0F2230" text-anchor="start">Tüp basıncı ölçtüğünüz aralığın dışında;</text>
+<text x="476.0" y="529.0" font-size="13.5" fill="#0F2230" text-anchor="start">hesap profildeki hızı kullanıyor.</text>
+<text x="460.0" y="572.0" font-size="13" fill="#465D6F" text-anchor="start">Uyarı çıkmayan durumlar: tüp basıncı yok, regülatör üstünde,</text>
+<text x="460.0" y="591.0" font-size="13" fill="#465D6F" text-anchor="start">ölçüm eğrisi içinde, ölçüm hiç yok; hız profildeki hız.</text>
+<text x="460.0" y="616.0" font-size="13" fill="#465D6F" text-anchor="start">Değerler çizim içindir; uygulama kendi hesabını gösterir.</text>
+</svg>
