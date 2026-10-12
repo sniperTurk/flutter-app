@@ -271,7 +271,8 @@ for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
         bc, model, bcsrc = None, None, None
         # BC completion (2026-10-11): the cartridge maker names the bullet and the
         # BC is that bullet maker's figure -> shown as a bullet BC.
-        from_bullet = 'BC mermi üreticisinden' in (r.get('notes') or '')
+        # Round 2 (2026-10-12) records also carry an explicit bc_from_bullet flag.
+        from_bullet = bool(r.get('bc_from_bullet')) or 'BC mermi üreticisinden' in (r.get('notes') or '')
         if r.get('g7_bc'):
             bc, model, bcsrc = r['g7_bc'], 'g7', 'mermi' if from_bullet else 'fişek'
         elif r.get('g1_bc'):
