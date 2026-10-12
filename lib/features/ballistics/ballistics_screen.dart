@@ -1985,10 +1985,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       children: [
         MenzilCard(
           key: const Key('environment-no-profile'),
-          background: c.amberSoft,
+          // Plain card, thin orange edge (owner, 2026-10-12).
+          borderColor: c.amber,
           child: Row(
             children: [
-              Icon(Icons.wb_sunny_outlined, color: c.amberInk, size: 28),
+              Icon(Icons.wb_sunny_outlined, color: c.amber, size: 28),
               const SizedBox(width: MenzilSpace.md),
               Expanded(
                 child: Column(
@@ -2002,7 +2003,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     Text(
                       'Profil oluşturunca bu değerler her atışın hesabına '
                       'otomatik girer.',
-                      style: MenzilType.caption(c.amberInk),
+                      style: MenzilType.caption(c.ink2),
                     ),
                   ],
                 ),
@@ -4663,80 +4664,111 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _displayMaxRange.floorToDouble(),
     );
 
+    final appDark = Theme.of(context).brightness == Brightness.dark;
     return [
-      // Range dial: −5 −1 [value] +1 +5, slider below.
-      Row(
-        children: [
-          MenzilStepButton(
-            label: '−5',
-            semanticLabel: '5 azalt',
-            onPressed: () => _setShotDisplay(display - 5),
-          ),
-          const SizedBox(width: MenzilSpace.xs),
-          MenzilStepButton(
-            label: '−1',
-            semanticLabel: '1 azalt',
-            small: true,
-            onPressed: () => _setShotDisplay(display - 1),
-          ),
-          Expanded(
-            child: Semantics(
-              button: true,
-              label:
-                  'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
-              child: ExcludeSemantics(
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(MenzilRadius.button),
-                  onTap: _editShotRange,
-                  child: SizedBox(
-                    height: 64,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        textBaseline: TextBaseline.alphabetic,
-                        children: [
-                          Text(
-                            '$display',
-                            style: MenzilType.display(
-                              c.ink,
-                              size: display >= 1000 ? 48 : 60,
+      // Range dial: −5 −1 [value] +1 +5, slider below. Light like the scope
+      // inside in both themes, dark numbers (owner, 2026-10-12: "rakamlar
+      // çok beyaz, göz yoruyor").
+      Theme(
+        data: MenzilTheme.light(),
+        child: Builder(
+          builder: (context) {
+            final c = MenzilColors.of(context);
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                color: appDark
+                    ? const Color(0xFFE9EDF0)
+                    : MenzilColors.light.scopeBg,
+                borderRadius: BorderRadius.circular(MenzilRadius.card),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  MenzilSpace.sm,
+                  MenzilSpace.sm,
+                  MenzilSpace.sm,
+                  0,
+                ),
+                child: Column(
+                  children: [
+            Row(
+              children: [
+                MenzilStepButton(
+                  label: '−5',
+                  semanticLabel: '5 azalt',
+                  onPressed: () => _setShotDisplay(display - 5),
+                ),
+                const SizedBox(width: MenzilSpace.xs),
+                MenzilStepButton(
+                  label: '−1',
+                  semanticLabel: '1 azalt',
+                  small: true,
+                  onPressed: () => _setShotDisplay(display - 1),
+                ),
+                Expanded(
+                  child: Semantics(
+                    button: true,
+                    label:
+                        'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
+                    child: ExcludeSemantics(
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(MenzilRadius.button),
+                        onTap: _editShotRange,
+                        child: SizedBox(
+                          height: 64,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: [
+                                Text(
+                                  '$display',
+                                  style: MenzilType.display(
+                                    c.ink,
+                                    size: display >= 1000 ? 44 : 52,
+                                  ),
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  _distanceUnit,
+                                  style: MenzilType.number(c.ink2, size: 18),
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(width: 4),
-                          Text(
-                            _distanceUnit,
-                            style: MenzilType.number(c.ink2, size: 18),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
+                MenzilStepButton(
+                  label: '+1',
+                  semanticLabel: '1 artır',
+                  small: true,
+                  onPressed: () => _setShotDisplay(display + 1),
+                ),
+                const SizedBox(width: MenzilSpace.xs),
+                MenzilStepButton(
+                  label: '+5',
+                  semanticLabel: '5 artır',
+                  onPressed: () => _setShotDisplay(display + 5),
+                ),
+              ],
             ),
-          ),
-          MenzilStepButton(
-            label: '+1',
-            semanticLabel: '1 artır',
-            small: true,
-            onPressed: () => _setShotDisplay(display + 1),
-          ),
-          const SizedBox(width: MenzilSpace.xs),
-          MenzilStepButton(
-            label: '+5',
-            semanticLabel: '5 artır',
-            onPressed: () => _setShotDisplay(display + 5),
-          ),
-        ],
-      ),
-      Slider(
-        value: display.toDouble().clamp(1.0, sliderMax).toDouble(),
-        min: 1,
-        max: sliderMax,
-        label: '$display $_distanceUnit',
-        semanticFormatterCallback: (v) => '${v.round()} $_distanceUnit',
-        onChanged: (v) => _setShotDisplay(v.round()),
+            Slider(
+              value: display.toDouble().clamp(1.0, sliderMax).toDouble(),
+              min: 1,
+              max: sliderMax,
+              label: '$display $_distanceUnit',
+              semanticFormatterCallback: (v) => '${v.round()} $_distanceUnit',
+              onChanged: (v) => _setShotDisplay(v.round()),
+            ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
       ),
       const SizedBox(height: MenzilSpace.sm),
       if (_pcpRegulatorBypassed)

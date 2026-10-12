@@ -37,6 +37,12 @@ abstract final class ScopeDialKeys {
 /// The required windage comes from the drag solver (0 in the vacuum
 /// baseline, which has no wind model): with it the impact marker shows
 /// where the shot lands for the dialled windage in the entered wind.
+/// Light scope palette whatever the app theme (owner, 2026-10-12).
+MenzilColors _scopeColors(MenzilColors c) =>
+    identical(c, MenzilColors.light) || c.scopeBg == MenzilColors.light.scopeBg
+    ? MenzilColors.light
+    : MenzilColors.light.copyWith(scopeBg: const Color(0xFFE9EDF0));
+
 class ScopeDialView extends StatelessWidget {
   final AngularUnit unit;
   final double clickValue;
@@ -412,7 +418,10 @@ class ScopeDialView extends StatelessWidget {
                   builder: (zoom, showLabels) => ScopeReticlePainter(
                     zoom: zoom,
                     showLabels: showLabels,
-                    colors: c,
+                    // The scope inside is light in both themes: a black
+                    // reticle on an off-white field, like a daytime scope
+                    // (owner, 2026-10-12). Off-white in Koyu to spare the eye.
+                    colors: _scopeColors(c),
                     halfField: halfField,
                     reticleHalfField: reticleHalfField,
                     trueHalfField: trueHalfField,
@@ -905,18 +914,21 @@ class _TurretBarState extends State<_TurretBar> {
               child: ExcludeSemantics(
                 child: SizedBox.square(
                   dimension: 52,
+                  // A plain button like the others (owner, 2026-10-12):
+                  // white on navy in Koyu, dark on light in Açık; orange is
+                  // kept for "selected / taken".
                   child: Material(
                     key: ScopeDialKeys.turretToggle,
-                    color: _windage ? c.ink : c.cyan,
-                    shape: const CircleBorder(),
+                    color: c.surface,
+                    shape: CircleBorder(side: BorderSide(color: c.line)),
                     child: InkWell(
                       customBorder: const CircleBorder(),
                       onTap: () => setState(() => _windage = !_windage),
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           'L-R',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: c.ink,
                             fontWeight: FontWeight.w700,
                             fontSize: 15,
                           ),

@@ -272,6 +272,9 @@ void main() {
   testWidgets('full view: solve after the pressure warning came and went', (
     tester,
   ) async {
+    // Hava Durumu is kept per profile now: start from empty storage so an
+    // earlier test's İrtifa does not come back.
+    SharedPreferences.setMockInitialValues({});
     await tester.pumpWidget(
       const MaterialApp(home: BallisticsScreen(profile: _profile)),
     );
@@ -295,37 +298,10 @@ void main() {
     await solve();
     expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
     await backToPressure();
-    if (find
-        .byKey(const Key('environment-pressure-warning'))
-        .evaluate()
-        .isEmpty) {
-      final p = tester
-          .widget<TextField>(
-            find.descendant(
-              of: field(BallisticsFieldKeys.pressure),
-              matching: find.byType(TextField),
-            ),
-          )
-          .controller!
-          .text;
-      final a = tester
-          .widget<TextField>(
-            find.descendant(
-              of: field(BallisticsFieldKeys.altitude),
-              matching: find.byType(TextField),
-            ),
-          )
-          .controller!
-          .text;
-      final notes = find
-          .byType(Text)
-          .evaluate()
-          .map((e) => (e.widget as Text).data)
-          .whereType<String>()
-          .where((t) => t.contains('basınç') || t.contains('irtifa'))
-          .join('|');
-      fail('DIAG pressure="$p" altitude="$a" notes=$notes');
-    }
+    expect(
+      find.byKey(const Key('environment-pressure-warning')),
+      findsOneWidget,
+    );
     await tester.enterText(field(BallisticsFieldKeys.pressure), '1013.25');
     await tester.enterText(field(BallisticsFieldKeys.humidity), '95');
     await solve();
