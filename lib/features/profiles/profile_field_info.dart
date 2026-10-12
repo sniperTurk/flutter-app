@@ -81,9 +81,6 @@ abstract final class ProfileFieldInfo {
   static const scopeFilterMag =
       'Dürbünün üstünde yazan büyütme aralığı. Örnek: 5-30x56 yazıyorsa '
       '5-30x seçin. Yalnız kalan dürbünlerdeki aralıklar çıkar.';
-  static const scopeFilterObjective =
-      'Ön merceğin çapı, mm. Büyütmeden sonra yazan sayıdır. Örnek: 5-30x56 '
-      'yazıyorsa 56 mm seçin.';
   static const scopeFilterTube =
       'Dürbün gövdesinin çapı, mm; dürbün ayağının ölçüsüdür. Kutuda ya da '
       'kılavuzda yazar. Örnek: 30, 34 veya 35 mm.';
