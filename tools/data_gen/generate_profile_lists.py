@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generates lib/data/cartridges.dart, rifle_library.dart, factory_ammo_library.dart
-from the data branches (data/rifles, data/mke, data/ammo, data/ammo-military).
+from the data branches (data/rifles, data/mke, data/ammo, data/ammo-military)
+and data/muhimmat/ammo (mühimmat tamamlama, 2026-10-12).
 Manufacturer-sourced data only; nothing is guessed. Records whose caliber cannot
 be mapped to a known cartridge (with a known bullet diameter) are skipped and
 listed on stderr.
@@ -270,13 +271,17 @@ def lib_bc(brand, bullet, grain, dia):
 
 
 ammo = []
-for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
+# Mühimmat tamamlama (2026-10-12): new makers kept in this repo (data/muhimmat/ammo).
+AMMO_FILES = sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))) + sorted(glob.glob(str(REPO / 'data/muhimmat/ammo/*.json')))
+for f in AMMO_FILES:
     for r in json.load(open(f)):
         # MKE velocities are V23.7 m; data/mke is read below and corrected.
         if r['brand'] == 'MKE':
             continue
         c = cartridge(r['cartridge'])
-        if c is None or not r.get('muzzle_velocity_fps'):
+        # The app takes 600-4500 fps factory rounds (profile_lists_test); a
+        # primer-powered parlour round (Aguila Colibrí, 420 fps) stays out.
+        if c is None or not r.get('muzzle_velocity_fps') or not 600 <= r['muzzle_velocity_fps'] <= 4500:
             skipped.append(('ammo', r['brand'], r['product'], r['cartridge']))
             continue
         dia = CARTRIDGES[c]
