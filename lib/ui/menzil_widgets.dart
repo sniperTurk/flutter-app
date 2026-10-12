@@ -1474,6 +1474,18 @@ class MenzilSecondaryButton extends StatelessWidget {
           if (fits) break;
           size -= 0.5;
         }
+        if (maxLabelLines == 1) {
+          // One line never wraps: below the smallest size it scales down.
+          return FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label,
+              maxLines: 1,
+              softWrap: false,
+              style: TextStyle(fontSize: size, fontWeight: FontWeight.w400),
+            ),
+          );
+        }
         return Text(
           label,
           maxLines: maxLabelLines,
