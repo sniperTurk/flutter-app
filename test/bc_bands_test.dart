@@ -1,11 +1,8 @@
-// GA (ChairGun diabolo pellet) drag law and velocity-dependent BC
-// (çoklu BC), owner 2026-10-09.
+// Velocity-dependent BC (çoklu BC), owner 2026-10-09.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/core/aerodynamic_trajectory_solver.dart';
 import 'package:sniper_turk/core/ballistic_input.dart';
-import 'package:sniper_turk/core/drag_safety.dart';
-import 'package:sniper_turk/core/standard_drag_tables.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/manual_catalog_store.dart';
@@ -42,38 +39,9 @@ Map<String, dynamic> _ammo(Map<String, dynamic> extra) => {
 };
 
 void main() {
-  group('GA table', () {
-    test('keeps the 37 published Cd-vs-Mach pairs verbatim', () {
-      final ga = StandardDragTables.ga;
-      expect(ga.samples.length, 37);
-      expect(ga.coefficientAtMach(0.0), 0.250);
-      expect(ga.coefficientAtMach(0.5), 0.189);
-      expect(ga.coefficientAtMach(0.8), 0.241);
-      expect(ga.coefficientAtMach(1.4), 0.672);
-      expect(ga.coefficientAtMach(3.6), 0.503);
-      expect(StandardDragTables.gaSourceUrl, contains('527843'));
-    });
-
-    test('subsonic pellet: GA drags less than G1 at the same BC', () {
-      final g1 = _solver.solve(_pellet());
-      final ga = _solver.solve(_pellet(model: BallisticModel.ga));
-      expect(ga.last.velocityMps, greaterThan(g1.last.velocityMps));
-      expect(ga.last.dropM, lessThan(g1.last.dropM));
-    });
-
-    test('GA on a firearm warns; on a PCP it is flagged unverified', () {
-      List<DragWarningKind> kinds(WeaponPlatform p) => DragSafety.assess(
-        muzzleVelocityMps: 250,
-        environment: const EnvironmentData(),
-        ballisticCoefficient: 0.03,
-        ballisticModel: BallisticModel.ga,
-        platform: p,
-      ).map((w) => w.kind).toList();
-      expect(kinds(WeaponPlatform.pcp), [DragWarningKind.gaUnverified]);
-      expect(
-        kinds(WeaponPlatform.firearm),
-        contains(DragWarningKind.firearmWithGa),
-      );
+  group('GA removed', () {
+    test('only G1/G7 and the BRL/RA4/GS laws remain', () {
+      expect(BallisticModel.values.map((m) => m.name), isNot(contains('ga')));
     });
   });
 
@@ -131,10 +99,10 @@ void main() {
   });
 
   group('Storage', () {
-    test('GA and bands are read from a personal record', () {
+    test('G1 records and their bands are read unchanged', () {
       final cat = UserCatalog.fromManualEntries([
         _ammo({
-          'bcModel': 'ga',
+          'bcModel': 'G1',
           'bcBands': [
             {'mps': 240.0, 'bc': 0.033},
             {'mps': 0.0, 'bc': 0.029},
@@ -142,7 +110,8 @@ void main() {
         }),
       ]);
       final a = cat.ammunition.single;
-      expect(a.ballisticModel, BallisticModel.ga);
+      expect(a.ballisticModel, BallisticModel.g1);
+      expect(a.ballisticCoefficient, 0.033);
       expect(a.bcBands, const [BcBand(240, 0.033), BcBand(0, 0.029)]);
     });
 
@@ -163,7 +132,7 @@ void main() {
       final store = ManualCatalogStore();
       await store.upsert(
         _ammo({
-          'bcModel': 'ga',
+          'bcModel': 'g1',
           'bcBands': [
             {'mps': 240.0, 'bc': 0.033},
             {'mps': 0.0, 'bc': 0.029},

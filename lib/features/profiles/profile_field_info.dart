@@ -4,6 +4,14 @@
 /// explanation. Keep them short, concrete and in Turkish; say where the value
 /// can be found and give a typical example.
 abstract final class ProfileFieldInfo {
+  // Profil
+  static const platform =
+      'Tüfeğinizin türü. PCP Tüfek: basınçlı havayla saçma veya slug atan '
+      'havalı tüfek. Ateşli Tüfek: barutlu fişek atan tüfek. Marka, kalibre '
+      've mühimmat listeleri ile açıklamalar bu seçime göre değişir; '
+      'tüfeğinizin belgesinde veya kutusunda yazar. Örnek: Hatsan Factor '
+      'için PCP Tüfek.';
+
   // Tüfek
   static const rifleOrigin =
       'Tüfeğin üretildiği yer. Yerli: Türkiye\'de üretilen markalar '
@@ -60,9 +68,7 @@ abstract final class ProfileFieldInfo {
       'BC sayısının hangi standart mermi şekline göre verildiği. G1: küt uçlu '
       'klasik şekil; havalı tüfek saçması ve slug için neredeyse her zaman G1 '
       'verilir. G7: uzun, sivri uzun menzil mermisi. Aynı mermide G7 değeri '
-      'G1\'in yaklaşık yarısıdır. GA (saçma): ChairGun\'ın diabolo saçma '
-      'modeli; BC\'yi ChairGun\'dan alıyorsanız GA seçin, saçmada en doğru '
-      'sonucu verir. GS: çelik bilye (BB). Yanlış model hesabı ciddi '
+      'G1\'in yaklaşık yarısıdır. GS: çelik bilye (BB). Yanlış model hesabı ciddi '
       'saptırır. Bilmiyorsanız G1 seçin.';
   static const bcFirearm =
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
@@ -99,7 +105,7 @@ abstract final class ProfileFieldInfo {
       'birden çok BC verir (ör. Sierra). Örnek: 1800 fps altında 0,450.';
   static const bandBc =
       'Hız, soldaki eşiğin altına düştüğünde kullanılacak BC (aynı model: '
-      'G1/G7/GA). Boş bırakırsanız tek BC kullanılır. Örnek: 0,031.';
+      'G1/G7). Boş bırakırsanız tek BC kullanılır. Örnek: 0,031.';
 
   // Dürbün
   static const focalPlane =
@@ -123,8 +129,8 @@ abstract final class ProfileFieldInfo {
   static const clickValue =
       'Üst kuleyi bir klik çevirince nişanın ne kadar kaydığı. Kulenin '
       'üstünde veya dürbünün föyünde yazar ("1 click = 0.1 MRAD", '
-      '"1/4 MOA"). En yaygını MRAD dürbünde 0,1 mrad, MOA dürbünde 1/4 MOA; '
-      'hassas dürbünlerde 0,05 mrad veya 1/8 MOA olur. Önce Dürbün birimini '
+      '"1/4 MOA"). En yaygını MRAD dürbünde 0,1 MRAD, MOA dürbünde 1/4 MOA; '
+      'hassas dürbünlerde 0,05 MRAD veya 1/8 MOA olur. Önce Dürbün birimini '
       'seçin; liste ona göre dolar.';
   static const scopeUnit =
       'Kulelerin ve retikülün açı birimi: MRAD (mil), MOA veya SMOA. '
@@ -158,7 +164,7 @@ abstract final class ProfileFieldInfo {
       'bağlı.';
   static const elevationTravel =
       'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü; '
-      'sayı olarak yazılır. Örnek: 0,1 mrad klikli 30 mrad\'lık kule için 300. '
+      'sayı olarak yazılır. Örnek: 0,1 MRAD klikli 30 MRAD\'lık kule için 300. '
       'Kutuda yazar ya da kuleyi çevirip sayarsınız. Uzak atışta kule '
       'yetmezse uygulama bunu söyler. Bilmiyorsanız boş bırakın; hesap '
       'yine çalışır.';
@@ -169,7 +175,7 @@ abstract final class ProfileFieldInfo {
       'dürbününüzde kazandırdığı klik hazır yazılıdır. Ayak '
       'mermi düşüşünü azaltmaz: tüfeği ayakla yeniden sıfırladığınızda '
       'kulede yukarı doğru bu kadar ek yer açar. 1/4 MOA dürbünde her 1 MOA '
-      '= 4 klik (60 MOA = 240 klik); 0,1 mrad dürbünde 30 MOA ≈ 87 klik. '
+      '= 4 klik (60 MOA = 240 klik); 0,1 MRAD dürbünde 30 MOA ≈ 87 klik. '
       'Ayak dürbünün yüksekliğini de değiştirir; Sight height\'ı yeniden '
       'ölçün.';
 
@@ -211,4 +217,33 @@ abstract final class ProfileFieldInfo {
       'seçilirse sıfırlama mesafesi, Hedef sayfası, dürbün içindeki mesafe '
       'sayıları ve tablo yard ile gösterilir. Dürbününüzün odak düğmesi '
       'yard ile yazılıysa yard seçin.';
+
+  static const backup =
+      'Yedekle: tüm profillerinizi ve kendi girdiğiniz tüfek, mühimmat ve '
+      'dürbün kayıtlarını tek dosyaya kaydeder. Açılan ekranda Dosyalar\'a '
+      'Kaydet ile iCloud Drive\'ı ya da Google Drive\'ı seçin. Telefon '
+      'değişince Geri yükle ile aynı dosyayı seçin; hiçbir profil silinmez. '
+      'Hesap veya şifre gerekmez.';
+
+  // PCP tüp ve regülatör basıncı (owner, 2026-10-12). Yalnızca PCP.
+  static const tubePressure =
+      'Tüpü doldurduğunuz basınç, bar. Dolum sonrası manometreden okuyun ya '
+      'da kılavuzdaki en yüksek dolum basıncını yazın. Sahada kalan basıncı '
+      'Pro > Tüfek düzeltmeleri\'nde girersiniz. Bilmiyorsanız boş bırakın. '
+      'Örnek: 250.';
+  static const regulatorPressure =
+      'Regülatörün vanaya verdiği sabit basınç, bar. Kılavuzda ya da '
+      'regülatör manometresinde yazar. Tüp bu basıncın üstündeyken hız '
+      'sabittir; altına inince regülatör devre dışı kalır ve hız düşer. '
+      'Regülatörsüz tüfekte boş bırakın: boş kutu "regülatör yok" demektir '
+      '(ayrı bir seçim yok). Tüp basıncından küçük olmalı. Örnek: 150.';
+  static const pvBar =
+      'Kronografla hız ölçtüğünüz andaki tüp basıncı, bar (manometreden). '
+      'Her satır bir ölçümdür: basınç ve o basınçta ölçtüğünüz hız. En az '
+      'iki satır girilirse, Pro\'da yazdığınız kalan tüp basıncındaki hız '
+      'bu ölçümlerin arasından bulunur; ölçümlerin dışında en yakın ölçüm '
+      'kullanılır. Boş bırakırsanız profil hızı kullanılır. Örnek: 180.';
+  static const pvFps =
+      'O basınçta kronografla ölçtüğünüz namlu çıkış hızı, fps. Birkaç '
+      'atışın ortalamasını yazın. Basınçla birlikte girilir. Örnek: 870.';
 }

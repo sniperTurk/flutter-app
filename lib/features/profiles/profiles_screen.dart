@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../core/drag_curve.dart';
 import '../../core/drag_table.dart';
+import '../../core/pcp_pressure.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle.dart';
@@ -13,16 +16,20 @@ import '../../data/cartridges.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/factory_ammo_library.dart';
 import '../../data/factory_powder_temperature.dart';
+import '../../data/measured_drag_lookup.dart';
 import '../../data/reticle_catalog.dart';
 import '../../data/rifle_library.dart';
 import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
+import '../../services/chrono_store.dart';
 import '../../services/manual_catalog_store.dart';
+import '../../services/profile_backup.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../home/empty_states.dart';
 import 'drag_curve_field.dart';
+import 'profile_backup_actions.dart';
 import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
 import 'rifle_picker_screen.dart';
@@ -52,6 +59,13 @@ class ProfilesScreen extends StatefulWidget {
   /// the new-profile form.
   final int createRequest;
 
+  /// Personal catalog that goes into a backup with the profiles.
+  final ManualCatalogStore? catalogStore;
+
+  /// Injected in tests; default: system share sheet / document picker.
+  final BackupShare? shareBackup;
+  final BackupPick? pickBackup;
+
   const ProfilesScreen({
     super.key,
     this.store,
@@ -62,6 +76,9 @@ class ProfilesScreen extends StatefulWidget {
     this.onContinue,
     this.revision = 0,
     this.createRequest = 0,
+    this.catalogStore,
+    this.shareBackup,
+    this.pickBackup,
   });
 
   @override
@@ -70,6 +87,9 @@ class ProfilesScreen extends StatefulWidget {
 
 class _ProfilesScreenState extends State<ProfilesScreen> {
   late final ProfileStore store = widget.store ?? PersistentProfileStore();
+  late final ManualCatalogStore catalogStore =
+      widget.catalogStore ?? ManualCatalogStore();
+  final GlobalKey _backupButtonKey = GlobalKey();
   List<RifleProfile> items = [];
   bool loading = true;
   String? loadError;
@@ -168,6 +188,98 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     }
   }
 
+  void _snack(String text) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
+
+  /// Profiller → Yedekle: every profile and personal catalog entry in one
+  /// file, handed to the share sheet (owner, 2026-10-12).
+  Future<void> _backup() async {
+    final String text;
+    try {
+      text = ProfileBackup.encode(
+        await ProfileBackup.collect(store, catalogStore),
+      );
+    } catch (_) {
+      _snack('Yedek hazırlanamadı. Kayıtlar değiştirilmedi.');
+      return;
+    }
+    final box =
+        _backupButtonKey.currentContext?.findRenderObject() as RenderBox?;
+    final origin = box == null || !box.hasSize
+        ? null
+        : box.localToGlobal(Offset.zero) & box.size;
+    try {
+      await (widget.shareBackup ?? shareBackupFile)(
+        ProfileBackup.fileName(DateTime.now()),
+        text,
+        origin,
+      );
+    } catch (_) {
+      _snack('Paylaşım ekranı açılamadı.');
+    }
+  }
+
+  /// Profiller → Geri yükle: reads a backup the user picks, shows what is in
+  /// it and adds it only after confirmation. Nothing is deleted.
+  Future<void> _restore() async {
+    final String? text;
+    try {
+      text = await (widget.pickBackup ?? pickBackupFile)();
+    } catch (_) {
+      _snack('Dosya açılamadı.');
+      return;
+    }
+    if (text == null || !mounted) return;
+    final ProfileBackupContents contents;
+    try {
+      contents = ProfileBackup.decode(text);
+    } on FormatException catch (e) {
+      _snack(e.message);
+      return;
+    }
+    final confirmed =
+        await showDialog<bool>(
+          context: context,
+          builder: (dialogContext) => AlertDialog(
+            title: const Text('Yedek geri yüklensin mi?'),
+            content: Text(
+              'Dosyada ${contents.profiles.length} profil ve '
+              '${contents.catalog.length} kişisel kayıt var. Telefonda zaten '
+              'olan profiller yedektekiyle güncellenir, hiçbir profil '
+              'silinmez.',
+              textAlign: TextAlign.justify,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, false),
+                child: const Text('Vazgeç'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, true),
+                child: const Text('Geri yükle'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+    if (!confirmed) return;
+    try {
+      final r = await ProfileBackup.restore(contents, store, catalogStore);
+      await _changed();
+      _snack(
+        r.skipped == 0
+            ? '${r.profiles} profil geri yüklendi.'
+            : '${r.profiles} profil geri yüklendi; ${r.skipped} kayıt '
+                  'okunamadığı için atlandı.',
+      );
+    } catch (_) {
+      await _changed();
+      _snack('Geri yükleme tamamlanamadı. Mevcut kayıtlar korunuyor.');
+    }
+  }
+
   /// Saves an independent copy (new id) through the same store API.
   Future<void> _duplicate(RifleProfile p) async {
     const suffix = ' (kopya)';
@@ -185,6 +297,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       zeroRangeM: p.zeroRangeM,
       sightHeightMm: p.sightHeightMm,
       pressureBar: p.pressureBar,
+      tubePressureBar: p.tubePressureBar,
+      pressureVelocityTable: p.pressureVelocityTable,
       angularUnit: p.angularUnit,
       distanceUnit: p.distanceUnit,
       mountCantMoa: p.mountCantMoa,
@@ -243,6 +357,11 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     if (!confirmed || !mounted) return false;
     try {
       await store.remove(p.id);
+      // Its Kronograf strings go with it; a convenience store, so a failure
+      // here never blocks the deletion.
+      unawaited(
+        const ChronoStore().deleteProfile(p.id).catchError((Object _) {}),
+      );
       return true;
     } catch (_) {
       if (mounted) {
@@ -319,7 +438,9 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     // First start (or every profile deleted): a welcome page instead of an
     // empty list (owner, 2026-10-10).
     if (items.isEmpty && widget.embedded) {
-      return MenzilPage(children: [WelcomePanel(onCreate: _add)]);
+      return MenzilPage(
+        children: [WelcomePanel(onCreate: _add, onRestore: _restore)],
+      );
     }
     return MenzilPage(
       children: [
@@ -341,7 +462,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
         if (items.isEmpty)
           MenzilCard(
             child: Text(
-              'Henüz kayıtlı profil yok.\nYeni profil ile ilk profilini oluştur.',
+              'Henüz kayıtlı profil yok.\nYeni profil ile ilk profilinizi oluşturun.',
               textAlign: TextAlign.center,
               style: MenzilType.body(c.ink),
             ),
@@ -402,6 +523,29 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 onPressed: () => _deleteViaButton(selected),
               ),
             ],
+          ],
+        ),
+        const SizedBox(height: MenzilSpace.sm),
+        Wrap(
+          spacing: MenzilSpace.sm,
+          runSpacing: MenzilSpace.sm,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            MenzilSecondaryButton(
+              key: _backupButtonKey,
+              label: 'Yedekle',
+              icon: Icons.ios_share,
+              onPressed: items.isEmpty ? null : _backup,
+            ),
+            MenzilSecondaryButton(
+              label: 'Geri yükle',
+              icon: Icons.download_outlined,
+              onPressed: _restore,
+            ),
+            const MenzilInfoButton(
+              title: 'Yedekle ve Geri yükle',
+              text: ProfileFieldInfo.backup,
+            ),
           ],
         ),
       ],
@@ -910,7 +1054,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               children: [
                 Expanded(child: Text(name)),
                 Text(
-                  '${d.toStringAsFixed(2)} mm',
+                  '${d.toStringAsFixed(2).replaceAll('.', ',')} mm',
                   style: const TextStyle(fontSize: 12),
                 ),
               ],
@@ -1211,7 +1355,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final name = u == AngularUnit.smoa ? 'SMOA' : 'MOA';
     return u.moaFamily
         ? [(0.25, '1/4 $name'), (0.125, '1/8 $name'), (0.5, '1/2 $name')]
-        : const [(0.1, '0,1 mrad'), (0.05, '0,05 mrad')];
+        : const [(0.1, '0,1 MRAD'), (0.05, '0,05 MRAD')];
   }
 
   /// A number picked from [options] into [controller] ("Seçiniz" while
@@ -1539,7 +1683,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         : const [
             (BallisticModel.g1, 'G1'),
             (BallisticModel.g7, 'G7'),
-            (BallisticModel.ga, 'GA (saçma)'),
             (BallisticModel.gs, 'GS (bilye)'),
           ];
     final m = ammoBcModel;
@@ -1606,6 +1749,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController powderCoef;
   late final TextEditingController powderTemp;
   bool _powderAutoFilled = false;
+
+  /// PCP tüp ve regülatör basıncı (bar) and basınca göre hız rows (bar |
+  /// fps), as typed; PCP only, all optional (owner, 2026-10-12). An empty
+  /// regülatör basıncı means an unregulated rifle.
+  late final TextEditingController tubePressure;
+  late final TextEditingController regulatorPressure;
+  late final List<TextEditingController> pvBar;
+  late final List<TextEditingController> pvFps;
 
   /// Dürbün ayağı in MOA, picked from [ProductionLimits.mountCantOptionsMoa].
   late double mountCant;
@@ -1824,6 +1975,78 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ? ''
           : _trimNum(p!.powderTempReferenceC!),
     );
+    // An older PCP profile's pressure (regülatör basıncı since V379) comes
+    // back in its box, so saving keeps it.
+    regulatorPressure = TextEditingController(
+      text: p?.pressureBar == null ? '' : _trimNum(p!.pressureBar!),
+    );
+    tubePressure = TextEditingController(
+      text: p?.tubePressureBar == null ? '' : _trimNum(p!.tubePressureBar!),
+    );
+    final pv = p?.pressureVelocityTable ?? const <PressureVelocityPoint>[];
+    pvBar = [
+      for (var i = 0; i < PcpPressure.tableRows; i++)
+        TextEditingController(text: i < pv.length ? _trimNum(pv[i].bar) : ''),
+    ];
+    pvFps = [
+      for (var i = 0; i < PcpPressure.tableRows; i++)
+        TextEditingController(text: i < pv.length ? _fpsText(pv[i].mps) : ''),
+    ];
+  }
+
+  // ---- PCP tüp ve regülatör basıncı (owner, 2026-10-12) -----------------
+
+  static const double _minPcpBar = 10;
+
+  String? _optionalBarError(TextEditingController c) => c.text.trim().isEmpty
+      ? null
+      : _rangeError(c, _minPcpBar, ProductionLimits.maxPcpPressureBar);
+
+  String? get _tubePressureError => _optionalBarError(tubePressure);
+
+  String? get _regulatorPressureError {
+    final e = _optionalBarError(regulatorPressure);
+    if (e != null || regulatorPressure.text.trim().isEmpty) return e;
+    final tube = _parse(tubePressure);
+    if (_tubePressureError == null &&
+        tube != null &&
+        _parse(regulatorPressure)! >= tube) {
+      return 'Tüp basıncından küçük olmalı.';
+    }
+    return null;
+  }
+
+  bool _pvRowEmpty(int i) =>
+      pvBar[i].text.trim().isEmpty && pvFps[i].text.trim().isEmpty;
+
+  String? _pvBarError(int i) {
+    if (_pvRowEmpty(i)) return null;
+    final e = _rangeError(
+      pvBar[i],
+      _minPcpBar,
+      ProductionLimits.maxPcpPressureBar,
+    );
+    if (e != null) return e;
+    for (var j = 0; j < i; j++) {
+      if (_parse(pvBar[j]) == _parse(pvBar[i])) {
+        return 'Bu basınç başka satırda var.';
+      }
+    }
+    return null;
+  }
+
+  String? _pvFpsError(int i) =>
+      _pvRowEmpty(i) ? null : _rangeError(pvFps[i], 100, 4900);
+
+  bool get _pcpPressureValid {
+    if (platform != WeaponPlatform.pcp) return true;
+    if (_tubePressureError != null || _regulatorPressureError != null) {
+      return false;
+    }
+    for (var i = 0; i < PcpPressure.tableRows; i++) {
+      if (_pvBarError(i) != null || _pvFpsError(i) != null) return false;
+    }
+    return true;
   }
 
   /// Barut sıcaklığı is optional; given, both boxes and the bands of
@@ -1928,6 +2151,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         (_bandsValid, 'Hıza göre BC'),
       ],
       if (platform == WeaponPlatform.firearm) (_powderValid, 'Barut sıcaklığı'),
+      if (platform == WeaponPlatform.pcp) (_pcpPressureValid, 'Basınç'),
     ]);
     return out;
   }
@@ -1953,7 +2177,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ammoBc.dispose();
     powderCoef.dispose();
     powderTemp.dispose();
-    for (final c in [...ammoBandFps, ...ammoBandBc]) {
+    tubePressure.dispose();
+    regulatorPressure.dispose();
+    for (final c in [...ammoBandFps, ...ammoBandBc, ...pvBar, ...pvFps]) {
       c.dispose();
     }
     name.dispose();
@@ -2011,7 +2237,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     if (c.text.trim().isEmpty) return 'Gerekli.';
     final v = _parse(c);
     if (v == null || v < min || v > max) {
-      String f(double x) => x % 1 == 0 ? x.toStringAsFixed(0) : '$x';
+      String f(double x) =>
+          x % 1 == 0 ? x.toStringAsFixed(0) : '$x'.replaceAll('.', ',');
       return '${f(min)}–${f(max)} arasında bir değer girin.';
     }
     return null;
@@ -2135,7 +2362,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ? _dragCurve != null && _curveSd != null
           : _bcError == null && _bandsValid && ammoBcModel != null) &&
       _effectiveAmmoType != null &&
-      _powderValid;
+      _powderValid &&
+      _pcpPressureValid;
 
   /// Sectional density for a custom curve, from the grain and the caliber.
   double? get _curveSd {
@@ -2282,8 +2510,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         zeroRangeText: _zeroMetersText,
         sightHeightText: sight.text,
         platform: platform,
-        // Regülatör basıncı is not asked any more (owner, 2026-10-09): no
-        // calculation uses it.
+        // PCP only (ProfileInput drops them on a firearm): Regülatör
+        // basıncı (empty = unregulated), Tüp basıncı, basınca göre hız.
+        pressureText: regulatorPressure.text,
+        tubePressureText: tubePressure.text,
+        pressureTable: [
+          for (var i = 0; i < PcpPressure.tableRows; i++)
+            (pvBar[i].text, pvFps[i].text),
+        ],
         mountCantMoa: mountCant,
         // Firearms only; ProfileInput drops it on PCP.
         powderCoefText: powderCoef.text,
@@ -2343,6 +2577,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         zeroRangeM: input.zeroRangeM,
         sightHeightMm: input.sightHeightMm,
         pressureBar: input.pressureBar,
+        tubePressureBar: input.tubePressureBar,
+        pressureVelocityTable: input.pressureVelocityTable,
         angularUnit: angularUnit,
         distanceUnit: distanceUnit,
         mountCantMoa: input.mountCantMoa,
@@ -2387,9 +2623,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ammoGrain.text = n(b.grain);
       ammoBc.text = n(b.bc);
       ammoBcModel = b.model;
-      // A library bullet carries its BC, not a custom curve.
-      _customCurve = false;
-      _dragCurve = null;
+      // A library bullet carries its BC; one with a published measured
+      // Cd–Mach curve also fills that curve (owner, 2026-10-11). The BC
+      // stays filled for a switch back to G1/G7.
+      final measured = MeasuredDragLookup.forBullet(b)?.samples;
+      _customCurve = measured != null;
+      _dragCurve = measured;
       if (platform == WeaponPlatform.pcp) ammoType = b.type;
       for (var i = 0; i < 2; i++) {
         final band = i < b.bands.length ? b.bands[i] : null;
@@ -2734,6 +2973,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 MenzilSelect<WeaponPlatform>(
                   key: const Key('profile-platform'),
                   label: 'Tür',
+                  info: ProfileFieldInfo.platform,
                   initialValue: platform,
                   items: WeaponPlatform.values
                       .map(
@@ -3383,13 +3623,20 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_velocityError, velocity),
                 ),
+                // PCP tüp ve regülatör basıncı (owner, 2026-10-12): never on
+                // a firearm. Tüp | Regülatör on one row, then the optional
+                // basınca göre hız rows (Basınç | Hız).
+                if (platform == WeaponPlatform.pcp) ..._pcpPressureFields(c),
                 // Barut sıcaklığı: firearms only, never on PCP (owner,
                 // 2026-10-11). Katsayı | Ölçüm sıcaklığı side by side.
                 if (platform == WeaponPlatform.firearm) ...[
                   MenzilInput(
                     key: const Key('profile-powder-coef'),
                     controller: powderCoef,
-                    label: 'Barut sıcaklık katsayısı',
+                    // Short label: "Barut sıcaklık katsayısı" next to its
+                    // unit and ⓘ was cut ("…") on 375–393 pt phones; the ⓘ
+                    // text still starts with the full name (2026-10-11).
+                    label: 'Barut katsayısı',
                     unit: '%/15 °C',
                     info: ProfileFieldInfo.powderCoef,
                     keyboardType: const TextInputType.numberWithOptions(
@@ -3459,8 +3706,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   const MenzilFullWidth(
                     child: MenzilNotice(
                       tone: MenzilNoticeTone.danger,
-                      message:
-                          'Mühimmat tipini ve BC modelini (G1/G7/GA) seçin.',
+                      message: 'Mühimmat tipini ve BC modelini (G1/G7) seçin.',
                     ),
                   ),
               ],
@@ -3470,6 +3716,72 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ),
     );
   }
+
+  /// PCP: Tüp basıncı | Regülatör basıncı, then "Basınca göre hız" rows.
+  /// Each pair sits in its own full-width grid so the two boxes share a row
+  /// whatever comes before them.
+  List<Widget> _pcpPressureFields(MenzilColors c) => [
+    MenzilFullWidth(
+      child: MenzilFieldGrid(
+        children: [
+          MenzilInput(
+            key: const Key('profile-tube-pressure'),
+            controller: tubePressure,
+            label: 'Tüp basıncı',
+            unit: 'bar',
+            info: ProfileFieldInfo.tubePressure,
+            onChanged: (_) => setState(() {}),
+            errorText: _shown(_tubePressureError, tubePressure),
+          ),
+          MenzilInput(
+            key: const Key('profile-regulator-pressure'),
+            controller: regulatorPressure,
+            label: 'Regülatör basıncı',
+            unit: 'bar',
+            info: ProfileFieldInfo.regulatorPressure,
+            onChanged: (_) => setState(() {}),
+            errorText: _shown(_regulatorPressureError, regulatorPressure),
+          ),
+        ],
+      ),
+    ),
+    MenzilFullWidth(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
+        child: Text(
+          'Basınca göre hız',
+          key: const Key('profile-pv-title'),
+          style: MenzilType.body(c.ink),
+        ),
+      ),
+    ),
+    MenzilFullWidth(
+      child: MenzilFieldGrid(
+        children: [
+          for (var i = 0; i < PcpPressure.tableRows; i++) ...[
+            MenzilInput(
+              key: Key('profile-pv-bar-$i'),
+              controller: pvBar[i],
+              label: '${i + 1}. basınç',
+              unit: 'bar',
+              info: ProfileFieldInfo.pvBar,
+              onChanged: (_) => setState(() {}),
+              errorText: _shown(_pvBarError(i), pvBar[i]),
+            ),
+            MenzilInput(
+              key: Key('profile-pv-fps-$i'),
+              controller: pvFps[i],
+              label: '${i + 1}. hız',
+              unit: 'fps',
+              info: ProfileFieldInfo.pvFps,
+              onChanged: (_) => setState(() {}),
+              errorText: _shown(_pvFpsError(i), pvFps[i]),
+            ),
+          ],
+        ],
+      ),
+    ),
+  ];
 }
 
 String _trimNum(double v) =>

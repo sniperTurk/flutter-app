@@ -312,7 +312,7 @@ class _WeatherScreenState extends State<WeatherScreen>
             'Sıcaklık',
             ToolFormat.temperature(obs.temperatureC, metric: metric),
           ),
-          MenzilMetric('Nem', '${obs.humidityPercent.toStringAsFixed(0)} %'),
+          MenzilMetric('Nem', '%${obs.humidityPercent.toStringAsFixed(0)}'),
           MenzilMetric(
             obs.pressureKind == PressureKind.seaLevel
                 ? 'Basınç (deniz seviyesi)'

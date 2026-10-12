@@ -244,7 +244,7 @@ class SightSideViewPainter extends CustomPainter {
     canvas.drawPath(arrows, Paint()..color = c.cyanInk);
     _text(
       canvas,
-      'dürbün yüksekliği',
+      'sight height',
       const Offset(341, 128),
       size: 11.5,
       color: c.cyanInk,

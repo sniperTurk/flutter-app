@@ -1,4 +1,7 @@
 import '../core/drag_table.dart';
+import '../core/pcp_pressure.dart';
+
+export '../core/pcp_pressure.dart' show PressureVelocityPoint;
 
 enum WeaponPlatform { pcp, firearm }
 
@@ -50,17 +53,16 @@ extension DistanceUnitMath on DistanceUnit {
   String get symbol => this == DistanceUnit.yard ? 'yd' : 'm';
 }
 
-/// Drag law a ballistic coefficient refers to. GA is ChairGun's diabolo
-/// pellet model (see StandardDragTables.ga).
-/// Reference drag law of a BC. G1/G7/GA plus the other public BRL
-/// G-functions (G2, G5, G6, G8, GI), GS (sphere) and RA4 (.22 LR).
-enum BallisticModel { g1, g2, g5, g6, g7, g8, gi, gs, ra4, ga }
+/// Reference drag law of a BC: G1/G7 plus the other public BRL G-functions
+/// (G2, G5, G6, G8, GI), GS (sphere) and RA4 (.22 LR). The former GA pellet
+/// model was removed (owner, 2026-10-12): its table had no manufacturer or
+/// published source. Pellet BCs are published against G1.
+enum BallisticModel { g1, g2, g5, g6, g7, g8, gi, gs, ra4 }
 
 /// Display name of a drag law.
 extension BallisticModelLabel on BallisticModel {
   String get label => switch (this) {
     BallisticModel.ra4 => 'RA4',
-    BallisticModel.ga => 'GA',
     _ => name.toUpperCase(),
   };
 }
@@ -247,7 +249,18 @@ String _joinName(String brand, String model) =>
 class RifleProfile {
   final String id, name, rifleId, ammunitionId, scopeId;
   final double muzzleVelocityMps, zeroRangeM, sightHeightMm;
+
+  /// PCP regülatör basıncı in bar (null = unregulated or unknown; always
+  /// null on a firearm). Stored as `pressureBar` since V379 ("Atış basıncı"
+  /// became the regulator pressure), so older profiles keep their value.
   final double? pressureBar;
+
+  /// PCP tüp basıncı (dolum basıncı) in bar; null = not given / firearm.
+  final double? tubePressureBar;
+
+  /// PCP basınca göre hız: the user's chronograph points (tube pressure in
+  /// bar, velocity in m/s); empty = none. See [PcpPressure].
+  final List<PressureVelocityPoint> pressureVelocityTable;
   final AngularUnit angularUnit;
 
   /// Metre or yard for every distance shown for this profile.
@@ -275,6 +288,8 @@ class RifleProfile {
     required this.zeroRangeM,
     required this.sightHeightMm,
     this.pressureBar,
+    this.tubePressureBar,
+    this.pressureVelocityTable = const [],
     this.angularUnit = AngularUnit.mrad,
     this.distanceUnit = DistanceUnit.meter,
     this.mountCantMoa = 0,

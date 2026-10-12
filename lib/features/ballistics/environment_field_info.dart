@@ -26,12 +26,21 @@ abstract final class EnvironmentFieldInfo {
       'Atış yerindeki hava sıcaklığı. Sıcak hava daha seyrektir; mermi daha '
       'az yavaşlar ve daha az düşer. Telefonun hava durumu veya bir '
       'termometre yeterlidir. Örnek: 18 °C.';
+  static const ammoTemperature =
+      'Fişeğin kendi sıcaklığı. Güneşte veya araçta bekleyen fişek havadan '
+      '10–20 °C sıcak olabilir. Profilde barut sıcaklık katsayısı varsa hız '
+      'bu sıcaklıkla düzeltilir; katsayı yoksa etkisi yoktur. Fişek kutusuna '
+      'konan bir termometreyle ölçün. Boşsa hava sıcaklığı kullanılır. '
+      'Örnek: 32 °C.';
   static const pressure =
       'Bulunduğunuz yerde ölçülen gerçek (istasyon) hava basıncı. Hava '
       'durumu uygulamalarının çoğu deniz seviyesine indirgenmiş basıncı '
       '(QNH, ~1013 hPa) verir; yüksek yerde bu değer hesabı bozar (1000 m '
-      'irtifada gerçek basınç ~900 hPa). Kestrel, barometre veya Araçlar > '
-      'hesaplayıcılar ile deniz seviyesinden istasyon basıncına çevirin.';
+      'irtifada gerçek basınç ~900 hPa). Barometreli telefonda "Basıncı '
+      'telefondan al" düğmesi gerçek basıncı okur; araç içinde veya klimalı '
+      'odada değil, açık havada basın. Ya da Kestrel, barometre veya '
+      'Araçlar > hesaplayıcılar ile deniz seviyesinden istasyon basıncına '
+      'çevirin. Örnek: 1000 m irtifada 900 hPa.';
   static const humidity =
       'Bağıl nem, yüzde olarak (0–100). Etkisi küçüktür: nemli hava biraz '
       'daha hafiftir. Hava durumunda yazar. Örnek: %60.';
@@ -60,16 +69,16 @@ abstract final class EnvironmentFieldInfo {
       '10, 20, 30, 40, 50.';
   static const shotRange =
       'Hedefe olan mesafe. Telemetre (lazer mesafe ölçer) ile ölçün veya '
-      '"Haritadan" ile seçin. Örnek: 45 m.';
+      '"Haritadan ölç" ile seçin. Örnek: 45 m.';
   static const gravity =
-      'Bulunduğun yerdeki yerçekimi, m/s². "Konumdan hesapla" enleminden ve '
-      'irtifandan hesaplar; elle de yazabilirsin. Türkiye\'de yaklaşık 9,80; '
+      'Bulunduğunuz yerdeki yerçekimi, m/s². "Konumdan hesapla" enleminizden '
+      've irtifanızdan hesaplar; elle de yazabilirsiniz. Türkiye\'de yaklaşık 9,80; '
       'örneğin Ankara (900 m) 9,7988. Kapalıyken standart 9,80665 kullanılır.';
   static const proShotRange =
-      'Ateş edeceğin hedefin uzaklığı. Telemetre (lazer mesafe ölçer) ile '
-      'ölç ya da bilmiyorsan "Haritadan ölç"e dokunup haritada senin ve '
-      'hedefin yerini işaretle. Hedef ekranı bu mesafeyle açılır ve dürbün '
-      'kurulmuş gelir. Boş bırakırsan Hedef 100 m (yarda biriminde 100 yd) '
+      'Ateş edeceğiniz hedefin uzaklığı. Telemetre (lazer mesafe ölçer) ile '
+      'ölçün ya da bilmiyorsanız "Haritadan ölç"e dokunup haritada kendi '
+      'yerinizi ve hedefin yerini işaretleyin. Hedef ekranı bu mesafeyle açılır ve dürbün '
+      'kurulmuş gelir. Boş bırakırsanız Hedef 100 m (yard biriminde 100 yd) '
       'ile açılır. Örnek: 85 m.';
   static const incline =
       'Tüfek eğimi: hedefe bakış çizgisinin yatayla yaptığı açı. Yukarı '
@@ -116,10 +125,16 @@ abstract final class EnvironmentFieldInfo {
       'güney 180, batı 270. "Pusuladan al" için telefonu hedefe doğru '
       'tutun. Birkaç derecelik hata Coriolis sonucunu fark edilir '
       'değiştirmez. Örnek: 135.';
+  static const tubePressure =
+      'Şu an tüpte kalan basınç, bar; tüfeğin manometresinden okuyun. '
+      'Regülatörlü tüfekte regülatör basıncının üstündeyse hız değişmez, '
+      'altındaysa uyarı çıkar. Profil > Mühimmat\'ta basınca göre hız '
+      'ölçümleri varsa hız onlardan bulunur. Boş bırakırsanız profil hızı '
+      'kullanılır. Yalnızca PCP. Örnek: 160.';
   static const turretScale =
-      'Kulenin yazdığı kadar çevirmeyebilir. Kule testi: dürbünü 10 mrad '
+      'Kulenin yazdığı kadar çevirmeyebilir. Kule testi: dürbünü 10 MRAD '
       '(ya da 30 MOA) yukarı çevirip 100 m\'de ızgaralı hedefte gerçek kaymayı '
-      'ölçün; gerçek / yazan oranını girin. Örnek: gerçek 9,8 mrad ise 0,98. '
+      'ölçün; gerçek / yazan oranını girin. Örnek: gerçek 9,8 MRAD ise 0,98. '
       'Boş bırakırsanız 1 (düzeltme yok). Klikler bu katsayıya göre ayarlanır.';
   static const windMax =
       'Rüzgârın sert estiği (hamle) andaki hızı. Otomatik doldurulur: Hava '
@@ -128,13 +143,22 @@ abstract final class EnvironmentFieldInfo {
       '"Otomatik doldur" yeniden otomatik yapar. '
       'Hedef sayfası yan düzeltmeyi bu aralıkta gösterir. Örnek: rüzgâr '
       '2 m/s ise 3.';
+  static const windObservation =
+      'Anemometre yoksa rüzgârı çevreden okuyun: duman, yaprak, dal, toz. '
+      'Listedeki tarifler Beaufort ölçeğinin kara tanımlarıdır (WMO, '
+      'MeteoSwiss). Seçtiğiniz sınıfın orta değeri Rüzgâr hızına, üst '
+      'değeri En yüksek rüzgâra yazılır; ikisini de elle değiştirebilirsiniz. '
+      'Dikkat: bu hızlar açık arazide 10 m yükseklik içindir. Atıcının '
+      'durduğu 1–2 m yükseklikte rüzgâr genellikle daha zayıftır; uygulama '
+      'bunu düzeltmez, gerekirse değeri elle küçültün. Örnek: yapraklar ve '
+      'ince dallar durmadan kıpırdıyorsa Orta, 4,4 m/s.';
   static const windMid =
       'Hedefe giden yolun ortasındaki rüzgârın tahmini hızı. Yapraklara, '
-      'çimene veya bayraklara bakarak tahmin et. Örnek: 3 m/s. Boşsa senin '
-      'yanındaki rüzgâr kullanılır.';
+      'çimene veya bayraklara bakarak tahmin edin. Örnek: 3 m/s. Boşsa sizin '
+      'yanınızdaki rüzgâr kullanılır.';
   static const windFar =
       'Hedefin yanındaki rüzgârın tahmini hızı. Örnek: 4 m/s. Boşsa yol '
-      'ortasındaki (o da boşsa senin yanındaki) rüzgâr kullanılır.';
+      'ortasındaki (o da boşsa sizin yanınızdaki) rüzgâr kullanılır.';
   static const zeroUp =
       'Sıfır mesafesinde grubun ortası artıdan kaç cm yukarıda (+) veya '
       'aşağıda (−). Örnek: 0,5 ya da -0,3.';
@@ -146,23 +170,23 @@ abstract final class EnvironmentFieldInfo {
       'Örnek: 25 m\'de 1,2 cm.';
   static const sd =
       'Hız farkı (SD), fps: kronograf cihazının 5–10 atış sonrası gösterdiği '
-      'standart sapma. Örnek: 4 fps. Bilmiyorsan boş bırak.';
+      'standart sapma. Örnek: 4 fps. Bilmiyorsanız boş bırakın.';
   static const targetSize =
-      'Vurmak istediğin alanın çapı, cm. Kâğıt hedefte halkanın, avda hayati '
-      'bölgenin çapı. Boş bırakırsan 10 cm. Örnek: tavşan 5 cm, karaca 15 cm.';
+      'Vurmak istediğiniz alanın çapı, cm. Kâğıt hedefte halkanın, avda hayati '
+      'bölgenin çapı. Boş bırakırsanız 10 cm. Örnek: tavşan 5 cm, karaca 15 cm.';
   static const rangeError =
-      'Mesafeyi ne kadar yanlış ölçebileceğin, ±. Lazer mesafe ölçerde '
-      'genelde ±1 m; göz kararında daha fazla. Boş bırakırsan ±1.';
+      'Mesafeyi ne kadar yanlış ölçebileceğiniz, ±. Lazer mesafe ölçerde '
+      'genelde ±1 m; göz kararında daha fazla. Boş bırakırsanız ±1.';
   static const bcError =
-      'BC değerinden ne kadar emin olduğun, ± %. Üretici değeri için 3–5 %; '
-      'kendin doğruladıysan 1–2 %. Boş bırakırsan hesaba katılmaz.';
+      'BC değerinden ne kadar emin olduğunuz, ± %. Üretici değeri için %3–5; '
+      'kendiniz doğruladıysanız %1–2. Boş bırakırsanız hesaba katılmaz.';
   static const wezShotCount =
-      'Hedefe kaç atış yapmayı düşündüğün. 1 atışta yalnız ilk atış '
+      'Hedefe kaç atış yapmayı düşündüğünüz. 1 atışta yalnız ilk atış '
       'isabet olasılığı görünür; daha fazlasında Hedef ekranı bu kadar '
-      'atışta en az bir isabet şansını da gösterir. Atışlar birbirinden '
-      'bağımsız sayılır; mesafe veya rüzgâr hatası düzeltilmeden tekrar '
-      'atarsan gerçek şans biraz daha düşüktür. Örnek: avda 1, hedef '
-      'atışında 3 veya 5.';
+      'atışta en az bir isabet şansını da gösterir. Grup ve hız farkı her '
+      'atışta değişir; mesafe, rüzgâr ve BC hatası düzeltilmeden atılan '
+      'bütün atışlarda aynı kalır, bu yüzden tekrar atmak şansı sanıldığı '
+      'kadar artırmaz. Örnek: avda 1, hedef atışında 3 veya 5.';
   static const targetSpeed =
       'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
       'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '

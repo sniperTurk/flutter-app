@@ -341,9 +341,9 @@ void main() {
     await tester.ensureVisible(find.byKey(const Key('scope-click')));
     await tester.tap(find.byKey(const Key('scope-click')));
     await tester.pumpAndSettle();
-    expect(find.text('0,05 mrad'), findsWidgets);
+    expect(find.text('0,05 MRAD'), findsWidgets);
     expect(find.text('1/4 MOA'), findsNothing);
-    await tester.tap(find.text('0,05 mrad').last);
+    await tester.tap(find.text('0,05 MRAD').last);
     await tester.pumpAndSettle();
     expect(selectedValue<double>(tester, 'scope-click'), 0.05);
     // A MOA turret: the MRAD click no longer fits and is cleared.

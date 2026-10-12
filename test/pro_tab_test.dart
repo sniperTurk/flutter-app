@@ -128,7 +128,7 @@ void main() {
     expect(find.byKey(const Key('pro-azimuth')), findsOneWidget);
     // Every entered value explains itself (ⓘ).
     expect(find.byTooltip('Bilgi: Enlem'), findsOneWidget);
-    expect(find.byTooltip('Bilgi: Atış yönü (azimut)'), findsOneWidget);
+    expect(find.byTooltip('Bilgi: Atış yönü'), findsOneWidget);
 
     await tester.enterText(find.byKey(const Key('pro-latitude')), '40');
     await tester.enterText(find.byKey(const Key('pro-azimuth')), '0');

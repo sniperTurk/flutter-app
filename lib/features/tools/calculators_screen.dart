@@ -90,7 +90,7 @@ class CalculatorsScreen extends StatelessWidget {
             'calc-custom-location',
             Icons.my_location_outlined,
             'Özel konum için mesafe',
-            'Bulunduğun yerden girdiğin hedef konuma',
+            'Bulunduğunuz yerden girdiğiniz hedef konuma',
             const CustomLocationScreen(),
           ),
           tile(
@@ -103,8 +103,8 @@ class CalculatorsScreen extends StatelessWidget {
           tile(
             'calc-click-check',
             Icons.rule_outlined,
-            'Tıklama değeri doğrulama',
-            'Gerçek tık değeri ve hata yüzdesi',
+            'Klik değeri doğrulama',
+            'Gerçek klik değeri ve hata yüzdesi',
             const ClickCheckScreen(),
           ),
           tile(
@@ -163,7 +163,6 @@ Widget _field(
   TextEditingController c,
   String label, {
   String? unit,
-  String? helper,
   required VoidCallback changed,
   required String info,
   Key? key,
@@ -172,7 +171,6 @@ Widget _field(
   controller: c,
   label: label,
   unit: unit,
-  helperText: helper,
   info: info,
   keyboardType: _decimal,
   onChanged: (_) => changed(),
@@ -197,16 +195,17 @@ abstract final class CalculatorFieldInfo {
   static const distance =
       'Hedefe olan mesafe; telemetre ile ölçün. Örnek: 50 m.';
   static const sizeToMeasure =
-      'İsterseniz bir boy girin; mesafede kaç MOA / MIL tuttuğu gösterilir. '
+      'İsteğe bağlı. Ölçmek istediğiniz bir boy girin, örneğin vuruş noktası '
+      'ile hedef arası; mesafede kaç MOA / MIL tuttuğu gösterilir. '
       'Örnek: 10 cm.';
   static const clicks =
-      'Test için kuleden çevirdiğiniz toplam tık sayısı. Ne kadar çok tık, o '
-      'kadar doğru sonuç. Örnek: 40 tık.';
+      'Test için kuleden çevirdiğiniz toplam klik sayısı. Ne kadar çok klik, o '
+      'kadar doğru sonuç. Örnek: 40 klik.';
   static const shift =
-      'Bu tıklarla isabet noktasının hedefte kaydığı mesafe (grup merkezleri '
+      'Bu kliklerle isabet noktasının hedefte kaydığı mesafe (grup merkezleri '
       'arası), cm olarak. Örnek: 11,6 cm.';
   static const clickValue =
-      'Dürbünün kulesinde veya kılavuzunda yazan tık değeri. Örnek: 0,1 MRAD '
+      'Dürbünün kulesinde veya kılavuzunda yazan klik değeri. Örnek: 0,1 MRAD '
       'veya 1/4 MOA.';
   static const v1 =
       'Kronografla namluya yakın ölçülen hız (birkaç atışın ortalaması). '
@@ -303,7 +302,7 @@ class _StadiaState extends State<StadiaScreen> {
         _gap(),
         _field(
           _reading,
-          'Dürbündeki okuma (hedefin kapladığı)',
+          'Dürbündeki okuma',
           info: CalculatorFieldInfo.reading,
           unit: _mil ? 'MIL' : 'MOA',
           changed: () => setState(() {}),
@@ -614,10 +613,9 @@ class _MoaAtDistState extends State<MoaAtDistanceScreen> {
         _gap(),
         _field(
           _size,
-          'Ölçülecek boy (isteğe bağlı)',
+          'Ölçülecek boy',
           info: CalculatorFieldInfo.sizeToMeasure,
           unit: 'cm',
-          helper: 'Ör. vuruş noktası ile hedef arası',
           changed: () => setState(() {}),
           key: const Key('moa-size'),
         ),
@@ -693,12 +691,12 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         : null;
     final hasResult = real != null && nominal != null && nominal > 0;
     return _CalcPage(
-      title: 'Tıklama değeri doğrulama',
+      title: 'Klik değeri doğrulama',
       children: [
         _header('1 · Test'),
         _note(
-          'Dürbünü sıfırla, hedefe bir grup at, belirli sayıda tık çevir, ikinci grubu at ve '
-          'iki grup merkezi arasındaki kaymayı ölç. Tık sayısı büyük olsun (ör. 20–40).',
+          'Dürbünü sıfırlayın, hedefe bir grup atın, belirli sayıda klik çevirin, ikinci grubu atın ve '
+          'iki grup merkezi arasındaki kaymayı ölçün. Klik sayısı büyük olsun (ör. 20–40).',
         ),
         _gap(),
         _field(
@@ -712,9 +710,9 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _gap(),
         _field(
           _clicks,
-          'Çevirdiğin tık sayısı',
+          'Çevrilen klik sayısı',
           info: CalculatorFieldInfo.clicks,
-          unit: 'tık',
+          unit: 'klik',
           changed: () => setState(() {}),
           key: const Key('click-count'),
         ),
@@ -739,7 +737,7 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _gap(),
         _field(
           _nominal,
-          'Tık başına yazan değer',
+          'Klik başına yazan değer',
           info: CalculatorFieldInfo.clickValue,
           unit: unitName,
           changed: () => setState(() {}),
@@ -748,7 +746,7 @@ class _ClickCheckState extends State<ClickCheckScreen> {
         _header('3 · Sonuç'),
         if (!hasResult)
           _note(
-            'Mesafe, tık sayısı (tam sayı), ölçülen kayma ve yazan değeri girin.',
+            'Mesafe, klik sayısı (tam sayı), ölçülen kayma ve yazan değeri girin.',
           )
         else
           Builder(
@@ -758,8 +756,8 @@ class _ClickCheckState extends State<ClickCheckScreen> {
               return MenzilMetricGrid(
                 columns: 2,
                 metrics: [
-                  MenzilMetric('Gerçek tık', _d(actual, 4), unitName),
-                  MenzilMetric('Yazan tık', _d(nominal, 4), unitName),
+                  MenzilMetric('Gerçek klik', _d(actual, 4), unitName),
+                  MenzilMetric('Yazan klik', _d(nominal, 4), unitName),
                   MenzilMetric(
                     'Fark',
                     '${errPct >= 0 ? '+' : ''}${_d(errPct, 1)}',
@@ -771,9 +769,9 @@ class _ClickCheckState extends State<ClickCheckScreen> {
             },
           ),
         _note(
-          'Oran = gerçek tık ÷ yazan tık. Tek bir grup çiftinden çıkan sonuç grup dağılımı '
-          'kadar belirsizdir; testi farklı mesafe ve tık sayılarıyla tekrarlayın. '
-          'Bu araç yalnızca dürbünün gerçek tık değerini ölçer; atış düzeltmesi vermez.',
+          'Oran = gerçek klik ÷ yazan klik. Tek bir grup çiftinden çıkan sonuç grup dağılımı '
+          'kadar belirsizdir; testi farklı mesafe ve klik sayılarıyla tekrarlayın. '
+          'Bu araç yalnızca dürbünün gerçek klik değerini ölçer; atış düzeltmesi vermez.',
         ),
       ],
     );
@@ -867,7 +865,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
         _gap(),
         _field(
           _v1,
-          'Namlu yakını hız (V1)',
+          'Namlu yakını hız V1',
           info: CalculatorFieldInfo.v1,
           unit: _fps ? 'fps' : 'm/s',
           changed: () => setState(() {}),
@@ -876,7 +874,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
         _gap(),
         _field(
           _v2,
-          'Uzaktaki hız (V2)',
+          'Uzaktaki hız V2',
           info: CalculatorFieldInfo.v2,
           unit: _fps ? 'fps' : 'm/s',
           changed: () => setState(() {}),
@@ -922,7 +920,6 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
           options: const [
             (BallisticModel.g1, 'G1'),
             (BallisticModel.g7, 'G7'),
-            (BallisticModel.ga, 'GA (saçma)'),
             (BallisticModel.ra4, 'RA4 (.22 LR)'),
             (BallisticModel.gs, 'GS (bilye)'),
           ],
@@ -947,7 +944,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
             ],
           ),
         _note(
-          'Bu bir referans hesaptır: seçilen G1/G7/GA sürtünme tablosu kullanılır ve '
+          'Bu bir referans hesaptır: seçilen G1/G7 sürtünme tablosu kullanılır ve '
           'yörünge hesabına (DOPE) bağlanmaz. Diabolo saçmada GA, G1/G7\'den daha '
           'uygundur; sonuç mühimmat üreticisinin BC değerinden '
           'sapabilir. Kronograf hatası sonucu güçlü etkiler (%1 hız hatası, BC\'de çok daha büyük hata).',
@@ -1055,7 +1052,7 @@ class _AirLabState extends State<AirLabScreen> {
           _gap(),
           _field(
             _alt,
-            'Rakım',
+            'İrtifa',
             info: CalculatorFieldInfo.altitude,
             unit: 'm',
             changed: () => setState(() {}),
@@ -1265,7 +1262,7 @@ class _EnergyState extends State<EnergyScreen> {
         _gap(),
         _field(
           _target,
-          'Hedef enerji (isteğe bağlı)',
+          'Hedef enerji',
           info: CalculatorFieldInfo.targetEnergy,
           unit: 'J',
           changed: () => setState(() {}),
