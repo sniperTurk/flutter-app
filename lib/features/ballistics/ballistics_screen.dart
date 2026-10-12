@@ -91,6 +91,12 @@ class BallisticsScreen extends StatefulWidget {
   /// (owner, 2026-10-10).
   final VoidCallback? onCreateProfile;
 
+  /// Shell only: keeps the Hava Durumu values (atmosphere, wind, wind hour)
+  /// when the workspace is built again — the first profile is created, a
+  /// tool (Hız Doğrulama, Sight Height) or Profil rewrites the profile, or
+  /// another profile is chosen. Null: nothing is carried.
+  final EnvironmentCarry? environmentCarry;
+
   const BallisticsScreen({
     super.key,
     this.profile,
@@ -99,6 +105,7 @@ class BallisticsScreen extends StatefulWidget {
     this.onContinueToPro,
     this.onContinueToShot,
     this.onCreateProfile,
+    this.environmentCarry,
   });
 
   @override
@@ -749,7 +756,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     ranges = TextEditingController(
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
-    _EnvironmentCarry.apply(this);
+    widget.environmentCarry?._apply(this);
     _loadUnitPreference();
     unawaited(_loadShotSettings());
     // Solve the profile as soon as the workspace opens, so the scope's
@@ -1254,14 +1261,20 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   @override
+  void deactivate() {
+    // Hava Durumu values carry over to the next workspace (owner,
+    // 2026-10-10: "bu değerler hesaba otomatik girer"; 2026-10-12: the wind
+    // must not come back empty). Saved here, not in dispose: a re-keyed
+    // workspace is deactivated before its successor's initState, but
+    // disposed only after it.
+    widget.environmentCarry?._save(this);
+    super.deactivate();
+  }
+
+  @override
   void dispose() {
     unawaited(_watchRanges?.cancel());
     _watchTimer?.cancel();
-    // Weather typed before the first profile carries over to the profile's
-    // workspace (owner, 2026-10-10: "bu değerler hesaba otomatik girer").
-    if (widget.profile == null && widget.onCreateProfile != null) {
-      _EnvironmentCarry.save(this);
-    }
     velocity.dispose();
     grain.dispose();
     zero.dispose();
@@ -4130,13 +4143,14 @@ class _InclineDialogState extends State<_InclineDialog> {
   }
 }
 
-/// Hava Durumu values entered before any profile existed, in SI units, for
-/// the first profile workspace that opens afterwards.
-abstract final class _EnvironmentCarry {
-  static Map<String, double>? _si;
-  static Set<String> _edited = {};
+/// Hava Durumu values of the last workspace, in SI units, for the next
+/// workspace the shell builds (no profile → first profile, a profile
+/// rewritten by Profil or a tool, another profile chosen). One per shell.
+class EnvironmentCarry {
+  Map<String, double>? _si;
+  Set<String> _edited = {};
 
-  static void save(_BallisticsScreenState s) {
+  void _save(_BallisticsScreenState s) {
     double? n(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
     final t = n(s.temperature), p = n(s.pressure), h = n(s.humidity);
@@ -4161,7 +4175,7 @@ abstract final class _EnvironmentCarry {
   }
 
   /// Fields start in SI; the unit preference converts them afterwards.
-  static void apply(_BallisticsScreenState s) {
+  void _apply(_BallisticsScreenState s) {
     final si = _si;
     if (si == null) return;
     String f(double v) => v == v.roundToDouble()
@@ -4183,12 +4197,6 @@ abstract final class _EnvironmentCarry {
     }
     final wd = si['windDirection'];
     if (wd != null) s.windHour.text = '${WindClock.fromDegrees(wd)}';
-    // A profile workspace takes the values over; a later no-profile page
-    // starts from them again only until then.
-    if (s.widget.profile != null) {
-      _si = null;
-      _edited = {};
-    }
   }
 }
 

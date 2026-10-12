@@ -88,6 +88,18 @@ PCP_ALIASES = {'.177': 4.5, '.20': 5.0, '.22': 5.5, '.25': 6.35, '.30': 7.62, '.
 
 skipped = []
 
+# Kalibre tamamlama (2026-10-11): standard sizes per caliber from the
+# data/kalibre-tamamlama branch (C.I.P., SAAMI, maker sheets; worktree at
+# tools/data_gen/calibers). New calibers join the lists; existing names and
+# diameters are never changed here.
+SPECS = json.load(open(HERE / 'calibers/data/calibers/cartridge_specs.json'))
+for _s in SPECS:
+    if _s['added'] and _s['platform'] == 'firearm':
+        CARTRIDGES.setdefault(_s['name'], _s['bullet_diameter_mm'])
+    elif _s['added'] and all(abs(mm - _s['bullet_diameter_mm']) > 0.06 for mm, _ in PCP):
+        PCP.append((_s['bullet_diameter_mm'], _s['name']))
+PCP.sort()
+
 
 def norm_key(s):
     s = s.strip().replace('×', 'x').replace('  ', ' ')
@@ -380,6 +392,57 @@ for a in ammo:
                f"{num(a['grain'])}, {num(a['bc'])}, {model}, {num(a['mv'])}, {num(a['barrel'])}, {dart_str(a['src'])}{extra}),\n")
 out.append("  ];\n}\n")
 (REPO / 'lib/data/factory_ammo_library.dart').write_text(''.join(out))
+
+# ------------------------------------------------------------------ cartridge specs
+_spec = {s['name']: s for s in SPECS}
+_weights = {}
+for a in ammo:
+    _weights.setdefault(a['cartridge'], []).append(a['grain'])
+out = [hdr, "/// Standard sizes of each Kalibre list entry (kalibre tamamlama,\n",
+       "/// 2026-10-11). Values come only from C.I.P. TDCC sheets, SAAMI standards\n",
+       "/// and the maker's official pages ([sources]); a value that no such source\n",
+       "/// gives is null and [note] says why. [twistIn] is the standard/reference\n",
+       "/// twist (1 turn in N in). [bulletWeightFrom]: 'SAAMI' (reference loads) or\n",
+       "/// 'fabrika fişeği' (range of the app's maker-sourced factory ammo).\n",
+       "class CartridgeSpec {\n  final String name, note;\n  final bool added;\n  final double bulletDiameterMm;\n",
+       "  final double? caseLengthMm, maxCartridgeLengthMm, pmaxBar, mapPsi, twistIn;\n",
+       "  final double? grooveDiameterMm, boreDiameterMm, bulletWeightMinGr, bulletWeightMaxGr;\n",
+       "  final int? grooves;\n  final String? standard, bulletWeightFrom;\n  final List<String> sources;\n\n",
+       "  /// Bullet diameter in inches (derived from [bulletDiameterMm]).\n",
+       "  double get bulletDiameterIn => bulletDiameterMm / 25.4;\n\n",
+       "  const CartridgeSpec(this.name, this.bulletDiameterMm, {required this.note, this.added = false,\n",
+       "      this.caseLengthMm, this.maxCartridgeLengthMm, this.pmaxBar, this.mapPsi, this.twistIn,\n",
+       "      this.grooveDiameterMm, this.boreDiameterMm, this.grooves, this.bulletWeightMinGr,\n",
+       "      this.bulletWeightMaxGr, this.bulletWeightFrom, this.standard, this.sources = const []});\n}\n\n",
+       "abstract final class CartridgeSpecs {\n  static const all = <String, CartridgeSpec>{\n"]
+_FIELDS = [('caseLengthMm', 'case_length_mm'), ('maxCartridgeLengthMm', 'max_cartridge_length_mm'),
+           ('pmaxBar', 'pmax_bar'), ('mapPsi', 'map_psi'), ('twistIn', 'twist_in'),
+           ('grooveDiameterMm', 'groove_diameter_mm'), ('boreDiameterMm', 'bore_diameter_mm')]
+for name, dia in [(n, CARTRIDGES[n]) for n in order] + [(label, mm) for mm, label in PCP]:
+    s = _spec.get(name) or {'note': None, 'notes': 'Ölçü kaydı henüz yok (data/kalibre-tamamlama).', 'sources': []}
+    args = [f"note: {dart_str(s['notes'])}"]
+    if s.get('added'):
+        args.append('added: true')
+    for k, j in _FIELDS:
+        if s.get(j) is not None:
+            args.append(f"{k}: {num(s[j])}")
+    if s.get('grooves') is not None:
+        args.append(f"grooves: {int(s['grooves'])}")
+    w = _weights.get(name)
+    if s.get('bullet_weight_min_gr') is not None:
+        args += [f"bulletWeightMinGr: {num(s['bullet_weight_min_gr'])}",
+                 f"bulletWeightMaxGr: {num(s['bullet_weight_max_gr'])}", "bulletWeightFrom: 'SAAMI'"]
+    elif w:
+        args += [f"bulletWeightMinGr: {num(min(w))}", f"bulletWeightMaxGr: {num(max(w))}",
+                 f"bulletWeightFrom: {dart_str('fabrika fişeği')}"]
+    if s.get('standard'):
+        args.append(f"standard: {dart_str(s['standard'])}")
+    if s['sources']:
+        args.append('sources: [' + ', '.join(dart_str(u) for u in s['sources']) + ']')
+    out.append(f"    {dart_str(name)}: CartridgeSpec({dart_str(name)}, {num(dia)}, {', '.join(args)}),\n")
+out.append("  };\n\n  /// Spec of a Kalibre list name or PCP label; null when unknown.\n"
+           "  static CartridgeSpec? of(String name) => all[name];\n}\n")
+(REPO / 'lib/data/cartridge_specs.dart').write_text(''.join(out))
 
 print('rifles', len(rifles), 'firearm', sum(r['platform'] == 'firearm' for r in rifles),
       'pcp', sum(r['platform'] == 'pcp' for r in rifles))

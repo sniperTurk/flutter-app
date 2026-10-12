@@ -1,0 +1,20 @@
+{
+  "id": "arl-tr-5182-m855",
+  "brand": "U.S. Army Research Laboratory",
+  "bullet": "5.56 mm M855 (lot R011)",
+  "diameter_mm": 5.69,
+  "weight_gr": 62.3,
+  "mass_g": 4.04,
+  "method": "spark-range (ARL Aerodynamics Experimental Facility, 39 shadowgraph stations, 6-DOF fit)",
+  "coefficient": "CX0",
+  "coefficient_note": "Zero-yaw axial force coefficient from Table 8 ('Multiple shot group fit aerodynamic coefficients'); the report states CX and CD are approximately equal at the small yaw angles measured. Printed to two decimals.",
+  "points": [[1.18, 0.45], [1.47, 0.40], [1.68, 0.38], [2.23, 0.32], [2.46, 0.33], [2.62, 0.29]],
+  "source_url": "https://apps.dtic.mil/sti/tr/pdf/ADA530895.pdf",
+  "source_title": "Silton, S.I.; Howell, B.E. Aerodynamic and Flight Dynamic Characteristics of 5.56-mm Ammunition: M855. ARL-TR-5182, May 2010",
+  "license": "us-government-public-release",
+  "license_note": "Cover: 'Approved for public release; distribution is unlimited.' U.S. Army Research Laboratory report (17 U.S.C. 105 for the government author's work; measured values are facts). Co-author is a contractor (Data Matrix Solutions), so only the numeric measurements are taken, not text or figures.",
+  "verified": "Table 8 read three times on 2026-10-11 with different prompts; all rows identical.",
+  "use_in_app": false,
+  "use_in_app_reason": "Covers only Mach 1.18-2.62: no transonic/subsonic points, so a solver clamping below Mach 1.18 would overstate drag past ~500 m. No matching bullet in lib/data/bullet_library.dart (MKE SS109 is a different bullet; BRL-MR-3476 reports M855 CD0 about 8% above SS109). Kept as a reference record only.",
+  "library": null
+}
