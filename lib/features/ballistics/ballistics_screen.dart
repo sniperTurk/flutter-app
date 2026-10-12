@@ -1154,7 +1154,20 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             '${metric ? 'hPa' : 'inHg'}.';
       } else {
         _pressureFailed = true;
-        _pressureStatus = 'Basınç okunamadı; elle girin.';
+        final u = reading as PressureUnavailable;
+        _pressureStatus = switch (u.reason) {
+          PressureFailure.noSensor =>
+            'Basınç okunamadı: telefonun basınç sensörüne erişilemedi. '
+                'Ayarlar > Gizlilik ve Güvenlik > Hareket ve Fitness\'ta '
+                'SNIPER TÜRK\'e izin verin ya da basıncı elle girin.',
+          PressureFailure.noSample =>
+            'Basınç okunamadı: sensör 5 saniyede değer vermedi. Tekrar '
+                'deneyin ya da basıncı elle girin.',
+          PressureFailure.outOfRange =>
+            'Basınç okunamadı: sensör geçersiz bir değer verdi'
+                '${u.lastValue == null ? '' : ' (${u.lastValue!.toStringAsFixed(1)})'}'
+                '. Basıncı elle girin.',
+        };
       }
     });
     if (reading is PressureRead && widget.profile != null) _quietSolve();
