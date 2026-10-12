@@ -310,7 +310,7 @@ void _scan() {
           // Profil form: new and edit.
           await tester.tap(_tab('Profil'));
           await _settle(tester);
-          final add = find.text('Yeni profil');
+          final add = find.text('Profil ekle');
           await tester.ensureVisible(add.first);
           await tester.tap(add.first);
           await _visit(tester, c, 'Profil formu (yeni)');

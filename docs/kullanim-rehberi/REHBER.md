@@ -50,11 +50,13 @@ Uygulama tüfeği sıfırlamaz; sıfırı atış alanında sen yaparsın, uygula
 
 "Konumdan canlı hava verisi al" sıcaklık, nem ve rüzgâr hızını doldurur; İrtifa boşsa GPS'ten alır. Senin yazdığın değerlere dokunmaz. Rüzgâr yönünü her zaman sen seçersin.
 
-Atmosfer: Sıcaklık, İstasyon basıncı, Bağıl nem ve İrtifa. Basınç, bulunduğun yerdeki istasyon basıncıdır; deniz seviyesine indirilmiş QNH değeri değildir.
+Hava Durumu bölümü: Sıcaklık ve Bağıl nem (ateşli tüfekte Mühimmat sıcaklığı da).
+
+Basınç ölçer: İstasyon basıncı ve İrtifa; altındaki "Basıncı telefondan al" basıncı telefonun sensöründen okur. Basınç, bulunduğun yerdeki istasyon basıncıdır; deniz seviyesine indirilmiş QNH değeri değildir.
 
 Rüzgâr: Rüzgâr hızı m/s olarak yazılır. Rüzgâr yönü saat kadranında seçilir: rüzgârın geldiği saate dokun. Hedef saat 12'dedir; sağdan gelen rüzgâr 3, arkadan 6, soldan 9.
 
-Üstteki "Konumdan canlı hava verisi" düğmesi servis verisini ayrı bir sayfada yalnızca gösterir; hesaba aktarmaz.
+Servis verisini hesaba aktarmadan yalnızca görmek için Araçlar > Hava & Rüzgâr sayfasını aç.
 
 ## Hedef ekranında atış
 
@@ -84,7 +86,7 @@ Hareketli hedef: hedefin hızını ve yönünü yaz; Hedef ekranı ne kadar önd
 
 Tüfek düzeltmeleri: Gerçek / yazan, kare testiyle bulunan kule ölçek katsayısıdır. Sıfır ofseti, sıfırdaki küçük kaymadır. Spin drift için Mermi uzunluğu'nu mm olarak yaz; yiv yönü ve yiv oranı profilden gelir.
 
-Rüzgâr düzeltmesi kutusu Açı'nın altındadır: En yüksek rüzgâr, Hava Durumu'ndaki rüzgâr hızının 1,5 katı olarak kendiliğinden yazılır; Hedef ekranı yan düzeltmeyi bu yüzden bir aralık olarak gösterir. Silersen aralık gösterilmez, "Otomatik doldur" geri getirir. Yol ortası ve Hedefte kutularına oradaki rüzgârı yaz; boş kalırsa her yerde aynı rüzgâr kullanılır.
+Rüzgâr düzeltmesi kutusu Açı'nın altındadır ve boş gelir. "Rüzgâr düzeltmesi al" Hava Durumu'ndaki rüzgâr hızının 1,5 katını yazar; kendi ölçtüğün en sert rüzgârı da yazabilirsin. Kutu doluysa Hedef ekranı yan düzeltmeyi bir aralık olarak gösterir. Yol ortası ve Hedefte kutularına oradaki rüzgârı yaz; boş kalırsa her yerde aynı rüzgâr kullanılır.
 
 Barut sıcaklığı Profil > Mühimmat'ta girilir; Pro'da yalnızca bugünkü hız gösterilir.
 

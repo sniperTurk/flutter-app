@@ -11,6 +11,7 @@ import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/pro_sections.dart';
 
@@ -233,16 +234,18 @@ void main() {
       final select = find.byKey(const Key('pro-wez-shots'));
       await tester.ensureVisible(select);
       await tester.pumpAndSettle();
+      // Atış sayısı starts on "Seçiniz" (owner, 2026-10-12): one shot.
       expect(
         tester
-            .widget<DropdownButton<int>>(
+            .state<MenzilSelectState<int>>(
               find.descendant(
                 of: select,
-                matching: find.byType(DropdownButton<int>),
+                matching: find.byType(MenzilSelect<int>),
+                matchRoot: true,
               ),
             )
             .value,
-        1,
+        isNull,
       );
 
       await tester.pumpWidget(app(BallisticsView.shot));

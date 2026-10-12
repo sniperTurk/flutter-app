@@ -223,7 +223,8 @@ void main() {
       await tester.pumpAndSettle();
       await type(tester, const Key('pro-turret-scale'), '0,9');
       // Rüzgâr düzeltmesi is on Pro Ayarlar (owner, 2026-10-12).
-      // En yüksek rüzgâr fills itself: 2 m/s × 1.5 (owner, 2026-10-09).
+      // The box starts empty; "Rüzgâr düzeltmesi al" writes 2 m/s × 1.5
+      // (owner, 2026-10-12).
       String windMax() => tester
           .widget<TextField>(
             find.descendant(
@@ -234,10 +235,12 @@ void main() {
           .controller!
           .text;
       await openProFor(tester, const Key('pro-wind-max'));
+      expect(windMax(), '');
+      await tester.ensureVisible(find.byKey(const Key('pro-wind-max-fill')));
+      await tester.tap(find.byKey(const Key('pro-wind-max-fill')));
+      await tester.pumpAndSettle();
       expect(windMax(), '3.0');
-      expect(find.text('Otomatik: rüzgâr hızı × 1,5'), findsOneWidget);
       await type(tester, const Key('pro-wind-max'), '5');
-      expect(find.text('Otomatik: rüzgâr hızı × 1,5'), findsNothing);
       await type(tester, const Key('pro-target-speed'), '2');
       // The direction starts unchosen ("Seçiniz", owner 2026-10-10).
       expect(find.text('Seçiniz'), findsWidgets);
@@ -306,7 +309,7 @@ void main() {
     Finder field(Key k) =>
         find.descendant(of: find.byKey(k), matching: find.byType(TextField));
 
-    testWidgets('En yüksek rüzgâr can be cleared and stays off', (
+    testWidgets('Rüzgâr düzeltmesi: empty, al fills, Sıfırla empties', (
       tester,
     ) async {
       await _sized(tester);
@@ -324,13 +327,16 @@ void main() {
           .widget<TextField>(field(const Key('pro-wind-max')))
           .controller!
           .text;
-      expect(text(), '3.0');
-      await tester.ensureVisible(field(const Key('pro-wind-max')));
-      await tester.enterText(field(const Key('pro-wind-max')), '');
-      await tester.pumpAndSettle();
-      expect(text(), '');
-      expect(find.text('Boş: rüzgâr aralığı gösterilmez.'), findsOneWidget);
+      Future<void> tap(Key k) async {
+        await tester.ensureVisible(find.byKey(k));
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(k));
+        await tester.pumpAndSettle();
+      }
 
+      // Empty at first (owner, 2026-10-12); both buttons are always there.
+      expect(text(), '');
+      expect(find.byKey(const Key('pro-wind-max-reset')), findsOneWidget);
       await tester.pumpWidget(app(BallisticsView.shot));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('shot-wind-bracket')), findsNothing);
@@ -338,11 +344,23 @@ void main() {
       await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
       await openProFor(tester, const Key('pro-wind-max'));
-      expect(text(), '');
-      await tester.ensureVisible(find.byKey(const Key('pro-wind-max-auto')));
-      await tester.tap(find.byKey(const Key('pro-wind-max-auto')));
-      await tester.pumpAndSettle();
+      await tap(const Key('pro-wind-max-fill'));
       expect(text(), '3.0');
+      expect(find.text('Rüzgâr düzeltmesi alındı'), findsOneWidget);
+
+      await tester.ensureVisible(field(const Key('pro-wind-mid')));
+      await tester.enterText(field(const Key('pro-wind-mid')), '4');
+      await tester.enterText(field(const Key('pro-wind-far')), '6');
+      await tester.pumpAndSettle();
+      await tap(const Key('pro-wind-max-fill'));
+      await tap(const Key('pro-wind-max-reset'));
+      expect(text(), '');
+      // Sıfırla empties Yol ortası and Hedefte too.
+      String of(Key k) => tester.widget<TextField>(field(k)).controller!.text;
+      expect(of(const Key('pro-wind-mid')), '');
+      expect(of(const Key('pro-wind-far')), '');
+      expect(find.text('Veriler sıfırlandı'), findsOneWidget);
+      expect(find.text('Tekrar rüzgâr düzeltmesi al'), findsOneWidget);
     });
 
     testWidgets('"Seçiniz" stays in the list and takes the choice back', (

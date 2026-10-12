@@ -43,7 +43,6 @@ import '../../ui/menzil_widgets.dart';
 import '../tools/cold_bore_hint.dart';
 import '../tools/map_distance_screen.dart';
 import '../tools/parallax_screen.dart';
-import '../tools/weather_screen.dart';
 import 'dope_card.dart';
 import '../profiles/profile_field_info.dart';
 import 'environment_field_info.dart';
@@ -302,7 +301,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         latitudeCtl.text = s.latitudeText;
         azimuthCtl.text = s.azimuthText;
         turretScaleCtl.text = s.turretScaleText;
-        _windMaxAuto = s.windMaxText.isEmpty && !s.windMaxOff;
+        // No automatic value any more (owner, 2026-10-12): the box starts
+        // empty and is filled only by "Rüzgâr düzeltmesi al" or by hand.
+        _windMaxAuto = false;
         windMaxCtl.text = s.windMaxText;
         _autoWindMax();
         targetSpeedCtl.text = s.targetSpeedText;
@@ -327,6 +328,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         rangeErrorCtl.text = s.rangeErrorText;
         bcErrorCtl.text = s.bcErrorText;
         _wezShotCount = s.wezShotCount;
+        _wezShotChosen = s.wezShotCount != Wez.defaultShotCount;
         _shotCache.clear();
         _holdSamples = null;
       });
@@ -382,6 +384,42 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final TextEditingController latitudeCtl = TextEditingController();
   final TextEditingController azimuthCtl = TextEditingController();
 
+  /// Al + Sıfırla state of Konumdan al / Pusuladan al / Konumdan hesapla
+  /// (owner, 2026-10-12: the same layout as Hava Durumu).
+  bool _latFilled = false, _latWasReset = false;
+  bool _aziFilled = false, _aziWasReset = false;
+  bool _gravFilled = false, _gravWasReset = false;
+
+  void _resetLatitude() {
+    setState(() {
+      latitudeCtl.text = '';
+      _latFilled = false;
+      _latWasReset = true;
+      _coriolisStatus = null;
+    });
+    _coriolisChanged();
+  }
+
+  void _resetAzimuth() {
+    setState(() {
+      azimuthCtl.text = '';
+      _aziFilled = false;
+      _aziWasReset = true;
+      _coriolisStatus = null;
+    });
+    _coriolisChanged();
+  }
+
+  void _resetGravity() {
+    setState(() {
+      gravityCtl.text = '';
+      _gravFilled = false;
+      _gravWasReset = true;
+      _gravityStatus = null;
+    });
+    _gravityChanged();
+  }
+
   /// Pro Ayarlar extras (owner, 2026-10-09).
   final TextEditingController turretScaleCtl = TextEditingController();
   final TextEditingController windMaxCtl = TextEditingController();
@@ -391,7 +429,45 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// bracket off (owner, 2026-10-10: the shooter must be able to delete an
   /// automatic value); "Otomatik doldur" switches back. An automatic value
   /// is not saved.
-  bool _windMaxAuto = true;
+  bool _windMaxAuto = false;
+
+  /// "Rüzgâr düzeltmesi al" state (owner, 2026-10-12), as on Hava Durumu.
+  bool _windMaxFilled = false;
+  bool _windMaxWasReset = false;
+
+  void _fillWindMax() {
+    final w = double.tryParse(wind.text.trim().replaceAll(',', '.'));
+    if (w == null || !w.isFinite || w <= 0) {
+      ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+        const SnackBar(
+          content: Text('Önce Hava Durumu\'nda rüzgâr hızını girin.'),
+        ),
+      );
+      return;
+    }
+    setState(() {
+      windMaxCtl.text = (w * windGustFactor).toStringAsFixed(1);
+      _windMaxFilled = true;
+      _windMaxWasReset = false;
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    _coriolisChanged();
+  }
+
+  void _resetWindMax() {
+    setState(() {
+      windMaxCtl.text = '';
+      // Yol ortası and Hedefte are cleared too (owner, 2026-10-12).
+      windMidCtl.text = '';
+      windFarCtl.text = '';
+      _windMaxFilled = false;
+      _windMaxWasReset = true;
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    _coriolisChanged();
+  }
 
   /// Typical gust factor over land: the bracket top is 1.5 × the wind.
   static const windGustFactor = 1.5;
@@ -409,6 +485,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       String v(double mps) =>
           (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
       // The class top is the shooter's own gust value, not ×1.5.
+      _weatherFilled = false;
+      _weatherWasReset = false;
       _windMaxAuto = false;
       windMaxCtl.text = v(b.maxMps);
       wind.text = v(b.midMps);
@@ -476,6 +554,33 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// WEZ Atış sayısı (owner, 2026-10-11): Hedef shows the first-shot
   /// probability and, for more than one shot, the chance of at least one hit.
   int _wezShotCount = Wez.defaultShotCount;
+
+  /// Atış sayısı starts on "Seçiniz" (owner, 2026-10-12); unchosen means
+  /// the default single shot.
+  bool _wezShotChosen = false;
+  int _targetClearToken = 0;
+
+  /// Hareketli hedef → "Verileri sil" (owner, 2026-10-12): empties every
+  /// box of the card.
+  void _clearTargetBox() {
+    setState(() {
+      for (final c in [
+        targetSpeedCtl,
+        groupCtl,
+        sdCtl,
+        targetSizeCtl,
+        rangeErrorCtl,
+        bcErrorCtl,
+      ]) {
+        c.text = '';
+      }
+      _targetMovesRight = null;
+      _wezShotCount = Wez.defaultShotCount;
+      _wezShotChosen = false;
+      _targetClearToken++;
+    });
+    _coriolisChanged();
+  }
 
   /// Which Pro Ayarlar box is open (one at a time; all closed at first).
   String? _proOpen;
@@ -756,6 +861,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           : (fix.altitudeM ?? 0);
       final g = Gravity.at(latitudeDeg: fix.latitude, altitudeM: altM);
       gravityCtl.text = g.toStringAsFixed(4);
+      _gravFilled = true;
+      _gravWasReset = false;
       _gravityStatus =
           'Konumdan hesaplandı: ${fix.latitude.abs().toStringAsFixed(1).replaceAll('.', ',')}° '
           '${fix.latitude >= 0 ? 'K' : 'G'} · ${altM.round()} m.';
@@ -920,6 +1027,57 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   bool _weatherBusy = false;
   String? _weatherStatus;
   bool _weatherFailed = false;
+
+  /// The weather button turns orange ("…alındı") after a successful fill
+  /// and offers "Sıfırla" (owner, 2026-10-12). Typing into a field it
+  /// filled turns it back: the values on screen are no longer the service's.
+  bool _weatherFilled = false;
+
+  /// The same for "Basıncı telefondan al".
+  bool _pressureFilled = false;
+
+  /// After "Sıfırla" the reset button stays, orange, as "Veriler sıfırlandı"
+  /// (owner, 2026-10-12) until the next fetch or a typed value.
+  bool _weatherWasReset = false;
+  bool _pressureWasReset = false;
+
+  /// Hava Durumu starting values (as in initState), in the shown units.
+  void _resetWeather() {
+    setState(() {
+      temperature.text = metric ? '15' : '59';
+      humidity.text = '50';
+      wind.text = '0';
+      altitude.text = '0';
+      for (final c in [temperature, humidity, wind, altitude]) {
+        _userEdited.remove(c);
+      }
+      if (!_pressureFilled) {
+        pressure.text = metric ? '1013.25' : '29.92';
+        _userEdited.remove(pressure);
+      }
+      _weatherFilled = false;
+      _weatherWasReset = true;
+      _weatherStatus = null;
+      _weatherFailed = false;
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    if (widget.profile != null) _quietSolve();
+  }
+
+  void _resetPressure() {
+    setState(() {
+      pressure.text = metric ? '1013.25' : '29.92';
+      _userEdited.remove(pressure);
+      _pressureFilled = false;
+      _pressureWasReset = true;
+      _pressureStatus = null;
+      _pressureFailed = false;
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    if (widget.profile != null) _quietSolve();
+  }
 
   @override
   void didUpdateWidget(covariant BallisticsScreen old) {
@@ -1106,6 +1264,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _weatherBusy = false;
       _weatherFailed = failed;
       _weatherStatus = status;
+      if (!failed) {
+        _weatherFilled = true;
+        _weatherWasReset = false;
+      }
     });
     // Re-solve with the new conditions (quietly: Atış says why if not).
     if (!failed && widget.profile != null) {
@@ -1148,6 +1310,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         pressure.text = _pressureText(reading.hpa);
         _userEdited.add(pressure);
         _pressureFailed = false;
+        _pressureFilled = true;
+        _pressureWasReset = false;
         _pressureStatus =
             'Basınç telefondan alındı: '
             '${_pressureText(reading.hpa).replaceAll('.', ',')} '
@@ -1177,6 +1341,36 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       ? hpa.toStringAsFixed(1)
       : UnitSystem.hpaToInHg(hpa).toStringAsFixed(2);
 
+  /// A fetch button with "Sıfırla" always beside it (owner, 2026-10-12):
+  /// the fetch button turns orange once its data came, "Sıfırla" turns
+  /// orange ("Veriler sıfırlandı") after a reset.
+  Widget _filledRow({
+    required bool filled,
+    required bool wasReset,
+    required Widget button,
+    required Key resetKey,
+    required VoidCallback onReset,
+  }) {
+    return Row(
+      children: [
+        Expanded(child: button),
+        const SizedBox(width: MenzilSpace.sm),
+        Expanded(
+          child: MenzilSecondaryButton(
+            key: resetKey,
+            label: wasReset ? 'Veriler sıfırlandı' : 'Sıfırla',
+            icon: wasReset ? Icons.check : Icons.restart_alt,
+            expand: true,
+            active: wasReset,
+            twoLines: true,
+            maxLabelLines: 3,
+            onPressed: onReset,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _weatherFillCard(BuildContext context) {
     final status = _weatherStatus;
     return Column(
@@ -1191,31 +1385,30 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             message: status,
           ),
         const SizedBox(height: MenzilSpace.xs),
-        MenzilSecondaryButton(
-          key: const Key('environment-fill-weather'),
-          label: _weatherBusy ? 'Alınıyor…' : 'Konumdan canlı hava verisi al',
-          icon: Icons.my_location,
-          expand: true,
-          onPressed: _weatherBusy ? null : () => _fillWeather(overwrite: true),
-        ),
-        const SizedBox(height: MenzilSpace.xs),
-        MenzilSecondaryButton(
-          key: const Key('environment-phone-pressure'),
-          label: _pressureBusy ? 'Okunuyor…' : 'Basıncı telefondan al',
-          icon: Icons.speed,
-          expand: true,
-          onPressed: _pressureBusy ? null : _readPhonePressure,
-        ),
-        if (_pressureStatus != null) ...[
-          const SizedBox(height: MenzilSpace.xs),
-          MenzilNotice(
-            key: const Key('environment-phone-pressure-status'),
-            tone: _pressureFailed
-                ? MenzilNoticeTone.warning
-                : MenzilNoticeTone.info,
-            message: _pressureStatus!,
+        _filledRow(
+          filled: _weatherFilled,
+          wasReset: _weatherWasReset,
+          button: MenzilSecondaryButton(
+            key: const Key('environment-fill-weather'),
+            label: _weatherBusy
+                ? 'Alınıyor…'
+                : _weatherFilled
+                ? 'Konumdan canlı hava verisi alındı'
+                : _weatherWasReset
+                ? 'Tekrar canlı konum verisi al'
+                : 'Konumdan canlı hava verisi al',
+            icon: _weatherFilled ? Icons.check : Icons.my_location,
+            expand: true,
+            active: _weatherFilled,
+            twoLines: true,
+            maxLabelLines: 3,
+            onPressed: _weatherBusy
+                ? null
+                : () => _fillWeather(overwrite: true),
           ),
-        ],
+          resetKey: const Key('environment-weather-reset'),
+          onReset: _resetWeather,
+        ),
         const SizedBox(height: MenzilSpace.md),
       ],
     );
@@ -1685,16 +1878,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 ),
               ),
             ],
-          ),
-        ),
-        const SizedBox(height: MenzilSpace.sm),
-        MenzilSecondaryButton(
-          key: const Key('environment-open-weather'),
-          label: 'Konumdan canlı hava verisi',
-          icon: Icons.cloud_outlined,
-          expand: true,
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute<void>(builder: (_) => const WeatherScreen()),
           ),
         ),
         const SizedBox(height: MenzilSpace.md),
@@ -2596,18 +2779,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         return MenzilPage(
           key: const PageStorageKey('ballistics-environment'),
           children: [
-            // Live service data one tap away before shooting. It is shown
-            // for reading only; nothing is copied into these inputs.
-            MenzilSecondaryButton(
-              key: const Key('environment-open-weather'),
-              label: 'Konumdan canlı hava verisi',
-              icon: Icons.cloud_outlined,
-              expand: true,
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute<void>(builder: (_) => const WeatherScreen()),
-              ),
-            ),
-            const SizedBox(height: MenzilSpace.md),
+            // The read-only "Konumdan canlı hava verisi" button was removed
+            // (owner, 2026-10-12); the page stays in Araçlar.
             _weatherFillCard(context),
             ..._environmentInputs(context, collapseShotInputs: true),
             if (widget.onContinueToPro != null)
@@ -2890,8 +3063,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
 
     return [
+      // Section renamed "Hava Durumu" (owner, 2026-10-12).
       const MenzilSectionHeader(
-        'Atmosfer',
+        'Hava Durumu',
         padding: EdgeInsets.only(bottom: MenzilSpace.sm),
       ),
       MenzilCard(
@@ -2908,7 +3082,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               controller: temperature,
               label: 'Sıcaklık',
               // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => _userEdited.add(temperature),
+              onChanged: (_) {
+                _userEdited.add(temperature);
+                if (_weatherFilled || _weatherWasReset) {
+                  setState(() => _weatherFilled = _weatherWasReset = false);
+                }
+              },
               info: EnvironmentFieldInfo.temperatureFor(firearm: _isFirearm),
               unit: metric ? '°C' : '°F',
               keyboardType: const TextInputType.numberWithOptions(
@@ -2932,36 +3111,105 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 ),
               ),
             MenzilInput(
-              key: BallisticsFieldKeys.pressure,
-              controller: pressure,
-              label: 'İstasyon basıncı',
-              // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => setState(() => _userEdited.add(pressure)),
-              info: EnvironmentFieldInfo.pressure,
-              unit: metric ? 'hPa' : 'inHg',
-            ),
-            MenzilInput(
               key: BallisticsFieldKeys.humidity,
               controller: humidity,
               label: 'Bağıl nem',
               // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => _userEdited.add(humidity),
+              onChanged: (_) {
+                _userEdited.add(humidity);
+                if (_weatherFilled || _weatherWasReset) {
+                  setState(() => _weatherFilled = _weatherWasReset = false);
+                }
+              },
               info: EnvironmentFieldInfo.humidity,
               unit: '%',
             ),
-            MenzilInput(
-              key: BallisticsFieldKeys.altitude,
-              controller: altitude,
-              label: 'İrtifa',
-              // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => setState(() => _userEdited.add(altitude)),
-              info: EnvironmentFieldInfo.altitude,
-              unit: metric ? 'm' : 'ft',
-              keyboardType: const TextInputType.numberWithOptions(
-                decimal: true,
-                signed: true,
-              ),
+          ],
+        ),
+      ),
+      // Basınç ölçer (owner, 2026-10-12): station pressure and altitude
+      // under Atmosfer, with "Basıncı telefondan al" under the two boxes.
+      const MenzilSectionHeader(
+        'Basınç ölçer',
+        padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
+      ),
+      MenzilCard(
+        key: const Key('environment-barometer-card'),
+        padding: const EdgeInsets.fromLTRB(
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            MenzilFieldGrid(
+              children: [
+                MenzilInput(
+                  key: BallisticsFieldKeys.pressure,
+                  controller: pressure,
+                  label: 'İstasyon basıncı',
+                  // A typed value is the user's: auto fill keeps it.
+                  onChanged: (_) => setState(() {
+                    _userEdited.add(pressure);
+                    _pressureFilled = false;
+                    _pressureWasReset = false;
+                  }),
+                  info: EnvironmentFieldInfo.pressure,
+                  unit: metric ? 'hPa' : 'inHg',
+                ),
+                MenzilInput(
+                  key: BallisticsFieldKeys.altitude,
+                  controller: altitude,
+                  label: 'İrtifa',
+                  // A typed value is the user's: auto fill keeps it.
+                  onChanged: (_) => setState(() {
+                    _userEdited.add(altitude);
+                    _weatherFilled = false;
+                    _weatherWasReset = false;
+                  }),
+                  info: EnvironmentFieldInfo.altitude,
+                  unit: metric ? 'm' : 'ft',
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: true,
+                  ),
+                ),
+              ],
             ),
+            _filledRow(
+              filled: _pressureFilled,
+              wasReset: _pressureWasReset,
+              button: MenzilSecondaryButton(
+                key: const Key('environment-phone-pressure'),
+                label: _pressureBusy
+                    ? 'Okunuyor…'
+                    : _pressureFilled
+                    ? 'Basınç telefondan alındı'
+                    : _pressureWasReset
+                    ? 'Tekrar basıncı telefondan al'
+                    : 'Basıncı telefondan al',
+                icon: _pressureFilled ? Icons.check : Icons.speed,
+                expand: true,
+                active: _pressureFilled,
+                twoLines: true,
+                maxLabelLines: 3,
+                onPressed: _pressureBusy ? null : _readPhonePressure,
+              ),
+              resetKey: const Key('environment-pressure-reset'),
+              onReset: _resetPressure,
+            ),
+            if (_pressureStatus != null) ...[
+              const SizedBox(height: MenzilSpace.xs),
+              MenzilNotice(
+                key: const Key('environment-phone-pressure-status'),
+                tone: _pressureFailed
+                    ? MenzilNoticeTone.warning
+                    : MenzilNoticeTone.info,
+                message: _pressureStatus!,
+              ),
+            ],
           ],
         ),
       ),
@@ -3019,6 +3267,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               // longer comes from the Rüzgâr gözlemi class.
               onChanged: (_) {
                 _userEdited.add(wind);
+                if (_weatherFilled || _weatherWasReset) {
+                  setState(() => _weatherFilled = _weatherWasReset = false);
+                }
                 if (_windObservation != null) {
                   setState(() {
                     _windObservation = null;
@@ -3365,6 +3616,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 part('Nasıl?', e.how),
               ],
             ),
+            // Justified like every paragraph (owner, 2026-10-12): the Pro
+            // cards do not inherit MenzilPage's default.
+            textAlign: TextAlign.justify,
             style: MenzilType.caption(c.ink2).copyWith(height: 1.35),
           ),
           if (note != null)
@@ -3459,33 +3713,37 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         MenzilInput(
           key: const Key('pro-wind-max'),
           controller: windMaxCtl,
-          label: 'En yüksek rüzgâr',
+          label: 'Rüzgâr hızı × 1,5',
           unit: windUnit,
           info: EnvironmentFieldInfo.windMax,
-          helperText: _windMaxAuto
-              ? 'Otomatik: rüzgâr hızı × 1,5'
-              : windMaxCtl.text.trim().isEmpty
-              ? 'Boş: rüzgâr aralığı gösterilmez.'
-              : null,
           onChanged: (v) {
             _windMaxAuto = false;
+            if (_windMaxFilled || _windMaxWasReset) {
+              setState(() => _windMaxFilled = _windMaxWasReset = false);
+            }
             _coriolisChanged();
           },
         ),
-        if (!_windMaxAuto)
-          Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton.icon(
-              key: const Key('pro-wind-max-auto'),
-              onPressed: () {
-                _windMaxAuto = true;
-                _autoWindMax();
-                _coriolisChanged();
-              },
-              icon: const Icon(Icons.autorenew, size: 18),
-              label: const Text('Otomatik doldur'),
-            ),
+        _filledRow(
+          filled: _windMaxFilled,
+          wasReset: _windMaxWasReset,
+          button: MenzilSecondaryButton(
+            key: const Key('pro-wind-max-fill'),
+            label: _windMaxFilled
+                ? 'Rüzgâr düzeltmesi alındı'
+                : _windMaxWasReset
+                ? 'Tekrar rüzgâr düzeltmesi al'
+                : 'Rüzgâr düzeltmesi al',
+            icon: _windMaxFilled ? Icons.check : Icons.air,
+            expand: true,
+            active: _windMaxFilled,
+            twoLines: true,
+            maxLabelLines: 3,
+            onPressed: _fillWindMax,
           ),
+          resetKey: const Key('pro-wind-max-reset'),
+          onReset: _resetWindMax,
+        ),
         _explain(ProSectionInfo.windMax),
         MenzilFieldGrid(
           children: [
@@ -3605,14 +3863,32 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   ? '−90 ile 90 arasında olmalı.'
                   : null,
               keyboardType: signed,
-              onChanged: (_) => _coriolisChanged(),
+              onChanged: (_) {
+                if (_latFilled || _latWasReset) {
+                  setState(() => _latFilled = _latWasReset = false);
+                }
+                _coriolisChanged();
+              },
             ),
-            MenzilSecondaryButton(
-              key: const Key('pro-latitude-gps'),
-              label: 'Konumdan al',
-              icon: Icons.my_location,
-              expand: true,
-              onPressed: _latitudeFromGps,
+            _filledRow(
+              filled: _latFilled,
+              wasReset: _latWasReset,
+              button: MenzilSecondaryButton(
+                key: const Key('pro-latitude-gps'),
+                label: _latFilled
+                    ? 'Konumdan alındı'
+                    : _latWasReset
+                    ? 'Tekrar konumdan al'
+                    : 'Konumdan al',
+                icon: _latFilled ? Icons.check : Icons.my_location,
+                expand: true,
+                active: _latFilled,
+                twoLines: true,
+                maxLabelLines: 3,
+                onPressed: _latitudeFromGps,
+              ),
+              resetKey: const Key('pro-latitude-reset'),
+              onReset: _resetLatitude,
             ),
             const SizedBox(height: MenzilSpace.md),
             MenzilInput(
@@ -3624,14 +3900,32 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               errorText: azimuthCtl.text.isNotEmpty && _azimuth == null
                   ? '0 ile 360 arasında olmalı.'
                   : null,
-              onChanged: (_) => _coriolisChanged(),
+              onChanged: (_) {
+                if (_aziFilled || _aziWasReset) {
+                  setState(() => _aziFilled = _aziWasReset = false);
+                }
+                _coriolisChanged();
+              },
             ),
-            MenzilSecondaryButton(
-              key: const Key('pro-azimuth-compass'),
-              label: 'Pusuladan al',
-              icon: Icons.explore_outlined,
-              expand: true,
-              onPressed: _azimuthFromCompass,
+            _filledRow(
+              filled: _aziFilled,
+              wasReset: _aziWasReset,
+              button: MenzilSecondaryButton(
+                key: const Key('pro-azimuth-compass'),
+                label: _aziFilled
+                    ? 'Pusuladan alındı'
+                    : _aziWasReset
+                    ? 'Tekrar pusuladan al'
+                    : 'Pusuladan al',
+                icon: _aziFilled ? Icons.check : Icons.explore_outlined,
+                expand: true,
+                active: _aziFilled,
+                twoLines: true,
+                maxLabelLines: 3,
+                onPressed: _azimuthFromCompass,
+              ),
+              resetKey: const Key('pro-azimuth-reset'),
+              onReset: _resetAzimuth,
             ),
             if (_coriolisStatus != null) ...[
               const SizedBox(height: MenzilSpace.xs),
@@ -3670,14 +3964,32 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               errorText: gravityCtl.text.isNotEmpty && _gravityTyped == null
                   ? '9,7 ile 9,9 arasında olmalı.'
                   : null,
-              onChanged: (_) => _gravityChanged(),
+              onChanged: (_) {
+                if (_gravFilled || _gravWasReset) {
+                  setState(() => _gravFilled = _gravWasReset = false);
+                }
+                _gravityChanged();
+              },
             ),
-            MenzilSecondaryButton(
-              key: const Key('pro-gravity-gps'),
-              label: 'Konumdan hesapla',
-              icon: Icons.my_location,
-              expand: true,
-              onPressed: _gravityFromLocation,
+            _filledRow(
+              filled: _gravFilled,
+              wasReset: _gravWasReset,
+              button: MenzilSecondaryButton(
+                key: const Key('pro-gravity-gps'),
+                label: _gravFilled
+                    ? 'Konumdan hesaplandı'
+                    : _gravWasReset
+                    ? 'Tekrar konumdan hesapla'
+                    : 'Konumdan hesapla',
+                icon: _gravFilled ? Icons.check : Icons.my_location,
+                expand: true,
+                active: _gravFilled,
+                twoLines: true,
+                maxLabelLines: 3,
+                onPressed: _gravityFromLocation,
+              ),
+              resetKey: const Key('pro-gravity-reset'),
+              onReset: _resetGravity,
             ),
             if (_gravityStatus != null) ...[
               const SizedBox(height: MenzilSpace.xs),
@@ -3788,22 +4100,39 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 info: EnvironmentFieldInfo.bcError,
                 onChanged: (_) => _coriolisChanged(),
               ),
-              MenzilSelect<int>(
-                key: const Key('pro-wez-shots'),
-                label: 'Atış sayısı',
-                info: EnvironmentFieldInfo.wezShotCount,
-                initialValue: _wezShotCount,
-                items: [
-                  for (final n in Wez.shotCounts)
-                    DropdownMenuItem(value: n, child: Text('$n atış')),
-                ],
-                onChanged: (v) {
-                  if (v == null) return;
-                  setState(() => _wezShotCount = v);
-                  _saveShotSettings();
-                },
+              KeyedSubtree(
+                key: ValueKey('pro-wez-shots-$_targetClearToken'),
+                child: MenzilSelect<int>(
+                  key: const Key('pro-wez-shots'),
+                  label: 'Atış sayısı',
+                  info: EnvironmentFieldInfo.wezShotCount,
+                  initialValue: _wezShotChosen ? _wezShotCount : null,
+                  hint: 'Seçiniz',
+                  // "Seçiniz" stays in the list (owner, 2026-10-12).
+                  items: [
+                    const DropdownMenuItem<int>(child: Text('Seçiniz')),
+                    for (final n in Wez.shotCounts)
+                      DropdownMenuItem(value: n, child: Text('$n atış')),
+                  ],
+                  onChanged: (v) {
+                    setState(() {
+                      _wezShotChosen = v != null;
+                      _wezShotCount = v ?? Wez.defaultShotCount;
+                    });
+                    _saveShotSettings();
+                  },
+                ),
               ),
             ],
+          ),
+          const SizedBox(height: MenzilSpace.sm),
+          MenzilSecondaryButton(
+            key: const Key('pro-target-clear'),
+            label: 'Verileri sil',
+            icon: Icons.delete_outline,
+            destructive: true,
+            expand: true,
+            onPressed: _clearTargetBox,
           ),
         ],
       ),
@@ -4061,6 +4390,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (fix is LocationFix) {
       latitudeCtl.text = fix.latitude.toStringAsFixed(2);
       _coriolisStatus = 'Enlem konumdan alındı.';
+      _latFilled = true;
+      _latWasReset = false;
     } else {
       _coriolisStatus = 'Konum alınamadı; enlemi elle girin.';
     }
@@ -4085,6 +4416,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (state is HeadingAvailable) {
       azimuthCtl.text = state.reading.degrees.round().toString();
       _coriolisStatus = 'Atış yönü pusuladan alındı.';
+      _aziFilled = true;
+      _aziWasReset = false;
     } else {
       _coriolisStatus = 'Pusula okunamadı; atış yönünü elle girin.';
     }

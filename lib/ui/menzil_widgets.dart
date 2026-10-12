@@ -1129,13 +1129,16 @@ class MenzilSelect<T> extends StatefulWidget {
       : w;
 
   @override
-  State<MenzilSelect<T>> createState() => _MenzilSelectState<T>();
+  State<MenzilSelect<T>> createState() => MenzilSelectState<T>();
 }
 
 /// A [DropdownButton] in the field decoration (a form field cannot narrow
 /// its menu): the value lives here, as it did in the form field.
-class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
+class MenzilSelectState<T> extends State<MenzilSelect<T>> {
   late T? _value = widget.initialValue;
+
+  /// The value currently picked (null: "Seçiniz"); read by tests.
+  T? get value => _value;
 
   /// The box width after layout (a LayoutBuilder breaks dialogs that ask
   /// for intrinsic sizes); the menu is at most 260 pt and never wider.
@@ -1148,9 +1151,11 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
   }
 
   @override
-  void didUpdateWidget(covariant MenzilSelect<T> old) {
-    super.didUpdateWidget(old);
-    if (widget.initialValue != old.initialValue) _value = widget.initialValue;
+  void didUpdateWidget(covariant MenzilSelect<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialValue != oldWidget.initialValue) {
+      _value = widget.initialValue;
+    }
   }
 
   @override
@@ -1163,6 +1168,9 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
     final value = items.where((i) => i.value == _value).length == 1
         ? _value
         : null;
+    final int? selectedIndex = value == null
+        ? null
+        : items.indexWhere((i) => i.value == value);
     return Padding(
       padding: const EdgeInsets.only(bottom: MenzilSpace.md),
       child: Column(
@@ -1190,7 +1198,12 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                 isEmpty: false,
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<T>(
-                    value: value,
+                    // Always opens DOWNWARD (owner, 2026-10-12): Flutter
+                    // places the list so the selected entry covers the box,
+                    // which opened it upward for a later entry. The box
+                    // therefore shows the choice as its hint and the list
+                    // starts at its first entry.
+                    value: null,
                     // Narrower than a full-width box (owner, 2026-10-11:
                     // "sağa sola da çok açılıyor").
                     menuWidth: _boxWidth == null
@@ -1198,10 +1211,22 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                         : math.min(_boxWidth!, 260),
                     // Every list box says "Seçiniz" until something is
                     // picked (owner, 2026-10-11).
-                    hint: Text(
-                      w.hint ?? 'Seçiniz',
-                      style: TextStyle(color: c.ink2),
-                    ),
+                    hint: selectedIndex == null
+                        ? Text(
+                            w.hint ?? 'Seçiniz',
+                            style: TextStyle(color: c.ink2),
+                          )
+                        : DefaultTextStyle.merge(
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: c.ink),
+                            child: w.selectedLabels == null
+                                ? MenzilSelect._oneLine(
+                                    items[selectedIndex].child,
+                                  )
+                                : Text(w.selectedLabels![selectedIndex]),
+                          ),
                     // List entries in regular weight (owner, 2026-10-11).
                     items: [
                       for (final it in items)
@@ -1225,6 +1250,9 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                           },
                     // The closed box always shows ONE line (owner,
                     // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
+                    // With value null Flutter shows the entry whose value is
+                    // null ("Seçiniz" in lists that offer it): that slot
+                    // shows the current choice instead.
                     selectedItemBuilder: (context) => [
                       for (var i = 0; i < items.length; i++)
                         Align(
@@ -1233,9 +1261,20 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                             maxLines: 1,
                             softWrap: false,
                             overflow: TextOverflow.ellipsis,
-                            child: w.selectedLabels == null
-                                ? MenzilSelect._oneLine(items[i].child)
-                                : Text(w.selectedLabels![i]),
+                            child: () {
+                              final k = items[i].value == null
+                                  ? selectedIndex
+                                  : i;
+                              if (k == null) {
+                                return Text(
+                                  w.hint ?? 'Seçiniz',
+                                  style: TextStyle(color: c.ink2),
+                                );
+                              }
+                              return w.selectedLabels == null
+                                  ? MenzilSelect._oneLine(items[k].child)
+                                  : Text(w.selectedLabels![k]);
+                            }(),
                           ),
                         ),
                     ],
@@ -1372,6 +1411,11 @@ class MenzilSecondaryButton extends StatelessWidget {
   /// fits (owner, 2026-10-11: "Çözüm kulelere kuruldu" took three lines).
   final bool twoLines;
 
+  /// With [twoLines]: how many lines the shrinking label may take. Side by
+  /// side fetch / reset buttons use 2 so long labels fit on an iPhone SE
+  /// (owner, 2026-10-12).
+  final int maxLabelLines;
+
   const MenzilSecondaryButton({
     super.key,
     required this.label,
@@ -1381,6 +1425,7 @@ class MenzilSecondaryButton extends StatelessWidget {
     this.destructive = false,
     this.active = false,
     this.twoLines = false,
+    this.maxLabelLines = 1,
   });
 
   Widget _label() {
@@ -1394,7 +1439,9 @@ class MenzilSecondaryButton extends StatelessWidget {
         var size = base.fontSize ?? 16;
         // One line, the font shrinking until it fits (owner, 2026-10-11:
         // no icon, no second line).
-        while (size > 10) {
+        // Two-line labels may shrink a little further (iPhone SE, 1.3×).
+        final minSize = maxLabelLines > 1 ? 8.0 : 10.0;
+        while (size > minSize) {
           final painter = TextPainter(
             text: TextSpan(
               text: label,
@@ -1402,7 +1449,7 @@ class MenzilSecondaryButton extends StatelessWidget {
             ),
             textDirection: dir,
             textScaler: scaler,
-            maxLines: 1,
+            maxLines: maxLabelLines,
           )..layout(maxWidth: box.maxWidth);
           final fits = !painter.didExceedMaxLines;
           painter.dispose();
@@ -1411,8 +1458,9 @@ class MenzilSecondaryButton extends StatelessWidget {
         }
         return Text(
           label,
-          maxLines: 1,
-          softWrap: false,
+          maxLines: maxLabelLines,
+          softWrap: maxLabelLines > 1,
+          textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
           // Never bold, so the pair of dial buttons matches whether a label
           // wraps or not (owner, 2026-10-11).
