@@ -3,7 +3,7 @@ import 'package:sniper_turk/core/beaufort.dart';
 
 void main() {
   test('land classes 0–7 with the WMO speed limits (m/s, 10 m)', () {
-    final c = Beaufort.classes;
+    const c = Beaufort.classes;
     expect([for (final x in c) x.force], [0, 1, 2, 3, 4, 5, 6, 7]);
     expect(
       [for (final x in c) x.minMps],
@@ -16,7 +16,7 @@ void main() {
   });
 
   test('classes are adjacent: each starts 0.1 m/s above the previous top', () {
-    final c = Beaufort.classes;
+    const c = Beaufort.classes;
     for (var i = 1; i < c.length; i++) {
       expect(c[i].minMps, closeTo(c[i - 1].maxMps + 0.1, 1e-9));
     }

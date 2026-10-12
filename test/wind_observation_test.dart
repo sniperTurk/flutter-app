@@ -95,6 +95,12 @@ void main() {
     await _pick(tester, 'Orta: ');
     await tester.pumpWidget(_app(BallisticsView.shot));
     await tester.pumpAndSettle();
+    // Under the scope, past the lazily built part of the list.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('shot-wind-zone-shares')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     final line = tester
         .widget<Text>(find.byKey(const Key('shot-wind-zone-shares')))
         .data!;
