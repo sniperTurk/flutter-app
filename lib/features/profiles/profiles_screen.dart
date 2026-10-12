@@ -1584,6 +1584,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ];
   }
 
+  /// A brand is chosen but the boxes leave no model of it (owner,
+  /// 2026-10-13: "model açılmıyor" — an empty list cannot open).
+  bool get _scopeNoModelFits {
+    final brand = _scopeBrandSel;
+    return _scopeFromList &&
+        brand != null &&
+        _scopeBrands.contains(brand) &&
+        _scopeModels(brand).isEmpty;
+  }
+
   /// Model of a catalog scope, listed by its full product name and narrowed
   /// by the boxes above it (owner, 2026-10-13).
   Widget _scopeModelSelect() {
@@ -3573,6 +3583,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   clearable: fromList,
                 ),
                 if (fromList) _scopeModelSelect() else focalPlane,
+                if (_scopeNoModelFits)
+                  MenzilFullWidth(
+                    child: MenzilNotice(
+                      key: const Key('scope-no-model'),
+                      tone: MenzilNoticeTone.warning,
+                      message:
+                          'Bu seçimlere uyan $_scopeBrandSel dürbün yok. '
+                          'Odak düzlemi, büyütme veya mercek kutularından '
+                          'birini "Seçiniz" yapın.',
+                    ),
+                  ),
                 if (fromList) mount,
                 if (fromList && _scopeReticleChoices.length > 1) reticle,
                 if (fromList && _showErrors && firstFocalPlane == null)

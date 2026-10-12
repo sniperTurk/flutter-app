@@ -189,9 +189,8 @@ void main() {
       'Minimum büyütme',
       'Maksimum büyütme',
       'Mercek çapı',
-      'Dürbün birimi',
+      // A listed scope brings its unit and travel (owner, 2026-10-13).
       'Dürbün ayağı',
-      'Üst kule klik sayısı',
       'Sight height',
       'Namlu çıkış hızı',
       'Sıfırlama mesafesi',
@@ -203,8 +202,10 @@ void main() {
     ]) {
       expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
     }
-    // Not asked any more (owner, 2026-10-09).
+    // Not asked any more (owner, 2026-10-09 / 2026-10-13).
     expect(find.byTooltip('Bilgi: Klik değeri'), findsNothing);
+    expect(find.byTooltip('Bilgi: Dürbün birimi'), findsNothing);
+    expect(find.byTooltip('Bilgi: Üst kule klik sayısı'), findsNothing);
     final bcInfo = find.byTooltip('Bilgi: BC');
     await tester.ensureVisible(bcInfo);
     await tester.tap(bcInfo);

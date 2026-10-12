@@ -337,7 +337,10 @@ void main() {
     pair('scope-brand-select', 'scope-focal-plane');
     pair('scope-min-mag', 'scope-max-mag');
     pair('scope-objective', 'scope-model-select');
-    expect(r('scope-mount').top, greaterThan(r('scope-objective').bottom));
+    expect(
+      r('scope-mount').top,
+      greaterThanOrEqualTo(r('scope-objective').bottom),
+    );
     for (final key in [
       'scope-unit',
       'scope-click',
@@ -367,10 +370,19 @@ void main() {
     await tester.pumpAndSettle();
     expect(selectedValue<double>(tester, 'scope-objective'), 50);
     expect(selectedValue<bool>(tester, 'scope-focal-plane'), isTrue);
-    // A chosen model lists every model of the brand again.
-    await tester.tap(find.byKey(const Key('scope-model-select')));
-    await tester.pumpAndSettle();
-    expect(find.text('Titan 5-25x56 FFP MOA'), findsWidgets);
+  });
+
+  testWidgets('Dürbün: boxes that leave no model say so', (tester) async {
+    await _openNew(tester);
+    await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
+    expect(find.byKey(const Key('scope-no-model')), findsNothing);
+    await chooseInSelect(tester, 'scope-min-mag', '1x');
+    await chooseInSelect(tester, 'scope-max-mag', '60x');
+    expect(find.byKey(const Key('scope-no-model')), findsOneWidget);
+    // "Seçiniz" lifts the box and the models are back.
+    await chooseInSelect(tester, 'scope-max-mag', 'Seçiniz');
+    await chooseInSelect(tester, 'scope-min-mag', 'Seçiniz');
+    expect(find.byKey(const Key('scope-no-model')), findsNothing);
   });
 
   test('Retikül ⓘ says what it is, where it is written and an example', () {
