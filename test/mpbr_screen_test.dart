@@ -39,8 +39,10 @@ const _pellet = <String, dynamic>{
   'kind': 'custom_ammunition',
   'platform': 'pcp',
   'brand': 'Deneme',
-  'model': '.22 pellet',
-  'caliberMm': 5.5,
+  'model': '.25 pellet',
+  // Caliber must match the catalog rifle; the point-mass solve uses only
+  // weight, BC and velocity (P1 values).
+  'caliberMm': 6.35,
   'grain': 18,
   'ammoType': 'pellet',
   'bc': 0.031,

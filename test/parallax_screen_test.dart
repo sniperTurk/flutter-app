@@ -274,13 +274,26 @@ void main() {
     tester,
   ) async {
     await _sized(tester);
+    // The shell reloads the personal catalog from storage, so this profile
+    // uses catalog records only.
+    const catalogPcp = RifleProfile(
+      id: 'p-cat',
+      name: 'Katalog PCP',
+      rifleId: 'hatsan-hercules-635',
+      ammunitionId: 'gmaz-51',
+      scopeId: 'gazi-6-36',
+      muzzleVelocityMps: 270,
+      zeroRangeM: 25,
+      sightHeightMm: 60,
+      pressureBar: 200,
+    );
     final store = MemoryProfileStore();
-    await store.save(_pcp);
+    await store.save(catalogPcp);
     await tester.pumpWidget(
       _app(
         HomeScreen(
           profileStore: store,
-          activeProfileStore: MemoryActiveProfileStore()..value = _pcp.id,
+          activeProfileStore: MemoryActiveProfileStore()..value = catalogPcp.id,
         ),
       ),
     );
