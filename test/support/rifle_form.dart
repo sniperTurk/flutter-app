@@ -117,8 +117,11 @@ Future<void> fillAmmoForm(
   if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
   }
-  await enterRifleField(tester, 'ammo-brand', brand);
-  await enterRifleField(tester, 'ammo-model', model);
+  // PCP asks no Marka/Model (owner, 2026-10-13).
+  if (find.byKey(const Key('ammo-brand')).evaluate().isNotEmpty) {
+    await enterRifleField(tester, 'ammo-brand', brand);
+    await enterRifleField(tester, 'ammo-model', model);
+  }
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);
   await enterRifleField(tester, 'ammo-grain', grain);
   await enterRifleField(tester, 'ammo-bc', bc);
