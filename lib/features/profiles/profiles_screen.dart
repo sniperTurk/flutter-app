@@ -508,6 +508,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 label: 'Profil ekle',
                 icon: Icons.add,
                 amber: true,
+                oneLine: true,
                 onPressed: _add,
               ),
             ),
@@ -557,6 +558,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 label: 'Geri yükle',
                 icon: Icons.download_outlined,
                 expand: true,
+                // One line, set smaller if needed (owner, 2026-10-12).
+                twoLines: true,
                 onPressed: _restore,
               ),
             ),

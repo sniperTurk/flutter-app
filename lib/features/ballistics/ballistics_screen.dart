@@ -1044,15 +1044,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Hava Durumu starting values (as in initState), in the shown units.
   void _resetWeather() {
     setState(() {
-      temperature.text = metric ? '15' : '59';
-      humidity.text = '50';
-      wind.text = '0';
-      altitude.text = '0';
+      // Sıfırla empties the boxes (owner, 2026-10-12); an empty box is
+      // calculated with the standard atmosphere (15 °C, 1013,25 hPa, %50,
+      // 0 m, no wind).
+      temperature.text = '';
+      humidity.text = '';
+      wind.text = '';
+      altitude.text = '';
       for (final c in [temperature, humidity, wind, altitude]) {
         _userEdited.remove(c);
       }
       if (!_pressureFilled) {
-        pressure.text = metric ? '1013.25' : '29.92';
+        pressure.text = '';
         _userEdited.remove(pressure);
       }
       _weatherFilled = false;
@@ -1067,7 +1070,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   void _resetPressure() {
     setState(() {
-      pressure.text = metric ? '1013.25' : '29.92';
+      pressure.text = '';
       _userEdited.remove(pressure);
       _pressureFilled = false;
       _pressureWasReset = true;
@@ -1363,7 +1366,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             expand: true,
             active: wasReset,
             twoLines: true,
-            maxLabelLines: 3,
+            maxLabelLines: 2,
             onPressed: onReset,
           ),
         ),
@@ -1376,15 +1379,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (status != null)
-          MenzilNotice(
-            key: const Key('environment-weather-status'),
-            tone: _weatherFailed
-                ? MenzilNoticeTone.warning
-                : MenzilNoticeTone.info,
-            message: status,
-          ),
-        const SizedBox(height: MenzilSpace.xs),
         _filledRow(
           filled: _weatherFilled,
           wasReset: _weatherWasReset,
@@ -1401,7 +1395,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             expand: true,
             active: _weatherFilled,
             twoLines: true,
-            maxLabelLines: 3,
+            maxLabelLines: 2,
             onPressed: _weatherBusy
                 ? null
                 : () => _fillWeather(overwrite: true),
@@ -1409,7 +1403,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           resetKey: const Key('environment-weather-reset'),
           onReset: _resetWeather,
         ),
-        const SizedBox(height: MenzilSpace.md),
+        if (status != null) ...[
+          const SizedBox(height: MenzilSpace.xs),
+          MenzilNotice(
+            key: const Key('environment-weather-status'),
+            tone: _weatherFailed
+                ? MenzilNoticeTone.warning
+                : MenzilNoticeTone.info,
+            message: status,
+          ),
+        ],
       ],
     );
   }
@@ -1436,11 +1439,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         double.parse(c.text.trim().replaceAll(',', '.'));
     final zeroM = value(zero);
     final sightMm = value(sight);
-    final windMps = value(wind);
-    final temperatureC = value(temperature);
+    // Hava Durumu boxes may be empty after Sıfırla: they stay empty.
+    double? maybe(TextEditingController c) =>
+        c.text.trim().isEmpty ? null : value(c);
+    final windMps = maybe(wind);
+    final temperatureC = maybe(temperature);
     final ammoC = double.tryParse(ammoTempCtl.text.trim().replaceAll(',', '.'));
-    final pressureHpa = value(pressure);
-    final altitudeM = value(altitude);
+    final pressureHpa = maybe(pressure);
+    final altitudeM = maybe(altitude);
     final metricRanges = DopeRanges.parse(ranges.text);
 
     // Commit only after the complete source form has been validated. A
@@ -1449,17 +1455,25 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       zero.text = UnitSystem.metersToYards(zeroM).toStringAsFixed(1);
     }
     sight.text = UnitSystem.millimetersToInches(sightMm).toStringAsFixed(2);
-    wind.text = UnitSystem.mpsToMph(windMps).toStringAsFixed(1);
-    temperature.text = UnitSystem.celsiusToFahrenheit(
-      temperatureC,
-    ).toStringAsFixed(1);
+    if (windMps != null) {
+      wind.text = UnitSystem.mpsToMph(windMps).toStringAsFixed(1);
+    }
+    if (temperatureC != null) {
+      temperature.text = UnitSystem.celsiusToFahrenheit(
+        temperatureC,
+      ).toStringAsFixed(1);
+    }
     if (ammoC != null && ammoC.isFinite) {
       ammoTempCtl.text = UnitSystem.celsiusToFahrenheit(
         ammoC,
       ).toStringAsFixed(1);
     }
-    pressure.text = UnitSystem.hpaToInHg(pressureHpa).toStringAsFixed(2);
-    altitude.text = UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0);
+    if (pressureHpa != null) {
+      pressure.text = UnitSystem.hpaToInHg(pressureHpa).toStringAsFixed(2);
+    }
+    if (altitudeM != null) {
+      altitude.text = UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0);
+    }
     if (!_profileYards) {
       ranges.text = metricRanges
           .map((e) => UnitSystem.metersToYards(e).toStringAsFixed(1))
@@ -1489,12 +1503,19 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final rawGrain = number(grain);
     final rawZero = number(zero);
     final rawSight = number(sight);
-    final rawWind = number(wind);
+    // An empty Hava Durumu box (after Sıfırla) means the standard
+    // atmosphere, in the shown unit.
+    double? env(
+      TextEditingController c,
+      double metricStd,
+      double imperialStd,
+    ) => c.text.trim().isEmpty ? (metric ? metricStd : imperialStd) : number(c);
+    final rawWind = env(wind, 0, 0);
     final rawWindDirection = number(windDirection);
-    final rawTemperature = number(temperature);
-    final rawPressure = number(pressure);
-    final rawHumidity = number(humidity);
-    final rawAltitude = number(altitude);
+    final rawTemperature = env(temperature, 15, 59);
+    final rawPressure = env(pressure, 1013.25, 29.92);
+    final rawHumidity = env(humidity, 50, 50);
+    final rawAltitude = env(altitude, 0, 0);
 
     if ([
       rawVelocity,
@@ -1881,7 +1902,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ),
         ),
         const SizedBox(height: MenzilSpace.md),
-        _weatherFillCard(context),
         ..._environmentInputs(context, collapseShotInputs: true),
         MenzilPrimaryButton(
           key: const Key('environment-create-profile'),
@@ -2780,8 +2800,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           key: const PageStorageKey('ballistics-environment'),
           children: [
             // The read-only "Konumdan canlı hava verisi" button was removed
-            // (owner, 2026-10-12); the page stays in Araçlar.
-            _weatherFillCard(context),
+            // (owner, 2026-10-12); the page stays in Araçlar. The fetch
+            // buttons sit under the Hava Durumu boxes.
             ..._environmentInputs(context, collapseShotInputs: true),
             if (widget.onContinueToPro != null)
               MenzilPrimaryButton(
@@ -3073,57 +3093,66 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           MenzilSpace.lg,
           MenzilSpace.lg,
           MenzilSpace.lg,
-          MenzilSpace.xxs,
+          MenzilSpace.lg,
         ),
-        child: MenzilFieldGrid(
+        // The fetch buttons under the boxes (owner, 2026-10-12).
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            MenzilInput(
-              key: BallisticsFieldKeys.temperature,
-              controller: temperature,
-              label: 'Sıcaklık',
-              // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) {
-                _userEdited.add(temperature);
-                if (_weatherFilled || _weatherWasReset) {
-                  setState(() => _weatherFilled = _weatherWasReset = false);
-                }
-              },
-              info: EnvironmentFieldInfo.temperatureFor(firearm: _isFirearm),
-              unit: metric ? '°C' : '°F',
-              keyboardType: const TextInputType.numberWithOptions(
-                decimal: true,
-                signed: true,
-              ),
-            ),
-            // Mühimmat sıcaklığı (Ö1, 2026-10-12): firearms only, on the
-            // Sıcaklık row; it matters only with a powder coefficient.
-            if (_isFirearm)
-              MenzilInput(
-                key: const Key('env-ammo-temp'),
-                controller: ammoTempCtl,
-                label: 'Mühimmat sıcaklığı',
-                onChanged: (_) => _coriolisChanged(),
-                info: EnvironmentFieldInfo.ammoTemperature,
-                unit: metric ? '°C' : '°F',
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                  signed: true,
+            MenzilFieldGrid(
+              children: [
+                MenzilInput(
+                  key: BallisticsFieldKeys.temperature,
+                  controller: temperature,
+                  label: 'Sıcaklık',
+                  // A typed value is the user's: auto fill keeps it.
+                  onChanged: (_) {
+                    _userEdited.add(temperature);
+                    if (_weatherFilled || _weatherWasReset) {
+                      setState(() => _weatherFilled = _weatherWasReset = false);
+                    }
+                  },
+                  info: EnvironmentFieldInfo.temperatureFor(
+                    firearm: _isFirearm,
+                  ),
+                  unit: metric ? '°C' : '°F',
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: true,
+                  ),
                 ),
-              ),
-            MenzilInput(
-              key: BallisticsFieldKeys.humidity,
-              controller: humidity,
-              label: 'Bağıl nem',
-              // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) {
-                _userEdited.add(humidity);
-                if (_weatherFilled || _weatherWasReset) {
-                  setState(() => _weatherFilled = _weatherWasReset = false);
-                }
-              },
-              info: EnvironmentFieldInfo.humidity,
-              unit: '%',
+                // Mühimmat sıcaklığı (Ö1, 2026-10-12): firearms only, on the
+                // Sıcaklık row; it matters only with a powder coefficient.
+                if (_isFirearm)
+                  MenzilInput(
+                    key: const Key('env-ammo-temp'),
+                    controller: ammoTempCtl,
+                    label: 'Mühimmat sıcaklığı',
+                    onChanged: (_) => _coriolisChanged(),
+                    info: EnvironmentFieldInfo.ammoTemperature,
+                    unit: metric ? '°C' : '°F',
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                      signed: true,
+                    ),
+                  ),
+                MenzilInput(
+                  key: BallisticsFieldKeys.humidity,
+                  controller: humidity,
+                  label: 'Bağıl nem',
+                  // A typed value is the user's: auto fill keeps it.
+                  onChanged: (_) {
+                    _userEdited.add(humidity);
+                    if (_weatherFilled || _weatherWasReset) {
+                      setState(() => _weatherFilled = _weatherWasReset = false);
+                    }
+                  },
+                  info: EnvironmentFieldInfo.humidity,
+                  unit: '%',
+                ),
+              ],
             ),
+            _weatherFillCard(context),
           ],
         ),
       ),
@@ -3187,14 +3216,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     ? 'Okunuyor…'
                     : _pressureFilled
                     ? 'Basınç telefondan alındı'
-                    : _pressureWasReset
-                    ? 'Tekrar basıncı telefondan al'
                     : 'Basıncı telefondan al',
                 icon: _pressureFilled ? Icons.check : Icons.speed,
                 expand: true,
                 active: _pressureFilled,
                 twoLines: true,
-                maxLabelLines: 3,
+                maxLabelLines: 2,
                 onPressed: _pressureBusy ? null : _readPhonePressure,
               ),
               resetKey: const Key('environment-pressure-reset'),
@@ -3731,14 +3758,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             key: const Key('pro-wind-max-fill'),
             label: _windMaxFilled
                 ? 'Rüzgâr düzeltmesi alındı'
-                : _windMaxWasReset
-                ? 'Tekrar rüzgâr düzeltmesi al'
                 : 'Rüzgâr düzeltmesi al',
             icon: _windMaxFilled ? Icons.check : Icons.air,
             expand: true,
             active: _windMaxFilled,
             twoLines: true,
-            maxLabelLines: 3,
+            maxLabelLines: 2,
             onPressed: _fillWindMax,
           ),
           resetKey: const Key('pro-wind-max-reset'),
@@ -3850,7 +3875,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         title: 'Coriolis',
         summary: _coriolisOn ? 'açık' : 'kapalı',
         children: [
-          _explain(ProSectionInfo.coriolis),
           if (_coriolisOn) ...[
             const SizedBox(height: MenzilSpace.sm),
             MenzilInput(
@@ -3875,16 +3899,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               wasReset: _latWasReset,
               button: MenzilSecondaryButton(
                 key: const Key('pro-latitude-gps'),
-                label: _latFilled
-                    ? 'Konumdan alındı'
-                    : _latWasReset
-                    ? 'Tekrar konumdan al'
-                    : 'Konumdan al',
+                label: _latFilled ? 'Konumdan alındı' : 'Konumdan al',
                 icon: _latFilled ? Icons.check : Icons.my_location,
                 expand: true,
                 active: _latFilled,
                 twoLines: true,
-                maxLabelLines: 3,
+                maxLabelLines: 2,
                 onPressed: _latitudeFromGps,
               ),
               resetKey: const Key('pro-latitude-reset'),
@@ -3912,16 +3932,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               wasReset: _aziWasReset,
               button: MenzilSecondaryButton(
                 key: const Key('pro-azimuth-compass'),
-                label: _aziFilled
-                    ? 'Pusuladan alındı'
-                    : _aziWasReset
-                    ? 'Tekrar pusuladan al'
-                    : 'Pusuladan al',
+                label: _aziFilled ? 'Pusuladan alındı' : 'Pusuladan al',
                 icon: _aziFilled ? Icons.check : Icons.explore_outlined,
                 expand: true,
                 active: _aziFilled,
                 twoLines: true,
-                maxLabelLines: 3,
+                maxLabelLines: 2,
                 onPressed: _azimuthFromCompass,
               ),
               resetKey: const Key('pro-azimuth-reset'),
@@ -3945,6 +3961,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               style: MenzilType.body(c.ink),
             ),
           ],
+          _explain(ProSectionInfo.coriolis),
         ],
       ),
       _proBox(
@@ -3952,7 +3969,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         title: 'Yerçekimi',
         summary: _gravityOn ? 'açık' : 'kapalı',
         children: [
-          _explain(ProSectionInfo.gravity),
           if (_gravityOn) ...[
             const SizedBox(height: MenzilSpace.sm),
             MenzilInput(
@@ -3976,16 +3992,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               wasReset: _gravWasReset,
               button: MenzilSecondaryButton(
                 key: const Key('pro-gravity-gps'),
-                label: _gravFilled
-                    ? 'Konumdan hesaplandı'
-                    : _gravWasReset
-                    ? 'Tekrar konumdan hesapla'
-                    : 'Konumdan hesapla',
+                label: _gravFilled ? 'Konumdan hesaplandı' : 'Konumdan hesapla',
                 icon: _gravFilled ? Icons.check : Icons.my_location,
                 expand: true,
                 active: _gravFilled,
                 twoLines: true,
-                maxLabelLines: 3,
+                maxLabelLines: 2,
                 onPressed: _gravityFromLocation,
               ),
               resetKey: const Key('pro-gravity-reset'),
@@ -4020,6 +4032,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               },
             ),
           ],
+          _explain(ProSectionInfo.gravity),
         ],
       ),
       _proBox(
@@ -4935,20 +4948,39 @@ class EnvironmentCarry {
   Map<String, double>? _si;
   Set<String> _edited = {};
 
+  /// Boxes the user emptied with Sıfırla (owner, 2026-10-12): they come
+  /// back empty, not with the starting values.
+  Set<String> _empty = {};
+
   void _save(_BallisticsScreenState s) {
+    bool blank(TextEditingController c) => c.text.trim().isEmpty;
     double? n(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
+    final boxes = {
+      'temperature': s.temperature,
+      'pressure': s.pressure,
+      'humidity': s.humidity,
+      'altitude': s.altitude,
+      'wind': s.wind,
+    };
+    // An unreadable (not empty) value keeps the last good snapshot.
+    for (final c in boxes.values) {
+      if (!blank(c) && n(c) == null) return;
+    }
+    final m = s.metric;
     final t = n(s.temperature), p = n(s.pressure), h = n(s.humidity);
     final a = n(s.altitude), w = n(s.wind), d = n(s.windDirection);
-    if (t == null || p == null || h == null || a == null || w == null) return;
-    final m = s.metric;
     _si = {
-      'temperature': m ? t : UnitSystem.fahrenheitToCelsius(t),
-      'pressure': m ? p : UnitSystem.inHgToHpa(p),
-      'humidity': h,
-      'altitude': m ? a : UnitSystem.feetToMeters(a),
-      'wind': m ? w : UnitSystem.mphToMps(w),
+      if (t != null) 'temperature': m ? t : UnitSystem.fahrenheitToCelsius(t),
+      if (p != null) 'pressure': m ? p : UnitSystem.inHgToHpa(p),
+      if (h != null) 'humidity': h,
+      if (a != null) 'altitude': m ? a : UnitSystem.feetToMeters(a),
+      if (w != null) 'wind': m ? w : UnitSystem.mphToMps(w),
       if (d != null && s._windHourValue != null) 'windDirection': d,
+    };
+    _empty = {
+      for (final MapEntry(:key, :value) in boxes.entries)
+        if (blank(value)) key,
     };
     _edited = {
       if (s._userEdited.contains(s.temperature)) 'temperature',
@@ -4975,6 +5007,10 @@ class EnvironmentCarry {
       'windDirection': s.windDirection,
     };
     for (final MapEntry(:key, :value) in fields.entries) {
+      if (_empty.contains(key)) {
+        value.text = '';
+        continue;
+      }
       final v = si[key];
       if (v == null) continue;
       value.text = f(v);

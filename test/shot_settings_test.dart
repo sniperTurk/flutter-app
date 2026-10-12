@@ -360,7 +360,7 @@ void main() {
       expect(of(const Key('pro-wind-mid')), '');
       expect(of(const Key('pro-wind-far')), '');
       expect(find.text('Veriler sıfırlandı'), findsOneWidget);
-      expect(find.text('Tekrar rüzgâr düzeltmesi al'), findsOneWidget);
+      expect(find.text('Rüzgâr düzeltmesi al'), findsOneWidget);
     });
 
     testWidgets('"Seçiniz" stays in the list and takes the choice back', (
