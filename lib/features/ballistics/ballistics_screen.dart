@@ -1505,8 +1505,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final rawSight = number(sight);
     // An empty Hava Durumu box (after Sıfırla) means the standard
     // atmosphere, in the shown unit.
-    double? env(TextEditingController c, double metricStd, double imperialStd) =>
-        c.text.trim().isEmpty ? (metric ? metricStd : imperialStd) : number(c);
+    double? env(
+      TextEditingController c,
+      double metricStd,
+      double imperialStd,
+    ) => c.text.trim().isEmpty ? (metric ? metricStd : imperialStd) : number(c);
     final rawWind = env(wind, 0, 0);
     final rawWindDirection = number(windDirection);
     final rawTemperature = env(temperature, 15, 59);
@@ -3097,56 +3100,58 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             MenzilFieldGrid(
-          children: [
-            MenzilInput(
-              key: BallisticsFieldKeys.temperature,
-              controller: temperature,
-              label: 'Sıcaklık',
-              // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) {
-                _userEdited.add(temperature);
-                if (_weatherFilled || _weatherWasReset) {
-                  setState(() => _weatherFilled = _weatherWasReset = false);
-                }
-              },
-              info: EnvironmentFieldInfo.temperatureFor(firearm: _isFirearm),
-              unit: metric ? '°C' : '°F',
-              keyboardType: const TextInputType.numberWithOptions(
-                decimal: true,
-                signed: true,
-              ),
-            ),
-            // Mühimmat sıcaklığı (Ö1, 2026-10-12): firearms only, on the
-            // Sıcaklık row; it matters only with a powder coefficient.
-            if (_isFirearm)
-              MenzilInput(
-                key: const Key('env-ammo-temp'),
-                controller: ammoTempCtl,
-                label: 'Mühimmat sıcaklığı',
-                onChanged: (_) => _coriolisChanged(),
-                info: EnvironmentFieldInfo.ammoTemperature,
-                unit: metric ? '°C' : '°F',
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                  signed: true,
+              children: [
+                MenzilInput(
+                  key: BallisticsFieldKeys.temperature,
+                  controller: temperature,
+                  label: 'Sıcaklık',
+                  // A typed value is the user's: auto fill keeps it.
+                  onChanged: (_) {
+                    _userEdited.add(temperature);
+                    if (_weatherFilled || _weatherWasReset) {
+                      setState(() => _weatherFilled = _weatherWasReset = false);
+                    }
+                  },
+                  info: EnvironmentFieldInfo.temperatureFor(
+                    firearm: _isFirearm,
+                  ),
+                  unit: metric ? '°C' : '°F',
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: true,
+                  ),
                 ),
-              ),
-            MenzilInput(
-              key: BallisticsFieldKeys.humidity,
-              controller: humidity,
-              label: 'Bağıl nem',
-              // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) {
-                _userEdited.add(humidity);
-                if (_weatherFilled || _weatherWasReset) {
-                  setState(() => _weatherFilled = _weatherWasReset = false);
-                }
-              },
-              info: EnvironmentFieldInfo.humidity,
-              unit: '%',
+                // Mühimmat sıcaklığı (Ö1, 2026-10-12): firearms only, on the
+                // Sıcaklık row; it matters only with a powder coefficient.
+                if (_isFirearm)
+                  MenzilInput(
+                    key: const Key('env-ammo-temp'),
+                    controller: ammoTempCtl,
+                    label: 'Mühimmat sıcaklığı',
+                    onChanged: (_) => _coriolisChanged(),
+                    info: EnvironmentFieldInfo.ammoTemperature,
+                    unit: metric ? '°C' : '°F',
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                      signed: true,
+                    ),
+                  ),
+                MenzilInput(
+                  key: BallisticsFieldKeys.humidity,
+                  controller: humidity,
+                  label: 'Bağıl nem',
+                  // A typed value is the user's: auto fill keeps it.
+                  onChanged: (_) {
+                    _userEdited.add(humidity);
+                    if (_weatherFilled || _weatherWasReset) {
+                      setState(() => _weatherFilled = _weatherWasReset = false);
+                    }
+                  },
+                  info: EnvironmentFieldInfo.humidity,
+                  unit: '%',
+                ),
+              ],
             ),
-          ],
-        ),
             _weatherFillCard(context),
           ],
         ),
