@@ -20,6 +20,10 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
   /// on it, both brightnesses; owner, 2026-10-10).
   static const Color stateOrange = Color(0xFFE8590C);
 
+  /// Off-white scope field used in Koyu: the scope inside stays light in
+  /// both themes, a little dimmer at night (owner, 2026-10-12).
+  static const Color scopeBgDim = Color(0xFFE9EDF0);
+
   final Color bg;
   final Color surface;
   final Color surface2;

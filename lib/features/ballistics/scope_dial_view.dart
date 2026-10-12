@@ -41,7 +41,7 @@ abstract final class ScopeDialKeys {
 MenzilColors _scopeColors(MenzilColors c) =>
     identical(c, MenzilColors.light) || c.scopeBg == MenzilColors.light.scopeBg
     ? MenzilColors.light
-    : MenzilColors.light.copyWith(scopeBg: const Color(0xFFE9EDF0));
+    : MenzilColors.light.copyWith(scopeBg: MenzilColors.scopeBgDim);
 
 class ScopeDialView extends StatelessWidget {
   final AngularUnit unit;

@@ -4677,7 +4677,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             return DecoratedBox(
               decoration: BoxDecoration(
                 color: appDark
-                    ? const Color(0xFFE9EDF0)
+                    ? MenzilColors.scopeBgDim
                     : MenzilColors.light.scopeBg,
                 borderRadius: BorderRadius.circular(MenzilRadius.card),
               ),
