@@ -142,10 +142,10 @@ void main() {
     CatalogRepository.installUserCatalog(UserCatalog.empty);
     await _sized(tester);
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: BallisticsScreen(
-            profile: const RifleProfile(
+            profile: RifleProfile(
               id: 'p-vac',
               name: 'Boşluk',
               rifleId: 'hatsan-hercules-635',
