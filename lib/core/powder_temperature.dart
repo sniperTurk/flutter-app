@@ -31,6 +31,16 @@ abstract final class PowderTemperature {
     return f > 0 ? f : 1;
   }
 
+  /// The temperature the powder correction uses (Mühimmat sıcaklığı,
+  /// 2026-10-12): the cartridge's own temperature when it was entered and is
+  /// inside [minTempC]..[maxTempC], else the air temperature (the behaviour
+  /// before the field existed).
+  static double effectiveTempC({required double airC, double? ammoC}) {
+    final a = ammoC;
+    if (a == null || !a.isFinite || a < minTempC || a > maxTempC) return airC;
+    return a;
+  }
+
   /// The coefficient and reference temperature that apply to [profile]:
   /// its own values when both are set, else the legacy Pro Ayarlar text
   /// (as typed, "," or "."). Null on PCP or for a missing profile.

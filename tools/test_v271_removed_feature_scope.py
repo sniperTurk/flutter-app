@@ -48,9 +48,12 @@ class V1ToolScopeTests(unittest.TestCase):
         self.assertNotIn("Key('tool-settings')", hub)
         # 2026-10-08: Katalog is no longer on the hub; its data is kept.
         self.assertNotIn("Key('tool-catalog')", hub)
-        # 2026-10-09: Kronograf removed from the hub; its screen is kept.
+        # 2026-10-09: the audio Kronograf removed from the hub.
         self.assertNotIn("Key('tool-chronograph')", hub)
-        self.assertEqual(8, hub.count('MenzilToolTile('))
+        # 2026-10-12: typed Kronograf (Ö3, owner asked for the whole
+        # yeni-hesaplar report) is the ninth tool.
+        self.assertIn("Key('tool-chrono')", hub)
+        self.assertEqual(9, hub.count('MenzilToolTile('))
 
     def test_still_retired_dependencies_and_ios_bridge_stay_absent(self):
         pubspec = (ROOT / 'pubspec.yaml').read_text(encoding='utf-8')

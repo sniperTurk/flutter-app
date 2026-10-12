@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../core/drag_curve.dart';
@@ -18,6 +20,7 @@ import '../../data/reticle_catalog.dart';
 import '../../data/rifle_library.dart';
 import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
+import '../../services/chrono_store.dart';
 import '../../services/manual_catalog_store.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
@@ -246,6 +249,11 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     if (!confirmed || !mounted) return false;
     try {
       await store.remove(p.id);
+      // Its Kronograf strings go with it; a convenience store, so a failure
+      // here never blocks the deletion.
+      unawaited(
+        const ChronoStore().deleteProfile(p.id).catchError((Object _) {}),
+      );
       return true;
     } catch (_) {
       if (mounted) {

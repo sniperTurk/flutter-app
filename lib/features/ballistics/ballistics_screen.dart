@@ -306,6 +306,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         powderCoefCtl.text = s.powderCoefText;
         tubePressureCtl.text = s.tubePressureText;
         powderTempCtl.text = s.powderTempText;
+        final ammoC = double.tryParse(s.ammoTempText.replaceAll(',', '.'));
+        ammoTempCtl.text = ammoC == null || !ammoC.isFinite
+            ? ''
+            : metric
+            ? _celsiusText(ammoC)
+            : UnitSystem.celsiusToFahrenheit(ammoC).toStringAsFixed(1);
         windMidCtl.text = s.windMidText;
         windFarCtl.text = s.windFarText;
         zeroUpCtl.text = s.zeroUpText;
@@ -344,6 +350,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       powderCoefText: powderCoefCtl.text.trim(),
       tubePressureText: tubePressureCtl.text.trim(),
       powderTempText: powderTempCtl.text.trim(),
+      ammoTempText: _ammoTempC == null ? '' : _celsiusText(_ammoTempC!),
       windMidText: windMidCtl.text.trim(),
       windFarText: windFarCtl.text.trim(),
       zeroUpText: zeroUpCtl.text.trim(),
@@ -426,6 +433,26 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// PCP: tube pressure left in the field, bar (Pro > Tüfek düzeltmeleri).
   final TextEditingController tubePressureCtl = TextEditingController();
   final TextEditingController powderTempCtl = TextEditingController();
+
+  /// Mühimmat sıcaklığı (Hava Durumu, firearms; Ö1 2026-10-12), in the shown
+  /// unit. Empty = the air temperature, as before the field existed.
+  final TextEditingController ammoTempCtl = TextEditingController();
+
+  /// [ammoTempCtl] in °C; null when empty or unreadable.
+  double? get _ammoTempC {
+    final v = double.tryParse(ammoTempCtl.text.trim().replaceAll(',', '.'));
+    if (v == null || !v.isFinite) return null;
+    return metric ? v : UnitSystem.fahrenheitToCelsius(v);
+  }
+
+  /// Stored in °C so a unit switch never reinterprets it.
+  static String _celsiusText(double c) => c == c.roundToDouble()
+      ? c.toStringAsFixed(0)
+      : double.parse(c.toStringAsFixed(2)).toString();
+
+  /// Settings written by another page (Kronograf → SD) while this
+  /// workspace stayed alive: read them again instead of saving old values.
+  void _onExternalShotSettings() => unawaited(_loadShotSettings());
   final TextEditingController windMidCtl = TextEditingController();
   final TextEditingController windFarCtl = TextEditingController();
   final TextEditingController zeroUpCtl = TextEditingController();
@@ -524,7 +551,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       );
 
   /// Today's velocity from the profile velocity measured at the reference
-  /// temperature and the sensitivity (% per 15 °C); firearms only.
+  /// temperature and the sensitivity (% per 15 °C); firearms only. The
+  /// cartridge temperature is used when entered, else the air [todayC].
+  /// Without a coefficient nothing changes (no default is assumed).
   double _powderAdjusted(double mps, double todayC) {
     if (!_isFirearm) return mps;
     final p = _powder;
@@ -532,7 +561,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         PowderTemperature.factor(
           coefPercentPer15C: p.coef,
           referenceTempC: p.referenceC,
-          todayTempC: todayC,
+          todayTempC: PowderTemperature.effectiveTempC(
+            airC: todayC,
+            ammoC: _ammoTempC,
+          ),
         );
   }
 
@@ -788,6 +820,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   void initState() {
     super.initState();
+    ShotSettingsStore.externalWrites.addListener(_onExternalShotSettings);
     final p = widget.profile;
     profileResolution = p == null
         ? null
@@ -1104,6 +1137,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final sightMm = value(sight);
     final windMps = value(wind);
     final temperatureC = value(temperature);
+    final ammoC = double.tryParse(ammoTempCtl.text.trim().replaceAll(',', '.'));
     final pressureHpa = value(pressure);
     final altitudeM = value(altitude);
     final metricRanges = DopeRanges.parse(ranges.text);
@@ -1118,6 +1152,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     temperature.text = UnitSystem.celsiusToFahrenheit(
       temperatureC,
     ).toStringAsFixed(1);
+    if (ammoC != null && ammoC.isFinite) {
+      ammoTempCtl.text = UnitSystem.celsiusToFahrenheit(
+        ammoC,
+      ).toStringAsFixed(1);
+    }
     pressure.text = UnitSystem.hpaToInHg(pressureHpa).toStringAsFixed(2);
     altitude.text = UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0);
     if (!_profileYards) {
@@ -1359,6 +1398,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     powderCoefCtl.dispose();
     tubePressureCtl.dispose();
     powderTempCtl.dispose();
+    ShotSettingsStore.externalWrites.removeListener(_onExternalShotSettings);
+    ammoTempCtl.dispose();
     proRangeCtl.dispose();
     for (final c in [
       windMidCtl,
@@ -2675,6 +2716,21 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 signed: true,
               ),
             ),
+            // Mühimmat sıcaklığı (Ö1, 2026-10-12): firearms only, on the
+            // Sıcaklık row; it matters only with a powder coefficient.
+            if (_isFirearm)
+              MenzilInput(
+                key: const Key('env-ammo-temp'),
+                controller: ammoTempCtl,
+                label: 'Mühimmat sıcaklığı',
+                onChanged: (_) => _coriolisChanged(),
+                info: EnvironmentFieldInfo.ammoTemperature,
+                unit: metric ? '°C' : '°F',
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                  signed: true,
+                ),
+              ),
             MenzilInput(
               key: BallisticsFieldKeys.pressure,
               controller: pressure,
