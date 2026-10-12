@@ -158,3 +158,11 @@ Not: G1/G7 ve diğer BRL tabloları bu seçeneklerin hiçbirinde değişmez.
   dokunulmadı.
 
 Kaynaklara erişim tarihi: 2026-10-12.
+
+## Sonuç (sahip kararı, 2026-10-12)
+
+GA modeli uygulamadan kaldırıldı: tablo, BC modeli listesindeki "GA (saçma)"
+seçeneği ve GA uyarıları silindi. Saçmalar üreticinin verdiği G1 BC ile G1
+eğrisinden hesaplanır. GA tablosuna dayanan
+karşılaştırma aracı (`tools/sacma_surukleme_karsilastirma.py`) da tabloyla
+birlikte kaldırıldı; yukarıdaki sayılar o aracın son çıktısıdır.

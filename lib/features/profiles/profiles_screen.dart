@@ -1551,7 +1551,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         : const [
             (BallisticModel.g1, 'G1'),
             (BallisticModel.g7, 'G7'),
-            (BallisticModel.ga, 'GA (saçma)'),
             (BallisticModel.gs, 'GS (bilye)'),
           ];
     final m = ammoBcModel;
@@ -3575,8 +3574,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   const MenzilFullWidth(
                     child: MenzilNotice(
                       tone: MenzilNoticeTone.danger,
-                      message:
-                          'Mühimmat tipini ve BC modelini (G1/G7/GA) seçin.',
+                      message: 'Mühimmat tipini ve BC modelini (G1/G7) seçin.',
                     ),
                   ),
               ],
