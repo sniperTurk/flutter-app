@@ -2851,8 +2851,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
 
     return [
+      // Section renamed "Hava Durumu" (owner, 2026-10-12).
       const MenzilSectionHeader(
-        'Atmosfer',
+        'Hava Durumu',
         padding: EdgeInsets.only(bottom: MenzilSpace.sm),
       ),
       MenzilCard(

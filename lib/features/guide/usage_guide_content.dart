@@ -76,9 +76,11 @@ abstract final class UsageGuideContent {
       '"Konumdan canlı hava verisi al" sıcaklık, nem ve rüzgâr hızını '
           'doldurur; İrtifa boşsa GPS\'ten alır. Senin yazdığın değerlere '
           'dokunmaz. Rüzgâr yönünü her zaman sen seçersin.',
-      'Atmosfer: Sıcaklık, İstasyon basıncı, Bağıl nem ve İrtifa. Basınç, '
-          'bulunduğun yerdeki istasyon basıncıdır; deniz seviyesine indirilmiş QNH'
-          ' değeri değildir.',
+      'Hava Durumu bölümü: Sıcaklık ve Bağıl nem (ateşli tüfekte Mühimmat '
+          'sıcaklığı da).',
+      'Basınç ölçer: İstasyon basıncı ve İrtifa; altındaki "Basıncı telefondan'
+          ' al" basıncı telefonun sensöründen okur. Basınç, bulunduğun yerdeki '
+          'istasyon basıncıdır; deniz seviyesine indirilmiş QNH değeri değildir.',
       'Rüzgâr: Rüzgâr hızı m/s olarak yazılır. Rüzgâr yönü saat kadranında '
           'seçilir: rüzgârın geldiği saate dokun. Hedef saat 12\'dedir; sağdan '
           'gelen rüzgâr 3, arkadan 6, soldan 9.',
