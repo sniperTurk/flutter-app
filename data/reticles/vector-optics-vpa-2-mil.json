@@ -1,0 +1,22 @@
+{
+  "name": "VPA-2 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Paragon 3-15x50 SFP GenII (SCOM-25)",
+    "Paragon 6-30x56 SFP GenII (SCOL-27)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Paragon-6-30x56SFP-GenII-Riflescope-SCOL-27.html",
+  "notes": "[3. tur TR] Yeni kayıt. SFP; ölçülerin geçerli olduğu büyütme kaynakta yok. Kaynaklar: SCOL-27 ve SCOM-25 ürün sayfaları ('Reticle | VPA-2 Etched Glass', 'Second Focal Plane', 'Etched Glass Reticle in MIL Configuration by Digital Lines', 'Only Center Dot Illuminated', tık 1/10 MIL) -> unit=mil, center_dot=true. Föy PDF'i 'German #4 & VPA-2 (MIL) & VEPG-TMIL (MIL)' (https://www.vectoroptics.com/public/uploads/files/20231030/69dcde77fc3c424da1f96e30778e1091.pdf) yalnız görsel; metin katmanında ölçü yok. Paragon 5-25x56 GenII (SCOL-26) sayfası okunamadı, kapsamda değil. Diğer tüm ölçüler null."
+}

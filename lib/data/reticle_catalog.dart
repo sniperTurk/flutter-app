@@ -120,22 +120,83 @@ abstract final class ReticleCatalog {
     return false;
   }
 
+  static final _code = RegExp(r'^[A-Z]{2,}[A-Z0-9]*-[A-Z0-9]+$');
+
+  /// Manufacturer product codes in parentheses of [record]'s scope list:
+  /// "Continental x10 1-10x28 ED FFP (SCFF-68, SCFF-47)".
+  static List<String> productCodes(ReticleData record) => [
+    for (final entry in record.scopes)
+      for (final group in RegExp(r'\(([^)]*)\)').allMatches(entry))
+        for (final c in group.group(1)!.split(RegExp(r'[\s,]+')))
+          if (_code.hasMatch(c)) c,
+  ];
+
+  /// True when one of [record]'s product codes stands whole in the scope's
+  /// [source] document ("…-SCOM-T39.html"; SCOM-39 is not it).
+  static bool listsProduct(ReticleData record, String? source) {
+    if (source == null || source.isEmpty) return false;
+    for (final c in productCodes(record)) {
+      final whole = RegExp(
+        '(?<![A-Za-z0-9])${RegExp.escape(c)}(?![A-Za-z0-9])',
+      );
+      if (whole.hasMatch(source)) return true;
+    }
+    return false;
+  }
+
   /// The data record for [name] on a [brand] scope, or null. Never
   /// guesses: a name listing several reticles, a record in the other unit
   /// than the turret, or two records it cannot tell apart give null.
+  ///
+  /// Product code (owner, 2026-10-12): when no record has the name in the
+  /// turret unit, the one record of the brand and turret unit whose
+  /// manufacturer scope list names the scope's product code from its
+  /// [source] document is used ("VTC-10A" on SCOM-T39 → VCT-10A MIL,
+  /// which Vector lists for SCOM-T39).
   static ReticleData? find(
     String? name,
     AngularUnit turretUnit, {
     String? brand,
     String? model,
+    String? source,
     List<ReticleData> library = ReticleLibrary.all,
   }) {
-    if (name == null || brand == null) return null;
-    if (options(name).length != 1) return null;
-    final key = nameKey(name);
-    if (key.core.isEmpty) return null;
+    final byName = _findByName(
+      name,
+      turretUnit,
+      brand: brand,
+      model: model,
+      library: library,
+    );
+    if (byName.record != null || !byName.tryCode) return byName.record;
     final turret = turretUnit.moaFamily ? 'moa' : 'mil';
-    if (key.unit != null && key.unit != turret) return null;
+    final coded = [
+      for (final r in library)
+        if (r.unit == turret &&
+            brandMatches(r.brand, brand!) &&
+            listsProduct(r, source))
+          r,
+    ];
+    return coded.length == 1 ? coded.single : null;
+  }
+
+  /// [find] by name only; tryCode is true when the name found no record
+  /// in the turret unit (none at all, only another brand's, or only the
+  /// other unit's) and does not itself state the other unit.
+  static ({ReticleData? record, bool tryCode}) _findByName(
+    String? name,
+    AngularUnit turretUnit, {
+    String? brand,
+    String? model,
+    required List<ReticleData> library,
+  }) {
+    const none = (record: null, tryCode: false);
+    if (name == null || brand == null) return none;
+    if (options(name).length != 1) return none;
+    final key = nameKey(name);
+    final turret = turretUnit.moaFamily ? 'moa' : 'mil';
+    if (key.unit != null && key.unit != turret) return none;
+    if (key.core.isEmpty) return none;
     var hits = [
       for (final r in library)
         if (r.unit == turret &&
@@ -152,7 +213,8 @@ abstract final class ReticleCatalog {
       ];
       if (named.length == 1) hits = named;
     }
-    return hits.length == 1 ? hits.single : null;
+    if (hits.isEmpty) return (record: null, tryCode: true);
+    return (record: hits.length == 1 ? hits.single : null, tryCode: false);
   }
 
   /// The reticle to draw on the Hedef screen: the scope's own reticle from
@@ -162,6 +224,7 @@ abstract final class ReticleCatalog {
     AngularUnit turretUnit, {
     String? brand,
     String? model,
+    String? source,
   }) {
     if (name == null || name.trim().isEmpty) return null;
     if (!Reticles.genericNames.contains(name)) {
@@ -170,6 +233,7 @@ abstract final class ReticleCatalog {
         turretUnit,
         brand: brand,
         model: model,
+        source: source,
       )?.toSpec(displayName: name);
       if (spec != null) return spec;
     }
