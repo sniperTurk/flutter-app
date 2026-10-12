@@ -88,3 +88,14 @@ Unit rule: travel fields are named *_mrad or *_moa after the turret unit.
 - Kurallar: "≥" değerler alt sınır olarak saklandı; "N yards to infinity" → metre (10 yd = 9.1 m); sabit paralaks (50/100 yd) → parallax_min_m null;
   zero_stop yalnız spec tablosunda "Zero Stop" yazıyorsa true, aksi halde null. Prizma dürbünlerde tüp çapı/odak düzlemi "N/A" → null.
 - Erişilemeyen: site araması (search.html) sunucu hatası verdi; ilk denemede hata veren 3 Veyron GenII sayfası liste sayfasındaki alternatif URL ile okundu.
+
+## 2026-10-12 — Altı marka (zamanlanmış çalıştırma, yalnız üretici siteleri, WebFetch)
+| Dosya | Önce | Sonra | Kaynak |
+|---|---:|---:|---|
+| athlon.json | 120 | 153 | athlonoptics.com (+4 güncel, +29 üretimden kalkmış; notes'ta DISCONTINUED) |
+| barska.json | 49 | 56 | shop.barska.com (barska.com yönlendirmesi) |
+| schmidt_bender.json | 0 | 20 | schmidtundbender.de ürün sayfaları + 2026 kataloğu (assets.schmidtundbender.de) |
+| utg.json | 0 | 22 | leapers.com (UTG 15, Integrix 7) |
+| nikko_stirling.json | 0 | 77 | nikkostirling.com |
+| delta_optical.json | — | — | deltaoptical.pl açılmadı (CLIENT_ERROR, 2 deneme); dolaylı yol denenmedi |
+Ayrıntı ve kaynak listeleri: `notes/2026-10-12-*.md`. Her yeni kayıtta `source_url` ve `accessed`.
