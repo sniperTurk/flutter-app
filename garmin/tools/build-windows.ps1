@@ -19,7 +19,11 @@ New-Item -ItemType Directory -Force build | Out-Null
 Remove-Item build\log, build\log.zip -Recurse -Force -ErrorAction SilentlyContinue
 "SDK : $sdk"
 "Cihaz: $Device"
-& "$sdk\bin\monkeyc.bat" -f monkey.jungle -d $Device -o build\sniperturk.prg -y $key -w --debug-log-level 3 --debug-log-output build\log.zip
+& "$sdk\bin\monkeyc.bat" -f monkey.jungle -d $Device -o build\sniperturk.prg -y $key -w
+if (-not (Test-Path build\sniperturk.prg)) {
+  # Ayrintili kayit yalnizca hata olursa (eski SDK bu secenekleri bilmeyebilir).
+  & "$sdk\bin\monkeyc.bat" -f monkey.jungle -d $Device -o build\sniperturk.prg -y $key --debug-log-level 3 --debug-log-output build\log.zip 2>$null | Out-Null
+}
 if (Test-Path build\sniperturk.prg) {
   "=== DERLEME BASARILI: build\sniperturk.prg ==="
 } else {
