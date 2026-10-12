@@ -62,7 +62,10 @@ void main() {
   group('file', () {
     test('round-trips profiles and catalog entries', () {
       final text = ProfileBackup.encode(
-        ProfileBackupContents(profiles: const [_one, _two], catalog: [_ammo('c1')]),
+        ProfileBackupContents(
+          profiles: const [_one, _two],
+          catalog: [_ammo('c1')],
+        ),
         createdAt: DateTime.utc(2026, 10, 12),
       );
       final map = jsonDecode(text) as Map<String, dynamic>;
