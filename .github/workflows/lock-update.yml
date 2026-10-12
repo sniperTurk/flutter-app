@@ -28,7 +28,20 @@ jobs:
           cache: true
       - name: Resolve (keeps existing pins, adds new packages)
         run: |
-          flutter pub get
+          set +e
+          flutter pub get > pubget.log 2>&1
+          rc=$?
+          cat pubget.log
+          if [ $rc -ne 0 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            mkdir -p ci-logs && mv pubget.log ci-logs/pubget.log
+            git add ci-logs/pubget.log
+            git commit -m "pub get failure log (CI)"
+            git push origin HEAD:${{ github.event.inputs.branch }}
+            exit 1
+          fi
+          rm -f pubget.log
           git diff --stat -- pubspec.lock | tail -3
       - name: Provenance
         run: python3 tools/write_lockfile_provenance.py --flutter-version 3.47.2
