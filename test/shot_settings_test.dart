@@ -356,8 +356,7 @@ void main() {
       await tap(const Key('pro-wind-max-reset'));
       expect(text(), '');
       // Sıfırla empties Yol ortası and Hedefte too.
-      String of(Key k) =>
-          tester.widget<TextField>(field(k)).controller!.text;
+      String of(Key k) => tester.widget<TextField>(field(k)).controller!.text;
       expect(of(const Key('pro-wind-mid')), '');
       expect(of(const Key('pro-wind-far')), '');
       expect(find.text('Veriler sıfırlandı'), findsOneWidget);
