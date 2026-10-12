@@ -49,7 +49,9 @@ Future<void> _pump(WidgetTester tester) async {
       ),
       services: testServices(
         location: TestLocation(const LocationFix(39.9, 32.8, altitudeM: 900)),
-        weather: TestWeather(observation(fetchedAt: DateTime.utc(2026, 10, 12))),
+        weather: TestWeather(
+          observation(fetchedAt: DateTime.utc(2026, 10, 12)),
+        ),
         pressure: TestPressure(const PressureRead(912.4)),
       ),
     ),
