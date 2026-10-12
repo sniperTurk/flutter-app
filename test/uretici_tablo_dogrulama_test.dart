@@ -143,8 +143,7 @@ void main() {
             final p = points[i];
             final rangeM = c.rangeM(row.range);
             // Çözücü: dropM = nişan hattının altı (+). Üretici: + yukarı.
-            final diffMrad =
-                (-p.dropM - c.lengthM(row.path)) / rangeM * 1000;
+            final diffMrad = (-p.dropM - c.lengthM(row.path)) / rangeM * 1000;
             expect(
               diffMrad.abs(),
               lessThanOrEqualTo(_pathTolMrad(rangeM)),
@@ -169,12 +168,9 @@ void main() {
       }
       if (c.windMps != null && c.drift.isNotEmpty) {
         test('yan rüzgâr sürüklenmesi', () {
-          final points = _solve(
-            c,
-            c.zeros.first.zero,
-            [for (final d in c.drift) d.$1],
-            windMps: c.windMps!,
-          );
+          final points = _solve(c, c.zeros.first.zero, [
+            for (final d in c.drift) d.$1,
+          ], windMps: c.windMps!);
           for (var i = 0; i < c.drift.length; i++) {
             final (range, published) = c.drift[i];
             final rangeM = c.rangeM(range);
