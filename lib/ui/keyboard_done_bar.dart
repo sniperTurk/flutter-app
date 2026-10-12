@@ -33,12 +33,9 @@ class KeyboardDoneBar extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border(top: BorderSide(color: c.line)),
                   ),
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: close,
-                      child: const Text('Bitti'),
-                    ),
+                    child: TextButton(onPressed: close, child: Text('Bitti')),
                   ),
                 ),
               ),
