@@ -14,11 +14,12 @@ class V197AtomicUnitPreferenceConversion(unittest.TestCase):
         # the velocity field is no longer converted; zero is the first write.
         self.assertNotIn('velocity.text =', body)
         first_write=body.index('zero.text =')
+        # Hava Durumu boxes emptied by Sıfırla stay empty (maybe()).
         for marker in (
             'final zeroM = value(zero);',
-            'final sightMm = value(sight);', 'final windMps = value(wind);',
-            'final temperatureC = value(temperature);', 'final pressureHpa = value(pressure);',
-            'final altitudeM = value(altitude);', 'final metricRanges = DopeRanges.parse(ranges.text);'):
+            'final sightMm = value(sight);', 'final windMps = maybe(wind);',
+            'final temperatureC = maybe(temperature);', 'final pressureHpa = maybe(pressure);',
+            'final altitudeM = maybe(altitude);', 'final metricRanges = DopeRanges.parse(ranges.text);'):
             self.assertIn(marker, body)
             self.assertLess(body.index(marker), first_write, marker)
 

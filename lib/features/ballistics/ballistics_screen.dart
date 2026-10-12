@@ -1366,7 +1366,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             expand: true,
             active: wasReset,
             twoLines: true,
-            maxLabelLines: 3,
+            maxLabelLines: 2,
             onPressed: onReset,
           ),
         ),
@@ -1395,7 +1395,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             expand: true,
             active: _weatherFilled,
             twoLines: true,
-            maxLabelLines: 3,
+            maxLabelLines: 2,
             onPressed: _weatherBusy
                 ? null
                 : () => _fillWeather(overwrite: true),
@@ -3216,14 +3216,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     ? 'Okunuyor…'
                     : _pressureFilled
                     ? 'Basınç telefondan alındı'
-                    : _pressureWasReset
-                    ? 'Tekrar basıncı telefondan al'
                     : 'Basıncı telefondan al',
                 icon: _pressureFilled ? Icons.check : Icons.speed,
                 expand: true,
                 active: _pressureFilled,
                 twoLines: true,
-                maxLabelLines: 3,
+                maxLabelLines: 2,
                 onPressed: _pressureBusy ? null : _readPhonePressure,
               ),
               resetKey: const Key('environment-pressure-reset'),
@@ -3760,14 +3758,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             key: const Key('pro-wind-max-fill'),
             label: _windMaxFilled
                 ? 'Rüzgâr düzeltmesi alındı'
-                : _windMaxWasReset
-                ? 'Tekrar rüzgâr düzeltmesi al'
                 : 'Rüzgâr düzeltmesi al',
             icon: _windMaxFilled ? Icons.check : Icons.air,
             expand: true,
             active: _windMaxFilled,
             twoLines: true,
-            maxLabelLines: 3,
+            maxLabelLines: 2,
             onPressed: _fillWindMax,
           ),
           resetKey: const Key('pro-wind-max-reset'),
@@ -3879,7 +3875,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         title: 'Coriolis',
         summary: _coriolisOn ? 'açık' : 'kapalı',
         children: [
-          _explain(ProSectionInfo.coriolis),
           if (_coriolisOn) ...[
             const SizedBox(height: MenzilSpace.sm),
             MenzilInput(
@@ -3906,14 +3901,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 key: const Key('pro-latitude-gps'),
                 label: _latFilled
                     ? 'Konumdan alındı'
-                    : _latWasReset
-                    ? 'Tekrar konumdan al'
                     : 'Konumdan al',
                 icon: _latFilled ? Icons.check : Icons.my_location,
                 expand: true,
                 active: _latFilled,
                 twoLines: true,
-                maxLabelLines: 3,
+                maxLabelLines: 2,
                 onPressed: _latitudeFromGps,
               ),
               resetKey: const Key('pro-latitude-reset'),
@@ -3943,14 +3936,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 key: const Key('pro-azimuth-compass'),
                 label: _aziFilled
                     ? 'Pusuladan alındı'
-                    : _aziWasReset
-                    ? 'Tekrar pusuladan al'
                     : 'Pusuladan al',
                 icon: _aziFilled ? Icons.check : Icons.explore_outlined,
                 expand: true,
                 active: _aziFilled,
                 twoLines: true,
-                maxLabelLines: 3,
+                maxLabelLines: 2,
                 onPressed: _azimuthFromCompass,
               ),
               resetKey: const Key('pro-azimuth-reset'),
@@ -3974,6 +3965,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               style: MenzilType.body(c.ink),
             ),
           ],
+          _explain(ProSectionInfo.coriolis),
         ],
       ),
       _proBox(
@@ -3981,7 +3973,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         title: 'Yerçekimi',
         summary: _gravityOn ? 'açık' : 'kapalı',
         children: [
-          _explain(ProSectionInfo.gravity),
           if (_gravityOn) ...[
             const SizedBox(height: MenzilSpace.sm),
             MenzilInput(
@@ -4007,14 +3998,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 key: const Key('pro-gravity-gps'),
                 label: _gravFilled
                     ? 'Konumdan hesaplandı'
-                    : _gravWasReset
-                    ? 'Tekrar konumdan hesapla'
                     : 'Konumdan hesapla',
                 icon: _gravFilled ? Icons.check : Icons.my_location,
                 expand: true,
                 active: _gravFilled,
                 twoLines: true,
-                maxLabelLines: 3,
+                maxLabelLines: 2,
                 onPressed: _gravityFromLocation,
               ),
               resetKey: const Key('pro-gravity-reset'),
@@ -4049,6 +4038,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               },
             ),
           ],
+          _explain(ProSectionInfo.gravity),
         ],
       ),
       _proBox(
