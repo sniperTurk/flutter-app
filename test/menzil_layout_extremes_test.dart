@@ -179,12 +179,12 @@ void main() {
         )
         .controller!
         .text;
-    // V380: metric only. A device that had chosen imperial before the
-    // update still shows the ICAO defaults in °C / hPa / m.
+    // V380: metric only. Hava Durumu boxes start empty (owner, 2026-10-12)
+    // and the units stay °C / hPa / m.
     await tester.tap(_tab('Hava Durumu'));
     await tester.pumpAndSettle();
-    expect(text(BallisticsFieldKeys.temperature), '15');
-    expect(text(BallisticsFieldKeys.pressure), '1013.25');
+    expect(text(BallisticsFieldKeys.temperature), '');
+    expect(text(BallisticsFieldKeys.pressure), '');
     expect(find.text('yd'), findsNothing);
     expect(find.text('°F'), findsNothing);
 
@@ -203,7 +203,7 @@ void main() {
     await tester.tap(_tab('Hava Durumu'));
     await tester.pumpAndSettle();
     expect(text(BallisticsFieldKeys.temperature), '30');
-    expect(text(BallisticsFieldKeys.pressure), '1013.25');
+    expect(text(BallisticsFieldKeys.pressure), '');
     expect(tester.takeException(), isNull);
   });
 
