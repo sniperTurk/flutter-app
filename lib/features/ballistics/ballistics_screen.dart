@@ -479,9 +479,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Which Pro Ayarlar box is open (one at a time; all closed at first).
   String? _proOpen;
-  // Rüzgâr düzeltmesi on Hava Durumu starts open so it is not missed
-  // (owner, 2026-10-11); it opens and closes on its own.
-  bool _windOpen = true;
 
   /// Atış mesafesi typed on Pro (profile distance unit) (owner,
   /// 2026-10-09): Hedef then opens at it with the solution already dialled
@@ -2600,7 +2597,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             const SizedBox(height: MenzilSpace.md),
             _weatherFillCard(context),
             ..._environmentInputs(context, collapseShotInputs: true),
-            _windCorrectionBox(context),
             if (widget.onContinueToPro != null)
               MenzilPrimaryButton(
                 key: const Key('environment-continue-pro'),
@@ -3258,7 +3254,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     required List<Widget> children,
   }) {
     final c = MenzilColors.of(context);
-    final open = id == 'wind' ? _windOpen : _proOpen == id;
+    final open = _proOpen == id;
     return MenzilCard(
       key: Key('pro-box-$id'),
       margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
@@ -3272,11 +3268,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               key: Key('pro-section-$id'),
               borderRadius: BorderRadius.circular(12),
               onTap: () => setState(() {
-                if (id == 'wind') {
-                  _windOpen = !_windOpen;
-                } else {
-                  _proOpen = open ? null : id;
-                }
+                _proOpen = open ? null : id;
               }),
               // 44 pt minimum tap target (VoiceOver / HIG).
               child: ConstrainedBox(
@@ -3433,8 +3425,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
 
-  /// Rüzgâr düzeltmesi (en yüksek rüzgâr, rüzgâr bölgeleri): on Hava
-  /// Durumu under the wind box (owner, 2026-10-11; it was on Pro Ayarlar).
+  /// Rüzgâr düzeltmesi (en yüksek rüzgâr, rüzgâr bölgeleri): back on Pro
+  /// Ayarlar after Açı (owner, 2026-10-12; it was on Hava Durumu since
+  /// 2026-10-11).
   Widget _windCorrectionBox(BuildContext context) {
     final windUnit = metric ? 'm/s' : 'mph';
     return _proBox(
@@ -3574,6 +3567,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           _explain(ProSectionInfo.cant),
         ],
       ),
+      _windCorrectionBox(context),
       _proBox(
         id: 'coriolis',
         title: 'Coriolis',

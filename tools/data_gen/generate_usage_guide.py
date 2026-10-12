@@ -82,11 +82,6 @@ SECTIONS = [
         "Rüzgâr: Rüzgâr hızı m/s olarak yazılır. Rüzgâr yönü saat kadranında "
         "seçilir: rüzgârın geldiği saate dokun. Hedef saat 12'dedir; sağdan "
         "gelen rüzgâr 3, arkadan 6, soldan 9.",
-        "Rüzgâr düzeltmesi kutusu: En yüksek rüzgâr, rüzgâr hızının 1,5 katı "
-        "olarak kendiliğinden yazılır; Hedef ekranı yan düzeltmeyi bu yüzden "
-        "bir aralık olarak gösterir. Silersen aralık gösterilmez, \"Otomatik "
-        "doldur\" geri getirir. Yol ortası ve Hedefte kutularına oradaki "
-        "rüzgârı yaz; boş kalırsa her yerde aynı rüzgâr kullanılır.",
         "Üstteki \"Konumdan canlı hava verisi\" düğmesi servis verisini ayrı "
         "bir sayfada yalnızca gösterir; hesaba aktarmaz.",
     ]),
@@ -129,8 +124,14 @@ SECTIONS = [
         "katsayısıdır. Sıfır ofseti, sıfırdaki küçük kaymadır. Spin drift "
         "için Mermi uzunluğu'nu mm olarak yaz; yiv yönü ve yiv oranı "
         "profilden gelir.",
-        "Rüzgâr düzeltmesi Hava Durumu sayfasındadır. Barut sıcaklığı Profil > "
-        "Mühimmat'ta girilir; Pro'da yalnızca bugünkü hız gösterilir.",
+        "Rüzgâr düzeltmesi kutusu Açı'nın altındadır: En yüksek rüzgâr, Hava "
+        "Durumu'ndaki rüzgâr hızının 1,5 katı olarak kendiliğinden yazılır; "
+        "Hedef ekranı yan düzeltmeyi bu yüzden bir aralık olarak gösterir. "
+        "Silersen aralık gösterilmez, \"Otomatik doldur\" geri getirir. Yol "
+        "ortası ve Hedefte kutularına oradaki rüzgârı yaz; boş kalırsa her "
+        "yerde aynı rüzgâr kullanılır.",
+        "Barut sıcaklığı Profil > Mühimmat'ta girilir; Pro'da yalnızca bugünkü "
+        "hız gösterilir.",
     ]),
     ("Tablo / DOPE", [
         "Hedef sayfasının üstündeki \"Tek atış | Tablo\" anahtarından Tablo'ya "
