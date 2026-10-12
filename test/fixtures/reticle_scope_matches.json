@@ -1,14 +1,56 @@
 {
+ "lib-arken-optics-ep-5-5-25x56-ffp-moa": {
+  "VPR MOA": "arken-vpr-moa"
+ },
+ "lib-arken-optics-ep-5-genii-5-25x56-ffp-moa": {
+  "VPR MOA": "arken-vpr-moa"
+ },
+ "lib-arken-optics-ep-5-genii-7-35x56-ffp-moa": {
+  "VPR MOA": "arken-vpr-moa"
+ },
+ "lib-arken-optics-ep-8-1-8x28-ffp-moa": {
+  "KLBOX": "arken-klbox-moa"
+ },
  "lib-arken-optics-epl-4-4-16x44-ffp": {
   "VHR-MIL": "arken-vhr-mil",
   "VPR-MIL": "arken-vpr-mil"
  },
+ "lib-arken-optics-epl-4-4-16x44-ffp-moa": {
+  "VHR MOA": "arken-vhr-moa",
+  "VPR MOA": "arken-vpr-moa"
+ },
+ "lib-arken-optics-epl-4-6-24x50-ffp-moa": {
+  "VHR MOA": "arken-vhr-moa",
+  "VPR MOA": "arken-vpr-moa"
+ },
  "lib-arken-optics-lh-4-4-16x44-ffp": {
   "VPR-MIL": "arken-vpr-mil"
+ },
+ "lib-arken-optics-lh-4-4-16x44-ffp-moa": {
+  "VPR MOA": "arken-vpr-moa"
+ },
+ "lib-arken-optics-lh-6-1-6x24-sfp": {
+  "KLBOX": "arken-klbox-moa"
+ },
+ "lib-arken-optics-outrider-2-12x42-sfp": {
+  "DLR": "arken-dlr-moa",
+  "FDR": "arken-fdr-moa"
+ },
+ "lib-arken-optics-outrider-3-18x50-sfp": {
+  "DLR": "arken-dlr-moa",
+  "FDR": "arken-fdr-moa"
  },
  "lib-arken-optics-sh-4-genii-4-16x50-ffp": {
   "VHR-MIL": "arken-vhr-mil",
   "VPR-MIL": "arken-vpr-mil"
+ },
+ "lib-arken-optics-sh-4-genii-4-16x50-ffp-moa": {
+  "VHR MOA": "arken-vhr-moa",
+  "VPR MOA": "arken-vpr-moa"
+ },
+ "lib-arken-optics-sh-4j-genii-6-24x50-ffp-moa": {
+  "VHR MOA": "arken-vhr-moa",
+  "VPR MOA": "arken-vpr-moa"
  },
  "lib-athlon-ares-btr-gen3-hd-2-5-15x50-aplr13-ffp-ir-moa": {
   "APLR13": "athlon-optics-aplr13-ffp-ir-moa"
@@ -490,6 +532,100 @@
  "lib-barska-8-26x50mm-benchmark-first-focal-plane-mil-dot-rifle-scope-with-": {
   "Mil-Dot": null
  },
+ "lib-burris-xtr-iii-illuminated-3-3-18x50mm-moa": {
+  "SCR MOA": "burris-scr-moa"
+ },
+ "lib-burris-xtr-iii-illuminated-3-3-18x50mm-mrad": {
+  "SCR 2 MIL": "burris-scr-2-mil"
+ },
+ "lib-burris-xtr-iii-illuminated-5-5-30x56mm-moa": {
+  "SCR MOA": "burris-scr-moa"
+ },
+ "lib-burris-xtr-iii-illuminated-5-5-30x56mm-mrad": {
+  "SCR 2 MIL": "burris-scr-2-mil"
+ },
+ "lib-burris-xtr-pro-5-5-30x56mm": {
+  "Horus TREMOR5": null,
+  "SCR 2 1/4 MIL": "burris-scr-2-quarter-mil",
+  "SCR 2 MIL": "burris-scr-2-mil"
+ },
+ "lib-burris-xtr-ps-3-3-18x50mm": {
+  "SCR 2 XTR PS": null
+ },
+ "lib-burris-xtr-ps-5-5-30x56mm": {
+  "SCR 2 XTR PS": null
+ },
+ "lib-bushnell-match-pro-3-18x50": {
+  "Deploy MIL 2 (DM2)": "bushnell-deploy-mil2-mil",
+  "G5I": null
+ },
+ "lib-bushnell-match-pro-5-30x56-moa": {
+  "Deploy MOA 2 (DM2 MOA)": "bushnell-deploy-mil2-moa"
+ },
+ "lib-bushnell-r3-3-9x40": {
+  "DOA Quick Ballistic": null,
+  "DOA Quick Ballistic Ext Eye-Relief": null,
+  "Drop Zone-22LR (DZ22)": null,
+  "MultiX": null
+ },
+ "lib-bushnell-r3-3-9x50": {
+  "DOA Quick Ballistic": null,
+  "MultiX": null
+ },
+ "lib-bushnell-r3-4-12x40": {
+  "DOA Quick Ballistic": null,
+  "Drop Zone-22LR (DZ22)": null
+ },
+ "lib-bushnell-r3-6-18x50": {
+  "DOA Quick Ballistic": null
+ },
+ "lib-bushnell-r5-1-6x24": {
+  "Illuminated DD2-QA": null
+ },
+ "lib-bushnell-r5-3-9x40": {
+  "Illuminated DOA-LRH800": null,
+  "Illuminated MultiX": null
+ },
+ "lib-bushnell-r5-3-9x50": {
+  "Illuminated DOA-LRH800": null,
+  "Illuminated MultiX": null
+ },
+ "lib-bushnell-r5-4-12x40": {
+  "Illuminated DOA-LRH800": null
+ },
+ "lib-bushnell-r5-6-18x50": {
+  "Illuminated DOA-LRH800": null
+ },
+ "lib-bushnell-r7-1-8x24-moa": {
+  "Multi-X": null
+ },
+ "lib-bushnell-r7-1-8x24-mrad": {
+  "German #4": null
+ },
+ "lib-bushnell-r7-2-10x42": {
+  "Multi-X": null
+ },
+ "lib-bushnell-r7-3-15x50-ffp-moa": {
+  "Dot-Hash Hybrid": null
+ },
+ "lib-bushnell-r7-3-15x50-ffp-mrad": {
+  "Dot-Hash Hybrid": null
+ },
+ "lib-bushnell-r7-3-15x50-sfp-moa": {
+  "Holdover": null
+ },
+ "lib-bushnell-r7-3-15x50-sfp-mrad": {
+  "Holdover": null
+ },
+ "lib-bushnell-r7-4-20x50-ffp-moa": {
+  "Hybrid Dot Tree": null
+ },
+ "lib-bushnell-r7-4-20x50-ffp-mrad": {
+  "Dot-Hash Hybrid": null
+ },
+ "lib-bushnell-r7-4-20x50-sfp-moa": {
+  "Holdover": null
+ },
  "lib-element-optics-helix-4-16x44-ffp-moa": {
   "APR-1C MOA": "element-optics-apr-1c-moa",
   "APR-2D MOA": "element-optics-apr-2d-moa"
@@ -588,14 +724,877 @@
   "APR-1C MOA": "element-optics-apr-1c-moa",
   "APR-2D MOA": "element-optics-apr-2d-moa"
  },
+ "lib-gamo-3-9x32-wr": {
+  "30/30": null
+ },
+ "lib-gamo-3-9x40-wr": {
+  "30/30": null
+ },
+ "lib-gamo-4x20-tv-wa-n": {
+  "TV": null
+ },
+ "lib-gamo-4x28-tv": {
+  "TV": null
+ },
+ "lib-gamo-4x32-ao-wr": {
+  "30/30": null
+ },
+ "lib-gamo-4x32-wr": {
+  "30/30": null
+ },
+ "lib-gamo-6x40-wr": {
+  "30/30": null
+ },
+ "lib-gamo-md-3-9x40-ao": {
+  "Mil Dot": null
+ },
+ "lib-gamo-md-4-12x44-ao": {
+  "Mil Dot": null
+ },
+ "lib-gamo-md-6-24x50-ao": {
+  "Mil Dot": null
+ },
+ "lib-hawke-endurance-30-fd-1-6x24-l4a-fd": {
+  "L4A FD": null
+ },
+ "lib-hawke-endurance-30-fd-1-7-10x44-lr2-fd": {
+  "LR2 FD": null
+ },
+ "lib-hawke-endurance-30-fd-2-12x50-lr2-fd": {
+  "LR2 FD": null
+ },
+ "lib-hawke-endurance-30-fd-3-18x44-sf-lrx-hunter-fd": {
+  "LRX - Hunter FD": null
+ },
+ "lib-hawke-endurance-30-fd-3-18x50-sf-lr2-fd": {
+  "LR2 FD": null
+ },
+ "lib-hawke-endurance-30-fd-4-5-27x56-sf-lr2-fd": {
+  "LR2 FD": null
+ },
+ "lib-hawke-endurance-30-wa-1-4x24-tactical-dot": {
+  "Tactical Dot": null
+ },
+ "lib-hawke-endurance-30-wa-2-5-10x50-lr-dot": {
+  "LR Dot": null
+ },
+ "lib-hawke-endurance-30-wa-3-12x56-lr-dot": {
+  "LR Dot": null
+ },
+ "lib-hawke-endurance-30-wa-sf-4-16x50-lr-dot": {
+  "LR Dot": null
+ },
+ "lib-hawke-endurance-30-wa-sf-6-24x50-lr-dot": {
+  "LR Dot": null
+ },
+ "lib-hawke-frontier-30-1-6x24-tactical-dot": {
+  "Tactical Dot": null
+ },
+ "lib-hawke-frontier-30-fd-1-10x24-mil-fd": {
+  "Mil FD": null
+ },
+ "lib-hawke-frontier-30-fd-1-10x24-moa-fd": {
+  "MOA FD": null
+ },
+ "lib-hawke-frontier-30-fd-1-8x24": {
+  "L4A FD": null,
+  "LRX - Tactical FD": null
+ },
+ "lib-hawke-frontier-30-ffp-4-20x50-mil-pro": {
+  "FFP Mil Pro": "hawke-ffp-mil-pro"
+ },
+ "lib-hawke-frontier-30-ffp-4-20x50-moa-hunter": {
+  "FFP MOA Hunter": null
+ },
+ "lib-hawke-frontier-30-ffp-5-25x56-mil-pro": {
+  "FFP Mil Pro": "hawke-ffp-mil-pro"
+ },
+ "lib-hawke-frontier-30-ffp-5-25x56-moa-hunter": {
+  "FFP MOA Hunter": null
+ },
+ "lib-hawke-frontier-34-ffp-3-18x50-mil-pro-ext": {
+  "FFP Mil Pro Ext.": null
+ },
+ "lib-hawke-frontier-34-ffp-3-18x50-moa-pro-ext": {
+  "FFP MOA Pro Ext.": null
+ },
+ "lib-hawke-frontier-34-ffp-5-30x56-mil-pro-ext": {
+  "FFP Mil Pro Ext.": null
+ },
+ "lib-hawke-frontier-34-ffp-5-30x56-moa-pro-ext": {
+  "FFP MOA Pro Ext.": null
+ },
+ "lib-hawke-sidewinder-30-ffp-4-16x50-ffp-half-mil": {
+  "FFP Half Mil": null
+ },
+ "lib-hawke-sidewinder-30-ffp-4-16x50-ffp-moa": {
+  "FFP MOA": null
+ },
+ "lib-hawke-sidewinder-30-ffp-6-24x56-ffp-moa": {
+  "FFP MOA": null
+ },
  "lib-hawke-sidewinder-30-ffp-6-24x56-half-mil": {
   "FFP Half Mil": null
+ },
+ "lib-hawke-sidewinder-30-sf-4-16x50": {
+  "10x Half Mil": null,
+  "SR Pro II": null
+ },
+ "lib-hawke-sidewinder-30-sf-4-5-14x44-10x-half-mil": {
+  "10x Half Mil": null
+ },
+ "lib-hawke-sidewinder-30-sf-6-24x56": {
+  "20x Half Mil": null,
+  "SR Pro II": null
+ },
+ "lib-hawke-sidewinder-30-sf-6-5-20x44-20x-half-mil": {
+  "20x Half Mil": null
+ },
+ "lib-hawke-sidewinder-30-sf-8-32x56": {
+  "20x Half Mil": null,
+  "SR Pro II": null
  },
  "lib-kahles-k525i-refined-5-25x56i": {
   "SKMR4": "kahles-skmr4"
  },
  "lib-kahles-k540i-refined-5-40x56i": {
   "SKMR4+": "kahles-skmr4-plus"
+ },
+ "lib-leupold-mark-4hd-1-4-5x24-m5c3-sfp": {
+  "Illum. FireDot TMR": null
+ },
+ "lib-leupold-mark-4hd-1-4-5x24-sfp": {
+  "HPR-1": null,
+  "Illum. FireDot BDC": null
+ },
+ "lib-leupold-mark-4hd-2-5-10x42-m1c3-ffp": {
+  "PR1-MOA": null
+ },
+ "lib-leupold-mark-4hd-2-5-10x42-m5c3-ffp": {
+  "Illum. TMR": null,
+  "TMR (Mk) FFP": "leupold-tmr-mk-ffp"
+ },
+ "lib-leupold-mark-4hd-2-5-10x42-m5c3-sfp": {
+  "Illum. TMR": null
+ },
+ "lib-leupold-mark-4hd-4-5-18x52-m1c3-side-focus-ffp": {
+  "Illum. PR1-MOA": null,
+  "PR2-MOA FFP": "leupold-pr2-moa-ffp"
+ },
+ "lib-leupold-mark-4hd-4-5-18x52-m5c3-side-focus-ffp": {
+  "Illum. PR1-MIL": null,
+  "PR2-MIL FFP": "leupold-pr2-mil-ffp"
+ },
+ "lib-leupold-mark-4hd-6-24x52-m1c3-side-focus-ffp": {
+  "Illum. PR2-MOA": null,
+  "PR2-MOA FFP": "leupold-pr2-moa-ffp"
+ },
+ "lib-leupold-mark-4hd-6-24x52-m5c3-side-focus-ffp": {
+  "Illum. PR2-MIL": null,
+  "Illum. PR3-MIL": null,
+  "PR2-MIL FFP": "leupold-pr2-mil-ffp",
+  "PR3-MIL FFP": "leupold-pr3-mil-ffp"
+ },
+ "lib-leupold-mark-4hd-8-32x56-m1c3-side-focus-ffp": {
+  "Illum. PR2-MOA": null,
+  "PR2-MOA FFP": "leupold-pr2-moa-ffp"
+ },
+ "lib-leupold-mark-4hd-8-32x56-m5c3-side-focus-ffp": {
+  "Illum. PR2-MIL": null,
+  "Illum. PR3-MIL": null,
+  "PR2-MIL FFP": "leupold-pr2-mil-ffp",
+  "PR3-MIL FFP": "leupold-pr3-mil-ffp"
+ },
+ "lib-leupold-mark-5hd-2-10x30-m1c3-ffp": {
+  "PR1-MOA": null
+ },
+ "lib-leupold-mark-5hd-2-10x30-m5c3-ffp": {
+  "Illum. CMR-Mil": null,
+  "Illum. TMR": null,
+  "TMR (Mk) FFP": "leupold-tmr-mk-ffp"
+ },
+ "lib-leupold-mark-5hd-3-6-18x44-m1c3-ffp": {
+  "Illum. Gunwerks RH1 MOA": null,
+  "Illum. PR1-MOA": null,
+  "PR1-MOA": null,
+  "PR2-MOA FFP": "leupold-pr2-moa-ffp"
+ },
+ "lib-leupold-mark-5hd-3-6-18x44-m5c3-ffp": {
+  "H59": null,
+  "Illum. PR1-MIL": null,
+  "Illum. TMR": null,
+  "Illum. Tremor 3": null,
+  "PR1-MIL FFP": "leupold-pr1-mil-ffp",
+  "PR2-MIL FFP": "leupold-pr2-mil-ffp",
+  "TMR (Mk) FFP": "leupold-tmr-mk-ffp",
+  "Tremor 3": "leupold-tremor-3"
+ },
+ "lib-leupold-mark-5hd-5-25x56-m1c3-ffp": {
+  "Illum. PR1-MOA": null,
+  "PR1-MOA": null,
+  "PR2-MOA FFP": "leupold-pr2-moa-ffp"
+ },
+ "lib-leupold-mark-5hd-5-25x56-m5c3-ffp": {
+  "Illum. PR1-MIL": null,
+  "Illum. TMR": null,
+  "Illum. Tremor 3": null,
+  "PR1-MIL FFP": "leupold-pr1-mil-ffp",
+  "PR2-MIL FFP": "leupold-pr2-mil-ffp",
+  "TMR (Mk) FFP": "leupold-tmr-mk-ffp",
+  "Tremor 3": "leupold-tremor-3"
+ },
+ "lib-leupold-mark-5hd-7-35x56-m1c3-ffp": {
+  "Impact-60 MOA FFP": "leupold-impact-60-moa",
+  "PR2-MOA FFP": "leupold-pr2-moa-ffp",
+  "TMOA Plus": null
+ },
+ "lib-leupold-mark-5hd-7-35x56-m5c3-ffp": {
+  "Illum. TMR": null,
+  "Illum. Tremor 3": null,
+  "PR2-MIL FFP": "leupold-pr2-mil-ffp",
+  "TMR (Mk) FFP": "leupold-tmr-mk-ffp",
+  "Tremor 3": "leupold-tremor-3"
+ },
+ "lib-leupold-vx-3hd-1-5-5x20-cds-zl": {
+  "Illum. FireDot Twilight Hunter": null
+ },
+ "lib-leupold-vx-3hd-2-5-8x36-cds-zl": {
+  "Duplex": "leupold-duplex"
+ },
+ "lib-leupold-vx-3hd-3-5-10x40-cds-zl": {
+  "Duplex": "leupold-duplex",
+  "Illum. FireDot Twilight Hunter": null
+ },
+ "lib-leupold-vx-3hd-3-5-10x50-cds-zl": {
+  "Duplex": "leupold-duplex",
+  "Illum. FireDot Twilight Hunter": null
+ },
+ "lib-leupold-vx-3hd-4-5-14x40-cds-zl": {
+  "Boone & Crockett": "leupold-boone-and-crockett",
+  "Duplex": "leupold-duplex",
+  "Wind-Plex": "leupold-wind-plex"
+ },
+ "lib-leupold-vx-3hd-4-5-14x40-side-focus-cds-zl": {
+  "Wind-Plex": "leupold-wind-plex"
+ },
+ "lib-leupold-vx-3hd-4-5-14x50-cds-zl": {
+  "Duplex": "leupold-duplex"
+ },
+ "lib-leupold-vx-5hd-gen-2-1-5x24-30mm-metric": {
+  "Illum. FireDot 4 Fine": null
+ },
+ "lib-leupold-vx-5hd-gen-2-2-10x42-cds-szl2": {
+  "FireDot Duplex Illum.": "leupold-firedot-duplex-illum"
+ },
+ "lib-leupold-vx-5hd-gen-2-3-15x44-cds-szl2-side-focus": {
+  "Duplex": "leupold-duplex",
+  "FireDot Duplex Illum.": "leupold-firedot-duplex-illum",
+  "Wind-Plex": "leupold-wind-plex"
+ },
+ "lib-leupold-vx-5hd-gen-2-3-15x44-cds-szl2-side-focus-mrad": {
+  "HTMR-MIL": null
+ },
+ "lib-leupold-vx-5hd-gen-2-3-15x50-cds-szl2-side-focus": {
+  "FireDot Duplex Illum.": "leupold-firedot-duplex-illum"
+ },
+ "lib-leupold-vx-5hd-gen-2-3-15x50-cds-szl2-side-focus-metric": {
+  "Illum. FireDot 4 Fine": null
+ },
+ "lib-leupold-vx-5hd-gen-2-3-15x56-cds-szl2-side-focus": {
+  "Illum. FireDot Twilight Hunter": null
+ },
+ "lib-leupold-vx-5hd-gen-2-4-20x52-cds-szl2-side-focus": {
+  "Duplex": "leupold-duplex",
+  "FireDot Duplex Illum.": "leupold-firedot-duplex-illum",
+  "TMOA": "leupold-tmoa"
+ },
+ "lib-leupold-vx-freedom-3-9x40": {
+  "Duplex": "leupold-duplex",
+  "Hunt-Plex": "leupold-hunt-plex",
+  "UltimateSlam": null
+ },
+ "lib-leupold-vx-freedom-3-9x40-cds": {
+  "Duplex": "leupold-duplex"
+ },
+ "lib-leupold-vx-freedom-3-9x40-rimfire": {
+  "Rimfire MOA": null
+ },
+ "lib-leupold-vx-freedom-4-12x40": {
+  "Hunt-Plex": "leupold-hunt-plex"
+ },
+ "lib-leupold-vx-freedom-4-12x40-cds": {
+  "Duplex": "leupold-duplex"
+ },
+ "lib-meopta-meohunter-r5-3-15x50-sfp-rd": {
+  "4C": null,
+  "BDC 3": null
+ },
+ "lib-meopta-meohunter-r5-4-20x50-sfp-rd": {
+  "4C": null,
+  "BDC 3": null
+ },
+ "lib-meopta-meopro-r5-2-10x42-sfp": {
+  "Z-Plex": null,
+  "Z-Plus": null
+ },
+ "lib-meopta-meopro-r6-1-6x24-sfp-rd": {
+  "4C": null,
+  "BDC 3": null,
+  "K-Dot 2": null
+ },
+ "lib-meopta-meopro-r6-2-5-15x44-sfp": {
+  "Z-Plex": null
+ },
+ "lib-meopta-meopro-r6-2-5-15x44-sfp-rd": {
+  "4C": null
+ },
+ "lib-meopta-meopro-r6-3-18x50-ffp-rd": {
+  "MRAD 1 RD": null
+ },
+ "lib-meopta-meopro-r6-3-18x50-sfp": {
+  "Z-Plex": null
+ },
+ "lib-meopta-meopro-r6-3-18x56-sfp-rd": {
+  "4C": null,
+  "BDC 3": null
+ },
+ "lib-meopta-meopro-r6-4-5-27x50-ffp-rd": {
+  "MRAD 1 RD": null
+ },
+ "lib-meopta-meopro-r6-4-5-27x50-sfp-rd": {
+  "4C": null
+ },
+ "lib-mtc-optics-copperhead-f2-3-12x44": {
+  "AMD2": null
+ },
+ "lib-mtc-optics-copperhead-f2-4-16x44": {
+  "AMD2": null
+ },
+ "lib-mtc-optics-king-cobra-4-16x50-f1": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-king-cobra-4-16x50-f2": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-king-cobra-6-24x50-f1": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-king-cobra-6-24x50-f2": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-king-cobra-8-32x50-f1": {
+  "AMD2": null
+ },
+ "lib-mtc-optics-mamba-ultralite-3-10x40": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-mamba-ultralite-3-10x40-pa": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-mambalite-3-12x42": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-mambalite-4-16x42": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-swat-prismatic-10x30-atom": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-viper-connect-3-12x32": {
+  "AMD": null,
+  "SCB2": null
+ },
+ "lib-mtc-optics-viper-connect-4-16x32": {
+  "AMD2": null
+ },
+ "lib-mtc-optics-viper-pro-3-18x50": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-viper-pro-3-18x50-tactical": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-viper-pro-5-30x50": {
+  "SCB2": null
+ },
+ "lib-mtc-optics-viper-pro-5-30x50-tactical": {
+  "SCB2": null
+ },
+ "lib-nightforce-atacr-1-8x24mm-f1-moa": {
+  "FC-DMx (MOA)": "nightforce-fc-dmx-moa"
+ },
+ "lib-nightforce-atacr-1-8x24mm-f1-mrad": {
+  "FC-DMx": "nightforce-fc-dmx"
+ },
+ "lib-nightforce-atacr-4-16x42mm-f1-moa": {
+  "MOA-XT": "nightforce-moa-xt",
+  "MOAR": null
+ },
+ "lib-nightforce-atacr-4-16x42mm-f1-mrad": {
+  "Horus TREMOR3": "nightforce-horus-tremor3",
+  "MIL-C": "nightforce-mil-c",
+  "MIL-R": "nightforce-mil-r",
+  "MIL-XT": "nightforce-mil-xt"
+ },
+ "lib-nightforce-atacr-4-16x50mm-f2-moa": {
+  "MOAR": null
+ },
+ "lib-nightforce-atacr-4-16x50mm-f2-mrad": {
+  "MIL-R": "nightforce-mil-r"
+ },
+ "lib-nightforce-atacr-4-20x50mm-f1-moa": {
+  "MOA-XT": "nightforce-moa-xt",
+  "MOAR": null
+ },
+ "lib-nightforce-atacr-4-20x50mm-f1-mrad": {
+  "Horus TREMOR3": "nightforce-horus-tremor3",
+  "MIL-C": "nightforce-mil-c",
+  "MIL-XT": "nightforce-mil-xt"
+ },
+ "lib-nightforce-atacr-5-25x56mm-f1-moa": {
+  "MOA-XT": "nightforce-moa-xt",
+  "MOAR": null
+ },
+ "lib-nightforce-atacr-5-25x56mm-f1-mrad": {
+  "Horus TREMOR3": "nightforce-horus-tremor3",
+  "MIL-C": "nightforce-mil-c",
+  "MIL-R": "nightforce-mil-r",
+  "MIL-XT": "nightforce-mil-xt"
+ },
+ "lib-nightforce-atacr-5-25x56mm-f2-moa": {
+  "MOAR": null,
+  "MOAR-T": "nightforce-moar-t"
+ },
+ "lib-nightforce-atacr-5-25x56mm-f2-mrad": {
+  "MIL-R": "nightforce-mil-r"
+ },
+ "lib-nightforce-atacr-7-35x56mm-f1-moa": {
+  "MOA-XT": "nightforce-moa-xt",
+  "MOAR": null
+ },
+ "lib-nightforce-atacr-7-35x56mm-f1-mrad": {
+  "Horus TREMOR3": "nightforce-horus-tremor3",
+  "Horus TREMOR5": "nightforce-horus-tremor5",
+  "MIL-C": "nightforce-mil-c",
+  "MIL-R": "nightforce-mil-r",
+  "MIL-XT": "nightforce-mil-xt"
+ },
+ "lib-nightforce-atacr-7-35x56mm-f2-moa": {
+  "MOAR-T Dualscale": null
+ },
+ "lib-nightforce-atacr-7-35x56mm-f2-mrad": {
+  "MIL-C F2 Dualscale": "nightforce-mil-c-f2-dualscale"
+ },
+ "lib-nightforce-competition-15-55x52mm": {
+  "CTR-2": "nightforce-ctr-2",
+  "CTR-3": "nightforce-ctr-3",
+  "DDR-2": "nightforce-ddr-2",
+  "FCR-1": "nightforce-fcr-1-moa"
+ },
+ "lib-nightforce-competition-service-rifle-4-5x24mm": {
+  "SR-2": null
+ },
+ "lib-nightforce-nf-precision-benchrest-12-42x56mm": {
+  "MOAR-T": "nightforce-moar-t",
+  "NP-2DD": "nightforce-np-2dd-moa",
+  "NP-R2": "nightforce-np-r2-moa"
+ },
+ "lib-nightforce-nf-precision-benchrest-8-32x56mm": {
+  "MOAR-T": "nightforce-moar-t",
+  "NP-R2": "nightforce-np-r2-moa"
+ },
+ "lib-nightforce-nx6-1-6x24mm": {
+  "4A-i": "nightforce-4a-i",
+  "FC-6c": "nightforce-fc-6c"
+ },
+ "lib-nightforce-nx6-1-6x24mm-f1": {
+  "FC-DMx": "nightforce-fc-dmx"
+ },
+ "lib-nightforce-nx6-2-12x42mm": {
+  "4A-i": "nightforce-4a-i",
+  "MOAR": null
+ },
+ "lib-nightforce-nx6-2-12x42mm-f1-moa": {
+  "FC-MRx (MOA)": "nightforce-fc-mrx-moa"
+ },
+ "lib-nightforce-nx6-2-12x42mm-f1-mrad": {
+  "FC-MRx": "nightforce-fc-mrx-mil"
+ },
+ "lib-nightforce-nx6-3-18x50mm": {
+  "4A-i": "nightforce-4a-i",
+  "MOAR": null
+ },
+ "lib-nightforce-nx6-3-18x50mm-f1-moa": {
+  "MOA-C": "nightforce-moa-c",
+  "MOA-XT": "nightforce-moa-xt"
+ },
+ "lib-nightforce-nx6-3-18x50mm-f1-mrad": {
+  "MIL-C": "nightforce-mil-c",
+  "MIL-XT": "nightforce-mil-xt"
+ },
+ "lib-nightforce-nx6-4-24x50mm": {
+  "4A-i": "nightforce-4a-i",
+  "MOAR": null
+ },
+ "lib-nightforce-nx6-5-30x56mm-f1-moa": {
+  "MOA-C": "nightforce-moa-c",
+  "MOA-XT": "nightforce-moa-xt"
+ },
+ "lib-nightforce-nx6-5-30x56mm-f1-mrad": {
+  "MIL-C": "nightforce-mil-c",
+  "MIL-XT": "nightforce-mil-xt"
+ },
+ "lib-nightforce-nx6-6-36x56mm": {
+  "FVR-1": "nightforce-fvr-1"
+ },
+ "lib-nightforce-nx6-6-36x56mm-f1-moa": {
+  "MOA-C": "nightforce-moa-c",
+  "MOA-XT": "nightforce-moa-xt"
+ },
+ "lib-nightforce-nx6-6-36x56mm-f1-mrad": {
+  "MIL-C": "nightforce-mil-c",
+  "MIL-XT": "nightforce-mil-xt"
+ },
+ "lib-nightforce-nx8-1-8x24mm-f1-capped-moa": {
+  "FC-DMx (MOA)": "nightforce-fc-dmx-moa",
+  "FC-MOA": "nightforce-fc-moa"
+ },
+ "lib-nightforce-nx8-1-8x24mm-f1-capped-mrad": {
+  "FC-DMx": "nightforce-fc-dmx"
+ },
+ "lib-nightforce-nx8-1-8x24mm-f1-moa": {
+  "FC-MOA": "nightforce-fc-moa"
+ },
+ "lib-nightforce-nx8-1-8x24mm-f1-mrad": {
+  "FC-MIL": "nightforce-fc-mil"
+ },
+ "lib-nightforce-nx8-2-5-20x50mm-f1-moa": {
+  "MOA-XT": "nightforce-moa-xt",
+  "MOAR": null
+ },
+ "lib-nightforce-nx8-2-5-20x50mm-f1-mrad": {
+  "Horus TREMOR3": "nightforce-horus-tremor3",
+  "MIL-C": "nightforce-mil-c",
+  "MIL-XT": "nightforce-mil-xt"
+ },
+ "lib-nightforce-nx8-2-5-20x50mm-f2-moa": {
+  "MOAR-CF2": "nightforce-moar-cf2"
+ },
+ "lib-nightforce-nx8-2-5-20x50mm-f2-mrad": {
+  "Mil-CF2": "nightforce-mil-cf2"
+ },
+ "lib-nightforce-nx8-4-32x50mm-f1-moa": {
+  "MOA-XT": "nightforce-moa-xt",
+  "MOAR": null
+ },
+ "lib-nightforce-nx8-4-32x50mm-f1-mrad": {
+  "Horus TREMOR3": "nightforce-horus-tremor3",
+  "Horus TREMOR5": "nightforce-horus-tremor5",
+  "MIL-C": "nightforce-mil-c",
+  "MIL-XT": "nightforce-mil-xt"
+ },
+ "lib-nightforce-nx8-4-32x50mm-f2-moa": {
+  "MOAR-CF2D": "nightforce-moar-cf2d"
+ },
+ "lib-nightforce-nx8-4-32x50mm-f2-mrad": {
+  "Mil-CF2D": "nightforce-mil-cf2d"
+ },
+ "lib-nightforce-nxs-2-5-10x42mm-moa": {
+  "MOAR": null
+ },
+ "lib-nightforce-nxs-2-5-10x42mm-mrad": {
+  "MIL-R": "nightforce-mil-r"
+ },
+ "lib-nightforce-nxs-3-5-15x50mm": {
+  "MOAR": null
+ },
+ "lib-nightforce-nxs-5-5-22x50mm": {
+  "MOAR": null,
+  "MOAR-T": "nightforce-moar-t"
+ },
+ "lib-nightforce-nxs-5-5-22x56mm": {
+  "MOAR": null,
+  "MOAR-T": "nightforce-moar-t"
+ },
+ "lib-nightforce-nxs-8-32x56mm": {
+  "MOAR": null,
+  "MOAR-T": "nightforce-moar-t"
+ },
+ "lib-nightforce-shv-3-10x42mm": {
+  "Forceplex": "nightforce-forceplex",
+  "MOAR": null
+ },
+ "lib-nightforce-shv-4-14x50mm-f1-moa": {
+  "MOAR": null
+ },
+ "lib-nightforce-shv-4-14x50mm-f1-mrad": {
+  "MIL-R": "nightforce-mil-r",
+  "MIL-XT": "nightforce-mil-xt"
+ },
+ "lib-nightforce-shv-4-14x56mm": {
+  "MOAR": null
+ },
+ "lib-nightforce-shv-5-20x56mm": {
+  "Forceplex": "nightforce-forceplex",
+  "MOAR": null
+ },
+ "lib-sig-sauer-tango6-4-24x50mm": {
+  "MRAD DEV-L": null,
+  "MRAD Milling": null
+ },
+ "lib-sig-sauer-tango6t-1-6x24mm-ffp": {
+  "5.56/7.62 Horseshoe Dot": null,
+  "762 Extended Range": null,
+  "DWLR-556": null,
+  "DWLR6": null
+ },
+ "lib-sig-sauer-tango6t-1-6x24mm-sfp": {
+  "HELLFIRE FL-6": null,
+  "HELLFIRE M855A1": null
+ },
+ "lib-sig-sauer-tango6t-1-6x24mm-sfp-moa": {
+  "HELLFIRE MOA Milling": null
+ },
+ "lib-sig-sauer-whiskey4-2-5-10x42mm-illuminated-sfp": {
+  "HELLFIRE Quadplex": null
+ },
+ "lib-sig-sauer-whiskey4-2-5-10x42mm-non-illuminated-sfp": {
+  "Quadplex": null
+ },
+ "lib-sig-sauer-whiskey4-5-20x50mm-exposed-zero-stop-illuminated-ffp": {
+  "MOA Milling Hunter 2.0": null
+ },
+ "lib-sig-sauer-whiskey4-6-24x50mm-illuminated-ffp": {
+  "MOA Milling Hunter 2.0": null
+ },
+ "lib-sig-sauer-whiskey4-6-24x50mm-non-illuminated-ffp": {
+  "MOA Milling Hunter 2.0": null
+ },
+ "lib-sightmark-core-2-0-hx-3-12x56-sfp": {
+  "HDR2": "sightmark-hdr2-moa"
+ },
+ "lib-sightmark-core-2-0-hx-3-9x40-sfp": {
+  "Duplex": "sightmark-duplex-moa"
+ },
+ "lib-sightmark-core-2-0-hx-4-16x50-sfp": {
+  "HDR2": "sightmark-hdr2-moa"
+ },
+ "lib-sightmark-core-2-0-tx-1-4x24-sfp": {
+  "AR 556": null
+ },
+ "lib-sightmark-core-hx-3-9x40-vhr-sfp": {
+  "350 Legend VHR": null,
+  "450 Bushmaster BDC": null
+ },
+ "lib-sightmark-core-tx-1-4x24-sfp": {
+  "AR-223": null
+ },
+ "lib-sightmark-core-tx-4x32-ar-223-bdc": {
+  "AR-223": null
+ },
+ "lib-sightmark-latitude-6-25-25x56-sfp": {
+  "Latitude F-Class": "sightmark-latitude-f-class-moa"
+ },
+ "lib-sightmark-latitude-8-32x60-sfp": {
+  "Latitude F-Class": "sightmark-latitude-f-class-moa"
+ },
+ "lib-sightmark-pinnacle-1-6x24-ffp": {
+  "TMD": "sightmark-tmd-mil"
+ },
+ "lib-sightmark-presidio-1-10x26-cred-10": {
+  "CRED-10": null
+ },
+ "lib-sightmark-presidio-1-6x24-sfp": {
+  "CR1": null,
+  "HDR": "sightmark-hdr-moa"
+ },
+ "lib-sightmark-presidio-2-5-15x50-hdr-2": {
+  "HDR2": "sightmark-hdr2-moa"
+ },
+ "lib-sightmark-presidio-3-18x50-ffp": {
+  "LR2": "sightmark-lr2-mil",
+  "MR2": "sightmark-mr2-mil"
+ },
+ "lib-sightmark-presidio-5-30x56-hdr2": {
+  "HDR2": "sightmark-hdr2-moa"
+ },
+ "lib-sightmark-strikon-vmp-1-4x22": {
+  "CRF-4 MIL": null
+ },
+ "lib-sightron-s-tac-3-16x42": {
+  "Duplex": null,
+  "MOA-3": null
+ },
+ "lib-sightron-s-tac-4-20x50": {
+  "Duplex": null,
+  "MOA-2": null
+ },
+ "lib-sightron-s-tac-ffp-3-16x42-zero-stop": {
+  "MH-2": null
+ },
+ "lib-sightron-s-tac-ffp-3-16x42-zero-stop-moa": {
+  "MOA-5": null
+ },
+ "lib-sightron-s-tac-ffp-4-20x50-zero-stop": {
+  "MH-4": null
+ },
+ "lib-sightron-s-tac-ffp-4-20x50-zero-stop-moa": {
+  "MOA-3": null
+ },
+ "lib-sightron-s1-1-75-5x32-g2": {
+  "Duplex": null
+ },
+ "lib-sightron-s1-3-5-10x50-g2": {
+  "Duplex": null
+ },
+ "lib-sightron-s1-3-9x40-g2": {
+  "Duplex": null,
+  "HHR": null
+ },
+ "lib-sightron-s1-4-12x40-ao-g2": {
+  "Duplex": null,
+  "MOA-20": null
+ },
+ "lib-sightron-s1-4-12x40-g2": {
+  "Duplex": null,
+  "HHR": null,
+  "Mil-Dot": null
+ },
+ "lib-sightron-s6-1-6x24-ir4a": {
+  "IR4A": null
+ },
+ "lib-sightron-s6-10-60x56-ed-bench-rest": {
+  "MOA-BD": null,
+  "MOA-FTD": null
+ },
+ "lib-sightron-s6-10-60x56-ed-ft-field-target": {
+  "MOA-2FT": null
+ },
+ "lib-sightron-s6-10-60x56-ed-ft-field-target-mrad": {
+  "MH-FT": null
+ },
+ "lib-sightron-s6-10-60x56-ed-ft-snap-focus": {
+  "MOA-2FT": null
+ },
+ "lib-sightron-s6-10-60x56-ed-ft-snap-focus-mrad": {
+  "MH-FT": null
+ },
+ "lib-sightron-s6-5-30x56-ed-ffp-zero-stop": {
+  "MH-7 IR": null
+ },
+ "lib-sightron-s6-5-30x56-ed-ffp-zero-stop-moa": {
+  "MOA-8 IR": null
+ },
+ "lib-sightron-s6-5-30x56-ed-zero-stop": {
+  "MOA-7 IR": null
+ },
+ "lib-sightron-sii-big-sky-6-5-20x50-sil": {
+  "Silhouette": null
+ },
+ "lib-sightron-sii-target-36x42-brd": {
+  "Target Dot .125": null
+ },
+ "lib-sightron-siii-competition-36x45-ed": {
+  "Fine Cross Hair": null,
+  "Target Dot .125": null
+ },
+ "lib-sightron-siii-competition-45x45-ed-fch": {
+  "Fine Cross Hair": null
+ },
+ "lib-sightron-siii-competition-45x45-ed-td-1": {
+  "Target Dot .1": null
+ },
+ "lib-sightron-siii-field-target-10-50x60-ir": {
+  "MOA-2 IR": null,
+  "MOA-H IR": null
+ },
+ "lib-sightron-siii-field-target-10-50x60-ir-mrad": {
+  "Mil-Hash IR": null
+ },
+ "lib-sightron-siii-long-range-10-50x60": {
+  "Fine Cross Hair": null,
+  "Target Dot .1": null
+ },
+ "lib-sightron-siii-long-range-8-32x56": {
+  "Fine Cross Hair": null,
+  "MOA-2": null
+ },
+ "lib-sightron-siii-long-range-8-32x56-td-125": {
+  "Target Dot .125": null
+ },
+ "lib-sightron-siii-precision-long-range-10-50x60-zero-stop": {
+  "MOA-2 IR": null,
+  "MOA-H IR": null
+ },
+ "lib-sightron-siii-precision-long-range-6-24x50-zero-stop": {
+  "MH-5 IR": null
+ },
+ "lib-sightron-siii-precision-long-range-6-24x50-zero-stop-moa": {
+  "MOA-2 IR": null,
+  "MOA-H IR": null
+ },
+ "lib-sightron-siii-precision-long-range-8-32x56-zero-stop": {
+  "MH-5 IR": null
+ },
+ "lib-sightron-siii-precision-long-range-8-32x56-zero-stop-moa": {
+  "MOA-2 IR": null,
+  "MOA-H IR": null
+ },
+ "lib-sightron-siii-precision-long-range-ffp-6-24x50-zero-stop": {
+  "MH-H IR": null
+ },
+ "lib-sightron-siii-precision-long-range-ffp-6-24x50-zero-stop-moa": {
+  "MOA-H IR": null
+ },
+ "lib-sightron-sv-10-50x60-ed": {
+  "Target Dot .1": null
+ },
+ "lib-sightron-sv-10-50x60-ed-zero-stop": {
+  "Target Dot .1": null
+ },
+ "lib-sightron-sviii-5-40x56-ed-ffp-ir-zero-stop": {
+  "LRM IR": null,
+  "MH-6 IR": null
+ },
+ "lib-swarovski-z6i-2-5-15x50-p": {
+  "4A-I": null
+ },
+ "lib-swarovski-z6i-4-24x56-p-bt": {
+  "4A-I": null
+ },
+ "lib-swarovski-z8i-0-75-6x20": {
+  "4A-IF": null,
+  "D-I": null
+ },
+ "lib-swarovski-z8i-1-7-13-3x42-p": {
+  "4A-I": null,
+  "4A-IF": null
+ },
+ "lib-swarovski-z8i-1-8x24": {
+  "4A-I": null,
+  "4A-IF": null,
+  "BRT-I": null,
+  "LD-I": null
+ },
+ "lib-swarovski-z8i-1-8x24-2": {
+  "4A-I": null
+ },
+ "lib-swarovski-z8i-2-16x50-p": {
+  "4A-I": null,
+  "4W-I": null,
+  "BRX-I": null
+ },
+ "lib-swarovski-z8i-2-3-18x56-p": {
+  "4A-I": null,
+  "4W-I": null,
+  "BRX-I": null
+ },
+ "lib-swarovski-z8i-3-5-28x50-p": {
+  "4A-I": null,
+  "4W-I": null,
+  "BRX-I": null
+ },
+ "lib-swarovski-z8i-5-40x56-p": {
+  "4A-I": null
  },
  "lib-vector-optics-34mm-continental-x6-1-6x28-ffp-riflescope": {
   "VCT-BNW": "vector-optics-vct-bnw-mil"
@@ -1280,5 +2279,124 @@
  },
  "lib-vortex-viper-pst-gen-ii-5-25x50-riflescope-ebr-4-moa": {
   "EBR-4 (MOA)": "vortex-ebr-4-moa"
+ },
+ "lib-zeiss-conquest-v4-3-12x56": {
+  "#20": null,
+  "#60": null
+ },
+ "lib-zeiss-conquest-v4-4-16x44": {
+  "#20": null,
+  "#60": null,
+  "ZBR-2": "zeiss-zbr-2",
+  "ZBi": "zeiss-zbi",
+  "ZMOA-2": "zeiss-zmoa-2",
+  "ZMOA-T30": "zeiss-zmoa-t30",
+  "ZMOAi-T30": null
+ },
+ "lib-zeiss-conquest-v4-4-16x50": {
+  "ZBi": "zeiss-zbi",
+  "ZMOAi-1": null,
+  "ZMOAi-T30": null
+ },
+ "lib-zeiss-conquest-v4-6-24x50": {
+  "#60": null,
+  "ZBR-1": "zeiss-zbr-1",
+  "ZBi": "zeiss-zbi",
+  "ZMOA-1": "zeiss-zmoa-1",
+  "ZMOAi-1": null,
+  "ZMOAi-20": "zeiss-zmoai-20",
+  "ZMOAi-T20": "zeiss-zmoai-t20"
+ },
+ "lib-zeiss-conquest-v6-1-1-6x24": {
+  "#60": "zeiss-60"
+ },
+ "lib-zeiss-conquest-v6-2-12x50": {
+  "#60": "zeiss-60"
+ },
+ "lib-zeiss-conquest-v6-2-5-15x56": {
+  "#60": "zeiss-60"
+ },
+ "lib-zeiss-conquest-v6-3-18x50": {
+  "#6": null,
+  "ZBR-2": "zeiss-zbr-2",
+  "ZMOA-2": "zeiss-zmoa-2"
+ },
+ "lib-zeiss-conquest-v6-5-30x50": {
+  "#43": null,
+  "ZBR-1": "zeiss-zbr-1",
+  "ZMOA-1": "zeiss-zmoa-1"
+ },
+ "lib-zeiss-lrp-s3-425-50": {
+  "ZF-MRi": "zeiss-zf-mri"
+ },
+ "lib-zeiss-lrp-s3-425-50-moa": {
+  "ZF-MOAi": "zeiss-zf-moai"
+ },
+ "lib-zeiss-lrp-s3-636-56": {
+  "ZF-MRi": "zeiss-zf-mri"
+ },
+ "lib-zeiss-lrp-s3-636-56-moa": {
+  "ZF-MOAi": "zeiss-zf-moai"
+ },
+ "lib-zeiss-lrp-s5-318-50": {
+  "ZF-MRi": "zeiss-zf-mri"
+ },
+ "lib-zeiss-lrp-s5-318-50-moa": {
+  "ZF-MOAi": "zeiss-zf-moai"
+ },
+ "lib-zeiss-lrp-s5-525-56": {
+  "ZF-MRi": "zeiss-zf-mri"
+ },
+ "lib-zeiss-lrp-s5-525-56-moa": {
+  "ZF-MOAi": "zeiss-zf-moai"
+ },
+ "lib-zeiss-v3-2-5-8x35": {
+  "#6": null,
+  "XRR": null
+ },
+ "lib-zeiss-v3-2-5-8x35-rf": {
+  "XRR": null
+ },
+ "lib-zeiss-v3-3-5-10x42": {
+  "#6": null,
+  "SHR": null,
+  "SHRi": null
+ },
+ "lib-zeiss-v3-4-5-14x44": {
+  "SHR": null,
+  "SHRi": null,
+  "XRR": null
+ },
+ "lib-zeiss-v3-4-5-14x50": {
+  "SHR": null,
+  "SHRi": null,
+  "XRR": null
+ },
+ "lib-zeiss-v3-6-18x50": {
+  "SHR": null,
+  "SHRi": null,
+  "XRR": null
+ },
+ "lib-zeiss-v8-1-1-8x24": {
+  "#54": "zeiss-54",
+  "#60": "zeiss-60"
+ },
+ "lib-zeiss-v8-1-8-14x50": {
+  "#54": "zeiss-54",
+  "#60": "zeiss-60"
+ },
+ "lib-zeiss-v8-2-8-20x56": {
+  "#43": "zeiss-43",
+  "#60": "zeiss-60"
+ },
+ "lib-zeiss-v8-4-8-35x60": {
+  "#43": "zeiss-43",
+  "#60": "zeiss-60"
+ },
+ "lib-zeiss-victory-ht-2-5-10x50": {
+  "#60": "zeiss-60"
+ },
+ "lib-zeiss-victory-ht-3-12x56": {
+  "#60": "zeiss-60"
  }
 }
