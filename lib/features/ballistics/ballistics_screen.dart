@@ -328,6 +328,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         rangeErrorCtl.text = s.rangeErrorText;
         bcErrorCtl.text = s.bcErrorText;
         _wezShotCount = s.wezShotCount;
+        _wezShotChosen = s.wezShotCount != Wez.defaultShotCount;
         _shotCache.clear();
         _holdSamples = null;
       });
@@ -553,6 +554,33 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// WEZ Atış sayısı (owner, 2026-10-11): Hedef shows the first-shot
   /// probability and, for more than one shot, the chance of at least one hit.
   int _wezShotCount = Wez.defaultShotCount;
+
+  /// Atış sayısı starts on "Seçiniz" (owner, 2026-10-12); unchosen means
+  /// the default single shot.
+  bool _wezShotChosen = false;
+  int _targetClearToken = 0;
+
+  /// Hareketli hedef → "Verileri sil" (owner, 2026-10-12): empties every
+  /// box of the card.
+  void _clearTargetBox() {
+    setState(() {
+      for (final c in [
+        targetSpeedCtl,
+        groupCtl,
+        sdCtl,
+        targetSizeCtl,
+        rangeErrorCtl,
+        bcErrorCtl,
+      ]) {
+        c.text = '';
+      }
+      _targetMovesRight = null;
+      _wezShotCount = Wez.defaultShotCount;
+      _wezShotChosen = false;
+      _targetClearToken++;
+    });
+    _coriolisChanged();
+  }
 
   /// Which Pro Ayarlar box is open (one at a time; all closed at first).
   String? _proOpen;
@@ -4062,22 +4090,39 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 info: EnvironmentFieldInfo.bcError,
                 onChanged: (_) => _coriolisChanged(),
               ),
-              MenzilSelect<int>(
-                key: const Key('pro-wez-shots'),
-                label: 'Atış sayısı',
-                info: EnvironmentFieldInfo.wezShotCount,
-                initialValue: _wezShotCount,
-                items: [
-                  for (final n in Wez.shotCounts)
-                    DropdownMenuItem(value: n, child: Text('$n atış')),
-                ],
-                onChanged: (v) {
-                  if (v == null) return;
-                  setState(() => _wezShotCount = v);
-                  _saveShotSettings();
-                },
+              KeyedSubtree(
+                key: ValueKey('pro-wez-shots-$_targetClearToken'),
+                child: MenzilSelect<int>(
+                  key: const Key('pro-wez-shots'),
+                  label: 'Atış sayısı',
+                  info: EnvironmentFieldInfo.wezShotCount,
+                  initialValue: _wezShotChosen ? _wezShotCount : null,
+                  hint: 'Seçiniz',
+                  // "Seçiniz" stays in the list (owner, 2026-10-12).
+                  items: [
+                    const DropdownMenuItem<int>(child: Text('Seçiniz')),
+                    for (final n in Wez.shotCounts)
+                      DropdownMenuItem(value: n, child: Text('$n atış')),
+                  ],
+                  onChanged: (v) {
+                    setState(() {
+                      _wezShotChosen = v != null;
+                      _wezShotCount = v ?? Wez.defaultShotCount;
+                    });
+                    _saveShotSettings();
+                  },
+                ),
               ),
             ],
+          ),
+          const SizedBox(height: MenzilSpace.sm),
+          MenzilSecondaryButton(
+            key: const Key('pro-target-clear'),
+            label: 'Verileri sil',
+            icon: Icons.delete_outline,
+            destructive: true,
+            expand: true,
+            onPressed: _clearTargetBox,
           ),
         ],
       ),
