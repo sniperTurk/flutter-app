@@ -14,9 +14,17 @@ class FactoryAmmo {
   final BallisticModel? model;
   final bool bcFromBullet;
   final String? note;
+
+  /// 'nato-standard': the maker publishes no BC; [bc] is the BC of the same
+  /// NATO standard bullet ([bcStandard], e.g. M855) from the official report
+  /// [bcReport] at [bcSourceUrl] (owner, 2026-10-12). [bcProbable]: the maker
+  /// does not name the standard; weight and type match.
+  final String? bcSource, bcStandard, bcReport, bcSourceUrl;
+  final bool bcProbable;
   const FactoryAmmo(this.brand, this.name, this.cartridge, this.diameterMm, this.grain, this.bc,
       this.model, this.muzzleVelocityFps, this.testBarrelIn, this.sourceUrl,
-      {this.bcFromBullet = false, this.note});
+      {this.bcFromBullet = false, this.note, this.bcSource, this.bcStandard, this.bcReport,
+      this.bcSourceUrl, this.bcProbable = false});
 }
 
 abstract final class FactoryAmmoLibrary {
@@ -1275,6 +1283,7 @@ abstract final class FactoryAmmoLibrary {
     FactoryAmmo('Hornady', '500 Nitro Express 570 gr DGX Bonded', '.500 NE 3"', 12.95, 570.0, 0.295, BallisticModel.g1, 2120.0, 24.0, 'https://www.hornady.com/ammunition/rifle/500-nitro-express-570-gr-dgx-bonded', bcFromBullet: true, note: 'Üretici BC\'yi G1/G7 etiketi olmadan veriyor; G1 kabul edildi. BC değerinin farklı olduğunu düşünüyorsanız değiştirebilirsiniz.'),
     FactoryAmmo('Norma', 'Norma Woodleigh Soft Nose .500 Nitro Express 3 570gr', '.500 NE 3"', 12.95, 570.0, 0.368, BallisticModel.g1, 2150.0, null, 'https://www.norma-ammunition.com/products/hunting/norma-african-ph/norma-woodleigh-soft-nose-500-nitro-express-3-570gr---20113012'),
     FactoryAmmo('Norma', 'Norma Woodleigh Soft Nose .500/416 Nitro Express 410gr', '.500/.416 NE', 10.57, 410.0, 0.307, BallisticModel.g1, 2325.0, null, 'https://www.norma-ammunition.com/products/hunting/norma-african-ph/norma-woodleigh-soft-nose-500416-nitro-express-410gr---20110532'),
+    FactoryAmmo('ABD Ordusu', 'M855', '5.56x45 NATO', 5.7, 62.0, 0.154, BallisticModel.g7, 3113.0, 20.0, 'https://apps.dtic.mil/sti/tr/pdf/ADA549416.pdf', bcSource: 'nato-standard', bcStandard: 'M855', bcReport: 'ARL-TR-5182', bcSourceUrl: 'https://apps.dtic.mil/sti/tr/pdf/ADA530895.pdf'),
     FactoryAmmo('Aguila', '5.56 x 45mm 55 Grain Full Metal Jacket Boat Tail', '5.56x45 NATO', 5.7, 55.0, null, null, 3260.0, null, 'https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf'),
     FactoryAmmo('Aguila', '5.56 x 45mm 62 Grain Full Metal Jacket Boat Tail', '5.56x45 NATO', 5.7, 62.0, null, null, 3150.0, null, 'https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf'),
     FactoryAmmo('Aguila', '5.56 x 45mm NATO 55 Grain FMJ', '5.56x45 NATO', 5.7, 55.0, null, null, 3164.0, null, 'https://www.aguilaammo.com/products/5-56-x-45mm-nato-55-grain-full-metal-jacket'),
