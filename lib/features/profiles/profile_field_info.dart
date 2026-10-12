@@ -66,6 +66,17 @@ abstract final class ProfileFieldInfo {
       'üreticinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır. '
       'Saçma ve slug G1 ile hesaplanır. Bilinmiyorsa boş bırakın; sonuç '
       'yaklaşık olur.';
+  static const scopeFilterUnit =
+      'Model listesini kulenin birimine göre süzer. MRAD: klik 0,1 mil. MOA: '
+      'klik 1/4 MOA. SMOA: üretici "100 yardada 1/4 inç" diyorsa. Dürbünün '
+      'kulesinde ya da kutusunda yazar. Seçiniz: hepsi.';
+  static const scopeFilterFocal =
+      'Model listesini odak düzlemine göre süzer. FFP: retikül büyütmeyle '
+      'büyür, ölçüleri her büyütmede doğrudur. SFP: retikül hep aynı boyda '
+      'kalır. Dürbünün adında FFP ya da SFP yazar. Seçiniz: hepsi.';
+  static const scopeFilterMag =
+      'Model listesini dürbünün en yüksek büyütmesine göre süzer. Örnek: '
+      '5-30x56 için 26–40x seçin. Seçiniz: hepsi.';
   static const bcModel =
       'BC sayısının hangi standart mermi şekline göre verildiği. G1: küt uçlu '
       'klasik şekil; havalı tüfek saçması ve slug için neredeyse her zaman G1 '
