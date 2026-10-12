@@ -1197,24 +1197,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           expand: true,
           onPressed: _weatherBusy ? null : () => _fillWeather(overwrite: true),
         ),
-        const SizedBox(height: MenzilSpace.xs),
-        MenzilSecondaryButton(
-          key: const Key('environment-phone-pressure'),
-          label: _pressureBusy ? 'Okunuyor…' : 'Basıncı telefondan al',
-          icon: Icons.speed,
-          expand: true,
-          onPressed: _pressureBusy ? null : _readPhonePressure,
-        ),
-        if (_pressureStatus != null) ...[
-          const SizedBox(height: MenzilSpace.xs),
-          MenzilNotice(
-            key: const Key('environment-phone-pressure-status'),
-            tone: _pressureFailed
-                ? MenzilNoticeTone.warning
-                : MenzilNoticeTone.info,
-            message: _pressureStatus!,
-          ),
-        ],
         const SizedBox(height: MenzilSpace.md),
       ],
     );
@@ -2911,15 +2893,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 ),
               ),
             MenzilInput(
-              key: BallisticsFieldKeys.pressure,
-              controller: pressure,
-              label: 'İstasyon basıncı',
-              // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => setState(() => _userEdited.add(pressure)),
-              info: EnvironmentFieldInfo.pressure,
-              unit: metric ? 'hPa' : 'inHg',
-            ),
-            MenzilInput(
               key: BallisticsFieldKeys.humidity,
               controller: humidity,
               label: 'Bağıl nem',
@@ -2928,19 +2901,69 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               info: EnvironmentFieldInfo.humidity,
               unit: '%',
             ),
-            MenzilInput(
-              key: BallisticsFieldKeys.altitude,
-              controller: altitude,
-              label: 'İrtifa',
-              // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => setState(() => _userEdited.add(altitude)),
-              info: EnvironmentFieldInfo.altitude,
-              unit: metric ? 'm' : 'ft',
-              keyboardType: const TextInputType.numberWithOptions(
-                decimal: true,
-                signed: true,
-              ),
+          ],
+        ),
+      ),
+      // Basınç ölçer (owner, 2026-10-12): station pressure and altitude
+      // under Atmosfer, with "Basıncı telefondan al" under the two boxes.
+      const MenzilSectionHeader(
+        'Basınç ölçer',
+        padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
+      ),
+      MenzilCard(
+        key: const Key('environment-barometer-card'),
+        padding: const EdgeInsets.fromLTRB(
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            MenzilFieldGrid(
+              children: [
+                MenzilInput(
+                  key: BallisticsFieldKeys.pressure,
+                  controller: pressure,
+                  label: 'İstasyon basıncı',
+                  // A typed value is the user's: auto fill keeps it.
+                  onChanged: (_) => setState(() => _userEdited.add(pressure)),
+                  info: EnvironmentFieldInfo.pressure,
+                  unit: metric ? 'hPa' : 'inHg',
+                ),
+                MenzilInput(
+                  key: BallisticsFieldKeys.altitude,
+                  controller: altitude,
+                  label: 'İrtifa',
+                  // A typed value is the user's: auto fill keeps it.
+                  onChanged: (_) => setState(() => _userEdited.add(altitude)),
+                  info: EnvironmentFieldInfo.altitude,
+                  unit: metric ? 'm' : 'ft',
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: true,
+                  ),
+                ),
+              ],
             ),
+            MenzilSecondaryButton(
+              key: const Key('environment-phone-pressure'),
+              label: _pressureBusy ? 'Okunuyor…' : 'Basıncı telefondan al',
+              icon: Icons.speed,
+              expand: true,
+              onPressed: _pressureBusy ? null : _readPhonePressure,
+            ),
+            if (_pressureStatus != null) ...[
+              const SizedBox(height: MenzilSpace.xs),
+              MenzilNotice(
+                key: const Key('environment-phone-pressure-status'),
+                tone: _pressureFailed
+                    ? MenzilNoticeTone.warning
+                    : MenzilNoticeTone.info,
+                message: _pressureStatus!,
+              ),
+            ],
           ],
         ),
       ),
