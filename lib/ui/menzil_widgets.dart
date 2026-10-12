@@ -1250,6 +1250,9 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                           },
                     // The closed box always shows ONE line (owner,
                     // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
+                    // With value null Flutter shows the entry whose value is
+                    // null ("Seçiniz" in lists that offer it): that slot
+                    // shows the current choice instead.
                     selectedItemBuilder: (context) => [
                       for (var i = 0; i < items.length; i++)
                         Align(
@@ -1258,9 +1261,20 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                             maxLines: 1,
                             softWrap: false,
                             overflow: TextOverflow.ellipsis,
-                            child: w.selectedLabels == null
-                                ? MenzilSelect._oneLine(items[i].child)
-                                : Text(w.selectedLabels![i]),
+                            child: () {
+                              final k = items[i].value == null
+                                  ? selectedIndex
+                                  : i;
+                              if (k == null) {
+                                return Text(
+                                  w.hint ?? 'Seçiniz',
+                                  style: TextStyle(color: c.ink2),
+                                );
+                              }
+                              return w.selectedLabels == null
+                                  ? MenzilSelect._oneLine(items[k].child)
+                                  : Text(w.selectedLabels![k]);
+                            }(),
                           ),
                         ),
                     ],
