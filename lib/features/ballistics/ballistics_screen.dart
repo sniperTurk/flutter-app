@@ -1233,7 +1233,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   String? get _pressureWarning {
     double? parse(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
-    final p = parse(pressure), a = parse(altitude);
+    // An empty İrtifa is solved as 0 m, so the check uses 0 m too.
+    final p = parse(pressure);
+    final a = altitude.text.trim().isEmpty ? 0.0 : parse(altitude);
     if (p == null || a == null || !p.isFinite || !a.isFinite) return null;
     final pHpa = metric ? p : UnitSystem.inHgToHpa(p);
     final aM = metric ? a : UnitSystem.feetToMeters(a);
