@@ -300,11 +300,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         gravityCtl.text = s.gravityText;
         latitudeCtl.text = s.latitudeText;
         azimuthCtl.text = s.azimuthText;
+        // A box a button filled reopens orange "…alındı" (owner, 2026-10-12).
+        _gravFilled = s.gravityFromLocation && s.gravityText.isNotEmpty;
+        _latFilled = s.latitudeFromGps && s.latitudeText.isNotEmpty;
+        _aziFilled = s.azimuthFromCompass && s.azimuthText.isNotEmpty;
         turretScaleCtl.text = s.turretScaleText;
         // No automatic value any more (owner, 2026-10-12): the box starts
         // empty and is filled only by "Rüzgâr düzeltmesi al" or by hand.
         _windMaxAuto = false;
         windMaxCtl.text = s.windMaxText;
+        _windMaxFilled = s.windMaxFromWind && s.windMaxText.isNotEmpty;
         _autoWindMax();
         targetSpeedCtl.text = s.targetSpeedText;
         _targetMovesRight = s.targetMovesRight;
@@ -348,6 +353,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       gravityOn: _gravityOn,
       gravityText: gravityCtl.text.trim(),
       latitudeText: latitudeCtl.text.trim(),
+      // Which boxes a button filled, so they reopen orange (2026-10-12).
+      latitudeFromGps: _latFilled,
+      azimuthFromCompass: _aziFilled,
+      gravityFromLocation: _gravFilled,
+      windMaxFromWind: _windMaxFilled,
       azimuthText: azimuthCtl.text.trim(),
       turretScaleText: turretScaleCtl.text.trim(),
       windMaxText: _windMaxAuto ? '' : windMaxCtl.text.trim(),
@@ -983,13 +993,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           : zeroM.toString(),
     );
     sight = TextEditingController(text: (p?.sightHeightMm ?? 65).toString());
-    wind = TextEditingController(text: '0')..addListener(_autoWindMax);
+    // Hava Durumu boxes start empty (owner, 2026-10-12: "Konum verisi
+    // alınmadan kutular dolu geliyor"); an empty box is solved with the
+    // standard atmosphere and no wind.
+    wind = TextEditingController()..addListener(_autoWindMax);
     windDirection = TextEditingController(text: '90');
     windHour = TextEditingController()..addListener(_syncWindHour);
-    temperature = TextEditingController(text: '15');
-    pressure = TextEditingController(text: '1013.25');
-    humidity = TextEditingController(text: '50');
-    altitude = TextEditingController(text: '0');
+    temperature = TextEditingController();
+    pressure = TextEditingController();
+    humidity = TextEditingController();
+    altitude = TextEditingController();
     ranges = TextEditingController(
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
@@ -3084,11 +3097,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
 
     return [
-      // Section renamed "Hava Durumu" (owner, 2026-10-12).
-      const MenzilSectionHeader(
-        'Hava Durumu',
-        padding: EdgeInsets.only(bottom: MenzilSpace.sm),
-      ),
+      // No section title: the page title already says Hava Durumu (owner,
+      // 2026-10-12).
       MenzilCard(
         padding: const EdgeInsets.fromLTRB(
           MenzilSpace.lg,
@@ -4953,7 +4963,14 @@ class EnvironmentCarry {
   /// back empty, not with the starting values.
   Set<String> _empty = {};
 
+  /// The fetch buttons' state, so a tab switch keeps "…alındı" orange
+  /// (owner, 2026-10-12).
+  bool _weatherFilled = false;
+  bool _pressureFilled = false;
+
   void _save(_BallisticsScreenState s) {
+    _weatherFilled = s._weatherFilled;
+    _pressureFilled = s._pressureFilled;
     bool blank(TextEditingController c) => c.text.trim().isEmpty;
     double? n(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
@@ -4996,6 +5013,8 @@ class EnvironmentCarry {
   void _apply(_BallisticsScreenState s) {
     final si = _si;
     if (si == null) return;
+    s._weatherFilled = _weatherFilled;
+    s._pressureFilled = _pressureFilled;
     String f(double v) => v == v.roundToDouble()
         ? v.toStringAsFixed(0)
         : double.parse(v.toStringAsFixed(2)).toString();

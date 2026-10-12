@@ -71,6 +71,14 @@ class ShotSettings {
   /// WEZ Atış sayısı for "en az bir isabet" (one of [Wez.shotCounts]).
   final int wezShotCount;
 
+  /// The box was filled by its button (Konumdan al, Pusuladan al, Konumdan
+  /// hesapla, Rüzgâr düzeltmesi al), so it reopens orange "…alındı"
+  /// (owner, 2026-10-12).
+  final bool latitudeFromGps;
+  final bool azimuthFromCompass;
+  final bool gravityFromLocation;
+  final bool windMaxFromWind;
+
   const ShotSettings({
     this.inclineDeg = 0,
     this.cantDeg = 0,
@@ -100,6 +108,10 @@ class ShotSettings {
     this.bcErrorText = '',
     this.tubePressureText = '',
     this.wezShotCount = Wez.defaultShotCount,
+    this.latitudeFromGps = false,
+    this.azimuthFromCompass = false,
+    this.gravityFromLocation = false,
+    this.windMaxFromWind = false,
   });
 
   Map<String, dynamic> toJson() => {
@@ -131,6 +143,10 @@ class ShotSettings {
     'bcError': bcErrorText,
     'tubePressure': tubePressureText,
     'wezShots': wezShotCount,
+    'latGps': latitudeFromGps,
+    'aziCompass': azimuthFromCompass,
+    'gravGps': gravityFromLocation,
+    'windMaxFill': windMaxFromWind,
   };
 
   /// Unknown or damaged values fall back to the neutral default (level,
@@ -179,6 +195,10 @@ class ShotSettings {
       wezShotCount: Wez.shotCounts.contains(json['wezShots'])
           ? json['wezShots'] as int
           : Wez.defaultShotCount,
+      latitudeFromGps: json['latGps'] == true,
+      azimuthFromCompass: json['aziCompass'] == true,
+      gravityFromLocation: json['gravGps'] == true,
+      windMaxFromWind: json['windMaxFill'] == true,
     );
   }
 }
