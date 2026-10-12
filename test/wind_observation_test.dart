@@ -105,11 +105,15 @@ void main() {
       ))
         t.data ?? '',
     ];
-    expect(
-      find.byKey(const Key('shot-wind-zone-shares'), skipOffstage: false),
-      findsOneWidget,
-      reason: texts.join(' | '),
-    );
+    if (find
+        .byKey(const Key('shot-wind-zone-shares'), skipOffstage: false)
+        .evaluate()
+        .isEmpty) {
+      fail(
+        'Expected: shares line. Texts: '
+        '${texts.where((t) => t.length > 3).take(40).join(' | ')}',
+      );
+    }
     final line = tester
         .widget<Text>(
           find.byKey(const Key('shot-wind-zone-shares'), skipOffstage: false),
