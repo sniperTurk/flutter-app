@@ -1,0 +1,24 @@
+{
+  "name": "SHR",
+  "brand": "Zeiss",
+  "scopes": [
+    "V3 3.5-10x42",
+    "V3 4.5-14x44",
+    "V3 4.5-14x50",
+    "V3 6-18x50"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": 2,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": 10,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-non-illuminated-reticle-87-shr.pdf",
+  "notes": "Zeiss SHR (Smart Hunting Reticle) #87 föyü, V3, v1 Temmuz 2026, aydınlatmasız, SFP, ölçü birimi MOA. Tablo (@10x 3.5-10x42 / @14x 4.5-14x44/50 / @18x 6-18x50, MOA): A çizgi 0.32/0.25/0.18, B aralık 1.00, C kalın balk 1.50/1.50/1.00, D büyük işaret 1.50/1.50/1.00, E küçük işaret 0.75/0.75/0.50, F açıklık 20.00. V3 sayfası: dikey ve yatay eksende MOA işaretleri; 'minor and major hash marks – representing odd and even MOA holds' (tek MOA küçük, çift MOA büyük -> major_every=2); merkezden dikey ve yatay eksende 10 MOA referans işaretleri; yatay kalın balklar arası açıklık 20.00 MOA. hash_step=1.0 (B aralık). ÇIKARIM: posts_start=10, 20 MOA açıklığın yarısı. Rakam aralığı ve işaret uzanımı açıkça verilmemiş -> numbers_every, extent null; çizgi/balk kalınlığı modele göre değiştiği için line_width/post_width yok. Merkez noktası yok/verilmemiş -> center_dot null. Kaynak: https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-non-illuminated-reticle-87-shr.pdf (okundu 2026-10-12); https://www.zeiss.com/photonics-and-optics/us/hunting/products/riflescopes/v3.html (okundu 2026-10-12)"
+}

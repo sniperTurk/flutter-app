@@ -1,0 +1,23 @@
+{
+  "name": "L3",
+  "brand": "Schmidt & Bender",
+  "scopes": [
+    "2.5-10x56 Klassik L3 FFP 1cm",
+    "3-12x42 Klassik L3 FFP 1cm",
+    "3-12x50 Klassik L3 FFP 1cm"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://assets.schmidtundbender.de/media/0c/0f/24/1790781160/S_B_Katalog_2026-V08-EN-LoRes.pdf",
+  "notes": "S&B Katalog 2026 (EN): L3 (1. FP), aydınlatma Luminescence Technology; 'clean, minimalistic layout with a precisely centered, finely adjustable illuminated center dot'; 'open design' -> center_dot=true. Çizgi/direk düzeni metinde tanımlanmamış -> family null. Katalog/sayfa retikül için açısal ölçü vermiyor; birim taret birimi (0.1 mrad / 1 cm/100 m tık) -> 'mil'. Kaynak: https://assets.schmidtundbender.de/media/0c/0f/24/1790781160/S_B_Katalog_2026-V08-EN-LoRes.pdf (okundu 2026-10-12); https://www.schmidtundbender.de/2.5-10x56-Klassik (okundu 2026-10-12); https://www.schmidtundbender.de/3-12x42-Klassik (okundu 2026-10-12); https://www.schmidtundbender.de/3-12x50-Klassik (okundu 2026-10-12)"
+}

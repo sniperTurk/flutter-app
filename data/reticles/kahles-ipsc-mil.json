@@ -1,0 +1,21 @@
+{
+  "name": "IPSC",
+  "brand": "Kahles",
+  "scopes": [
+    "K18i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/IPSC_K18i.PDF",
+  "notes": "Kahles retikül föyü 'IPSC / K18i' (91021082297-100, 28.01.2019). Değerler /100 m: 16m (1x) / 2m (8x), 5,8cm (1x) / 0,7cm (8x), ø20,9cm (1x) / ø2,6cm (8x), 80cm (1x) / 10cm (8x). Açısal ölçü yok; birim taret birimi (K18i 'Impact correction per click: .1 MRAD') -> unit=mil. SFP (broşür: K18i 'illumination in 2nd focal plane'). Öğe eşlemesi yalnız çizimde -> family ve geometri null. Kaynak: https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/IPSC_K18i.PDF (okundu 2026-10-12); https://www.kahles.at/en/sport/riflescopes/k18i-1-8x24i (okundu 2026-10-12)"
+}

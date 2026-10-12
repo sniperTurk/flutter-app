@@ -1,0 +1,23 @@
+{
+  "name": "MHR",
+  "brand": "Steiner",
+  "scopes": [
+    "H6Xi 2-12x42mm MOA",
+    "H6Xi 3-18x50mm MOA",
+    "H6Xi 5-30x50mm MOA"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.steiner-optics.com/sites/default/files/content/downloads/2025-02/INSTR-8001_H6Xi_2024_UserManual.pdf",
+  "notes": "H6Xi kılavuzu: 'MHR-MOA RETICLE SUBTENSIONS' (s.10, '30X'); teknik tabloda MHR-MOA modelleri 'Focal Plane First', 'Reticle MHR', 0.25 MOA tık -> unit=moa, FFP. Retikül sayfası (Modern Hunter Reticle): 'presents duplex crosshairs for quick aiming' ve büyütmede 'illuminated denotation for wind drift and bullet drop' -> family=duplex (rüzgâr/düşüş işaretleri şemada temsil edilmiyor; aralıkları metinde yok). Kılavuz s.12 harf tablosu 'Values in MOA A B: FFP 0.07 0.07' — A/B'nin hangi öğe olduğu metinde yok, eşlenmedi. Direk başlangıcı, merkez noktası, bölmeler null. Kaynak: https://www.steiner-optics.com/sites/default/files/content/downloads/2025-02/INSTR-8001_H6Xi_2024_UserManual.pdf (okundu 2026-10-12); https://www.steiner-optics.com/reticles/mhr-reticle (okundu 2026-10-12)"
+}

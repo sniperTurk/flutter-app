@@ -1,0 +1,21 @@
+{
+  "name": "A1 MOA",
+  "brand": "Integrix",
+  "scopes": [
+    "iX8 1-8x28 A1 MOA FFP"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 30,
+  "extent_v_up": null,
+  "extent_v_down": 60,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.leapers.com/products-integrix-ix801fa1.html",
+  "notes": "FFP, cam kazıma ('ETCHED GLASS RANGE-ESTIMATING A1 MOA RETICLE'). Sayfa: 'At 1X, a quick-to-acquire T-Dot enclosed within a 68 MOA segmented circle', 'a crisp 1 MOA center dot', 'range estimation out to 600 yards, and hash marks up to 60 MOA vertically for holdover and 30 MOA horizontally left and right in 2 MOA increments' -> center_dot=true, extent_v_down=60, extent_h=30, hash_step=2 ('in 2 MOA increments' cümlede yatay ölçekle birlikte geçiyor; dikey adım ayrıca yazmıyor). Retikül döküm tablosu (A=60, B=20, C=8, D=4, E=2, F=34, G=4, H=1, I=10, J=2, K=0.25 MOA) harf eşlemesi yalnız görselde -> alanlara aktarılmadı. extent_v_up, major_every, numbers_every, direk, floating_center metinde yok -> null. Kaynak: https://www.leapers.com/products-integrix-ix801fa1.html (okundu 2026-10-12)"
+}

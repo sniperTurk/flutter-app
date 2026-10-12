@@ -1,0 +1,23 @@
+{
+  "name": "STR MIL",
+  "brand": "Steiner",
+  "scopes": [
+    "H6Xi 2-12x42mm MRAD",
+    "H6Xi 3-18x50mm MRAD",
+    "H6Xi 5-30x50mm MRAD"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.steiner-optics.com/reticles/str-mil",
+  "notes": "Steiner retikül sayfası: 'MIL-based tree reticle' (Steiner Tree Reticle), 'Positioned on the first focal plane', 'a tree structure with 0.2 milliradian (MRAD) subtensions' -> family=tree, hash_step=0.2. Ürün listesi: H6Xi 2-12x42, 3-18x50, 5-30x50. H6Xi kılavuzu (s.8-9 'STR-MIL RETICLE SUBTENSIONS') ölçüleri yalnız görsel/etiketsiz rakam olarak veriyor (metin katmanında '8 6 4 2 ... 10' dizileri; hangi çizgiye ait olduğu yazmıyor) -> ağaç satırları, uzanımlar, rakam aralığı, büyük işaret, merkez noktası null. Kılavuz teknik tablo: 'Focal Plane First', 'Reticle STR-MIL', 0.1 MIL tık. Kaynak: https://www.steiner-optics.com/reticles/str-mil (okundu 2026-10-12); https://www.steiner-optics.com/sites/default/files/content/downloads/2025-02/INSTR-8001_H6Xi_2024_UserManual.pdf (okundu 2026-10-12)"
+}

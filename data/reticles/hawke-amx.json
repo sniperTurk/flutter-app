@@ -10,7 +10,9 @@
     "Airmax 30 WA SF 4-16x50 (AMX IR)",
     "Airmax 30 WA SF 6-24x50 (AMX IR)",
     "Airmax 30 WA SF 8-32x50 (AMX IR)",
-    "Airmax 30 SF Compact (AMX IR)"
+    "Airmax 30 SF Compact 3-12x40 AMX IR",
+    "Airmax 30 SF Compact 4-16x44 AMX IR",
+    "Airmax 30 SF Compact 6-24x50 AMX IR"
   ],
   "unit": "mil",
   "family": null,
@@ -25,5 +27,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://us.hawkeoptics.com/airmax-riflescopes-std.html",
-  "notes": "SFP; PCP/havalı tüfek retikülü. Hawke metni: 'Featuring the AMX reticle, which is based on mil spacing, the Airmax series have holdover and windage aim points perfect for pellet trajectories.' Yalnız unit=mil metinden; 1\" Airmax modellerinde taret ¼ MOA, Airmax 30 modellerinde 1/10 MRAD (taret değeri, retikül değil). Kalibre büyütme, işaret aralığı, uzanımlar, aile ve merkez bilinmiyor (null): görseller ve Reticle Booklet PDF'i (Google Drive) robots.txt ile engelli. Ek kaynak: https://us.hawkeoptics.com/airmax-30-wa-sf-riflescopes.html"
+  "notes": "SFP; PCP/havalı tüfek retikülü. Hawke metni: 'Featuring the AMX reticle, which is based on mil spacing, the Airmax series have holdover and windage aim points perfect for pellet trajectories.' Yalnız unit=mil metinden; 1\" Airmax modellerinde taret ¼ MOA, Airmax 30 modellerinde 1/10 MRAD (taret değeri, retikül değil). Kalibre büyütme, işaret aralığı, uzanımlar, aile ve merkez bilinmiyor (null): görseller ve Reticle Booklet PDF'i (Google Drive) robots.txt ile engelli. Ek kaynak: https://us.hawkeoptics.com/airmax-30-wa-sf-riflescopes.html 2026-10-12 güncelleme: 'Airmax 30 SF Compact (AMX IR)' girdisi üç tam model adına açıldı (ürün sayfaları: Reticle 'AMX IR', Reticle Group 'AMX', Focal Plane 'SFP (Second Focal Plane)', Click Value '1/10 MRAD'; 'AMX reticle designed for airguns'), böylece aynı ad anahtarlı 'FFP AMX IR' kaydından ayrılır. Kaynak: https://us.hawkeoptics.com/airmax-30-sf-compact-3-12x40-amx-ir.html (okundu 2026-10-12)"
 }

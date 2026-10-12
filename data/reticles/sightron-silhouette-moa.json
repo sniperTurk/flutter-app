@@ -1,0 +1,21 @@
+{
+  "name": "Silhouette",
+  "brand": "Sightron",
+  "scopes": [
+    "SII Big Sky 6.5-20x50 SIL"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://sightron.com/products/siibss6520x50sil",
+  "notes": "SFP, tık '1/4 MOA'. Sayfa 'classic silhouette reticle' diyor; altındaki tarif metni genel duplex metni ('The duplex reticle is the oldest...') — Silhouette'in duplex olduğu açıkça yazılmadığından family null. Tablolar 'Silhouette Measured in MOA': '6.5x' A .12, B 1.5; '20x' A .039, B .49. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/siibss6520x50sil (okundu 2026-10-12)."
+}

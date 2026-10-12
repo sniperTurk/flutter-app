@@ -1,0 +1,21 @@
+{
+  "name": "ACSS Aurora 7.62x39/.300 BLK Yard",
+  "brand": "Primary Arms",
+  "scopes": [
+    "SLx 1-6x24 SFP Gen IV"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=17905707&c=3901023&h=sE7dw56uZGR4zsIx9x6aSjDo_eaS9USNA8rORy56I-VyQ_6Y",
+  "notes": "'1-6x24 SECOND FOCAL PLANE ACSS® AURORA® 7.62 YARDS M6X S' kılavuzu: merkez 'Infinitely Precise Chevron' -> center_dot=false; süpersonik stadia 50, 200, 300, 400, 500, 600 yd; .300 Blackout ses altı 50-225 yd (25 yd arayla); 'ends at the 600-yard stadia'; 18\" genişlik / 5'10 boy; rüzgâr 5/10 mph 400 yd'den itibaren; hareketli hedef 3.1 / 6.1 mph. Kılavuz MIL/MOA değeri vermiyor (mesafeler yard/metre, hedef boyu inç) -> ölçü yok; birim taret birimi (SLx 1-6x24 Gen IV: 'Click Value 0.1 Mil', spec 'Reticle Type BDC'). BDC deseni şema ailelerine oturmuyor -> family ve sayısal alanlar null. 'For Second Focal Plane (SFP) scopes, your auto-ranging and holds are for MAX MAGNIFICATION ONLY.' Kaynak: https://www.primaryarms.com/core/media/media.nl?id=17905707&c=3901023&h=sE7dw56uZGR4zsIx9x6aSjDo_eaS9USNA8rORy56I-VyQ_6Y (okundu 2026-10-12); https://www.primaryarms.com/primary-arms-slx-1-6x24mm-sfp-rifle-scope-gen-4-illuminated-acss-aurora-762-yard-reticle (okundu 2026-10-12)"
+}

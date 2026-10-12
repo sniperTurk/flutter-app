@@ -1,0 +1,21 @@
+{
+  "name": "BDC17",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Neos HMR"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-BDC17-Reticle-Manual.pdf",
+  "notes": "Föy başlığı \"BDC 17 HMR\" (ürün sayfaları \"BDC17\"). SFP (\"SECOND FOCAL PLANE\"). Föyde birim yok; ölçü yok; birim taret birimi (ürün sayfası click value 0.25 MOA). Föy: \"17 grain 17HMR bullet with a muzzle velocity of 2550fps\", \"100 yard zero\", \"shooting distances at 150, 200, 250, and 300 yards\". Referans büyütme: 3-9x40 9x, 4-12x40 12x. Retikül geometrisi metinde tarif edilmiyor -> family ve tüm ölçüler null. Kaynak: https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-BDC17-Reticle-Manual.pdf (okundu 2026-10-12); https://athlonoptics.com/product/neos-hmr-3-9x40-bdc17-sfp-moa/ (okundu 2026-10-12)"
+}

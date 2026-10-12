@@ -1,0 +1,21 @@
+{
+  "name": "Duplex",
+  "brand": "Barska",
+  "scopes": [
+    "Colorado 3-9x40 (halkalı)"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://shop.barska.com/products/3-9x40mm-colorado-30-30-rifle-scope-with-rings-by-barska",
+  "notes": "Spesifikasyon \"Reticle: Duplex\", özellik \"Duplex Reticle\", Click Value 1/4 MOA. Üretici retikül ölçüsü vermiyor; birim taret birimi (sayfa \"Click Value\" MOA). Model adında \"30/30\" geçiyor fakat sayfanın retikül satırı \"Duplex\"; kayıt sayfadaki retikül adına göre. Direk başlangıcı/kalınlıklar yok -> null. Gümüş renkli halkalı Colorado sayfası ayrıca okunmadı. Ürün sayfasındaki kullanım kılavuzu PDF'i cdn.shopify.com üzerinde (üçüncü taraf CDN, kaynak kuralı gereği okunmadı); retikül görseli metin içermiyor.  Kaynak: https://shop.barska.com/products/3-9x40mm-colorado-30-30-rifle-scope-with-rings-by-barska (okundu 2026-10-12)"
+}

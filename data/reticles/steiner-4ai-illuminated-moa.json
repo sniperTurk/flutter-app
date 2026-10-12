@@ -1,0 +1,21 @@
+{
+  "name": "4Ai Illuminated",
+  "brand": "Steiner",
+  "scopes": [
+    "Predator 4 3-12x56"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.steiner-optics.com/reticles/4ai-illuminated",
+  "notes": "Steiner '4Ai Illuminated' sayfası: 'Building on the proven German #4 design', 'precision-illuminated aiming point', 'Bold outer posts at the 3, 6, and 9 o'clock positions', 'open upper quadrant' -> family=duplex. Reticle Guide (s.3, 4A/4A-I): 'three posts and a center dot', 4A-I'de 'the center dot is illuminated' -> center_dot=true. Predator 4 3-12x56 satış föyü: '4A-I', 'Reticle 4A-l illuminated'; odak düzlemi ve ölçü yok. unit=moa: ölçü yok; birim taret birimi (dürbün MOA taretli). Direk başlangıcı ve kalınlıklar metinde yok -> null. Kaynak: https://www.steiner-optics.com/reticles/4ai-illuminated (okundu 2026-10-12); https://www.steiner-optics.com/sites/default/files/content/catalogs/2023-12/reticle_guide_1-8-18.pdf (okundu 2026-10-12); https://www.steiner-optics.com/sites/default/files/content/downloads/2025-08/Salesheet_Predator_4_3-12%5BUSA%5D.pdf (okundu 2026-10-12)"
+}

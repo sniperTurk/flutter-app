@@ -1,0 +1,24 @@
+{
+  "name": "ACSS Nova Fiber Wire",
+  "brand": "Primary Arms",
+  "scopes": [
+    "Compact PLxC 1-8x24 SFP",
+    "SLx 1-6x24 SFP Gen IV",
+    "SLx 2-12x40 SFP",
+    "SLx 1-10x28 SFP"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": 2,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 5,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=17905705&c=3901023&h=xwUPKn6I5w3guIeRkSpYsbug6Z1tCNZuorUkJbAhjg5tS2Tt",
+  "notes": "Primary Arms ACSS NOVA kılavuzları (1-6x24, Compact 1-8x24, 2-12x40, 1-10x28; hepsi SFP): 'MIL subtensions'; 'the vertical crosshair features 4 MIL hash marks'; 'The crosshair's taper point can be used as a 5th MIL subtension' -> extent_v_down=5 (alt dikey ölçek 5 MIL'e kadar); 'Half-MIL subtensions appear as 1 MOA-wide hashes between each full MIL' -> hash_step=0.5, major_every=2 (tam MIL her 2 yarım işarette). Ölçek yalnız alt dikey kolda; yatay kolda MIL ölçeği değil hareketli hedef çubukları var (3/6/9 mph; MIL konumu verilmemiş) -> extent_h, extent_v_up null. Menzil: 18\" omuz genişliği, '1st MIL = 300yd 2nd MIL = 400yd', 3rd 500, 4th 600. 'For Second Focal Plane (SFP) scopes, your autoranging and holds are for MAX MAGNIFICATION ONLY.' Merkez: 'the center of your crosshair will appear as a bold red dot' (aydınlatmada görünüm; fiziksel nokta olup olmadığı yazmıyor) -> center_dot null. 'Fiber Wire' adı ürün başlığından ('Illuminated ACSS Nova Fiber Wire Reticle'); kılavuzlar 'high-efficiency fiber optic wire' diyor. Rakam yok -> numbers_every null. NOT: SLx 1-10x28 ürün sayfası taret '1/2 MOA' ama retikül 'MRAD', 'MIL subtensions' -> bu dürbünde taret MOA olduğundan kayıt eşleşmez (birim-farki, üretici gerçeği). Kaynak: https://www.primaryarms.com/core/media/media.nl?id=17905705&c=3901023&h=xwUPKn6I5w3guIeRkSpYsbug6Z1tCNZuorUkJbAhjg5tS2Tt (okundu 2026-10-12); https://www.primaryarms.com/core/media/media.nl?id=23604817&c=3901023&h=VDjYmzMJh5cd2BzIgfJtvhhzZl-VHV2eTllcSOwiBUURDUMC (okundu 2026-10-12); https://www.primaryarms.com/core/media/media.nl?id=29596762&c=3901023&h=oLNmg8u6PBQCq_a1lrVV5Uh60T_3sQl4SPx6RFBj4xyXNiFq (okundu 2026-10-12); https://www.primaryarms.com/core/media/media.nl?id=24918568&c=3901023&h=h8vUBFBSt0wzXersFJNgmHnDIaIm1MzpkwVE_2zL4BIpuDgC (okundu 2026-10-12); https://www.primaryarms.com/primary-arms-slx-1-10x28mm-sfp-rifle-scope-illuminated-acss-nova-fiber-wire-reticle (okundu 2026-10-12)"
+}

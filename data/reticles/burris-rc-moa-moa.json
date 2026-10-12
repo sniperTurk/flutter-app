@@ -1,0 +1,23 @@
+{
+  "name": "RC-MOA",
+  "brand": "Burris",
+  "scopes": [
+    "Veracity PH 4-20x50",
+    "Veracity PH 3-15x44",
+    "Veracity 3-15x44mm FFP"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/rc-moa",
+  "notes": "Burris 'RC-MOA' sayfaları (rc-moa: Veracity PH; rc-moa-0: Veracity): 'Rapid Cross', 'Built specifically for our first focal plane Veracity PH models, the 8-MOA illuminated center cross', 'Clear 1 MOA wind and elevation hashes', 'Tapering 3, 6, and 9 o'clock posts'. Veracity kılavuzu: 200680 RC-MOA 'Front Focal Plane'. family=hash, hash_step=1.0 metinden. 8 MOA merkez artının ve direklerin başladığı açı yazılmadığından posts_start null; uzanımlar, rakamlar null. Kaynak: https://www.burrisoptics.com/reticles/rc-moa (okundu 2026-10-12); https://www.burrisoptics.com/reticles/rc-moa-0 (okundu 2026-10-12); https://www.burrisoptics.com/sites/default/files/content/files/2026-01/Veracity%E2%84%A2%20User%20Guide.pdf (okundu 2026-10-12)"
+}

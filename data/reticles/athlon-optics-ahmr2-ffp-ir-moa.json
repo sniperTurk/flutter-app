@@ -1,0 +1,21 @@
+{
+  "name": "AHMR2 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Helos BTR GEN2"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2022/02/Athlon-AHMR2-FFP-IR-MOA-Reticle-Manual-Helos-BTR-GEN2.pdf",
+  "notes": "Birim-farki incelemesi: HELOS BTR GEN2 2-12x42 AHMR2 FFP IR MOA ürün sayfası ayrı bir MOA retikül föyüne bağlanıyor; mevcut athlon-optics-ahmr2-ffp-ir-mil kaydı yalnız MIL sürümü, MOA sürümü ayrı retikül. FFP; föy: \"for first focal plane designs, the subtension of the reticle remains valid all the time\". Föy metninden: \"The center cross with a 12 moa circle\"; \"use the bullet drop holdover up to 700 yds\" (100 yd sıfır); \"The dots on horizontal lines below the center are specially designed for holding over for 5 mph and 10 mph wind\" -> family=tree bu tanımdan. Merkez nokta değil artı -> center_dot null. İşaret aralığı, uzanımlar, nokta satırlarının konumları metinde yok -> null. A1-D3 etiketli tablo değerleri metinde öğelere bağlanmadığı için kullanılmadı. Kaynak: https://athlonoptics.com/wp-content/uploads/2022/02/Athlon-AHMR2-FFP-IR-MOA-Reticle-Manual-Helos-BTR-GEN2.pdf (okundu 2026-10-12); https://athlonoptics.com/product/helos-btr-2-12x42-ahmr2-ffp-ir-moa/ (okundu 2026-10-12)"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "A2 MOA",
+  "brand": "Integrix",
+  "scopes": [
+    "iX6 3-18x44 A2 MOA FFP"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 30,
+  "extent_v_up": 10,
+  "extent_v_down": 60,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.leapers.com/products-integrix-ix603fa2.html",
+  "notes": "FFP, cam kazıma ('ETCHED GLASS A2 MOA RETICLE'), German Duplex esinli kalın->ince direkler. Sayfa: 'an unobtrusive 0.5 MOA floating center dot', 'The reticle spans 10 MOA up and 60 MOA down and 30 MOA left and right in 1 MOA increments.' -> hash_step=1, extent_v_up=10, extent_v_down=60, extent_h=30, center_dot=true, floating_center=true. Döküm tablosu (A=60, B=20, C=4, D=2, E=2, F=10, G=60, H=0.5, I=0.5, J=1.5, K=0.125, L=1 MOA) harf eşlemesi görselde -> direk başlangıcı, büyük işaret, rakam aralığı null. Kaynak: https://www.leapers.com/products-integrix-ix603fa2.html (okundu 2026-10-12)"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "BDC 300 Straightwall",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Neos",
+    "Neos HMR"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2023/07/Athlon-BDC-300-Straightwall-IR-Reticle-Manual-Neos-2.pdf",
+  "notes": "SFP. Neos föyü \"BDC 300 Straight-wall IR\", \"SUBTENSIONS IN MOA\"; Neos HMR föyü aynı ad, birim yazmıyor. Neos föyü: 450 Bushmaster, 350 Legend, 45-70, 360 Buckhammer yükleriyle 100 yd sıfır, 1.-4. tutma mesafeleri; \"Magnification Setting: 9X\", \"Scope Height: 2”\". Referans büyütme: 3-9x40 9x (her iki föy). Geometri tarif edilmiyor -> family ve ölçüler null. A1-D3 etiketli tablo değerleri metinde öğelere bağlanmadığı için kullanılmadı. Kaynak: https://athlonoptics.com/wp-content/uploads/2023/07/Athlon-BDC-300-Straightwall-IR-Reticle-Manual-Neos-2.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-BDC300-IR-Reticle-Manual.pdf (okundu 2026-10-12)"
+}

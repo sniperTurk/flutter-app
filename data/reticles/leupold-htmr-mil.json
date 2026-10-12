@@ -1,0 +1,22 @@
+{
+  "name": "HTMR",
+  "brand": "Leupold",
+  "scopes": [
+    "VX-5HD 3-15x44 CDS-ZL2 Side Focus MRAD",
+    "VX-5HD Gen 2 3-15x44 CDS-SZL2 Side Focus MRAD"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/htmr/",
+  "notes": "Leupold 'HTMR Reticle' sayfası: 'Expands on existing Mil Dot reticle design', 'Uses hash marks instead of dots for increased ranging and holdover precision', 'Provides aiming points for wind and bullet drop compensation'. Ürünler: 'VX-5HD 3-15x44 CDS-ZL2 Side Focus HTMR' ve 'VX-5HD Gen 2 3-15x44 CDS-SZL2 Side Focus HTMR-MIL' (aynı sayfa; 'HTMR-MIL' adı eşleştiricide HTMR + mil anahtarına düşer, ayrı kayıt gerekmez). Retikül listesi: 'Second Focal Plane & MIL Scale'. Föy 'HTMR VX-5HD': 'These measurements (subtesions) are correct when the riflescope is set to the highest available magnification'; ince çizgi 0.40(?), kalın çizgi; diğer değerler 0.14/0.20/0.40/0.50/0.60/1.00 MIL (eşleme belirsiz). family=hash ('hash marks'). İşaret aralığı yazılı değil -> hash_step null; diğer alanlar null. Kaynak: https://www.leupold.com/reticle/htmr/ (okundu 2026-10-12); https://www.leupold.com/media/binaryanvil/reticle/HTMR.pdf (okundu 2026-10-12); https://www.leupold.com/shop/reticles (okundu 2026-10-12)"
+}

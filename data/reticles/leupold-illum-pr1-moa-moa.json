@@ -1,0 +1,23 @@
+{
+  "name": "Illum. PR1-MOA",
+  "brand": "Leupold",
+  "scopes": [
+    "Mark 5HD 3.6-18x44 M1C3 FFP",
+    "Mark 5HD 5-25x56 M1C3 FFP",
+    "Mark 4HD 4.5-18x52 M1C3 Side Focus FFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 40,
+  "extent_v_up": 40,
+  "extent_v_down": 40,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/pr1-moa-illum-ffp/",
+  "notes": "Leupold 'PR1-MOA Illum. FFP Reticle' sayfası (ürünlerde 'Illum. PR1-MOA' / 'Illum. FFP PR-1MOA' yazımı; kayıt adı dürbün kayıtlarındaki yazımla eşleşsin diye 'Illum. PR1-MOA'): 'MOA based grid', '1 MOA increments', '40 MOA of measurement in each direction', 'Front (first) focal plane'. Ürünler: Mark 4HD 4.5-18x52 M1C3 Side Focus FFP Illum. PR1-MOA, Mark 5HD 3.6-18x44 ve 5-25x56 M1C3 Illum. FFP. hash_step=1.0 ve her yönde 40 MOA uzanım metinden. Föy 'FFP PR-1 MOA ILLUMINATED MARK-5HD': 0.3 MOA Dot Diameter, ince 0.3, orta 0.5, kalın 1.0 MOA; diğer değerler 1.0/1.5/2.0/2.5/4.0/5.0/6.0/10.0 MOA (eşlenemedi). family, büyük işaret, rakam, merkez tipi -> null. Kaynak: https://www.leupold.com/reticle/pr1-moa-illum-ffp/ (okundu 2026-10-12); https://www.leupold.com/media/binaryanvil/reticle/FFP-PR-1_MOA_Illum_spec_sheet_190217_165022.pdf (okundu 2026-10-12)"
+}

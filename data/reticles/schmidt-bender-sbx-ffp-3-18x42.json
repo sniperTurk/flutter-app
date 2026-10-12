@@ -1,8 +1,9 @@
 {
-  "name": "SBX (3-18x42 META)",
+  "name": "SBX",
   "brand": "Schmidt & Bender",
   "scopes": [
-    "3-18x42 META"
+    "3-18x42 META",
+    "3-18x42 Meta (1. BE) SBX-S FFP 0.1 mrad"
   ],
   "unit": "mil",
   "family": "tree",
@@ -17,5 +18,5 @@
   "center_dot": true,
   "floating_center": true,
   "source_url": "https://assets.schmidtundbender.de/media/2b/43/4c/1773267595/Schmidt-Bender-Datasheet-SBX-FFP-3-18x42-META.pdf",
-  "notes": "S&B resmi retikül veri föyü (revision 00): '3-18x42 META (1. FP) scope type 58', 'focal plane FFP'. çıkarım: retikül adı 'SBX', föy metninde geçmiyor; S&B dosya adı kalıbından (Datasheet-<retikül>-<FP>-<dürbün>) alındı. Kapsama tablosu (mrad): A=20, B=2, C=1.5, D=1, E=0.7, F=0.5, G=0.3, H=0.2, K=0.08, L=0.07, M=0.06. Föydeki harf/değer tablosunun hangi retikül öğesine (bölme aralığı, çizgi kalınlığı, uzanım, kalın çubuk) ait olduğu yalnız çizimde gösteriliyor ve metin olarak okunamadı; tahmin edilmemesi için geometri alanları null. 2. tur: S&B Katalog 2026 (resmi, https://assets.schmidtundbender.de/media/0c/0f/24/1790781160/S_B_Katalog_2026-V08-EN-LoRes.pdf) SBX (1. FP) metni: 'hold marks in a Christmas-tree layout' -> family=tree; 'illuminated crosshair with a free-floating red dot covering only 0.065 mrad' -> center_dot=true, floating_center=true (çıkarım: 'free-floating' ifadesi merkez noktanın çizgilerden ayrık olduğu biçiminde okundu). 'The illuminated crosshair measures 2 mrad from the center to its outer structure' yalnız aydınlatmalı merkez haçı tanımlıyor; tüm retikül uzanımı olmadığından extent alanlarına girilmedi. tree.rows ve aralıklar katalogda yok -> null."
+  "notes": "S&B resmi retikül veri föyü (revision 00): '3-18x42 META (1. FP) scope type 58', 'focal plane FFP'. çıkarım: retikül adı 'SBX', föy metninde geçmiyor; S&B dosya adı kalıbından (Datasheet-<retikül>-<FP>-<dürbün>) alındı. Kapsama tablosu (mrad): A=20, B=2, C=1.5, D=1, E=0.7, F=0.5, G=0.3, H=0.2, K=0.08, L=0.07, M=0.06. Föydeki harf/değer tablosunun hangi retikül öğesine (bölme aralığı, çizgi kalınlığı, uzanım, kalın çubuk) ait olduğu yalnız çizimde gösteriliyor ve metin olarak okunamadı; tahmin edilmemesi için geometri alanları null. 2. tur: S&B Katalog 2026 (resmi, https://assets.schmidtundbender.de/media/0c/0f/24/1790781160/S_B_Katalog_2026-V08-EN-LoRes.pdf) SBX (1. FP) metni: 'hold marks in a Christmas-tree layout' -> family=tree; 'illuminated crosshair with a free-floating red dot covering only 0.065 mrad' -> center_dot=true, floating_center=true (çıkarım: 'free-floating' ifadesi merkez noktanın çizgilerden ayrık olduğu biçiminde okundu). 'The illuminated crosshair measures 2 mrad from the center to its outer structure' yalnız aydınlatmalı merkez haçı tanımlıyor; tüm retikül uzanımı olmadığından extent alanlarına girilmedi. tree.rows ve aralıklar katalogda yok -> null. DÜZELTME 2026-10-12: ad 'SBX (3-18x42 META)' -> 'SBX' (dürbün kaydındaki 'SBX' anahtarına düşmesi için); scopes'a '3-18x42 Meta (1. BE) SBX-S FFP 0.1 mrad' eklendi (ürün sayfası SBX'i seçenek olarak listeliyor). Kaynak: https://www.schmidtundbender.de/3-18x42-Meta-1-BE/158-xxx-xxx-x (okundu 2026-10-12); https://assets.schmidtundbender.de/media/0c/0f/24/1790781160/S_B_Katalog_2026-V08-EN-LoRes.pdf (okundu 2026-10-12)"
 }

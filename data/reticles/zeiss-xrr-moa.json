@@ -1,0 +1,26 @@
+{
+  "name": "XRR",
+  "brand": "Zeiss",
+  "scopes": [
+    "V3 2.5-8x35 RF",
+    "V3 2.5-8x35",
+    "V3 4.5-14x44",
+    "V3 4.5-14x50",
+    "V3 6-18x50"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 4,
+  "extent_v_up": null,
+  "extent_v_down": 12,
+  "tree": null,
+  "posts_start": 12,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-non-illuminated-reticle-84-xrr.pdf",
+  "notes": "Zeiss XRR (eXtended Range Reticle) #84 föyü, V3, v1 Temmuz 2026, aydınlatmasız, SFP, ölçü birimi MOA. Tablo (@8x/@14x/@18x): A çizgi 0.30/0.23/0.18, B kalın balk 1.00, C açıklık 24.00, D 2.00, E 4.00, F 1.00 ('Distance'). V3 sayfası: dikey eksendeki MOA işaretleri en yüksek büyütmede merkezin 2, 4, 8 ve 12 MOA altında; yatay işaretler 2 ve 4 MOA'da (rüzgâr); 1.00 MOA kalın balk ve 24.00 MOA açıklık. extent_v_down=12 ve extent_h=4 bu metinden; ÇIKARIM: posts_start=12, 24 MOA açıklığın yarısı. İşaret aralığı düzensiz (2,4,8,12) -> hash_step null; post_width=1.0 tüm modellerde aynı; line_width modele göre değiştiği için null. Merkez üstü işaret yok/verilmemiş -> extent_v_up null. Kaynak: https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-non-illuminated-reticle-84-xrr.pdf (okundu 2026-10-12); https://www.zeiss.com/photonics-and-optics/us/hunting/products/riflescopes/v3.html (okundu 2026-10-12)",
+  "post_width": 1.0
+}

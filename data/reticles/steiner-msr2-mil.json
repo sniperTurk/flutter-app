@@ -1,0 +1,25 @@
+{
+  "name": "MSR2",
+  "brand": "Steiner",
+  "scopes": [
+    "M5Xi 5-25x56",
+    "M7Xi 4-28x56",
+    "M7Xi IFS 2.9-20x50",
+    "T6Xi 3-18x56",
+    "T6Xi 5-30x56"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.steiner-optics.com/reticles/msr2",
+  "notes": "Steiner 'MSR2' retikül sayfasında açıklama/ölçü yok; yalnız 'MSR2 Products': M5Xi 5-25x56, M7XI 2.9-20x50, M7Xi 4-28x56, M7Xi IFS 2.9-20x50, M7Xi IFS 4-28x56. Ayrı 'MSR2 - MIL' sayfası ('MSR2 - MIL Products': T6Xi 3-18x56, T6Xi 5-30x56) da açıklamasız; T6Xi kılavuzu teknik tabloda 'MSR2-MIL', 'Focal Plane First'. M5Xi 5-25x56 ürün sayfası: 'MSR2' (Item '8704-MSR v2'), focal plane '1st'. M7Xi kılavuzu: 'MSR 2 / TReMoR 3/ G2B', 'first image plane'. unit=mil: T6Xi sayfası/kılavuzu adı 'MSR2 - MIL' olarak veriyor; M5Xi/M7Xi sayfasında birim yazmıyor ama bu dürbünler yalnız MRAD taretli (iki sayfanın aynı retikül olduğu, adın aynı anahtara düşmesine dayanan ÇIKARIM). Desen ve tüm ölçüler hiçbir kaynakta metin olarak yok (yalnız görsel: MSR2_reticle_4x/15x) -> family ve sayısal alanlar null. Kaynak: https://www.steiner-optics.com/reticles/msr2 (okundu 2026-10-12); https://www.steiner-optics.com/reticles/msr2-mil (okundu 2026-10-12); https://www.steiner-optics.com/products/m5xi-5-25x56 (okundu 2026-10-12); https://www.steiner-optics.com/sites/default/files/content/downloads/2024-03/Steiner%20T6xi%203-18x56%20User%20Manuel.pdf (okundu 2026-10-12)"
+}

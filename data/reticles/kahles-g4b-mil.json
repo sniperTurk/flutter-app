@@ -1,0 +1,25 @@
+{
+  "name": "G4B",
+  "brand": "Kahles",
+  "scopes": [
+    "Helia 3 3-10x50i",
+    "Helia 3 4-12x44i",
+    "Helia 2,4-12x56i",
+    "Helia 3,5-18x50i",
+    "K16i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/G4B.pdf",
+  "notes": "Kahles retikül föyü 'G4B' (91022140576-101, 04.12.2019). Föy sütunları: Helia 3 3-10, Helia 3 4-12, Helia 2,4-12, Helia 3,5-18, K16i. A–I etiketli doğrusal ölçüler /100 m ve büyütmeye bağlı (ör. Helia 3,5-18: A 2,2cm (3,5x), B 10,9cm, C Ø6,1cm, D 3m, E 50cm, F 1m, G 34cm, H 50cm, I 73cm (3,5x)). Açısal ölçü yok; birim taret birimi (Helia 'Impact correction per click 10 mm (100 m)', K16i '.1 MRAD') -> unit=mil. Odak düzlemi föyde yok; Helia sayfaları 'Focal plane: 2'. Öğe eşlemesi yalnız çizimde -> family ve geometri null. Not: güncel K16i ürün sayfası G4B'yi seçenek olarak listelemiyor (3GR, SM1, SI1); yalnız föy başlığında var. Kaynak: https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/G4B.pdf (okundu 2026-10-12); https://www.kahles.at/en/hunt/riflescopes/helia-2_4-12x56i (okundu 2026-10-12)"
+}

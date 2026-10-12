@@ -1,0 +1,22 @@
+{
+  "name": "SR-2",
+  "brand": "Nightforce",
+  "scopes": [
+    "Competition SR Fixed 4.5x24mm",
+    "Competition Service Rifle 4.5x24mm"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_SR_Reticles_20170920_0.pdf",
+  "notes": "Nightforce 'Competition SR-1 / SR-2' föyü: SFP, 'Competition SR Fixed 4.5x24', Service Rifle; SR-2 sütunu MOA: A 22, B 3, C 6, D 40, E 6, F .40, G 1.5, H 82, I .30, J 10, K 1, L 266, M 102. Harflerin öğe eşlemesi yalnız çizimde -> family ve geometri null. Retikül sayfası: 'available exclusively in the Competition™ SR Fixed 4.5x24mm riflescope', 'fine center crosshair' (sayı yok). Dürbün sayfası 'COMPETITION - Service Rifle - 4.5x24mm': 'Focal Plane: Second', tek seçenek 'SR-2', '.250 MOA'. Kaynak: https://www.nightforceoptics.com/content/files/downloads/NFO_SR_Reticles_20170920_0.pdf (okundu 2026-10-12); https://www.nightforceoptics.com/reticles/sr-2 (okundu 2026-10-12); https://www.nightforceoptics.com/riflescopes/competition-and-benchrest/competition-sr-fixed-45x24 (okundu 2026-10-12)"
+}
