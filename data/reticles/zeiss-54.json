@@ -1,0 +1,19 @@
+{
+  "name": "#54",
+  "brand": "Zeiss",
+  "scopes": ["V8 1.1-8x24"],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-54.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-54.pdf",
+  "notes": "Zeiss Absehen #54 (sürek avı retikülü) föyü, 10/2021, aydınlatmalı, SFP; yalnız V8 1.1-8x24. Metin: Absehen 0'ın geliştirilmiş hali; ince yatay balk + ultra ince aydınlatmalı noktalı artı; 12x'te 100 m'de 0.55 cm örtme; nokta çapı = 6.6 cm / büyütme. Tablo (1.1x-8x): A çizgi kalınlığı, B çizgi yüksekliği (ör. 8x'te 11.0 in / 28 cm), C nokta çapı. Mevcut family değerlerinden (hash/tree/mildot/duplex) hiçbirine uymadığı için family null; ölçek yok -> diğer alanlar null. Föy ölçüleri inç/100 yd ve cm/100 m olarak verir, açısal ölçek yok; unit='mil' yalnız metrik (cm/100 m) kaynağa uyum için seçildi."
+}

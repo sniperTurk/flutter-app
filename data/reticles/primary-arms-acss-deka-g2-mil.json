@@ -1,0 +1,24 @@
+{
+  "name": "ACSS Deka G2",
+  "brand": "Primary Arms",
+  "scopes": [
+    "SLx 4.5-27x56 FFP",
+    "SLx Compact 4-16x44 FFP",
+    "PLxC 2.5-20x48 FFP",
+    "PLxC 4.5-36x56 FFP"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.1,
+  "major_every": 1.0,
+  "numbers_every": 2,
+  "extent_h": 10,
+  "extent_v_up": 10,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": 11,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=29650345&c=3901023&h=JxfxyeBRwPDqCA6y12kNMNMvkAKPYqchNPWIYcjHyhfW3N7b",
+  "notes": "Kaynak: Primary Arms 'ACSS DEKA G2 RETICLE MANUAL' (SLx 4.5-27x56, FFP); PLxC 2.5-20x48 (media.nl id=33854937), PLxC 4.5-36x56 (id=33860593) ve SLx 4-16x44 (id=30121466) kılavuzları da kontrol edildi. Merkez noktası SLx kılavuzlarında 0.1 MIL, PLxC kılavuzlarında 0.05 MIL (seriye göre farklı). Merkezde 0.2x0.2 MIL açık alan, nokta çizgi başlangıçlarına 0.1 MIL uzaklıkta (yüzen merkez). Yatay: 0.1 MIL küçük ve 0.2 MIL büyük çentikler dönüşümlü, 0.1 MIL çözünürlük; her tam MIL'de 'T'; her 2 MIL'de rakam, 10 MIL'e kadar. 11 MIL'de kalın çizgiler başlıyor: her 5 MIL'de çentik, her 10 MIL'de rakam, görüş alanı kenarına kadar. Dikey çizgiler (üst ve alt) aynı çentik ve 'T' sistemini kullanıyor; rakamlar alt çizginin solunda her 2 MIL'de; alt kalın çizgi 11 MIL'de başlıyor. extent_v_up=10: SLx 4.5-27x56 ve SLx Compact 4-16x44 ürün sayfalarındaki 'alternating hash marks in 0.1 and 0.2 MIL increments, extending out to 10 MILs in all directions' ifadesinden; üst kalın çizginin başlangıcı kılavuzda belirtilmemiş. Çizgi kalınlığı sayısal verilmemiş. Menzil merdiveni 5'7\" boy (üst çizgi 300 m), yatay 19\" genişlik. Ağaç/ızgara yok."
+}

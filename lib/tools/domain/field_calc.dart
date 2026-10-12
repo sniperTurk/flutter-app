@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import '../../core/atmosphere.dart';
 import '../../core/drag_table.dart';
+import '../../core/production_limits.dart';
 import '../../core/reference_drag_model.dart';
 import '../../models/domain.dart';
 
@@ -232,6 +233,14 @@ abstract final class FieldCalc {
           v;
     }
 
+    // A non-finite or absurd distance used to loop forever (x + h == x once
+    // x is huge); the calculator calls this from build() on every keystroke.
+    if (!distanceM.isFinite ||
+        distanceM <= 0 ||
+        distanceM > ProductionLimits.maxRangeM ||
+        !(stepM > 0)) {
+      return null;
+    }
     var v = v1Mps;
     var x = 0.0;
     while (x < distanceM) {
@@ -257,7 +266,12 @@ abstract final class FieldCalc {
     required double distanceM,
     required EnvironmentData env,
   }) {
-    if (!(v1Mps > 0 && v2Mps > 0 && v2Mps < v1Mps && distanceM > 0)) {
+    if (!(v1Mps > 0 &&
+        v2Mps > 0 &&
+        v2Mps < v1Mps &&
+        distanceM > 0 &&
+        distanceM.isFinite &&
+        distanceM <= ProductionLimits.maxRangeM)) {
       return null;
     }
     var lo = 0.005, hi = 3.0;

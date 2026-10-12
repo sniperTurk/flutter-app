@@ -17,11 +17,10 @@ class IosIntegrationSmokeContractTest(unittest.TestCase):
         self.assertIn("Tahmin yok, hesap var.", source)
         self.assertIn("tester.takeException()", source)
 
-    def test_catalog_is_not_on_the_tool_hub_but_its_screen_is_kept(self):
+    def test_catalog_is_not_on_the_tool_hub(self):
         hub = (ROOT / 'lib' / 'features' / 'tools' / 'tools_screen.dart').read_text(encoding='utf-8')
         source = (ROOT / 'integration_test' / 'app_launch_test.dart').read_text(encoding='utf-8')
         self.assertNotIn('CatalogScreen', hub)
-        self.assertTrue((ROOT / 'lib' / 'features' / 'catalog' / 'catalog_screen.dart').exists())
         self.assertIn("expect(find.text('Katalog'), findsNothing)", source)
 
 if __name__ == '__main__':

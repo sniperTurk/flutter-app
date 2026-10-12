@@ -1,0 +1,34 @@
+{
+  "name": "APLR4 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares BTR GEN2 HD"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 40,
+  "tree": {
+    "rows": [
+      {
+        "y": 5,
+        "half_width": 5,
+        "dot_step": 1
+      },
+      {
+        "y": 40,
+        "half_width": 25,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-APLR4-FFP-IR-MOA-Reticle-Manual-Ares-BTR-GEN2.pdf",
+  "notes": "FFP. Föy metninden: '0.2 moa floating center dot with 1 moa hash mark increments and drop lines in 5 moa increments on vertical direction down to 40 moa'; nokta ile ilk işaret arası dört yönde 1 MOA (2 MOA açık merkez); düşüş çizgilerinde 1 MOA küçük / 5 MOA büyük noktalar, 'starting 10 moa length horizontally and end up 50 moa in length at the 40 moa drop line'. Satırlar 'X moa length' (toplam uzunluk) olarak verildiği için half_width = uzunluk/2 (çıkarım); ilk satır ilk 5 MOA düşüş çizgisi (y=5) kabul edildi (çıkarım); ara satır genişlikleri metinde yok. major_every=5 satırdaki büyük nokta aralığından çıkarım. extent_v_down=40 son düşüş çizgisi. Yatay/yukarı uzanım, rakam, direk, çizgi kalınlığı belirtilmemiş -> null. Ölçü tablosunda 2.5-15x50 ve 4.5-27x50 modelleri. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

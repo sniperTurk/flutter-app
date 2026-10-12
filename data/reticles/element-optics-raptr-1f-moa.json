@@ -1,0 +1,21 @@
+{
+  "name": "RAPTR-1F",
+  "brand": "Element Optics",
+  "scopes": [
+    "Helix HD Compact 2-12x42"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://element-optics.com/wp-content/uploads/2024/10/RETICLE-SHEET-RAPTR-1F-HELIX-HD-COMPACT-2-12.pdf",
+  "notes": "Aynı retikülün MOA kaydı (Helix HD Compact 2-12x42 MOA taretli satılıyor; MRAD kaydı element-optics-raptr-1f-mrad). Yeni ölçü okunmadı; değerler yalnız MRAD kaydında zaten alıntılanan üretici kaynaklarından: retikül föyü (bu source_url) tutma işaretlerini MRAD ve MOA olarak birlikte veriyor, 'SUBTENSIONS AT 8X' — yükseklik/yan C 2.4/0.89 MOA, D 5.8/1.41 MOA, E 9.6/- MOA; B çizgi kalınlığı '0.45 MOA'. Helix HD Compact kılavuzu (https://global.element-optics.com/wp-content/uploads/2024/10/5x7-Helix-HD-Compact-2-12x42-lr.pdf): SFP, 'The reticle is calibrated at 8x', 200/300/400 düşüş 2.4/5.8/9.6 MOA, yan 0.9/1.4/yok MOA (.308 Win 168 gr 2600 fps). A: aydınlatmalı merkez nokta -> center_dot=true. Şema BDC işaretlerini taşıyamadığı için family/hash_step/tree null; çizgi kalınlığı tek kaynakta ve MRAD föyüyle tutarsız göründüğü için line_width yazılmadı. Diğer tüm ölçüler null (tahmin yok)."
+}

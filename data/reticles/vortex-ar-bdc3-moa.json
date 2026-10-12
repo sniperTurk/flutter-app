@@ -1,0 +1,23 @@
+{
+  "name": "AR-BDC3",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Strike Eagle 1-8x24",
+    "Strike Eagle 1-6x24",
+    "Venom 1-6x24"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/vortex-strike-eagle-1-8x24-ar-bdc3.html",
+  "notes": "Strike Eagle 1-8x24 sayfası: Second Focal Plane, ayar 1/2 MOA (Venom 1-6x24'te 1/4 MOA; https://vortexoptics.com/riflescopes-venom-1-6x24.html, Strike Eagle 1-6x24: https://vortexoptics.com/vortex-strike-eagle-1-6x24-ar-bdc3.html). Metin: 'The 1 MOA center dot provides a precise point of aim while the surrounding 16.625 MOA broken circle gets your eye into the center faster ... and the BDC keeps you on target out to 650 yards.' Aynı sayfanın açıklamasında '0-600 yards' da geçiyor (çelişkili). center_dot=true (1 MOA). 16.625 MOA kesik halka şemada alan olmadığı için yalnız notta. floating_center metinde yok -> null. 5.56 AR için BDC; tutma işaretlerinin MOA değerleri ve SFP referans büyütmesi metinde yok -> null; family null. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı)."
+}

@@ -1,0 +1,28 @@
+{
+  "name": "SCR Mil",
+  "brand": "Burris",
+  "scopes": [
+    "XTR III 3.3-18x50mm",
+    "XTR III 5.5-30x56mm",
+    "XTR II 3-15x50mm",
+    "XTR II 4-20x50mm",
+    "XTR II 5-25x50mm",
+    "Six Xe 3-18x56mm",
+    "Six Xe 5-30x56mm",
+    "Four Xe 6-24x50mm"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/scr-mil",
+  "notes": "Burris SCR Mil sayfası: '1/2-mil holdover lines', '2/10-mil and 1-mil windage hold-off lines', '1/10-mil ranging brackets on the crosshairs, at the top, left, and right extremes', 'Front focal plane design'. hash_step=0.5 dikey tutma çizgileri için girildi; yatay rüzgâr çizgileri 0.2 ve 1 mil (şemada tek alan olduğundan notta). Aile (hash/tree) metinden belirlenemedi -> null. XTR III kılavuzu (https://www.burrisoptics.com/sites/default/files/content/files/2022-08/xtr-iii-user-guide.pdf) ölçü tablosu (mil) A..P: 5.5-30x 1.00 .50 .035 .10 .25 .10 .08 2.00 .20 .40 .60 .80 .02 .02 .125 .03; 3.3-18x 1.00 .50 .05 .10 .25 .12 .08 2.00 .20 .40 .60 .80 .025 .03 .125 .04 (harf eşlemesi görselde, okunamadı). Uzanımlar, rakamlar, merkez nokta -> null."
+}

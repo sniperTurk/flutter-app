@@ -1,0 +1,21 @@
+{
+  "name": "VTA-9 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Tauron 1-6x24 GenII FFP (SCFF-63)"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": 2,
+  "extent_h": 10,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250528/177a85489b27b4119a17453a5d06e6e4.pdf",
+  "notes": "FFP. Kaynak: VTA-9 MIL FFP retikül kılavuzu PDF (metin; uygulanan model 'Tauron - 1-6x24 GenII', SCFF-63 kodu Reticle-Collection sayfasından). Kılavuz: 0.25 MIL merkez nokta ve at nalı (horseshoe) merkez; 'Each gap on horizontal and vertical lines measures 1 MIL' → hash_step=1.0; yatay çizgiler merkezin her yanında 10 MIL → extent_h=10; aydınlatmalı dikey çizgiler 14 MIL'e uzanıyor ama yukarı/aşağı dağılımı verilmemiş → extent_v_up/down null; dikey stadiada 4, 6, 8, 10, 12 rakamları → numbers_every=2; işaret konumlarında 0.15 MIL nokta-artı sistemi. Kalın çubuklar metinde '60 MIL thick bars, positioned 6 MIL from the reticle pattern' olarak geçiyor (kalınlık değeri bozuk görünüyor, başlangıç noktası merkeze göre belirsiz) → posts_start null. family=hash ağaç tanımlanmadığı için. Merkez boşluğu, büyük işaret → null."
+}

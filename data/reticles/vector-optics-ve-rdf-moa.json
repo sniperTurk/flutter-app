@@ -1,0 +1,21 @@
+{
+  "name": "VE-RDF",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Orion Pro Max 6-24x50 FFP HD (SCFF-44)"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Orion-Pro-Max-6-24X50-FFP-HD-Riflescope-SCFF-44.html",
+  "notes": "FFP. Kaynaklar: SCFF-44 ürün sayfası ('0.25 MOA center dot and 1 MOA dia circle', '1 MOA even hashmark increment for BDC and ranging') ve VE-RDF FFP retikül kılavuzu PDF (https://www.vectoroptics.com/public/uploads/files/20241031/67ce69f9918c8ec7c949ccc0f0e7c01d.pdf). Merkez: 0.25 MOA nokta + 1 MOA çaplı açık halka; kılavuz halkayı nokta ile ölçek arasında tanımlıyor, buna dayanarak floating_center=true (metinden çıkarım). Kılavuzda ranging ölçeği için 'Mil-radian' ifadesi geçiyor ancak ürün sayfası ve ayar etiketleri MOA; unit=moa. Uzanımlar, büyük işaret ve rakam aralığı metinde yok → null; föy görseli okunamadı."
+}

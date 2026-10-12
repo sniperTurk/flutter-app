@@ -329,17 +329,10 @@ void main() {
       );
       expect(field, findsOneWidget);
       await tester.ensureVisible(field);
+      // A new profile starts on "Seçiniz" (owner, 2026-10-11); the mount
+      // must be picked before saving.
       expect(
-        find.descendant(
-          of: field,
-          matching: find.textContaining('MOA', findRichText: true),
-        ),
-        findsWidgets,
-      );
-      // A new profile starts on a normal mount; the closed box shows one
-      // short line (owner, 2026-10-09), the list keeps "Normal".
-      expect(
-        find.descendant(of: field, matching: find.text('0 MOA')),
+        find.descendant(of: field, matching: find.text('Seçiniz')),
         findsOneWidget,
       );
       // No free typing: the box is a dropdown, not a text field.
@@ -350,11 +343,18 @@ void main() {
 
       // Each choice already shows its click gain for the 0.1 mrad default.
       await tester.tap(
-        find.descendant(of: field, matching: find.text('0 MOA')),
+        find.descendant(of: field, matching: find.text('Seçiniz')),
       );
       await tester.pumpAndSettle();
       expect(find.text('Normal (0 MOA)').last, findsOneWidget);
       expect(find.text('30 MOA · +87 klik').last, findsOneWidget);
+      // The compact menu (owner, 2026-10-11) scrolls to the later choices.
+      await tester.dragUntilVisible(
+        find.text('60 MOA · +174 klik'),
+        find.byType(Scrollable).last,
+        const Offset(0, -100),
+      );
+      await tester.pumpAndSettle();
       expect(find.text('60 MOA · +174 klik').last, findsOneWidget);
       await tester.tap(find.text('60 MOA · +174 klik').last);
       await tester.pumpAndSettle();

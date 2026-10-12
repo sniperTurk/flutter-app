@@ -7,6 +7,7 @@ import 'adapters/geolocator_location_provider.dart';
 import 'adapters/image_picker_photo_picker.dart';
 import 'adapters/met_no_weather_provider.dart';
 import 'adapters/nominatim_place_search.dart';
+import 'adapters/sensors_plus_pressure_sensor.dart';
 import 'adapters/sensors_plus_tilt_provider.dart';
 import 'ports/camera_service.dart';
 import 'ports/clock.dart';
@@ -15,6 +16,7 @@ import 'ports/level_calibration_store.dart';
 import 'ports/location_provider.dart';
 import 'ports/photo_picker.dart';
 import 'ports/place_search.dart';
+import 'ports/pressure_sensor.dart';
 import 'ports/tilt_provider.dart';
 import 'ports/vision_assist.dart';
 import 'ports/weather_provider.dart';
@@ -37,6 +39,9 @@ class ToolsServices {
   /// the current screen only.
   final LevelCalibrationStore? levelCalibration;
 
+  /// Phone barometer for Hava Durumu's "Basıncı telefondan al" (Ö4).
+  final PressureSensor pressure;
+
   const ToolsServices({
     required this.location,
     required this.weather,
@@ -48,6 +53,7 @@ class ToolsServices {
     required this.vision,
     required this.clock,
     this.levelCalibration,
+    this.pressure = const SensorsPlusPressureSensor(),
   });
 
   factory ToolsServices.production() => ToolsServices(

@@ -1,0 +1,39 @@
+{
+  "name": "ACSS Neptune",
+  "brand": "Primary Arms",
+  "scopes": [
+    "PLxC 4.5-36x56 FFP"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.1,
+  "major_every": 1.0,
+  "numbers_every": 2,
+  "extent_h": 10,
+  "extent_v_up": null,
+  "extent_v_down": 21,
+  "tree": {
+    "rows": [
+      {
+        "y": 0.5,
+        "half_width": 0.5,
+        "dot_step": 0.5
+      },
+      {
+        "y": 6,
+        "half_width": 6,
+        "dot_step": 0.5
+      },
+      {
+        "y": 21,
+        "half_width": 6,
+        "dot_step": 0.5
+      }
+    ]
+  },
+  "posts_start": 11,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=33860801&c=3901023&h=lSgW_hlLyqPzYjiuQPSus3mGaerB_7nw2Xle4CLo_6OAwNJz",
+  "notes": "Kaynak: Primary Arms 'ACSS NEPTUNE RETICLE MANUAL' (PLx 4.5-36x56 Compact FFP; 'BALLISTIC PRECISION MIL RETICLE'); ürün sayfası https://www.primaryarms.com/primary-arms-compact-plxc-4-5-36x56-ffp-rifle-scope-acss-neptune-reticle. Merkezde 0.05 MIL nişan noktası; açık alan 0.2x0.2 MIL, çizgiler merkezden 0.1 MIL uzakta başlıyor (floating_center). Yatayda alternatif üst/alt işaretlerle MIL telemetre bölümü; her tam MIL'de 'T'; her ikinci MIL numaralı, 10 MIL'e kadar. 'At 11 MILs, the thicker crosshair lines begin, with hash marks every 5 MILs and labeled numbers every 10 MILs out to the edge of the field of view.' Izgara: 'Small floating dots mark every 0.5 MIL, vertically and horizontally in an expanding grid out to 12 MILs wide and 21 MILs deep'; kenarda 2-4-6, aşağıda 8-20 rakamları; ızgara 6 MIL'de genişlemeyi durduruyor. 5/10/15/20 MIL işaretlerinin 0.5 MIL üst/altında, dikey çizginin 0.5 MIL sağ/solunda '+' işaretleri. Izgara ile yatay çizgi arasında 1 MIL'de 0.1 MIL noktalar. Merkez üstünde telemetre merdiveni (5'7\" boy, üst çizgi 300 m; yatay 19\"). çıkarım: hash_step=0.1, kılavuzdaki 'MIL ranging section' ve ürün sayfasındaki '0.1 MIL subtensions' ifadelerinden (kılavuz cümlesinde 0.1 rakamı geçmiyor). çıkarım (tree): y=0.5/half_width=0.5 ilk noktaların 0.5 MIL aralığından, y=6/half_width=6 kenardaki '6' rakamından, y=21/half_width=6 '12 MILs wide and 21 MILs deep' ve 6 MIL sınırından; ara satırlar verilmiyor. extent_v_down=21 ızgara derinliği. extent_v_up null: yukarı ölçek tanımlanmamış. Çizgi kalınlığı sayısal verilmemiş."
+}

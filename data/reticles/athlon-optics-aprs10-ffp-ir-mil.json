@@ -1,0 +1,34 @@
+{
+  "name": "APRS10 FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Talos BTR GEN2 4-14x44"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 9,
+  "tree": {
+    "rows": [
+      {
+        "y": 1,
+        "half_width": 1,
+        "dot_step": 0.2
+      },
+      {
+        "y": 9,
+        "half_width": 2,
+        "dot_step": 0.2
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2023/02/Athlon-APRS10-FFP-IR-MIL-Reticle-Manual-Talos-BTR-GEN2.pdf",
+  "notes": "FFP. Föy metninden: 'fine 0.1 mil floating center dot'; nokta satırları 1 mil düşüş çizgisinde her yöne 1 mil, 9 mil çizgisinde her yöne 2 mil; küçük noktalar 0.2, büyük 1 mil aralıklı. extent_v_down=9 son düşüş çizgisinden çıkarım. Ana çizgideki işaret aralığı yazılmamış -> hash_step null. Ara satırlar, yatay/yukarı uzanım belirtilmemiş. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

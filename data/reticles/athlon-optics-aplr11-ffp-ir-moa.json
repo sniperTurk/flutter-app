@@ -1,0 +1,22 @@
+{
+  "name": "APLR11 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Argos BTR GEN3 6-24x50",
+    "Argos BTR GEN3 8-34x56"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 50,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/storage/2025/01/214074-APLR11-FFP-IR-MOA-Reticle-Manual-Web.pdf",
+  "notes": "FFP, retikülün tamamı aydınlatmalı. Föy metninden: '.2 moa floating center dot', 1 MOA işaretler, 'drop lines in 5 moa increment on vertical direction down to 50 moa vertical and 40 horizontal'. '40 horizontal' ifadesinin yatay ölçek mi satır uzunluğu mu olduğu belirsiz -> extent_h ve tree null. Föy notu: 6-24x50 için 24x, 8-34x56 için 34x. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

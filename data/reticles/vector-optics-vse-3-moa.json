@@ -1,0 +1,21 @@
+{
+  "name": "VSE-3 MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Sentinel 6-24x50 FFP (SCFF-57)"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 2.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 40,
+  "extent_v_up": 20,
+  "extent_v_down": 36,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250707/f6512782ff33eb4c46d9ef38d283e289.pdf",
+  "notes": "FFP, benchrest amaçlı, BDC (.223 sıfır 200 yd, .308 sıfır 100 yd). Kaynaklar: VSE-3 MOA FFP retikül kılavuzu PDF (metin) + SCFF-57 ürün sayfası (https://www.vectoroptics.com/rifle-scopes/Sentinel-6-24x50-FFP-Rifle-Scope-SCFF-57.html). Kılavuz: 0.35 MOA merkez nokta, 2 MOA uzunlukta merkez artı çizgisi; 'The gap between two marks on the horizontal and vertical lines is 2 MOA' → hash_step=2.0; merkezden 4-8 MOA arası (yatayda ve dikeyde yukarı/aşağı) 0.5 MOA ince bölmeler. 'Each side of the horizontal lines is 40 MOA in total length' → extent_h=40 (her yan kol olarak yorumlandı; VHU-3/VNM-1/VTA-8'deki aynı ifade gibi); dikey merkez altı 36, üstü 20 MOA. Yatayın altında 0.3 MOA büyük ve 0.2 MOA küçük noktalar, noktalar arası 1 MOA → family=tree (çıkarım: yatay altı nokta alanı); satır konumları/genişlikleri metinde yok → tree null. Referans büyütmeler 6x/12x/24x @100 m. Ürün sayfasında merkez nokta çelişkili (0.35 / 0.3 MOA; girişte yanlışlıkla 'VSE-4'). Merkezin boşluklu olup olmadığı, büyük işaret, rakamlar → null."
+}

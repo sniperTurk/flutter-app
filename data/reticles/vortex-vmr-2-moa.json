@@ -1,0 +1,22 @@
+{
+  "name": "VMR-2 MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Razor HD Gen II-E 1-6x24",
+    "Viper PST Gen II 1-6x24"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/vortex-viper-pst-gen-2-1-6x24-riflescope.html",
+  "notes": "Viper PST Gen II 1-6x24 sayfası 'VMR-2_MOA Reticle Manual (PDF)' bağlantısını listeliyor; metin: 'The reticle offers shooters highly functional, intuitive, and detailed hold points, yet remains uncluttered for optimal viewing.' Razor HD Gen II-E 1-6x24 sayfası da VMR-2 MOA kılavuzunu listeliyor. Her iki dürbünün odak düzlemi data/scopes/vortex.json kaydında. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). Ölçüler (işaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç, direk, çizgi kalınlığı) üretici sayfa metninde yok -> null."
+}

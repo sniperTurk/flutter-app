@@ -23,8 +23,8 @@ abstract final class ProSectionInfo {
         'yüzden eğimi hesaba katmazsan hedefin üstüne vurursun; yokuş yukarı '
         'da yokuş aşağı da böyledir.',
     how:
-        '"Telefonla ölç"e dokun. Telefonu dik tut, arka kamerası hedefe '
-        'baksın. Ekrandaki artıyı hedefin üstüne getir ve "OK"a bas; açıyı '
+        '"Kamerayla ölç"e dokun. Telefonu dik tut, arka kamerası hedefe '
+        'baksın. Ekrandaki artıyı hedefin üstüne getir ve "Tamam"a bas; açıyı '
         'telefon ölçer. Düz atışta 0 bırak.',
   );
 
@@ -34,7 +34,7 @@ abstract final class ProSectionInfo {
         'Tüfeği tutarken farkında olmadan sağa ya da sola yatırırsın. '
         'Dürbünün dik durmaması bu yatıklık.',
     why:
-        'Dürbün yatınca "yukarı" çevirdiğin tıklar tam yukarı gitmez, biraz '
+        'Dürbün yatınca "yukarı" çevirdiğin klikler tam yukarı gitmez, biraz '
         'yana kayar. Mesafe uzadıkça bu kayma büyür.',
     how:
         'Tüfeği atış pozisyonundaki gibi tut. "Telefonla ölç"e dokun. '
@@ -51,13 +51,14 @@ abstract final class ProSectionInfo {
         'yazabilirsin.',
     why:
         'Hedef ekranı yan düzeltmeyi tek sayı yerine bir aralık olarak '
-        'gösterir, örneğin "3–5 tık sağa". Rüzgârın ne yapacağını bilemediğin '
+        'gösterir, örneğin "3–5 klik sağa". Rüzgârın ne yapacağını bilemediğin '
         'anlarda nişanı nereye kaydıracağını görürsün.',
     how:
-        'Senin bir şey girmene gerek yok; uygulama Hava Durumu\'ndaki rüzgârı '
-        '1,5 ile çarpıp kendisi yazar. Rüzgâr ölçerin varsa ölçtüğün en '
-        'yüksek değeri yazabilirsin. Kullanmak istemezsen kutuyu sil; aralık '
-        'gösterilmez. "Otomatik doldur"a dokunursan yeniden otomatik olur.',
+        'Kutu boş gelir. "Rüzgâr düzeltmesi al"a dokunursan Hava '
+        'Durumu\'ndaki rüzgâr hızı 1,5 ile çarpılıp yazılır. Rüzgâr ölçerin '
+        'varsa ölçtüğün en yüksek değeri kendin yaz. "Sıfırla" bu kutuyu ve '
+        'Yol ortası ile Hedefte kutularını boşaltır; kutu boşken aralık '
+        'gösterilmez.',
   );
 
   static const windZones = ProExplain(
@@ -127,8 +128,11 @@ abstract final class ProSectionInfo {
   );
 
   static const hitProbability = ProExplain(
-    title: 'İsabet olasılığı',
-    what: 'Bu atışta hedefi vurma şansın; örneğin "%72".',
+    title: 'İsabet olasılığı (WEZ)',
+    what:
+        'Bu atışta hedefi vurma şansın; örneğin "%72". Uygulama atışını 1000 '
+        'kez dener: grup, hız farkı, mesafe, rüzgâr ve BC hatalarıyla kaçının '
+        'hedefe girdiğini sayar ve en büyük etkeni söyler.',
     why:
         '"Buradan vurabilir miyim, yoksa yaklaşmalı mıyım?" sorusunun cevabı. '
         'Avda hayvanı yaralamamak için önemli.',
@@ -138,19 +142,23 @@ abstract final class ProSectionInfo {
         'deliğin arasını ölç.\n'
         '• Hız farkı (SD): Kronograf cihazın atışların hızı ne kadar değişiyor '
         'diye gösterir. Cihazın yoksa boş bırak.\n'
-        'Boş bırakırsan yüzde görünmez.',
+        '• İstersen hedef çapı, mesafe hatası ve BC hatası. Rüzgâr aralığı '
+        'Hava Durumu\'ndaki "en yüksek rüzgâr"dan gelir.\n'
+        '• Atış sayısı: 1\'den fazlasını seçersen o kadar atışta en az bir '
+        'isabet şansı da görünür.\n'
+        'Grup çapını boş bırakırsan yüzde görünmez.',
   );
 
   static const turretScale = ProExplain(
     title: 'Kule ölçek katsayısı',
     what:
-        'Dürbün kulesi üzerinde yazan kadar dönmeyebilir. Örneğin 10 tık '
+        'Dürbün kulesi üzerinde yazan kadar dönmeyebilir. Örneğin 10 klik '
         '"1 MRAD" demesine rağmen gerçekte biraz az ya da fazla kaydırabilir.',
     why:
-        'Fark küçük görünür ama uzak mesafede çok tık çevirdiğinde birikir ve '
+        'Fark küçük görünür ama uzak mesafede çok klik çevirdiğinde birikir ve '
         'ıskalarsın.',
     how:
-        'Kare testi yap: Hedefe bir atış yap, kuleyi 40 tık yukarı çevir, '
+        'Kare testi yap: Hedefe bir atış yap, kuleyi 40 klik yukarı çevir, '
         'tekrar at. İki delik arasını ölç. Olması gereken mesafeye bölünce '
         'katsayı çıkar; örneğin 39 cm olması gerekirken 38 cm ise 0,97. Test '
         'yapmadıysan boş bırak.',
@@ -188,6 +196,20 @@ abstract final class ProSectionInfo {
       'PCP\'de 200 m\'nin ötesinde, slug ile anlamlıdır; yakın mesafede '
       'açmana gerek yok.';
 
+  static const pcpPressure = ProExplain(
+    title: 'Tüp basıncı',
+    what: 'PCP tüfekte her atışta tüpteki hava biraz azalır, basınç düşer.',
+    why:
+        'Regülatörsüz tüfekte hız basınca göre değişir. Regülatörlü tüfekte '
+        'tüp regülatör basıncının altına inince regülatör devre dışı kalır ve '
+        'hız düşer. Örneğin bir saçmada hız 10 m/s düşerse 50 m\'de yaklaşık '
+        '1,2 cm, 75 m\'de 2,8 cm aşağı vurur.',
+    how:
+        'Manometreden kalan basıncı oku ve kutuya yaz. Profil > Mühimmat\'ta '
+        'kronografla ölçtüğün basınca göre hız değerleri varsa hız onlardan '
+        'bulunur. Boş bırakırsan profil hızı kullanılır.',
+  );
+
   static const powder = ProExplain(
     title: 'Barut sıcaklığı',
     what:
@@ -197,8 +219,9 @@ abstract final class ProSectionInfo {
         'Yazın ölçtüğün hızla kışın atarsan mermi daha yavaş gider ve aşağı '
         'vurursun.',
     how:
-        'Mühimmatın kutusunda ya da üreticinin sitesinde "sıcaklık '
-        'hassasiyeti" yazar (örneğin %1 / 15 °C). Profildeki hızı hangi '
-        'sıcaklıkta ölçtüysen onu da yaz. Bilmiyorsan boş bırak.',
+        'Profil > Mühimmat\'ta barut sıcaklık katsayısını ve hızı ölçtüğün '
+        'sıcaklığı yaz; hız Hava Durumu\'ndaki sıcaklığa göre düzeltilir. '
+        'Üreticiler çoğunlukla sayı vermez; aynı fişeği soğuk ve sıcak bir '
+        'günde kronografla ölçerek bulursun. Bilmiyorsan boş bırak.',
   );
 }

@@ -79,7 +79,7 @@ class AerodynamicTrajectorySolver {
     return _Frame(sinT, cosT, sinP, cosP, ox, oy, oz);
   }
 
-  /// G1/G7/GA trajectory including vector wind coupling.
+  /// G1/G7 trajectory including vector wind coupling.
   ///
   /// Wind degrees (internal): 0° = headwind, 90° = from the LEFT (saat 9),
   /// 180° = tailwind, 270° = from the right (saat 3); see WindClock. The UI
@@ -91,7 +91,7 @@ class AerodynamicTrajectorySolver {
     final model = input.ballisticModel;
     if (input.ballisticCoefficient == null || model == null) {
       throw ArgumentError(
-        'ballisticCoefficient and ballisticModel (G1/G7/GA) are required',
+        'ballisticCoefficient and ballisticModel (G1/G7) are required',
       );
     }
     // Özel eğri: the bullet's own Cd curve replaces the standard table.
@@ -254,6 +254,11 @@ class AerodynamicTrajectorySolver {
         return _lerp(previous.y, state.y, f);
       }
       if (state.vx <= 0) break;
+      // Same flight-time cap as solve(): without it a pellet whose speed
+      // decays towards zero short of the zero range ran all _maxSteps
+      // (4 000 000) per bracket evaluation, freezing the UI isolate
+      // (denetim 2026-10-11).
+      if ((step + 1) * integrationStepSeconds > maxFlightTimeS) break;
     }
     throw StateError('projectile did not reach zero range');
   }

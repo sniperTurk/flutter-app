@@ -1,0 +1,44 @@
+{
+  "name": "ACSS Athena BPR MIL",
+  "brand": "Primary Arms",
+  "scopes": [
+    "GLx 3-18x44 FFP",
+    "GLx 4.5-27x56 FFP",
+    "SLx 3-18x50 FFP Gen II",
+    "SLx 4.5-27x56 FFP",
+    "SLx 5-25x56 FFP",
+    "SLx Compact 4-16x44 FFP"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": 1.0,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": 10,
+  "extent_v_down": 15,
+  "tree": {
+    "rows": [
+      {
+        "y": 0.5,
+        "half_width": 0.5,
+        "dot_step": 0.5
+      },
+      {
+        "y": 6,
+        "half_width": 6,
+        "dot_step": 0.5
+      },
+      {
+        "y": 15,
+        "half_width": 6,
+        "dot_step": 0.5
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": true,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=17993625&c=3901023&h=H_F2wbZ2QOIaMP-rzLrZu4yMuw82PNz-ZYoaQDCg3yvzrBPz",
+  "notes": "Kaynak: Primary Arms ACSS Athena BPR MIL reticle manual (GLx 3-18x44 FFP); aynı metin SLx 4.5-27x56 FFP 'Manual 2' (media.nl id=29650447) içinde de var. Merkezde nokta yok, küçük şevron (0.1 MIL aşağı, 0.1 MIL sağa/sola). 'Overall, the reticle extends 10 MIL up, left, and right of the center chevron, and 15 MIL down.' Büyük işaretler 1.0 MIL, küçükler 0.5 MIL. 2 MIL'de düz çizgi başlıyor (0.1 MIL alternatif üst/alt işaretli telemetre bölümü); 3 MIL'den itibaren 0.5 MIL işaretler (hash_step 0.5 genel işaret aralığı). Merkez altı omurga 1.0 MIL'de başlıyor: 0.1 MIL küçük / 0.5 MIL büyük işaretler dönüşümlü, her 5.0 MIL'de halter uçlu işaret. MIL ızgarası: 0.05 MIL kalınlıkta noktalar, merkezin 0.5 MIL altında ve 0.5 MIL sağ/solunda başlıyor, aşağı her 0.5 MIL'de bir nokta/rakam ekleniyor; her 1.0 MIL'de nokta 0.1 MIL kalınlıkta. Izgara 15 MIL aşağı, 6 MIL sağ/sol. Kenardaki 2, 4, 6 rakamları hem aşağı hem yana toplam MIL'i gösteriyor; 8-14 yalnızca aşağı MIL, ızgara 6 MIL'de genişlemeyi durduruyor. Tree: y=0.5/half_width=0.5 doğrudan metinden; çıkarım: y=6/half_width=6 kenardaki '6' rakamının anlamından, y=15/half_width=6 'grid stops expanding at 6 MIL' ve '15 MIL down' ifadelerinden; ara satırlar tek tek verilmiyor. çıkarım: floating_center=true (yatay düz çizgi 2 MIL'de, omurga 1.0 MIL altta başlıyor). numbers_every null: kılavuz yalnız ızgarayı numaralandırıyor, artı çizgide rakam belirtmiyor (önceki değer 2 ızgara rakamlarına dayanıyordu). Kalın direk ve çizgi kalınlığı belirtilmemiş. Telemetre merdiveni 5'10\" boy, 18\" genişlik. SLx 4.5-27x56 ürün sayfası: 'MIL Grid offers 0.5 MIL dots, extending 15 MIL down and 6 MIL to each side'. Diğer kapsam modelleri primaryarms.com ürün başlıklarından."
+}

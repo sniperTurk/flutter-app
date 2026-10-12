@@ -37,13 +37,17 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
   final Color scopeLine;
   final Color scopeDim;
 
-  /// Paper target in the scope view (white in both themes: paper is white)
-  /// and the hollow point-of-impact ring drawn over it.
+  /// Round target in the scope view (yellow face, grey ring and edge, the
+  /// same in both themes; owner, 2026-10-10) and the hollow point-of-impact
+  /// ring drawn over it.
   final Color paperFace;
   final Color paperRing;
   final Color paperRingSoft;
   final Color paperCentre;
   final Color scopeImpact;
+  final Color drumDark;
+  final Color drumLight;
+  final Color drumInk;
 
   /// The ONLY green exception in the palette: the liquid inside the spirit
   /// level vial (Su Terazisi). Never use it for status text or other widgets.
@@ -84,6 +88,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     required this.paperRingSoft,
     required this.paperCentre,
     required this.scopeImpact,
+    required this.drumDark,
+    required this.drumLight,
+    required this.drumInk,
     required this.levelLiquid,
     required this.levelBackdrop,
     required this.levelBackdropDeep,
@@ -112,11 +119,14 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     scopeBg: Color(0xFFF7FAFB),
     scopeLine: Color(0xFF0F2230),
     scopeDim: Color(0xFF8DA0AE),
-    paperFace: Color(0xFFFFFFFF),
-    paperRing: Color(0xFFC0392B),
-    paperRingSoft: Color(0xFFE57368),
+    paperFace: Color(0xFFF2D400),
+    paperRing: Color(0xFF8A9096),
+    paperRingSoft: Color(0xFFC9CED3),
     paperCentre: Color(0xFFF4B6AE),
     scopeImpact: Color(0xFF0A84FF),
+    drumDark: Color(0xFF1E1F21),
+    drumLight: Color(0xFF7C8085),
+    drumInk: Color(0xFFC8CDD2),
     levelLiquid: Color(0xFF8CCB12),
     levelBackdrop: Color(0xFF5A5C5E),
     levelBackdropDeep: Color(0xFF2B2C2E),
@@ -145,11 +155,14 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     scopeBg: Color(0xFF0C1A24),
     scopeLine: Color(0xFFE7EFF3),
     scopeDim: Color(0xFF5E7A8E),
-    paperFace: Color(0xFFFFFFFF),
-    paperRing: Color(0xFFC0392B),
-    paperRingSoft: Color(0xFFE57368),
+    paperFace: Color(0xFFF2D400),
+    paperRing: Color(0xFF8A9096),
+    paperRingSoft: Color(0xFFC9CED3),
     paperCentre: Color(0xFFF4B6AE),
     scopeImpact: Color(0xFF0A84FF),
+    drumDark: Color(0xFF1E1F21),
+    drumLight: Color(0xFF7C8085),
+    drumInk: Color(0xFFC8CDD2),
     levelLiquid: Color(0xFF8CCB12),
     levelBackdrop: Color(0xFF5A5C5E),
     levelBackdropDeep: Color(0xFF2B2C2E),
@@ -191,6 +204,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     Color? paperRingSoft,
     Color? paperCentre,
     Color? scopeImpact,
+    Color? drumDark,
+    Color? drumLight,
+    Color? drumInk,
     Color? levelLiquid,
     Color? levelBackdrop,
     Color? levelBackdropDeep,
@@ -222,6 +238,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
     paperRingSoft: paperRingSoft ?? this.paperRingSoft,
     paperCentre: paperCentre ?? this.paperCentre,
     scopeImpact: scopeImpact ?? this.scopeImpact,
+    drumDark: drumDark ?? this.drumDark,
+    drumLight: drumLight ?? this.drumLight,
+    drumInk: drumInk ?? this.drumInk,
     levelLiquid: levelLiquid ?? this.levelLiquid,
     levelBackdrop: levelBackdrop ?? this.levelBackdrop,
     levelBackdropDeep: levelBackdropDeep ?? this.levelBackdropDeep,
@@ -259,6 +278,9 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
       paperRingSoft: mix(paperRingSoft, other.paperRingSoft),
       paperCentre: mix(paperCentre, other.paperCentre),
       scopeImpact: mix(scopeImpact, other.scopeImpact),
+      drumDark: mix(drumDark, other.drumDark),
+      drumLight: mix(drumLight, other.drumLight),
+      drumInk: mix(drumInk, other.drumInk),
       levelLiquid: mix(levelLiquid, other.levelLiquid),
       levelBackdrop: mix(levelBackdrop, other.levelBackdrop),
       levelBackdropDeep: mix(levelBackdropDeep, other.levelBackdropDeep),
@@ -312,6 +334,11 @@ abstract final class MenzilSpace {
 /// pubspec `fonts:`; otherwise the platform falls back to its system face.
 /// Tabular figures keep values from jittering while they change.
 abstract final class MenzilType {
+  /// The app's typeface (owner, 2026-10-12): Inter, bundled in
+  /// assets/fonts (SIL OFL), static weights 300–700. It replaced Oswald,
+  /// which was hard to read in long texts.
+  static const String family = 'Inter';
+
   static const List<String> numericFallback = [
     'Barlow Condensed',
     'Roboto Condensed',
@@ -320,6 +347,7 @@ abstract final class MenzilType {
   static const List<FontFeature> tabular = [FontFeature.tabularFigures()];
 
   static TextStyle display(Color color, {double size = 60}) => TextStyle(
+    fontFamily: family,
     fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.0,
@@ -334,6 +362,7 @@ abstract final class MenzilType {
     double size = 22,
     FontWeight weight = FontWeight.w600,
   }) => TextStyle(
+    fontFamily: family,
     fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.1,
@@ -343,6 +372,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle heading(Color color, {double size = 22}) => TextStyle(
+    fontFamily: family,
     fontFamilyFallback: numericFallback,
     fontSize: size,
     height: 1.1,
@@ -351,14 +381,17 @@ abstract final class MenzilType {
     color: color,
   );
 
+  // Field labels: a bit smaller, not bold (owner, 2026-10-11).
   static TextStyle label(Color color) => TextStyle(
-    fontSize: 13,
+    fontFamily: MenzilType.family,
+    fontSize: 12.5,
     height: 1.25,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w400,
     color: color,
   );
 
   static TextStyle unit(Color color) => TextStyle(
+    fontFamily: MenzilType.family,
     fontSize: 13,
     height: 1.25,
     fontWeight: FontWeight.w500,
@@ -366,6 +399,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle body(Color color) => TextStyle(
+    fontFamily: MenzilType.family,
     fontSize: 15,
     height: 1.35,
     fontWeight: FontWeight.w500,
@@ -373,6 +407,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle caption(Color color) => TextStyle(
+    fontFamily: MenzilType.family,
     fontSize: 12.5,
     height: 1.35,
     fontWeight: FontWeight.w400,
@@ -427,6 +462,8 @@ abstract final class MenzilTheme {
 
     return ThemeData(
       useMaterial3: true,
+      // Inter everywhere, the welcome pages included (owner, 2026-10-12).
+      fontFamily: MenzilType.family,
       brightness: brightness,
       colorScheme: scheme,
       scaffoldBackgroundColor: c.bg,
@@ -493,7 +530,11 @@ abstract final class MenzilTheme {
           disabledForegroundColor: c.bg,
           minimumSize: minControl,
           shape: controlShape,
-          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          textStyle: const TextStyle(
+            fontFamily: MenzilType.family,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 16),
         ),
       ),
@@ -503,7 +544,11 @@ abstract final class MenzilTheme {
           minimumSize: minControl,
           shape: controlShape,
           side: BorderSide(color: c.line),
-          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          textStyle: const TextStyle(
+            fontFamily: MenzilType.family,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 14),
         ),
       ),
@@ -511,7 +556,11 @@ abstract final class MenzilTheme {
         style: TextButton.styleFrom(
           foregroundColor: c.cyanInk,
           minimumSize: const Size(44, 44),
-          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(
+            fontFamily: MenzilType.family,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       iconButtonTheme: IconButtonThemeData(
@@ -538,7 +587,11 @@ abstract final class MenzilTheme {
             (states) => states.contains(WidgetState.selected) ? c.bg : c.ink2,
           ),
           textStyle: const WidgetStatePropertyAll(
-            TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600),
+            TextStyle(
+              fontFamily: MenzilType.family,
+              fontSize: 13.5,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),
@@ -565,6 +618,7 @@ abstract final class MenzilTheme {
       snackBarTheme: SnackBarThemeData(
         backgroundColor: c.ink,
         contentTextStyle: TextStyle(
+          fontFamily: MenzilType.family,
           color: c.bg,
           fontSize: 14.5,
           fontWeight: FontWeight.w500,
@@ -601,6 +655,7 @@ abstract final class MenzilTheme {
       dataTableTheme: DataTableThemeData(
         headingRowColor: WidgetStatePropertyAll(c.surface2),
         headingTextStyle: TextStyle(
+          fontFamily: MenzilType.family,
           fontSize: 12,
           fontWeight: FontWeight.w700,
           color: c.ink,
@@ -618,7 +673,11 @@ abstract final class MenzilTheme {
           color: c.ink,
           borderRadius: BorderRadius.circular(8),
         ),
-        textStyle: TextStyle(color: c.bg, fontSize: 13),
+        textStyle: TextStyle(
+          fontFamily: MenzilType.family,
+          color: c.bg,
+          fontSize: 13,
+        ),
       ),
     );
   }

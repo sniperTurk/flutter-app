@@ -89,12 +89,36 @@ void main() {
       await tester.pump();
     }
 
+    // Marka / Model come from lists; typed names need "Listede yok" first
+    // (owner, 2026-10-11).
+    Future<void> choose(String key, String label) async {
+      await tester.ensureVisible(find.byKey(Key(key)));
+      await tester.tap(find.byKey(Key(key)));
+      await tester.pumpAndSettle();
+      final item = find.text(label);
+      if (item.evaluate().isEmpty) {
+        await tester.dragUntilVisible(
+          item,
+          find.byType(Scrollable).last,
+          const Offset(0, -300),
+        );
+      }
+      await tester.ensureVisible(item.last);
+      await tester.pumpAndSettle();
+      await tester.tap(item.last);
+      await tester.pumpAndSettle();
+    }
+
+    // A new profile starts on Ateşli Tüfek (owner, 2026-10-11); this tour
+    // saves a PCP rifle (6.35 mm caliber), so Tür = PCP Tüfek first.
+    await choose('profile-platform', 'PCP Tüfek');
+    await choose('rifle-brand-select', 'Listede yok');
     await type('rifle-brand', 'Test Marka');
     await type('rifle-model', 'Test Model');
     await tester.ensureVisible(find.byKey(const Key('rifle-caliber')));
     await tester.tap(find.byKey(const Key('rifle-caliber')));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('6.35 mm').last);
+    await tester.tap(find.text('6.35 mm (.25)').last);
     await tester.pumpAndSettle();
     await type('rifle-twist-rate', '16');
     await tester.ensureVisible(find.byKey(const Key('rifle-twist-direction')));
@@ -102,6 +126,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Sağ').last);
     await tester.pumpAndSettle();
+    await choose('ammo-brand-select', 'Listede yok');
     await type('ammo-brand', 'Test Mühimmat Slug');
     await tester.ensureVisible(find.byKey(const Key('ammo-type')));
     await tester.tap(find.byKey(const Key('ammo-type')));
@@ -116,12 +141,19 @@ void main() {
     await tester.tap(find.text('G1').last);
     await tester.pumpAndSettle();
     await type('profile-velocity-fps', '900');
+    await choose('profile-distance-unit', 'Metre');
     await type('profile-zero', '25');
     await type('scope-sight-height', '60');
+    await choose('scope-brand-select', 'Listede yok');
     await type('scope-brand', 'Test Optik');
-    await type('scope-min-mag', '6');
-    await type('scope-max-mag', '24');
-    await type('scope-objective', '56');
+    // Büyütme, Mercek çapı and Klik değeri are picked from lists; every
+    // list box starts on "Seçiniz" (owner, 2026-10-11).
+    await choose('scope-min-mag', '6x');
+    await choose('scope-max-mag', '24x');
+    await choose('scope-objective', '56 mm');
+    await choose('scope-unit', 'MRAD');
+    await choose('scope-click', '0,1 MRAD');
+    await choose('scope-mount', 'Normal (0 MOA)');
     await tester.ensureVisible(find.byKey(const Key('scope-focal-plane')));
     await tester.tap(find.byKey(const Key('scope-focal-plane')));
     await tester.pumpAndSettle();

@@ -1,0 +1,21 @@
+{
+  "name": "VCO-6 MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental 6-48x56 ED MOA Tactical (SCOL-TE52)"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": 4,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250527/e53d2666a67cc304a5e78c99b792a4a0.pdf",
+  "notes": "SFP; kılavuza göre ölçüler 40x'te geçerli (referans büyütme 40x). Ürün sayfası (https://www.vectoroptics.com/rifle-scopes/Continental-6-48x56-ED-MOA-Tactical-riflescope-SCOL-TE52.html): '2MOA circle, 1MOA hashmark increment', 0.1 MOA merkez nokta. Kılavuz: ters 'T' ölçek; 0.1 MOA nokta ile ölçek arasında 2 MOA çaplı boş halka alanı → floating_center=true. Dikey eksen rakamları 4, 8, 12 MOA (numbers_every=4). Uzanımlar ve büyük işaret aralığı metinde yok → null; föy görseli okunamadı."
+}

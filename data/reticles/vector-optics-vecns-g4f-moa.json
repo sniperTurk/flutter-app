@@ -1,0 +1,23 @@
+{
+  "name": "VECNS-G4F MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Constantine 1-6x24i (SCOC-36)",
+    "Constantine 1-10x24 (SCOC-35)",
+    "Grizzly Pro 3-12x56i Fiber (SCOM-42)"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Grizzly-Pro-3-12x56i-Fiber-SCOM-42.html",
+  "notes": "SFP (SCOM-42). Kaynaklar: Reticle-Collection (dürbün listesi) + SCOM-42 ürün sayfası ('Reticle | VECNS-G4F', 'Dot Illuminated Fiber Reticle' → center_dot=true; indirme: German #4 kılavuzu) + PDF başlıkları 'German#4(MOA) & VECNS-G4F(MOA)' (…/1a771397….pdf, yalnızca başlık) → unit=moa. 'VECNS-G4F & VOS-EHT & VOS-TMOA & VOF-EHT & VCO-1 MIL' PDF'inde (…/20241205/623b15f6….pdf) 'VOS-TMOA (MOA) / VECNS-G4F (MOA), Setting: 10x' bloğu konumsuz sayılar içeriyor: 2.0, 8.0, 9.0, 0, 4, 5.0, 2.0, 1.0, 20, 30 — öğelere atanamadı; referans büyütme 10x olabilir (çıkarım). family=duplex G4 adından ve German #4 kılavuzu bağlantısından çıkarım. SCOC-36 sayfası iki denemede retikül metni vermedi."
+}

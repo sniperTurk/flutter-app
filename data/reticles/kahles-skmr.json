@@ -1,0 +1,21 @@
+{
+  "name": "SKMR",
+  "brand": "Kahles",
+  "scopes": [
+    "K525i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/SKMR_K525i_2026+.pdf",
+  "notes": "Kahles retikül föyü 'SKMR / K525i' (52020101293-109, 01.10.2025). Etiketsiz değerler: 16MIL, 5MIL, 1MIL, 0,5MIL, 0,3MIL (2 kez), 0,25MIL, 0,2MIL, 0,1MIL, 0,07MIL, 0,035MIL; öğe eşlemesi yalnız çizimde -> geometri null. FFP (Kahles K525i DLR basın sayfası)."
+}

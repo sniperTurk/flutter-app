@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="800" viewBox="0 0 1180 800" font-family="Oswald, 'Oswald', sans-serif" font-weight="400">
+<style>@font-face{font-family:"Oswald";src:url("../../../assets/fonts/Oswald-Regular.ttf");font-weight:400;} text{font-family:"Oswald",sans-serif;font-weight:400;}</style>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<rect x="30.0" y="30.0" width="390.0" height="740.0" rx="28" fill="#E6ECEF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="225.0" y="70.0" font-size="20" fill="#0F2230" text-anchor="middle">Profil</text>
+<text x="225.0" y="92.0" font-size="13" fill="#465D6F" text-anchor="middle">PCP · Profil düzenle</text>
+<text x="50.0" y="124.0" font-size="15" fill="#465D6F" text-anchor="start">Mühimmat</text>
+<rect x="46.0" y="136.0" width="358.0" height="560.0" rx="16" fill="#F7FAFB" stroke="#BCCAD3" stroke-width="1"/>
+<text x="62.0" y="164.0" font-size="13" fill="#465D6F" text-anchor="start">Marka</text>
+<circle cx="103.9" cy="159.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="103.9" y="163.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="60.0" y="172.0" width="159.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="72.0" y="200.0" font-size="15" fill="#465D6F" text-anchor="start">Seçiniz</text>
+<path d="M196.0,191 L201.0,196 L206.0,191" fill="none" stroke="#465D6F" stroke-width="1.6"/>
+<text x="233.0" y="164.0" font-size="13" fill="#465D6F" text-anchor="start">Tip</text>
+<circle cx="262.9" cy="159.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="262.9" y="163.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="231.0" y="172.0" width="159.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="243.0" y="200.0" font-size="15" fill="#465D6F" text-anchor="start">Seçiniz</text>
+<path d="M367.0,191 L372.0,196 L377.0,191" fill="none" stroke="#465D6F" stroke-width="1.6"/>
+<text x="62.0" y="242.0" font-size="13" fill="#465D6F" text-anchor="start">Model</text>
+<circle cx="103.9" cy="237.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="103.9" y="241.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="60.0" y="250.0" width="330.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="72.0" y="278.0" font-size="15" fill="#465D6F" text-anchor="start">Seçiniz</text>
+<path d="M367,269 L372,274 L377,269" fill="none" stroke="#465D6F" stroke-width="1.6"/>
+<text x="62.0" y="320.0" font-size="13" fill="#465D6F" text-anchor="start">Ağırlık</text>
+<circle cx="115.9" cy="315.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="115.9" y="319.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="60.0" y="328.0" width="159.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="207.0" y="356.0" font-size="13" fill="#465D6F" text-anchor="end">grain</text>
+<text x="233.0" y="320.0" font-size="13" fill="#465D6F" text-anchor="start">BC</text>
+<circle cx="257.0" cy="315.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="257.0" y="319.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="231.0" y="328.0" width="159.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="62.0" y="398.0" font-size="13" fill="#465D6F" text-anchor="start">BC modeli</text>
+<circle cx="127.8" cy="393.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="127.8" y="397.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="60.0" y="406.0" width="159.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="72.0" y="434.0" font-size="15" fill="#465D6F" text-anchor="start">Seçiniz</text>
+<path d="M196.0,425 L201.0,430 L206.0,425" fill="none" stroke="#465D6F" stroke-width="1.6"/>
+<text x="233.0" y="398.0" font-size="13" fill="#465D6F" text-anchor="start">Namlu çıkış hızı</text>
+<circle cx="340.7" cy="393.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="340.7" y="397.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="231.0" y="406.0" width="159.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="378.0" y="434.0" font-size="13" fill="#465D6F" text-anchor="end">fps</text>
+<rect x="50.0" y="458.0" width="350.0" height="82.0" rx="12" fill="none" stroke="#6A2C91" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="406.0" cy="468.0" r="10" fill="#6A2C91"/>
+<text x="406.0" y="472.5" font-size="12" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="62.0" y="476.0" font-size="13" fill="#465D6F" text-anchor="start">Hız ölçüm basıncı</text>
+<circle cx="175.7" cy="471.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="175.7" y="475.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="60.0" y="484.0" width="159.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="207.0" y="512.0" font-size="13" fill="#465D6F" text-anchor="end">bar</text>
+<text x="233.0" y="476.0" font-size="13" fill="#465D6F" text-anchor="start">Regülatör basıncı</text>
+<circle cx="346.7" cy="471.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="346.7" y="475.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="231.0" y="484.0" width="159.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="378.0" y="512.0" font-size="13" fill="#465D6F" text-anchor="end">bar</text>
+<rect x="50.0" y="540.0" width="350.0" height="162.0" rx="12" fill="none" stroke="#6A2C91" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="406.0" cy="550.0" r="10" fill="#6A2C91"/>
+<text x="406.0" y="554.5" font-size="12" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="62.0" y="562.0" font-size="14.5" fill="#0F2230" text-anchor="start">Basınç–hız ölçümleri</text>
+<circle cx="207.4" cy="557.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="207.4" y="561.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<text x="62.0" y="586.0" font-size="13" fill="#465D6F" text-anchor="start">Tüp basıncı</text>
+<circle cx="139.8" cy="581.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="139.8" y="585.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="60.0" y="594.0" width="144.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="192.0" y="622.0" font-size="13" fill="#465D6F" text-anchor="end">bar</text>
+<text x="218.0" y="586.0" font-size="13" fill="#465D6F" text-anchor="start">Namlu çıkış hızı</text>
+<circle cx="325.7" cy="581.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="325.7" y="585.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="216.0" y="594.0" width="144.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="348.0" y="622.0" font-size="13" fill="#465D6F" text-anchor="end">fps</text>
+<path d="M371.0,611.0 L381.0,621.0 M381.0,611.0 L371.0,621.0" stroke="#465D6F" stroke-width="1.6"/>
+<rect x="60.0" y="650.0" width="150.0" height="40.0" rx="20" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="135.0" y="675.0" font-size="14.5" fill="#0F2230" text-anchor="middle">+  Ölçüm ekle</text>
+<text x="460.0" y="60.0" font-size="17" fill="#6A2C91" text-anchor="start">Taslak notları · Profil &gt; Mühimmat · yalnız PCP</text>
+<circle cx="470.0" cy="87.0" r="10" fill="#6A2C91"/>
+<text x="470.0" y="91.5" font-size="12" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="488.0" y="92.0" font-size="14.5" fill="#0F2230" text-anchor="start">Hız ölçüm basıncı | Regülatör basıncı</text>
+<text x="488.0" y="111.0" font-size="13" fill="#465D6F" text-anchor="start">Yeni satır. Yalnız PCP profilde, Namlu çıkış hızının hemen altında.</text>
+<text x="488.0" y="130.0" font-size="13" fill="#465D6F" text-anchor="start">Ateşli tüfekte aynı yerde bugünkü Barut sıcaklığı satırı durur.</text>
+<text x="488.0" y="149.0" font-size="13" fill="#465D6F" text-anchor="start">İkisi de isteğe bağlı; boşsa hesap bugünkü gibi profildeki hızı kullanır.</text>
+<circle cx="470.0" cy="168.0" r="10" fill="#6A2C91"/>
+<text x="470.0" y="172.5" font-size="12" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="488.0" y="173.0" font-size="14.5" fill="#0F2230" text-anchor="start">Basınç–hız ölçümleri</text>
+<text x="488.0" y="192.0" font-size="13" fill="#465D6F" text-anchor="start">İsteğe bağlı liste, en çok 10 satır; başta satır yok, yalnız düğme.</text>
+<text x="488.0" y="211.0" font-size="13" fill="#465D6F" text-anchor="start">Ölçüm ekle'ye basınca bir satır açılır: Tüp basıncı | Namlu çıkış hızı.</text>
+<text x="488.0" y="230.0" font-size="13" fill="#465D6F" text-anchor="start">× satırı siler. Ayrı aç/kapa düğmesi yok; veri girilince etkin.</text>
+<text x="488.0" y="254.0" font-size="14.5" fill="#0F2230" text-anchor="start">ⓘ metinleri · öneri</text>
+<text x="488.0" y="273.0" font-size="13" fill="#465D6F" text-anchor="start">Hız ölçüm basıncı: Namlu çıkış hızını kronografla ölçtüğünüz anda</text>
+<text x="488.0" y="292.0" font-size="13" fill="#465D6F" text-anchor="start">manometrede okunan basınç, bar olarak. Manometre çoğunlukla tüpün</text>
+<text x="488.0" y="311.0" font-size="13" fill="#465D6F" text-anchor="start">ucunda ya da dipçik altındadır. Örnek: 180 bar.</text>
+<text x="488.0" y="330.0" font-size="13" fill="#465D6F" text-anchor="start"></text>
+<text x="488.0" y="349.0" font-size="13" fill="#465D6F" text-anchor="start">Regülatör basıncı: Regülatörün ayarlı olduğu çıkış basıncı, bar olarak.</text>
+<text x="488.0" y="368.0" font-size="13" fill="#465D6F" text-anchor="start">Kılavuzda veya regülatör manometresinde yazar. Örnek: 150 bar.</text>
+<text x="488.0" y="387.0" font-size="13" fill="#465D6F" text-anchor="start">Regülatörsüz tüfekte boş bırakın.</text>
+<text x="488.0" y="406.0" font-size="13" fill="#465D6F" text-anchor="start"></text>
+<text x="488.0" y="425.0" font-size="13" fill="#465D6F" text-anchor="start">Basınç–hız ölçümleri: Tüp boşaldıkça hız değişir. Kronografla atış</text>
+<text x="488.0" y="444.0" font-size="13" fill="#465D6F" text-anchor="start">yapın; birkaç atışta bir manometredeki basıncı ve o atışların</text>
+<text x="488.0" y="463.0" font-size="13" fill="#465D6F" text-anchor="start">ortalama hızını yazın. Regülatörlü tüfekte yalnız regülatör</text>
+<text x="488.0" y="482.0" font-size="13" fill="#465D6F" text-anchor="start">basıncının altındaki ölçümler girilir. Ölçüm yoksa boş bırakın.</text>
+<text x="488.0" y="501.0" font-size="13" fill="#465D6F" text-anchor="start"></text>
+<text x="488.0" y="520.0" font-size="13" fill="#465D6F" text-anchor="start">Tüp basıncı: Bu ölçümü yaptığınız anda manometredeki basınç.</text>
+<text x="488.0" y="539.0" font-size="13" fill="#465D6F" text-anchor="start">Örnek: 120 bar.</text>
+<text x="488.0" y="558.0" font-size="13" fill="#465D6F" text-anchor="start">Namlu çıkış hızı: O basınçta ölçtüğünüz atışların ortalaması, fps.</text>
+<text x="488.0" y="577.0" font-size="13" fill="#465D6F" text-anchor="start">Örnek: 850 fps.</text>
+<text x="488.0" y="601.0" font-size="14.5" fill="#0F2230" text-anchor="start">Kurallar</text>
+<text x="488.0" y="620.0" font-size="13" fill="#465D6F" text-anchor="start">Kutu altında yardım yazısı yok; açıklamalar ⓘ içinde.</text>
+<text x="488.0" y="639.0" font-size="13" fill="#465D6F" text-anchor="start">Kutularda örnek değer yok; liste kutuları Seçiniz ile başlar.</text>
+<text x="488.0" y="658.0" font-size="13" fill="#465D6F" text-anchor="start">Ateşli tüfek profilinde bu alanlar hiç oluşturulmaz.</text>
+</svg>

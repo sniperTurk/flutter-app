@@ -1,0 +1,19 @@
+{
+  "name": "ZMOAi-20",
+  "brand": "Zeiss",
+  "scopes": ["Conquest V4 6-24x50"],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": 10,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": true,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-zmoai-20.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-zmoai-20.pdf",
+  "notes": "Zeiss ZMOAi-20 (Absehen #89) föyü, 10/2021, yalnız merkez aydınlatmalı, SFP. Metin: ZMOAi-T20 temelli, 24x'te 0.12 MOA daha kalın çizgi. Föy metni işaret aralığı/düşüş kapsamı vermiyor; ÇIKARIM: hash_step=1.0, tabloda D 'Distance' 1.00 MOA (24x) ve ZMOAi-T20 ile aynı etiket düzeninden. Tablo etiketleri: A çizgi kalınlığı, B..F/K..P 'Distance' (görselsiz eşlenemedi), G standart rakam yüksekliği, H '10, 20' rakam yüksekliği, I nokta çapı, J nokta aralığı, Q merkez artı çevresi boşluk. ÇIKARIM: numbers_every=10 'H: 10, 20 Number Height' etiketinden; floating_center=true 'Spacing Around Center Cross' (Q) ölçüsünden (merkez artının çevresinde boşluk). family='tree' metindeki yan rüzgâr çizgileri ve tutma noktalarından; satır yapısı verilmediği için tree null. Düşüş kapsamı bu föyde metin olarak yok -> extent_v_down null (adındaki '20' tek başına kaynak sayılmadı). Retikül sayfası açıklaması: https://www.zeiss.com/consumer-products/int/precision-shooting/content/reticles.html"
+}

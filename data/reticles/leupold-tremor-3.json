@@ -1,0 +1,25 @@
+{
+  "name": "Tremor 3",
+  "brand": "Leupold",
+  "scopes": [
+    "Mark 5HD 3.6-18x44 M5C3 FFP",
+    "Mark 5HD 5-25x56 M5C3 FFP",
+    "Mark 5HD 7-35x56 M5C3 FFP",
+    "Mark 6 3-18x44 M5C2 (üretimden kalktı)",
+    "Mark 8 3.5-25x56 M5C2 (üretimden kalktı)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/tremor-3/",
+  "notes": "Leupold retikül sayfası (Illum. FFP sürümü: https://www.leupold.com/reticle/tremor-3-illum-ffp/ — aynı madde metni; Mark 5HD M5C3 Illum. FFP, Mark 6 / Mark 8 Illum.). FFP ('Front (first) focal plane'), MIL. Metin: Horus Vision tasarımı; 'Grid style reticle ... bullet drop compensation and wind correction'; 'Centralized dots at crosshair intersections'; 'Chevron MIL markers measure 0.1 MIL'; 'rapid ranging marks above the central horizontal line'; 'Open upper half of the reticle'; 'Numbered lines'. family=tree, 'grid style' ve kesişim noktalarından çıkarım. Izgara satır/sütun aralığı, rakam aralığı, uzanımlar ve merkez nokta metinde yok -> null (0.1 MIL yalnız şevron ölçüsü, işaret aralığı değil). Leupold sayfasında Tremor 3 föy PDF'i bağlantısı yok; diyagram görseli okunamadı."
+}

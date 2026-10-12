@@ -1,0 +1,21 @@
+{
+  "name": "VCT-BNW MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental x6 1-6x28 FFP (SCFF-31)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250825/4d6d58b5ef196da3ed8e0d3734316cdc.pdf",
+  "notes": "FFP. Kaynaklar: VCT-BNW FFP Reticle User Manual (20250825/4d6d58b5….pdf, ReticleInstruction sayfa 10), VCT-BNW Reticle Single Page (20241031/5e76355a….pdf, sayfa 7) ve VCT-BNW Reticle User Manual (20240819/ffa037e1….pdf, sayfa 9). 20250825 kılavuzu dürbünü 'Continental 1-6x28' olarak anıyor; kod SCFF-31 vectoroptics.com ürün adından eşleştirildi (34mm Continental x6 1-6x28 FFP, çıkarım). .223 balistiğine göre BDC: 'The BDC starts at the center dot and finishes at the mark indicated by the number 8' → center_dot=true. Hızlı mesafe: omuz genişliği 40 cm/15.7 in ve 75 cm/30 in referansları, 4 işareti=400 m, 6 işareti=600 m. Konumsuz diyagram etiketleri: 1.58, 1.03, 0.95, 0.79, 0.68, 0.6, 0.5, 0.97, 9.2, Φ2.4, 1.22, 1.46, 1.78 (artan BDC aralıkları gibi görünüyor, çıkarım; öğeleri metinde yok). BDC tipi olduğu için family, işaret aralığı, uzanımlar → null. || FFP MIL. Kaynaklar: VCT-BNW retikül kılavuzu PDF (index sayfa 15) + SCFF-31 ürün sayfası. Kılavuz: mesafe ve rüzgârla ilişkili BDC; BDC merkez noktadan '8' rakamlı işarete kadar (center_dot=true, 'zero using the center dot' ifadesinden); rüzgâr noktaları hash işaretleriyle hizalı; yatay hash işaret 4 = 400 m örneği. Konumsuz diyagram etiketleri: 1.58, 1.03, 0.95, 0.79, 0.68, 0.6, 0.5, 0.97, 9.2, Φ2.4, 1.22, 1.46, 1.78 ve 400–800 Yds — öğelere atanamadı. Aile, aralıklar, uzanımlar → null. Diğer VCT-BNW PDF'leri (…/92bf1a7b….pdf, …/7bdcc976….pdf) metin içermiyor."
+}

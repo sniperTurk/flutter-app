@@ -60,7 +60,7 @@ Future<void> _pumpShell(WidgetTester tester) async {
 }
 
 /// The Rüzgâr box left Atış (owner, 2026-10-08): the scope's impact line
-/// says where the pellet goes, "Çözümü kuleye kur" which way to dial.
+/// says where the pellet goes, "Çözümü kulelere kur" which way to dial.
 Future<(String, String)> _windAfter(
   WidgetTester tester, {
   required String direction,
@@ -68,12 +68,32 @@ Future<(String, String)> _windAfter(
   await tester.tap(find.text('Hava Durumu'));
   await tester.pumpAndSettle();
   await tester.enterText(find.byKey(BallisticsFieldKeys.wind), '4');
-  // Clock face: 9 = from the left (90°), 3 = from the right (270°).
-  final hour = direction == '90' ? 9 : 3;
-  final dial = find.byKey(WindClockPicker.hourKey(hour));
-  await tester.ensureVisible(dial);
-  await tester.tap(dial);
+  // Rüzgâr yönü: 9 = from the left (90°) is tapped on the clock, which
+  // fills the box; 3 = from the right (270°) is typed into the box.
+  if (direction == '90') {
+    final dial = find.byKey(WindClockPicker.hourKey(9));
+    await tester.ensureVisible(dial);
+    await tester.tap(dial);
+  } else {
+    final box = find.byKey(BallisticsFieldKeys.windDirection);
+    await tester.ensureVisible(box);
+    await tester.enterText(box, '3');
+  }
   await tester.pumpAndSettle();
+  if (direction == '90') {
+    expect(
+      tester
+          .widget<TextField>(
+            find.descendant(
+              of: find.byKey(BallisticsFieldKeys.windDirection),
+              matching: find.byType(TextField),
+            ),
+          )
+          .controller!
+          .text,
+      '9',
+    );
+  }
   await tester.tap(find.text('Hedef'));
   await tester.pumpAndSettle();
   final impact = _impact(tester);
@@ -83,7 +103,7 @@ Future<(String, String)> _windAfter(
 String _impact(WidgetTester tester) =>
     tester.widget<Text>(find.byKey(ScopeDialKeys.impactText)).data!;
 
-/// Taps "Çözümü kuleye kur" and returns the "Kule: …" readout.
+/// Taps "Çözümü kulelere kur" and returns the "Kule: …" readout.
 Future<String> _dialSolution(WidgetTester tester) async {
   final button = find.byKey(ScopeDialKeys.dialSolution);
   await tester.ensureVisible(button);
@@ -177,7 +197,7 @@ void main() {
     );
     // 10 cm at 100 m = 1 mrad.
     expect(
-      find.textContaining('Hedef halkası Ø10 cm = 1.00 mrad'),
+      find.textContaining('Hedef halkası Ø10 cm = 1,00 MRAD'),
       findsOneWidget,
     );
   });

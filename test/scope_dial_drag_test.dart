@@ -62,6 +62,13 @@ void main() {
       ),
       '5',
     );
+    await tester.enterText(
+      find.descendant(
+        of: find.byKey(BallisticsFieldKeys.windDirection),
+        matching: find.byType(TextField),
+      ),
+      '9',
+    );
     await tester.tap(find.text('Hesapla'));
     await tester.pumpAndSettle();
 

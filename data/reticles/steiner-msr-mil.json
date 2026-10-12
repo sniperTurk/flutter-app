@@ -1,0 +1,19 @@
+{
+  "name": "MSR",
+  "brand": "Steiner",
+  "scopes": [],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": 1,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.steiner-optics.com/sites/default/files/content/catalogs/2023-12/reticle_guide_1-8-18.pdf",
+  "notes": "Steiner Reticle Guide (FFP, 'Located on the first focal plane'): 'a continuous 1mil scale with 1/2-mil division marks'; sol alt kadranda ince milleme ölçeği, sağ altta hızlı mesafe ölçeği; aydınlatmalı merkez artı. Çizim ölçüleri (A-L harfli tablo) geometriye eşlenemediği için uzanımlar, rakamlar, merkez noktası vb. null. Kılavuzda scope modeli belirtilmiyor -> scopes boş."
+}

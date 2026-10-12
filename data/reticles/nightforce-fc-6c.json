@@ -1,0 +1,19 @@
+{
+  "name": "FC-6c",
+  "brand": "Nightforce",
+  "scopes": ["NX6 1-6x24"],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 17.3,
+  "tree": {"rows": [{"y": 1.5, "half_width": 0.95, "dot_step": 0.95}, {"y": 4, "half_width": 1.55, "dot_step": 1.55}, {"y": 7.7, "half_width": 2.2, "dot_step": 2.2}, {"y": 12, "half_width": 2.9, "dot_step": 2.9}, {"y": 17.3, "half_width": 3.65, "dot_step": 3.65}]},
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/products/FC-6c-Reticle-Sheet.pdf",
+  "notes": "Nightforce FC-6c föyü (REV 1225) ve ürün sayfası (nightforceoptics.com/fc-6c/): ikinci odak düzlemi BDC, '*All subtensions measured at maximum magnification' (6x); .223/5.56 ağır/maç yükleri için, 100 yd sıfır. Föy tablosu 'Nominal Yardage / Elevation / Windage (Left or Right)': 200 1.5/.95, 300 4/1.55, 400 7.7/2.2, 500 12/2.9, 600 17.3/3.65 MOA; '5 mph windage references'. Satırlar y=yükseliş, half_width=rüzgâr; dot_step=half_width ile her satırda merkez ve ±5 mph işaretleri temsil edildi (kodlama tercihi, ölçü değil). extent_v_down=17.3 son tutma noktası. 'Daylight bright illuminated center dot' (boyut eşlenmemiş: A .5). Mesafe yazıları retikülde yok."
+}

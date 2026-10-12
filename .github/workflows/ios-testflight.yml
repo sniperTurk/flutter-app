@@ -11,14 +11,66 @@ on:
         description: 'Branch to build and upload'
         required: true
         default: 'main'
+      free_mac_runners:
+        description: 'Cancel running/queued PR iOS CI, Simulator screenshots and Appetize runs so this upload gets a macOS runner first'
+        type: boolean
+        required: false
+        default: true
 
 permissions:
   contents: read
 
+# Own group (never shared with iOS CI): a second upload of the same branch
+# waits for the first instead of cancelling it mid-upload. GitHub keeps only
+# one pending run per group, so a third dispatch replaces the waiting second.
+concurrency:
+  group: ios-testflight-${{ inputs.branch }}
+  cancel-in-progress: false
+
 jobs:
+  # TestFlight goes first (2026-10-11): macos-15 runners are limited to 5
+  # concurrent jobs and on 2026-10-11 uploads waited 3+ hours behind PR CI.
+  # This Linux job cancels PR-triggered iOS CI runs and the optional
+  # Simulator screenshots / Appetize runs (Appetize re-runs after TestFlight
+  # anyway). Pushes to main keep their iOS CI evidence. The upload job does
+  # not depend on this job, so a failure here never blocks the upload.
+  free-mac-runners:
+    if: inputs.free_mac_runners
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+      - name: Cancel PR iOS CI and optional macOS runs
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          cancel() {
+            local wf="$1" filter="$2"
+            for status in queued in_progress waiting pending; do
+              gh api "repos/$REPO/actions/workflows/$wf/runs?status=$status&per_page=100$filter" \
+                --jq '.workflow_runs[].id' | while read -r id; do
+                [ -n "$id" ] || continue
+                if gh api -X POST "repos/$REPO/actions/runs/$id/cancel" >/dev/null; then
+                  echo "::notice title=Cancelled for TestFlight::$wf run $id (re-run it after the upload)"
+                else
+                  echo "::warning title=Could not cancel::$wf run $id"
+                fi
+              done || echo "::warning title=Could not list runs::$wf ($status)"
+            done
+          }
+          cancel ios-ci.yml '&event=pull_request'
+          cancel sim-screens.yml ''
+          cancel appetize-upload.yml ''
+          exit 0
+
   testflight:
     runs-on: macos-15
-    timeout-minutes: 60
+    # Uploads took 4-10 min (2026-10-09..11); 30 leaves ample headroom.
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v6

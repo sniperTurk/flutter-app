@@ -1,0 +1,135 @@
+name: Appetize upload
+
+# Keeps a live, always-available iOS Simulator copy of the app on Appetize.io
+# (owner, 2026-10-11). Builds the Simulator .app (unsigned; Appetize only
+# accepts Simulator builds) and replaces the app on Appetize, so the same link
+# always opens the newest build.
+#
+# Needs the repository secret APPETIZE_API_TOKEN (Appetize → Organization →
+# API Tokens). Without it the job only warns and stops; nothing fails.
+# Optional repository variable APPETIZE_PUBLIC_KEY pins the Appetize app;
+# without it the app is found by its note "sniper-turk-ci" or created once.
+# Google Maps stays off here (Esri map): the Maps key never leaves TestFlight.
+on:
+  push:
+    branches: [main]
+    # Docs/catalog-data-only pushes do not change the app (2026-10-11).
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+      - 'data/**'
+      - 'catalog_sources/**'
+  workflow_run:
+    workflows: ['iOS TestFlight']
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch, tag or commit to upload'
+        required: false
+        default: 'main'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: appetize-upload
+  cancel-in-progress: true
+
+jobs:
+  # Cheap Linux check first, so no macOS runner starts without the token.
+  token:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      present: ${{ steps.check.outputs.present }}
+    steps:
+      - name: Check for the Appetize token
+        id: check
+        env:
+          APPETIZE_API_TOKEN: ${{ secrets.APPETIZE_API_TOKEN }}
+        run: |
+          if [[ -z "${APPETIZE_API_TOKEN:-}" ]]; then
+            echo "::warning title=Appetize skipped::Repository secret APPETIZE_API_TOKEN is not set; nothing was uploaded. See docs/sim-screens-report.md."
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  upload:
+    needs: token
+    if: needs.token.outputs.present == 'true'
+    runs-on: macos-15
+    timeout-minutes: 25
+    env:
+      APPETIZE_API_TOKEN: ${{ secrets.APPETIZE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.ref || github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Build Simulator app
+        env:
+          METNO_CONTACT: ${{ vars.METNO_CONTACT }}
+        run: |
+          set -euo pipefail
+          flutter pub get
+          tools/bootstrap_ios_scaffold.sh
+          flutter build ios --simulator --debug \
+            --dart-define=METNO_CONTACT="$METNO_CONTACT"
+          cd build/ios/iphonesimulator
+          ditto -c -k --sequesterRsrc --keepParent Runner.app "$RUNNER_TEMP/Runner.zip"
+          ls -la "$RUNNER_TEMP/Runner.zip"
+
+      - name: Upload to Appetize
+        env:
+          APPETIZE_PUBLIC_KEY: ${{ vars.APPETIZE_PUBLIC_KEY }}
+          NOTE: sniper-turk-ci
+        shell: bash
+        run: |
+          set -euo pipefail
+          API=https://api.appetize.io/v1/apps
+          KEY="${APPETIZE_PUBLIC_KEY:-}"
+          if [[ -z "$KEY" ]]; then
+            # Reuse the app this workflow created before (matched by note).
+            KEY="$(curl -fsS -H "X-API-KEY: $APPETIZE_API_TOKEN" "$API" | python3 -c '
+          import json, os, sys
+          body = json.load(sys.stdin)
+          apps = body.get("data", body) if isinstance(body, dict) else body
+          for app in apps or []:
+              if isinstance(app, dict) and app.get("note") == os.environ["NOTE"]:
+                  print(app.get("publicKey", ""))
+                  break
+          ')"
+          fi
+          URL="$API"
+          [[ -n "$KEY" ]] && URL="$API/$KEY"
+          HTTP="$(curl -sS -o "$RUNNER_TEMP/appetize.json" -w '%{http_code}' \
+            -X POST "$URL" \
+            -H "X-API-KEY: $APPETIZE_API_TOKEN" \
+            -F "file=@$RUNNER_TEMP/Runner.zip" \
+            -F "platform=ios" \
+            -F "note=$NOTE")"
+          if [[ "$HTTP" != 2* ]]; then
+            echo "::error title=Appetize upload failed::HTTP $HTTP"
+            python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); print({k: d[k] for k in ("message","error") if k in d})' \
+              "$RUNNER_TEMP/appetize.json" || true
+            exit 1
+          fi
+          KEY="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["publicKey"])' "$RUNNER_TEMP/appetize.json")"
+          {
+            echo "### Appetize"
+            echo
+            echo "- Uploaded \`${GITHUB_SHA:0:7}\` (HTTP $HTTP)"
+            echo "- App: https://appetize.io/app/$KEY"
+            echo "- Public key (not a secret; may be saved as variable APPETIZE_PUBLIC_KEY): \`$KEY\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::notice title=Appetize::https://appetize.io/app/$KEY"

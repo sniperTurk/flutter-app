@@ -81,12 +81,39 @@ void main() {
     expect(find.text('Atış girdileri'), findsNothing);
     expect(find.text('Hesapla'), findsNothing);
     expect(find.text('Pro Ayarlara Geç'), findsOneWidget);
+    // Rüzgâr düzeltmesi is back on Pro Ayarlar (owner, 2026-10-12).
+    expect(find.byKey(const Key('pro-section-wind')), findsNothing);
+    expect(find.byKey(const Key('pro-wind-max')), findsNothing);
     await _tapKey(tester, 'environment-continue-pro');
 
     // Pro Ayarlar: five boxes, all closed at first (owner, 2026-10-09).
     expect(_title(tester), 'Pro Ayarlar');
     for (final id in ['angle', 'wind', 'coriolis', 'target', 'rifle']) {
       expect(find.byKey(Key('pro-section-$id')), findsOneWidget, reason: id);
+    }
+    expect(find.byKey(const Key('pro-wind-max')), findsNothing);
+    // Rüzgâr düzeltmesi comes right after Açı.
+    expect(
+      tester.getTopLeft(find.byKey(const Key('pro-section-angle'))).dy,
+      lessThan(tester.getTopLeft(find.byKey(const Key('pro-section-wind'))).dy),
+    );
+    expect(
+      tester.getTopLeft(find.byKey(const Key('pro-section-wind'))).dy,
+      lessThan(
+        tester.getTopLeft(find.byKey(const Key('pro-section-coriolis'))).dy,
+      ),
+    );
+    // Box titles are regular, not bold (owner, 2026-10-11).
+    for (final id in ['angle', 'coriolis', 'target', 'rifle']) {
+      final title = tester
+          .widgetList<Text>(
+            find.descendant(
+              of: find.byKey(Key('pro-section-$id')),
+              matching: find.byType(Text),
+            ),
+          )
+          .first;
+      expect(title.style?.fontWeight, FontWeight.w400, reason: id);
     }
     expect(find.byKey(const Key('shot-incline')), findsNothing);
     // Opening a box shows its fields and its explanation; one box at a time.
@@ -97,22 +124,21 @@ void main() {
       find.textContaining('Telefonu dik tut', findRichText: true),
       findsWidgets,
     );
-    await openProFor(tester, const Key('pro-coriolis-switch'));
+    await openProFor(tester, const Key('pro-latitude'));
     expect(find.byKey(const Key('shot-incline')), findsNothing);
-    expect(find.byTooltip('Bilgi: Coriolis'), findsOneWidget);
-    expect(find.byKey(const Key('pro-latitude')), findsNothing);
+    // No on/off switch: the data fields are always shown (owner, 2026-10-11).
+    expect(find.byKey(const Key('pro-coriolis-switch')), findsNothing);
+    expect(find.byKey(const Key('pro-latitude')), findsOneWidget);
     // A PCP profile sees no powder temperature, but the PCP spin note.
     await openProFor(tester, const Key('pro-turret-scale'));
-    expect(find.byKey(const Key('pro-powder-coef')), findsNothing);
+    expect(find.byKey(const Key('pro-powder-source')), findsNothing);
     expect(find.byKey(const Key('pro-spin-pcp-note')), findsOneWidget);
-    await openProFor(tester, const Key('pro-coriolis-switch'));
-
-    await _tapKey(tester, 'pro-coriolis-switch');
+    await openProFor(tester, const Key('pro-latitude'));
     expect(find.byKey(const Key('pro-latitude')), findsOneWidget);
     expect(find.byKey(const Key('pro-azimuth')), findsOneWidget);
     // Every entered value explains itself (ⓘ).
     expect(find.byTooltip('Bilgi: Enlem'), findsOneWidget);
-    expect(find.byTooltip('Bilgi: Atış yönü (azimut)'), findsOneWidget);
+    expect(find.byTooltip('Bilgi: Atış yönü'), findsOneWidget);
 
     await tester.enterText(find.byKey(const Key('pro-latitude')), '40');
     await tester.enterText(find.byKey(const Key('pro-azimuth')), '0');

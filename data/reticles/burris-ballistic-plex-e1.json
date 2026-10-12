@@ -1,0 +1,23 @@
+{
+  "name": "Ballistic Plex E1",
+  "brand": "Burris",
+  "scopes": [
+    "Fullfield E1 2-7x35mm",
+    "Fullfield E1 3-9x40mm",
+    "Fullfield E1 4.5-14x42mm"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/ballistic-plex-e1",
+  "notes": "Burris Ballistic Plex E1 sayfası: alt dikeydeki işaretler 100-500 yd için kalibre; yan kademeli noktalar 10 mph rüzgâr (400 yd'de +/- 1.5 in.). Fullfield E1 kılavuzu (https://www.burrisoptics.com/sites/default/files/content/files/2022-07/ffe1_userguide.pdf): 'Dot size = .25 MOA', ölçü tablosu MOA, düşük/yüksek büyütme sütunlu (ör. 3-9x40: .86 2.3 20 .31 .83 7.1) -> büyütmeye bağlı, yani SFP (çıkarım; kılavuz odak düzlemi yazmıyor). unit=moa kılavuz tablosu başlığından. family=duplex 'Plex' adından çıkarım. İşaret aralığı sabit açı değil (balistik), uzanımlar ve harf eşlemesi okunamadı -> null."
+}

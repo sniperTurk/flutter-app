@@ -1,0 +1,21 @@
+{
+  "name": "APRS4 SFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Midas BTR GEN2 HD"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 8,
+  "extent_v_up": 8,
+  "extent_v_down": 8,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-APRS4-SFP-IR-MIL-Reticle-Manual-Midas-BTR-GEN2.pdf",
+  "notes": "SFP; ölçüler yalnızca 4.5-27x50'de 15x'te geçerli. Föy metninden: '.1 mil floating center dot'; aydınlatmalı 2 mil açıklıklı merkez artı; '0.2 mil hash mark increments from center to 6 mils in all directions'; '8 mil span in hash marks from center to left and right, up and down' (extent=8 buradan; 6-8 mil arası aralık yazılmamış). Büyük işaret, rakam belirtilmemiş. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

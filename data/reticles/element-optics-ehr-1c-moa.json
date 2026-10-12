@@ -1,0 +1,23 @@
+{
+  "name": "EHR-1C MOA",
+  "brand": "Element Optics",
+  "scopes": [
+    "Titan 5-25x56 FFP",
+    "Nexus 5-20x50 FFP",
+    "Helix 6-24x50 SFP"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": 2.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": true,
+  "source_url": "https://element-optics.com/pdfs/RETICLE%20SHEET%20EHR-1C%20TITAN.pdf",
+  "notes": "Titan 5-25 FFP föyü. Föy metni: A yüzen merkez artı, B 4 MOA içi boş daire, C 2 MOA büyük ve D 1 MOA küçük çizgi, E yüzen tasarım (@20x), F tutma işareti (#), G düşük büyütme merkez kılavuzları; 'Intuitive markings at 1, 2 and 4 MOA'; 1C sürümünde eksen dışı tutma noktası yok. Merkezde ayrı nokta belirtilmemiş (center_dot false). Nexus 5-20 FFP föyü (https://element-optics.com/pdfs/RETICLE%20SHEET%20EHR-1C%20NEXUS.pdf) aynı etiketleri veriyor. Helix 6-24 SFP föyü (https://element-optics.com/wp-content/uploads/2020/12/RETICLE-SHEET-EHR-1C-HELIX.pdf): 'calibrated at 24x' (SFP referans büyütme 24x; 12x ve 6x'te hesapla kullanılır), aydınlatmasız. Çizgi kalınlığı hiçbir föyde yazmıyor. Uzanımlar ve rakam aralığı yalnız föy görselinde, okunamadı -> null. 3. tur (2026-10-11): Güncel Titan 5-25 ürün sayfası EHR-1C'yi artık listelemiyor (APR-1C/APR-2D MRAD ve MOA); föy üreticinin retikül sayfasında hâlâ Titan altında. Nexus 5-20 ve Helix 6-24 SFP sayfaları EHR-1C MOA'yı listeliyor."
+}

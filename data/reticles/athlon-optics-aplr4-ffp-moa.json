@@ -1,0 +1,34 @@
+{
+  "name": "APLR4 FFP MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Midas TAC HD"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 40,
+  "tree": {
+    "rows": [
+      {
+        "y": 5,
+        "half_width": 5,
+        "dot_step": 1
+      },
+      {
+        "y": 40,
+        "half_width": 25,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-APLR4-FFP-MOA-Reticle-Manual-Midas-TAC.pdf",
+  "notes": "FFP, aydınlatmasız (föyde aydınlatma geçmiyor). APLR4 FFP IR MOA ile aynı tanım: 0.2 MOA yüzen merkez nokta, dört yönde 1 MOA boşluk, 1 MOA işaretler, 5 MOA aralıklı düşüş çizgileri 40 MOA'ya kadar; satır 10 MOA uzunlukta başlar, 40 MOA çizgisinde 50 MOA. Satırlar 'X moa length' (toplam uzunluk) olarak verildiği için half_width = uzunluk/2 (çıkarım); ilk satır ilk 5 MOA düşüş çizgisi (y=5) kabul edildi (çıkarım); ara satır genişlikleri metinde yok. major_every=5 satırdaki büyük nokta aralığından çıkarım. Yatay/yukarı uzanım, rakam, direk belirtilmemiş -> null. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}
