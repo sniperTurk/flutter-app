@@ -3899,9 +3899,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               wasReset: _latWasReset,
               button: MenzilSecondaryButton(
                 key: const Key('pro-latitude-gps'),
-                label: _latFilled
-                    ? 'Konumdan alındı'
-                    : 'Konumdan al',
+                label: _latFilled ? 'Konumdan alındı' : 'Konumdan al',
                 icon: _latFilled ? Icons.check : Icons.my_location,
                 expand: true,
                 active: _latFilled,
@@ -3934,9 +3932,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               wasReset: _aziWasReset,
               button: MenzilSecondaryButton(
                 key: const Key('pro-azimuth-compass'),
-                label: _aziFilled
-                    ? 'Pusuladan alındı'
-                    : 'Pusuladan al',
+                label: _aziFilled ? 'Pusuladan alındı' : 'Pusuladan al',
                 icon: _aziFilled ? Icons.check : Icons.explore_outlined,
                 expand: true,
                 active: _aziFilled,
@@ -3996,9 +3992,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               wasReset: _gravWasReset,
               button: MenzilSecondaryButton(
                 key: const Key('pro-gravity-gps'),
-                label: _gravFilled
-                    ? 'Konumdan hesaplandı'
-                    : 'Konumdan hesapla',
+                label: _gravFilled ? 'Konumdan hesaplandı' : 'Konumdan hesapla',
                 icon: _gravFilled ? Icons.check : Icons.my_location,
                 expand: true,
                 active: _gravFilled,
