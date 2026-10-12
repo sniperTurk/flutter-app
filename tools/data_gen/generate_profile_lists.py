@@ -267,7 +267,9 @@ for f in AMMO_FILES:
         if r['brand'] == 'MKE':
             continue
         c = cartridge(r['cartridge'])
-        if c is None or not r.get('muzzle_velocity_fps'):
+        # The app takes 600-4500 fps factory rounds (profile_lists_test); a
+        # primer-powered parlour round (Aguila Colibrí, 420 fps) stays out.
+        if c is None or not r.get('muzzle_velocity_fps') or not 600 <= r['muzzle_velocity_fps'] <= 4500:
             skipped.append(('ammo', r['brand'], r['product'], r['cartridge']))
             continue
         dia = CARTRIDGES[c]

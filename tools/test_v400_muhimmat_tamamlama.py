@@ -59,7 +59,7 @@ class SourceRuleTests(unittest.TestCase):
 
 class FactoryAmmoTests(unittest.TestCase):
     def test_new_makers_listed_with_velocity(self):
-        for brand, n in (('PMC', 11), ('Magtech', 35), ('Aguila', 31)):
+        for brand, n in (('PMC', 11), ('Magtech', 35), ('Aguila', 29)):
             rows = re.findall(r"FactoryAmmo\('" + brand + r"', ", AMMO)
             self.assertEqual(len(rows), n, brand)
 
@@ -67,6 +67,10 @@ class FactoryAmmoTests(unittest.TestCase):
         row = next(l for l in AMMO.splitlines() if "FactoryAmmo('PMC'" in l and 'X-TAC Match' in l and '168' in l)
         self.assertIn('0.462, BallisticModel.g1', row)
         self.assertIn('G1 kabul edildi', row)
+
+    def test_velocity_inside_app_range(self):
+        # Aguila Colibrí / Super Colibrí (420 / 590 fps) stay out (600-4500 fps).
+        self.assertNotIn('Colibrí', AMMO)
 
     def test_aguila_has_no_bc(self):
         for l in AMMO.splitlines():
