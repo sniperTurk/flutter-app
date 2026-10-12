@@ -2434,9 +2434,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? get _grainError => _rangeError(ammoGrain, 1, 800);
 
   /// Uzunluk is optional; a typed one must be a plausible pellet/slug.
-  String? get _lengthError => ammoLength.text.trim().isEmpty
-      ? null
-      : _rangeError(ammoLength, 1, 60);
+  String? get _lengthError =>
+      ammoLength.text.trim().isEmpty ? null : _rangeError(ammoLength, 1, 60);
 
   /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
   /// publish none); a typed one is still range-checked.
@@ -2978,9 +2977,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// PCP Marka | Model lists, hidden (owner, 2026-10-13: "Pellet marka
   /// bullet marka almanın hiç bir faydası yok"; hidden, not removed). PCP
   /// asks only Tip, Ağırlık, Uzunluk and BC.
-  static const bool _showPcpAmmoBrand = bool.fromEnvironment(
-    'PCP_AMMO_BRAND',
-  );
+  static const bool _showPcpAmmoBrand = bool.fromEnvironment('PCP_AMMO_BRAND');
 
   /// Marka | Model of the ammunition: two lists side by side (factory
   /// cartridges or the bullet library for this caliber); the typed boxes
