@@ -88,7 +88,7 @@ class MainView extends WatchUi.View {
     }
 
     // Bir kule sütunu: etiket, yön üçgeni + klik, açı.
-    function column(dc, x, h, label, clicks, vertical, detail, color) {
+    private function column(dc, x, h, label, clicks, vertical, detail, color) {
         dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, h * 41 / 100, Graphics.FONT_XTINY, label, Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
@@ -100,7 +100,7 @@ class MainView extends WatchUi.View {
     }
 
     // Yön üçgeni (yazı tipine bağlı ok karakteri kullanılmaz).
-    function arrow(dc, x, y, clicks, vertical) {
+    private function arrow(dc, x, y, clicks, vertical) {
         var a = 9;
         if (vertical) {
             if (clicks < 0) {
@@ -117,7 +117,7 @@ class MainView extends WatchUi.View {
         }
     }
 
-    function message(dc, cx, h, title, detail) {
+    private function message(dc, cx, h, title, detail) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(cx, h * 40 / 100, Graphics.FONT_SMALL, title, Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);

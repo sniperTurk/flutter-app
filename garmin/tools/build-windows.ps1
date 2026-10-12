@@ -7,6 +7,10 @@ $jdk = Get-ChildItem "C:\Program Files\Eclipse Adoptium" -Directory -ErrorAction
 if ($jdk) { $env:JAVA_HOME = $jdk.FullName; $env:Path = "$($jdk.FullName)\bin;$env:Path" }
 # SDK Manager'da "Use this SDK" ile secilen surum (yoksa en yenisi).
 $cfg = "$env:APPDATA\Garmin\ConnectIQ\current-sdk.cfg"
+# Turkce Windows'ta Java "bitor"/"private" gibi kelimeleri buyuk harfe
+# cevirirken noktali I (I-with-dot) uretir; derleyici bunlari tanimaz ve
+# "critical error" ile coker. Derleyiciyi Ingilizce yerel ayarla calistir.
+$env:JAVA_TOOL_OPTIONS = "-Duser.language=en -Duser.country=US"
 $sdk = $null
 if (Test-Path $cfg) { $sdk = (Get-Content $cfg -Raw).Trim().TrimEnd('\') }
 if (-not $sdk -or -not (Test-Path "$sdk\bin\monkeyc.bat")) {
