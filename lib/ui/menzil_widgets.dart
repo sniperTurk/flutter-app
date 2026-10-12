@@ -1411,14 +1411,16 @@ class MenzilPrimaryButton extends StatelessWidget {
       final b = FilledButton(
         style: (style ?? const ButtonStyle()).merge(
           FilledButton.styleFrom(
-            padding: const EdgeInsets.only(left: 10, right: 8),
+            // Icon and label nearer the left edge (owner, 2026-10-12:
+            // "+ biraz daha sola kayabilir… sağda mesafe az").
+            padding: const EdgeInsets.only(left: 2, right: 14),
           ),
         ),
         onPressed: onPressed,
         child: Row(
           children: [
             Icon(icon, size: 20),
-            const SizedBox(width: 4),
+            const SizedBox(width: 2),
             Expanded(child: Center(child: text)),
           ],
         ),
