@@ -52,6 +52,21 @@
   "VHR MOA": "arken-vhr-moa",
   "VPR MOA": "arken-vpr-moa"
  },
+ "lib-athlon-ares-btr-gen2-hd-2-5-15x50-aplr4-ffp-ir-moa": {
+  "APLR4": "athlon-optics-aplr4-ffp-ir-moa"
+ },
+ "lib-athlon-ares-btr-gen2-hd-2-5-15x50-aprs5-ffp-ir-mil": {
+  "APRS5": "athlon-optics-aprs5-ffp-ir-mil"
+ },
+ "lib-athlon-ares-btr-gen2-hd-4-5-27x50-aplr3-ffp-ir-moa": {
+  "APLR3": "athlon-optics-aplr3-ffp-ir-moa"
+ },
+ "lib-athlon-ares-btr-gen2-hd-4-5-27x50-aplr4-ffp-ir-moa": {
+  "APLR4": "athlon-optics-aplr4-ffp-ir-moa"
+ },
+ "lib-athlon-ares-btr-gen2-hd-4-5-27x50-aprs5-ffp-ir-mil": {
+  "APRS5": "athlon-optics-aprs5-ffp-ir-mil"
+ },
  "lib-athlon-ares-btr-gen3-hd-2-5-15x50-aplr13-ffp-ir-moa": {
   "APLR13": "athlon-optics-aplr13-ffp-ir-moa"
  },
@@ -70,6 +85,30 @@
  "lib-athlon-ares-etr-gen2-uhd-4-5-30x56-aplr12-ffp-ir-moa": {
   "APLR12": "athlon-optics-aplr12-ffp-ir-moa"
  },
+ "lib-athlon-ares-etr-uhd-1-10x24-atmr2-ffp-ir-moa": {
+  "ATMR2": null
+ },
+ "lib-athlon-ares-etr-uhd-1-10x24-atmr3-ffp-ir-mil": {
+  "ATMR3": "athlon-optics-atmr3-ffp-ir-mil"
+ },
+ "lib-athlon-ares-etr-uhd-15-60x56-blr1-sfp-ir-moa": {
+  "BLR1": null
+ },
+ "lib-athlon-ares-etr-uhd-3-18x50-aprs6-ffp-ir-mil": {
+  "APRS6": "athlon-optics-aprs6-ffp-ir-mil"
+ },
+ "lib-athlon-ares-etr-uhd-4-5-30x56-aplr2-ffp-ir-moa": {
+  "APLR2": "athlon-optics-aplr2-ffp-ir-moa"
+ },
+ "lib-athlon-ares-etr-uhd-4-5-30x56-aplr5-ffp-ir-moa": {
+  "APLR5": "athlon-optics-aplr5-ffp-ir-moa"
+ },
+ "lib-athlon-ares-etr-uhd-4-5-30x56-aprs1-ffp-ir-mil": {
+  "APRS1": "athlon-optics-aprs1-ffp-ir-mil"
+ },
+ "lib-athlon-ares-etr-uhd-4-5-30x56-aprs6-ffp-ir-mil": {
+  "APRS6": "athlon-optics-aprs6-ffp-ir-mil"
+ },
  "lib-athlon-ares-hlr-2-5-15x42-ahmc1-fiber-dot-sfp-ir-moa": {
   "AHMC1 Fiber Dot": null
  },
@@ -87,6 +126,24 @@
  },
  "lib-athlon-ares-hlr-4-24x50-aprs-h2-sfp-ir-mil": {
   "APRS-H2": "athlon-optics-aprs-h2-sfp-ir-mil"
+ },
+ "lib-athlon-argos-btr-gen2-1-8x24-atsr5-sfp-ir-moa": {
+  "ATSR5": null
+ },
+ "lib-athlon-argos-btr-gen2-10-40x56-blr-sfp-moa": {
+  "BLR": "athlon-optics-blr-sfp-moa"
+ },
+ "lib-athlon-argos-btr-gen2-6-24x50-aplr2-ffp-ir-moa": {
+  "APLR2": "athlon-optics-aplr2-ffp-ir-moa"
+ },
+ "lib-athlon-argos-btr-gen2-6-24x50-apmr-ffp-ir-mil": {
+  "APMR": "athlon-optics-apmr-ffp-ir-mil"
+ },
+ "lib-athlon-argos-btr-gen2-8-34x56-aplr2-ffp-ir-moa": {
+  "APLR2": "athlon-optics-aplr2-ffp-ir-moa"
+ },
+ "lib-athlon-argos-btr-gen2-8-34x56-apmr-ffp-ir-mil": {
+  "APMR": "athlon-optics-apmr-ffp-ir-mil"
  },
  "lib-athlon-argos-btr-gen3-8-34x56-aplr11-ffp-ir-moa": {
   "APLR11": "athlon-optics-aplr11-ffp-ir-moa"
@@ -117,6 +174,9 @@
  },
  "lib-athlon-cronus-btr-gen2-uhd-4-5-29x56-aprs6-ffp-ir-mil": {
   "APRS6": "athlon-optics-aprs6-ffp-ir-mil"
+ },
+ "lib-athlon-helos-btr-1-4-5x24-atsr3-sfp-ir-moa": {
+  "ATSR3": "athlon-optics-atsr3-sfp-ir-moa"
  },
  "lib-athlon-helos-btr-gen2-1-10x28-atmr4-sfp-ir-moa": {
   "ATMR4": null
@@ -225,6 +285,27 @@
  },
  "lib-athlon-midas-tac-gen2-uhd-5-30x56-aprs16-ffp-ir-mil": {
   "APRS16": "athlon-optics-aprs16-ffp-ir-mil"
+ },
+ "lib-athlon-midas-tac-hd-4-16x44-aprs2-ffp-mil": {
+  "APRS2": "athlon-optics-aprs2-ffp-mil"
+ },
+ "lib-athlon-midas-tac-hd-5-25x56-aplr4-ffp-moa": {
+  "APLR4": "athlon-optics-aplr4-ffp-moa"
+ },
+ "lib-athlon-midas-tac-hd-5-25x56-aprs3-ffp-mil": {
+  "APRS3": "athlon-optics-aprs3-ffp-mil"
+ },
+ "lib-athlon-midas-tac-hd-5-25x56-aprs6-ffp-mil": {
+  "APRS6": "athlon-optics-aprs6-ffp-mil"
+ },
+ "lib-athlon-midas-tac-hd-6-24x50-aplr4-ffp-moa": {
+  "APLR4": "athlon-optics-aplr4-ffp-moa"
+ },
+ "lib-athlon-midas-tac-hd-6-24x50-aprs2-ffp-mil": {
+  "APRS2": "athlon-optics-aprs2-ffp-mil"
+ },
+ "lib-athlon-midas-tac-hd-6-24x50-aprs3-ffp-mil": {
+  "APRS3": "athlon-optics-aprs3-ffp-mil"
  },
  "lib-athlon-neos-3-9x40-bdc-22-rimfire": {
   "BDC 22 RIMFIRE": null
@@ -352,6 +433,12 @@
  "lib-athlon-talos-btr-gen2-1-4x24-atmr7-sfp-ir-mil": {
   "ATMR7": "athlon-optics-atmr7-sfp-ir-mil"
  },
+ "lib-athlon-talos-btr-gen2-10x42-aagr1-sfp-moa": {
+  "AAGR1": "athlon-optics-aagr1-sfp-moa"
+ },
+ "lib-athlon-talos-btr-gen2-10x42-aprs2a-sfp-mil": {
+  "APRS2A": "athlon-optics-aprs2a-sfp-mil"
+ },
  "lib-athlon-talos-btr-gen2-4-14x44-aplr10-ffp-ir-moa": {
   "APLR10": "athlon-optics-aplr10-ffp-ir-moa"
  },
@@ -360,6 +447,9 @@
  },
  "lib-athlon-talos-btr-gen2-4-14x44-aprs10-ffp-ir-mil": {
   "APRS10": "athlon-optics-aprs10-ffp-ir-mil"
+ },
+ "lib-athlon-talos-hmr-1x24-center-x-sfp-moa": {
+  "Center-X": null
  },
  "lib-athlon-talos-hmr-3-12x50-ahmc-sfp-ir-moa": {
   "AHMC": "athlon-optics-ahmc-sfp-ir-moa"
@@ -439,6 +529,12 @@
  "lib-barska-3-9x40mm-colorado-30-30-rifle-scope": {
   "30/30": null
  },
+ "lib-barska-3-9x40mm-colorado-30-30-rifle-scope-with-rings": {
+  "Duplex": null
+ },
+ "lib-barska-3-9x40mm-colorado-30-30-silver-rifle-scope-with-rings": {
+  "Duplex": null
+ },
  "lib-barska-3-9x40mm-huntmaster-30-30-rifle-scope": {
   "30/30": null
  },
@@ -490,8 +586,20 @@
  "lib-barska-4-16x60mm-euro-30-pro-4a-ir-cross-rifle-scope-with-rings": {
   "4A": null
  },
+ "lib-barska-4x15mm-rimfire-30-30-rifle-scope-with-rings": {
+  "30/30": null
+ },
+ "lib-barska-4x20mm-rimfire-30-30-rifle-scope-with-rings": {
+  "30/30": null
+ },
  "lib-barska-4x32mm-air-gun-reverse-recoil-ao-mil-dot-rifle-scope": {
   "Mil-Dot": null
+ },
+ "lib-barska-4x32mm-contour-crossbow-rifle-scope-black": {
+  "Crossbow": null
+ },
+ "lib-barska-4x32mm-contour-crossbow-rifle-scope-mossy-oak-break-up-camo": {
+  "Crossbow": null
  },
  "lib-barska-4x32mm-contour-external-turret-ir-mil-dot-rifle-scope-with-ring": {
   "Mil-Dot": null
@@ -500,6 +608,9 @@
   "30/30": null
  },
  "lib-barska-4x32mm-plinker-22-30-30-rifle-scope-with-rings-2": {
+  "30/30": null
+ },
+ "lib-barska-4x32mm-plinker-22-30-30-silver-rifle-scope-with-rings": {
   "30/30": null
  },
  "lib-barska-4x32mm-plinker-22-ir-30-30-rifle-scope-with-rings": {
@@ -1262,6 +1373,27 @@
  "lib-hawke-vantage-sf-6-24x44-half-mil-dot": {
   "Half Mil Dot": null
  },
+ "lib-integrix-ix6-3-18x44-a2-moa-ffp": {
+  "A2 MOA (etched glass), illuminated Red/Green": null
+ },
+ "lib-integrix-ix6-3-18x44-m1-mrad-ffp": {
+  "M1 MRAD, illuminated Red/Green": null
+ },
+ "lib-integrix-ix6-4-5-27x56-m1-mrad-ffp": {
+  "M1 MRAD, illuminated Red/Green": null
+ },
+ "lib-integrix-ix8-1-8x28-a1-moa-ffp": {
+  "A1 MOA, illuminated Red/Green": null
+ },
+ "lib-integrix-ix8-1-8x28-m3-mrad-ffp": {
+  "M3 MRAD (etched glass), illuminated Red/Green": null
+ },
+ "lib-integrix-ixf-4-5x28-a4-6-5-moa-sfp": {
+  "A4-6.5 MOA, illuminated Red/Green": null
+ },
+ "lib-integrix-ixf-4-5x28-a4-7-moa-sfp": {
+  "A4-7 MOA, illuminated Red/Green": null
+ },
  "lib-kahles-k525i-refined-5-25x56i": {
   "SKMR4": "kahles-skmr4"
  },
@@ -1935,6 +2067,220 @@
   "Forceplex": "nightforce-forceplex",
   "MOAR": null
  },
+ "lib-nikko-stirling-airking-2-7x32-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-airking-2-7x32-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), red/green illuminated": null
+ },
+ "lib-nikko-stirling-airking-3-9x42-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-airking-3-9x42-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), red/green illuminated": null
+ },
+ "lib-nikko-stirling-airking-4-12x42-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-airking-4-12x42-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), red/green illuminated": null
+ },
+ "lib-nikko-stirling-airking-4-5-14x50-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-airking-4-5-14x50-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), red/green illuminated": null
+ },
+ "lib-nikko-stirling-airking-4x32-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-airking-4x32-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), red/green illuminated": null
+ },
+ "lib-nikko-stirling-airking-6-18x44-hmd": {
+  "Half Mil Dot (HMD)": null
+ },
+ "lib-nikko-stirling-airking-6-18x44-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), red/green illuminated": null
+ },
+ "lib-nikko-stirling-boar-eater-1-4x24-no-4-dot-illuminated": {
+  "No.4 Dot (4 Dot extreme, illuminated, glass etched)": null
+ },
+ "lib-nikko-stirling-boar-eater-1-6x24-no-4-dot-illuminated": {
+  "No.4 Dot (4 Dot extreme, illuminated, glass etched)": null
+ },
+ "lib-nikko-stirling-diamond-1-4x24-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated)": null
+ },
+ "lib-nikko-stirling-diamond-1-5-6x42-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated)": null
+ },
+ "lib-nikko-stirling-diamond-2-5-10x50-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated)": null
+ },
+ "lib-nikko-stirling-diamond-3-12x42-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated)": null
+ },
+ "lib-nikko-stirling-diamond-3-12x56-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated)": null
+ },
+ "lib-nikko-stirling-diamond-3-12x62-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated)": null
+ },
+ "lib-nikko-stirling-diamond-3-9x42-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated)": null
+ },
+ "lib-nikko-stirling-diamond-ffp-34mm-4-16x44-prr-ffp-mrad": {
+  "PRR (Precision Rifle Reticle), glass etched, illuminated": null
+ },
+ "lib-nikko-stirling-diamond-ffp-34mm-4-16x44-skeleton-hmd-nato-ffp-mrad": {
+  "Skeleton HMD (Half Mil Dot) NATO, glass etched, illuminated": null
+ },
+ "lib-nikko-stirling-diamond-ffp-34mm-5-30x56-mrad-xtr-ffp-mrad": {
+  "MRAD XTR, glass etched, illuminated": null
+ },
+ "lib-nikko-stirling-diamond-ffp-34mm-6-24x50-prr-ffp-mrad": {
+  "PRR (Precision Rifle Reticle), glass etched, illuminated": null
+ },
+ "lib-nikko-stirling-diamond-ffp-34mm-6-24x50-skeleton-hmd-nato-ffp-mrad": {
+  "Skeleton HMD (Half Mil Dot) NATO, glass etched, illuminated": null
+ },
+ "lib-nikko-stirling-diamond-ffp-4-16x44-skeleton-hmd-nato-ffp-mrad": {
+  "Skeleton HMD (Half Mil Dot) NATO, glass etched, illuminated": null
+ },
+ "lib-nikko-stirling-diamond-ffp-6-24x50-skeleton-hmd-nato-ffp-mrad": {
+  "Skeleton HMD (Half Mil Dot) NATO, glass etched, illuminated": null
+ },
+ "lib-nikko-stirling-diamond-long-range-4-16x50-hmd-illuminated": {
+  "Skeleton HMD (Half Mil Dot), red/green illuminated": null
+ },
+ "lib-nikko-stirling-diamond-long-range-4-16x50-holdfast-illuminated": {
+  "HOLDFAST (HF), glass etched, red/green illuminated": null
+ },
+ "lib-nikko-stirling-diamond-long-range-6-24x50-hmd-illuminated": {
+  "Skeleton HMD (Half Mil Dot), red/green illuminated": null
+ },
+ "lib-nikko-stirling-diamond-long-range-6-24x50-holdfast-illuminated": {
+  "HOLDFAST (HF), glass etched, red/green illuminated": null
+ },
+ "lib-nikko-stirling-diamond-sportsman-10-50x60-hmd-mil-dot-illuminated": {
+  "HMD": null,
+  "Mil Dot (glass etched, illuminated)": null
+ },
+ "lib-nikko-stirling-diamond-sportsman-10-50x60-nato": {
+  "NATO (glass etched, non-illuminated)": null
+ },
+ "lib-nikko-stirling-hornet-ed-10-50x60-hmd-t-illuminated": {
+  "HMD-T (illuminated, MIL based)": null
+ },
+ "lib-nikko-stirling-metor-2-5-10x50-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated, glass etched)": null
+ },
+ "lib-nikko-stirling-metor-3-12x56-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated, glass etched)": null
+ },
+ "lib-nikko-stirling-metor-4-16x50-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated, glass etched)": null
+ },
+ "lib-nikko-stirling-mountmaster-3-9x40-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-3-9x40-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), red/green illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-3-9x50-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-3-9x50-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), red/green illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-4-12x50-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-4-12x50-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), red/green illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-4x32-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-4x40-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-6x40-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-silver-crown-3-9x40-hmd": {
+  "HMD (family feature list), non-illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-silver-crown-4-12x40-hmd": {
+  "HMD (family feature list)": null
+ },
+ "lib-nikko-stirling-mountmaster-silver-crown-4x32-4-plex": {
+  "4 Plex, non-illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-silver-crown-4x32-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), red/green illuminated": null
+ },
+ "lib-nikko-stirling-mountmaster-silver-crown-4x40-ao": {
+  "HMD (family feature list)": null
+ },
+ "lib-nikko-stirling-mountmaster-silver-crown-6x40-hmd": {
+  "HMD (family feature list), non-illuminated": null
+ },
+ "lib-nikko-stirling-octa-2-16x50-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated, glass etched)": null
+ },
+ "lib-nikko-stirling-octa-3-24x56-no-4-dot-illuminated": {
+  "No.4 Dot (illuminated, glass etched)": null
+ },
+ "lib-nikko-stirling-panamax-3-9x40-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-panamax-3-9x40-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), glass etched, red/green illuminated": null
+ },
+ "lib-nikko-stirling-panamax-3-9x40-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-panamax-3-9x40-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), glass etched, red/green illuminated": null
+ },
+ "lib-nikko-stirling-panamax-3-9x50-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-panamax-3-9x50-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), glass etched, red/green illuminated": null
+ },
+ "lib-nikko-stirling-panamax-3-9x50-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-panamax-3-9x50-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), glass etched, red/green illuminated": null
+ },
+ "lib-nikko-stirling-panamax-4-12x50-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-panamax-4-12x50-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), glass etched, red/green illuminated": null
+ },
+ "lib-nikko-stirling-panamax-4-5-14x50-ao-hmd": {
+  "Half Mil Dot (HMD), non-illuminated": null
+ },
+ "lib-nikko-stirling-panamax-4-5-14x50-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), glass etched, red/green illuminated": null
+ },
+ "lib-nikko-stirling-panamax-long-range-6-18x50-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), glass etched, red/green illuminated": null
+ },
+ "lib-nikko-stirling-panamax-long-range-8-24x50-ao-ir-hmd-illuminated": {
+  "Half Mil Dot (HMD), glass etched, red/green illuminated": null
+ },
+ "lib-nikko-stirling-ultimax-2-5-10x50-4-plex-illuminated": {
+  "4 Plex (illuminated)": null
+ },
+ "lib-nikko-stirling-ultimax-3-12x56-4-plex-illuminated": {
+  "4 Plex (illuminated)": null
+ },
  "lib-primary-arms-classic-series-6x32": {
   "ACSS 22LR": null
  },
@@ -1983,6 +2329,87 @@
   "ACSS Athena BPR MIL": "primary-arms-acss-athena-bpr-mil",
   "ACSS Deka G2": "primary-arms-acss-deka-g2-mil",
   "ACSS HUD DMR 308/223": null
+ },
+ "lib-schmidt-bender-1-8x24-exos-fd7-sfp-1cm": {
+  "CQB2": null,
+  "FD7": null
+ },
+ "lib-schmidt-bender-1-8x24-pm-ii-shortdot-dual-cc-mdr-t6-0-1-mrad": {
+  "MDR-T6": null
+ },
+ "lib-schmidt-bender-10-60x56-cm-ii-high-performance-1-fp-m1fl-0-1-mrad": {
+  "M1FL": null
+ },
+ "lib-schmidt-bender-10-60x56-cm-ii-high-performance-m2f-2moa-sfp-1-8-moa": {
+  "M2F-2MOA": null
+ },
+ "lib-schmidt-bender-2-5-10x56-klassik-l3-ffp-1cm": {
+  "L3": null
+ },
+ "lib-schmidt-bender-3-12x42-klassik-l3-ffp-1cm": {
+  "L3": null,
+  "P3L": null
+ },
+ "lib-schmidt-bender-3-12x50-klassik-l3-ffp-1cm": {
+  "L3": null
+ },
+ "lib-schmidt-bender-3-12x50-pm-ii-p4fl-ffp-0-1-mrad": {
+  "P3L": null,
+  "P4FL": null
+ },
+ "lib-schmidt-bender-3-12x50-zenith-fd7-ffp-1cm": {
+  "FD7": null
+ },
+ "lib-schmidt-bender-3-18x42-meta-1-be-sbx-s-ffp-0-1-mrad": {
+  "SBX": null,
+  "SBX-S": null
+ },
+ "lib-schmidt-bender-3-18x42-meta-lp7-sfp-1cm": {
+  "LP7": null
+ },
+ "lib-schmidt-bender-3-20x50-pm-ii-ultra-short-tr2id-ffp-0-1-mrad": {
+  "MSR2": null,
+  "P4FL": null,
+  "TREMOR3": null,
+  "TR²ID": null
+ },
+ "lib-schmidt-bender-3-27x56-pm-ii-high-power-msr2-ffp-0-05-mrad": {
+  "MSR2": null,
+  "P4FL": null,
+  "TREMOR3": null
+ },
+ "lib-schmidt-bender-4-16x50-klassik-p3-ffp-0-5cm": {
+  "P3": null
+ },
+ "lib-schmidt-bender-5-20x50-pm-ii-ultra-short-tremor5-ffp-0-1-mrad": {
+  "MSR2": null,
+  "TREMOR5": null
+ },
+ "lib-schmidt-bender-5-25x56-pm-ii-tremor3-ffp-0-1-mrad": {
+  "MSR2": null,
+  "P4FL": null,
+  "P5FL": null,
+  "TREMOR3": null
+ },
+ "lib-schmidt-bender-5-45x56-pm-ii-high-power-msr2-ffp-0-1-mrad": {
+  "LRR-MIL": null,
+  "MSR2": null,
+  "P4FL": null,
+  "TREMOR3": null
+ },
+ "lib-schmidt-bender-6-36x56-cm-ii-high-performance-gr2id-ffp-0-1-mrad": {
+  "GR²ID": null,
+  "M1FL": null,
+  "P5FL": null,
+  "TR²ID": null
+ },
+ "lib-schmidt-bender-6-36x56-pm-ii-high-performance-p5fl-ffp-0-1-mrad": {
+  "M1FL": null,
+  "MSR2": null,
+  "P5FL": null,
+  "TREMOR3": null,
+  "TREMOR5": null,
+  "TR²ID": null
  },
  "lib-sig-sauer-bravo6t-bdx-3-18x44mm": {
   "MRAD DEV-L 2.0": null,
@@ -2453,6 +2880,51 @@
  },
  "lib-swarovski-z8i-5-40x56-p": {
   "4A-I": null
+ },
+ "lib-utg-accushot-1-8x28-bg4-bdc-sfp-moa": {
+  "BG4 BDC, illuminated Red/Green & IE 36-color": null
+ },
+ "lib-utg-accushot-2-7x44-scout-ler-mil-dot-sfp-moa": {
+  "Mil-Dot (etched glass), illuminated Red/Green & IE 36-color": null
+ },
+ "lib-utg-accushot-3-12x44-compact-mil-dot-sfp-moa": {
+  "Mil-Dot (wire), illuminated IE 36-color": null
+ },
+ "lib-utg-accushot-4-16x44-compact-mil-dot-sfp-moa": {
+  "Mil-Dot (wire), illuminated Red/Green & IE 36-color": null
+ },
+ "lib-utg-accushot-4-16x44-mil-dot-sfp-moa": {
+  "Mil-Dot (wire), illuminated Red/Green & IE 36-color": null
+ },
+ "lib-utg-bug-buster-3-12x32-compact-mil-dot-sfp-moa-dovetail-rings": {
+  "Mil-Dot (wire), non-illuminated": null
+ },
+ "lib-utg-bug-buster-3-12x32-compact-mil-dot-sfp-moa-picatinny-rings": {
+  "Mil-Dot (wire), non-illuminated": null
+ },
+ "lib-utg-bug-buster-3-9x32-compact-mil-dot-sfp-moa": {
+  "Mil-Dot (wire), illuminated Red/Green": null
+ },
+ "lib-utg-op3-1-5-6x36-compact-crossbow-130-hunter-sfp-moa": {
+  "130 Hunter (etched glass), illuminated Red/Green": null
+ },
+ "lib-utg-op3-3-12x44-compact-umoa-sfp-moa": {
+  "UMOA (etched glass), illuminated Red/Green & IE 36-color": null
+ },
+ "lib-utg-op3-4-16x44-compact-umoa-sfp-moa": {
+  "UMOA, illuminated Red/Green & IE 36-color": null
+ },
+ "lib-utg-true-hunter-2-7x32-ler-pdc-bdc-sfp-moa": {
+  "PDC BDC (wire), illuminated Red/Green": null
+ },
+ "lib-utg-true-hunter-4-16x40-mil-dot-sfp-moa": {
+  "Mil-Dot (wire), illuminated Red/Green & IE 36-color": null
+ },
+ "lib-utg-true-hunter-4x32-compact-crossbow-pro-5-step-sfp-moa": {
+  "PRO 5-Step, illuminated Red/Green": null
+ },
+ "lib-utg-true-hunter-6-24x50-mil-dot-sfp-moa": {
+  "Mil-Dot (wire), illuminated Red/Green & IE 36-color": null
  },
  "lib-vector-optics-34mm-continental-x6-1-6x28-ffp-riflescope": {
   "VCT-BNW": "vector-optics-vct-bnw-mil"
