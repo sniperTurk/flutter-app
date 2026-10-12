@@ -1432,7 +1432,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return Row(
       children: [
         Expanded(child: button),
-        const SizedBox(width: MenzilSpace.sm),
+        // Same gap as the boxes above, so the buttons line up with them
+        // (owner, 2026-10-12: "turuncu kutular üstteki kutulardan büyük").
+        const SizedBox(width: MenzilSpace.md),
         Expanded(
           child: MenzilSecondaryButton(
             key: resetKey,

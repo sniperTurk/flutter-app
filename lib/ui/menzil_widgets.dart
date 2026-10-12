@@ -1550,7 +1550,13 @@ class MenzilSecondaryButton extends StatelessWidget {
     final button = icon == null
         ? OutlinedButton(style: style, onPressed: onPressed, child: _label())
         : OutlinedButton.icon(
-            style: style,
+            // Equal space left and right of icon + label (owner,
+            // 2026-10-12: "sağda ve solda aynı boşluk kalsın").
+            style: (style ?? const ButtonStyle()).merge(
+              OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+              ),
+            ),
             onPressed: onPressed,
             icon: Icon(icon, size: 20),
             label: _label(),
