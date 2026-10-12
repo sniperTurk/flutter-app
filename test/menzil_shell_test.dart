@@ -369,8 +369,11 @@ void main() {
     expect(saved.muzzleVelocityMps, closeTo(274.32, 1e-9));
     expect(saved.zeroRangeM, 25);
     expect(saved.sightHeightMm, 60);
-    // Regülatör basıncı is not asked any more (owner, 2026-10-09).
+    // Regülatör / tüp basıncı are optional (owner, 2026-10-12): left
+    // empty, none is stored.
     expect(saved.pressureBar, isNull);
+    expect(saved.tubePressureBar, isNull);
+    expect(saved.pressureVelocityTable, isEmpty);
     expect(find.text('Yeni Profil'), findsOneWidget);
     // The rifle became a personal record with every typed value.
     final rifle = CatalogRepository.allRifles.singleWhere(

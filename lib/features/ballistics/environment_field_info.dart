@@ -116,6 +116,12 @@ abstract final class EnvironmentFieldInfo {
       'güney 180, batı 270. "Pusuladan al" için telefonu hedefe doğru '
       'tutun. Birkaç derecelik hata Coriolis sonucunu fark edilir '
       'değiştirmez. Örnek: 135.';
+  static const tubePressure =
+      'Şu an tüpte kalan basınç, bar; tüfeğin manometresinden okuyun. '
+      'Regülatörlü tüfekte regülatör basıncının üstündeyse hız değişmez, '
+      'altındaysa uyarı çıkar. Profil > Mühimmat\'ta basınca göre hız '
+      'ölçümleri varsa hız onlardan bulunur. Boş bırakırsanız profil hızı '
+      'kullanılır. Yalnızca PCP. Örnek: 160.';
   static const turretScale =
       'Kulenin yazdığı kadar çevirmeyebilir. Kule testi: dürbünü 10 MRAD '
       '(ya da 30 MOA) yukarı çevirip 100 m\'de ızgaralı hedefte gerçek kaymayı '

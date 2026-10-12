@@ -60,6 +60,9 @@ class ShotSettings {
   final String rangeErrorText;
   final String bcErrorText;
 
+  /// PCP: tube pressure left in the field, bar, as typed (2026-10-12).
+  final String tubePressureText;
+
   /// WEZ Atış sayısı for "en az bir isabet" (one of [Wez.shotCounts]).
   final int wezShotCount;
 
@@ -89,6 +92,7 @@ class ShotSettings {
     this.targetSizeText = '',
     this.rangeErrorText = '',
     this.bcErrorText = '',
+    this.tubePressureText = '',
     this.wezShotCount = Wez.defaultShotCount,
   });
 
@@ -118,6 +122,7 @@ class ShotSettings {
     'targetSize': targetSizeText,
     'rangeError': rangeErrorText,
     'bcError': bcErrorText,
+    'tubePressure': tubePressureText,
     'wezShots': wezShotCount,
   };
 
@@ -162,6 +167,7 @@ class ShotSettings {
       targetSizeText: text(json['targetSize']),
       rangeErrorText: text(json['rangeError']),
       bcErrorText: text(json['bcError']),
+      tubePressureText: text(json['tubePressure']),
       wezShotCount: Wez.shotCounts.contains(json['wezShots'])
           ? json['wezShots'] as int
           : Wez.defaultShotCount,

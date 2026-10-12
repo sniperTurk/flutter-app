@@ -219,4 +219,26 @@ abstract final class ProfileFieldInfo {
       'seçilirse sıfırlama mesafesi, Hedef sayfası, dürbün içindeki mesafe '
       'sayıları ve tablo yard ile gösterilir. Dürbününüzün odak düğmesi '
       'yard ile yazılıysa yard seçin.';
+
+  // PCP tüp ve regülatör basıncı (owner, 2026-10-12). Yalnızca PCP.
+  static const tubePressure =
+      'Tüpü doldurduğunuz basınç, bar. Dolum sonrası manometreden okuyun ya '
+      'da kılavuzdaki en yüksek dolum basıncını yazın. Sahada kalan basıncı '
+      'Pro > Tüfek düzeltmeleri\'nde girersiniz. Bilmiyorsanız boş bırakın. '
+      'Örnek: 250.';
+  static const regulatorPressure =
+      'Regülatörün vanaya verdiği sabit basınç, bar. Kılavuzda ya da '
+      'regülatör manometresinde yazar. Tüp bu basıncın üstündeyken hız '
+      'sabittir; altına inince regülatör devre dışı kalır ve hız düşer. '
+      'Regülatörsüz tüfekte boş bırakın: boş kutu "regülatör yok" demektir '
+      '(ayrı bir seçim yok). Tüp basıncından küçük olmalı. Örnek: 150.';
+  static const pvBar =
+      'Kronografla hız ölçtüğünüz andaki tüp basıncı, bar (manometreden). '
+      'Her satır bir ölçümdür: basınç ve o basınçta ölçtüğünüz hız. En az '
+      'iki satır girilirse, Pro\'da yazdığınız kalan tüp basıncındaki hız '
+      'bu ölçümlerin arasından bulunur; ölçümlerin dışında en yakın ölçüm '
+      'kullanılır. Boş bırakırsanız profil hızı kullanılır. Örnek: 180.';
+  static const pvFps =
+      'O basınçta kronografla ölçtüğünüz namlu çıkış hızı, fps. Birkaç '
+      'atışın ortalamasını yazın. Basınçla birlikte girilir. Örnek: 870.';
 }
