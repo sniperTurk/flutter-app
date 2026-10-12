@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// One logged shot (Ö9 Atış günlüğü). Kept on the phone only; nothing is
@@ -57,11 +58,11 @@ class ShotRecord {
     final time = json['time'] is String
         ? DateTime.tryParse(json['time'] as String)
         : null;
-    double? num(Object? v) =>
+    double? number(Object? v) =>
         v is num && v.toDouble().isFinite ? v.toDouble() : null;
-    final range = num(json['rangeM']);
-    final up = num(json['missUp']);
-    final right = num(json['missRight']);
+    final range = number(json['rangeM']);
+    final up = number(json['missUp']);
+    final right = number(json['missRight']);
     final first = json['firstShot'];
     final sup = json['suppressor'];
     if (id is! String ||
@@ -103,6 +104,10 @@ class ShotJournalStore {
 
   const ShotJournalStore();
 
+  /// Bumped after every write, so an open Hedef page refreshes its
+  /// cold-bore line.
+  static final ValueNotifier<int> changes = ValueNotifier<int>(0);
+
   Future<List<ShotRecord>> _all(SharedPreferences prefs) async {
     final raw = prefs.getString(key);
     if (raw == null) return [];
@@ -139,6 +144,7 @@ class ShotJournalStore {
       jsonEncode([for (final r in all.take(maxRecords)) r.toJson()]),
     );
     if (!ok) throw StateError('Günlük kaydedilemedi.');
+    changes.value++;
   }
 
   Future<void> add(ShotRecord record) async {
@@ -180,5 +186,6 @@ class ShotJournalStore {
       set.remove(id);
     }
     await prefs.setStringList(approvalsKey, set.toList()..sort());
+    changes.value++;
   }
 }

@@ -7,12 +7,16 @@ import 'compass_screen.dart';
 import 'hit_probability_screen.dart';
 import 'level_screen.dart';
 import 'map_distance_screen.dart';
+import 'preshot_checklist_screen.dart';
+import 'shot_journal_screen.dart';
 import 'sight_height_screen.dart';
 import 'truing_screen.dart';
 import 'weather_screen.dart';
+import 'zero_group_screen.dart';
 
 /// Tool hub (Hız Doğrulama, Sight Height, Haritadan mesafe, Hava & Rüzgâr,
-/// Pusula, Su Terazisi, Vuruş Olasılığı, Hesaplayıcılar). Katalog is no
+/// Pusula, Su Terazisi, Vuruş Olasılığı, Hesaplayıcılar, Atış Öncesi
+/// Kontrol, Sıfır Grubu, Atış Günlüğü). Katalog is no
 /// longer listed here (owner, 2026-10-08); its records and screen remain.
 /// Kronograf was removed from the hub too (owner, 2026-10-09); its screen
 /// and statistics code remain. Visual assistance is NOT a tool of its own; it only
@@ -96,6 +100,28 @@ class ToolsScreen extends StatelessWidget {
           subtitle:
               'Mesafe, MOA, tık doğrulama, BC, hava laboratuvarı, birim dönüştürücüler',
           onTap: () => _open(context, const CalculatorsScreen()),
+        ),
+        // Ö11, Ö10, Ö9 (2026-10-12): last, so the hub order above stays.
+        MenzilToolTile(
+          tileKey: const Key('tool-checklist'),
+          icon: Icons.checklist,
+          title: 'Atış Öncesi Kontrol',
+          subtitle: 'Profil, kule birimi ve turu, paralaks, su terazisi, büyütme',
+          onTap: () => _open(context, const PreShotChecklistScreen()),
+        ),
+        MenzilToolTile(
+          tileKey: const Key('tool-zero-group'),
+          icon: Icons.grid_on,
+          title: 'Sıfır Grubu',
+          subtitle: 'Vuruşları işaretle: grup merkezi, σ, gereken atış',
+          onTap: () => _open(context, const ZeroGroupScreen()),
+        ),
+        MenzilToolTile(
+          tileKey: const Key('tool-shot-journal'),
+          icon: Icons.menu_book_outlined,
+          title: 'Atış Günlüğü',
+          subtitle: 'Oturum kaydı ve soğuk namlu ilk atış kaçıklığı',
+          onTap: () => _open(context, const ShotJournalScreen()),
         ),
         const SizedBox(height: MenzilSpace.md),
         Center(

@@ -33,6 +33,7 @@ import '../../tools/ports/weather_provider.dart';
 import '../../tools/tools_services.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import '../tools/cold_bore_hint.dart';
 import '../tools/map_distance_screen.dart';
 import '../tools/weather_screen.dart';
 import 'dope_card.dart';
@@ -315,6 +316,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     _shotSettingsReady = true;
   }
+
+  void _reloadShotSettings() => unawaited(_loadShotSettings());
 
   void _saveShotSettings() {
     final id = widget.profile?.id;
@@ -746,6 +749,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     widget.environmentCarry?._apply(this);
     _loadUnitPreference();
     unawaited(_loadShotSettings());
+    // Sıfır Grubu can write Sıfır ofseti while this workspace stays open.
+    ShotSettingsStore.changes.addListener(_reloadShotSettings);
     // Solve the profile as soon as the workspace opens, so the scope's
     // reticle, hold labels and point of impact are ready at once. The fields are still SI here; a later switch to
     // imperial only converts the fields, the stored basis stays SI.
@@ -1259,6 +1264,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   @override
   void dispose() {
+    ShotSettingsStore.changes.removeListener(_reloadShotSettings);
     velocity.dispose();
     grain.dispose();
     zero.dispose();
@@ -1480,7 +1486,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return MenzilCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [_scopeDial(shot), ..._extraShotNotes(shot)],
+        children: [
+          _scopeDial(shot),
+          ..._extraShotNotes(shot),
+          // Ö9: an approved cold-bore suggestion, shown only (not dialled).
+          if (widget.profile != null)
+            ColdBoreHint(profileId: widget.profile!.id, unit: _scopeUnit),
+        ],
       ),
     );
   }
