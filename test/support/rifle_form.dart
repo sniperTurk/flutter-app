@@ -122,7 +122,14 @@ Future<void> fillAmmoForm(
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);
   await enterRifleField(tester, 'ammo-grain', grain);
   await enterRifleField(tester, 'ammo-bc', bc);
-  await chooseInSelect(tester, 'ammo-bc-model', bcModel);
+  await chooseBcModel(tester, bcModel);
+}
+
+/// BC modeli is asked on firearms only; PCP is always G1 (owner,
+/// 2026-10-12).
+Future<void> chooseBcModel(WidgetTester tester, String label) async {
+  if (find.byKey(const Key('ammo-bc-model')).evaluate().isEmpty) return;
+  await chooseInSelect(tester, 'ammo-bc-model', label);
 }
 
 /// Fills Atış değerleri: muzzle velocity (fps), zero (m) and sight height (mm).
