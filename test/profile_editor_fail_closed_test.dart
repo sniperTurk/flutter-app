@@ -375,17 +375,15 @@ void _unitsAndFirearmTests() {
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
-    final brand = find.descendant(
-      of: find.byKey(const Key('ammo-brand')),
-      matching: find.byType(TextField),
-    );
-    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
-    await tester.ensureVisible(brand);
-    await tester.enterText(brand, 'H&N Slug HP');
-    await tester.pump();
+    // PCP asks no Marka (owner, 2026-10-13): type a weight and a length.
+    expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
+    await enterRifleField(tester, 'ammo-grain', '33,95');
+    await enterRifleField(tester, 'ammo-length', '10,5');
     await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
-    // The typed PCP name is gone; the firearm lists are offered again.
-    expect(find.text('H&N Slug HP'), findsNothing);
+    // The typed PCP values are gone; the firearm lists are offered again.
+    expect(find.text('33,95'), findsNothing);
+    expect(find.text('10,5'), findsNothing);
+    expect(find.byKey(const Key('ammo-length')), findsNothing);
     expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
   });
 }
