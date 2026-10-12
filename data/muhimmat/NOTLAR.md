@@ -18,7 +18,7 @@ dokunulmadı; BC yalnızca yeni eklenen kayıtlar için, üretici yayımlıyorsa
 |---|---|---|---|---|
 | ammo/pmc.json | data/ammo | 11 | 11 (etiketsiz → G1) | 3 kayıtta test namlusu belirsiz (sayfada 16 ve 24 in birlikte) |
 | ammo/magtech.json | data/ammo | 35 | 35 (etiketsiz → G1) | 2026 kataloğu; bazı BC'ler G1 için olağandışı düşük (ör. .308 168 gr HPBT 0,246) — katalog ve ürün sayfasında böyle; değiştirilmedi |
-| ammo/aguila.json | data/ammo | 31 | 0 | Aguila BC ve test namlusu yayımlamıyor |
+| ammo/aguila.json | data/ammo | 31 | 0 | Aguila BC ve test namlusu yayımlamıyor; Colibrí / Super Colibrí (420 / 590 fps, astarla itilen salon fişeği) uygulamanın 600–4500 fps aralığı dışında, listeye girmez |
 | bullets-firearm/cutting_edge.json | data/bullets-firearm | 156 | 71 | 2026 Teknik Föy (PDF). '(A.B.)' etiketli BC'ler kullanılmadı (aşağıda); uygulamaya yalnız BC'li 71 kayıt girer |
 | bullets-firearm/hammer.json | data/bullets-firearm | 16 | 16 | Ürün sayfaları; BC'ler üreticinin "estimated" / "calculated from shot drops" değerleri |
 | bullets-pcp/spoton.json | data/bullets-pcp | 30 | 0 | Türk üretici (Mersin); BC, uzunluk, kafa çapı yayımlanmıyor |
