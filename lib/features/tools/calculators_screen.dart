@@ -922,7 +922,6 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
           options: const [
             (BallisticModel.g1, 'G1'),
             (BallisticModel.g7, 'G7'),
-            (BallisticModel.ga, 'GA (saçma)'),
             (BallisticModel.ra4, 'RA4 (.22 LR)'),
             (BallisticModel.gs, 'GS (bilye)'),
           ],

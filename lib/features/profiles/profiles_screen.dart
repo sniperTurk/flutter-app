@@ -1539,7 +1539,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         : const [
             (BallisticModel.g1, 'G1'),
             (BallisticModel.g7, 'G7'),
-            (BallisticModel.ga, 'GA (saçma)'),
             (BallisticModel.gs, 'GS (bilye)'),
           ];
     final m = ammoBcModel;

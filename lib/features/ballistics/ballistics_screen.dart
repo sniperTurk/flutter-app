@@ -2360,7 +2360,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       return const MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:
-            'Deterministik vacuum/gravity temel solver. Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz. Özel mermi kaydına BC ve G1/G7/GA ekleyerek sürtünmeli hesabı açabilirsiniz.',
+            'Deterministik vacuum/gravity temel solver. Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz. Özel mermi kaydına BC ve G1/G7 ekleyerek sürtünmeli hesabı açabilirsiniz.',
       );
     }
     final name = a!.ballisticModel!.name.toUpperCase();

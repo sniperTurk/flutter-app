@@ -25,7 +25,7 @@ import 'app_store_reference/models/domain.dart' as old;
 /// One shot, described once and built for both code bases.
 class _Shot {
   final double mv, grain, zero, sight, bc;
-  final int model; // 0 = G1, 1 = G7, 2 = GA
+  final int model; // 0 = G1, 1 = G7, 2 = G1 pellet (GA removed 2026-10-12)
   final List<double> ranges;
   final double temp, pressure, humidity, altitude, wind, windDir;
   final double incline, cant;
@@ -78,7 +78,7 @@ class _Shot {
       windDirectionDeg: windDir,
     ),
     ballisticCoefficient: bc,
-    ballisticModel: old.BallisticModel.values[model],
+    ballisticModel: _oldModels[model],
     bcBands: [for (final b in bands) old.BcBand(b.$1, b.$2)],
     windZones: zones == null
         ? null
@@ -94,10 +94,16 @@ class _Shot {
     zeroMuzzleVelocityMps: zeroMv,
   );
 
+  static const _oldModels = [
+    old.BallisticModel.g1,
+    old.BallisticModel.g7,
+    old.BallisticModel.g1,
+  ];
+
   static const _nowModels = [
     now.BallisticModel.g1,
     now.BallisticModel.g7,
-    now.BallisticModel.ga,
+    now.BallisticModel.g1,
   ];
 
   now_input.BallisticInput nowInput({
@@ -353,7 +359,7 @@ void main() {
   });
 
   test('the standard tables are still the App Store tables', () {
-    // forModel(G1/G7/GA) must hand the solver the same table as before;
+    // forModel(G1/G7) must hand the solver the same table as before;
     // the explicit table gives the same result as the model.
     for (final s in shots.take(12)) {
       final model = _Shot._nowModels[s.model];

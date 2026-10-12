@@ -48,9 +48,9 @@ extension DistanceUnitMath on DistanceUnit {
   String get symbol => this == DistanceUnit.yard ? 'yd' : 'm';
 }
 
-/// Drag law a ballistic coefficient refers to. GA is ChairGun's diabolo
-/// pellet model (see StandardDragTables.ga).
-enum BallisticModel { g1, g7, ga }
+/// Drag law a ballistic coefficient refers to. (Build 59 also had GA, a
+/// ChairGun pellet table; removed from this copy on 2026-10-12.)
+enum BallisticModel { g1, g7 }
 
 /// One step of a velocity-dependent BC (çoklu BC): [bc] applies while the
 /// projectile is at least [minVelocityMps] fast (Applied Ballistics / Hornady
