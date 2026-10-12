@@ -331,6 +331,28 @@ tanımına daha yakın olur. Çözücünün davranışı bu PR'da **değiştiril
    - Lapua 4318017'nin ürün özelliklerinde 890 m/s yazarken tablosu 905
      m/s ile başlıyor.
 
+## Ek çapraz kontrol: ana oturumun bağımsız hesabı (2026-10-12)
+
+Ana oturum, bu çalışmadan bağımsız bir nokta-kütle hesabı yaptı. Koşullar:
+.308 Win 175 gr, G7 0,243, 790 m/s, 100 m sıfır. Bu hesapla 800 m'de düşüş
+≈ 743 cm bulundu. Nişan yüksekliği bildirilmedi.
+
+Aynı koşullarla çözücünün sonucu:
+
+| Nişan yüksekliği | 800 m düşüş (cm) | 743 cm'den fark (mrad) |
+|---|---|---|
+| 38,1 mm (1,5") | 748,1 | 0,06 |
+| 40 mm | 746,7 | 0,05 |
+| 45 mm | 743,2 | 0,00 |
+| 50 mm | 739,7 | −0,04 |
+
+Hesaplar ICAO atmosferle yapıldı. Çözücüye göre 800 m'de hız 374 m/s,
+uçuş süresi 1,47 s.
+
+Nişan yüksekliği hangisi olursa olsun, iki hesap arasındaki fark 0,06
+mrad'ı geçmiyor. Bu bir klikten azdır, yani iki hesap tutarlı. Bu kontrol
+bir üretici tablosu değildir; teste eklenmedi.
+
 ## Çözücü hakkında sonuç
 
 600 m'ye kadar, üreticiler arasında en kötü durumda fark 0,037 mrad. Bu
