@@ -1,4 +1,7 @@
 import '../core/drag_table.dart';
+import '../core/pcp_pressure.dart';
+
+export '../core/pcp_pressure.dart' show PressureVelocityPoint;
 
 enum WeaponPlatform { pcp, firearm }
 
@@ -246,7 +249,18 @@ String _joinName(String brand, String model) =>
 class RifleProfile {
   final String id, name, rifleId, ammunitionId, scopeId;
   final double muzzleVelocityMps, zeroRangeM, sightHeightMm;
+
+  /// PCP regülatör basıncı in bar (null = unregulated or unknown; always
+  /// null on a firearm). Stored as `pressureBar` since V379 ("Atış basıncı"
+  /// became the regulator pressure), so older profiles keep their value.
   final double? pressureBar;
+
+  /// PCP tüp basıncı (dolum basıncı) in bar; null = not given / firearm.
+  final double? tubePressureBar;
+
+  /// PCP basınca göre hız: the user's chronograph points (tube pressure in
+  /// bar, velocity in m/s); empty = none. See [PcpPressure].
+  final List<PressureVelocityPoint> pressureVelocityTable;
   final AngularUnit angularUnit;
 
   /// Metre or yard for every distance shown for this profile.
@@ -274,6 +288,8 @@ class RifleProfile {
     required this.zeroRangeM,
     required this.sightHeightMm,
     this.pressureBar,
+    this.tubePressureBar,
+    this.pressureVelocityTable = const [],
     this.angularUnit = AngularUnit.mrad,
     this.distanceUnit = DistanceUnit.meter,
     this.mountCantMoa = 0,

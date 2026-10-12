@@ -42,15 +42,26 @@ class V1ToolScopeTests(unittest.TestCase):
             'tool-map-distance',
             # V384: Hız Doğrulama (muzzle-velocity truing).
             'tool-truing',
+            # 2026-10-12: Paralaks Mesafesi (PCP only) and Avcı Sıfırı (Ö8, Ö7).
+            'tool-parallax', 'tool-mpbr',
+            # 2026-10-12: Ö11 Atış Öncesi Kontrol, Ö10 Sıfır Grubu, Ö9 Atış Günlüğü.
+            'tool-checklist', 'tool-zero-group', 'tool-shot-journal',
+            # 2026-10-11: Kullanım rehberi (draft for the owner's review).
+            'tool-usage-guide',
         ):
             self.assertIn(f"Key('{key}')", hub)
         # V380: Ayarlar removed (the app is metric only).
         self.assertNotIn("Key('tool-settings')", hub)
         # 2026-10-08: Katalog is no longer on the hub; its data is kept.
         self.assertNotIn("Key('tool-catalog')", hub)
-        # 2026-10-09: Kronograf removed from the hub; its screen is kept.
+        # 2026-10-09: the audio Kronograf removed from the hub.
         self.assertNotIn("Key('tool-chronograph')", hub)
-        self.assertEqual(8, hub.count('MenzilToolTile('))
+        # 2026-10-12: typed Kronograf (Ö3, owner asked for the whole
+        # yeni-hesaplar report) is a tool again; with Paralaks Mesafesi and
+        # Avcı Sıfırı (#186) and the three #187 tools the hub source has
+        # fourteen tiles; Kullanım rehberi (#177) makes fifteen.
+        self.assertIn("Key('tool-chrono')", hub)
+        self.assertEqual(15, hub.count('MenzilToolTile('))
 
     def test_still_retired_dependencies_and_ios_bridge_stay_absent(self):
         pubspec = (ROOT / 'pubspec.yaml').read_text(encoding='utf-8')

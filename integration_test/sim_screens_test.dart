@@ -251,6 +251,14 @@ void main() {
       await tester.tap(find.text('APR-2D MOA').last);
       await settle();
       await choose('scope-mount', 'Normal (0 MOA)');
+      // PCP tüp ve regülatör basıncı (owner, 2026-10-12; all optional):
+      // regulated at 150 bar, measured 860 fps at 120 bar, 900 at 150.
+      await type('profile-tube-pressure', '250');
+      await type('profile-regulator-pressure', '150');
+      await type('profile-pv-bar-0', '120');
+      await type('profile-pv-fps-0', '860');
+      await type('profile-pv-bar-1', '150');
+      await type('profile-pv-fps-1', '900');
       await page('profil_olustur_dolu');
       await tester.ensureVisible(find.text('Kaydet'));
       await settle();
@@ -270,6 +278,24 @@ void main() {
       await step('pro_ayarlar', () async {
         await openTab('Pro');
         await page('pro_ayarlar');
+      });
+      await step('pro_tup_basinci', () async {
+        // Tube at 120 bar, below the 150 bar regulator: warning and the
+        // measured 860 fps.
+        final header = find.byKey(const Key('pro-section-rifle'));
+        await tester.ensureVisible(header);
+        await settle();
+        await tester.tap(header);
+        await settle();
+        await type('pro-tube-pressure', '120');
+        await settle();
+        // Box, warning and velocity used in one frame.
+        await Scrollable.ensureVisible(
+          tester.element(find.byKey(const Key('pro-pcp-velocity'))),
+          alignment: 0.85,
+        );
+        await settle();
+        await shot('pro_tup_basinci');
       });
       await step('hedef_atis', () async {
         await openTab('Hedef');

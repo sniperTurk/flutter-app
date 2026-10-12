@@ -40,11 +40,15 @@ USAGE_DESCRIPTIONS = {
         "kullanılır. Fotoğraf kaydedilmez ve cihazdan çıkmaz; kitaplığınıza "
         "yazılmaz."
     ),
-    # Su Terazisi: raw accelerometer reads via CMMotionManager do not prompt;
-    # the Motion & Fitness string is kept as a harmless, honest purpose text.
+    # Su Terazisi / tilt: raw accelerometer reads via CMMotionManager do not
+    # prompt. Ö4: the barometer (CMAltimeter, read through sensors_plus only
+    # when "Basıncı telefondan al" is pressed) uses Motion & Fitness, so the
+    # text names both real uses.
     "NSMotionUsageDescription": (
-        "Hareket sensörü yalnızca Su Terazisi ekranında cihazın eğimini "
-        "göstermek için kullanılır. Veri saklanmaz."
+        "Hareket sensörü Su Terazisi ve eğim ölçümlerinde cihazın eğimini "
+        "göstermek için; barometre yalnızca Hava Durumu'nda \"Basıncı "
+        "telefondan al\" düğmesine bastığınızda hava basıncını okumak için "
+        "kullanılır. Veri saklanmaz ve cihazdan çıkmaz."
     ),
     # The app never records audio (CameraController is opened with
     # enableAudio: false). The camera plugin documents this key because its

@@ -47,7 +47,7 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
         self.assertIn('_fixed(p.correctionMoa, 2)', self.text)
         self.assertIn('_fixed(p.correctionMrad, 2)', self.text)
         self.assertIn("'Yükseklik MOA*'", self.text)
-        self.assertIn("'Yükseklik mrad*'", self.text)
+        self.assertIn("'Yükseklik MRAD*'", self.text)
 
     def test_dead_code_display_helpers_were_not_reintroduced(self):
         self.assertNotIn('displayCorrection', self.text)

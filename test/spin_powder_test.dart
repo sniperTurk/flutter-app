@@ -159,7 +159,7 @@ void main() {
       expect(note, contains('sağa'));
       // Litz at 100 m (~0.13 s) for a .308 168 gr: a few millimetres.
       final cm = double.parse(
-        RegExp(r'([\d.]+) cm').firstMatch(note)!.group(1)!,
+        RegExp(r'([\d,]+) cm').firstMatch(note)!.group(1)!.replaceAll(',', '.'),
       );
       expect(cm, inInclusiveRange(0.05, 3));
     });

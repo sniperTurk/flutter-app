@@ -1,0 +1,34 @@
+# XcodeGen projesi (watchOS simülatör derlemesi için; .github/workflows/watch-sim.yml).
+# Runner'a gömülmez: TestFlight imzalaması değişmez. Gömme adımları
+# docs/saat-uygulamasi/IMZALAMA-ADIMLARI.md dosyasında.
+name: SniperTurkWatch
+options:
+  bundleIdPrefix: com.sniperturk
+  deploymentTarget:
+    watchOS: "10.0"
+packages:
+  WatchCore:
+    path: ../WatchCore
+targets:
+  SniperTurkWatch:
+    type: application
+    platform: watchOS
+    scheme: {}
+    sources:
+      - path: Sources
+    dependencies:
+      - package: WatchCore
+    info:
+      path: Generated/Info.plist
+      properties:
+        CFBundleDisplayName: SNIPER TÜRK
+        WKApplication: true
+        WKCompanionAppBundleIdentifier: com.sniperturk.sniperTurk
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.sniperturk.sniperTurk.watchkitapp
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "4"
+        CODE_SIGN_STYLE: Automatic

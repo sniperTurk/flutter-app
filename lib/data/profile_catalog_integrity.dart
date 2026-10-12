@@ -41,8 +41,12 @@ class ProfileCatalogIntegrity {
     if (rifle.platform != ammunition.platform) return null;
     if ((rifle.caliberMm - ammunition.caliberMm).abs() >= 0.001) return null;
     // A PCP profile no longer needs a pressure (owner, 2026-10-09).
+    // PCP tüp/regülatör basıncı and basınca göre hız never belong to a
+    // firearm (owner, 2026-10-12): such data is incoherent.
     if (rifle.platform == WeaponPlatform.firearm &&
-        profile.pressureBar != null) {
+        (profile.pressureBar != null ||
+            profile.tubePressureBar != null ||
+            profile.pressureVelocityTable.isNotEmpty)) {
       return null;
     }
 
@@ -68,6 +72,20 @@ class ProfileCatalogIntegrity {
           ProductionLimits.maxPcpPressureBar,
         )) {
       return null;
+    }
+
+    if (profile.tubePressureBar != null &&
+        !_positiveAtMost(
+          profile.tubePressureBar!,
+          ProductionLimits.maxPcpPressureBar,
+        )) {
+      return null;
+    }
+    for (final pt in profile.pressureVelocityTable) {
+      if (!_positiveAtMost(pt.bar, ProductionLimits.maxPcpPressureBar) ||
+          !_positiveAtMost(pt.mps, ProductionLimits.maxMuzzleVelocityMps)) {
+        return null;
+      }
     }
 
     return ProfileCatalogResolution(

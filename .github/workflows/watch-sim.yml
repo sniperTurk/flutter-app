@@ -1,0 +1,143 @@
+name: Watch simulator build (manual)
+
+# Elle tetiklenir; otomatik çalışmaz. İki elle tetikleme yolu:
+#  - workflow_dispatch (dosya ana dalda olduğunda),
+#  - PR'a "watch-sim" etiketi eklemek (dosya yalnızca dalda iken; GitHub
+#    workflow_dispatch'i yalnızca varsayılan daldaki dosyalar için kabul eder).
+# PR açılması/push bu işi ÇALIŞTIRMAZ (yalnızca "labeled" olayı, o da
+# yalnızca bu etiket için). Saat prototipini derler:
+#  1. watch/WatchCore birim testleri (swift test, macOS)
+#  2. watchOS uygulaması, watchOS Simulator için (imzasız)
+#  3. iPhone uygulaması + saat köprüsü, iOS Simulator için (imzasız)
+# TestFlight / iOS CI iskeletine dokunmaz: köprü yalnızca bu işte eklenir.
+# Hiçbir imza, secret, App Store veya TestFlight adımı yoktur.
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build'
+        required: true
+        default: 'feat/apple-watch'
+  pull_request:
+    types: [labeled]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: watch-sim-${{ inputs.branch || github.head_ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'watch-sim'
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.branch || github.head_ref }}
+
+      - name: Select Xcode 26 or newer
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEST="$(ls -d /Applications/Xcode_*.app 2>/dev/null | python3 -c "
+          import re, sys
+          best = None
+          for line in sys.stdin:
+              p = line.strip()
+              m = re.search(r'Xcode_(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?', p)
+              if not m: continue
+              v = tuple(int(x or 0) for x in m.groups())
+              if v[0] >= 26 and (best is None or v > best[0]):
+                  best = (v, p)
+          print(best[1] if best else '')
+          ")"
+          [ -n "$BEST" ] || { echo "No Xcode 26+ installed on this runner image" >&2; exit 1; }
+          sudo xcode-select -s "$BEST/Contents/Developer"
+          xcodebuild -version
+          xcodebuild -showsdks | grep -i watch || true
+
+      - name: WatchCore unit tests
+        id: core
+        shell: bash
+        run: swift test --package-path watch/WatchCore 2>&1 | tee /tmp/watchcore.log
+
+      - name: Generate watchOS project (XcodeGen)
+        id: gen
+        if: success() || failure()
+        shell: bash
+        run: |
+          set -euo pipefail
+          brew install xcodegen
+          cd watch/SniperTurkWatch
+          xcodegen generate
+
+      - name: Build watchOS app for the simulator
+        id: watch
+        if: steps.gen.outcome == 'success'
+        shell: bash
+        run: |
+          set -o pipefail
+          xcodebuild -project watch/SniperTurkWatch/SniperTurkWatch.xcodeproj \
+            -scheme SniperTurkWatch \
+            -destination 'generic/platform=watchOS Simulator' \
+            -configuration Debug \
+            -derivedDataPath build/watch \
+            CODE_SIGNING_ALLOWED=NO build 2>&1 | tee /tmp/watch-build.log | grep -E "error:|warning:|BUILD" || true
+          grep -q "BUILD SUCCEEDED" /tmp/watch-build.log
+          APP="$(find build/watch -name 'SniperTurkWatch.app' -type d | head -1)"
+          echo "app=$APP"
+          /usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist"
+          /usr/libexec/PlistBuddy -c 'Print :WKCompanionAppBundleIdentifier' "$APP/Info.plist"
+
+      - name: Set up Flutter
+        if: success() || failure()
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Generate iOS scaffold and wire the watch bridge
+        id: scaffold
+        if: success() || failure()
+        shell: bash
+        run: |
+          set -euo pipefail
+          flutter pub get --enforce-lockfile
+          tools/bootstrap_ios_scaffold.sh
+          python3 tools/configure_ios_watch_bridge.py ios/Runner
+          ruby tools/configure_ios_watch_bridge.rb
+          grep -n "watch-bridge" -A5 ios/Runner/AppDelegate.swift
+
+      - name: Build iPhone app with the bridge for the simulator
+        id: phone
+        if: steps.scaffold.outcome == 'success'
+        shell: bash
+        run: flutter build ios --simulator --debug 2>&1 | tee /tmp/phone-build.log
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Saat derlemesi"
+            echo "| Adım | Sonuç |"
+            echo "|---|---|"
+            echo "| WatchCore swift test | ${{ steps.core.outcome }} |"
+            echo "| XcodeGen | ${{ steps.gen.outcome }} |"
+            echo "| watchOS Simulator derlemesi | ${{ steps.watch.outcome }} |"
+            echo "| iOS iskelet + köprü | ${{ steps.scaffold.outcome }} |"
+            echo "| iOS Simulator derlemesi (köprülü) | ${{ steps.phone.outcome }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          for f in /tmp/watchcore.log /tmp/watch-build.log /tmp/phone-build.log; do
+            [ -f "$f" ] || continue
+            { grep -nE "error:|failed|Executed .* tests" "$f" || true; } | head -20 | while IFS= read -r line; do
+              echo "::notice title=$(basename "$f")::${line:0:400}"
+            done
+          done
+          # The summary only reports; the build steps above carry the result.
+          exit 0
