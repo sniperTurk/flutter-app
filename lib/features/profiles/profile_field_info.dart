@@ -211,4 +211,11 @@ abstract final class ProfileFieldInfo {
       'seçilirse sıfırlama mesafesi, Hedef sayfası, dürbün içindeki mesafe '
       'sayıları ve tablo yard ile gösterilir. Dürbününüzün odak düğmesi '
       'yard ile yazılıysa yard seçin.';
+
+  static const backup =
+      'Yedekle: tüm profillerinizi ve kendi girdiğiniz tüfek, mühimmat ve '
+      'dürbün kayıtlarını tek dosyaya kaydeder. Açılan ekranda Dosyalar\'a '
+      'Kaydet ile iCloud Drive\'ı ya da Google Drive\'ı seçin. Telefon '
+      'değişince Geri yükle ile aynı dosyayı seçin; hiçbir profil silinmez. '
+      'Hesap veya şifre gerekmez.';
 }

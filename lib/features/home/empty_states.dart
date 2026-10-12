@@ -40,7 +40,11 @@ class _EmptyActions extends StatelessWidget {
 class WelcomePanel extends StatelessWidget {
   final VoidCallback? onCreate;
 
-  const WelcomePanel({super.key, this.onCreate});
+  /// New phone: bring the profiles back from a backup file (owner,
+  /// 2026-10-12). Hidden when null.
+  final VoidCallback? onRestore;
+
+  const WelcomePanel({super.key, this.onCreate, this.onRestore});
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +149,15 @@ class WelcomePanel extends StatelessWidget {
         ),
         const SizedBox(height: MenzilSpace.md),
         _EmptyActions(onCreate: onCreate, createLabel: 'İlk profilimi oluştur'),
+        if (onRestore != null) ...[
+          const SizedBox(height: MenzilSpace.sm),
+          MenzilSecondaryButton(
+            label: 'Yedekten geri yükle',
+            icon: Icons.download_outlined,
+            expand: true,
+            onPressed: onRestore,
+          ),
+        ],
       ],
     );
   }
