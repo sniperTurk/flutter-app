@@ -1354,19 +1354,23 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// [level]: how many filters apply (1 Birim, 2 Odak, 3 Tüp, 4 Büyütme).
   bool _scopeFilterAccepts(ScopeOptic s, [int level = 4]) {
-    if (level >= 1 && _scopeUnitFilter != null &&
+    if (level >= 1 &&
+        _scopeUnitFilter != null &&
         s.clickUnit != _scopeUnitFilter) {
       return false;
     }
-    if (level >= 2 && _scopeFfpFilter != null &&
+    if (level >= 2 &&
+        _scopeFfpFilter != null &&
         s.firstFocalPlane != _scopeFfpFilter) {
       return false;
     }
-    if (level >= 3 && _scopeTubeFilter != null &&
+    if (level >= 3 &&
+        _scopeTubeFilter != null &&
         s.tubeDiameterMm != _scopeTubeFilter) {
       return false;
     }
-    if (level >= 4 && _scopeMagFilter != null &&
+    if (level >= 4 &&
+        _scopeMagFilter != null &&
         _magRange(s) != _scopeMagFilter) {
       return false;
     }
