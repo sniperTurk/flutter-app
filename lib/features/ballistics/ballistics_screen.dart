@@ -409,6 +409,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
       // The class top is the shooter's own gust value, not ×1.5.
       _weatherFilled = false;
+      _weatherWasReset = false;
       _windMaxAuto = false;
       windMaxCtl.text = v(b.maxMps);
       wind.text = v(b.midMps);
@@ -929,6 +930,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// The same for "Basıncı telefondan al".
   bool _pressureFilled = false;
 
+  /// After "Sıfırla" the reset button stays, orange, as "Veriler sıfırlandı"
+  /// (owner, 2026-10-12) until the next fetch or a typed value.
+  bool _weatherWasReset = false;
+  bool _pressureWasReset = false;
+
   /// Hava Durumu starting values (as in initState), in the shown units.
   void _resetWeather() {
     setState(() {
@@ -944,6 +950,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _userEdited.remove(pressure);
       }
       _weatherFilled = false;
+      _weatherWasReset = true;
       _weatherStatus = null;
       _weatherFailed = false;
       _shotCache.clear();
@@ -957,6 +964,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       pressure.text = metric ? '1013.25' : '29.92';
       _userEdited.remove(pressure);
       _pressureFilled = false;
+      _pressureWasReset = true;
       _pressureStatus = null;
       _pressureFailed = false;
       _shotCache.clear();
@@ -1150,7 +1158,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _weatherBusy = false;
       _weatherFailed = failed;
       _weatherStatus = status;
-      if (!failed) _weatherFilled = true;
+      if (!failed) {
+        _weatherFilled = true;
+        _weatherWasReset = false;
+      }
     });
     // Re-solve with the new conditions (quietly: Atış says why if not).
     if (!failed && widget.profile != null) {
@@ -1194,6 +1205,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _userEdited.add(pressure);
         _pressureFailed = false;
         _pressureFilled = true;
+        _pressureWasReset = false;
         _pressureStatus =
             'Basınç telefondan alındı: '
             '${_pressureText(reading.hpa).replaceAll('.', ',')} '
@@ -1227,11 +1239,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// "Sıfırla" beside it (owner, 2026-10-12).
   Widget _filledRow({
     required bool filled,
+    required bool wasReset,
     required Widget button,
     required Key resetKey,
     required VoidCallback onReset,
   }) {
-    if (!filled) return button;
+    if (!filled && !wasReset) return button;
     return Row(
       children: [
         Expanded(child: button),
@@ -1239,9 +1252,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         Expanded(
           child: MenzilSecondaryButton(
             key: resetKey,
-            label: 'Sıfırla',
-            icon: Icons.restart_alt,
+            label: wasReset ? 'Veriler sıfırlandı' : 'Sıfırla',
+            icon: wasReset ? Icons.check : Icons.restart_alt,
             expand: true,
+            active: wasReset,
+            twoLines: wasReset,
             onPressed: onReset,
           ),
         ),
@@ -1265,6 +1280,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         const SizedBox(height: MenzilSpace.xs),
         _filledRow(
           filled: _weatherFilled,
+          wasReset: _weatherWasReset,
           button: MenzilSecondaryButton(
             key: const Key('environment-fill-weather'),
             label: _weatherBusy
@@ -2958,7 +2974,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               // A typed value is the user's: auto fill keeps it.
               onChanged: (_) {
                 _userEdited.add(temperature);
-                if (_weatherFilled) setState(() => _weatherFilled = false);
+                if (_weatherFilled || _weatherWasReset) {
+                  setState(() => _weatherFilled = _weatherWasReset = false);
+                }
               },
               info: EnvironmentFieldInfo.temperatureFor(firearm: _isFirearm),
               unit: metric ? '°C' : '°F',
@@ -2989,7 +3007,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               // A typed value is the user's: auto fill keeps it.
               onChanged: (_) {
                 _userEdited.add(humidity);
-                if (_weatherFilled) setState(() => _weatherFilled = false);
+                if (_weatherFilled || _weatherWasReset) {
+                  setState(() => _weatherFilled = _weatherWasReset = false);
+                }
               },
               info: EnvironmentFieldInfo.humidity,
               unit: '%',
@@ -3024,6 +3044,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   onChanged: (_) => setState(() {
                     _userEdited.add(pressure);
                     _pressureFilled = false;
+                    _pressureWasReset = false;
                   }),
                   info: EnvironmentFieldInfo.pressure,
                   unit: metric ? 'hPa' : 'inHg',
@@ -3036,6 +3057,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   onChanged: (_) => setState(() {
                     _userEdited.add(altitude);
                     _weatherFilled = false;
+                    _weatherWasReset = false;
                   }),
                   info: EnvironmentFieldInfo.altitude,
                   unit: metric ? 'm' : 'ft',
@@ -3048,6 +3070,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             ),
             _filledRow(
               filled: _pressureFilled,
+              wasReset: _pressureWasReset,
               button: MenzilSecondaryButton(
                 key: const Key('environment-phone-pressure'),
                 label: _pressureBusy
@@ -3131,7 +3154,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               // longer comes from the Rüzgâr gözlemi class.
               onChanged: (_) {
                 _userEdited.add(wind);
-                if (_weatherFilled) setState(() => _weatherFilled = false);
+                if (_weatherFilled || _weatherWasReset) {
+                  setState(() => _weatherFilled = _weatherWasReset = false);
+                }
                 if (_windObservation != null) {
                   setState(() {
                     _windObservation = null;

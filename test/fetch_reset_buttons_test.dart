@@ -1,6 +1,7 @@
 // Hava Durumu fetch buttons (owner, 2026-10-12): after a fetch the button
 // turns orange ("…alındı") with "Sıfırla" beside it; Sıfırla puts the
-// starting values back; typing into a filled field turns it back to gray.
+// starting values back and stays, orange, as "Veriler sıfırlandı"; typing
+// into a filled field turns it back to gray.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
@@ -79,7 +80,8 @@ void main() {
     expect(_text(tester, BallisticsFieldKeys.wind), '0');
     expect(_text(tester, BallisticsFieldKeys.altitude), '0');
     expect(_text(tester, BallisticsFieldKeys.pressure), '1013.25');
-    expect(find.byKey(reset), findsNothing);
+    // The reset button stays, orange, as "Veriler sıfırlandı".
+    expect(find.text('Veriler sıfırlandı'), findsOneWidget);
     expect(find.text('Konumdan canlı hava verisi al'), findsOneWidget);
   });
 
@@ -112,6 +114,6 @@ void main() {
     await _tap(tester, reset);
     expect(_text(tester, BallisticsFieldKeys.pressure), '1013.25');
     expect(find.text('Basıncı telefondan al'), findsOneWidget);
-    expect(find.byKey(reset), findsNothing);
+    expect(find.text('Veriler sıfırlandı'), findsOneWidget);
   });
 }
