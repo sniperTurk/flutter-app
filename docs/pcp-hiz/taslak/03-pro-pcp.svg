@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="720" viewBox="0 0 1180 720" font-family="Oswald, 'Oswald', sans-serif" font-weight="400">
+<style>@font-face{font-family:"Oswald";src:url("../../../assets/fonts/Oswald-Regular.ttf");font-weight:400;} text{font-family:"Oswald",sans-serif;font-weight:400;}</style>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<rect x="30.0" y="30.0" width="390.0" height="660.0" rx="28" fill="#E6ECEF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="225.0" y="70.0" font-size="20" fill="#0F2230" text-anchor="middle">Pro Ayarlar</text>
+<text x="225.0" y="92.0" font-size="13" fill="#465D6F" text-anchor="middle">PCP</text>
+<text x="50.0" y="124.0" font-size="15" fill="#465D6F" text-anchor="start">Atış girdileri</text>
+<rect x="46.0" y="136.0" width="358.0" height="70.0" rx="16" fill="#F7FAFB" stroke="#BCCAD3" stroke-width="1"/>
+<text x="64.0" y="178.0" font-size="13.5" fill="#465D6F" text-anchor="start">… bugünkü bölümler değişmez: eğim, rüzgâr, Coriolis …</text>
+<text x="50.0" y="236.0" font-size="15" fill="#465D6F" text-anchor="start">Tüp basıncı</text>
+<rect x="46.0" y="248.0" width="358.0" height="150.0" rx="16" fill="#F7FAFB" stroke="#BCCAD3" stroke-width="1"/>
+<rect x="50.0" y="248.0" width="350.0" height="142.0" rx="12" fill="none" stroke="#6A2C91" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="406.0" cy="258.0" r="10" fill="#6A2C91"/>
+<text x="406.0" y="262.5" font-size="12" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="62.0" y="278.0" font-size="15.5" fill="#0F2230" text-anchor="start">Tüp basıncı</text>
+<circle cx="152.4" cy="273.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="152.4" y="277.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<text x="62.0" y="308.0" font-size="13" fill="#465D6F" text-anchor="start">Tüp basıncı</text>
+<circle cx="139.8" cy="303.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="139.8" y="307.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="60.0" y="316.0" width="159.0" height="44.0" rx="10" fill="#FFFFFF" stroke="#BCCAD3" stroke-width="1"/>
+<text x="207.0" y="344.0" font-size="13" fill="#465D6F" text-anchor="end">bar</text>
+<text x="233.0" y="308.0" font-size="13" fill="#465D6F" text-anchor="start">Bugünkü hız</text>
+<circle cx="310.8" cy="303.0" r="7.5" fill="none" stroke="#1C8FB5" stroke-width="1.3"/>
+<text x="310.8" y="307.2" font-size="11" fill="#1C8FB5" text-anchor="middle">i</text>
+<rect x="231.0" y="316.0" width="159.0" height="44.0" rx="10" fill="#DBE4E9"/>
+<text x="243.0" y="344.0" font-size="15" fill="#0F2230" text-anchor="start">—</text>
+<text x="378.0" y="344.0" font-size="13" fill="#465D6F" text-anchor="end">fps</text>
+<text x="460.0" y="60.0" font-size="17" fill="#6A2C91" text-anchor="start">Taslak notları · Pro Ayarlar · yalnız PCP</text>
+<circle cx="470.0" cy="87.0" r="10" fill="#6A2C91"/>
+<text x="470.0" y="91.5" font-size="12" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="488.0" y="92.0" font-size="14.5" fill="#0F2230" text-anchor="start">Yeni bölüm: Tüp basıncı</text>
+<text x="488.0" y="111.0" font-size="13" fill="#465D6F" text-anchor="start">Yalnız PCP profilde görünür; ateşli tüfekte yerinde bugünkü</text>
+<text x="488.0" y="130.0" font-size="13" fill="#465D6F" text-anchor="start">Barut sıcaklığı bölümü durur. İkisi aynı anda hiç görünmez.</text>
+<text x="488.0" y="149.0" font-size="13" fill="#465D6F" text-anchor="start">Tüp basıncı | Bugünkü hız aynı satırda. Bugünkü hız giriş değil,</text>
+<text x="488.0" y="168.0" font-size="13" fill="#465D6F" text-anchor="start">hesaplanan değerdir; tüp basıncı girilmezse profildeki hızı gösterir.</text>
+<text x="488.0" y="187.0" font-size="13" fill="#465D6F" text-anchor="start">Değer profil başına saklanır; uygulama kapanınca kaybolmaz.</text>
+<text x="488.0" y="211.0" font-size="14.5" fill="#0F2230" text-anchor="start">Bölüm ⓘ metni · öneri</text>
+<text x="488.0" y="230.0" font-size="13" fill="#465D6F" text-anchor="start">Ne: PCP'de hızı tüpteki hava basıncı belirler; tüp boşaldıkça düşer.</text>
+<text x="488.0" y="249.0" font-size="13" fill="#465D6F" text-anchor="start">Neden: Regülatörlü tüfekte tüp regülatör basıncının altına inince hız</text>
+<text x="488.0" y="268.0" font-size="13" fill="#465D6F" text-anchor="start">düşer; regülatörsüzde hız basınca göre değişir. Bilmezsen aşağı vurursun.</text>
+<text x="488.0" y="287.0" font-size="13" fill="#465D6F" text-anchor="start">Nasıl: Manometredeki değeri yaz. Hız, Profil &gt; Mühimmat'taki</text>
+<text x="488.0" y="306.0" font-size="13" fill="#465D6F" text-anchor="start">ölçümlerinden bulunur; ölçüm yoksa profildeki hız kullanılır.</text>
+<text x="488.0" y="325.0" font-size="13" fill="#465D6F" text-anchor="start">Regülatör basıncı ve ölçümler Profil &gt; Mühimmat'tan değiştirilir.</text>
+<text x="488.0" y="344.0" font-size="13" fill="#465D6F" text-anchor="start">Bu bilgi kutu altına değil, bu ⓘ içine yazılır.</text>
+<text x="488.0" y="368.0" font-size="14.5" fill="#0F2230" text-anchor="start">Kutu ⓘ metinleri · öneri</text>
+<text x="488.0" y="387.0" font-size="13" fill="#465D6F" text-anchor="start">Tüp basıncı: Tüfeğin manometresinde şu an okunan basınç, bar olarak.</text>
+<text x="488.0" y="406.0" font-size="13" fill="#465D6F" text-anchor="start">Birkaç atışta bir güncelleyin. Örnek: 160 bar. Boş bırakırsanız</text>
+<text x="488.0" y="425.0" font-size="13" fill="#465D6F" text-anchor="start">hesap profildeki hızı kullanır.</text>
+<text x="488.0" y="444.0" font-size="13" fill="#465D6F" text-anchor="start">Bugünkü hız: Tüp basıncına ve ölçümlerinize göre bugün hesapta</text>
+<text x="488.0" y="463.0" font-size="13" fill="#465D6F" text-anchor="start">kullanılan hız; ölçüm yoksa profildeki hız.</text>
+<text x="488.0" y="487.0" font-size="14.5" fill="#0F2230" text-anchor="start">Uyarılar</text>
+<text x="488.0" y="506.0" font-size="13" fill="#465D6F" text-anchor="start">Pro ve Hedef aynı uyarıları gösterir, bkz. 04-hedef-pcp.</text>
+</svg>
