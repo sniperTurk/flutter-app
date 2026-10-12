@@ -1287,11 +1287,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 ? 'Alınıyor…'
                 : _weatherFilled
                 ? 'Konumdan canlı hava verisi alındı'
+                : _weatherWasReset
+                ? 'Tekrar canlı konum verisi al'
                 : 'Konumdan canlı hava verisi al',
             icon: _weatherFilled ? Icons.check : Icons.my_location,
             expand: true,
             active: _weatherFilled,
-            twoLines: _weatherFilled,
+            twoLines: _weatherFilled || _weatherWasReset,
             onPressed: _weatherBusy
                 ? null
                 : () => _fillWeather(overwrite: true),
@@ -3077,11 +3079,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     ? 'Okunuyor…'
                     : _pressureFilled
                     ? 'Basınç telefondan alındı'
+                    : _pressureWasReset
+                    ? 'Tekrar basıncı telefondan al'
                     : 'Basıncı telefondan al',
                 icon: _pressureFilled ? Icons.check : Icons.speed,
                 expand: true,
                 active: _pressureFilled,
-                twoLines: _pressureFilled,
+                twoLines: _pressureFilled || _pressureWasReset,
                 onPressed: _pressureBusy ? null : _readPhonePressure,
               ),
               resetKey: const Key('environment-pressure-reset'),

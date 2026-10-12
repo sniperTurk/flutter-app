@@ -82,7 +82,7 @@ void main() {
     expect(_text(tester, BallisticsFieldKeys.pressure), '1013.25');
     // The reset button stays, orange, as "Veriler sıfırlandı".
     expect(find.text('Veriler sıfırlandı'), findsOneWidget);
-    expect(find.text('Konumdan canlı hava verisi al'), findsOneWidget);
+    expect(find.text('Tekrar canlı konum verisi al'), findsOneWidget);
   });
 
   testWidgets('weather: a typed value turns the button gray again', (
@@ -113,7 +113,7 @@ void main() {
 
     await _tap(tester, reset);
     expect(_text(tester, BallisticsFieldKeys.pressure), '1013.25');
-    expect(find.text('Basıncı telefondan al'), findsOneWidget);
+    expect(find.text('Tekrar basıncı telefondan al'), findsOneWidget);
     expect(find.text('Veriler sıfırlandı'), findsOneWidget);
   });
 }
