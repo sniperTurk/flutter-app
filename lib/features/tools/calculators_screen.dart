@@ -946,7 +946,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
             ],
           ),
         _note(
-          'Bu bir referans hesaptır: seçilen G1/G7/GA sürtünme tablosu kullanılır ve '
+          'Bu bir referans hesaptır: seçilen G1/G7 sürtünme tablosu kullanılır ve '
           'yörünge hesabına (DOPE) bağlanmaz. Diabolo saçmada GA, G1/G7\'den daha '
           'uygundur; sonuç mühimmat üreticisinin BC değerinden '
           'sapabilir. Kronograf hatası sonucu güçlü etkiler (%1 hız hatası, BC\'de çok daha büyük hata).',

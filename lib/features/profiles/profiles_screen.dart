@@ -3459,7 +3459,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     child: MenzilNotice(
                       tone: MenzilNoticeTone.danger,
                       message:
-                          'Mühimmat tipini ve BC modelini (G1/G7/GA) seçin.',
+                          'Mühimmat tipini ve BC modelini (G1/G7) seçin.',
                     ),
                   ),
               ],
