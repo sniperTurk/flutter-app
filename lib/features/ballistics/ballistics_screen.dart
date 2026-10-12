@@ -17,6 +17,7 @@ import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
+import '../../core/stability.dart';
 import '../../core/unit_system.dart';
 import '../../core/wez.dart';
 import '../../core/wind_clock.dart';
@@ -38,6 +39,7 @@ import '../tools/weather_screen.dart';
 import 'dope_card.dart';
 import '../profiles/profile_field_info.dart';
 import 'environment_field_info.dart';
+import 'flight_warnings.dart';
 import 'incline_measure_screen.dart';
 import 'pro_section_info.dart';
 import 'scope_cant_screen.dart';
@@ -510,25 +512,50 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   ({double sg, double lCal, TwistDirection dir})? _stability(_ShotBasis basis) {
     if (!_spinDriftOn || !basis.drag) return null;
     final rifle = profileResolution?.rifle;
-    final twist = rifle?.twistRateIn, dir = rifle?.twistDirection;
+    final dir = rifle?.twistDirection;
+    final sg = _muzzleSg(basis);
+    if (rifle == null || dir == null || sg == null) return null;
+    final lCal = _parsed(bulletLengthCtl)! / 25.4 / (rifle.caliberMm / 25.4);
+    return (sg: sg, lCal: lCal, dir: dir);
+  }
+
+  /// Miller Sg at the muzzle (Ö5), or null without bullet length or twist.
+  double? _muzzleSg(_ShotBasis basis) {
+    final rifle = profileResolution?.rifle;
+    final twist = rifle?.twistRateIn;
     final lengthMm = _parsed(bulletLengthCtl);
-    if (rifle == null || twist == null || dir == null || lengthMm == null) {
+    if (rifle == null || twist == null || twist <= 0 || lengthMm == null) {
       return null;
     }
     if (lengthMm <= 0 || lengthMm > 100) return null;
-    final dIn = rifle.caliberMm / 25.4;
-    final tCal = twist / dIn, lCal = lengthMm / 25.4 / dIn;
-    final vFps = UnitSystem.mpsToFps(basis.velocityMps);
-    final tF = basis.environment.temperatureC * 9 / 5 + 32;
-    final pInHg = basis.environment.pressureHpa * 0.0295299830714;
-    final sg =
-        30 *
-        basis.grain /
-        (tCal * tCal * dIn * dIn * dIn * lCal * (1 + lCal * lCal)) *
-        math.pow(vFps / 2800, 1 / 3) *
-        ((tF + 460) / 519) *
-        (29.92 / pInHg);
-    return (sg: sg, lCal: lCal, dir: dir);
+    return Stability.millerSg(
+      grain: basis.grain,
+      caliberMm: rifle.caliberMm,
+      twistIn: twist,
+      lengthMm: lengthMm,
+      velocityMps: basis.velocityMps,
+      temperatureC: basis.environment.temperatureC,
+      pressureHpa: basis.environment.pressureHpa,
+    );
+  }
+
+  /// Kararlılık and transonik notices for the shot (Ö5); firearms only.
+  List<Widget> _flightWarnings(TrajectoryPoint shot, _ShotBasis basis) {
+    if (!_isFirearm) return const [];
+    final env = basis.environment;
+    double? mach(double v) {
+      try {
+        return Atmosphere.machNumber(velocityMps: v, environment: env);
+      } on ArgumentError {
+        return null;
+      }
+    }
+
+    return FlightWarnings.notices(
+      sg: _muzzleSg(basis),
+      muzzleMach: mach(basis.velocityMps),
+      targetMach: mach(shot.velocityMps),
+    );
   }
 
   double? _spinDriftMrad(TrajectoryPoint shot, _ShotBasis basis) {
@@ -1497,7 +1524,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     String clicks(double mrad) => click == null
         ? '${unit.fromMrad(mrad.abs()).toStringAsFixed(2).replaceAll('.', ',')} ${unit.label}'
         : '${(unit.fromMrad(mrad.abs()) / click / _turretScale).round()} klik';
-    final lines = <Widget>[];
+    final lines = <Widget>[..._flightWarnings(shot, basis)];
     final windMax = _windMaxMps;
     final wind = basis.environment.windMps;
     if (basis.drag && windMax != null && windMax > wind) {
@@ -1573,7 +1600,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (wez != null) {
       final pct = (wez.result.probability * 100).round();
       final pctN =
-          (Wez.atLeastOneHit(wez.result.probability, _wezShotCount) * 100)
+          (Wez.seriesHitProbability(
+                    sources: wez.sources,
+                    targetRadiusMrad: wez.radiusMrad,
+                    shotCount: _wezShotCount,
+                  ) *
+                  100)
               .round();
       lines.add(
         Row(
@@ -1820,10 +1852,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Gaussian approximated by P = 1 − exp(−R² / (2·σx·σy)). Null without a
   /// group size.
   /// WEZ: every error source as a spread on the target, then [Wez.simulate].
-  ({WezResult result, double radiusMrad, String sizeText})? _hitProbability(
-    TrajectoryPoint shot,
-    _ShotBasis basis,
-  ) {
+  ({
+    WezResult result,
+    List<WezSource> sources,
+    double radiusMrad,
+    String sizeText,
+  })?
+  _hitProbability(TrajectoryPoint shot, _ShotBasis basis) {
     final zero = widget.profile?.zeroRangeM;
     final g = _parsed(groupCtl);
     if (zero == null || zero <= 0 || g == null || g <= 0 || g > 100) {
@@ -1878,7 +1913,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (base != null && rangeErr > 0 && rangeErr < 100) {
       final far = corr(range: _shotRangeM + Wez.sigmaOfPlusMinus(rangeErr));
       if (far != null) {
-        sources.add(WezSource('mesafe hatası', sigmaY: (far - base).abs()));
+        sources.add(
+          WezSource('mesafe hatası', sigmaY: (far - base).abs(), shared: true),
+        );
       }
     }
     final bcErr = _parsed(bcErrorCtl);
@@ -1889,7 +1926,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         bcErr < 50) {
       final low = corr(bcScale: 1 - Wez.sigmaOfPlusMinus(bcErr) / 100);
       if (low != null) {
-        sources.add(WezSource('BC hatası', sigmaY: (low - base).abs()));
+        sources.add(
+          WezSource('BC hatası', sigmaY: (low - base).abs(), shared: true),
+        );
       }
     }
     final windMax = _windMaxMps;
@@ -1903,6 +1942,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         WezSource(
           'rüzgâr belirsizliği',
           sigmaX: (windMax - wind) / 2 / mpsPerMil,
+          shared: true,
         ),
       );
     }
@@ -1916,6 +1956,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         '${metric ? 'cm' : 'in'}';
     return (
       result: Wez.simulate(sources: sources, targetRadiusMrad: radius),
+      sources: List<WezSource>.unmodifiable(sources),
       radiusMrad: radius,
       sizeText: sizeText,
     );
