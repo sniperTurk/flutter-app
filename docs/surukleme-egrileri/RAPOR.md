@@ -108,3 +108,35 @@ M855 neden uygulamaya bağlanmadı:
   yükleyebilir — bu kişisel kullanım, uygulamaya veri dağıtımı değildir.
 - Not: görevde "font Oswald" dendi; ana dalda #173 ile yazı karakteri Inter yapılmış. Bu işte
   görünür değişiklik olmadığı için yazı karakterine dokunulmadı.
+
+## 7. Araştırma 2 — BC tamamlama 3 (2026-10-12)
+
+Aranan: kamuya açık ve yeniden kullanımı serbest, **sayısal** (grafikten okunmamış), kütüphanedeki
+bir mermiyle **birebir** eşleşen ve **en az Mach 0,8'den 2,0'a** uzanan ölçülmüş Cd–Mach eğrisi.
+Sonuç: **koşulların hepsini sağlayan kaynak bulunamadı; hiçbir eğri bağlanmadı.**
+`lib/data/measured_drag_curves.dart` boş kaldı, G1/G7 sonuçları değişmedi.
+
+| Kaynak | Dağıtım / lisans | Mermi | Sayısal tablo | Mach aralığı | Karar |
+|---|---|---|---|---|---|
+| BRL-MR-3733 (McCoy 1988) https://apps.dtic.mil/sti/tr/pdf/ADA205633.pdf | "Approved for public release; distribution unlimited" | M118; Sierra 190 gr MatchKing; Sierra 168 gr International | Tablo 2–4 atış atış **yalpalı toplam CD**; sıfır yalpa CD0 yalnız grafik (Şekil 18–20) | 190 SMK 0,64–2,21 | Bağlanmadı (CD0 türetmek hesap olur, ölçülmüş tablo değil). En yakın aday. |
+| Bohnenkamp/Courtney (USAFA 2012) https://apps.dtic.mil/sti/tr/pdf/ADA554683.pdf | Açık yayın | Sierra/Hornady/Nosler/Barnes | Yok — yalnız G1/G7 BC | — | Uygun değil |
+| BRL-MR-3476 https://apps.dtic.mil/sti/pdfs/ADA162133.pdf | Açık yayın | M855/SS109 | Yalnız grafik | 0,7–2,75 | Uygun değil |
+| BRL-MR-3877 https://apps.dtic.mil/sti/pdfs/ADA229713.pdf | Açık yayın | Eley Tenex, RWS R-50 .22 LR | Atış atış yalpalı CD | ~0,77–1,03 | Mach 2'ye ulaşmıyor |
+| BRL-MR-3810 https://apps.dtic.mil/sti/pdfs/ADA219106.pdf | OCR metninde ibare yok | .50 M33/M8/M20 | Atış atış CD | 0,55–2,69 | Askerî, kütüphanede yok |
+| BRL MR-1833 https://apps.dtic.mil/sti/tr/pdf/AD0815788.pdf | DTIC kaydı: "Distribution authorized to U.S. Gov't. agencies and their contractors" | 7.62 M59/M80 | Yalpalı CD; CD0 grafik | 0,53–2,85 | Dağıtım sınırlı |
+| BRL Report 1532 (AD0882117) | Karışık (açık yayın + kısıt bloğu) | Genel gövde biçimleri | Grafik | — | Uygun değil |
+| ARL-TR-5182 https://apps.dtic.mil/sti/tr/pdf/ADA530895.pdf | Açık yayın | M855 | 6 nokta | 1,18–2,62 | Önceki karar geçerli (ses altı yok, eşi yok) |
+| MDPI *Technologies* 13(5):190 (2025) https://www.mdpi.com/2227-7080/13/5/190 | CC BY | S&B .223 69 gr FMJ | Cd yalnız CFD hesabı | 0,3–4 | Ölçüm değil; eşi yok |
+| Courtney ve ark. arXiv:1608.06500 | Lisans belirtilmemiş | Sierra 175 TMK vb. | Tek hızlarda Cd | 1,2–2,8 | Uygun değil |
+| Wikipedia "External ballistics" Lapua GB528 tablosu | Metin CC BY-SA, veri Lapua/QTU kökenli | Lapua 300 gr Scenar .338 | Var | 0–2,4 | Lapua'nın yeniden kullanım izni yok → kullanılmadı |
+
+Açılamayan ve doğrulanamayan (engel aşılmadı): https://apps.dtic.mil/sti/tr/pdf/ADA224217.pdf,
+https://apps.dtic.mil/sti/tr/pdf/ADA326880.pdf, IOP J. Phys. Conf. Ser. 1888 012016 (robots engeli).
+DTIC'te .338 Lapua/Scenar, M118LR (Sierra 175 SMK), Mk 262 (77 gr SMK), Mk 248, M80A1 ve
+Hornady/Berger/Nosler aramaları sayısal CD0 tablosu vermedi. Mermi üreticilerinin hiçbiri
+sayısal Cd–Mach tablosunu yeniden kullanım izniyle yayımlamıyor (bkz. bölüm 2). Okuma tarihi:
+2026-10-12. Forum, blog, bayi ve balistik program verisi kullanılmadı.
+
+Yol: bir mermi üreticisinden yazılı izin, kendi Doppler ölçümü ya da açık yayın işaretli ARL
+Doppler verisi (ör. Sierra 175/77 gr SMK) gelirse `data/drag-curves/measured/` biçiminde eklenip
+`tools/data_gen/generate_measured_drag_curves.py` ile üretilebilir.
