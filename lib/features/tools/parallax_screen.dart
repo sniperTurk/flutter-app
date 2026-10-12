@@ -77,8 +77,8 @@ class _ParallaxScreenState extends State<ParallaxScreen> {
     var p = widget.profile;
     if (p == null) {
       try {
-        final active = widget.activeProfileStore ??
-            PersistentActiveProfileStore();
+        final active =
+            widget.activeProfileStore ?? PersistentActiveProfileStore();
         final id = await active.getActiveProfileId();
         if (id != null) {
           final all = await (widget.profileStore ?? PersistentProfileStore())
@@ -126,7 +126,8 @@ class _ParallaxScreenState extends State<ParallaxScreen> {
     if (p == null) return;
     setState(() {
       _points = points;
-      if (_picked != null && !ParallaxRange.pickMarks(points).contains(_picked)) {
+      if (_picked != null &&
+          !ParallaxRange.pickMarks(points).contains(_picked)) {
         _picked = null;
       }
     });
@@ -185,7 +186,8 @@ class _ParallaxScreenState extends State<ParallaxScreen> {
             const MenzilNotice(
               key: Key('parallax-no-profile'),
               tone: MenzilNoticeTone.warning,
-              message: 'Aktif profil yok. Önce Profil sekmesinde bir profil seçin.',
+              message:
+                  'Aktif profil yok. Önce Profil sekmesinde bir profil seçin.',
             )
           else ...[
             const MenzilSectionHeader(

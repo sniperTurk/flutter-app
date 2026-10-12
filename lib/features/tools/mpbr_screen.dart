@@ -54,12 +54,12 @@ class _MpbrScreenState extends State<MpbrScreen> {
   Future<void> _load() async {
     RifleProfile? p;
     try {
-      final id = await (widget.activeProfileStore ??
-              PersistentActiveProfileStore())
-          .getActiveProfileId();
+      final id =
+          await (widget.activeProfileStore ?? PersistentActiveProfileStore())
+              .getActiveProfileId();
       if (id != null) {
-        for (final x in await (widget.profileStore ?? PersistentProfileStore())
-            .all()) {
+        for (final x
+            in await (widget.profileStore ?? PersistentProfileStore()).all()) {
           if (x.id == id) p = x;
         }
       }
@@ -70,7 +70,9 @@ class _MpbrScreenState extends State<MpbrScreen> {
     setState(() {
       _loading = false;
       _profile = p;
-      _resolution = p == null ? null : const ProfileCatalogIntegrity().resolve(p);
+      _resolution = p == null
+          ? null
+          : const ProfileCatalogIntegrity().resolve(p);
     });
   }
 

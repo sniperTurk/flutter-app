@@ -45,10 +45,7 @@ void main() {
 
     test('three marks: each segment on its own', () {
       const c = ParallaxPoint(mark: 30, distanceM: 100);
-      expect(
-        ParallaxRange.distanceAt([_p10, _p20, c], 25),
-        closeTo(70, 1e-9),
-      );
+      expect(ParallaxRange.distanceAt([_p10, _p20, c], 25), closeTo(70, 1e-9));
     });
 
     test('a non-finite mark gives no distance', () {

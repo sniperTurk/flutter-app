@@ -85,8 +85,7 @@ const _firearm = RifleProfile(
   sightHeightMm: 45,
 );
 
-Widget _app(Widget home) =>
-    MaterialApp(theme: MenzilTheme.light(), home: home);
+Widget _app(Widget home) => MaterialApp(theme: MenzilTheme.light(), home: home);
 
 Future<void> _sized(WidgetTester tester) async {
   tester.view.physicalSize = const Size(430, 2600) * 3;
@@ -254,12 +253,16 @@ void main() {
 
   testWidgets('hub: Paralaks only for a PCP profile', (tester) async {
     await tester.pumpWidget(
-      _app(const Scaffold(body: ToolsScreen(activePlatform: WeaponPlatform.pcp))),
+      _app(
+        const Scaffold(body: ToolsScreen(activePlatform: WeaponPlatform.pcp)),
+      ),
     );
     expect(find.byKey(const Key('tool-parallax')), findsOneWidget);
     await tester.pumpWidget(
       _app(
-        const Scaffold(body: ToolsScreen(activePlatform: WeaponPlatform.firearm)),
+        const Scaffold(
+          body: ToolsScreen(activePlatform: WeaponPlatform.firearm),
+        ),
       ),
     );
     expect(find.byKey(const Key('tool-parallax')), findsNothing);

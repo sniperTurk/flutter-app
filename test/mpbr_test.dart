@@ -58,7 +58,11 @@ void _staysInside(
   if (ranges.isEmpty) return;
   final pts = const BallisticEngine().solve(build(r.zeroM, ranges));
   for (final p in pts) {
-    expect(p.dropM.abs(), lessThanOrEqualTo(half + 0.001), reason: '${p.rangeM}');
+    expect(
+      p.dropM.abs(),
+      lessThanOrEqualTo(half + 0.001),
+      reason: '${p.rangeM}',
+    );
   }
 }
 
@@ -68,7 +72,11 @@ void main() {
   });
 
   test('T1 .308, 15 cm: zero ≈ 203 m, no hold 0–237 m', () {
-    final r = Mpbr.solve(build: _t1, zoneDiameterM: 0.15, grid: MpbrGrid.firearm)!;
+    final r = Mpbr.solve(
+      build: _t1,
+      zoneDiameterM: 0.15,
+      grid: MpbrGrid.firearm,
+    )!;
     expect(r.zeroM, closeTo(203, 4));
     expect(r.nearM, closeTo(0, 0.5));
     expect(r.farM, closeTo(237.7, 5));
@@ -96,8 +104,16 @@ void main() {
   });
 
   test('a larger zone reaches farther', () {
-    final small = Mpbr.solve(build: _t1, zoneDiameterM: 0.10, grid: MpbrGrid.firearm)!;
-    final big = Mpbr.solve(build: _t1, zoneDiameterM: 0.20, grid: MpbrGrid.firearm)!;
+    final small = Mpbr.solve(
+      build: _t1,
+      zoneDiameterM: 0.10,
+      grid: MpbrGrid.firearm,
+    )!;
+    final big = Mpbr.solve(
+      build: _t1,
+      zoneDiameterM: 0.20,
+      grid: MpbrGrid.firearm,
+    )!;
     expect(big.farM, greaterThan(small.farM));
     expect(big.zeroM, greaterThan(small.zeroM));
   });

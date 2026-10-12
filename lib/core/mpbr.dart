@@ -44,7 +44,13 @@ class _Eval {
   final double apexM;
   final double nearM;
   final double? farM, upCrossM, downCrossM;
-  const _Eval(this.apexM, this.nearM, this.farM, this.upCrossM, this.downCrossM);
+  const _Eval(
+    this.apexM,
+    this.nearM,
+    this.farM,
+    this.upCrossM,
+    this.downCrossM,
+  );
 }
 
 /// Ö7 Avcı sıfırı / en uzun tutuşsuz menzil (maximum point-blank range).
@@ -62,8 +68,7 @@ abstract final class Mpbr {
   /// (atmosphere, velocity, drag model are the caller's). Null when no zero
   /// keeps the path inside the zone.
   static MpbrResult? solve({
-    required BallisticInput Function(double zeroM, List<double> rangesM)
-    build,
+    required BallisticInput Function(double zeroM, List<double> rangesM) build,
     required double zoneDiameterM,
     required MpbrGrid grid,
   }) {
