@@ -1365,6 +1365,10 @@ class MenzilPrimaryButton extends StatelessWidget {
   final bool expand;
   final bool amber;
 
+  /// The label stays on one line and is set smaller when it does not fit
+  /// (owner, 2026-10-12: "Profil ekle 2. satıra kaymasın").
+  final bool oneLine;
+
   const MenzilPrimaryButton({
     super.key,
     required this.label,
@@ -1372,6 +1376,7 @@ class MenzilPrimaryButton extends StatelessWidget {
     this.icon,
     this.expand = true,
     this.amber = false,
+    this.oneLine = false,
   });
 
   @override
@@ -1383,13 +1388,19 @@ class MenzilPrimaryButton extends StatelessWidget {
             foregroundColor: MenzilColors.onAmber,
           )
         : null;
+    final Widget text = oneLine
+        ? FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(label, maxLines: 1, softWrap: false),
+          )
+        : Text(label);
     final button = icon == null
-        ? FilledButton(style: style, onPressed: onPressed, child: Text(label))
+        ? FilledButton(style: style, onPressed: onPressed, child: text)
         : FilledButton.icon(
             style: style,
             onPressed: onPressed,
             icon: Icon(icon, size: 20),
-            label: Text(label),
+            label: text,
           );
     return expand ? SizedBox(width: double.infinity, child: button) : button;
   }

@@ -508,6 +508,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 label: 'Profil ekle',
                 icon: Icons.add,
                 amber: true,
+                oneLine: true,
                 onPressed: _add,
               ),
             ),
