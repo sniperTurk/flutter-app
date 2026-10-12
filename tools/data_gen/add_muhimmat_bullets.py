@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Mühimmat tamamlama (2026-10-12): appends to lib/data/bullet_library.dart
-  * firearm bullets of data/muhimmat/bullets-firearm (new makers),
+  * firearm bullets of data/muhimmat/bullets-firearm (new makers) that carry a
+    maker BC,
   * PCP pellets/slugs of data/muhimmat/bullets-pcp (new makers),
   * PCP records of data/bullets-pcp (worktree tools/data_gen/bullets-pcp) that
     the library left out because the maker publishes no BC (Hatsan, My Bullet,
@@ -48,7 +49,10 @@ def main(check=False):
     for f in sorted(glob.glob(str(REPO / 'data/muhimmat/bullets-firearm/*.json'))):
         for r in json.load(open(f)):
             name = name_of(r['name'])
-            if (r['brand'], name) in have:
+            # Firearm rows need a maker BC, as every firearm row of the library;
+            # a BC withheld here (an Applied Ballistics '(A.B.)' value) is not
+            # "no BC published", so the row stays out instead of saying so.
+            if (r['brand'], name) in have or not (r.get('g1_bc') or r.get('g7_bc')):
                 continue
             dia = round(r['diameter_in'] * 25.4, 3)
             cal = cal_of.get(dia, round(dia, 2))
@@ -62,11 +66,15 @@ def main(check=False):
             rows.append(f"    LibraryBullet({dart_str(r['brand'])}, {dart_str(name)}, {dart_str(r.get('item_number') or '')}, "
                         f"{num(cal)}, {num(dia)}, {num(r['weight_gr'])}, {num(g1)}, {num(g7)}, BallisticModel.{model}, "
                         f"{num(bc)}, [], {num(length)}, AmmunitionType.bullet, WeaponPlatform.firearm, {dart_str(r['source_url'])}),\n")
-    pcp = sorted(glob.glob(str(REPO / 'data/muhimmat/bullets-pcp/*.json'))) + \
-        sorted(glob.glob(str(HERE / 'bullets-pcp/data/bullets-pcp/*.json')))
-    for f in pcp:
+    new_pcp = sorted(glob.glob(str(REPO / 'data/muhimmat/bullets-pcp/*.json')))
+    old_pcp = sorted(glob.glob(str(HERE / 'bullets-pcp/data/bullets-pcp/*.json')))
+    for f in new_pcp + old_pcp:
         for r in json.load(open(f)):
             if (r['brand'], r['name']) in have:
+                continue
+            # data/bullets-pcp rows with a BC were reviewed when the library was
+            # built (#79, add_pcp_library_bullets.py); only the BC-less ones join.
+            if f in old_pcp and r['bc'] is not None:
                 continue
             if all(abs(r['caliber_mm'] - mm) > 0.01 for mm in PCP_MM) or (r['bc'] is not None and not 0.005 <= r['bc'] <= 1.5):
                 skipped.append(r['name'])

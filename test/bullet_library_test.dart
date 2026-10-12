@@ -62,9 +62,7 @@ void main() {
     final spoton = BulletLibrary.all.where((b) => b.brand == 'Spoton');
     expect(spoton.every((b) => b.bc == null), isTrue);
     expect(spoton.every((b) => b.platform == WeaponPlatform.pcp), isTrue);
-    final ceb = BulletLibrary.all.firstWhere(
-      (b) => b.item == 'MTH 224 78 MAX',
-    );
+    final ceb = BulletLibrary.all.firstWhere((b) => b.item == 'MTH 224 78 MAX');
     expect(ceb.g1, 0.442); // Oehler 89, not the A.B. 0.408
     expect(ceb.g7, isNull);
     // Both rifle types are covered.

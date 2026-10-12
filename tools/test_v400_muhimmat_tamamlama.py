@@ -61,7 +61,7 @@ class FactoryAmmoTests(unittest.TestCase):
     def test_new_makers_listed_with_velocity(self):
         for brand, n in (('PMC', 11), ('Magtech', 35), ('Aguila', 31)):
             rows = re.findall(r"FactoryAmmo\('" + brand + r"', ", AMMO)
-            self.assertGreaterEqual(len(rows), n - 2, brand)  # de-duplicated variants only
+            self.assertEqual(len(rows), n, brand)
 
     def test_unlabelled_bc_note(self):
         row = next(l for l in AMMO.splitlines() if "FactoryAmmo('PMC'" in l and 'X-TAC Match' in l and '168' in l)
@@ -76,7 +76,7 @@ class FactoryAmmoTests(unittest.TestCase):
 
 class BulletLibraryTests(unittest.TestCase):
     def test_new_makers_in_library(self):
-        for brand, n in (('Cutting Edge Bullets', 155), ('Hammer Bullets', 16), ('Spoton', 30)):
+        for brand, n in (('Cutting Edge Bullets', 71), ('Hammer Bullets', 16), ('Spoton', 30)):
             self.assertEqual(len(lib_rows(brand)), n, brand)
 
     def test_bc_less_turkish_pcp_listed(self):
@@ -98,13 +98,19 @@ class BulletLibraryTests(unittest.TestCase):
                if k[0] in ('Cutting Edge Bullets', 'Hammer Bullets', 'Spoton', 'Hatsan', 'My Bullet')]
         self.assertEqual(len(new), len(set(new)))
 
-    def test_add_script_is_idempotent(self):
+    def test_add_script_has_nothing_left_to_add(self):
         import subprocess, sys
-        before = LIB
-        subprocess.run([sys.executable, str(ROOT / 'tools/data_gen/add_muhimmat_bullets.py'), '--check'],
-                       check=True, capture_output=True)
-        self.assertEqual((ROOT / 'lib/data/bullet_library.dart').read_text(), before)
+        out = subprocess.run([sys.executable, str(ROOT / 'tools/data_gen/add_muhimmat_bullets.py'), '--check'],
+                             check=True, capture_output=True, text=True).stdout
+        self.assertIn('would add 0', out)
 
+    def test_firearm_rows_all_carry_a_bc(self):
+        for brand in ('Cutting Edge Bullets', 'Hammer Bullets'):
+            for name, g1, g7, bc in lib_rows(brand):
+                self.assertNotEqual(bc, 'null', name)
+
+    def test_no_second_copy_of_reviewed_hn_rows(self):
+        self.assertNotIn("'H&N', 'Baracuda Match .177 10.65 gr (kafa", LIB)
 
 if __name__ == '__main__':
     unittest.main()
