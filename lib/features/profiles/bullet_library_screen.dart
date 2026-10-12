@@ -121,6 +121,8 @@ class _BulletLibraryScreenState extends State<BulletLibraryScreen> {
                   if (b.g1 != null) 'G1 ${_num(b.g1!)}',
                   if (b.g7 != null) 'G7 ${_num(b.g7!)}',
                 ].join(' · ');
+                // A maker that publishes no BC (2026-10-12).
+                final bcText = bcs.isEmpty ? 'BC yayımlanmıyor' : bcs;
                 return MenzilCard(
                   margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
                   padding: EdgeInsets.zero,
@@ -134,7 +136,7 @@ class _BulletLibraryScreenState extends State<BulletLibraryScreen> {
                     ),
                     subtitle: Text(
                       '${_num(b.grain, b.grain % 1 == 0 ? 0 : 2)} gr · '
-                      '${_num(b.diameterMm, 2)} mm · $bcs',
+                      '${_num(b.diameterMm, 2)} mm · $bcText',
                       style: MenzilType.caption(c.ink2),
                     ),
                     trailing: const Icon(Icons.chevron_right),

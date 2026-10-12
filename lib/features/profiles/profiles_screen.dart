@@ -2385,7 +2385,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ? b.name.substring(b.brand.length).trim()
           : b.name;
       ammoGrain.text = n(b.grain);
-      ammoBc.text = n(b.bc);
+      // No maker BC (2026-10-12): the box stays empty for the shooter's own.
+      ammoBc.text = b.bc == null ? '' : n(b.bc!);
       ammoBcModel = b.model;
       // A library bullet carries its BC, not a custom curve.
       _customCurve = false;
@@ -2463,6 +2464,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           a.brand == ammoBrand.text &&
           a.name == ammoModel.text) {
         return '\n\nBu fişek: ${a.note}';
+      }
+    }
+    // A listed bullet / pellet whose maker publishes no BC (2026-10-12).
+    if (!(platform == WeaponPlatform.firearm && _factoryAmmo)) {
+      for (final b in _libraryHere) {
+        if (b.bc == null &&
+            b.brand == ammoBrand.text &&
+            _modelOf(b) == ammoModel.text) {
+          return '\n\nBu mermi: Üretici BC yayımlamıyor. Kendi atışlarınızdan '
+              'bulduğunuz BC\'yi girin.';
+        }
       }
     }
     return '';
