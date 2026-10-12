@@ -1151,9 +1151,11 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
   }
 
   @override
-  void didUpdateWidget(covariant MenzilSelect<T> old) {
-    super.didUpdateWidget(old);
-    if (widget.initialValue != old.initialValue) _value = widget.initialValue;
+  void didUpdateWidget(covariant MenzilSelect<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialValue != oldWidget.initialValue) {
+      _value = widget.initialValue;
+    }
   }
 
   @override
