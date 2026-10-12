@@ -52,6 +52,14 @@ class ConfigureIosInfoPlistTests(unittest.TestCase):
             self.assertIn("UIInterfaceOrientationPortrait", data["UISupportedInterfaceOrientations"])
             self.assertEqual(4, len(data["UISupportedInterfaceOrientations~ipad"]))
 
+    def test_motion_text_names_the_barometer_button(self):
+        # Ö4: CMAltimeter (barometer) uses the Motion & Fitness permission;
+        # the purpose string must say what it is really used for.
+        text = USAGE_DESCRIPTIONS["NSMotionUsageDescription"]
+        self.assertIn("barometre", text)
+        self.assertIn("Basıncı telefondan al", text)
+        self.assertIn("Su Terazisi", text)
+
     def test_missing_file_fails(self):
         with tempfile.TemporaryDirectory() as d:
             with self.assertRaises(FileNotFoundError):

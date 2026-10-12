@@ -1,0 +1,34 @@
+{
+  "name": "APRS5 FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares BTR GEN2 HD"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 6,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": {
+    "rows": [
+      {
+        "y": 1,
+        "half_width": 1,
+        "dot_step": 0.2
+      },
+      {
+        "y": 10,
+        "half_width": 4,
+        "dot_step": 0.2
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-APRS5-FFP-IR-MIL-Reticle-Manual-Ares-BTR-GEN2.pdf",
+  "notes": "FFP. Föy metninden: 'fine 0.2 mil hash mark increments from center to 6 mils to both left and right' (extent_h=6); 'floating 0.05 mil center dot'; nokta satırları 1 mil düşüş çizgisinde her yöne 1 mil, 10 mil çizgisinde her yöne 4 mil; küçük noktalar 0.2, büyük 1 mil aralıklı. Ara satırlar (2-9 mil) metinde yok, yalnızca belirtilen iki satır girildi. extent_v_down=10 son düşüş çizgisinden çıkarım. Yukarı uzanım, büyük işaret, rakam belirtilmemiş -> null. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

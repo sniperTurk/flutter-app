@@ -1,0 +1,21 @@
+{
+  "name": "Ballistic Plex",
+  "brand": "Burris",
+  "scopes": [
+    "Fullfield II 4.5-14x42mm"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/ballistic-plex",
+  "notes": "Burris Ballistic Plex sayfası: 'trajectory compensating reticle for hunting', 'trajectory compensation out to 500 yards', bazı modeller kalibreye göre kalibre (.22LR, .223 Rem., Sabot). Fullfield II 4.5-14x42 ürün sayfası (https://www.burrisoptics.com/riflescopes/fullfield-ii-riflescope-45-14x42mm): arka odak düzlemi (RFP/SFP). family=duplex yalnız 'Plex' adından çıkarım (alt dikeyde BDC işaretleri var). Birim (MOA/mil), işaret aralıkları ve referans büyütme metinde yok -> unit dahil null; ölçü görseli ve Fullfield II kılavuz PDF'i makine-okunur değil. 2. tur: unit=moa, Burris Droptine kullanım kılavuzundaki Ballistic Plex bölümünden (https://www.burrisoptics.com/sites/default/files/content/files/2022-07/droptine_userguide.pdf): 'Reticle Subtensions (in MOA)' tablosu, Low Mag / High Mag sütunlu (ör. 4.5-14x42: .58 1.6 19 | .19 .52 6.2; 3-9x40: .86 2.3 20 | .31 .83 7.1), ve örnek yörünge tablosu 'Yards / MOA' 100-500 yd: 0 1.6 4.3 7.2 10.5 (bu tablonun hangi büyütmeye ait olduğu yazmıyor). Kılavuz 'set to provide precise aiming from 100 yards to 500 yards' diyor. Bu tablo Droptine kılavuzundan; Fullfield II kılavuzu (https://www.burrisoptics.com/sites/default/files/content/files/2022-07/ffii_userguide.pdf) makine-okunur değil, aynı retikül adı ve aynı 4.5-14x42 model satırı nedeniyle Fullfield II için de geçerli kabul edildi (çıkarım). İşaretler düzensiz (balistik) olduğundan hash_step/major_every null; harf eşlemesi görselde -> diğer alanlar null."
+}

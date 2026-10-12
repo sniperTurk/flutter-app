@@ -93,7 +93,7 @@ Future<_Workspace> _pumpShot(WidgetTester tester, TestTilt tilt) async {
 String _impact(WidgetTester tester) =>
     tester.widget<Text>(find.byKey(ScopeDialKeys.impactText)).data!;
 
-/// Taps "Çözümü kuleye kur" and returns the "Kule: …" readout.
+/// Taps "Çözümü kulelere kur" and returns the "Kule: …" readout.
 Future<String> _dialSolution(WidgetTester tester) async {
   final button = find.byKey(ScopeDialKeys.dialSolution);
   await tester.ensureVisible(button);
@@ -260,7 +260,7 @@ void main() {
   ) async {
     final ws = await _pumpShot(tester, TestTilt());
     // Calm and level: nothing sideways.
-    expect(_impact(tester).split(' · ').last, startsWith('0.0 cm'));
+    expect(_impact(tester).split(' · ').last, startsWith('0,0 cm'));
 
     await ws.show(BallisticsView.pro);
     await openProFor(tester, const Key('shot-cant'));
@@ -283,7 +283,7 @@ void main() {
     await ws.show(BallisticsView.shot);
     // A right cant moves the shot right: dial left.
     final side = _impact(tester).split(' · ').last;
-    expect(side, isNot(startsWith('0.0 cm')));
+    expect(side, isNot(startsWith('0,0 cm')));
     expect(side, endsWith('sağ'));
     expect(await _dialSolution(tester), contains('klik sol'));
 

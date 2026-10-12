@@ -1,0 +1,22 @@
+{
+  "name": "VCO-5 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental 6-48x56 ED MIL Tactical (SCOL-TM52)",
+    "Tauron 5-50x60 ED SFP (SCOL-69)"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.25,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250708/d18e727aab9c20d0a4f4444bd0c7e54d.pdf",
+  "notes": "SFP; kılavuza göre ölçüler 40x'te geçerli (referans büyütme 40x, SCOL-TM52 için). Ürün sayfası (https://www.vectoroptics.com/rifle-scopes/Continental-6-48x56-ED-MIL-tactical-riflescope-SCOL-TM52.html): 0.01 MIL merkez nokta, '0.25 Mil hashmark increment'. Kılavuz: ters 'T' ölçek; nokta ile ölçek arasında 0.5 MIL çaplı boş halka alanı → floating_center=true. Kılavuz diyagram etiketlerinde 0.5/0.25/0.125 değerleri de var ama yerleri metinde belirtilmiyor. Uzanımlar, büyük işaret, rakamlar metinde yok → null. SCOL-69 için ayrı bir SFP kılavuzu var; referans büyütmesi farklı olabilir (okunmadı). Model listesi Reticle-Collection sayfasından."
+}

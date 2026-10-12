@@ -1,0 +1,25 @@
+{
+  "name": "Wide Duplex",
+  "brand": "Leupold",
+  "scopes": [
+    "Rifleman 3-9x40 (üretimden kalktı)",
+    "Rifleman 4-12x40 (üretimden kalktı)",
+    "Rifleman 3-9x50 (üretimden kalktı)",
+    "FX-II Ultralight 2.5x20 (üretimden kalktı)",
+    "FX-3 6x42 (üretimden kalktı)"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/wide-duplex/",
+  "notes": "Leupold Wide Duplex sayfası; SFP. Metin: 'Inspired by the Duplex reticle', 'Larger center opening'. Föy (https://www.leupold.com/media/binaryanvil/reticle/Wide_Duplex_Reticle_Spec_Sheet.pdf) metninden yalnız 'a b c / UNITS: MOA' okundu, sayısal değer çıkarılamadı -> ölçüler null."
+}

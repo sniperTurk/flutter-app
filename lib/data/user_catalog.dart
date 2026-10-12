@@ -138,12 +138,12 @@ class UserCatalog {
             block(
               '${custom ? 'Özel yapım mermide' : 'Mühimmatta'} '
               '${missing.join(', ')} eksik; profilde kullanmak için kaydı '
-              'Katalog ekranında tamamlayın.',
+              'Profil sekmesinde yeniden girin.',
             );
             continue;
           }
           // A BC is only meaningful together with its drag model. Without an
-          // explicit G1/G7/GA model the value is not attached to the record.
+          // explicit G1/G7 model the value is not attached to the record.
           // V378: standard (profile-typed) ammunition carries its model too.
           final bcModel = _ballisticModel(e['bcModel']);
           final bc = bcModel == null ? null : _positive(e['bc']);
@@ -179,7 +179,7 @@ class UserCatalog {
           if (missing.isNotEmpty) {
             block(
               'Dürbünde ${missing.join(', ')} eksik; profilde kullanmak için '
-              'kaydı Katalog ekranında tamamlayın.',
+              'kaydı Profil sekmesinde yeniden girin.',
             );
             continue;
           }
@@ -201,6 +201,11 @@ class UserCatalog {
               // Total turret travel from the scope's spec sheet (optional).
               elevationRangeMrad: _positive(e['elevationRangeMrad']),
               windageRangeMrad: _positive(e['windageRangeMrad']),
+              reticle: switch (e['reticle']) {
+                final String r when r.trim().isNotEmpty && r.length <= 100 =>
+                  r.trim(),
+                _ => null,
+              },
               sourceName: userCatalogSourceName,
               sourceDocument: userCatalogSourceDocument,
               userEntered: true,

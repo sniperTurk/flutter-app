@@ -36,13 +36,13 @@ abstract final class ReticleFieldInfo {
       'Hedefe olan mesafe; telemetre ile ölçün. Nokta aralığının hedefte kaç '
       'cm tuttuğu buna göre hesaplanır. Örnek: 50 m.';
   static const target =
-      'Hedefin bilinen boyu veya çapı. Retikülde kaç mil kapladığını '
+      'Hedefin bilinen boyu veya çapı. Retikülde kaç MIL kapladığını '
       'gösterir. Örnek: 4,5 cm (tipik metal silüet).';
   static const mag =
       'Dürbünün şu an ayarlı olduğu büyütme; büyütme halkasında yazar. SFP '
       'dürbünde retikül değeri büyütmeyle değişir. Örnek: 10x.';
   static const calMag =
-      'SFP dürbünde retikül çizgilerinin doğru mil değerini gösterdiği '
+      'SFP dürbünde retikül çizgilerinin doğru MIL değerini gösterdiği '
       'büyütme; dürbün kılavuzunda yazar, çoğunlukla en yüksek büyütmedir. '
       'Örnek: 10x.';
 }
@@ -57,7 +57,7 @@ class _ReticleState extends State<ReticleScreen> {
   final _distance = TextEditingController(text: '50');
   final _mag = TextEditingController(text: '10');
   final _calMag = TextEditingController(text: '10');
-  final _target = TextEditingController(text: '4.5');
+  final _target = TextEditingController(text: '4,5');
   bool _ffp = true;
 
   @override
@@ -74,14 +74,12 @@ class _ReticleState extends State<ReticleScreen> {
     String label,
     String unit,
     Key key, {
-    String? helper,
     required String info,
   }) => MenzilInput(
     key: key,
     controller: c,
     label: label,
     unit: unit,
-    helperText: helper,
     info: info,
     keyboardType: _decimal,
     onChanged: (_) => setState(() {}),
@@ -129,7 +127,7 @@ class _ReticleState extends State<ReticleScreen> {
           const SizedBox(height: MenzilSpace.sm),
           _field(
             _target,
-            'Hedef boyu (görünen çap veya boy)',
+            'Hedef boyu',
             'cm',
             const Key('reticle-target'),
             info: ReticleFieldInfo.target,
@@ -158,8 +156,6 @@ class _ReticleState extends State<ReticleScreen> {
               'Retikülün doğru olduğu büyütme',
               'x',
               const Key('reticle-cal-mag'),
-              helper:
-                  'Çoğu SFP dürbünde en yüksek büyütme. Dürbünün kılavuzuna bakın.',
               info: ReticleFieldInfo.calMag,
             ),
           ],
@@ -192,12 +188,12 @@ class _ReticleState extends State<ReticleScreen> {
               columns: 2,
               metrics: [
                 MenzilMetric(
-                  '1 mil (nokta aralığı)',
+                  '1 MIL (nokta aralığı)',
                   ToolFormat.dec(dotM! * 100, 1),
                   'cm',
                 ),
                 MenzilMetric(
-                  '0,25 mil nokta çapı',
+                  '0,25 MIL nokta çapı',
                   ToolFormat.dec(
                     FieldCalc.spanM(dist, k * MilDotReticle.dotDiameterMil)! *
                         100,
@@ -231,7 +227,7 @@ class _ReticleState extends State<ReticleScreen> {
           const MenzilNotice(
             tone: MenzilNoticeTone.info,
             message:
-                'Mesafe ölçme: mesafe (m) = hedef boyu (m) × 1000 ÷ okunan mil. '
+                'Mesafe ölçme: mesafe (m) = hedef boyu (m) × 1000 ÷ okunan MIL. '
                 'Okumayı Hesaplayıcılar > Stadyametrik mesafe ölçer ile yapın.',
           ),
         ],

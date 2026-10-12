@@ -1,0 +1,23 @@
+{
+  "name": "VMR-1 MOA",
+  "brand": "Vortex Optics",
+  "scopes": [
+    "Intrepid 4-16x42",
+    "Diamondback Tactical 3-9x40",
+    "Diamondback Tactical 4-12x40"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://vortexoptics.com/intrepid-4-16x42-vmr-1-moa-riflescope.html",
+  "notes": "Intrepid 4-16x42 sayfası: 'The VMR-1 is a Second Focal Plane, hashmarked reticle offering accurate holdovers...'; ayar 1/4 MOA. family=hash 'hashmarked' ifadesinden çıkarım. SFP referans büyütmesi belirtilmemiş. Diamondback Tactical 3-9x40 VMR-1 MOA: https://vortexoptics.com/vortex-diamondback-tactical-3-9x40-vmr1-moa-riflescope.html. Retikül kılavuzu ve 'subtension view' PDF'leri vortexoptics.widen.net üzerinde; robots.txt engelli olduğu için okunamadı (engel aşılmadı). İşaret aralığı, büyük işaret, rakam aralığı, uzanımlar, ağaç/direk ve merkez nokta ölçüleri sayfa metninde yok -> null. 2026-10-11: Diamondback Tactical 4-12x40 (DBK-10025) sayfası: Reticle VMR-1 (MOA), Second Focal Plane, ayar 1/4 MOA; metin: 'Designed to maximize long distance shooting and ranging abilities, the VMR-1 MOA reticle can be used to effectively determine ranges, holdovers, windage corrections and moving target leads.'"
+}

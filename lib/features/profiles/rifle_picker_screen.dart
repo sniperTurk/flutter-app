@@ -31,6 +31,46 @@ class RiflePickerScreen extends StatefulWidget {
     return r.caliberMm;
   }
 
+  /// The Kalibre list name for [r] when its model names the cartridge
+  /// (".308", "6.5 Creedmoor"…); null leaves the first name of its diameter.
+  static String? cartridgeName(Rifle r) {
+    final m = r.model.toLowerCase();
+    const map = <(String, String)>[
+      ('.338 lapua', '.338 Lapua Mag'),
+      ('.338 win', '.338 Win Mag'),
+      ('6.5 creedmoor', '6.5 Creedmoor'),
+      ('6.5 prc', '6.5 PRC'),
+      ('6.5x55', '6.5x55 Swedish'),
+      ('.300 win', '.300 Win Mag'),
+      ('.300 prc', '.300 PRC'),
+      ('.300 blk', '.300 Blackout'),
+      ('.300 blackout', '.300 Blackout'),
+      ('7.62x51', '7.62x51 NATO'),
+      ('7.62x39', '7.62x39'),
+      ('7.62x54', '7.62x54R'),
+      ('.30-06', '.30-06 Springfield'),
+      ('.308', '.308 Win'),
+      ('.243', '.243 Win'),
+      ('5.56', '5.56x45 NATO'),
+      ('.223', '.223 Rem'),
+      ('.22-250', '.22-250 Rem'),
+      ('.22 lr', '.22 LR'),
+      ('.270 wsm', '.270 WSM'),
+      ('.270', '.270 Win'),
+      ('7mm rem', '7mm Rem Mag'),
+      ('7mm prc', '7mm PRC'),
+      ('7mm-08', '7mm-08 Rem'),
+      ('.375', '.375 H&H Mag'),
+      ('9.3x62', '9.3x62'),
+      ('8x57', '8x57 JS'),
+    ];
+    if (r.platform != WeaponPlatform.firearm) return null;
+    for (final (k, v) in map) {
+      if (m.contains(k)) return v;
+    }
+    return null;
+  }
+
   @override
   State<RiflePickerScreen> createState() => _RiflePickerScreenState();
 }

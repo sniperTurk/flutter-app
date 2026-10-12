@@ -1,0 +1,19 @@
+{
+  "name": "MR2",
+  "brand": "Sightmark",
+  "scopes": ["Core 2.0 TX 4-16x44 MR2 (SM13121MR2)"],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://cdn.shopify.com/s/files/1/0566/9466/9461/files/CORE_2.0_TX_Manual_Web.pdf?v=1692648547",
+  "notes": "Sightmark CORE 2.0 TX kılavuzu. SFP, mil tabanlı; tutma ve mesafe ölçümü yalnız 10x'te doğru ('only accurate at 10x magnification'). Metin: dikey ve yatay mil ölçekleri 0.5 mil aralıklı; üst, sol ve sağ uçlar 0.1 mil bölmeli; 0.1 mil merkez noktası; 'floating dot' -> floating_center=true. Çizim harf etiketleri (10x): A 0.1, B 0.1, C 0.5, D 1, E 0.05, F 0.4 mil — hangi öğeye ait oldukları metinde yazmadığı için alanlara işlenmedi. family=hash, ağaç/nokta ızgarası anılmadığı için (çıkarım). Uzanımlar, rakamlar ve uzun çizgi aralığı metinde yok -> null. Presidio 3-18x50 MR2 (SM13141MR2) için Presidio kılavuzunda MR2 bölümü yok; eşdeğerliği belirtilmediğinden scopes'a eklenmedi. Kılavuz görselleri (ölçü föyü çizimleri) bu ortamdan okunamadı; değerler yalnız PDF metninden alındı."
+}

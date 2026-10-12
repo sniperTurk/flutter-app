@@ -1,0 +1,29 @@
+{
+  "name": "ACSS Griffin X MIL",
+  "brand": "Primary Arms",
+  "scopes": [
+    "SLx 3X MicroPrism"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": {
+    "rows": [
+      {
+        "y": 10,
+        "half_width": 4,
+        "dot_step": null
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=19267909&c=3901023&h=a9ZwaiBtRF5gtgCA5MTojpQgRx1RDn4oIoWPYD7WbyW7YQ5K",
+  "notes": "Kaynak: Primary Arms ACSS Griffin X MIL reticle manual (SLx 3x MicroPrism); ürün sayfası https://www.primaryarms.com/primary-arms-slx-3x-micro-prism-red-illuminated-acss-griffin-x-mil-reticle (aynı cümle). 'This reticle features a full MIL grid, which offers 10 MILs of elevation and up to 4 MILs of windage on each side' -> extent_v_down=10; çıkarım: 4 MIL yarı genişlik ızgaranın en alt (10 MIL) satırına yazıldı, ara satırlar ve nokta aralığı verilmemiş. 'The 5th and 10th MIL feature barbell-shaped brackets' -> çıkarım: major_every=5. Merkez: kalın dış at nalı ve hassas şevron; nokta tarif edilmiyor -> center_dot=false (çıkarım). At nalı dış kenarları 8.6 mph hedef ilerleme noktası. Şevron genişliği ve 2./3./4. MIL stadia 18\" hedefi 300/400/500/600 yd'de ölçer. hash_step, rakam aralığı, yatay ölçek uzanımı, yukarı uzanım, çizgi kalınlığı ve şevron boyutu metinde yok -> null."
+}

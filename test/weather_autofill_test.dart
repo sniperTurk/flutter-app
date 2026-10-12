@@ -80,7 +80,7 @@ void main() {
         temperatureC: 18.5,
       ).toStringAsFixed(1),
     );
-    expect(find.textContaining('otomatik dolduruldu'), findsOneWidget);
+    expect(find.textContaining('konumdan dolduruldu'), findsOneWidget);
     expect(find.textContaining('900 m irtifaya göre'), findsOneWidget);
   });
 

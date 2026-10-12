@@ -48,3 +48,13 @@ is, where to find it and a typical example. Plain identity fields (brand,
 model, name) may skip it. Profil texts live in
 `lib/features/profiles/profile_field_info.dart`; follow the same pattern for
 other pages.
+
+## UI rule: select over typing, two boxes per row (owner, 2026-10-11)
+Typed product names and calibers are mistyped, so a value that can be chosen
+from a list is a `MenzilSelect` (Tüfek Marka | Model | Kalibre and Mühimmat
+Marka | Model come from `lib/data/rifle_library.dart`,
+`factory_ammo_library.dart` and `bullet_library.dart`; typed boxes only after
+"Listede yok"). Keep two boxes per row (Marka | Model side by side); Kalibre
+and similar long single values take a full row. No helper text under a field:
+every explanation goes into its ⓘ. Labels have no parentheses ("Yiv oranı",
+not "Yiv oranı (1:…)").

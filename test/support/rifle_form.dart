@@ -2,6 +2,7 @@
 // yiv yönü, Yiv oranı). Regülatör basıncı and Namlu uzunluğu are not asked.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 Future<void> enterRifleField(
   WidgetTester tester,
@@ -30,10 +31,21 @@ Future<void> fillRifleForm(
   WidgetTester tester, {
   String brand = 'Test Marka',
   String model = 'Test Model',
-  String caliber = '6.35 mm',
+  String caliber = '6.35 mm (.25)',
   String twist = '16',
   String direction = 'Sağ',
 }) async {
+  // A new profile starts on Ateşli Tüfek (owner, 2026-10-11): a PCP
+  // caliber ("6.35 mm (.25)") needs Tür = PCP Tüfek first.
+  if (caliber.contains(' mm (') &&
+      find.byKey(const Key('profile-platform')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
+  }
+  // Marka / Model come from the lists; typed names need "Listede yok"
+  // first (owner, 2026-10-11).
+  if (find.byKey(const Key('rifle-brand-select')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'rifle-brand-select', 'Listede yok');
+  }
   await enterRifleField(tester, 'rifle-brand', brand);
   await enterRifleField(tester, 'rifle-model', model);
   // Kalibre is picked from a list (owner, 2026-10-09).
@@ -60,7 +72,29 @@ Future<void> chooseInSelect(
   await tester.ensureVisible(select);
   await tester.tap(select);
   await tester.pumpAndSettle();
-  await tester.tap(find.text(label).last);
+  // Long lists ("Listede yok" is the last item): scroll the open menu.
+  // The menu opens at the selected item, so the wanted one may be above it
+  // (a smaller büyütme) or below it: try down first, then up.
+  final item = find.text(label);
+  // The open menu's own item, not the closed field that shows the same text
+  // under the menu (a new first brand, Aguila, sat on top of it).
+  final inMenu = find.descendant(
+    of: find.byWidgetPredicate(
+      (w) => w.runtimeType.toString().startsWith('_DropdownMenuItemButton'),
+    ),
+    matching: item,
+  );
+  for (final dy in const [-300.0, 300.0]) {
+    for (var i = 0; i < 20 && inMenu.evaluate().isEmpty; i++) {
+      await tester.drag(find.byType(Scrollable).last, Offset(0, dy));
+      await tester.pumpAndSettle();
+    }
+  }
+  final target = inMenu.evaluate().isEmpty ? item.last : inMenu.last;
+  // Built but below the menu's visible part: scroll it into view.
+  await tester.ensureVisible(target);
+  await tester.pumpAndSettle();
+  await tester.tap(target);
   await tester.pumpAndSettle();
 }
 
@@ -74,8 +108,17 @@ Future<void> fillAmmoForm(
   String bc = '0,08',
   String bcModel = 'G1',
 }) async {
-  // One "Marka Model" field since 2026-10-09.
-  await enterRifleField(tester, 'ammo-brand', '$brand $model');
+  // Mühimmat türü starts on "Seçiniz" for a firearm (owner, 2026-10-11).
+  if (find.byKey(const Key('ammo-source')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
+  }
+  // Marka and Model are separate boxes again and come from the library
+  // lists; a typed name needs "Listede yok" first (owner, 2026-10-11).
+  if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
+  }
+  await enterRifleField(tester, 'ammo-brand', brand);
+  await enterRifleField(tester, 'ammo-model', model);
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);
   await enterRifleField(tester, 'ammo-grain', grain);
   await enterRifleField(tester, 'ammo-bc', bc);
@@ -90,6 +133,7 @@ Future<void> fillShotValues(
   String sight = '60',
 }) async {
   await enterRifleField(tester, 'profile-velocity-fps', velocityFps);
+  await chooseInSelect(tester, 'profile-distance-unit', 'Metre');
   await enterRifleField(tester, 'profile-zero', zero);
   await enterRifleField(tester, 'scope-sight-height', sight);
 }
@@ -102,10 +146,32 @@ Future<void> fillScopeForm(
   String maxMag = '24',
   String objective = '56',
   String plane = 'FFP',
+  String unit = 'MRAD',
+  String click = '0,1 MRAD',
 }) async {
+  if (find.byKey(const Key('scope-brand-select')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');
+  }
   await enterRifleField(tester, 'scope-brand', brand);
-  await enterRifleField(tester, 'scope-min-mag', minMag);
-  await enterRifleField(tester, 'scope-max-mag', maxMag);
-  await enterRifleField(tester, 'scope-objective', objective);
+  // Büyütme and Mercek çapı are picked from lists (owner, 2026-10-11).
+  await chooseInSelect(tester, 'scope-min-mag', '${minMag}x');
+  await chooseInSelect(tester, 'scope-max-mag', '${maxMag}x');
+  await chooseInSelect(tester, 'scope-objective', '$objective mm');
   await chooseFocalPlane(tester, plane);
+  // Every list box starts on "Seçiniz" (owner, 2026-10-11).
+  await chooseInSelect(tester, 'scope-unit', unit);
+  // A typed scope picks its Klik değeri from the unit's list.
+  await chooseInSelect(tester, 'scope-click', click);
+  await chooseInSelect(tester, 'scope-mount', 'Normal (0 MOA)');
 }
+
+/// The value picked in the list box under [key] (null: "Seçiniz").
+T? selectedValue<T>(WidgetTester tester, String key) => tester
+    .state<MenzilSelectState<T>>(
+      find.descendant(
+        of: find.byKey(Key(key)),
+        matching: find.byType(MenzilSelect<T>),
+        matchRoot: true,
+      ),
+    )
+    .value;

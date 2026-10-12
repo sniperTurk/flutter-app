@@ -1,0 +1,22 @@
+{
+  "name": "VEC-FDR",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental 1-6x24i Fiber Tactical (SCOC-44)",
+    "Continental x8 1-8x24i ED Fiber (SCOC-45)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250801/b61ee2ce2d7d5c9ef75c35a93e694e34.pdf",
+  "notes": "SFP; kılavuza göre ölçüler her modelin en yüksek büyütmesinde geçerli (SCOC-44 için 6x, SCOC-45 için 8x; 'Setting: 6x/8x, MIL'). Kaynaklar: VEC-FDR SFP retikül kılavuzu PDF (metin) + SCOC-44 (https://www.vectoroptics.com/rifle-scopes/Continental-1-6X24i-fiber-tactical-riflescope-SCOC-44.html: 'Fiber Center Dot', 'Simple BDC', Second Focal Plane) ve SCOC-45 ürün sayfaları. Kılavuzda merkez fiber nokta Φ0.12 (SCOC-44) / Φ0.1 (SCOC-45), birim belirtilmemiş. Konumsuz etiketler: 0.14, 0.18, 0.4, 1.0, 0.6/0.8. İşaret aralığı, uzanımlar, aile, rakamlar metinde yok → null; föy görseli okunamadı."
+}

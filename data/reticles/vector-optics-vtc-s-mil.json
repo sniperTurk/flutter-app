@@ -1,0 +1,21 @@
+{
+  "name": "VTC-S MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Tauron 1-6x24 GenII"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20250509/77e69fc5396918969e571618ba3aa1a0.pdf",
+  "notes": "SFP; 'For VTC-SMIL reticle, the suspension is valid at 6x' (Setting: 6x, MIL). Kaynak: VTC-S MIL Reticle Instruction (20250509/77e69fc5….pdf, ReticleInstruction sayfa 12); dürbün PDF'de 'Tauron 1-6x24 GenII' olarak geçiyor, kodu yok. BDC merkez noktadan 8 işaretine kadar → center_dot=true; yataydaki iki hash işareti hızlı mesafe referansı (omuz 40 cm/15.7 in, 75 cm/30 in; 4 işareti=400 m, 6 işareti=600 m). Konumsuz etiketler: 0.1, 4.4, 6.4, 8.2, 0.5, 5.0, 10.0, 2.0, 1.8, 3.0, 1.0, 0.8, 1.5, 0.4, 0.6, 2.6, 0.97, 9.2, 1.58, 1.03, 0.95, 0.79, 0.68, 1.22, 1.46, 1.78, Φ0.25, Φ0.15, Φ2.0, Φ2.4, Φ2.5 (BDC aralıkları VCT-BNW ile aynı, çıkarım). Aile, işaret aralığı, uzanımlar → null. || SFP (başlık 'VTC-SMIL MIL SFP RETICLE'); ölçüler 6x'te geçerli ('Setting: 6x, MIL'). Kaynak: VTC-SMIL Reticle User Manual PDF (ReticleInstruction sayfa 2; metin). Kılavuzda dürbün modeli/marka adı yok → scopes boş; vectoroptics.com'da yayımlandığı için brand=Vector Optics (çıkarım; Victoptics alt markası olup olmadığı doğrulanamadı). Kılavuz: hızlı mesafe örneklerinde 4 işareti = 400 m, 6 işareti = 600 m; BDC 8 rakamlı işarette bitiyor; hedef referansları 40 cm/15.7 in ve 75 cm/30 in. Şekillerde 'Φ 0.25', 'Φ 0.15', 'Φ 2.0', 'Φ 2.4', 'Φ 2.5' (merkez nokta/at nalı ayrımı yok) ve konumsuz sayılar (0.1…10.0). Tüm geometri alanları null."
+}

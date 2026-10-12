@@ -27,8 +27,8 @@ double _readDensity(WidgetTester tester) {
   final text = tester
       .widget<Text>(find.textContaining('Hava yoğunluğu:'))
       .data!;
-  final match = RegExp(r'Hava yoğunluğu: ([\d.]+)').firstMatch(text)!;
-  return double.parse(match.group(1)!);
+  final match = RegExp(r'Hava yoğunluğu: ([\d,]+)').firstMatch(text)!;
+  return double.parse(match.group(1)!.replaceAll(',', '.'));
 }
 
 void main() {

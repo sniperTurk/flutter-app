@@ -1,0 +1,22 @@
+{
+  "name": "PR3-MIL FFP",
+  "brand": "Leupold",
+  "scopes": [
+    "Mark 4HD 6-24x52 M5C3 Side Focus FFP",
+    "Mark 4HD 8-32x56 M5C3 Side Focus FFP"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/media/binaryanvil/reticle/FFP_PR3-MIL.pdf",
+  "notes": "Leupold föyü 'FFP PR3-MIL MARK 4HD' (24x/32x görüş daireleri) ve retikül sayfası https://www.leupold.com/reticle/pr3-mil-ffp/ (FFP). Sayfa açıklaması: 'The PR3 reticle gives you the same subtend measurements of the popular PR2 reticle'. Föy: ince çizgi 0.03, kalın çizgi 0.50 MIL; Dot Diameter ve Line Breaks etiketli, diğer değerler 0.05/0.07/0.10/0.12/0.25/0.50/1.00 MIL. Föy PDF metin çıkarımı çizim yerleşimini kaybettiğinden etiketsiz değerler bir öğeye eşlenemedi. İşaret aralığı, rakamlar, uzanımlar, merkez tipi ve aile metinde yok -> null."
+}

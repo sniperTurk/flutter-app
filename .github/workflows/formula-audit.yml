@@ -39,5 +39,9 @@ jobs:
         run: sed -n '10,18p' audit.txt | while IFS= read -r l; do echo "::notice title=audit::${l:0:480}"; done
       - name: Annotations 3
         run: sed -n '19,27p' audit.txt | while IFS= read -r l; do echo "::notice title=audit::${l:0:480}"; done
+      - name: Annotations 4
+        run: sed -n '28,36p' audit.txt | while IFS= read -r l; do echo "::notice title=audit::${l:0:480}"; done
+      - name: Annotations 5
+        run: sed -n '37,45p' audit.txt | while IFS= read -r l; do echo "::notice title=audit::${l:0:480}"; done
       - name: Result
         run: exit ${{ steps.audit.outputs.rc }}

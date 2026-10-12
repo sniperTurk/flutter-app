@@ -1,0 +1,20 @@
+{
+  "name": "VOF-EHT MIL",
+  "brand": "Vector Optics",
+  "scopes": [],
+  "unit": "mil",
+  "family": null,
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 8,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": 10,
+  "center_dot": true,
+  "floating_center": null,
+  "post_width": 0.5,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20241031/10e33f2fb431c50ab2575ac8591386ee.pdf",
+  "notes": "FFP (başlık 'VOF-EHT MIL FFP RETICLE'); 'Setting: 8x, MIL'. Kaynak: VOF-EHT Reticle User Manual PDF (ReticleInstruction sayfa 5; metin). Çoklu PDF'ler (sayfa 1: 20260513/66d2887886a87f7d1b515b2fb7bae5cf.pdf; sayfa 3: 20250218/41bd287447222469718f35b3d8d0a6ea.pdf metinsiz) ek veri vermedi. Kılavuzda dürbün modeli yok → scopes boş. Kılavuz (VOS-EHT ile aynı metin): '0.3 MIL center dot' → center_dot=true; 'The horizontal line extends 8 MIL on each side, with small gaps representing 0.5 MIL intervals' → extent_h=8, hash_step=0.5; 4.5 MIL'de 0.2 MIL çaplı nokta; yatay çizgi ile kalın stadia çizgisi arası 2 MIL → posts_start=10 (8+2 toplamıyla çıkarım); 'The thicker line is 0.5 MIL wide, with dash marks at 15 MIL on each side' → post_width=0.5. Açık halka çapı metinde yok (şekilde 'Φ 2.4', 'Φ 2.0' konumsuz). family (VOS-EHT ürün sayfasında 'Christmas tree'; VOF-EHT için doğrulanmadı), dikey uzanımlar, rakamlar, merkez boşluğu → null."
+}

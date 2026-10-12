@@ -47,6 +47,20 @@ const _profile = RifleProfile(
   sightHeightMm: 45,
 );
 
+/// The same profile with Barut sıcaklığı entered on Profil > Mühimmat.
+const _profilePowder = RifleProfile(
+  id: 'p-fx',
+  name: 'FX',
+  rifleId: 'manual_rifle_fx',
+  ammunitionId: 'manual_ammo_fx',
+  scopeId: 'gazi-6-36',
+  muzzleVelocityMps: 800,
+  zeroRangeM: 100,
+  sightHeightMm: 45,
+  powderTempCoefPercentPer15C: 1.5,
+  powderTempReferenceC: 20,
+);
+
 BallisticInput _input({double v = 800, double? zeroV, double range = 100}) =>
     BallisticInput(
       muzzleVelocityMps: v,
@@ -97,12 +111,13 @@ void main() {
     );
     tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
-    Widget app(BallisticsView view) => MaterialApp(
-      theme: MenzilTheme.light(),
-      home: Scaffold(
-        body: BallisticsScreen(profile: _profile, view: view),
-      ),
-    );
+    Widget app(BallisticsView view, {RifleProfile profile = _profile}) =>
+        MaterialApp(
+          theme: MenzilTheme.light(),
+          home: Scaffold(
+            body: BallisticsScreen(profile: profile, view: view),
+          ),
+        );
 
     Future<void> type(WidgetTester tester, Key key, String v) async {
       await openProFor(tester, key);
@@ -129,11 +144,7 @@ void main() {
 
       await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
-      await openProFor(tester, const Key('pro-spin-switch'));
-      final sw = find.byKey(const Key('pro-spin-switch'));
-      await tester.ensureVisible(sw);
-      await tester.tap(sw);
-      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-bullet-length'));
       await type(tester, const Key('pro-bullet-length'), '31');
 
       await tester.pumpWidget(app(BallisticsView.shot));
@@ -148,7 +159,7 @@ void main() {
       expect(note, contains('sağa'));
       // Litz at 100 m (~0.13 s) for a .308 168 gr: a few millimetres.
       final cm = double.parse(
-        RegExp(r'([\d.]+) cm').firstMatch(note)!.group(1)!,
+        RegExp(r'([\d,]+) cm').firstMatch(note)!.group(1)!.replaceAll(',', '.'),
       );
       expect(cm, inInclusiveRange(0.05, 3));
     });
@@ -157,18 +168,50 @@ void main() {
       tester.view.physicalSize = const Size(430, 3000) * 3;
       tester.view.devicePixelRatio = 3;
       addTearDown(tester.view.reset);
-      await tester.pumpWidget(app(BallisticsView.environment));
+      await tester.pumpWidget(
+        app(BallisticsView.environment, profile: _profilePowder),
+      );
       await tester.pumpAndSettle();
       await type(tester, BallisticsFieldKeys.temperature, '35');
-      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpWidget(app(BallisticsView.pro, profile: _profilePowder));
       await tester.pumpAndSettle();
-      await type(tester, const Key('pro-powder-coef'), '1,5');
-      await type(tester, const Key('pro-powder-temp'), '20');
+      await openProFor(tester, const Key('pro-powder-source'));
+      // The values come from the profile; Pro Ayarlar has no boxes for them.
+      expect(find.byKey(const Key('pro-powder-coef')), findsNothing);
+      final source = tester
+          .widget<Text>(find.byKey(const Key('pro-powder-source')))
+          .data!;
+      expect(source, contains('%1,5 / 15 °C'));
+      expect(source, contains('20 °C'));
       // 15 °C warmer at 1.5 %/15 °C: 800 m/s -> 812 m/s = 2664 fps.
       final today = tester
           .widget<Text>(find.byKey(const Key('pro-powder-today')))
           .data!;
       expect(today, contains('${(812 * 3.280839895).toStringAsFixed(0)} fps'));
+    });
+
+    testWidgets('the warmer day reaches the shot solution', (tester) async {
+      tester.view.physicalSize = const Size(430, 3000) * 3;
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      Future<double> elevationAt35(RifleProfile profile) async {
+        await tester.pumpWidget(
+          app(BallisticsView.environment, profile: profile),
+        );
+        await tester.pumpAndSettle();
+        await type(tester, BallisticsFieldKeys.temperature, '35');
+        await tester.pumpWidget(app(BallisticsView.shot, profile: profile));
+        await tester.pumpAndSettle();
+        return tester
+            .widget<ScopeDialView>(find.byType(ScopeDialView))
+            .requiredUp!;
+      }
+
+      final plain = await elevationAt35(_profile);
+      final warm = await elevationAt35(_profilePowder);
+      // 812 m/s against a zero solved at 800 m/s: the bullet flies flatter,
+      // so less elevation is needed.
+      expect(warm, lessThan(plain));
     });
   });
 }

@@ -1,0 +1,21 @@
+{
+  "name": "APRS7 SFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Heras SPR 6-24x56"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 6,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2022/11/ATHLON-APRS7-SFP-IR-MIL-Reticle-Manual-Heras-SPR.pdf",
+  "notes": "SFP; ölçüler yalnızca 16x'te geçerli (6-24x56). Föy metninden: aydınlatmalı 0.07 mil merkez nokta; '0.2 mil hash mark increments from center to all four directions'; 'dot drop lines starting from 1 mil down to 6 mil with 0.5 dot increments horizontally'. Satır genişlikleri yazılmamış -> tree null; extent_v_down=6 son düşüş çizgisinden çıkarım. Föyde merkez noktanın yüzen olduğu açıkça yazılmadığı için floating_center null. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

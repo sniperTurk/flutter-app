@@ -1,8 +1,12 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
 import '../../core/ballistic_input.dart';
+import '../../core/drag_band_truing.dart';
+import '../../core/drag_curve.dart';
+import '../../core/gravity.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/unit_system.dart';
 import '../../core/velocity_truing.dart';
@@ -25,13 +29,26 @@ import 'tool_support.dart';
 abstract final class TruingFieldInfo {
   static const range =
       'Doğrulama atışını yaptığınız hedefin mesafesi; telemetre ile ölçün. '
-      'Sıfır mesafesinden belirgin uzak olmalı: düşüm ne kadar büyükse hız '
+      'Sıfır mesafesinden belirgin uzak olmalı: düşüş ne kadar büyükse hız '
       'o kadar iyi bulunur. Örnek: PCP için 75–100 m, ateşli için 500–800 m.';
   static const mode =
       'Namlu çıkış hızı: sıfırdan biraz uzak, orta bir mesafede (PCP 50–75 m, '
       'ateşli 300–500 m) ölçün; ilk adım budur. Balistik katsayı (BC): hız '
       'doğrulandıktan sonra, en uzak mesafede (PCP 100 m+, ateşli 700 m+) '
-      'ölçün; uzak mesafedeki düşüşü asıl hava direnci belirler.';
+      'ölçün; uzak mesafedeki düşüşü asıl hava direnci belirler. Sürüklenme '
+      'eğrisi: hız doğrulandıktan sonra en az 3 uzak mesafedeki (ateşli '
+      '500–1000 m) düzeltmeden, Mach aralıklarına göre mermiye özel hava '
+      'direnci eğrisi bulunur.';
+  static const dragRange =
+      'Bu satırdaki ölçümün yapıldığı hedefin mesafesi; telemetre ile ölçün. '
+      'Sıfırdan uzak, birbirinden farklı en az 3 mesafe girin; en uzağı '
+      'merminin ses hızına yaklaştığı yere kadar gitsin. Örnek: 500, 700, '
+      '900 m.';
+  static const dragObserved =
+      'Bu mesafede grubu hedefin ortasına getiren, kuleden çevirdiğiniz '
+      'yükseliş düzeltmesi (sıfırdan itibaren, yukarı pozitif). En az 3–5 '
+      'atışlık grubun ortasıyla ölçün; rüzgârsız bir günde. Örnek: 7,9 '
+      'MRAD.';
   static const observed =
       'Grubu hedefin tam ortasına getiren, kuleden çevirdiğiniz yükseliş '
       'düzeltmesi (sıfırdan itibaren, yukarı pozitif). Tık sayısını tık '
@@ -54,6 +71,9 @@ class TruingScreen extends StatefulWidget {
   State<TruingScreen> createState() => _TruingScreenState();
 }
 
+/// What the observation trues (owner 2026-10-09; Ö6 2026-10-12).
+enum _TruingMode { velocity, bc, drag }
+
 class _TruingScreenState extends State<TruingScreen> {
   late final ProfileStore _profiles =
       widget.profileStore ?? PersistentProfileStore();
@@ -73,16 +93,31 @@ class _TruingScreenState extends State<TruingScreen> {
   TruingResult? _result;
   BcTruingResult? _bcResult;
 
-  /// Pro Ayarlar of the profile (powder temperature data, firearms).
+  /// Pro Ayarlar of the profile: powder temperature data of older versions,
+  /// read only when the profile has none.
   ShotSettings? _shotSettings;
 
   /// Today's / reference velocity from the powder temperature model; 1 when
   /// it does not apply. Set by the last computation.
   double _powderFactor = 1;
 
-  /// What the observation trues: muzzle velocity (first step) or the BC at
-  /// a far range (second step, owner 2026-10-09).
-  bool _trueBc = false;
+  /// What the observation trues: muzzle velocity (first step), the BC at
+  /// a far range (second step, owner 2026-10-09) or the drag curve from at
+  /// least 3 far ranges (Ö6).
+  _TruingMode _mode = _TruingMode.velocity;
+  bool get _trueBc => _mode == _TruingMode.bc;
+  bool get _trueDrag => _mode == _TruingMode.drag;
+
+  /// Ö6 rows: range | observed correction, 3 to 6.
+  final List<TextEditingController> _dragRanges = [
+    for (var i = 0; i < DragBandTruing.minObservations; i++)
+      TextEditingController(),
+  ];
+  final List<TextEditingController> _dragObserved = [
+    for (var i = 0; i < DragBandTruing.minObservations; i++)
+      TextEditingController(),
+  ];
+  DragBandResult? _dragResult;
   String? _error;
 
   @override
@@ -108,6 +143,9 @@ class _TruingScreenState extends State<TruingScreen> {
     _temperature.dispose();
     _pressure.dispose();
     _humidity.dispose();
+    for (final c in [..._dragRanges, ..._dragObserved]) {
+      c.dispose();
+    }
     super.dispose();
   }
 
@@ -157,6 +195,32 @@ class _TruingScreenState extends State<TruingScreen> {
   void _snack(String m) =>
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(m)));
 
+  static double? _num(String? text) {
+    final v = double.tryParse((text ?? '').trim().replaceAll(',', '.'));
+    return v != null && v.isFinite ? v : null;
+  }
+
+  /// Pro "Kule ölçek katsayısı", same rule as Atış; 1 when empty.
+  static double _turretScale(ShotSettings? shot) {
+    final v = _num(shot?.turretScaleText);
+    return v != null && v >= 0.8 && v <= 1.2 ? v : 1.0;
+  }
+
+  /// Pro "Sıfır ofseti" upward part in mrad, same rule as Atış.
+  static double _zeroUpMrad(ShotSettings? shot, double zeroM, bool metric) {
+    final v = _num(shot?.zeroUpText);
+    if (zeroM <= 0 || v == null || v.abs() > 100) return 0;
+    final m = metric ? v / 100 : UnitSystem.inchesToMillimeters(v) / 1000;
+    return math.atan(m / zeroM) * 1000;
+  }
+
+  /// Pro "Yerçekimi", same rule as Atış; standard when off.
+  static double _gravity(ShotSettings? shot) {
+    if (shot == null || !shot.gravityOn) return Gravity.standard;
+    final v = _num(shot.gravityText);
+    return v != null && v >= 9.7 && v <= 9.9 ? v : Gravity.standard;
+  }
+
   void _compute(bool metric) {
     final p = _profile, res = _resolution;
     if (p == null || res == null) return;
@@ -166,11 +230,12 @@ class _TruingScreenState extends State<TruingScreen> {
     final t = _parse(_temperature);
     final pr = _parse(_pressure);
     final h = _parse(_humidity);
-    if (rangeShown == null || rangeShown <= 0) {
+    // Sürüklenme eğrisi reads its own rows (see [_computeDrag]).
+    if (!_trueDrag && (rangeShown == null || rangeShown <= 0)) {
       _fail('Geçerli bir doğrulama mesafesi girin.');
       return;
     }
-    if (observedShown == null) {
+    if (!_trueDrag && observedShown == null) {
       _fail('Gözlenen düzeltmeyi girin.');
       return;
     }
@@ -182,17 +247,17 @@ class _TruingScreenState extends State<TruingScreen> {
     // Same powder temperature model as Atış: the profile velocity is the
     // one at the reference temperature (firearms only).
     final shot = _shotSettings;
-    final f = res.rifle.platform == WeaponPlatform.firearm && shot != null
-        ? PowderTemperature.factor(
-            coefPercentPer15C: double.tryParse(
-              shot.powderCoefText.trim().replaceAll(',', '.'),
-            ),
-            referenceTempC: double.tryParse(
-              shot.powderTempText.trim().replaceAll(',', '.'),
-            ),
-            todayTempC: todayC,
-          )
-        : 1.0;
+    final powder = PowderTemperature.forProfile(
+      profile: p,
+      platform: res.rifle.platform,
+      legacyCoefText: shot?.powderCoefText ?? '',
+      legacyTempText: shot?.powderTempText ?? '',
+    );
+    final f = PowderTemperature.factor(
+      coefPercentPer15C: powder.coef,
+      referenceTempC: powder.referenceC,
+      todayTempC: todayC,
+    );
     final BallisticInput base;
     try {
       base = BallisticInput(
@@ -211,14 +276,26 @@ class _TruingScreenState extends State<TruingScreen> {
         ballisticModel: ammo.ballisticModel,
         bcBands: ammo.bcBands,
         dragTable: ammo.dragTable,
+        gravityMps2: _gravity(shot),
       );
     } on ArgumentError {
       _fail('Atmosfer değerleri geçerli aralığın dışında.');
       return;
     }
+    if (_trueDrag) {
+      _computeDrag(base, p, ammo, shot, metric);
+      return;
+    }
     try {
-      final rangeM = p.distanceUnit.toMeters(rangeShown);
-      final observedMrad = p.angularUnit.toMrad(observedShown);
+      final rangeM = p.distanceUnit.toMeters(rangeShown!);
+      // The shooter enters what the turret showed. Atış dials
+      // (true − zero offset) / turret scale, so the true correction the
+      // solver must match is dialled × scale + zero offset (audit
+      // 2026-10-11). Truing is done in calm air, so there is no
+      // aerodynamic jump to add.
+      final observedMrad =
+          p.angularUnit.toMrad(observedShown!) * _turretScale(shot) +
+          _zeroUpMrad(shot, p.zeroRangeM, metric);
       if (_trueBc) {
         final r = BallisticCoefficientTruing.solve(
           base: base,
@@ -262,9 +339,145 @@ class _TruingScreenState extends State<TruingScreen> {
     }
   }
 
+  /// Ö6: reads the range rows, fits the Mach-band drag scales.
+  void _computeDrag(
+    BallisticInput base,
+    RifleProfile p,
+    Ammunition ammo,
+    ShotSettings? shot,
+    bool metric,
+  ) {
+    final observations = <DragObservation>[];
+    for (var i = 0; i < _dragRanges.length; i++) {
+      final rText = _dragRanges[i].text.trim();
+      final oText = _dragObserved[i].text.trim();
+      if (rText.isEmpty && oText.isEmpty) continue;
+      final r = _parse(_dragRanges[i]), o = _parse(_dragObserved[i]);
+      if (r == null || r <= 0 || o == null) {
+        _fail('${i + 1}. satırda mesafe ve düzeltmeyi birlikte girin.');
+        return;
+      }
+      observations.add(
+        DragObservation(
+          p.distanceUnit.toMeters(r),
+          p.angularUnit.toMrad(o) * _turretScale(shot) +
+              _zeroUpMrad(shot, p.zeroRangeM, metric),
+        ),
+      );
+    }
+    // A custom curve already stores the sectional density as its BC.
+    final sd = ammo.dragCurve != null
+        ? ammo.ballisticCoefficient!
+        : DragCurve.sectionalDensity(
+            grain: ammo.grain,
+            diameterMm: ammo.caliberMm,
+          );
+    try {
+      final r = DragBandTruing.solve(
+        base: base,
+        observations: observations,
+        sectionalDensity: sd,
+      );
+      setState(() {
+        _dragResult = r;
+        _result = null;
+        _bcResult = null;
+        _error = null;
+      });
+    } on DragTruingFailure catch (f) {
+      _fail(f.message);
+    } on ArgumentError {
+      _fail('Mesafe geçerli aralığın dışında.');
+    }
+  }
+
+  /// Writes the trued drag curve into the personal ammunition record as an
+  /// Özel sürüklenme eğrisi (catalog records are never edited), after an
+  /// explicit confirmation.
+  Future<void> _applyDrag(DragBandResult r) async {
+    final res = _resolution;
+    if (res == null) return;
+    final ammo = res.ammunition;
+    if (!ammo.userEntered) {
+      _snack(
+        'Bu mühimmat katalog kaydı; sürüklenme eğrisi kaydedilemez. Profilde '
+        'kendi mühimmatınızı girin.',
+      );
+      return;
+    }
+    final store = ManualCatalogStore();
+    Map<String, dynamic>? entry;
+    try {
+      entry = (await store.all()).where((e) => e['id'] == ammo.id).firstOrNull;
+    } catch (_) {
+      entry = null;
+    }
+    final curveJson = DragCurve.toJson(r.curve);
+    if (entry == null || DragCurve.fromJson(curveJson) == null) {
+      if (mounted) {
+        _snack('Mühimmat kaydı bulunamadı. Mevcut değerler korundu.');
+      }
+      return;
+    }
+    if (!mounted) return;
+    final changes = [
+      for (final b in r.bands)
+        if (b.fitted) '${b.label}: ${_signedPercent(b.scale)} %',
+    ].join('\n');
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Mühimmata kaydet'),
+        content: Text(
+          '${ammo.displayName}\n'
+          'Sürüklenme: ${ammo.dragCurve != null ? 'özel eğri' : '${ammo.ballisticModel?.name.toUpperCase() ?? ''} BC ${ammo.ballisticCoefficient}'}'
+          ' → doğrulanmış özel eğri\n$changes',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Vazgeç'),
+          ),
+          FilledButton(
+            key: const Key('truing-drag-confirm'),
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Kaydet'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !mounted) return;
+    try {
+      final updated = {
+        ...entry,
+        'bc': r.sectionalDensity,
+        'bcModel': BallisticModel.g1.name,
+        'dragCurve': curveJson,
+      }..remove('bcBands');
+      await store.upsert(updated);
+      CatalogRepository.installUserCatalog(
+        UserCatalog.fromManualEntries(await store.all()),
+      );
+      if (!mounted) return;
+      setState(() {
+        _resolution = const ProfileCatalogIntegrity().resolve(_profile!);
+        _dragResult = null;
+      });
+      _snack('Doğrulanmış sürüklenme eğrisi mühimmata kaydedildi.');
+    } catch (_) {
+      if (mounted) _snack('Mühimmat kaydedilemedi. Mevcut değerler korundu.');
+    }
+  }
+
+  static String _signedPercent(double scale) {
+    final v = (scale - 1) * 100;
+    return '${v >= 0 ? '+' : '−'}${ToolFormat.dec(v.abs(), 1)}';
+  }
+
   void _fail(String message) => setState(() {
     _result = null;
     _bcResult = null;
+    _dragResult = null;
     _error = message;
   });
 
@@ -309,7 +522,20 @@ class _TruingScreenState extends State<TruingScreen> {
       final entries = await store.all();
       final entry = entries.where((e) => e['id'] == ammo.id).firstOrNull;
       if (entry == null) throw StateError('record missing');
-      await store.upsert({...entry, 'bc': r.truedBc});
+      // Speed bands carry the drag whenever they exist, so they scale with
+      // the main BC (the same rule as BallisticInput.withBallisticCoefficient);
+      // otherwise the trued BC would change nothing (audit 2026-10-11).
+      final ratio = r.truedBc / r.baseBc;
+      final bands = entry['bcBands'];
+      await store.upsert({
+        ...entry,
+        'bc': r.truedBc,
+        if (bands is List)
+          'bcBands': [
+            for (final b in bands)
+              if (b is Map) {...b, 'bc': (b['bc'] as num) * ratio} else b,
+          ],
+      });
       CatalogRepository.installUserCatalog(
         UserCatalog.fromManualEntries(await store.all()),
       );
@@ -385,13 +611,22 @@ class _TruingScreenState extends State<TruingScreen> {
       appBar: const MenzilSubPageBar(title: 'Hız Doğrulama'),
       body: MenzilPage(
         children: [
-          const MenzilNotice(
-            message:
-                'Sıfır mesafesinden uzak, bilinen bir mesafede grup atın. '
-                'Grubu ortaya getiren gerçek düzeltmeyi girin; uygulama, '
-                'hesabın bu sonuca uyması için gereken namlu çıkış hızını '
-                'bulur. Balistik katsayı değiştirilmez.',
-          ),
+          if (_trueDrag)
+            const MenzilNotice(
+              message:
+                  'Önce hızı orta mesafede doğrulayın. Sonra sıfırdan uzak en '
+                  'az 3 mesafede grup atın ve her birinde grubu ortaya getiren '
+                  'düzeltmeyi girin; uygulama Mach aralıklarına göre mermiye '
+                  'özel sürüklenme eğrisini bulur. Hız değiştirilmez.',
+            )
+          else
+            MenzilNotice(
+              message:
+                  'Sıfır mesafesinden uzak, bilinen bir mesafede grup atın. '
+                  'Grubu ortaya getiren gerçek düzeltmeyi girin; uygulama, '
+                  'hesabın bu sonuca uyması için gereken '
+                  '${_trueBc ? 'balistik katsayıyı bulur. Namlu çıkış hızı değiştirilmez.' : 'namlu çıkış hızını bulur. Balistik katsayı değiştirilmez.'}',
+            ),
           if (_loading)
             const Padding(
               padding: EdgeInsets.all(MenzilSpace.lg),
@@ -425,25 +660,30 @@ class _TruingScreenState extends State<TruingScreen> {
                     'önce mühimmata BC girin.',
               )
             else ...[
-              MenzilSelect<bool>(
-                key: ValueKey('truing-mode-$_trueBc'),
+              MenzilSelect<_TruingMode>(
+                key: ValueKey('truing-mode-${_mode.name}'),
                 label: 'Doğrulanacak değer',
                 info: TruingFieldInfo.mode,
-                initialValue: _trueBc,
+                initialValue: _mode,
                 items: const [
                   DropdownMenuItem(
-                    value: false,
+                    value: _TruingMode.velocity,
                     child: Text('Namlu çıkış hızı'),
                   ),
                   DropdownMenuItem(
-                    value: true,
+                    value: _TruingMode.bc,
                     child: Text('Balistik katsayı (BC)'),
+                  ),
+                  DropdownMenuItem(
+                    value: _TruingMode.drag,
+                    child: Text('Sürüklenme eğrisi'),
                   ),
                 ],
                 onChanged: (v) => setState(() {
-                  _trueBc = v ?? false;
+                  _mode = v ?? _TruingMode.velocity;
                   _result = null;
                   _bcResult = null;
+                  _dragResult = null;
                   _error = null;
                 }),
               ),
@@ -451,28 +691,64 @@ class _TruingScreenState extends State<TruingScreen> {
                 '1 · Gözlem',
                 padding: EdgeInsets.only(bottom: MenzilSpace.sm),
               ),
-              MenzilFieldGrid(
-                children: [
-                  MenzilInput(
-                    key: const Key('truing-range'),
-                    controller: _range,
-                    label: 'Mesafe',
-                    unit: p.distanceUnit.symbol,
-                    info: TruingFieldInfo.range,
+              if (_trueDrag) ...[
+                for (var i = 0; i < _dragRanges.length; i++)
+                  MenzilFieldGrid(
+                    children: [
+                      MenzilInput(
+                        key: Key('truing-drag-range-$i'),
+                        controller: _dragRanges[i],
+                        label: 'Mesafe ${i + 1}',
+                        unit: p.distanceUnit.symbol,
+                        info: TruingFieldInfo.dragRange,
+                      ),
+                      MenzilInput(
+                        key: Key('truing-drag-observed-$i'),
+                        controller: _dragObserved[i],
+                        label: 'Düzeltme ${i + 1}',
+                        unit: p.angularUnit.label,
+                        info: TruingFieldInfo.dragObserved,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                          signed: true,
+                        ),
+                      ),
+                    ],
                   ),
-                  MenzilInput(
-                    key: const Key('truing-observed'),
-                    controller: _observed,
-                    label: 'Gerçek düzeltme',
-                    unit: p.angularUnit.label,
-                    info: TruingFieldInfo.observed,
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                      signed: true,
+                if (_dragRanges.length < DragBandTruing.maxObservations)
+                  MenzilSecondaryButton(
+                    key: const Key('truing-drag-add'),
+                    label: 'Mesafe ekle',
+                    icon: Icons.add,
+                    expand: true,
+                    onPressed: () => setState(() {
+                      _dragRanges.add(TextEditingController());
+                      _dragObserved.add(TextEditingController());
+                    }),
+                  ),
+              ] else
+                MenzilFieldGrid(
+                  children: [
+                    MenzilInput(
+                      key: const Key('truing-range'),
+                      controller: _range,
+                      label: 'Mesafe',
+                      unit: p.distanceUnit.symbol,
+                      info: TruingFieldInfo.range,
                     ),
-                  ),
-                ],
-              ),
+                    MenzilInput(
+                      key: const Key('truing-observed'),
+                      controller: _observed,
+                      label: 'Gerçek düzeltme',
+                      unit: p.angularUnit.label,
+                      info: TruingFieldInfo.observed,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                        signed: true,
+                      ),
+                    ),
+                  ],
+                ),
               const MenzilSectionHeader(
                 '2 · Atış anındaki hava',
                 padding: EdgeInsets.only(bottom: MenzilSpace.sm),
@@ -484,7 +760,10 @@ class _TruingScreenState extends State<TruingScreen> {
                     controller: _temperature,
                     label: 'Sıcaklık',
                     unit: metric ? '°C' : '°F',
-                    info: EnvironmentFieldInfo.temperature,
+                    info: EnvironmentFieldInfo.temperatureFor(
+                      firearm:
+                          _resolution?.rifle.platform == WeaponPlatform.firearm,
+                    ),
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,
                       signed: true,
@@ -508,7 +787,11 @@ class _TruingScreenState extends State<TruingScreen> {
               ),
               MenzilPrimaryButton(
                 key: const Key('truing-compute'),
-                label: _trueBc ? 'BC\'yi hesapla' : 'Hızı hesapla',
+                label: _trueDrag
+                    ? 'Eğriyi hesapla'
+                    : _trueBc
+                    ? 'BC\'yi hesapla'
+                    : 'Hızı hesapla',
                 icon: Icons.tune,
                 onPressed: () => _compute(metric),
               ),
@@ -520,11 +803,65 @@ class _TruingScreenState extends State<TruingScreen> {
                 ),
               if (_result != null) ..._resultSection(_result!, p, metric),
               if (_bcResult != null) ..._bcResultSection(_bcResult!, p),
+              if (_dragResult != null) ..._dragResultSection(_dragResult!, p),
             ],
           ],
         ],
       ),
     );
+  }
+
+  List<Widget> _dragResultSection(DragBandResult r, RifleProfile p) {
+    final u = p.angularUnit;
+    String angle(double mrad) => ToolFormat.dec(u.fromMrad(mrad.abs()), 2);
+    return [
+      const MenzilSectionHeader(
+        '3 · Sonuç',
+        padding: EdgeInsets.only(top: MenzilSpace.md, bottom: MenzilSpace.sm),
+      ),
+      MenzilMetricGrid(
+        key: const Key('truing-drag-result'),
+        columns: 2,
+        metrics: [
+          for (final b in r.bands.reversed)
+            b.fitted && (b.scale - 1).abs() >= 0.0005
+                ? MenzilMetric(b.label, _signedPercent(b.scale), '%')
+                : MenzilMetric(b.label, 'değişmedi'),
+        ],
+      ),
+      MenzilSectionHeader(
+        'Kalan fark · önce / sonra, ${u.label}',
+        padding: const EdgeInsets.only(
+          top: MenzilSpace.md,
+          bottom: MenzilSpace.sm,
+        ),
+      ),
+      MenzilMetricGrid(
+        key: const Key('truing-drag-fits'),
+        columns: 3,
+        metrics: [
+          for (final f in r.fits)
+            MenzilMetric(
+              '${ToolFormat.dec(p.distanceUnit.fromMeters(f.rangeM), 0)} ${p.distanceUnit.symbol}',
+              '${angle(f.residualBeforeMrad)} / ${angle(f.residualAfterMrad)}',
+            ),
+        ],
+      ),
+      if (r.inconsistent)
+        const MenzilNotice(
+          tone: MenzilNoticeTone.warning,
+          message:
+              'Eğri bazı ölçümlere hâlâ 1,5 tıktan fazla uymuyor. Ölçümler '
+              'birbiriyle tutarsız olabilir: rüzgârı, mesafeyi ve grup '
+              'ortasını kontrol edin.',
+        ),
+      MenzilSecondaryButton(
+        key: const Key('truing-drag-apply'),
+        label: 'Sürüklenme eğrisini mühimmata kaydet',
+        icon: Icons.save_alt,
+        onPressed: () => _applyDrag(r),
+      ),
+    ];
   }
 
   List<Widget> _bcResultSection(BcTruingResult r, RifleProfile p) {
@@ -598,7 +935,7 @@ class _TruingScreenState extends State<TruingScreen> {
           key: const Key('truing-powder-note'),
           tone: MenzilNoticeTone.info,
           message:
-              'Barut sıcaklığı hesaba katıldı (Pro Ayarlar). Bugünkü hız '
+              'Barut sıcaklığı hesaba katıldı. Bugünkü hız '
               '${_fps(r.truedMps * _powderFactor)}; profile, ölçüm '
               'sıcaklığındaki hız (${_fps(r.truedMps)}) yazılır.',
         ),
@@ -607,7 +944,7 @@ class _TruingScreenState extends State<TruingScreen> {
           tone: MenzilNoticeTone.warning,
           message:
               '%5’ten büyük bir değişim. Kronografla hızı ölçmek, sıfırı ve '
-              'dürbün yüksekliğini kontrol etmek iyi olur.',
+              'sight height değerini kontrol etmek iyi olur.',
         ),
       MenzilSecondaryButton(
         key: const Key('truing-apply'),

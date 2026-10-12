@@ -29,8 +29,9 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
         # The wind status card was removed from Atış (owner, 2026-10-08).
         # Readers of shot.windMrad: the scope dial (drag-gated windage, plus
         # the vacuum cant geometry) and the Pro "Rüzgâr aralığı" line, which
-        # is drawn only when `basis.drag` (owner, 2026-10-09).
-        self.assertEqual(self.text.count('shot.windMrad'), 3)
+        # is drawn only when `basis.drag` (owner, 2026-10-09; since the
+        # 2026-10-11 audit it reads the value once, minus spin/zero offset).
+        self.assertEqual(self.text.count('shot.windMrad'), 2)
         notes = self.text.index('List<Widget> _extraShotNotes(')
         bracket = self.text.index('shot.windMrad', notes)
         self.assertIn('basis.drag && windMax != null', self.text[notes:bracket])
@@ -41,10 +42,12 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
         self.assertIn('shot.windMrad', self.text[dial:])
 
     def test_elevation_angular_correction_is_now_rendered_with_disclaimers(self):
-        self.assertIn('p.correctionMoa.toStringAsFixed(2)', self.text)
-        self.assertIn('p.correctionMrad.toStringAsFixed(2)', self.text)
+        # _fixed: toStringAsFixed without a minus on a rounded zero
+        # (owner, 2026-10-11: no "-0.00" at the zero range).
+        self.assertIn('_fixed(p.correctionMoa, 2)', self.text)
+        self.assertIn('_fixed(p.correctionMrad, 2)', self.text)
         self.assertIn("'Yükseklik MOA*'", self.text)
-        self.assertIn("'Yükseklik mrad*'", self.text)
+        self.assertIn("'Yükseklik MRAD*'", self.text)
 
     def test_dead_code_display_helpers_were_not_reintroduced(self):
         self.assertNotIn('displayCorrection', self.text)

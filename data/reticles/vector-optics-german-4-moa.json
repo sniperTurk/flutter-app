@@ -1,0 +1,29 @@
+{
+  "name": "German #4 MOA",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental 1-6x24 (SCOC-23)",
+    "Continental x6 1.5-9x42 (SCOM-23)",
+    "Continental x6 2.5-15x56 G4 (SCOM-38)",
+    "Continental x8 1-8x24 (SCOC-37)",
+    "Paragon 3-15x44 (SCOM-37)",
+    "Paragon 4-20x50 (SCOL-44)",
+    "Matiz 3-9x50 (SCOM-28)",
+    "Grizzly 1-4x24 (SCOC-41)",
+    "Grizzly 3-12x56 (SCOM-09)"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20231030/f62eedbad215f41c1b5abcc67f6e2cff.pdf",
+  "notes": "SFP MOA ('German #4 SFP MOA'). Ölçüler SCOM-38'de 15x'te, SCOC-23 ve SCOC-37'de 4x'te geçerli. Kaynaklar: German #4 retikül kılavuzu PDF (index sayfa 17) + SCOM-38 ürün sayfası ('German #4 Reticle with Illuminated Center Dot') + Reticle-Collection (dürbün listesi). Kılavuz: kalın dış çizgiler, ince iç artı; mesafe formülü örnekleri (18 inç / 9 MOA = 200 yd). family=duplex (German #4 → duplex, brief kuralı). Kalın direklerin başladığı mesafe, çizgi kalınlıkları sayısal verilmemiş → null. Merkez nokta yalnızca bazı modellerde (SCOM-38 aydınlatmalı) → center_dot null. || SFP; ölçüler SCOM-38 için 15x, SCOC-23 için 6x, SCOC-37 için 4x'te geçerli. Kaynaklar: German #4 Reticle User Manual (20240819/ad02f89c….pdf, sayfa 10) + German #4 Reticle Single Page (20241031/5abc925b….pdf, sayfa 8). German #4 (kalın yan/alt direkler, ince merkez) → family=duplex (brief kuralı). SCOM-38 ve SCOC-23 model adları vectoroptics.com ürün adlarından eşleştirildi; SCOC-37'nin adı kaynaklarımda yok. Ölçü tablosu (MOA, büyütmeye göre, konumsuz): 4x: 2.0, 56, 0.72, 3.1, 28.1, 9.7; 6x: 2.0, 18.75, 1.3, 37.5, 0.4, 6.5; 15x: 0.8, 7.5, 0.5, 15, 0.17, 2.6 — hangi değerin direk başlangıcı/kalınlık olduğu metinde yok → posts_start null. Merkez nokta, işaret, uzanım → null."
+}

@@ -1,0 +1,21 @@
+{
+  "name": "AHSR14 SFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Talos BTR"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 1,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 8,
+  "extent_v_up": 8,
+  "extent_v_down": 8,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-AHSR14-SFP-IR-MIL-Reticle-Manual-Talos-BTR.pdf",
+  "notes": "SFP; ölçüler yalnızca 4x'te geçerli (1-4x24). Kısa mesafe retikülü. Föy metninden: 'illuminated 1 mil center cross' (merkezden yana 0.5 mil; nokta yok -> center_dot false); '1 mil hash marks increments extended to 8 mils on both horizontal and vertical directions'; 'illuminated 16 mil center'; '10 mil black lines' (merkezden başlangıcı yazılmamış -> posts_start null); föy bir yerde adı 'ATSR14' diye yazıyor. extent değerleri '8 mils on both horizontal and vertical' ifadesinin her yöne 8 mil olarak yorumlanmasıdır (çıkarım; '16 mil center' ile tutarlı). Merkez artının yüzüp yüzmediği yazılmamış -> null. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

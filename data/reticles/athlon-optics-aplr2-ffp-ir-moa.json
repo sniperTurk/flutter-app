@@ -1,0 +1,35 @@
+{
+  "name": "APLR2 FFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares ETR UHD",
+    "Argos BTR GEN2"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": 40,
+  "extent_v_up": 40,
+  "extent_v_down": 40,
+  "tree": {
+    "rows": [
+      {
+        "y": 5,
+        "half_width": 2.5,
+        "dot_step": 1
+      },
+      {
+        "y": 40,
+        "half_width": 25,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/storage/2021/05/Athlon-APLR2-FFP-IR-MOA-Reticle-Manual-Ares-ETR.pdf",
+  "notes": "FFP. Aynı metin Argos BTR GEN2 föyünde de var (https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-APLR2-FFP-IR-MOA-Reticle-Manual-Argos-BTR-GEN2.pdf). Föy metninden: 1 MOA işaret aralığı, 5 MOA aralıklı düşüş çizgileri, 2 MOA açıklıklı merkez artı, aydınlatmalı artı çizgisi dikey ve yatayda 40 MOA'ya uzanır (extent_h/extent_v_up = 40 buna göre). Düşüş çizgilerinde 1 MOA küçük, 5 MOA'da büyük noktalar; satır 5 MOA uzunlukta başlayıp 40. MOA çizgisinde 50 MOA uzunluğa ulaşır. Föyde çelişki: ilk cümle 'down to 50 moa' derken diğer cümleler ('ending up 50 moa in length at the 40th moa drop line', 'droplines going down to 40 moa', 'holdovers all the way up to 40 moa') 40 diyor; extent_v_down = 40 alındı (önceki sürümde 50 idi). Satırlar 'X moa length' (toplam uzunluk) olarak verildiği için half_width = uzunluk/2 (çıkarım). Ara satır genişlikleri metinde yok; ilk satır ilk 5 MOA düşüş çizgisi (y=5) kabul edildi (çıkarım). major_every=5 satırdaki büyük nokta aralığından çıkarım. Merkezin yüzen olup olmadığı belirtilmemiş -> null."
+}

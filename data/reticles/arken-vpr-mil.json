@@ -1,0 +1,27 @@
+{
+  "name": "VPR MIL",
+  "brand": "Arken Optics",
+  "scopes": [
+    "EP-5 GENII 5-25x56 FFP",
+    "EP-5 GENII 7-35x56 FFP",
+    "EPL-4 6-24x50 FFP",
+    "EPL-4 4-16x44 FFP",
+    "SH-4 GENII 4-16x50 FFP",
+    "SH-4J GENII 6-24x50 FFP",
+    "LH-4 4-16x44 FFP"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.25,
+  "major_every": null,
+  "numbers_every": 2,
+  "extent_h": 8,
+  "extent_v_up": null,
+  "extent_v_down": 12,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://cdn.shopify.com/s/files/1/0833/4222/9823/files/UM_EP5_GENII5-25x56.pdf?v=1782452474",
+  "notes": "FFP. Kaynak: Arken EP-5 GENII 5-25x56 kullanım kılavuzu PDF'i (s.11 'VPR Reticle Subtensions', MIL) metin katmanı; ürün sayfası (arkenoptics.com/products/ep5-gii-5-25x56-ffp-illuminated-vpr-tor-zero-stop-34mm-tube): '12 MIL holdover grid', '0.25 MIL subtensions', '0.04-0.08 MIL floating center dot'. Föy rakamları: yatayda her iki yana 2-4-6-8, dikeyde 2-4-6-8-10-12 -> numbers_every=2; extent_v_down=12 (en alt rakam 12, ürün sayfasındaki 12 MIL ızgarayla uyumlu). extent_h=8 ÇIKARIM: yatay en dış rakam 8; çizginin 8 mil ötesine uzanıp uzanmadığı görsel okunamadığı için doğrulanamadı. Föydeki etiketler (Φ0.04, Φ0.08 nokta çapları; 0.15, 0.25, 0.03, 0.25, 0.25, 0.5, 0.15, 1.0, 0.5, 0.25, 1.0, 0.3, 1.0 mil) görselsiz hangi çizgiye ait oldukları eşlenemedi; 0.03 büyük olasılıkla çizgi kalınlığı ama doğrulanmadı. major_every ve ağaç satırları (tree) bu yüzden null. EP-5 GENII 7-35x56 kılavuzu (https://cdn.shopify.com/s/files/1/0701/0458/0182/files/EP-5_GENII_7-35x56_User_Manual-V2-20260427.pdf?v=1785752795) aynı rakam dizisini veriyor. Diğer kapsamlar (EPL-4, SH-4 GENII, SH-4J GENII, LH-4) arkenopticsusa.com ürün sayfalarındaki 'MIL/VPR' seçeneğinden; aynı retikül olduğu ad üzerinden varsayıldı."
+}

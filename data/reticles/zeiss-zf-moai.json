@@ -1,0 +1,19 @@
+{
+  "name": "ZF-MOAi",
+  "brand": "Zeiss",
+  "scopes": ["LRP S5 318-50", "LRP S5 525-56", "LRP S3 425-50", "LRP S3 636-56"],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": 2,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": true,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-zf-moai.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-zf-moai.pdf",
+  "notes": "Zeiss ZF-MOAi (Absehen #17) föyü, 10/2021, aydınlatmalı, FFP, MOA. Metin: işaretler 1 MOA; çift sayılar yazılı; merkez çizgi altında rüzgâr noktaları 2 MOA aralıkla; yüzen merkez nişan noktası (floating center point). Tablo: çizgi kalınlığı A 0.125 (S5 318-50) / 0.1 (diğerleri); standart rakam boyu 0.75; '10, 20, 30' rakam boyu 1.0; nokta boyu K 0.125; nokta aralığı L 2.0; merkez artı çevresi boşluk N 0.5; P 32 (etiketsiz 'Distance', görselsiz eşlenemedi). ÇIKARIM: numbers_every=2 'çift sayılar' ifadesinden; family='tree' merkez altındaki 2 MOA rüzgâr noktası ızgarasından (satır yapısı verilmediği için tree null). center_dot: merkez yüzen artı olarak tanımlı, ayrı merkez noktası belirtilmemiş -> null. Uzanımlar ve uzun işaret aralığı metinde yok -> null. Ek kaynak: LRP S3 föyü (Reticle #17) https://www.zeiss.com/content/dam/consumer-products/united-states/precision-shooting/landing-pages/lrp-s3-riflescopes/downloads/lrp_s3_datasheet_reticles.pdf"
+}

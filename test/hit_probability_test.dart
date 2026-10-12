@@ -86,8 +86,8 @@ void main() {
 
     // Defaults (1,0 MOA / 10 cm / 100 m) are already valid and must never
     // surface a click/hold instruction (that stays in the ballistics flow).
-    expect(find.text('Vuruş Olasılığı'), findsOneWidget);
-    expect(find.textContaining('Vuruş olasılığı'), findsOneWidget);
+    expect(find.text('İsabet Olasılığı'), findsOneWidget);
+    expect(find.textContaining('İsabet olasılığı'), findsOneWidget);
     expect(find.textContaining('klik'), findsNothing);
     expect(find.textContaining('tambur'), findsNothing);
   });

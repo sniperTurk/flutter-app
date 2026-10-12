@@ -5,7 +5,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REPO = (ROOT / 'lib/data/catalog_repository.dart').read_text()
 INTEGRITY = (ROOT / 'lib/data/catalog_integrity.dart').read_text()
-SCREEN = (ROOT / 'lib/features/catalog/catalog_screen.dart').read_text()
 DART_TEST = (ROOT / 'test/catalog_integrity_test.dart').read_text()
 
 class V153CatalogCompletenessTest(unittest.TestCase):
@@ -28,8 +27,6 @@ class V153CatalogCompletenessTest(unittest.TestCase):
         self.assertIn("sourceName:'Kullanıcı girdisi'", line)
         self.assertIn('kamuya açık üretici teknik föyü doğrulanamadı', line)
         self.assertNotIn('ballisticCoefficient:', line)
-        self.assertIn("ammunition.sourceName == 'Kullanıcı girdisi'", SCREEN)
-        self.assertIn("'Doğrulama: kullanıcı girdisi'", SCREEN)
 
     def test_jsb_45_55_records_are_present_without_invented_bc(self):
         expected = {

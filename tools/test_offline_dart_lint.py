@@ -39,11 +39,11 @@ class OfflineDartLintTest(unittest.TestCase):
             self.assertTrue(problems[0].startswith('lib/bad.dart:1:'))
 
     def test_real_source_newline_replacement_is_detected(self):
-        path = lint.ROOT / 'lib' / 'features' / 'catalog' / 'catalog_screen.dart'
+        path = lint.ROOT / 'lib' / 'features' / 'profiles' / 'profiles_screen.dart'
         text = path.read_text(encoding='utf-8')
-        marker = "    final details = <String>[\n"
+        marker = "  final ManualCatalogStore _manualStore = ManualCatalogStore();\n"
         self.assertIn(marker, text)
-        corrupted = text.replace(marker, "    final details = <String>[\\n", 1)
+        corrupted = text.replace(marker, "  final ManualCatalogStore _manualStore = ManualCatalogStore();\\n", 1)
         self.assertTrue(lint.stray_backslashes(corrupted))
 
     def test_real_tree_is_clean(self):
@@ -137,7 +137,7 @@ class OfflineDartStructuralLintTest(unittest.TestCase):
             self.assertTrue(problems[0].startswith('lib/broken.dart:1:9: unclosed'), problems)
 
     def test_deleting_a_real_closing_brace_is_detected(self):
-        path = lint.ROOT / 'lib' / 'features' / 'catalog' / 'catalog_screen.dart'
+        path = lint.ROOT / 'lib' / 'features' / 'profiles' / 'profiles_screen.dart'
         text = path.read_text(encoding='utf-8')
         cut = text.rindex('}')
         self.assertTrue(lint.structural_problems(text[:cut] + text[cut + 1:]))
