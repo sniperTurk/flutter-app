@@ -179,7 +179,13 @@ void main() {
     await _enter(tester, 'truing-drag-observed-0', '3');
     await _tap(tester, 'truing-compute');
     expect(find.byKey(const Key('truing-error')), findsOneWidget);
-    expect(find.textContaining('en az 3'), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('truing-error')),
+        matching: find.textContaining('en az 3'),
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('computes band scales and before / after residuals', (

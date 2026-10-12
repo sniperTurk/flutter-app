@@ -29,6 +29,7 @@ import '../../tools/domain/field_calc.dart';
 import '../../tools/domain/shot_angle_math.dart';
 import '../../tools/ports/heading_provider.dart';
 import '../../tools/ports/location_provider.dart';
+import '../../tools/ports/pressure_sensor.dart';
 import '../../tools/ports/weather_provider.dart';
 import '../../tools/tools_services.dart';
 import '../../ui/menzil_theme.dart';
@@ -972,6 +973,48 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
   }
 
+  // ---- Phone barometer (Ö4) ---------------------------------------------
+
+  bool _pressureBusy = false;
+  String? _pressureStatus;
+  bool _pressureFailed = false;
+
+  /// "Basıncı telefondan al": reads the phone barometer once, ONLY on this
+  /// button (owner rule), and writes it into Basınç as the user's own value
+  /// (an automatic weather fill keeps it; the explicit weather button still
+  /// replaces it).
+  Future<void> _readPhonePressure() async {
+    if (_pressureBusy) return;
+    final sensor = ToolsServicesScope.of(context).pressure;
+    setState(() {
+      _pressureBusy = true;
+      _pressureStatus = null;
+    });
+    PressureReading reading;
+    try {
+      reading = await sensor.read();
+    } catch (_) {
+      reading = const PressureUnavailable();
+    }
+    if (!mounted) return;
+    setState(() {
+      _pressureBusy = false;
+      if (reading is PressureRead) {
+        pressure.text = _pressureText(reading.hpa);
+        _userEdited.add(pressure);
+        _pressureFailed = false;
+        _pressureStatus =
+            'Basınç telefondan alındı: '
+            '${_pressureText(reading.hpa).replaceAll('.', ',')} '
+            '${metric ? 'hPa' : 'inHg'}.';
+      } else {
+        _pressureFailed = true;
+        _pressureStatus = 'Basınç okunamadı; elle girin.';
+      }
+    });
+    if (reading is PressureRead && widget.profile != null) _quietSolve();
+  }
+
   String _pressureText(double hpa) => metric
       ? hpa.toStringAsFixed(1)
       : UnitSystem.hpaToInHg(hpa).toStringAsFixed(2);
@@ -997,6 +1040,24 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           expand: true,
           onPressed: _weatherBusy ? null : () => _fillWeather(overwrite: true),
         ),
+        const SizedBox(height: MenzilSpace.xs),
+        MenzilSecondaryButton(
+          key: const Key('environment-phone-pressure'),
+          label: _pressureBusy ? 'Okunuyor…' : 'Basıncı telefondan al',
+          icon: Icons.speed,
+          expand: true,
+          onPressed: _pressureBusy ? null : _readPhonePressure,
+        ),
+        if (_pressureStatus != null) ...[
+          const SizedBox(height: MenzilSpace.xs),
+          MenzilNotice(
+            key: const Key('environment-phone-pressure-status'),
+            tone: _pressureFailed
+                ? MenzilNoticeTone.warning
+                : MenzilNoticeTone.info,
+            message: _pressureStatus!,
+          ),
+        ],
         const SizedBox(height: MenzilSpace.md),
       ],
     );
