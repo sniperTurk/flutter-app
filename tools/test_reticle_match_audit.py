@@ -195,6 +195,17 @@ class AuditTest(unittest.TestCase):
         self.assertFalse(rows['f']['drawable'])
         self.assertEqual(rows['g']['status'], 'kismi')
 
+    def test_code_listed_only_in_other_unit_is_unit_difference(self):
+        lib = LIB + [rec('vo-g4f', 'Vector Optics', 'G4 Fiber Dot MOA', 'moa',
+                         'duplex', None, scopes=['Grizzly (SCOM-49)'])]
+        s = self.scope('a', 'Vector Optics', 'G4 Fiber', 'mrad')
+        s['source'] = 'https://x/Grizzly-SCOM-49.html'
+        row = audit.audit([s], lib)['scopes'][0]
+        self.assertEqual(row['reasons'], ['birim-farki'])
+        s['unit'] = 'moa'
+        row = audit.audit([s], lib)['scopes'][0]
+        self.assertEqual(row['records'], ['vo-g4f'])
+
     def test_brand_summary(self):
         scopes = [
             self.scope('a', 'Element Optics', 'APR-1C MOA', 'moa'),

@@ -22,7 +22,9 @@ Reason codes of an unmatched reticle name:
   baska-marka  as kayit-yok, but another brand has a record of this name
                (never used: a brand only finds its own reticle)
   birim-farki  the brand has the reticle only in the other unit (MIL/MOA)
-               than the scope's turret, or the name states the other unit
+               than the scope's turret, or the name states the other unit,
+               or the manufacturer lists the scope's product code only
+               under a record in the other unit
   belirsiz     two records cannot be told apart
 
 Product code (owner, 2026-10-12): when no record of the scope's brand has
@@ -173,6 +175,11 @@ def _find(name, turret_unit, brand, lib, legacy=False, model='', source=''):
              and lists_product(r, source)]
     if len(coded) == 1:
         return coded[0], None
+    if not coded and any(brand_matches(r['brand'], brand)
+                         and lists_product(r, source) for r in lib):
+        # The manufacturer lists the scope only under a record in the
+        # other unit.
+        return hit, 'birim-farki'
     return hit, why
 
 
