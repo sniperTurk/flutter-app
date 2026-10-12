@@ -7,7 +7,7 @@
 "objective_mm": 50.0,
 "tube_mm": 30.0,
 "focal": "sfp",
-"click_unit": "moa",
+"click_unit": "smoa",
 "click_value": 0.25,
 "elevation_travel_moa": 73.0,
 "windage_travel_moa": 73.0,
@@ -18,7 +18,8 @@
 "zero_stop": null,
 "source_url": "https://mtcoptics.com/viper-pro/",
 "accessed": "2026-10-12",
-"notes": "Max windage/elevation 73 MOA; 56 klik/tur, 14 MOA/tur. Klik: '1/4″ : 1 click @ 100 yards' (MOA/MRAD etiketi yok; taret aralığı ve tur başına değer MOA ile verildiği için moa 0.25). Paralaks: spec tablosu '10m – infinity', özellik listesi '10 yds to infinity' (çelişki) -> çelişkili olduğu için parallax_min_m null (kural: çelişkili değer boş). Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. "
+"notes": "Max windage/elevation 73 MOA; 56 klik/tur, 14 MOA/tur. Klik: '1/4″ : 1 click @ 100 yards' (MOA/MRAD etiketi yok; taret aralığı ve tur başına değer MOA ile verildiği için moa 0.25). Paralaks: spec tablosu '10m – infinity', özellik listesi '10 yds to infinity' (çelişki) -> çelişkili olduğu için parallax_min_m null (kural: çelişkili değer boş). Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. SMOA (2026-10-12, https://mtcoptics.com/viper-pro/): klik sayfada 'Adj per click – 1/4″ : 1 click @ 100 yards' (inç/100 yd, MOA yazmıyor) → click_unit smoa, 0.25. Taret aralığı sayfadaki birimiyle bırakıldı.",
+"smoa_source": "Adj per click – 1/4″ : 1 click @ 100 yards"
 },
 {
 "brand": "MTC Optics",
@@ -28,7 +29,7 @@
 "objective_mm": 50.0,
 "tube_mm": 30.0,
 "focal": "sfp",
-"click_unit": "moa",
+"click_unit": "smoa",
 "click_value": 0.25,
 "elevation_travel_moa": 42.0,
 "windage_travel_moa": 42.0,
@@ -39,7 +40,8 @@
 "zero_stop": null,
 "source_url": "https://mtcoptics.com/viper-pro/",
 "accessed": "2026-10-12",
-"notes": "Max windage/elevation 42 MOA; 40 klik/tur, 10 MOA/tur. Klik: '1/4″ : 1 click @ 100 yards' (MOA/MRAD etiketi yok; taret aralığı ve tur başına değer MOA ile verildiği için moa 0.25). Paralaks: spec tablosu '10m – infinity', özellik listesi '10 yds to infinity' (çelişki) -> çelişkili olduğu için parallax_min_m null (kural: çelişkili değer boş). Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. "
+"notes": "Max windage/elevation 42 MOA; 40 klik/tur, 10 MOA/tur. Klik: '1/4″ : 1 click @ 100 yards' (MOA/MRAD etiketi yok; taret aralığı ve tur başına değer MOA ile verildiği için moa 0.25). Paralaks: spec tablosu '10m – infinity', özellik listesi '10 yds to infinity' (çelişki) -> çelişkili olduğu için parallax_min_m null (kural: çelişkili değer boş). Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. SMOA (2026-10-12, https://mtcoptics.com/viper-pro/): klik sayfada 'Adj per click – 1/4″ : 1 click @ 100 yards' (inç/100 yd, MOA yazmıyor) → click_unit smoa, 0.25. Taret aralığı sayfadaki birimiyle bırakıldı.",
+"smoa_source": "Adj per click – 1/4″ : 1 click @ 100 yards"
 },
 {
 "brand": "MTC Optics",
@@ -49,7 +51,7 @@
 "objective_mm": 50.0,
 "tube_mm": 30.0,
 "focal": "sfp",
-"click_unit": "moa",
+"click_unit": "smoa",
 "click_value": 0.25,
 "elevation_travel_moa": 73.0,
 "windage_travel_moa": 73.0,
@@ -60,7 +62,8 @@
 "zero_stop": null,
 "source_url": "https://mtcoptics.com/viper-pro/",
 "accessed": "2026-10-12",
-"notes": "Tactical: taret kilitli sürüm; ağırlık 'Tactical 725g'. Diğer değerler 3-18x50 spec tablosundan (ayrı tablo yok). Klik: '1/4″ : 1 click @ 100 yards' (MOA/MRAD etiketi yok; taret aralığı ve tur başına değer MOA ile verildiği için moa 0.25). Paralaks: spec tablosu '10m – infinity', özellik listesi '10 yds to infinity' (çelişki) -> çelişkili olduğu için parallax_min_m null (kural: çelişkili değer boş). Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. "
+"notes": "Tactical: taret kilitli sürüm; ağırlık 'Tactical 725g'. Diğer değerler 3-18x50 spec tablosundan (ayrı tablo yok). Klik: '1/4″ : 1 click @ 100 yards' (MOA/MRAD etiketi yok; taret aralığı ve tur başına değer MOA ile verildiği için moa 0.25). Paralaks: spec tablosu '10m – infinity', özellik listesi '10 yds to infinity' (çelişki) -> çelişkili olduğu için parallax_min_m null (kural: çelişkili değer boş). Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. SMOA (2026-10-12, https://mtcoptics.com/viper-pro/): klik sayfada 'Adj per click – 1/4″ : 1 click @ 100 yards' (inç/100 yd, MOA yazmıyor) → click_unit smoa, 0.25. Taret aralığı sayfadaki birimiyle bırakıldı.",
+"smoa_source": "Adj per click – 1/4″ : 1 click @ 100 yards"
 },
 {
 "brand": "MTC Optics",
@@ -70,7 +73,7 @@
 "objective_mm": 50.0,
 "tube_mm": 30.0,
 "focal": "sfp",
-"click_unit": "moa",
+"click_unit": "smoa",
 "click_value": 0.25,
 "elevation_travel_moa": 42.0,
 "windage_travel_moa": 42.0,
@@ -81,7 +84,8 @@
 "zero_stop": null,
 "source_url": "https://mtcoptics.com/viper-pro/",
 "accessed": "2026-10-12",
-"notes": "Tactical: taret kilitli sürüm; ağırlık 'Tactical 732g'. Diğer değerler 5-30x50 spec tablosundan. Klik: '1/4″ : 1 click @ 100 yards' (MOA/MRAD etiketi yok; taret aralığı ve tur başına değer MOA ile verildiği için moa 0.25). Paralaks: spec tablosu '10m – infinity', özellik listesi '10 yds to infinity' (çelişki) -> çelişkili olduğu için parallax_min_m null (kural: çelişkili değer boş). Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. "
+"notes": "Tactical: taret kilitli sürüm; ağırlık 'Tactical 732g'. Diğer değerler 5-30x50 spec tablosundan. Klik: '1/4″ : 1 click @ 100 yards' (MOA/MRAD etiketi yok; taret aralığı ve tur başına değer MOA ile verildiği için moa 0.25). Paralaks: spec tablosu '10m – infinity', özellik listesi '10 yds to infinity' (çelişki) -> çelişkili olduğu için parallax_min_m null (kural: çelişkili değer boş). Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. SMOA (2026-10-12, https://mtcoptics.com/viper-pro/): klik sayfada 'Adj per click – 1/4″ : 1 click @ 100 yards' (inç/100 yd, MOA yazmıyor) → click_unit smoa, 0.25. Taret aralığı sayfadaki birimiyle bırakıldı.",
+"smoa_source": "Adj per click – 1/4″ : 1 click @ 100 yards"
 },
 {
 "brand": "MTC Optics",
@@ -91,7 +95,7 @@
 "objective_mm": 32.0,
 "tube_mm": 30.0,
 "focal": "sfp",
-"click_unit": "moa",
+"click_unit": "smoa",
 "click_value": 0.25,
 "elevation_travel_moa": 120.0,
 "windage_travel_moa": null,
@@ -102,7 +106,8 @@
 "zero_stop": null,
 "source_url": "https://mtcoptics.com/viper-connect/",
 "accessed": "2026-10-12",
-"notes": "Klik '1/4″:1 click @ 100 yards'; 'Max turret adjustment – 120MOA'. Sayfa tek 'Max turret adjustment' değeri veriyor (yükseliş/yan ayrımı yok) -> elevation'a yazıldı, windage null. Paralaks '10yds -infinity' (10 yd × 0.9144 = 9.1 m). Retikül: spec tablosu SCB2, özellik listesi 'Choice of AMD or SCB2'. Sayfada tutarsızlık: '60 klik/tur' ile '41.25 MOA/tur' uyuşmuyor; göz mesafesi '17mm' şüpheli. Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. "
+"notes": "Klik '1/4″:1 click @ 100 yards'; 'Max turret adjustment – 120MOA'. Sayfa tek 'Max turret adjustment' değeri veriyor (yükseliş/yan ayrımı yok) -> elevation'a yazıldı, windage null. Paralaks '10yds -infinity' (10 yd × 0.9144 = 9.1 m). Retikül: spec tablosu SCB2, özellik listesi 'Choice of AMD or SCB2'. Sayfada tutarsızlık: '60 klik/tur' ile '41.25 MOA/tur' uyuşmuyor; göz mesafesi '17mm' şüpheli. Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. SMOA (2026-10-12, https://mtcoptics.com/viper-connect/): klik sayfada 'Adj per click – 1/4″:1 click @ 100 yards' (inç/100 yd, MOA yazmıyor) → click_unit smoa, 0.25. Taret aralığı sayfadaki birimiyle bırakıldı.",
+"smoa_source": "Adj per click – 1/4″:1 click @ 100 yards"
 },
 {
 "brand": "MTC Optics",
@@ -133,7 +138,7 @@
 "objective_mm": 42.0,
 "tube_mm": 25.0,
 "focal": "sfp",
-"click_unit": "moa",
+"click_unit": "smoa",
 "click_value": 0.25,
 "elevation_travel_moa": 60.0,
 "windage_travel_moa": 60.0,
@@ -144,7 +149,8 @@
 "zero_stop": null,
 "source_url": "https://mtcoptics.com/mambalite/",
 "accessed": "2026-10-12",
-"notes": "Tüp 25mm (sayfada böyle). Klik '1/4″:1 click @ 100 yards', 48 klik/tur = 12 MOA/tur; aynı tabloda '1cm @100m' çelişkili. Max elevation/windage 60 MOA. Paralaks spec '10m -infinity', özellik listesi '10 yds' (çelişki) -> 10 m. Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. "
+"notes": "Tüp 25mm (sayfada böyle). Klik '1/4″:1 click @ 100 yards', 48 klik/tur = 12 MOA/tur; aynı tabloda '1cm @100m' çelişkili. Max elevation/windage 60 MOA. Paralaks spec '10m -infinity', özellik listesi '10 yds' (çelişki) -> 10 m. Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. SMOA (2026-10-12, https://mtcoptics.com/mambalite/): klik sayfada 'Adj per click – 1/4″:1 click @ 100 yards' (inç/100 yd, MOA yazmıyor) → click_unit smoa, 0.25. Taret aralığı sayfadaki birimiyle bırakıldı.",
+"smoa_source": "Adj per click – 1/4″:1 click @ 100 yards"
 },
 {
 "brand": "MTC Optics",
@@ -154,7 +160,7 @@
 "objective_mm": 42.0,
 "tube_mm": 25.0,
 "focal": "sfp",
-"click_unit": "moa",
+"click_unit": "smoa",
 "click_value": 0.25,
 "elevation_travel_moa": 60.0,
 "windage_travel_moa": 60.0,
@@ -165,7 +171,8 @@
 "zero_stop": null,
 "source_url": "https://mtcoptics.com/mambalite/",
 "accessed": "2026-10-12",
-"notes": "Tüp 25mm. Klik '1/4″:1 click @ 100 yards', 48 klik/tur = 12 MOA/tur; '1cm @100m' çelişkili. Max elevation/windage 60 MOA. Paralaks spec '10m', özellik listesi '10 yds' (çelişki) -> 10 m. Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. "
+"notes": "Tüp 25mm. Klik '1/4″:1 click @ 100 yards', 48 klik/tur = 12 MOA/tur; '1cm @100m' çelişkili. Max elevation/windage 60 MOA. Paralaks spec '10m', özellik listesi '10 yds' (çelişki) -> 10 m. Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. SMOA (2026-10-12, https://mtcoptics.com/mambalite/): klik sayfada 'Adj per click – 1/4″:1 click @ 100 yards' (inç/100 yd, MOA yazmıyor) → click_unit smoa, 0.25. Taret aralığı sayfadaki birimiyle bırakıldı.",
+"smoa_source": "Adj per click – 1/4″:1 click @ 100 yards"
 },
 {
 "brand": "MTC Optics",
@@ -175,7 +182,7 @@
 "objective_mm": 40.0,
 "tube_mm": 25.0,
 "focal": "sfp",
-"click_unit": "moa",
+"click_unit": "smoa",
 "click_value": 0.25,
 "elevation_travel_moa": 60.0,
 "windage_travel_moa": null,
@@ -186,7 +193,8 @@
 "zero_stop": null,
 "source_url": "https://mtcoptics.com/mamba-ultralite/",
 "accessed": "2026-10-12",
-"notes": "Ayarlanabilir paralaks (PA) sürümü; 'Parallax Setting – 10m -infinity'. Klik '1/4″:1 click @ 100 yards'; '1cm @100m' ve '6 mils/tur' (48 klik) çelişkili. 'Max turret adjustment – 60 MOA'. Sayfa tek 'Max turret adjustment' değeri veriyor (yükseliş/yan ayrımı yok) -> elevation'a yazıldı, windage null. Retikül spec: SCB2 (bir görselde 'Mil-dot / SCB2 / Duplex' seçenekleri anılıyor). Ağırlık 546g (metinde '1lb 3oz (546 grams)'). Fixed ve PA sürümü aynı spec tablosunu paylaşıyor. Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. "
+"notes": "Ayarlanabilir paralaks (PA) sürümü; 'Parallax Setting – 10m -infinity'. Klik '1/4″:1 click @ 100 yards'; '1cm @100m' ve '6 mils/tur' (48 klik) çelişkili. 'Max turret adjustment – 60 MOA'. Sayfa tek 'Max turret adjustment' değeri veriyor (yükseliş/yan ayrımı yok) -> elevation'a yazıldı, windage null. Retikül spec: SCB2 (bir görselde 'Mil-dot / SCB2 / Duplex' seçenekleri anılıyor). Ağırlık 546g (metinde '1lb 3oz (546 grams)'). Fixed ve PA sürümü aynı spec tablosunu paylaşıyor. Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. SMOA (2026-10-12, https://mtcoptics.com/mamba-ultralite/): klik sayfada 'Adj per click – 1/4″:1 click @ 100 yards' (inç/100 yd, MOA yazmıyor) → click_unit smoa, 0.25. Taret aralığı sayfadaki birimiyle bırakıldı.",
+"smoa_source": "Adj per click – 1/4″:1 click @ 100 yards"
 },
 {
 "brand": "MTC Optics",
@@ -196,7 +204,7 @@
 "objective_mm": 40.0,
 "tube_mm": 25.0,
 "focal": "sfp",
-"click_unit": "moa",
+"click_unit": "smoa",
 "click_value": 0.25,
 "elevation_travel_moa": 60.0,
 "windage_travel_moa": null,
@@ -207,7 +215,8 @@
 "zero_stop": null,
 "source_url": "https://mtcoptics.com/mamba-ultralite/",
 "accessed": "2026-10-12",
-"notes": "Sabit paralaks sürümü: 'Fixed (100m/109yds)' -> parallax_min_m null. Spec tablosu PA sürümüyle ortak (uzunluk/ağırlık ayrı verilmemiş). Klik '1/4″:1 click @ 100 yards' (çelişkili '1cm @100m', '6 mils/tur'). Sayfa tek 'Max turret adjustment' değeri veriyor (yükseliş/yan ayrımı yok) -> elevation'a yazıldı, windage null. Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. "
+"notes": "Sabit paralaks sürümü: 'Fixed (100m/109yds)' -> parallax_min_m null. Spec tablosu PA sürümüyle ortak (uzunluk/ağırlık ayrı verilmemiş). Klik '1/4″:1 click @ 100 yards' (çelişkili '1cm @100m', '6 mils/tur'). Sayfa tek 'Max turret adjustment' değeri veriyor (yükseliş/yan ayrımı yok) -> elevation'a yazıldı, windage null. Aydınlatmalı retikül (ayrı açma/kapama ve parlaklık). Zero stop sayfada yok. SMOA (2026-10-12, https://mtcoptics.com/mamba-ultralite/): klik sayfada 'Adj per click – 1/4″:1 click @ 100 yards' (inç/100 yd, MOA yazmıyor) → click_unit smoa, 0.25. Taret aralığı sayfadaki birimiyle bırakıldı.",
+"smoa_source": "Adj per click – 1/4″:1 click @ 100 yards"
 },
 {
 "brand": "MTC Optics",
