@@ -88,8 +88,9 @@ Future<void> chooseInSelect(
         .evaluate()
         .map((e) => (e.widget as Text).data)
         .whereType<String>()
-        .toList();
-    fail('chooseInSelect($key): "$label" not found; visible texts: $seen');
+        .where((t) => t.contains(' gr') || t.contains('Hornady'))
+        .join('|');
+    fail('chooseInSelect($key): "$label" not found; gr texts: $seen');
   }
   // Built but below the menu's visible part: scroll it into view.
   await tester.ensureVisible(item.last);
