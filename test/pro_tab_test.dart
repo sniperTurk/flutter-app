@@ -95,9 +95,7 @@ void main() {
     // Rüzgâr düzeltmesi comes right after Açı.
     expect(
       tester.getTopLeft(find.byKey(const Key('pro-section-angle'))).dy,
-      lessThan(
-        tester.getTopLeft(find.byKey(const Key('pro-section-wind'))).dy,
-      ),
+      lessThan(tester.getTopLeft(find.byKey(const Key('pro-section-wind'))).dy),
     );
     expect(
       tester.getTopLeft(find.byKey(const Key('pro-section-wind'))).dy,
