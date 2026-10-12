@@ -214,7 +214,7 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                                         maxLines: 1,
                                         style: MenzilType.heading(
                                           c.ink,
-                                          size: 16,
+                                          size: 18,
                                         ),
                                       ),
                                     ),
@@ -273,7 +273,7 @@ class MenzilBrand extends StatelessWidget {
             'Sniper Türk',
             key: const Key('top-bar-brand'),
             maxLines: 1,
-            style: MenzilType.heading(c.ink, size: 16),
+            style: MenzilType.heading(c.ink, size: 18),
           ),
         ),
       ),
