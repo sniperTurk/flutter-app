@@ -1,7 +1,7 @@
 [
  {
   "brand": "Magtech",
-  "product": ".223 Rem 55gr PSP (Hunt)",
+  "product": ".223 Rem 55 gr PSP (Hunt)",
   "item_number": "223B",
   "cartridge": ".223 Rem",
   "bullet": "PSP",
@@ -16,7 +16,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".223 Rem 58gr JHP (Hunt)",
+  "product": ".223 Rem 58 gr JHP (Hunt)",
   "item_number": "223E",
   "cartridge": ".223 Rem",
   "bullet": "JHP",
@@ -31,7 +31,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".223 Rem 63gr PSP (Hunt)",
+  "product": ".223 Rem 63 gr PSP (Hunt)",
   "item_number": "223F",
   "cartridge": ".223 Rem",
   "bullet": "PSP",
@@ -46,7 +46,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".300 Blackout 147gr PSP (Hunt)",
+  "product": ".300 Blackout 147 gr PSP (Hunt)",
   "item_number": "300BLKD",
   "cartridge": ".300 Blackout",
   "bullet": "PSP",
@@ -61,7 +61,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".308 Win 150gr PSP (Hunt)",
+  "product": ".308 Win 150 gr PSP (Hunt)",
   "item_number": "308B",
   "cartridge": ".308 Win",
   "bullet": "PSP",
@@ -76,7 +76,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".308 Win 165gr PSP (Hunt)",
+  "product": ".308 Win 165 gr PSP (Hunt)",
   "item_number": "308E",
   "cartridge": ".308 Win",
   "bullet": "PSP",
@@ -91,7 +91,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".308 Win 180gr PSP (Hunt)",
+  "product": ".308 Win 180 gr PSP (Hunt)",
   "item_number": "308F",
   "cartridge": ".308 Win",
   "bullet": "PSP",
@@ -106,7 +106,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".30-06 Springfield 180gr PSP (Hunt)",
+  "product": ".30-06 Springfield 180 gr PSP (Hunt)",
   "item_number": "3006B",
   "cartridge": ".30-06 Springfield",
   "bullet": "PSP",
@@ -121,7 +121,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".30-06 Springfield 165gr PSP (Hunt)",
+  "product": ".30-06 Springfield 165 gr PSP (Hunt)",
   "item_number": "3006C",
   "cartridge": ".30-06 Springfield",
   "bullet": "PSP",
@@ -136,7 +136,7 @@
  },
  {
   "brand": "Magtech",
-  "product": "6.5 Creedmoor 140gr PSP (Hunt)",
+  "product": "6.5 Creedmoor 140 gr PSP (Hunt)",
   "item_number": "65B",
   "cartridge": "6.5 Creedmoor",
   "bullet": "PSP",
@@ -151,7 +151,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".223 Rem 77gr HPBT (Precision)",
+  "product": ".223 Rem 77 gr HPBT (Precision)",
   "item_number": "223C",
   "cartridge": ".223 Rem",
   "bullet": "HPBT",
@@ -166,7 +166,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".308 Win 168gr HPBT (Precision)",
+  "product": ".308 Win 168 gr HPBT (Precision)",
   "item_number": "308D",
   "cartridge": ".308 Win",
   "bullet": "HPBT",
@@ -181,7 +181,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".308 Win 175gr HPBT (Precision)",
+  "product": ".308 Win 175 gr HPBT (Precision)",
   "item_number": "308G",
   "cartridge": ".308 Win",
   "bullet": "HPBT",
@@ -196,7 +196,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".338 Lapua Mag 250gr HPBT (Precision)",
+  "product": ".338 Lapua Mag 250 gr HPBT (Precision)",
   "item_number": "338LMA",
   "cartridge": ".338 Lapua Mag",
   "bullet": "HPBT",
@@ -211,7 +211,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".50 BMG 770gr Solid (Precision)",
+  "product": ".50 BMG 770 gr Solid (Precision)",
   "item_number": "50BMGB",
   "cartridge": ".50 BMG",
   "bullet": "Solid",
@@ -226,7 +226,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".223 Rem 55gr FMJ (Tactical Rifle)",
+  "product": ".223 Rem 55 gr FMJ (Tactical Rifle)",
   "item_number": "223A",
   "cartridge": ".223 Rem",
   "bullet": "FMJ",
@@ -241,7 +241,7 @@
  },
  {
   "brand": "Magtech",
-  "product": "5.56x45 NATO 55gr Ball M193 (Tactical Rifle)",
+  "product": "5.56x45 NATO 55 gr Ball M193 (Tactical Rifle)",
   "item_number": "556A",
   "cartridge": "5.56x45 NATO",
   "bullet": "Ball M193",
@@ -256,7 +256,7 @@
  },
  {
   "brand": "Magtech",
-  "product": "5.56x45 NATO 62gr FMJ (Tactical Rifle)",
+  "product": "5.56x45 NATO 62 gr FMJ (Tactical Rifle)",
   "item_number": "556B",
   "cartridge": "5.56x45 NATO",
   "bullet": "FMJ",
@@ -271,7 +271,7 @@
  },
  {
   "brand": "Magtech",
-  "product": "5.56x45 NATO 77gr HPBT (Tactical Rifle)",
+  "product": "5.56x45 NATO 77 gr HPBT (Tactical Rifle)",
   "item_number": "556C",
   "cartridge": "5.56x45 NATO",
   "bullet": "HPBT",
@@ -286,7 +286,7 @@
  },
  {
   "brand": "Magtech",
-  "product": "5.56x45 NATO 62gr NATO Ball (Tactical Rifle)",
+  "product": "5.56x45 NATO 62 gr NATO Ball (Tactical Rifle)",
   "item_number": "556NATO",
   "cartridge": "5.56x45 NATO",
   "bullet": "NATO Ball",
@@ -301,7 +301,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".300 Blackout 115gr OTM (Tactical Rifle)",
+  "product": ".300 Blackout 115 gr OTM (Tactical Rifle)",
   "item_number": "300BLKA",
   "cartridge": ".300 Blackout",
   "bullet": "OTM",
@@ -316,7 +316,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".300 Blackout 123gr FMJ (Tactical Rifle)",
+  "product": ".300 Blackout 123 gr FMJ (Tactical Rifle)",
   "item_number": "300BLKB",
   "cartridge": ".300 Blackout",
   "bullet": "FMJ",
@@ -331,7 +331,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".300 Blackout 147gr FMJ (Tactical Rifle)",
+  "product": ".300 Blackout 147 gr FMJ (Tactical Rifle)",
   "item_number": "300BLKC",
   "cartridge": ".300 Blackout",
   "bullet": "FMJ",
@@ -346,7 +346,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".308 Win 150gr FMJ (Tactical Rifle)",
+  "product": ".308 Win 150 gr FMJ (Tactical Rifle)",
   "item_number": "308A",
   "cartridge": ".308 Win",
   "bullet": "FMJ",
@@ -361,7 +361,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".308 Win 180gr FMJ (Tactical Rifle)",
+  "product": ".308 Win 180 gr FMJ (Tactical Rifle)",
   "item_number": "308C",
   "cartridge": ".308 Win",
   "bullet": "FMJ",
@@ -376,7 +376,7 @@
  },
  {
   "brand": "Magtech",
-  "product": "7.62x51 NATO 147gr Ball Mil Std (Tactical Rifle)",
+  "product": "7.62x51 NATO 147 gr Ball Mil Std (Tactical Rifle)",
   "item_number": "762A",
   "cartridge": "7.62x51 NATO",
   "bullet": "Ball Mil Std",
@@ -391,7 +391,7 @@
  },
  {
   "brand": "Magtech",
-  "product": "7.62x51 NATO 144gr NATO Ball (Tactical Rifle)",
+  "product": "7.62x51 NATO 144 gr NATO Ball (Tactical Rifle)",
   "item_number": "762NATO",
   "cartridge": "7.62x51 NATO",
   "bullet": "NATO Ball",
@@ -406,7 +406,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".30-06 Springfield 180gr FMJ (Tactical Rifle)",
+  "product": ".30-06 Springfield 180 gr FMJ (Tactical Rifle)",
   "item_number": "3006A",
   "cartridge": ".30-06 Springfield",
   "bullet": "FMJ",
@@ -421,7 +421,7 @@
  },
  {
   "brand": "Magtech",
-  "product": "6.5 Creedmoor 140gr FMJ BT (Tactical Rifle)",
+  "product": "6.5 Creedmoor 140 gr FMJ BT (Tactical Rifle)",
   "item_number": "65A",
   "cartridge": "6.5 Creedmoor",
   "bullet": "FMJ BT",
@@ -436,7 +436,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".30 Carbine 110gr FMJ (Tactical Rifle)",
+  "product": ".30 Carbine 110 gr FMJ (Tactical Rifle)",
   "item_number": "30A",
   "cartridge": ".30 Carbine",
   "bullet": "FMJ",
@@ -451,7 +451,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".30 Carbine 110gr JSP (Tactical Rifle)",
+  "product": ".30 Carbine 110 gr JSP (Tactical Rifle)",
   "item_number": "30B",
   "cartridge": ".30 Carbine",
   "bullet": "JSP",
@@ -466,7 +466,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".30 Carbine 110gr JHP (Tactical Rifle)",
+  "product": ".30 Carbine 110 gr JHP (Tactical Rifle)",
   "item_number": "30C",
   "cartridge": ".30 Carbine",
   "bullet": "JHP",
@@ -481,7 +481,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".50 BMG 656gr Ball (Tactical Rifle)",
+  "product": ".50 BMG 656 gr Ball (Tactical Rifle)",
   "item_number": "50BMGA",
   "cartridge": ".50 BMG",
   "bullet": "Ball",
@@ -496,7 +496,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".300 Blackout 200gr FMJ Subsonic (Subsonic)",
+  "product": ".300 Blackout 200 gr FMJ Subsonic (Subsonic)",
   "item_number": "300BLKSUBA",
   "cartridge": ".300 Blackout",
   "bullet": "FMJ Subsonic",
@@ -511,7 +511,7 @@
  },
  {
   "brand": "Magtech",
-  "product": ".223 Rem 42gr Frangible (Frangible)",
+  "product": ".223 Rem 42 gr Frangible (Frangible)",
   "item_number": "223FRANA",
   "cartridge": ".223 Rem",
   "bullet": "Frangible",
