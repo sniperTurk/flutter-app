@@ -63,9 +63,8 @@ class SensorsPlusPressureSensor implements PressureSensor {
         },
         // No barometer (older device), permission refused: "okunamadı".
         onError: (Object _) => finish(const PressureUnavailable()),
-        onDone: () => finish(
-          lastBad == null ? const PressureUnavailable() : silent(),
-        ),
+        onDone: () =>
+            finish(lastBad == null ? const PressureUnavailable() : silent()),
         cancelOnError: true,
       );
       if (done.isCompleted) unawaited(sub.cancel());
