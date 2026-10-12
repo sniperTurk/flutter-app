@@ -69,6 +69,22 @@ abstract final class ProfileFieldInfo {
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
       'etkilenir. Tipik: G1 0,25–0,60; G7 0,12–0,30. Kutuda veya mermi '
       'üreticisinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
+  /// Added to the BC ⓘ when the listed factory round's BC comes from the
+  /// same NATO standard bullet's official report (owner, 2026-10-12: "ⓘ
+  /// alanında veriyi nasıl eklediğimizi açıkla; kullanıcı isterse
+  /// değiştirsin"). [probable]: the maker does not name the standard; weight
+  /// and type match.
+  static String bcNatoStandard({
+    required String brand,
+    required String standard,
+    required String report,
+    bool probable = false,
+  }) =>
+      "$brand bu fişeğin BC'sini yayımlamıyor. Değer, "
+      '${probable ? 'muhtemel eşdeğeri olan' : 'aynı'} NATO standart '
+      'mermisinin ($standard) resmi test raporundan alındı ($report). Kendi '
+      'tüfeğinizde fark olabilir; kutudaki ya da ölçtüğünüz değeri girebilir, '
+      'Doğrulama ekranıyla düzeltebilirsiniz.';
   static const bcModelFirearm =
       'BC sayısının hangi standart mermi şekline göre verildiği. G1: klasik '
       'av mermisi şekli. G7: uzun, sivri, arka tarafı daralan (boat-tail) '

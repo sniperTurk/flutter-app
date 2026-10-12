@@ -2456,14 +2456,23 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Fills the ammunition (and the velocity) from a factory cartridge.
   /// The manufacturer note of the listed factory round now in the form
   /// (e.g. "BC G1/G7 etiketi olmadan verilmiş; G1 kabul edildi…"), added to
-  /// the BC ⓘ (owner, 2026-10-11: "bilgi notu olacak").
+  /// the BC ⓘ (owner, 2026-10-11: "bilgi notu olacak"); for a round whose BC
+  /// is the NATO standard bullet's, first how that BC was taken (2026-10-12).
   String get _factoryBcNote {
     for (final a in _factoryHere) {
-      if (a.note != null &&
-          a.brand == ammoBrand.text &&
-          a.name == ammoModel.text) {
-        return '\n\nBu fişek: ${a.note}';
+      if (a.brand != ammoBrand.text || a.name != ammoModel.text) continue;
+      var nato = '';
+      if (a.bcSource == 'nato-standard') {
+        final t = ProfileFieldInfo.bcNatoStandard(
+          brand: a.brand,
+          standard: a.bcStandard!,
+          report: a.bcReport!,
+          probable: a.bcProbable,
+        );
+        nato = '\n\n$t';
       }
+      final note = a.note == null ? '' : '\n\nBu fişek: ${a.note}';
+      if (nato.isNotEmpty || note.isNotEmpty) return nato + note;
     }
     return '';
   }
