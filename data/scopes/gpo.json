@@ -32,14 +32,14 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 23,
 "windage_travel_mrad": 23,
-"reticle": "HSi-CQB [mil]",
+"reticle": "HSi-CQB",
 "parallax_min_m": null,
 "length_mm": 269.2,
 "weight_g": 561.3,
 "zero_stop": null,
 "source_url": "https://gpo-usa.com/shop/tactical/scopes-tactical/gpo-tac/gpotac-1-6x24i/",
 "accessed": "2026-10-12",
-"notes": "SKU RT610. Objektif model adından. Aralık '23 MILRADIAN, 84in'. Paralaks 100y sabit. 10.6 in→269.2 mm, 19.8 oz→561.3 g. Zero stop sayfada yok."
+"notes": "SKU RT610. Objektif model adından. Aralık '23 MILRADIAN, 84in'. Paralaks 100y sabit. 10.6 in→269.2 mm, 19.8 oz→561.3 g. Zero stop sayfada yok. Retikül adı üretici sayfasından: https://gpo-usa.com/shop/tactical/scopes-tactical/gpo-tac/gpotac-1-6x24i/ (okundu 2026-10-12)."
 },
 {
 "brand": "GPO",
@@ -200,14 +200,14 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 22,
 "windage_travel_mrad": 36,
-"reticle": "HSi-CQB [mil]",
+"reticle": "HSi-CQB",
 "parallax_min_m": 9.1,
 "length_mm": 251.5,
 "weight_g": 567.0,
 "zero_stop": true,
 "source_url": "https://gpo-usa.com/shop/tactical/scopes-tactical/centuri-scopes-tactical/centuri-4-16x44i-ffp-super-compact/",
 "accessed": "2026-10-12",
-"notes": "SKU RCX451. Aralık: elevation '22 milradian, 80\"', windage '100\", 36 milradian'. 'ZeroStop Locking Reset turrets'. Aynı modelin 'MIL reticle' sürümü (centuri-4-16x44-super-compact) çekilmedi. 10 yd→9.1 m. 9.9 in→251.5 mm, 20 oz→567.0 g."
+"notes": "SKU RCX451. Aralık: elevation '22 milradian, 80\"', windage '100\", 36 milradian'. 'ZeroStop Locking Reset turrets'. Aynı modelin 'MIL reticle' sürümü (centuri-4-16x44-super-compact) çekilmedi. 10 yd→9.1 m. 9.9 in→251.5 mm, 20 oz→567.0 g. Retikül adı üretici sayfasından: https://gpo-usa.com/shop/tactical/scopes-tactical/centuri-scopes-tactical/centuri-4-16x44i-ffp-super-compact/ (okundu 2026-10-12)."
 },
 {
 "brand": "GPO",

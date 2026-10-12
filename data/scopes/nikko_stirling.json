@@ -74,14 +74,14 @@
   "click_value": 0.05,
   "elevation_travel_mrad": null,
   "windage_travel_mrad": null,
-  "reticle": "HMD-T (illuminated, MIL based)",
+  "reticle": "HMD-T",
   "parallax_min_m": 9.14,
   "length_mm": 458,
   "weight_g": 980,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/hornet-ed/nsnc105060hmdir",
   "accessed": "2026-10-12",
-  "notes": "SKU NSNC105060HMDIR. Features: '1/20 MIL Click (5mm@100m)' -> 0.05 mrad; imperial spec table wrongly labels click as '0.05 MOA'. Travel listed as '13.1 MOA' up/down and left/right under an E/W range (MOA) header, which conflicts with the MIL turret (value likely mrad but unit not certain) -> travel null. Parallax 10 yd to infinity (10*0.9144=9.14 m; table metric says 9.1 m). Focal plane not stated."
+  "notes": "SKU NSNC105060HMDIR. Features: '1/20 MIL Click (5mm@100m)' -> 0.05 mrad; imperial spec table wrongly labels click as '0.05 MOA'. Travel listed as '13.1 MOA' up/down and left/right under an E/W range (MOA) header, which conflicts with the MIL turret (value likely mrad but unit not certain) -> travel null. Parallax 10 yd to infinity (10*0.9144=9.14 m; table metric says 9.1 m). Focal plane not stated. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/hornet-ed/nsnc105060hmdir (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -263,14 +263,14 @@
   "click_value": 0.5,
   "elevation_travel_moa": 100,
   "windage_travel_moa": 100,
-  "reticle": "No.4 Dot (4 Dot extreme, illuminated, glass etched)",
+  "reticle": "No.4 Dot",
   "parallax_min_m": null,
   "length_mm": 257,
   "weight_g": 477,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/boar-eater/nsbe1424",
   "accessed": "2026-10-12",
-  "notes": "SKU NSBE1424. Click 1/2 MOA (15 mm@100m). Parallax fixed 100 yd (91 m). Hunting turrets. Focal plane not stated. Length/weight from metric table."
+  "notes": "SKU NSBE1424. Click 1/2 MOA (15 mm@100m). Parallax fixed 100 yd (91 m). Hunting turrets. Focal plane not stated. Length/weight from metric table. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/boar-eater/nsbe1424 (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -284,14 +284,14 @@
   "click_value": 0.5,
   "elevation_travel_moa": 100,
   "windage_travel_moa": 100,
-  "reticle": "No.4 Dot (4 Dot extreme, illuminated, glass etched)",
+  "reticle": "No.4 Dot",
   "parallax_min_m": null,
   "length_mm": 269.1,
   "weight_g": 472,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/boar-eater/nsbe1624",
   "accessed": "2026-10-12",
-  "notes": "SKU NSBE1624. Click 1/2 MOA (15 mm@100m). Parallax fixed 100 yd (91 m). Length '269,1' mm (decimal comma), weight 472 g from metric table. Focal plane not stated."
+  "notes": "SKU NSBE1624. Click 1/2 MOA (15 mm@100m). Parallax fixed 100 yd (91 m). Length '269,1' mm (decimal comma), weight 472 g from metric table. Focal plane not stated. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/boar-eater/nsbe1424 (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -452,14 +452,14 @@
   "click_value": 0.25,
   "elevation_travel_moa": 60.0,
   "windage_travel_moa": 60.0,
-  "reticle": "HOLDFAST (HF), glass etched, red/green illuminated",
+  "reticle": "HOLDFAST",
   "parallax_min_m": 9.14,
   "length_mm": 349.0,
   "weight_g": 784.0,
   "zero_stop": true,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/diamond-long-range/ndsi41650lrhf",
   "accessed": "2026-10-12",
-  "notes": "SKU NDSI41650LRHF (imperial table row NDSI41650LR). 1/4 MOA (7 mm@100m). Side parallax 10 yd to infinity (10*0.9144=9.14 m; metric table 9.1 m). Features list 'Zero-stop turrets', RTZ; supplied with 2 ballistic drop turrets. Table reticle cell 'HF/skeleton HMD' (shared with HMD variant); description 'Glass-etched HOLDFAST reticle'. Focal plane not stated."
+  "notes": "SKU NDSI41650LRHF (imperial table row NDSI41650LR). 1/4 MOA (7 mm@100m). Side parallax 10 yd to infinity (10*0.9144=9.14 m; metric table 9.1 m). Features list 'Zero-stop turrets', RTZ; supplied with 2 ballistic drop turrets. Table reticle cell 'HF/skeleton HMD' (shared with HMD variant); description 'Glass-etched HOLDFAST reticle'. Focal plane not stated. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/diamond-long-range/ndsi41650lrhf (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -494,14 +494,14 @@
   "click_value": 0.25,
   "elevation_travel_moa": 40.0,
   "windage_travel_moa": 40.0,
-  "reticle": "HOLDFAST (HF), glass etched, red/green illuminated",
+  "reticle": "HOLDFAST",
   "parallax_min_m": null,
   "length_mm": 390.0,
   "weight_g": 788.0,
   "zero_stop": true,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/diamond-long-range/ndsi62450lrhf",
   "accessed": "2026-10-12",
-  "notes": "SKU NDSI62450LRHF (imperial row NDSI62450LR). 1/4 MOA (7 mm@100m). Parallax conflict: features 'Side Parallax Adjustable from 10 Yards', metric table '10 - inf' m, imperial table '11 - inf' yds -> parallax_min_m null (approx 9.1-10 m). Zero-stop turrets stated. Focal plane not stated."
+  "notes": "SKU NDSI62450LRHF (imperial row NDSI62450LR). 1/4 MOA (7 mm@100m). Parallax conflict: features 'Side Parallax Adjustable from 10 Yards', metric table '10 - inf' m, imperial table '11 - inf' yds -> parallax_min_m null (approx 9.1-10 m). Zero-stop turrets stated. Focal plane not stated. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/diamond-long-range/ndsi41650lrhf (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -557,14 +557,14 @@
   "click_value": 0.1,
   "elevation_travel_mrad": null,
   "windage_travel_mrad": null,
-  "reticle": "Skeleton HMD (Half Mil Dot) NATO, glass etched, illuminated",
+  "reticle": "Skeleton HMD NATO",
   "parallax_min_m": 9.14,
   "length_mm": 340.0,
   "weight_g": 620.0,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/diamond-ffp/nsffp41644hmd",
   "accessed": "2026-10-12",
-  "notes": "SKU NSFFP41644HMD. First focal plane stated. '1/10 MIL increments (1cm@100m)'; imperial table 0.3375 MOA (1/10 Mil); metric table click 9.8 mm. Travel conflict: E/W range (MOA) metric table 60/60 vs imperial table 30/30, neither in turret unit -> travel null. Side parallax from 10 yd (9.14 m; table 9.1 m - inf). Zero stop not mentioned."
+  "notes": "SKU NSFFP41644HMD. First focal plane stated. '1/10 MIL increments (1cm@100m)'; imperial table 0.3375 MOA (1/10 Mil); metric table click 9.8 mm. Travel conflict: E/W range (MOA) metric table 60/60 vs imperial table 30/30, neither in turret unit -> travel null. Side parallax from 10 yd (9.14 m; table 9.1 m - inf). Zero stop not mentioned. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/diamond-ffp/nsffp41644hmd (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -578,14 +578,14 @@
   "click_value": 0.1,
   "elevation_travel_mrad": null,
   "windage_travel_mrad": null,
-  "reticle": "Skeleton HMD (Half Mil Dot) NATO, glass etched, illuminated",
+  "reticle": "Skeleton HMD NATO",
   "parallax_min_m": 9.14,
   "length_mm": 360.0,
   "weight_g": 680.0,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/diamond-ffp/nsffp62450hmd",
   "accessed": "2026-10-12",
-  "notes": "SKU NSFFP62450HMD. First focal plane stated. '1/10 MIL increments (1cm@100m)'; imperial 0.3375 MOA (1/10 Mil). Travel conflict: E/W range (MOA) metric 50/50 vs imperial 25/25 -> null. Side parallax from 10 yd (9.14 m). Page also says available with NATO mark or PRR reticle. Zero stop not mentioned."
+  "notes": "SKU NSFFP62450HMD. First focal plane stated. '1/10 MIL increments (1cm@100m)'; imperial 0.3375 MOA (1/10 Mil). Travel conflict: E/W range (MOA) metric 50/50 vs imperial 25/25 -> null. Side parallax from 10 yd (9.14 m). Page also says available with NATO mark or PRR reticle. Zero stop not mentioned. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/diamond-ffp/nsffp41644hmd (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -599,14 +599,14 @@
   "click_value": 0.1,
   "elevation_travel_mrad": null,
   "windage_travel_mrad": null,
-  "reticle": "PRR (Precision Rifle Reticle), glass etched, illuminated",
+  "reticle": "PRR",
   "parallax_min_m": 9.14,
   "length_mm": 340.0,
   "weight_g": 680.0,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/diamond-ffp-34mm/nsffp3441644prr",
   "accessed": "2026-10-12",
-  "notes": "SKU NSFFP3441644PRR. FFP. 'Click 1/10 MIL (10mm@100m)', lockable target turrets. Tube conflict: metric table 30mm vs imperial table 34mm (features: '30mm + 34mm main tubes') -> tube_mm null. Travel '90/90' under generic 'E/W range (MOA)' header; unit ambiguous for MIL scope -> null. Parallax 10 yd to infinity (9.14 m). Length/weight from metric table (imperial '-'). Zero stop not mentioned."
+  "notes": "SKU NSFFP3441644PRR. FFP. 'Click 1/10 MIL (10mm@100m)', lockable target turrets. Tube conflict: metric table 30mm vs imperial table 34mm (features: '30mm + 34mm main tubes') -> tube_mm null. Travel '90/90' under generic 'E/W range (MOA)' header; unit ambiguous for MIL scope -> null. Parallax 10 yd to infinity (9.14 m). Length/weight from metric table (imperial '-'). Zero stop not mentioned. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/diamond-ffp-34mm (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -620,14 +620,14 @@
   "click_value": 0.1,
   "elevation_travel_mrad": null,
   "windage_travel_mrad": null,
-  "reticle": "PRR (Precision Rifle Reticle), glass etched, illuminated",
+  "reticle": "PRR",
   "parallax_min_m": 9.14,
   "length_mm": 360.0,
   "weight_g": 750.0,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/diamond-ffp-34mm/nsffp3462450prr",
   "accessed": "2026-10-12",
-  "notes": "SKU NSFFP3462450PRR (imperial row labelled NSFFP62450HMDPRR and repeats metric numbers). FFP. 'Click 1/10 MIL (10mm@100m)'. Tube conflict: metric 30mm vs imperial 34mm -> null. Travel '75/75' under generic '(MOA)' header, unit ambiguous -> null. Parallax 10 yd to infinity (9.14 m). Length/weight from metric table. Zero stop not mentioned."
+  "notes": "SKU NSFFP3462450PRR (imperial row labelled NSFFP62450HMDPRR and repeats metric numbers). FFP. 'Click 1/10 MIL (10mm@100m)'. Tube conflict: metric 30mm vs imperial 34mm -> null. Travel '75/75' under generic '(MOA)' header, unit ambiguous -> null. Parallax 10 yd to infinity (9.14 m). Length/weight from metric table. Zero stop not mentioned. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/diamond-ffp-34mm (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -641,14 +641,14 @@
   "click_value": 0.1,
   "elevation_travel_mrad": 27.0,
   "windage_travel_mrad": 27.0,
-  "reticle": "Skeleton HMD (Half Mil Dot) NATO, glass etched, illuminated",
+  "reticle": "Skeleton HMD NATO",
   "parallax_min_m": 9.14,
   "length_mm": 340.0,
   "weight_g": 620.0,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/diamond-ffp-34mm/nsffp3441644hmd",
   "accessed": "2026-10-12",
-  "notes": "SKU NSFFP3441644HMD. FFP. 'Click 1/10 MIL (10mm@100m)'. E/W range '27 MIL' both axes. Tube 34mm in both tables. Parallax 10 yd to infinity (9.14 m). Illumination marked in metric table only; features mention illuminated/non illuminated versions. Zero stop not mentioned."
+  "notes": "SKU NSFFP3441644HMD. FFP. 'Click 1/10 MIL (10mm@100m)'. E/W range '27 MIL' both axes. Tube 34mm in both tables. Parallax 10 yd to infinity (9.14 m). Illumination marked in metric table only; features mention illuminated/non illuminated versions. Zero stop not mentioned. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/diamond-ffp/nsffp41644hmd (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -662,14 +662,14 @@
   "click_value": 0.1,
   "elevation_travel_mrad": 22.0,
   "windage_travel_mrad": 22.0,
-  "reticle": "Skeleton HMD (Half Mil Dot) NATO, glass etched, illuminated",
+  "reticle": "Skeleton HMD NATO",
   "parallax_min_m": 9.14,
   "length_mm": 360.0,
   "weight_g": 680.0,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/diamond-ffp-34mm/nsffp3462450hmd",
   "accessed": "2026-10-12",
-  "notes": "SKU NSFFP3462450HMD. FFP. 'Click 1/10 MIL (10mm@100m)'. E/W range '22 MIL' both axes. Tube 34mm. Parallax 10 yd to infinity (9.14 m). Length/weight from metric table (imperial length typo '14,.2'). Zero stop not mentioned."
+  "notes": "SKU NSFFP3462450HMD. FFP. 'Click 1/10 MIL (10mm@100m)'. E/W range '22 MIL' both axes. Tube 34mm. Parallax 10 yd to infinity (9.14 m). Length/weight from metric table (imperial length typo '14,.2'). Zero stop not mentioned. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/diamond-ffp/nsffp41644hmd (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -725,14 +725,14 @@
   "click_value": 0.125,
   "elevation_travel_moa": 50.0,
   "windage_travel_moa": 90.0,
-  "reticle": "NATO (glass etched, non-illuminated)",
+  "reticle": "NATO",
   "parallax_min_m": 9.1,
   "length_mm": 425.0,
   "weight_g": 1060.0,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/diamond-sportsman/nsn105060nato",
   "accessed": "2026-10-12",
-  "notes": "SKU NSN105060NATO. '1/8 MOA (3.5mm at 100m)'. E/W range cells read 50 (up/down) and 90 (left/right) as printed (MD sibling lists 50/50; possible typo, kept as printed). Illumination marked 'No'. Parallax 9.1 m - inf (metric; imperial table empty). 'Return to zero turrets' - no explicit zero stop -> null. Focal plane not stated."
+  "notes": "SKU NSN105060NATO. '1/8 MOA (3.5mm at 100m)'. E/W range cells read 50 (up/down) and 90 (left/right) as printed (MD sibling lists 50/50; possible typo, kept as printed). Illumination marked 'No'. Parallax 9.1 m - inf (metric; imperial table empty). 'Return to zero turrets' - no explicit zero stop -> null. Focal plane not stated. Retikül adı üretici sayfasından: https://nikkostirling.com/media/pages/products/rifle-scopes/diamond-sportsman/nsn105060nato/401a496a75-1764599262/diamond-sportman-nato-reticle-dimensions-in-moa.pdf (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",
@@ -1523,14 +1523,14 @@
   "click_value": 0.25,
   "elevation_travel_moa": 80.0,
   "windage_travel_moa": 80.0,
-  "reticle": "4 Plex, non-illuminated",
+  "reticle": "4 Plex",
   "parallax_min_m": null,
   "length_mm": 295.0,
   "weight_g": 206.0,
   "zero_stop": null,
   "source_url": "https://nikkostirling.com/products/rifle-scopes/mountmaster-silver-crown/nsc432n",
   "accessed": "2026-10-12",
-  "notes": "SKU NSC432N. Fixed 4x. Parallax fixed 100 yd (91 m). Table reticle '4 Plex' (family feature list says 'HMD reticles'; table value used). 1 inch tube. Features '1/4 MOA adjustments (7mm@100m)'. Focal plane not stated."
+  "notes": "SKU NSC432N. Fixed 4x. Parallax fixed 100 yd (91 m). Table reticle '4 Plex' (family feature list says 'HMD reticles'; table value used). 1 inch tube. Features '1/4 MOA adjustments (7mm@100m)'. Focal plane not stated. Retikül adı üretici sayfasından: https://nikkostirling.com/products/rifle-scopes/mountmaster-silver-crown/nsc432n (okundu 2026-10-12)."
  },
  {
   "brand": "Nikko Stirling",

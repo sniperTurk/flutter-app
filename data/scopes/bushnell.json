@@ -137,14 +137,14 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 23.0,
 "windage_travel_mrad": 15.0,
-"reticle": "Dot-Hash Hybrid",
+"reticle": "Hybrid Dot Tree",
 "parallax_min_m": 13.7,
 "length_mm": 344.9,
 "weight_g": 715.0,
 "zero_stop": true,
 "source_url": "https://www.bushnell.com/products/r7-4-20x50-riflescopes?variant=51896191680808",
 "accessed": "2026-10-12",
-"notes": "SKU BU-R7-42050M1. 23 MRAD elevation, 15 MRAD windage, 10 MRAD/tur (WebFetch spec tablosunu birebir değil yeniden ifade ederek verdi; değerler aynı ailedeki 3-15x50 MRAD ile tutarlı). Paralaks 15 yds-∞. 344.9 mm / 715 g."
+"notes": "SKU BU-R7-42050M1. 23 MRAD elevation, 15 MRAD windage, 10 MRAD/tur (WebFetch spec tablosunu birebir değil yeniden ifade ederek verdi; değerler aynı ailedeki 3-15x50 MRAD ile tutarlı). Paralaks 15 yds-∞. 344.9 mm / 715 g. Retikül adı üretici sayfasından: https://www.bushnell.com/products/r7-4-20x50-riflescopes?variant=51896191680808 (okundu 2026-10-12)."
 },
 {
 "brand": "Bushnell",
@@ -179,14 +179,14 @@
 "click_value": 0.25,
 "elevation_travel_moa": 80.0,
 "windage_travel_moa": 50.0,
-"reticle": "Dot-Hash Hybrid",
+"reticle": "Hybrid Dot Tree",
 "parallax_min_m": 13.7,
 "length_mm": 333.0,
 "weight_g": 710.0,
 "zero_stop": true,
 "source_url": "https://www.bushnell.com/products/r7-3-15x50-riflescopes?variant=51896205541672",
 "accessed": "2026-10-12",
-"notes": "SKU BU-R7-31550A1. 'Elevation Adjustment Range (MOA): 80, Limit: 48' (Limit açıklanmamış). 25 MOA/tur. Retikül 'Dot-Hash Hyrbrid, MOA' (sayfada yazım hatası). Paralaks 15 yds-∞. 333 mm / 710 g."
+"notes": "SKU BU-R7-31550A1. 'Elevation Adjustment Range (MOA): 80, Limit: 48' (Limit açıklanmamış). 25 MOA/tur. Retikül 'Dot-Hash Hyrbrid, MOA' (sayfada yazım hatası). Paralaks 15 yds-∞. 333 mm / 710 g. Retikül adı üretici sayfasından: https://www.bushnell.com/products/r7-3-15x50-riflescopes?variant=51896205541672 (okundu 2026-10-12)."
 },
 {
 "brand": "Bushnell",
@@ -200,14 +200,14 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 23.0,
 "windage_travel_mrad": 15.0,
-"reticle": "Dot-Hash Hybrid",
+"reticle": "Hybrid Dot Tree",
 "parallax_min_m": 13.7,
 "length_mm": 333.0,
 "weight_g": 710.0,
 "zero_stop": true,
 "source_url": "https://www.bushnell.com/products/r7-3-15x50-riflescopes?variant=51896205607208",
 "accessed": "2026-10-12",
-"notes": "SKU BU-R7-31550M1. 'Elevation Adjustment Range (MRAD): 23, Limit: 19' (Limit açıklanmamış). 10 MRAD/tur. Paralaks 15 yds-∞. 333 mm / 710 g."
+"notes": "SKU BU-R7-31550M1. 'Elevation Adjustment Range (MRAD): 23, Limit: 19' (Limit açıklanmamış). 10 MRAD/tur. Paralaks 15 yds-∞. 333 mm / 710 g. Retikül adı üretici sayfasından: https://www.bushnell.com/products/r7-3-15x50-riflescopes?variant=51896205607208 (okundu 2026-10-12)."
 },
 {
 "brand": "Bushnell",

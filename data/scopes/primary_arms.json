@@ -200,14 +200,14 @@
 "click_value": 0.1,
 "elevation_travel_mrad": null,
 "windage_travel_mrad": null,
-"reticle": "ACSS Athena BPR MIL / ACSS HUD DMR 308/223 / ACSS Deka G2",
+"reticle": "ACSS Athena BPR MIL / ACSS HUD DMR 308 / ACSS Deka G2",
 "parallax_min_m": 9.1,
 "length_mm": 256.5,
 "weight_g": 581.2,
 "zero_stop": null,
 "source_url": "https://www.primaryarms.com/pa-slx-compact-4-16x44mm-ffp-rifle-scope-illuminated-acss-athena-bpr-mil-reticle",
 "accessed": "2026-10-12",
-"notes": "SKU PA-SLXC-4-16X44F-ATHENA (MPN 610223); HUD DMR 308/223 PA-SLXC-4-16X44F-HUD-308 (MPN 610227), Deka G2 PA-SLXC-4-16X44F-DEKA-G2 (MPN 610225). Taret aralığı çelişkili: Athena sayfası 80 MOA yükseliş / 60 MOA yan; HUD ve Deka sayfaları 60 MIL yükseliş / 80 MOA yan → ikisi de null. Paralaks 'from 10 yards to infinity' → 9.1 m. Tüp çapı açıkça yazılmıyor; 'Mount Compatibility: 30mm'. 10.1 in → 256.5 mm, 20.5 oz → 581.2 g. Zero stop sayfada yok."
+"notes": "SKU PA-SLXC-4-16X44F-ATHENA (MPN 610223); HUD DMR 308/223 PA-SLXC-4-16X44F-HUD-308 (MPN 610227), Deka G2 PA-SLXC-4-16X44F-DEKA-G2 (MPN 610225). Taret aralığı çelişkili: Athena sayfası 80 MOA yükseliş / 60 MOA yan; HUD ve Deka sayfaları 60 MIL yükseliş / 80 MOA yan → ikisi de null. Paralaks 'from 10 yards to infinity' → 9.1 m. Tüp çapı açıkça yazılmıyor; 'Mount Compatibility: 30mm'. 10.1 in → 256.5 mm, 20.5 oz → 581.2 g. Zero stop sayfada yok. Retikül adı üretici sayfasından: https://www.primaryarms.com/pa-slx-compact-4-16x44mm-ffp-rifle-scope-illuminated-acss-hud-dmr-308-223-reticle (okundu 2026-10-12)."
 },
 {
 "brand": "Primary Arms",

@@ -179,14 +179,14 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 26,
 "windage_travel_mrad": null,
-"reticle": "MSR2 / MSR [mil]",
+"reticle": "MSR2 / MSR",
 "parallax_min_m": 50.0,
 "length_mm": 421.6,
 "weight_g": 1029.1,
 "zero_stop": true,
 "source_url": "https://www.steiner-optics.com/products/m5xi-5-25x56",
 "accessed": "2026-10-12",
-"notes": "Item 8704-MSR v2 (MSR2), 5550 (MSR); 8704 (H59) DISCONTINUED, dahil edilmedi. Special features: 'Zero Stop'. Windage range sayfada yok. 16.6 in→421.6 mm, 36.3 oz→1029.1 g."
+"notes": "Item 8704-MSR v2 (MSR2), 5550 (MSR); 8704 (H59) DISCONTINUED, dahil edilmedi. Special features: 'Zero Stop'. Windage range sayfada yok. 16.6 in→421.6 mm, 36.3 oz→1029.1 g. Retikül adı üretici sayfasından: https://www.steiner-optics.com/products/m5xi-5-25x56 (okundu 2026-10-12)."
 },
 {
 "brand": "Steiner",

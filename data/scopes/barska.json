@@ -511,13 +511,13 @@
 "click_value": 0.125,
 "elevation_travel_moa": 120.0,
 "windage_travel_moa": 120.0,
-"reticle": "Mil Dot",
+"reticle": "Mil-Dot",
 "parallax_min_m": null,
 "length_mm": 394,
 "weight_g": 635,
 "zero_stop": null,
 "source_url": "https://shop.barska.com/products/4-16x40-ao-ir-varmint-rifle-scope",
-"notes": "Travel from \"Max Adjustment ±X\" stored as 2X total, both axes."
+"notes": "Travel from \"Max Adjustment ±X\" stored as 2X total, both axes. Retikül adı üretici sayfasından: https://shop.barska.com/products/4-16x40-ao-ir-varmint-rifle-scope (okundu 2026-10-12)."
 },
 {
 "brand": "Barska",
