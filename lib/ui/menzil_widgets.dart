@@ -1456,10 +1456,7 @@ class MenzilSecondaryButton extends StatelessWidget {
           final painter = TextPainter(
             text: TextSpan(
               text: label,
-              style: base.copyWith(
-                fontSize: size,
-                fontWeight: FontWeight.w400,
-              ),
+              style: base.copyWith(fontSize: size, fontWeight: FontWeight.w400),
             ),
             textDirection: dir,
             textScaler: scaler,
