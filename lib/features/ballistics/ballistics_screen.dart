@@ -577,9 +577,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       if (b == null) return;
       String v(double mps) =>
           (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
-      // The class top is the shooter's own gust value, not ×1.5.
-      _weatherFilled = false;
-      _weatherWasReset = false;
+      // The class top is the shooter's own gust value, not ×1.5. The
+      // weather button keeps its orange: it owns Sıcaklık and Bağıl nem
+      // (owner, 2026-10-13: "Hava durumu turuncu kutu seçili gelmiyor").
       // Only Rüzgâr hızı (owner, 2026-10-12): Rüzgâr düzeltmesi is filled
       // by its own button.
       wind.text = v(b.midMps);
@@ -1333,6 +1333,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _weatherWasReset = false;
       }
     });
+    // Store the orange state even when the service gave the same values
+    // (no box changed, so no save was scheduled).
+    if (!failed) _saveShotSettings();
     // Re-solve with the new conditions (quietly: Atış says why if not).
     if (!failed && widget.profile != null) {
       _silentErrors = true;
@@ -1412,6 +1415,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         };
       }
     });
+    if (reading is PressureRead) _saveShotSettings();
     if (reading is PressureRead && widget.profile != null) _quietSolve();
   }
 
@@ -3279,10 +3283,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   controller: altitude,
                   label: 'İrtifa',
                   // A typed value is the user's: auto fill keeps it.
+                  // İrtifa is filled by "Basıncı telefondan al" (owner,
+                  // 2026-10-12), so typing it turns that button gray, not
+                  // the weather button.
                   onChanged: (_) => setState(() {
                     _userEdited.add(altitude);
-                    _weatherFilled = false;
-                    _weatherWasReset = false;
+                    _pressureFilled = false;
+                    _pressureWasReset = false;
                   }),
                   info: EnvironmentFieldInfo.altitude,
                   unit: metric ? 'm' : 'ft',
@@ -3380,9 +3387,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               // longer comes from the Rüzgâr gözlemi class.
               onChanged: (_) {
                 _userEdited.add(wind);
-                if (_weatherFilled || _weatherWasReset) {
-                  setState(() => _weatherFilled = _weatherWasReset = false);
-                }
                 if (_windObservation != null) {
                   setState(() {
                     _windObservation = null;
