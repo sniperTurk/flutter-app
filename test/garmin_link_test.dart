@@ -31,11 +31,15 @@ class _Link implements WatchTransport {
 class _FakeGarmin implements GarminLink {
   int? count;
   int selects = 0;
+  final changes = StreamController<int>.broadcast();
 
   _FakeGarmin(this.count);
 
   @override
   Future<int?> deviceCount() async => count;
+
+  @override
+  Stream<int> get deviceCountChanges => changes.stream;
 
   @override
   Future<bool> selectDevice() async {
@@ -112,15 +116,35 @@ void main() {
 
   group('GarminLink', () {
     const channel = MethodChannel('sniper_turk/garmin_test');
+    const devices = EventChannel('sniper_turk/garmin_test/devices');
     final messenger =
         TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
 
-    tearDown(() => messenger.setMockMethodCallHandler(channel, null));
+    tearDown(() {
+      messenger.setMockMethodCallHandler(channel, null);
+      messenger.setMockStreamHandler(devices, null);
+    });
 
     test('no Garmin bridge → null, false, no exception', () async {
-      final link = GarminLink(channel);
+      final link = GarminLink(channel, devices);
       expect(await link.deviceCount(), isNull);
       expect(await link.selectDevice(), isFalse);
+      expect(await link.deviceCountChanges.toList(), isEmpty);
+    });
+
+    test('device count events arrive on deviceCountChanges', () async {
+      messenger.setMockMethodCallHandler(channel, (call) async => 0);
+      messenger.setMockStreamHandler(
+        devices,
+        MockStreamHandler.inline(
+          onListen: (arguments, events) {
+            events.success(0);
+            events.success(2);
+          },
+        ),
+      );
+      final link = GarminLink(channel, devices);
+      expect(await link.deviceCountChanges.take(2).toList(), [0, 2]);
     });
 
     test('bridge answers count and selection', () async {
@@ -160,6 +184,19 @@ void main() {
       await tester.pumpWidget(_host(GarminPairTile(link: _FakeGarmin(1))));
       await tester.pumpAndSettle();
       expect(find.textContaining('1 saat bağlı'), findsOneWidget);
+    });
+
+    testWidgets('a new count from Garmin Connect updates the subtitle', (
+      tester,
+    ) async {
+      final g = _FakeGarmin(0);
+      await tester.pumpWidget(_host(GarminPairTile(link: g)));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Saat seçilmedi'), findsOneWidget);
+      g.changes.add(2);
+      await tester.pumpAndSettle();
+      expect(find.textContaining('2 saat bağlı'), findsOneWidget);
+      expect(find.textContaining('Saat seçilmedi'), findsNothing);
     });
 
     testWidgets('Araçlar without the bridge has no Garmin tile', (

@@ -54,3 +54,12 @@ sabit commit; SDK'yı indirmek Garmin lisansını kabul etmektir).
   açıklaması; `-ObjC`). TestFlight derlemesi bu köprüyü içermez.
 - Telefonda Garmin Connect uygulaması kurulu olmalı; saat bir kez Garmin
   Connect üzerinden seçilir, liste telefonda saklanır.
+- Connect IQ SDK'sı tembel başlar: Bluetooth izni yalnızca saklı bir saat
+  listesi varsa, "Garmin saati" satırına dokunulunca veya Garmin Connect
+  uygulamayı geri açınca sorulur. Garmin kullanmayan hiç sorulmaz.
+- Garmin Connect dönüşü uygulama kapalıyken de (soğuk açılış, UIScene veya
+  klasik iskelet) işlenir. Seçili saat sayısı `sniper_turk/garmin/devices`
+  olay kanalıyla Araçlar'daki satıra hemen yansır.
+- `publish` YES: çözüm en az bir bağlı saate gönderilmek üzere verildi
+  (ulaştı demek değil). Mesaj geçicidir (`isTransient`), saatte birikmez;
+  `ok` saate 1/0 sayı olarak gider.

@@ -26,8 +26,8 @@ class Solution {
         if (Solution.toNum(m.get("v")) != 1) {
             return null;
         }
-        // iPhone (Connect IQ Mobile SDK) bool'u Boolean veya 0/1 sayı olarak
-        // gelebilir; ikisi de kabul edilir.
+        // iPhone (Connect IQ Mobile SDK) bool'u Boolean, 0/1 sayı veya Char
+        // olarak gelebilir; köprü 0/1 gönderir, hepsi kabul edilir.
         var ok = Solution.toBool(m.get("ok"));
         var profile = m.get("profile");
         var atMs = m.get("at");
@@ -80,6 +80,9 @@ class Solution {
         }
         if (v instanceof Number || v instanceof Long) {
             return v != 0;
+        }
+        if (v instanceof Char) {
+            return v.toNumber() != 0;
         }
         return null;
     }

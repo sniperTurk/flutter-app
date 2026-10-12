@@ -3,10 +3,21 @@
 // Dart `sniper_turk/garmin` kanalı ile Garmin Connect IQ Mobile SDK arasında
 // aracı. Sözleşme Apple Watch köprüsüyle (`sniper_turk/watch`) aynıdır:
 //   Telefon → saat: `publish(map)` → bağlı her Garmin saatindeki SNIPER TÜRK
-//     uygulamasına ConnectIQ sendMessage. En az bir bağlı saat varsa YES.
+//     uygulamasına ConnectIQ sendMessage (isTransient: yalnızca son durum,
+//     saatin posta kutusunda birikme yok). YES "en az bir bağlı saate
+//     teslim için verildi" demektir, "saate ulaştı" değil: gönderim
+//     sonucu beklenmez, telefon her dakika yeniden gönderir.
 //   Saat → telefon: saatin Communications.transmit'i → Dart'a `fromWatch(map)`.
 //   `selectDevice`: Garmin Connect uygulamasını açar; kullanıcı saatini seçer,
-//     Garmin Connect bu uygulamayı `sniperturk-ciq://` adresiyle geri açar.
+//     Garmin Connect bu uygulamayı `sniperturk-ciq://` adresiyle geri açar
+//     (uygulama açıkken, arka plandayken veya soğuk açılışta).
+//   `sniper_turk/garmin/devices` olay kanalı: dinlemeye başlarken ve her
+//     başarılı Garmin Connect dönüşünden sonra seçili saat sayısı (NSNumber).
+//
+// ConnectIQ SDK'sı tembel başlatılır (Bluetooth izni sorusu yalnızca Garmin
+// kullananlara): kayıtta yalnızca saklı saat listesi varsa; aksi halde ilk
+// `selectDevice` veya Garmin Connect dönüşünde. Saat yokken `publish` ve
+// `deviceCount` SDK'yı başlatmaz.
 //
 // Seçilen saatler cihazda saklanır (Application Support); her seçimde liste
 // baştan yazılır. Saat seçilmemişse, bağlı değilse veya Garmin Connect kurulu
@@ -21,6 +32,7 @@
 #import <UIKit/UIKit.h>
 
 static NSString *const kChannelName = @"sniper_turk/garmin";
+static NSString *const kDevicesChannelName = @"sniper_turk/garmin/devices";
 // Garmin Connect'in cihaz listesini geri gönderdiği adres şeması. Info.plist
 // CFBundleURLTypes ile aynı olmalı (tools/configure_ios_garmin_bridge.py).
 static NSString *const kURLScheme = @"sniperturk-ciq";
@@ -28,8 +40,13 @@ static NSString *const kURLScheme = @"sniperturk-ciq";
 static NSString *const kWatchAppUUID = @"4dde1aef-12b6-4a15-b5a6-209c2c5944b0";
 static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
 
-@interface SniperTurkGarminBridge () <IQDeviceEventDelegate, IQAppMessageDelegate>
+@interface SniperTurkGarminBridge () <IQDeviceEventDelegate, IQAppMessageDelegate,
+                                      FlutterStreamHandler>
 @property(nonatomic, strong) FlutterMethodChannel *channel;
+// Dart dinliyorsa saat sayısı olaylarının gideceği yer.
+@property(nonatomic, copy, nullable) FlutterEventSink devicesSink;
+// ConnectIQ initializeWithUrlScheme: çağrıldı mı (yalnızca bir kez).
+@property(nonatomic, assign) BOOL started;
 @property(nonatomic, strong) NSMutableDictionary<NSUUID *, IQDevice *> *devices;
 @property(nonatomic, strong) NSUUID *watchAppUUID;
 // Son çözüm: saat sonradan bağlanırsa ona da gönderilir (yalnızca son durum).
@@ -44,6 +61,10 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
                                   binaryMessenger:[registrar messenger]];
   SniperTurkGarminBridge *instance = [[SniperTurkGarminBridge alloc] initWithChannel:channel];
   [registrar addMethodCallDelegate:instance channel:channel];
+  FlutterEventChannel *devicesChannel =
+      [FlutterEventChannel eventChannelWithName:kDevicesChannelName
+                                binaryMessenger:[registrar messenger]];
+  [devicesChannel setStreamHandler:instance];
   // Garmin Connect'ten dönüş: uygulama yaşam döngüsü ve (varsa) sahne
   // yaşam döngüsü. Sahne API'si eski Flutter sürümlerinde yoktur.
   [registrar addApplicationDelegate:instance];
@@ -54,7 +75,12 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
     [registrar performSelector:addScene withObject:instance];
 #pragma clang diagnostic pop
   }
-  [instance start];
+  // Saklı liste SDK'sız okunur (IQDevice düz NSSecureCoding). Liste yoksa
+  // SDK başlatılmaz: Bluetooth izni Garmin kullanmayanlara hiç sorulmaz.
+  [instance restoreDevices];
+  if (instance.devices.count > 0) {
+    [instance ensureStarted];
+  }
 }
 
 - (instancetype)initWithChannel:(FlutterMethodChannel *)channel {
@@ -66,11 +92,14 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
   return self;
 }
 
-- (void)start {
+- (void)ensureStarted {
+  if (self.started) {
+    return;
+  }
+  self.started = YES;
   // UI override delegate nil: Garmin Connect kurulu değilse SDK kendi
   // uyarısını gösterir (yalnızca kullanıcı saat seçmek istediğinde).
   [[ConnectIQ sharedInstance] initializeWithUrlScheme:kURLScheme uiOverrideDelegate:nil];
-  [self restoreDevices];
   [self listenToDevices];
 }
 
@@ -84,6 +113,7 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
     }
     result(@([self publish:call.arguments]));
   } else if ([call.method isEqualToString:@"selectDevice"]) {
+    [self ensureStarted];
     [[ConnectIQ sharedInstance] showConnectIQDeviceSelection];
     result(@YES);
   } else if ([call.method isEqualToString:@"deviceCount"]) {
@@ -93,35 +123,73 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
   }
 }
 
+// YES: en az bir bağlı saate teslim için verildi (ulaştığı anlamına gelmez).
 - (BOOL)publish:(NSDictionary *)message {
-  self.lastMessage = message;
+  NSDictionary *safe = [self watchSafe:message];
+  self.lastMessage = safe;
+  if (self.devices.count == 0) {
+    // Saat seçilmemiş: SDK başlatılmaz, Bluetooth izni sorulmaz.
+    return NO;
+  }
+  [self ensureStarted];
   BOOL any = NO;
   for (IQDevice *device in self.devices.allValues) {
     if ([[ConnectIQ sharedInstance] getDeviceStatus:device] != IQDeviceStatus_Connected) {
       continue;
     }
     any = YES;
-    [self send:message to:device];
+    [self send:safe to:device];
   }
   return any;
 }
 
+// Monkey C NSNumber bool'u Char olarak alabilir; `ok` 1/0 tamsayı gider.
+- (NSDictionary *)watchSafe:(NSDictionary *)message {
+  id ok = message[@"ok"];
+  if (ok == nil || CFGetTypeID((__bridge CFTypeRef)ok) != CFBooleanGetTypeID()) {
+    return [message copy];
+  }
+  NSMutableDictionary *copy = [message mutableCopy];
+  copy[@"ok"] = [ok boolValue] ? @1 : @0;
+  return [copy copy];
+}
+
 - (void)send:(NSDictionary *)message to:(IQDevice *)device {
   IQApp *app = [self appOn:device];
+  // isTransient:YES: yalnızca son durum önemli; saat kapalıyken mesajlar
+  // posta kutusunda birikmez.
   [[ConnectIQ sharedInstance] sendMessage:message
-                                    toApp:app
-                                 progress:nil
-                               completion:^(IQSendMessageResult result) {
-                                 // Saat uygulaması kurulu değil veya kapalı: sessiz.
-                                 // Telefon her dakika yeniden gönderir.
-                               }];
+      toApp:app
+      progress:^(uint32_t sentBytes, uint32_t totalBytes) {
+        // İlerleme kullanılmaz.
+      }
+      completion:^(IQSendMessageResult result) {
+        // Saat uygulaması kurulu değil veya kapalı: sessiz.
+        // Telefon her dakika yeniden gönderir.
+      }
+      isTransient:YES];
 }
 
 - (IQApp *)appOn:(IQDevice *)device {
+  // storeUuid uygulama kimliğini tekrar kullanır: mağaza / uygulama durumu
+  // API'leri (getAppStatus, showAppStore) kullanılmıyor.
   return [IQApp appWithUUID:self.watchAppUUID storeUuid:self.watchAppUUID device:device];
 }
 
 #pragma mark - Garmin Connect dönüşü
+
+// Sahnesiz iskelette soğuk açılış: adres launchOptions içinde gelir. YES:
+// NO dönmek uygulamanın açılışını Flutter'da başarısız sayar. UIKit aynı
+// adresi ayrıca openURL ile de iletebilir; ikinci ayrıştırma aynı listeyi
+// yeniden yazar, zararsızdır.
+- (BOOL)application:(UIApplication *)application
+    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  id url = launchOptions[UIApplicationLaunchOptionsURLKey];
+  if ([url isKindOfClass:[NSURL class]]) {
+    [self handleURL:url];
+  }
+  return YES;
+}
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
@@ -129,7 +197,21 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
   return [self handleURL:url];
 }
 
-// FlutterSceneLifeCycleDelegate (UIScene kullanan iskelet).
+// FlutterSceneLifeCycleDelegate (UIScene kullanan iskelet), soğuk açılış:
+// adres bağlantı seçeneklerinde gelir. NO döner: bağlantı seçenekleri
+// (kısayol, bildirim, diğer adresler) diğer eklentilere de ulaşsın.
+// Protokol bildirilmez (eski Flutter'da yoktur); BOOL dönüş, Flutter void
+// beklese bile ABI açısından zararsızdır.
+- (BOOL)scene:(UIScene *)scene
+    willConnectToSession:(UISceneSession *)session
+                 options:(UISceneConnectionOptions *)connectionOptions {
+  for (UIOpenURLContext *context in connectionOptions.URLContexts) {
+    [self handleURL:context.URL];
+  }
+  return NO;
+}
+
+// FlutterSceneLifeCycleDelegate (UIScene kullanan iskelet), açıkken dönüş.
 - (BOOL)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
   BOOL handled = NO;
   for (UIOpenURLContext *context in URLContexts) {
@@ -138,13 +220,17 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
   return handled;
 }
 
+// Şemamızdaki her adres için YES (ayrıştırılamasa bile): Flutter derin
+// bağlantısı onu sayfa yolu olarak açmaya çalışmasın.
 - (BOOL)handleURL:(NSURL *)url {
-  if (![url.scheme isEqualToString:kURLScheme]) {
+  if (![url.scheme.lowercaseString isEqualToString:kURLScheme]) {
     return NO;
   }
+  // Ayrıştırmadan önce SDK başlatılmış olmalı.
+  [self ensureStarted];
   NSArray *selected = [[ConnectIQ sharedInstance] parseDeviceSelectionResponseFromURL:url];
   if (selected == nil) {
-    return NO;
+    return YES;
   }
   // Garmin Connect'in son listesi geçerlidir; eskiler unutulur.
   [[ConnectIQ sharedInstance] unregisterForAllDeviceEvents:self];
@@ -158,7 +244,41 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
   }
   [self saveDevices];
   [self listenToDevices];
+  // Zaten bağlı saatlere son çözüm hemen gider (bağlantı olayı beklenmez).
+  NSDictionary *last = self.lastMessage;
+  if (last != nil) {
+    for (IQDevice *device in self.devices.allValues) {
+      if ([[ConnectIQ sharedInstance] getDeviceStatus:device] == IQDeviceStatus_Connected) {
+        [self send:last to:device];
+      }
+    }
+  }
+  [self emitDeviceCount];
   return YES;
+}
+
+#pragma mark - Saat sayısı olayları (FlutterStreamHandler)
+
+- (FlutterError *_Nullable)onListenWithArguments:(id _Nullable)arguments
+                                       eventSink:(FlutterEventSink)events {
+  self.devicesSink = events;
+  [self emitDeviceCount];
+  return nil;
+}
+
+- (FlutterError *_Nullable)onCancelWithArguments:(id _Nullable)arguments {
+  self.devicesSink = nil;
+  return nil;
+}
+
+- (void)emitDeviceCount {
+  NSNumber *count = @(self.devices.count);
+  dispatch_async(dispatch_get_main_queue(), ^{
+    FlutterEventSink sink = self.devicesSink;
+    if (sink != nil) {
+      sink(count);
+    }
+  });
 }
 
 #pragma mark - Saatler

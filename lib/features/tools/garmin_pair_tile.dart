@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../services/watch/watch_bridge.dart';
@@ -8,7 +10,8 @@ import '../../ui/menzil_widgets.dart';
 /// Shown only when this build carries the iOS Garmin bridge
 /// (garmin/ios_runner, wired by tools/configure_ios_garmin_bridge.py). The
 /// TestFlight build has no bridge, so the tile is not there at all. The
-/// count refreshes when the app comes back from Garmin Connect.
+/// count follows the bridge's device events and is also re-read whenever
+/// the app resumes.
 class GarminPairTile extends StatefulWidget {
   final GarminLink? link;
 
@@ -21,6 +24,7 @@ class GarminPairTile extends StatefulWidget {
 class _GarminPairTileState extends State<GarminPairTile>
     with WidgetsBindingObserver {
   int? _count;
+  StreamSubscription<int>? _changes;
 
   GarminLink get _link => widget.link ?? GarminLink.instance;
 
@@ -34,6 +38,7 @@ class _GarminPairTileState extends State<GarminPairTile>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _changes?.cancel();
     super.dispose();
   }
 
@@ -44,6 +49,15 @@ class _GarminPairTileState extends State<GarminPairTile>
 
   Future<void> _refresh() async {
     final n = await _link.deviceCount();
+    if (!mounted) return;
+    if (n != _count) setState(() => _count = n);
+    // Only a build with the bridge has device events.
+    if (n != null) {
+      _changes ??= _link.deviceCountChanges.listen(_onCount);
+    }
+  }
+
+  void _onCount(int n) {
     if (mounted && n != _count) setState(() => _count = n);
   }
 

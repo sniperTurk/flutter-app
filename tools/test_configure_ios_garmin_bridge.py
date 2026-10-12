@@ -82,6 +82,25 @@ class GarminBridgeTests(unittest.TestCase):
         dart = (ROOT / "lib/services/watch/watch_bridge.dart").read_text(encoding="utf-8")
         self.assertIn("channelName = 'sniper_turk/garmin'", dart)
 
+    def test_bridge_source_handles_cold_launch_lazy_sdk_and_transient_sends(self):
+        source = (ROOT / "garmin/ios_runner/SniperTurkGarminBridge.m").read_text(encoding="utf-8")
+        # 1: cold launch through a UIScene or a plain application delegate.
+        self.assertIn("willConnectToSession:(UISceneSession *)session", source)
+        self.assertIn("connectionOptions.URLContexts", source)
+        self.assertIn("UIApplicationLaunchOptionsURLKey", source)
+        # 2: the SDK (and its Bluetooth prompt) starts lazily, exactly once.
+        self.assertIn("- (void)ensureStarted", source)
+        self.assertEqual(1, source.count("sharedInstance] initializeWithUrlScheme:"))
+        self.assertNotIn("[instance start]", source)
+        # 3: device-count events for the Araçlar tile.
+        self.assertIn('kDevicesChannelName = @"sniper_turk/garmin/devices"', source)
+        self.assertIn("FlutterEventChannel eventChannelWithName:kDevicesChannelName", source)
+        dart = (ROOT / "lib/services/watch/watch_bridge.dart").read_text(encoding="utf-8")
+        self.assertIn("devicesChannelName = 'sniper_turk/garmin/devices'", dart)
+        # 6: latest state only, no mailbox backlog.
+        self.assertIn("isTransient:YES", source)
+        self.assertNotIn("progress:nil", source)
+
     def test_cli_wires_a_scaffold(self):
         with tempfile.TemporaryDirectory() as tmp:
             runner = Path(tmp) / "Runner"

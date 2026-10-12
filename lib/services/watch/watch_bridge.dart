@@ -116,10 +116,16 @@ class MultiWatchTransport implements WatchTransport {
 class GarminLink {
   static const channelName = 'sniper_turk/garmin';
 
-  final MethodChannel _channel;
+  /// Native → Dart: the number of chosen watches, once on listen and after
+  /// every return from Garmin Connect.
+  static const devicesChannelName = 'sniper_turk/garmin/devices';
 
-  GarminLink([MethodChannel? channel])
-    : _channel = channel ?? const MethodChannel(channelName);
+  final MethodChannel _channel;
+  final EventChannel _devices;
+
+  GarminLink([MethodChannel? channel, EventChannel? devices])
+    : _channel = channel ?? const MethodChannel(channelName),
+      _devices = devices ?? const EventChannel(devicesChannelName);
 
   static GarminLink? _instance;
 
@@ -139,6 +145,23 @@ class GarminLink {
       return null;
     } on PlatformException {
       return null;
+    }
+  }
+
+  /// The chosen-watch count whenever it changes (Garmin Connect returned a
+  /// new selection). Empty without a Garmin bridge; native errors end it.
+  Stream<int> get deviceCountChanges async* {
+    // Without a bridge EventChannel would report the missing plugin as a
+    // Flutter error instead of an exception; ask the method channel first.
+    if (await deviceCount() == null) return;
+    try {
+      await for (final value in _devices.receiveBroadcastStream()) {
+        if (value is int) yield value;
+      }
+    } on MissingPluginException {
+      // No bridge: the stream simply ends.
+    } on PlatformException {
+      // Native error: the stream ends; the tile still refreshes on resume.
     }
   }
 
