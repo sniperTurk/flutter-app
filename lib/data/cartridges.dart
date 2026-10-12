@@ -187,6 +187,7 @@ abstract final class Cartridges {
     (11.43, '11.43 mm (.45)'),
     (11.6, '11.60 mm (.45)'),
     (12.7, '12.70 mm (.50)'),
+    (18.29, '18.29 mm (.72)'),
   ];
 
   /// Bullet diameter of [name]; null when unknown.

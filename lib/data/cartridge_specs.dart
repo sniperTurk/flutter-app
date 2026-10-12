@@ -204,6 +204,7 @@ abstract final class CartridgeSpecs {
     '11.43 mm (.45)': CartridgeSpec('11.43 mm (.45)', 11.43, note: 'Hatsan kılavuzu ".45 (11.5mm)" ve "11.4mm / .45cal" yazıyor; 11.43 mm veren resmî sayfa bulunamadı, mevcut değer değiştirilmedi. PCP kalibreleri için C.I.P./SAAMI ölçü tablosu yok; kovan, fişek boyu ve basınç alanları PCP\'de anlamsız/boş.', standard: 'Üretici', sources: ['https://hatsanairgunsusa.com/wp-content/uploads/2021/03/Hercules-Manual_V21.3.pdf']),
     '11.60 mm (.45)': CartridgeSpec('11.60 mm (.45)', 11.6, note: 'Kral Arms Magestic: "11.60 mm" / ".45 cal" (yeni eklendi; Kral Magestic tüfeği bu çapı kullanıyor). PCP kalibreleri için C.I.P./SAAMI ölçü tablosu yok; kovan, fişek boyu ve basınç alanları PCP\'de anlamsız/boş.', added: true, standard: 'Üretici', sources: ['https://www.kralarms.com/magestic-puncher-pcp/']),
     '12.70 mm (.50)': CartridgeSpec('12.70 mm (.50)', 12.7, note: 'Hatsan PileDriver sayfasında birimsiz "12,7"; Umarex .50 için ".510 bore" yazıyor; 12.70 mm nominal. PCP kalibreleri için C.I.P./SAAMI ölçü tablosu yok; kovan, fişek boyu ve basınç alanları PCP\'de anlamsız/boş.', standard: 'Üretici', sources: ['https://hatsan.com.tr/urun/piledriver/']),
+    '18.29 mm (.72)': CartridgeSpec('18.29 mm (.72)', 18.29, note: 'Ölçü kaydı henüz yok (data/kalibre-tamamlama).'),
   };
 
   /// Spec of a Kalibre list name or PCP label; null when unknown.
