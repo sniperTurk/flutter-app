@@ -36,19 +36,21 @@ kuralları (kalın yazı tipi yok). Monkey C sözdizimini doğrulamaz.
    yuvarlak ekranlı hedef cihazlar seçildi, liste örnektir.
 8. Mağaza: Connect IQ Store'a yükleme sahibinin Garmin hesabıyla yapılır.
 
-## Telefon tarafı (henüz yazılmadı)
+## Telefon tarafı (iPhone köprüsü, isteğe bağlı)
 
-iPhone'dan Garmin'e veri, Garmin'in iOS "Connect IQ Mobile SDK"sı ile gider
-(https://developer.garmin.com/connect-iq/core-topics/mobile-sdk-for-ios/ —
-sayfa metni bu oturumda alınamadı, adımlar SDK belgesinden doğrulanmalı):
+iPhone'dan Garmin'e veri Garmin'in Connect IQ Mobile SDK'sı ile gider
+(Swift paketi https://github.com/garmin/connectiq-companion-app-sdk-ios,
+sabit commit; SDK'yı indirmek Garmin lisansını kabul etmektir).
 
-- Telefonda Garmin Connect Mobile uygulaması kurulu olmalı.
-- SDK bir iOS framework'üdür; Runner'a eklenir (bu, iOS imzalamasını ve
-  TestFlight denetimlerini etkiler; ayrı PR).
-- Cihaz seçimi Garmin Connect Mobile'a yönlendirilerek yapılır (URL şeması;
-  Info.plist'e sorgu şeması eklenir).
-- Uygulama, `manifest.xml`'deki kimlikle (`4dde1aef12b64a15b5a6209c2c5944b0`)
-  bulunur ve aynı şema v1 sözlüğü gönderilir.
-- Dart tarafı değişmez: `feat/apple-watch` dalındaki `WatchBridge` aynı
-  `sniper_turk/watch` kanalına yazar; iOS köprüsü mesajı hem WatchConnectivity'ye
-  hem Connect IQ'ya iletecek şekilde genişletilir.
+- `ios_runner/SniperTurkGarminBridge.{h,m}`: `sniper_turk/garmin` kanalı.
+  `publish(map)` bağlı saatlere gönderir, `selectDevice` Garmin Connect'i
+  açar, saatten gelen `setRange` Dart'a `fromWatch` olarak iletilir.
+- Dart: `WatchBridge` çözümü hem Apple Watch hem Garmin kanalına yollar
+  (`MultiWatchTransport`). Araçlar'daki "Garmin saati" satırı yalnızca
+  köprülü derlemede görünür; saati Garmin Connect'te seçtirir.
+- İskelete yalnızca `tools/configure_ios_garmin_bridge.py` + `.rb` ile,
+  elle tetiklenen `.github/workflows/garmin-sim.yml` içinde eklenir
+  (Info.plist: `sniperturk-ciq` adresi, `gcm-ciq` sorgusu, Bluetooth
+  açıklaması; `-ObjC`). TestFlight derlemesi bu köprüyü içermez.
+- Telefonda Garmin Connect uygulaması kurulu olmalı; saat bir kez Garmin
+  Connect üzerinden seçilir, liste telefonda saklanır.
