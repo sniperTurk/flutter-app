@@ -1450,11 +1450,24 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         )
         .firstOrNull;
     if (s == null) return '$brand $model';
+    // What the product name already says is not repeated (owner,
+    // 2026-10-13: "CONTINENTAL X6 4-24X56 MBR FFP 34MM").
+    final name = model.toLowerCase().replaceAll(' ', '');
+    bool said(String t) => name.contains(t.toLowerCase().replaceAll(' ', ''));
+    final unit = _unitName(s.clickUnit);
+    final focal = s.firstFocalPlane == null
+        ? null
+        : s.firstFocalPlane!
+        ? 'FFP'
+        : 'SFP';
+    final tube = s.tubeDiameterMm == null
+        ? null
+        : '${_num(s.tubeDiameterMm!)} mm';
     return [
       '$brand $model',
-      _unitName(s.clickUnit),
-      if (s.firstFocalPlane != null) s.firstFocalPlane! ? 'FFP' : 'SFP',
-      if (s.tubeDiameterMm != null) '${_num(s.tubeDiameterMm!)} mm',
+      if (!said(unit)) unit,
+      if (focal != null && !said(focal)) focal,
+      if (tube != null && !said(tube)) tube,
     ].join(' · ');
   }
 
