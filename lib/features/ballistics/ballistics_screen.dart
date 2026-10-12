@@ -383,6 +383,42 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final TextEditingController latitudeCtl = TextEditingController();
   final TextEditingController azimuthCtl = TextEditingController();
 
+  /// Al + Sıfırla state of Konumdan al / Pusuladan al / Konumdan hesapla
+  /// (owner, 2026-10-12: the same layout as Hava Durumu).
+  bool _latFilled = false, _latWasReset = false;
+  bool _aziFilled = false, _aziWasReset = false;
+  bool _gravFilled = false, _gravWasReset = false;
+
+  void _resetLatitude() {
+    setState(() {
+      latitudeCtl.text = '';
+      _latFilled = false;
+      _latWasReset = true;
+      _coriolisStatus = null;
+    });
+    _coriolisChanged();
+  }
+
+  void _resetAzimuth() {
+    setState(() {
+      azimuthCtl.text = '';
+      _aziFilled = false;
+      _aziWasReset = true;
+      _coriolisStatus = null;
+    });
+    _coriolisChanged();
+  }
+
+  void _resetGravity() {
+    setState(() {
+      gravityCtl.text = '';
+      _gravFilled = false;
+      _gravWasReset = true;
+      _gravityStatus = null;
+    });
+    _gravityChanged();
+  }
+
   /// Pro Ayarlar extras (owner, 2026-10-09).
   final TextEditingController turretScaleCtl = TextEditingController();
   final TextEditingController windMaxCtl = TextEditingController();
@@ -797,6 +833,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           : (fix.altitudeM ?? 0);
       final g = Gravity.at(latitudeDeg: fix.latitude, altitudeM: altM);
       gravityCtl.text = g.toStringAsFixed(4);
+      _gravFilled = true;
+      _gravWasReset = false;
       _gravityStatus =
           'Konumdan hesaplandı: ${fix.latitude.abs().toStringAsFixed(1).replaceAll('.', ',')}° '
           '${fix.latitude >= 0 ? 'K' : 'G'} · ${altM.round()} m.';
@@ -3790,14 +3828,31 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   ? '−90 ile 90 arasında olmalı.'
                   : null,
               keyboardType: signed,
-              onChanged: (_) => _coriolisChanged(),
+              onChanged: (_) {
+                if (_latFilled || _latWasReset) {
+                  setState(() => _latFilled = _latWasReset = false);
+                }
+                _coriolisChanged();
+              },
             ),
-            MenzilSecondaryButton(
-              key: const Key('pro-latitude-gps'),
-              label: 'Konumdan al',
-              icon: Icons.my_location,
-              expand: true,
-              onPressed: _latitudeFromGps,
+            _filledRow(
+              filled: _latFilled,
+              wasReset: _latWasReset,
+              button: MenzilSecondaryButton(
+                key: const Key('pro-latitude-gps'),
+                label: _latFilled
+                    ? 'Konumdan alındı'
+                    : _latWasReset
+                    ? 'Tekrar konumdan al'
+                    : 'Konumdan al',
+                icon: _latFilled ? Icons.check : Icons.my_location,
+                expand: true,
+                active: _latFilled,
+                twoLines: true,
+                onPressed: _latitudeFromGps,
+              ),
+              resetKey: const Key('pro-latitude-reset'),
+              onReset: _resetLatitude,
             ),
             const SizedBox(height: MenzilSpace.md),
             MenzilInput(
@@ -3809,14 +3864,31 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               errorText: azimuthCtl.text.isNotEmpty && _azimuth == null
                   ? '0 ile 360 arasında olmalı.'
                   : null,
-              onChanged: (_) => _coriolisChanged(),
+              onChanged: (_) {
+                if (_aziFilled || _aziWasReset) {
+                  setState(() => _aziFilled = _aziWasReset = false);
+                }
+                _coriolisChanged();
+              },
             ),
-            MenzilSecondaryButton(
-              key: const Key('pro-azimuth-compass'),
-              label: 'Pusuladan al',
-              icon: Icons.explore_outlined,
-              expand: true,
-              onPressed: _azimuthFromCompass,
+            _filledRow(
+              filled: _aziFilled,
+              wasReset: _aziWasReset,
+              button: MenzilSecondaryButton(
+                key: const Key('pro-azimuth-compass'),
+                label: _aziFilled
+                    ? 'Pusuladan alındı'
+                    : _aziWasReset
+                    ? 'Tekrar pusuladan al'
+                    : 'Pusuladan al',
+                icon: _aziFilled ? Icons.check : Icons.explore_outlined,
+                expand: true,
+                active: _aziFilled,
+                twoLines: true,
+                onPressed: _azimuthFromCompass,
+              ),
+              resetKey: const Key('pro-azimuth-reset'),
+              onReset: _resetAzimuth,
             ),
             if (_coriolisStatus != null) ...[
               const SizedBox(height: MenzilSpace.xs),
@@ -3855,14 +3927,31 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               errorText: gravityCtl.text.isNotEmpty && _gravityTyped == null
                   ? '9,7 ile 9,9 arasında olmalı.'
                   : null,
-              onChanged: (_) => _gravityChanged(),
+              onChanged: (_) {
+                if (_gravFilled || _gravWasReset) {
+                  setState(() => _gravFilled = _gravWasReset = false);
+                }
+                _gravityChanged();
+              },
             ),
-            MenzilSecondaryButton(
-              key: const Key('pro-gravity-gps'),
-              label: 'Konumdan hesapla',
-              icon: Icons.my_location,
-              expand: true,
-              onPressed: _gravityFromLocation,
+            _filledRow(
+              filled: _gravFilled,
+              wasReset: _gravWasReset,
+              button: MenzilSecondaryButton(
+                key: const Key('pro-gravity-gps'),
+                label: _gravFilled
+                    ? 'Konumdan hesaplandı'
+                    : _gravWasReset
+                    ? 'Tekrar konumdan hesapla'
+                    : 'Konumdan hesapla',
+                icon: _gravFilled ? Icons.check : Icons.my_location,
+                expand: true,
+                active: _gravFilled,
+                twoLines: true,
+                onPressed: _gravityFromLocation,
+              ),
+              resetKey: const Key('pro-gravity-reset'),
+              onReset: _resetGravity,
             ),
             if (_gravityStatus != null) ...[
               const SizedBox(height: MenzilSpace.xs),
@@ -4246,6 +4335,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (fix is LocationFix) {
       latitudeCtl.text = fix.latitude.toStringAsFixed(2);
       _coriolisStatus = 'Enlem konumdan alındı.';
+      _latFilled = true;
+      _latWasReset = false;
     } else {
       _coriolisStatus = 'Konum alınamadı; enlemi elle girin.';
     }
@@ -4270,6 +4361,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (state is HeadingAvailable) {
       azimuthCtl.text = state.reading.degrees.round().toString();
       _coriolisStatus = 'Atış yönü pusuladan alındı.';
+      _aziFilled = true;
+      _aziWasReset = false;
     } else {
       _coriolisStatus = 'Pusula okunamadı; atış yönünü elle girin.';
     }

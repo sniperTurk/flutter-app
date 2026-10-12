@@ -9,6 +9,7 @@ import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/tools/ports/location_provider.dart';
 import 'package:sniper_turk/tools/ports/pressure_sensor.dart';
 
+import 'support/pro_sections.dart';
 import 'support/tool_fakes.dart';
 
 const _profile = RifleProfile(
@@ -115,6 +116,34 @@ void main() {
     await _tap(tester, reset);
     expect(_text(tester, BallisticsFieldKeys.pressure), '1013.25');
     expect(find.text('Tekrar basıncı telefondan al'), findsOneWidget);
+    expect(find.text('Veriler sıfırlandı'), findsOneWidget);
+  });
+
+  testWidgets('Pro > Coriolis: Konumdan al → alındı; Sıfırla empties Enlem', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(430, 2600) * 3;
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      host(
+        Scaffold(
+          body: BallisticsScreen(profile: _profile, view: BallisticsView.pro),
+        ),
+        services: testServices(
+          location: TestLocation(const LocationFix(38.07, 27.1)),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await openProFor(tester, const Key('pro-latitude'));
+    expect(find.byKey(const Key('pro-latitude-reset')), findsOneWidget);
+    await _tap(tester, const Key('pro-latitude-gps'));
+    expect(_text(tester, const Key('pro-latitude')), '38.07');
+    expect(find.text('Konumdan alındı'), findsOneWidget);
+    await _tap(tester, const Key('pro-latitude-reset'));
+    expect(_text(tester, const Key('pro-latitude')), '');
+    expect(find.text('Tekrar konumdan al'), findsOneWidget);
     expect(find.text('Veriler sıfırlandı'), findsOneWidget);
   });
 }
