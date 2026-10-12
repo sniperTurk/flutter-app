@@ -117,18 +117,9 @@ void main() {
       'Sentinel 6–24×50 FFP (SCFF-57)',
     );
 
-    expect(
-      find.text('Dürbün: Vector Optics Sentinel (SCFF-57) 6-24x50 FFP'),
-      findsOneWidget,
-    );
-    // Its only reticle is chosen.
-    expect(
-      find.descendant(
-        of: find.byKey(const Key('scope-reticle')),
-        matching: find.text('VSE-3 MOA'),
-      ),
-      findsOneWidget,
-    );
+    // Its only reticle is chosen, so no Retikül box is asked
+    // (owner, 2026-10-13).
+    expect(find.byKey(const Key('scope-reticle')), findsNothing);
     expect(selectedValue<double>(tester, 'scope-min-mag'), 6);
     expect(selectedValue<double>(tester, 'scope-max-mag'), 24);
     expect(selectedValue<double>(tester, 'scope-objective'), 50);

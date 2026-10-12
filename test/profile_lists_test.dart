@@ -320,9 +320,57 @@ void main() {
     await _openNew(tester);
     await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
     await chooseInSelect(tester, 'scope-model-select', 'Titan 3-18x50 FFP MOA');
-    await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
-    expect(_in('scope-reticle', find.text('APR-2D MOA')), findsOneWidget);
-    expect(_in('scope-reticle', find.text('Seçiniz')), findsNothing);
+    // Owner, 2026-10-13: a model with one reticle asks nothing more.
+    expect(find.byKey(const Key('scope-reticle')), findsNothing);
+    expect(selectedValue<double>(tester, 'scope-max-mag'), 18);
+  });
+
+  testWidgets('Dürbün: Marka | Odak düzlemi, Min | Maks, Mercek | Model, '
+      'Dürbün ayağı; nothing else', (tester) async {
+    await _openNew(tester);
+    Rect r(String k) => tester.getRect(find.byKey(Key(k)));
+    void pair(String a, String b) {
+      expect((r(a).top - r(b).top).abs(), lessThan(1), reason: '$a | $b');
+      expect(r(a).right, lessThan(r(b).left), reason: '$a | $b');
+    }
+
+    pair('scope-brand-select', 'scope-focal-plane');
+    pair('scope-min-mag', 'scope-max-mag');
+    pair('scope-objective', 'scope-model-select');
+    expect(r('scope-mount').top, greaterThan(r('scope-objective').bottom));
+    for (final key in [
+      'scope-unit',
+      'scope-click',
+      'scope-travel-elevation',
+      'scope-designation',
+      'scope-reticle',
+    ]) {
+      expect(find.byKey(Key(key)), findsNothing, reason: key);
+    }
+    expect(find.text('Birim filtresi'), findsNothing);
+    expect(find.text('Büyütme filtresi'), findsNothing);
+  });
+
+  testWidgets('Dürbün: the boxes narrow the Model list, the model fills them', (
+    tester,
+  ) async {
+    await _openNew(tester);
+    await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
+    await chooseInSelect(tester, 'scope-min-mag', '3x');
+    await chooseInSelect(tester, 'scope-max-mag', '18x');
+    await tester.ensureVisible(find.byKey(const Key('scope-model-select')));
+    await tester.tap(find.byKey(const Key('scope-model-select')));
+    await tester.pumpAndSettle();
+    expect(find.text('Titan 3-18x50 FFP MOA'), findsWidgets);
+    expect(find.text('Titan 5-25x56 FFP MOA'), findsNothing);
+    await tester.tap(find.text('Titan 3-18x50 FFP MOA').last);
+    await tester.pumpAndSettle();
+    expect(selectedValue<double>(tester, 'scope-objective'), 50);
+    expect(selectedValue<bool>(tester, 'scope-focal-plane'), isTrue);
+    // A chosen model lists every model of the brand again.
+    await tester.tap(find.byKey(const Key('scope-model-select')));
+    await tester.pumpAndSettle();
+    expect(find.text('Titan 5-25x56 FFP MOA'), findsWidgets);
   });
 
   test('Retikül ⓘ says what it is, where it is written and an example', () {

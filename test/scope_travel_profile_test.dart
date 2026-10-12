@@ -49,6 +49,10 @@ void main() {
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
 
+    // A listed scope brings its travel; only a typed one asks for it
+    // (owner, 2026-10-13).
+    expect(find.text('Üst kule klik sayısı'), findsNothing);
+    await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');
     expect(find.text('Üst kule klik sayısı'), findsOneWidget);
     expect(find.byTooltip('Bilgi: Üst kule klik sayısı'), findsOneWidget);
     // Only one question: no separate side-turret field.

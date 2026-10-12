@@ -120,7 +120,7 @@ void main() {
         findsOneWidget,
       );
       expect(selectedValue<double>(tester, 'scope-max-mag'), 36);
-      expect(find.text('Dürbün: Gazi Sniper 6-36x56 FFP'), findsOneWidget);
+      expect(selectedValue<String>(tester, 'scope-model-select'), isNotNull);
 
       await enterRifleField(tester, 'rifle-twist-rate', '16');
       await chooseTwistDirection(tester, 'Sol');
@@ -248,12 +248,9 @@ void _unitsAndFirearmTests() {
     await chooseInSelect(tester, 'profile-distance-unit', 'Yard');
     // 25 m = 27.3 yd (no unit label next to the field; ⓘ explains it).
     expect(zero(), '27.3');
-    // SMOA is offered as a turret unit.
-    await chooseInSelect(
-      tester,
-      'profile-angular-unit-${_valid.angularUnit.name}',
-      'SMOA',
-    );
+    // A listed scope brings its turret unit; no Dürbün birimi box
+    // (owner, 2026-10-13).
+    expect(find.byKey(const Key('scope-unit')), findsNothing);
     expect(_updateAction(tester), isNotNull);
     final update = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
     await tester.ensureVisible(update);
@@ -263,7 +260,7 @@ void _unitsAndFirearmTests() {
     expect(saved.distanceUnit, DistanceUnit.yard);
     // Stored in metres: 27.3 yd = 24.96 m.
     expect(saved.zeroRangeM, closeTo(24.96, 0.01));
-    expect(saved.angularUnit, AngularUnit.smoa);
+    expect(saved.angularUnit, _valid.angularUnit);
   });
 
   testWidgets('Ateşli tüfek: one cartridge per row, no free typing', (
