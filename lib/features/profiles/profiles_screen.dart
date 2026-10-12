@@ -1406,7 +1406,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       }
     }
     return byLow.keys.toList()..sort((a, b) {
-      final (la, ha) = byLow[a]!, (lb, hb) = byLow[b]!;
+      final (la, ha) = byLow[a]!;
+      final (lb, hb) = byLow[b]!;
       return la != lb ? la.compareTo(lb) : ha.compareTo(hb);
     });
   }
