@@ -36,8 +36,11 @@ abstract final class EnvironmentFieldInfo {
       'Bulunduğunuz yerde ölçülen gerçek (istasyon) hava basıncı. Hava '
       'durumu uygulamalarının çoğu deniz seviyesine indirgenmiş basıncı '
       '(QNH, ~1013 hPa) verir; yüksek yerde bu değer hesabı bozar (1000 m '
-      'irtifada gerçek basınç ~900 hPa). Kestrel, barometre veya Araçlar > '
-      'hesaplayıcılar ile deniz seviyesinden istasyon basıncına çevirin.';
+      'irtifada gerçek basınç ~900 hPa). Barometreli telefonda "Basıncı '
+      'telefondan al" düğmesi gerçek basıncı okur; araç içinde veya klimalı '
+      'odada değil, açık havada basın. Ya da Kestrel, barometre veya '
+      'Araçlar > hesaplayıcılar ile deniz seviyesinden istasyon basıncına '
+      'çevirin. Örnek: 1000 m irtifada 900 hPa.';
   static const humidity =
       'Bağıl nem, yüzde olarak (0–100). Etkisi küçüktür: nemli hava biraz '
       'daha hafiftir. Hava durumunda yazar. Örnek: %60.';
