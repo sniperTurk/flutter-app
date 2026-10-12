@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/domain.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import 'calculators_screen.dart';
@@ -7,12 +8,15 @@ import 'compass_screen.dart';
 import 'hit_probability_screen.dart';
 import 'level_screen.dart';
 import 'map_distance_screen.dart';
+import 'mpbr_screen.dart';
+import 'parallax_screen.dart';
 import 'sight_height_screen.dart';
 import 'truing_screen.dart';
 import 'weather_screen.dart';
 
 /// Tool hub (Hız Doğrulama, Sight Height, Haritadan mesafe, Hava & Rüzgâr,
-/// Pusula, Su Terazisi, Vuruş Olasılığı, Hesaplayıcılar). Katalog is no
+/// Pusula, Su Terazisi, Vuruş Olasılığı, Paralaks Mesafesi (PCP), Avcı
+/// Sıfırı, Hesaplayıcılar). Katalog is no
 /// longer listed here (owner, 2026-10-08); its records and screen remain.
 /// Kronograf was removed from the hub too (owner, 2026-10-09); its screen
 /// and statistics code remain. Visual assistance is NOT a tool of its own; it only
@@ -24,7 +28,11 @@ class ToolsScreen extends StatelessWidget {
   /// previous muzzle velocity or sight height.
   final Future<void> Function()? onProfilesChanged;
 
-  const ToolsScreen({super.key, this.onProfilesChanged});
+  /// Platform of the active profile; Paralaks Mesafesi is listed only for
+  /// PCP (owner, 2026-10-12). Null = no profile.
+  final WeaponPlatform? activePlatform;
+
+  const ToolsScreen({super.key, this.onProfilesChanged, this.activePlatform});
 
   Future<void> _open(BuildContext context, Widget page) async {
     await Navigator.push(
@@ -88,6 +96,21 @@ class ToolsScreen extends StatelessWidget {
           title: 'Vuruş Olasılığı',
           subtitle: 'Grup ve hedef çapından tek atış vuruş yüzdesi',
           onTap: () => _open(context, const HitProbabilityScreen()),
+        ),
+        if (activePlatform == WeaponPlatform.pcp)
+          MenzilToolTile(
+            tileKey: const Key('tool-parallax'),
+            icon: Icons.center_focus_strong_outlined,
+            title: 'Paralaks Mesafesi',
+            subtitle: 'Paralaks tekerleği işaretinden mesafe; işaret kaydı',
+            onTap: () => _open(context, const ParallaxScreen()),
+          ),
+        MenzilToolTile(
+          tileKey: const Key('tool-mpbr'),
+          icon: Icons.vertical_align_center,
+          title: 'Avcı Sıfırı',
+          subtitle: 'Hedef bölgede kalan en uzun menzil ve sıfır mesafesi',
+          onTap: () => _open(context, const MpbrScreen()),
         ),
         MenzilToolTile(
           tileKey: const Key('tool-calculators'),

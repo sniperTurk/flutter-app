@@ -138,9 +138,10 @@ Future<void> _pick(WidgetTester tester, String label) async {
   await tester.pumpAndSettle();
 }
 
-Finder _inResult(String text) => find.descendant(
+/// Metric tiles print "value unit" as one rich text.
+Finder _inResult(Pattern text) => find.descendant(
   of: find.byKey(const Key('parallax-result')),
-  matching: find.text(text),
+  matching: find.textContaining(text),
 );
 
 void main() {
@@ -163,7 +164,7 @@ void main() {
     await _record(tester, '20', '40');
     expect(find.byKey(const Key('parallax-need-two')), findsNothing);
     await _pick(tester, '15');
-    expect(_inResult('30'), findsOneWidget);
+    expect(_inResult(RegExp(r'^30 ')), findsOneWidget);
     // Saved per profile, in metres.
     final saved = await const ParallaxTableStore().load(_pcp.id);
     expect(saved.map((p) => p.mark), [10, 20]);
@@ -210,8 +211,8 @@ void main() {
     await _record(tester, '10', '20');
     await _record(tester, '20', '40');
     await _pick(tester, '15');
-    expect(_inResult('30'), findsOneWidget);
-    expect(_inResult('yd'), findsWidgets);
+    expect(_inResult(RegExp(r'^30 ')), findsOneWidget);
+    expect(_inResult(RegExp(r'^30 yd')), findsWidgets);
     final saved = await const ParallaxTableStore().load(_pcpYard.id);
     expect(saved.first.distanceM, closeTo(18.288, 1e-6));
   });

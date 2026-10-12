@@ -418,7 +418,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         createRequest: _createRequest,
                       ),
                       _ballisticsTab(context),
-                      ToolsScreen(onProfilesChanged: _load),
+                      ToolsScreen(
+                        onProfilesChanged: _load,
+                        activePlatform: _activeResolution?.rifle.platform,
+                      ),
                     ],
                   ),
                 ),
