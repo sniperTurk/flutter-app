@@ -17,6 +17,8 @@ import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/shot_settings_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
+import 'support/pro_sections.dart';
+
 const _rifle = <String, dynamic>{
   'id': 'manual_rifle_at',
   'kind': 'rifle',
@@ -195,6 +197,31 @@ void main() {
       await environment(tester, p);
       await type(tester, _ammoKey, '');
       expect(await up600(tester, p), plain);
+    });
+
+    testWidgets('a value written by Kronograf reaches the open workspace '
+        'and is not overwritten', (tester) async {
+      await sized(tester);
+      final p = _firearm();
+      await tester.pumpWidget(app(p, BallisticsView.pro));
+      await tester.pumpAndSettle();
+      const store = ShotSettingsStore();
+      await store.save(p.id, const ShotSettings(sdText: '16,4'));
+      ShotSettingsStore.notifyExternalWrite();
+      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-sd'));
+      final sd = tester.widget<TextField>(
+        find.descendant(
+          of: find.byKey(const Key('pro-sd')),
+          matching: find.byType(TextField),
+        ),
+      );
+      expect(sd.controller!.text, '16,4');
+      // A later edit in the workspace keeps the new SD.
+      await environment(tester, p);
+      await type(tester, _ammoKey, '30');
+      await tester.pumpAndSettle();
+      expect((await store.load(p.id))!.sdText, '16,4');
     });
 
     testWidgets('the value is kept per profile', (tester) async {

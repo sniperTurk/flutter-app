@@ -26,6 +26,12 @@ abstract final class EnvironmentFieldInfo {
       'Atış yerindeki hava sıcaklığı. Sıcak hava daha seyrektir; mermi daha '
       'az yavaşlar ve daha az düşer. Telefonun hava durumu veya bir '
       'termometre yeterlidir. Örnek: 18 °C.';
+  static const ammoTemperature =
+      'Fişeğin kendi sıcaklığı. Güneşte veya araçta bekleyen fişek havadan '
+      '10–20 °C sıcak olabilir. Profilde barut sıcaklık katsayısı varsa hız '
+      'bu sıcaklıkla düzeltilir; katsayı yoksa etkisi yoktur. Fişek kutusuna '
+      'konan bir termometreyle ölçün. Boşsa hava sıcaklığı kullanılır. '
+      'Örnek: 32 °C.';
   static const pressure =
       'Bulunduğunuz yerde ölçülen gerçek (istasyon) hava basıncı. Hava '
       'durumu uygulamalarının çoğu deniz seviyesine indirgenmiş basıncı '

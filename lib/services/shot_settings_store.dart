@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/wez.dart';
@@ -39,6 +40,10 @@ class ShotSettings {
   final String bulletLengthText;
   final String powderCoefText;
   final String powderTempText;
+
+  /// Mühimmat sıcaklığı (firearms, Hava Durumu): the cartridge temperature
+  /// in the shown unit, as typed; empty = the air temperature.
+  final String ammoTempText;
 
   /// Rüzgâr bölgeleri: wind at mid-range and at the target (shown unit, as
   /// typed); empty = the Hava Durumu wind everywhere.
@@ -80,6 +85,7 @@ class ShotSettings {
     this.bulletLengthText = '',
     this.powderCoefText = '',
     this.powderTempText = '',
+    this.ammoTempText = '',
     this.windMidText = '',
     this.windFarText = '',
     this.zeroUpText = '',
@@ -109,6 +115,7 @@ class ShotSettings {
     'bulletLength': bulletLengthText,
     'powderCoef': powderCoefText,
     'powderTemp': powderTempText,
+    'ammoTemp': ammoTempText,
     'windMid': windMidText,
     'windFar': windFarText,
     'zeroUp': zeroUpText,
@@ -153,6 +160,7 @@ class ShotSettings {
       bulletLengthText: text(json['bulletLength']),
       powderCoefText: text(json['powderCoef']),
       powderTempText: text(json['powderTemp']),
+      ammoTempText: text(json['ammoTemp']),
       windMidText: text(json['windMid']),
       windFarText: text(json['windFar']),
       zeroUpText: text(json['zeroUp']),
@@ -177,6 +185,13 @@ class ShotSettingsStore {
       'sniper_turk.shot_settings.$profileId';
 
   const ShotSettingsStore();
+
+  /// Bumped when a page other than the Atış workspace wrote settings
+  /// (Kronograf → Hız farkı SD, 2026-10-12). The workspace stays alive in
+  /// the shell while a tool is open, so it reloads on this instead of
+  /// writing its older values back.
+  static final ValueNotifier<int> externalWrites = ValueNotifier(0);
+  static void notifyExternalWrite() => externalWrites.value++;
 
   Future<ShotSettings?> load(String profileId) async {
     final prefs = await SharedPreferences.getInstance();

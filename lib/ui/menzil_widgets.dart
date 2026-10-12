@@ -967,6 +967,10 @@ class MenzilInput extends StatelessWidget {
   /// Explanation shown by the ⓘ button next to the label.
   final String? info;
 
+  /// A list typed one value per line (Kronograf hızları); 1 elsewhere.
+  final int minLines;
+  final int maxLines;
+
   const MenzilInput({
     super.key,
     required this.controller,
@@ -984,6 +988,8 @@ class MenzilInput extends StatelessWidget {
     this.inputFormatters,
     this.info,
     this.focusNode,
+    this.minLines = 1,
+    this.maxLines = 1,
   });
 
   String get semanticLabel => unit == null ? label : '$label ($unit)';
@@ -1015,7 +1021,13 @@ class MenzilInput extends StatelessWidget {
               focusNode: focusNode,
               enabled: enabled,
               keyboardType: keyboardType,
-              textInputAction: textInputAction ?? TextInputAction.next,
+              textInputAction:
+                  textInputAction ??
+                  (maxLines > 1
+                      ? TextInputAction.newline
+                      : TextInputAction.next),
+              minLines: minLines,
+              maxLines: maxLines,
               onChanged: onChanged,
               maxLength: maxLength,
               inputFormatters: inputFormatters,

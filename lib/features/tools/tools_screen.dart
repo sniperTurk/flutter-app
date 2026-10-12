@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import 'calculators_screen.dart';
+import 'chrono_screen.dart';
 import 'compass_screen.dart';
 import 'hit_probability_screen.dart';
 import 'level_screen.dart';
@@ -14,8 +15,10 @@ import 'weather_screen.dart';
 /// Tool hub (Hız Doğrulama, Sight Height, Haritadan mesafe, Hava & Rüzgâr,
 /// Pusula, Su Terazisi, Vuruş Olasılığı, Hesaplayıcılar). Katalog is no
 /// longer listed here (owner, 2026-10-08); its records and screen remain.
-/// Kronograf was removed from the hub too (owner, 2026-10-09); its screen
-/// and statistics code remain. Visual assistance is NOT a tool of its own; it only
+/// The audio Kronograf was removed from the hub (owner, 2026-10-09); a typed
+/// Kronograf (velocity string statistics, PCP string slope, powder
+/// coefficient) came back under Hız Doğrulama (Ö3, 2026-10-12). Visual
+/// assistance is NOT a tool of its own; it only
 /// appears inside the Sight Height flow.
 class ToolsScreen extends StatelessWidget {
   /// Called after any tool route closes. Hız Doğrulama and Sight Height can
@@ -46,6 +49,13 @@ class ToolsScreen extends StatelessWidget {
           subtitle:
               'Sahada gözlenen düşümle namlu hızını doğrula; profile aktarım',
           onTap: () => _open(context, const TruingScreen()),
+        ),
+        MenzilToolTile(
+          tileKey: const Key('tool-chrono'),
+          icon: Icons.speed,
+          title: 'Kronograf',
+          subtitle: 'Hız serisi: ortalama, SD, ES; profile ve WEZ\'e aktarım',
+          onTap: () => _open(context, const ChronoScreen()),
         ),
         MenzilToolTile(
           tileKey: const Key('tool-sight-height'),

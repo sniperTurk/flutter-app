@@ -7,12 +7,16 @@ import '../../models/domain.dart';
 /// profile editor ([ProfileInput.validate]). Saving a value the decoder
 /// would later reject makes the stored collection unreadable.
 abstract final class ToolProfileUpdate {
-  /// Returns [base] with the new muzzle velocity and/or sight height.
+  /// Returns [base] with the new muzzle velocity and/or sight height, and
+  /// (Kronograf, firearms) a new powder temperature coefficient with its
+  /// reference temperature — both or neither.
   /// Throws [FormatException] with a user-facing message.
   static RifleProfile apply(
     RifleProfile base, {
     double? muzzleVelocityMps,
     double? sightHeightMm,
+    double? powderCoef,
+    double? powderReferenceC,
   }) {
     Rifle? rifle;
     for (final r in CatalogRepository.allRifles) {
@@ -41,6 +45,10 @@ abstract final class ToolProfileUpdate {
       // An older profile's pressure is kept as it was (no longer asked).
       pressureText: base.pressureBar?.toString(),
       mountCantMoa: base.mountCantMoa,
+      powderCoefText:
+          (powderCoef ?? base.powderTempCoefPercentPer15C)?.toString(),
+      powderTempText: (powderReferenceC ?? base.powderTempReferenceC)
+          ?.toString(),
     );
     return RifleProfile(
       id: base.id,
@@ -55,9 +63,13 @@ abstract final class ToolProfileUpdate {
       angularUnit: base.angularUnit,
       distanceUnit: base.distanceUnit,
       mountCantMoa: input.mountCantMoa,
-      // Truing keeps the profile's powder temperature data unchanged.
-      powderTempCoefPercentPer15C: base.powderTempCoefPercentPer15C,
-      powderTempReferenceC: base.powderTempReferenceC,
+      // Unchanged unless a new pair was given (validated above).
+      powderTempCoefPercentPer15C: powderCoef == null
+          ? base.powderTempCoefPercentPer15C
+          : input.powderTempCoefPercentPer15C,
+      powderTempReferenceC: powderCoef == null
+          ? base.powderTempReferenceC
+          : input.powderTempReferenceC,
     );
   }
 }
