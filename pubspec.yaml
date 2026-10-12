@@ -27,6 +27,8 @@ dependencies:
   latlong2: ^0.9.1
   # Özel sürüklenme eğrisi: .drg/.csv dosyası seçmek (iOS belge seçici).
   file_selector: ^1.0.3
+  # Profiller → Yedekle: yedek dosyasını iOS paylaşım ekranına vermek.
+  share_plus: ^13.3.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

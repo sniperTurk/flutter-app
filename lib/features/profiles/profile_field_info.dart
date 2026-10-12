@@ -218,6 +218,13 @@ abstract final class ProfileFieldInfo {
       'sayıları ve tablo yard ile gösterilir. Dürbününüzün odak düğmesi '
       'yard ile yazılıysa yard seçin.';
 
+  static const backup =
+      'Yedekle: tüm profillerinizi ve kendi girdiğiniz tüfek, mühimmat ve '
+      'dürbün kayıtlarını tek dosyaya kaydeder. Açılan ekranda Dosyalar\'a '
+      'Kaydet ile iCloud Drive\'ı ya da Google Drive\'ı seçin. Telefon '
+      'değişince Geri yükle ile aynı dosyayı seçin; hiçbir profil silinmez. '
+      'Hesap veya şifre gerekmez.';
+
   // PCP tüp ve regülatör basıncı (owner, 2026-10-12). Yalnızca PCP.
   static const tubePressure =
       'Tüpü doldurduğunuz basınç, bar. Dolum sonrası manometreden okuyun ya '

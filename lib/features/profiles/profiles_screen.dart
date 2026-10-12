@@ -23,11 +23,13 @@ import '../../data/user_catalog.dart';
 import '../../models/domain.dart';
 import '../../services/chrono_store.dart';
 import '../../services/manual_catalog_store.dart';
+import '../../services/profile_backup.dart';
 import '../../services/profile_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../home/empty_states.dart';
 import 'drag_curve_field.dart';
+import 'profile_backup_actions.dart';
 import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
 import 'rifle_picker_screen.dart';
@@ -57,6 +59,13 @@ class ProfilesScreen extends StatefulWidget {
   /// the new-profile form.
   final int createRequest;
 
+  /// Personal catalog that goes into a backup with the profiles.
+  final ManualCatalogStore? catalogStore;
+
+  /// Injected in tests; default: system share sheet / document picker.
+  final BackupShare? shareBackup;
+  final BackupPick? pickBackup;
+
   const ProfilesScreen({
     super.key,
     this.store,
@@ -67,6 +76,9 @@ class ProfilesScreen extends StatefulWidget {
     this.onContinue,
     this.revision = 0,
     this.createRequest = 0,
+    this.catalogStore,
+    this.shareBackup,
+    this.pickBackup,
   });
 
   @override
@@ -75,6 +87,9 @@ class ProfilesScreen extends StatefulWidget {
 
 class _ProfilesScreenState extends State<ProfilesScreen> {
   late final ProfileStore store = widget.store ?? PersistentProfileStore();
+  late final ManualCatalogStore catalogStore =
+      widget.catalogStore ?? ManualCatalogStore();
+  final GlobalKey _backupButtonKey = GlobalKey();
   List<RifleProfile> items = [];
   bool loading = true;
   String? loadError;
@@ -170,6 +185,98 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
           );
         }
       }
+    }
+  }
+
+  void _snack(String text) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
+
+  /// Profiller → Yedekle: every profile and personal catalog entry in one
+  /// file, handed to the share sheet (owner, 2026-10-12).
+  Future<void> _backup() async {
+    final String text;
+    try {
+      text = ProfileBackup.encode(
+        await ProfileBackup.collect(store, catalogStore),
+      );
+    } catch (_) {
+      _snack('Yedek hazırlanamadı. Kayıtlar değiştirilmedi.');
+      return;
+    }
+    final box =
+        _backupButtonKey.currentContext?.findRenderObject() as RenderBox?;
+    final origin = box == null || !box.hasSize
+        ? null
+        : box.localToGlobal(Offset.zero) & box.size;
+    try {
+      await (widget.shareBackup ?? shareBackupFile)(
+        ProfileBackup.fileName(DateTime.now()),
+        text,
+        origin,
+      );
+    } catch (_) {
+      _snack('Paylaşım ekranı açılamadı.');
+    }
+  }
+
+  /// Profiller → Geri yükle: reads a backup the user picks, shows what is in
+  /// it and adds it only after confirmation. Nothing is deleted.
+  Future<void> _restore() async {
+    final String? text;
+    try {
+      text = await (widget.pickBackup ?? pickBackupFile)();
+    } catch (_) {
+      _snack('Dosya açılamadı.');
+      return;
+    }
+    if (text == null || !mounted) return;
+    final ProfileBackupContents contents;
+    try {
+      contents = ProfileBackup.decode(text);
+    } on FormatException catch (e) {
+      _snack(e.message);
+      return;
+    }
+    final confirmed =
+        await showDialog<bool>(
+          context: context,
+          builder: (dialogContext) => AlertDialog(
+            title: const Text('Yedek geri yüklensin mi?'),
+            content: Text(
+              'Dosyada ${contents.profiles.length} profil ve '
+              '${contents.catalog.length} kişisel kayıt var. Telefonda zaten '
+              'olan profiller yedektekiyle güncellenir, hiçbir profil '
+              'silinmez.',
+              textAlign: TextAlign.justify,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, false),
+                child: const Text('Vazgeç'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, true),
+                child: const Text('Geri yükle'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+    if (!confirmed) return;
+    try {
+      final r = await ProfileBackup.restore(contents, store, catalogStore);
+      await _changed();
+      _snack(
+        r.skipped == 0
+            ? '${r.profiles} profil geri yüklendi.'
+            : '${r.profiles} profil geri yüklendi; ${r.skipped} kayıt '
+                  'okunamadığı için atlandı.',
+      );
+    } catch (_) {
+      await _changed();
+      _snack('Geri yükleme tamamlanamadı. Mevcut kayıtlar korunuyor.');
     }
   }
 
@@ -331,7 +438,9 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     // First start (or every profile deleted): a welcome page instead of an
     // empty list (owner, 2026-10-10).
     if (items.isEmpty && widget.embedded) {
-      return MenzilPage(children: [WelcomePanel(onCreate: _add)]);
+      return MenzilPage(
+        children: [WelcomePanel(onCreate: _add, onRestore: _restore)],
+      );
     }
     return MenzilPage(
       children: [
@@ -414,6 +523,29 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 onPressed: () => _deleteViaButton(selected),
               ),
             ],
+          ],
+        ),
+        const SizedBox(height: MenzilSpace.sm),
+        Wrap(
+          spacing: MenzilSpace.sm,
+          runSpacing: MenzilSpace.sm,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            MenzilSecondaryButton(
+              key: _backupButtonKey,
+              label: 'Yedekle',
+              icon: Icons.ios_share,
+              onPressed: items.isEmpty ? null : _backup,
+            ),
+            MenzilSecondaryButton(
+              label: 'Geri yükle',
+              icon: Icons.download_outlined,
+              onPressed: _restore,
+            ),
+            const MenzilInfoButton(
+              title: 'Yedekle ve Geri yükle',
+              text: ProfileFieldInfo.backup,
+            ),
           ],
         ),
       ],
