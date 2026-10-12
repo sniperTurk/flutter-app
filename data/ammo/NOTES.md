@@ -142,3 +142,18 @@ BC'si boş 341 kayıt yeniden tarandı; 236'sına üretici kaynağından BC yaz�
 - **Winchester (18/33):** Winchester 2026 kataloğu (winchester.com'dan bağlı resmi flipbook) "B.C." sütunu, etiketsiz → G1. Satır eşleşmesi kesin olmayan 15 kayıt null bırakıldı (tahmin yazılmadı).
 - **Lapua (1/5):** 7.62x39 FMJ → katalogdaki S405 mermi kodu ve Lapua S405 sayfası. **Norma (1/2):** Oryx 8,5x55 Blaser 230 gr → Norma Oryx .338 230 gr bileşen sayfası.
 - Null kalanlar: Geco 3, RWS 1, SWISS P 2 (föy PDF robots.txt ile kapalı), Weatherby 1 (sayfada "320 (G1)" ondalık noktası yok — düzeltme tahmin olacağından yazılmadı), MKE 7 (MKE BC yayımlamıyor).
+
+## BC tamamlama 3 (2026-10-12)
+Uygulamada BC'si boş kalan fabrika fişekleri yeniden tarandı (yalnız fişek üreticisinin veya
+fişeğin adını verdiği mermi üreticisinin resmi sitesi). Her yeni değerde kaynak URL ve erişim
+tarihi kayıt notunda; bulunamayanlara "BC araması 3" nedeni eklendi. Tahmin yok.
+- **Black Hills (5):** fişek sayfasının adını verdiği Hornady V-MAX (.224 40/50/60 gr, 6mm 58 gr) —
+  Hornady 2026 katalog V-MAX tablosu (https://static.hornady.media/site/hflipbook/inc/html/92.html);
+  etiketsiz → G1 kabul edildi. Hornady GMX 70, CX 125 .308, "Match Hollow Point" 168 bulunamadı/belirsiz.
+- **Geco (1):** GECO STAR .270 Win 8,4 g → GECO 2026 katalog 'BALLISTIC DATA' BC 0,227
+  (etiketsiz → G1; katalogdaki 300 m hızı G1 ile uyumlu, G7 ile değil).
+- Null kalanlar: Hornady 9 (rimfire, .338 ARC, American Gunner, 400 Legend, 25 CM CX "TBD"),
+  Winchester 15 (flipbook metninde sembol–BC eşleşmesi kanıtlanamadı), Lapua 3, Geco 2 (.22 LR),
+  SWISS P 2, Norma 1, Nosler 1, Weatherby 1 ("320 (G1)" ondalıksız), RWS 1, Federal 1 (saçma).
+- Aguila kayıtları bu dalda değil, uygulama deposunda (data/muhimmat/ammo/aguila.json): 8 av
+  fişeği Aguila'nın 'Ballistic Information' PDF'inden (G1 etiketli).
