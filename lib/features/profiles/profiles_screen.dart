@@ -2182,7 +2182,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         (_dragCurve != null, 'Sürüklenme eğrisi')
       else ...[
         (_bcError == null, 'BC'),
-        (ammoBcModel != null, 'BC modeli'),
+        (_bcModelForSave != null, 'BC modeli'),
         (_bandsValid, 'Hıza göre BC'),
       ],
       if (platform == WeaponPlatform.firearm) (_powderValid, 'Barut sıcaklığı'),
@@ -2332,7 +2332,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   String? get _ammoBrandError => _textError(ammoBrand);
   String? get _grainError => _rangeError(ammoGrain, 1, 800);
-  String? get _bcError => _rangeError(ammoBc, 0.005, 1.5);
+  /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
+  /// publish none); a typed one is still range-checked.
+  String? get _bcError =>
+      platform == WeaponPlatform.pcp && ammoBc.text.trim().isEmpty
+      ? null
+      : _rangeError(ammoBc, 0.005, 1.5);
+
+  /// PCP pellets and slugs are always solved with G1 (owner, 2026-10-12);
+  /// the BC modeli box is not shown for them.
+  BallisticModel? get _bcModelForSave =>
+      platform == WeaponPlatform.pcp ? BallisticModel.g1 : ammoBcModel;
 
   /// A band row is optional, but half a row (speed without BC or the other
   /// way round) is an error.
@@ -2377,8 +2387,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             _parse(ammoBandBc[i])!,
           ),
     ];
-    if (rows.isEmpty) return const [];
-    final main = _parse(ammoBc)!;
+    final main = _parse(ammoBc);
+    if (rows.isEmpty || main == null) return const [];
     return [
       {'mps': rows[0].$1, 'bc': main},
       for (var i = 0; i < rows.length; i++)
@@ -2396,7 +2406,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _grainError == null &&
       (_customCurve
           ? _dragCurve != null && _curveSd != null
-          : _bcError == null && _bandsValid && ammoBcModel != null) &&
+          : _bcError == null && _bandsValid && _bcModelForSave != null) &&
       _effectiveAmmoType != null &&
       _powderValid &&
       _pcpPressureValid;
@@ -2481,7 +2491,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         'dragCurve': DragCurve.toJson(_dragCurve!),
       } else ...{
         'bc': _parse(ammoBc),
-        'bcModel': ammoBcModel!.name,
+        'bcModel': _bcModelForSave!.name,
         if (_bandEntries.isNotEmpty) 'bcBands': _bandEntries,
       },
       'sourceName': userCatalogSourceName,
@@ -2629,6 +2639,50 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   int _scopePickToken = 0;
 
   /// Empties the ammunition part of the form (another rifle type).
+  /// Back from typed ammunition to the list (owner, 2026-10-12): asks
+  /// before the typed values go and keeps Tip, so the brand list shows the
+  /// listed pellets or slugs of this Kalibre.
+  Future<void> _backToAmmoList() async {
+    final typed = [
+      ammoBrand,
+      ammoModel,
+      ammoGrain,
+      ammoBc,
+    ].any((c) => c.text.trim().isNotEmpty);
+    if (typed) {
+      final ok = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Listeye dönülsün mü?'),
+          content: const Text(
+            'Girdiğiniz mühimmat bilgileri silinecek.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Vazgeç'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Listeye dön'),
+            ),
+          ],
+        ),
+      );
+      if (ok != true || !mounted) return;
+    }
+    setState(() {
+      final type = ammoType;
+      _clearAmmo();
+      ammoType = type;
+      _ammoListToken++;
+    });
+  }
+
+  /// Bumped when the ammunition list is shown again, so its selects start
+  /// fresh ("Seçiniz") instead of keeping "Listede yok".
+  int _ammoListToken = 0;
+
   void _clearAmmo() {
     ammo = null;
     ammoBrand.text = '';
@@ -2682,6 +2736,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   /// Library records for this rifle type and caliber (Marka/Model lists).
+  /// PCP: no listed pellet or slug for this Kalibre and Tip.
+  bool get _noPcpForCaliber =>
+      platform == WeaponPlatform.pcp &&
+      _parse(rifleCaliber) != null &&
+      _libraryHere.isEmpty;
+
   List<LibraryBullet> get _libraryHere {
     final cal = _parse(rifleCaliber);
     return [
@@ -2837,9 +2897,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               alignment: Alignment.centerLeft,
               child: TextButton.icon(
                 key: const Key('ammo-back-to-list'),
-                onPressed: () => setState(_clearAmmo),
+                onPressed: _backToAmmoList,
                 icon: const Icon(Icons.list_alt, size: 18),
-                label: const Text('Listeden seç'),
+                // "Listeden seç" read like a model list for a brand that is
+                // not listed (owner, 2026-10-12).
+                label: const Text('Listeye dön'),
               ),
             ),
           ),
@@ -2881,7 +2943,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       child: MenzilSelect<String>(
         key: ValueKey(
           'ammo-brand-select-${platform.name}-$factory-'
-          '${rifleCaliber.text}-$brand',
+          '${rifleCaliber.text}-$brand-$_ammoListToken',
         ),
         label: 'Marka',
         hint: 'Seçiniz',
@@ -3599,6 +3661,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                               'okuyup yazın; ağırlık, BC ve hız kutuda veya '
                               'üreticinin sitesinde yazar. Kendi doldurduğunuz '
                               'fişekse Mühimmat türünde El dolumu seçin.'
+                        : _noPcpForCaliber
+                        // Owner, 2026-10-12: the empty list must say why.
+                        ? 'Bu kalibre ve tipte listede henüz ürün yok. '
+                              'Markayı ve modeli kutunun üstünden okuyup '
+                              'yazın. BC bilinmiyorsa boş bırakabilirsiniz.'
                         : null,
                     keyboardType: TextInputType.text,
                     maxLength: 60,
@@ -3640,6 +3707,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     onChanged: (_) => setState(() {}),
                     errorText: _shown(_bcError, ammoBc),
                   ),
+                if (platform != WeaponPlatform.pcp)
                 KeyedSubtree(
                   key: const Key('ammo-bc-model'),
                   child: MenzilSelect<String>(
@@ -3759,7 +3827,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ],
                 ],
                 if (_showErrors &&
-                    ((!_customCurve && ammoBcModel == null) ||
+                    ((!_customCurve && _bcModelForSave == null) ||
                         _effectiveAmmoType == null))
                   const MenzilFullWidth(
                     child: MenzilNotice(

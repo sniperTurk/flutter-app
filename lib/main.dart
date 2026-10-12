@@ -4,6 +4,7 @@ import 'data/catalog_repository.dart';
 import 'features/home/home_screen.dart';
 import 'services/app_settings.dart';
 import 'tools/tools_services.dart';
+import 'ui/keyboard_done_bar.dart';
 import 'ui/menzil_theme.dart';
 
 void main() {
@@ -65,6 +66,10 @@ class _SniperTurkAppState extends State<SniperTurkApp> {
             // No data is fetched until the user taps a button (owner,
             // 2026-10-11): Hava Durumu fills only on "Konumdan canlı hava verisi al".
             home: const HomeScreen(),
+            // Keyboard (owner, 2026-10-12): a tap outside a box closes it,
+            // and a "Bitti" bar sits above the number pad, which has no
+            // return key on iOS.
+            builder: (context, child) => KeyboardDoneBar(child: child!),
           ),
         ),
       ),
