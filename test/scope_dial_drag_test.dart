@@ -103,7 +103,9 @@ void main() {
     addTearDown(tester.view.reset);
     CatalogRepository.installUserCatalog(
       UserCatalog.fromManualEntries([
-        {..._ammo}..remove('bc')..remove('bcModel'),
+        {..._ammo}
+          ..remove('bc')
+          ..remove('bcModel'),
       ]),
     );
 

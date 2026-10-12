@@ -197,9 +197,7 @@ void main() {
         },
       ]),
     );
-    addTearDown(
-      () => CatalogRepository.installUserCatalog(UserCatalog.empty),
-    );
+    addTearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
     await _sized(tester);
     await tester.pumpWidget(
       const MaterialApp(
