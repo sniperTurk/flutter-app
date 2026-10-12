@@ -79,6 +79,16 @@ class ShotSettings {
   final bool gravityFromLocation;
   final bool windMaxFromWind;
 
+  /// Hava Durumu boxes of this profile in SI (°C, hPa, %, m, m/s, wind
+  /// direction °); a box missing from the map is empty. Kept until Sıfırla
+  /// (owner, 2026-10-12: "kullanıcı sıfırla demedikten sonra aynı kalsın").
+  /// [weatherSaved] false = never saved (older saves): the screen keeps its
+  /// own values.
+  final bool weatherSaved;
+  final Map<String, double> weatherSi;
+  final bool weatherFromLocation;
+  final bool pressureFromPhone;
+
   const ShotSettings({
     this.inclineDeg = 0,
     this.cantDeg = 0,
@@ -112,7 +122,20 @@ class ShotSettings {
     this.azimuthFromCompass = false,
     this.gravityFromLocation = false,
     this.windMaxFromWind = false,
+    this.weatherSaved = false,
+    this.weatherSi = const {},
+    this.weatherFromLocation = false,
+    this.pressureFromPhone = false,
   });
+
+  static const weatherKeys = {
+    'temperature',
+    'pressure',
+    'humidity',
+    'altitude',
+    'wind',
+    'windDirection',
+  };
 
   Map<String, dynamic> toJson() => {
     'incline': inclineDeg,
@@ -147,6 +170,9 @@ class ShotSettings {
     'aziCompass': azimuthFromCompass,
     'gravGps': gravityFromLocation,
     'windMaxFill': windMaxFromWind,
+    if (weatherSaved) 'weather': weatherSi,
+    'weatherGps': weatherFromLocation,
+    'pressurePhone': pressureFromPhone,
   };
 
   /// Unknown or damaged values fall back to the neutral default (level,
@@ -199,6 +225,18 @@ class ShotSettings {
       azimuthFromCompass: json['aziCompass'] == true,
       gravityFromLocation: json['gravGps'] == true,
       windMaxFromWind: json['windMaxFill'] == true,
+      weatherSaved: json['weather'] is Map,
+      weatherSi: {
+        if (json['weather'] case final Map w)
+          for (final MapEntry(:key, :value) in w.entries)
+            if (key is String &&
+                weatherKeys.contains(key) &&
+                value is num &&
+                value.isFinite)
+              key: value.toDouble(),
+      },
+      weatherFromLocation: json['weatherGps'] == true,
+      pressureFromPhone: json['pressurePhone'] == true,
     );
   }
 }

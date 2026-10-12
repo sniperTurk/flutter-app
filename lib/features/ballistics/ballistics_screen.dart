@@ -332,6 +332,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         targetSizeCtl.text = s.targetSizeText;
         rangeErrorCtl.text = s.rangeErrorText;
         bcErrorCtl.text = s.bcErrorText;
+        if (s.weatherSaved) _applyWeatherSi(s);
         _wezShotCount = s.wezShotCount;
         _wezShotChosen = s.wezShotCount != Wez.defaultShotCount;
         _shotCache.clear();
@@ -342,6 +343,84 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   void _reloadShotSettings() => unawaited(_loadShotSettings());
+
+  /// Off while the boxes are rewritten in another unit or restored, so a
+  /// half-converted form is never stored.
+  bool _weatherSaveOff = false;
+
+  bool _weatherSavePending = false;
+
+  void _weatherChanged() {
+    if (_weatherSaveOff || _weatherSavePending) return;
+    // After the current step, so "…alındı" / Sıfırla flags set next to the
+    // text are stored with it.
+    _weatherSavePending = true;
+    scheduleMicrotask(() {
+      _weatherSavePending = false;
+      if (mounted) _saveShotSettings();
+    });
+  }
+
+  /// Hava Durumu boxes in SI for [ShotSettings.weatherSi]; empty or
+  /// unreadable boxes are left out.
+  Map<String, double> _weatherSi() {
+    double? n(TextEditingController c) {
+      final v = double.tryParse(c.text.trim().replaceAll(',', '.'));
+      return v != null && v.isFinite ? v : null;
+    }
+
+    final m = metric;
+    final t = n(temperature), p = n(pressure), h = n(humidity);
+    final a = n(altitude), w = n(wind), d = n(windDirection);
+    return {
+      if (t != null) 'temperature': m ? t : UnitSystem.fahrenheitToCelsius(t),
+      if (p != null) 'pressure': m ? p : UnitSystem.inHgToHpa(p),
+      if (h != null) 'humidity': h,
+      if (a != null) 'altitude': m ? a : UnitSystem.feetToMeters(a),
+      if (w != null) 'wind': m ? w : UnitSystem.mphToMps(w),
+      if (d != null && _windHourValue != null) 'windDirection': d,
+    };
+  }
+
+  /// Puts a profile's saved Hava Durumu back, in the shown unit; a box not
+  /// in the map comes back empty (owner, 2026-10-12).
+  void _applyWeatherSi(ShotSettings s) {
+    _weatherSaveOff = true;
+    try {
+      _putWeatherSi(s);
+    } finally {
+      _weatherSaveOff = false;
+    }
+  }
+
+  void _putWeatherSi(ShotSettings s) {
+    final si = s.weatherSi;
+    final m = metric;
+    String f(double v) => v == v.roundToDouble()
+        ? v.toStringAsFixed(0)
+        : double.parse(v.toStringAsFixed(2)).toString();
+    String show(String key, double Function(double) toImperial) {
+      final v = si[key];
+      if (v == null) return '';
+      return f(m ? v : toImperial(v));
+    }
+
+    temperature.text = show('temperature', UnitSystem.celsiusToFahrenheit);
+    pressure.text = show('pressure', UnitSystem.hpaToInHg);
+    humidity.text = show('humidity', (v) => v);
+    altitude.text = show('altitude', UnitSystem.metersToFeet);
+    wind.text = show('wind', UnitSystem.mpsToMph);
+    for (final c in [temperature, pressure, humidity, altitude, wind]) {
+      if (c.text.isNotEmpty) _userEdited.add(c);
+    }
+    final wd = si['windDirection'];
+    if (wd != null) {
+      windDirection.text = f(wd);
+      windHour.text = '${WindClock.fromDegrees(wd)}';
+    }
+    _weatherFilled = s.weatherFromLocation;
+    _pressureFilled = s.pressureFromPhone && pressure.text.isNotEmpty;
+  }
 
   void _saveShotSettings() {
     final id = widget.profile?.id;
@@ -358,6 +437,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       azimuthFromCompass: _aziFilled,
       gravityFromLocation: _gravFilled,
       windMaxFromWind: _windMaxFilled,
+      weatherSaved: true,
+      weatherSi: _weatherSi(),
+      weatherFromLocation: _weatherFilled,
+      pressureFromPhone: _pressureFilled,
       azimuthText: azimuthCtl.text.trim(),
       turretScaleText: turretScaleCtl.text.trim(),
       windMaxText: _windMaxAuto ? '' : windMaxCtl.text.trim(),
@@ -1007,6 +1090,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
     widget.environmentCarry?._apply(this);
+    // Every Hava Durumu change is kept for this profile until Sıfırla
+    // (owner, 2026-10-12).
+    for (final c in [temperature, pressure, humidity, altitude, wind]) {
+      c.addListener(_weatherChanged);
+    }
+    windDirection.addListener(_weatherChanged);
     _loadUnitPreference();
     unawaited(_loadShotSettings());
     // Sıfır Grubu can write Sıfır ofseti while this workspace stays open.
@@ -1435,7 +1524,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       final loadedMetric = (await SettingsStore.open()).loadMetric();
       if (!mounted || loadedMetric == metric) return;
       if (!loadedMetric) {
-        _convertControllersToImperial();
+        _weatherSaveOff = true;
+        try {
+          _convertControllersToImperial();
+        } finally {
+          _weatherSaveOff = false;
+        }
       }
       setState(() => metric = loadedMetric);
     } catch (_) {
