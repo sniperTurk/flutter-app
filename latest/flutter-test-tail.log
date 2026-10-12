@@ -21,20 +21,42 @@ Downloading packages...
 Got dependencies!
 18 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
-00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/kontrol_gunluk_screens_test.dart
+00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/barometre_screens_test.dart
 The following plugins do not support Swift Package Manager for ios:
   - flutter_compass
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           170.6s
-00:00 +0: screenshot tour of the three new tools
-SIMSCREEN:01_araclar
-SIMSCREEN:02_kontrol_listesi
-SIMSCREEN:03_sifir_grubu_hedef
-SIMSCREEN:04_sifir_grubu_sonuc
-SIMSCREEN:05_atis_gunlugu_form
-SIMSCREEN:06_atis_gunlugu_soguk_namlu
+Xcode build done.                                           108.8s
+00:00 +0: Barometre and Sürüklenme eğrisi screenshots
+SIMSCREEN:01_hava_durumu_once
+SIMSCREEN:02_hava_durumu_once_2
+SIMSCREEN:03_hava_durumu_once_3
+SIMSCREEN:04_hava_durumu_once_4
+SIMSCREEN:05_hava_durumu_basinc_sonra
+SIMSCREEN:06_dogrulama_giris
+SIMSCREEN:07_dogrulama_giris_2
+SIMSCREEN:08_dogrulama_sonuc
+SIMSCREEN:09_dogrulama_sonuc_2
 SIMSCREEN_DONE failures=0
-01:16 +1: (tearDownAll)
-01:25 +1: All tests passed!
+══╡ EXCEPTION CAUGHT BY SERVICES LIBRARY ╞══════════════════════════════════════════════════════════
+The following PlatformException was thrown while activating platform stream on channel
+dev.fluttercommunity.plus/sensors/barometer:
+PlatformException(UNAVAILABLE, Barometer is not available on this device, null, null)
+
+When the exception was thrown, this was the stack:
+#0      StandardMethodCodec.decodeEnvelope (package:flutter/src/services/message_codecs.dart:653:7)
+#1      MethodChannel._invokeMethod (package:flutter/src/services/platform_channel.dart:366:18)
+<asynchronous suspension>
+#2      EventChannel.receiveBroadcastStream.<anonymous closure> (package:flutter/src/services/platform_channel.dart:711:11)
+<asynchronous suspension>
+════════════════════════════════════════════════════════════════════════════════════════════════════
+01:10 +0 -1: Barometre and Sürüklenme eğrisi screenshots [E]
+  Test failed. See exception logs above.
+  The test description was: Barometre and Sürüklenme eğrisi screenshots
+  
+01:10 +0 -1: (tearDownAll)
+01:16 +0 -1: Some tests failed.
+
+Failing tests:
+  /Users/runner/work/flutter-app/flutter-app/integration_test/barometre_screens_test.dart: Barometre and Sürüklenme eğrisi screenshots
