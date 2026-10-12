@@ -163,7 +163,6 @@ Kaynaklara erişim tarihi: 2026-10-12.
 
 GA modeli uygulamadan kaldırıldı: tablo, BC modeli listesindeki "GA (saçma)"
 seçeneği ve GA uyarıları silindi. Saçmalar üreticinin verdiği G1 BC ile G1
-eğrisinden hesaplanır. Daha önce GA ile kaydedilmiş kişisel mühimmat
-kayıtları okunurken G1'e çevrilir (BC × 1,07). GA tablosuna dayanan
+eğrisinden hesaplanır. GA tablosuna dayanan
 karşılaştırma aracı (`tools/sacma_surukleme_karsilastirma.py`) da tabloyla
 birlikte kaldırıldı; yukarıdaki sayılar o aracın son çıktısıdır.

@@ -145,13 +145,8 @@ class UserCatalog {
           // A BC is only meaningful together with its drag model. Without an
           // explicit G1/G7 model the value is not attached to the record.
           // V378: standard (profile-typed) ammunition carries its model too.
-          // Records saved with the removed GA model are read as G1 with the
-          // BC scaled by [gaToG1BcFactor] (owner, 2026-10-12).
-          final fromGa = _isGa(e['bcModel']);
-          final bcModel =
-              fromGa ? BallisticModel.g1 : _ballisticModel(e['bcModel']);
-          final rawBc = bcModel == null ? null : _positive(e['bc']);
-          final bc = rawBc == null || !fromGa ? rawBc : rawBc * gaToG1BcFactor;
+          final bcModel = _ballisticModel(e['bcModel']);
+          final bc = bcModel == null ? null : _positive(e['bc']);
           ammunition.add(
             Ammunition(
               id: id,
@@ -163,14 +158,7 @@ class UserCatalog {
               type: type!,
               ballisticCoefficient: bc,
               ballisticModel: bc == null ? null : bcModel,
-              bcBands: bc == null
-                  ? const []
-                  : [
-                      for (final b in _bcBands(e['bcBands']))
-                        fromGa
-                            ? BcBand(b.minVelocityMps, b.bc * gaToG1BcFactor)
-                            : b,
-                    ],
+              bcBands: bc == null ? const [] : _bcBands(e['bcBands']),
               dragCurve: bc == null ? null : DragCurve.fromJson(e['dragCurve']),
               sourceName: userCatalogSourceName,
               sourceDocument: custom
@@ -257,13 +245,6 @@ class UserCatalog {
     'smoa' => AngularUnit.smoa,
     _ => null,
   };
-
-  /// GA (ChairGun pellet model, removed 2026-10-12) drags about 0.93 × G1
-  /// at pellet speeds (docs/sacma-surukleme research, PR #189), so the
-  /// same pellet's G1 BC is its GA BC ÷ 0.93 ≈ × 1.07.
-  static const gaToG1BcFactor = 1.07;
-
-  static bool _isGa(Object? v) => v is String && v.trim().toUpperCase() == 'GA';
 
   static BallisticModel? _ballisticModel(Object? v) {
     if (v is! String) return null;

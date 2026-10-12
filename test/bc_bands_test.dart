@@ -1,5 +1,4 @@
-// Velocity-dependent BC (çoklu BC), owner 2026-10-09, and reading records
-// saved with the removed GA pellet model as G1 (owner, 2026-10-12).
+// Velocity-dependent BC (çoklu BC), owner 2026-10-09.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/core/aerodynamic_trajectory_solver.dart';
@@ -103,24 +102,6 @@ void main() {
   });
 
   group('Storage', () {
-    test('a record saved as GA is read as G1 with BC × 1.07', () {
-      final cat = UserCatalog.fromManualEntries([
-        _ammo({
-          'bcModel': 'ga',
-          'bcBands': [
-            {'mps': 240.0, 'bc': 0.033},
-            {'mps': 0.0, 'bc': 0.029},
-          ],
-        }),
-      ]);
-      final a = cat.ammunition.single;
-      expect(a.ballisticModel, BallisticModel.g1);
-      expect(a.ballisticCoefficient, closeTo(0.033 * 1.07, 1e-12));
-      expect(a.bcBands.map((b) => b.minVelocityMps), [240.0, 0.0]);
-      expect(a.bcBands[0].bc, closeTo(0.033 * 1.07, 1e-12));
-      expect(a.bcBands[1].bc, closeTo(0.029 * 1.07, 1e-12));
-    });
-
     test('G1 records and their bands are read unchanged', () {
       final cat = UserCatalog.fromManualEntries([
         _ammo({
