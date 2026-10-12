@@ -217,3 +217,16 @@ blank-pistol.com kullanıldı — sahibin teyidi önerilir).
 Bilinçli çıkarılanlar: Derya 9x19 karabinalar (9x19 tüfek kalibresi listede yok, Utaş'taki gibi), Hatsan Jet II
 (PCP tabanca/karabina). Kral Ridgepoint 6.5 Creedmoor hatvesi null (sayfa tüm kalibrelere tek 1:10 veriyor).
 Ekol ESP 1550H/2635H/3635H/4635H resmi sitede yok → eklenmedi.
+
+### 2026-10-12 ek tur — PCP ve ateşli (429 sonrası yeniden deneme)
+Eklenen 152: AEA 35 (aeaairgun.com; site yalnız http, kayıtlarda https), Cometa 42 (resmi site cometaairgun.com;
+cometa.es robots ile kapalı), Gamo +9 (2025 katalog PDF + gamo.com), Walther 4 (Reign UXT, Rotex RM8; umarexusa.com,
+Umarex Walther'in sahibi), PGM Précision 36, Verney-Carron 18 (Impact NT One / LA One / LA Evo-One PRO),
+Daniel Defense 8 (Delta 5 / Delta 5 Pro).
+Yeni PCP çapı: 18.29 mm (.72) (AEA Zeus, Scarab). Alias: "6mm XC" → 6XC.
+Bekleyen (sahibin kararı): Voere 133 kayıt `reports/2026-10-12-tufek-tamamlama/bekleyen/voere.json` — tek kaynak
+voere-shop.com (voere.com tüm ürünleri buraya bağlıyor, iletişim service@voere.at; işletmeci sr-enterprise.at GmbH,
+Kufstein). "Mağaza sitesi yok" kuralı nedeniyle listeye ALINMADI; resmi sayılırsa data/rifles/voere.json olarak taşınabilir.
+Huben K1: resmi sayfa kalibre yazmıyor → kayıt yok (değerler huben.md'de).
+Hâlâ eksik: Verney-Carron Impact NT Classique / Speedline / Sagittaire, AEA SF / Zeus MKII / BinTac, Walther Reign (UXT dışı),
+RM8 Varmint, Ataman, Kalibrgun (robots).

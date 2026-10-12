@@ -1,12 +1,14 @@
-# Verney-Carron
+# Verney-Carron (Fransa, Saint-Étienne) — 18 kayıt
 
-## Neden seçildi
-Fransa; Impact (pompalı/yarı otomatik sürgü) ve Speedline sürgülü av tüfekleri, Avrupa ve Türkiye'de sürgülü av tüfeği olarak yaygın.
+**Neden:** Fransa'nın köklü av silahı üreticisi. Impact serisi sürek avında (yaban domuzu) yaygın.
 
-## Durum: ENGELLENDİ
-WebFetch proxy'si HTTP 429 (rate limit) döndürdü; 90 sn ve 4 dk beklemeden sonra da sürdü. Kural gereği aynı sayfa tekrar denenmedi. Resmi kaynak okunamadığından KAYIT EKLENMEDİ (JSON dosyası oluşturulmadı).
+**Kaynaklar (verney-carron.com, İngilizce ürün sayfaları):**
+- https://www.verney-carron.com/en/verney-carron-impact-nt-one-rifle.html (yarı otomatik, 7 kayıt)
+- https://www.verney-carron.com/en/verney-carron-impact-la-one-rifle.html (pompalı, 7 kayıt)
+- https://www.verney-carron.com/en/verney-carron-impact-la-evo-one-pro-rifle.html (pompalı, 4 kayıt)
 
-Okunamayan sayfa: https://www.verney-carron.com/fr/carabine-verney-carron-impact-nt-classique.html (aramada bulunan diğer resmi URL'ler: impact-nt-one, impact-la-evo-one-pro, speedline-classique-bois-droitier).
-
-## Eklenen kayıt sayısı
-0
+**Eksikler:**
+- Impact NT Classique, Impact NT Evo-One PRO, Speedline ve Sagittaire sayfaları yok. /fr/ ürün sayfaları her denemede CLIENT_ERROR verdi. Kategori sayfaları (/en/rifles.html, semi-automatic-rifles.html, express.html) ürün listesini JavaScript ile yüklediği için bağlantı gelmedi. preprod2.verney-carron.com robots.txt ile kapalı. Sagittaire XS sayfasında yalnızca "56 cm namlu" var, bu yüzden kayıt oluşturulmadı.
+- Yiv adımı ve yönü hiçbir sayfada yok, bu alanlar null.
+- 300 WM için 60 cm namlunun ağırlığı (Impact NT One) verilmemiş, null.
+- Tablolarda birim "cm" yazıyor ama değerler mm (550/1100). mm olarak yorumlandı ve notes'a yazıldı.

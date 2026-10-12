@@ -1,12 +1,22 @@
-# Daniel Defense
+# Daniel Defense (ABD) — 8 kayıt
 
-## Neden seçildi
-ABD; Delta 5 / Delta 5 Pro cıvatalı hassas atış tüfekleri.
+**Neden:** AR platformuyla tanınan üreticinin modüler kilitli hassas atış tüfeği Delta 5 / Delta 5 Pro.
 
-## Durum: ENGELLENDİ
-WebFetch proxy'si HTTP 429 (rate limit) döndürdü; 90 sn ve 4 dk beklemeden sonra da sürdü. Kural gereği aynı sayfa tekrar denenmedi. Resmi kaynak okunamadığından KAYIT EKLENMEDİ (JSON dosyası oluşturulmadı).
+**Kaynaklar (danieldefense.com ürün sayfaları, Specifications bölümü):**
+- https://danieldefense.com/delta-5-pro (liste ve kalibreye göre yiv adımı)
+- https://danieldefense.com/delta5pro-18inch-65creedmoor-varmint.html
+- https://danieldefense.com/delta5pro-16inch-308-varmint.html
+- https://danieldefense.com/delta5pro-20inch-308-hpalma.html
+- https://danieldefense.com/delta5pro-24inch-65creedmoor.html
+- https://danieldefense.com/delta5pro-26inch-65creedmoor-varmint.html
+- https://danieldefense.com/delta5pro-26inch-6mmcreedmoor-varmint.html
+- https://danieldefense.com/delta5-boltactionrifle-65creedmoor.html
+- https://danieldefense.com/delta5-boltactionrifle-308.html
 
-Okunamayan sayfalar: https://danieldefense.com/delta-5-pro , https://danieldefense.com/delta5pro-24inch-65creedmoor.html . Aramada resmi ürün URL'leri bulundu (16" .308 Varmint, 20" .308 HPalma, 18"/26" 6.5 CM Varmint, 26" 6mm CM Varmint, kullanım kılavuzu PDF: https://danieldefense.com/media/asset/d/d/dd_delta_5_pro_instruction_booklet.pdf) — sonraki turda bunlardan başlanabilir.
+**Kayıtlar:** Delta 5 Pro 6 varyant (10'luk PMAG), Delta 5 2 varyant (5'lik PMAG). Dönüşümler: inç→mm, lb→kg.
 
-## Eklenen kayıt sayısı
-0
+**Eksikler:**
+- Orijinal Delta 5 sayfalarında yiv adımı yok, null. Ayrı satılan yedek namlu ürününün başlığında "24\" 6.5 CM 1:8\"" geçiyor; bu notes'a yazıldı ama değere işlenmedi.
+- Delta 5 sayfaları "Out of stock" gösteriyor; üretimde olup olmadığı belirsiz.
+- delta5.danieldefense.com robots.txt ile kapalı. Delta 5 Pro kılavuz PDF'i (dd_delta_5_pro_instruction_booklet.pdf) okunmadı; ürün sayfaları yeterli veri verdi.
+- Yiv yönü belirtilmemiş.

@@ -1,11 +1,15 @@
-# Walther (Umarex, Almanya) — PCP
+# Walther PCP (walther)
+Neden: Walther (Umarex grubu) Türkiye'de satılan bilinen Alman marka; Reign ve Rotex RM8 PCP'leri.
 
-**Durum: ENGELLENDİ — 0 kayıt.**
+Kaynaklar (resmi, Umarex USA):
+- https://www.umarexusa.com/walther-reign-uxt-22-cal-pcp-bullpup-air-rifle
+- https://www.umarexusa.com/2252094 (Reign UXT .25 — "Discontinued")
+- https://www.umarexusa.com/UMAREX/Product%20Manuals/Manual%20Walther%20Rotek%20PCP%20Pellet%20Rifle%202252081%202252082%2002R16.pdf
 
-Resmi sayfalar aramada bulundu, ancak WebFetch proxy'si HTTP 429 (rate limit) döndürdü ve dakikalarca beklemeye rağmen yeniden denemelere izin vermedi:
-- https://www.umarex.com/products/airguns/brands/walther/467.41.10.html (Reign M2)
-- https://www.umarex.com/products/airguns/compressed-air/465.10.36.html (Rotex RM8 Varmint)
-- https://www.umarex.com/products/airguns/made-in-germany/467.31.10.html (Reign M2)
-- https://www.umarex.com/products/airguns/brands/walther/467.10.00L.html (Reign)
-- https://www.umarexusa.com/walther-reign-uxt-22-cal-pcp-bullpup-air-rifle (Reign UXT, Umarex USA)
-curl ile umarex.com da proxy tarafından engelleniyor (403). Hedef modeller: Reign / Reign M2 / Reign UXT, Rotex RM8 / RM8 Varmint, Rotex R8. Sonraki turda bu URL'ler doğrudan denenmeli.
+Eklenen: 4 kayıt — Reign UXT 5.5 / 6.35, Rotex RM8 4.5 / 5.5.
+
+Eksikler:
+- umarex.com sayfaları (465.10.00, 465.10.30, 465.10.36 Varmint) WebFetch'te sürekli "CLIENT_ERROR" verdi → Rotex RM8 Varmint ve Avrupa değerleri alınamadı.
+- Reign (UXT olmayan) için resmi sayfa bulunamadı. Umarex USA 2026 katalogunda Walther PCP yok.
+- Rotex RM8 kılavuz tablosu metin olarak bozuk; 24 J/950 fps ↔ 4.5, 30 J/850 fps ↔ 5.5 eşleşmesi tablo düzeninden çıkarıldı (notes'ta belirtildi).
+- Hiçbir kaynakta namlu yiv adımı yok.

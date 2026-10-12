@@ -1,5 +1,12 @@
-# Huben (Çin) — 0 kayıt
+# Huben (huben)
+Neden: Çin üretimi yarı otomatik PCP (K1), son yıllarda yaygınlaştı.
 
-**Neden seçildi:** K1 yarı otomatik PCP tüfek ve GK1 dünyada çok satan Çin PCP'leri.
+Kaynak: https://www.hubenairguns.com/home/index/product/id/18.html (resmi)
 
-**Sonuç:** Resmi site https://www.hubenairguns.com/ (HUBEN HONG KONG CO., LIMITED; kendini üretici olarak tanıtıyor) açıldı; ürün listesi: GK1 (PCP tabanca, id/17), K1 (PCP tüfek, id/18), GK1 Mini (id/19). K1 ve GK1 ürün sayfaları WebFetch proxy'si tarafından HTTP 429 (oran sınırı) ile reddedildi ve tekrar denenmemesi istendi. Ana sayfada kalibre/ölçü verisi yok. Boş [] yazıldı; K1 için https://www.hubenairguns.com/home/index/product/id/18.html daha sonra okunmalı. (hubenairguns.co.uk / .shop / hubenairgun.shop bayi/mağaza olabileceği için kullanılmadı.)
+Eklenen: 0 kayıt.
+
+Neden: Resmi K1 sayfasında KALİBRE belirtilmiyor (şema her kayıt için kalibre ister; tahmin yasak). Sayfadaki değerler (kullanılabilir hale gelirse):
+namlu 560 mm (22"), ölçü 810 x 190 x 50 mm, net 3.4 kg, "up to 1000 fps (300 m/s)", max 350 bar (35 MPa / 5000 psi), 292 ml titanyum tüp,
+ayarlı regülatör (basınç yok), entegre susturucu; şarjör kapasitesi ve enerji yok.
+- Ürün detay sayfası /home/goods/detail/id/6.html açılamadı (fetch hatası); ana sayfada da kalibre yok.
+- GK1 / GK1 Mini resmi sitede "PCP Pistol" olarak sınıflanıyor → tüfek değil, alınmadı.
