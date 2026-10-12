@@ -5,7 +5,13 @@ param([string]$Device = "venu3")
 $ErrorActionPreference = "Continue"
 $jdk = Get-ChildItem "C:\Program Files\Eclipse Adoptium" -Directory -ErrorAction SilentlyContinue | Select-Object -First 1
 if ($jdk) { $env:JAVA_HOME = $jdk.FullName; $env:Path = "$($jdk.FullName)\bin;$env:Path" }
-$sdk = (Get-ChildItem "$env:APPDATA\Garmin\ConnectIQ\Sdks" -Directory | Sort-Object Name | Select-Object -Last 1).FullName
+# SDK Manager'da "Use this SDK" ile secilen surum (yoksa en yenisi).
+$cfg = "$env:APPDATA\Garmin\ConnectIQ\current-sdk.cfg"
+$sdk = $null
+if (Test-Path $cfg) { $sdk = (Get-Content $cfg -Raw).Trim().TrimEnd('\') }
+if (-not $sdk -or -not (Test-Path "$sdk\bin\monkeyc.bat")) {
+  $sdk = (Get-ChildItem "$env:APPDATA\Garmin\ConnectIQ\Sdks" -Directory | Sort-Object Name | Select-Object -Last 1).FullName
+}
 $key = "$env:USERPROFILE\garmin-keys\developer_key.der"
 $root = Split-Path $PSScriptRoot -Parent
 Set-Location $root
