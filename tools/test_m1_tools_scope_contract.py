@@ -14,6 +14,8 @@ ALLOWED_PACKAGE_FILES = {
     'lib/tools/adapters/met_no_weather_provider.dart',
     'lib/tools/adapters/nominatim_place_search.dart',
     'lib/tools/adapters/sensors_plus_tilt_provider.dart',
+    # Ö4: phone barometer (CMAltimeter via sensors_plus), read on demand.
+    'lib/tools/adapters/sensors_plus_pressure_sensor.dart',
     'lib/tools/adapters/camera_plugin_service.dart',
     'lib/tools/adapters/geolocator_location_provider.dart',
     'lib/tools/adapters/flutter_compass_heading_provider.dart',
