@@ -75,10 +75,7 @@ void main() {
       expect(PowderTemperature.effectiveTempC(airC: 18, ammoC: null), 18);
       expect(PowderTemperature.effectiveTempC(airC: 18, ammoC: 75), 18);
       expect(PowderTemperature.effectiveTempC(airC: 18, ammoC: -51), 18);
-      expect(
-        PowderTemperature.effectiveTempC(airC: 18, ammoC: double.nan),
-        18,
-      );
+      expect(PowderTemperature.effectiveTempC(airC: 18, ammoC: double.nan), 18);
     });
   });
 
@@ -157,12 +154,17 @@ void main() {
       await environment(tester, _firearm());
       expect(find.byKey(_ammoKey), findsOneWidget);
       expect(find.text('Mühimmat sıcaklığı'), findsOneWidget);
-      final air = tester.getTopLeft(find.byKey(BallisticsFieldKeys.temperature));
+      final air = tester.getTopLeft(
+        find.byKey(BallisticsFieldKeys.temperature),
+      );
       final ammo = tester.getTopLeft(find.byKey(_ammoKey));
       expect(ammo.dy, air.dy);
       expect(ammo.dx, greaterThan(air.dx));
       final field = tester.widget<TextField>(
-        find.descendant(of: find.byKey(_ammoKey), matching: find.byType(TextField)),
+        find.descendant(
+          of: find.byKey(_ammoKey),
+          matching: find.byType(TextField),
+        ),
       );
       expect(field.decoration?.hintText, isNull);
       expect(field.decoration?.helperText, isNull);
@@ -237,7 +239,10 @@ void main() {
       await tester.pumpWidget(const SizedBox());
       await environment(tester, p);
       final field = tester.widget<TextField>(
-        find.descendant(of: find.byKey(_ammoKey), matching: find.byType(TextField)),
+        find.descendant(
+          of: find.byKey(_ammoKey),
+          matching: find.byType(TextField),
+        ),
       );
       expect(field.controller!.text, '32');
     });

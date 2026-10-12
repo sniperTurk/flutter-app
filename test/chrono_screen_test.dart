@@ -163,7 +163,10 @@ void main() {
     await chooseInSelect(tester, 'chrono-unit', 'fps');
     await _type(tester, 'chrono-velocities', '2625 2625 2625');
     await _tapConfirmed(tester, 'chrono-apply-velocity');
-    expect(UnitSystem.mpsToFps(await _savedVelocity(store)), closeTo(2625, 0.2));
+    expect(
+      UnitSystem.mpsToFps(await _savedVelocity(store)),
+      closeTo(2625, 0.2),
+    );
   });
 
   testWidgets('a bad line is named and nothing is offered', (tester) async {

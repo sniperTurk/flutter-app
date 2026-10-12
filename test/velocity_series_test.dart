@@ -67,10 +67,7 @@ void main() {
     test('slope along the string in shot order (PCP)', () {
       final s = VelocitySeries.parse('280 279 278 277 276', fps: false);
       expect(s.slopeMpsPerShot, closeTo(-1, 1e-9));
-      expect(
-        VelocitySeries.parse('280', fps: false).slopeMpsPerShot,
-        isNull,
-      );
+      expect(VelocitySeries.parse('280', fps: false).slopeMpsPerShot, isNull);
     });
   });
 

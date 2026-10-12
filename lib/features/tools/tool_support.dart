@@ -45,8 +45,8 @@ abstract final class ToolProfileUpdate {
       // An older profile's pressure is kept as it was (no longer asked).
       pressureText: base.pressureBar?.toString(),
       mountCantMoa: base.mountCantMoa,
-      powderCoefText:
-          (powderCoef ?? base.powderTempCoefPercentPer15C)?.toString(),
+      powderCoefText: (powderCoef ?? base.powderTempCoefPercentPer15C)
+          ?.toString(),
       powderTempText: (powderReferenceC ?? base.powderTempReferenceC)
           ?.toString(),
     );

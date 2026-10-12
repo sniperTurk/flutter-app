@@ -137,7 +137,10 @@ class _ChronoScreenState extends State<ChronoScreen> {
       return (series: null, error: null);
     }
     try {
-      return (series: VelocitySeries.parse(_velocities.text, fps: fps), error: null);
+      return (
+        series: VelocitySeries.parse(_velocities.text, fps: fps),
+        error: null,
+      );
     } on VelocitySeriesFormatException catch (e) {
       return (series: null, error: e.message);
     }
