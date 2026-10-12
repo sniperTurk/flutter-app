@@ -408,6 +408,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       String v(double mps) =>
           (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
       // The class top is the shooter's own gust value, not ×1.5.
+      _weatherFilled = false;
       _windMaxAuto = false;
       windMaxCtl.text = v(b.maxMps);
       wind.text = v(b.midMps);
@@ -920,6 +921,50 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   String? _weatherStatus;
   bool _weatherFailed = false;
 
+  /// The weather button turns orange ("…alındı") after a successful fill
+  /// and offers "Sıfırla" (owner, 2026-10-12). Typing into a field it
+  /// filled turns it back: the values on screen are no longer the service's.
+  bool _weatherFilled = false;
+
+  /// The same for "Basıncı telefondan al".
+  bool _pressureFilled = false;
+
+  /// Hava Durumu starting values (as in initState), in the shown units.
+  void _resetWeather() {
+    setState(() {
+      temperature.text = metric ? '15' : '59';
+      humidity.text = '50';
+      wind.text = '0';
+      altitude.text = '0';
+      for (final c in [temperature, humidity, wind, altitude]) {
+        _userEdited.remove(c);
+      }
+      if (!_pressureFilled) {
+        pressure.text = metric ? '1013.25' : '29.92';
+        _userEdited.remove(pressure);
+      }
+      _weatherFilled = false;
+      _weatherStatus = null;
+      _weatherFailed = false;
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    if (widget.profile != null) _quietSolve();
+  }
+
+  void _resetPressure() {
+    setState(() {
+      pressure.text = metric ? '1013.25' : '29.92';
+      _userEdited.remove(pressure);
+      _pressureFilled = false;
+      _pressureStatus = null;
+      _pressureFailed = false;
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    if (widget.profile != null) _quietSolve();
+  }
+
   @override
   void didUpdateWidget(covariant BallisticsScreen old) {
     super.didUpdateWidget(old);
@@ -1105,6 +1150,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _weatherBusy = false;
       _weatherFailed = failed;
       _weatherStatus = status;
+      if (!failed) _weatherFilled = true;
     });
     // Re-solve with the new conditions (quietly: Atış says why if not).
     if (!failed && widget.profile != null) {
@@ -1147,6 +1193,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         pressure.text = _pressureText(reading.hpa);
         _userEdited.add(pressure);
         _pressureFailed = false;
+        _pressureFilled = true;
         _pressureStatus =
             'Basınç telefondan alındı: '
             '${_pressureText(reading.hpa).replaceAll('.', ',')} '
@@ -1176,6 +1223,32 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       ? hpa.toStringAsFixed(1)
       : UnitSystem.hpaToInHg(hpa).toStringAsFixed(2);
 
+  /// A fetch button alone (full width) or, once its data came, orange with
+  /// "Sıfırla" beside it (owner, 2026-10-12).
+  Widget _filledRow({
+    required bool filled,
+    required Widget button,
+    required Key resetKey,
+    required VoidCallback onReset,
+  }) {
+    if (!filled) return button;
+    return Row(
+      children: [
+        Expanded(child: button),
+        const SizedBox(width: MenzilSpace.sm),
+        Expanded(
+          child: MenzilSecondaryButton(
+            key: resetKey,
+            label: 'Sıfırla',
+            icon: Icons.restart_alt,
+            expand: true,
+            onPressed: onReset,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _weatherFillCard(BuildContext context) {
     final status = _weatherStatus;
     return Column(
@@ -1190,12 +1263,25 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             message: status,
           ),
         const SizedBox(height: MenzilSpace.xs),
-        MenzilSecondaryButton(
-          key: const Key('environment-fill-weather'),
-          label: _weatherBusy ? 'Alınıyor…' : 'Konumdan canlı hava verisi al',
-          icon: Icons.my_location,
-          expand: true,
-          onPressed: _weatherBusy ? null : () => _fillWeather(overwrite: true),
+        _filledRow(
+          filled: _weatherFilled,
+          button: MenzilSecondaryButton(
+            key: const Key('environment-fill-weather'),
+            label: _weatherBusy
+                ? 'Alınıyor…'
+                : _weatherFilled
+                ? 'Konumdan canlı hava verisi alındı'
+                : 'Konumdan canlı hava verisi al',
+            icon: _weatherFilled ? Icons.check : Icons.my_location,
+            expand: true,
+            active: _weatherFilled,
+            twoLines: _weatherFilled,
+            onPressed: _weatherBusy
+                ? null
+                : () => _fillWeather(overwrite: true),
+          ),
+          resetKey: const Key('environment-weather-reset'),
+          onReset: _resetWeather,
         ),
         const SizedBox(height: MenzilSpace.md),
       ],
@@ -2870,7 +2956,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               controller: temperature,
               label: 'Sıcaklık',
               // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => _userEdited.add(temperature),
+              onChanged: (_) {
+                _userEdited.add(temperature);
+                if (_weatherFilled) setState(() => _weatherFilled = false);
+              },
               info: EnvironmentFieldInfo.temperatureFor(firearm: _isFirearm),
               unit: metric ? '°C' : '°F',
               keyboardType: const TextInputType.numberWithOptions(
@@ -2898,7 +2987,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               controller: humidity,
               label: 'Bağıl nem',
               // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => _userEdited.add(humidity),
+              onChanged: (_) {
+                _userEdited.add(humidity);
+                if (_weatherFilled) setState(() => _weatherFilled = false);
+              },
               info: EnvironmentFieldInfo.humidity,
               unit: '%',
             ),
@@ -2929,7 +3021,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   controller: pressure,
                   label: 'İstasyon basıncı',
                   // A typed value is the user's: auto fill keeps it.
-                  onChanged: (_) => setState(() => _userEdited.add(pressure)),
+                  onChanged: (_) => setState(() {
+                    _userEdited.add(pressure);
+                    _pressureFilled = false;
+                  }),
                   info: EnvironmentFieldInfo.pressure,
                   unit: metric ? 'hPa' : 'inHg',
                 ),
@@ -2938,7 +3033,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   controller: altitude,
                   label: 'İrtifa',
                   // A typed value is the user's: auto fill keeps it.
-                  onChanged: (_) => setState(() => _userEdited.add(altitude)),
+                  onChanged: (_) => setState(() {
+                    _userEdited.add(altitude);
+                    _weatherFilled = false;
+                  }),
                   info: EnvironmentFieldInfo.altitude,
                   unit: metric ? 'm' : 'ft',
                   keyboardType: const TextInputType.numberWithOptions(
@@ -2948,12 +3046,23 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 ),
               ],
             ),
-            MenzilSecondaryButton(
-              key: const Key('environment-phone-pressure'),
-              label: _pressureBusy ? 'Okunuyor…' : 'Basıncı telefondan al',
-              icon: Icons.speed,
-              expand: true,
-              onPressed: _pressureBusy ? null : _readPhonePressure,
+            _filledRow(
+              filled: _pressureFilled,
+              button: MenzilSecondaryButton(
+                key: const Key('environment-phone-pressure'),
+                label: _pressureBusy
+                    ? 'Okunuyor…'
+                    : _pressureFilled
+                    ? 'Basınç telefondan alındı'
+                    : 'Basıncı telefondan al',
+                icon: _pressureFilled ? Icons.check : Icons.speed,
+                expand: true,
+                active: _pressureFilled,
+                twoLines: _pressureFilled,
+                onPressed: _pressureBusy ? null : _readPhonePressure,
+              ),
+              resetKey: const Key('environment-pressure-reset'),
+              onReset: _resetPressure,
             ),
             if (_pressureStatus != null) ...[
               const SizedBox(height: MenzilSpace.xs),
@@ -3022,6 +3131,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               // longer comes from the Rüzgâr gözlemi class.
               onChanged: (_) {
                 _userEdited.add(wind);
+                if (_weatherFilled) setState(() => _weatherFilled = false);
                 if (_windObservation != null) {
                   setState(() {
                     _windObservation = null;
