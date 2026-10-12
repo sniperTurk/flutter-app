@@ -21,14 +21,23 @@ class SensorsPlusPressureSensor implements PressureSensor {
 
   const SensorsPlusPressureSensor({
     this.source,
-    this.timeout = const Duration(seconds: 3),
+    this.timeout = const Duration(seconds: 5),
   });
+
+  /// hPa from a raw sample. A plugin build reporting kPa (Core Motion's own
+  /// unit, ~101) is scaled by 10; anything else must already be hPa.
+  static double? toHpa(double raw) {
+    if (!raw.isFinite) return null;
+    final hpa = raw >= minHpa / 10 && raw <= maxHpa / 10 ? raw * 10 : raw;
+    return hpa >= minHpa && hpa <= maxHpa ? hpa : null;
+  }
 
   @override
   Future<PressureReading> read() async {
     final done = Completer<PressureReading>();
     StreamSubscription<BarometerEvent>? sub;
     Timer? timer;
+    double? lastBad;
     void finish(PressureReading r) {
       if (done.isCompleted) return;
       done.complete(r);
@@ -39,17 +48,24 @@ class SensorsPlusPressureSensor implements PressureSensor {
 
     try {
       final events = source?.call() ?? barometerEventStream();
-      timer = Timer(timeout, () => finish(const PressureUnavailable()));
+      PressureUnavailable silent() => lastBad == null
+          ? const PressureUnavailable(PressureFailure.noSample)
+          : PressureUnavailable(PressureFailure.outOfRange, lastBad);
+      timer = Timer(timeout, () => finish(silent()));
       sub = events.listen(
         (e) {
-          final p = e.pressure;
-          if (p.isFinite && p >= minHpa && p <= maxHpa) {
-            finish(PressureRead(p));
+          final hpa = toHpa(e.pressure);
+          if (hpa != null) {
+            finish(PressureRead(hpa));
+          } else {
+            lastBad = e.pressure;
           }
         },
         // No barometer (older device), permission refused: "okunamadı".
         onError: (Object _) => finish(const PressureUnavailable()),
-        onDone: () => finish(const PressureUnavailable()),
+        onDone: () => finish(
+          lastBad == null ? const PressureUnavailable() : silent(),
+        ),
         cancelOnError: true,
       );
       if (done.isCompleted) unawaited(sub.cancel());

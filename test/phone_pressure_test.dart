@@ -115,6 +115,38 @@ void main() {
       },
     );
 
+    test('a kPa sample (Core Motion unit) is read as hPa', () async {
+      final sensor = SensorsPlusPressureSensor(
+        source: () => Stream.fromIterable([_event(91.24)]),
+      );
+      final r = await sensor.read();
+      expect(r, isA<PressureRead>());
+      expect((r as PressureRead).hpa, closeTo(912.4, 1e-9));
+    });
+
+    test('failures say why: no sample vs. implausible value', () async {
+      final quiet = StreamController<BarometerEvent>();
+      final silent = await SensorsPlusPressureSensor(
+        source: () => quiet.stream,
+        timeout: const Duration(milliseconds: 20),
+      ).read();
+      expect((silent as PressureUnavailable).reason, PressureFailure.noSample);
+      await quiet.close();
+
+      final bad = await SensorsPlusPressureSensor(
+        source: () => Stream.fromIterable([_event(5000)]),
+      ).read();
+      expect((bad as PressureUnavailable).reason, PressureFailure.outOfRange);
+      expect(bad.lastValue, 5000);
+
+      final err = await SensorsPlusPressureSensor(
+        source: () => Stream<BarometerEvent>.error(
+          PlatformException(code: 'UNAVAILABLE'),
+        ),
+      ).read();
+      expect((err as PressureUnavailable).reason, PressureFailure.noSensor);
+    });
+
     test('plugin missing (simulator, tests) is "unavailable"', () async {
       final sensor = SensorsPlusPressureSensor(
         source: () => throw MissingPluginException('no barometer'),
