@@ -113,6 +113,28 @@ void main() {
     expect(cx.bc, 0.44);
     expect(cx.bcFromBullet, isTrue);
     expect(cx.note, isNull);
+    // BC completion round 3 (2026-10-12): Hornady V-MAX for a Black Hills
+    // load (catalog unlabelled -> G1 note) and an Aguila G1-labelled sheet.
+    final vmax = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Black Hills' &&
+          a.name.contains('50 gr Hornady V-MAX') &&
+          a.cartridge == '.223 Rem',
+    );
+    expect(vmax.bc, 0.242);
+    expect(vmax.model, BallisticModel.g1);
+    expect(vmax.bcFromBullet, isTrue);
+    expect(vmax.note, contains('G1 kabul edildi'));
+    final aguila = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Aguila' &&
+          a.cartridge == '.30-30 Win' &&
+          a.name.contains('150 Grain Round Nose'),
+    );
+    expect(aguila.bc, 0.186);
+    expect(aguila.model, BallisticModel.g1);
+    expect(aguila.bcFromBullet, isFalse);
+    expect(aguila.note, isNull);
     final eld = FactoryAmmoLibrary.all.firstWhere(
       (a) =>
           a.brand == 'Hornady' &&

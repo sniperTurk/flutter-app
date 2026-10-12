@@ -72,10 +72,20 @@ class FactoryAmmoTests(unittest.TestCase):
         # Aguila Colibrí / Super Colibrí (420 / 590 fps) stay out (600-4500 fps).
         self.assertNotIn('Colibrí', AMMO)
 
-    def test_aguila_has_no_bc(self):
+    def test_aguila_bc_only_from_hunting_sheet(self):
+        # BC tamamlama 3 (2026-10-12): Aguila publishes BC (G1-labelled) only in
+        # its hunting 'Ballistic Information' PDF; 8 soft/round-nose loads carry
+        # it, every other Aguila round stays without BC.
+        with_bc = []
         for l in AMMO.splitlines():
             if "FactoryAmmo('Aguila'" in l:
-                self.assertRegex(l, r", null, null, [\d.]+, ")
+                if ', null, null, ' in l:
+                    self.assertRegex(l, r", null, null, [\d.]+, ")
+                else:
+                    self.assertIn('BallisticModel.g1', l)
+                    self.assertNotIn('Full Metal Jacket', l)
+                    with_bc.append(l)
+        self.assertEqual(len(with_bc), 8)
 
 
 class BulletLibraryTests(unittest.TestCase):
