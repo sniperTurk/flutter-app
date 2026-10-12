@@ -1129,13 +1129,16 @@ class MenzilSelect<T> extends StatefulWidget {
       : w;
 
   @override
-  State<MenzilSelect<T>> createState() => _MenzilSelectState<T>();
+  State<MenzilSelect<T>> createState() => MenzilSelectState<T>();
 }
 
 /// A [DropdownButton] in the field decoration (a form field cannot narrow
 /// its menu): the value lives here, as it did in the form field.
-class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
+class MenzilSelectState<T> extends State<MenzilSelect<T>> {
   late T? _value = widget.initialValue;
+
+  /// The value currently picked (null: "Seçiniz"); read by tests.
+  T? get value => _value;
 
   /// The box width after layout (a LayoutBuilder breaks dialogs that ask
   /// for intrinsic sizes); the menu is at most 260 pt and never wider.
@@ -1163,6 +1166,9 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
     final value = items.where((i) => i.value == _value).length == 1
         ? _value
         : null;
+    final int? selectedIndex = value == null
+        ? null
+        : items.indexWhere((i) => i.value == value);
     return Padding(
       padding: const EdgeInsets.only(bottom: MenzilSpace.md),
       child: Column(
@@ -1190,7 +1196,12 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                 isEmpty: false,
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<T>(
-                    value: value,
+                    // Always opens DOWNWARD (owner, 2026-10-12): Flutter
+                    // places the list so the selected entry covers the box,
+                    // which opened it upward for a later entry. The box
+                    // therefore shows the choice as its hint and the list
+                    // starts at its first entry.
+                    value: null,
                     // Narrower than a full-width box (owner, 2026-10-11:
                     // "sağa sola da çok açılıyor").
                     menuWidth: _boxWidth == null
@@ -1198,10 +1209,22 @@ class _MenzilSelectState<T> extends State<MenzilSelect<T>> {
                         : math.min(_boxWidth!, 260),
                     // Every list box says "Seçiniz" until something is
                     // picked (owner, 2026-10-11).
-                    hint: Text(
-                      w.hint ?? 'Seçiniz',
-                      style: TextStyle(color: c.ink2),
-                    ),
+                    hint: selectedIndex == null
+                        ? Text(
+                            w.hint ?? 'Seçiniz',
+                            style: TextStyle(color: c.ink2),
+                          )
+                        : DefaultTextStyle.merge(
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: c.ink),
+                            child: w.selectedLabels == null
+                                ? MenzilSelect._oneLine(
+                                    items[selectedIndex].child,
+                                  )
+                                : Text(w.selectedLabels![selectedIndex]),
+                          ),
                     // List entries in regular weight (owner, 2026-10-11).
                     items: [
                       for (final it in items)

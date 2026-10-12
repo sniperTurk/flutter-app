@@ -2,6 +2,7 @@
 // yiv yönü, Yiv oranı). Regülatör basıncı and Namlu uzunluğu are not asked.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 Future<void> enterRifleField(
   WidgetTester tester,
@@ -157,10 +158,11 @@ Future<void> fillScopeForm(
 
 /// The value picked in the list box under [key] (null: "Seçiniz").
 T? selectedValue<T>(WidgetTester tester, String key) => tester
-    .widget<DropdownButton<T>>(
+    .state<MenzilSelectState<T>>(
       find.descendant(
         of: find.byKey(Key(key)),
-        matching: find.byType(DropdownButton<T>),
+        matching: find.byType(MenzilSelect<T>),
+        matchRoot: true,
       ),
     )
     .value;
