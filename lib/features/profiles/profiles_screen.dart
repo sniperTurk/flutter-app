@@ -16,6 +16,7 @@ import '../../data/cartridges.dart';
 import '../../data/catalog_repository.dart';
 import '../../data/factory_ammo_library.dart';
 import '../../data/factory_powder_temperature.dart';
+import '../../data/measured_drag_lookup.dart';
 import '../../data/reticle_catalog.dart';
 import '../../data/rifle_library.dart';
 import '../../data/user_catalog.dart';
@@ -2491,9 +2492,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ammoGrain.text = n(b.grain);
       ammoBc.text = n(b.bc);
       ammoBcModel = b.model;
-      // A library bullet carries its BC, not a custom curve.
-      _customCurve = false;
-      _dragCurve = null;
+      // A library bullet carries its BC; one with a published measured
+      // Cd–Mach curve also fills that curve (owner, 2026-10-11). The BC
+      // stays filled for a switch back to G1/G7.
+      final measured = MeasuredDragLookup.forBullet(b)?.samples;
+      _customCurve = measured != null;
+      _dragCurve = measured;
       if (platform == WeaponPlatform.pcp) ammoType = b.type;
       for (var i = 0; i < 2; i++) {
         final band = i < b.bands.length ? b.bands[i] : null;
