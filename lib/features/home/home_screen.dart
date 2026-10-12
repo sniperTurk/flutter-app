@@ -466,6 +466,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Align(
                     alignment: Alignment.centerLeft,
+                    heightFactor: 1,
                     child: Text(
                       loading ? '…' : 'Profil yok',
                       maxLines: 1,

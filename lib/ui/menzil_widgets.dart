@@ -195,9 +195,13 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                         // shrinks instead of overflowing on narrow phones.
                         // Owner, 2026-10-12: every page title the same,
                         // smaller size so the profile box is not squeezed.
-                        Expanded(
+                        // Owner, 2026-10-12: no wide gap between the title and
+                        // the profile box; the title takes only its width and
+                        // the profile box the rest.
+                        Flexible(
                           child: Align(
                             alignment: Alignment.centerLeft,
+                            widthFactor: 1,
                             child: title != null
                                 ? FittedBox(
                                     fit: BoxFit.scaleDown,
@@ -220,15 +224,8 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                                 : const SizedBox.shrink(),
                           ),
                         ),
-                        const SizedBox(width: MenzilSpace.sm),
-                        // The selector is only as wide as a profile name needs
-                        // (owner, 2026-10-09: it was needlessly long).
-                        Flexible(
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 170),
-                            child: profileSelector,
-                          ),
-                        ),
+                        const SizedBox(width: MenzilSpace.md),
+                        Expanded(child: profileSelector),
                         const SizedBox(width: MenzilSpace.sm),
                         if (unitLabel != null) ...[
                           MenzilBarButton(
