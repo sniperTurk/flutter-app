@@ -179,14 +179,14 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 30.0,
 "windage_travel_mrad": 15.0,
-"reticle": null,
+"reticle": "MRAD Milling 2.0 / MRAD DEV-L 2.0",
 "parallax_min_m": null,
 "length_mm": 373.4,
 "weight_g": 878.9,
 "zero_stop": true,
 "source_url": "https://www.sigsauer.com/tango-dmr-5-30x56mm.html",
 "accessed": "2026-10-12",
-"notes": "SKU SOTD65112, SOTD65114. Retikül adı sayfada yok. Tur başına 10 MRAD. 14.7 in → mm, 31 oz → g."
+"notes": "SKU SOTD65112, SOTD65114. Retikül adı sayfada yok. Tur başına 10 MRAD. 14.7 in → mm, 31 oz → g. Retikül adı üretici sayfasından: https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-TANGO-DMR-7404355-01-REV10-WEB-FILE.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Sig Sauer",
@@ -200,14 +200,14 @@
 "click_value": 0.25,
 "elevation_travel_moa": 91.0,
 "windage_travel_moa": 52.0,
-"reticle": null,
+"reticle": "MOA Milling 2.0 / MOA DEV-L 2.0",
 "parallax_min_m": null,
 "length_mm": 373.4,
 "weight_g": 878.9,
 "zero_stop": true,
 "source_url": "https://www.sigsauer.com/tango-dmr-5-30x56mm.html",
 "accessed": "2026-10-12",
-"notes": "SKU SOTD65111, SOTD65113. Ad sonuna ' MOA' eklendi. Retikül adı yok. Tur başına 25 MOA. 14.7 in → mm, 31 oz → g."
+"notes": "SKU SOTD65111, SOTD65113. Ad sonuna ' MOA' eklendi. Retikül adı yok. Tur başına 25 MOA. 14.7 in → mm, 31 oz → g. Retikül adı üretici sayfasından: https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-TANGO-DMR-7404355-01-REV10-WEB-FILE.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Sig Sauer",
@@ -641,14 +641,14 @@
 "click_value": 0.25,
 "elevation_travel_moa": 80.0,
 "windage_travel_moa": 52.0,
-"reticle": "HELLFIRE Quadplex",
+"reticle": "Quadplex",
 "parallax_min_m": null,
 "length_mm": 294.6,
 "weight_g": 691.7,
 "zero_stop": true,
 "source_url": "https://www.sigsauer.com/whiskey4-scope-2-5-10x42mm-30mm-sfp-hellfire-quadplex-illum-reticle-capped-0-25-moa-adj-black.html",
 "accessed": "2026-10-12",
-"notes": "SKU yok (görsel sow42004). Tık: açıklamada '1/4 MOA adjustment'. Paralaks 'Variable', aralık yok → null. Tur başına 15 MOA. 11.6 in → mm, 24.4 oz → g. 'locking zero-stop elevation turret'."
+"notes": "SKU yok (görsel sow42004). Tık: açıklamada '1/4 MOA adjustment'. Paralaks 'Variable', aralık yok → null. Tur başına 15 MOA. 11.6 in → mm, 24.4 oz → g. 'locking zero-stop elevation turret'. Retikül adı üretici sayfasından: https://www.sigsauer.com/whiskey4-scope-2-5-10x42mm-30mm-sfp-hellfire-quadplex-illum-reticle-capped-0-25-moa-adj-black.html (okundu 2026-10-12)."
 },
 {
 "brand": "Sig Sauer",
@@ -830,14 +830,14 @@
 "click_value": 0.25,
 "elevation_travel_moa": 80.0,
 "windage_travel_moa": 80.0,
-"reticle": "BDC-1 Hellfire",
+"reticle": "BDC-1",
 "parallax_min_m": null,
 "length_mm": 309.9,
 "weight_g": 652.1,
 "zero_stop": true,
 "source_url": "https://www.sigsauer.com/whiskey4-3-12x44mm-exposed-zero-stop-illuminated-sfp.html",
 "accessed": "2026-10-12",
-"notes": "SKU etiketi yok (görsel sow43002). Retikül sayfadaki ad 'BDC-1 Hellfire' (aydınlatmalı BDC-1). Tık: açıklamada 'Precise and tactile 1/4 MOA adjustments'. Paralaks sayfada yok. Zero stop: 'locking zero-stop elevation turret'. Tur başına 25 MOA. Tabloda 'Illumination Settings: N/A' ama 'Illumination: Yes', pil (1) CR2032. Ağırlık aydınlatmasızla aynı (23 oz) yazıyor. 12.2 in → mm, 23 oz → g."
+"notes": "SKU etiketi yok (görsel sow43002). Retikül sayfadaki ad 'BDC-1 Hellfire' (aydınlatmalı BDC-1). Tık: açıklamada 'Precise and tactile 1/4 MOA adjustments'. Paralaks sayfada yok. Zero stop: 'locking zero-stop elevation turret'. Tur başına 25 MOA. Tabloda 'Illumination Settings: N/A' ama 'Illumination: Yes', pil (1) CR2032. Ağırlık aydınlatmasızla aynı (23 oz) yazıyor. 12.2 in → mm, 23 oz → g. Retikül adı üretici sayfasından: https://www.sigsauer.com/whiskey4-3-12x44mm-exposed-zero-stop-illuminated-sfp.html (okundu 2026-10-12)."
 },
 {
 "brand": "Sig Sauer",

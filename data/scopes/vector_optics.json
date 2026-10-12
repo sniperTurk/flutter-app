@@ -791,13 +791,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 30.0,
 "windage_travel_mrad": 26.0,
-"reticle": null,
+"reticle": "MPR-V10",
 "parallax_min_m": null,
 "length_mm": 212.0,
 "weight_g": 420.0,
 "zero_stop": null,
 "source_url": "https://www.vectoroptics.com/rifle-scopes/Veyron-Plus-10x30-Zero-Rifle-Scope-SCOM-46.html",
-"notes": "Travel \"≥\" values from the page stored as the minimum stated."
+"notes": "Travel \"≥\" values from the page stored as the minimum stated. Retikül adı üretici sayfasından: https://www.vectoroptics.com/rifle-scopes/Veyron-Plus-10x30-Zero-Rifle-Scope-SCOM-46.html (okundu 2026-10-12)."
 },
 {
 "brand": "Vector Optics",
@@ -851,13 +851,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 35.0,
 "windage_travel_mrad": 35.0,
-"reticle": null,
+"reticle": "VCO-7 MIL",
 "parallax_min_m": null,
 "length_mm": 280.0,
 "weight_g": 519.0,
 "zero_stop": null,
 "source_url": "https://www.vectoroptics.com/rifle-scopes/Continental-x10-1-10x24i-ED-Fiber-Rifle-Scope-SCOC-47.html",
-"notes": "Travel \"≥\" values from the page stored as the minimum stated."
+"notes": "Travel \"≥\" values from the page stored as the minimum stated. Retikül adı üretici sayfasından: https://www.vectoroptics.com/rifle-scopes/Continental-x10-1-10x24i-ED-Fiber-Rifle-Scope-SCOC-47.html (okundu 2026-10-12)."
 },
 {
 "brand": "Vector Optics",

@@ -31,13 +31,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 15.0,
 "windage_travel_mrad": 15.0,
-"reticle": null,
+"reticle": "4-Dot",
 "parallax_min_m": null,
 "length_mm": 323.0,
 "weight_g": 538.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/hunt/riflescopes/helia-1_6-8x42i",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/hunt/riflescopes/helia-1_6-8x42i (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -51,13 +51,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 16.0,
 "windage_travel_mrad": 16.0,
-"reticle": null,
+"reticle": "4-Dot",
 "parallax_min_m": null,
 "length_mm": 341.0,
 "weight_g": 585.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/hunt/riflescopes/helia-2-10x50i",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/hunt/riflescopes/helia-2-10x50i (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -71,13 +71,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 19.0,
 "windage_travel_mrad": 19.0,
-"reticle": null,
+"reticle": "4-Dot / G4B",
 "parallax_min_m": null,
 "length_mm": 359.0,
 "weight_g": 680.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/hunt/riflescopes/helia-2_4-12x56i",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/hunt/riflescopes/helia-2_4-12x56i (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -91,13 +91,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 19.0,
 "windage_travel_mrad": 19.0,
-"reticle": null,
+"reticle": "4-Dot / G4B",
 "parallax_min_m": null,
 "length_mm": 383.0,
 "weight_g": 660.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/hunt/riflescopes/helia-3-5-18x50i",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/hunt/riflescopes/helia-3-5-18x50i (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -111,13 +111,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 11.0,
 "windage_travel_mrad": 11.0,
-"reticle": null,
+"reticle": "4-Dot / G4B",
 "parallax_min_m": null,
 "length_mm": 351.0,
 "weight_g": 485.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/hunt/riflescopes/helia3-4-12x44i",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/hunt/riflescopes/helia3-4-12x44i (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -131,13 +131,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 13.0,
 "windage_travel_mrad": 13.0,
-"reticle": null,
+"reticle": "4-Dot",
 "parallax_min_m": null,
 "length_mm": 325.0,
 "weight_g": 508.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/hunt/riflescopes/helia3-3-10x50i",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/hunt/riflescopes/helia3-3-10x50i (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -151,13 +151,13 @@
 "click_value": 0.125,
 "elevation_travel_moa": 55.0,
 "windage_travel_moa": 40.0,
-"reticle": null,
+"reticle": "MOAK+",
 "parallax_min_m": null,
 "length_mm": 443.0,
 "weight_g": 1045.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/sport/riflescopes/k864",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/sport/riflescopes/k864 (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -191,13 +191,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 35.0,
 "windage_travel_mrad": 13.0,
-"reticle": null,
+"reticle": "SKMR4+ / SKMR+ / MSR2/Ki",
 "parallax_min_m": null,
 "length_mm": 360.0,
 "weight_g": 1050.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/sport/riflescopes/k328i-refined",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/sport/riflescopes/k328i-refined (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -231,13 +231,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 30.0,
 "windage_travel_mrad": 15.0,
-"reticle": null,
+"reticle": "SKMR4 / MSR2/Ki",
 "parallax_min_m": null,
 "length_mm": 313.0,
 "weight_g": 950.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/sport/riflescopes/k318i-refined",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/sport/riflescopes/k318i-refined (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -251,13 +251,13 @@
 "click_value": 0.125,
 "elevation_travel_moa": 55.0,
 "windage_travel_moa": 41.3,
-"reticle": null,
+"reticle": "MOAK",
 "parallax_min_m": null,
 "length_mm": 429.0,
 "weight_g": 890.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/sport/riflescopes/k1050-10-50x56",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/sport/riflescopes/k1050-10-50x56 (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -271,13 +271,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 24.0,
 "windage_travel_mrad": 24.0,
-"reticle": null,
+"reticle": "3GR",
 "parallax_min_m": null,
 "length_mm": 300.0,
 "weight_g": 640.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/sport/riflescopes/k18i-2_1-8x24i",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/sport/riflescopes/k18i-2_1-8x24i (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -291,13 +291,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 24.0,
 "windage_travel_mrad": 24.0,
-"reticle": null,
+"reticle": "3GR / IPSC",
 "parallax_min_m": null,
 "length_mm": 300.0,
 "weight_g": 555.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/sport/riflescopes/k18i-1-8x24i",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/sport/riflescopes/k18i-1-8x24i (okundu 2026-10-12)."
 },
 {
 "brand": "Kahles",
@@ -311,12 +311,12 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 22.0,
 "windage_travel_mrad": 22.0,
-"reticle": null,
+"reticle": "3GR / SM1 / SI1",
 "parallax_min_m": null,
 "length_mm": 278.0,
 "weight_g": 480.0,
 "zero_stop": null,
 "source_url": "https://www.kahles.at/en/sport/riflescopes/k16i-1-6x24i",
-"notes": "Kahles travel converted from m/100 m (×10 = mrad)."
+"notes": "Kahles travel converted from m/100 m (×10 = mrad). Retikül adı üretici sayfasından: https://www.kahles.at/en/sport/riflescopes/k16i-1-6x24i (okundu 2026-10-12)."
 }
 ]

@@ -231,13 +231,13 @@
 "click_value": 0.25,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": "BDC250M MUZZLELOADER",
+"reticle": "BDC 250 Muzzleloader",
 "parallax_min_m": null,
 "length_mm": 310.0,
 "weight_g": 482.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/neos-hmr-3-9x40-bdc250m-sfp-moa/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-BDC250M-Reticle-Manual.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -251,13 +251,13 @@
 "click_value": 0.25,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": "BDC250MMUZZLELOADER",
+"reticle": "BDC 250 Muzzleloader",
 "parallax_min_m": null,
 "length_mm": 274.0,
 "weight_g": 397.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/neos-hmr-2-7x32-bdc250m-sfp-moa-reticle/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-BDC250M-Reticle-Manual.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -271,13 +271,13 @@
 "click_value": 0.25,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": "BDC22",
+"reticle": "BDC 22 Rimfire",
 "parallax_min_m": null,
 "length_mm": 310.0,
 "weight_g": 482.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/neos-hmr-3-9x40-bdc22-sfp-moa/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/storage/2026/03/Neos-HMR-BDC22-Rimfire-Reticle-Manual.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -311,13 +311,13 @@
 "click_value": 0.25,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": "TURRET CENTER-X",
+"reticle": "Center-X",
 "parallax_min_m": null,
 "length_mm": 310.0,
 "weight_g": 482.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/neos-hmr-turret-3-9x40-center-x-sfp-moa/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-Center-X-Reticle-Manual.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -351,13 +351,13 @@
 "click_value": 0.25,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": "BDC250S SHOTGUN",
+"reticle": "BDC 250 Shotgun",
 "parallax_min_m": null,
 "length_mm": 310.0,
 "weight_g": 482.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/neos-hmr-3-9x40-bdc250s-shotgun-sfp-ir-moa/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-BDC250S-IR-Reticle-Manual.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -471,13 +471,13 @@
 "click_value": 0.25,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": "BDC22",
+"reticle": "BDC 22 Rimfire",
 "parallax_min_m": null,
 "length_mm": 307.0,
 "weight_g": 513.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/neos-hmr-4-12x40-bdc22-sfp-moa/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/storage/2026/03/Neos-HMR-BDC22-Rimfire-Reticle-Manual.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -491,13 +491,13 @@
 "click_value": 0.25,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": "TURRET CENTER-X",
+"reticle": "Center-X",
 "parallax_min_m": null,
 "length_mm": 307.0,
 "weight_g": 513.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/neos-hmr-4-12x40-turret-center-x-sfp-moa/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-Center-X-Reticle-Manual.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -891,13 +891,13 @@
 "click_value": 0.25,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": null,
+"reticle": "APLR11",
 "parallax_min_m": null,
 "length_mm": 358.0,
 "weight_g": 859.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/argos-btr-gen3-6-24x50-aplr11-ffp-ir-moa/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/storage/2025/01/214074-APLR11-FFP-IR-MOA-Reticle-Manual-Web.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -931,13 +931,13 @@
 "click_value": 0.125,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": null,
+"reticle": "ABLR4",
 "parallax_min_m": null,
 "length_mm": 414.0,
 "weight_g": 902.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/argos-btr-gen3-10-40x56-ablr4-sfp-moa/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/storage/2024/10/214078-ABLR4-SFP-MOA-Reticle-Manual-Argos-BTR-GEN3.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -951,13 +951,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": null,
 "windage_travel_mrad": null,
-"reticle": null,
+"reticle": "APRS11",
 "parallax_min_m": null,
 "length_mm": 394.0,
 "weight_g": 907.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/argos-btr-gen3-8-34x56-aprs11-ffp-ir-mil/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/storage/2025/01/214077-APRS11-FFP-IR-MIL-Reticle-Manual-Web.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -991,13 +991,13 @@
 "click_value": 0.1,
 "elevation_travel_mrad": null,
 "windage_travel_mrad": null,
-"reticle": null,
+"reticle": "APRS11",
 "parallax_min_m": null,
 "length_mm": 358.0,
 "weight_g": 859.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/argos-btr-gen3-6-24x50-aprs11-ffp-ir-mil/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/wp-content/uploads/2025/01/214075-APRS11-FFP-IR-MIL-Reticle-Manual-Web.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -1391,13 +1391,13 @@
 "click_value": 0.25,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": "BDC 250",
+"reticle": "BDC 250 Muzzleloader",
 "parallax_min_m": null,
 "length_mm": 315.0,
 "weight_g": 482.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/neos-3-9x40-bdc-250-ir-muzzle-loader/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/wp-content/uploads/2023/01/Athlon-BDC-250-Muzzleloader-IR-Reticle-Manual-Neos.pdf (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",
@@ -1811,13 +1811,13 @@
 "click_value": 0.5,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
-"reticle": null,
+"reticle": "ATSR2",
 "parallax_min_m": null,
 "length_mm": 264.0,
 "weight_g": 610.0,
 "zero_stop": null,
 "source_url": "https://athlonoptics.com/product/cronus-btr-gen2-uhd-1-6x24-atsr2-sfp-ir-moa/",
-"notes": "Athlon pages publish no adjustment travel."
+"notes": "Athlon pages publish no adjustment travel. Retikül adı üretici sayfasından: https://athlonoptics.com/product/cronus-btr-gen2-uhd-1-6x24-atsr2-sfp-ir-moa/ (okundu 2026-10-12)."
 },
 {
 "brand": "Athlon",

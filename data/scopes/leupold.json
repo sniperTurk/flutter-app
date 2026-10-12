@@ -326,14 +326,14 @@
 "click_value": 0.1,
 "elevation_travel_mrad": 24.7,
 "windage_travel_mrad": 24.7,
-"reticle": "Illum. TMR",
+"reticle": "TMR Illum. SFP",
 "parallax_min_m": null,
 "length_mm": 317.5,
 "weight_g": 595.4,
 "zero_stop": null,
 "source_url": "https://www.leupold.com/mark-4hd-2-5-10x42-m5c3-sfp-illum-tmr-riflescope",
 "accessed": "2026-10-12",
-"notes": "Part # 183737; spec 85 MOA / 24.7 MIL; Sabit paralaks (Fixed Parallax-Free Distance 150 yd; sayfa metni 25 yd side focus dese de spec tablosunda Precision Side Focus: No) → parallax_min_m null; sayfada Zero Stop ifadesi bulunmadı (yalnız ZeroLock) → zero_stop null; Dönüşüm: uzunluk 12.5 in x25.4, ağırlık 21 oz x28.35"
+"notes": "Part # 183737; spec 85 MOA / 24.7 MIL; Sabit paralaks (Fixed Parallax-Free Distance 150 yd; sayfa metni 25 yd side focus dese de spec tablosunda Precision Side Focus: No) → parallax_min_m null; sayfada Zero Stop ifadesi bulunmadı (yalnız ZeroLock) → zero_stop null; Dönüşüm: uzunluk 12.5 in x25.4, ağırlık 21 oz x28.35 Retikül adı üretici sayfasından: https://www.leupold.com/mark-4hd-2-5-10x42-m5c3-sfp-illum-tmr-riflescope (okundu 2026-10-12)."
 },
 {
 "brand": "Leupold",
