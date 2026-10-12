@@ -76,26 +76,25 @@ Future<void> chooseInSelect(
   // The menu opens at the selected item, so the wanted one may be above it
   // (a smaller büyütme) or below it: try down first, then up.
   final item = find.text(label);
+  // The open menu's own item, not the closed field that shows the same text
+  // under the menu (a new first brand, Aguila, sat on top of it).
+  final inMenu = find.descendant(
+    of: find.byWidgetPredicate(
+      (w) => w.runtimeType.toString().startsWith('_DropdownMenuItemButton'),
+    ),
+    matching: item,
+  );
   for (final dy in const [-300.0, 300.0]) {
-    for (var i = 0; i < 20 && item.evaluate().isEmpty; i++) {
+    for (var i = 0; i < 20 && inMenu.evaluate().isEmpty; i++) {
       await tester.drag(find.byType(Scrollable).last, Offset(0, dy));
       await tester.pumpAndSettle();
     }
   }
-  if (item.evaluate().isEmpty) {
-    final seen = find
-        .byType(Text)
-        .evaluate()
-        .map((e) => (e.widget as Text).data)
-        .whereType<String>()
-        .where((t) => t.contains(' gr') || t.contains('Hornady'))
-        .join('|');
-    fail('chooseInSelect($key): "$label" not found; gr texts: $seen');
-  }
+  final target = inMenu.evaluate().isEmpty ? item.last : inMenu.last;
   // Built but below the menu's visible part: scroll it into view.
-  await tester.ensureVisible(item.last);
+  await tester.ensureVisible(target);
   await tester.pumpAndSettle();
-  await tester.tap(item.last);
+  await tester.tap(target);
   await tester.pumpAndSettle();
 }
 
