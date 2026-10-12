@@ -62,6 +62,9 @@ class _MapDistanceState extends State<MapDistanceScreen> {
   bool _searching = false;
   String? _searchMessage;
 
+  /// A satellite tile failed to download (usually: no internet).
+  bool _tilesFailed = false;
+
   static const _turkey = LatLng(39.0, 35.0);
 
   @override
@@ -137,7 +140,25 @@ class _MapDistanceState extends State<MapDistanceScreen> {
         _searching = false;
         _searchMessage = e.message;
       });
+    } catch (_) {
+      // Never leave the search spinning with the button locked.
+      if (!mounted) return;
+      setState(() {
+        _searching = false;
+        _searchMessage =
+            'Yer aranamadı. Bağlantıyı kontrol edip tekrar deneyin.';
+      });
     }
+  }
+
+  void _onTileError(TileImage tile, Object error, StackTrace? stackTrace) {
+    if (_tilesFailed) return;
+    _tilesFailed = true;
+    // Tile errors can arrive while the map is building: redraw after it.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() {});
+    });
+    WidgetsBinding.instance.scheduleFrame();
   }
 
   void _openResult(PlaceResult r) {
@@ -478,6 +499,7 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                         // zoom levels stretch the zoom-17 tiles instead of showing gaps.
                         maxNativeZoom: 17,
                         tileProvider: widget.tileProvider,
+                        errorTileCallback: _onTileError,
                       ),
                       if (_shooter != null && _target != null)
                         PolylineLayer(
@@ -672,6 +694,13 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                       tone: MenzilNoticeTone.warning,
                       message:
                           'Uygulama atış hesabını en fazla 3000 m için yapar; bu mesafe sınırı aşıyor.',
+                    ),
+                  if (_tilesFailed)
+                    const MenzilNotice(
+                      key: Key('map-offline'),
+                      tone: MenzilNoticeTone.warning,
+                      message:
+                          'Harita yüklenemedi; internet yok olabilir. Mesafeyi elle de girebilirsiniz.',
                     ),
                   if (_message != null)
                     MenzilNotice(

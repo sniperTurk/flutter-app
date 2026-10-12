@@ -86,6 +86,13 @@ class MetNoWeatherProvider implements WeatherProvider {
         WeatherFailureKind.offline,
         'İnternet bağlantısı yok.',
       );
+    } on IOException {
+      // TLS/handshake errors (e.g. a Wi-Fi login page) and other dart:io
+      // errors are not wrapped by package:http; they mean "no internet" too.
+      throw const WeatherFailure(
+        WeatherFailureKind.offline,
+        'İnternet bağlantısı yok.',
+      );
     }
 
     if (response.statusCode == 304 && cached != null) {

@@ -82,6 +82,13 @@ class NominatimPlaceSearch implements PlaceSearch {
         PlaceSearchFailureKind.offline,
         'İnternet bağlantısı yok.',
       );
+    } on IOException {
+      // TLS/handshake errors (e.g. a Wi-Fi login page) and other dart:io
+      // errors are not wrapped by package:http; they mean "no internet" too.
+      throw const PlaceSearchFailure(
+        PlaceSearchFailureKind.offline,
+        'İnternet bağlantısı yok.',
+      );
     }
     if (response.statusCode != 200) {
       throw PlaceSearchFailure(
