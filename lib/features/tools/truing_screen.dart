@@ -422,8 +422,7 @@ class _TruingScreenState extends State<TruingScreen> {
     if (!mounted) return;
     final changes = [
       for (final b in r.bands)
-        if (b.fitted)
-          '${b.label}: ${_signedPercent(b.scale)} %',
+        if (b.fitted) '${b.label}: ${_signedPercent(b.scale)} %',
     ].join('\n');
     final ok = await showDialog<bool>(
       context: context,
@@ -621,13 +620,13 @@ class _TruingScreenState extends State<TruingScreen> {
                   'özel sürüklenme eğrisini bulur. Hız değiştirilmez.',
             )
           else
-          MenzilNotice(
-            message:
-                'Sıfır mesafesinden uzak, bilinen bir mesafede grup atın. '
-                'Grubu ortaya getiren gerçek düzeltmeyi girin; uygulama, '
-                'hesabın bu sonuca uyması için gereken '
-                '${_trueBc ? 'balistik katsayıyı bulur. Namlu çıkış hızı değiştirilmez.' : 'namlu çıkış hızını bulur. Balistik katsayı değiştirilmez.'}',
-          ),
+            MenzilNotice(
+              message:
+                  'Sıfır mesafesinden uzak, bilinen bir mesafede grup atın. '
+                  'Grubu ortaya getiren gerçek düzeltmeyi girin; uygulama, '
+                  'hesabın bu sonuca uyması için gereken '
+                  '${_trueBc ? 'balistik katsayıyı bulur. Namlu çıkış hızı değiştirilmez.' : 'namlu çıkış hızını bulur. Balistik katsayı değiştirilmez.'}',
+            ),
           if (_loading)
             const Padding(
               padding: EdgeInsets.all(MenzilSpace.lg),
@@ -728,28 +727,28 @@ class _TruingScreenState extends State<TruingScreen> {
                     }),
                   ),
               ] else
-              MenzilFieldGrid(
-                children: [
-                  MenzilInput(
-                    key: const Key('truing-range'),
-                    controller: _range,
-                    label: 'Mesafe',
-                    unit: p.distanceUnit.symbol,
-                    info: TruingFieldInfo.range,
-                  ),
-                  MenzilInput(
-                    key: const Key('truing-observed'),
-                    controller: _observed,
-                    label: 'Gerçek düzeltme',
-                    unit: p.angularUnit.label,
-                    info: TruingFieldInfo.observed,
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                      signed: true,
+                MenzilFieldGrid(
+                  children: [
+                    MenzilInput(
+                      key: const Key('truing-range'),
+                      controller: _range,
+                      label: 'Mesafe',
+                      unit: p.distanceUnit.symbol,
+                      info: TruingFieldInfo.range,
                     ),
-                  ),
-                ],
-              ),
+                    MenzilInput(
+                      key: const Key('truing-observed'),
+                      controller: _observed,
+                      label: 'Gerçek düzeltme',
+                      unit: p.angularUnit.label,
+                      info: TruingFieldInfo.observed,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                        signed: true,
+                      ),
+                    ),
+                  ],
+                ),
               const MenzilSectionHeader(
                 '2 · Atış anındaki hava',
                 padding: EdgeInsets.only(bottom: MenzilSpace.sm),

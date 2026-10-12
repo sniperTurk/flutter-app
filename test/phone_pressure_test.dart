@@ -103,14 +103,17 @@ void main() {
       await controller.close();
     });
 
-    test('no barometer: a stream error is "unavailable", not a crash', () async {
-      final sensor = SensorsPlusPressureSensor(
-        source: () => Stream<BarometerEvent>.error(
-          PlatformException(code: 'UNAVAILABLE'),
-        ),
-      );
-      expect(await sensor.read(), isA<PressureUnavailable>());
-    });
+    test(
+      'no barometer: a stream error is "unavailable", not a crash',
+      () async {
+        final sensor = SensorsPlusPressureSensor(
+          source: () => Stream<BarometerEvent>.error(
+            PlatformException(code: 'UNAVAILABLE'),
+          ),
+        );
+        expect(await sensor.read(), isA<PressureUnavailable>());
+      },
+    );
 
     test('plugin missing (simulator, tests) is "unavailable"', () async {
       final sensor = SensorsPlusPressureSensor(
@@ -129,12 +132,15 @@ void main() {
       await controller.close();
     });
 
-    test('a stream that ends without a valid sample is "unavailable"', () async {
-      final sensor = SensorsPlusPressureSensor(
-        source: () => Stream.fromIterable([_event(0), _event(1500)]),
-      );
-      expect(await sensor.read(), isA<PressureUnavailable>());
-    });
+    test(
+      'a stream that ends without a valid sample is "unavailable"',
+      () async {
+        final sensor = SensorsPlusPressureSensor(
+          source: () => Stream.fromIterable([_event(0), _event(1500)]),
+        );
+        expect(await sensor.read(), isA<PressureUnavailable>());
+      },
+    );
   });
 
   group('Hava Durumu: Basıncı telefondan al', () {

@@ -117,9 +117,9 @@ void main() {
     );
     // Before: the published G7 BC misses the far hit by more than a click.
     expect(
-      r.fits.map((f) => (f.observedMrad - f.beforeMrad).abs()).reduce(
-        (a, b) => a > b ? a : b,
-      ),
+      r.fits
+          .map((f) => (f.observedMrad - f.beforeMrad).abs())
+          .reduce((a, b) => a > b ? a : b),
       greaterThan(0.1),
     );
     expect(r.maxResidualAfterMrad, lessThan(0.03));
@@ -148,10 +148,13 @@ void main() {
   test('overfitting guard: 3 ranges fit at most 2 bands', () {
     final r = DragBandTruing.solve(
       base: _t1(),
-      observations: _observe(const [400, 700, 1000], [
-        for (final c in _corrections(_t1(ranges: const [400, 700, 1000])))
-          c + 0.05,
-      ]),
+      observations: _observe(
+        const [400, 700, 1000],
+        [
+          for (final c in _corrections(_t1(ranges: const [400, 700, 1000])))
+            c + 0.05,
+        ],
+      ),
       sectionalDensity: _sd,
     );
     expect(r.bands.where((b) => b.fitted).length, lessThanOrEqualTo(2));
@@ -215,10 +218,13 @@ void main() {
         DragTruingRejection.notSensitive,
         () => DragBandTruing.solve(
           base: _t1(),
-          observations: _observe(const [150, 200, 250], [
-            for (final c in _corrections(_t1(ranges: const [150, 200, 250])))
-              c,
-          ]),
+          observations: _observe(
+            const [150, 200, 250],
+            [
+              for (final c in _corrections(_t1(ranges: const [150, 200, 250])))
+                c,
+            ],
+          ),
           sectionalDensity: _sd,
         ),
       );

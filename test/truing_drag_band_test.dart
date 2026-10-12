@@ -146,9 +146,7 @@ void main() {
     expect(find.byKey(const Key('truing-range')), findsNothing);
   });
 
-  testWidgets('Mesafe ekle adds rows up to 6, then disappears', (
-    tester,
-  ) async {
+  testWidgets('Mesafe ekle adds rows up to 6, then disappears', (tester) async {
     await _pump(tester);
     await _chooseDragMode(tester);
     for (var n = 4; n <= 6; n++) {
@@ -222,7 +220,9 @@ void main() {
     expect(entry.containsKey('bcBands'), isFalse);
   });
 
-  testWidgets('a record missing from the personal store is never changed', (tester) async {
+  testWidgets('a record missing from the personal store is never changed', (
+    tester,
+  ) async {
     // Same ammunition, but not in the personal store: catalog-like.
     CatalogRepository.installUserCatalog(
       UserCatalog.fromManualEntries([_rifle, _ammo]),

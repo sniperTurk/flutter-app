@@ -130,11 +130,12 @@ void _expectTable(String what, List<double> actual, List<double> expected) {
 void main() {
   group('Bölüm 2.1 — ateşli tüfek (300/600/800/1000 m, cm)', () {
     test('T1 hız +1 m/s: yukarı, tablo/10 (2/11/24/46 → 0,2/1,1/2,4/4,6)', () {
-      _expectTable(
-        'T1 hız +1',
-        _verticalCm(_t1.input(), _t1.input(mps: 791)),
-        [0.2, 1.1, 2.4, 4.6],
-      );
+      _expectTable('T1 hız +1', _verticalCm(_t1.input(), _t1.input(mps: 791)), [
+        0.2,
+        1.1,
+        2.4,
+        4.6,
+      ]);
     });
     test('T1 hız +10 m/s: yukarı 2/11/24/46', () {
       _expectTable(
@@ -225,11 +226,12 @@ void main() {
       );
     });
     test('P1 hız +1 m/s: yukarı, tablo/10', () {
-      _expectTable(
-        'P1 hız +1',
-        _verticalCm(_p1.input(), _p1.input(mps: 276)),
-        [0.04, 0.12, 0.28, 0.53],
-      );
+      _expectTable('P1 hız +1', _verticalCm(_p1.input(), _p1.input(mps: 276)), [
+        0.04,
+        0.12,
+        0.28,
+        0.53,
+      ]);
     });
     test('P1 BC −%10: aşağı −0,1/−0,4/−1,4/−3,8', () {
       _expectTable(

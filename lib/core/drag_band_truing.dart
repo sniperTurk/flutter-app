@@ -288,8 +288,7 @@ abstract final class DragBandTruing {
     }
     double strength(int j) =>
         columns[j]!.map((d) => d.abs()).reduce(math.max) * sensitivityStep;
-    double norm(int j) =>
-        math.sqrt(columns[j]!.fold(0.0, (s, d) => s + d * d));
+    double norm(int j) => math.sqrt(columns[j]!.fold(0.0, (s, d) => s + d * d));
     final candidates =
         columns.keys.where((j) => strength(j) >= minSensitivityMrad).toList()
           ..sort((a, b) => norm(b).compareTo(norm(a)));
