@@ -5078,7 +5078,13 @@ class EnvironmentCarry {
   bool _weatherFilled = false;
   bool _pressureFilled = false;
 
+  /// The profile the snapshot came from: Rüzgâr yönü depends on where the
+  /// shooter faces, so it never moves to another (or a new) profile (owner,
+  /// 2026-10-13: "rüzgâr yönü kurulu gelmemesi lazım").
+  String? _profileId;
+
   void _save(_BallisticsScreenState s) {
+    _profileId = s.widget.profile?.id;
     _weatherFilled = s._weatherFilled;
     _pressureFilled = s._pressureFilled;
     bool blank(TextEditingController c) => c.text.trim().isEmpty;
@@ -5123,6 +5129,8 @@ class EnvironmentCarry {
   void _apply(_BallisticsScreenState s) {
     final si = _si;
     if (si == null) return;
+    final sameProfile =
+        _profileId != null && _profileId == s.widget.profile?.id;
     s._weatherFilled = _weatherFilled;
     s._pressureFilled = _pressureFilled;
     String f(double v) => v == v.roundToDouble()
@@ -5141,13 +5149,16 @@ class EnvironmentCarry {
         value.text = '';
         continue;
       }
+      if (key == 'windDirection' && !sameProfile) continue;
       final v = si[key];
       if (v == null) continue;
       value.text = f(v);
       if (_edited.contains(key)) s._userEdited.add(value);
     }
     final wd = si['windDirection'];
-    if (wd != null) s.windHour.text = '${WindClock.fromDegrees(wd)}';
+    if (wd != null && sameProfile) {
+      s.windHour.text = '${WindClock.fromDegrees(wd)}';
+    }
   }
 }
 
