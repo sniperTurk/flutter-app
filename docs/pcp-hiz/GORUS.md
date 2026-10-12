@@ -327,3 +327,81 @@ kullanılacağına sahibi karar vermeli.
 
 Kullanılmayan: Pyramyd Air blogu "about-pcps-and-tuning-part-one" (bayi
 blogu; kaynak kuralı dışında).
+
+## 10. #178 (feat/pcp-basinc) incelemesi
+
+İncelenen: #178 başı `9eb0dc4`. Yalnız okundu, kod değiştirilmedi.
+
+### Uygun olanlar
+
+- Temel yaklaşım bu görüşle aynı: formül ve varsayılan yok; hız
+  kullanıcının kronograf ölçümünden (`PcpPressure.interpolate`) geliyor;
+  ölçüm yoksa profildeki hız kullanılıyor (bölüm 2.3, [K5]).
+- Regülatörlü tüfekte tüp ≥ regülatör → profildeki hız; altına inince uyarı
+  ([K1]).
+- Boş regülatör kutusu = regülatörsüz; ayrı aç/kapa yok. `pressureBar` aynı
+  anahtarla regülatör basıncı olarak kalıyor; eski profiller okunuyor.
+- Ateşli tüfek: alanlar yalnız `platform == pcp` iken var, bütünlük kuralı
+  ateşli profilde PCP verisini reddediyor, ateşli çözümün değişmediğini
+  gösteren UI testi var. Sıfır, profildeki hızla çözülüyor (`vZero`).
+
+### Düzeltilmesi önerilenler (önem sırasıyla)
+
+1. **Ölçüm aralığı dışında uç değer, uyarısız.**
+   `PcpPressure.interpolate` en düşük ölçümün altında en düşük ölçümün hızını
+   döndürüyor. Regülatörsüz tüfekte basınç düşmeye devam ettikçe hız da düşer
+   ([K2, s. 4]). Uygulama ise ölçülmemiş bir hızı varsayıyor: hız olduğundan
+   yüksek alınıyor ve atış sessizce aşağı vuruyor. Bu, "uydurma yok"
+   ilkesiyle çelişiyor.
+   Öneri: aralık dışına uzatma yapılmasın. Profildeki hız kullanılsın ve
+   "ölçtüğünüz aralığın dışında" uyarısı gösterilsin (bölüm 6.1
+   OUTSIDE_CURVE). En azından uç değer kullanılırken uyarı çıkmalı.
+2. **Regülatör altında eğrinin üst ucu bağlanmamış.**
+   `velocity()` regülatör altında yalnız tablo noktalarını kullanıyor.
+   Örnek: regülatör 150 bar, profil hızı 900 fps, tablo 120→860 ve
+   100→820, tüp 140. Uç değer kuralıyla sonuç 860 fps; oysa 140 bar,
+   150 bar (900) ile 120 bar (860) arasında kalır. Ayrıca tabloda regülatör
+   altında tek bir ölçüm varsa, `minPoints = 2` yüzünden o ölçüm hiç
+   kullanılmıyor.
+   Öneri: (regülatör basıncı, profil hızı) noktası tabloya eklensin (bölüm
+   6). Regülatör basıncında regülatör hâlâ çalışır, hız düz bölgededir
+   [K1].
+3. **Profildeki "Tüp basıncı" ile Pro'daki "Kalan tüp basıncı" karışabilir.**
+   Profildeki kutu dolum basıncı. Hesapta yalnız "kalan > dolum" uyarısında
+   ve "regülatör < tüp" doğrulamasında kullanılıyor. Etiket "Dolum
+   basıncı" olursa iki kutu karışmaz.
+   Daha yararlı seçenek: kutu "Hız ölçüm basıncı" olsun, yani profildeki
+   hızın ölçüldüğü basınç. Böylece profildeki hız regülatörsüz eğrinin bir
+   noktası olur ve tek ölçümle iki noktalı eğri kurulabilir (bölüm 5.1).
+   Sahibin kararı.
+4. **Kaynak kuralı.** `lib/core/pcp_pressure.dart` açıklaması ve PR metni
+   Pyramyd Air blogunu (bayi) gösteriyor. Yerine Hatsan kılavuzu [K2, s. 4]
+   ve patent [K6] konmalı.
+5. **Pro açıklamasındaki sayılar varsayımsız.** Metin şöyle: "Hız 10 m/s
+   düşerse 50 m'de yaklaşık 1,2 cm, 75 m'de 2,8 cm aşağı vurur". Bu sayılar
+   saçmaya, BC'ye, hıza ve sıfırlama mesafesine bağlı; metinde hangi saçma
+   için hesaplandığı yazmıyor ve PR'a göre "ana oturumun hesabı". İki seçenek
+   var: varsayımlar ⓘ içinde yazılsın (saçma, hız, sıfır), ya da sayı
+   kaldırılıp "aşağı vurursun" denilsin.
+6. **"Yaklaşıyor" uyarısı yok.** Uyarı ancak tüp regülatör altına inince
+   çıkıyor. Atıcı dolumu önceden bilsin diye regülatör basıncının biraz
+   üstünde bir uyarı önerilir. %10 bir arayüz eşiği önerisidir, hızı
+   değiştirmez (bölüm 3/5).
+7. **Hız Doğrulama ile etkileşim (iki tasarımda da açık).** Hız Doğrulama
+   tüp basıncını hesaba katmıyor. Kullanıcı tüp regülatör altındayken hızı
+   doğrularsa, düşük hız profildeki hız olarak kaydedilir; tüp dolunca hesap
+   yanlış olur.
+   Öneri: PCP'de tüp basıncı regülatör altındaysa Hız Doğrulama bunu
+   uyarsın. Ya da doğrulanan hız, profildeki hız yerine o basınçta bir
+   ölçüm noktası olarak kaydedilsin. Sahibin kararı.
+8. **Küçük:** Pro'da "Kalan tüp basıncı" tek başına bir satırda. Satırda iki
+   kutu kuralı için yanına "Bugünkü hız" çıktı kutusu konabilir (taslak 03).
+   Bugünkü "Kullanılan hız: … fps" satırı bir sonuç satırı olarak kalabilir.
+
+### Sonuç
+
+#178 doğru yönde ve bu görüşle büyük ölçüde örtüşüyor. Önerim: sıfırdan
+başlamak yerine #178 üzerinde 1, 2 ve 4 numaralı maddeler düzeltilsin. 3, 5,
+6 ve 7 numaralı maddeler sahibinin kararına sunulsun. Bu durumda
+`docs/superpowers/plans/2026-10-12-pcp-hiz.md` ayrı bir uygulama olarak
+değil, #178 için bir denetim listesi olarak kullanılmalı.
