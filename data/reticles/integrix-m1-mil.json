@@ -1,0 +1,22 @@
+{
+  "name": "M1 MRAD",
+  "brand": "Integrix",
+  "scopes": [
+    "iX6 3-18x44 M1 MRAD FFP",
+    "iX6 4.5-27x56 M1 MRAD FFP"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 12,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leapers.com/products-integrix-ix603fm1.html",
+  "notes": "FFP, cam kazıma ('ETCHED GLASS M1 MRAD RETICLE'). Sayfa: 'Your reticle features 12 Mils of holdovers broken into 0.2 Mil increments' -> hash_step=0.2, extent_v_down=12. 'The main horizontal stadia include 24 Mils of wind holds with 2 Mils of 0.1 Mil increments on both sides' -> 24 mil toplam mı her yan mı açık değil, extent_h null. Döküm tablosu (A=24, J=12, M=9 MIL vb.) harf eşlemesi görselde. Merkez nokta, büyük işaret, rakam, direk metinde yok -> null. Kaynak: https://www.leapers.com/products-integrix-ix603fm1.html (okundu 2026-10-12); https://www.leapers.com/products-integrix-ix645fm1.html (okundu 2026-10-12)"
+}

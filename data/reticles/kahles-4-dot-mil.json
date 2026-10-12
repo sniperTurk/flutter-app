@@ -1,0 +1,26 @@
+{
+  "name": "4-Dot",
+  "brand": "Kahles",
+  "scopes": [
+    "Helia 1,6-8x42i",
+    "Helia 2-10x50i",
+    "Helia 2,4-12x56i",
+    "Helia 3,5-18x50i",
+    "Helia 3 3-10x50i",
+    "Helia 3 4-12x44i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/4-Dot.pdf",
+  "notes": "Kahles retikül föyü '4-Dot' (12026003576-100, 30.06.2021). Föy yalnız A, B, C (çap), D etiketli doğrusal ölçüler verir, hepsi /100 m ve büyütmeye bağlı (ör. Helia 1,6-8: A 18cm (1,6x) / 3,5cm (8x), B 2cm / 0,4cm, C Ø9cm / Ø1,8cm, D 6m / 1,2m; Helia 2-10, 2,4-12, 3,5-18, Helia3 3-10, Helia3 4-12 sütunları da var). Odak düzlemi föyde yok; Helia sayfaları 'Focal plane: 2' (SFP). Açısal (MIL/MOA) ölçü yok; birim taret birimi: Helia taretleri 'Impact correction per click 10 mm (100 m)' -> unit=mil. Harflerin öğe eşlemesi yalnız çizimde, metinde öğe adı yok -> family ve tüm geometri null. Kaynak: https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/4-Dot.pdf (okundu 2026-10-12); https://www.kahles.at/en/hunt/riflescopes/helia-1_6-8x42i (okundu 2026-10-12); https://www.kahles.at/en/hunt/riflescopes/helia3-3-10x50i (okundu 2026-10-12)"
+}

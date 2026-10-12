@@ -1,0 +1,22 @@
+{
+  "name": "Fiber Dot Plex",
+  "brand": "Burris",
+  "scopes": [
+    "Veracity 2.5-12x42mm",
+    "Veracity 3-15x44mm"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/fiber-dot-plex",
+  "notes": "Burris 'Fiber Dot Plex' sayfası yalnız başlık ve ürün listesi (Veracity 3-15x44mm, 2.5-12x42mm); Veracity kılavuzu: Fiber Dot Plex 'Rear Focal Plane', ölçü yok. ÖLÇÜ YOK; BİRİM TARET BİRİMİ (Veracity taretleri 1/4 MOA) -> moa. family=duplex yalnız 'Plex' adından ÇIKARIM. Diğer alanlar null. Kaynak: https://www.burrisoptics.com/reticles/fiber-dot-plex (okundu 2026-10-12); https://www.burrisoptics.com/riflescopes/veracitytm-25-12x42mm (okundu 2026-10-12); https://www.burrisoptics.com/sites/default/files/content/files/2026-01/Veracity%E2%84%A2%20User%20Guide.pdf (okundu 2026-10-12)"
+}

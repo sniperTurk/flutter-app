@@ -1,5 +1,5 @@
 {
-  "name": "MOAK+ (K864)",
+  "name": "MOAK+",
   "brand": "Kahles",
   "scopes": [
     "K864"
@@ -17,5 +17,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/MOAK+_K864.pdf",
-  "notes": "Kahles retikül föyü 'MOAK+ / K864' (52020113908-100, 21.01.2026). SFP: K864 sayfası 'Focal plane: 2.'. Tablo 40x: A=1 MOA, B=0,5, C=0,09, D=0,035, E=0,5, F=0,25, G=2 MOA (8x ve 64x sütunları ayrıca var). çıkarım: nominal büyütme 40x. A–G eşlemesi yalnız çizimde -> geometri null."
+  "notes": "Kahles retikül föyü 'MOAK+ / K864' (52020113908-100, 21.01.2026). SFP: K864 sayfası 'Focal plane: 2.'. Tablo 40x: A=1 MOA, B=0,5, C=0,09, D=0,035, E=0,5, F=0,25, G=2 MOA (8x ve 64x sütunları ayrıca var). çıkarım: nominal büyütme 40x. A–G eşlemesi yalnız çizimde -> geometri null. Düzeltme (2026-10-12): ad 'MOAK+ (K864)' -> 'MOAK+'; K864 ürün sayfası retikülü 'MOAK+' olarak listeler, parantezli ad eşleştiricide 'MOAKPLUSK864' anahtarına düşüyordu. Kaynak: https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/MOAK+_K864.pdf (föy önceki turda okundu); https://www.kahles.at/en/sport/riflescopes/k864 (okundu 2026-10-12)"
 }

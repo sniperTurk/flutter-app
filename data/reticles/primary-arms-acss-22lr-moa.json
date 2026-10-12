@@ -1,0 +1,21 @@
+{
+  "name": "ACSS 22LR",
+  "brand": "Primary Arms",
+  "scopes": [
+    "Classic Series 6x32"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=249001&c=3901023&h=Tz3Qf6TFp9kDZhX67dsa4v1EkmHSIhKlokjHUiSVeTv6dLui",
+  "notes": "'PA6X32-22LR' kılavuzu ('6X Scope with the Patented ACSS® 22LR Reticle'): sıfırlama 'using the center dot at 25/50 yards' -> center_dot=true; BDC 'starts at the center dot and finishes at the 200 yard mark indicated by the number (2)'; '5 mph wind marks'; 'very fast from 0 to 100 yards and very accurate from 100 to 200 yards'; sabit 6X. Ürün sayfası spec 'Reticle Type MOA', '1/4 MOA' tık -> unit=moa. Açısal değer verilmediğinden family ve sayısal alanlar null. Kaynak: https://www.primaryarms.com/core/media/media.nl?id=249001&c=3901023&h=Tz3Qf6TFp9kDZhX67dsa4v1EkmHSIhKlokjHUiSVeTv6dLui (okundu 2026-10-12); https://www.primaryarms.com/primary-arms-6x-scope-with-the-patented-acss-22lr-reticle (okundu 2026-10-12)"
+}

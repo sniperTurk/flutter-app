@@ -1,0 +1,21 @@
+{
+  "name": "HMD-T",
+  "brand": "Nikko Stirling",
+  "scopes": [
+    "Hornet ED 10-50x60 HMD-T illuminated"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://nikkostirling.com/media/pages/products/rifle-scopes/hornet-ed/nsnc105060hmdir/f7c5bc4d56-1764599225/hornet-manual_2018-hr-nc-1.pdf",
+  "notes": "Hornet ED kılavuzu: 'uses the advanced HMD-T reticle which supports practical and well-chosen MIL subtensions set at 25x'; 'second focal plane technology'; '25x: MIL 1:1', '12.5x: MIL double', '50x: MIL half' -> unit=mil, SFP, referans 25x. Şemadaki değerler (0.025, Ø0.05, 0.2, 0.25, 0.5, .075, 1 MIL; rakamlar 1, 3, 5; etiketler A, B, C, L) öğelere metinle bağlanmadığından alanlara girilmedi -> null. Ürün sayfası: 'HMD-T reticle, based on MIL standard', '1/20 MIL Click (5mm@100m)'. Kaynak: https://nikkostirling.com/media/pages/products/rifle-scopes/hornet-ed/nsnc105060hmdir/f7c5bc4d56-1764599225/hornet-manual_2018-hr-nc-1.pdf (okundu 2026-10-12); https://nikkostirling.com/products/rifle-scopes/hornet-ed/nsnc105060hmdir (okundu 2026-10-12)"
+}

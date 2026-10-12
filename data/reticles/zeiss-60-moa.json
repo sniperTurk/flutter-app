@@ -1,0 +1,23 @@
+{
+  "name": "#60",
+  "brand": "Zeiss",
+  "scopes": [
+    "Conquest V4 3-12x56",
+    "Conquest V4 4-16x44",
+    "Conquest V4 6-24x50"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-60.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-60.pdf",
+  "notes": "MOA taretli (1/4 MOA tık) Conquest V4 dürbünleri için #60 kaydı (mevcut zeiss-60 kaydı 'mil'). Zeiss #60 föyü (10/2021, aydınlatmalı nokta, SFP) Conquest V4 tablosunu yalnız inç/100 yd ve cm/100 m olarak verir: A çizgi, B balk kalınlığı, C nokta çapı (V4: 7,1 cm / büyütme), D balk açıklığı (ör. 12x'te 46 in / 117 cm). V4 sayfası: 12x'te 100 m'de 0.55 cm örtme. Föyde MOA değeri yok; cm/inç değerleri MOA'ya ÇEVRİLMEDİ -> tüm sayısal alanlar null. Ölçü yok; birim taret birimi (MOA). center_dot=true föydeki aydınlatmalı nokta (C 'Dot Coverage') nedeniyle. Kaynak: https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-60.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-60.pdf (okundu 2026-10-12); https://www.zeiss.com/photonics-and-optics/en/hunting/products/riflescopes/conquest-v4.html (okundu 2026-10-12)"
+}

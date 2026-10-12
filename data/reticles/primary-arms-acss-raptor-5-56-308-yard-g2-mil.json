@@ -1,0 +1,21 @@
+{
+  "name": "ACSS Raptor 5.56/.308 Yard G2",
+  "brand": "Primary Arms",
+  "scopes": [
+    "Compact PLxC 1.5-12x36 FFP RDB Gen II"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=31511399&c=3901023&h=5CQ9yyxMGdirhb0FnZPn4LNfDP5FM_jQaMtR0S7XhGwVwo-y",
+  "notes": "Primary Arms 'COMPACT FIRST FOCAL PLANE' Raptor kılavuzu ('ACSS Raptor 5.56/.308 Y G2'): 'This reticle features MIL (Milliradian) stadia' -> unit=mil; 'first-focal plane reticle'; 'central chevron aiming point' ve 'illuminated outer horseshoe' (çap yok) -> center_dot=false; 1.5X'te 'extended crosshair with 10 MIL and 50 MIL subtensions'; BDC 100-800 yd, 800 yd 'the fifth large hash mark below'; dikey stadia 'spaced 1 MIL apart from the 6th to 11th MIL'; 5'10 boy / 18\" genişlik; rüzgâr 5/10 mph; hareketli hedef 3/6/9 mph. BDC işaretlerinin MIL değeri verilmediğinden family ve sayısal alanlar null. ÇELİŞKİ: ürün sayfası spec tablosu 'Reticle Type MOA' yazıyor (tık 0.1 Mil); kılavuzun açık MIL ifadesi esas alındı. Kaynak: https://www.primaryarms.com/core/media/media.nl?id=31511399&c=3901023&h=5CQ9yyxMGdirhb0FnZPn4LNfDP5FM_jQaMtR0S7XhGwVwo-y (okundu 2026-10-12); https://www.primaryarms.com/primary-arms-plxc-1-5-12x36mm-ffp-rdb-rifle-scope-illum-acss-raptor-yard-556-gen2 (okundu 2026-10-12)"
+}

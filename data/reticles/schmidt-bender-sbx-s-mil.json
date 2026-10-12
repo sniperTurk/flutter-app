@@ -1,0 +1,21 @@
+{
+  "name": "SBX-S",
+  "brand": "Schmidt & Bender",
+  "scopes": [
+    "3-18x42 Meta (1. BE) SBX-S FFP 0.1 mrad"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://assets.schmidtundbender.de/media/0c/0f/24/1790781160/S_B_Katalog_2026-V08-EN-LoRes.pdf",
+  "notes": "S&B Katalog 2026 (EN): SBX-S (1. FP), aydınlatma Luminescence Technology; 'clear, illuminated central crosshair'; 'The new SBX-S is identical to the SBX reticle except for the wind hold points.'; mesafe taretle, rüzgâr yatay işaretlerle. SBX metni: 'free-floating red dot covering only 0.065 mrad'; 'The illuminated crosshair measures 2 mrad from the center to its outer structure' -> unit=mil. ÇIKARIM: center_dot=true, floating_center=true SBX ile 'identical ... except for the wind hold points' ifadesinden. SBX'in 'Christmas-tree' tutma noktaları SBX-S'te yok -> family null (ağaç değil; ızgara düzeni verilmemiş). Aralıklar/uzanım verilmemiş -> null. Kaynak: https://assets.schmidtundbender.de/media/0c/0f/24/1790781160/S_B_Katalog_2026-V08-EN-LoRes.pdf (okundu 2026-10-12); https://www.schmidtundbender.de/3-18x42-Meta-1-BE/158-xxx-xxx-x (okundu 2026-10-12)"
+}

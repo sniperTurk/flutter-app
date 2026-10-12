@@ -1,0 +1,21 @@
+{
+  "name": "CR1",
+  "brand": "Sightmark",
+  "scopes": [
+    "Presidio 1-6x24 SFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.sightmark.com/cdn/shop/files/Presidio_Series_Manual_WEB_1.pdf",
+  "notes": "Sightmark Presidio Series kılavuzu (CR1, SM13140CR1, 1-6x24): 'The CR1 reticle is a second focal plane, minute of angle (MOA) reticle.'; 'calibrated for 5.56x45 / .223 Rem. 55gr FMJ ammo'; 'At 6x magnification, the 1 MOA aiming dot is used to engage targets from 0 to 200 yards' -> center_dot=true; holdover 600 yd'ye kadar, 300 yd için dikey çizginin ucu; 'the main horizontal sub tension is scaled in 5 MOA increments (at 6x)'; 1x'te dış halka 25 yd'de ~15 inç; 'Range estimation and holdovers must be done at 6x magnification.' Şekildeki '4', '10', '20', '6' etiketleri metinde tanımlı değil. BDC + halka deseni şema ailelerine oturmuyor -> family null; 5 MOA yatay aralık yalnız notta (ızgara olarak çizilirse dikey eksen de yanlış gösterilirdi). (Kılavuz dosyası ürün sayfasında cdn.shopify.com bağlantısıyla veriliyor; aynı dosya üreticinin kendi alan adındaki www.sightmark.com/cdn/shop/files/ yolundan okundu.) Kaynak: https://www.sightmark.com/cdn/shop/files/Presidio_Series_Manual_WEB_1.pdf (okundu 2026-10-12); https://www.sightmark.com/products/presidio-1-6x24-hdr (okundu 2026-10-12)"
+}

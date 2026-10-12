@@ -1,0 +1,24 @@
+{
+  "name": "Illum. FireDot TMR",
+  "brand": "Leupold",
+  "scopes": [
+    "Mark 4HD 1-4.5x24 M5C3 SFP",
+    "Mark 3HD 4-12x40 P5 (üretimden kalktı)",
+    "Mark 3HD 3-9x40 P5 (üretimden kalktı)",
+    "Mark 3HD 1.5-4x20 P5 (üretimden kalktı)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/fire-dot-tmr-illum/",
+  "notes": "Leupold 'FireDot TMR Illum.' sayfası (madde metni yok); ürünler: Mark 4HD 1-4.5x24 M5C3 SFP Illum. FireDot TMR, Mark 3HD P5 modelleri. Retikül listesi: 'Illuminated'. Föy 'ILLUM. FIREDOT TMR Mark 3HD': 'will measure (subtend) correctly when the riflescope is set to the highest available magnification' (SFP); ince çizgi 0.12, kalın 0.40 MIL; diğer değerler 0.30/0.40/0.50/0.72/1.00/5.00 MIL (eşlenemedi). Föy Mark 3HD için; Mark 4HD 1-4.5x24 aynı retikül adıyla listeleniyor. İşaret aralığı metinde yazılı değil -> hash_step ve family null; diğer alanlar null. Kaynak: https://www.leupold.com/reticle/fire-dot-tmr-illum/ (okundu 2026-10-12); https://www.leupold.com/media/manuals/illum_firedot_tmr.pdf (okundu 2026-10-12)"
+}

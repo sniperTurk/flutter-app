@@ -1,0 +1,23 @@
+{
+  "name": "4 Plex",
+  "brand": "Nikko Stirling",
+  "scopes": [
+    "Ultimax 2.5-10x50 4 Plex illuminated",
+    "Ultimax 3-12x56 4 Plex illuminated",
+    "Mountmaster Silver Crown 4x32 4 Plex"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://nikkostirling.com/products/rifle-scopes/ultimax/ul21050",
+  "notes": "Ultimax UL21050 sayfası: teknik tabloda retikül '4 Plex'; özellikler '4A illuminated reticles', 'Precise small center dot for accurate shooting', '¼ MOA (7mm@100m) clicks'. Ultimax kılavuzu: 'No. 4A Reticle', nokta çapı yalnız cm/100 m ('Dot Size (cm @ 100m)'). Mountmaster Silver Crown NSC432N sayfası: 4x32 retikül sütunu '4 Plex' (aydınlatmasız). family='duplex' (No. 4A / plex tipi, ölçeksiz). Ölçü yok; birim taret birimi (¼ MOA) -> 'moa'. Odak düzlemi yazılmamış. Ultimax sürümünde merkez noktası var, Mountmaster 4x32 sürümü için belirtilmemiş; kayıt ortak olduğundan center_dot null. Kaynak: https://nikkostirling.com/products/rifle-scopes/ultimax/ul21050 (okundu 2026-10-12); https://nikkostirling.com/products/rifle-scopes/ultimax/ul31256 (okundu 2026-10-12); https://nikkostirling.com/media/pages/products/rifle-scopes/ultimax/c475dc17ce-1764599224/ultimaxmanual_web.pdf (okundu 2026-10-12); https://nikkostirling.com/products/rifle-scopes/mountmaster-silver-crown/nsc432n (okundu 2026-10-12)"
+}

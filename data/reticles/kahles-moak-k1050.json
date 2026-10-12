@@ -1,5 +1,5 @@
 {
-  "name": "MOAK (K1050)",
+  "name": "MOAK",
   "brand": "Kahles",
   "scopes": [
     "K1050"
@@ -17,5 +17,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/MOAK_K1050.pdf",
-  "notes": "Kahles retikül föyü 'MOAK / K1050'. SFP: K1050 ürün sayfası 'Focal plane: 2.', 'Non-illuminated'. Tablo 40x sütunu: A=1MOA, B=0,5MOA, C=0,09MOA, D=0,035 MOA, E=0,5MOA, F=0,25MOA, G=2MOA (10x'te 4 katı, 50x'te 0,8 katı). çıkarım: nominal büyütme 40x. A–G harflerinin öğe eşlemesi yalnız çizimde -> geometri null."
+  "notes": "Kahles retikül föyü 'MOAK / K1050'. SFP: K1050 ürün sayfası 'Focal plane: 2.', 'Non-illuminated'. Tablo 40x sütunu: A=1MOA, B=0,5MOA, C=0,09MOA, D=0,035 MOA, E=0,5MOA, F=0,25MOA, G=2MOA (10x'te 4 katı, 50x'te 0,8 katı). çıkarım: nominal büyütme 40x. A–G harflerinin öğe eşlemesi yalnız çizimde -> geometri null. Düzeltme (2026-10-12): ad 'MOAK (K1050)' -> 'MOAK'; K1050 ürün sayfası retikülü 'MOAK' olarak listeler, parantezli ad eşleştiricide 'MOAKK1050' anahtarına düşüyordu. Kaynak: https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/MOAK_K1050.pdf (föy önceki turda okundu); https://www.kahles.at/en/sport/riflescopes/k1050-10-50x56 (okundu 2026-10-12)"
 }

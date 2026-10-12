@@ -140,7 +140,12 @@ void main() {
       'athlon-optics-aplr2-ffp-ir-moa',
     );
     // Another brand's reticle of the same name is not used.
-    expect(find('Mil-Dot', 'Athlon', AngularUnit.mrad), isNull);
+    expect(find('MIL-C', 'Athlon', AngularUnit.mrad), isNull);
+    // Athlon's own Mil-Dot (athlonoptics.com, retikül eşleştirme 3).
+    expect(
+      find('Mil-Dot', 'Athlon', AngularUnit.mrad)?.id,
+      'athlon-optics-mil-dot-mil',
+    );
     // A brand only leads: "Athlon CRONUS …" is Athlon, "Athlonx" is not.
     expect(find('APRS1', 'Athlon CRONUS BTR', AngularUnit.mrad), isNotNull);
     expect(find('APRS1', 'Athlonx', AngularUnit.mrad), isNull);

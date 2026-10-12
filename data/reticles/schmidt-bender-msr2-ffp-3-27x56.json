@@ -1,8 +1,14 @@
 {
-  "name": "MSR2 (3-27x56 PM II High Power)",
+  "name": "MSR2",
   "brand": "Schmidt & Bender",
   "scopes": [
-    "3-27x56 PM II High Power"
+    "3-27x56 PM II High Power",
+    "3-27x56 PM II High Power MSR2 FFP 0.05 mrad",
+    "3-20x50 PM II Ultra Short TR2ID FFP 0.1 mrad",
+    "5-20x50 PM II Ultra Short TREMOR5 FFP 0.1 mrad",
+    "5-25x56 PM II TREMOR3 FFP 0.1 mrad",
+    "5-45x56 PM II High Power MSR2 FFP 0.1 mrad",
+    "6-36x56 PM II High Performance P5FL FFP 0.1 mrad"
   ],
   "unit": "mil",
   "family": null,
@@ -17,5 +23,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://assets.schmidtundbender.de/media/02/ba/4d/1763378292/Schmidt-Bender-Datasheet-MSR2-FFP-3-27x56%20PMII-High-Power.pdf",
-  "notes": "S&B resmi retikül veri föyü: 'MSR 2', '3-27x56 PM II High Power scope type 69', 'focal plane FFP'. Kapsama tablosu (mrad): A=20, B=0.06, C=0.04, D=1, E=0.4, F=0.13, G=10, H=6, K=2, L=0.2, M=5, N=3, P=0.7; ikinci tablo D=1, R=0.1, S=0.19, T=4; U–Z (900–1300 m) ve AA–AE (400–800 m) için '100 cm' mesafe ölçme işaretleri. unit=mil föydeki 'mrad' satırından. Föydeki harf/değer tablosunun hangi retikül öğesine (bölme aralığı, çizgi kalınlığı, uzanım, kalın çubuk) ait olduğu yalnız çizimde gösteriliyor ve metin olarak okunamadı; tahmin edilmemesi için geometri alanları null. family, center_dot, floating_center metinde yok -> null."
+  "notes": "S&B resmi retikül veri föyü: 'MSR 2', '3-27x56 PM II High Power scope type 69', 'focal plane FFP'. Kapsama tablosu (mrad): A=20, B=0.06, C=0.04, D=1, E=0.4, F=0.13, G=10, H=6, K=2, L=0.2, M=5, N=3, P=0.7; ikinci tablo D=1, R=0.1, S=0.19, T=4; U–Z (900–1300 m) ve AA–AE (400–800 m) için '100 cm' mesafe ölçme işaretleri. unit=mil föydeki 'mrad' satırından. Föydeki harf/değer tablosunun hangi retikül öğesine (bölme aralığı, çizgi kalınlığı, uzanım, kalın çubuk) ait olduğu yalnız çizimde gösteriliyor ve metin olarak okunamadı; tahmin edilmemesi için geometri alanları null. family, center_dot, floating_center metinde yok -> null. DÜZELTME 2026-10-12: ad 'MSR2 (3-27x56 PM II High Power)' -> 'MSR2' (dürbün kayıtlarındaki 'MSR2' anahtarına düşmesi için); scopes, ürün sayfaları retikül seçeneklerinde MSR2'yi listeleyen dürbünlerle genişletildi (hepsi FFP, mrad tık). Geometri alanları zaten null; ölçü genellemesi yapılmadı. Kaynak: https://www.schmidtundbender.de/3-27x56-PM-II-High-Power (okundu 2026-10-12); https://www.schmidtundbender.de/3-20x50-PM-II-Ultra-Short (okundu 2026-10-12); https://www.schmidtundbender.de/5-20x50-PM-II-Ultra-Short (okundu 2026-10-12); https://www.schmidtundbender.de/5-25x56-PM-II (okundu 2026-10-12); https://www.schmidtundbender.de/5-45x56-PM-II-High-Power (okundu 2026-10-12); https://www.schmidtundbender.de/detail/1f98ef957e4e4979afcd647916c721a8 (okundu 2026-10-12)"
 }

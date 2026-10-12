@@ -1,0 +1,22 @@
+{
+  "name": "HHR",
+  "brand": "Sightron",
+  "scopes": [
+    "S1 4-12x40 G2",
+    "S1 3-9x40 G2"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://sightron.com/products/s1-3-9x40mm-g2-1",
+  "notes": "Ad: 'HHR (Hunter Holdover)'. SFP, tık '1/4 MOA'. Yazılı tarif yok ('Tried and True Hunter Holdover Reticle Design'). Tablolar: 3-9x40 'HHR Measured in MOA - 3x' 3.75 | 0.75 | 3 | 0.6 | 52.5 | 52.5 | 7.5 | 16.5; 4-12x40 sayfasında başlık hatalı olarak 'Duplex Measured in MOA - 4x' yazıyor (3.75 | 0.6 | 3 | 0.6 | 52.5 | 52.5 | 7.5 | 16.5). family/merkez null. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/s1-3-9x40mm-g2-1 (okundu 2026-10-12); https://sightron.com/products/s1-4-12x40-g2 (okundu 2026-10-12)."
+}

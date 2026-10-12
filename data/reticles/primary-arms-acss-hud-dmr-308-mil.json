@@ -1,0 +1,22 @@
+{
+  "name": "ACSS HUD DMR 308",
+  "brand": "Primary Arms",
+  "scopes": [
+    "SLx 3-18x50 FFP Gen II",
+    "SLx Compact 4-16x44 FFP"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=30121980&c=3901023&h=42_I2hV3qv_wnQxVd-_JD_m85OHjm6Ftw3QajWz5efAzjy3G",
+  "notes": "'ACSS® HUD DMR .308 RETICLE MANUAL 4-16x44': FFP ('leverages the optic's first focal plane design'); BDC (.308/.223) tablosu yard 100-1000, 'MRAD: 0 - 1.18 2.06 3.06 4.19 5.45 6.86 8.45 10.23' (MOA: 0 - 4.04 7.07 10.52 14.39 18.73 23.59 29.04 35.60); dikey menzil 36\" boy, yatay 18\" genişlik; 400-1000 yd 5/10 mph rüzgâr noktaları; hareketli hedef 3.1/6.1/8.6 mph (300-600 yd). Merkez 'chevron tip', 'bold outer horseshoe' -> center_dot=false. unit=mil: SLx Compact 4-16x44 HUD ürün sayfası spec 'Reticle Type MRAD', tık 0.1 Mil (SLx 3-18x50 Gen II HUD sayfası: 'Reticle Type BDC', 0.1 Mil). BDC değerleri ızgara/çizgi ölçeği olmadığından family ve sayısal alanlar null. Kaynak: https://www.primaryarms.com/core/media/media.nl?id=30121980&c=3901023&h=42_I2hV3qv_wnQxVd-_JD_m85OHjm6Ftw3QajWz5efAzjy3G (okundu 2026-10-12); https://www.primaryarms.com/pa-slx-compact-4-16x44mm-ffp-rifle-scope-illuminated-acss-hud-dmr-308-223-reticle (okundu 2026-10-12); https://www.primaryarms.com/primary-arms-slx-3-18x50-ffp-gen-2-rifle-scope-illuminated-hud-dmr-308-reticle (okundu 2026-10-12)"
+}

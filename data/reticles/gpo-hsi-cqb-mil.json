@@ -1,0 +1,22 @@
+{
+  "name": "HSi-CQB",
+  "brand": "GPO",
+  "scopes": [
+    "GPOTAC 1-6x24i",
+    "CENTURI 4-16x44i FFP Super Compact"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://gpo-usa.com/shop/tactical/scopes-tactical/centuri-scopes-tactical/centuri-4-16x44i-ffp-super-compact/",
+  "notes": "CENTURI 4-16x44i sayfası: 'FFP I-Control Illuminated Mil-Base Reticle', reticle 'HSi-CQB', tıklama 0.1 milrad -> unit=mil. GPOTAC 1-6x24i: 'Custom mil-spec horseshoe reticle', 'Magnifying first focal plane'. Ölçü yok -> family ve tüm ölçüler null (at nalı şekli şemadaki ailelere uymuyor). Kaynak: https://gpo-usa.com/shop/tactical/scopes-tactical/centuri-scopes-tactical/centuri-4-16x44i-ffp-super-compact/ (okundu 2026-10-12); https://gpo-usa.com/shop/tactical/scopes-tactical/gpo-tac/gpotac-1-6x24i/ (okundu 2026-10-12)"
+}

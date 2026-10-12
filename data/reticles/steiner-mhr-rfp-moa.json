@@ -1,0 +1,22 @@
+{
+  "name": "MHR (RFP)",
+  "brand": "Steiner",
+  "scopes": [
+    "H6Xi 2-12x42mm RFP",
+    "H6Xi 3-18x50mm RFP"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.steiner-optics.com/reticles/mhr-rfp-reticle",
+  "notes": "Steiner 'MHR (RFP) Reticle' sayfası: 'Designed specifically for rear focal plane scopes', 'Duplex-Style Crosshairs: Bold outer posts lead your eye quickly to the fine center aiming point', 'Subtensions on the lower vertical axis help compensate for drop', 'Horizontal hash marks allow for accurate wind calls' -> family=duplex (alt eksen/yatay işaretler şemada temsil edilmiyor; değerleri sayfada yok). H6Xi kılavuzu: 'MHR-MOA RFP RETICLE SUBTENSIONS', 'MHR-MOA REAR FOCAL PLANE SUBTENSIONS Values in MOA A B: 12X RFP 0.13 0.16; 18X RFP 0.11 0.14' -> unit=moa; A/B'nin hangi öğe olduğu metinde yok, eşlenmedi. Teknik tablo: 'Focal Plane Second', 0.25 MOA tık. Merkez 'fine center aiming point' nokta mı artı mı belirtilmemiş -> center_dot null. Kaynak: https://www.steiner-optics.com/reticles/mhr-rfp-reticle (okundu 2026-10-12); https://www.steiner-optics.com/sites/default/files/content/downloads/2025-02/INSTR-8001_H6Xi_2024_UserManual.pdf (okundu 2026-10-12)"
+}

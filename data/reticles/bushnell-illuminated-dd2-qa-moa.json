@@ -1,0 +1,21 @@
+{
+  "name": "Illuminated DD2-QA",
+  "brand": "Bushnell",
+  "scopes": [
+    "R5 1-6x24"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.bushnell.com/products/r5-1-6x24-riflescope-with-illuminated-dd2-qa",
+  "notes": "Bushnell R5 1-6x24 sayfası: 'Illuminated DD2-QA reticle is a 2 MOA based reticle with Illuminated 1 MOA center dot', '6 MOA Illuminated quadrants for quick acquisition of deer vitals and 22 MOA of total elevation drop'; 'Focal Plane: Second', 'Click Value: 0.25 MOA'. center_dot=true ('1 MOA center dot'). '2 MOA based' işaret aralığı mı açık değil -> hash_step null; '22 MOA of total elevation drop' toplam düşüş ölçeği, extent_v_down olarak yazılmadı (merkezden mi ölçüldüğü belirsiz). Kılavuz cdn.shopify.com'da (izinli değil). family ve diğer alanlar null. Kaynak: https://www.bushnell.com/products/r5-1-6x24-riflescope-with-illuminated-dd2-qa (okundu 2026-10-12)"
+}

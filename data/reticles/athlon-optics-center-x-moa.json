@@ -1,0 +1,25 @@
+{
+  "name": "Center-X",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Talos HMR",
+    "Neos HMR",
+    "Neos HMR Turret",
+    "Talos",
+    "Neos"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2026/08/Talos-HMR-Center-X-Reticle-Manual.pdf",
+  "notes": "SFP. Talos HMR, Neos ve Talos föyleri \"SUBTENSIONS IN MOA\" diyor (Neos HMR föyünde birim yazmıyor; ürün sayfaları MOA). Föy metni: \"heavy posts\" \"pointing boldly to the intersection\", \"a more traditional cross-hair\" -> family=duplex bu tanımdan. Referans büyütme: Talos HMR 3-12x50 12x, 4-16x56 16x; Neos HMR 2-7x32 7x, 3-9x40 9x, 4-12x40 12x, 6-18x50 18x; Neos 3-9x40 9x, 4-12x40 12x, 6-18x44 18x; Talos 3-12x40 12x. Kalın direk başlangıcı, çizgi/direk kalınlığı metinde yok -> null; merkez nokta yok (artı kesişimi) -> center_dot null. Etiketli değerler (A1 0.18, A2 0.7, C1 4.5, C2 9) öğelere bağlanmadığı için kullanılmadı. TURRET CENTER-X adlı Neos HMR Turret dürbünleri aynı Neos HMR Center-X föyüne bağlanıyor (scope_changes). Kaynak: https://athlonoptics.com/wp-content/uploads/2026/08/Talos-HMR-Center-X-Reticle-Manual.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-Center-X-Reticle-Manual.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2022/02/Athlon-Center-X-Reticle-Manual-Neos.pdf (okundu 2026-10-12); https://athlonoptics.com/storage/2022/02/Athlon-Center-X-Reticle-Manual-Talos.pdf (okundu 2026-10-12)"
+}

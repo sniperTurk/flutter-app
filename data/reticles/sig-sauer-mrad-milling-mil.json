@@ -1,0 +1,22 @@
+{
+  "name": "MRAD Milling",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "TANGO6 4-24X50MM",
+    "TANGO6 5-30X56MM (FFP)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/tango6-4-24x50mm.html",
+  "notes": "TANGO6 4-24x50 ürün sayfası model tablosu: SOT64112 'First' 'MRAD Milling'. TANGO6 kılavuzu teknik tablo: 3-18x44, 4-24x50, 5-30x56 için 'MRAD Milling Illuminated .1 MRAD' -> unit=mil, FFP. Retikül ölçüsü yok ('Go to sigsauer.com for detailed information on reticle subtensions'); ürün sayfasında yalnız görsel -> family ve sayısal alanlar null. Kaynak: https://www.sigsauer.com/tango6-4-24x50mm.html (okundu 2026-10-12); https://www.sigsauer.com/media/sigsauer/resources/Tango6-Manual.pdf (okundu 2026-10-12)"
+}
