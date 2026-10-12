@@ -1,21 +1,28 @@
-# Garmin Connect IQ prototipi (DERLENMEDİ)
+# Garmin Connect IQ saat uygulaması
 
 Telefondaki Atış çözümünü Garmin saatte gösteren Connect IQ "watch-app"
 (Monkey C). Balistik hesap yapmaz; yalnızca telefonun gönderdiğini gösterir.
 Saatten mesafe değiştirme isteği gönderir (yukarı/aşağı tuşları, Başlat).
 
-## Neden derlenmedi
+## Derleme ve simülatör durumu (2026-10-12)
 
-Connect IQ SDK yalnızca SDK Manager ile indirilir ve resmi sayfa şöyle der:
-"By downloading any of the following SDKs, you accept our license agreement."
-(https://developer.garmin.com/connect-iq/sdk/). İndirmek lisansı kabul etmek
-demektir; bu oturumda lisans kabul edilmedi, Garmin hesabı açılmadı. Bu
-yüzden kod hiç derlenmedi ve simülatörde çalıştırılmadı. Derleme hataları
-olabilir; ilk derlemede düzeltilmesi beklenir.
+Sahibin Windows bilgisayarında Connect IQ SDK 9.2.0 ile derlendi ve
+simülatörde fenix7'de çalıştırıldı (`tools/build-windows.ps1 -Device fenix7`,
+ardından `monkeydo build\sniperturk.prg fenix7`):
 
-Repo'daki tek otomatik kontrol `tools/test_garmin_project_contract.py`:
-manifest izinleri, uygulama kimliği biçimi, mesaj şeması alanları ve yazı
-kuralları (kalın yazı tipi yok). Monkey C sözdizimini doğrulamaz.
+- `main` (af936fd): derleme başarılı; simülatörün Phone App Message
+  özelliğiyle gönderilen örnek mesaj (aşağıda 6. madde) ekranda doğru
+  göründü, "Veri eski" uyarısı kalktı.
+- `feat/garmin-phone`: derleme başarılı; iPhone köprüsünün gönderdiği biçim
+  (`"ok":1`) kabul edildi, ekran yeni değerlerle güncellendi.
+
+Denenmedi: gerçek saat; yukarı/aşağı tuşlarıyla telefona giden mesafe
+isteği (simülatörde karşı tarafta telefon yok); manifest'teki diğer cihazlar.
+
+CI'da Connect IQ SDK yok; repo'daki otomatik kontrol yalnızca
+`tools/test_garmin_project_contract.py` (manifest izinleri, uygulama kimliği
+biçimi, mesaj şeması alanları, yazı kuralları). Monkey C sözdizimini
+doğrulamaz; saat kodu değişince Windows'ta yeniden derlenmelidir.
 
 ## Sahibinin yapması gerekenler
 
