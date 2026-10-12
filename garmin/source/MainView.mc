@@ -63,40 +63,60 @@ class MainView extends WatchUi.View {
         dc.setColor(fresh ? COLOR_CYAN : COLOR_DIM, Graphics.COLOR_TRANSPARENT);
         dc.drawText(cx, h * 27 / 100, Graphics.FONT_MEDIUM, s.range.toString() + " " + s.rangeUnit, Graphics.TEXT_JUSTIFY_CENTER);
 
+        // Dikey yerleşim yazı tipi yüksekliklerinden hesaplanır: sabit yüzdeler
+        // fenix 7'de klik rakamlarıyla açı yazısını üst üste bindiriyordu.
+        var xh = dc.getFontHeight(Graphics.FONT_XTINY);
         var lx = cx - w * 21 / 100;
         var rx = cx + w * 21 / 100;
-        column(dc, lx, h, Format.elevationLabel(s.up), s.up, true,
+        var top = h * 39 / 100;
+        var bottom = column(dc, lx, top, Format.elevationLabel(s.up), s.up, true,
                Format.angle(s.upAngle, s.unit), fresh ? COLOR_AMBER : COLOR_DIM);
-        column(dc, rx, h, Format.windageLabel(s.right), s.right, false,
+        column(dc, rx, top, Format.windageLabel(s.right), s.right, false,
                Format.angle(s.rightAngle, s.unit), fresh ? Graphics.COLOR_WHITE : COLOR_DIM);
         dc.setColor(0x2A2F35, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(cx, h * 41 / 100, cx, h * 68 / 100);
+        dc.drawLine(cx, top, cx, bottom);
+
+        var rowY = bottom + 2;
+        var minRow = h * 68 / 100;
+        if (rowY < minRow) {
+            rowY = minRow;
+        }
+        var lastRow = h * 92 / 100 - xh;
 
         if (!fresh) {
             dc.setColor(COLOR_WARN, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(cx, h * 71 / 100, Graphics.FONT_XTINY, stale, Graphics.TEXT_JUSTIFY_CENTER);
-            dc.drawText(cx, h * 78 / 100, Graphics.FONT_XTINY, "Telefonda çözümü açın", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(cx, rowY, Graphics.FONT_XTINY, stale, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(cx, rowY + xh, Graphics.FONT_XTINY, "Telefonda çözümü açın", Graphics.TEXT_JUSTIFY_CENTER);
             return;
         }
         dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
         var windText = Format.wind(s.windSpeed, s.windUnit, s.windClock);
         if (windText != null) {
-            dc.drawText(cx, h * 71 / 100, Graphics.FONT_XTINY, windText, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(cx, rowY, Graphics.FONT_XTINY, windText, Graphics.TEXT_JUSTIFY_CENTER);
+            rowY += xh;
         }
-        dc.drawText(cx, h * 78 / 100, Graphics.FONT_XTINY, Format.unitLine(s.unit, s.click), Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(cx, h * 85 / 100, Graphics.FONT_XTINY, Format.updated(s.atSec), Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(cx, rowY, Graphics.FONT_XTINY, Format.unitLine(s.unit, s.click), Graphics.TEXT_JUSTIFY_CENTER);
+        rowY += xh;
+        // Yuvarlak ekranın altına sığmazsa güncelleme satırı atlanır.
+        if (rowY <= lastRow) {
+            dc.drawText(cx, rowY, Graphics.FONT_XTINY, Format.updated(s.atSec), Graphics.TEXT_JUSTIFY_CENTER);
+        }
     }
 
-    // Bir kule sütunu: etiket, yön üçgeni + klik, açı.
-    private function column(dc, x, h, label, clicks, vertical, detail, color) {
+    // Bir kule sütunu: etiket, yön üçgeni + klik, açı. Alt kenarı döner.
+    private function column(dc, x, top, label, clicks, vertical, detail, color) {
+        var xh = dc.getFontHeight(Graphics.FONT_XTINY);
+        var nh = dc.getFontHeight(Graphics.FONT_NUMBER_MILD);
         dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, h * 41 / 100, Graphics.FONT_XTINY, label, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(x, top, Graphics.FONT_XTINY, label, Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        var y = h * 49 / 100;
-        dc.drawText(x + 8, y, Graphics.FONT_NUMBER_MEDIUM, Format.clicks(clicks), Graphics.TEXT_JUSTIFY_LEFT);
-        arrow(dc, x - 4, y + dc.getFontHeight(Graphics.FONT_NUMBER_MEDIUM) / 2, clicks, vertical);
+        var y = top + xh;
+        dc.drawText(x + 8, y, Graphics.FONT_NUMBER_MILD, Format.clicks(clicks), Graphics.TEXT_JUSTIFY_LEFT);
+        arrow(dc, x - 4, y + nh / 2, clicks, vertical);
+        var detailY = y + nh;
         dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, h * 63 / 100, Graphics.FONT_XTINY, detail, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(x, detailY, Graphics.FONT_XTINY, detail, Graphics.TEXT_JUSTIFY_CENTER);
+        return detailY + xh;
     }
 
     // Yön üçgeni (yazı tipine bağlı ok karakteri kullanılmaz).
