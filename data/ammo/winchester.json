@@ -897,7 +897,7 @@
   "muzzle_velocity_fps": 2820,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
-  "notes": "Super-X Power-Point line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — erişildi ama kesin değil: Winchester 2026 katalog tablosunun metin çıktısında sütunlar karışık; değer ürüne güvenle bağlanamadı, tahmin yazılmadı. Bakılan kaynak: https://online.flippingbook.com/view/721179895/34/ (erişim 2026-10-11)."
+  "notes": "Super-X Power-Point line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — erişildi ama kesin değil: Winchester 2026 katalog tablosunun metin çıktısında sütunlar karışık; değer ürüne güvenle bağlanamadı, tahmin yazılmadı. Bakılan kaynak: https://online.flippingbook.com/view/721179895/34/ (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1527,7 +1527,7 @@
   "muzzle_velocity_fps": 1300,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X Super Speed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "Super X Super Speed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1542,7 +1542,7 @@
   "muzzle_velocity_fps": 1330,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X Super Speed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "Super X Super Speed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1557,7 +1557,7 @@
   "muzzle_velocity_fps": 1300,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. Page lists bullet as 'Power-Point HP Copper Plated'. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. Page lists bullet as 'Power-Point HP Copper Plated'. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1572,7 +1572,7 @@
   "muzzle_velocity_fps": 1090,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "M22 Subsonic line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. S22LRTSU8 lists identical specs. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "M22 Subsonic line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. S22LRTSU8 lists identical specs. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1587,7 +1587,7 @@
   "muzzle_velocity_fps": 1440,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Varmint HV line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "Varmint HV line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1632,7 +1632,7 @@
   "muzzle_velocity_fps": 1280,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1647,7 +1647,7 @@
   "muzzle_velocity_fps": 1280,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1662,7 +1662,7 @@
   "muzzle_velocity_fps": 1255,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "Super X line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); sembol 2026 katalog rimfire balistik tablosunda yer almıyor; üretici yayımlamıyor. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1692,7 +1692,7 @@
   "muzzle_velocity_fps": 1255,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "M22 line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "M22 line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok ('no ballistics data available'); 2026 katalog rimfire tablosunda (flipbook s.41) 40 gr .22 LR satırlarının B.C. değerleri (0.141/0.116/0.116/0.116/0.125/0.098/0.119/0.105) metin çıkarımında sembollerle kesin eşlenemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1707,7 +1707,7 @@
   "muzzle_velocity_fps": 1090,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Super Suppressed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok; katalog tablosunda iki 45 gr .22 LR satırı (B.C. 0.141, 0.141) var ama SUP22LR'ye ait olduğu metin çıkarımında kesinleştirilemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "Super Suppressed line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok; katalog tablosunda iki 45 gr .22 LR satırı (B.C. 0.141, 0.141) var ama SUP22LR'ye ait olduğu metin çıkarımında kesinleştirilemedi; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1722,7 +1722,7 @@
   "muzzle_velocity_fps": 1255,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Wildcat line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok; WW22LRJUG sembolü katalog tablosunda yok (yalnız WW22LRB/WW22LRSSD) ve 40 gr satırların B.C. eşlemesi belirsiz; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "Wildcat line. BC not published. MV unit not labeled on page (fps assumed, US site). Test barrel not published. | BC araması (2026-10-11): bulunamadı — Winchester ürün sayfasında BC yok; WW22LRJUG sembolü katalog tablosunda yok (yalnız WW22LRB/WW22LRSSD) ve 40 gr satırların B.C. eşlemesi belirsiz; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -1887,7 +1887,7 @@
   "muzzle_velocity_fps": 2920,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — Ürün sayfası X68W1'de BC yok; 2026 katalog s.33 (flipbook 35) 6.8 Western bloğunda X68W1 geçiyor ama ağırlık/B.C. sütunları metin çıkarımında hizalanamadı; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11)."
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — Ürün sayfası X68W1'de BC yok; 2026 katalog s.33 (flipbook 35) 6.8 Western bloğunda X68W1 geçiyor ama ağırlık/B.C. sütunları metin çıkarımında hizalanamadı; tahmin edilmedi. Bakılan kaynak: - (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -2112,7 +2112,7 @@
   "muzzle_velocity_fps": 2250,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — erişildi ama kesin değil: Winchester 2026 katalog tablosunun metin çıktısında sütunlar karışık; değer ürüne güvenle bağlanamadı, tahmin yazılmadı. Bakılan kaynak: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — erişildi ama kesin değil: Winchester 2026 katalog tablosunun metin çıktısında sütunlar karışık; değer ürüne güvenle bağlanamadı, tahmin yazılmadı. Bakılan kaynak: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — mermi Winchester'ın kendi genel türü (Power-Point / bakır kaplı kurşun / JHP / DynaPoint); başka mermi üreticisi adı yok."
  },
  {
   "brand": "Winchester",
@@ -2127,7 +2127,7 @@
   "muzzle_velocity_fps": 2250,
   "test_barrel_in": null,
   "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
-  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — erişildi ama kesin değil: Winchester 2026 katalog tablosunun metin çıktısında sütunlar karışık; değer ürüne güvenle bağlanamadı, tahmin yazılmadı. Bakılan kaynak: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11)."
+  "notes": "Values from maker listing table on winchester.com (individual product page shows no ballistics data); test barrel not stated; No BC listed; read 2026-10-11 | BC araması (2026-10-11): bulunamadı — erişildi ama kesin değil: Winchester 2026 katalog tablosunun metin çıktısında sütunlar karışık; değer ürüne güvenle bağlanamadı, tahmin yazılmadı. Bakılan kaynak: https://online.flippingbook.com/view/721179895/43/ (erişim 2026-10-11). | BC araması 2 (2026-10-12): boş bırakıldı — Winchester sayfası 'V-MAX' diyor ama mermi üreticisini yazdığı doğrulanamadı (S22M2PT sayfası WebFetch hız sınırı (HTTP 429) nedeniyle okunamadı); ayrıca .224 30 gr V-MAX bileşen BC'si Hornady katalogundan okunamadı."
  },
  {
   "brand": "Winchester",
