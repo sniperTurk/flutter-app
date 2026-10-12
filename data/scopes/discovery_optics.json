@@ -863,5 +863,26 @@
 "source_url": "https://discoveryopt.com/products/ed-ar-1-8x24-ffp-lpvo",
 "notes": "Objective = nominal aperture from the model name. Page (read 2026-10-11): title 'ED-AR 1-8X24SFIR FFP-MRAD LPVO Diameter:34MM', 'the 34mm tube', 'first focal plane (FFP) reticle'; only variant 'FFP Circle Dot Grid'. The page gives no click value, adjustment range or length; product data lists weight '1700' without unit -> weight_g null. click_value null, so the app list skips this record until the manufacturer publishes it.",
 "accessed": "2026-10-11"
+},
+{
+"brand": "Discovery Optics",
+"model": "ED-LHT Gen II 3-15x50 SFIR FFP MOA",
+"min_mag": 3.0,
+"max_mag": 15.0,
+"objective_mm": 50.0,
+"tube_mm": 30.0,
+"focal": "ffp",
+"click_unit": "moa",
+"click_value": null,
+"elevation_travel_moa": null,
+"windage_travel_moa": null,
+"reticle": null,
+"parallax_min_m": null,
+"length_mm": null,
+"weight_g": null,
+"zero_stop": null,
+"source_url": "https://discoveryopt.com/products/ed-lht-gen2-3-15x50",
+"accessed": "2026-10-12",
+"notes": "Varyant 'ED-LHT GEN2 3-15X50SFIR FFP-MOA-L' (sayfada iki varyant da 'sold out or unavailable'; ürün sayfası güncel). Sayfadaki spec tablosu yalnız MRAD '-Z' modeli için (mevcut kayıt); MOA-L varyantının tık değeri, taret aralığı, retikül adı, uzunluk/ağırlık ve paralaksı ayrı verilmemiş -> null. 'L' = kilitli taret, zero stop belirtilmemiş -> null. Objektif ürün adından (spec tablosunda yalnız dış çap 59MM)."
 }
 ]
