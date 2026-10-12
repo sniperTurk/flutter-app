@@ -1368,7 +1368,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   List<AngularUnit> get _scopeUnitChoices {
     final have = {for (final s in _scopesBefore(1)) s.clickUnit};
     return [
-      for (final u in const [AngularUnit.mrad, AngularUnit.moa, AngularUnit.smoa])
+      for (final u in const [
+        AngularUnit.mrad,
+        AngularUnit.moa,
+        AngularUnit.smoa,
+      ])
         if (have.contains(u)) u,
     ];
   }
