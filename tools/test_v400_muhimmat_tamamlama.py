@@ -20,6 +20,12 @@ OFFICIAL = {
     'Cutting Edge Bullets': ('cuttingedgebullets.com', 'cdn.shopify.com'),
     'Hammer Bullets': ('hammerbullets.com',),
     'Spoton': ('spoton.com.tr',),
+    # TR saçma/slug taraması (2026-10-12, data/muhimmat/TR_SACMA.md)
+    'Hatsan': ('hatsanairgunsusa.com',),
+    'H&N': ('hn-sport.de',),
+    'Diana': ('diana-airguns.de',),
+    'Gamo': ('gamousa.com',),
+    'SkyPellets': ('skypellets.com',),
 }
 FORBIDDEN = ('chairgun', 'strelok', 'appliedballistics', 'jbmballistics', 'quickload', 'grtools',
              'pyramydair', 'amazon.', 'midwayusa', 'opticsplanet', 'forum', 'blog')
@@ -85,7 +91,8 @@ class BulletLibraryTests(unittest.TestCase):
 
     def test_bc_less_turkish_pcp_listed(self):
         for brand, n in (('Hatsan', 13), ('My Bullet', 7), ('Spoton', 30)):
-            rows = lib_rows(brand)
+            # Apolo rows (TR saçma taraması, 2026-10-12) are counted in test_v401.
+            rows = [r for r in lib_rows(brand) if not r[0].startswith('Apolo ')]
             self.assertEqual(len(rows), n, brand)
             self.assertTrue(all(bc == 'null' for _, _, _, bc in rows), brand)
 
