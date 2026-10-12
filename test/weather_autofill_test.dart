@@ -89,7 +89,7 @@ void main() {
   ) async {
     await _pump(tester, location: const LocationFix(39.9, 32.8));
     expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
-    expect(_text(tester, BallisticsFieldKeys.pressure), '1013.25');
+    expect(_text(tester, BallisticsFieldKeys.pressure), '');
     expect(find.textContaining('basınç doldurulmadı'), findsOneWidget);
   });
 
@@ -102,7 +102,7 @@ void main() {
       auto: false,
     );
     // Nothing is fetched without autoWeather.
-    expect(_text(tester, BallisticsFieldKeys.temperature), '15');
+    expect(_text(tester, BallisticsFieldKeys.temperature), '');
     await tester.enterText(
       find.descendant(
         of: find.byKey(BallisticsFieldKeys.temperature),
@@ -123,7 +123,7 @@ void main() {
     tester,
   ) async {
     await _pump(tester, location: const LocationDenied(permanent: false));
-    expect(_text(tester, BallisticsFieldKeys.temperature), '15');
+    expect(_text(tester, BallisticsFieldKeys.temperature), '');
     expect(find.textContaining('Konum izni yok'), findsOneWidget);
   });
 
@@ -133,7 +133,7 @@ void main() {
       location: const LocationFix(39.9, 32.8, altitudeM: 900),
       weather: const WeatherFailure(WeatherFailureKind.offline, 'x'),
     );
-    expect(_text(tester, BallisticsFieldKeys.temperature), '15');
+    expect(_text(tester, BallisticsFieldKeys.temperature), '');
     expect(find.textContaining('ulaşılamadı'), findsOneWidget);
   });
 }
