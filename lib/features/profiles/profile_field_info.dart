@@ -72,16 +72,21 @@ abstract final class ProfileFieldInfo {
       'Saçma ve slug G1 ile hesaplanır. Bilinmiyorsa boş bırakın; sonuç '
       'yaklaşık olur.';
   static const scopeFilterUnit =
-      'Model listesini kulenin birimine göre süzer. MRAD: klik 0,1 mil. MOA: '
-      'klik 1/4 MOA. SMOA: üretici "100 yardada 1/4 inç" diyorsa. Dürbünün '
-      'kulesinde ya da kutusunda yazar. Seçiniz: hepsi.';
+      'Dürbününüzü bulmak için kulenin birimi. MRAD: klik 0,1 mil. MOA: '
+      'klik 1/4 MOA. SMOA: üretici "100 yardada 1/4 inç" diyorsa. Kulede ya '
+      'da kutuda yazar. Listede yalnız bu markada olan birimler çıkar.';
   static const scopeFilterFocal =
-      'Model listesini odak düzlemine göre süzer. FFP: retikül büyütmeyle '
-      'büyür, ölçüleri her büyütmede doğrudur. SFP: retikül hep aynı boyda '
-      'kalır. Dürbünün adında FFP ya da SFP yazar. Seçiniz: hepsi.';
+      'Odak düzlemi. FFP: retikül büyütmeyle büyür. SFP: retikül hep aynı '
+      'boyda kalır. Dürbünün adında ya da kutusunda FFP veya SFP yazar.';
   static const scopeFilterMag =
-      'Model listesini dürbünün en yüksek büyütmesine göre süzer. Örnek: '
-      '5-30x56 için 26–40x seçin. Seçiniz: hepsi.';
+      'Dürbünün üstünde yazan büyütme aralığı. Örnek: 5-30x56 yazıyorsa '
+      '5-30x seçin. Yalnız kalan dürbünlerdeki aralıklar çıkar.';
+  static const scopeFilterObjective =
+      'Ön merceğin çapı, mm. Büyütmeden sonra yazan sayıdır. Örnek: 5-30x56 '
+      'yazıyorsa 56 mm seçin.';
+  static const scopeFilterTube =
+      'Dürbün gövdesinin çapı, mm; dürbün ayağının ölçüsüdür. Kutuda ya da '
+      'kılavuzda yazar. Örnek: 30, 34 veya 35 mm.';
   static const bcModel =
       'BC sayısının hangi standart mermi şekline göre verildiği. G1: küt uçlu '
       'klasik şekil; havalı tüfek saçması ve slug için neredeyse her zaman G1 '

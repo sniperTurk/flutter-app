@@ -1325,37 +1325,57 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       if (s.brand == brand && _scopeFilterAccepts(s)) _scopeModelOf(s),
   }.toList()..sort(_byName);
 
-  // ---- Dürbün filters (owner, 2026-10-12): Birim, Odak düzlemi and En
-  // yüksek büyütme narrow the Model list; "Seçiniz" = no filter.
+  // ---- Dürbün filters (owner, 2026-10-13): what the user reads on the
+  // scope or its box, narrowing step by step ("süzerek gider"): Marka →
+  // Birim → Odak → Büyütme → Objektif → Tüp → Model. Each list offers only
+  // the values the scopes left over have, so the Model list is never empty.
+  // "Seçiniz" = no filter.
   AngularUnit? _scopeUnitFilter;
   bool? _scopeFfpFilter;
-  int? _scopeMagFilter;
+  String? _scopeMagFilter;
+  double? _scopeObjectiveFilter;
+  double? _scopeTubeFilter;
 
-  /// En yüksek büyütme bands: (label, lowest, highest) inclusive.
-  static const _scopeMagBands = <(String, double, double)>[
-    ('10x\'e kadar', 0, 10),
-    ('11–25x', 10.01, 25),
-    ('26–40x', 25.01, 40),
-    ('40x üstü', 40.01, 1000),
-  ];
+  static String _num(double v) => v == v.roundToDouble()
+      ? v.toStringAsFixed(0)
+      : v.toString().replaceAll('.', ',');
 
-  /// The filters narrow step by step (owner, 2026-10-13: "süzerek gider"):
-  /// Marka → Birim → Odak → Büyütme → Model. [level] says how many of the
-  /// filters apply: 1 = Birim, 2 = Birim + Odak, 3 = all three.
-  bool _scopeFilterAccepts(ScopeOptic s, [int level = 3]) {
-    final unit = _scopeUnitFilter;
-    if (level >= 1 && unit != null && s.clickUnit != unit) return false;
-    final ffp = _scopeFfpFilter;
-    if (level >= 2 && ffp != null && s.firstFocalPlane != ffp) return false;
-    final band = _scopeMagFilter;
-    if (level >= 3 && band != null && !_inMagBand(s, band)) return false;
-    return true;
+  static String _unitName(AngularUnit u) => switch (u) {
+    AngularUnit.mrad => 'MRAD',
+    AngularUnit.moa => 'MOA',
+    AngularUnit.smoa => 'SMOA',
+  };
+
+  /// The magnification range as printed on the scope, e.g. "5-30x".
+  static String? _magRange(ScopeOptic s) {
+    final lo = s.minMagnification, hi = s.maxMagnification;
+    if (hi == null) return null;
+    return lo == null || lo == hi ? '${_num(hi)}x' : '${_num(lo)}-${_num(hi)}x';
   }
 
-  bool _inMagBand(ScopeOptic s, int band) {
-    final max = s.maxMagnification;
-    final (_, lo, hi) = _scopeMagBands[band];
-    return max != null && max >= lo && max <= hi;
+  /// [level]: how many filters apply (1 Birim … 5 Tüp).
+  bool _scopeFilterAccepts(ScopeOptic s, [int level = 5]) {
+    if (level >= 1 && _scopeUnitFilter != null &&
+        s.clickUnit != _scopeUnitFilter) {
+      return false;
+    }
+    if (level >= 2 && _scopeFfpFilter != null &&
+        s.firstFocalPlane != _scopeFfpFilter) {
+      return false;
+    }
+    if (level >= 3 && _scopeMagFilter != null &&
+        _magRange(s) != _scopeMagFilter) {
+      return false;
+    }
+    if (level >= 4 && _scopeObjectiveFilter != null &&
+        s.objectiveDiameterMm != _scopeObjectiveFilter) {
+      return false;
+    }
+    if (level >= 5 && _scopeTubeFilter != null &&
+        s.tubeDiameterMm != _scopeTubeFilter) {
+      return false;
+    }
+    return true;
   }
 
   /// Scopes of the chosen brand that pass the filters before [level].
@@ -1363,16 +1383,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     (s) => s.brand == _scopeBrandSel && _scopeFilterAccepts(s, level - 1),
   );
 
-  /// Only the choices that the scopes left over really have, so a filter
-  /// never leads to an empty Model list.
   List<AngularUnit> get _scopeUnitChoices {
     final have = {for (final s in _scopesBefore(1)) s.clickUnit};
     return [
-      for (final u in const [
-        AngularUnit.mrad,
-        AngularUnit.moa,
-        AngularUnit.smoa,
-      ])
+      for (final u in AngularUnit.values)
         if (have.contains(u)) u,
     ];
   }
@@ -1388,16 +1402,31 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ];
   }
 
-  List<int> get _scopeMagChoices {
-    final left = _scopesBefore(3).toList();
-    return [
-      for (var i = 0; i < _scopeMagBands.length; i++)
-        if (left.any((s) => _inMagBand(s, i))) i,
-    ];
+  List<String> get _scopeMagChoices {
+    final byLow = <String, (double, double)>{};
+    for (final s in _scopesBefore(3)) {
+      final r = _magRange(s);
+      if (r != null) {
+        byLow[r] = (s.minMagnification ?? 0, s.maxMagnification ?? 0);
+      }
+    }
+    return byLow.keys.toList()..sort((a, b) {
+      final (la, ha) = byLow[a]!, (lb, hb) = byLow[b]!;
+      return la != lb ? la.compareTo(lb) : ha.compareTo(hb);
+    });
   }
 
-  /// After a change, a later filter whose choice is no longer offered goes
-  /// back to "Seçiniz".
+  List<double> get _scopeObjectiveChoices =>
+      {for (final s in _scopesBefore(4)) s.objectiveDiameterMm}.toList()
+        ..sort();
+
+  List<double> get _scopeTubeChoices => {
+    for (final s in _scopesBefore(5))
+      if (s.tubeDiameterMm != null) s.tubeDiameterMm!,
+  }.toList()..sort();
+
+  /// After a change, a filter whose choice is no longer offered goes back
+  /// to "Seçiniz" (checked in order, each against the ones before it).
   void _dropUnavailableScopeFilters() {
     if (_scopeUnitFilter != null &&
         !_scopeUnitChoices.contains(_scopeUnitFilter)) {
@@ -1411,6 +1440,35 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         !_scopeMagChoices.contains(_scopeMagFilter)) {
       _scopeMagFilter = null;
     }
+    if (_scopeObjectiveFilter != null &&
+        !_scopeObjectiveChoices.contains(_scopeObjectiveFilter)) {
+      _scopeObjectiveFilter = null;
+    }
+    if (_scopeTubeFilter != null &&
+        !_scopeTubeChoices.contains(_scopeTubeFilter)) {
+      _scopeTubeFilter = null;
+    }
+  }
+
+  /// One line per model with its data (owner, 2026-10-13: "Marka Model ve
+  /// tüm veri tek satır"), e.g. "Discovery Optics HD Gen III 5-30x56 ·
+  /// MRAD · FFP · 34 mm".
+  String _scopeModelLine(String brand, String model) {
+    final s = _scopeLib
+        .where(
+          (x) =>
+              x.brand == brand &&
+              _scopeModelOf(x) == model &&
+              _scopeFilterAccepts(x),
+        )
+        .firstOrNull;
+    if (s == null) return '$brand $model';
+    return [
+      '$brand $model',
+      _unitName(s.clickUnit),
+      if (s.firstFocalPlane != null) s.firstFocalPlane! ? 'FFP' : 'SFP',
+      if (s.tubeDiameterMm != null) '${_num(s.tubeDiameterMm!)} mm',
+    ].join(' · ');
   }
 
   List<Widget> _scopeFilterFields() {
@@ -1427,30 +1485,24 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       }
       _scopePickToken++;
     });
+    String k(String name, Object? v) => 'scope-filter-$name-$_scopeBrandSel-$v';
     return [
       MenzilSelect<AngularUnit>(
-        key: ValueKey('scope-filter-unit-$_scopeUnitFilter'),
-        label: 'Birim filtresi',
+        key: ValueKey(k('unit', _scopeUnitFilter)),
+        label: 'Birim',
         hint: 'Seçiniz',
         info: ProfileFieldInfo.scopeFilterUnit,
         initialValue: _scopeUnitFilter,
         items: [
           const DropdownMenuItem<AngularUnit>(child: Text('Seçiniz')),
           for (final u in _scopeUnitChoices)
-            DropdownMenuItem(
-              value: u,
-              child: Text(switch (u) {
-                AngularUnit.mrad => 'MRAD',
-                AngularUnit.moa => 'MOA',
-                AngularUnit.smoa => 'SMOA',
-              }),
-            ),
+            DropdownMenuItem(value: u, child: Text(_unitName(u))),
         ],
         onChanged: (v) => changed(() => _scopeUnitFilter = v),
       ),
       MenzilSelect<bool>(
-        key: ValueKey('scope-filter-ffp-$_scopeFfpFilter'),
-        label: 'Odak filtresi',
+        key: ValueKey(k('ffp', _scopeFfpFilter)),
+        label: 'Odak',
         hint: 'Seçiniz',
         info: ProfileFieldInfo.scopeFilterFocal,
         initialValue: _scopeFfpFilter,
@@ -1461,20 +1513,44 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         ],
         onChanged: (v) => changed(() => _scopeFfpFilter = v),
       ),
-      MenzilFullWidth(
-        child: MenzilSelect<int>(
-          key: ValueKey('scope-filter-mag-$_scopeMagFilter'),
-          label: 'Büyütme filtresi',
-          hint: 'Seçiniz',
-          info: ProfileFieldInfo.scopeFilterMag,
-          initialValue: _scopeMagFilter,
-          items: [
-            const DropdownMenuItem<int>(child: Text('Seçiniz')),
-            for (final i in _scopeMagChoices)
-              DropdownMenuItem(value: i, child: Text(_scopeMagBands[i].$1)),
-          ],
-          onChanged: (v) => changed(() => _scopeMagFilter = v),
-        ),
+      MenzilSelect<String>(
+        key: ValueKey(k('mag', _scopeMagFilter)),
+        label: 'Büyütme',
+        hint: 'Seçiniz',
+        info: ProfileFieldInfo.scopeFilterMag,
+        initialValue: _scopeMagFilter,
+        items: [
+          const DropdownMenuItem<String>(child: Text('Seçiniz')),
+          for (final r in _scopeMagChoices)
+            DropdownMenuItem(value: r, child: Text(r)),
+        ],
+        onChanged: (v) => changed(() => _scopeMagFilter = v),
+      ),
+      MenzilSelect<double>(
+        key: ValueKey(k('objective', _scopeObjectiveFilter)),
+        label: 'Objektif',
+        hint: 'Seçiniz',
+        info: ProfileFieldInfo.scopeFilterObjective,
+        initialValue: _scopeObjectiveFilter,
+        items: [
+          const DropdownMenuItem<double>(child: Text('Seçiniz')),
+          for (final d in _scopeObjectiveChoices)
+            DropdownMenuItem(value: d, child: Text('${_num(d)} mm')),
+        ],
+        onChanged: (v) => changed(() => _scopeObjectiveFilter = v),
+      ),
+      MenzilSelect<double>(
+        key: ValueKey(k('tube', _scopeTubeFilter)),
+        label: 'Tüp',
+        hint: 'Seçiniz',
+        info: ProfileFieldInfo.scopeFilterTube,
+        initialValue: _scopeTubeFilter,
+        items: [
+          const DropdownMenuItem<double>(child: Text('Seçiniz')),
+          for (final d in _scopeTubeChoices)
+            DropdownMenuItem(value: d, child: Text('${_num(d)} mm')),
+        ],
+        onChanged: (v) => changed(() => _scopeTubeFilter = v),
       ),
     ];
   }
@@ -1712,14 +1788,28 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           child: MenzilSelect<String>(
             key: ValueKey(
               'scope-model-select-$brand-$model-$_scopeUnitFilter-'
-              '$_scopeFfpFilter-$_scopeMagFilter',
+              '$_scopeFfpFilter-$_scopeMagFilter-$_scopeObjectiveFilter-'
+              '$_scopeTubeFilter',
             ),
             label: 'Model',
             hint: 'Seçiniz',
             initialValue: model,
             items: [
               for (final m in models)
-                DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
+                DropdownMenuItem(
+                  value: m,
+                  // Marka, model and the data on one line (owner,
+                  // 2026-10-13); a long line is set smaller, never cut.
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      _scopeModelLine(brand!, m),
+                      maxLines: 1,
+                      softWrap: false,
+                    ),
+                  ),
+                ),
             ],
             onChanged: (v) => setState(() {
               _scopeModelKey = v;
