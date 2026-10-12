@@ -1,0 +1,22 @@
+{
+  "name": "FFP MOA Pro Ext.",
+  "brand": "Hawke",
+  "scopes": [
+    "Frontier 34 FFP 3-18x50 (18x)",
+    "Frontier 34 FFP 5-30x56 (30x)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://us.hawkeoptics.com/frontier-34-ffp-3-18x50-moa-pro-ext.html",
+  "notes": "FFP. Ürün sayfası: Reticle 'FFP MOA Pro Ext. (18x)', Reticle Group 'MOA Pro', Focal Plane 'FFP (First Focal Plane)', Click Value '1/4 MOA'. Seri tablosu 5-30x56 için 'FFP MOA Pro Ext. (30x)'. unit=moa retikül adındaki 'MOA' sözcüğünden. Ölçek alanları (hash_step, major_every, numbers_every, uzanımlar, tree, posts_start, center_dot, floating_center) ve family null: ürün sayfalarında retikül ölçüsü yok; retikül görselleri (us.hawkeoptics.com/hawke/reticles/white/*.svg) robots.txt ile engelli; Reticle Booklet PDF'leri docs.google.com'da (izinli alan dışı); reticles.hawkeoptics.com, reticle.hawkeoptics.com ve docs.hawkeoptics.com 2 denemede CLIENT_ERROR verdi. Kaynak: https://us.hawkeoptics.com/frontier-34-ffp-3-18x50-moa-pro-ext.html (okundu 2026-10-12); https://us.hawkeoptics.com/frontier-riflescopes.html (okundu 2026-10-12); https://us.hawkeoptics.com/reticle-information.html (okundu 2026-10-12)"
+}

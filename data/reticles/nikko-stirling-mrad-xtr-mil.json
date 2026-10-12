@@ -1,0 +1,21 @@
+{
+  "name": "MRAD XTR",
+  "brand": "Nikko Stirling",
+  "scopes": [
+    "Diamond FFP 34mm 5-30x56 MRAD XTR FFP MRAD"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://nikkostirling.com/media/pages/products/rifle-scopes/diamond-ffp-34mm/nsffp3453056mrad/4cfd1829ac-1764599256/manual-mrad-xtr-without-trimmarks.pdf",
+  "notes": "MRAD XTR Reticle User Manual: First Focal Plane Technology, ölçüler MRAD, 'Remain constant at all magnifications'. Şemadaki rakamlar (2, 4, 5, 6, 8, 10, 12, 14, 15, 16, 18, 20) ve değerler (0.04, 0.05, 0.125, 0.15, 0.2, 0.4, 0.5, 1, 2, 4, 6) öğelere metinle bağlanamadı -> geometri alanları null. Diamond FFP 34mm seri sayfası: 'the 5-30x56 first focal plane scope boasts the enhanced MRAD XTR reticle'. Kaynak: https://nikkostirling.com/media/pages/products/rifle-scopes/diamond-ffp-34mm/nsffp3453056mrad/4cfd1829ac-1764599256/manual-mrad-xtr-without-trimmarks.pdf (okundu 2026-10-12); https://nikkostirling.com/products/rifle-scopes/diamond-ffp-34mm (okundu 2026-10-12)"
+}

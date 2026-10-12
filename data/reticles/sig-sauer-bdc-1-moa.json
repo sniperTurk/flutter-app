@@ -1,0 +1,22 @@
+{
+  "name": "BDC-1",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "WHISKEY4 3-12X44MM EXPOSED ZERO STOP, NON-ILLUMINATED (SFP)",
+    "WHISKEY4 3-12X44MM EXPOSED ZERO STOP, ILLUMINATED (SFP)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-WHISKEY4-7404528-01-REV10-WEB-FILE.pdf",
+  "notes": "WHISKEY4 kılavuzu 'SFP BDC1 RETICLE', 'Units are in MOA at max magnification'; çizim değerleri 14.50, 0.25, 0.25, 2, 2, 2, 2, 0.25, 0.25, 10, 1.50, 3.75, 6.50, 9.50, 1.50, 2, 1.50 öğeye eşlenmiyor (1.50/3.75/6.50/9.50 dizisinin tutma noktası olduğu yazmıyor). Ürün sayfaları: aydınlatmasız 3-12x44 EZS teknik tablo 'BDC-1', aydınlatmalı 'BDC-1 Hellfire'; ikisinde de 'Simplified second focal BDC-1 reticle'. BDC deseni şema ailelerine oturmuyor -> family null, sayısal alanlar null. Kaynak: https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-WHISKEY4-7404528-01-REV10-WEB-FILE.pdf (okundu 2026-10-12); https://www.sigsauer.com/whiskey4-scope-3-12x44mm-30mm-sfp-bdc1-reticle-locking-0-25-moa-adj-black.html (okundu 2026-10-12); https://www.sigsauer.com/whiskey4-3-12x44mm-exposed-zero-stop-illuminated-sfp.html (okundu 2026-10-12)"
+}

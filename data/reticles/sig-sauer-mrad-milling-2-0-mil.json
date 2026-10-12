@@ -1,0 +1,23 @@
+{
+  "name": "MRAD Milling 2.0",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "BRAVO6T-BDX 3-18X44MM",
+    "BRAVO6T-BDX 5-30X56MM",
+    "TANGO-DMR 5-30X56MM (FFP)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-BRAVO6T-7405809-01REV01_WEB.pdf",
+  "notes": "BRAVO6T-BDX 3-18x44 ürün sayfası: SOBBDX63102 'First' 'MRAD Milling 2.0' '0.1 MRAD'. BRAVO6T kılavuzu '11.1 MRAD MILLING 2.0 RETICLE', 'Units are in MRAD', 'Offered in First Focal Plane'. TANGO-DMR kılavuzu '9.1 MRAD MILLING 2.0 RETICLE', '3-18 and 5-30x models', 'Units are in MRAD'. Çizimde metin katmanında ölçü yok -> family ve sayısal alanlar null. Kaynak: https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-BRAVO6T-7405809-01REV01_WEB.pdf (okundu 2026-10-12); https://www.sigsauer.com/bravo6t-bdxtm-3-18x44mm.html (okundu 2026-10-12); https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-TANGO-DMR-7404355-01-REV10-WEB-FILE.pdf (okundu 2026-10-12)"
+}

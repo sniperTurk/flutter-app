@@ -1,0 +1,21 @@
+{
+  "name": "AHMC1 Fiber Dot",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares HLR"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/storage/2026/04/Ares-HLR-AHMC1-Fiber-Dot-IR-Reticle-Manual.pdf",
+  "notes": "SFP, föy adı \"AHMC1 Fiber Dot IR MOA Reticle\". Föy: \"an illuminated fiber optic center-dot\", dış artı kalın ve \"steps down to a fine crosshair with a center-dot\" -> family=duplex, center_dot=true. Yüzen merkez açıkça yazmıyor -> floating_center null. Nokta boyutu, direk başlangıcı yok -> null. Referans büyütme: 2.5-15x42 15x, 4-24x50 16x. Kaynak: https://athlonoptics.com/storage/2026/04/Ares-HLR-AHMC1-Fiber-Dot-IR-Reticle-Manual.pdf (okundu 2026-10-12); https://athlonoptics.com/product/ares-hlr-2-5-15x42-30mm-sfp-ir-ahmc1-fiber-dot-moa/ (okundu 2026-10-12)"
+}

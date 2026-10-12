@@ -1,0 +1,22 @@
+{
+  "name": "6.5 Creedmoor",
+  "brand": "Burris",
+  "scopes": [
+    "Signature HD 5-25x50mm FFP",
+    "Fullfield IV 4-16x50mm"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/65-creedmoor",
+  "notes": "Burris '6.5 Creedmoor' sayfası: 'Calibrated for 6.5 Creedmoor using the popular 140 grain ELD-M bullet at 2710 fps', alt dikey işaretler 100-700 yd, 'Cascading dots ... 10-m.p.h. crosswind', 'Available in FFP (Signature HD) or RFP (Fullfield IV)'. DİKKAT: aynı ad Signature HD'de FFP, Fullfield IV'te RFP. Signature HD kılavuzu: 'Front Focal Plane MOA reticle'; 'DROP IN MOA' 200..700 yd: 1.8 3.0 4.2 5.6 7.0 8.5 10.0 11.6 13.3 15.1 16.9; ayrıntı A B C D 5-25x .11 1.0 0.5 .23. unit=moa. Balistik (düzensiz) işaretler -> hash_step, family ve diğer alanlar null. Kaynak: https://www.burrisoptics.com/reticles/65-creedmoor (okundu 2026-10-12); https://www.burrisoptics.com/sites/default/files/content/files/2023-10/Burris-Signature%20HD%20User%20Manual.pdf (okundu 2026-10-12); https://www.burrisoptics.com/sites/default/files/content/files/2025-08/INSTR-9500_Fullfield_UserManual_Rev1.pdf (okundu 2026-10-12)"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "AHMC1",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Midas HMR GEN2"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2026/04/Midas-HMR-AHMC1-Reticle-Manual.pdf",
+  "notes": "SFP, föy adı \"AHMC1 SFP IR MOA\", \"based on the minute of angle\". Föy: \"an illuminated center-dot\", \"a floating center-dot\", \"The outside crosshair is bold\", \"It steps down to a fine crosshair\" -> family=duplex bu tanımdan; center_dot=true, floating_center=true. Nokta boyutu, direk başlangıcı, kalınlıklar yok -> null. Referans büyütme: 2.5-15x50 15x, 2-12x42 12x, 4-24x50 16x. Kaynak: https://athlonoptics.com/wp-content/uploads/2026/04/Midas-HMR-AHMC1-Reticle-Manual.pdf (okundu 2026-10-12); https://athlonoptics.com/product/midas-hmr-gen2-2-5-15x50-ahmc1-sfp-ir-moa/ (okundu 2026-10-12)"
+}

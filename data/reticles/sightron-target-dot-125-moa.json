@@ -1,0 +1,23 @@
+{
+  "name": "Target Dot .125",
+  "brand": "Sightron",
+  "scopes": [
+    "SIII Long Range 8-32x56 TD .125",
+    "SIII Competition 36x45 ED",
+    "SII Target 36x42 BRD"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://sightron.com/products/siii-long-range-8-32x56",
+  "notes": "SFP (SII Target 36x42 sabit büyütme; odak 'NA'). Sayfa: 'fine crosshair with a fine 1/8 MOA dot in the center' / 'fine cross hair reticle with a .125 MOA dot' → center_dot=true; yüzen olduğu yazmıyor → floating_center null; family null. Tablolar: 8-32x56 '8x' A .5, B .05; '32x' A .125, B .012; 36x45 '36x' .125 | .0125; 36x42 '36x' .125 | .011. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/siii-long-range-8-32x56 (okundu 2026-10-12); https://sightron.com/products/siii-competition-36x45-ed (okundu 2026-10-12); https://sightron.com/products/sii-target-36x42-brd (okundu 2026-10-12)."
+}

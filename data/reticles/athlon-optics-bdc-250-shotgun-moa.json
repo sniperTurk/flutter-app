@@ -1,0 +1,22 @@
+{
+  "name": "BDC 250 Shotgun",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Talos",
+    "Neos HMR"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2023/08/Athlon-BDC-250-Shotgun-IR-Reticle-Manual-Talos.pdf",
+  "notes": "SFP. Talos föyü \"BDC 250 Shotgun IR\", \"SUBTENSIONS IN MOA\"; Neos HMR föyü \"Athlon's BDC 250 IR Shotgun Reticle\" (birim yok), 12 ve 20 ga sabot/rifled slug için. Talos föyü yük tabloları: 100 yd sıfırda ör. 1.-4. tutma 170/220/260/300 (12 ga sabot 300 gr FTX, 2000 fps), \"Scope Height: 2”\", \"Magnification Setting: 12X\". Referans büyütme: Talos 3-12x40 12x; Neos HMR 3-9x40 9x. Geometri tarif edilmiyor -> family ve ölçüler null. A1-D3 etiketli tablo değerleri metinde öğelere bağlanmadığı için kullanılmadı. Neos HMR dürbünündeki \"BDC250S SHOTGUN\" adı scope_changes ile bu ada çevrildi. Kaynak: https://athlonoptics.com/wp-content/uploads/2023/08/Athlon-BDC-250-Shotgun-IR-Reticle-Manual-Talos.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-BDC250S-IR-Reticle-Manual.pdf (okundu 2026-10-12)"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "MOA Milling 2.0",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "TANGO-DMR 5-30X56MM (FFP) MOA"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-TANGO-DMR-7404355-01-REV10-WEB-FILE.pdf",
+  "notes": "TANGO-DMR kılavuzu '9.3 MOA MILLING 2.0 RETICLE', '3-18 and 5-30x models', 'Units are in MOA', notlar 'RETICLE, MOA, FFP, MOA MILLING 2.0', '1MM IS EQUAL TO 1MOA'. Ürün sayfası: 'Illuminated FFP MRAD or MOA reticles', MOA SKU'lar SOTD65111/SOTD65113 0.25 MOA. Çizim sayıları (ör. 0.74, 1.24, 1.74, 2.24; 30, 32) öğeye eşlenemedi -> sayısal alanlar ve family null. Kaynak: https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-TANGO-DMR-7404355-01-REV10-WEB-FILE.pdf (okundu 2026-10-12); https://www.sigsauer.com/tango-dmr-5-30x56mm.html (okundu 2026-10-12)"
+}

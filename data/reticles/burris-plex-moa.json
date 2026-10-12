@@ -1,0 +1,27 @@
+{
+  "name": "Plex",
+  "brand": "Burris",
+  "scopes": [
+    "Signature HD 3-15x44mm",
+    "Veracity 3-15x44mm",
+    "Fullfield IV 2.5-10x42mm",
+    "Fullfield 2-8x35mm",
+    "Fullfield 2.5-10x42mm",
+    "Fullfield 3-12x42mm",
+    "Fullfield 4-16x50mm"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/plex",
+  "notes": "Burris 'Plex' sayfası: 'Clean, simple aiming device', 'Highly visible', 'Thin crosshair with bolded edges'. Signature HD kılavuzu 'PLEX' (RFP): 'RETICLE SUBTENSIONS (in MOA)' A B W: 3-15x .95 2.5 22 ve .19 .50 4.40 (düşük/yüksek büyütme olduğu ÇIKARIM). Fullfield kılavuzu: 'All Fullfield riflescopes are rear focal plane'. unit=moa kılavuzdan. family=duplex (kalın kenarlı ince artı). Değerler büyütmeye göre değiştiğinden alanlara yazılmadı -> null. Kaynak: https://www.burrisoptics.com/reticles/plex (okundu 2026-10-12); https://www.burrisoptics.com/sites/default/files/content/files/2023-10/Burris-Signature%20HD%20User%20Manual.pdf (okundu 2026-10-12); https://www.burrisoptics.com/sites/default/files/content/files/2025-08/INSTR-9500_Fullfield_UserManual_Rev1.pdf (okundu 2026-10-12)"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "BRi",
+  "brand": "GPO",
+  "scopes": [
+    "GPOTAC 8X 2.5-20x50i",
+    "SPECTRA 6X 3-18x56i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://gpo-usa.com/shop/tactical/scopes-tactical/gpo-tac/gpotac-8x-2-5-20x50i/",
+  "notes": "GPOTAC 8X 2.5-20x50i: 'The illuminated BRi reticle is mil based', 'magnifying mil radiant reticle is located in the first focal plane' -> unit=mil. SPECTRA 6X 3-18x56i: 'BRi ballistic reticle', 'provides accurate holdover points'; odak düzlemi yazmıyor. Ölçü yok -> family ve ölçüler null. Kaynak: https://gpo-usa.com/shop/tactical/scopes-tactical/gpo-tac/gpotac-8x-2-5-20x50i/ (okundu 2026-10-12); https://gpo-usa.com/shop/tactical/scopes-tactical/spectra-scopes-tactical/spectra-6x-3-18x56i/ (okundu 2026-10-12)"
+}

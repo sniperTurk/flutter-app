@@ -1,0 +1,22 @@
+{
+  "name": "MH-FT",
+  "brand": "Sightron",
+  "scopes": [
+    "S6 10-60x56 ED FT Field Target MRAD",
+    "S6 10-60x56 ED FT Snap Focus MRAD"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://sightron.com/products/s6-10-60x56-ed-ft-br-field-target",
+  "notes": "SFP, tık '1/20 MIL'. Sayfa: 'The floating center dot' → center_dot=true, floating_center=true; '\"boxed\" reticle design'. family null. Tablolar: 'MH-FT Measured in MIL - 10x at 100 Meters': 25 | 12.5 | 5 | 0.175 | 1.25 | 2.5 | 0.175 | 0.1 | 0.5 | 1 | 0.05; '- 60x': 4.167 | 2.08 | 0.833 | 0.029 | 0.208 | .417 | 0.029 | 0.017 | 0.083 | 0.167 | 0.008. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/s6-10-60x56-ed-ft-br-field-target (okundu 2026-10-12); https://sightron.com/products/s6-10-60x56-ed-ft-br-field-target-copy (okundu 2026-10-12)."
+}

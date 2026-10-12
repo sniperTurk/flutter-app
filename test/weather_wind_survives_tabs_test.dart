@@ -290,9 +290,7 @@ void main() {
   });
 
   testWidgets('no profile → first profile: the weather and wind speed carry '
-      'over, the wind direction does not', (
-    tester,
-  ) async {
+      'over, the wind direction does not', (tester) async {
     final (:weather, :store, :active) = await _pumpHome(
       tester,
       withProfile: false,

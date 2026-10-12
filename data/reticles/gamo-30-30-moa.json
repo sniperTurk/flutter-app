@@ -1,0 +1,25 @@
+{
+  "name": "30/30",
+  "brand": "Gamo",
+  "scopes": [
+    "3-9X40 WR",
+    "3-9X32 WR",
+    "4X32 AO WR",
+    "4X32 WR",
+    "6X40 WR"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.gamo.com/en/gamo-scope-3-9x40wr/",
+  "notes": "Beş WR ürün sayfası yalnız 'Reticle: 30/30' yazıyor; açıklama, ölçü, odak düzlemi, tıklama değeri yok. 30/30 kalın dış direk + ince merkez artı (plex) -> family=duplex (brief kuralı). Ölçü yok; birim taret birimi (dürbün kayıtlarında taret MOA; Gamo sayfaları tıklama değerini yazmıyor). Odak düzlemi sayfada yazmıyor (sabit büyütmeli 4x/6x modellerde önemsiz). Direk başlangıcı, kalınlık -> null. Kaynak: https://www.gamo.com/en/gamo-scope-3-9x40wr/ (okundu 2026-10-12); https://www.gamo.com/en/gamo-scope-3-9x32-wr/ (okundu 2026-10-12); https://www.gamo.com/en/gamo-scope-4x32ao-compact-wr/ (okundu 2026-10-12); https://www.gamo.com/en/gamo-scope-4x32-wr/ (okundu 2026-10-12); https://www.gamo.com/en/gamo-scope-6x40-wr/ (okundu 2026-10-12)"
+}

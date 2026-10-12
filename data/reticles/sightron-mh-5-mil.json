@@ -1,0 +1,22 @@
+{
+  "name": "MH-5",
+  "brand": "Sightron",
+  "scopes": [
+    "SIII Precision Long Range 8-32x56 Zero Stop",
+    "SIII Precision Long Range 6-24x50 Zero Stop"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://sightron.com/products/siii-precision-long-range-8-32x56-zero-stop",
+  "notes": "SFP, tık '.1 MRAD'. Sayfa: 'Mil based reticle'; 'Mils are divided into .2 mil spacing and the reticle also has windage spacing in .2 mil bars' → hash_step=0.2 (referans büyütme metinde yok). 'hash' sözcüğü geçmediği için family null; merkez tarifi yok → null. Tablolar 8-32x56 '8x': 1.5 | .75 | .12 | .6 | 3 | 3 | 1.5 | .111 | .219 | .3 | 3; '32x': .375 | .188 | .03 | .15 | .75 | .75 | .375 | .028 | .055 | .075 | .75. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/siii-precision-long-range-8-32x56-zero-stop (okundu 2026-10-12); https://sightron.com/products/siii-precision-long-range-6-24x50-zero-stop (okundu 2026-10-12)."
+}

@@ -1,0 +1,22 @@
+{
+  "name": "AR-223",
+  "brand": "Sightmark",
+  "scopes": [
+    "Core TX 4x32 AR-223 BDC",
+    "Core TX 1-4x24 SFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.sightmark.com/cdn/shop/files/CORE_TX_INF_MANUAL_78801b8e-8f9e-46f0-9789-50c804622aed.pdf",
+  "notes": "Sightmark Core TX kılavuzu: 'The Sightmark Core TX 4x32AR-223 and 1-4x24 AR-223 are equipped with the AR-223 Reticle.'; 'The AR-223 reticle is a second focal plane reticle.'; '.223 Rem. 55gr. FMJ', '100 yard zero'; 'The design provides a 1.34 MOA central aiming dot at 4x magnification' -> center_dot=true, unit=moa (ayar ½ MOA); 'circle dot' (1x'te 50 yd'de ~20 inç); holdover 300/400/500/600 yd, 'for a 300 yard holdover, the tip of the vertical subtension is used'; 'Ballistic holdovers, however, must be performed at the highest magnification.' Holdover açısal değerleri yalnız şekilde -> family ve sayısal alanlar null. Ürün sayfası (4x32): 'Reticle: AR-223', 'BDC reticle calibrated for .223 55 grain', '2nd'. (Kılavuz dosyası ürün sayfasında cdn.shopify.com bağlantısıyla veriliyor; aynı dosya üreticinin kendi alan adındaki www.sightmark.com/cdn/shop/files/ yolundan okundu.) Kaynak: https://www.sightmark.com/cdn/shop/files/CORE_TX_INF_MANUAL_78801b8e-8f9e-46f0-9789-50c804622aed.pdf (okundu 2026-10-12); https://www.sightmark.com/products/core-tx-4x32ar-223-bdc-riflescope (okundu 2026-10-12)"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Wind Ret-Illuminated",
+  "brand": "Burris",
+  "scopes": [
+    "Fullfield 3-12x42mm"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/wind-ret-illuminated",
+  "notes": "Burris 'Wind Ret-Illuminated' sayfası: 'Dial to elevation and quickly hold for wind using the symmetrical MOA wind hold hash marks', 'An illuminated cross draws attention quickly to the middle'. Fullfield kılavuzu: 'RETICLE WIND RET-ILLUMINATED' başlığı; 'All Fullfield riflescopes are rear focal plane'. unit=moa metinden ('MOA wind hold hash marks'). İşaret aralığı ve uzanım yazılmadığından hash_step/family ve diğer alanlar null. Kaynak: https://www.burrisoptics.com/reticles/wind-ret-illuminated (okundu 2026-10-12); https://www.burrisoptics.com/sites/default/files/content/files/2025-08/INSTR-9500_Fullfield_UserManual_Rev1.pdf (okundu 2026-10-12)"
+}

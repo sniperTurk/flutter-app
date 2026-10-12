@@ -1,0 +1,22 @@
+{
+  "name": "HOLDFAST",
+  "brand": "Nikko Stirling",
+  "scopes": [
+    "Diamond Long Range 4-16x50 HOLDFAST illuminated",
+    "Diamond Long Range 6-24x50 HOLDFAST illuminated"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://nikkostirling.com/media/pages/products/rifle-scopes/diamond-long-range/f90e093852-1764599247/holdfastusermanual.pdf",
+  "notes": "Nikko Stirling 'Hold Fast Reticle Information' PDF: çizgiler 'reference subtensions in MOA at 100 yards', 'set correct at 10X Magnification' -> unit=moa (SFP olduğu buradan çıkarılıyor; açıkça yazmıyor). Merkez çizgi 100 yd, 2.-5. çizgiler 200-500 yd tutma çizgileri; 7X-13X için mermi düşüşü tabloları. Belgede etiketsiz MOA değerleri (8, 2, 1.8, 1.8, 4.3, 7.5, 11 MOA) var; hangi öğeye ait oldukları metinden eşlenemediği için alanlara girilmedi. Diamond Long Range NDSI41650LRHF sayfası: 'Glass-etched HOLDFAST reticle', 'Dual-color red/green illumination', '¼ MOA turret adjustments'; teknik tabloda retikül 'HF/skeleton HMD'. Aile türü (mesafe tutma çizgileri) şemadaki ailelere açıkça uymadığından family null; diğer alanlar verilmemiş -> null. Kaynak: https://nikkostirling.com/media/pages/products/rifle-scopes/diamond-long-range/f90e093852-1764599247/holdfastusermanual.pdf (okundu 2026-10-12); https://nikkostirling.com/products/rifle-scopes/diamond-long-range/ndsi41650lrhf (okundu 2026-10-12)"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "3GR",
+  "brand": "Kahles",
+  "scopes": [
+    "K18i-2",
+    "K18i",
+    "K16i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/3GR_K18i-2.PDF",
+  "notes": "Kahles 3GR föyleri. K18i-2 (32026015599-101, 15.06.23): 16m/100m (1x), 2m/100m (8x), 34,4cm (1x) / 4,3cm (8x), 6,8cm (1x) / 0,85cm (8x), 8m (1x) / 1m (8x), '1MOA (8x)', '1Mil (8x)', '0,8MOA (8x)'. K18i (81022121297-101, 12.12.2018): aynı değerler, yalnız 8m/1m yerine 6,4m (1x) / 0,8m (8x). K16i (71020103688-104, 21.02.2018): 12m (1x) / 2m (6x), 25,7cm (1x) / 4,3cm (6x), 5cm (1x) / 0,85cm (6x), 4,8m (1x) / 0,8m (6x), '1Mil (6x)', '1MOA (6x)', '0,8MOA (6x)'. Üç föy bir ölçüde farklı; ad anahtarı aynı olduğu için tek kayıt tutuldu, geometri zaten null. SFP: Kahles 2023/24 broşürü K18i 'illumination in 2nd focal plane', K16i 'illuminated reticles in the second focal plane'; 'Special reticles for IPSC and 3-Gun'. Föyde hem Mil hem MOA referansı var; dürbün taretleri '.1 MRAD' -> unit=mil. Öğe eşlemesi yalnız çizimde -> family ve geometri null. Kaynak: https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/3GR_K18i-2.PDF (okundu 2026-10-12); https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/3GR_K18i.PDF (okundu 2026-10-12); https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/3GR_K16i.pdf (okundu 2026-10-12); https://www.kahles.at/fileadmin/downloads/Folder012023/KAHLES_ProductBrochure_ENG_012023.pdf (okundu 2026-10-12)"
+}

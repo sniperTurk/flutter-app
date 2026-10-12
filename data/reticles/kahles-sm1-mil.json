@@ -1,0 +1,21 @@
+{
+  "name": "SM1",
+  "brand": "Kahles",
+  "scopes": [
+    "K16i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/SM1_K16i.pdf",
+  "notes": "Kahles retikül föyü 'SM1 / K16i' (31020181688-102, 21.02.2018). Etiketler: '10MIL', '1MIL', '1MOA', 50cm/100m ve 50cm/200m (6x), 3m/100m ve 3m/200m (1x), 18\"/100yds (6x). Açısal etiketler MIL -> unit=mil (taret '.1 MRAD' ile aynı). SFP (K16i: 'illuminated reticles in the second focal plane'). Öğe eşlemesi yalnız çizimde -> family ve geometri null. Kaynak: https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/SM1_K16i.pdf (okundu 2026-10-12); https://www.kahles.at/en/sport/riflescopes/k16i-1-6x24i (okundu 2026-10-12)"
+}

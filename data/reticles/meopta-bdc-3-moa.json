@@ -1,0 +1,22 @@
+{
+  "name": "BDC 3",
+  "brand": "Meopta",
+  "scopes": [
+    "MeoPro R6 1-6x24 SFP RD",
+    "MeoPro R6 3-18x56 SFP RD"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.meoptasportsoptics.eu/files/reticle/reticle-BDC-3.pdf",
+  "notes": "Meopta BDC 3, MeoPro R6 kılavuzu: '1-6x24 SFP RD – BDC 3', '3-18x56 SFP RD – BDC 3'. SFP. Üretici bu dürbünler için açısal retikül ölçüsü yayımlamıyor (MeoPro R6 kılavuzunda retikül ölçüsü yok); unit dürbünün taret birimi (MeoPro R6 SFP RD: 0.25 MOA tık) -> 'ölçü yok; birim taret birimi'. Aynı retikülün MeoHunter R5 kaydı meopta-bdc-3-mil. Üretici retikül föyü (https://www.meoptasportsoptics.eu/files/reticle/reticle-BDC-3.pdf) yalnız görsel içeriyor, metin katmanı yok (WebFetch: 'empty or contains no machine-readable text') -> ölçü okunamadı, family ve tüm geometri null. Kaynak: https://www.meoptasportsoptics.eu/files/reticle/reticle-BDC-3.pdf (okundu 2026-10-12); https://www.meoptasportsoptics.eu/files/MeoPro_R6_EN.pdf (okundu 2026-10-12); https://www.meoptasportsoptics.eu/files/katalog_2026_EN.pdf (okundu 2026-10-12)"
+}

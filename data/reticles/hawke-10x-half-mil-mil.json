@@ -1,0 +1,22 @@
+{
+  "name": "10x Half Mil",
+  "brand": "Hawke",
+  "scopes": [
+    "Sidewinder 30 SF 4.5-14x44",
+    "Sidewinder 30 SF 4-16x50"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://us.hawkeoptics.com/sidewinder-30-sf-4-16x50-10x-half-mil.html",
+  "notes": "SFP. Ürün sayfası: Reticle '10x Half Mil', Reticle Group 'Half Mil', Focal Plane 'SFP (Second Focal Plane)', Click Value '1/10 MRAD'. Seri sayfası 4.5-14x44 ve 4-16x50 modellerinde '10x Half Mil'. unit=mil retikül adındaki 'Mil' sözcüğünden. Ölçek alanları (hash_step, major_every, numbers_every, uzanımlar, tree, posts_start, center_dot, floating_center) ve family null: ürün sayfalarında retikül ölçüsü yok; retikül görselleri (us.hawkeoptics.com/hawke/reticles/white/*.svg) robots.txt ile engelli; Reticle Booklet PDF'leri docs.google.com'da (izinli alan dışı); reticles.hawkeoptics.com, reticle.hawkeoptics.com ve docs.hawkeoptics.com 2 denemede CLIENT_ERROR verdi. Kaynak: https://us.hawkeoptics.com/sidewinder-30-sf-4-16x50-10x-half-mil.html (okundu 2026-10-12); https://us.hawkeoptics.com/sidewinder-riflescopes.html (okundu 2026-10-12); https://us.hawkeoptics.com/reticle-information.html (okundu 2026-10-12)"
+}

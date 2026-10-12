@@ -1,0 +1,22 @@
+{
+  "name": "Modified 1/2 Mil dot",
+  "brand": "Konus",
+  "scopes": [
+    "Diablo 6-24x50",
+    "F30 8-32x56"
+  ],
+  "unit": "mil",
+  "family": "mildot",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.konuscopes.com/ottiche/ottiche-da-tiro/diablo-6x-24x50/",
+  "notes": "Diablo 6-24x50: 'Reticolo: Modified 1/2 Mil dot doppia illuminazione', tıklama 1/10 MIL. F30 8-32x56: 'RETICOLO MODIFIED MIL DOT INCISO', 'Reticolo: Modified 1/2 Mil-dot illuminato', 1/10 MIL. unit=mil addan ve taretten; family=mildot addan. Aralık sayısı yazmıyor, odak düzlemi iki sayfada da yazmıyor -> ölçüler null. Diablo ürün görseli dosya adı '7271.1-2MIL-DOT-ADVANCED.png' (görsel okunmadı). Kaynak: https://www.konuscopes.com/ottiche/ottiche-da-tiro/diablo-6x-24x50/ (okundu 2026-10-12); https://www.konuscopes.com/ottiche-da-caccia-tiro/ottiche-da-tiro/f30-8-32x56/ (okundu 2026-10-12)"
+}

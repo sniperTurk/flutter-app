@@ -1,0 +1,21 @@
+{
+  "name": "Horus TREMOR5",
+  "brand": "Burris",
+  "scopes": [
+    "XTR Pro 5.5-30x56mm"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/horus-tremor5",
+  "notes": "Burris 'Horus TREMOR5' sayfası: 'designed to provide the basic capabilities of the TREMOR3 reticle', Rapid Range çubukları kaldırılmış; 'Retaining the 0.2 milliradian Horus Grid, patented time of flight wind dots, and TREMOR milling Chevrons'. Ürün: XTR Pro 5.5-30x56mm. family=tree (ızgara + rüzgâr noktaları; Leupold Tremor 3 kaydıyla tutarlı), hash_step=0.2 ('0.2 milliradian Horus Grid' ızgara aralığı). Odak düzlemi sayfada yok. Satırlar, uzanımlar, rakamlar, merkez -> null. Kaynak: https://www.burrisoptics.com/reticles/horus-tremor5 (okundu 2026-10-12)"
+}

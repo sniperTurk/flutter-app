@@ -1,0 +1,21 @@
+{
+  "name": "German #4",
+  "brand": "Bushnell",
+  "scopes": [
+    "R7 1-8x24 MRAD"
+  ],
+  "unit": "mil",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.bushnell.com/products/r7-1-8x24-riflescopes?variant=51896223400232",
+  "notes": "Bushnell R7 1-8x24 (MRAD varyantı) sayfası: 'SFP MRAD German #4 Illuminated Reticle', 'Reticle, Scale: German #4, MRAD', 'Reticle Illumination, Type: Yes, Fiber Dot'; 'Focal Plane: 2nd'. family=duplex (German #4). Ölçü yok -> diğer alanlar null. (Önceki neden 'baska-marka': bu ad yalnız başka markada vardı.) Kaynak: https://www.bushnell.com/products/r7-1-8x24-riflescopes?variant=51896223400232 (okundu 2026-10-12)"
+}
