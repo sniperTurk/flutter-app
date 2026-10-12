@@ -41,10 +41,7 @@ Map<String, dynamic> _ammo(Map<String, dynamic> extra) => {
 void main() {
   group('GA removed', () {
     test('only G1/G7 and the BRL/RA4/GS laws remain', () {
-      expect(
-        BallisticModel.values.map((m) => m.name),
-        isNot(contains('ga')),
-      );
+      expect(BallisticModel.values.map((m) => m.name), isNot(contains('ga')));
     });
   });
 

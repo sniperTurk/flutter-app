@@ -3458,8 +3458,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   const MenzilFullWidth(
                     child: MenzilNotice(
                       tone: MenzilNoticeTone.danger,
-                      message:
-                          'Mühimmat tipini ve BC modelini (G1/G7) seçin.',
+                      message: 'Mühimmat tipini ve BC modelini (G1/G7) seçin.',
                     ),
                   ),
               ],
