@@ -27,21 +27,5 @@ The following plugins do not support Swift Package Manager for ios:
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           180.6s
-00:00 +0 -1: loading /Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_test.dart [E]
-  Failed to load "/Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_test.dart": Connecting to the VM Service timed out.
-  package:flutter_tools/src/test/integration_test_device.dart 105:28  IntegrationTestTestDevice.start.<fn>
-  dart:async/zone_root.dart 27:47                                     _rootRun
-  dart:async/zone.dart 810:35                                         _CustomZone.run
-  dart:async/future_impl.dart 1054:34                                 Future.timeout.<fn>
-  ===== asynchronous gap ===========================
-  package:flutter_tools/src/test/integration_test_device.dart 99:9    IntegrationTestTestDevice.start
-  ===== asynchronous gap ===========================
-  package:flutter_tools/src/test/flutter_platform.dart 679:51         FlutterPlatform._startTest.<fn>
-  ===== asynchronous gap ===========================
-  package:flutter_tools/src/base/async_guard.dart 108:24              asyncGuard.<fn>
-  
-00:00 +0 -1: Some tests failed.
-
-Failing tests:
-  /Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_test.dart: loading /Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_test.dart
+Xcode build done.                                           103.0s
+No tests ran.
