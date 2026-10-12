@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/wez.dart';
@@ -192,5 +193,27 @@ class ShotSettingsStore {
   Future<void> save(String profileId, ShotSettings settings) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(keyFor(profileId), jsonEncode(settings.toJson()));
+  }
+
+  /// Bumped when a tool page writes Pro values from outside the Atış
+  /// workspace (Sıfır Grubu -> Sıfır ofseti). The open workspace reloads,
+  /// so it neither shows nor writes back the old value.
+  static final ValueNotifier<int> changes = ValueNotifier<int>(0);
+
+  /// Writes only Sıfır ofseti (as text, cm at the zero range); every other
+  /// Pro value of the profile stays as stored.
+  Future<void> updateZeroOffset(
+    String profileId, {
+    required String upText,
+    required String rightText,
+  }) async {
+    final current = await load(profileId) ?? const ShotSettings();
+    final next = ShotSettings.fromJson({
+      ...current.toJson(),
+      'zeroUp': upText,
+      'zeroRight': rightText,
+    });
+    await save(profileId, next);
+    changes.value++;
   }
 }
