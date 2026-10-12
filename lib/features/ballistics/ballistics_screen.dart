@@ -2015,7 +2015,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   Widget _referenceShotPanel(TrajectoryPoint? shot) {
-    // "Hedef Görünümü" is the page title in the top bar (owner, 2026-10-08);
+    // "Atış Çözümü" is the page title in the top bar (owner, 2026-10-08);
     // the Yukarı/Aşağı and Rüzgâr boxes were removed: the scope below shows
     // the clicks and the point of impact.
     return MenzilCard(
@@ -5129,8 +5129,8 @@ class EnvironmentCarry {
   void _apply(_BallisticsScreenState s) {
     final si = _si;
     if (si == null) return;
-    final sameProfile =
-        _profileId != null && _profileId == s.widget.profile?.id;
+    // Without a profile on both sides it is the same workspace.
+    final sameProfile = _profileId == s.widget.profile?.id;
     s._weatherFilled = _weatherFilled;
     s._pressureFilled = _pressureFilled;
     String f(double v) => v == v.roundToDouble()

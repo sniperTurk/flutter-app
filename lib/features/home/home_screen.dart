@@ -304,10 +304,10 @@ class _HomeScreenState extends State<HomeScreen> {
         themeLabel: MenzilThemeController.labelFor(themeMode),
         onThemeTap: themeController?.cycle,
         // Each page shows its own name instead of Menzil (owner, 2026-10-08).
-        // The tab is "Hedef"; its single shot is "Hedef Görünümü" (owner,
-        // 2026-10-08).
+        // The tab is "Hedef"; its single shot is "Atış Çözümü" (owner,
+        // 2026-10-13: "Hedef Görünümü" was too long).
         title: tab == _tabShot && _shotMode == BallisticsView.shot
-            ? 'Hedef Görünümü'
+            ? 'Atış Çözümü'
             : _titles[tab],
       ),
       bottomNavigationBar: MenzilBottomNavigation(
