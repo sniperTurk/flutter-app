@@ -4690,79 +4690,89 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 ),
                 child: Column(
                   children: [
-            Row(
-              children: [
-                MenzilStepButton(
-                  label: '−5',
-                  semanticLabel: '5 azalt',
-                  onPressed: () => _setShotDisplay(display - 5),
-                ),
-                const SizedBox(width: MenzilSpace.xs),
-                MenzilStepButton(
-                  label: '−1',
-                  semanticLabel: '1 azalt',
-                  small: true,
-                  onPressed: () => _setShotDisplay(display - 1),
-                ),
-                Expanded(
-                  child: Semantics(
-                    button: true,
-                    label:
-                        'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
-                    child: ExcludeSemantics(
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(MenzilRadius.button),
-                        onTap: _editShotRange,
-                        child: SizedBox(
-                          height: 64,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.baseline,
-                              textBaseline: TextBaseline.alphabetic,
-                              children: [
-                                Text(
-                                  '$display',
-                                  style: MenzilType.display(
-                                    c.ink,
-                                    size: display >= 1000 ? 44 : 52,
+                    Row(
+                      children: [
+                        MenzilStepButton(
+                          label: '−5',
+                          semanticLabel: '5 azalt',
+                          onPressed: () => _setShotDisplay(display - 5),
+                        ),
+                        const SizedBox(width: MenzilSpace.xs),
+                        MenzilStepButton(
+                          label: '−1',
+                          semanticLabel: '1 azalt',
+                          small: true,
+                          onPressed: () => _setShotDisplay(display - 1),
+                        ),
+                        Expanded(
+                          child: Semantics(
+                            button: true,
+                            label:
+                                'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
+                            child: ExcludeSemantics(
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  MenzilRadius.button,
+                                ),
+                                onTap: _editShotRange,
+                                child: SizedBox(
+                                  height: 64,
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.baseline,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: [
+                                        Text(
+                                          '$display',
+                                          style: MenzilType.display(
+                                            c.ink,
+                                            size: display >= 1000 ? 44 : 52,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          _distanceUnit,
+                                          style: MenzilType.number(
+                                            c.ink2,
+                                            size: 18,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  _distanceUnit,
-                                  style: MenzilType.number(c.ink2, size: 18),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        MenzilStepButton(
+                          label: '+1',
+                          semanticLabel: '1 artır',
+                          small: true,
+                          onPressed: () => _setShotDisplay(display + 1),
+                        ),
+                        const SizedBox(width: MenzilSpace.xs),
+                        MenzilStepButton(
+                          label: '+5',
+                          semanticLabel: '5 artır',
+                          onPressed: () => _setShotDisplay(display + 5),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-                MenzilStepButton(
-                  label: '+1',
-                  semanticLabel: '1 artır',
-                  small: true,
-                  onPressed: () => _setShotDisplay(display + 1),
-                ),
-                const SizedBox(width: MenzilSpace.xs),
-                MenzilStepButton(
-                  label: '+5',
-                  semanticLabel: '5 artır',
-                  onPressed: () => _setShotDisplay(display + 5),
-                ),
-              ],
-            ),
-            Slider(
-              value: display.toDouble().clamp(1.0, sliderMax).toDouble(),
-              min: 1,
-              max: sliderMax,
-              label: '$display $_distanceUnit',
-              semanticFormatterCallback: (v) => '${v.round()} $_distanceUnit',
-              onChanged: (v) => _setShotDisplay(v.round()),
-            ),
+                    Slider(
+                      value: display
+                          .toDouble()
+                          .clamp(1.0, sliderMax)
+                          .toDouble(),
+                      min: 1,
+                      max: sliderMax,
+                      label: '$display $_distanceUnit',
+                      semanticFormatterCallback: (v) =>
+                          '${v.round()} $_distanceUnit',
+                      onChanged: (v) => _setShotDisplay(v.round()),
+                    ),
                   ],
                 ),
               ),
