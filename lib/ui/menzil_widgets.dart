@@ -1400,7 +1400,9 @@ class MenzilSecondaryButton extends StatelessWidget {
         var size = base.fontSize ?? 16;
         // One line, the font shrinking until it fits (owner, 2026-10-11:
         // no icon, no second line).
-        while (size > 10) {
+        // Two-line labels may shrink a little further (iPhone SE, 1.3×).
+        final minSize = maxLabelLines > 1 ? 8.0 : 10.0;
+        while (size > minSize) {
           final painter = TextPainter(
             text: TextSpan(
               text: label,
