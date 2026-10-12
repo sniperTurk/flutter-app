@@ -418,7 +418,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         createRequest: _createRequest,
                       ),
                       _ballisticsTab(context),
-                      ToolsScreen(onProfilesChanged: _load),
+                      ToolsScreen(
+                        onProfilesChanged: _load,
+                        activePlatform: _activeResolution?.rifle.platform,
+                      ),
                     ],
                   ),
                 ),
@@ -582,7 +585,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Text(
                   saved.isEmpty
-                      ? 'Önce bir tüfek profili oluştur.'
+                      ? 'Önce bir tüfek profili oluşturun.'
                       : 'Aktif profili Profil sekmesinde düzenleyip yeniden kaydedin.',
                   style: MenzilType.body(MenzilColors.of(context).ink),
                 ),

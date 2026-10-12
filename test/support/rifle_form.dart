@@ -137,7 +137,7 @@ Future<void> fillScopeForm(
   String objective = '56',
   String plane = 'FFP',
   String unit = 'MRAD',
-  String click = '0,1 mrad',
+  String click = '0,1 MRAD',
 }) async {
   if (find.byKey(const Key('scope-brand-select')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');

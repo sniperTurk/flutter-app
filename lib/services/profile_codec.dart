@@ -18,6 +18,10 @@ class ProfileCodec {
         'zeroRangeM': p.zeroRangeM,
         'sightHeightMm': p.sightHeightMm,
         'pressureBar': p.pressureBar,
+        'tubePressureBar': p.tubePressureBar,
+        'pressureVelocity': [
+          for (final pt in p.pressureVelocityTable) {'bar': pt.bar, 'mps': pt.mps},
+        ],
         'angularUnit': p.angularUnit.name,
         'distanceUnit': p.distanceUnit.name,
         'mountCantMoa': p.mountCantMoa,
@@ -92,6 +96,40 @@ class ProfileCodec {
     } else {
       throw const FormatException('Invalid profile field: pressureBar');
     }
+    // PCP tüp basıncı and basınca göre hız (2026-10-12) are absent in older
+    // profiles: none. A present malformed value is corruption (it would
+    // silently change the field velocity).
+    final tubeRaw = j['tubePressureBar'];
+    final double? tubePressureBar;
+    if (tubeRaw == null) {
+      tubePressureBar = null;
+    } else if (tubeRaw is num && tubeRaw.toDouble().isFinite && tubeRaw > 0 &&
+        tubeRaw.toDouble() <= ProductionLimits.maxPcpPressureBar) {
+      tubePressureBar = tubeRaw.toDouble();
+    } else {
+      throw const FormatException('Invalid profile field: tubePressureBar');
+    }
+    final tableRaw = j['pressureVelocity'];
+    final table = <PressureVelocityPoint>[];
+    if (tableRaw != null) {
+      if (tableRaw is! List) {
+        throw const FormatException('Invalid profile field: pressureVelocity');
+      }
+      for (final row in tableRaw) {
+        final bar = row is Map ? row['bar'] : null;
+        final mps = row is Map ? row['mps'] : null;
+        if (bar is! num || mps is! num ||
+            !bar.toDouble().isFinite || bar <= 0 ||
+            bar.toDouble() > ProductionLimits.maxPcpPressureBar ||
+            !mps.toDouble().isFinite || mps <= 0 ||
+            mps.toDouble() > ProductionLimits.maxMuzzleVelocityMps ||
+            table.any((p) => p.bar == bar.toDouble())) {
+          throw const FormatException('Invalid profile field: pressureVelocity');
+        }
+        table.add(PressureVelocityPoint(bar: bar.toDouble(), mps: mps.toDouble()));
+      }
+      table.sort((a, b) => a.bar.compareTo(b.bar));
+    }
     // mountCantMoa is absent in profiles saved before the field existed:
     // those are normal (0 MOA) mounts. A present malformed value is
     // corruption and must not silently become 0.
@@ -134,6 +172,8 @@ class ProfileCodec {
       zeroRangeM: requiredPositive('zeroRangeM', max: ProductionLimits.maxRangeM),
       sightHeightMm: requiredPositive('sightHeightMm', max: ProductionLimits.maxSightHeightMm, maxExclusive: true),
       pressureBar: pressureBar,
+      tubePressureBar: tubePressureBar,
+      pressureVelocityTable: List.unmodifiable(table),
       angularUnit: unit,
       distanceUnit: distanceUnit,
       mountCantMoa: mountCantMoa,

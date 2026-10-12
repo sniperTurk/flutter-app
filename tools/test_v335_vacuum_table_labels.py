@@ -12,7 +12,7 @@ class VacuumTableLabelsTest(unittest.TestCase):
         self.assertNotIn("'Enerji J'", text)
         self.assertNotIn("'Enerji ft-lb'", text)
         self.assertIn("Namlu enerjisi J*", text)
-        self.assertIn("Namlu enerjisi ft-lb*", text)
+        self.assertIn("Namlu enerjisi ft·lbf*", text)
 
     def test_footnote_states_drag_is_not_modelled(self):
         # V354: elevation is now computed from the vacuum drop and shown as

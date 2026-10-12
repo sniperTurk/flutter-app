@@ -140,7 +140,7 @@ void main() {
     await tester.tap(find.byTooltip('Rüzgâr kulesi 1 klik sağa'));
     await tester.pumpAndSettle();
     // 0.1 mrad at 100 m = 1.0 cm to the right.
-    expect(_impact(tester), contains('1.0 cm sağ'));
+    expect(_impact(tester), contains('1,0 cm sağ'));
   });
 
   testWidgets('dragging the elevation drum changes the dialled clicks', (
@@ -205,7 +205,7 @@ void main() {
       contains('MOA)'),
     );
     expect(find.byKey(ScopeDialKeys.workings), findsOneWidget);
-    expect(find.textContaining('/ 0.25 ='), findsOneWidget);
+    expect(find.textContaining('/ 0,25 ='), findsOneWidget);
   });
 
   testWidgets('SFP reticle marks scale with magnification', (tester) async {
@@ -242,16 +242,16 @@ void main() {
     );
     await tester.pumpWidget(view(12));
     expect(
-      find.textContaining('1 çizgi = 24 / 12 = 2.000 mrad'),
+      find.textContaining('1 çizgi = 24 / 12 = 2,000 MRAD'),
       findsOneWidget,
     );
     // 1.5 mrad low at 12x on a 24x-calibrated SFP = 0.75 marks.
-    expect(find.textContaining('= 0.75 çizgi'), findsOneWidget);
+    expect(find.textContaining('= 0,75 çizgi'), findsOneWidget);
     expect(find.byKey(ScopeDialKeys.magnification), findsOneWidget);
 
     await tester.pumpWidget(view(24));
     expect(
-      find.textContaining('1 çizgi = 24 / 24 = 1.000 mrad'),
+      find.textContaining('1 çizgi = 24 / 24 = 1,000 MRAD'),
       findsOneWidget,
     );
   });
@@ -313,7 +313,7 @@ void main() {
       // The reticle keeps its real scale (no zoom-out); the note names the
       // offset and the edge arrow points to it.
       expect(painter.trueHalfField, closeTo(10, 1e-9));
-      expect(find.textContaining('113.70 mrad aşağıda'), findsOneWidget);
+      expect(find.textContaining('113,70 MRAD aşağıda'), findsOneWidget);
       expect(find.byKey(ScopeDialKeys.travelNote), findsOneWidget);
     },
   );

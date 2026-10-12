@@ -281,7 +281,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
     }
     try {
       await _profiles.save(updated);
-      if (mounted) _snack('Dürbün yüksekliği profile uygulandı.');
+      if (mounted) _snack('Sight height profile uygulandı.');
     } catch (_) {
       if (mounted) _snack('Profil kaydedilemedi. Mevcut değer korundu.');
     }
@@ -306,7 +306,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
                   label:
                       'Yan görünüş: tüfek ve dürbün. Arka göz merceği solda, ön objektif sağda, namlu ağzı sağda. '
                       'Mavi kesikli çizgi dürbün ekseni, kırmızı kesikli çizgi namlu ekseni. Ölçüm noktası dürbünün ön '
-                      'ucunun altında, namlu deliği merkezindedir. Dürbün yüksekliği dört parçanın toplamıdır.',
+                      'ucunun altında, namlu deliği merkezindedir. Sight height dört parçanın toplamıdır.',
                   child: ExcludeSemantics(
                     child: AspectRatio(
                       aspectRatio:
@@ -368,7 +368,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
   }
 
   Widget _partsCard(MenzilColors c) {
-    Widget part(String n, String bold, String rest) => Padding(
+    Widget part(String n, String lead, String rest) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 9),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -379,10 +379,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
             child: Text.rich(
               TextSpan(
                 children: [
-                  TextSpan(
-                    text: '$bold ',
-                    style: const TextStyle(fontWeight: FontWeight.w700),
-                  ),
+                  TextSpan(text: '$lead '),
                   TextSpan(text: rest),
                 ],
               ),
@@ -410,7 +407,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
           part(
             '3',
             'Boşluk:',
-            'dürbünün namlu ağzı tarafındaki ön ucunda, dürbünün alt yüzeyinden namlunun üst yüzeyine. Kumpas ile ölçünüz.',
+            'dürbünün namlu ağzı tarafındaki ön ucunda, dürbünün alt yüzeyinden namlunun üst yüzeyine. Kumpasla ölçün.',
           ),
           Divider(height: 1, color: c.surface2),
           part(
@@ -428,7 +425,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
     final rows = <Widget>[
       _MeasureRow(
         number: '1',
-        label: 'Namlu iç çapı (kalibre)',
+        label: 'Namlu iç çapı',
         controller: _bore,
         fieldKey: const Key('sight-bore'),
         caption:
@@ -442,26 +439,26 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
         controller: _wall,
         fieldKey: const Key('sight-wall'),
         caption:
-            'Bilmiyorsanız: (namlu dış çapı − iç çap) ÷ 2. Namlu dış çapını kumpas ile ölçünüz.',
+            'Bilmiyorsanız: (namlu dış çapı − iç çap) ÷ 2. Namlu dış çapını kumpasla ölçün.',
         onChanged: (_) => setState(() {}),
       ),
       _MeasureRow(
         number: '3',
-        label: 'Dürbün–namlu boşluğu (ön uç)',
+        label: 'Dürbün–namlu boşluğu',
         controller: _gap,
         fieldKey: const Key('sight-gap'),
         caption:
-            'Dürbünün ön ucunda, alt yüzeyinden namlunun üstüne. Kumpas ile ölçünüz.',
+            'Dürbünün ön ucunda, alt yüzeyinden namlunun üstüne. Kumpasla ölçün.',
         onChanged: (_) => setState(() {}),
       ),
       _MeasureRow(
         number: '4',
-        label: 'Dürbün ön dış çapı (objektif)',
+        label: 'Dürbün ön dış çapı',
         controller: _objective,
         fieldKey: const Key('sight-objective'),
         caption:
             'Objektif gövdesinin en dış çapı; model adındaki cam çapı (ör. 56) değildir. '
-            '${_objectiveNote ?? 'Katalogda yoksa kumpas ile ölçünüz.'}'
+            '${_objectiveNote ?? 'Katalogda yoksa kumpasla ölçün.'}'
             '${objective == null ? '' : ' Hesapta yarısı (${PhysicalSightHeight.roundedText(objective / 2, 1)} mm) kullanılır.'}',
         onChanged: (_) => setState(() {}),
       ),
@@ -515,7 +512,7 @@ class _SightHeightScreenState extends State<SightHeightScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Dürbün yüksekliği',
+                  'Sight height',
                   style: MenzilType.body(
                     c.amberInk,
                   ).copyWith(fontWeight: FontWeight.w700),
@@ -808,12 +805,12 @@ class _MeasureRow extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: MenzilType.body(
-                    c.ink,
-                  ).copyWith(fontWeight: FontWeight.w700, fontSize: 14.5),
+                  style: MenzilType.body(c.ink).copyWith(fontSize: 14.5),
                 ),
               ),
-              const SizedBox(width: 10),
+              // Explanation behind the ⓘ, not under the box (owner rule).
+              MenzilInfoButton(title: label, text: caption),
+              const SizedBox(width: 4),
               SizedBox(
                 width: 84,
                 height: 44,
@@ -853,10 +850,6 @@ class _MeasureRow extends StatelessWidget {
                 child: Text('mm', style: MenzilType.caption(c.ink2)),
               ),
             ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 32, top: 6),
-            child: Text(caption, style: MenzilType.caption(c.ink2)),
           ),
         ],
       ),
@@ -927,7 +920,7 @@ class _ApplyDialogState extends State<_ApplyDialog> {
                 key: const Key('sight-apply-preview'),
                 padding: const EdgeInsets.only(top: MenzilSpace.sm),
                 child: Text(
-                  'Dürbün yüksekliği: ${ToolFormat.dec(sel.sightHeightMm, 1)} mm → '
+                  'Sight height: ${ToolFormat.dec(sel.sightHeightMm, 1)} mm → '
                   '${ToolFormat.dec(widget.newHeightMm, 1)} mm',
                   style: const TextStyle(fontWeight: FontWeight.w700),
                 ),
