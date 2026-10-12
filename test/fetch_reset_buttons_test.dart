@@ -120,7 +120,7 @@ void main() {
 
     await _tap(tester, reset);
     expect(_text(tester, BallisticsFieldKeys.pressure), '');
-    expect(find.text('Tekrar basıncı telefondan al'), findsOneWidget);
+    expect(find.text('Basıncı telefondan al'), findsOneWidget);
     expect(find.text('Veriler sıfırlandı'), findsOneWidget);
   });
 
@@ -148,7 +148,7 @@ void main() {
     expect(find.text('Konumdan alındı'), findsOneWidget);
     await _tap(tester, const Key('pro-latitude-reset'));
     expect(_text(tester, const Key('pro-latitude')), '');
-    expect(find.text('Tekrar konumdan al'), findsOneWidget);
+    expect(find.text('Konumdan al'), findsOneWidget);
     expect(find.text('Veriler sıfırlandı'), findsOneWidget);
   });
 }
