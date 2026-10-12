@@ -165,7 +165,7 @@ void main() {
       await choose('chrono-unit', 'fps');
       await type('chrono-ammo-temp', '32');
       await type('chrono-velocities', '2631\n2618\n2640\n2627\n2622');
-      tester.testTextInput.hide();
+      FocusManager.instance.primaryFocus?.unfocus();
       await settle();
       await tester.ensureVisible(find.byKey(const Key('chrono-save-series')));
       await tester.tap(find.byKey(const Key('chrono-save-series')));
@@ -178,7 +178,7 @@ void main() {
       await openTab('Hava Durumu');
       await wait(6);
       await type('env-ammo-temp', '32');
-      tester.testTextInput.hide();
+      FocusManager.instance.primaryFocus?.unfocus();
       await settle();
       await page('hava_durumu_atesli');
     });
