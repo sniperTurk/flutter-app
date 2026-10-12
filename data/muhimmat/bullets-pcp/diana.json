@@ -1,7 +1,7 @@
 [
  {
   "brand": "Diana",
-  "name": "Domed XXL .30 49 gr",
+  "name": "Domed XXL 49 gr",
   "item_number": "44405001",
   "caliber_mm": 7.62,
   "head_size_mm": null,
@@ -15,7 +15,7 @@
  },
  {
   "brand": "Diana",
-  "name": "Domed XXL .35 82 gr",
+  "name": "Domed XXL 82 gr",
   "item_number": "44405001",
   "caliber_mm": 9.0,
   "head_size_mm": null,
@@ -29,7 +29,7 @@
  },
  {
   "brand": "Diana",
-  "name": "High Power .177 10.65 gr",
+  "name": "High Power 10.65 gr",
   "item_number": "44800006",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -43,7 +43,7 @@
  },
  {
   "brand": "Diana",
-  "name": "High Power .22 21.14 gr",
+  "name": "High Power 21.14 gr",
   "item_number": "44800006",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -57,7 +57,7 @@
  },
  {
   "brand": "Diana",
-  "name": "High Power .25 31.02 gr",
+  "name": "High Power 31.02 gr",
   "item_number": "44800006",
   "caliber_mm": 6.35,
   "head_size_mm": null,
@@ -71,7 +71,7 @@
  },
  {
   "brand": "Diana",
-  "name": "Hunters Mate .22 25 gr",
+  "name": "Hunters Mate 25 gr",
   "item_number": "44403006",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -85,7 +85,7 @@
  },
  {
   "brand": "Diana",
-  "name": "Hunters Mate .22 28 gr",
+  "name": "Hunters Mate 28 gr",
   "item_number": "44403006",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -99,7 +99,7 @@
  },
  {
   "brand": "Diana",
-  "name": "Hunters Mate .25 33 gr",
+  "name": "Hunters Mate 33 gr",
   "item_number": "44403006",
   "caliber_mm": 6.35,
   "head_size_mm": null,
@@ -113,7 +113,7 @@
  },
  {
   "brand": "Diana",
-  "name": "Hunters Mate .25 40 gr",
+  "name": "Hunters Mate 40 gr",
   "item_number": "44403006",
   "caliber_mm": 6.35,
   "head_size_mm": null,
@@ -127,7 +127,7 @@
  },
  {
   "brand": "Diana",
-  "name": "Point .177 8.64 gr",
+  "name": "Point 8.64 gr",
   "item_number": "44600005",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -141,7 +141,7 @@
  },
  {
   "brand": "Diana",
-  "name": "Point .22 15.4 gr",
+  "name": "Point 15.4 gr",
   "item_number": "44600005",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -155,7 +155,7 @@
  },
  {
   "brand": "Diana",
-  "name": "Sport .177 7.25 gr",
+  "name": "Sport 7.25 gr",
   "item_number": "44400005",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -169,7 +169,7 @@
  },
  {
   "brand": "Diana",
-  "name": "Sport .22 12.81 gr",
+  "name": "Sport 12.81 gr",
   "item_number": "44400005",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -183,7 +183,7 @@
  },
  {
   "brand": "Diana",
-  "name": "Stitch Copper .22 16 gr",
+  "name": "Stitch Copper 16 gr",
   "item_number": "44403009",
   "caliber_mm": 5.5,
   "head_size_mm": null,

@@ -1,7 +1,7 @@
 [
  {
   "brand": "Gamo",
-  "name": "Red Fire .177 7.87 gr",
+  "name": "Red Fire 7.87 gr",
   "item_number": "632270454-001v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -15,7 +15,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Red Fire .22 15.59 gr",
+  "name": "Red Fire 15.59 gr",
   "item_number": "632270454-001v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -29,7 +29,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Hunter .177 7.56 gr",
+  "name": "Hunter 7.56 gr",
   "item_number": "6320525BL54-01v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -43,7 +43,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Hunter .22 15.43 gr",
+  "name": "Hunter 15.43 gr",
   "item_number": "6320525BL54-01v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -57,7 +57,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Rocket .177 9.6 gr",
+  "name": "Rocket 9.6 gr",
   "item_number": "632127554-001v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -71,7 +71,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Rocket .22 14.5 gr",
+  "name": "Rocket 14.5 gr",
   "item_number": "632127554-001v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -85,7 +85,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Magnum .177 7.56 gr",
+  "name": "Magnum 7.56 gr",
   "item_number": "6320225BL54-01v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -99,7 +99,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Magnum .22 15.43 gr",
+  "name": "Magnum 15.43 gr",
   "item_number": "6320225BL54-01v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -113,7 +113,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Match .177 7.56 gr",
+  "name": "Match 7.56 gr",
   "item_number": "6320025B54-01v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -127,7 +127,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Match .22 15.43 gr",
+  "name": "Match 15.43 gr",
   "item_number": "6320025B54-01v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -141,7 +141,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Lethal .177 5.56 gr",
+  "name": "Lethal 5.56 gr",
   "item_number": "632274054-001",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -155,7 +155,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "PBA Bullet .177 7.1 gr",
+  "name": "PBA Bullet 7.1 gr",
   "item_number": "632272154-001v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -169,7 +169,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "PBA Bullet .22 14.4 gr",
+  "name": "PBA Bullet 14.4 gr",
   "item_number": "632272154-001v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -183,7 +183,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "TS-10 / TS-22 .177 10.49 gr",
+  "name": "TS-10 / TS-22 10.49 gr",
   "item_number": "632176854-001v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -197,7 +197,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "TS-10 / TS-22 .22 21.75 gr",
+  "name": "TS-10 / TS-22 21.75 gr",
   "item_number": "632176854-001v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -211,7 +211,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Luxor Cu .177 5.2 gr",
+  "name": "Luxor Cu 5.2 gr",
   "item_number": "632282154-001v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -225,7 +225,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Luxor Cu .22 9.9 gr",
+  "name": "Luxor Cu 9.9 gr",
   "item_number": "632282154-001v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -239,7 +239,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Whisper .177 10.5 gr",
+  "name": "Whisper 10.5 gr",
   "item_number": "632272354-001v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -253,7 +253,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Whisper .22 21.8 gr",
+  "name": "Whisper 21.8 gr",
   "item_number": "632272354-001v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -267,7 +267,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "PBA Raptor .177 5.1 gr",
+  "name": "PBA Raptor 5.1 gr",
   "item_number": "632264554-001v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -281,7 +281,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "PBA Raptor .22 9.8 gr",
+  "name": "PBA Raptor 9.8 gr",
   "item_number": "632264554-001v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -295,7 +295,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Match Lead Free .177 5.1 gr",
+  "name": "Match Lead Free 5.1 gr",
   "item_number": "632002654-001",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -309,7 +309,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "PBA Platinum .177 5.1 gr",
+  "name": "PBA Platinum 5.1 gr",
   "item_number": "632265554-001v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -323,7 +323,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "PBA Platinum .22 9.7 gr",
+  "name": "PBA Platinum 9.7 gr",
   "item_number": "632265554-001v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -337,7 +337,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "G-Hammer .177 15.42 gr",
+  "name": "G-Hammer 15.42 gr",
   "item_number": "6322832BL54-01",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -351,7 +351,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Pro Magnum .177 7.56 gr",
+  "name": "Pro Magnum 7.56 gr",
   "item_number": "6321736S54v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -365,7 +365,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Pro Magnum .25 21.8 gr",
+  "name": "Pro Magnum 21.8 gr",
   "item_number": "6321736S54v",
   "caliber_mm": 6.35,
   "head_size_mm": null,
@@ -379,7 +379,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Blue Bomber .22 15.4 gr",
+  "name": "Blue Bomber 15.4 gr",
   "item_number": "6322705BL54-01",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -393,7 +393,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Swarm 10X Hollow Point .177 7.6 gr",
+  "name": "Swarm 10X Hollow Point 7.6 gr",
   "item_number": "6322547BL54-01v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -407,7 +407,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Swarm 10X Hollow Point .22 15.43 gr",
+  "name": "Swarm 10X Hollow Point 15.43 gr",
   "item_number": "6322547BL54-01v",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -421,7 +421,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Tomahawk .177 7.56 gr",
+  "name": "Tomahawk 7.56 gr",
   "item_number": "6322545CP54-01v",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -435,7 +435,7 @@
  },
  {
   "brand": "Gamo",
-  "name": "Tomahawk .22 15.43 gr",
+  "name": "Tomahawk 15.43 gr",
   "item_number": "6322545CP54-01v",
   "caliber_mm": 5.5,
   "head_size_mm": null,

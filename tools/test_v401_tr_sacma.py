@@ -27,9 +27,12 @@ def rows(name):
     return json.loads((DATA / name).read_text())
 
 
-def lib_row(brand, name):
+def lib_row(brand, name, cal=None):
     pat = r"LibraryBullet\('" + re.escape(brand.replace("'", "\\'")) + r"', '" + re.escape(name) + r"', .*\n"
-    return re.findall(pat, LIB)
+    rows = re.findall(pat, LIB)
+    if cal is not None:
+        rows = [r for r in rows if re.search(r"', " + re.escape(str(cal)) + r", ", r)]
+    return rows
 
 
 class TrSacmaDataTests(unittest.TestCase):
@@ -58,6 +61,14 @@ class TrSacmaDataTests(unittest.TestCase):
                 if r['bc'] is None:
                     self.assertIsNone(r['bc_model'], r['name'])
 
+    def test_names_carry_no_caliber(self):
+        # Kalibre is picked with the rifle and the list is filtered by it
+        # (owner, 2026-10-12), so the model name does not repeat it.
+        for f in FILES:
+            for r in rows(f):
+                self.assertNotRegex(r['name'], r"(^| )\.(177|20|22|25|30|35|45|50)\b", r['name'])
+                self.assertRegex(r['name'], r' [\d.]+ gr$', r['name'])
+
     def test_apolo_named_and_noted(self):
         for r in rows('hatsan_apolo.json'):
             self.assertTrue(r['name'].startswith('Apolo '), r['name'])
@@ -68,22 +79,23 @@ class TrSacmaLibraryTests(unittest.TestCase):
     def test_every_record_listed_once(self):
         for f in FILES:
             for r in rows(f):
-                found = lib_row(r['brand'], r['name'])
+                found = lib_row(r['brand'], r['name'], r['caliber_mm'])
                 self.assertEqual(len(found), 1, (r['brand'], r['name']))
                 self.assertIn('WeaponPlatform.pcp', found[0])
                 self.assertIn(r['source_url'], found[0])
 
     def test_bc_kept_or_null(self):
-        row = lib_row('H&N', 'Rabbit Magnum II .177 15.74 gr')[0]
+        row = lib_row('H&N', 'Rabbit Magnum II 15.74 gr')[0]
         self.assertIn(', 15.74, 0.049, null, BallisticModel.g1, 0.049, ', row)
-        row = lib_row('SkyPellets', 'Dome Heavy .22 18.13 gr')[0]
+        row = lib_row('SkyPellets', 'Dome Heavy 18.13 gr')[0]
         self.assertIn(', 5.5, 5.52, 18.13, null, null, BallisticModel.g1, null, ', row)
 
     def test_slug_type(self):
-        self.assertIn('AmmunitionType.slug', lib_row('Hatsan', 'Apolo Slug .25 40 gr')[0])
+        self.assertIn('AmmunitionType.slug', lib_row('Hatsan', 'Apolo Slug 40 gr')[0])
 
     def test_no_duplicate_library_keys(self):
-        keys = re.findall(r"LibraryBullet\('((?:[^'\\]|\\.)*)', '((?:[^'\\]|\\.)*)'", LIB)
+        # Same name may repeat at another caliber (the list shows one caliber).
+        keys = re.findall(r"LibraryBullet\('((?:[^'\\]|\\.)*)', '((?:[^'\\]|\\.)*)', '(?:[^'\\]|\\.)*', ([\d.]+), ", LIB)
         pcp = [k for k in keys if k[0] in ('Hatsan', 'H&N', 'Diana', 'Gamo', 'SkyPellets')]
         self.assertEqual(len(pcp), len(set(pcp)))
 

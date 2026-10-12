@@ -1,7 +1,7 @@
 [
  {
   "brand": "SkyPellets",
-  "name": "Dome Light .177 8.48 gr",
+  "name": "Dome Light 8.48 gr",
   "item_number": "80.45DL / 92.45DL",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -15,7 +15,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Dome Heavy .177 9.56 gr",
+  "name": "Dome Heavy 9.56 gr",
   "item_number": "80.45DH / 92.45DH",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -29,7 +29,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Dome Light .22 15.89 gr",
+  "name": "Dome Light 15.89 gr",
   "item_number": "80.55DL / 92.55DL",
   "caliber_mm": 5.5,
   "head_size_mm": 5.51,
@@ -43,7 +43,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Dome Heavy .22 18.13 gr",
+  "name": "Dome Heavy 18.13 gr",
   "item_number": "80.55DH / 92.55DH",
   "caliber_mm": 5.5,
   "head_size_mm": 5.52,
@@ -57,7 +57,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Flat Light .177 7.87 gr",
+  "name": "Flat Light 7.87 gr",
   "item_number": "80.45FL / 92.45FL",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -71,7 +71,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Flat Heavy .177 8.17 gr",
+  "name": "Flat Heavy 8.17 gr",
   "item_number": "80.45FH / 92.45FH",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -85,7 +85,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Flat Light .22 13.88 gr",
+  "name": "Flat Light 13.88 gr",
   "item_number": "80.55FL / 92.55FL",
   "caliber_mm": 5.5,
   "head_size_mm": 5.51,
@@ -99,7 +99,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Flat Heavy .22 15.43 gr",
+  "name": "Flat Heavy 15.43 gr",
   "item_number": "80.55FH / 92.55FH",
   "caliber_mm": 5.5,
   "head_size_mm": 5.51,
@@ -113,7 +113,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Point Light .177 7.71 gr",
+  "name": "Point Light 7.71 gr",
   "item_number": "80.45PL / 92.45PL",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -127,7 +127,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Point Heavy .177 8.17 gr",
+  "name": "Point Heavy 8.17 gr",
   "item_number": "80.45PH / 92.45PH",
   "caliber_mm": 4.5,
   "head_size_mm": null,
@@ -141,7 +141,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Point Light .22 15.89 gr",
+  "name": "Point Light 15.89 gr",
   "item_number": "80.55PL / 92.55PL",
   "caliber_mm": 5.5,
   "head_size_mm": null,
@@ -155,7 +155,7 @@
  },
  {
   "brand": "SkyPellets",
-  "name": "Point Heavy .22 16.97 gr",
+  "name": "Point Heavy 16.97 gr",
   "item_number": "80.55PH / 92.55PH",
   "caliber_mm": 5.5,
   "head_size_mm": null,
