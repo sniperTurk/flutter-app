@@ -521,7 +521,7 @@
 },
 {
 "brand": "Discovery Optics",
-"model": "HD Gen II 5-30x56 SFIR FFP Zero Stop",
+"model": "HD Gen II 5-30x56 SFIR FFP Zero Stop MRAD",
 "min_mag": 5.0,
 "max_mag": 30.0,
 "objective_mm": 56.0,
@@ -532,12 +532,13 @@
 "elevation_travel_mrad": 33.0,
 "windage_travel_mrad": 17.0,
 "reticle": null,
-"parallax_min_m": null,
+"parallax_min_m": 22.9,
 "length_mm": 380.0,
 "weight_g": 1080.0,
-"zero_stop": null,
+"zero_stop": true,
 "source_url": "https://discoveryopt.com/products/hd-gen2-5-30x56",
-"notes": "Objective = nominal aperture from the model name (the page lists the outer diameter). MRAD figures used where the page gives MRAD and MOA."
+"notes": "Objective = nominal aperture from the model name (the page lists the outer diameter 67 MM). MRAD variant 'HD GEN II 5-30X56SFIR SLT FFP-Z-MRAD' (SKU 'HD GEN II 5-30X56SFIR FFP-MRAD'). Page: Click Value '0.1 MRAD | 0.25 MOA', Elevation '33 MRAD | 116 MOA', Windage '17 MRAD | 60 MOA', Parallax '25-∞ YDS' (25 yd = 22.9 m), Length 380mm, Weight 1080g, Turrets 'ZERO-STOP', Illumination 'Red, 6 Brightness Settings', Focal Plane FFP. Reticle name not stated on the page (only 'FFP · MRAD' / 'MRAD Reticle' image) -> null. Same scope as hand-verified catalog entry discovery-hd-gen2-5-30 (lib/data/catalog_repository.dart), so the generator skips it. Alias URL https://discoveryopt.com/products/discoveryopt-hd-gen2-5-30x56-sfir-ffp-z-mrad-diameter-34mm-optics-scopes opens the same product. Read 2026-10-12.",
+"accessed": "2026-10-12"
 },
 {
 "brand": "Discovery Optics",
@@ -753,13 +754,13 @@
 "elevation_travel_moa": 116.0,
 "windage_travel_moa": 60.0,
 "reticle": null,
-"parallax_min_m": null,
+"parallax_min_m": 22.9,
 "length_mm": 380.0,
 "weight_g": 1080.0,
 "zero_stop": true,
 "source_url": "https://discoveryopt.com/products/hd-gen2-5-30x56",
-"notes": "Objective = nominal aperture from the model name (the page lists the outer diameter). MOA variant: the page lists an FFP-MOA variant and gives MOA click value and travel next to the MRAD figures ('0.1 MRAD | 0.25 MOA'). Read 2026-10-11.",
-"accessed": "2026-10-11"
+"notes": "Objective = nominal aperture from the model name (the page lists the outer diameter). MOA variant: the page lists an FFP-MOA variant and gives MOA click value and travel next to the MRAD figures ('0.1 MRAD | 0.25 MOA'). Read 2026-10-11. Re-read 2026-10-12: Parallax '25-∞ YDS' (22.9 m); reticle name not stated -> null.",
+"accessed": "2026-10-12"
 },
 {
 "brand": "Discovery Optics",
