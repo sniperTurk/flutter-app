@@ -4,6 +4,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sniper_turk/data/catalog_repository.dart';
+import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/environment_field_info.dart';
 import 'package:sniper_turk/models/domain.dart';
@@ -13,11 +15,29 @@ const _profile = RifleProfile(
   id: 'p-obs',
   name: 'Gözlem',
   rifleId: 'hatsan-hercules-635',
-  ammunitionId: 'gmaz-51',
+  ammunitionId: 'c-obs',
   scopeId: 'gazi-6-36',
   muzzleVelocityMps: 270,
   zeroRangeM: 25,
   sightHeightMm: 60,
+);
+
+/// A pellet with a G1 BC, so Hedef uses the drag solver (wind exists).
+void _installDragAmmo() => CatalogRepository.installUserCatalog(
+  UserCatalog.fromManualEntries([
+    {
+      'id': 'c-obs',
+      'kind': 'custom_ammunition',
+      'platform': 'pcp',
+      'brand': 'Deneme',
+      'model': '.25 pellet',
+      'caliberMm': 6.35,
+      'grain': 25.4,
+      'ammoType': 'pellet',
+      'bc': 0.04,
+      'bcModel': 'G1',
+    },
+  ]),
 );
 
 Widget _app(BallisticsView view) => MaterialApp(
@@ -52,7 +72,11 @@ Future<void> _pick(WidgetTester tester, String prefix) async {
 }
 
 void main() {
-  setUp(() => SharedPreferences.setMockInitialValues({}));
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+    _installDragAmmo();
+  });
+  tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
   testWidgets('starts at Seçiniz with an ⓘ that warns about the 10 m height', (
     tester,
@@ -93,31 +117,14 @@ void main() {
     await tester.pumpWidget(_app(BallisticsView.environment));
     await tester.pumpAndSettle();
     await _pick(tester, 'Orta: ');
-    // A wind needs its direction before Hedef solves.
+    // From 9 o'clock: a full-value crosswind.
     await tester.ensureVisible(_field(BallisticsFieldKeys.windDirection));
     await tester.enterText(_field(BallisticsFieldKeys.windDirection), '9');
     await tester.pump();
     await tester.pumpWidget(_app(BallisticsView.shot));
     await tester.pumpAndSettle();
-    final texts = [
-      for (final t in tester.widgetList<Text>(
-        find.byType(Text, skipOffstage: false),
-      ))
-        t.data ?? '',
-    ];
-    if (find
-        .byKey(const Key('shot-wind-zone-shares'), skipOffstage: false)
-        .evaluate()
-        .isEmpty) {
-      fail(
-        'Expected: shares line. Texts: '
-        '${texts.where((t) => t.length > 3).take(40).join(' | ')}',
-      );
-    }
     final line = tester
-        .widget<Text>(
-          find.byKey(const Key('shot-wind-zone-shares'), skipOffstage: false),
-        )
+        .widget<Text>(find.byKey(const Key('shot-wind-zone-shares')))
         .data!;
     final m = RegExp(
       r'^Rüzgâr etkisi: yakın %(\d+) · orta %(\d+) · uzak %(\d+)$',
@@ -127,5 +134,33 @@ void main() {
     expect(p[0] + p[1] + p[2], 100);
     expect(p[0], greaterThan(p[1]));
     expect(p[1], greaterThan(p[2]));
+  });
+
+  testWidgets('no shares without a BC: the vacuum model has no wind', (
+    tester,
+  ) async {
+    CatalogRepository.installUserCatalog(UserCatalog.empty);
+    await _sized(tester);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: BallisticsScreen(
+            profile: const RifleProfile(
+              id: 'p-vac',
+              name: 'Boşluk',
+              rifleId: 'hatsan-hercules-635',
+              ammunitionId: 'gmaz-51',
+              scopeId: 'gazi-6-36',
+              muzzleVelocityMps: 270,
+              zeroRangeM: 25,
+              sightHeightMm: 60,
+            ),
+            view: BallisticsView.shot,
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('shot-wind-zone-shares')), findsNothing);
   });
 }
