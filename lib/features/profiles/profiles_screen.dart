@@ -2332,6 +2332,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   String? get _ammoBrandError => _textError(ammoBrand);
   String? get _grainError => _rangeError(ammoGrain, 1, 800);
+
   /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
   /// publish none); a typed one is still range-checked.
   String? get _bcError =>
@@ -2654,9 +2655,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Listeye dönülsün mü?'),
-          content: const Text(
-            'Girdiğiniz mühimmat bilgileri silinecek.',
-          ),
+          content: const Text('Girdiğiniz mühimmat bilgileri silinecek.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
@@ -3708,37 +3707,39 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     errorText: _shown(_bcError, ammoBc),
                   ),
                 if (platform != WeaponPlatform.pcp)
-                KeyedSubtree(
-                  key: const Key('ammo-bc-model'),
-                  child: MenzilSelect<String>(
-                    key: ValueKey(
-                      'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
-                    ),
-                    info:
-                        (platform == WeaponPlatform.firearm
-                            ? ProfileFieldInfo.bcModelFirearm
-                            : ProfileFieldInfo.bcModel) +
-                        ProfileFieldInfo.bcModelCustom,
-                    label: 'BC modeli',
-                    initialValue: _customCurve ? _customKey : ammoBcModel?.name,
-                    items: [
-                      for (final (m, text) in _bcModelChoices)
-                        DropdownMenuItem(value: m.name, child: Text(text)),
-                      const DropdownMenuItem(
-                        value: _customKey,
-                        child: Text('Özel eğri (Mach–Cd)'),
+                  KeyedSubtree(
+                    key: const Key('ammo-bc-model'),
+                    child: MenzilSelect<String>(
+                      key: ValueKey(
+                        'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
                       ),
-                    ],
-                    onChanged: (v) => setState(() {
-                      _customCurve = v == _customKey;
-                      if (!_customCurve) {
-                        ammoBcModel = BallisticModel.values
-                            .where((m) => m.name == v)
-                            .firstOrNull;
-                      }
-                    }),
+                      info:
+                          (platform == WeaponPlatform.firearm
+                              ? ProfileFieldInfo.bcModelFirearm
+                              : ProfileFieldInfo.bcModel) +
+                          ProfileFieldInfo.bcModelCustom,
+                      label: 'BC modeli',
+                      initialValue: _customCurve
+                          ? _customKey
+                          : ammoBcModel?.name,
+                      items: [
+                        for (final (m, text) in _bcModelChoices)
+                          DropdownMenuItem(value: m.name, child: Text(text)),
+                        const DropdownMenuItem(
+                          value: _customKey,
+                          child: Text('Özel eğri (Mach–Cd)'),
+                        ),
+                      ],
+                      onChanged: (v) => setState(() {
+                        _customCurve = v == _customKey;
+                        if (!_customCurve) {
+                          ammoBcModel = BallisticModel.values
+                              .where((m) => m.name == v)
+                              .firstOrNull;
+                        }
+                      }),
+                    ),
                   ),
-                ),
                 MenzilInput(
                   key: const Key('profile-velocity-fps'),
                   controller: velocity,
