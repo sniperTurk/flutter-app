@@ -8,6 +8,7 @@ Ammunition _ammo({
   double grain = 50,
   double caliberMm = 6.35,
   double? bc,
+  bool userEntered = true,
 }) => Ammunition(
   id: 'a',
   brand: '',
@@ -18,6 +19,7 @@ Ammunition _ammo({
   type: type,
   ballisticCoefficient: bc,
   ballisticModel: bc == null ? null : BallisticModel.g1,
+  userEntered: userEntered,
 );
 
 void main() {
@@ -44,5 +46,8 @@ void main() {
       type: AmmunitionType.bullet,
     );
     expect(identical(EstimatedBc.fill(firearm), firearm), isTrue);
+    // Built-in catalog rows keep their published data.
+    final catalog = _ammo(userEntered: false);
+    expect(identical(EstimatedBc.fill(catalog), catalog), isTrue);
   });
 }

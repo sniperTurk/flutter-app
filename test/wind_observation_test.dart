@@ -176,7 +176,7 @@ void main() {
     expect(p[1], greaterThan(p[2]));
   });
 
-  testWidgets('PCP without a BC: the estimated G1 BC models the wind', (
+  testWidgets('no shares without a BC: the vacuum model has no wind', (
     tester,
   ) async {
     CatalogRepository.installUserCatalog(UserCatalog.empty);
@@ -201,8 +201,6 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    // Owner, 2026-10-13: an empty PCP BC is estimated (G1), so drag and wind
-    // are solved instead of the vacuum baseline.
-    expect(find.byKey(const Key('shot-wind-zone-shares')), findsOneWidget);
+    expect(find.byKey(const Key('shot-wind-zone-shares')), findsNothing);
   });
 }

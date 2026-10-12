@@ -17,10 +17,13 @@ abstract final class EstimatedBc {
   static const double slugFormFactor = 0.825;
   static const double pelletFormFactor = 2.06;
 
-  /// The estimated G1 BC, or null when it does not apply (firearm, a BC
-  /// already given, or an unusable weight/calibre).
+  /// The estimated G1 BC, or null when it does not apply (firearm, a
+  /// catalog row, a BC already given, or an unusable weight/calibre).
   static double? g1For(Ammunition a) {
+    // Profile ammunition is always the user's own record (Profil saves it);
+    // built-in catalog rows keep their published data as they are.
     if (a.platform != WeaponPlatform.pcp ||
+        !a.userEntered ||
         a.ballisticCoefficient != null ||
         a.dragCurve != null) {
       return null;
