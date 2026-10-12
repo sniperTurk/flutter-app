@@ -27,7 +27,7 @@ The following plugins do not support Swift Package Manager for ios:
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           141.4s
+Xcode build done.                                           104.2s
 00:00 +0: screenshot tour of the main pages
 SIMSCREEN:01_profil_karsilama
 SIMSCREEN:02_profil_karsilama_2
@@ -36,49 +36,47 @@ SIMSCREEN:04_hava_durumu_bos_2
 SIMSCREEN:05_pro_ayarlar_bos
 SIMSCREEN:06_pro_ayarlar_bos_2
 SIMSCREEN:07_hedef_bos
-SIMSCREEN:08_hedef_bos_2
-SIMSCREEN:09_hedef_bos_3
-SIMSCREEN:10_araclar
-SIMSCREEN:11_araclar_2
-SIMSCREEN:12_araclar_3
-SIMSCREEN:13_hesaplayicilar
-SIMSCREEN:14_hesaplayicilar_2
-SIMSCREEN:15_hesaplayicilar_3
-SIMSCREEN:16_profil_olustur_pcp
-SIMSCREEN:17_profil_olustur_pcp_2
-SIMSCREEN:18_profil_olustur_pcp_3
-SIMSCREEN:19_profil_olustur_pcp_4
-SIMSCREEN:20_profil_olustur_pcp_5
-SIMSCREEN:21_profil_olustur_pcp_6
-SIMSCREEN:22_profil_olustur_pcp_7
-SIMSCREEN:23_profil_olustur_atesli
-SIMSCREEN:24_profil_olustur_atesli_2
-SIMSCREEN:25_profil_olustur_atesli_3
-SIMSCREEN:26_profil_olustur_atesli_4
-SIMSCREEN:27_profil_olustur_atesli_5
-SIMSCREEN:28_profil_olustur_atesli_6
-SIMSCREEN:29_profil_retikul_liste
-SIMSCREEN:30_profil_olustur_dolu
-SIMSCREEN:31_profil_olustur_dolu_2
-SIMSCREEN:32_profil_olustur_dolu_3
-SIMSCREEN:33_profil_olustur_dolu_4
-SIMSCREEN:34_profil_olustur_dolu_5
-SIMSCREEN:35_profil_olustur_dolu_6
-SIMSCREEN:36_profil_olustur_dolu_7
-SIMSCREEN:37_profil_olustur_dolu_8
-SIMSCREEN:38_profil_olustur_dolu_9
-SIMSCREEN:39_profil_kayitli
-SIMSCREEN:40_profil_kayitli_2
-SIMSCREEN:41_hava_durumu
-SIMSCREEN:42_hava_durumu_2
-SIMSCREEN:43_pro_ayarlar
-SIMSCREEN:44_pro_ayarlar_2
-SIMSCREEN:45_pro_tup_basinci
-SIMSCREEN:46_hedef_atis
-SIMSCREEN:47_hedef_atis_2
-SIMSCREEN:48_hedef_atis_3
-SIMSCREEN:49_hedef_tablo
-SIMSCREEN:50_hedef_tablo_2
+SIMSCREEN:08_araclar
+SIMSCREEN:09_araclar_2
+SIMSCREEN:10_araclar_3
+SIMSCREEN:11_hesaplayicilar
+SIMSCREEN:12_hesaplayicilar_2
+SIMSCREEN:13_hesaplayicilar_3
+SIMSCREEN:14_profil_olustur_pcp
+SIMSCREEN:15_profil_olustur_pcp_2
+SIMSCREEN:16_profil_olustur_pcp_3
+SIMSCREEN:17_profil_olustur_pcp_4
+SIMSCREEN:18_profil_olustur_pcp_5
+SIMSCREEN:19_profil_olustur_pcp_6
+SIMSCREEN:20_profil_olustur_pcp_7
+SIMSCREEN:21_profil_olustur_atesli
+SIMSCREEN:22_profil_olustur_atesli_2
+SIMSCREEN:23_profil_olustur_atesli_3
+SIMSCREEN:24_profil_olustur_atesli_4
+SIMSCREEN:25_profil_olustur_atesli_5
+SIMSCREEN:26_profil_olustur_atesli_6
+SIMSCREEN:27_profil_retikul_liste
+SIMSCREEN:28_profil_olustur_dolu
+SIMSCREEN:29_profil_olustur_dolu_2
+SIMSCREEN:30_profil_olustur_dolu_3
+SIMSCREEN:31_profil_olustur_dolu_4
+SIMSCREEN:32_profil_olustur_dolu_5
+SIMSCREEN:33_profil_olustur_dolu_6
+SIMSCREEN:34_profil_olustur_dolu_7
+SIMSCREEN:35_profil_olustur_dolu_8
+SIMSCREEN:36_profil_olustur_dolu_9
+SIMSCREEN:37_profil_kayitli
+SIMSCREEN:38_profil_kayitli_2
+SIMSCREEN:39_hava_durumu
+SIMSCREEN:40_hava_durumu_2
+SIMSCREEN:41_pro_ayarlar
+SIMSCREEN:42_pro_ayarlar_2
+SIMSCREEN:43_pro_tup_basinci
+SIMSCREEN:44_hedef_atis
+SIMSCREEN:45_hedef_atis_2
+SIMSCREEN:46_hedef_atis_3
+SIMSCREEN:47_hedef_tablo
+SIMSCREEN:48_hedef_tablo_2
 SIMSCREEN_DONE failures=0
-05:02 +1: (tearDownAll)
-05:06 +1: All tests passed!
+04:55 +1: (tearDownAll)
+05:01 +1: All tests passed!
