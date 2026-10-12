@@ -499,52 +499,75 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
               ),
             ),
         const SizedBox(height: MenzilSpace.xs),
-        Wrap(
-          spacing: MenzilSpace.sm,
-          runSpacing: MenzilSpace.sm,
+        // Three equal columns (owner, 2026-10-12): Profil ekle | Kopyala |
+        // Sil, a line, then Yedekle | Geri yükle | ⓘ under them.
+        Row(
           children: [
-            MenzilPrimaryButton(
-              label: 'Yeni profil',
-              icon: Icons.add,
-              amber: true,
-              expand: false,
-              onPressed: _add,
+            Expanded(
+              child: MenzilPrimaryButton(
+                label: 'Profil ekle',
+                icon: Icons.add,
+                amber: true,
+                onPressed: _add,
+              ),
             ),
-            if (selected != null) ...[
-              MenzilSecondaryButton(
-                label: 'Kopyala',
-                icon: Icons.copy_outlined,
-                onPressed: () => _duplicate(selected),
-              ),
-              MenzilSecondaryButton(
-                label: 'Sil',
-                icon: Icons.delete_outline,
-                destructive: true,
-                onPressed: () => _deleteViaButton(selected),
-              ),
-            ],
+            const SizedBox(width: MenzilSpace.sm),
+            Expanded(
+              child: selected == null
+                  ? const SizedBox.shrink()
+                  : MenzilSecondaryButton(
+                      label: 'Kopyala',
+                      icon: Icons.copy_outlined,
+                      expand: true,
+                      onPressed: () => _duplicate(selected),
+                    ),
+            ),
+            const SizedBox(width: MenzilSpace.sm),
+            Expanded(
+              child: selected == null
+                  ? const SizedBox.shrink()
+                  : MenzilSecondaryButton(
+                      label: 'Sil',
+                      icon: Icons.delete_outline,
+                      destructive: true,
+                      expand: true,
+                      onPressed: () => _deleteViaButton(selected),
+                    ),
+            ),
           ],
         ),
-        const SizedBox(height: MenzilSpace.sm),
-        Wrap(
-          spacing: MenzilSpace.sm,
-          runSpacing: MenzilSpace.sm,
-          crossAxisAlignment: WrapCrossAlignment.center,
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: MenzilSpace.sm),
+          child: Divider(height: 1),
+        ),
+        Row(
           children: [
-            MenzilSecondaryButton(
-              key: _backupButtonKey,
-              label: 'Yedekle',
-              icon: Icons.ios_share,
-              onPressed: items.isEmpty ? null : _backup,
+            Expanded(
+              child: MenzilSecondaryButton(
+                key: _backupButtonKey,
+                label: 'Yedekle',
+                icon: Icons.ios_share,
+                expand: true,
+                onPressed: items.isEmpty ? null : _backup,
+              ),
             ),
-            MenzilSecondaryButton(
-              label: 'Geri yükle',
-              icon: Icons.download_outlined,
-              onPressed: _restore,
+            const SizedBox(width: MenzilSpace.sm),
+            Expanded(
+              child: MenzilSecondaryButton(
+                label: 'Geri yükle',
+                icon: Icons.download_outlined,
+                expand: true,
+                onPressed: _restore,
+              ),
             ),
-            const MenzilInfoButton(
-              title: 'Yedekle ve Geri yükle',
-              text: ProfileFieldInfo.backup,
+            const SizedBox(width: MenzilSpace.sm),
+            const Expanded(
+              child: Center(
+                child: MenzilInfoButton(
+                  title: 'Yedekle ve Geri yükle',
+                  text: ProfileFieldInfo.backup,
+                ),
+              ),
             ),
           ],
         ),
