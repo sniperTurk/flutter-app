@@ -490,8 +490,14 @@ class _MapDistanceState extends State<MapDistanceScreen> {
                           ],
                         ),
                       MarkerLayer(markers: marker),
-                      const SimpleAttributionWidget(
-                        source: Text('Esri, Maxar, Earthstar Geographics'),
+                      // The provider line stays at the normal text size: with
+                      // larger iOS text it no longer fit a 375–393 pt phone
+                      // and overflowed (2026-10-11).
+                      MediaQuery.withClampedTextScaling(
+                        maxScaleFactor: 1.0,
+                        child: const SimpleAttributionWidget(
+                          source: Text('Esri, Maxar, Earthstar Geographics'),
+                        ),
                       ),
                     ],
                   ),

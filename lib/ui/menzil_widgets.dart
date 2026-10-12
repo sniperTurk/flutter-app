@@ -72,7 +72,13 @@ class MenzilSubPageBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) => AppBar(
-    title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
+    // A long title ("Konum için mesafe" with larger iOS text on a 375 pt
+    // phone) shrinks a little instead of ending in "…".
+    title: FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Text(title, maxLines: 1),
+    ),
     actions: [
       ...actions,
       const SizedBox(width: MenzilSpace.xs),
@@ -446,14 +452,20 @@ class _NavButton extends StatelessWidget {
                     children: [
                       MenzilIcon(item.glyph, size: 24, color: fg),
                       const SizedBox(height: 3),
-                      Text(
-                        item.label,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w600,
-                          color: fg,
+                      // With larger iOS text a fifth of a 375–393 pt phone
+                      // is too narrow for "Hava Durumu" ("Hava Duru…"); the
+                      // label shrinks a little instead of being cut. At the
+                      // default text size nothing changes (2026-10-11).
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          item.label,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w600,
+                            color: fg,
+                          ),
                         ),
                       ),
                     ],
@@ -1631,11 +1643,17 @@ class MenzilMetricCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    metric.label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
+                  // Like the value below: a long label ("%80 için maks.
+                  // menzil" with larger iOS text) shrinks a little instead of
+                  // being cut; at the default size nothing changes.
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      metric.label,
+                      maxLines: 1,
+                      style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
+                    ),
                   ),
                   if (twoLineText && metric.unit == null)
                     _textValue(c.ink)
