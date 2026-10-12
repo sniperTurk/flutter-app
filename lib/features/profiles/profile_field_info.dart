@@ -69,6 +69,7 @@ abstract final class ProfileFieldInfo {
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
       'etkilenir. Tipik: G1 0,25–0,60; G7 0,12–0,30. Kutuda veya mermi '
       'üreticisinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
+
   /// Added to the BC ⓘ when the listed factory round's BC comes from the
   /// same NATO standard bullet's official report (owner, 2026-10-12: "ⓘ
   /// alanında veriyi nasıl eklediğimizi açıkla; kullanıcı isterse
