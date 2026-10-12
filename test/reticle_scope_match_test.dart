@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/data/reticle_catalog.dart';
+import 'package:sniper_turk/data/reticle_library.dart';
 import 'package:sniper_turk/data/scope_library.dart';
 import 'package:sniper_turk/models/domain.dart';
 
@@ -29,12 +30,13 @@ void main() {
           s.clickUnit,
           brand: s.brand,
           model: s.model,
+          source: s.sourceDocument,
         );
         expect(hit?.id, want![n], reason: '${s.id}: $n');
         if (hit != null) matched++;
       }
     }
-    expect(matched, greaterThanOrEqualTo(269));
+    expect(matched, greaterThanOrEqualTo(281));
   });
 
   test('a record holding several reticle names lists each', () {
@@ -162,5 +164,68 @@ void main() {
       brand: 'Element Optics',
     )!;
     expect(one.fromData, isTrue);
+  });
+
+  test('the manufacturer product code names the record', () {
+    const src =
+        'https://www.vectoroptics.com/rifle-scopes/Continental-x8-2-16x44-'
+        'ED-Tactical-riflescope-SCOM-T39.html — official manufacturer page';
+    // The scope page says "VTC-10A"; Vector lists SCOM-T39 under VCT-10A.
+    expect(
+      ReticleCatalog.find(
+        'VTC-10A',
+        AngularUnit.mrad,
+        brand: 'Vector Optics',
+        source: src,
+      )?.id,
+      'vector-optics-vct-10a-mil',
+    );
+    expect(
+      ReticleCatalog.find('VTC-10A', AngularUnit.mrad, brand: 'Vector Optics'),
+      isNull,
+    );
+    // Whole code only: SCOM-39 is not SCOM-T39.
+    expect(
+      ReticleCatalog.find(
+        'VTC-10A',
+        AngularUnit.mrad,
+        brand: 'Vector Optics',
+        source: 'https://x/y-SCOM-39.html',
+      ),
+      isNull,
+    );
+    // The listed G4 Fiber Dot record is MOA; a MRAD scope does not get it.
+    expect(
+      ReticleCatalog.find(
+        'G4 Fiber',
+        AngularUnit.mrad,
+        brand: 'Vector Optics',
+        source: 'https://x/Grizzly-SCOM-49.html',
+      ),
+      isNull,
+    );
+    expect(
+      ReticleCatalog.find(
+        'G4 Fiber',
+        AngularUnit.moa,
+        brand: 'Vector Optics',
+        source: 'https://x/Continental-x6-SCOL-65.html',
+      )?.id,
+      'vector-optics-g4-fiber-dot-moa',
+    );
+    // A name that states the other unit never matches.
+    expect(
+      ReticleCatalog.find(
+        'VTC-10A MOA',
+        AngularUnit.mrad,
+        brand: 'Vector Optics',
+        source: src,
+      ),
+      isNull,
+    );
+    final vetCtr = ReticleLibrary.all.firstWhere(
+      (r) => r.id == 'vector-optics-vet-ctr-mil',
+    );
+    expect(ReticleCatalog.productCodes(vetCtr), ['SCFF-68', 'SCFF-47']);
   });
 }

@@ -2105,6 +2105,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         unit,
         brand: scope?.brand,
         model: scope?.model,
+        source: scope?.sourceDocument,
       ),
       unit: unit,
       clickValue: click,

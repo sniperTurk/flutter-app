@@ -118,6 +118,45 @@ class FindTest(unittest.TestCase):
         self.assertIsNone(audit.find('APRS6', 'mrad', 'Athlon', lib,
                                      model='Helos BTR GEN22 4-20x50'))
 
+    def test_manufacturer_product_code_names_the_record(self):
+        # The scope page calls it "VTC-10A"; Vector's own list puts the
+        # scope (SCOM-T39) under the VCT-10A record.
+        lib = LIB + [
+            rec('vo-vct10a', 'Vector Optics', 'VCT-10A MIL', 'mil',
+                scopes=['Continental x6 3-18x50 ARI (SCOL-53)',
+                        'Continental x8 2-16x44 ED Tactical (SCOM-T39)']),
+            rec('vo-vetctr', 'Vector Optics', 'VET-CTR MIL', 'mil',
+                scopes=['Continental x10 1-10x28 ED FFP (SCFF-68, SCFF-47)']),
+            rec('vo-g4f', 'Vector Optics', 'G4 Fiber Dot MOA', 'moa',
+                'duplex', None, scopes=['Grizzly 3-12x56i (SCOM-49)']),
+        ]
+        src = ('https://www.vectoroptics.com/rifle-scopes/Continental-x8-'
+               '2-16x44-ED-Tactical-riflescope-SCOM-T39.html — official')
+        hit = audit.find('VTC-10A', 'mrad', 'Vector Optics', lib, source=src)
+        self.assertEqual(hit['id'], 'vo-vct10a')
+        # Without the code, a different name finds nothing.
+        self.assertIsNone(audit.find('VTC-10A', 'mrad', 'Vector Optics', lib))
+        # Several codes in one entry; whole code only (SCFF-4 ≠ SCFF-47).
+        self.assertEqual(
+            audit.find('X', 'mrad', 'Vector Optics', lib,
+                       source='https://x/y-SCFF-47.html')['id'], 'vo-vetctr')
+        self.assertIsNone(audit.find('X', 'mrad', 'Vector Optics', lib,
+                                     source='https://x/y-SCFF-4.html'))
+        self.assertIsNone(audit.find('X', 'mrad', 'Vector Optics', lib,
+                                     source='https://x/y-SCOM-39.html'))
+        # The listed record is MOA, the turret MRAD: still no match.
+        self.assertIsNone(audit.find('G4 Fiber', 'mrad', 'Vector Optics', lib,
+                                     source='https://x/y-SCOM-49.html'))
+        self.assertEqual(
+            audit.find('G4 Fiber', 'moa', 'Vector Optics', lib,
+                       source='https://x/y-SCOM-49.html')['id'], 'vo-g4f')
+        # The name states the other unit: no match by code either.
+        self.assertIsNone(audit.find('VTC-10A MOA', 'mrad', 'Vector Optics',
+                                     lib, source=src))
+        # Another brand's code list is never used.
+        self.assertIsNone(audit.find('VTC-10A', 'mrad', 'Element Optics', lib,
+                                     source=src))
+
     def test_other_brand_not_used(self):
         self.assertIsNone(self.find('Mil-Dot', 'mrad', 'Vector Optics'))
         self.assertEqual(self.find('Mil-Dot', 'mrad', 'Nightforce Optics'),

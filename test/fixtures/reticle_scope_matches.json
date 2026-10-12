@@ -524,7 +524,7 @@
   "RAPTR-1": "element-optics-raptr-1-mrad"
  },
  "lib-element-optics-helix-hd-compact-2-12x42": {
-  "RAPTR-1F": null
+  "RAPTR-1F": "element-optics-raptr-1f-moa"
  },
  "lib-element-optics-helix-hdlr-2-16x50-sfp": {
   "APR-1C MRAD": "element-optics-apr-1c-mrad"
@@ -637,7 +637,7 @@
   "VOS-EHT": "vector-optics-vos-eht-mil"
  },
  "lib-vector-optics-continental-1-6x24-g4-rifle-scope": {
-  "Etched Glass #4": null
+  "Etched Glass #4": "vector-optics-german-4-moa"
  },
  "lib-vector-optics-continental-x10-1-10x28-ed-ffp-rifle-scope-ctr": {
   "VET-CTR": "vector-optics-vet-ctr-mil"
@@ -661,7 +661,7 @@
   "German #4": "vector-optics-german-4-moa"
  },
  "lib-vector-optics-continental-x6-1-6x24i-fiber-rifle-scope-hunting-lpvo": {
-  "German #4, Fiber Center Dot": null
+  "German #4, Fiber Center Dot": "vector-optics-g4-fiber-dot-moa"
  },
  "lib-vector-optics-continental-x6-2-12x44-ctr-mpvo-rifle-scope": {
   "VET-CTR 2 Etched Glass": null
@@ -676,7 +676,7 @@
   "German #4": "vector-optics-german-4-moa"
  },
  "lib-vector-optics-continental-x6-2-5-15x56i-fiber-rifle-scope-hunting-mpvo": {
-  "German #4 Fiber Center Dot": null
+  "German #4 Fiber Center Dot": "vector-optics-g4-fiber-dot-moa"
  },
  "lib-vector-optics-continental-x6-3-18x50-ari-rifle-scope-long-range": {
   "VCT-10A": "vector-optics-vct-10a-mil"
@@ -685,7 +685,7 @@
   "VECON-CDM": "vector-optics-vecon-cdm-moa"
  },
  "lib-vector-optics-continental-x6-3-18x50i-fiber-sfp-rifle-scope": {
-  "G4 Fiber": null
+  "G4 Fiber": "vector-optics-g4-fiber-dot-moa"
  },
  "lib-vector-optics-continental-x6-4-24x50-ari-rifle-scope-long-range": {
   "VCT-20A": "vector-optics-vct-20a-mil"
@@ -700,7 +700,7 @@
   "VECON-CDM": "vector-optics-vecon-cdm-moa"
  },
  "lib-vector-optics-continental-x6-5-30x56i-fiber-sfp-rifle-scope": {
-  "G4 Fiber": null
+  "G4 Fiber": "vector-optics-g4-fiber-dot-moa"
  },
  "lib-vector-optics-continental-x8-1-8x24-sfp-rifle-scope-hunting-lpvo-ed": {
   "German #4": "vector-optics-german-4-moa"
@@ -712,10 +712,10 @@
   "VEC-FDR": "vector-optics-vec-fdr-mil"
  },
  "lib-vector-optics-continental-x8-1-8x24i-sfp-fiber-rifle-scope-hunting-lpv": {
-  "German #4, Fiber Center Dot": null
+  "German #4, Fiber Center Dot": "vector-optics-g4-fiber-dot-moa"
  },
  "lib-vector-optics-continental-x8-2-16x44-sfp-rifle-scope-tactical-mpvo-ed": {
-  "VTC-10A": null
+  "VTC-10A": "vector-optics-vct-10a-mil"
  },
  "lib-vector-optics-continental-x8-2-16x50-sfp-rifle-scope-hunting-mpvo-ed": {
   "VET-10 BDC": "vector-optics-vet-10bdc-moa"
@@ -727,7 +727,7 @@
   "VCT-20A": "vector-optics-vct-20a-mil"
  },
  "lib-vector-optics-continental-x8-3-24x56i-ed-fiber-rifle-scope-hunting": {
-  "German #4 Fiber Center Dot": null
+  "German #4 Fiber Center Dot": "vector-optics-g4-fiber-dot-moa"
  },
  "lib-vector-optics-continental-x8-4-32x56-sfp-rifle-scope-long-range-ed": {
   "VCT-20A": "vector-optics-vct-20a-mil"
@@ -757,10 +757,10 @@
   "Etched Glass": null
  },
  "lib-vector-optics-forester-1-8x24-sfp-rifle-scope": {
-  "G4": null
+  "G4": "vector-optics-vfd-2-moa"
  },
  "lib-vector-optics-forester-1-8x24i-fiber-sfp-rifle-scope": {
-  "Fiber Center Dot Reticle": null
+  "Fiber Center Dot Reticle": "vector-optics-g4-fiber-dot-moa"
  },
  "lib-vector-optics-grimlock-1-6x24sfp-genii-rifle-scope": {
   "VTC-3": null
@@ -898,7 +898,7 @@
   "VEPS-MBR": "vector-optics-veps-mbr-moa"
  },
  "lib-vector-optics-paragon-5-25x56sfp-genii-riflescope": {
-  "VPA-2": null
+  "VPA-2": "vector-optics-vpa-2-mil"
  },
  "lib-vector-optics-sentinel-4-16x44-rifle-scope": {
   "VSE-3 MOA": "vector-optics-vse-3-moa"
