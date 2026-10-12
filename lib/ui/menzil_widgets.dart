@@ -1598,8 +1598,9 @@ class MenzilStepButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   label,
+                  // Soft grey, not bright white (owner, 2026-10-12).
                   style: MenzilType.number(
-                    small ? c.ink2 : c.ink,
+                    c.ink2,
                     size: 19,
                     weight: small ? FontWeight.w500 : FontWeight.w600,
                   ),

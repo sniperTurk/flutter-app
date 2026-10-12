@@ -4637,30 +4637,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _displayMaxRange.floorToDouble(),
     );
 
-    final appDark = Theme.of(context).brightness == Brightness.dark;
     return [
-      // Range dial: −5 −1 [value] +1 +5, slider below. Light like the scope
-      // inside in both themes, dark numbers (owner, 2026-10-12: "rakamlar
-      // çok beyaz, göz yoruyor").
-      Theme(
-        data: MenzilTheme.light(),
-        child: Builder(
-          builder: (context) {
-            final c = MenzilColors.of(context);
-            return DecoratedBox(
-              decoration: BoxDecoration(
-                color: appDark
-                    ? MenzilColors.scopeBgDim
-                    : MenzilColors.light.scopeBg,
-                borderRadius: BorderRadius.circular(MenzilRadius.card),
-              ),
+      // Range dial: −5 −1 [value] +1 +5, slider below. Dark like the rest of
+      // the page; numbers in soft grey, not bright white (owner,
+      // 2026-10-12: "rakamlar çok beyaz, göz yoruyor"; the field stays dark).
+      Builder(
+        builder: (context) {
+          final c = MenzilColors.of(context);
+          return DecoratedBox(
+              decoration: const BoxDecoration(),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  MenzilSpace.sm,
-                  MenzilSpace.sm,
-                  MenzilSpace.sm,
-                  0,
-                ),
+                padding: EdgeInsets.zero,
                 child: Column(
                   children: [
                     Row(
@@ -4750,8 +4737,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 ),
               ),
             );
-          },
-        ),
+        },
       ),
       const SizedBox(height: MenzilSpace.sm),
       if (_pcpRegulatorBypassed)
