@@ -76,11 +76,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(ScopeDialKeys.windageDrum), findsNothing);
     expect(find.byKey(ScopeDialKeys.reticle), findsOneWidget);
-    // Wind is still not modelled.
-    expect(
-      find.textContaining('Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)'),
-      findsOneWidget,
-    );
+    // gmaz-51 has no BC: the estimated BC models wind (owner, 2026-10-13).
+    expect(find.textContaining('(KİLİTLİ)'), findsNothing);
   });
 
   testWidgets('dialling the solution centres the impact; reset drops it', (

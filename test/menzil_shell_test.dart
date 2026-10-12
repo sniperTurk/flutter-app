@@ -152,13 +152,10 @@ void main() {
       findsNothing,
     );
     expect(_title(tester), 'Atış Çözümü');
-    // V354: elevation is computed from the vacuum drop (valid trigonometry);
-    // only wind stays locked, since a vacuum model has no aerodynamic
-    // coupling to produce a real wind value.
-    expect(
-      find.textContaining('Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)'),
-      findsOneWidget,
-    );
+    // gmaz-51 has no BC: the typical slug BC is used and says so (owner,
+    // 2026-10-13), so wind is computed instead of locked at 0.
+    expect(find.textContaining('Tahmini BC ile hesaplandı'), findsWidgets);
+    expect(find.textContaining('(KİLİTLİ)'), findsNothing);
   });
 
   testWidgets('range dial steps change the evaluated distance', (tester) async {
@@ -182,7 +179,7 @@ void main() {
   });
 
   testWidgets(
-    'shot view shows a vacuum elevation correction but keeps wind locked',
+    'shot view without a BC solves with the estimated BC, wind included',
     (tester) async {
       await _pumpShell(
         tester,
@@ -191,20 +188,13 @@ void main() {
       );
       await _openShot(tester);
 
-      // V354: elevation shows a real MOA/mrad value and a click count on the
-      // profile's own scope; wind has no aerodynamic coupling in the vacuum
-      // model, so it alone stays locked.
-      expect(
-        find.textContaining('Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)'),
-        findsOneWidget,
-      );
+      // Owner, 2026-10-13: a BC-less PCP round is solved with a typical BC
+      // (labelled "tahmini"), so the right turret is no longer locked at 0.
+      expect(find.textContaining('Tahmini BC ile hesaplandı'), findsWidgets);
+      expect(find.textContaining('(KİLİTLİ)'), findsNothing);
       expect(find.textContaining('MOA'), findsWidgets);
       expect(find.textContaining('MRAD'), findsWidgets);
       expect(find.textContaining('klik'), findsWidgets);
-      expect(
-        find.textContaining('gerçek atış için kullanmayın'),
-        findsOneWidget,
-      );
     },
   );
 

@@ -92,4 +92,49 @@ void main() {
     // The right (windage) turret slides open by itself (owner, 2026-10-09).
     expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
   });
+
+  testWidgets('no BC: the estimated BC still turns the right turret', (
+    tester,
+  ) async {
+    // Owner, 2026-10-13: "Sağ kule sapmayı hesaplamıyor" — a PCP pellet
+    // without a BC used to fall back to the vacuum baseline (no wind).
+    tester.view.physicalSize = const Size(1000, 4000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    CatalogRepository.installUserCatalog(
+      UserCatalog.fromManualEntries([
+        {..._ammo}..remove('bc')..remove('bcModel'),
+      ]),
+    );
+
+    await tester.pumpWidget(_app(BallisticsView.environment));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.descendant(
+        of: find.byKey(BallisticsFieldKeys.wind),
+        matching: find.byType(TextField),
+      ),
+      '5',
+    );
+    await tester.enterText(
+      find.descendant(
+        of: find.byKey(BallisticsFieldKeys.windDirection),
+        matching: find.byType(TextField),
+      ),
+      '9',
+    );
+    await tester.tap(find.text('Hesapla'));
+    await tester.pumpAndSettle();
+
+    await tester.pumpWidget(_app(BallisticsView.shot));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Tahmini BC ile hesaplandı'), findsWidgets);
+    expect(_impact(tester), contains('sağ'));
+
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.dialSolution));
+    await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
+    await tester.pumpAndSettle();
+    expect(_impact(tester), 'Vuruş noktası: artı işaretinde');
+    expect(find.textContaining('klik sol'), findsOneWidget);
+  });
 }

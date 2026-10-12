@@ -176,10 +176,30 @@ void main() {
     expect(p[1], greaterThan(p[2]));
   });
 
-  testWidgets('no shares without a BC: the vacuum model has no wind', (
+  testWidgets('no shares without a usable BC: the vacuum model has no wind', (
     tester,
   ) async {
-    CatalogRepository.installUserCatalog(UserCatalog.empty);
+    // A BC without its drag law is not used, and (having a BC) gets no
+    // estimated one either: the vacuum baseline runs.
+    CatalogRepository.installUserCatalog(
+      UserCatalog.fromManualEntries([
+        {
+          'id': 'c-vac',
+          'kind': 'custom_ammunition',
+          'platform': 'pcp',
+          'brand': 'Deneme',
+          'model': '.25 pellet',
+          'caliberMm': 6.35,
+          'grain': 25.4,
+          'ammoType': 'pellet',
+          'bc': 0.04,
+          'bcModel': null,
+        },
+      ]),
+    );
+    addTearDown(
+      () => CatalogRepository.installUserCatalog(UserCatalog.empty),
+    );
     await _sized(tester);
     await tester.pumpWidget(
       const MaterialApp(
@@ -189,7 +209,7 @@ void main() {
               id: 'p-vac',
               name: 'Boşluk',
               rifleId: 'hatsan-hercules-635',
-              ammunitionId: 'gmaz-51',
+              ammunitionId: 'c-vac',
               scopeId: 'gazi-6-36',
               muzzleVelocityMps: 270,
               zeroRangeM: 25,

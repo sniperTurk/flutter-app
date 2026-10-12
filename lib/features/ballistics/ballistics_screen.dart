@@ -1035,6 +1035,29 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return g != null && (g - a.grain).abs() < 1e-9;
   }
 
+  /// Typical G1 BC used when a PCP pellet / slug has no BC (owner,
+  /// 2026-10-13: "tipik BC ile, 'tahmini' yaz"): without one the vacuum
+  /// baseline drew no wind at all and the right turret stayed at 0. The
+  /// values sit at the low end of the published ranges (pellet 0.02–0.04,
+  /// slug 0.05–0.15), so drop and drift are not understated.
+  static const estimatedPelletBc = 0.025;
+  static const estimatedSlugBc = 0.07;
+
+  /// The estimated BC for this profile's ammunition, or null when it has a
+  /// BC of its own (or a drag curve), or is not a PCP round.
+  double? get _estimatedBc {
+    final a = ammunition;
+    if (a == null ||
+        a.platform != WeaponPlatform.pcp ||
+        a.ballisticCoefficient != null ||
+        a.dragCurve != null) {
+      return null;
+    }
+    return a.type == AmmunitionType.pellet
+        ? estimatedPelletBc
+        : estimatedSlugBc;
+  }
+
   /// Whether results shown (or about to be computed) use the drag solver.
   bool get _dragMode => _basis != null ? _basis!.drag : _bcApplies();
 
@@ -1697,8 +1720,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       // labelled vacuum baseline runs and says so.
       final ammo = ammunition;
       final useBc = _bcApplies();
-      final bc = useBc ? ammo!.ballisticCoefficient : null;
-      final model = useBc ? ammo!.ballisticModel : null;
+      final estimated = useBc ? null : _estimatedBc;
+      final bc = useBc ? ammo!.ballisticCoefficient : estimated;
+      final model = useBc
+          ? ammo!.ballisticModel
+          : estimated == null
+          ? null
+          : BallisticModel.g1;
       final bands = useBc ? ammo!.bcBands : const <BcBand>[];
       final dragTable = useBc ? ammo!.dragTable : null;
       final input = BallisticInput(
@@ -2337,6 +2365,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         if (!basis.drag)
           'BC girilmediği için hava direnci yok sayıldı; uzak mesafede gerçek '
               'düşüş daha fazladır.',
+        if (basis.drag && _estimatedBc != null)
+          'Mühimmatın BC\'si yok: tipik G1 ${_decimal(_estimatedBc)} ile '
+              'tahmini hesaplandı.',
         if (solved.unreachableM.isNotEmpty)
           'Mermi ${_toDisplayRange(solved.unreachableM.first).round()} '
               '$_distanceUnit ve ötesine ulaşamıyor.',
@@ -3011,6 +3042,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   Widget _bcNotice() {
     final a = ammunition;
+    final estimated = _estimatedBc;
+    if (estimated != null) {
+      final kind = a!.type == AmmunitionType.pellet ? 'saçma' : 'slug';
+      return MenzilNotice(
+        tone: MenzilNoticeTone.warning,
+        message:
+            'Tahmini BC ile hesaplandı: bu mühimmatın BC\'si yok, $kind için '
+            'tipik G1 ${_decimal(estimated)} kullanıldı. Düşüş ve rüzgâr '
+            'sapması yaklaşıktır; gerçek BC\'yi Profil → Mühimmat → BC\'ye '
+            'girin ve ilk atışta canlı atışla doğrulayın.',
+      );
+    }
     if (a?.ballisticCoefficient == null || a?.ballisticModel == null) {
       return const MenzilNotice(
         tone: MenzilNoticeTone.warning,

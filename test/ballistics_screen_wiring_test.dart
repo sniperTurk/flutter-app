@@ -51,7 +51,7 @@ void main() {
   );
 
   testWidgets(
-    'catalog ammunition without a validated BC still solves via the vacuum baseline',
+    'catalog PCP ammunition without a BC solves with the estimated BC',
     (tester) async {
       // gmaz-51 has ballisticCoefficient == null in the catalog. This exercises
       // the same code path that would throw UnsupportedError (see
@@ -63,11 +63,13 @@ void main() {
       );
       await tester.pumpAndSettle();
 
+      // Owner, 2026-10-13: a PCP round without a BC is solved with a
+      // typical BC and the screen says the result is an estimate.
       expect(
-        find.textContaining('Bu mühimmat için doğrulanmış BC/model yok'),
+        find.textContaining('Tahmini BC ile hesaplandı'),
         findsOneWidget,
         reason:
-            'the screen must say so explicitly rather than silently using an unvalidated value',
+            'the screen must say so explicitly rather than silently using an estimated value',
       );
 
       await tester.tap(find.text('DOPE oluştur'));
