@@ -76,10 +76,11 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(ScopeDialKeys.windageDrum), findsNothing);
     expect(find.byKey(ScopeDialKeys.reticle), findsOneWidget);
-    // Wind is still not modelled.
+    // The PCP profile has no BC: the estimated G1 BC models the wind now
+    // (owner, 2026-10-13), so the vacuum lock text is gone.
     expect(
       find.textContaining('Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)'),
-      findsOneWidget,
+      findsNothing,
     );
   });
 
