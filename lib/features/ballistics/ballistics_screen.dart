@@ -43,7 +43,6 @@ import '../../ui/menzil_widgets.dart';
 import '../tools/cold_bore_hint.dart';
 import '../tools/map_distance_screen.dart';
 import '../tools/parallax_screen.dart';
-import '../tools/weather_screen.dart';
 import 'dope_card.dart';
 import '../profiles/profile_field_info.dart';
 import 'environment_field_info.dart';
@@ -1687,16 +1686,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             ],
           ),
         ),
-        const SizedBox(height: MenzilSpace.sm),
-        MenzilSecondaryButton(
-          key: const Key('environment-open-weather'),
-          label: 'Konumdan canlı hava verisi',
-          icon: Icons.cloud_outlined,
-          expand: true,
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute<void>(builder: (_) => const WeatherScreen()),
-          ),
-        ),
         const SizedBox(height: MenzilSpace.md),
         _weatherFillCard(context),
         ..._environmentInputs(context, collapseShotInputs: true),
@@ -2596,18 +2585,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         return MenzilPage(
           key: const PageStorageKey('ballistics-environment'),
           children: [
-            // Live service data one tap away before shooting. It is shown
-            // for reading only; nothing is copied into these inputs.
-            MenzilSecondaryButton(
-              key: const Key('environment-open-weather'),
-              label: 'Konumdan canlı hava verisi',
-              icon: Icons.cloud_outlined,
-              expand: true,
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute<void>(builder: (_) => const WeatherScreen()),
-              ),
-            ),
-            const SizedBox(height: MenzilSpace.md),
+            // The read-only "Konumdan canlı hava verisi" button was removed
+            // (owner, 2026-10-12); the page stays in Araçlar.
             _weatherFillCard(context),
             ..._environmentInputs(context, collapseShotInputs: true),
             if (widget.onContinueToPro != null)

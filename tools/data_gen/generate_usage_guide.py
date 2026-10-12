@@ -82,8 +82,8 @@ SECTIONS = [
         "Rüzgâr: Rüzgâr hızı m/s olarak yazılır. Rüzgâr yönü saat kadranında "
         "seçilir: rüzgârın geldiği saate dokun. Hedef saat 12'dedir; sağdan "
         "gelen rüzgâr 3, arkadan 6, soldan 9.",
-        "Üstteki \"Konumdan canlı hava verisi\" düğmesi servis verisini ayrı "
-        "bir sayfada yalnızca gösterir; hesaba aktarmaz.",
+        "Servis verisini hesaba aktarmadan yalnızca görmek için Araçlar > "
+        "Hava & Rüzgâr sayfasını aç.",
     ]),
     ("Hedef ekranında atış", [
         "Mesafe: büyük sayıya dokunup yaz, −5 / −1 / +1 / +5 düğmelerini ya "

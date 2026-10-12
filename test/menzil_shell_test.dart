@@ -122,11 +122,8 @@ void main() {
     // Edit the conditions on Hava Durumu, then solve from Atış > Tablo.
     await tester.tap(find.text('Hava Durumu'));
     await tester.pumpAndSettle();
-    expect(
-      find.byKey(const Key('environment-open-weather')),
-      findsOneWidget,
-      reason: 'live service data is one tap away before shooting',
-    );
+    // The read-only live weather button is gone (owner, 2026-10-12).
+    expect(find.byKey(const Key('environment-open-weather')), findsNothing);
     await tester.enterText(find.byKey(BallisticsFieldKeys.temperature), '30');
 
     await _openTable(tester);

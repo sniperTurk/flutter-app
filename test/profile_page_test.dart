@@ -145,13 +145,13 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('environment-open-weather')), findsNothing);
+    expect(find.byKey(const Key('environment-fill-weather')), findsNothing);
 
     final button = find.byKey(const Key('profile-continue-weather'));
     await tester.ensureVisible(button);
     await tester.tap(button);
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('environment-open-weather')), findsOneWidget);
+    expect(find.byKey(const Key('environment-fill-weather')), findsOneWidget);
   });
 
   testWidgets('editor takes velocity in fps and stores m/s', (tester) async {
