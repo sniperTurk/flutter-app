@@ -222,9 +222,7 @@ void main() {
       await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
       await type(tester, const Key('pro-turret-scale'), '0,9');
-      // Rüzgâr düzeltmesi is on Hava Durumu (owner, 2026-10-11).
-      await tester.pumpWidget(app(BallisticsView.environment));
-      await tester.pumpAndSettle();
+      // Rüzgâr düzeltmesi is on Pro Ayarlar (owner, 2026-10-12).
       // En yüksek rüzgâr fills itself: 2 m/s × 1.5 (owner, 2026-10-09).
       String windMax() => tester
           .widget<TextField>(
@@ -240,8 +238,6 @@ void main() {
       expect(find.text('Otomatik: rüzgâr hızı × 1,5'), findsOneWidget);
       await type(tester, const Key('pro-wind-max'), '5');
       expect(find.text('Otomatik: rüzgâr hızı × 1,5'), findsNothing);
-      await tester.pumpWidget(app(BallisticsView.pro));
-      await tester.pumpAndSettle();
       await type(tester, const Key('pro-target-speed'), '2');
       // The direction starts unchosen ("Seçiniz", owner 2026-10-10).
       expect(find.text('Seçiniz'), findsWidgets);
@@ -321,6 +317,8 @@ void main() {
       await tester.enterText(field(BallisticsFieldKeys.windDirection), '9');
       await tester.pump();
 
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
       await openProFor(tester, const Key('pro-wind-max'));
       String text() => tester
           .widget<TextField>(field(const Key('pro-wind-max')))
@@ -337,7 +335,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('shot-wind-bracket')), findsNothing);
 
-      await tester.pumpWidget(app(BallisticsView.environment));
+      await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
       await openProFor(tester, const Key('pro-wind-max'));
       expect(text(), '');

@@ -11,6 +11,8 @@ import 'package:sniper_turk/features/ballistics/environment_field_info.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/ui/menzil_widgets.dart';
 
+import 'support/pro_sections.dart';
+
 const _profile = RifleProfile(
   id: 'p-obs',
   name: 'Gözlem',
@@ -51,6 +53,18 @@ Finder _field(Key k) =>
 
 String _text(WidgetTester tester, Key k) =>
     tester.widget<TextField>(_field(k)).controller!.text;
+
+/// En yüksek rüzgâr lives on Pro Ayarlar (owner, 2026-10-12): read it there
+/// and come back to Hava Durumu (same workspace state).
+Future<String> _windMaxOnPro(WidgetTester tester) async {
+  await tester.pumpWidget(_app(BallisticsView.pro));
+  await tester.pumpAndSettle();
+  await openProFor(tester, const Key('pro-wind-max'));
+  final v = _text(tester, const Key('pro-wind-max'));
+  await tester.pumpWidget(_app(BallisticsView.environment));
+  await tester.pumpAndSettle();
+  return v;
+}
 
 Future<void> _sized(WidgetTester tester) async {
   tester.view.physicalSize = const Size(430, 2600) * 3;
@@ -99,7 +113,7 @@ void main() {
     await tester.pumpAndSettle();
     await _pick(tester, 'Hafif: ');
     expect(_text(tester, BallisticsFieldKeys.wind), '2.5');
-    expect(_text(tester, const Key('pro-wind-max')), '3.3');
+    expect(await _windMaxOnPro(tester), '3.3');
     expect(find.text('Hafif'), findsOneWidget);
 
     // Still editable: a typed wind is the shooter's and resets the list.
@@ -107,7 +121,7 @@ void main() {
     await tester.enterText(_field(BallisticsFieldKeys.wind), '4');
     await tester.pumpAndSettle();
     expect(tester.widget<MenzilSelect<int>>(_select).initialValue, isNull);
-    expect(_text(tester, const Key('pro-wind-max')), '3.3');
+    expect(await _windMaxOnPro(tester), '3.3');
   });
 
   testWidgets('Hedef shows the near / middle / far wind shares', (
