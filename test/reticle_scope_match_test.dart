@@ -96,10 +96,27 @@ void main() {
   });
 
   test('the record unit must be the turret unit', () {
-    // RAPTR-1F is a MRAD record; a MOA scope of that name gets none.
+    // VCT-10A is only a MRAD record; a MOA scope of that name gets none.
     expect(
-      ReticleCatalog.find('RAPTR-1F', AngularUnit.moa, brand: 'Element Optics'),
+      ReticleCatalog.find('VCT-10A', AngularUnit.moa, brand: 'Vector Optics'),
       isNull,
+    );
+    // RAPTR-1F has a record in each unit: the turret picks it.
+    expect(
+      ReticleCatalog.find(
+        'RAPTR-1F',
+        AngularUnit.moa,
+        brand: 'Element Optics',
+      )?.id,
+      'element-optics-raptr-1f-moa',
+    );
+    expect(
+      ReticleCatalog.find(
+        'RAPTR-1F',
+        AngularUnit.mrad,
+        brand: 'Element Optics',
+      )?.id,
+      'element-optics-raptr-1f-mrad',
     );
     // The name says MOA, the turret is MRAD: no record.
     expect(
