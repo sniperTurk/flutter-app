@@ -2,10 +2,9 @@
 // (owner, TestFlight 79/80, 2026-10-12): the wind boxes (Rüzgâr hızı,
 // Rüzgâr yönü) and Rüzgâr düzeltmesi (En yüksek rüzgâr, Yol ortası,
 // Hedefte; on Pro Ayarlar again since 2026-10-12) must keep their values
-// like the atmosphere boxes do. The weather
-// service gives no gust: En yüksek rüzgâr fills itself as wind × 1,5 unless
-// the shooter typed a value of their own. Nothing is fetched before the
-// button is pressed.
+// like the atmosphere boxes do. The weather service gives no gust: the top
+// wind box starts empty and "Rüzgâr düzeltmesi al" writes wind × 1,5.
+// Nothing is fetched before a button is pressed.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -138,6 +137,18 @@ Future<String> _proText(WidgetTester tester, Key key) async {
   return _text(tester, key);
 }
 
+/// "Rüzgâr düzeltmesi al" on Pro (owner, 2026-10-12: the box starts empty).
+Future<String> _proFill(WidgetTester tester) async {
+  await _tab(tester, 'Pro');
+  await openProFor(tester, _windMax);
+  final button = find.byKey(const Key('pro-wind-max-fill'));
+  await tester.ensureVisible(button);
+  await tester.pumpAndSettle();
+  await tester.tap(button);
+  await tester.pumpAndSettle();
+  return _text(tester, _windMax);
+}
+
 Future<void> _proType(WidgetTester tester, Key key, String value) async {
   await _tab(tester, 'Pro');
   await openProFor(tester, key);
@@ -159,8 +170,9 @@ void main() {
       _expectAtmosphere(tester);
       expect(_text(tester, BallisticsFieldKeys.wind), '5.0');
       await _type(tester, BallisticsFieldKeys.windDirection, '3');
-      // No gust from the service: wind × 1,5.
-      expect(await _proText(tester, _windMax), '7.5');
+      // No gust from the service: "Rüzgâr düzeltmesi al" writes wind × 1,5.
+      expect(await _proText(tester, _windMax), '');
+      expect(await _proFill(tester), '7.5');
       await _proType(tester, _windMid, '4');
       await _proType(tester, _windFar, '6');
 
@@ -183,7 +195,7 @@ void main() {
     tester,
   ) async {
     await _pumpHome(tester, withProfile: true);
-    expect(await _proText(tester, _windMax), '7.5');
+    expect(await _proFill(tester), '7.5');
     await _proType(tester, _windMax, '9');
     await _tab(tester, 'Araçlar');
     await _tab(tester, 'Hava Durumu');
@@ -231,6 +243,7 @@ void main() {
       withProfile: true,
     );
     await _type(tester, BallisticsFieldKeys.windDirection, '3');
+    expect(await _proFill(tester), '7.5');
     await _proType(tester, _windMid, '4');
     await _proType(tester, _windFar, '6');
     final before = _workspace(tester);
@@ -293,7 +306,9 @@ void main() {
     _expectAtmosphere(tester);
     expect(_number(tester, BallisticsFieldKeys.wind), closeTo(5.0, 1e-9));
     expect(_text(tester, BallisticsFieldKeys.windDirection), '3');
-    expect(double.parse(await _proText(tester, _windMax)), closeTo(7.5, 1e-9));
+    // Rüzgâr düzeltmesi starts empty until "Rüzgâr düzeltmesi al".
+    expect(await _proText(tester, _windMax), '');
+    expect(double.parse(await _proFill(tester)), closeTo(7.5, 1e-9));
     expect(weather.calls, 1);
   });
 }
