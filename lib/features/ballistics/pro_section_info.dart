@@ -54,10 +54,10 @@ abstract final class ProSectionInfo {
         'gösterir, örneğin "3–5 klik sağa". Rüzgârın ne yapacağını bilemediğin '
         'anlarda nişanı nereye kaydıracağını görürsün.',
     how:
-        'Senin bir şey girmene gerek yok; uygulama Hava Durumu\'ndaki rüzgârı '
-        '1,5 ile çarpıp kendisi yazar. Rüzgâr ölçerin varsa ölçtüğün en '
-        'yüksek değeri yazabilirsin. Kullanmak istemezsen kutuyu sil; aralık '
-        'gösterilmez. "Otomatik doldur"a dokunursan yeniden otomatik olur.',
+        'Kutu boş gelir. "Rüzgâr düzeltmesi al"a dokunursan Hava '
+        'Durumu\'ndaki rüzgâr hızı 1,5 ile çarpılıp yazılır. Rüzgâr ölçerin '
+        'varsa ölçtüğün en yüksek değeri kendin yaz. "Sıfırla" kutuyu '
+        'boşaltır; kutu boşken aralık gösterilmez.',
   );
 
   static const windZones = ProExplain(

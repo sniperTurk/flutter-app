@@ -127,10 +127,10 @@ SECTIONS = [
         "katsayısıdır. Sıfır ofseti, sıfırdaki küçük kaymadır. Spin drift "
         "için Mermi uzunluğu'nu mm olarak yaz; yiv yönü ve yiv oranı "
         "profilden gelir.",
-        "Rüzgâr düzeltmesi kutusu Açı'nın altındadır: En yüksek rüzgâr, Hava "
-        "Durumu'ndaki rüzgâr hızının 1,5 katı olarak kendiliğinden yazılır; "
-        "Hedef ekranı yan düzeltmeyi bu yüzden bir aralık olarak gösterir. "
-        "Silersen aralık gösterilmez, \"Otomatik doldur\" geri getirir. Yol "
+        "Rüzgâr düzeltmesi kutusu Açı'nın altındadır ve boş gelir. "
+        "\"Rüzgâr düzeltmesi al\" Hava Durumu'ndaki rüzgâr hızının 1,5 katını "
+        "yazar; kendi ölçtüğün en sert rüzgârı da yazabilirsin. Kutu doluysa "
+        "Hedef ekranı yan düzeltmeyi bir aralık olarak gösterir. Yol "
         "ortası ve Hedefte kutularına oradaki rüzgârı yaz; boş kalırsa her "
         "yerde aynı rüzgâr kullanılır.",
         "Barut sıcaklığı Profil > Mühimmat'ta girilir; Pro'da yalnızca bugünkü "

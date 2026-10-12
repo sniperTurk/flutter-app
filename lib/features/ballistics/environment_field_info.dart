@@ -137,10 +137,10 @@ abstract final class EnvironmentFieldInfo {
       'ölçün; gerçek / yazan oranını girin. Örnek: gerçek 9,8 MRAD ise 0,98. '
       'Boş bırakırsanız 1 (düzeltme yok). Klikler bu katsayıya göre ayarlanır.';
   static const windMax =
-      'Rüzgârın sert estiği (hamle) andaki hızı. Otomatik doldurulur: Hava '
-      'Durumu\'ndaki rüzgâr hızı × 1,5 (karada tipik hamle oranı). Kendi '
-      'ölçtüğünüz değeri yazabilirsiniz. Silerseniz aralık gösterilmez; '
-      '"Otomatik doldur" yeniden otomatik yapar. '
+      'Rüzgârın sert estiği (hamle) andaki hızı. "Rüzgâr düzeltmesi al" '
+      'Hava Durumu\'ndaki rüzgâr hızı × 1,5 yazar (karada tipik hamle '
+      'oranı). Kendi ölçtüğünüz değeri de yazabilirsiniz. Boşsa aralık '
+      'gösterilmez. '
       'Hedef sayfası yan düzeltmeyi bu aralıkta gösterir. Örnek: rüzgâr '
       '2 m/s ise 3.';
   static const windObservation =

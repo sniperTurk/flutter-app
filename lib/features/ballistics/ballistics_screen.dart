@@ -301,7 +301,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         latitudeCtl.text = s.latitudeText;
         azimuthCtl.text = s.azimuthText;
         turretScaleCtl.text = s.turretScaleText;
-        _windMaxAuto = s.windMaxText.isEmpty && !s.windMaxOff;
+        // No automatic value any more (owner, 2026-10-12): the box starts
+        // empty and is filled only by "Rüzgâr düzeltmesi al" or by hand.
+        _windMaxAuto = false;
         windMaxCtl.text = s.windMaxText;
         _autoWindMax();
         targetSpeedCtl.text = s.targetSpeedText;
@@ -390,7 +392,42 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// bracket off (owner, 2026-10-10: the shooter must be able to delete an
   /// automatic value); "Otomatik doldur" switches back. An automatic value
   /// is not saved.
-  bool _windMaxAuto = true;
+  bool _windMaxAuto = false;
+
+  /// "Rüzgâr düzeltmesi al" state (owner, 2026-10-12), as on Hava Durumu.
+  bool _windMaxFilled = false;
+  bool _windMaxWasReset = false;
+
+  void _fillWindMax() {
+    final w = double.tryParse(wind.text.trim().replaceAll(',', '.'));
+    if (w == null || !w.isFinite || w <= 0) {
+      ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+        const SnackBar(
+          content: Text('Önce Hava Durumu\'nda rüzgâr hızını girin.'),
+        ),
+      );
+      return;
+    }
+    setState(() {
+      windMaxCtl.text = (w * windGustFactor).toStringAsFixed(1);
+      _windMaxFilled = true;
+      _windMaxWasReset = false;
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    _coriolisChanged();
+  }
+
+  void _resetWindMax() {
+    setState(() {
+      windMaxCtl.text = '';
+      _windMaxFilled = false;
+      _windMaxWasReset = true;
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    _coriolisChanged();
+  }
 
   /// Typical gust factor over land: the bracket top is 1.5 × the wind.
   static const windGustFactor = 1.5;
@@ -1235,8 +1272,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       ? hpa.toStringAsFixed(1)
       : UnitSystem.hpaToInHg(hpa).toStringAsFixed(2);
 
-  /// A fetch button alone (full width) or, once its data came, orange with
-  /// "Sıfırla" beside it (owner, 2026-10-12).
+  /// A fetch button with "Sıfırla" always beside it (owner, 2026-10-12):
+  /// the fetch button turns orange once its data came, "Sıfırla" turns
+  /// orange ("Veriler sıfırlandı") after a reset.
   Widget _filledRow({
     required bool filled,
     required bool wasReset,
@@ -1244,7 +1282,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     required Key resetKey,
     required VoidCallback onReset,
   }) {
-    if (!filled && !wasReset) return button;
     return Row(
       children: [
         Expanded(child: button),
@@ -1256,7 +1293,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             icon: wasReset ? Icons.check : Icons.restart_alt,
             expand: true,
             active: wasReset,
-            twoLines: wasReset,
+            twoLines: true,
             onPressed: onReset,
           ),
         ),
@@ -1293,7 +1330,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             icon: _weatherFilled ? Icons.check : Icons.my_location,
             expand: true,
             active: _weatherFilled,
-            twoLines: _weatherFilled || _weatherWasReset,
+            twoLines: true,
             onPressed: _weatherBusy
                 ? null
                 : () => _fillWeather(overwrite: true),
@@ -3085,7 +3122,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 icon: _pressureFilled ? Icons.check : Icons.speed,
                 expand: true,
                 active: _pressureFilled,
-                twoLines: _pressureFilled || _pressureWasReset,
+                twoLines: true,
                 onPressed: _pressureBusy ? null : _readPhonePressure,
               ),
               resetKey: const Key('environment-pressure-reset'),
@@ -3601,33 +3638,36 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         MenzilInput(
           key: const Key('pro-wind-max'),
           controller: windMaxCtl,
-          label: 'En yüksek rüzgâr',
+          label: 'Rüzgâr hızı × 1,5',
           unit: windUnit,
           info: EnvironmentFieldInfo.windMax,
-          helperText: _windMaxAuto
-              ? 'Otomatik: rüzgâr hızı × 1,5'
-              : windMaxCtl.text.trim().isEmpty
-              ? 'Boş: rüzgâr aralığı gösterilmez.'
-              : null,
           onChanged: (v) {
             _windMaxAuto = false;
+            if (_windMaxFilled || _windMaxWasReset) {
+              setState(() => _windMaxFilled = _windMaxWasReset = false);
+            }
             _coriolisChanged();
           },
         ),
-        if (!_windMaxAuto)
-          Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton.icon(
-              key: const Key('pro-wind-max-auto'),
-              onPressed: () {
-                _windMaxAuto = true;
-                _autoWindMax();
-                _coriolisChanged();
-              },
-              icon: const Icon(Icons.autorenew, size: 18),
-              label: const Text('Otomatik doldur'),
-            ),
+        _filledRow(
+          filled: _windMaxFilled,
+          wasReset: _windMaxWasReset,
+          button: MenzilSecondaryButton(
+            key: const Key('pro-wind-max-fill'),
+            label: _windMaxFilled
+                ? 'Rüzgâr düzeltmesi alındı'
+                : _windMaxWasReset
+                ? 'Tekrar rüzgâr düzeltmesi al'
+                : 'Rüzgâr düzeltmesi al',
+            icon: _windMaxFilled ? Icons.check : Icons.air,
+            expand: true,
+            active: _windMaxFilled,
+            twoLines: true,
+            onPressed: _fillWindMax,
           ),
+          resetKey: const Key('pro-wind-max-reset'),
+          onReset: _resetWindMax,
+        ),
         _explain(ProSectionInfo.windMax),
         MenzilFieldGrid(
           children: [

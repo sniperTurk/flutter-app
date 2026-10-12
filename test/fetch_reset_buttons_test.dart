@@ -1,5 +1,5 @@
-// Hava Durumu fetch buttons (owner, 2026-10-12): after a fetch the button
-// turns orange ("…alındı") with "Sıfırla" beside it; Sıfırla puts the
+// Hava Durumu fetch buttons (owner, 2026-10-12): "Sıfırla" is always beside
+// the button; after a fetch the button turns orange ("…alındı"); Sıfırla puts the
 // starting values back and stays, orange, as "Veriler sıfırlandı"; typing
 // into a filled field turns it back to gray.
 import 'package:flutter/material.dart';
@@ -67,7 +67,8 @@ void main() {
     await _pump(tester);
     const reset = Key('environment-weather-reset');
     expect(find.text('Konumdan canlı hava verisi al'), findsOneWidget);
-    expect(find.byKey(reset), findsNothing);
+    // "Sıfırla" is always there (owner, 2026-10-12).
+    expect(find.byKey(reset), findsOneWidget);
 
     await _tap(tester, const Key('environment-fill-weather'));
     expect(find.text('Konumdan canlı hava verisi alındı'), findsOneWidget);
@@ -94,7 +95,7 @@ void main() {
     await tester.ensureVisible(_field(BallisticsFieldKeys.temperature));
     await tester.enterText(_field(BallisticsFieldKeys.temperature), '20');
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('environment-weather-reset')), findsNothing);
+    expect(find.text('Konumdan canlı hava verisi alındı'), findsNothing);
     expect(find.text('Konumdan canlı hava verisi al'), findsOneWidget);
     expect(_text(tester, BallisticsFieldKeys.temperature), '20');
   });
@@ -105,7 +106,7 @@ void main() {
     await _pump(tester);
     const reset = Key('environment-pressure-reset');
     expect(find.text('Basıncı telefondan al'), findsOneWidget);
-    expect(find.byKey(reset), findsNothing);
+    expect(find.byKey(reset), findsOneWidget);
 
     await _tap(tester, const Key('environment-phone-pressure'));
     expect(find.text('Basınç telefondan alındı'), findsOneWidget);
