@@ -149,9 +149,7 @@ Future<void> runWezTour(
   await tester.pump();
   await type(const Key('pro-group'), '4');
   await type(const Key('pro-target-size'), '30');
-  // Rüzgâr düzeltmesi is on Hava Durumu (owner, 2026-10-11).
-  await tester.pumpWidget(app(BallisticsView.environment));
-  await settle();
+  // Rüzgâr düzeltmesi is on Pro Ayarlar (owner, 2026-10-12).
   await type(const Key('pro-wind-max'), '3');
 
   // Önce: 1 atış, mermi uzunluğu yok (no notice, as on main).
