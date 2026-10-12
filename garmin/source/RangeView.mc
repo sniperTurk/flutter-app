@@ -39,8 +39,11 @@ class RangeView extends WatchUi.View {
         dc.drawText(cx, h * 18 / 100, Graphics.FONT_SMALL, "Hedef mesafesi", Graphics.TEXT_JUSTIFY_CENTER);
         dc.fillPolygon([[cx - 10, h * 33 / 100], [cx + 10, h * 33 / 100], [cx, h * 28 / 100]]);
         dc.setColor(COLOR_CYAN, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(cx, h * 50 / 100, Graphics.FONT_NUMBER_HOT, value.toString(),
-                    Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        // Dikey ortalama elle yapılır: SDK 9.2 derleyicisi
+        // TEXT_JUSTIFY_CENTER | TEXT_JUSTIFY_VCENTER ifadesinde çöküyor.
+        var numY = h * 50 / 100 - dc.getFontHeight(Graphics.FONT_NUMBER_HOT) / 2;
+        dc.drawText(cx, numY, Graphics.FONT_NUMBER_HOT, value.toString(),
+                    Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
         dc.drawText(cx, h * 62 / 100, Graphics.FONT_SMALL, unit, Graphics.TEXT_JUSTIFY_CENTER);
         dc.fillPolygon([[cx - 10, h * 72 / 100], [cx + 10, h * 72 / 100], [cx, h * 77 / 100]]);
