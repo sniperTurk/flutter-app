@@ -312,16 +312,19 @@ void main() {
     expect(t, contains('birden çok retikül'));
   });
 
-  testWidgets('PCP mühimmat: Marka | Tip, Model on its own row', (
+  testWidgets('PCP mühimmat: Tip | Ağırlık, Uzunluk | BC, no Marka', (
     tester,
   ) async {
     await _openNew(tester);
-    final brand = tester.getRect(find.byKey(const Key('ammo-brand-select')));
-    final type = tester.getRect(find.byKey(const Key('ammo-type')));
-    expect((brand.top - type.top).abs(), lessThan(1));
-    expect(brand.right, lessThan(type.left));
-    final model = tester.getRect(find.byKey(const Key('ammo-model-select')));
-    expect(model.top, greaterThanOrEqualTo(brand.bottom));
+    // Owner, 2026-10-13: PCP asks no Marka/Model.
+    expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
+    expect(find.byKey(const Key('ammo-brand')), findsNothing);
+    Rect r(String k) => tester.getRect(find.byKey(Key(k)));
+    expect((r('ammo-type').top - r('ammo-grain').top).abs(), lessThan(1));
+    expect(r('ammo-type').right, lessThan(r('ammo-grain').left));
+    expect((r('ammo-length').top - r('ammo-bc').top).abs(), lessThan(1));
+    expect(r('ammo-length').right, lessThan(r('ammo-bc').left));
+    expect(find.byKey(const Key('ammo-bands-title')), findsNothing);
   });
 
   testWidgets('Dürbün "Listede yok": values are picked from lists', (

@@ -157,6 +157,11 @@ class Ammunition {
   /// [ballisticCoefficient] holds the sectional density (lb/in²) and
   /// [ballisticModel] is G1 only for storage; the solver uses this curve.
   final List<DragSample>? dragCurve;
+
+  /// Projectile length in mm (PCP pellet/slug; null = not given). Used for
+  /// the stability check (owner, 2026-10-12: "Uzunluk hesaplamada fayda
+  /// sağlar").
+  final double? lengthMm;
   final String? sourceName, sourceDocument;
 
   /// See [Rifle.userEntered].
@@ -173,6 +178,7 @@ class Ammunition {
     this.ballisticModel,
     this.bcBands = const [],
     this.dragCurve,
+    this.lengthMm,
     this.sourceName,
     this.sourceDocument,
     this.userEntered = false,

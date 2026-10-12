@@ -108,6 +108,8 @@ class ManualCatalogStore {
       // since 2026-10-09 (one field), so its model may be empty too.
       final mayBeEmpty =
           (field == 'brand' && kind == 'custom_ammunition') ||
+          // PCP ammunition asks no Marka (owner, 2026-10-13).
+          (field == 'brand' && kind == 'ammo' && platform == 'pcp') ||
           (field == 'model' && (kind == 'ammo' || kind == 'custom_ammunition'));
       if (value is! String ||
           (!mayBeEmpty && value.trim().isEmpty) ||

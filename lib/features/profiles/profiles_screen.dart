@@ -1832,6 +1832,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// library lists (owner, 2026-10-11: typed names are mistyped).
   bool _ammoManual = false;
   late final TextEditingController ammoGrain;
+
+  /// PCP projectile length in mm (optional; stability check).
+  late final TextEditingController ammoLength;
   late final TextEditingController ammoBc;
 
   /// Hıza göre BC (çoklu BC, owner 2026-10-09): up to two steps "below
@@ -2026,6 +2029,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _ammoManual = !inFactory && !inLibrary;
     }
     ammoGrain = TextEditingController(text: num(a0?.grain));
+    ammoLength = TextEditingController(text: num(a0?.lengthMm));
     ammoBc = TextEditingController(text: num(a0?.ballisticCoefficient));
     // Stored bands are fastest first: [(s1, main), (s2, bc1), (0, bc2)].
     // Row i shows "below s(i+1) fps -> bc(i+1)".
@@ -2269,6 +2273,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_ammoBrandError == null, 'Marka'),
       (_effectiveAmmoType != null, 'Tip'),
       (_grainError == null, 'Ağırlık'),
+      if (platform == WeaponPlatform.pcp) (_lengthError == null, 'Uzunluk'),
       if (_customCurve)
         (_dragCurve != null, 'Sürüklenme eğrisi')
       else ...[
@@ -2301,6 +2306,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ammoBrand.dispose();
     ammoModel.dispose();
     ammoGrain.dispose();
+    ammoLength.dispose();
     ammoBc.dispose();
     powderCoef.dispose();
     powderTemp.dispose();
@@ -2421,8 +2427,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _clickError == null &&
       firstFocalPlane != null;
 
-  String? get _ammoBrandError => _textError(ammoBrand);
+  /// PCP needs no Marka (owner, 2026-10-13: the brand adds nothing to the
+  /// calculation); an empty one is saved as "Özel yapım".
+  String? get _ammoBrandError =>
+      platform == WeaponPlatform.pcp ? null : _textError(ammoBrand);
   String? get _grainError => _rangeError(ammoGrain, 1, 800);
+
+  /// Uzunluk is optional; a typed one must be a plausible pellet/slug.
+  String? get _lengthError =>
+      ammoLength.text.trim().isEmpty ? null : _rangeError(ammoLength, 1, 60);
 
   /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
   /// publish none); a typed one is still range-checked.
@@ -2576,6 +2589,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       // Caliber follows the rifle, so the pair can never mismatch.
       'caliberMm': _parse(rifleCaliber),
       'grain': _parse(ammoGrain),
+      if (platform == WeaponPlatform.pcp && _parse(ammoLength) != null)
+        'lengthMm': _parse(ammoLength),
       'ammoType': _effectiveAmmoType!.name,
       if (_customCurve) ...{
         'bc': _curveSd,
@@ -2739,6 +2754,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ammoBrand,
       ammoModel,
       ammoGrain,
+      ammoLength,
       ammoBc,
     ].any((c) => c.text.trim().isNotEmpty);
     if (typed) {
@@ -2779,6 +2795,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ammoModel.text = '';
     _ammoManual = false;
     ammoGrain.text = '';
+    ammoLength.text = '';
     ammoBc.text = '';
     ammoBcModel = null;
     ammoType = null;
@@ -2957,6 +2974,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   static const _manualKey = '__manual';
 
+  /// PCP Marka | Model lists, hidden (owner, 2026-10-13: "Pellet marka
+  /// bullet marka almanın hiç bir faydası yok"; hidden, not removed). PCP
+  /// asks only Tip, Ağırlık, Uzunluk and BC.
+  static const bool _showPcpAmmoBrand = bool.fromEnvironment('PCP_AMMO_BRAND');
+
   /// Marka | Model of the ammunition: two lists side by side (factory
   /// cartridges or the bullet library for this caliber); the typed boxes
   /// only after "Listede yok" or when nothing is listed here.
@@ -2966,6 +2988,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     required Widget modelText,
   }) {
     final firearm = platform == WeaponPlatform.firearm;
+    if (!firearm && !_showPcpAmmoBrand) return [type];
     // PCP: Marka | Tip; firearm: Mühimmat türü | Marka. Model gets a row.
     List<Widget> arrange(Widget brand, Widget model) => [
       if (firearm) ...[type, brand] else ...[brand, type],
@@ -3784,6 +3807,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_grainError, ammoGrain),
                 ),
+                // Uzunluk | BC on PCP (owner, 2026-10-13).
+                if (platform == WeaponPlatform.pcp)
+                  MenzilInput(
+                    key: const Key('ammo-length'),
+                    controller: ammoLength,
+                    label: 'Uzunluk',
+                    unit: 'mm',
+                    info: ProfileFieldInfo.ammoLength,
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_lengthError, ammoLength),
+                  ),
                 if (!_customCurve)
                   MenzilInput(
                     key: const Key('ammo-bc'),
@@ -3889,7 +3923,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       onChanged: (v) => setState(() => _dragCurve = v),
                     ),
                   ),
-                if (!_customCurve) ...[
+                // Hıza göre BC: hidden on PCP (owner, 2026-10-13: only Tip,
+                // Ağırlık, Uzunluk, BC).
+                if (!_customCurve && platform != WeaponPlatform.pcp) ...[
                   MenzilFullWidth(
                     child: Text(
                       'Hıza göre BC',

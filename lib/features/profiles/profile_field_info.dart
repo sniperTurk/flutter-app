@@ -55,6 +55,11 @@ abstract final class ProfileFieldInfo {
   static const grain =
       'Bir saçmanın veya merminin ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: 25,39 gr pellet, 33,95 gr slug.';
+  static const ammoLength =
+      'Saçmanın veya slug\'ın boyu, milimetre olarak. Kumpasla ucundan '
+      'arkasına ölçülür ya da üreticinin sitesinde yazar. Boş '
+      'bırakılabilir; girilirse yiv oranıyla dengesi kontrol edilir. '
+      'Örnek: kumpasta 10,5 okunursa 10,5 yazın.';
   static const grainFirearm =
       'Merminin (çekirdeğin) ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: .223 için 55 gr, .308 için 168 gr, '
