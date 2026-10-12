@@ -77,11 +77,16 @@ void main() {
     expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
 
     await _tap(tester, reset);
-    expect(_text(tester, BallisticsFieldKeys.temperature), '15');
-    expect(_text(tester, BallisticsFieldKeys.humidity), '50');
-    expect(_text(tester, BallisticsFieldKeys.wind), '0');
-    expect(_text(tester, BallisticsFieldKeys.altitude), '0');
-    expect(_text(tester, BallisticsFieldKeys.pressure), '1013.25');
+    // Sıfırla empties the boxes (owner, 2026-10-12).
+    for (final k in [
+      BallisticsFieldKeys.temperature,
+      BallisticsFieldKeys.humidity,
+      BallisticsFieldKeys.wind,
+      BallisticsFieldKeys.altitude,
+      BallisticsFieldKeys.pressure,
+    ]) {
+      expect(_text(tester, k), '', reason: '$k');
+    }
     // The reset button stays, orange, as "Veriler sıfırlandı".
     expect(find.text('Veriler sıfırlandı'), findsOneWidget);
     expect(find.text('Tekrar canlı konum verisi al'), findsOneWidget);
@@ -101,7 +106,7 @@ void main() {
     expect(_text(tester, BallisticsFieldKeys.temperature), '20');
   });
 
-  testWidgets('pressure: orange with Sıfırla; Sıfırla puts 1013.25 back', (
+  testWidgets('pressure: orange with Sıfırla; Sıfırla empties the box', (
     tester,
   ) async {
     await _pump(tester);
@@ -114,7 +119,7 @@ void main() {
     expect(_text(tester, BallisticsFieldKeys.pressure), '912.4');
 
     await _tap(tester, reset);
-    expect(_text(tester, BallisticsFieldKeys.pressure), '1013.25');
+    expect(_text(tester, BallisticsFieldKeys.pressure), '');
     expect(find.text('Tekrar basıncı telefondan al'), findsOneWidget);
     expect(find.text('Veriler sıfırlandı'), findsOneWidget);
   });
