@@ -210,7 +210,7 @@ void main() {
         findsOneWidget,
       );
       expect(find.textContaining('MOA'), findsWidgets);
-      expect(find.textContaining('mrad'), findsWidgets);
+      expect(find.textContaining('MRAD'), findsWidgets);
       expect(find.textContaining('klik'), findsWidgets);
       expect(
         find.textContaining('gerçek atış için kullanmayın'),

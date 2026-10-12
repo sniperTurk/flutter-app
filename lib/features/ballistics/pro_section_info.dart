@@ -23,8 +23,8 @@ abstract final class ProSectionInfo {
         'yüzden eğimi hesaba katmazsan hedefin üstüne vurursun; yokuş yukarı '
         'da yokuş aşağı da böyledir.',
     how:
-        '"Telefonla ölç"e dokun. Telefonu dik tut, arka kamerası hedefe '
-        'baksın. Ekrandaki artıyı hedefin üstüne getir ve "OK"a bas; açıyı '
+        '"Kamerayla ölç"e dokun. Telefonu dik tut, arka kamerası hedefe '
+        'baksın. Ekrandaki artıyı hedefin üstüne getir ve "Tamam"a bas; açıyı '
         'telefon ölçer. Düz atışta 0 bırak.',
   );
 
@@ -34,7 +34,7 @@ abstract final class ProSectionInfo {
         'Tüfeği tutarken farkında olmadan sağa ya da sola yatırırsın. '
         'Dürbünün dik durmaması bu yatıklık.',
     why:
-        'Dürbün yatınca "yukarı" çevirdiğin tıklar tam yukarı gitmez, biraz '
+        'Dürbün yatınca "yukarı" çevirdiğin klikler tam yukarı gitmez, biraz '
         'yana kayar. Mesafe uzadıkça bu kayma büyür.',
     how:
         'Tüfeği atış pozisyonundaki gibi tut. "Telefonla ölç"e dokun. '
@@ -51,7 +51,7 @@ abstract final class ProSectionInfo {
         'yazabilirsin.',
     why:
         'Hedef ekranı yan düzeltmeyi tek sayı yerine bir aralık olarak '
-        'gösterir, örneğin "3–5 tık sağa". Rüzgârın ne yapacağını bilemediğin '
+        'gösterir, örneğin "3–5 klik sağa". Rüzgârın ne yapacağını bilemediğin '
         'anlarda nişanı nereye kaydıracağını görürsün.',
     how:
         'Senin bir şey girmene gerek yok; uygulama Hava Durumu\'ndaki rüzgârı '
@@ -151,13 +151,13 @@ abstract final class ProSectionInfo {
   static const turretScale = ProExplain(
     title: 'Kule ölçek katsayısı',
     what:
-        'Dürbün kulesi üzerinde yazan kadar dönmeyebilir. Örneğin 10 tık '
+        'Dürbün kulesi üzerinde yazan kadar dönmeyebilir. Örneğin 10 klik '
         '"1 MRAD" demesine rağmen gerçekte biraz az ya da fazla kaydırabilir.',
     why:
-        'Fark küçük görünür ama uzak mesafede çok tık çevirdiğinde birikir ve '
+        'Fark küçük görünür ama uzak mesafede çok klik çevirdiğinde birikir ve '
         'ıskalarsın.',
     how:
-        'Kare testi yap: Hedefe bir atış yap, kuleyi 40 tık yukarı çevir, '
+        'Kare testi yap: Hedefe bir atış yap, kuleyi 40 klik yukarı çevir, '
         'tekrar at. İki delik arasını ölç. Olması gereken mesafeye bölünce '
         'katsayı çıkar; örneğin 39 cm olması gerekirken 38 cm ise 0,97. Test '
         'yapmadıysan boş bırak.',

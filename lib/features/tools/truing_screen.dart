@@ -27,7 +27,7 @@ import 'tool_support.dart';
 abstract final class TruingFieldInfo {
   static const range =
       'Doğrulama atışını yaptığınız hedefin mesafesi; telemetre ile ölçün. '
-      'Sıfır mesafesinden belirgin uzak olmalı: düşüm ne kadar büyükse hız '
+      'Sıfır mesafesinden belirgin uzak olmalı: düşüş ne kadar büyükse hız '
       'o kadar iyi bulunur. Örnek: PCP için 75–100 m, ateşli için 500–800 m.';
   static const mode =
       'Namlu çıkış hızı: sıfırdan biraz uzak, orta bir mesafede (PCP 50–75 m, '
@@ -660,7 +660,7 @@ class _TruingScreenState extends State<TruingScreen> {
           tone: MenzilNoticeTone.warning,
           message:
               '%5’ten büyük bir değişim. Kronografla hızı ölçmek, sıfırı ve '
-              'dürbün yüksekliğini kontrol etmek iyi olur.',
+              'sight height değerini kontrol etmek iyi olur.',
         ),
       MenzilSecondaryButton(
         key: const Key('truing-apply'),

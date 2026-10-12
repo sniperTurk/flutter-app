@@ -168,7 +168,7 @@ void main() {
     );
     // A BC outside the plausible range is rejected.
     await enterRifleField(tester, 'ammo-bc', '3');
-    expect(find.text('0.005–1.5 arasında bir değer girin.'), findsOneWidget);
+    expect(find.text('0,005–1,5 arasında bir değer girin.'), findsOneWidget);
     expect(_updateAction(tester), isNull);
   });
 

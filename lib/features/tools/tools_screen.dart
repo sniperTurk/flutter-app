@@ -44,7 +44,7 @@ class ToolsScreen extends StatelessWidget {
           icon: Icons.tune,
           title: 'Hız Doğrulama',
           subtitle:
-              'Sahada gözlenen düşümle namlu hızını doğrula; profile aktarım',
+              'Sahada gözlenen düşüşle namlu hızı doğrulama; profile aktarım',
           onTap: () => _open(context, const TruingScreen()),
         ),
         MenzilToolTile(
@@ -85,8 +85,8 @@ class ToolsScreen extends StatelessWidget {
         MenzilToolTile(
           tileKey: const Key('tool-hit-probability'),
           icon: Icons.track_changes_outlined,
-          title: 'Vuruş Olasılığı',
-          subtitle: 'Grup ve hedef çapından tek atış vuruş yüzdesi',
+          title: 'İsabet Olasılığı',
+          subtitle: 'Grup ve hedef çapından tek atış isabet yüzdesi',
           onTap: () => _open(context, const HitProbabilityScreen()),
         ),
         MenzilToolTile(

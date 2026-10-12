@@ -186,9 +186,9 @@ class ScopeDialView extends StatelessWidget {
       ? ScopeDialMath.angleAtRange(targetDiameterM, rangeM, unit) / 2
       : null;
 
-  String get unitLabel => unit == AngularUnit.mrad ? 'mrad' : unit.label;
+  String get unitLabel => unit.label;
 
-  String get otherUnitLabel => unit == AngularUnit.mrad ? 'MOA' : 'mrad';
+  String get otherUnitLabel => unit == AngularUnit.mrad ? 'MOA' : 'MRAD';
 
   AngularUnit get otherUnit =>
       unit == AngularUnit.mrad ? AngularUnit.moa : AngularUnit.mrad;
@@ -304,7 +304,7 @@ class ScopeDialView extends StatelessWidget {
 
   static String _fmt(double v) {
     final r = v.abs() < 0.005 ? 0.0 : v;
-    return r.toStringAsFixed(2);
+    return r.toStringAsFixed(2).replaceAll('.', ',');
   }
 
   @override
@@ -431,7 +431,7 @@ class ScopeDialView extends StatelessWidget {
                         '${ffp ? 'FFP' : 'SFP'} · $unitLabel'
                         '${hasZoom ? ' · ${_mag(currentMag)}x' : ''}',
                     sfpNote: !ffp && hasZoom && (sub - 1).abs() > 1e-6
-                        ? '1 çizgi = ${sub.toStringAsFixed(2)} $unitLabel'
+                        ? '1 çizgi = ${sub.toStringAsFixed(2).replaceAll('.', ',')} $unitLabel'
                         : null,
                     reticle: reticle,
                     reticleToView: reticle == null
@@ -603,8 +603,9 @@ class ScopeDialView extends StatelessWidget {
     );
   }
 
-  static String _mag(double m) =>
-      m == m.roundToDouble() ? m.toStringAsFixed(0) : m.toStringAsFixed(1);
+  static String _mag(double m) => m == m.roundToDouble()
+      ? m.toStringAsFixed(0)
+      : m.toStringAsFixed(1).replaceAll('.', ',');
 
   Widget _zoomRow(BuildContext context) {
     final c = MenzilColors.of(context);
@@ -650,8 +651,8 @@ class ScopeDialView extends StatelessWidget {
     String len(double angle) {
       final m = ScopeDialMath.linearAtRange(angle.abs(), rangeM, unit);
       return metric
-          ? '${(m * 100).toStringAsFixed(1)} cm'
-          : '${(m * 39.3700787).toStringAsFixed(1)} in';
+          ? '${(m * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
+          : '${(m * 39.3700787).toStringAsFixed(1).replaceAll('.', ',')} in';
     }
 
     final lines = <String>[];
@@ -660,26 +661,26 @@ class ScopeDialView extends StatelessWidget {
       '1 $unitLabel, $r $distanceUnit mesafede = ${len(1)}'
       '${switch (unit) {
         AngularUnit.mrad => '  (mesafe(m) / 10 cm)',
-        AngularUnit.moa => '  (mesafe(m) × 0.02909 cm)',
+        AngularUnit.moa => '  (mesafe(m) × 0,02909 cm)',
         AngularUnit.smoa => '  (100 yd\'de 1 inç)',
       }}',
     );
     lines.add(
       unit == AngularUnit.smoa
-          ? '1 SMOA = 0.27778 mrad = 0.955 MOA'
-          : '1 MOA = 0.29089 mrad · 1 mrad = 3.43775 MOA',
+          ? '1 SMOA = 0,27778 MRAD = 0,955 MOA'
+          : '1 MOA = 0,29089 MRAD · 1 MRAD = 3,43775 MOA',
     );
     final tRad = targetRadius;
     if (tRad != null) {
       final d = metric
-          ? '${(targetDiameterM * 100).toStringAsFixed(0)} cm'
-          : '${(targetDiameterM * 39.3700787).toStringAsFixed(1)} in';
+          ? '${(targetDiameterM * 100).toStringAsFixed(0).replaceAll('.', ',')} cm'
+          : '${(targetDiameterM * 39.3700787).toStringAsFixed(1).replaceAll('.', ',')} in';
       lines.add(
         'Hedef halkası Ø$d = ${f(tRad * 2)} $unitLabel; gerçek boyutunda '
         'çizilir, bir çizgi aralığından küçükse o boyutta gösterilir. İki '
         'parmakla büyüt, çift dokunuşla geri dön. Göz '
         'düğmesi yazıları gizler. Çapını Pro → İsabet olasılığı → Hedef '
-        'çapı\'ndan değiştirebilirsin.',
+        'çapı\'ndan değiştirebilirsiniz.',
       );
     }
     if (inclineDeg.round() != 0) {
@@ -708,13 +709,13 @@ class ScopeDialView extends StatelessWidget {
       );
       final clicks = ScopeDialMath.clicksFor(req, clickValue);
       lines.add(
-        'Klik = ${f(req.abs())} / $clickValue = ${clicks.abs()} klik '
+        'Klik = ${f(req.abs())} / ${_dc(clickValue)} = ${clicks.abs()} klik '
         '${req >= 0 ? 'U' : 'D'}',
       );
       final otherClick = ScopeDialMath.standardClick(otherUnit);
       final otherClicks = ScopeDialMath.clicksFor(other, otherClick);
       lines.add(
-        'Karşılaştırma: aynı düzeltme $otherClick $otherUnitLabel klikli '
+        'Karşılaştırma: aynı düzeltme ${_dc(otherClick)} $otherUnitLabel klikli '
         'kulede ${otherClicks.abs()} klik',
       );
       if (requiredRight.abs() > 1e-9) {
@@ -726,8 +727,8 @@ class ScopeDialView extends StatelessWidget {
       }
     }
     lines.add(
-      'Kulede: $elevationClicks × $clickValue = ${f(dialedUp)} $unitLabel · '
-      '$windageClicks × $clickValue = ${f(dialedRight)} $unitLabel',
+      'Kulede: $elevationClicks × ${_dc(clickValue)} = ${f(dialedUp)} $unitLabel · '
+      '$windageClicks × ${_dc(clickValue)} = ${f(dialedRight)} $unitLabel',
     );
     if (impact != null) {
       lines.add(
@@ -745,11 +746,11 @@ class ScopeDialView extends StatelessWidget {
       lines.add(
         'SFP: retikül yalnız ${_mag(calibrationMag)}x büyütmede doğru. '
         '1 çizgi = ${_mag(calibrationMag)} / ${_mag(currentMag)} = '
-        '${sub.toStringAsFixed(3)} $unitLabel.',
+        '${sub.toStringAsFixed(3).replaceAll('.', ',')} $unitLabel.',
       );
       if (impact != null) {
         lines.add(
-          'Retikülde tutuş = kalan / ${sub.toStringAsFixed(3)} = '
+          'Retikülde tutuş = kalan / ${sub.toStringAsFixed(3).replaceAll('.', ',')} = '
           '${f(impact.up.abs() / sub)} çizgi '
           '${impact.up <= 0 ? 'aşağıdaki' : 'yukarıdaki'} işaret',
         );
@@ -793,8 +794,8 @@ class ScopeDialView extends StatelessWidget {
     String linear(double angle) {
       final m = ScopeDialMath.linearAtRange(angle.abs(), rangeM, unit);
       return metric
-          ? '${(m * 100).toStringAsFixed(1)} cm'
-          : '${(m * 39.3700787).toStringAsFixed(1)} in';
+          ? '${(m * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
+          : '${(m * 39.3700787).toStringAsFixed(1).replaceAll('.', ',')} in';
     }
 
     String dial(int clicks, double angle, String pos, String neg) =>
@@ -1036,7 +1037,10 @@ class _TurretDrumState extends State<_TurretDrum> {
   }
 
   String _valueText() {
-    final angle = (widget.clicks * widget.clickValue).abs().toStringAsFixed(2);
+    final angle = (widget.clicks * widget.clickValue)
+        .abs()
+        .toStringAsFixed(2)
+        .replaceAll('.', ',');
     if (widget.clicks == 0) return '${widget.semanticName} sıfırda';
     final word = widget.clicks > 0 ? widget.positiveWord : widget.negativeWord;
     return '${widget.clicks.abs()} klik $word, $angle ${widget.unitLabel}';
@@ -1171,8 +1175,9 @@ class _DrumPainter extends CustomPainter {
   String _letter(int v) =>
       v == 0 ? '' : (v > 0 ? positiveLetter : negativeLetter);
 
-  String _num(double v) =>
-      v == v.roundToDouble() ? v.toStringAsFixed(0) : v.toStringAsFixed(1);
+  String _num(double v) => v == v.roundToDouble()
+      ? v.toStringAsFixed(0)
+      : v.toStringAsFixed(1).replaceAll('.', ',');
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1571,7 +1576,9 @@ class ScopeReticlePainter extends CustomPainter {
 
     final numFont = math.max(8.0, size.shortestSide * 0.03);
     void number(double v, Offset at) {
-      final s = v % 1 == 0 ? v.toStringAsFixed(0) : v.toStringAsFixed(1);
+      final s = v % 1 == 0
+          ? v.toStringAsFixed(0)
+          : v.toStringAsFixed(1).replaceAll('.', ',');
       final m = _measure(s, numFont, FontWeight.w500);
       final box = Rect.fromCenter(
         center: at,
@@ -1884,7 +1891,7 @@ class ScopeReticlePainter extends CustomPainter {
       for (var i = -steps; i <= steps; i++) {
         if (i == 0) continue;
         final p = i * markStep * scale;
-        if (unitLabel == 'mrad') {
+        if (unitLabel.toLowerCase() == 'mrad') {
           for (final at in [center + Offset(p, 0), center + Offset(0, p)]) {
             canvas.drawCircle(at, dotR + 1.2, dotHalo);
             canvas.drawCircle(at, dotR, dot);
@@ -1996,7 +2003,7 @@ class ScopeReticlePainter extends CustomPainter {
         final far = math.sqrt(up * up + right * right);
         _text(
           canvas,
-          '${far.toStringAsFixed(far >= 10 ? 0 : 1)} $unitLabel',
+          '${far.toStringAsFixed(far >= 10 ? 0 : 1).replaceAll('.', ',')} $unitLabel',
           poi - dir * 30,
           colors.scopeImpact,
           math.max(11.0, size.shortestSide * 0.04),
@@ -2095,3 +2102,7 @@ class _ResetTurretsButtonState extends State<_ResetTurretsButton> {
     );
   }
 }
+
+/// [v] with a decimal comma and no trailing ",0" (0,1 · 0,25 · 1).
+String _dc(num v) =>
+    (v % 1 == 0 ? v.toStringAsFixed(0) : v.toString()).replaceAll('.', ',');

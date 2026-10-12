@@ -582,7 +582,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Text(
                   saved.isEmpty
-                      ? 'Önce bir tüfek profili oluştur.'
+                      ? 'Önce bir tüfek profili oluşturun.'
                       : 'Aktif profili Profil sekmesinde düzenleyip yeniden kaydedin.',
                   style: MenzilType.body(MenzilColors.of(context).ink),
                 ),

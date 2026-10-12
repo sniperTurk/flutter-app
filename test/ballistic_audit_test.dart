@@ -197,7 +197,7 @@ void main() {
     );
     // 10 cm at 100 m = 1 mrad.
     expect(
-      find.textContaining('Hedef halkası Ø10 cm = 1.00 mrad'),
+      find.textContaining('Hedef halkası Ø10 cm = 1,00 MRAD'),
       findsOneWidget,
     );
   });
