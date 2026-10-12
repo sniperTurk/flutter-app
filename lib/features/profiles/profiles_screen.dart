@@ -558,6 +558,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 label: 'Geri yükle',
                 icon: Icons.download_outlined,
                 expand: true,
+                // One line, set smaller if needed (owner, 2026-10-12).
+                twoLines: true,
                 onPressed: _restore,
               ),
             ),
