@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/domain.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import '../guide/usage_guide_screen.dart';
 import 'calculators_screen.dart';
 import 'chrono_screen.dart';
 import 'compass_screen.dart';
@@ -20,7 +21,8 @@ import 'zero_group_screen.dart';
 
 /// Tool hub (Hız Doğrulama, Sight Height, Haritadan mesafe, Hava & Rüzgâr,
 /// Pusula, Su Terazisi, Vuruş Olasılığı, Paralaks Mesafesi (PCP), Avcı
-/// Sıfırı, Hesaplayıcılar, Atış Öncesi Kontrol, Sıfır Grubu, Atış Günlüğü).
+/// Sıfırı, Hesaplayıcılar, Atış Öncesi Kontrol, Sıfır Grubu, Atış Günlüğü,
+/// Kullanım rehberi).
 /// Katalog is no
 /// longer listed here (owner, 2026-10-08); its records and screen remain.
 /// The audio Kronograf was removed from the hub (owner, 2026-10-09); a typed
@@ -156,6 +158,13 @@ class ToolsScreen extends StatelessWidget {
           title: 'Atış Günlüğü',
           subtitle: 'Oturum kaydı ve soğuk namlu ilk atış kaçıklığı',
           onTap: () => _open(context, const ShotJournalScreen()),
+        ),
+        MenzilToolTile(
+          tileKey: const Key('tool-usage-guide'),
+          icon: Icons.menu_book_outlined,
+          title: 'Kullanım rehberi',
+          subtitle: 'Profil, sıfırlama, hava, Hedef, Pro ve Tablo kısaca',
+          onTap: () => _open(context, const UsageGuideScreen()),
         ),
         const SizedBox(height: MenzilSpace.md),
         Center(
