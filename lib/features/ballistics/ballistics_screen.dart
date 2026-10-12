@@ -2790,10 +2790,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       minMagnification: zoom ? minMag : null,
       maxMagnification: zoom ? maxMag : null,
       magnification: zoom
-          // Starts 10x below the scope's highest magnification (owner,
-          // 2026-10-12: fixed 20x drew too small on 40–50x scopes);
-          // a short range scope stops at its lowest magnification.
-          ? (_magnification ?? maxMag - 10).clamp(minMag, maxMag).toDouble()
+          // Starts 15 % under the scope's highest magnification, rounded
+          // (owner, 2026-10-12: a fixed 20x drew too small; "yüzde 15
+          // aşağı hesaplasın"), never under the lowest magnification.
+          ? (_magnification ?? (maxMag * 0.85).roundToDouble())
+                .clamp(minMag, maxMag)
+                .toDouble()
           : null,
       onMagnificationChanged: zoom
           ? (v) => setState(() => _magnification = v)
