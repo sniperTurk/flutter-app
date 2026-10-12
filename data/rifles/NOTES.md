@@ -170,3 +170,40 @@ Bilinçli atlananlar / eksikler:
   sportingshooter.com.au) kural gereği kullanılmadı.
 - Prima XP (pompalı) ve Prima SP (düz çekmeli) için üretici kaynaklı kalibre verisi yok; eklenmedi.
 - Sahibin bakması gereken: IWA katılımcı sayfasının "üretici kaynağı" sayılıp sayılmayacağı.
+
+## 2026-10-12 — tüfek tamamlama (eksik üreticiler, PCP + ateşli)
+
+Kaynak kuralı aynı: yalnızca üreticinin resmi sitesi / PDF kataloğu / kullanım kılavuzu. Forum, blog, dergi,
+bayi YOK; ChairGun/Strelok/AB/QuickLOAD/GRT/JBM YOK. Bilinmeyen alan null. Marka başına ayrıntılı rapor
+(neden seçildi, kaynak URL'leri, bulunamayanlar): `reports/2026-10-12-tufek-tamamlama/<marka>.md`.
+Erişim: curl üretici alan adlarına kapalı (proxy 403); WebFetch turun ikinci yarısında HTTP 429 ile durdu.
+
+Seçim mantığı: önce boş kalmış marka dosyaları (airmaks, edgun, fx-airguns, niksan, snowpeak…) ve Türkiye'de
+üretilen/satılan PCP markaları, sonra Türkiye'de yaygın ithal PCP'ler (Air Arms, Weihrauch, Diana, FX),
+sonra dünyada yaygın ateşli av/hassas atış üreticileri (Sabatti, Marlin, Nosler, Henry, Springfield).
+
+Eklenen 634 kayıt (16 marka, 10'u yeni):
+- Yerli: Effecto 14 (Huğlu kooperatifinin PCP markası, effectoairguns.com), Niksan Defence 27 (niksandefence.com),
+  Hatsan +15 (Escort .22 LR yivli tüfek, hatsan.com.tr).
+- PCP: AirMaks Arms 160 (Çek; airmaksarms.com), Evanix 79, FX Airguns 43, Snowpeak 33 (snowpeaksports.com),
+  Diana 22, Air Arms +17, EDgun 7, Weihrauch +3.
+- Ateşli: Sabatti 128, Henry +36, Nosler 25, Springfield Armory +14, Marlin 11.
+
+Dikkat / bilinçli boş bırakılanlar:
+- FX Airguns: varyant tablosu JavaScript yapılandırıcısında → yalnız model×kalibre (+ birkaç basınç/hacim); namlu vb. null.
+- EDgun: ürün sayfası gövdesi okunamadı; yalnız resmi ürün başlığından kalibre. Başlıktaki namlu (250/350/450/600)
+  model adında, `barrel_length_mm` null.
+- Hatsan Escort: sayfadaki "(16”)" hatve mi belirsiz → hatve null.
+- Evanix: tüm modellerde "1:19" hatve yazıyor (şablon olabilir); sayfadaki gibi alındı, notes'ta işaretli.
+- Diana, Snowpeak: "a | b | c" değer listeleri kalibre sırasıyla eşlendi (notes'ta yazılı).
+- AirMaks Arms Türk değil (Prag, Çek Cumhuriyeti adresli) → yerli listesine eklenmedi.
+- Air Arms Minotaur mevcut kayıt (850 mm) ile S510 Core sayfası (752 mm) çelişiyor; mevcut kayıt değiştirilmedi.
+
+Yeni kalibreler (generator): .35 Rem, .360 Buckhammer, .357 Mag, .44 Rem Mag, .45 Colt, .327 Fed Mag, .41 Rem Mag,
+.26/.27/.30/.33 Nosler, .450 NE (+ alias ".500 NE" → '.500 NE 3"'). Çaplar SAAMI/C.I.P. nominal mermi çapı.
+
+Eklenemeyen (429 / robots / resmi veri yok) — sonraki tur:
+- PCP: Huben, AEA (429), Ataman, Kalibrgun (robots), Walther Reign/Rotex, Gamo PCP (2025 katalog PDF bulundu), Cometa (429),
+  Hatsan yeni PCP'ler (Blitz, Barrage, Hercules — resmi URL'ler bulundu, 429), Ekol/Voltran ESP serisi (429).
+- Ateşli: Kral Arms KR22/KR223 ve Derya TM22 (Türk, resmi sayfa var, 429), Voere, Verney-Carron, Daniel Defense Delta 5,
+  PGM (429). Akdaş bir döküm firması (silah üreticisi değil) → boş kalıyor. Armsan, Canik, Tisaş, Torun, Asil: yivli tüfek yok.
