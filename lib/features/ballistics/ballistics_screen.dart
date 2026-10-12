@@ -2994,14 +2994,20 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 hint: 'Seçiniz',
                 info: EnvironmentFieldInfo.windObservation,
                 initialValue: _windObservation,
+                // "Seçiniz" stays in the list so the shooter can look and
+                // leave without choosing (owner, 2026-10-12).
                 items: [
+                  const DropdownMenuItem<int>(child: Text('Seçiniz')),
                   for (final b in Beaufort.classes)
                     DropdownMenuItem(
                       value: b.force,
                       child: Text('${b.name}: ${b.land}', maxLines: 2),
                     ),
                 ],
-                selectedLabels: [for (final b in Beaufort.classes) b.name],
+                selectedLabels: [
+                  'Seçiniz',
+                  for (final b in Beaufort.classes) b.name,
+                ],
                 onChanged: _pickWindObservation,
               ),
             ),

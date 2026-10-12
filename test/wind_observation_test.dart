@@ -103,7 +103,9 @@ void main() {
     expect(s.initialValue, isNull);
     expect(s.info, EnvironmentFieldInfo.windObservation);
     expect(s.info, contains('10 m'));
-    expect(s.items, hasLength(8));
+    // "Seçiniz" + 8 classes: looking and leaving needs no choice.
+    expect(s.items, hasLength(9));
+    expect(s.items.first.value, isNull);
     expect(s.label.contains('('), isFalse);
   });
 
@@ -122,6 +124,23 @@ void main() {
     await tester.pumpAndSettle();
     expect(tester.widget<MenzilSelect<int>>(_select).initialValue, isNull);
     expect(await _windMaxOnPro(tester), '3.3');
+  });
+
+  testWidgets('"Seçiniz" in the list leaves without changing the wind', (
+    tester,
+  ) async {
+    await _sized(tester);
+    await tester.pumpWidget(_app(BallisticsView.environment));
+    await tester.pumpAndSettle();
+    final before = _text(tester, BallisticsFieldKeys.wind);
+    await tester.ensureVisible(_select);
+    await tester.pumpAndSettle();
+    await tester.tap(_select);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Seçiniz').last);
+    await tester.pumpAndSettle();
+    expect(_text(tester, BallisticsFieldKeys.wind), before);
+    expect(tester.widget<MenzilSelect<int>>(_select).initialValue, isNull);
   });
 
   testWidgets('Hedef shows the near / middle / far wind shares', (
