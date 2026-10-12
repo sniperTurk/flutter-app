@@ -822,17 +822,8 @@ class _ActiveProfileDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        MenzilSectionHeader(
-          // The name is already in the top-bar selector and the list; it is
-          // not repeated here (owner, 2026-10-08).
-          'Aktif profil',
-          trailing: TextButton.icon(
-            onPressed: onEdit,
-            icon: const Icon(Icons.edit_outlined, size: 18),
-            label: const Text('Düzenle'),
-          ),
-          padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
-        ),
+        // No "Aktif profil" title or Düzenle here (owner, 2026-10-12): the
+        // list below shows the active profile with its edit pencil.
         // Order and names set by the owner (2026-10-09). Regülatör, Odak
         // düzlemi, Klik değeri and the name card have no box any more.
         MenzilMetricGrid(
@@ -1768,6 +1759,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   Ammunition? ammo;
   ScopeOptic? scope;
   late final TextEditingController name;
+  final FocusNode _nameFocus = FocusNode();
+  String _defaultName = '';
   late final TextEditingController velocity;
   late final TextEditingController zero;
   late final TextEditingController sight;
@@ -1973,6 +1966,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     name = TextEditingController(
       text: p?.name ?? defaultProfileName(widget.takenNames),
     );
+    // New profile (owner, 2026-10-12): a tap on Profil adı clears the
+    // default name; leaving it empty puts the default back.
+    _defaultName = name.text;
+    if (p == null) {
+      _nameFocus.addListener(() {
+        if (_nameFocus.hasFocus && name.text == _defaultName) {
+          name.clear();
+        } else if (!_nameFocus.hasFocus && name.text.trim().isEmpty) {
+          name.text = _defaultName;
+        }
+      });
+    }
     // Muzzle velocity is entered in fps on Profil (owner decision); the
     // profile keeps storing m/s, so every calculation is unchanged.
     velocity = TextEditingController(
@@ -2190,6 +2195,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   @override
   void dispose() {
+    _nameFocus.dispose();
     rifleBrand.dispose();
     rifleModel.dispose();
     rifleCaliber.dispose();
@@ -2535,7 +2541,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final ProfileInput input;
     try {
       input = ProfileInput.validate(
-        name: name.text,
+        name: name.text.trim().isEmpty ? _defaultName : name.text,
         muzzleVelocityText: mps.toString(),
         zeroRangeText: _zeroMetersText,
         sightHeightText: sight.text,
@@ -3016,6 +3022,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   child: MenzilInput(
                     key: const Key('profile-name'),
                     controller: name,
+                    focusNode: _nameFocus,
                     label: 'Profil adı',
                     keyboardType: TextInputType.text,
                     maxLength: ProductionLimits.maxProfileNameLength,

@@ -94,9 +94,9 @@ void main() {
     tester,
   ) async {
     await _pumpList(tester, metric: true, onContinue: () {});
-    // The profile name is not repeated under "Aktif profil" (only the row).
+    // The profile name is not repeated in the summary (only the row).
     expect(find.text('Bir'), findsOneWidget);
-    final summaryY = tester.getTopLeft(find.text('Aktif profil')).dy;
+    final summaryY = tester.getTopLeft(find.text('Namlu çıkış hızı')).dy;
     final listY = tester.getTopLeft(find.text('Profiller')).dy;
     expect(summaryY, lessThan(listY));
   });

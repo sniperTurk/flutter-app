@@ -90,13 +90,11 @@ Rüzgâr düzeltmesi kutusu Açı'nın altındadır ve boş gelir. "Rüzgâr dü
 
 Barut sıcaklığı Profil > Mühimmat'ta girilir; Pro'da yalnızca bugünkü hız gösterilir.
 
-## Tablo / DOPE
+## DOPE kartı
 
-Hedef sayfasının üstündeki "Tek atış | Tablo" anahtarından Tablo'ya geç.
+Hedef sayfasında dürbün görüntüsünün altındaki "DOPE kartını paylaş (PDF)" düğmesiyle kart oluşturulur; Hava Durumu ve Pro'daki değerlerle hesaplanır.
 
-DOPE mesafeleri kutusuna mesafeleri virgülle yaz (ör. 100, 200, 300) ve "DOPE oluştur"a dokun. Tablo, Hava Durumu ve Pro'daki değerlerle hesaplanır.
-
-Sütunlar: düşüş (cm), yükseklik düzeltmesi (MOA ve mrad), rüzgâr düzeltmesi ve sapması, hız, enerji ve uçuş süresi (TOF). Hava değişince tabloyu yeniden oluştur.
+Kartta düşüş, yükseklik ve rüzgâr düzeltmesi, hız, enerji ve uçuş süresi bulunur. Hava değişince kartı yeniden oluştur.
 
 ## Araçlar
 

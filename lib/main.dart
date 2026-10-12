@@ -37,6 +37,7 @@ class _SniperTurkAppState extends State<SniperTurkApp> {
   void initState() {
     super.initState();
     appSettings.load();
+    themeMode.load();
   }
 
   @override

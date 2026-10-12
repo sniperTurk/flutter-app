@@ -272,6 +272,9 @@ void main() {
   testWidgets('full view: solve after the pressure warning came and went', (
     tester,
   ) async {
+    // Hava Durumu is kept per profile now: start from empty storage so an
+    // earlier test's İrtifa does not come back.
+    SharedPreferences.setMockInitialValues({});
     await tester.pumpWidget(
       const MaterialApp(home: BallisticsScreen(profile: _profile)),
     );
@@ -283,18 +286,28 @@ void main() {
       await tester.pumpAndSettle();
     }
 
+    // The list builds lazily: after "DOPE oluştur" scroll back up to the
+    // Basınç ölçer card before looking for its warning.
+    Future<void> backToPressure() => tester.scrollUntilVisible(
+      field(BallisticsFieldKeys.pressure),
+      -300,
+      scrollable: find.byType(Scrollable).first,
+    );
+
     await tester.enterText(field(BallisticsFieldKeys.pressure), '900,00');
     await solve();
+    expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
+    await backToPressure();
     expect(
       find.byKey(const Key('environment-pressure-warning')),
       findsOneWidget,
     );
-    expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
     await tester.enterText(field(BallisticsFieldKeys.pressure), '1013.25');
     await tester.enterText(field(BallisticsFieldKeys.humidity), '95');
     await solve();
-    expect(find.byKey(const Key('environment-pressure-warning')), findsNothing);
     expect(find.textContaining('Hava yoğunluğu:'), findsOneWidget);
+    await backToPressure();
+    expect(find.byKey(const Key('environment-pressure-warning')), findsNothing);
   });
 
   group('Owner 2026-10-10', () {

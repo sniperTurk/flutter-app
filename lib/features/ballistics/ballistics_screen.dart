@@ -300,11 +300,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         gravityCtl.text = s.gravityText;
         latitudeCtl.text = s.latitudeText;
         azimuthCtl.text = s.azimuthText;
+        // A box a button filled reopens orange "…alındı" (owner, 2026-10-12).
+        _gravFilled = s.gravityFromLocation && s.gravityText.isNotEmpty;
+        _latFilled = s.latitudeFromGps && s.latitudeText.isNotEmpty;
+        _aziFilled = s.azimuthFromCompass && s.azimuthText.isNotEmpty;
         turretScaleCtl.text = s.turretScaleText;
         // No automatic value any more (owner, 2026-10-12): the box starts
         // empty and is filled only by "Rüzgâr düzeltmesi al" or by hand.
         _windMaxAuto = false;
         windMaxCtl.text = s.windMaxText;
+        _windMaxFilled = s.windMaxFromWind && s.windMaxText.isNotEmpty;
         _autoWindMax();
         targetSpeedCtl.text = s.targetSpeedText;
         _targetMovesRight = s.targetMovesRight;
@@ -327,6 +332,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         targetSizeCtl.text = s.targetSizeText;
         rangeErrorCtl.text = s.rangeErrorText;
         bcErrorCtl.text = s.bcErrorText;
+        if (s.weatherSaved) _applyWeatherSi(s);
         _wezShotCount = s.wezShotCount;
         _wezShotChosen = s.wezShotCount != Wez.defaultShotCount;
         _shotCache.clear();
@@ -338,6 +344,84 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   void _reloadShotSettings() => unawaited(_loadShotSettings());
 
+  /// Off while the boxes are rewritten in another unit or restored, so a
+  /// half-converted form is never stored.
+  bool _weatherSaveOff = false;
+
+  bool _weatherSavePending = false;
+
+  void _weatherChanged() {
+    if (_weatherSaveOff || _weatherSavePending) return;
+    // After the current step, so "…alındı" / Sıfırla flags set next to the
+    // text are stored with it.
+    _weatherSavePending = true;
+    scheduleMicrotask(() {
+      _weatherSavePending = false;
+      if (mounted) _saveShotSettings();
+    });
+  }
+
+  /// Hava Durumu boxes in SI for [ShotSettings.weatherSi]; empty or
+  /// unreadable boxes are left out.
+  Map<String, double> _weatherSi() {
+    double? n(TextEditingController c) {
+      final v = double.tryParse(c.text.trim().replaceAll(',', '.'));
+      return v != null && v.isFinite ? v : null;
+    }
+
+    final m = metric;
+    final t = n(temperature), p = n(pressure), h = n(humidity);
+    final a = n(altitude), w = n(wind), d = n(windDirection);
+    return {
+      if (t != null) 'temperature': m ? t : UnitSystem.fahrenheitToCelsius(t),
+      if (p != null) 'pressure': m ? p : UnitSystem.inHgToHpa(p),
+      if (h != null) 'humidity': h,
+      if (a != null) 'altitude': m ? a : UnitSystem.feetToMeters(a),
+      if (w != null) 'wind': m ? w : UnitSystem.mphToMps(w),
+      if (d != null && _windHourValue != null) 'windDirection': d,
+    };
+  }
+
+  /// Puts a profile's saved Hava Durumu back, in the shown unit; a box not
+  /// in the map comes back empty (owner, 2026-10-12).
+  void _applyWeatherSi(ShotSettings s) {
+    _weatherSaveOff = true;
+    try {
+      _putWeatherSi(s);
+    } finally {
+      _weatherSaveOff = false;
+    }
+  }
+
+  void _putWeatherSi(ShotSettings s) {
+    final si = s.weatherSi;
+    final m = metric;
+    String f(double v) => v == v.roundToDouble()
+        ? v.toStringAsFixed(0)
+        : double.parse(v.toStringAsFixed(2)).toString();
+    String show(String key, double Function(double) toImperial) {
+      final v = si[key];
+      if (v == null) return '';
+      return f(m ? v : toImperial(v));
+    }
+
+    temperature.text = show('temperature', UnitSystem.celsiusToFahrenheit);
+    pressure.text = show('pressure', UnitSystem.hpaToInHg);
+    humidity.text = show('humidity', (v) => v);
+    altitude.text = show('altitude', UnitSystem.metersToFeet);
+    wind.text = show('wind', UnitSystem.mpsToMph);
+    for (final c in [temperature, pressure, humidity, altitude, wind]) {
+      if (c.text.isNotEmpty) _userEdited.add(c);
+    }
+    final wd = si['windDirection'];
+    if (wd != null) {
+      windDirection.text = f(wd);
+      windHour.text = '${WindClock.fromDegrees(wd)}';
+    }
+    _weatherFilled = s.weatherFromLocation;
+    _pressureFilled = s.pressureFromPhone && pressure.text.isNotEmpty;
+  }
+
   void _saveShotSettings() {
     final id = widget.profile?.id;
     if (id == null || !_shotSettingsReady) return;
@@ -348,6 +432,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       gravityOn: _gravityOn,
       gravityText: gravityCtl.text.trim(),
       latitudeText: latitudeCtl.text.trim(),
+      // Which boxes a button filled, so they reopen orange (2026-10-12).
+      latitudeFromGps: _latFilled,
+      azimuthFromCompass: _aziFilled,
+      gravityFromLocation: _gravFilled,
+      windMaxFromWind: _windMaxFilled,
+      weatherSaved: true,
+      weatherSi: _weatherSi(),
+      weatherFromLocation: _weatherFilled,
+      pressureFromPhone: _pressureFilled,
       azimuthText: azimuthCtl.text.trim(),
       turretScaleText: turretScaleCtl.text.trim(),
       windMaxText: _windMaxAuto ? '' : windMaxCtl.text.trim(),
@@ -983,17 +1076,26 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           : zeroM.toString(),
     );
     sight = TextEditingController(text: (p?.sightHeightMm ?? 65).toString());
-    wind = TextEditingController(text: '0')..addListener(_autoWindMax);
+    // Hava Durumu boxes start empty (owner, 2026-10-12: "Konum verisi
+    // alınmadan kutular dolu geliyor"); an empty box is solved with the
+    // standard atmosphere and no wind.
+    wind = TextEditingController()..addListener(_autoWindMax);
     windDirection = TextEditingController(text: '90');
     windHour = TextEditingController()..addListener(_syncWindHour);
-    temperature = TextEditingController(text: '15');
-    pressure = TextEditingController(text: '1013.25');
-    humidity = TextEditingController(text: '50');
-    altitude = TextEditingController(text: '0');
+    temperature = TextEditingController();
+    pressure = TextEditingController();
+    humidity = TextEditingController();
+    altitude = TextEditingController();
     ranges = TextEditingController(
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
     widget.environmentCarry?._apply(this);
+    // Every Hava Durumu change is kept for this profile until Sıfırla
+    // (owner, 2026-10-12).
+    for (final c in [temperature, pressure, humidity, altitude, wind]) {
+      c.addListener(_weatherChanged);
+    }
+    windDirection.addListener(_weatherChanged);
     _loadUnitPreference();
     unawaited(_loadShotSettings());
     // Sıfır Grubu can write Sıfır ofseti while this workspace stays open.
@@ -1131,7 +1233,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   String? get _pressureWarning {
     double? parse(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
-    final p = parse(pressure), a = parse(altitude);
+    // An empty İrtifa is solved as 0 m, so the check uses 0 m too.
+    final p = parse(pressure);
+    final a = altitude.text.trim().isEmpty ? 0.0 : parse(altitude);
     if (p == null || a == null || !p.isFinite || !a.isFinite) return null;
     final pHpa = metric ? p : UnitSystem.inHgToHpa(p);
     final aM = metric ? a : UnitSystem.feetToMeters(a);
@@ -1422,7 +1526,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       final loadedMetric = (await SettingsStore.open()).loadMetric();
       if (!mounted || loadedMetric == metric) return;
       if (!loadedMetric) {
-        _convertControllersToImperial();
+        _weatherSaveOff = true;
+        try {
+          _convertControllersToImperial();
+        } finally {
+          _weatherSaveOff = false;
+        }
       }
       setState(() => metric = loadedMetric);
     } catch (_) {
@@ -1876,10 +1985,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       children: [
         MenzilCard(
           key: const Key('environment-no-profile'),
-          background: c.amberSoft,
+          // Plain card, thin orange edge (owner, 2026-10-12).
+          borderColor: c.amber,
           child: Row(
             children: [
-              Icon(Icons.wb_sunny_outlined, color: c.amberInk, size: 28),
+              Icon(Icons.wb_sunny_outlined, color: c.amber, size: 28),
               const SizedBox(width: MenzilSpace.md),
               Expanded(
                 child: Column(
@@ -1893,7 +2003,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     Text(
                       'Profil oluşturunca bu değerler her atışın hesabına '
                       'otomatik girer.',
-                      style: MenzilType.caption(c.amberInk),
+                      style: MenzilType.caption(c.ink2),
                     ),
                   ],
                 ),
@@ -2709,7 +2819,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       minMagnification: zoom ? minMag : null,
       maxMagnification: zoom ? maxMag : null,
       magnification: zoom
-          ? (_magnification ?? maxMag).clamp(minMag, maxMag).toDouble()
+          // Starts at 20x, the clearest view for reading the reticle
+          // (owner, 2026-10-12); a scope that cannot reach 20x uses the
+          // nearest end of its range.
+          ? (_magnification ?? 20.0).clamp(minMag, maxMag).toDouble()
           : null,
       onMagnificationChanged: zoom
           ? (v) => setState(() => _magnification = v)
@@ -3084,11 +3197,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
 
     return [
-      // Section renamed "Hava Durumu" (owner, 2026-10-12).
-      const MenzilSectionHeader(
-        'Hava Durumu',
-        padding: EdgeInsets.only(bottom: MenzilSpace.sm),
-      ),
+      // No section title: the page title already says Hava Durumu (owner,
+      // 2026-10-12).
       MenzilCard(
         padding: const EdgeInsets.fromLTRB(
           MenzilSpace.lg,
@@ -3611,7 +3721,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   /// Ne? / Neden önemli? / Nasıl? block of one setting.
-  Widget _explain(ProExplain e, {String? note}) {
+  Widget _explain(ProExplain e, {String? note, bool showTitle = true}) {
     final c = MenzilColors.of(context);
     TextSpan part(String label, String text) => TextSpan(
       children: [
@@ -3630,12 +3740,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            e.title,
-            // No bold text in the Pro boxes (owner, 2026-10-11).
-            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(height: MenzilSpace.xxs),
+          // A title equal to the box title is not repeated (owner,
+          // 2026-10-12).
+          if (showTitle) ...[
+            Text(
+              e.title,
+              // No bold text in the Pro boxes (owner, 2026-10-11).
+              style: MenzilType.body(
+                c.ink,
+              ).copyWith(fontWeight: FontWeight.w400),
+            ),
+            const SizedBox(height: MenzilSpace.xxs),
+          ],
           Text.rich(
             TextSpan(
               children: [
@@ -4041,7 +4157,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         title: 'Hareketli hedef',
         summary: _summaryTarget(),
         children: [
-          _explain(ProSectionInfo.movingTarget),
+          // Owner, 2026-10-12: boxes first, the explanation under them;
+          // Verileri sil under the boxes, the WEZ explanation last.
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -4071,7 +4188,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ),
             ],
           ),
-          _explain(ProSectionInfo.hitProbability),
+          _explain(ProSectionInfo.movingTarget, showTitle: false),
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -4148,6 +4265,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             expand: true,
             onPressed: _clearTargetBox,
           ),
+          _explain(ProSectionInfo.hitProbability),
         ],
       ),
       _proBox(
@@ -4155,7 +4273,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         title: 'Tüfek düzeltmeleri',
         summary: _summaryRifle(),
         children: [
-          _explain(ProSectionInfo.turretScale),
+          // Owner, 2026-10-12: boxes first, each explanation under them.
           MenzilInput(
             key: const Key('pro-turret-scale'),
             controller: turretScaleCtl,
@@ -4170,7 +4288,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 : null,
             onChanged: (_) => _coriolisChanged(),
           ),
-          _explain(ProSectionInfo.zeroOffset),
+          _explain(ProSectionInfo.turretScale),
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -4193,10 +4311,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ),
             ],
           ),
-          _explain(
-            ProSectionInfo.spinDrift,
-            note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
-          ),
+          _explain(ProSectionInfo.zeroOffset),
           if (_spinDriftOn) ...[
             MenzilInput(
               key: const Key('pro-bullet-length'),
@@ -4215,8 +4330,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     'hesaplanamaz.',
               ),
           ],
+          _explain(
+            ProSectionInfo.spinDrift,
+            note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
+          ),
           if (_isFirearm) ...[
-            _explain(ProSectionInfo.powder),
             // The values are entered on Profil > Mühimmat (2026-10-11); here
             // only what is used and today's velocity.
             Builder(
@@ -4260,6 +4378,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 );
               },
             ),
+            _explain(ProSectionInfo.powder),
           ],
           // PCP tüp basıncı (owner, 2026-10-12): never on a firearm.
           if (_isPcp) ..._pcpPressureProFields(c),
@@ -4545,80 +4664,121 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _displayMaxRange.floorToDouble(),
     );
 
+    final appDark = Theme.of(context).brightness == Brightness.dark;
     return [
-      // Range dial: −5 −1 [value] +1 +5, slider below.
-      Row(
-        children: [
-          MenzilStepButton(
-            label: '−5',
-            semanticLabel: '5 azalt',
-            onPressed: () => _setShotDisplay(display - 5),
-          ),
-          const SizedBox(width: MenzilSpace.xs),
-          MenzilStepButton(
-            label: '−1',
-            semanticLabel: '1 azalt',
-            small: true,
-            onPressed: () => _setShotDisplay(display - 1),
-          ),
-          Expanded(
-            child: Semantics(
-              button: true,
-              label:
-                  'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
-              child: ExcludeSemantics(
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(MenzilRadius.button),
-                  onTap: _editShotRange,
-                  child: SizedBox(
-                    height: 64,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        textBaseline: TextBaseline.alphabetic,
-                        children: [
-                          Text(
-                            '$display',
-                            style: MenzilType.display(
-                              c.ink,
-                              size: display >= 1000 ? 48 : 60,
+      // Range dial: −5 −1 [value] +1 +5, slider below. Light like the scope
+      // inside in both themes, dark numbers (owner, 2026-10-12: "rakamlar
+      // çok beyaz, göz yoruyor").
+      Theme(
+        data: MenzilTheme.light(),
+        child: Builder(
+          builder: (context) {
+            final c = MenzilColors.of(context);
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                color: appDark
+                    ? MenzilColors.scopeBgDim
+                    : MenzilColors.light.scopeBg,
+                borderRadius: BorderRadius.circular(MenzilRadius.card),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  MenzilSpace.sm,
+                  MenzilSpace.sm,
+                  MenzilSpace.sm,
+                  0,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        MenzilStepButton(
+                          label: '−5',
+                          semanticLabel: '5 azalt',
+                          onPressed: () => _setShotDisplay(display - 5),
+                        ),
+                        const SizedBox(width: MenzilSpace.xs),
+                        MenzilStepButton(
+                          label: '−1',
+                          semanticLabel: '1 azalt',
+                          small: true,
+                          onPressed: () => _setShotDisplay(display - 1),
+                        ),
+                        Expanded(
+                          child: Semantics(
+                            button: true,
+                            label:
+                                'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
+                            child: ExcludeSemantics(
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  MenzilRadius.button,
+                                ),
+                                onTap: _editShotRange,
+                                child: SizedBox(
+                                  height: 64,
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.baseline,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: [
+                                        Text(
+                                          '$display',
+                                          style: MenzilType.display(
+                                            c.ink,
+                                            size: display >= 1000 ? 44 : 52,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          _distanceUnit,
+                                          style: MenzilType.number(
+                                            c.ink2,
+                                            size: 18,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                          const SizedBox(width: 4),
-                          Text(
-                            _distanceUnit,
-                            style: MenzilType.number(c.ink2, size: 18),
-                          ),
-                        ],
-                      ),
+                        ),
+                        MenzilStepButton(
+                          label: '+1',
+                          semanticLabel: '1 artır',
+                          small: true,
+                          onPressed: () => _setShotDisplay(display + 1),
+                        ),
+                        const SizedBox(width: MenzilSpace.xs),
+                        MenzilStepButton(
+                          label: '+5',
+                          semanticLabel: '5 artır',
+                          onPressed: () => _setShotDisplay(display + 5),
+                        ),
+                      ],
                     ),
-                  ),
+                    Slider(
+                      value: display
+                          .toDouble()
+                          .clamp(1.0, sliderMax)
+                          .toDouble(),
+                      min: 1,
+                      max: sliderMax,
+                      label: '$display $_distanceUnit',
+                      semanticFormatterCallback: (v) =>
+                          '${v.round()} $_distanceUnit',
+                      onChanged: (v) => _setShotDisplay(v.round()),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ),
-          MenzilStepButton(
-            label: '+1',
-            semanticLabel: '1 artır',
-            small: true,
-            onPressed: () => _setShotDisplay(display + 1),
-          ),
-          const SizedBox(width: MenzilSpace.xs),
-          MenzilStepButton(
-            label: '+5',
-            semanticLabel: '5 artır',
-            onPressed: () => _setShotDisplay(display + 5),
-          ),
-        ],
-      ),
-      Slider(
-        value: display.toDouble().clamp(1.0, sliderMax).toDouble(),
-        min: 1,
-        max: sliderMax,
-        label: '$display $_distanceUnit',
-        semanticFormatterCallback: (v) => '${v.round()} $_distanceUnit',
-        onChanged: (v) => _setShotDisplay(v.round()),
+            );
+          },
+        ),
       ),
       const SizedBox(height: MenzilSpace.sm),
       if (_pcpRegulatorBypassed)
@@ -4953,7 +5113,14 @@ class EnvironmentCarry {
   /// back empty, not with the starting values.
   Set<String> _empty = {};
 
+  /// The fetch buttons' state, so a tab switch keeps "…alındı" orange
+  /// (owner, 2026-10-12).
+  bool _weatherFilled = false;
+  bool _pressureFilled = false;
+
   void _save(_BallisticsScreenState s) {
+    _weatherFilled = s._weatherFilled;
+    _pressureFilled = s._pressureFilled;
     bool blank(TextEditingController c) => c.text.trim().isEmpty;
     double? n(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
@@ -4996,6 +5163,8 @@ class EnvironmentCarry {
   void _apply(_BallisticsScreenState s) {
     final si = _si;
     if (si == null) return;
+    s._weatherFilled = _weatherFilled;
+    s._pressureFilled = _pressureFilled;
     String f(double v) => v == v.roundToDouble()
         ? v.toStringAsFixed(0)
         : double.parse(v.toStringAsFixed(2)).toString();

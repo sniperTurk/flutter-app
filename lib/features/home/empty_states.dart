@@ -54,6 +54,12 @@ class WelcomePanel extends StatelessWidget {
 
   const WelcomePanel({super.key, this.onCreate, this.onRestore});
 
+  /// "Yedekten geri yükle" on the welcome page is hidden (owner,
+  /// 2026-10-12); --dart-define=WELCOME_RESTORE=true shows it again.
+  static const bool _showRestoreOnWelcome = bool.fromEnvironment(
+    'WELCOME_RESTORE',
+  );
+
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
@@ -66,13 +72,15 @@ class WelcomePanel extends StatelessWidget {
             width: 34,
             height: 34,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: c.amberSoft,
-              shape: BoxShape.circle,
-            ),
+            // The "İlk profilimi oluştur" orange with a white number
+            // (owner, 2026-10-12).
+            decoration: BoxDecoration(color: c.amber, shape: BoxShape.circle),
             child: Text(
               n,
-              style: TextStyle(fontWeight: FontWeight.w800, color: c.amberInk),
+              style: const TextStyle(
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+              ),
             ),
           ),
           const SizedBox(width: MenzilSpace.md),
@@ -157,7 +165,9 @@ class WelcomePanel extends StatelessWidget {
         ),
         const SizedBox(height: MenzilSpace.md),
         _EmptyActions(onCreate: onCreate, createLabel: 'İlk profilimi oluştur'),
-        if (onRestore != null) ...[
+        // Hidden, not removed (owner, 2026-10-12): restore is on Profiller
+        // once a profile exists.
+        if (_showRestoreOnWelcome && onRestore != null) ...[
           const SizedBox(height: MenzilSpace.sm),
           MenzilSecondaryButton(
             label: 'Yedekten geri yükle',
