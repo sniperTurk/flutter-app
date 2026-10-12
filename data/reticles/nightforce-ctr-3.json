@@ -1,0 +1,19 @@
+{
+  "name": "CTR-3",
+  "brand": "Nightforce",
+  "scopes": ["Competition 15-55x42", "Competition Fixed 42x44"],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_Competition_ReticleSheet_0819.pdf",
+  "notes": "Nightforce Competition föyü ve ürün sayfası (nightforceoptics.com/reticles/ctr-3): 'features the same subtensions as the CTR-2 with the elimination of the center dot'; 0.016 MOA çizgi, ikinci odak düzlemi (40x / 42x), aydınlatmasız. Bölme yok; family=duplex direksiz düz artı. A (28.8 / 32.89) eşlenmemiş."
+}

@@ -1,0 +1,19 @@
+{
+  "name": "MOAR-CF2D",
+  "brand": "Nightforce",
+  "scopes": ["NX8 4-32x50 F2"],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": 5.0,
+  "numbers_every": 5,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NF_MOAR-CF2_Reticle_Sheet.pdf",
+  "notes": "Nightforce MOAR-CF2/MOAR-CF2D föyü; ikinci odak düzlemi, 16x ve 32x çift ölçek, değerler 16x ölçeğinde (büyütme halkasında 16x işareti). Föy MOAR-CF2D için MOAR-CF2 ile aynı tanımı veriyor: 0.2 MOA yüzen merkez nokta, 1 MOA bölmeler, her 5 MOA'da büyük etiket (hash_step/major_every/numbers_every MOAR-CF2 dosyasıyla aynı kaynak ifadeden). Harfler 16x/32x (A 50/25, B 0.095/.048, K 0.2/0.1 vb.) eşlenmemiş -> uzanımlar null. Ürün sayfası: nightforceoptics.com/reticles/moar-cf2d."
+}

@@ -48,7 +48,11 @@ class _EmptyActions extends StatelessWidget {
 class WelcomePanel extends StatelessWidget {
   final VoidCallback? onCreate;
 
-  const WelcomePanel({super.key, this.onCreate});
+  /// New phone: bring the profiles back from a backup file (owner,
+  /// 2026-10-12). Hidden when null.
+  final VoidCallback? onRestore;
+
+  const WelcomePanel({super.key, this.onCreate, this.onRestore});
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +144,7 @@ class WelcomePanel extends StatelessWidget {
               step(
                 '3',
                 'Pro Ayarlarını Yap',
-                'Açı, Rüzgâr bölgeleri, Coriolis ve Spin Drift: '
+                'Açı, rüzgâr bölgeleri, Coriolis ve spin drift: '
                     'Profesyonellerin hesabı artık cebinde.',
               ),
               step(
@@ -153,6 +157,15 @@ class WelcomePanel extends StatelessWidget {
         ),
         const SizedBox(height: MenzilSpace.md),
         _EmptyActions(onCreate: onCreate, createLabel: 'İlk profilimi oluştur'),
+        if (onRestore != null) ...[
+          const SizedBox(height: MenzilSpace.sm),
+          MenzilSecondaryButton(
+            label: 'Yedekten geri yükle',
+            icon: Icons.download_outlined,
+            expand: true,
+            onPressed: onRestore,
+          ),
+        ],
       ],
     );
   }
@@ -230,7 +243,7 @@ class _ProPreviewState extends State<ProPreview> {
       children: [
         TextSpan(
           text: '$label ',
-          style: const TextStyle(fontWeight: FontWeight.w700),
+          style: const TextStyle(fontWeight: FontWeight.w400),
         ),
         TextSpan(text: '$text\n'),
       ],
@@ -242,7 +255,8 @@ class _ProPreviewState extends State<ProPreview> {
         children: [
           Text(
             e.title,
-            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w700),
+            // No bold text in the Pro boxes (owner, 2026-10-11).
+            style: MenzilType.body(c.ink).copyWith(fontWeight: FontWeight.w400),
           ),
           const SizedBox(height: 2),
           Text.rich(
@@ -253,6 +267,9 @@ class _ProPreviewState extends State<ProPreview> {
                 part('Nasıl?', e.how),
               ],
             ),
+            // Justified like every paragraph (owner, 2026-10-12): the Pro
+            // cards do not inherit MenzilPage's default.
+            textAlign: TextAlign.justify,
             style: MenzilType.caption(c.ink2).copyWith(height: 1.35),
           ),
         ],
@@ -283,7 +300,11 @@ class _ProPreviewState extends State<ProPreview> {
                     Expanded(
                       child: Text(
                         title,
-                        style: MenzilType.heading(c.ink, size: 18),
+                        // No bold box titles (owner, 2026-10-11): regular.
+                        style: MenzilType.heading(
+                          c.ink,
+                          size: 18,
+                        ).copyWith(fontWeight: FontWeight.w400),
                       ),
                     ),
                     if (!open) Text(summary, style: MenzilType.caption(c.ink2)),
@@ -305,7 +326,6 @@ class _ProPreviewState extends State<ProPreview> {
 
   @override
   Widget build(BuildContext context) {
-    final c = MenzilColors.of(context);
     return Column(
       key: EmptyStateKeys.proPreview,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -321,7 +341,6 @@ class _ProPreviewState extends State<ProPreview> {
                 label: 'Atış mesafesi',
                 unit: 'm',
                 info: EnvironmentFieldInfo.proShotRange,
-                hintText: 'örn. 300',
               ),
               MenzilSecondaryButton(
                 key: const Key('empty-pro-map'),
@@ -329,12 +348,6 @@ class _ProPreviewState extends State<ProPreview> {
                 icon: Icons.map_outlined,
                 expand: true,
                 onPressed: _fromMap,
-              ),
-              const SizedBox(height: MenzilSpace.xs),
-              Text(
-                'Mesafeyi bilmiyorsan haritadan ölç. Hedef\'e geçince dürbün '
-                'bu mesafeye kurulmuş gelir.',
-                style: MenzilType.caption(c.ink2),
               ),
             ],
           ),
@@ -365,9 +378,10 @@ class _ProPreviewState extends State<ProPreview> {
   }
 }
 
-/// Hedef before any profile (owner, 2026-10-10): the real scope with open
-/// turrets that can be turned, the distance and its slider on top — solved
-/// live for an example .308 load that is never saved.
+/// Hedef before any profile (owner, 2026-10-10; restored 2026-10-12): the
+/// distance and its slider on top, the real scope with open turrets that
+/// can be turned, "Tahmin yok, hesap var." and the explanations under it —
+/// solved live for an example .308 load that is never saved.
 class ShotPreview extends StatefulWidget {
   final VoidCallback? onCreate;
   const ShotPreview({super.key, this.onCreate});

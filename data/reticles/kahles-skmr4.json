@@ -1,0 +1,22 @@
+{
+  "name": "SKMR4",
+  "brand": "Kahles",
+  "scopes": [
+    "K318i",
+    "K525i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://verwaltung.kahles.at/files/shares/Absehen/Dokumente/2026_all_FW/SKMR4_K318i_K525i.PDF",
+  "notes": "Kahles retikül föyü 'SKMR4 / K318i, K525i' (02023011293-106, 11.03.2020). Etiketsiz değerler: 16MIL, 8MIL, 1MIL, 0,5MIL, 0,3MIL, 0,25MIL, 0,2MIL, 0,1MIL, 0,07MIL, 0,035MIL; 'A' detayı 0,15 / 0,2 / 0,5 MIL. Sayı ölçeği metinde yok, öğe eşlemesi yalnız çizimde -> geometri null. FFP: Kahles basın sayfası 'Precise illuminated SKMR / SKMR4 reticle in 1st focal plane'."
+}

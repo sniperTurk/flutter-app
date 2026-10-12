@@ -1,0 +1,25 @@
+{
+  "name": "Deploy MIL",
+  "brand": "Bushnell",
+  "scopes": [
+    "Match Pro 6-24x50 (MP6245BF2, MP6245BF8)",
+    "Forge 2.5-15x50 (RF2155BF2)",
+    "Forge 3-18x50 (RF3185BF2)",
+    "Forge 4.5-27x50 (RF4275BF2)",
+    "Nitro FFP (RN2104BF2, RN3124BF2, RN4164BF2, RN5204BF2, RN6245BF2)"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": 5.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://cdn.shopify.com/s/files/1/0947/2796/2920/files/MP6245BF8_MP6245BF2_MatchPro_FullManual_1LIM_rev101320_web.pdf",
+  "notes": "Bushnell Match Pro kılavuzu (FFP): 'There are hashmarks at every 0.5 Mil for accurate elevation holdover', 'Windage hold marks are spaced at 0.5 Mil intervals, with longer marks every 5 Mil' (major_every=5), 'each mark is 2 Mil in width' (dikeydeki ilk 1 MIL işaretleri). Kılavuzlar arasında çelişki: Match Pro 'wider markings every 1 Mil', Forge 'wider markings every 5 Mils' der; major_every her ikisinde ortak olan rüzgar çizgisi ifadesinden. 'The red dot at the center of the reticle crosshairs is illuminated' yalnız aydınlatmalı MP6245BF8 için; aydınlatmasız sürümlerde merkez nokta belirtilmediğinden center_dot null. Çizim 'ALL DIMS IN MILRAD 12.00 17.00' ölçülerinin neye ait olduğu yazılı değil -> uzanımlar null; numara aralığı yazılı değil. Ek kaynaklar: https://cdn.shopify.com/s/files/1/0947/2796/2920/files/Forge_Riflescopes_5LIM_FullManual_web.pdf ; https://cdn.shopify.com/s/files/1/0947/2796/2920/files/Nitro_Riflescopes_5LIM_FullManual_incEUskus_web.pdf"
+}

@@ -33,8 +33,11 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
     super.dispose();
   }
 
-  double? _parse(TextEditingController c) =>
-      double.tryParse(c.text.trim().replaceAll(',', '.'));
+  double? _parse(TextEditingController c) {
+    final v = double.tryParse(c.text.trim().replaceAll(',', '.'));
+    // "1e999" parses to Infinity and produced "NaN %" (denetim 2026-10-11).
+    return v != null && v.isFinite ? v : null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +71,7 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
     }
 
     return Scaffold(
-      appBar: const MenzilSubPageBar(title: 'Vuruş Olasılığı'),
+      appBar: const MenzilSubPageBar(title: 'İsabet Olasılığı'),
       body: MenzilPage(
         children: [
           const MenzilSectionHeader(
@@ -78,7 +81,7 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
           const MenzilNotice(
             tone: MenzilNoticeTone.info,
             message:
-                'Grup çapı, atış kağıdında ÖLÇTÜĞÜNÜZ gerçek dağılımdır (tüfek+mühimmat+nişancı dahil). '
+                'Grup çapı, atış kâğıdında ÖLÇTÜĞÜNÜZ gerçek dağılımdır (tüfek+mühimmat+nişancı dahil). '
                 'Rüzgâr veya namlu hızı sapması burada ayrıca eklenmez; onlar zaten ölçülen grubun içindedir.',
           ),
           MenzilFieldGrid(
@@ -88,7 +91,6 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
                 controller: _group,
                 label: 'Grup çapı',
                 unit: 'MOA',
-                helperText: 'Ör. 1,0 MOA',
                 info: HitProbabilityFieldInfo.group,
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
@@ -113,7 +115,6 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
                 controller: _target,
                 label: 'Hedef çapı',
                 unit: 'cm',
-                helperText: 'Ör. vurulacak bölge',
                 info: HitProbabilityFieldInfo.target,
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
@@ -145,7 +146,7 @@ class _HitProbabilityScreenState extends State<HitProbabilityScreen> {
               columns: 2,
               metrics: [
                 MenzilMetric(
-                  'Vuruş olasılığı',
+                  'İsabet olasılığı',
                   ToolFormat.dec(probability! * 100, 0),
                   '%',
                 ),

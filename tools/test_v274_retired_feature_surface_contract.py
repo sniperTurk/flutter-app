@@ -16,7 +16,6 @@ ALLOWED_TOOL_FILES = {
     'lib/features/tools/sight_height_screen.dart',
     'lib/features/tools/compass_screen.dart',
     'lib/features/tools/level_screen.dart',
-    'lib/tools/domain/chronograph_stats.dart',
     'lib/tools/domain/sight_height_geometry.dart',
     'lib/tools/domain/compass_math.dart',
     'lib/tools/adapters/flutter_compass_heading_provider.dart',

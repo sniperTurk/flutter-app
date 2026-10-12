@@ -1,0 +1,21 @@
+{
+  "name": "VVE-2 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Veyron GenII 4-16x44 HD DCR FFP (SCFF-78)"
+  ],
+  "unit": "mil",
+  "family": "mildot",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Veyron-GenII-4-16x44-HD-DCR-FFP-Rifle-Scope-SCFF-78.html",
+  "notes": "FFP. Ürün sayfası: 0.08 MIL aydınlatmalı yüzen merkez nokta, 'Dualscale Crosshair (DCR)', 'simple MIL dot structure'; tanıtım yazısına göre alt alan bilinçli olarak açık bırakılmış (ağaç yok). family=mildot üreticinin 'MIL dot' ifadesine dayanır. İşaret aralığı ve uzanımlar metinde yok → null. Ortak föy PDF'i (https://www.vectoroptics.com/public/uploads/files/20260813/0d1ac0e8beb4a94e51188617c12a8e3b.pdf) metnindeki değerler retiküllere ayrıştırılamadı; föy görseli çekilemedi."
+}

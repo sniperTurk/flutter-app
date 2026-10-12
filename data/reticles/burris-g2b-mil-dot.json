@@ -1,0 +1,24 @@
+{
+  "name": "G2B Mil-Dot",
+  "brand": "Burris",
+  "scopes": [
+    "XTR II 2-10x42mm",
+    "XTR II 4-20x50mm",
+    "XTR II 5-25x50mm",
+    "Droptine 4.5-14x42mm"
+  ],
+  "unit": "mil",
+  "family": "mildot",
+  "hash_step": 0.5,
+  "major_every": 1.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/g2b-mil-dot",
+  "notes": "Burris G2B Mil-Dot sayfası: 'Mil-based reticle', '1/2-mil hash marks between the 1-mil dots' -> hash_step=0.5, major_every=1.0 (noktalar). Odak düzlemi, referans büyütme, direk başlangıcı, merkez nokta ve uzanımlar sayfada yok; XTR II kılavuz PDF'leri makine-okunur değil -> null. 2. tur: Droptine kılavuzu (https://www.burrisoptics.com/sites/default/files/content/files/2022-07/droptine_userguide.pdf) G2B Mil-Dot ölçü tablosu (mRad, '*Subtensions shown for High Power Magnification' -> Droptine'de SFP): A 10, B 0.5, C 0.5, D 0.2, E 0.06, F 0.5, G 1, H 0.06, J 0.06, K 5, L 2 (K/L metinde '52' olarak bitişik; in/100 yd ve cm/100 m satırlarından ayrıldı). Harf eşlemesi yalnız görselde -> alan doldurulmadı."
+}

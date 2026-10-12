@@ -1,0 +1,24 @@
+{
+  "name": "MPR-V10 MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Veyron 3-12x44IR SFP (SCOM-40)",
+    "Veyron Plus 10x30 (SCOM-46)",
+    "Veyron 4-16x44IR SFP (SCOL-48)",
+    "Veyron 6-24x44IR SFP (SCOL-49)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/rifle-scopes/Veyron-4-16x44IR-SFP-Compact-Riflescope-SCOL-48.html",
+  "notes": "SFP (SCOL-48). Kaynaklar: Reticle-Collection + SCOL-48 ürün sayfası ('0.18 MIL center dot', 'Christmas tree pattern' → family=tree, 'MIL dot reticle could be used for fast ranging and BDC', 'under 10×'). SCOM-40 sayfası retikül metni vermedi. Referans büyütme metinde açık değil ('under 10×' ifadesi; çıkarım yapılmadı). Aralıklar, uzanımlar → null."
+}

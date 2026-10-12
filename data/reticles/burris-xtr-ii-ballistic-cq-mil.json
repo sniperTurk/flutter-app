@@ -1,0 +1,19 @@
+{
+  "name": "XTR II Ballistic CQ Mil",
+  "brand": "Burris",
+  "scopes": [],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/xtr-ii-ballistic-cq-mil",
+  "notes": "Burris sayfası: 'Mil measurements', 'Illuminated broken-circle pattern with center dot', 'Rear focal plane design' (SFP; referans büyütme belirtilmemiş), 'mil hash marks'. Sayfa belirli dürbün modeli listelemiyor (yalnız 'Discontinued Product') -> scopes boş. İşaret aralığı, aile, uzanımlar -> null."
+}

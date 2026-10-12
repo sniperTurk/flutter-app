@@ -1,0 +1,30 @@
+{
+  "name": "SCR MOA",
+  "brand": "Burris",
+  "scopes": [
+    "XTR III 3.3-18x50mm",
+    "XTR III 5.5-30x56mm",
+    "XTR III Illuminated 3.3-18x50mm",
+    "XTR III Illuminated 5.5-30x56mm",
+    "XTR II 2-10x42mm",
+    "XTR II 3-15x50mm",
+    "XTR II 4-20x50mm",
+    "XTR II 5-25x50mm",
+    "Veracity 5-25x50mm",
+    "Fullfield IV 6-24x50mm"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/scr-moa",
+  "notes": "Burris SCR MOA sayfası: '1-MOA holdover lines', '1/2-MOA and 1-MOA windage hold-off lines', '1/4-MOA ranging brackets on the crosshairs, at the top, left, and right extremes', 'Front focal plane design'. DİKKAT: Fullfield IV kılavuzu (https://www.burrisoptics.com/sites/default/files/content/files/2022-07/fullfield-iv-user-guide.pdf) 6-24x sürümünü 'RFP REAR FOCAL PLANE' olarak veriyor; diğerleri FFP. hash_step=1.0 dikey tutma çizgileri için; yatay 0.5/1 MOA notta. Aile metinden belirlenemedi -> null. XTR III kılavuzu (https://www.burrisoptics.com/sites/default/files/content/files/2022-08/xtr-iii-user-guide.pdf) ölçü tablosu (MOA) A..O: 5.5-30x 2 1 .12 .5 1 .25 .5 .7 1 1.5 2 3 .07 .11 .35; 3.3-18x 2 1 .17 .5 1 .25 .5 .7 1 1.5 2 3 .10 .14 .35 (harf eşlemesi görselde, okunamadı). Uzanımlar, rakamlar, merkez nokta -> null."
+}

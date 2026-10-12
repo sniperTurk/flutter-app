@@ -1,0 +1,19 @@
+{
+  "name": "Horus TREMOR3",
+  "brand": "Nightforce",
+  "scopes": ["ATACR 4-16x42 F1", "ATACR 4-20x50 F1", "ATACR 5-25x56 F1", "ATACR 7-35x56 F1", "NX8 2.5-20x50 F1", "NX8 4-32x50 F1"],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": 1.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.nightforceoptics.com/content/files/downloads/FieldGuide_Horus_T3_V7.pdf",
+  "notes": "Nightforce indirme sayfasındaki Horus TREMOR3 saha kılavuzu. Metin: mil-radyan kalibreli; yatay çizgide rüzgâr için 0.2 mil bölmeler ve standart (tam) mil bölmeleri; merkezde ve dikey çizgide merkez altı her 2 mil'de aydınlatmalı nişan noktaları; 'Accuracy 1st' 0.1 mil merdiven deseni ana yatay çizginin üstünde; 2-10 mph hareketli hedef işaretleri; 10 mil'e kadar yükseliş tutması (extent_v_down=10). Odak düzlemi, ızgara satırları, rakamlar ve uyumlu dürbün modelleri kılavuzda belirtilmemiş -> null / boş liste. Güncelleme (2026-10): dürbün listesi Nightforce 2026 kataloğundan (content/files/downloads/NF-2026-Product-Catalog-DIGITAL.pdf) ve ATACR satış föyünden; F1 = ilk odak düzlemi. Ürün sayfası: 'Illumination ... along the main vertical stadia at every 2 MRAD intersection'. Kılavuz '10 mil-radian horizontal stadia' diyor ama toplam mı tek yön mü belirtmiyor -> extent_h null."
+}

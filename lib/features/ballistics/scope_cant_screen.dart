@@ -17,7 +17,10 @@ import 'environment_field_info.dart';
 /// angle in degrees (0 = not used), or null when the user goes back.
 class ScopeCantScreen extends StatefulWidget {
   final double initialDeg;
-  const ScopeCantScreen({super.key, this.initialDeg = 0});
+
+  /// Firearm selected: the ⓘ says "mermi" instead of "saçma".
+  final bool firearm;
+  const ScopeCantScreen({super.key, this.initialDeg = 0, this.firearm = false});
 
   static const fieldKey = ValueKey('cant-field');
   static const saveKey = ValueKey('cant-save');
@@ -130,7 +133,7 @@ class _ScopeCantScreenState extends State<ScopeCantScreen> {
             controller: _field,
             label: 'Dürbün eğim açısı',
             unit: '°',
-            info: EnvironmentFieldInfo.cant,
+            info: EnvironmentFieldInfo.cantFor(firearm: widget.firearm),
             errorText: error,
             keyboardType: const TextInputType.numberWithOptions(
               decimal: true,

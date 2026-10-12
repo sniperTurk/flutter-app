@@ -13,13 +13,9 @@ class V219Tests(unittest.TestCase):
         self.assertTrue(all(r['verification_status'] == 'user_supplied_unverified' for r in rows if r['brand_id'] != 'my-bullet'))
     def test_manual_catalog_is_separate_and_persistent(self):
         store = (ROOT / 'lib/services/manual_catalog_store.dart').read_text()
-        screen = (ROOT / 'lib/features/catalog/catalog_screen.dart').read_text()
-        for value in ('SharedPreferences', 'backupKey', 'upsert(', 'remove(', 'Kullanıcı girdisi'):
-            self.assertIn(value, store + screen)
-        self.assertIn("e['platform'] == platform.name", screen)
-        self.assertIn("_editManual(existing: e)", screen)
-        dialog = (ROOT / 'lib/features/catalog/manual_catalog_dialog.dart').read_text()
-        self.assertIn("form.currentState!.validate()", dialog)
-        self.assertIn("ManualCatalogDialog(", screen)
+        for value in ('SharedPreferences', 'backupKey', 'upsert(', 'remove('):
+            self.assertIn(value, store)
+        user = (ROOT / 'lib/data/user_catalog.dart').read_text()
+        self.assertIn("const userCatalogSourceName = 'Kullanıcı girdisi';", user)
 
 if __name__ == '__main__': unittest.main()

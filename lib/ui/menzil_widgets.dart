@@ -41,9 +41,14 @@ class MenzilPage extends StatelessWidget {
         constraints: const BoxConstraints(
           maxWidth: MenzilSpace.maxContentWidth,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: children,
+        // Every paragraph on a page is justified (owner, 2026-10-12);
+        // one-line labels and buttons are not affected by justification.
+        child: DefaultTextStyle.merge(
+          textAlign: TextAlign.justify,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: children,
+          ),
         ),
       ),
     ),
@@ -67,7 +72,13 @@ class MenzilSubPageBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) => AppBar(
-    title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
+    // A long title ("Konum için mesafe" with larger iOS text on a 375 pt
+    // phone) shrinks a little instead of ending in "…".
+    title: FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Text(title, maxLines: 1),
+    ),
     actions: [
       ...actions,
       const SizedBox(width: MenzilSpace.xs),
@@ -441,14 +452,20 @@ class _NavButton extends StatelessWidget {
                     children: [
                       MenzilIcon(item.glyph, size: 24, color: fg),
                       const SizedBox(height: 3),
-                      Text(
-                        item.label,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w600,
-                          color: fg,
+                      // With larger iOS text a fifth of a 375–393 pt phone
+                      // is too narrow for "Hava Durumu" ("Hava Duru…"); the
+                      // label shrinks a little instead of being cut. At the
+                      // default text size nothing changes (2026-10-11).
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          item.label,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w600,
+                            color: fg,
+                          ),
                         ),
                       ),
                     ],
@@ -584,12 +601,19 @@ class MenzilNotice extends StatelessWidget {
   final MenzilNoticeTone tone;
   final IconData? icon;
 
+  /// Optional ⓘ explanation shown at the end of the notice; [infoTitle]
+  /// names the dialog (defaults to [title] or "Bilgi").
+  final String? info;
+  final String? infoTitle;
+
   const MenzilNotice({
     super.key,
     this.title,
     required this.message,
     this.tone = MenzilNoticeTone.info,
     this.icon,
+    this.info,
+    this.infoTitle,
   });
 
   @override
@@ -631,6 +655,8 @@ class MenzilNotice extends StatelessWidget {
                       ),
                     Text(
                       message,
+                      // Paragraphs are justified (owner, 2026-10-11).
+                      textAlign: TextAlign.justify,
                       style: TextStyle(
                         fontSize: 13.5,
                         height: 1.35,
@@ -640,6 +666,11 @@ class MenzilNotice extends StatelessWidget {
                   ],
                 ),
               ),
+              if (info != null)
+                MenzilInfoButton(
+                  title: infoTitle ?? title ?? 'Bilgi',
+                  text: info!,
+                ),
             ],
           ),
         ),
@@ -772,13 +803,13 @@ class MenzilInfoButton extends StatelessWidget {
           title: Text(title),
           content: SingleChildScrollView(
             child: illustration == null
-                ? Text(text)
+                ? Text(text, textAlign: TextAlign.justify)
                 : Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       illustration!,
                       const SizedBox(height: MenzilSpace.md),
-                      Text(text),
+                      Text(text, textAlign: TextAlign.justify),
                     ],
                   ),
           ),
@@ -850,6 +881,61 @@ class _LabelWithInfo extends StatelessWidget {
 
 /// Label row shared by inputs and selectors: label on the left, unit on the
 /// right, constant gap to the control below.
+/// Text that drops its bold weight when it needs a second line (owner,
+/// 2026-10-11: a wrapped bold label or entry reads heavy). One line keeps
+/// [style] as given.
+class MenzilWrapText extends StatefulWidget {
+  final String text;
+  final TextStyle style;
+  final int maxLines;
+  final TextAlign? textAlign;
+
+  const MenzilWrapText(
+    this.text, {
+    super.key,
+    required this.style,
+    this.maxLines = 2,
+    this.textAlign,
+  });
+
+  @override
+  State<MenzilWrapText> createState() => _MenzilWrapTextState();
+}
+
+/// Measured after layout, not with a LayoutBuilder: dialogs ask their
+/// content for intrinsic sizes, which a LayoutBuilder cannot answer.
+class _MenzilWrapTextState extends State<MenzilWrapText> {
+  bool _wraps = false;
+
+  void _measure(_) {
+    if (!mounted) return;
+    final width = context.size?.width;
+    if (width == null || width <= 0) return;
+    final p = TextPainter(
+      text: TextSpan(text: widget.text, style: widget.style),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+      maxLines: 1,
+    )..layout(maxWidth: width + 0.5);
+    final wraps = p.didExceedMaxLines;
+    p.dispose();
+    if (wraps != _wraps) setState(() => _wraps = wraps);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(_measure);
+    final w = widget;
+    return Text(
+      w.text,
+      maxLines: w.maxLines,
+      overflow: TextOverflow.ellipsis,
+      textAlign: w.textAlign,
+      style: _wraps ? w.style.copyWith(fontWeight: FontWeight.w400) : w.style,
+    );
+  }
+}
+
 class MenzilFieldLabel extends StatelessWidget {
   final String label;
   final String? unit;
@@ -871,12 +957,7 @@ class MenzilFieldLabel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
-            child: Text(
-              label,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: MenzilType.label(c.ink),
-            ),
+            child: MenzilWrapText(label, style: MenzilType.label(c.ink)),
           ),
           if (unit != null) ...[
             const SizedBox(width: MenzilSpace.xs),
@@ -910,6 +991,10 @@ class MenzilInput extends StatelessWidget {
   /// Explanation shown by the ⓘ button next to the label.
   final String? info;
 
+  /// A list typed one value per line (Kronograf hızları); 1 elsewhere.
+  final int minLines;
+  final int maxLines;
+
   const MenzilInput({
     super.key,
     required this.controller,
@@ -927,6 +1012,8 @@ class MenzilInput extends StatelessWidget {
     this.inputFormatters,
     this.info,
     this.focusNode,
+    this.minLines = 1,
+    this.maxLines = 1,
   });
 
   String get semanticLabel => unit == null ? label : '$label ($unit)';
@@ -958,14 +1045,21 @@ class MenzilInput extends StatelessWidget {
               focusNode: focusNode,
               enabled: enabled,
               keyboardType: keyboardType,
-              textInputAction: textInputAction ?? TextInputAction.next,
+              textInputAction:
+                  textInputAction ??
+                  (maxLines > 1
+                      ? TextInputAction.newline
+                      : TextInputAction.next),
+              minLines: minLines,
+              maxLines: maxLines,
               onChanged: onChanged,
               maxLength: maxLength,
               inputFormatters: inputFormatters,
               scrollPadding: const EdgeInsets.only(bottom: 120),
+              // Entries a bit smaller and not bold (owner, 2026-10-11).
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
                 color: c.ink,
                 fontFeatures: MenzilType.tabular,
               ),
@@ -986,7 +1080,7 @@ class MenzilInput extends StatelessWidget {
 /// Selector with the same label row and height as [MenzilInput].
 /// Uses `initialValue` (not the deprecated `value`); callers that need the
 /// selection to reset when its options change must pass a changing [key].
-class MenzilSelect<T> extends StatelessWidget {
+class MenzilSelect<T> extends StatefulWidget {
   final String label;
   final String? unit;
   final T? initialValue;
@@ -1004,6 +1098,9 @@ class MenzilSelect<T> extends StatelessWidget {
   /// Shown while nothing is selected (e.g. "Seçiniz").
   final String? hint;
 
+  /// Shown under the box in the error colour (e.g. a max below the min).
+  final String? errorText;
+
   const MenzilSelect({
     super.key,
     required this.label,
@@ -1015,11 +1112,65 @@ class MenzilSelect<T> extends StatelessWidget {
     this.info,
     this.selectedLabels,
     this.hint,
+    this.errorText,
   });
+
+  /// A list item that allows two lines (long model names) still shows one
+  /// line in the closed box (owner, 2026-10-11: the second line overflowed).
+  static Widget _oneLine(Widget w) => w is Text && w.data != null
+      ? Text(
+          w.data!,
+          key: w.key,
+          style: w.style,
+          maxLines: 1,
+          softWrap: false,
+          overflow: TextOverflow.ellipsis,
+        )
+      : w;
+
+  @override
+  State<MenzilSelect<T>> createState() => MenzilSelectState<T>();
+}
+
+/// A [DropdownButton] in the field decoration (a form field cannot narrow
+/// its menu): the value lives here, as it did in the form field.
+class MenzilSelectState<T> extends State<MenzilSelect<T>> {
+  late T? _value = widget.initialValue;
+
+  /// The value currently picked (null: "Seçiniz"); read by tests.
+  T? get value => _value;
+
+  /// The box width after layout (a LayoutBuilder breaks dialogs that ask
+  /// for intrinsic sizes); the menu is at most 260 pt and never wider.
+  double? _boxWidth;
+
+  void _measure(_) {
+    if (!mounted) return;
+    final w = context.size?.width;
+    if (w != null && w != _boxWidth) setState(() => _boxWidth = w);
+  }
+
+  @override
+  void didUpdateWidget(covariant MenzilSelect<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialValue != oldWidget.initialValue) {
+      _value = widget.initialValue;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    final w = widget;
+    final items = w.items;
+    WidgetsBinding.instance.addPostFrameCallback(_measure);
+    // A value that is not one of the items shows as empty.
+    final value = items.where((i) => i.value == _value).length == 1
+        ? _value
+        : null;
+    final int? selectedIndex = value == null
+        ? null
+        : items.indexWhere((i) => i.value == value);
     return Padding(
       padding: const EdgeInsets.only(bottom: MenzilSpace.md),
       child: Column(
@@ -1027,48 +1178,127 @@ class MenzilSelect<T> extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _LabelWithInfo(
-            title: label,
-            info: info,
+            title: w.label,
+            info: w.info,
             label: ExcludeSemantics(
-              child: MenzilFieldLabel(label: label, unit: unit),
+              child: MenzilFieldLabel(label: w.label, unit: w.unit),
             ),
           ),
           Semantics(
-            label: semanticLabel ?? label,
-            child: DropdownButtonFormField<T>(
-              initialValue: initialValue,
-              hint: hint == null
-                  ? null
-                  : Text(hint!, style: TextStyle(color: c.ink2)),
-              items: items,
-              onChanged: onChanged,
-              // The closed box always shows ONE line (owner, 2026-10-09:
-              // "Normal (0 MOA)" wrapped and was cut off).
-              selectedItemBuilder: (context) => [
-                for (var i = 0; i < items.length; i++)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: DefaultTextStyle.merge(
-                      maxLines: 1,
-                      softWrap: false,
-                      overflow: TextOverflow.ellipsis,
-                      child: selectedLabels == null
-                          ? items[i].child
-                          : Text(selectedLabels![i]),
+            label: w.semanticLabel ?? w.label,
+            child: Builder(
+              builder: (context) => InputDecorator(
+                // The padding is the button's own, so the whole box opens
+                // the list, not only the text in its middle.
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.zero,
+                  errorText: w.errorText,
+                  errorMaxLines: 2,
+                ),
+                isEmpty: false,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<T>(
+                    // Always opens DOWNWARD (owner, 2026-10-12): Flutter
+                    // places the list so the selected entry covers the box,
+                    // which opened it upward for a later entry. The box
+                    // therefore shows the choice as its hint and the list
+                    // starts at its first entry.
+                    value: null,
+                    // Narrower than a full-width box (owner, 2026-10-11:
+                    // "sağa sola da çok açılıyor").
+                    menuWidth: _boxWidth == null
+                        ? null
+                        : math.min(_boxWidth!, 260),
+                    // Every list box says "Seçiniz" until something is
+                    // picked (owner, 2026-10-11).
+                    hint: selectedIndex == null
+                        ? Text(
+                            w.hint ?? 'Seçiniz',
+                            style: TextStyle(color: c.ink2),
+                          )
+                        : DefaultTextStyle.merge(
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: c.ink),
+                            child: w.selectedLabels == null
+                                ? MenzilSelect._oneLine(
+                                    items[selectedIndex].child,
+                                  )
+                                : Text(w.selectedLabels![selectedIndex]),
+                          ),
+                    // List entries in regular weight (owner, 2026-10-11).
+                    items: [
+                      for (final it in items)
+                        DropdownMenuItem<T>(
+                          key: it.key,
+                          value: it.value,
+                          enabled: it.enabled,
+                          onTap: it.onTap,
+                          alignment: it.alignment,
+                          child: DefaultTextStyle.merge(
+                            style: const TextStyle(fontWeight: FontWeight.w400),
+                            child: it.child,
+                          ),
+                        ),
+                    ],
+                    onChanged: w.onChanged == null
+                        ? null
+                        : (v) {
+                            setState(() => _value = v);
+                            w.onChanged!(v);
+                          },
+                    // The closed box always shows ONE line (owner,
+                    // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
+                    // With value null Flutter shows the entry whose value is
+                    // null ("Seçiniz" in lists that offer it): that slot
+                    // shows the current choice instead.
+                    selectedItemBuilder: (context) => [
+                      for (var i = 0; i < items.length; i++)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: DefaultTextStyle.merge(
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            child: () {
+                              final k = items[i].value == null
+                                  ? selectedIndex
+                                  : i;
+                              if (k == null) {
+                                return Text(
+                                  w.hint ?? 'Seçiniz',
+                                  style: TextStyle(color: c.ink2),
+                                );
+                              }
+                              return w.selectedLabels == null
+                                  ? MenzilSelect._oneLine(items[k].child)
+                                  : Text(w.selectedLabels![k]);
+                            }(),
+                          ),
+                        ),
+                    ],
+                    isExpanded: true,
+                    isDense: true,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 13,
+                    ),
+                    // A compact list, not a full-screen sheet (owner,
+                    // 2026-10-11: "menüler çok büyük açılıyor").
+                    menuMaxHeight: 300,
+                    borderRadius: BorderRadius.circular(MenzilRadius.input),
+                    dropdownColor: c.surface,
+                    icon: Icon(Icons.expand_more, color: c.ink2),
+                    // Entries a bit smaller and not bold (owner, 2026-10-11).
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: c.ink,
                     ),
                   ),
-              ],
-              isExpanded: true,
-              isDense: true,
-              borderRadius: BorderRadius.circular(MenzilRadius.input),
-              dropdownColor: c.surface,
-              icon: Icon(Icons.expand_more, color: c.ink2),
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: c.ink,
+                ),
               ),
-              decoration: const InputDecoration(),
             ),
           ),
         ],
@@ -1135,6 +1365,10 @@ class MenzilPrimaryButton extends StatelessWidget {
   final bool expand;
   final bool amber;
 
+  /// The label stays on one line and is set smaller when it does not fit
+  /// (owner, 2026-10-12: "Profil ekle 2. satıra kaymasın").
+  final bool oneLine;
+
   const MenzilPrimaryButton({
     super.key,
     required this.label,
@@ -1142,6 +1376,7 @@ class MenzilPrimaryButton extends StatelessWidget {
     this.icon,
     this.expand = true,
     this.amber = false,
+    this.oneLine = false,
   });
 
   @override
@@ -1153,13 +1388,19 @@ class MenzilPrimaryButton extends StatelessWidget {
             foregroundColor: MenzilColors.onAmber,
           )
         : null;
+    final Widget text = oneLine
+        ? FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(label, maxLines: 1, softWrap: false),
+          )
+        : Text(label);
     final button = icon == null
-        ? FilledButton(style: style, onPressed: onPressed, child: Text(label))
+        ? FilledButton(style: style, onPressed: onPressed, child: text)
         : FilledButton.icon(
             style: style,
             onPressed: onPressed,
             icon: Icon(icon, size: 20),
-            label: Text(label),
+            label: text,
           );
     return expand ? SizedBox(width: double.infinity, child: button) : button;
   }
@@ -1177,6 +1418,15 @@ class MenzilSecondaryButton extends StatelessWidget {
   /// (e.g. "Çözüm kuleye kurulu"). Stays orange when disabled.
   final bool active;
 
+  /// The label takes at most two lines; a longer one is set smaller until it
+  /// fits (owner, 2026-10-11: "Çözüm kulelere kuruldu" took three lines).
+  final bool twoLines;
+
+  /// With [twoLines]: how many lines the shrinking label may take. Side by
+  /// side fetch / reset buttons use 2 so long labels fit on an iPhone SE
+  /// (owner, 2026-10-12).
+  final int maxLabelLines;
+
   const MenzilSecondaryButton({
     super.key,
     required this.label,
@@ -1185,7 +1435,67 @@ class MenzilSecondaryButton extends StatelessWidget {
     this.expand = false,
     this.destructive = false,
     this.active = false,
+    this.twoLines = false,
+    this.maxLabelLines = 1,
   });
+
+  Widget _label() {
+    if (!twoLines) return Text(label);
+    return LayoutBuilder(
+      builder: (context, box) {
+        if (!box.maxWidth.isFinite) return Text(label);
+        final base = DefaultTextStyle.of(context).style;
+        final scaler = MediaQuery.textScalerOf(context);
+        final dir = Directionality.of(context);
+        var size = base.fontSize ?? 16;
+        // One line, the font shrinking until it fits (owner, 2026-10-11:
+        // no icon, no second line).
+        // Two-line labels may shrink a little further (iPhone SE, 1.3×).
+        final minSize = maxLabelLines > 1 ? 8.0 : 10.0;
+        while (size > minSize) {
+          final painter = TextPainter(
+            text: TextSpan(
+              text: label,
+              style: base.copyWith(fontSize: size, fontWeight: FontWeight.w400),
+            ),
+            textDirection: dir,
+            textScaler: scaler,
+            textAlign: TextAlign.center,
+            locale: Localizations.maybeLocaleOf(context),
+            maxLines: maxLabelLines,
+            // A few pixels of slack: the painted paragraph rounds its width
+            // and must not end up one glyph short (iPhone SE, 1.3×).
+          )..layout(maxWidth: math.max(0, box.maxWidth - 6));
+          final fits = !painter.didExceedMaxLines;
+          painter.dispose();
+          if (fits) break;
+          size -= 0.5;
+        }
+        if (maxLabelLines == 1) {
+          // One line never wraps: below the smallest size it scales down.
+          return FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label,
+              maxLines: 1,
+              softWrap: false,
+              style: TextStyle(fontSize: size, fontWeight: FontWeight.w400),
+            ),
+          );
+        }
+        return Text(
+          label,
+          maxLines: maxLabelLines,
+          softWrap: maxLabelLines > 1,
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          // Never bold, so the pair of dial buttons matches whether a label
+          // wraps or not (owner, 2026-10-11).
+          style: TextStyle(fontSize: size, fontWeight: FontWeight.w400),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1205,12 +1515,12 @@ class MenzilSecondaryButton extends StatelessWidget {
           )
         : null;
     final button = icon == null
-        ? OutlinedButton(style: style, onPressed: onPressed, child: Text(label))
+        ? OutlinedButton(style: style, onPressed: onPressed, child: _label())
         : OutlinedButton.icon(
             style: style,
             onPressed: onPressed,
             icon: Icon(icon, size: 20),
-            label: Text(label),
+            label: _label(),
           );
     return expand ? SizedBox(width: double.infinity, child: button) : button;
   }
@@ -1285,7 +1595,17 @@ class MenzilMetricGrid extends StatelessWidget {
   final List<MenzilMetric> metrics;
   final int columns;
 
-  const MenzilMetricGrid({super.key, required this.metrics, this.columns = 3});
+  /// Long text values (brand / model names) take up to two readable lines
+  /// instead of shrinking; every tile keeps the same height so the rows stay
+  /// aligned (owner, 2026-10-11).
+  final bool twoLineText;
+
+  const MenzilMetricGrid({
+    super.key,
+    required this.metrics,
+    this.columns = 3,
+    this.twoLineText = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1310,29 +1630,67 @@ class MenzilMetricGrid extends StatelessWidget {
                 border: Border.all(color: c.line),
                 borderRadius: BorderRadius.circular(MenzilRadius.table),
               ),
-              child: Wrap(
-                spacing: 1,
-                runSpacing: 1,
-                children: [
-                  for (final m in metrics)
-                    SizedBox(
-                      width: tileWidth,
-                      child: MenzilMetricCard(metric: m),
+              child: twoLineText
+                  ? _rows(context, cols, tileWidth)
+                  : Wrap(
+                      spacing: 1,
+                      runSpacing: 1,
+                      children: [
+                        for (final m in metrics)
+                          SizedBox(
+                            width: tileWidth,
+                            child: MenzilMetricCard(
+                              metric: m,
+                              twoLineText: twoLineText,
+                            ),
+                          ),
+                        for (var i = 0; i < fillers; i++)
+                          SizedBox(
+                            width: tileWidth,
+                            child: ColoredBox(
+                              color: c.surface,
+                              child: SizedBox(height: twoLineText ? 76 : 56),
+                            ),
+                          ),
+                      ],
                     ),
-                  for (var i = 0; i < fillers; i++)
-                    SizedBox(
-                      width: tileWidth,
-                      child: ColoredBox(
-                        color: c.surface,
-                        child: const SizedBox(height: 56),
-                      ),
-                    ),
-                ],
-              ),
             ),
           );
         },
       ),
+    );
+  }
+
+  /// Profil summary: rows whose two boxes share one height (a wrapped model
+  /// name grows its row, not a single box).
+  Widget _rows(BuildContext context, int cols, double tileWidth) {
+    final c = MenzilColors.of(context);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (var r = 0; r < metrics.length; r += cols) ...[
+          if (r > 0) const SizedBox(height: 1),
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (var k = 0; k < cols; k++) ...[
+                  if (k > 0) const SizedBox(width: 1),
+                  SizedBox(
+                    width: tileWidth,
+                    child: r + k < metrics.length
+                        ? MenzilMetricCard(
+                            metric: metrics[r + k],
+                            twoLineText: true,
+                          )
+                        : ColoredBox(color: c.surface),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ],
     );
   }
 }
@@ -1340,7 +1698,30 @@ class MenzilMetricGrid extends StatelessWidget {
 /// One metric tile (label above a large condensed number with unit).
 class MenzilMetricCard extends StatelessWidget {
   final MenzilMetric metric;
-  const MenzilMetricCard({super.key, required this.metric});
+
+  /// See [MenzilMetricGrid.twoLineText].
+  final bool twoLineText;
+  const MenzilMetricCard({
+    super.key,
+    required this.metric,
+    this.twoLineText = false,
+  });
+
+  /// Profil summary size: every value as large as a wrapped model name
+  /// (owner, 2026-10-11: "Tüfek model ile aynı boyda yap hepsini").
+  static const double summarySize = 17;
+
+  /// A text value: up to two lines at [summarySize], regular weight. No
+  /// LayoutBuilder, so the summary rows can match their heights.
+  Widget _textValue(Color ink) => Text(
+    metric.value,
+    maxLines: 2,
+    overflow: TextOverflow.ellipsis,
+    style: MenzilType.number(
+      ink,
+      size: summarySize,
+    ).copyWith(height: 1.15, fontWeight: FontWeight.w400),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -1348,9 +1729,12 @@ class MenzilMetricCard extends StatelessWidget {
     return ColoredBox(
       color: c.surface,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: 56),
+        // Smaller boxes on the Profil summary (owner, 2026-10-11).
+        constraints: BoxConstraints(minHeight: twoLineText ? 46 : 56),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 7, 10, 8),
+          padding: twoLineText
+              ? const EdgeInsets.fromLTRB(10, 5, 10, 6)
+              : const EdgeInsets.fromLTRB(10, 7, 10, 8),
           child: Semantics(
             label: '${metric.label}: ${metric.value} ${metric.unit ?? ''}',
             child: ExcludeSemantics(
@@ -1358,34 +1742,48 @@ class MenzilMetricCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    metric.label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
-                  ),
+                  // Like the value below: a long label ("%80 için maks.
+                  // menzil" with larger iOS text) shrinks a little instead of
+                  // being cut; at the default size nothing changes.
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
-                    child: Text.rich(
-                      TextSpan(
-                        text: metric.value,
-                        style: MenzilType.number(c.ink, size: 22),
-                        children: [
-                          if (metric.unit != null)
-                            TextSpan(
-                              text: ' ${metric.unit}',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: c.ink2,
-                              ),
-                            ),
-                        ],
-                      ),
+                    child: Text(
+                      metric.label,
                       maxLines: 1,
+                      style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
                     ),
                   ),
+                  if (twoLineText && metric.unit == null)
+                    _textValue(c.ink)
+                  else
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text.rich(
+                        TextSpan(
+                          text: metric.value,
+                          style: twoLineText
+                              ? MenzilType.number(
+                                  c.ink,
+                                  size: summarySize,
+                                ).copyWith(fontWeight: FontWeight.w400)
+                              : MenzilType.number(c.ink, size: 22),
+                          children: [
+                            if (metric.unit != null)
+                              TextSpan(
+                                text: ' ${metric.unit}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: c.ink2,
+                                ),
+                              ),
+                          ],
+                        ),
+                        maxLines: 1,
+                      ),
+                    ),
                 ],
               ),
             ),

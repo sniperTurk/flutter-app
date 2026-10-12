@@ -24,12 +24,6 @@ enum DragWarningKind {
   /// An airgun projectile paired with a G7 coefficient (O14): published
   /// airgun coefficients are almost always G1.
   airgunWithG7,
-
-  /// A firearm bullet with the GA (diabolo pellet) drag law.
-  firearmWithGa,
-
-  /// GA is in use: its table is not from an official publication.
-  gaUnverified,
 }
 
 class DragWarning {
@@ -98,29 +92,6 @@ abstract final class DragSafety {
 
     final bc = ballisticCoefficient;
     final model = ballisticModel;
-    if (model == BallisticModel.ga) {
-      if (platform == WeaponPlatform.firearm) {
-        warnings.add(
-          const DragWarning(
-            DragWarningKind.firearmWithGa,
-            DragWarningLevel.caution,
-            'GA modeli diabolo saçma içindir; ateşli silah mermisi için G1 '
-            'veya G7 seçin.',
-          ),
-        );
-      } else {
-        warnings.add(
-          const DragWarning(
-            DragWarningKind.gaUnverified,
-            DragWarningLevel.info,
-            'GA (saçma) tablosu ChairGun\'ın modelidir; resmî olarak '
-            'yayımlanmadığı için Strelok\'tan alınan kopyası kullanılıyor. '
-            'BC değerinin GA için verilmiş olmasına dikkat edin ve sonucu '
-            'atışla doğrulayın.',
-          ),
-        );
-      }
-    }
     if (bc != null && model != null && platform == WeaponPlatform.pcp) {
       if (bc < airgunBcMin || bc > airgunBcMax) {
         warnings.add(

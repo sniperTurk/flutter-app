@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:sniper_turk/tools/ports/camera_service.dart';
 import 'package:sniper_turk/tools/ports/photo_picker.dart';
 import 'package:sniper_turk/tools/ports/place_search.dart';
+import 'package:sniper_turk/tools/ports/pressure_sensor.dart';
 import 'package:sniper_turk/tools/ports/clock.dart';
 import 'package:sniper_turk/tools/ports/heading_provider.dart';
 import 'package:sniper_turk/tools/ports/level_calibration_store.dart';
@@ -121,6 +122,19 @@ class TestPhotoPicker implements PhotoPicker {
   }
 }
 
+/// Phone barometer double: counts reads so tests can prove nothing is read
+/// before the button is pressed (owner rule).
+class TestPressure implements PressureSensor {
+  PressureReading result;
+  int reads = 0;
+  TestPressure([this.result = const PressureRead(912.4)]);
+  @override
+  Future<PressureReading> read() async {
+    reads++;
+    return result;
+  }
+}
+
 class TestPlaceSearch implements PlaceSearch {
   List<PlaceResult> results;
   PlaceSearchFailure? failure;
@@ -146,6 +160,7 @@ ToolsServices testServices({
   PlaceSearch? places,
   Clock? clock,
   LevelCalibrationStore? levelCalibration,
+  PressureSensor? pressure,
 }) => ToolsServices(
   location: location ?? TestLocation(const LocationFix(39.9, 32.8)),
   weather:
@@ -159,6 +174,7 @@ ToolsServices testServices({
   vision: const DisconnectedVisionAssist(),
   clock: clock ?? TestClock(DateTime.utc(2026, 10, 3, 12)),
   levelCalibration: levelCalibration,
+  pressure: pressure ?? TestPressure(),
 );
 
 Widget host(Widget child, {ToolsServices? services, double textScale = 1.0}) =>

@@ -109,13 +109,16 @@ void main() {
       'Yiv oranı',
       'Sight height',
       'Sıfırlama mesafesi',
-      'Dürbün Marka Model',
+      'Dürbün Marka',
+      'Dürbün Model',
       'Dürbün',
-      'Dürbün ayağı',
       'Dürbün birimi',
+      'Dürbün ayağı',
       'Dürbün üst kule',
       'Mühimmat Marka',
-      'Mühimmat',
+      'Mühimmat Model',
+      'Ağırlık',
+      'Tip',
       'BC / model',
     ];
     // Two columns, read row by row (left, then right).
@@ -139,9 +142,10 @@ void main() {
     // New names and values.
     expect(find.text('6-36 x 56 FFP'), findsOneWidget);
     expect(find.text('GaziSniper'), findsOneWidget);
-    // Value and unit are one rich text: "260 klik", "50 gr Pellet".
+    // Value and unit are one rich text: "260 klik", "50 gr".
     expect(find.text('260 klik'), findsOneWidget); // 26 mrad / 0.1
-    expect(find.text('50 gr Pellet'), findsOneWidget);
+    expect(find.text('50 gr'), findsOneWidget);
+    expect(find.text('Pellet'), findsOneWidget);
     // Gone: separate Regülatör, Odak düzlemi, Klik değeri, Çap, Ağırlık,
     // Büyütme, Kule ayar aralığı and Namlu boxes.
     for (final gone in const [
@@ -151,7 +155,6 @@ void main() {
       'Odak düzlemi',
       'Klik değeri',
       'Çap',
-      'Ağırlık',
       'Büyütme',
       'Kule ayar aralığı',
     ]) {

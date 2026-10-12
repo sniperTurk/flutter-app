@@ -1,0 +1,29 @@
+{
+  "name": "ACSS Griffin M10S",
+  "brand": "Primary Arms",
+  "scopes": [
+    "SLx 1-10x28 SFP"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 15,
+  "tree": {
+    "rows": [
+      {
+        "y": 15,
+        "half_width": 5,
+        "dot_step": null
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=16482765&c=3901023&h=BqqFX2Pw25SX0JJVcLY67V2mKoYkefvK2wiNZ-FL83E-uo1-",
+  "notes": "Kaynak: Primary Arms 'SECOND FOCAL PLANE ACSS GRIFFIN M10S RETICLE MANUAL 1-10x28' (SLx 1-10x28 SFP). MIL ızgarası ve stadia yalnızca en yüksek büyütmede (10x) kalibre. 'This MIL Grid extends down to 15 MILs with 5 MILs on each side for holdoff' -> extent_v_down=15; çıkarım: 5 MIL yarı genişlik ızgaranın en alt (15 MIL) satırına yazıldı, ara satırlar ve nokta aralığı (dot_step) belirtilmemiş. Bu genişlik ızgaraya ait olduğu için extent_h (artı çizgi ölçeği) null'a çekildi. Merkez: kalın at nalı ve şevron ucu; merkez noktası metinde yok -> center_dot=false (çıkarım). Şevron yanlarında 3/6/9 mph hareketli hedef noktaları (MIL konumu verilmemiş). Yatay telemetre 19\" hedef: 300 m at nalı açıklığı dış uçları, 400 m 2. MIL stadia, 500 m 3. MIL stadia. Dikey: her tam stadia 5'7\" boy. Şekildeki 1-15 rakamlarının hangi çizgiyi etiketlediği metinde yok -> numbers_every null. hash_step, major_every, yukarı uzanım, kalın direkler, çizgi kalınlıkları belirtilmemiş -> null."
+}

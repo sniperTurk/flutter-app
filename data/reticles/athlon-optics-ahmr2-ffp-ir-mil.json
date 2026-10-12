@@ -1,0 +1,21 @@
+{
+  "name": "AHMR2 FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Helos BTR GEN2"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 8,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/storage/2021/05/Athlon-AHMR2-FFP-IR-MIL-Reticle-Manual-Helos-BTR-GEN2.pdf",
+  "notes": "FFP, avcılık tipi. Föy metninden: 0.3 mil (1 MOA) kırmızı merkez nokta, 4 mil çaplı daire; dikey düşüş çizgisi merkezin 1 mil altından 8 mil'e kadar, aralarda 0.5 mil işaretler; merkez altındaki noktalar 0.5 mil aralıklı rüzgâr tutma noktaları; altta geyik gövdesi mesafe ölçer. Rüzgâr nokta satırlarının y/genişlikleri metinde yok -> tree null. Yatay uzanım ve yukarı uzanım belirtilmemiş -> null."
+}

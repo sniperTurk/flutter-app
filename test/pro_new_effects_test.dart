@@ -11,6 +11,7 @@ import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/pro_sections.dart';
 
@@ -221,6 +222,66 @@ void main() {
       expect(pct, greaterThan(90));
     });
 
+    testWidgets('Atış sayısı: 1 by default, more shows en az bir isabet', (
+      tester,
+    ) async {
+      await sized(tester);
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      // A wide group so one shot is clearly below 100 %.
+      await type(tester, const Key('pro-group'), '20');
+      await type(tester, const Key('pro-target-size'), '5');
+      final select = find.byKey(const Key('pro-wez-shots'));
+      await tester.ensureVisible(select);
+      await tester.pumpAndSettle();
+      // Atış sayısı starts on "Seçiniz" (owner, 2026-10-12): one shot.
+      expect(
+        tester
+            .state<MenzilSelectState<int>>(
+              find.descendant(
+                of: select,
+                matching: find.byType(MenzilSelect<int>),
+                matchRoot: true,
+              ),
+            )
+            .value,
+        isNull,
+      );
+
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final first = tester
+          .widget<Text>(find.byKey(const Key('shot-hit-probability')))
+          .data!;
+      expect(first, startsWith('İlk atış isabet olasılığı: %'));
+      expect(find.byKey(const Key('shot-hit-probability-n')), findsNothing);
+      final p1 = int.parse(RegExp(r'%(\d+)').firstMatch(first)!.group(1)!);
+      expect(p1, inInclusiveRange(1, 99));
+
+      await tester.pumpWidget(app(BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-wez-shots'));
+      final box = find.descendant(
+        of: find.byKey(const Key('pro-wez-shots')),
+        matching: find.byType(DropdownButton<int>),
+      );
+      await tester.ensureVisible(box);
+      await tester.pumpAndSettle();
+      await tester.tap(box);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('5 atış').last);
+      await tester.pumpAndSettle();
+
+      await tester.pumpWidget(app(BallisticsView.shot));
+      await tester.pumpAndSettle();
+      final n = tester
+          .widget<Text>(find.byKey(const Key('shot-hit-probability-n')))
+          .data!;
+      expect(n, startsWith('5 atışta en az bir isabet: %'));
+      final p5 = int.parse(RegExp(r'%(\d+)').firstMatch(n)!.group(1)!);
+      expect(p5, greaterThan(p1));
+    });
+
     testWidgets('Yerçekimi: stronger gravity drops more, off = standard', (
       tester,
     ) async {
@@ -245,13 +306,9 @@ void main() {
       // The summary shows only while the box is closed.
       expect(
         tester.widget<Text>(find.byKey(const Key('pro-summary-gravity'))).data,
-        'kapalı',
+        'açık',
       );
-      await openProFor(tester, const Key('pro-gravity-switch'));
-      final sw = find.byKey(const Key('pro-gravity-switch'));
-      await tester.ensureVisible(sw);
-      await tester.tap(sw);
-      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-gravity'));
       await type(tester, const Key('pro-gravity'), '9.832');
       await tester.pumpAndSettle();
       final effect = tester
@@ -276,18 +333,21 @@ void main() {
       );
       await tester.ensureVisible(wind);
       await tester.enterText(wind, '5');
+      await tester.enterText(
+        find.descendant(
+          of: find.byKey(BallisticsFieldKeys.windDirection),
+          matching: find.byType(TextField),
+        ),
+        '9',
+      );
       await tester.pump();
 
       await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
-      await openProFor(tester, const Key('pro-spin-switch'));
+      await openProFor(tester, const Key('pro-bullet-length'));
       // A firearm profile sees powder temperature, not the PCP note.
-      expect(find.byKey(const Key('pro-powder-coef')), findsOneWidget);
+      expect(find.byKey(const Key('pro-powder-source')), findsOneWidget);
       expect(find.byKey(const Key('pro-spin-pcp-note')), findsNothing);
-      final sw = find.byKey(const Key('pro-spin-switch'));
-      await tester.ensureVisible(sw);
-      await tester.tap(sw);
-      await tester.pumpAndSettle();
       await type(tester, const Key('pro-bullet-length'), '31');
 
       await tester.pumpWidget(app(BallisticsView.shot));

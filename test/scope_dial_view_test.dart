@@ -108,23 +108,25 @@ void main() {
         tester.widget<MenzilSecondaryButton>(find.byKey(k)).label;
     bool active(Key k) =>
         tester.widget<MenzilSecondaryButton>(find.byKey(k)).active;
-    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kuleye kur');
-    expect(label(ScopeDialKeys.reset), 'Kuleler sıfırda');
-    expect(active(ScopeDialKeys.reset), isTrue);
+    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kulelere kur');
+    // Owner, 2026-10-11: a freshly opened page has neither button selected.
+    expect(label(ScopeDialKeys.reset), 'Kuleleri sıfırla');
+    expect(active(ScopeDialKeys.reset), isFalse);
+    expect(active(ScopeDialKeys.dialSolution), isFalse);
 
     await tester.ensureVisible(find.byKey(ScopeDialKeys.dialSolution));
     await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
     await tester.pumpAndSettle();
-    expect(label(ScopeDialKeys.dialSolution), 'Çözüm kuleye kurulu');
+    expect(label(ScopeDialKeys.dialSolution), 'Çözüm kulelere kuruldu');
     expect(active(ScopeDialKeys.dialSolution), isTrue);
     expect(label(ScopeDialKeys.reset), 'Kuleleri sıfırla');
     expect(active(ScopeDialKeys.reset), isFalse);
 
     await tester.tap(find.byKey(ScopeDialKeys.reset));
     await tester.pumpAndSettle();
-    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kuleye kur');
+    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kulelere kur');
     expect(active(ScopeDialKeys.dialSolution), isFalse);
-    expect(label(ScopeDialKeys.reset), 'Kuleler sıfırda');
+    expect(label(ScopeDialKeys.reset), 'Kuleler sıfırlandı');
   });
 
   testWidgets('windage clicks move the impact sideways', (tester) async {
@@ -133,12 +135,12 @@ void main() {
     await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
     await tester.pumpAndSettle();
 
-    // "Çözümü kuleye kur" already slid the windage turret open.
+    // "Çözümü kulelere kur" already slid the windage turret open.
     expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
     await tester.tap(find.byTooltip('Rüzgâr kulesi 1 klik sağa'));
     await tester.pumpAndSettle();
     // 0.1 mrad at 100 m = 1.0 cm to the right.
-    expect(_impact(tester), contains('1.0 cm sağ'));
+    expect(_impact(tester), contains('1,0 cm sağ'));
   });
 
   testWidgets('dragging the elevation drum changes the dialled clicks', (
@@ -203,7 +205,7 @@ void main() {
       contains('MOA)'),
     );
     expect(find.byKey(ScopeDialKeys.workings), findsOneWidget);
-    expect(find.textContaining('/ 0.25 ='), findsOneWidget);
+    expect(find.textContaining('/ 0,25 ='), findsOneWidget);
   });
 
   testWidgets('SFP reticle marks scale with magnification', (tester) async {
@@ -240,16 +242,16 @@ void main() {
     );
     await tester.pumpWidget(view(12));
     expect(
-      find.textContaining('1 çizgi = 24 / 12 = 2.000 mrad'),
+      find.textContaining('1 çizgi = 24 / 12 = 2,000 MRAD'),
       findsOneWidget,
     );
     // 1.5 mrad low at 12x on a 24x-calibrated SFP = 0.75 marks.
-    expect(find.textContaining('= 0.75 çizgi'), findsOneWidget);
+    expect(find.textContaining('= 0,75 çizgi'), findsOneWidget);
     expect(find.byKey(ScopeDialKeys.magnification), findsOneWidget);
 
     await tester.pumpWidget(view(24));
     expect(
-      find.textContaining('1 çizgi = 24 / 24 = 1.000 mrad'),
+      find.textContaining('1 çizgi = 24 / 24 = 1,000 MRAD'),
       findsOneWidget,
     );
   });
@@ -311,8 +313,147 @@ void main() {
       // The reticle keeps its real scale (no zoom-out); the note names the
       // offset and the edge arrow points to it.
       expect(painter.trueHalfField, closeTo(10, 1e-9));
-      expect(find.textContaining('113.70 mrad aşağıda'), findsOneWidget);
+      expect(find.textContaining('113,70 MRAD aşağıda'), findsOneWidget);
       expect(find.byKey(ScopeDialKeys.travelNote), findsOneWidget);
     },
   );
+
+  testWidgets('two fingers zoom the reticle; double tap and the eye button', (
+    tester,
+  ) async {
+    await _pumpSolved(tester);
+    ScopeReticlePainter painter() =>
+        tester
+                .widget<CustomPaint>(
+                  find.descendant(
+                    of: find.byKey(ScopeDialKeys.reticle),
+                    matching: find.byType(CustomPaint),
+                  ),
+                )
+                .painter!
+            as ScopeReticlePainter;
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.reticle));
+    await tester.pumpAndSettle();
+    expect(painter().zoom, 1);
+    expect(find.byKey(ScopeDialKeys.zoomReset), findsNothing);
+
+    final c = tester.getCenter(find.byKey(ScopeDialKeys.reticle));
+    final a = await tester.startGesture(c - const Offset(20, 0));
+    final b = await tester.startGesture(c + const Offset(20, 0), pointer: 7);
+    for (var i = 1; i <= 6; i++) {
+      await a.moveTo(c - Offset(20.0 + i * 10, 0));
+      await b.moveTo(c + Offset(20.0 + i * 10, 0));
+      await tester.pump();
+    }
+    await a.up();
+    await b.up();
+    await tester.pumpAndSettle();
+    expect(painter().zoom, greaterThan(2));
+    expect(find.byKey(ScopeDialKeys.zoomReset), findsOneWidget);
+
+    await tester.tap(find.byKey(ScopeDialKeys.zoomReset));
+    await tester.pumpAndSettle();
+    expect(painter().zoom, 1);
+
+    expect(painter().showLabels, isTrue);
+    await tester.tap(find.byKey(ScopeDialKeys.labelsToggle));
+    await tester.pumpAndSettle();
+    expect(painter().showLabels, isFalse);
+  });
+
+  testWidgets('a solution beyond the turret travel dials the limit, orange', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(430, 2400) * 3;
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    var elev = 0;
+    var wind = 0;
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: StatefulBuilder(
+              builder: (context, setState) => ScopeDialView(
+                unit: AngularUnit.mrad,
+                clickValue: 0.1,
+                elevationClicks: elev,
+                windageClicks: wind,
+                maxElevationClicks: 197,
+                maxWindageClicks: 100,
+                onElevationChanged: (v) => setState(() => elev = v),
+                onWindageChanged: (v) => setState(() => wind = v),
+                requiredUp: 20.35,
+                rangeM: 348,
+                samples: const [],
+                toDisplayRange: (m) => m,
+                distanceUnit: 'm',
+                metric: true,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    MenzilSecondaryButton button(Key k) =>
+        tester.widget<MenzilSecondaryButton>(find.byKey(k));
+    expect(button(ScopeDialKeys.reset).label, 'Kuleleri sıfırla');
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.dialSolution));
+    await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
+    await tester.pumpAndSettle();
+    expect(elev, 197);
+    expect(button(ScopeDialKeys.dialSolution).active, isTrue);
+    expect(button(ScopeDialKeys.dialSolution).label, 'Kule sınırına kuruldu');
+  });
+
+  testWidgets('a 0-click solution leaves only the turrets button orange', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(430, 2400) * 3;
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    var elev = 0;
+    var wind = 0;
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: MenzilTheme.light(),
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: StatefulBuilder(
+              builder: (context, setState) => ScopeDialView(
+                unit: AngularUnit.mrad,
+                clickValue: 0.1,
+                elevationClicks: elev,
+                windageClicks: wind,
+                maxElevationClicks: 197,
+                maxWindageClicks: 100,
+                onElevationChanged: (v) => setState(() => elev = v),
+                onWindageChanged: (v) => setState(() => wind = v),
+                // The target is at the zero distance.
+                requiredUp: 0,
+                rangeM: 100,
+                samples: const [],
+                toDisplayRange: (m) => m,
+                distanceUnit: 'm',
+                metric: true,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    MenzilSecondaryButton button(Key k) =>
+        tester.widget<MenzilSecondaryButton>(find.byKey(k));
+    expect(button(ScopeDialKeys.dialSolution).label, 'Çözüm: 0 klik');
+    expect(button(ScopeDialKeys.dialSolution).active, isFalse);
+    expect(button(ScopeDialKeys.dialSolution).onPressed, isNull);
+    expect(button(ScopeDialKeys.reset).label, 'Kuleleri sıfırla');
+    expect(button(ScopeDialKeys.reset).active, isFalse);
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.reset));
+    await tester.tap(find.byKey(ScopeDialKeys.reset));
+    await tester.pumpAndSettle();
+    expect(button(ScopeDialKeys.reset).label, 'Kuleler sıfırda');
+    expect(button(ScopeDialKeys.reset).active, isTrue);
+  });
 }

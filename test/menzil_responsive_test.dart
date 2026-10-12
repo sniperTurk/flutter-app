@@ -105,8 +105,8 @@ void main() {
           // Profile editor (two columns or one, depending on width).
           await tester.tap(find.text('Profil'));
           await tester.pumpAndSettle();
-          await tester.ensureVisible(find.text('Yeni profil'));
-          await tester.tap(find.text('Yeni profil'));
+          await tester.ensureVisible(find.text('Profil ekle'));
+          await tester.tap(find.text('Profil ekle'));
           await tester.pumpAndSettle();
           expect(find.text('Profil Oluştur'), findsOneWidget);
           expect(tester.takeException(), isNull);

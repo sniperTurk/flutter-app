@@ -1,0 +1,26 @@
+{
+  "name": "Tri-MOA",
+  "brand": "Leupold",
+  "scopes": [
+    "VX-Freedom 3-9x40 (üretimden kalktı)",
+    "VX-Freedom 4-12x40 (üretimden kalktı)",
+    "VX-Freedom 3-9x40 CDS (üretimden kalktı)",
+    "VX-Freedom 4-12x40 CDS (üretimden kalktı)",
+    "VX-Freedom 4-12x40 CDS Side Focus (üretimden kalktı)",
+    "VX-Freedom 6-18x40 CDS Side Focus (üretimden kalktı)"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": 5.0,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/tri-moa/",
+  "notes": "Leupold Tri-MOA sayfası; SFP; föy (https://www.leupold.com/media/binaryanvil/reticle/Tri-MOA_VX-Freedom_174767_1_.pdf): ölçüler en yüksek büyütmede geçerli. Metin: 'Based off the T-MOA reticle'; 'hash marks in 1 MOA increments'; '5 MOA hash is wider for quick reference' -> major_every=5; 'Features 10 MOA of measurement in each direction' -> extent_h ve extent_v_down=10 (her yön olarak yorum); 'Open upper half of the reticle' -> üstte ölçek yok, extent_v_up null bırakıldı. Rakam, merkez, direk metinde yok -> null."
+}

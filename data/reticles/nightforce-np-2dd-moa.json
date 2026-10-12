@@ -1,0 +1,19 @@
+{
+  "name": "NP-2DD",
+  "brand": "Nightforce",
+  "scopes": ["NXS 3.5-15x", "NXS 5.5-22x", "NXS 8-32x", "NXS 12-42x"],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 4,
+  "extent_v_up": null,
+  "extent_v_down": 8,
+  "tree": {"rows": [{"y": 8, "half_width": 0, "dot_step": 1}]},
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://www.nightforceoptics.com/reticles/np-2dd",
+  "notes": "Nightforce ürün sayfası ve eski retikül kılavuzu (ReticleManual.pdf): ikinci odak düzlemi, değerler 22x'te (8-32x/12-42x'te halkadaki 'R'). 'floating .1875 M.O.A. center dot'; 'tapered horizontal bars reaching 4 M.O.A. from the center' (extent_h=4); 'A secondary .125 M.O.A. diameter dot is located 8 M.O.A. below center at 22x' (tek satır y=8; half_width 0 ile tek nokta, dot_step=1 yalnız kodlama değeri). Dürbün listesi kılavuzdan (sayfada dürbün sekmesi yüklenmedi)."
+}

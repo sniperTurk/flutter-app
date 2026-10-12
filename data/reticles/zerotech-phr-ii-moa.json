@@ -1,0 +1,25 @@
+{
+  "name": "PHR II",
+  "brand": "ZeroTech Optics",
+  "scopes": [
+    "Thrive 4-16x50",
+    "Vengeance 4-20x50",
+    "Thrive HD 6-24x50",
+    "Thrive HD 2.5-15x50",
+    "Thrive HD 3-18x56 (aydınlatmalı)"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 25,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://resources.zerotechoptics.com/images/reticleManuals/phrii-specs.pdf",
+  "notes": "ZeroTech reticle sayfası: yüzen merkez nokta, daha ince 6 yönü direği, dikey tutma işaretleri 1.1, 2.5, 5, 10, 15, 20, 25 MOA. PDF ('PHR ll MOA') bu etiketleri doğruluyor; FFP/SFP belirtilmemiş. extent_v_down=25 MOA'nın son tutma işareti olması çıkarımdır (tam uzanım metinde yok). hash_step, major_every, numbers_every, yatay uzanım, tree, posts_start -> null. family=duplex sınıflandırması çıkarımdır."
+}

@@ -1,0 +1,34 @@
+{
+  "name": "APLR15 FFP MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Midas TAC GEN2 HD 6-24x50"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1,
+  "major_every": 5,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 50,
+  "tree": {
+    "rows": [
+      {
+        "y": 5,
+        "half_width": 5,
+        "dot_step": 1
+      },
+      {
+        "y": 50,
+        "half_width": 30,
+        "dot_step": 1
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/storage/2024/10/213085-APLR15-FFP-MOA-Reticle-Manual.pdf",
+  "notes": "FFP, aydınlatmasız. Föy metninden: 0.2 MOA yüzen merkez nokta, dört yönde 1 MOA boşluk, 1 MOA işaretler, 5 MOA aralıklı düşüş çizgileri 50 MOA'ya kadar; 1 MOA küçük / 5 MOA büyük noktalar; satır 10 MOA uzunlukta başlar, 50 MOA çizgisinde 60 MOA uzunluk (ilk satır y=5 kabul edildi). Föy satırları 'X moa length' olarak veriyor; toplam uzunluk kabul edilip half_width = uzunluk/2 yazıldı. Ara satır genişlikleri metinde yok. Yatay/yukarı uzanım yok -> null."
+}

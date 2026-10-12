@@ -4,16 +4,34 @@
 /// explanation. Keep them short, concrete and in Turkish; say where the value
 /// can be found and give a typical example.
 abstract final class ProfileFieldInfo {
+  // Profil
+  static const platform =
+      'Tüfeğinizin türü. PCP Tüfek: basınçlı havayla saçma veya slug atan '
+      'havalı tüfek. Ateşli Tüfek: barutlu fişek atan tüfek. Marka, kalibre '
+      've mühimmat listeleri ile açıklamalar bu seçime göre değişir; '
+      'tüfeğinizin belgesinde veya kutusunda yazar. Örnek: Hatsan Factor '
+      'için PCP Tüfek.';
+
   // Tüfek
+  static const rifleOrigin =
+      'Tüfeğin üretildiği yer. Yerli: Türkiye\'de üretilen markalar '
+      '(Hatsan, Kral Arms, Sarsılmaz, MKE, Ata Arms…). İthal: yurt dışı '
+      'markaları (Tikka, Sako, Daystate, BSA…). Seçim Marka listesini '
+      'süzer; Tümü hepsini gösterir.';
   static const caliber =
       'Namlunun iç çapı, milimetre olarak; listeden seçin. 4,50 mm (.177), '
-      '5,50 mm (.22), 6,35 mm (.25), 7,62 mm (.30), 9,00 mm (.357). '
+      '5,50 mm (.22), 6,35 mm (.25), 7,62 mm (.30), 9,00 mm (.357) ve '
+      'büyük çaplar. '
       'Mühimmatın kalibresi buradan alınır.';
   static const caliberFirearm =
       'Tüfeğinin kalibresi; listede merminin gerçek çapıyla yazılıdır. '
       'Kalibre namlunun üstünde ve mühimmat kutusunda yazar; örneğin .308 '
-      'Win için 7,82 mm. Listede yoksa "Diğer (elle yaz)" seçip mermi '
-      'çapını mm olarak yazın. Mühimmatın kalibresi buradan alınır.';
+      'Win için 7,82 mm. Yalnızca listeden seçilir; fişeğin listede yoksa '
+      'bize bildirin. Mühimmatın kalibresi buradan alınır.';
+  static const bulletDiameter =
+      'Fişeğiniz listede yoksa merminin çapını seçin. Çap mermi kutusunda '
+      'veya üreticinin sitesinde inç olarak yazar; örneğin .308 Win için '
+      '.308 in · 7,82 mm, .223 Rem için .224 in · 5,69 mm.';
   static const caliberOther =
       'Merminin çapı, milimetre olarak. Mühimmat kutusunda ya da üreticinin '
       'sitesinde yazar (inç verilmişse 25,4 ile çarpın: .308 inç = 7,82 mm).';
@@ -26,6 +44,11 @@ abstract final class ProfileFieldInfo {
       'küçüldükçe dönüş hızlanır. Namlu üreticisinin föyünde yazar.';
 
   // Mühimmat
+  static const ammoSource =
+      'Fabrika fişeği: hazır alınan kutu fişek; marka ve modelini seçince '
+      'ağırlık, BC ve namlu çıkış hızı üreticinin verisiyle dolar. El '
+      'dolumu: kendi doldurduğunuz fişek; mermiyi seçersiniz, hızı '
+      'kronografla ölçüp kendiniz yazarsınız.';
   static const ammoType =
       'Pellet: belli ve etek yapılı klasik havalı tüfek saçması. Slug: dolu '
       'gövdeli, mermi biçimli ağır saçma.';
@@ -45,22 +68,38 @@ abstract final class ProfileFieldInfo {
       'BC sayısının hangi standart mermi şekline göre verildiği. G1: küt uçlu '
       'klasik şekil; havalı tüfek saçması ve slug için neredeyse her zaman G1 '
       'verilir. G7: uzun, sivri uzun menzil mermisi. Aynı mermide G7 değeri '
-      'G1\'in yaklaşık yarısıdır. GA (saçma): ChairGun\'ın diabolo saçma '
-      'modeli; BC\'yi ChairGun\'dan alıyorsanız GA seçin, saçmada en doğru '
-      'sonucu verir. GS: çelik bilye (BB). Yanlış model hesabı ciddi '
-      'saptırır. Emin değilseniz G1.';
+      'G1\'in yaklaşık yarısıdır. GS: çelik bilye (BB). Yanlış model hesabı ciddi '
+      'saptırır. Bilmiyorsanız G1 seçin.';
   static const bcFirearm =
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
       'etkilenir. Tipik: G1 0,25–0,60; G7 0,12–0,30. Kutuda veya mermi '
       'üreticisinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
+
+  /// Added to the BC ⓘ when the listed factory round's BC comes from the
+  /// same NATO standard bullet's official report (owner, 2026-10-12: "ⓘ
+  /// alanında veriyi nasıl eklediğimizi açıkla; kullanıcı isterse
+  /// değiştirsin"). [probable]: the maker does not name the standard; weight
+  /// and type match.
+  static String bcNatoStandard({
+    required String brand,
+    required String standard,
+    required String report,
+    bool probable = false,
+  }) =>
+      "$brand bu fişeğin BC'sini yayımlamıyor. Değer, "
+      '${probable ? 'muhtemel eşdeğeri olan' : 'aynı'} NATO standart '
+      'mermisinin ($standard) resmi test raporundan alındı ($report). Kendi '
+      'tüfeğinizde fark olabilir; kutudaki ya da ölçtüğünüz değeri girebilir, '
+      'Doğrulama ekranıyla düzeltebilirsiniz.';
   static const bcModelFirearm =
       'BC sayısının hangi standart mermi şekline göre verildiği. G1: klasik '
       'av mermisi şekli. G7: uzun, sivri, arka tarafı daralan (boat-tail) '
       'uzun menzil mermisi; bu mermilerde G7 daha doğrudur. Aynı mermide G7 '
       'değeri G1\'in yaklaşık yarısıdır; yanlış model hesabı ciddi saptırır. '
       'RA4: .22 LR gibi rimfire mermiler için. G2, G5, G6, G8 ve GI daha az '
-      'kullanılan standart şekillerdir. Üretici hangisini veriyorsa onu seçin.';
+      'kullanılan standart şekillerdir. Üretici hangisini veriyorsa onu seçin; '
+      'bilmiyorsanız G1 seçin.';
 
   static const dragCurve =
       'Merminin kendi sürüklenme eğrisi: her Mach hızında havanın ne kadar '
@@ -77,9 +116,13 @@ abstract final class ProfileFieldInfo {
       'bu değerin altına inince yandaki BC kullanılır; üstünde ana BC. '
       'Üretici bazen hız aralıklarıyla birden çok BC verir (ör. Sierra). '
       'Örnek: 800 fps altında 0,031.';
+  static const bandSpeedFirearm =
+      'İsteğe bağlı. BC hız düştükçe değişir. Hız bu değerin altına inince '
+      'yandaki BC kullanılır; üstünde ana BC. Üretici bazen hız aralıklarıyla '
+      'birden çok BC verir (ör. Sierra). Örnek: 1800 fps altında 0,450.';
   static const bandBc =
       'Hız, soldaki eşiğin altına düştüğünde kullanılacak BC (aynı model: '
-      'G1/G7/GA). Boş bırakırsanız tek BC kullanılır. Örnek: 0,031.';
+      'G1/G7). Boş bırakırsanız tek BC kullanılır. Örnek: 0,031.';
 
   // Dürbün
   static const focalPlane =
@@ -88,26 +131,57 @@ abstract final class ProfileFieldInfo {
       'sabit görünür; aralıklar yalnız belirli bir büyütmede (genelde en '
       'yüksek) doğrudur. Dürbünün adında veya föyünde yazar.';
   static const minMag =
-      'Dürbünün en düşük büyütmesi. 6-24x56 bir dürbün için 6.';
+      'Dürbünün en düşük büyütmesi; listeden seçin. Dürbünün adında, '
+      'gövdesinde veya kutusunda yazar: 6-24x56 bir dürbün için 6x, '
+      '3-9x40 için 3x. Sabit büyütmeli dürbünde (10x42) Minimum ve '
+      'Maksimum aynıdır.';
   static const maxMag =
-      'Dürbünün en yüksek büyütmesi. 6-24x56 bir dürbün için 24.';
+      'Dürbünün en yüksek büyütmesi; listeden seçin. Dürbünün adında, '
+      'gövdesinde veya kutusunda yazar: 6-24x56 bir dürbün için 24x, '
+      '3-9x40 için 9x. Minimum büyütmeden küçük olamaz.';
   static const objective =
-      'Ön (objektif) merceğin çapı, milimetre olarak. 6-24x56 bir dürbün için '
-      '56.';
+      'Ön (objektif) merceğin çapı, milimetre olarak; listeden seçin. '
+      'Dürbünün adında "x"ten sonraki sayıdır: 6-24x56 için 56 mm, 3-9x40 '
+      'için 40 mm.';
+  static const clickValue =
+      'Üst kuleyi bir klik çevirince nişanın ne kadar kaydığı. Kulenin '
+      'üstünde veya dürbünün föyünde yazar ("1 click = 0.1 MRAD", '
+      '"1/4 MOA"). En yaygını MRAD dürbünde 0,1 MRAD, MOA dürbünde 1/4 MOA; '
+      'hassas dürbünlerde 0,05 MRAD veya 1/8 MOA olur. Önce Dürbün birimini '
+      'seçin; liste ona göre dolar.';
   static const scopeUnit =
       'Kulelerin ve retikülün açı birimi: MRAD (mil), MOA veya SMOA. '
       'Kulenin üstünde veya dürbünün föyünde yazar. "1/4 IN @ 100 YDS" '
-      'yazıyorsa SMOA seçin (100 yard\'da 1 inç; MOA\'dan %4,5 küçük). Bir '
-      'klik buna göre alınır: MRAD\'da 0,1, MOA ve SMOA\'da 1/4.';
+      'yazıyorsa SMOA seçin (100 yard\'da 1 inç; MOA\'dan %4,5 küçük). Listeden '
+      'seçilen dürbünde klik buna göre alınır: MRAD\'da 0,1, MOA ve '
+      'SMOA\'da 1/4; listede olmayan dürbünde Klik değerini ayrıca seçersiniz.';
   static const sightHeight =
       'Sight height: dürbünün merkez ekseni ile namlunun merkez ekseni '
       'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
       'aşağıdan çıkar ve önce yükselerek nişan çizgisini keser; bu yüzden '
       'yakın ve uzak mesafedeki düşüş hesabını doğrudan etkiler. Örnek: '
-      'havalı tüfekte 45–70 mm. Ölçmek için altındaki "Sight height nasıl '
-      'ölçülür?" bağlantısına bakın.';
+      'havalı tüfekte 45–70 mm. Merkezden merkeze ölçülür: namlunun üst '
+      'yüzeyinden değil, namlu deliğinin merkezinden. Adım adım ölçüm için: '
+      'Araçlar → Sight Height.';
+  static const sightHeightFirearm =
+      'Sight height: dürbünün merkez ekseni ile namlunun merkez ekseni '
+      'arasındaki dikey mesafe, milimetre olarak. Mermi namludan bu kadar '
+      'aşağıdan çıkar ve önce yükselerek nişan çizgisini keser; bu yüzden '
+      'yakın ve uzak mesafedeki düşüş hesabını doğrudan etkiler. Örnek: '
+      'ateşli tüfekte 38–60 mm. Merkezden merkeze ölçülür: namlunun üst '
+      'yüzeyinden değil, namlu deliğinin merkezinden. Adım adım ölçüm için: '
+      'Araçlar → Sight Height.';
+  static const reticle =
+      'Dürbünün içindeki çizgi deseni. Adı dürbünün kutusunda, kullanım '
+      'kılavuzunda veya üreticinin ürün sayfasında yazar. Örnek: APR-2D MOA, '
+      'VPR-MIL. Bazı dürbünler birden çok retikülle satılır; listede '
+      'sizinkini seçin. Seçtiğiniz retikül Hedef ekranında dürbüne özel '
+      'çizilir; kaydı yoksa genel çizgili desen görünür. Bilmiyorsanız MIL '
+      'dürbünde "MIL çizgili", MOA dürbünde "MOA çizgili" seçin. İsteğe '
+      'bağlı.';
   static const elevationTravel =
-      'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü. '
+      'Üst kuleyi en alttan en üste çevirince toplam kaç klik döndüğü; '
+      'sayı olarak yazılır. Örnek: 0,1 MRAD klikli 30 MRAD\'lık kule için 300. '
       'Kutuda yazar ya da kuleyi çevirip sayarsınız. Uzak atışta kule '
       'yetmezse uygulama bunu söyler. Bilmiyorsanız boş bırakın; hesap '
       'yine çalışır.';
@@ -118,7 +192,7 @@ abstract final class ProfileFieldInfo {
       'dürbününüzde kazandırdığı klik hazır yazılıdır. Ayak '
       'mermi düşüşünü azaltmaz: tüfeği ayakla yeniden sıfırladığınızda '
       'kulede yukarı doğru bu kadar ek yer açar. 1/4 MOA dürbünde her 1 MOA '
-      '= 4 klik (60 MOA = 240 klik); 0,1 mrad dürbünde 30 MOA ≈ 87 klik. '
+      '= 4 klik (60 MOA = 240 klik); 0,1 MRAD dürbünde 30 MOA ≈ 87 klik. '
       'Ayak dürbünün yüksekliğini de değiştirir; Sight height\'ı yeniden '
       'ölçün.';
 
@@ -127,13 +201,66 @@ abstract final class ProfileFieldInfo {
       'Merminin namludan çıktığı andaki hızı, fps (feet/saniye) olarak. En '
       'doğrusu kronografla birkaç atış ölçüp ortalamasını girmektir. '
       'Örnek: 900 fps ≈ 274 m/s (1 m/s = 3,28 fps).';
+  static const velocityFirearm =
+      'Merminin namludan çıktığı andaki hızı, fps (feet/saniye) olarak. '
+      'Fabrika fişeği seçince üreticinin hızı yazılır; bu hız uzun bir test '
+      'namlusunda ölçülür (çoğunlukla 24 inç), sizin namlunuzda farklı '
+      'olabilir. Kronografla ölçtüyseniz kendi değerinizi yazın. Örnek: '
+      '.308 Win 168 gr için 2650 fps.';
+  static const powderCoef =
+      'Barut sıcaklık katsayısı: hava 15 °C ısındığında namlu çıkış hızının '
+      'yüzde kaç arttığı. Atış hesabı hızı Hava Durumu\'ndaki sıcaklığa göre '
+      'bununla düzeltir. Fişek ve barut üreticileri çoğunlukla sayı vermez, '
+      'yalnızca "sıcaklığa duyarsız" yazar; en doğrusu aynı fişeği soğuk ve '
+      'sıcak bir günde kronografla ölçmektir. Örnek: 10 °C\'de 2600 fps, '
+      '25 °C\'de 2639 fps ölçtüyseniz 1,5 yazın. Fabrika fişeğinde üretici '
+      'sayı veriyorsa kendiliğinden dolar. Bilmiyorsanız boş bırakın. '
+      'Yalnızca ateşli tüfek.';
+  static const powderTemp =
+      'Namlu çıkış hızını kronografla ölçtüğünüz günkü hava sıcaklığı, °C. '
+      'Üreticinin hızını kullanıyorsanız üreticinin belirttiği test '
+      'sıcaklığını yazın. Hız bu sıcaklıktan bugünkü sıcaklığa göre '
+      'düzeltilir. Katsayıyla birlikte girilir. Örnek: 20.';
   static const zero =
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
       'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '
       'yard) girin. Örnek: havalı tüfekte 25–40 m.';
+  static const zeroFirearm =
+      'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
+      'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '
+      'yard) girin. Örnek: ateşli tüfekte çoğunlukla 100 m (veya 100 yard).';
   static const distanceUnit =
       'Mesafelerin birimi: metre veya yard (1 yard = 0,9144 m). Yard '
       'seçilirse sıfırlama mesafesi, Hedef sayfası, dürbün içindeki mesafe '
       'sayıları ve tablo yard ile gösterilir. Dürbününüzün odak düğmesi '
       'yard ile yazılıysa yard seçin.';
+
+  static const backup =
+      'Yedekle: tüm profillerinizi ve kendi girdiğiniz tüfek, mühimmat ve '
+      'dürbün kayıtlarını tek dosyaya kaydeder. Açılan ekranda Dosyalar\'a '
+      'Kaydet ile iCloud Drive\'ı ya da Google Drive\'ı seçin. Telefon '
+      'değişince Geri yükle ile aynı dosyayı seçin; hiçbir profil silinmez. '
+      'Hesap veya şifre gerekmez.';
+
+  // PCP tüp ve regülatör basıncı (owner, 2026-10-12). Yalnızca PCP.
+  static const tubePressure =
+      'Tüpü doldurduğunuz basınç, bar. Dolum sonrası manometreden okuyun ya '
+      'da kılavuzdaki en yüksek dolum basıncını yazın. Sahada kalan basıncı '
+      'Pro > Tüfek düzeltmeleri\'nde girersiniz. Bilmiyorsanız boş bırakın. '
+      'Örnek: 250.';
+  static const regulatorPressure =
+      'Regülatörün vanaya verdiği sabit basınç, bar. Kılavuzda ya da '
+      'regülatör manometresinde yazar. Tüp bu basıncın üstündeyken hız '
+      'sabittir; altına inince regülatör devre dışı kalır ve hız düşer. '
+      'Regülatörsüz tüfekte boş bırakın: boş kutu "regülatör yok" demektir '
+      '(ayrı bir seçim yok). Tüp basıncından küçük olmalı. Örnek: 150.';
+  static const pvBar =
+      'Kronografla hız ölçtüğünüz andaki tüp basıncı, bar (manometreden). '
+      'Her satır bir ölçümdür: basınç ve o basınçta ölçtüğünüz hız. En az '
+      'iki satır girilirse, Pro\'da yazdığınız kalan tüp basıncındaki hız '
+      'bu ölçümlerin arasından bulunur; ölçümlerin dışında en yakın ölçüm '
+      'kullanılır. Boş bırakırsanız profil hızı kullanılır. Örnek: 180.';
+  static const pvFps =
+      'O basınçta kronografla ölçtüğünüz namlu çıkış hızı, fps. Birkaç '
+      'atışın ortalamasını yazın. Basınçla birlikte girilir. Örnek: 870.';
 }

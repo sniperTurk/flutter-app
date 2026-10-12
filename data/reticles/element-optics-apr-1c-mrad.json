@@ -1,0 +1,32 @@
+{
+  "name": "APR-1C MRAD",
+  "brand": "Element Optics",
+  "scopes": [
+    "Helix 4-16x44 FFP",
+    "Helix 6-24x50 FFP",
+    "Helix 6-24x50 SFP",
+    "Helix Gen 2 6-24x50 FFP",
+    "Helix Gen 2 6-24x50 SFP",
+    "Helix HDLR 2-16x50 SFP",
+    "Titan 5-25x56 FFP",
+    "Nexus Gen 2 4-25x50 FFP",
+    "Nexus 5-20x50 FFP",
+    "Immersive Series 10x40",
+    "Immersive Series 14x50"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": 1.0,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "line_width": 0.036,
+  "source_url": "https://element-optics.com/wp-content/uploads/2025/05/RETICLE-SHEET-APR-1C-MRAD-HELIX-G2-6-24-FFP.pdf",
+  "notes": "Helix Gen 2 6-24 FFP föyü (FFP). Föy metni: merkez nokta (A, 'fine centre dot', boyut yok), eksenlerde 1/10 MIL ölçek (bir bölüm = bir klik), 'hash marks every 0.5 and 1 MRAD', çizgi kalınlığı 0.036 MRAD, dikey eksende rakamlı tutma işaretleri (#), sol/sağ/altta görüş alanı kenarına incelen barlar. Aynı ifadeler Helix 6-24 FFP (2022) föyünde de var: https://element-optics.com/wp-content/uploads/2022/03/RETICLE-SHEET-APR-1C-MRAD-HELIX-6-24.pdf . floating_center null: FFP föyleri 'floating' demiyor; Helix Gen 2 SFP föyü (https://element-optics.com/wp-content/uploads/2025/05/RETICLE-SHEET-APR-1C-MRAD-HELIX-GEN2-SFP.pdf) ve Helix Gen 2 6-24 FFP kılavuzu (https://element-optics.com/wp-content/uploads/2025/05/5x7-HELIX-G2-6-24x50-FFP-Manual-lr.pdf, APR ailesi için genel madde) 'Floating center dot' diyor; kaynaklar çeliştiği için değer girilmedi. Rakam aralığı, uzanımlar ve bar başlangıcı yalnız föy görselinde; görsel metin katmanında değil ve okunamadı -> null. SFP sürümlerde (Helix Gen 2 SFP, HDLR 2-16 SFP) referans büyütme föyde yazmıyor. 2. tur: line_width=0.036 föy metnindeki 'A line thickness of 0.036 MRAD' değeridir (Helix Gen 2 6-24 FFP ve Helix 6-24 FFP föyleri). Helix HDLR 2-16 SFP föyü (https://element-optics.com/wp-content/uploads/2022/10/RETICLE-SHEET-APR-1C-MRAD-HELIX-HDLR-2-16.pdf) farklı veriyor: 'H Line Thickness 0.03 MRAD', merkez nokta 0.075 MRAD, referans büyütme yazmıyor. Nexus Gen 2 föyü (https://element-optics.com/wp-content/uploads/2023/07/RETICLE-SHEET-APR-1C-MRAD-NEXUS-Gen2.pdf) ve Titan 5-25 föyü 'G Windage Indication (#)' ile yatay eksende de rakam olduğunu ve '\"Floating\" Design' diyor; aralık yazmıyor. Diğer null alanlar yalnız föy görselinde -> null. 3. tur (2026-10-11): scopes listesi ürün sayfalarındaki 'Reticle Options' ile düzeltildi: Immersive 5x30 bu retikülü kullanmıyor (5x30: LPR-1D MRAD / LPR-1D BDC); Helix 6-24x50 SFP ve Helix Gen 2 6-24x50 SFP eklendi. Helix 4-16 FFP föyü (https://global.element-optics.com/wp-content/uploads/2022/03/RETICLE-SHEET-APR-1C-MRAD-HELIX-4-16.pdf) iki kalınlık veriyor: ana artı 0.045, mil ölçeği 0.036 (birim yazmıyor; line_width=0.036 değişmedi). Eski Helix 6-24 SFP föyü (https://global.element-optics.com/pdfs/RETICLE%20SHEET%20APR-1C%20HELIX.pdf): 'F Floating Holdover Dots', 'G Free Floating Reticle'. Nexus 5-20 föyü (https://global.element-optics.com/pdfs/RETICLE%20SHEET%20APR-1C%20NEXUS.pdf): 'Fine Center Dot', 'Floating design @ 20x', yatay ve dikey rakamlar. HDLR kılavuzu (https://global.element-optics.com/wp-content/uploads/2022/10/5x7-HELIX-HDLR-Manual.pdf): 'These reticles are calibrated at 16x' (HDLR SFP referans büyütmesi 16x). Immersive 10x40/14x50 kılavuzu ölçü vermiyor. Rakam aralığı/uzanımlar yine yalnız görselde -> null."
+}

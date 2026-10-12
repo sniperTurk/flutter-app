@@ -562,8 +562,8 @@ void main() {
           .controller!
           .text;
       expect(text('rifle-brand'), 'Atölye');
-      // One "Marka Model" field (owner, 2026-10-09).
-      expect(text('ammo-brand'), 'Kendi Diabolo');
+      expect(text('ammo-brand'), 'Kendi');
+      expect(text('ammo-model'), 'Diabolo');
       expect(text('ammo-bc'), '0.03');
       expect(text('scope-brand'), 'Optik');
       expect(find.text('Dürbün: Optik 4-16x44 SFP'), findsOneWidget);

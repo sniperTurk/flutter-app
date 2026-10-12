@@ -1,0 +1,24 @@
+{
+  "name": "VHR MOA",
+  "brand": "Arken Optics",
+  "scopes": [
+    "EPL-4 6-24x50 FFP",
+    "EPL-4 4-16x44 FFP",
+    "SH-4 GENII 4-16x50 FFP",
+    "SH-4J GENII 6-24x50 FFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": true,
+  "source_url": "https://www.arkenopticsusa.com/products/epl-4-6-24x50-ffp-illuminated-vhr-vpr-zero-stop-30mm-tube",
+  "notes": "FFP. Kaynak: Arken ürün sayfaları (EPL-4 6-24x50, EPL-4 4-16x44: 'Open center design', 'Bold outer guide lines', 'Simplified holdover references'; SH-4 GENII 4-16x50: 'a streamlined reticle with an intuitive holdover system, bold guides, and a floating center'). floating_center=true bu metinden. Üretici sayfalarında ve kılavuz PDF'lerinin (UM_EPL-4_V1, UM_SH-4J_V1, UM_LH-4_V1, EPL4_User_Manual-V1) metin katmanında VHR için hiçbir sayısal ölçü yok; föy yalnız görsel ve görseller bu ortamdan indirilemedi. 'Open center' nedeniyle merkez nokta olup olmadığı belirsiz -> center_dot null. Aile (family), işaret aralığı, uzanımlar, rakamlar, kalınlıklar bilinmiyor -> null. Kapsamlar ürün sayfalarındaki seçenek listesinden ('MIL/VHR', 'MOA/VHR')."
+}

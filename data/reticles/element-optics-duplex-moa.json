@@ -1,0 +1,21 @@
+{
+  "name": "Duplex",
+  "brand": "Element Optics",
+  "scopes": [
+    "Iris 3-9x40 SFP"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://global.element-optics.com/wp-content/uploads/2024/10/5x7-IRIS-3-9x40-Manual-lr.pdf",
+  "notes": "Iris 3-9x40 kılavuzu: 'The 3-9x40 IRIS features a Duplex Reticle', 'This is a second focal plane reticle'. Kılavuz ve PNG föy (https://global.element-optics.com/wp-content/uploads/2024/10/DUPLEX-RETICLE-IRIS-3-9x40-1.png) hiçbir ölçü vermiyor. unit='moa' çıkarımdır: dürbün yalnız 1/4 MOA taretle satılıyor; retikülün kendi açısal ölçüsü yok. Direk kalınlığı, açık merkez, referans büyütme yazmıyor -> null."
+}

@@ -2,17 +2,23 @@ import '../../core/profile_input.dart';
 import '../../core/unit_system.dart';
 import '../../data/catalog_repository.dart';
 import '../../models/domain.dart';
+import '../../services/active_profile_store.dart';
+import '../../services/profile_store.dart';
 
 /// Updates written by the tools go through the SAME validation as the
 /// profile editor ([ProfileInput.validate]). Saving a value the decoder
 /// would later reject makes the stored collection unreadable.
 abstract final class ToolProfileUpdate {
-  /// Returns [base] with the new muzzle velocity and/or sight height.
+  /// Returns [base] with the new muzzle velocity and/or sight height, and
+  /// (Kronograf, firearms) a new powder temperature coefficient with its
+  /// reference temperature — both or neither.
   /// Throws [FormatException] with a user-facing message.
   static RifleProfile apply(
     RifleProfile base, {
     double? muzzleVelocityMps,
     double? sightHeightMm,
+    double? powderCoef,
+    double? powderReferenceC,
   }) {
     Rifle? rifle;
     for (final r in CatalogRepository.allRifles) {
@@ -40,7 +46,17 @@ abstract final class ToolProfileUpdate {
       platform: platform,
       // An older profile's pressure is kept as it was (no longer asked).
       pressureText: base.pressureBar?.toString(),
+      // Tüp basıncı and basınca göre hız are kept as they were.
+      tubePressureText: base.tubePressureBar?.toString(),
+      pressureTable: [
+        for (final pt in base.pressureVelocityTable)
+          (pt.bar.toString(), UnitSystem.mpsToFps(pt.mps).toString()),
+      ],
       mountCantMoa: base.mountCantMoa,
+      powderCoefText: (powderCoef ?? base.powderTempCoefPercentPer15C)
+          ?.toString(),
+      powderTempText: (powderReferenceC ?? base.powderTempReferenceC)
+          ?.toString(),
     );
     return RifleProfile(
       id: base.id,
@@ -52,11 +68,42 @@ abstract final class ToolProfileUpdate {
       zeroRangeM: input.zeroRangeM,
       sightHeightMm: input.sightHeightMm,
       pressureBar: input.pressureBar,
+      tubePressureBar: input.tubePressureBar,
+      // Validated above; the stored points are kept bit for bit (an
+      // m/s → fps → m/s round trip could change the last digit).
+      pressureVelocityTable: input.pressureVelocityTable.isEmpty
+          ? const []
+          : base.pressureVelocityTable,
       angularUnit: base.angularUnit,
       distanceUnit: base.distanceUnit,
       mountCantMoa: input.mountCantMoa,
+      // Unchanged unless a new pair was given (validated above).
+      powderTempCoefPercentPer15C: powderCoef == null
+          ? base.powderTempCoefPercentPer15C
+          : input.powderTempCoefPercentPer15C,
+      powderTempReferenceC: powderCoef == null
+          ? base.powderTempReferenceC
+          : input.powderTempReferenceC,
     );
   }
+}
+
+/// The active profile for a tool page; null when there is none or the
+/// stores cannot be read (the page then says so instead of guessing).
+Future<RifleProfile?> loadActiveToolProfile(
+  ProfileStore profiles,
+  ActiveProfileStore active,
+) async {
+  try {
+    final id = await active.getActiveProfileId();
+    if (id == null) return null;
+    for (final p in await profiles.all()) {
+      if (p.id == id) return p;
+    }
+  } catch (_) {
+    return null;
+  }
+  return null;
 }
 
 /// Display helpers shared by the tool screens (pure, unit-aware).

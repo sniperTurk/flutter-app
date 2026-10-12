@@ -1,0 +1,21 @@
+{
+  "name": "APRS2 FFP MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Midas TAC HD"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 9,
+  "extent_v_up": 9,
+  "extent_v_down": 10,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-APRS2-FFP-MIL-Reticle-Manual-Midas-TAC.pdf",
+  "notes": "FFP, aydınlatmasız. Föy metninden: 'fine .2 mil hash mark increments from center to 6 mils to both left and right'; '9 mil span in hash marks from center to left and right, 9 mil up and 10 mil down'; 'The floating 0.03 center dot' (birim yazılmamış, mil olduğu çıkarım). 6-9 mil arası işaret aralığı yazılmamış. Büyük işaret, rakam, direk belirtilmemiş -> null. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}

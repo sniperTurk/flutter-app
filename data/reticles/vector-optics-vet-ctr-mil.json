@@ -1,0 +1,21 @@
+{
+  "name": "VET-CTR MIL",
+  "brand": "Vector Optics",
+  "scopes": [
+    "Continental x10 1-10x28 ED FFP (SCFF-68, SCFF-47)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": 2,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.vectoroptics.com/public/uploads/files/20240819/7fefd54ee225ef7246e9b125b7195d87.pdf",
+  "notes": "FFP. Kaynak: VET-CTR retikül kılavuzu PDF + SCFF-68 ürün sayfası. Kılavuz: Christmas-tree FFP MIL ölçek, aydınlatmalı merkez daire+nokta. Rakam etiketleri PDF metninde '10 8 6 4 2 2 4 6 8 10' olarak geçiyor → numbers_every=2 bu etiket dizisinden çıkarıldı (konumlar teyit edilmedi). Konumsuz diyagram etiketleri: 14, 10.5, Φ1.0, Φ0.2, Φ1.5, 0.07, 0.05, 0.5, 2.0, 0.25, 0.15, 1.0, Φ0.11, Φ0.08 — hangi öğeye ait olduğu belirsiz. İşaret aralığı, uzanımlar, ağaç satırları → null."
+}

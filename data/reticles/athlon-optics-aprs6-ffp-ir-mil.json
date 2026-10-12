@@ -1,0 +1,36 @@
+{
+  "name": "APRS6 FFP IR MIL",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares ETR UHD",
+    "Cronus BTR GEN2 UHD",
+    "Helos BTR GEN2"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 10,
+  "tree": {
+    "rows": [
+      {
+        "y": 1,
+        "half_width": 1,
+        "dot_step": 0.2
+      },
+      {
+        "y": 10,
+        "half_width": 4,
+        "dot_step": 0.2
+      }
+    ]
+  },
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-APRS6-FFP-IR-MIL-Reticle-Manual-Ares-ETR-UHD.pdf",
+  "notes": "FFP. Üç föy birleştirildi (Cronus: https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-APRS6-FFP-IR-MIL-Reticle-Manual-Cronus-BTR-GEN2.pdf, Helos: https://athlonoptics.com/wp-content/uploads/2021/05/Athlon-APRS6-FFP-IR-MIL-Reticle-Manual-Helos-BTR-GEN2.pdf). Ortak: 'fine 0.2 mil hash mark increments from center to four directions' (uzanım yazılmamış -> extent_h/up null); nokta satırları 10 mil çizgisinde her yöne 4 mil; küçük noktalar 0.2, büyük 1 mil. Farklar: ilk satır Ares ETR ve Cronus föylerinde '1 mil drop line', Helos föyünde '2 mil drop line' (çoğunluk olan y=1 girildi); merkez nokta Ares/Helos 0.05 mil, Cronus 0.04 mil. Ara satırlar (2-9 mil) metinde yok, yalnızca belirtilen iki satır girildi. extent_v_down=10 son düşüş çizgisinden çıkarım. Etiketsiz A1-D3 tablo değerleri kullanılmadı."
+}
