@@ -169,6 +169,15 @@ void main() {
     );
   });
 
+  testWidgets('velocities before a unit is chosen ask for the unit', (
+    tester,
+  ) async {
+    await _pump(tester, _firearm());
+    await _type(tester, 'chrono-velocities', '800 805 795');
+    expect(find.byKey(const Key('chrono-need-unit')), findsOneWidget);
+    expect(find.byKey(const Key('chrono-result')), findsNothing);
+  });
+
   testWidgets('a bad line is named and nothing is offered', (tester) async {
     await _pump(tester, _firearm());
     await chooseInSelect(tester, 'chrono-unit', 'm/s');

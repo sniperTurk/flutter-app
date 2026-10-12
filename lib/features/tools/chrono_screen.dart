@@ -22,7 +22,8 @@ import 'tool_support.dart';
 /// on a PCP the slope along the string), and on request writes the mean to
 /// the profile, the SD to WEZ (Pro > Hız farkı) and — from strings saved at
 /// different cartridge temperatures — the powder temperature coefficient.
-/// Nothing is written without an old -> new confirmation.
+/// Nothing is written to the profile or to WEZ without an old -> new
+/// confirmation; a saved string can be deleted from the list.
 class ChronoScreen extends StatefulWidget {
   /// Injected in tests; default to the persistent stores.
   final ProfileStore? profileStore;
@@ -473,6 +474,15 @@ class _ChronoScreenState extends State<ChronoScreen> {
   }
 
   List<Widget> _results(bool metric) {
+    if (_fps == null && _velocities.text.trim().isNotEmpty) {
+      return const [
+        MenzilNotice(
+          key: Key('chrono-need-unit'),
+          tone: MenzilNoticeTone.warning,
+          message: 'Hız birimini seçin.',
+        ),
+      ];
+    }
     final parsed = _parse();
     if (parsed.error != null) {
       return [

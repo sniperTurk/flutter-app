@@ -26,6 +26,30 @@ void main() {
       expect(s.mps, [812.4, 811.6]);
     });
 
+    test('two values joined by a comma are not read as one', () {
+      // "812,815" is a missed space, not 812.815 m/s.
+      expect(
+        () => VelocitySeries.parse('800\n812,815', fps: false),
+        throwsA(
+          isA<VelocitySeriesFormatException>().having((e) => e.line, 'line', 2),
+        ),
+      );
+      expect(VelocitySeries.parse('812,45', fps: false).mps, [812.45]);
+    });
+
+    test('the fps range message gives the real limits', () {
+      expect(
+        () => VelocitySeries.parse('100', fps: true),
+        throwsA(
+          isA<VelocitySeriesFormatException>().having(
+            (e) => e.message,
+            'message',
+            contains('165–4921 fps'),
+          ),
+        ),
+      );
+    });
+
     test('empty lines and trailing spaces are not errors', () {
       final s = VelocitySeries.parse('800\n\n805 \n', fps: false);
       expect(s.n, 2);

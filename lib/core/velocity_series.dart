@@ -77,7 +77,10 @@ class VelocitySeries {
       for (final token in lines[i].split(RegExp(r'[\s;]+'))) {
         if (token.isEmpty) continue;
         final v = double.tryParse(token.replaceAll(',', '.'));
-        if (v == null || !v.isFinite) {
+        // Chronographs show at most two decimals: "812,815" is two values
+        // with a missed space, not 812.815.
+        final decimals = RegExp(r'[.,](\d+)$').firstMatch(token)?.group(1);
+        if (v == null || !v.isFinite || (decimals?.length ?? 0) > 2) {
           throw VelocitySeriesFormatException(
             i + 1,
             '${i + 1}. satır okunamadı: "$token".',
@@ -88,7 +91,8 @@ class VelocitySeries {
           throw VelocitySeriesFormatException(
             i + 1,
             '${i + 1}. satırdaki hız geçerli aralığın dışında '
-            '(${fps ? '165–4920 fps' : '50–1500 m/s'}).',
+            '(${fps ? '${UnitSystem.mpsToFps(minMps).ceil()}–'
+                      '${UnitSystem.mpsToFps(maxMps).floor()} fps' : '50–1500 m/s'}).',
           );
         }
         out.add(m);
