@@ -3702,7 +3702,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       children: [
         TextSpan(
           text: '$label ',
-          style: const TextStyle(fontWeight: FontWeight.w400),
+          // The questions stand out as headings (owner, 2026-10-12:
+          // "Ne? Neden? Nasıl? soruları bold olsun").
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         TextSpan(text: '$text\n'),
       ],

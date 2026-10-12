@@ -198,7 +198,14 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                         // Owner, 2026-10-12: no wide gap between the title and
                         // the profile box; the title takes only its width and
                         // the profile box the rest.
-                        Flexible(
+                        // A Flexible title kept half the free width for
+                        // itself and left a gap on the right (owner,
+                        // 2026-10-12: "sağda çok boşluk var"); a width cap
+                        // lets the profile box take everything else.
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: constraints.maxWidth * 0.42,
+                          ),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             widthFactor: 1,
@@ -220,7 +227,11 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                                     ),
                                   )
                                 : showBrand
-                                ? MenzilBrand(compact: compact)
+                                ? FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    alignment: Alignment.centerLeft,
+                                    child: MenzilBrand(compact: compact),
+                                  )
                                 : const SizedBox.shrink(),
                           ),
                         ),
@@ -1554,7 +1565,7 @@ class MenzilSecondaryButton extends StatelessWidget {
             // 2026-10-12: "sağda ve solda aynı boşluk kalsın").
             style: (style ?? const ButtonStyle()).merge(
               OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
               ),
             ),
             onPressed: onPressed,
