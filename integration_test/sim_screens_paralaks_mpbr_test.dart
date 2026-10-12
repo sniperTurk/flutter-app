@@ -226,7 +226,12 @@ void main() {
         await page('paralaks_bos');
       });
       await step('paralaks_dolu', () async {
-        for (final (mark, m) in [('2', '15'), ('4', '25'), ('6', '40'), ('8', '60')]) {
+        for (final (mark, m) in [
+          ('2', '15'),
+          ('4', '25'),
+          ('6', '40'),
+          ('8', '60'),
+        ]) {
           await type('parallax-mark', mark);
           await type('parallax-distance', m);
           await tester.ensureVisible(find.byKey(const Key('parallax-save')));
