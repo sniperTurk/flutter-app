@@ -37,6 +37,8 @@ void main() {
     double y(String key) => tester.getTopLeft(find.byKey(Key(key))).dy;
     final order = [
       'tool-truing',
+      // Kronograf (Ö3, 2026-10-12) right under Hız Doğrulama.
+      'tool-chrono',
       'tool-sight-height',
       'tool-map-distance',
       'tool-weather',
@@ -48,7 +50,7 @@ void main() {
     }
     expect(find.byKey(const Key('tool-catalog')), findsNothing);
     expect(find.text('Katalog'), findsNothing);
-    // Kronograf removed from the hub (owner, 2026-10-09).
+    // The audio Kronograf stays removed (owner, 2026-10-09).
     expect(find.byKey(const Key('tool-chronograph')), findsNothing);
   });
 }

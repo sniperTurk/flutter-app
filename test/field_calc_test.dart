@@ -269,7 +269,7 @@ void main() {
     ) async {
       await tester.pumpWidget(host(const ReticleScreen()));
       expect(find.byKey(const Key('reticle-canvas')), findsOneWidget);
-      expect(find.text('1 mil (nokta aralığı)'), findsOneWidget);
+      expect(find.text('1 MIL (nokta aralığı)'), findsOneWidget);
       expect(find.textContaining('yalnızca geometridir'), findsOneWidget);
     });
 

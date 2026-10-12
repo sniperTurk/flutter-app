@@ -72,7 +72,13 @@ class MenzilSubPageBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) => AppBar(
-    title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
+    // A long title ("Konum için mesafe" with larger iOS text on a 375 pt
+    // phone) shrinks a little instead of ending in "…".
+    title: FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Text(title, maxLines: 1),
+    ),
     actions: [
       ...actions,
       const SizedBox(width: MenzilSpace.xs),
@@ -446,14 +452,20 @@ class _NavButton extends StatelessWidget {
                     children: [
                       MenzilIcon(item.glyph, size: 24, color: fg),
                       const SizedBox(height: 3),
-                      Text(
-                        item.label,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w600,
-                          color: fg,
+                      // With larger iOS text a fifth of a 375–393 pt phone
+                      // is too narrow for "Hava Durumu" ("Hava Duru…"); the
+                      // label shrinks a little instead of being cut. At the
+                      // default text size nothing changes (2026-10-11).
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          item.label,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w600,
+                            color: fg,
+                          ),
                         ),
                       ),
                     ],
@@ -589,12 +601,19 @@ class MenzilNotice extends StatelessWidget {
   final MenzilNoticeTone tone;
   final IconData? icon;
 
+  /// Optional ⓘ explanation shown at the end of the notice; [infoTitle]
+  /// names the dialog (defaults to [title] or "Bilgi").
+  final String? info;
+  final String? infoTitle;
+
   const MenzilNotice({
     super.key,
     this.title,
     required this.message,
     this.tone = MenzilNoticeTone.info,
     this.icon,
+    this.info,
+    this.infoTitle,
   });
 
   @override
@@ -647,6 +666,11 @@ class MenzilNotice extends StatelessWidget {
                   ],
                 ),
               ),
+              if (info != null)
+                MenzilInfoButton(
+                  title: infoTitle ?? title ?? 'Bilgi',
+                  text: info!,
+                ),
             ],
           ),
         ),
@@ -967,6 +991,10 @@ class MenzilInput extends StatelessWidget {
   /// Explanation shown by the ⓘ button next to the label.
   final String? info;
 
+  /// A list typed one value per line (Kronograf hızları); 1 elsewhere.
+  final int minLines;
+  final int maxLines;
+
   const MenzilInput({
     super.key,
     required this.controller,
@@ -984,6 +1012,8 @@ class MenzilInput extends StatelessWidget {
     this.inputFormatters,
     this.info,
     this.focusNode,
+    this.minLines = 1,
+    this.maxLines = 1,
   });
 
   String get semanticLabel => unit == null ? label : '$label ($unit)';
@@ -1015,7 +1045,13 @@ class MenzilInput extends StatelessWidget {
               focusNode: focusNode,
               enabled: enabled,
               keyboardType: keyboardType,
-              textInputAction: textInputAction ?? TextInputAction.next,
+              textInputAction:
+                  textInputAction ??
+                  (maxLines > 1
+                      ? TextInputAction.newline
+                      : TextInputAction.next),
+              minLines: minLines,
+              maxLines: maxLines,
               onChanged: onChanged,
               maxLength: maxLength,
               inputFormatters: inputFormatters,
@@ -1631,11 +1667,17 @@ class MenzilMetricCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    metric.label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
+                  // Like the value below: a long label ("%80 için maks.
+                  // menzil" with larger iOS text) shrinks a little instead of
+                  // being cut; at the default size nothing changes.
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      metric.label,
+                      maxLines: 1,
+                      style: MenzilType.caption(c.ink2).copyWith(fontSize: 12),
+                    ),
                   ),
                   if (twoLineText && metric.unit == null)
                     _textValue(c.ink)

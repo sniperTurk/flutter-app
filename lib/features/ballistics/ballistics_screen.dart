@@ -8,35 +8,46 @@ import 'package:printing/printing.dart';
 import '../../core/atmosphere.dart';
 import '../../core/ballistic_engine.dart';
 import '../../core/ballistic_input.dart';
+import '../../core/beaufort.dart';
 import '../../core/input_error_text.dart';
 import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
 import '../../core/drag_table.dart';
 import '../../core/gravity.dart';
+import '../../core/pcp_pressure.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
+import '../../core/stability.dart';
 import '../../core/unit_system.dart';
 import '../../core/wez.dart';
 import '../../core/wind_clock.dart';
+import '../../core/wind_zone_shares.dart';
 import '../../data/profile_catalog_integrity.dart';
 import '../../data/reticle_catalog.dart';
 import '../../models/domain.dart';
 import '../../services/settings_store.dart';
 import '../../services/shot_settings_store.dart';
+import '../../services/watch/watch_bridge.dart';
+import '../../services/watch/watch_solution.dart';
 import '../../tools/domain/field_calc.dart';
 import '../../tools/domain/shot_angle_math.dart';
 import '../../tools/ports/heading_provider.dart';
 import '../../tools/ports/location_provider.dart';
+import '../../tools/ports/pressure_sensor.dart';
 import '../../tools/ports/weather_provider.dart';
 import '../../tools/tools_services.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import '../tools/cold_bore_hint.dart';
 import '../tools/map_distance_screen.dart';
+import '../tools/parallax_screen.dart';
 import '../tools/weather_screen.dart';
 import 'dope_card.dart';
+import '../profiles/profile_field_info.dart';
 import 'environment_field_info.dart';
+import 'flight_warnings.dart';
 import 'incline_measure_screen.dart';
 import 'pro_section_info.dart';
 import 'scope_cant_screen.dart';
@@ -298,7 +309,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _targetMovesRight = s.targetMovesRight;
         bulletLengthCtl.text = s.bulletLengthText;
         powderCoefCtl.text = s.powderCoefText;
+        tubePressureCtl.text = s.tubePressureText;
         powderTempCtl.text = s.powderTempText;
+        final ammoC = double.tryParse(s.ammoTempText.replaceAll(',', '.'));
+        ammoTempCtl.text = ammoC == null || !ammoC.isFinite
+            ? ''
+            : metric
+            ? _celsiusText(ammoC)
+            : UnitSystem.celsiusToFahrenheit(ammoC).toStringAsFixed(1);
         windMidCtl.text = s.windMidText;
         windFarCtl.text = s.windFarText;
         zeroUpCtl.text = s.zeroUpText;
@@ -315,6 +333,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     _shotSettingsReady = true;
   }
+
+  void _reloadShotSettings() => unawaited(_loadShotSettings());
 
   void _saveShotSettings() {
     final id = widget.profile?.id;
@@ -335,7 +355,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       spinDriftOn: _spinDriftOn,
       bulletLengthText: bulletLengthCtl.text.trim(),
       powderCoefText: powderCoefCtl.text.trim(),
+      tubePressureText: tubePressureCtl.text.trim(),
       powderTempText: powderTempCtl.text.trim(),
+      ammoTempText: _ammoTempC == null ? '' : _celsiusText(_ammoTempC!),
       windMidText: windMidCtl.text.trim(),
       windFarText: windFarCtl.text.trim(),
       zeroUpText: zeroUpCtl.text.trim(),
@@ -374,6 +396,29 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Typical gust factor over land: the bracket top is 1.5 × the wind.
   static const windGustFactor = 1.5;
 
+  /// Rüzgâr gözlemi (Ö2): the chosen Beaufort force, null = "Seçiniz".
+  /// Not saved; the wind values it writes are. A typed wind clears it.
+  int? _windObservation;
+  int _windObservationToken = 0;
+
+  void _pickWindObservation(int? force) {
+    final b = force == null ? null : Beaufort.classes[force];
+    setState(() {
+      _windObservation = force;
+      if (b == null) return;
+      String v(double mps) =>
+          (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
+      // The class top is the shooter's own gust value, not ×1.5.
+      _windMaxAuto = false;
+      windMaxCtl.text = v(b.maxMps);
+      wind.text = v(b.midMps);
+      _userEdited.add(wind);
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    _saveShotSettings();
+  }
+
   void _autoWindMax() {
     if (!_windMaxAuto) return;
     final w = double.tryParse(wind.text.trim().replaceAll(',', '.'));
@@ -391,7 +436,30 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final bool _spinDriftOn = true;
   final TextEditingController bulletLengthCtl = TextEditingController();
   final TextEditingController powderCoefCtl = TextEditingController();
+
+  /// PCP: tube pressure left in the field, bar (Pro > Tüfek düzeltmeleri).
+  final TextEditingController tubePressureCtl = TextEditingController();
   final TextEditingController powderTempCtl = TextEditingController();
+
+  /// Mühimmat sıcaklığı (Hava Durumu, firearms; Ö1 2026-10-12), in the shown
+  /// unit. Empty = the air temperature, as before the field existed.
+  final TextEditingController ammoTempCtl = TextEditingController();
+
+  /// [ammoTempCtl] in °C; null when empty or unreadable.
+  double? get _ammoTempC {
+    final v = double.tryParse(ammoTempCtl.text.trim().replaceAll(',', '.'));
+    if (v == null || !v.isFinite) return null;
+    return metric ? v : UnitSystem.fahrenheitToCelsius(v);
+  }
+
+  /// Stored in °C so a unit switch never reinterprets it.
+  static String _celsiusText(double c) => c == c.roundToDouble()
+      ? c.toStringAsFixed(0)
+      : double.parse(c.toStringAsFixed(2)).toString();
+
+  /// Settings written by another page (Kronograf → SD) while this
+  /// workspace stayed alive: read them again instead of saving old values.
+  void _onExternalShotSettings() => unawaited(_loadShotSettings());
   final TextEditingController windMidCtl = TextEditingController();
   final TextEditingController windFarCtl = TextEditingController();
   final TextEditingController zeroUpCtl = TextEditingController();
@@ -429,6 +497,23 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Set when Hedef opens with a Pro distance; consumed by the next scope
   /// build once that distance has been solved.
   bool _autoDialArmed = false;
+
+  /// Paralaks Mesafesi (PCP, owner 2026-10-12): the distance read from the
+  /// side-focus wheel table is written to Atış mesafesi; still editable.
+  Future<void> _proRangeFromParallax() async {
+    final p = widget.profile;
+    if (p == null) return;
+    final meters = await Navigator.push<double>(
+      context,
+      MaterialPageRoute<double>(
+        builder: (_) => ParallaxScreen(profile: p, returnDistance: true),
+      ),
+    );
+    if (!mounted || meters == null || !meters.isFinite || meters <= 0) return;
+    setState(
+      () => proRangeCtl.text = _toDisplayRange(meters).round().toString(),
+    );
+  }
 
   Future<void> _proRangeFromMap() async {
     final meters = await Navigator.push<double>(
@@ -490,7 +575,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       );
 
   /// Today's velocity from the profile velocity measured at the reference
-  /// temperature and the sensitivity (% per 15 °C); firearms only.
+  /// temperature and the sensitivity (% per 15 °C); firearms only. The
+  /// cartridge temperature is used when entered, else the air [todayC].
+  /// Without a coefficient nothing changes (no default is assumed).
   double _powderAdjusted(double mps, double todayC) {
     if (!_isFirearm) return mps;
     final p = _powder;
@@ -498,8 +585,30 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         PowderTemperature.factor(
           coefPercentPer15C: p.coef,
           referenceTempC: p.referenceC,
-          todayTempC: todayC,
+          todayTempC: PowderTemperature.effectiveTempC(
+            airC: todayC,
+            ammoC: _ammoTempC,
+          ),
         );
+  }
+
+  bool get _isPcp => profileResolution?.rifle.platform == WeaponPlatform.pcp;
+
+  /// PCP tüp ve regülatör basıncı (owner, 2026-10-12): the velocity at the
+  /// tube pressure typed on Pro, from the profile's regulator pressure and
+  /// basınca göre hız table. Null on a firearm (never applies there).
+  PcpVelocity? _pcpVelocity(double profileMps) {
+    if (!_isPcp) return null;
+    final p = widget.profile;
+    final tube = _parsed(tubePressureCtl);
+    return PcpPressure.velocity(
+      profileMps: profileMps,
+      regulatorBar: p?.pressureBar,
+      tubeBar: tube != null && tube <= ProductionLimits.maxPcpPressureBar
+          ? tube
+          : null,
+      table: p?.pressureVelocityTable ?? const [],
+    );
   }
 
   /// Spin drift (Litz) as a sideways angle in mrad, + = to the right; null
@@ -509,25 +618,50 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   ({double sg, double lCal, TwistDirection dir})? _stability(_ShotBasis basis) {
     if (!_spinDriftOn || !basis.drag) return null;
     final rifle = profileResolution?.rifle;
-    final twist = rifle?.twistRateIn, dir = rifle?.twistDirection;
+    final dir = rifle?.twistDirection;
+    final sg = _muzzleSg(basis);
+    if (rifle == null || dir == null || sg == null) return null;
+    final lCal = _parsed(bulletLengthCtl)! / 25.4 / (rifle.caliberMm / 25.4);
+    return (sg: sg, lCal: lCal, dir: dir);
+  }
+
+  /// Miller Sg at the muzzle (Ö5), or null without bullet length or twist.
+  double? _muzzleSg(_ShotBasis basis) {
+    final rifle = profileResolution?.rifle;
+    final twist = rifle?.twistRateIn;
     final lengthMm = _parsed(bulletLengthCtl);
-    if (rifle == null || twist == null || dir == null || lengthMm == null) {
+    if (rifle == null || twist == null || twist <= 0 || lengthMm == null) {
       return null;
     }
     if (lengthMm <= 0 || lengthMm > 100) return null;
-    final dIn = rifle.caliberMm / 25.4;
-    final tCal = twist / dIn, lCal = lengthMm / 25.4 / dIn;
-    final vFps = UnitSystem.mpsToFps(basis.velocityMps);
-    final tF = basis.environment.temperatureC * 9 / 5 + 32;
-    final pInHg = basis.environment.pressureHpa * 0.0295299830714;
-    final sg =
-        30 *
-        basis.grain /
-        (tCal * tCal * dIn * dIn * dIn * lCal * (1 + lCal * lCal)) *
-        math.pow(vFps / 2800, 1 / 3) *
-        ((tF + 460) / 519) *
-        (29.92 / pInHg);
-    return (sg: sg, lCal: lCal, dir: dir);
+    return Stability.millerSg(
+      grain: basis.grain,
+      caliberMm: rifle.caliberMm,
+      twistIn: twist,
+      lengthMm: lengthMm,
+      velocityMps: basis.velocityMps,
+      temperatureC: basis.environment.temperatureC,
+      pressureHpa: basis.environment.pressureHpa,
+    );
+  }
+
+  /// Kararlılık and transonik notices for the shot (Ö5); firearms only.
+  List<Widget> _flightWarnings(TrajectoryPoint shot, _ShotBasis basis) {
+    if (!_isFirearm) return const [];
+    final env = basis.environment;
+    double? mach(double v) {
+      try {
+        return Atmosphere.machNumber(velocityMps: v, environment: env);
+      } on ArgumentError {
+        return null;
+      }
+    }
+
+    return FlightWarnings.notices(
+      sg: _muzzleSg(basis),
+      muzzleMach: mach(basis.velocityMps),
+      targetMach: mach(shot.velocityMps),
+    );
   }
 
   double? _spinDriftMrad(TrajectoryPoint shot, _ShotBasis basis) {
@@ -626,7 +760,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       final g = Gravity.at(latitudeDeg: fix.latitude, altitudeM: altM);
       gravityCtl.text = g.toStringAsFixed(4);
       _gravityStatus =
-          'Konumdan hesaplandı: ${fix.latitude.abs().toStringAsFixed(1)}° '
+          'Konumdan hesaplandı: ${fix.latitude.abs().toStringAsFixed(1).replaceAll('.', ',')}° '
           '${fix.latitude >= 0 ? 'K' : 'G'} · ${altM.round()} m.';
     } else {
       _gravityStatus = 'Konum alınamadı; yerçekimini elle girin.';
@@ -710,6 +844,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   void initState() {
     super.initState();
+    ShotSettingsStore.externalWrites.addListener(_onExternalShotSettings);
     final p = widget.profile;
     profileResolution = p == null
         ? null
@@ -726,6 +861,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // A yard profile shows (and takes) its zero in yards, and its shot
     // range starts at a round 100 yd.
     _shotRangeM = _defaultShotRangeM;
+    if (p != null) {
+      _watchRanges = WatchBridge.instance.rangeRequests.listen(_onWatchRange);
+      // Refresh the shown solution's time so an open, unchanged Atış is
+      // never marked stale on the watch (the bridge sends at most 1/min).
+      _watchTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+        final s = _watchLast;
+        if (s != null && mounted) {
+          unawaited(WatchBridge.instance.publish(s.withTime(DateTime.now())));
+        }
+      });
+    }
     final zeroM = p?.zeroRangeM ?? 25;
     zero = TextEditingController(
       text: p?.distanceUnit == DistanceUnit.yard
@@ -746,6 +892,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     widget.environmentCarry?._apply(this);
     _loadUnitPreference();
     unawaited(_loadShotSettings());
+    // Sıfır Grubu can write Sıfır ofseti while this workspace stays open.
+    ShotSettingsStore.changes.addListener(_reloadShotSettings);
     // Solve the profile as soon as the workspace opens, so the scope's
     // reticle, hold labels and point of impact are ready at once. The fields are still SI here; a later switch to
     // imperial only converts the fields, the stored basis stays SI.
@@ -779,6 +927,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   void didUpdateWidget(covariant BallisticsScreen old) {
     super.didUpdateWidget(old);
+    if (_isShotView(old.view) && !_isShotView(widget.view)) _withdrawWatch();
     if (widget.view == BallisticsView.environment &&
         old.view != BallisticsView.environment) {
       _maybeAutoWeather();
@@ -972,6 +1121,48 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
   }
 
+  // ---- Phone barometer (Ö4) ---------------------------------------------
+
+  bool _pressureBusy = false;
+  String? _pressureStatus;
+  bool _pressureFailed = false;
+
+  /// "Basıncı telefondan al": reads the phone barometer once, ONLY on this
+  /// button (owner rule), and writes it into Basınç as the user's own value
+  /// (an automatic weather fill keeps it; the explicit weather button still
+  /// replaces it).
+  Future<void> _readPhonePressure() async {
+    if (_pressureBusy) return;
+    final sensor = ToolsServicesScope.of(context).pressure;
+    setState(() {
+      _pressureBusy = true;
+      _pressureStatus = null;
+    });
+    PressureReading reading;
+    try {
+      reading = await sensor.read();
+    } catch (_) {
+      reading = const PressureUnavailable();
+    }
+    if (!mounted) return;
+    setState(() {
+      _pressureBusy = false;
+      if (reading is PressureRead) {
+        pressure.text = _pressureText(reading.hpa);
+        _userEdited.add(pressure);
+        _pressureFailed = false;
+        _pressureStatus =
+            'Basınç telefondan alındı: '
+            '${_pressureText(reading.hpa).replaceAll('.', ',')} '
+            '${metric ? 'hPa' : 'inHg'}.';
+      } else {
+        _pressureFailed = true;
+        _pressureStatus = 'Basınç okunamadı; elle girin.';
+      }
+    });
+    if (reading is PressureRead && widget.profile != null) _quietSolve();
+  }
+
   String _pressureText(double hpa) => metric
       ? hpa.toStringAsFixed(1)
       : UnitSystem.hpaToInHg(hpa).toStringAsFixed(2);
@@ -997,6 +1188,24 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           expand: true,
           onPressed: _weatherBusy ? null : () => _fillWeather(overwrite: true),
         ),
+        const SizedBox(height: MenzilSpace.xs),
+        MenzilSecondaryButton(
+          key: const Key('environment-phone-pressure'),
+          label: _pressureBusy ? 'Okunuyor…' : 'Basıncı telefondan al',
+          icon: Icons.speed,
+          expand: true,
+          onPressed: _pressureBusy ? null : _readPhonePressure,
+        ),
+        if (_pressureStatus != null) ...[
+          const SizedBox(height: MenzilSpace.xs),
+          MenzilNotice(
+            key: const Key('environment-phone-pressure-status'),
+            tone: _pressureFailed
+                ? MenzilNoticeTone.warning
+                : MenzilNoticeTone.info,
+            message: _pressureStatus!,
+          ),
+        ],
         const SizedBox(height: MenzilSpace.md),
       ],
     );
@@ -1026,6 +1235,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final sightMm = value(sight);
     final windMps = value(wind);
     final temperatureC = value(temperature);
+    final ammoC = double.tryParse(ammoTempCtl.text.trim().replaceAll(',', '.'));
     final pressureHpa = value(pressure);
     final altitudeM = value(altitude);
     final metricRanges = DopeRanges.parse(ranges.text);
@@ -1040,6 +1250,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     temperature.text = UnitSystem.celsiusToFahrenheit(
       temperatureC,
     ).toStringAsFixed(1);
+    if (ammoC != null && ammoC.isFinite) {
+      ammoTempCtl.text = UnitSystem.celsiusToFahrenheit(
+        ammoC,
+      ).toStringAsFixed(1);
+    }
     pressure.text = UnitSystem.hpaToInHg(pressureHpa).toStringAsFixed(2);
     altitude.text = UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0);
     if (!_profileYards) {
@@ -1131,7 +1346,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         hum > 100 ||
         temp <= -273.15) {
       _error(
-        'Balistik ve atmosfer alanlarını kontrol edin; nem %0–100, rüzgâr yönü 0–360° olmalı.',
+        'Balistik ve atmosfer alanlarını kontrol edin; nem %0–100, rüzgâr yönü saat 1–12 olmalı.',
       );
       return;
     }
@@ -1158,7 +1373,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       );
       // Barut sıcaklığı (Pro, firearms): today's velocity from the profile
       // velocity; the zero stays solved with the zeroing-day velocity.
-      final vToday = _powderAdjusted(v, temp);
+      // PCP tüp basıncı (Pro): the velocity at the tube pressure left; a
+      // firearm never changes here.
+      final vPowder = _powderAdjusted(v, temp);
+      final vToday = _pcpVelocity(vPowder)?.mps ?? vPowder;
       final double? vZero = vToday == v ? null : v;
       final density = Atmosphere.densityKgM3(environment);
       final ratio = Atmosphere.densityRatio(environment);
@@ -1259,6 +1477,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   @override
   void dispose() {
+    ShotSettingsStore.changes.removeListener(_reloadShotSettings);
+    unawaited(_watchRanges?.cancel());
+    _watchTimer?.cancel();
     velocity.dispose();
     grain.dispose();
     zero.dispose();
@@ -1276,7 +1497,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     turretScaleCtl.dispose();
     bulletLengthCtl.dispose();
     powderCoefCtl.dispose();
+    tubePressureCtl.dispose();
     powderTempCtl.dispose();
+    ShotSettingsStore.externalWrites.removeListener(_onExternalShotSettings);
+    ammoTempCtl.dispose();
     proRangeCtl.dispose();
     for (final c in [
       windMidCtl,
@@ -1349,6 +1573,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (basis == null) return (shot: null, mpsPerMil: null);
     final cached = _shotCache[_shotRangeM];
     if (cached != null) return cached;
+    _zoneShares.remove(_shotRangeM);
     TrajectoryPoint? shot;
     double? mpsPerMil;
     try {
@@ -1380,6 +1605,26 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   TrajectoryPoint? _shotPoint() => _evalShot().shot;
+
+  /// Rüzgâr etkisi shares per range; an entry is dropped whenever
+  /// [_evalShot] solves that range again (inputs changed).
+  final Map<double, WindZoneShares?> _zoneShares = {};
+
+  WindZoneShares? _windZoneSharesAt(_ShotBasis basis) {
+    _evalShot();
+    if (_zoneShares.containsKey(_shotRangeM)) return _zoneShares[_shotRangeM];
+    WindZoneShares? s;
+    try {
+      s = WindZoneShares.compute(
+        basis.input([_shotRangeM], inclineDeg: _inclineDeg),
+        _shotRangeM,
+      );
+    } on ArgumentError {
+      s = null;
+    }
+    if (_zoneShares.length > 24) _zoneShares.clear();
+    return _zoneShares[_shotRangeM] = s;
+  }
 
   Future<void> _editShotRange() async {
     final result = await showDialog<double>(
@@ -1480,7 +1725,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return MenzilCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [_scopeDial(shot), ..._extraShotNotes(shot)],
+        children: [
+          _scopeDial(shot),
+          ..._extraShotNotes(shot),
+          // Ö9: an approved cold-bore suggestion, shown only (not dialled).
+          if (widget.profile != null)
+            ColdBoreHint(profileId: widget.profile!.id, unit: _scopeUnit),
+        ],
       ),
     );
   }
@@ -1494,9 +1745,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final c = MenzilColors.of(context);
     final unit = _scopeUnit;
     String clicks(double mrad) => click == null
-        ? '${unit.fromMrad(mrad.abs()).toStringAsFixed(2)} ${unit.label}'
+        ? '${unit.fromMrad(mrad.abs()).toStringAsFixed(2).replaceAll('.', ',')} ${unit.label}'
         : '${(unit.fromMrad(mrad.abs()) / click / _turretScale).round()} klik';
-    final lines = <Widget>[];
+    final lines = <Widget>[..._flightWarnings(shot, basis)];
     final windMax = _windMaxMps;
     final wind = basis.environment.windMps;
     if (basis.drag && windMax != null && windMax > wind) {
@@ -1547,17 +1798,29 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         // Unreachable at that wind: no bracket line.
       }
     }
+    // Ö2: where along the path the wind matters (a result, not help text).
+    final shares = basis.drag ? _windZoneSharesAt(basis) : null;
+    if (shares != null) {
+      lines.add(
+        Text(
+          'Rüzgâr etkisi: yakın %${shares.nearPct} · '
+          'orta %${shares.midPct} · uzak %${shares.farPct}',
+          key: const Key('shot-wind-zone-shares'),
+          style: MenzilType.body(c.ink),
+        ),
+      );
+    }
     final spin = _spinDriftMrad(shot, basis);
     if (spin != null) {
       final m = math.tan(spin.abs() / 1000) * _shotRangeM;
       final len = metric
-          ? '${(m * 100).toStringAsFixed(1)} cm'
-          : '${UnitSystem.millimetersToInches(m * 1000).toStringAsFixed(1)} in';
+          ? '${(m * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
+          : '${UnitSystem.millimetersToInches(m * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
       final jump = _aeroJumpMrad(basis);
       final jm = jump == null ? 0.0 : math.tan(jump.abs() / 1000) * _shotRangeM;
       final jLen = metric
-          ? '${(jm * 100).toStringAsFixed(1)} cm'
-          : '${UnitSystem.millimetersToInches(jm * 1000).toStringAsFixed(1)} in';
+          ? '${(jm * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
+          : '${UnitSystem.millimetersToInches(jm * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
       lines.add(
         Text(
           'Spin drift: $len ${spin >= 0 ? 'sağa' : 'sola'}'
@@ -1572,7 +1835,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (wez != null) {
       final pct = (wez.result.probability * 100).round();
       final pctN =
-          (Wez.atLeastOneHit(wez.result.probability, _wezShotCount) * 100)
+          (Wez.seriesHitProbability(
+                    sources: wez.sources,
+                    targetRadiusMrad: wez.radiusMrad,
+                    shotCount: _wezShotCount,
+                  ) *
+                  100)
               .round();
       lines.add(
         Row(
@@ -1635,14 +1903,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       final leadM = speed * shot.timeOfFlightS;
       final mrad = math.atan(leadM / _shotRangeM) * 1000;
       final len = metric
-          ? '${(leadM * 100).toStringAsFixed(0)} cm'
-          : '${UnitSystem.millimetersToInches(leadM * 1000).toStringAsFixed(1)} in';
+          ? '${(leadM * 100).toStringAsFixed(0).replaceAll('.', ',')} cm'
+          : '${UnitSystem.millimetersToInches(leadM * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
       lines.add(
         Text(
           'Hareketli hedef (${_windLabel(speed)} ${metric ? 'm/s' : 'mph'}, '
           '${movesRight ? 'soldan sağa' : 'sağdan sola'}): '
           '$len · ${clicks(mrad)} ${movesRight ? 'sağına' : 'soluna'} '
-          'nişan alın (uçuş ${shot.timeOfFlightS.toStringAsFixed(2)} s).',
+          'nişan alın (uçuş ${shot.timeOfFlightS.toStringAsFixed(2).replaceAll('.', ',')} s).',
           key: const Key('shot-lead'),
           style: MenzilType.body(c.ink),
         ),
@@ -1661,7 +1929,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// zero ("-0.00" at the zero range read as a wrong-way correction).
   static String _fixed(double v, int digits) {
     final s = v.toStringAsFixed(digits);
-    return s.startsWith('-') && double.parse(s) == 0 ? s.substring(1) : s;
+    final t = s.startsWith('-') && double.parse(s) == 0 ? s.substring(1) : s;
+    return t.replaceAll('.', ',');
   }
 
   DopeCardData? _dopeCardData() {
@@ -1728,7 +1997,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         if (basis.drag)
           (
             'BC',
-            '${basis.ballisticCoefficient} '
+            '${_decimal(basis.ballisticCoefficient)} '
                 '${basis.ballisticModel!.name.toUpperCase()}',
           ),
         (
@@ -1739,7 +2008,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           'Sıfır',
           '${_toDisplayRange(basis.zeroRangeM).round()} $_distanceUnit',
         ),
-        ('Dürbün', '${unit.label}, $click ${unit.label}/klik'),
+        ('Dürbün', '${unit.label}, ${_decimal(click)} ${unit.label}/klik'),
         (
           'Hava',
           '${metric ? '${env.temperatureC.toStringAsFixed(0)} °C' : '${UnitSystem.celsiusToFahrenheit(env.temperatureC).toStringAsFixed(0)} °F'}, '
@@ -1755,8 +2024,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       headers: [
         'Mesafe ($_distanceUnit)',
         'Yukarı (${unit.label})',
-        'Tık',
-        'Yan rüzgâr ${metric ? '3 m/s' : '5 mph'} (tık)',
+        'Klik',
+        'Yan rüzgâr ${metric ? '3 m/s' : '5 mph'} (klik)',
         'Hız (fps)',
       ],
       rows: rows,
@@ -1766,8 +2035,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         'Yan rüzgâr sütunu saat 3 veya 9 yönünden tam yan rüzgâr içindir: '
             'rüzgâr sağdan esiyorsa sağa, soldan esiyorsa sola çevirin.',
         if (zeroOff.up != 0 || zeroOff.right != 0)
-          'Sıfır ofseti tıklara dahildir.',
-        if (scale != 1) 'Kule ölçek katsayısı ($scale) tıklara dahildir.',
+          'Sıfır ofseti kliklere dahildir.',
+        if (scale != 1)
+          'Kule ölçek katsayısı (${_decimal(scale)}) kliklere dahildir.',
         if (!basis.drag)
           'BC girilmediği için hava direnci yok sayıldı; uzak mesafede gerçek '
               'düşüş daha fazladır.',
@@ -1817,10 +2087,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Gaussian approximated by P = 1 − exp(−R² / (2·σx·σy)). Null without a
   /// group size.
   /// WEZ: every error source as a spread on the target, then [Wez.simulate].
-  ({WezResult result, double radiusMrad, String sizeText})? _hitProbability(
-    TrajectoryPoint shot,
-    _ShotBasis basis,
-  ) {
+  ({
+    WezResult result,
+    List<WezSource> sources,
+    double radiusMrad,
+    String sizeText,
+  })?
+  _hitProbability(TrajectoryPoint shot, _ShotBasis basis) {
     final zero = widget.profile?.zeroRangeM;
     final g = _parsed(groupCtl);
     if (zero == null || zero <= 0 || g == null || g <= 0 || g > 100) {
@@ -1831,7 +2104,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final sources = <WezSource>[];
     final sigmaG = Wez.groupSigmaMrad(lenM(g), zero);
     sources.add(
-      WezSource('grup (tüfek ve atıcı)', sigmaX: sigmaG, sigmaY: sigmaG),
+      WezSource('grup (tüfek ve nişancı)', sigmaX: sigmaG, sigmaY: sigmaG),
     );
     final args = _coriolisArgs;
     // Vertical correction (mrad) with one input changed; null = unsolvable.
@@ -1875,7 +2148,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (base != null && rangeErr > 0 && rangeErr < 100) {
       final far = corr(range: _shotRangeM + Wez.sigmaOfPlusMinus(rangeErr));
       if (far != null) {
-        sources.add(WezSource('mesafe hatası', sigmaY: (far - base).abs()));
+        sources.add(
+          WezSource('mesafe hatası', sigmaY: (far - base).abs(), shared: true),
+        );
       }
     }
     final bcErr = _parsed(bcErrorCtl);
@@ -1886,7 +2161,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         bcErr < 50) {
       final low = corr(bcScale: 1 - Wez.sigmaOfPlusMinus(bcErr) / 100);
       if (low != null) {
-        sources.add(WezSource('BC hatası', sigmaY: (low - base).abs()));
+        sources.add(
+          WezSource('BC hatası', sigmaY: (low - base).abs(), shared: true),
+        );
       }
     }
     final windMax = _windMaxMps;
@@ -1900,6 +2177,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         WezSource(
           'rüzgâr belirsizliği',
           sigmaX: (windMax - wind) / 2 / mpsPerMil,
+          shared: true,
         ),
       );
     }
@@ -1909,17 +2187,19 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         : (metric ? 10.0 : 4.0);
     final radius = math.atan(lenM(size) / 2 / _shotRangeM) * 1000;
     final sizeText =
-        '${size % 1 == 0 ? size.toStringAsFixed(0) : size.toString()} '
+        '${size % 1 == 0 ? size.toStringAsFixed(0) : _decimal(size)} '
         '${metric ? 'cm' : 'in'}';
     return (
       result: Wez.simulate(sources: sources, targetRadiusMrad: radius),
+      sources: List<WezSource>.unmodifiable(sources),
       radiusMrad: radius,
       sizeText: sizeText,
     );
   }
 
-  String _windLabel(double mps) =>
-      (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
+  String _windLabel(double mps) => (metric ? mps : UnitSystem.mpsToMph(mps))
+      .toStringAsFixed(1)
+      .replaceAll('.', ',');
 
   /// Half of the scope's total adjustment travel, in clicks, or null when
   /// the travel is not known. No travel is ever guessed: the old 30 mrad
@@ -1981,6 +2261,87 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     ];
   }
 
+  // ---- Saat (owner, 2026-10-11) -----------------------------------------
+  // The watch only shows what Atış shows; it never computes. Nothing
+  // happens without a watch (WatchBridge is silent then).
+
+  StreamSubscription<int>? _watchRanges;
+  Timer? _watchTimer;
+
+  /// Last solution sent from Atış; null while Atış is not shown.
+  WatchSolution? _watchLast;
+
+  bool _isShotView(BallisticsView v) =>
+      v == BallisticsView.shot || v == BallisticsView.all;
+
+  /// Atış is not showing a turret correction: the watch shows "Çözüm yok"
+  /// instead of old clicks (inputs may be changing on Hava/Pro).
+  void _withdrawWatch() {
+    final p = widget.profile;
+    _watchLast = null;
+    if (p == null) return;
+    final s = WatchSolution.none(profile: p.name, at: DateTime.now());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(WatchBridge.instance.publish(s));
+    });
+  }
+
+  /// Sends the Atış turret correction (scope unit, + up / + right) to the
+  /// watch after this frame. [up] is null without a solved shot.
+  void _publishWatch(double? up, double right, double click) {
+    final s = _watchSolution(up, right, click);
+    if (s == null) return;
+    _watchLast = s.ok ? s : null;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(WatchBridge.instance.publish(s));
+    });
+  }
+
+  WatchSolution? _watchSolution(double? up, double right, double click) {
+    final p = widget.profile;
+    if (p == null) return null;
+    final now = DateTime.now();
+    if (up == null || !up.isFinite || !right.isFinite) {
+      return WatchSolution.none(profile: p.name, at: now);
+    }
+    final basis = _basis;
+    final windMps = basis != null && basis.drag
+        ? basis.environment.windMps
+        : 0.0;
+    try {
+      return WatchSolution(
+        ok: true,
+        profile: p.name,
+        range: _shotDisplay,
+        rangeUnit: _distanceUnit,
+        rangeStep: _isFirearm ? 10 : 5,
+        up: ScopeDialMath.clicksFor(up, click),
+        right: ScopeDialMath.clicksFor(right, click),
+        upAngle: up,
+        rightAngle: right,
+        unit: _scopeUnit.label,
+        click: click,
+        windSpeed: windMps > 0
+            ? (metric ? windMps : UnitSystem.mpsToMph(windMps))
+            : null,
+        windUnit: metric ? 'm/s' : 'mph',
+        windClock: windMps > 0 && basis != null
+            ? WindClock.fromDegrees(basis.environment.windDirectionDeg)
+            : null,
+        at: now,
+      );
+    } on ArgumentError {
+      return WatchSolution.none(profile: p.name, at: now);
+    }
+  }
+
+  /// A distance picked on the watch: same path as the Hedef slider. The
+  /// new solution goes back when Atış rebuilds (the scope view is where
+  /// the turret correction is computed).
+  void _onWatchRange(int display) {
+    if (mounted) _setShotDisplay(display);
+  }
+
   /// Interactive scope: turrets change the dialled clicks and the reticle
   /// shows where the shot lands at the selected range. In drag mode the
   /// required windage and the crosswind labels come from the drag solver;
@@ -1989,6 +2350,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final s = scope;
     final click = _scopeClickValue;
     if (s == null || click == null) {
+      _withdrawWatch();
       return const MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:
@@ -2021,6 +2383,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final requiredRight = (shot == null || basis == null)
         ? 0.0
         : inUnit(shot.windMrad - (spin ?? 0) - zeroOff.right) / scale;
+    // Saat: the same numbers go to the watch (it never computes).
+    _publishWatch(requiredUp, requiredRight, click);
 
     final mpsPerMil = basis != null && basis.drag
         ? _evalShot().mpsPerMil
@@ -2031,10 +2395,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // What one reticle unit spans at the selected range.
     final unitSpanM = ScopeDialMath.linearAtRange(1, _shotRangeM, unit);
     final span = metric
-        ? '${(unitSpanM * 100).toStringAsFixed(1)} cm'
-        : '${UnitSystem.millimetersToInches(unitSpanM * 1000).toStringAsFixed(1)} in';
+        ? '${(unitSpanM * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
+        : '${UnitSystem.millimetersToInches(unitSpanM * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
     final scaleNote =
-        '${unit == AngularUnit.mrad ? '1 mil' : '1 ${unit.label}'} = $span '
+        '1 ${unit.label} = $span '
         '($_shotDisplay $_distanceUnit).';
     String? windNote;
     final windMps = basis?.environment.windMps ?? 0;
@@ -2360,7 +2724,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       return const MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:
-            'Deterministik vacuum/gravity temel solver. Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz. Özel mermi kaydına BC ve G1/G7/GA ekleyerek sürtünmeli hesabı açabilirsiniz.',
+            'Vakum temel hesap (yalnızca yerçekimi). Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz. Özel mermi kaydına BC ve G1/G7/GA ekleyerek sürtünmeli hesabı açabilirsiniz.',
       );
     }
     final name = a!.ballisticModel!.name.toUpperCase();
@@ -2370,10 +2734,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         tone: MenzilNoticeTone.info,
         message: _bcApplies()
             ? 'Sürtünmeli hesap: özel sürüklenme eğrisi (${curve.length} '
-                  'nokta, Mach ${curve.last.mach.toStringAsFixed(1)}\'e kadar). '
+                  'nokta, Mach ${curve.last.mach.toStringAsFixed(1).replaceAll('.', ',')}\'e kadar). '
                   'İlk atışta canlı atışla doğrulayın.'
-            : 'Özel eğri ${a.grain} gr mermi içindir. Grain değiştirildiği '
-                  'için kullanılmıyor; vacuum temel hesap yapılır.',
+            : 'Özel eğri ${_decimal(a.grain)} gr mermi içindir. Grain değiştirildiği '
+                  'için kullanılmıyor; vakum temel hesap yapılır.',
       );
     }
     // Describes the inputs as they are now (the profile is solved on open,
@@ -2382,14 +2746,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       return MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:
-            'Kayıtlı $name BC ${a.ballisticCoefficient}, ${a.grain} gr mermi içindir. '
-            'Grain değiştirildiği için BC kullanılmıyor; vacuum temel hesap yapılır.',
+            'Kayıtlı $name BC ${_decimal(a.ballisticCoefficient)}, ${_decimal(a.grain)} gr mermi içindir. '
+            'Grain değiştirildiği için BC kullanılmıyor; vakum temel hesap yapılır.',
       );
     }
     return MenzilNotice(
       tone: MenzilNoticeTone.info,
       message:
-          'Sürtünmeli hesap: $name BC ${a.ballisticCoefficient}'
+          'Sürtünmeli hesap: $name BC ${_decimal(a.ballisticCoefficient)}'
           '${a.bcBands.isEmpty ? '' : ' (hıza göre ${a.bcBands.length} BC)'}. '
           'BC sizin girdiğiniz değerdir; '
           'gerçek mermiden farklıysa sonuç da kayar. İlk atışta canlı atışla doğrulayın.',
@@ -2443,11 +2807,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         bottom: MenzilSpace.md,
       ),
       child: Text(
-        '* Vacuum solver hava direncini hesaplamaz: rüzgâr düzeltmesi güvenlik gereği 0,00 gösterilir, '
+        '* Vakum hesabı hava direncini hesaplamaz: rüzgâr düzeltmesi güvenlik gereği 0,00 gösterilir, '
         'enerji sütunu her mesafede sabit namlu enerjisidir (mesafedeki enerji değildir) ve '
         'yüzlerce metrede düşüş değerleri gerçek atıştakinden yaklaşık %20–45 KÜÇÜK çıkabilir — yani '
-        'MOA/mrad yükseklik kliki de gerçekte gerekenden daha AZ görünebilir. Bu nedenle buradaki klik '
-        'değerleri bir başlangıç tahminidir; doğrulanmış drag modeli gelmeden kesin değildir ve ilk '
+        'MOA/MRAD yükseklik kliki de gerçekte gerekenden daha AZ görünebilir. Bu nedenle buradaki klik '
+        'değerleri bir başlangıç tahminidir; doğrulanmış sürüklenme modeli gelmeden kesin değildir ve ilk '
         'atışta canlı atışla teyit edilmelidir. Rüzgâr düzeltmesi/kliki hiç üretilmez (KİLİTLİ).',
         style: MenzilType.caption(c.ink2),
       ),
@@ -2481,25 +2845,37 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           controller: velocity,
           label: 'Namlu çıkış hızı',
           unit: 'fps',
+          info: _isFirearm
+              ? ProfileFieldInfo.velocityFirearm
+              : ProfileFieldInfo.velocity,
         ),
         MenzilInput(
           key: BallisticsFieldKeys.grain,
           controller: grain,
           label: 'Mühimmat ağırlığı',
           unit: 'grain',
+          info: _isFirearm
+              ? ProfileFieldInfo.grainFirearm
+              : ProfileFieldInfo.grain,
           onChanged: (_) => setState(() {}),
         ),
         MenzilInput(
           key: BallisticsFieldKeys.zero,
           controller: zero,
-          label: 'Sıfır mesafesi',
+          label: 'Sıfırlama mesafesi',
           unit: _distanceUnit,
+          info: _isFirearm
+              ? ProfileFieldInfo.zeroFirearm
+              : ProfileFieldInfo.zero,
         ),
         MenzilInput(
           key: BallisticsFieldKeys.sight,
           controller: sight,
           label: 'Sight height',
           unit: metric ? 'mm' : 'in',
+          info: _isFirearm
+              ? ProfileFieldInfo.sightHeightFirearm
+              : ProfileFieldInfo.sightHeight,
         ),
       ],
     );
@@ -2531,6 +2907,21 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 signed: true,
               ),
             ),
+            // Mühimmat sıcaklığı (Ö1, 2026-10-12): firearms only, on the
+            // Sıcaklık row; it matters only with a powder coefficient.
+            if (_isFirearm)
+              MenzilInput(
+                key: const Key('env-ammo-temp'),
+                controller: ammoTempCtl,
+                label: 'Mühimmat sıcaklığı',
+                onChanged: (_) => _coriolisChanged(),
+                info: EnvironmentFieldInfo.ammoTemperature,
+                unit: metric ? '°C' : '°F',
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                  signed: true,
+                ),
+              ),
             MenzilInput(
               key: BallisticsFieldKeys.pressure,
               controller: pressure,
@@ -2586,12 +2977,40 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ),
         child: MenzilFieldGrid(
           children: [
+            // Ö2: Beaufort over land; long item texts, so a full row.
+            MenzilFullWidth(
+              child: MenzilSelect<int>(
+                key: ValueKey('wind-observation-$_windObservationToken'),
+                label: 'Rüzgâr gözlemi',
+                hint: 'Seçiniz',
+                info: EnvironmentFieldInfo.windObservation,
+                initialValue: _windObservation,
+                items: [
+                  for (final b in Beaufort.classes)
+                    DropdownMenuItem(
+                      value: b.force,
+                      child: Text('${b.name}: ${b.land}', maxLines: 2),
+                    ),
+                ],
+                selectedLabels: [for (final b in Beaufort.classes) b.name],
+                onChanged: _pickWindObservation,
+              ),
+            ),
             MenzilInput(
               key: BallisticsFieldKeys.wind,
               controller: wind,
               label: 'Rüzgâr hızı',
-              // A typed value is the user's: auto fill keeps it.
-              onChanged: (_) => _userEdited.add(wind),
+              // A typed value is the user's: auto fill keeps it. It no
+              // longer comes from the Rüzgâr gözlemi class.
+              onChanged: (_) {
+                _userEdited.add(wind);
+                if (_windObservation != null) {
+                  setState(() {
+                    _windObservation = null;
+                    _windObservationToken++;
+                  });
+                }
+              },
               info: EnvironmentFieldInfo.windSpeedFor(firearm: _isFirearm),
               unit: metric ? 'm/s' : 'mph',
             ),
@@ -2650,10 +3069,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           Text('Hava', style: MenzilType.heading(c.ink, size: 20)),
           const SizedBox(height: MenzilSpace.xs),
           Text(
-            'Hava yoğunluğu: ${airDensityKgM3!.toStringAsFixed(4)} kg/m³ • '
-            'yoğunluk oranı: ${densityRatio!.toStringAsFixed(3)} • '
-            'ses hızı: ${speedOfSoundMps!.toStringAsFixed(1)} m/s • '
-            'namlu Mach: ${muzzleMach!.toStringAsFixed(3)}',
+            'Hava yoğunluğu: ${airDensityKgM3!.toStringAsFixed(4).replaceAll('.', ',')} kg/m³ • '
+            'yoğunluk oranı: ${densityRatio!.toStringAsFixed(3).replaceAll('.', ',')} • '
+            'ses hızı: ${speedOfSoundMps!.toStringAsFixed(1).replaceAll('.', ',')} m/s • '
+            'namlu Mach: ${muzzleMach!.toStringAsFixed(3).replaceAll('.', ',')}',
             style: MenzilType.body(
               c.ink,
             ).copyWith(fontFeatures: MenzilType.tabular),
@@ -2706,11 +3125,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                         numeric: true,
                       ),
                       const DataColumn(
-                        label: Text('Yükseklik mrad'),
+                        label: Text('Yükseklik MRAD'),
                         numeric: true,
                       ),
                       const DataColumn(
-                        label: Text('Rüzgâr mrad'),
+                        label: Text('Rüzgâr MRAD'),
                         numeric: true,
                       ),
                       DataColumn(
@@ -2725,7 +3144,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                         label: Text(
                           metric
                               ? 'Mesafe enerjisi J'
-                              : 'Mesafe enerjisi ft-lb',
+                              : 'Mesafe enerjisi ft·lbf',
                         ),
                         numeric: true,
                       ),
@@ -2744,14 +3163,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                         numeric: true,
                       ),
                       const DataColumn(
-                        label: Text('Yükseklik mrad*'),
+                        label: Text('Yükseklik MRAD*'),
                         numeric: true,
                       ),
                       DataColumn(
                         label: Text(
                           metric
                               ? 'Namlu enerjisi J*'
-                              : 'Namlu enerjisi ft-lb*',
+                              : 'Namlu enerjisi ft·lbf*',
                         ),
                         numeric: true,
                       ),
@@ -2769,14 +3188,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 return DataRow(
                   color: isZero ? WidgetStatePropertyAll(c.amberSoft) : null,
                   cells: [
-                    DataCell(
-                      Text(displayRange.toStringAsFixed(_yards ? 1 : 0)),
-                    ),
+                    DataCell(Text(_fixed(displayRange, _yards ? 1 : 0))),
                     DataCell(Text(_fixed(displayDrop, 1))),
                     DataCell(Text(_fixed(p.correctionMoa, 2))),
                     DataCell(Text(_fixed(p.correctionMrad, 2))),
                     if (drag) ...[
-                      DataCell(Text(p.windMrad.abs().toStringAsFixed(2))),
+                      DataCell(Text(_fixed(p.windMrad.abs(), 2))),
                       DataCell(Text(_fixed(_windDrift(p), 1))),
                       DataCell(
                         Text(
@@ -2787,8 +3204,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                         ),
                       ),
                     ],
-                    DataCell(Text(displayEnergy.toStringAsFixed(1))),
-                    DataCell(Text(p.timeOfFlightS.toStringAsFixed(3))),
+                    DataCell(Text(_fixed(displayEnergy, 1))),
+                    DataCell(Text(_fixed(p.timeOfFlightS, 3))),
                   ],
                 );
               }).toList(),
@@ -2813,7 +3230,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               const SizedBox(width: MenzilSpace.xs),
               Expanded(
                 child: Text(
-                  'Sıfır mesafesi ${_toDisplayRange(zeroM).toStringAsFixed(_yards ? 1 : 0)} $_distanceUnit',
+                  'Sıfırlama mesafesi ${_fixed(_toDisplayRange(zeroM), _yards ? 1 : 0)} $_distanceUnit',
                   style: MenzilType.caption(c.ink2),
                 ),
               ),
@@ -3011,6 +3428,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       zero.up != 0 || zero.right != 0,
       _spinDriftOn,
       _isFirearm && _powder.coef != null && _powder.referenceC != null,
+      _isPcp && tubePressureCtl.text.trim().isNotEmpty,
     ].where((x) => x).length;
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
@@ -3089,8 +3507,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final lenUnit = metric ? 'cm' : 'in';
     const signed = TextInputType.numberWithOptions(decimal: true, signed: true);
     String len(double m) => metric
-        ? '${(m.abs() * 100).toStringAsFixed(1)} cm'
-        : '${UnitSystem.millimetersToInches(m.abs() * 1000).toStringAsFixed(1)} in';
+        ? '${(m.abs() * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
+        : '${UnitSystem.millimetersToInches(m.abs() * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
     return [
       MenzilCard(
         key: const Key('pro-range-card'),
@@ -3111,13 +3529,38 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   : null,
               onChanged: (_) => setState(() {}),
             ),
-            MenzilSecondaryButton(
-              key: const Key('pro-range-map'),
-              label: 'Haritadan ölç',
-              icon: Icons.map_outlined,
-              expand: true,
-              onPressed: _proRangeFromMap,
-            ),
+            if (profileResolution?.rifle.platform == WeaponPlatform.pcp)
+              Row(
+                children: [
+                  Expanded(
+                    child: MenzilSecondaryButton(
+                      key: const Key('pro-range-map'),
+                      label: 'Haritadan ölç',
+                      icon: Icons.map_outlined,
+                      expand: true,
+                      onPressed: _proRangeFromMap,
+                    ),
+                  ),
+                  const SizedBox(width: MenzilSpace.sm),
+                  Expanded(
+                    child: MenzilSecondaryButton(
+                      key: const Key('pro-range-parallax'),
+                      label: 'Paralakstan',
+                      icon: Icons.center_focus_strong_outlined,
+                      expand: true,
+                      onPressed: _proRangeFromParallax,
+                    ),
+                  ),
+                ],
+              )
+            else
+              MenzilSecondaryButton(
+                key: const Key('pro-range-map'),
+                label: 'Haritadan ölç',
+                icon: Icons.map_outlined,
+                expand: true,
+                onPressed: _proRangeFromMap,
+              ),
           ],
         ),
       ),
@@ -3162,7 +3605,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             MenzilInput(
               key: const Key('pro-azimuth'),
               controller: azimuthCtl,
-              label: 'Atış yönü (azimut)',
+              label: 'Atış yönü',
               unit: '°',
               info: EnvironmentFieldInfo.azimuth,
               errorText: azimuthCtl.text.isNotEmpty && _azimuth == null
@@ -3303,7 +3746,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               MenzilInput(
                 key: const Key('pro-sd'),
                 controller: sdCtl,
-                label: 'Hız farkı (SD)',
+                label: 'Hız farkı',
                 unit: 'fps',
                 info: EnvironmentFieldInfo.sd,
                 onChanged: (_) => _coriolisChanged(),
@@ -3313,25 +3756,22 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 controller: targetSizeCtl,
                 label: 'Hedef çapı',
                 unit: lenUnit,
-                hintText: metric ? '10' : '4',
                 info: EnvironmentFieldInfo.targetSize,
                 onChanged: (_) => _coriolisChanged(),
               ),
               MenzilInput(
                 key: const Key('pro-range-error'),
                 controller: rangeErrorCtl,
-                label: 'Mesafe hatası (±)',
+                label: 'Mesafe hatası',
                 unit: _distanceUnit,
-                hintText: '1',
                 info: EnvironmentFieldInfo.rangeError,
                 onChanged: (_) => _coriolisChanged(),
               ),
               MenzilInput(
                 key: const Key('pro-bc-error'),
                 controller: bcErrorCtl,
-                label: 'BC hatası (±)',
+                label: 'BC hatası',
                 unit: '%',
-                hintText: '0',
                 info: EnvironmentFieldInfo.bcError,
                 onChanged: (_) => _coriolisChanged(),
               ),
@@ -3365,7 +3805,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             controller: turretScaleCtl,
             label: 'Gerçek / yazan',
             info: EnvironmentFieldInfo.turretScale,
-            hintText: '1.00',
             errorText:
                 turretScaleCtl.text.trim().isNotEmpty &&
                     (_parsed(turretScaleCtl) == null ||
@@ -3381,7 +3820,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               MenzilInput(
                 key: const Key('pro-zero-up'),
                 controller: zeroUpCtl,
-                label: 'Yukarı (+) / aşağı (−)',
+                label: 'Yukarı + / aşağı −',
                 unit: lenUnit,
                 info: EnvironmentFieldInfo.zeroUp,
                 keyboardType: signed,
@@ -3390,7 +3829,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               MenzilInput(
                 key: const Key('pro-zero-right'),
                 controller: zeroRightCtl,
-                label: 'Sağ (+) / sol (−)',
+                label: 'Sağ + / sol −',
                 unit: lenUnit,
                 info: EnvironmentFieldInfo.zeroRight,
                 keyboardType: signed,
@@ -3466,6 +3905,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               },
             ),
           ],
+          // PCP tüp basıncı (owner, 2026-10-12): never on a firearm.
+          if (_isPcp) ..._pcpPressureProFields(c),
         ],
       ),
       const SizedBox(height: MenzilSpace.md),
@@ -3475,6 +3916,68 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           label: 'Hedef\'e geç',
           icon: Icons.arrow_forward,
           onPressed: widget.onContinueToShot,
+        ),
+    ];
+  }
+
+  /// Pro > Tüfek düzeltmeleri, PCP: Kalan tüp basıncı, the regulator
+  /// warning and the velocity used.
+  List<Widget> _pcpPressureProFields(MenzilColors c) {
+    final typed = tubePressureCtl.text.trim();
+    final tube = _parsed(tubePressureCtl);
+    final bad =
+        typed.isNotEmpty &&
+        (tube == null ||
+            tube <= 0 ||
+            tube > ProductionLimits.maxPcpPressureBar);
+    final v0 = widget.profile?.muzzleVelocityMps;
+    final r = v0 == null || bad ? null : _pcpVelocity(v0);
+    final fill = widget.profile?.tubePressureBar;
+    return [
+      _explain(ProSectionInfo.pcpPressure),
+      MenzilFieldGrid(
+        children: [
+          MenzilInput(
+            key: const Key('pro-tube-pressure'),
+            controller: tubePressureCtl,
+            label: 'Kalan tüp basıncı',
+            unit: 'bar',
+            info: EnvironmentFieldInfo.tubePressure,
+            errorText: bad
+                ? '0 ile ${ProductionLimits.maxPcpPressureBar.toStringAsFixed(0)} '
+                      'arasında olmalı.'
+                : null,
+            onChanged: (_) => _coriolisChanged(),
+          ),
+        ],
+      ),
+      if (!bad && tube != null && fill != null && tube > fill)
+        const MenzilNotice(
+          key: Key('pro-pcp-above-fill'),
+          tone: MenzilNoticeTone.warning,
+          message:
+              'Kalan basınç, profildeki tüp basıncından yüksek; manometreyi '
+              'kontrol edin.',
+        ),
+      if (r != null && r.regulatorBypassed)
+        MenzilNotice(
+          key: const Key('pro-pcp-regulator'),
+          tone: MenzilNoticeTone.warning,
+          message: r.fromTable
+              ? 'Tüp basıncı regülatör basıncının altında: regülatör devre '
+                    'dışı, hız düşer. Hız, basınca göre hız ölçümlerinden '
+                    'alındı.'
+              : 'Tüp basıncı regülatör basıncının altında: regülatör devre '
+                    'dışı, hız düşer. Bu basınç için ölçüm yok; hesap profil '
+                    'hızıyla yapılıyor. Profil > Mühimmat\'ta basınca göre '
+                    'hız ölçümü girin.',
+        ),
+      if (r != null && v0 != null && r.mps != v0)
+        Text(
+          'Kullanılan hız: ${UnitSystem.mpsToFps(r.mps).toStringAsFixed(0)} '
+          'fps (profil ${UnitSystem.mpsToFps(v0).toStringAsFixed(0)} fps).',
+          key: const Key('pro-pcp-velocity'),
+          style: MenzilType.body(c.ink),
         ),
     ];
   }
@@ -3663,6 +4166,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     _setAngles(cant: result);
   }
 
+  /// PCP with the Pro tube pressure below the profile's regulator pressure.
+  bool get _pcpRegulatorBypassed {
+    final v0 = widget.profile?.muzzleVelocityMps;
+    if (v0 == null) return false;
+    return _pcpVelocity(v0)?.regulatorBypassed ?? false;
+  }
+
   List<Widget> _shotSection(BuildContext context) {
     final c = MenzilColors.of(context);
     final shot = _shotPoint();
@@ -3751,6 +4261,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         onChanged: (v) => _setShotDisplay(v.round()),
       ),
       const SizedBox(height: MenzilSpace.sm),
+      if (_pcpRegulatorBypassed)
+        const Padding(
+          padding: EdgeInsets.only(bottom: MenzilSpace.sm),
+          child: MenzilNotice(
+            key: Key('shot-pcp-regulator'),
+            tone: MenzilNoticeTone.warning,
+            message:
+                'Regülatör devre dışı: tüp basıncı regülatör basıncının '
+                'altında, hız düşer.',
+          ),
+        ),
       if (shot == null)
         MenzilNotice(
           tone: MenzilNoticeTone.info,
@@ -3793,7 +4314,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 'Yükseklik kliki, hava direnci YOK sayılan bir vakum düşüşünden hesaplanır — '
                 'gerçek mermi menzil arttıkça havadan daha çok yavaşlar, bu nedenle gerçek düşüş '
                 'burada gösterilenden FAZLA olur. Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ). '
-                'Bu klik değerini ilk atışta mutlaka canlı atışla (chronograph + deneme atışı) '
+                'Bu klik değerini ilk atışta mutlaka canlı atışla (kronograf + deneme atışı) '
                 'doğrulayın; tek başına gerçek atış için kullanmayın.',
           ),
         ),
@@ -3802,7 +4323,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           metrics: [
             MenzilMetric(
               'Uçuş süresi',
-              shot.timeOfFlightS.toStringAsFixed(3),
+              shot.timeOfFlightS.toStringAsFixed(3).replaceAll('.', ','),
               's',
             ),
             MenzilMetric(
@@ -3810,7 +4331,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.dropM * 100
                       : UnitSystem.millimetersToInches(shot.dropM * 1000))
-                  .toStringAsFixed(1),
+                  .toStringAsFixed(1)
+                  .replaceAll('.', ','),
               metric ? 'cm' : 'in',
             ),
             MenzilMetric(
@@ -3818,7 +4340,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.velocityMps
                       : UnitSystem.mpsToFps(shot.velocityMps))
-                  .toStringAsFixed(0),
+                  .toStringAsFixed(0)
+                  .replaceAll('.', ','),
               metric ? 'm/s' : 'fps',
             ),
             MenzilMetric(
@@ -3826,13 +4349,20 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.energyJ
                       : UnitSystem.joulesToFootPounds(shot.energyJ))
-                  .toStringAsFixed(1),
-              metric ? 'J' : 'ft-lb',
+                  .toStringAsFixed(1)
+                  .replaceAll('.', ','),
+              metric ? 'J' : 'ft·lbf',
             ),
             if (muzzleMach != null)
-              MenzilMetric('Namlu Mach', muzzleMach!.toStringAsFixed(3)),
+              MenzilMetric(
+                'Namlu Mach',
+                muzzleMach!.toStringAsFixed(3).replaceAll('.', ','),
+              ),
             if (densityRatio != null)
-              MenzilMetric('Yoğunluk oranı', densityRatio!.toStringAsFixed(3)),
+              MenzilMetric(
+                'Yoğunluk oranı',
+                densityRatio!.toStringAsFixed(3).replaceAll('.', ','),
+              ),
           ],
         ),
       if (shot != null && !_dragMode)
@@ -3840,7 +4370,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           metrics: [
             MenzilMetric(
               'Uçuş süresi',
-              shot.timeOfFlightS.toStringAsFixed(3),
+              shot.timeOfFlightS.toStringAsFixed(3).replaceAll('.', ','),
               's',
             ),
             MenzilMetric(
@@ -3848,7 +4378,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.dropM * 100
                       : UnitSystem.millimetersToInches(shot.dropM * 1000))
-                  .toStringAsFixed(1),
+                  .toStringAsFixed(1)
+                  .replaceAll('.', ','),
               metric ? 'cm' : 'in',
             ),
             MenzilMetric(
@@ -3856,7 +4387,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.velocityMps
                       : UnitSystem.mpsToFps(shot.velocityMps))
-                  .toStringAsFixed(0),
+                  .toStringAsFixed(0)
+                  .replaceAll('.', ','),
               metric ? 'm/s' : 'fps',
             ),
             MenzilMetric(
@@ -3864,20 +4396,27 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               (metric
                       ? shot.energyJ
                       : UnitSystem.joulesToFootPounds(shot.energyJ))
-                  .toStringAsFixed(1),
-              metric ? 'J' : 'ft-lb',
+                  .toStringAsFixed(1)
+                  .replaceAll('.', ','),
+              metric ? 'J' : 'ft·lbf',
             ),
             if (muzzleMach != null)
-              MenzilMetric('Namlu Mach', muzzleMach!.toStringAsFixed(3)),
+              MenzilMetric(
+                'Namlu Mach',
+                muzzleMach!.toStringAsFixed(3).replaceAll('.', ','),
+              ),
             if (densityRatio != null)
-              MenzilMetric('Yoğunluk oranı', densityRatio!.toStringAsFixed(3)),
+              MenzilMetric(
+                'Yoğunluk oranı',
+                densityRatio!.toStringAsFixed(3).replaceAll('.', ','),
+              ),
           ],
         ),
       Text(
         _dragMode
             ? 'Sürtünmeli hesap (G1/G7 + girilen BC); sabit rüzgâr tüm menzilde uygulanır. '
                   'Klik değerlerini ilk atışta canlı atışla doğrulayın.'
-            : '* Vakum temelli (hava direnci modellenmez); rüzgâr düzeltmesi doğrulanmış sürükleme '
+            : '* Vakum temelli (hava direnci modellenmez); rüzgâr düzeltmesi doğrulanmış sürüklenme '
                   'modeli gelene kadar hiç gösterilmez. Hız ve enerji namlu değeridir.',
         style: MenzilType.caption(c.ink2),
       ),
@@ -4147,3 +4686,9 @@ class _WezPainter extends CustomPainter {
       old.radiusMrad != radiusMrad ||
       old.colors != colors;
 }
+
+/// [v] as shown to the user: decimal comma, no trailing ".0"; "—" when
+/// there is no value.
+String _decimal(num? v) => v == null
+    ? '—'
+    : (v % 1 == 0 ? v.toStringAsFixed(0) : v.toString()).replaceAll('.', ',');

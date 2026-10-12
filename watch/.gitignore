@@ -1,0 +1,5 @@
+# XcodeGen çıktıları (CI'da üretilir)
+SniperTurkWatch/Generated/
+SniperTurkWatch/*.xcodeproj/
+WatchCore/.build/
+WatchCore/.swiftpm/

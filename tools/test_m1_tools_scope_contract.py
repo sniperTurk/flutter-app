@@ -14,6 +14,8 @@ ALLOWED_PACKAGE_FILES = {
     'lib/tools/adapters/met_no_weather_provider.dart',
     'lib/tools/adapters/nominatim_place_search.dart',
     'lib/tools/adapters/sensors_plus_tilt_provider.dart',
+    # Ö4: phone barometer (CMAltimeter via sensors_plus), read on demand.
+    'lib/tools/adapters/sensors_plus_pressure_sensor.dart',
     'lib/tools/adapters/camera_plugin_service.dart',
     'lib/tools/adapters/geolocator_location_provider.dart',
     'lib/tools/adapters/flutter_compass_heading_provider.dart',
@@ -112,7 +114,11 @@ class M1ArchitectureTests(unittest.TestCase):
             # The Hesaplayicilar screen has a user-requested scope click-value
             # CHECK (measures the real click size). It may name clicks, but it
             # must still never give a firing/hold instruction.
-            forbidden_words = ('tambur', 'holdover') if p.name == 'calculators_screen.dart' else ('klik', 'click', 'tambur', 'holdover')
+            # Sıfır Grubu (Ö10, owner 2026-10-12) states how well the group
+            # centre is known in clicks ("merkez belirsizliği X klik"): a
+            # measurement precision, not a firing instruction.
+            measured = ('calculators_screen.dart', 'zero_group_screen.dart')
+            forbidden_words = ('tambur', 'holdover') if p.name in measured else ('klik', 'click', 'tambur', 'holdover')
             for forbidden in forbidden_words:
                 self.assertNotIn(forbidden, text, rel(p))
         calc = (LIB / 'features/tools/calculators_screen.dart').read_text(encoding='utf-8').lower()

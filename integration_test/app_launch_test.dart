@@ -152,7 +152,7 @@ void main() {
     await choose('scope-max-mag', '24x');
     await choose('scope-objective', '56 mm');
     await choose('scope-unit', 'MRAD');
-    await choose('scope-click', '0,1 mrad');
+    await choose('scope-click', '0,1 MRAD');
     await choose('scope-mount', 'Normal (0 MOA)');
     await tester.ensureVisible(find.byKey(const Key('scope-focal-plane')));
     await tester.tap(find.byKey(const Key('scope-focal-plane')));

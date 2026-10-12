@@ -261,7 +261,7 @@ void main() {
       final bracket = tester
           .widget<Text>(find.byKey(const Key('shot-wind-bracket')))
           .data!;
-      expect(bracket, contains('2.0–5.0 m/s'));
+      expect(bracket, contains('2,0–5,0 m/s'));
       final lead = tester
           .widget<Text>(find.byKey(const Key('shot-lead')))
           .data!;
