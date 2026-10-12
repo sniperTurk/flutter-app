@@ -63,7 +63,9 @@ abstract final class ProfileFieldInfo {
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
       'etkilenir. Tipik: pellet 0,02–0,04, slug 0,05–0,15 (G1). Kutuda veya '
-      'üreticinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
+      'üreticinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır. '
+      'Saçma ve slug G1 ile hesaplanır. Bilinmiyorsa boş bırakın; sonuç '
+      'yaklaşık olur.';
   static const bcModel =
       'BC sayısının hangi standart mermi şekline göre verildiği. G1: küt uçlu '
       'klasik şekil; havalı tüfek saçması ve slug için neredeyse her zaman G1 '

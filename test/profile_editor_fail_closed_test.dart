@@ -126,14 +126,15 @@ void main() {
       await chooseTwistDirection(tester, 'Sol');
       // Regülatör basıncı is not asked any more (owner, 2026-10-09).
       expect(find.byKey(const Key('rifle-regulator')), findsNothing);
+      // PCP BC may stay empty now (owner, 2026-10-12).
       expect(
         _updateAction(tester),
-        isNull,
-        reason: 'the old catalog ammo has no BC; it must be entered',
+        isNotNull,
+        reason: 'a PCP pellet without a published BC can be saved',
       );
       expect(text('ammo-grain'), '51');
       await enterRifleField(tester, 'ammo-bc', '0,08');
-      await chooseInSelect(tester, 'ammo-bc-model', 'G1');
+      await chooseBcModel(tester, 'G1');
       expect(_updateAction(tester), isNotNull);
     },
   );
@@ -143,7 +144,7 @@ void main() {
   ) async {
     await _pumpAndOpen(tester, _valid);
     await enterRifleField(tester, 'ammo-bc', '0,08');
-    await chooseInSelect(tester, 'ammo-bc-model', 'G1');
+    await chooseBcModel(tester, 'G1');
     await chooseTwistDirection(tester, 'Sağ');
     await enterRifleField(tester, 'rifle-twist-rate', '200');
     expect(find.text('3–80 arasında bir değer girin.'), findsOneWidget);
@@ -183,7 +184,7 @@ void main() {
       'Tip',
       'Ağırlık',
       'BC',
-      'BC modeli',
+      // BC modeli is not asked on PCP (always G1, owner 2026-10-12).
       'Odak düzlemi',
       'Minimum büyütme',
       'Maksimum büyütme',
@@ -231,7 +232,7 @@ void _unitsAndFirearmTests() {
     addTearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
     final store = await _pumpAndOpen(tester, _valid);
     await enterRifleField(tester, 'ammo-bc', '0,08');
-    await chooseInSelect(tester, 'ammo-bc-model', 'G1');
+    await chooseBcModel(tester, 'G1');
     await chooseTwistDirection(tester, 'Sağ');
     await enterRifleField(tester, 'rifle-twist-rate', '16');
     String zero() => tester
