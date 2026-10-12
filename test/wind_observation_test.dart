@@ -116,7 +116,13 @@ void main() {
     await _pick(tester, 'Hafif: ');
     expect(_text(tester, BallisticsFieldKeys.wind), '2.5');
     expect(await _windMaxOnPro(tester), '3.3');
-    expect(find.text('Hafif'), findsOneWidget);
+    // Rüzgâr is further down since Basınç ölçer (2026-10-12): scroll to it.
+    await tester.ensureVisible(_select);
+    await tester.pumpAndSettle();
+    expect(
+      find.descendant(of: _select, matching: find.text('Hafif')),
+      findsOneWidget,
+    );
 
     // Still editable: a typed wind is the shooter's and resets the list.
     await tester.ensureVisible(_field(BallisticsFieldKeys.wind));
