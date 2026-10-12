@@ -99,8 +99,21 @@ void main() {
     await tester.pump();
     await tester.pumpWidget(_app(BallisticsView.shot));
     await tester.pumpAndSettle();
+    final texts = [
+      for (final t in tester.widgetList<Text>(
+        find.byType(Text, skipOffstage: false),
+      ))
+        t.data ?? '',
+    ];
+    expect(
+      find.byKey(const Key('shot-wind-zone-shares'), skipOffstage: false),
+      findsOneWidget,
+      reason: texts.join(' | '),
+    );
     final line = tester
-        .widget<Text>(find.byKey(const Key('shot-wind-zone-shares')))
+        .widget<Text>(
+          find.byKey(const Key('shot-wind-zone-shares'), skipOffstage: false),
+        )
         .data!;
     final m = RegExp(
       r'^Rüzgâr etkisi: yakın %(\d+) · orta %(\d+) · uzak %(\d+)$',
