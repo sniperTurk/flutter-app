@@ -92,6 +92,27 @@ void main() {
     );
     expect(tsx.bc, 0.287);
     expect(tsx.bcFromBullet, isTrue);
+    // BC completion round 2 (2026-10-12): Sierra / Hornady bullet BCs for
+    // Black Hills loads that name the bullet.
+    final tmk = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Black Hills' &&
+          a.name.contains('69 gr Sierra TMK') &&
+          a.cartridge == '5.56x45 NATO',
+    );
+    expect(tmk.bc, 0.375);
+    expect(tmk.model, BallisticModel.g1);
+    expect(tmk.bcFromBullet, isTrue);
+    expect(tmk.note, contains('G1 kabul edildi'));
+    final cx = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Black Hills' &&
+          a.name.contains('165 gr Hornady CX') &&
+          a.cartridge == '.308 Win',
+    );
+    expect(cx.bc, 0.44);
+    expect(cx.bcFromBullet, isTrue);
+    expect(cx.note, isNull);
     final eld = FactoryAmmoLibrary.all.firstWhere(
       (a) =>
           a.brand == 'Hornady' &&

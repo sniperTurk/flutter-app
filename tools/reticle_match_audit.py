@@ -22,8 +22,18 @@ Reason codes of an unmatched reticle name:
   baska-marka  as kayit-yok, but another brand has a record of this name
                (never used: a brand only finds its own reticle)
   birim-farki  the brand has the reticle only in the other unit (MIL/MOA)
-               than the scope's turret, or the name states the other unit
+               than the scope's turret, or the name states the other unit,
+               or the manufacturer lists the scope's product code only
+               under a record in the other unit
   belirsiz     two records cannot be told apart
+
+Product code (owner, 2026-10-12): when no record of the scope's brand has
+the scope's reticle name in the turret unit, the record whose
+manufacturer scope list names the scope's own product code ("Continental
+x8 2-16x44 ED Tactical (SCOM-T39)" for a scope whose source page is
+…-SCOM-T39.html) is used, if exactly one such record has the turret unit.
+The manufacturer has then said which reticle the scope carries; a name
+that states the other unit still never matches.
   coklu        the name lists several reticles (only when a whole record
                string is matched; the audit matches each listed name)
 
@@ -106,9 +116,31 @@ def turret(unit):
     return 'mil' if unit == 'mrad' else 'moa'
 
 
-def find(name, turret_unit, brand, lib, legacy=False, model=''):
+def find(name, turret_unit, brand, lib, legacy=False, model='', source=''):
     """The record for [name] on a [brand] scope, or None."""
-    return _find(name, turret_unit, brand, lib, legacy, model)[0]
+    return _find(name, turret_unit, brand, lib, legacy, model, source)[0]
+
+
+_CODE = re.compile(r'^[A-Z]{2,}[A-Z0-9]*-[A-Z0-9]+$')
+
+
+def product_codes(record):
+    """Manufacturer product codes in parentheses of the record's scope
+    list: "Continental x10 1-10x28 ED FFP (SCFF-68, SCFF-47)"."""
+    out = []
+    for entry in record.get('scopes', []):
+        for group in re.findall(r'\(([^)]*)\)', entry):
+            out += [c for c in re.split(r'[\s,]+', group) if _CODE.match(c)]
+    return out
+
+
+def lists_product(record, source):
+    """True when one of the record's product codes stands whole in the
+    scope's source document (…-SCOM-T39.html; SCOM-39 is not it)."""
+    if not source:
+        return False
+    return any(re.search(r'(?<![A-Za-z0-9])%s(?![A-Za-z0-9])' % re.escape(c),
+                         source) for c in product_codes(record))
 
 
 def _words(text):
@@ -128,7 +160,30 @@ def names_scope(record, brand, model):
     return False
 
 
-def _find(name, turret_unit, brand, lib, legacy=False, model=''):
+def _find(name, turret_unit, brand, lib, legacy=False, model='', source=''):
+    hit, why = _find_by_name(name, turret_unit, brand, lib, legacy, model)
+    if hit or legacy or why not in ('kayit-yok', 'baska-marka', 'birim-farki'):
+        return hit, why
+    if not name or not brand or len(options(name)) != 1:
+        return hit, why
+    core, unit = name_key(name)
+    want = turret(turret_unit)
+    if not core or unit is not None and unit != want:
+        return hit, why
+    coded = [r for r in lib
+             if r['unit'] == want and brand_matches(r['brand'], brand)
+             and lists_product(r, source)]
+    if len(coded) == 1:
+        return coded[0], None
+    if not coded and any(brand_matches(r['brand'], brand)
+                         and lists_product(r, source) for r in lib):
+        # The manufacturer lists the scope only under a record in the
+        # other unit.
+        return hit, 'birim-farki'
+    return hit, why
+
+
+def _find_by_name(name, turret_unit, brand, lib, legacy=False, model=''):
     if not name or not brand:
         return None, 'kayit-yok'
     if not legacy and len(options(name)) != 1:
@@ -189,7 +244,7 @@ def audit_scope(s, lib, legacy=False):
     draw = True
     for n in names_eval:
         hit, why = _find(n, s['unit'], s['brand'], lib, legacy,
-                         s.get('model', ''))
+                         s.get('model', ''), s.get('source', ''))
         row['records'].append(hit['id'] if hit else None)
         if hit:
             found += 1
@@ -245,6 +300,7 @@ def parse_scopes(text):
         unit = re.search(r"clickUnit:AngularUnit\.(\w+)", b).group(1)
         out.append({'id': _field(b, 'id'), 'brand': _field(b, 'brand'),
                     'model': _field(b, 'model'),
+                    'source': _field(b, 'sourceDocument') or '',
                     'reticle': _field(b, 'reticle') or '', 'unit': unit})
     return out
 
@@ -281,7 +337,8 @@ def fixture(root=ROOT):
             continue
         out[s['id']] = {}
         for n in names:
-            hit = find(n, s['unit'], s['brand'], lib, model=s['model'])
+            hit = find(n, s['unit'], s['brand'], lib, model=s['model'],
+                       source=s['source'])
             out[s['id']][n] = hit['id'] if hit else None
     return out
 
