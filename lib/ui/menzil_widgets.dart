@@ -1445,12 +1445,19 @@ class MenzilSecondaryButton extends StatelessWidget {
           final painter = TextPainter(
             text: TextSpan(
               text: label,
-              style: base.copyWith(fontSize: size),
+              style: base.copyWith(
+                fontSize: size,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             textDirection: dir,
             textScaler: scaler,
+            textAlign: TextAlign.center,
+            locale: Localizations.maybeLocaleOf(context),
             maxLines: maxLabelLines,
-          )..layout(maxWidth: box.maxWidth);
+            // A few pixels of slack: the painted paragraph rounds its width
+            // and must not end up one glyph short (iPhone SE, 1.3×).
+          )..layout(maxWidth: math.max(0, box.maxWidth - 6));
           final fits = !painter.didExceedMaxLines;
           painter.dispose();
           if (fits) break;
