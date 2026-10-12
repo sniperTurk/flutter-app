@@ -184,7 +184,7 @@ void main() {
       'Tip',
       'Ağırlık',
       'BC',
-      'BC modeli',
+      // BC modeli is not asked on PCP (always G1, owner 2026-10-12).
       'Odak düzlemi',
       'Minimum büyütme',
       'Maksimum büyütme',
