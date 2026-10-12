@@ -82,6 +82,15 @@ Future<void> chooseInSelect(
       await tester.pumpAndSettle();
     }
   }
+  if (item.evaluate().isEmpty) {
+    final seen = find
+        .byType(Text)
+        .evaluate()
+        .map((e) => (e.widget as Text).data)
+        .whereType<String>()
+        .toList();
+    fail('chooseInSelect($key): "$label" not found; visible texts: $seen');
+  }
   // Built but below the menu's visible part: scroll it into view.
   await tester.ensureVisible(item.last);
   await tester.pumpAndSettle();
