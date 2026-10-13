@@ -45,9 +45,9 @@ class UsageGuideScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(top: MenzilSpace.sm),
                       child: Text(
                         paragraph,
-                        // The card's Material resets the page's justified
-                        // DefaultTextStyle; paragraphs stay justified (#172).
-                        textAlign: TextAlign.justify,
+                        // Left-aligned (owner, 2026-10-13: only the Hedef
+                        // page is justified).
+                        textAlign: TextAlign.start,
                         style: textStyle(c.ink),
                       ),
                     ),

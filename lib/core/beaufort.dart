@@ -19,6 +19,10 @@ class BeaufortClass {
   /// What the shooter sees around them over land.
   final String land;
 
+  /// Short sign for the "Rüzgârı gözle tahmin et" guide on Hava Durumu
+  /// (owner approved text, 2026-10-13); null = not in the guide.
+  final String? guide;
+
   /// Speed limits of the class, m/s at 10 m.
   final double minMps, maxMps;
 
@@ -28,6 +32,7 @@ class BeaufortClass {
     required this.land,
     required this.minMps,
     required this.maxMps,
+    this.guide,
   });
 
   /// Middle of the class, rounded to 0.1 m/s.
@@ -43,6 +48,7 @@ abstract final class Beaufort {
       land: 'Duman dümdüz yükselir.',
       minMps: 0,
       maxMps: 0.2,
+      guide: 'Duman dümdüz yükselir',
     ),
     BeaufortClass(
       force: 1,
@@ -50,6 +56,7 @@ abstract final class Beaufort {
       land: 'Duman hafifçe yana kayar; bayrak kıpırdamaz.',
       minMps: 0.3,
       maxMps: 1.5,
+      guide: 'Duman hafifçe yana kayar',
     ),
     BeaufortClass(
       force: 2,
@@ -57,6 +64,7 @@ abstract final class Beaufort {
       land: 'Rüzgâr yüzde hissedilir; yapraklar hışırdar.',
       minMps: 1.6,
       maxMps: 3.3,
+      guide: 'Rüzgâr yüzde hissedilir, yapraklar hışırdar',
     ),
     BeaufortClass(
       force: 3,
@@ -64,6 +72,7 @@ abstract final class Beaufort {
       land: 'Yapraklar ve ince dallar durmadan kıpırdar; hafif bayrak açılır.',
       minMps: 3.4,
       maxMps: 5.4,
+      guide: 'Yapraklar ve ince dallar durmadan kıpırdar',
     ),
     BeaufortClass(
       force: 4,
@@ -71,6 +80,7 @@ abstract final class Beaufort {
       land: 'Toz ve kâğıt kalkar; küçük dallar sallanır.',
       minMps: 5.5,
       maxMps: 7.9,
+      guide: 'Toz ve kâğıt kalkar, küçük dallar sallanır',
     ),
     BeaufortClass(
       force: 5,
@@ -78,6 +88,7 @@ abstract final class Beaufort {
       land: 'Yapraklı küçük ağaçlar sallanır; su yüzünde küçük dalgalar.',
       minMps: 8.0,
       maxMps: 10.7,
+      guide: 'Küçük ağaçlar sallanır',
     ),
     BeaufortClass(
       force: 6,
@@ -94,4 +105,8 @@ abstract final class Beaufort {
       maxMps: 17.1,
     ),
   ];
+
+  /// Forces 0–5: the classes shown in the Hava Durumu guide.
+  static Iterable<BeaufortClass> get guideClasses =>
+      classes.where((b) => b.guide != null);
 }

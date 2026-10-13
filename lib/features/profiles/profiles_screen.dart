@@ -249,7 +249,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
               '${contents.catalog.length} kişisel kayıt var. Telefonda zaten '
               'olan profiller yedektekiyle güncellenir, hiçbir profil '
               'silinmez.',
-              textAlign: TextAlign.justify,
+              textAlign: TextAlign.start,
             ),
             actions: [
               TextButton(
