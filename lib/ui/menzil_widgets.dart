@@ -1028,9 +1028,6 @@ class _CompactTrailing extends StatelessWidget {
   final String? unit;
   final String? info;
 
-  /// Space after the unit when there is no ⓘ.
-  final double endPadding;
-
   /// Shown after the ⓘ (the arrow of a list box).
   final Widget? after;
 
@@ -1038,7 +1035,6 @@ class _CompactTrailing extends StatelessWidget {
     required this.title,
     required this.unit,
     required this.info,
-    this.endPadding = 12,
     this.after,
   });
 
@@ -1066,7 +1062,8 @@ class _CompactTrailing extends StatelessWidget {
               child: MenzilInfoButton(title: title, text: text),
             )
           else if (after == null)
-            SizedBox(width: endPadding),
+            // Space after the unit when there is no ⓘ.
+            const SizedBox(width: 12),
           ?after,
         ],
       ),
