@@ -38,7 +38,7 @@ Profil kutusunun yeri ve genişliği artık hangi sayfada olunduğuna bağlı de
 
 ## Uç durumlar
 
-- **Dar telefon (iPhone SE / mini 375 pt, eski SE 320 pt):** Yer en fazla genişliğin %42'si. 320 pt'de büyük ihtimalle bu sınıra takılır. O zaman uzun başlıklar biraz küçülür ama sola dayalı kalır. Profil kutusu her sekmede yine aynı. Bu genişlik, eski düzende en uzun başlıklı sekmedeki ("Hava Durumu") genişlikle aynı. Yani eski en kötü durumdan daha dar değil, sadece kısa başlıklı sekmelerde artık genişlemiyor.
+- **Dar telefon (iPhone SE / mini 375 pt, eski SE 320 pt):** Yer en fazla genişliğin %42'si. 320 pt'de büyük ihtimalle bu sınıra takılır. O zaman uzun başlıklar biraz küçülür ama sola dayalı kalır. Profil kutusu her sekmede yine aynı. Sınıra takıldığında bu genişlik, eski düzende en uzun başlıklı sekmedeki ("Hava Durumu") genişlikle aynı (ikisi de %42). Sınırın altındaki genişliklerde yeni yer, en geniş başlık 20 punto marka olduğu için eski en kötü durumdan birkaç piksel geniş olabilir. Kısa başlıklı sekmelerde kutu artık genişlemiyor.
 - **Büyük yazı (1,3×):** Çubuk yazıyı 1,25'te sınırlıyor. Ölçüm de 1,25 ile yapılıyor. Sınıra takılırsa `FittedBox` küçültür. Taşma yok (testte kontrol ediliyor).
 - **Tema / birim düğmeleri:** Hiç değişmedi. Birim düğmesi (`unitLabel`) eklenirse sadece profil kutusu daralır. Başlık yeri ve kutunun sol kenarı aynı kalır.
 - **Yatay ekran / geniş ekran:** Ölçüm başlıkların gerçek genişliğini verdiği için yer gereksiz büyümez. Fazla alan profil kutusuna gider.
