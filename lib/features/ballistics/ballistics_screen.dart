@@ -2908,11 +2908,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       case BallisticsView.shot:
         return MenzilPage(
           key: const PageStorageKey('ballistics-shot'),
+          // The Hedef page is the only justified page (owner, 2026-10-13).
+          justify: true,
           children: _shotSection(context),
         );
       case BallisticsView.table:
         return MenzilPage(
           key: const PageStorageKey('ballistics-table'),
+          // DOPE mode of the Hedef tab: justified like Atış Çözümü.
+          justify: true,
           children: [
             ..._tableHeader(context),
             _bcNotice(),
@@ -3843,9 +3847,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 part('Nasıl?', e.how),
               ],
             ),
-            // Justified like every paragraph (owner, 2026-10-12): the Pro
-            // cards do not inherit MenzilPage's default.
-            textAlign: TextAlign.justify,
+            // Left-aligned (owner, 2026-10-13: only the Hedef page is
+            // justified).
+            textAlign: TextAlign.start,
             style: MenzilType.caption(c.ink2).copyWith(height: 1.35),
           ),
           if (note != null)

@@ -776,6 +776,7 @@ class ScopeDialView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 2),
             child: Text(
               l,
+              // Hedef page: justified (owner, 2026-10-13).
               textAlign: TextAlign.justify,
               style: MenzilType.caption(c.ink2),
             ),
@@ -852,7 +853,8 @@ class ScopeDialView extends StatelessWidget {
           '${windMpsPerUnit == null ? '' : ' Turuncu sayılar: bu mesafede isabeti o işarete kaydıran yan rüzgâr hızı.'}'
           '${windNote == null ? '' : ' $windNote'}'
           '${ffp ? ' FFP: retikül aralıkları her büyütmede geçerlidir.' : ' SFP: retikül aralıkları yalnız ${_mag(calibrationMag)}x büyütmede geçerlidir; sayılar seçili büyütmeye göre hesaplandı.'}',
-          // Paragraphs are justified (owner, 2026-10-11).
+          // Hedef page paragraphs stay justified (owner, 2026-10-13: the
+          // only justified page).
           textAlign: TextAlign.justify,
           style: MenzilType.caption(c.ink2),
         ),

@@ -19,6 +19,12 @@ class MenzilPage extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final ScrollController? controller;
 
+  /// Justifies the page's paragraphs. Only the Hedef tab sets this (owner,
+  /// 2026-10-13: "sadece Hedef sayfasında sağa sola yaslı olsun yazılar");
+  /// every other page is left-aligned because explanations now live in ⓘ
+  /// popups and justified values (Profil özeti) showed wide word gaps.
+  final bool justify;
+
   const MenzilPage({
     super.key,
     required this.children,
@@ -29,6 +35,7 @@ class MenzilPage extends StatelessWidget {
       MenzilSpace.xl,
     ),
     this.controller,
+    this.justify = false,
   });
 
   @override
@@ -41,10 +48,10 @@ class MenzilPage extends StatelessWidget {
         constraints: const BoxConstraints(
           maxWidth: MenzilSpace.maxContentWidth,
         ),
-        // Every paragraph on a page is justified (owner, 2026-10-12);
-        // one-line labels and buttons are not affected by justification.
+        // Left-aligned everywhere; only the Hedef page is justified (owner,
+        // 2026-10-13). One-line labels are unaffected either way.
         child: DefaultTextStyle.merge(
-          textAlign: TextAlign.justify,
+          textAlign: justify ? TextAlign.justify : TextAlign.start,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: children,
@@ -745,8 +752,9 @@ class MenzilNotice extends StatelessWidget {
                       ),
                     Text(
                       message,
-                      // Paragraphs are justified (owner, 2026-10-11).
-                      textAlign: TextAlign.justify,
+                      // Left-aligned (owner, 2026-10-13: only the Hedef
+                      // page is justified).
+                      textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 13.5,
                         height: 1.35,
@@ -893,7 +901,8 @@ class MenzilInfoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
-    final content = body ?? Text(text, textAlign: TextAlign.justify);
+    // ⓘ popups are left-aligned (owner, 2026-10-13).
+    final content = body ?? Text(text, textAlign: TextAlign.start);
     return IconButton(
       tooltip: tooltip ?? 'Bilgi: $title',
       constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
