@@ -63,7 +63,8 @@ Dal: `fix/profilsiz-hedef-ayak` (taslak PR, birleştirme yok, TestFlight yok).
   - `flutter analyze --fatal-infos --fatal-warnings` (analyze-diag): başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38463005080
   - `flutter test test` (test-diag): başarılı, tüm testler — https://github.com/sniperTurk/flutter-app/actions/runs/38463001568
 - Bu raporun commit'i yalnız `docs/` dosyası ekler; kodu değiştirmez.
-- `iOS CI / verify`, simülatör ekran turu, cihaz, imzalama ve TestFlight bu iş için çalıştırılmadı; geçti denemez.
+- `iOS CI` (PR, dal başı `47d039a`): `verify`, `dart-checks`, `wind-acceptance` başarılı; `ios-simulator` işi bu çalıştırmada atlandı (skipped) — https://github.com/sniperTurk/flutter-app/actions/runs/38464384725
+- Simülatör derlemesi, simülatör ekran turu, cihaz, imzalama ve TestFlight bu iş için çalıştırılmadı; geçti denemez.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
