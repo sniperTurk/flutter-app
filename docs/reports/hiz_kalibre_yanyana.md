@@ -48,7 +48,7 @@ TestFlight ekranında hız ve kalibre ayrı ayrı tam satır kaplıyordu. Sahip 
 - **Hiçbir şey seçilmediğinde**: "Seçiniz" de aynı şekilde sığdırılıyor.
 - **Dar telefon**:
   - iPhone SE (375 pt) ve 320 pt'lik ilk SE'de de iki kutu yan yana, taşma yok.
-  - 320 pt ve yazı ×1.3'te uzun fişek adı oldukça küçülüyor ama tek satırda ve okunur kalıyor.
+  - 320 pt ve yazı ×1.3'te uzun fişek adı (kısa biçimiyle bile) belirgin biçimde küçülüyor. Tek satırda kalıyor ve taşmıyor, ama gerçek cihazdaki okunurluğu ölçülmedi; TestFlight'ta bakılması iyi olur.
 - **Büyük yazı (×1.3)**:
   - Satır yine iki kutu.
   - "Namlu çıkış hızı" etiketi gerekirse iki satıra iniyor (inceltilerek, mevcut `MenzilWrapText` davranışı).
