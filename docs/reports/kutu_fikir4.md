@@ -71,7 +71,7 @@ Flutter test motorunda ölçüldü (aynı tema, yazı ölçeği 1,0, "Sıcaklık
 - Profil (Oluştur/Düzenle), Hedef, Araçlar ve "Balistik / DOPE" ekranları değişmedi. `MenzilSpace.control` (46) değişmedi.
 - Pro'da kutu başlıklarındaki ⓘ ve alttan açılan açıklama sayfası (#279) değişmedi; yalnız alanların ⓘ'si kutunun içine taşındı.
 - Mesafe ve açı girişi pencereleri (dialog) eski görünümde kaldı.
-- Düğme yazılarında yalnız istenen iki "tamam" yazısı değişti. Boşta görünen yazılar test genişliğinde ve iPhone SE'de en çok iki satır; yeni yazı uydurulmadı.
+- Düğme yazılarında yalnız istenen iki "tamam" yazısı değişti. Boşta görünen yazılar eskisi gibi en çok iki satıra iner (`maxLabelLines: 2`, sığmazsa yazı küçülür); yeni yazı uydurulmadı.
 - `integration_test/` değişmedi. Oradaki Hava Durumu ve Pro adımları alanları anahtar ve `enterText` ile buluyor; etiket yazıları ve anahtarlar aynı. Simülatör testleri bu işte çalıştırılmadı.
 - TestFlight ve birleştirme (merge) yapılmadı; PR taslak (draft).
 
