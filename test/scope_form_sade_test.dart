@@ -89,7 +89,9 @@ void main() {
         .items;
     expect(brandItems, isNotEmpty);
     expect(
-      brandItems.where((i) => i.child is Text && (i.child as Text).data == 'Listede yok'),
+      brandItems.where(
+        (i) => i.child is Text && (i.child as Text).data == 'Listede yok',
+      ),
       isEmpty,
     );
 
@@ -143,10 +145,7 @@ void main() {
     await _openNew(tester);
     await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
     await chooseInSelect(tester, 'scope-model-select', 'Titan 3-18x50 FFP MOA');
-    expect(
-      find.text('Aradığın dürbün listede yok mu?'),
-      findsOneWidget,
-    );
+    expect(find.text('Aradığın dürbün listede yok mu?'), findsOneWidget);
     await openScopeManual(tester);
     // Typed Marka, every value box incl. Klik değeri on "Seçiniz".
     expect(find.byKey(const Key('scope-brand')), findsOneWidget);

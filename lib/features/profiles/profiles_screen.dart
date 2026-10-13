@@ -3784,95 +3784,95 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 // Owner, 2026-10-11: picked from standard values, not
                 // typed; Minimum | Maksimum side by side.
                 if (_scopeMinMagShown)
-                _numberSelect(
-                  key: 'scope-min-mag',
-                  label: 'Minimum büyütme',
-                  info: ProfileFieldInfo.minMag,
-                  controller: scopeMinMag,
-                  options: _minMagOptions,
-                  suffix: 'x',
-                  errorText: _shownSelect(_minMagError),
-                ),
+                  _numberSelect(
+                    key: 'scope-min-mag',
+                    label: 'Minimum büyütme',
+                    info: ProfileFieldInfo.minMag,
+                    controller: scopeMinMag,
+                    options: _minMagOptions,
+                    suffix: 'x',
+                    errorText: _shownSelect(_minMagError),
+                  ),
                 if (_scopeMaxMagShown)
-                _numberSelect(
-                  key: 'scope-max-mag',
-                  label: 'Maksimum büyütme',
-                  info: ProfileFieldInfo.maxMag,
-                  controller: scopeMaxMag,
-                  options: _maxMagOptions,
-                  suffix: 'x',
-                  errorText: _shownSelect(_maxMagError, scopeMaxMag),
-                ),
+                  _numberSelect(
+                    key: 'scope-max-mag',
+                    label: 'Maksimum büyütme',
+                    info: ProfileFieldInfo.maxMag,
+                    controller: scopeMaxMag,
+                    options: _maxMagOptions,
+                    suffix: 'x',
+                    errorText: _shownSelect(_maxMagError, scopeMaxMag),
+                  ),
                 if (_scopeObjectiveShown)
-                _numberSelect(
-                  key: 'scope-objective',
-                  label: 'Mercek çapı',
-                  info: ProfileFieldInfo.objective,
-                  controller: scopeObjective,
-                  options: _objectiveOptions,
-                  suffix: ' mm',
-                  errorText: _shownSelect(_objectiveError),
-                ),
+                  _numberSelect(
+                    key: 'scope-objective',
+                    label: 'Mercek çapı',
+                    info: ProfileFieldInfo.objective,
+                    controller: scopeObjective,
+                    options: _objectiveOptions,
+                    suffix: ' mm',
+                    errorText: _shownSelect(_objectiveError),
+                  ),
                 if (_scopeFocalShown)
-                KeyedSubtree(
-                  key: const Key('scope-focal-plane'),
-                  child: MenzilSelect<bool>(
-                    key: ValueKey('scope-focal-plane-$_scopePickToken'),
-                    info: ProfileFieldInfo.focalPlane,
-                    label: 'Odak düzlemi',
-                    initialValue: firstFocalPlane,
-                    items: const [
-                      DropdownMenuItem(value: true, child: Text('FFP')),
-                      DropdownMenuItem(value: false, child: Text('SFP')),
-                    ],
-                    onChanged: (v) => setState(() => firstFocalPlane = v),
-                  ),
-                ),
-                if (_scopeUnitShown)
-                KeyedSubtree(
-                  key: const Key('scope-unit'),
-                  child: MenzilSelect<AngularUnit>(
-                    key: ValueKey(
-                      'profile-angular-unit-${angularUnit.name}'
-                      '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
+                  KeyedSubtree(
+                    key: const Key('scope-focal-plane'),
+                    child: MenzilSelect<bool>(
+                      key: ValueKey('scope-focal-plane-$_scopePickToken'),
+                      info: ProfileFieldInfo.focalPlane,
+                      label: 'Odak düzlemi',
+                      initialValue: firstFocalPlane,
+                      items: const [
+                        DropdownMenuItem(value: true, child: Text('FFP')),
+                        DropdownMenuItem(value: false, child: Text('SFP')),
+                      ],
+                      onChanged: (v) => setState(() => firstFocalPlane = v),
                     ),
-                    info: ProfileFieldInfo.scopeUnit,
-                    label: 'Dürbün birimi',
-                    initialValue: _angularUnitSet ? angularUnit : null,
-                    items: const [
-                      DropdownMenuItem(
-                        value: AngularUnit.mrad,
-                        child: Text('MRAD'),
-                      ),
-                      DropdownMenuItem(
-                        value: AngularUnit.moa,
-                        child: Text('MOA'),
-                      ),
-                      // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
-                      DropdownMenuItem(
-                        value: AngularUnit.smoa,
-                        child: Text('SMOA'),
-                      ),
-                    ],
-                    onChanged: (v) => setState(() {
-                      _angularUnitSet = v != null;
-                      final next = v ?? AngularUnit.mrad;
-                      // A catalog scope's click follows the unit (0.1 MRAD,
-                      // 1/4 MOA; owner, 2026-10-09).
-                      if (_scopeManual) {
-                        // A typed scope picks its Klik değeri from the
-                        // new unit's list; one that does not fit is cleared.
-                        final click = _parse(scopeClick);
-                        if (!_clickOptions(next).any((o) => o.$1 == click)) {
-                          scopeClick.clear();
-                        }
-                      } else if (next != angularUnit) {
-                        scopeClick.text = _trimNum(_defaultClick(next));
-                      }
-                      angularUnit = next;
-                    }),
                   ),
-                ),
+                if (_scopeUnitShown)
+                  KeyedSubtree(
+                    key: const Key('scope-unit'),
+                    child: MenzilSelect<AngularUnit>(
+                      key: ValueKey(
+                        'profile-angular-unit-${angularUnit.name}'
+                        '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
+                      ),
+                      info: ProfileFieldInfo.scopeUnit,
+                      label: 'Dürbün birimi',
+                      initialValue: _angularUnitSet ? angularUnit : null,
+                      items: const [
+                        DropdownMenuItem(
+                          value: AngularUnit.mrad,
+                          child: Text('MRAD'),
+                        ),
+                        DropdownMenuItem(
+                          value: AngularUnit.moa,
+                          child: Text('MOA'),
+                        ),
+                        // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
+                        DropdownMenuItem(
+                          value: AngularUnit.smoa,
+                          child: Text('SMOA'),
+                        ),
+                      ],
+                      onChanged: (v) => setState(() {
+                        _angularUnitSet = v != null;
+                        final next = v ?? AngularUnit.mrad;
+                        // A catalog scope's click follows the unit (0.1 MRAD,
+                        // 1/4 MOA; owner, 2026-10-09).
+                        if (_scopeManual) {
+                          // A typed scope picks its Klik değeri from the
+                          // new unit's list; one that does not fit is cleared.
+                          final click = _parse(scopeClick);
+                          if (!_clickOptions(next).any((o) => o.$1 == click)) {
+                            scopeClick.clear();
+                          }
+                        } else if (next != angularUnit) {
+                          scopeClick.text = _trimNum(_defaultClick(next));
+                        }
+                        angularUnit = next;
+                      }),
+                    ),
+                  ),
                 // Typed scope: Dürbün birimi | Klik değeri side by side.
                 if (_scopeManual || _scopeBrands.isEmpty) _clickSelect(),
                 KeyedSubtree(
