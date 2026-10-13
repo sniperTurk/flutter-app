@@ -281,7 +281,7 @@ void main() {
     await chooseInSelect(
       tester,
       'scope-model-select',
-      'Talos HMR 4-16x56 SFP IR MOA',
+      'Athlon Talos HMR 4-16x56 SFP IR MOA · 30 mm',
     );
     await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
     await tester.tap(find.byKey(const Key('scope-reticle')));
@@ -301,7 +301,11 @@ void main() {
   ) async {
     await _openNew(tester);
     await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
-    await chooseInSelect(tester, 'scope-model-select', 'Titan 5-25x56 FFP MOA');
+    await chooseInSelect(
+      tester,
+      'scope-model-select',
+      'Element Optics Titan 5-25x56 FFP MOA · 34 mm',
+    );
     await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
     // "APR-1C MOA / APR-2D MOA": nothing is chosen for the user.
     expect(_in('scope-reticle', find.text('Seçiniz')), findsOneWidget);
@@ -319,7 +323,11 @@ void main() {
   testWidgets('Dürbün: a single reticle is filled in', (tester) async {
     await _openNew(tester);
     await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
-    await chooseInSelect(tester, 'scope-model-select', 'Titan 3-18x50 FFP MOA');
+    await chooseInSelect(
+      tester,
+      'scope-model-select',
+      'Element Optics Titan 3-18x50 FFP MOA · 34 mm',
+    );
     await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
     expect(_in('scope-reticle', find.text('APR-2D MOA')), findsOneWidget);
     expect(_in('scope-reticle', find.text('Seçiniz')), findsNothing);

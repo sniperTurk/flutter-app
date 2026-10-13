@@ -13,6 +13,7 @@ import '../../core/input_error_text.dart';
 import '../../core/dope_ranges.dart';
 import '../../core/drag_safety.dart';
 import '../../core/drag_table.dart';
+import '../../core/estimated_bc.dart';
 import '../../core/gravity.dart';
 import '../../core/pcp_pressure.dart';
 import '../../core/powder_temperature.dart';
@@ -243,6 +244,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   double? muzzleMach;
   ScopeOptic? scope;
   Ammunition? ammunition;
+
+  /// True when [ammunition]'s BC is [EstimatedBc]'s, not the user's.
+  bool _bcEstimated = false;
   ProfileCatalogResolution? profileResolution;
   bool metric = true;
 
@@ -1047,7 +1051,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ? null
         : const ProfileCatalogIntegrity().resolve(p);
     final ammo = profileResolution?.ammunition;
-    ammunition = ammo;
+    // PCP without a BC: an estimated G1 BC so drag and wind are solved
+    // (owner, 2026-10-13); the notice says it is an estimate.
+    ammunition = ammo == null ? null : EstimatedBc.fill(ammo);
+    _bcEstimated = ammo != null && !identical(ammunition, ammo);
     scope = profileResolution?.scope;
 
     velocity = TextEditingController(
@@ -3016,6 +3023,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         tone: MenzilNoticeTone.warning,
         message:
             'Vakum temel hesap (yalnızca yerçekimi). Bu mühimmat için doğrulanmış BC/model yok; G1/G7 ve rüzgâr düzeltmesi hesaplanmaz. Özel mermi kaydına BC ve G1/G7 ekleyerek sürtünmeli hesabı açabilirsiniz.',
+      );
+    }
+    if (_bcEstimated && _bcApplies()) {
+      return MenzilNotice(
+        key: const Key('ballistics-bc-estimated'),
+        tone: MenzilNoticeTone.warning,
+        message:
+            'BC girilmediği için tahmini G1 BC '
+            '${_decimal(a!.ballisticCoefficient)} kullanılıyor (ağırlık ve '
+            'kalibreden). Uzak mesafede sapabilir; BC\'yi biliyorsanız '
+            'Profil\'de girin.',
       );
     }
     final name = a!.ballisticModel!.name.toUpperCase();

@@ -114,7 +114,7 @@ void main() {
     await chooseInSelect(
       tester,
       'scope-model-select',
-      'Sentinel 6–24×50 FFP (SCFF-57)',
+      'Vector Optics Sentinel 6–24×50 FFP (SCFF-57) · MOA · 30 mm',
     );
 
     expect(
