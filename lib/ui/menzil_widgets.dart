@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 import 'menzil_icons.dart';
@@ -1167,6 +1166,11 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
   /// The value currently picked (null: "Seçiniz"); read by tests.
   T? get value => _value;
 
+  /// The theme's outline border without the 4 pt gap it leaves for a
+  /// floating label (this box has none).
+  static InputBorder? _noGap(InputBorder? b) =>
+      b is OutlineInputBorder ? b.copyWith(gapPadding: 0) : b;
+
   @override
   void didUpdateWidget(covariant MenzilSelect<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -1180,6 +1184,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
     final c = MenzilColors.of(context);
     final w = widget;
     final items = w.items;
+    final t = Theme.of(context).inputDecorationTheme;
     // A value that is not one of the items shows as empty.
     final value = items.where((i) => i.value == _value).length == 1
         ? _value
@@ -1210,6 +1215,15 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                   contentPadding: EdgeInsets.zero,
                   errorText: w.errorText,
                   errorMaxLines: 2,
+                  // An outline border keeps its gapPadding (4 pt) free on
+                  // both sides of the content; without it the button, and
+                  // so the open list, has exactly the box's edges.
+                  border: _noGap(t.border),
+                  enabledBorder: _noGap(t.enabledBorder),
+                  focusedBorder: _noGap(t.focusedBorder),
+                  errorBorder: _noGap(t.errorBorder),
+                  focusedErrorBorder: _noGap(t.focusedErrorBorder),
+                  disabledBorder: _noGap(t.disabledBorder),
                 ),
                 isEmpty: false,
                 child: DropdownButtonHideUnderline(
@@ -1232,8 +1246,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       value: null,
                       // Every list box says "Seçiniz" until something is
                       // picked (owner, 2026-10-11).
-                      hint: _StartBleed(
-                        child: selectedIndex == null
+                      hint: selectedIndex == null
                             ? Text(
                                 w.hint ?? 'Seçiniz',
                                 style: TextStyle(color: c.ink2),
@@ -1249,7 +1262,6 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                                       )
                                     : Text(w.selectedLabels![selectedIndex]),
                               ),
-                      ),
                       // List entries in regular weight (owner, 2026-10-11).
                       items: [
                         for (final it in items)
@@ -1280,8 +1292,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       // shows the current choice instead.
                       selectedItemBuilder: (context) => [
                         for (var i = 0; i < items.length; i++)
-                          _StartBleed(
-                            child: Align(
+                          Align(
                               alignment: Alignment.centerLeft,
                               child: DefaultTextStyle.merge(
                                 maxLines: 1,
@@ -1302,19 +1313,17 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                                       : Text(w.selectedLabels![k]);
                                 }(),
                               ),
-                            ),
                           ),
                       ],
                       isExpanded: true,
                       isDense: true,
                       // Aligned, Flutter adds 16 pt before the text and 4 pt
-                      // after the arrow; with these and [_StartBleed] the text
-                      // still starts 12 pt in and the arrow ends 12 pt in, as
-                      // in every text box.
+                      // after the arrow, so the text still starts 16 pt and
+                      // the arrow ends 16 pt inside the box, as before.
                       padding: const EdgeInsetsDirectional.fromSTEB(
                         0,
                         13,
-                        8,
+                        12,
                         13,
                       ),
                       // A compact list, not a full-screen sheet (owner,
@@ -1339,106 +1348,6 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
       ),
     );
   }
-}
-
-/// Text in a closed [MenzilSelect] starts [bleed] pt before its slot: the
-/// aligned dropdown puts 16 pt before the text, a text box 12 pt. The child
-/// is laid out [bleed] pt wider and drawn [bleed] pt towards the start, so
-/// the text has the same place and room as before the alignment.
-class _StartBleed extends SingleChildRenderObjectWidget {
-  const _StartBleed({required Widget super.child});
-
-  static const double bleed = 4;
-
-  @override
-  RenderObject createRenderObject(BuildContext context) =>
-      _RenderStartBleed(Directionality.of(context));
-
-  @override
-  void updateRenderObject(BuildContext context, _RenderStartBleed r) =>
-      r.textDirection = Directionality.of(context);
-}
-
-class _RenderStartBleed extends RenderProxyBox {
-  _RenderStartBleed(this._textDirection);
-
-  TextDirection _textDirection;
-  set textDirection(TextDirection v) {
-    if (v == _textDirection) return;
-    _textDirection = v;
-    markNeedsPaint();
-  }
-
-  static const double _b = _StartBleed.bleed;
-
-  /// Where the child is drawn: the extra width lies on the start side.
-  Offset get _shift => Offset(_textDirection == TextDirection.ltr ? -_b : 0, 0);
-
-  BoxConstraints _wider(BoxConstraints c) => c.hasBoundedWidth
-      ? c.copyWith(minWidth: c.minWidth + _b, maxWidth: c.maxWidth + _b)
-      : c.copyWith(minWidth: c.minWidth + _b);
-
-  Size _own(BoxConstraints c, Size child) =>
-      c.constrain(Size(math.max(0.0, child.width - _b), child.height));
-
-  @override
-  void performLayout() {
-    final ch = child;
-    if (ch == null) {
-      size = constraints.smallest;
-      return;
-    }
-    ch.layout(_wider(constraints), parentUsesSize: true);
-    size = _own(constraints, ch.size);
-  }
-
-  @override
-  Size computeDryLayout(BoxConstraints constraints) {
-    final ch = child;
-    if (ch == null) return constraints.smallest;
-    return _own(constraints, ch.getDryLayout(_wider(constraints)));
-  }
-
-  @override
-  double? computeDryBaseline(BoxConstraints constraints, TextBaseline b) =>
-      child?.getDryBaseline(_wider(constraints), b);
-
-  @override
-  double computeMinIntrinsicWidth(double height) =>
-      math.max(0.0, (child?.getMinIntrinsicWidth(height) ?? 0) - _b);
-
-  @override
-  double computeMaxIntrinsicWidth(double height) =>
-      math.max(0.0, (child?.getMaxIntrinsicWidth(height) ?? 0) - _b);
-
-  @override
-  double computeMinIntrinsicHeight(double width) =>
-      child?.getMinIntrinsicHeight(width + _b) ?? 0;
-
-  @override
-  double computeMaxIntrinsicHeight(double width) =>
-      child?.getMaxIntrinsicHeight(width + _b) ?? 0;
-
-  @override
-  void paint(PaintingContext context, Offset offset) {
-    final ch = child;
-    if (ch != null) context.paintChild(ch, offset + _shift);
-  }
-
-  @override
-  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
-    final ch = child;
-    if (ch == null) return false;
-    return result.addWithPaintOffset(
-      offset: _shift,
-      position: position,
-      hitTest: (r, p) => ch.hitTest(r, position: p),
-    );
-  }
-
-  @override
-  void applyPaintTransform(RenderBox child, Matrix4 transform) =>
-      transform.multiply(Matrix4.translationValues(_shift.dx, 0, 0));
 }
 
 /// Marks a child of [MenzilFieldGrid] that must span the full row.

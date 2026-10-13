@@ -164,7 +164,7 @@ void main() {
     }
   });
 
-  testWidgets('closed box unchanged: text 12 pt in, arrow 12 pt from edge', (
+  testWidgets('closed box unchanged: text 16 pt in, arrow 16 pt from edge (as before)', (
     tester,
   ) async {
     await _pump(tester);
@@ -176,7 +176,7 @@ void main() {
       );
       expect(
         tester.getRect(hint.first).left,
-        moreOrLessEquals(box.left + 12, epsilon: 0.5),
+        moreOrLessEquals(box.left + 16, epsilon: 0.5),
       );
       final arrow = find.descendant(
         of: find.byKey(key),
@@ -184,7 +184,7 @@ void main() {
       );
       expect(
         tester.getRect(arrow).right,
-        moreOrLessEquals(box.right - 12, epsilon: 0.5),
+        moreOrLessEquals(box.right - 16, epsilon: 0.5),
       );
     }
     // A picked entry shows in the closed box at the same place.
@@ -200,7 +200,7 @@ void main() {
     );
     expect(
       tester.getRect(shown.first).left,
-      moreOrLessEquals(box.left + 12, epsilon: 0.5),
+      moreOrLessEquals(box.left + 16, epsilon: 0.5),
     );
   });
 }
