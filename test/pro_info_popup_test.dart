@@ -266,7 +266,11 @@ void main() {
             return true;
           });
           expect(bold, ['Ne?', 'Neden önemli?', 'Nasıl?'], reason: e.title);
-          expect(paragraphs[i].textAlign, TextAlign.start, reason: e.title); // popups left-aligned (owner, 2026-10-13)
+          expect(
+            paragraphs[i].textAlign,
+            TextAlign.start,
+            reason: e.title,
+          ); // popups left-aligned (owner, 2026-10-13)
           // Each title shows once: a title equal to the popup title is not
           // repeated under it (owner, 2026-10-12).
           expect(
