@@ -1884,6 +1884,16 @@ class MenzilPrimaryButton extends StatelessWidget {
   /// (owner, 2026-10-12: "Profil ekle 2. satıra kaymasın").
   final bool oneLine;
 
+  /// With [oneLine] and an [icon]: moves only the icon this many points to
+  /// the right; the label keeps its place (owner, 2026-10-13: "Profil ekle
+  /// + işareti 2 karakter sağa … yazı kaymasın"). The move is cut short so
+  /// at least [minIconGap] stays between icon and label; when the label
+  /// already fills its space the icon does not move. 0 = no change.
+  final double iconShift;
+
+  /// Smallest space kept between the shifted icon and the label.
+  static const double minIconGap = 4;
+
   const MenzilPrimaryButton({
     super.key,
     required this.label,
@@ -1892,7 +1902,35 @@ class MenzilPrimaryButton extends StatelessWidget {
     this.expand = true,
     this.amber = false,
     this.oneLine = false,
+    this.iconShift = 0,
   });
+
+  /// How far the icon moves inside a content box [width] wide: the label is
+  /// centred in the space right of the icon (20) and gap (2), set smaller
+  /// when it does not fit, so its left edge is known before painting.
+  double _iconOffset(BuildContext context, double width) {
+    if (!width.isFinite) return 0;
+    var style = DefaultTextStyle.of(context).style;
+    if (MediaQuery.boldTextOf(context)) {
+      style = style.merge(const TextStyle(fontWeight: FontWeight.bold));
+    }
+    final painter = TextPainter(
+      text: TextSpan(text: label, style: style),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+      maxLines: 1,
+      locale: Localizations.maybeLocaleOf(context),
+      textWidthBasis: DefaultTextStyle.of(context).textWidthBasis,
+      textHeightBehavior: DefaultTextStyle.of(context).textHeightBehavior,
+    )..layout();
+    final natural = painter.width;
+    painter.dispose();
+    final room = width - 22;
+    if (room <= 0) return 0;
+    final shown = natural < room ? natural : room;
+    final gap = 2 + (room - shown) / 2;
+    return (gap - minIconGap).clamp(0.0, iconShift).toDouble();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1913,6 +1951,13 @@ class MenzilPrimaryButton extends StatelessWidget {
     // the icon sits at the left edge and the label takes the space it frees,
     // at the same size as the neighbouring buttons when it fits.
     if (oneLine && icon != null) {
+      Widget row(Widget iconWidget) => Row(
+        children: [
+          iconWidget,
+          const SizedBox(width: 2),
+          Expanded(child: Center(child: text)),
+        ],
+      );
       final b = FilledButton(
         style: (style ?? const ButtonStyle()).merge(
           FilledButton.styleFrom(
@@ -1922,13 +1967,18 @@ class MenzilPrimaryButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Row(
-          children: [
-            Icon(icon, size: 20),
-            const SizedBox(width: 2),
-            Expanded(child: Center(child: text)),
-          ],
-        ),
+        child: iconShift <= 0
+            ? row(Icon(icon, size: 20))
+            // Only the icon is painted further right; the row (and so the
+            // label) is laid out exactly as without the shift.
+            : LayoutBuilder(
+                builder: (context, box) => row(
+                  Transform.translate(
+                    offset: Offset(_iconOffset(context, box.maxWidth), 0),
+                    child: Icon(icon, size: 20),
+                  ),
+                ),
+              ),
       );
       return expand ? SizedBox(width: double.infinity, child: b) : b;
     }

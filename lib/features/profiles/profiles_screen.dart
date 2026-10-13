@@ -509,6 +509,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 icon: Icons.add,
                 amber: true,
                 oneLine: true,
+                // + two characters right, label in place (owner, 2026-10-13).
+                iconShift: 15,
                 onPressed: _add,
               ),
             ),
