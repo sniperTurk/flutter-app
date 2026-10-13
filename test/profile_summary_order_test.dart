@@ -114,12 +114,12 @@ void main() {
 
     const order = [
       'Tüfek bilgileri',
-      'Namlu çıkış hızı',
       'Yiv yönü',
       'Kalibre',
       'Yiv oranı',
       'Sight height',
       'Sıfırlama mesafesi',
+      'Namlu çıkış hızı',
       'Dürbün bilgileri',
       'Dürbün ayağı',
       'Dürbün üst kule',

@@ -838,6 +838,7 @@ class _ActiveProfileDetails extends StatelessWidget {
           key: const Key('profile-summary-rifle'),
           columns: 2,
           twoLineText: true,
+          plain: true,
           lead: rifle == null
               ? null
               : MenzilMetric(
@@ -845,11 +846,6 @@ class _ActiveProfileDetails extends StatelessWidget {
                   _joinSummary([rifle.brand, rifle.model]),
                 ),
           metrics: [
-            MenzilMetric(
-              'Namlu çıkış hızı',
-              units.velocityValue(profile.muzzleVelocityMps),
-              units.velocityUnit,
-            ),
             if (rifle?.twistDirection != null)
               MenzilMetric(
                 'Yiv yönü',
@@ -873,6 +869,12 @@ class _ActiveProfileDetails extends StatelessWidget {
               _zeroValue(profile),
               profile.distanceUnit.symbol,
             ),
+            // Namlu çıkış hızı last in the Tüfek card (owner, 2026-10-13).
+            MenzilMetric(
+              'Namlu çıkış hızı',
+              units.velocityValue(profile.muzzleVelocityMps),
+              units.velocityUnit,
+            ),
           ],
         ),
         const MenzilSectionHeader('Dürbün bilgileri'),
@@ -880,6 +882,7 @@ class _ActiveProfileDetails extends StatelessWidget {
           key: const Key('profile-summary-scope'),
           columns: 2,
           twoLineText: true,
+          plain: true,
           // Marka, model and the scope's data on one line (owner,
           // 2026-10-13), e.g. "Barska … 6-36 x 56 FFP · MRAD".
           lead: MenzilMetric(
@@ -915,6 +918,7 @@ class _ActiveProfileDetails extends StatelessWidget {
           key: const Key('profile-summary-ammo'),
           columns: 2,
           twoLineText: true,
+          plain: true,
           lead: ammo == null
               ? null
               : MenzilMetric(
@@ -1967,14 +1971,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   List<(BallisticModel, String)> get _bcModelChoices {
     final list = platform == WeaponPlatform.firearm
         ? const [
+            // G1 first, then by number (owner, 2026-10-13), the others
+            // last.
             (BallisticModel.g1, 'G1'),
-            (BallisticModel.g7, 'G7'),
-            (BallisticModel.ra4, 'RA4 (.22 LR rimfire)'),
             (BallisticModel.g2, 'G2'),
             (BallisticModel.g5, 'G5'),
             (BallisticModel.g6, 'G6'),
+            (BallisticModel.g7, 'G7'),
             (BallisticModel.g8, 'G8'),
             (BallisticModel.gi, 'GI (Ingalls)'),
+            (BallisticModel.ra4, 'RA4 (.22 LR rimfire)'),
           ]
         : const [
             (BallisticModel.g1, 'G1'),
@@ -2623,6 +2629,49 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
   /// publish none); a typed one is still range-checked.
+  /// A typed BC far outside every manufacturer BC of its kind in the
+  /// library (owner, 2026-10-13: "1,2" for a 130 gr bullet). Bounds are
+  /// the form factor i = SD / BC seen in lib/data/bullet_library.dart
+  /// (2026-10-13), widened by about 10 %: firearm G1 0.36–4.15, G7
+  /// 0.70–1.61, PCP slug G1 0.40–1.23, pellet G1 1.05–4.28. A warning,
+  /// never a block.
+  String? get _bcPlausibilityWarning {
+    if (_customCurve) return null;
+    final bc = _parse(ammoBc), grain = _parse(ammoGrain);
+    final cal = _parse(rifleCaliber);
+    if (bc == null || bc <= 0 || grain == null || cal == null || cal <= 0) {
+      return null;
+    }
+    final model = _bcModelForSave;
+    final type = _effectiveAmmoType;
+    final (double lo, double hi)? range = switch ((platform, type, model)) {
+      (WeaponPlatform.firearm, _, BallisticModel.g1) => (0.32, 4.6),
+      (WeaponPlatform.firearm, _, BallisticModel.g7) => (0.63, 1.8),
+      (WeaponPlatform.pcp, AmmunitionType.slug, BallisticModel.g1) => (
+        0.36,
+        1.4,
+      ),
+      (WeaponPlatform.pcp, AmmunitionType.pellet, BallisticModel.g1) => (
+        0.95,
+        4.7,
+      ),
+      _ => null,
+    };
+    if (range == null) return null;
+    final dIn = cal / 25.4;
+    final i = grain / (7000 * dIn * dIn) / bc;
+    if (i < range.$1) {
+      return 'Bu BC, bu kalibre ve ağırlık için çok yüksek görünüyor. '
+          'Kutudaki değeri kontrol edin; yanlışsa uzak mesafede düşüş '
+          'olduğundan az hesaplanır.';
+    }
+    if (i > range.$2) {
+      return 'Bu BC, bu kalibre ve ağırlık için çok düşük görünüyor. '
+          'Kutudaki değeri kontrol edin.';
+    }
+    return null;
+  }
+
   String? get _bcError =>
       platform == WeaponPlatform.pcp && ammoBc.text.trim().isEmpty
       ? null
@@ -3484,6 +3533,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 // Owner, 2026-10-11: Marka | Model on one row, Kalibre on
                 // its own row below; all three picked from lists.
                 ..._rifleNameFields(),
+                // Namlu çıkış hızı under Marka | Model (owner, 2026-10-13).
+                MenzilFullWidth(
+                  child: MenzilInput(
+                    key: const Key('profile-velocity-fps'),
+                    controller: velocity,
+                    label: 'Namlu çıkış hızı',
+                    info: platform == WeaponPlatform.firearm
+                        ? ProfileFieldInfo.velocityFirearm
+                        : ProfileFieldInfo.velocity,
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_velocityError, velocity),
+                  ),
+                ),
                 MenzilFullWidth(
                   child: KeyedSubtree(
                     key: const Key('rifle-caliber'),
@@ -4012,8 +4074,25 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                         _factoryBcNote,
                     controller: ammoBc,
                     label: 'BC',
-                    onChanged: (_) => setState(() {}),
+                    // A typed BC picks G1 when no model is chosen yet
+                    // (owner, 2026-10-13); G7 or others stay selectable.
+                    onChanged: (v) => setState(() {
+                      if (platform == WeaponPlatform.firearm &&
+                          !_customCurve &&
+                          ammoBcModel == null &&
+                          v.trim().isNotEmpty) {
+                        ammoBcModel = BallisticModel.g1;
+                      }
+                    }),
                     errorText: _shown(_bcError, ammoBc),
+                  ),
+                if (_bcPlausibilityWarning != null)
+                  MenzilFullWidth(
+                    child: MenzilNotice(
+                      key: const Key('ammo-bc-warning'),
+                      tone: MenzilNoticeTone.warning,
+                      message: _bcPlausibilityWarning!,
+                    ),
                   ),
                 if (platform != WeaponPlatform.pcp)
                   KeyedSubtree(
@@ -4049,53 +4128,51 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       }),
                     ),
                   ),
-                MenzilInput(
-                  key: const Key('profile-velocity-fps'),
-                  controller: velocity,
-                  label: 'Namlu çıkış hızı',
-                  info: platform == WeaponPlatform.firearm
-                      ? ProfileFieldInfo.velocityFirearm
-                      : ProfileFieldInfo.velocity,
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_velocityError, velocity),
-                ),
                 // PCP tüp ve regülatör basıncı (owner, 2026-10-12): never on
                 // a firearm. Tüp | Regülatör on one row, then the optional
                 // basınca göre hız rows (Basınç | Hız).
                 if (platform == WeaponPlatform.pcp) ..._pcpPressureFields(c),
                 // Barut sıcaklığı: firearms only, never on PCP (owner,
                 // 2026-10-11). Katsayı | Ölçüm sıcaklığı side by side.
-                if (platform == WeaponPlatform.firearm) ...[
-                  MenzilInput(
-                    key: const Key('profile-powder-coef'),
-                    controller: powderCoef,
-                    // Short label: "Barut sıcaklık katsayısı" next to its
-                    // unit and ⓘ was cut ("…") on 375–393 pt phones; the ⓘ
-                    // text still starts with the full name (2026-10-11).
-                    label: 'Barut katsayısı',
-                    unit: '%/15 °C',
-                    info: ProfileFieldInfo.powderCoef,
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                      signed: true,
+                // Own row pair, so BC modeli above keeps its place (2026-10-13).
+                if (platform == WeaponPlatform.firearm)
+                  MenzilFullWidth(
+                    child: MenzilFieldGrid(
+                      children: [
+                        MenzilInput(
+                          key: const Key('profile-powder-coef'),
+                          controller: powderCoef,
+                          // Short label: "Barut sıcaklık katsayısı" next to its
+                          // unit and ⓘ was cut ("…") on 375–393 pt phones; the ⓘ
+                          // text still starts with the full name (2026-10-11).
+                          label: 'Barut katsayısı',
+                          unit: '%/15 °C',
+                          info: ProfileFieldInfo.powderCoef,
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                            signed: true,
+                          ),
+                          onChanged: (_) =>
+                              setState(() => _powderAutoFilled = false),
+                          errorText: _shown(_powderCoefError, powderCoef),
+                        ),
+                        MenzilInput(
+                          key: const Key('profile-powder-temp'),
+                          controller: powderTemp,
+                          label: 'Hız ölçüm sıcaklığı',
+                          unit: '°C',
+                          info: ProfileFieldInfo.powderTemp,
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                            signed: true,
+                          ),
+                          onChanged: (_) =>
+                              setState(() => _powderAutoFilled = false),
+                          errorText: _shown(_powderTempError, powderTemp),
+                        ),
+                      ],
                     ),
-                    onChanged: (_) => setState(() => _powderAutoFilled = false),
-                    errorText: _shown(_powderCoefError, powderCoef),
                   ),
-                  MenzilInput(
-                    key: const Key('profile-powder-temp'),
-                    controller: powderTemp,
-                    label: 'Hız ölçüm sıcaklığı',
-                    unit: '°C',
-                    info: ProfileFieldInfo.powderTemp,
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                      signed: true,
-                    ),
-                    onChanged: (_) => setState(() => _powderAutoFilled = false),
-                    errorText: _shown(_powderTempError, powderTemp),
-                  ),
-                ],
                 if (_customCurve)
                   MenzilFullWidth(
                     child: DragCurveField(

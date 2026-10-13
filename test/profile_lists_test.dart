@@ -234,13 +234,14 @@ void main() {
     expect(_text(tester, 'ammo-bc'), '0,263');
     expect(_text(tester, 'profile-velocity-fps'), '2700');
     expect(_in('ammo-bc-model', find.text('G7')), findsOneWidget);
-    // Ağırlık | BC and BC modeli | Namlu çıkış hızı are rows of two.
+    // Ağırlık | BC is a row of two; Namlu çıkış hızı moved to the rifle,
+    // under Marka | Model (owner, 2026-10-13).
     final g = tester.getRect(find.byKey(const Key('ammo-grain')));
     final bc = tester.getRect(find.byKey(const Key('ammo-bc')));
     expect((g.top - bc.top).abs(), lessThan(1));
-    final m = tester.getRect(find.byKey(const Key('ammo-bc-model')));
     final v = tester.getRect(find.byKey(const Key('profile-velocity-fps')));
-    expect((m.top - v.top).abs(), lessThan(1));
+    final caliber = tester.getRect(find.byKey(const Key('rifle-caliber')));
+    expect(v.bottom, lessThanOrEqualTo(caliber.top));
     // Another caliber empties the listed ammunition.
     await chooseInSelect(tester, 'rifle-caliber', '6.5 Creedmoor');
     expect(_text(tester, 'ammo-grain'), '');
