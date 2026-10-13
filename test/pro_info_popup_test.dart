@@ -517,8 +517,11 @@ void main() {
         final position = tester.state<ScrollableState>(scrollable).position;
         expect(position.maxScrollExtent, greaterThan(0), reason: id);
         // Swipe up until the end (a long sheet at ×1.3 is several screens).
-        for (var i = 0; i < 20 && position.pixels < position.maxScrollExtent;
-            i++) {
+        for (
+          var i = 0;
+          i < 20 && position.pixels < position.maxScrollExtent;
+          i++
+        ) {
           await tester.drag(scrollable, const Offset(0, -3000));
           await tester.pumpAndSettle();
         }
