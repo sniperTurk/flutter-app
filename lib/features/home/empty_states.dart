@@ -390,13 +390,20 @@ class _ProPreviewState extends State<ProPreview> {
   }
 }
 
-/// Hedef before any profile (owner, 2026-10-10; restored 2026-10-12): the
-/// distance and its slider on top, the real scope with open turrets that
-/// can be turned, "Tahmin yok, hesap var." and the explanations under it —
-/// solved live for an example .308 load that is never saved.
+/// Hedef before any profile.
+///
+/// Owner, 2026-10-13: without a profile the Hedef page computes and shows no
+/// solution — only "Tahmin yok, hesap var." with "Profil oluştur". The
+/// earlier example (distance, a live scope solved for a .308 sample load
+/// that is never saved, hold numbers, Kule / Vuruş noktası, Hesap dökümü)
+/// looked like a real solution. It is hidden, not removed: build with
+/// --dart-define=SHOT_SAMPLE_PREVIEW=true to show it again.
 class ShotPreview extends StatefulWidget {
   final VoidCallback? onCreate;
   const ShotPreview({super.key, this.onCreate});
+
+  /// Off by default: no sample solve without a profile.
+  static const bool showSample = bool.fromEnvironment('SHOT_SAMPLE_PREVIEW');
 
   @override
   State<ShotPreview> createState() => _ShotPreviewState();
@@ -425,6 +432,11 @@ class _ShotPreviewState extends State<ShotPreview> {
   @override
   void initState() {
     super.initState();
+    if (!ShotPreview.showSample) {
+      // Nothing is solved without a profile.
+      _samples = const [];
+      return;
+    }
     _samples = [
       for (final p in ReticleHolds.sample(_input(const [100])))
         ScopeDialMath.sampleOf(p, AngularUnit.mrad),
@@ -457,6 +469,13 @@ class _ShotPreviewState extends State<ShotPreview> {
 
   @override
   Widget build(BuildContext context) {
+    if (!ShotPreview.showSample) {
+      return Column(
+        key: EmptyStateKeys.shotPreview,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [_SloganCard(onCreate: widget.onCreate)],
+      );
+    }
     final c = MenzilColors.of(context);
     Widget step(String label, int d) => MenzilStepButton(
       label: label,
