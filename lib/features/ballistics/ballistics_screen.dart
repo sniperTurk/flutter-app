@@ -2001,46 +2001,46 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // Compact boxes on Hava Durumu (owner "Fikir 4", 2026-10-13).
     return MenzilCompactFields(
       child: MenzilPage(
-      key: const PageStorageKey('ballistics-environment-empty'),
-      children: [
-        MenzilCard(
-          key: const Key('environment-no-profile'),
-          // Plain card, thin orange edge (owner, 2026-10-12).
-          borderColor: c.amber,
-          child: Row(
-            children: [
-              Icon(Icons.wb_sunny_outlined, color: c.amber, size: 28),
-              const SizedBox(width: MenzilSpace.md),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Hava hazır, sıra tüfekte',
-                      style: MenzilType.heading(c.ink, size: 16),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Profil oluşturunca bu değerler her atışın hesabına '
-                      'otomatik girer.',
-                      style: MenzilType.caption(c.ink2),
-                    ),
-                  ],
+        key: const PageStorageKey('ballistics-environment-empty'),
+        children: [
+          MenzilCard(
+            key: const Key('environment-no-profile'),
+            // Plain card, thin orange edge (owner, 2026-10-12).
+            borderColor: c.amber,
+            child: Row(
+              children: [
+                Icon(Icons.wb_sunny_outlined, color: c.amber, size: 28),
+                const SizedBox(width: MenzilSpace.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hava hazır, sıra tüfekte',
+                        style: MenzilType.heading(c.ink, size: 16),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Profil oluşturunca bu değerler her atışın hesabına '
+                        'otomatik girer.',
+                        style: MenzilType.caption(c.ink2),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: MenzilSpace.md),
-        ..._environmentInputs(context, collapseShotInputs: true),
-        MenzilPrimaryButton(
-          key: const Key('environment-create-profile'),
-          label: 'Profil oluştur',
-          icon: Icons.add,
-          amber: true,
-          onPressed: widget.onCreateProfile,
-        ),
-      ],
+          const SizedBox(height: MenzilSpace.md),
+          ..._environmentInputs(context, collapseShotInputs: true),
+          MenzilPrimaryButton(
+            key: const Key('environment-create-profile'),
+            label: 'Profil oluştur',
+            icon: Icons.add,
+            amber: true,
+            onPressed: widget.onCreateProfile,
+          ),
+        ],
       ),
     );
   }
@@ -2941,35 +2941,35 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         // 44 pt box, unit and ⓘ inside; owner "Fikir 4", 2026-10-13).
         return MenzilCompactFields(
           child: MenzilPage(
-          key: const PageStorageKey('ballistics-environment'),
-          children: [
-            // The read-only "Konumdan canlı hava verisi" button was removed
-            // (owner, 2026-10-12); the page stays in Araçlar. The fetch
-            // buttons sit under the Hava Durumu boxes.
-            ..._environmentInputs(context, collapseShotInputs: true),
-            // Below the Rüzgâr card, above Pro Ayarlara Geç (owner,
-            // 2026-10-13): only a link; the guide opens in a popup
-            // (2026-10-13 19:49). Display only: it never fills Rüzgâr hızı.
-            WindGuideLink(metric: metric),
-            if (widget.onContinueToPro != null)
-              MenzilPrimaryButton(
-                key: const Key('environment-continue-pro'),
-                label: 'Pro Ayarlara Geç',
-                icon: Icons.arrow_forward,
-                onPressed: () {
-                  _quietSolve();
-                  widget.onContinueToPro!();
-                },
-              )
-            else
-              MenzilPrimaryButton(
-                label: 'Hesapla',
-                onPressed: solve,
-                icon: Icons.calculate_outlined,
-              ),
-            const SizedBox(height: MenzilSpace.md),
-            _atmosphereResult(context),
-          ],
+            key: const PageStorageKey('ballistics-environment'),
+            children: [
+              // The read-only "Konumdan canlı hava verisi" button was removed
+              // (owner, 2026-10-12); the page stays in Araçlar. The fetch
+              // buttons sit under the Hava Durumu boxes.
+              ..._environmentInputs(context, collapseShotInputs: true),
+              // Below the Rüzgâr card, above Pro Ayarlara Geç (owner,
+              // 2026-10-13): only a link; the guide opens in a popup
+              // (2026-10-13 19:49). Display only: it never fills Rüzgâr hızı.
+              WindGuideLink(metric: metric),
+              if (widget.onContinueToPro != null)
+                MenzilPrimaryButton(
+                  key: const Key('environment-continue-pro'),
+                  label: 'Pro Ayarlara Geç',
+                  icon: Icons.arrow_forward,
+                  onPressed: () {
+                    _quietSolve();
+                    widget.onContinueToPro!();
+                  },
+                )
+              else
+                MenzilPrimaryButton(
+                  label: 'Hesapla',
+                  onPressed: solve,
+                  icon: Icons.calculate_outlined,
+                ),
+              const SizedBox(height: MenzilSpace.md),
+              _atmosphereResult(context),
+            ],
           ),
         );
       case BallisticsView.pro:

@@ -961,7 +961,9 @@ class MenzilCompactFields extends InheritedWidget {
 
   /// Whether fields at [context] use the compact variant.
   static bool of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<MenzilCompactFields>()?.enabled ??
+      context
+          .dependOnInheritedWidgetOfExactType<MenzilCompactFields>()
+          ?.enabled ??
       false;
 
   @override
@@ -1600,12 +1602,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       // trailing part (unit, ⓘ, arrow) sets the box height.
                       padding: compact
                           ? const EdgeInsetsDirectional.only(end: 4)
-                          : const EdgeInsetsDirectional.fromSTEB(
-                              0,
-                              13,
-                              12,
-                              13,
-                            ),
+                          : const EdgeInsetsDirectional.fromSTEB(0, 13, 12, 13),
                       // A compact list, not a full-screen sheet (owner,
                       // 2026-10-11: "menüler çok büyük açılıyor").
                       menuMaxHeight: 300,

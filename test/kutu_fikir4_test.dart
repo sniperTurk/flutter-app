@@ -37,10 +37,8 @@ Finder _field(Key key) =>
 Finder _infoIn(Finder box) =>
     find.descendant(of: box, matching: find.byType(MenzilInfoButton));
 
-Finder _selectBox(Key key) => find.descendant(
-  of: find.byKey(key),
-  matching: find.byType(InputDecorator),
-);
+Finder _selectBox(Key key) =>
+    find.descendant(of: find.byKey(key), matching: find.byType(InputDecorator));
 
 Finder get _dropdownMenu => find.byWidgetPredicate(
   (w) => w.runtimeType.toString().startsWith('_DropdownMenu<'),
@@ -353,7 +351,10 @@ void main() {
       final rect = tester.getRect(box);
       expect(rect.height, moreOrLessEquals(44, epsilon: 0.01));
       final label = tester.getRect(
-        find.descendant(of: find.byKey(key), matching: find.text('Atış sayısı')),
+        find.descendant(
+          of: find.byKey(key),
+          matching: find.text('Atış sayısı'),
+        ),
       );
       expect(rect.top - label.bottom, inInclusiveRange(0, 8));
       final info = _infoIn(box);
