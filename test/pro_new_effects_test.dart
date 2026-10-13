@@ -348,13 +348,15 @@ void main() {
       // A firearm profile sees powder temperature, not the PCP note.
       expect(find.byKey(const Key('pro-powder-source')), findsOneWidget);
       expect(find.byKey(const Key('pro-spin-pcp-note')), findsNothing);
-      // Nor in its ⓘ popup (owner, 2026-10-13).
+      // Nor in its ⓘ sheet (owner, 2026-10-13).
       final info = find.byKey(const Key('pro-info-rifle'));
       await tester.ensureVisible(info);
       await tester.pumpAndSettle();
       await tester.tap(info);
       await tester.pumpAndSettle();
-      expect(find.byType(AlertDialog), findsOneWidget);
+      // A bottom sheet since 2026-10-13 (owner: "alttan açılan sayfa").
+      expect(find.byKey(const Key('pro-info-sheet')), findsOneWidget);
+      expect(find.byType(AlertDialog), findsNothing);
       expect(find.byKey(const Key('pro-spin-pcp-note')), findsNothing);
       await tester.tap(find.text('Kapat'));
       await tester.pumpAndSettle();
