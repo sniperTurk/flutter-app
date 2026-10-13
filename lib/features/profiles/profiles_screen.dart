@@ -1948,8 +1948,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ];
   }
 
-  /// Marka | Model of the rifle: two lists side by side; typed boxes after
-  /// "Listede yok" (owner, 2026-10-11).
   /// "Namlu çıkış hızı | Kalibre" side by side (owner, 2026-10-13: "her
   /// satır 2 kutu olsun"), velocity on the left. Two columns at every width
   /// and text size; Kalibre fits its choice on one line by scaling it down
@@ -2000,6 +1998,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
   }
 
+  /// Marka | Model of the rifle: two lists side by side; typed boxes after
+  /// "Listede yok" (owner, 2026-10-11).
   List<Widget> _rifleNameFields() {
     final brands = _rifleBrands;
     if (_rifleManual || brands.isEmpty) {
