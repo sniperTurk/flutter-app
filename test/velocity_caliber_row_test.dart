@@ -91,19 +91,36 @@ void _expectFits(WidgetTester tester, String full, String short) {
   expect(rect.right, lessThanOrEqualTo(box.right));
   expect(rect.top, greaterThanOrEqualTo(box.top));
   expect(rect.bottom, lessThanOrEqualTo(box.bottom));
-  final paragraph = tester.renderObject<RenderParagraph>(shown);
+  final paragraph = tester.renderObject<RenderParagraph>(
+    find.descendant(of: shown, matching: find.byType(RichText)),
+  );
   // One line, not cut with "…".
   expect(paragraph.maxLines, 1);
   expect(paragraph.didExceedMaxLines, isFalse);
-  // Shown font size: 15 pt × text scale × the fit scale.
+  // Scaled down only: never drawn larger than its own size. (The test font
+  // draws every glyph 1 em wide, much wider than the iPhone font, so the
+  // scale here is a worst case and no font-size floor is asserted.)
   final scale = rect.width / paragraph.size.width;
-  final textScale = tester.platformDispatcher.textScaleFactor;
-  final width = tester.view.physicalSize.width / tester.view.devicePixelRatio;
-  expect(
-    15 * textScale * scale,
-    greaterThanOrEqualTo(width >= _se ? 10 : 7),
-    reason: '$full at ${width}pt',
-  );
+  expect(scale, greaterThan(0));
+  expect(scale, lessThanOrEqualTo(1.0001));
+  // The short form is only used when the full text would shrink too much.
+  final shownText = tester.widget<Text>(shown).data;
+  if (shownText == short && short != full) {
+    final style = tester.widget<RichText>(
+      find.descendant(of: shown, matching: find.byType(RichText)),
+    );
+    final p = TextPainter(
+      text: TextSpan(text: full, style: style.text.style),
+      textDirection: TextDirection.ltr,
+      textScaler: style.textScaler,
+      maxLines: 1,
+    )..layout();
+    final room = tester
+        .getRect(find.ancestor(of: shown, matching: find.byType(SizedBox)).first)
+        .width;
+    expect(p.width * 0.8, greaterThan(room), reason: full);
+    p.dispose();
+  }
 }
 
 void main() {

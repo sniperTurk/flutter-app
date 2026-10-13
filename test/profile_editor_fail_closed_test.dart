@@ -283,7 +283,14 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
     await chooseInSelect(tester, 'rifle-caliber', '.30-06 Springfield');
-    expect(find.text('.30-06 Springfield'), findsWidgets);
+    // The half-width box (owner, 2026-10-13) may show the short form.
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('rifle-caliber')),
+        matching: find.textContaining('.30-06'),
+      ),
+      findsOneWidget,
+    );
     expect(find.text('Diğer (elle yaz)'), findsNothing);
     expect(find.byKey(const Key('rifle-caliber-other')), findsNothing);
   });
