@@ -1655,12 +1655,17 @@ class MenzilMetricGrid extends StatelessWidget {
   /// marka and model on one line, owner 2026-10-13).
   final MenzilMetric? lead;
 
+  /// No hairlines between the tiles, only the card's outer border (owner,
+  /// 2026-10-13: "tablo şeklinde olmasın").
+  final bool plain;
+
   const MenzilMetricGrid({
     super.key,
     required this.metrics,
     this.columns = 3,
     this.twoLineText = false,
     this.lead,
+    this.plain = false,
   });
 
   @override
@@ -1682,7 +1687,7 @@ class MenzilMetricGrid extends StatelessWidget {
             borderRadius: BorderRadius.circular(MenzilRadius.table),
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: c.line,
+                color: plain ? c.surface : c.line,
                 border: Border.all(color: c.line),
                 borderRadius: BorderRadius.circular(MenzilRadius.table),
               ),
