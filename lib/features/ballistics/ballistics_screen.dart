@@ -1507,7 +1507,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             label: _weatherBusy
                 ? 'Alınıyor…'
                 : _weatherOrange
-                ? 'Konumdan canlı hava verisi alındı'
+                // Short, one line (owner "Fikir 4", 2026-10-13).
+                ? 'Hava verisi alındı'
                 : _weatherWasReset
                 ? 'Tekrar canlı konum verisi al'
                 : 'Konumdan canlı hava verisi al',
@@ -1515,7 +1516,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             expand: true,
             active: _weatherOrange,
             twoLines: true,
-            maxLabelLines: 2,
+            // The done text always takes one line.
+            maxLabelLines: _weatherOrange ? 1 : 2,
             onPressed: _weatherBusy
                 ? null
                 : () => _fillWeather(overwrite: true),
@@ -1996,7 +1998,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   Widget _environmentWithoutProfile(BuildContext context) {
     final c = MenzilColors.of(context);
-    return MenzilPage(
+    // Compact boxes on Hava Durumu (owner "Fikir 4", 2026-10-13).
+    return MenzilCompactFields(
+      child: MenzilPage(
       key: const PageStorageKey('ballistics-environment-empty'),
       children: [
         MenzilCard(
@@ -2037,6 +2041,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           onPressed: widget.onCreateProfile,
         ),
       ],
+      ),
     );
   }
 
@@ -2932,7 +2937,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ],
         );
       case BallisticsView.environment:
-        return MenzilPage(
+        // Hava Durumu and Pro Ayarlar only: compact boxes (label above a
+        // 44 pt box, unit and ⓘ inside; owner "Fikir 4", 2026-10-13).
+        return MenzilCompactFields(
+          child: MenzilPage(
           key: const PageStorageKey('ballistics-environment'),
           children: [
             // The read-only "Konumdan canlı hava verisi" button was removed
@@ -2962,11 +2970,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             const SizedBox(height: MenzilSpace.md),
             _atmosphereResult(context),
           ],
+          ),
         );
       case BallisticsView.pro:
-        return MenzilPage(
-          key: const PageStorageKey('ballistics-pro'),
-          children: _proSection(context),
+        return MenzilCompactFields(
+          child: MenzilPage(
+            key: const PageStorageKey('ballistics-pro'),
+            children: _proSection(context),
+          ),
         );
       case BallisticsView.all:
         return Scaffold(
@@ -3366,13 +3377,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 label: _pressureBusy
                     ? 'Okunuyor…'
                     : _pressureFilled
-                    ? 'Basınç telefondan alındı'
+                    // Short, one line (owner "Fikir 4", 2026-10-13).
+                    ? 'Basınç alındı'
                     : 'Basıncı telefondan al',
                 icon: _pressureFilled ? Icons.check : Icons.speed,
                 expand: true,
                 active: _pressureFilled,
                 twoLines: true,
-                maxLabelLines: 2,
+                // The done text always takes one line.
+                maxLabelLines: _pressureFilled ? 1 : 2,
                 onPressed: _pressureBusy ? null : _readPhonePressure,
               ),
               resetKey: const Key('environment-pressure-reset'),
