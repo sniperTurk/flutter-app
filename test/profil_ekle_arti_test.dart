@@ -240,7 +240,7 @@ void main() {
   }
 
   test('only Profil ekle asks for the shift', () {
-    final src = File('lib')
+    final src = Directory('lib')
         .listSync(recursive: true)
         .whereType<File>()
         .where((f) => f.path.endsWith('.dart'));
