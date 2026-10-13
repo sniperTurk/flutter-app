@@ -1166,16 +1166,6 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
   /// The value currently picked (null: "Seçiniz"); read by tests.
   T? get value => _value;
 
-  /// The box width after layout (a LayoutBuilder breaks dialogs that ask
-  /// for intrinsic sizes); the menu is at most 260 pt and never wider.
-  double? _boxWidth;
-
-  void _measure(_) {
-    if (!mounted) return;
-    final w = context.size?.width;
-    if (w != null && w != _boxWidth) setState(() => _boxWidth = w);
-  }
-
   @override
   void didUpdateWidget(covariant MenzilSelect<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -1189,7 +1179,6 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
     final c = MenzilColors.of(context);
     final w = widget;
     final items = w.items;
-    WidgetsBinding.instance.addPostFrameCallback(_measure);
     // A value that is not one of the items shows as empty.
     final value = items.where((i) => i.value == _value).length == 1
         ? _value
@@ -1223,36 +1212,43 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                 ),
                 isEmpty: false,
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton<T>(
+                  // The open list has exactly the box's left and right edge
+                  // (owner, 2026-10-13: "daha büyük açılsın ama kutudan
+                  // dışarı çıkmasın"). Unaligned, Flutter widens the box by
+                  // 16 pt left and 24 pt right before placing the list;
+                  // aligned it uses the box itself, and with no menuWidth
+                  // the list is exactly as wide as the box.
+                  child: ButtonTheme.fromButtonThemeData(
+                    data: ButtonTheme.of(
+                      context,
+                    ).copyWith(alignedDropdown: true),
+                    child: DropdownButton<T>(
                     // Always opens DOWNWARD (owner, 2026-10-12): Flutter
                     // places the list so the selected entry covers the box,
                     // which opened it upward for a later entry. The box
                     // therefore shows the choice as its hint and the list
                     // starts at its first entry.
                     value: null,
-                    // Narrower than a full-width box (owner, 2026-10-11:
-                    // "sağa sola da çok açılıyor").
-                    menuWidth: _boxWidth == null
-                        ? null
-                        : math.min(_boxWidth!, 260),
                     // Every list box says "Seçiniz" until something is
                     // picked (owner, 2026-10-11).
-                    hint: selectedIndex == null
-                        ? Text(
-                            w.hint ?? 'Seçiniz',
-                            style: TextStyle(color: c.ink2),
-                          )
-                        : DefaultTextStyle.merge(
-                            maxLines: 1,
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: c.ink),
-                            child: w.selectedLabels == null
-                                ? MenzilSelect._oneLine(
-                                    items[selectedIndex].child,
-                                  )
-                                : Text(w.selectedLabels![selectedIndex]),
-                          ),
+                    hint: _StartBleed(
+                      child: selectedIndex == null
+                          ? Text(
+                              w.hint ?? 'Seçiniz',
+                              style: TextStyle(color: c.ink2),
+                            )
+                          : DefaultTextStyle.merge(
+                              maxLines: 1,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: c.ink),
+                              child: w.selectedLabels == null
+                                  ? MenzilSelect._oneLine(
+                                      items[selectedIndex].child,
+                                    )
+                                  : Text(w.selectedLabels![selectedIndex]),
+                            ),
+                    ),
                     // List entries in regular weight (owner, 2026-10-11).
                     items: [
                       for (final it in items)
@@ -1281,7 +1277,8 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                     // shows the current choice instead.
                     selectedItemBuilder: (context) => [
                       for (var i = 0; i < items.length; i++)
-                        Align(
+                        _StartBleed(
+                          child: Align(
                           alignment: Alignment.centerLeft,
                           child: DefaultTextStyle.merge(
                             maxLines: 1,
@@ -1302,14 +1299,16 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                                   : Text(w.selectedLabels![k]);
                             }(),
                           ),
+                          ),
                         ),
                     ],
                     isExpanded: true,
                     isDense: true,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 13,
-                    ),
+                    // Aligned, Flutter adds 16 pt before the text and 4 pt
+                    // after the arrow; with these and [_StartBleed] the text
+                    // still starts 12 pt in and the arrow ends 12 pt in, as
+                    // in every text box.
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 13, 8, 13),
                     // A compact list, not a full-screen sheet (owner,
                     // 2026-10-11: "menüler çok büyük açılıyor").
                     menuMaxHeight: 300,
@@ -1323,6 +1322,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       color: c.ink,
                     ),
                   ),
+                  ),
                 ),
               ),
             ),
@@ -1331,6 +1331,107 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
       ),
     );
   }
+}
+
+/// Text in a closed [MenzilSelect] starts [bleed] pt before its slot: the
+/// aligned dropdown puts 16 pt before the text, a text box 12 pt. The child
+/// is laid out [bleed] pt wider and drawn [bleed] pt towards the start, so
+/// the text has the same place and room as before the alignment.
+class _StartBleed extends SingleChildRenderObjectWidget {
+  const _StartBleed({required Widget super.child});
+
+  static const double bleed = 4;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderStartBleed(Directionality.of(context));
+
+  @override
+  void updateRenderObject(BuildContext context, _RenderStartBleed r) =>
+      r.textDirection = Directionality.of(context);
+}
+
+class _RenderStartBleed extends RenderProxyBox {
+  _RenderStartBleed(this._textDirection);
+
+  TextDirection _textDirection;
+  set textDirection(TextDirection v) {
+    if (v == _textDirection) return;
+    _textDirection = v;
+    markNeedsPaint();
+  }
+
+  static const double _b = _StartBleed.bleed;
+
+  /// Where the child is drawn: the extra width lies on the start side.
+  Offset get _shift =>
+      Offset(_textDirection == TextDirection.ltr ? -_b : 0, 0);
+
+  BoxConstraints _wider(BoxConstraints c) => c.hasBoundedWidth
+      ? c.copyWith(minWidth: c.minWidth + _b, maxWidth: c.maxWidth + _b)
+      : c.copyWith(minWidth: c.minWidth + _b);
+
+  Size _own(BoxConstraints c, Size child) =>
+      c.constrain(Size(math.max(0, child.width - _b), child.height));
+
+  @override
+  void performLayout() {
+    final ch = child;
+    if (ch == null) {
+      size = constraints.smallest;
+      return;
+    }
+    ch.layout(_wider(constraints), parentUsesSize: true);
+    size = _own(constraints, ch.size);
+  }
+
+  @override
+  Size computeDryLayout(BoxConstraints constraints) {
+    final ch = child;
+    if (ch == null) return constraints.smallest;
+    return _own(constraints, ch.getDryLayout(_wider(constraints)));
+  }
+
+  @override
+  double? computeDryBaseline(BoxConstraints constraints, TextBaseline b) =>
+      child?.getDryBaseline(_wider(constraints), b);
+
+  @override
+  double computeMinIntrinsicWidth(double height) =>
+      math.max(0, super.computeMinIntrinsicWidth(height) - _b);
+
+  @override
+  double computeMaxIntrinsicWidth(double height) =>
+      math.max(0, super.computeMaxIntrinsicWidth(height) - _b);
+
+  @override
+  double computeMinIntrinsicHeight(double width) =>
+      super.computeMinIntrinsicHeight(width + _b);
+
+  @override
+  double computeMaxIntrinsicHeight(double width) =>
+      super.computeMaxIntrinsicHeight(width + _b);
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    final ch = child;
+    if (ch != null) context.paintChild(ch, offset + _shift);
+  }
+
+  @override
+  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
+    final ch = child;
+    if (ch == null) return false;
+    return result.addWithPaintOffset(
+      offset: _shift,
+      position: position,
+      hitTest: (r, p) => ch.hitTest(r, position: p),
+    );
+  }
+
+  @override
+  void applyPaintTransform(RenderBox child, Matrix4 transform) =>
+      transform.multiply(Matrix4.translationValues(_shift.dx, 0, 0));
 }
 
 /// Marks a child of [MenzilFieldGrid] that must span the full row.
