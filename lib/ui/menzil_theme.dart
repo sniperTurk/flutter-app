@@ -302,7 +302,6 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
 /// so selectors and text fields line up.
 abstract final class MenzilRadius {
   static const double card = 16;
-  static const double hold = 18;
   static const double input = 10;
   static const double button = 12;
   static const double chip = 999;
@@ -335,61 +334,81 @@ abstract final class MenzilSpace {
   static const double twoColumnMinWidth = 300;
 }
 
-/// Typography. Numbers and headings prefer a condensed family (Barlow
-/// Condensed) when one is available on the device or bundled later through
-/// pubspec `fonts:`; otherwise the platform falls back to its system face.
-/// Tabular figures keep values from jittering while they change.
+/// Typography (owner, 2026-10-13): the iPhone system font, San Francisco,
+/// on every page. Inter (2026-10-12) and Oswald before it are no longer used
+/// by the screens.
+///
+/// SF cannot be bundled; Flutter reaches it through two proxy family names
+/// (see [TextStyle.fontFamily]): `CupertinoSystemText` is SF Pro Text, drawn
+/// for sizes below 20 pt, and `CupertinoSystemDisplay` is SF Pro Display for
+/// 20 pt and above. [familyFor] picks the right one by size so iOS uses the
+/// correct optical size. On other platforms both names fall back to the
+/// platform's default face.
+///
+/// Figures are proportional (normal) by default. Tabular (equal-width)
+/// figures only where a number changes live and must not jitter: pass
+/// `live: true` or add [tabular] (Hedef distance stepper, Atış Çözümü
+/// clicks/holds, compass, level, cant, incline readouts).
 abstract final class MenzilType {
-  /// The app's typeface (owner, 2026-10-12): Inter, bundled in
-  /// assets/fonts (SIL OFL), static weights 300–700. It replaced Oswald,
-  /// which was hard to read in long texts.
-  static const String family = 'Inter';
+  /// SF Pro Text on iOS (sizes below [displayFromSize]).
+  static const String textFamily = 'CupertinoSystemText';
 
-  static const List<String> numericFallback = [
-    'Barlow Condensed',
-    'Roboto Condensed',
-    'Arial Narrow',
-  ];
+  /// SF Pro Display on iOS (sizes from [displayFromSize] up).
+  static const String displayFamily = 'CupertinoSystemDisplay';
+
+  /// Apple's switch point between Text and Display optical sizes.
+  static const double displayFromSize = 20;
+
+  /// Kept for code that still names the app font (open PRs): the system
+  /// text face. Prefer [familyFor] for sizes of 20 pt and above.
+  static const String family = textFamily;
+
+  /// The system family for a font [size] in logical points.
+  static String familyFor(double size) =>
+      size >= displayFromSize ? displayFamily : textFamily;
+
+  /// Equal-width figures, for live values only (see the class comment).
   static const List<FontFeature> tabular = [FontFeature.tabularFigures()];
 
-  static TextStyle display(Color color, {double size = 60}) => TextStyle(
-    fontFamily: family,
-    fontFamilyFallback: numericFallback,
+  static TextStyle display(
+    Color color, {
+    double size = 60,
+    bool live = false,
+  }) => TextStyle(
+    fontFamily: familyFor(size),
     fontSize: size,
     height: 1.0,
     fontWeight: FontWeight.w700,
-    letterSpacing: -1,
+    letterSpacing: -0.5,
     color: color,
-    fontFeatures: tabular,
+    fontFeatures: live ? tabular : null,
   );
 
   static TextStyle number(
     Color color, {
     double size = 22,
-    FontWeight weight = FontWeight.w600,
+    FontWeight weight = FontWeight.w500,
+    bool live = false,
   }) => TextStyle(
-    fontFamily: family,
-    fontFamilyFallback: numericFallback,
+    fontFamily: familyFor(size),
     fontSize: size,
     height: 1.1,
     fontWeight: weight,
     color: color,
-    fontFeatures: tabular,
+    fontFeatures: live ? tabular : null,
   );
 
   static TextStyle heading(Color color, {double size = 22}) => TextStyle(
-    fontFamily: family,
-    fontFamilyFallback: numericFallback,
+    fontFamily: familyFor(size),
     fontSize: size,
     height: 1.1,
     fontWeight: FontWeight.w700,
-    letterSpacing: 0.2,
     color: color,
   );
 
   // Field labels: a bit smaller, not bold (owner, 2026-10-11).
   static TextStyle label(Color color) => TextStyle(
-    fontFamily: MenzilType.family,
+    fontFamily: textFamily,
     fontSize: 12.5,
     height: 1.25,
     fontWeight: FontWeight.w400,
@@ -397,7 +416,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle unit(Color color) => TextStyle(
-    fontFamily: MenzilType.family,
+    fontFamily: textFamily,
     fontSize: 13,
     height: 1.25,
     fontWeight: FontWeight.w500,
@@ -405,7 +424,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle body(Color color) => TextStyle(
-    fontFamily: MenzilType.family,
+    fontFamily: textFamily,
     fontSize: 15,
     height: 1.35,
     fontWeight: FontWeight.w500,
@@ -413,7 +432,7 @@ abstract final class MenzilType {
   );
 
   static TextStyle caption(Color color) => TextStyle(
-    fontFamily: MenzilType.family,
+    fontFamily: textFamily,
     fontSize: 12.5,
     height: 1.35,
     fontWeight: FontWeight.w400,
@@ -468,8 +487,13 @@ abstract final class MenzilTheme {
 
     return ThemeData(
       useMaterial3: true,
-      // Inter everywhere, the welcome pages included (owner, 2026-10-12).
-      fontFamily: MenzilType.family,
+      // The iPhone system font everywhere, the welcome pages included
+      // (owner, 2026-10-13): the Cupertino typography names SF Pro Text /
+      // Display for every text-theme role, whatever the build platform.
+      typography: Typography.material2021(
+        platform: TargetPlatform.iOS,
+        colorScheme: scheme,
+      ),
       brightness: brightness,
       colorScheme: scheme,
       scaffoldBackgroundColor: c.bg,
@@ -537,7 +561,7 @@ abstract final class MenzilTheme {
           minimumSize: minControl,
           shape: controlShape,
           textStyle: const TextStyle(
-            fontFamily: MenzilType.family,
+            fontFamily: MenzilType.textFamily,
             fontSize: 15,
             fontWeight: FontWeight.w700,
           ),
@@ -551,7 +575,7 @@ abstract final class MenzilTheme {
           shape: controlShape,
           side: BorderSide(color: c.line),
           textStyle: const TextStyle(
-            fontFamily: MenzilType.family,
+            fontFamily: MenzilType.textFamily,
             fontSize: 15,
             fontWeight: FontWeight.w700,
           ),
@@ -563,7 +587,7 @@ abstract final class MenzilTheme {
           foregroundColor: c.cyanInk,
           minimumSize: const Size(44, 44),
           textStyle: const TextStyle(
-            fontFamily: MenzilType.family,
+            fontFamily: MenzilType.textFamily,
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),
@@ -594,7 +618,7 @@ abstract final class MenzilTheme {
           ),
           textStyle: const WidgetStatePropertyAll(
             TextStyle(
-              fontFamily: MenzilType.family,
+              fontFamily: MenzilType.textFamily,
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
             ),
@@ -624,7 +648,7 @@ abstract final class MenzilTheme {
       snackBarTheme: SnackBarThemeData(
         backgroundColor: c.ink,
         contentTextStyle: TextStyle(
-          fontFamily: MenzilType.family,
+          fontFamily: MenzilType.textFamily,
           color: c.bg,
           fontSize: 14.5,
           fontWeight: FontWeight.w500,
@@ -661,7 +685,7 @@ abstract final class MenzilTheme {
       dataTableTheme: DataTableThemeData(
         headingRowColor: WidgetStatePropertyAll(c.surface2),
         headingTextStyle: TextStyle(
-          fontFamily: MenzilType.family,
+          fontFamily: MenzilType.textFamily,
           fontSize: 12,
           fontWeight: FontWeight.w700,
           color: c.ink,
@@ -680,7 +704,7 @@ abstract final class MenzilTheme {
           borderRadius: BorderRadius.circular(8),
         ),
         textStyle: TextStyle(
-          fontFamily: MenzilType.family,
+          fontFamily: MenzilType.textFamily,
           color: c.bg,
           fontSize: 13,
         ),

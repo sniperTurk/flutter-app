@@ -229,12 +229,11 @@ void main() {
       await settle();
       await type('rifle-twist-rate', '16');
       await choose('rifle-twist-direction', 'Sağ');
-      await choose('ammo-brand-select', 'Listede yok');
-      await type('ammo-brand', 'Test Mühimmat Slug');
+      // PCP ammo has no Marka | Model list (hidden 2026-10-13, PCP_AMMO_BRAND).
       await choose('ammo-type', 'Slug');
       await type('ammo-grain', '33,95');
       await type('ammo-bc', '0,08');
-      await choose('ammo-bc-model', 'G1');
+      // PCP has no BC modeli box: always G1 (owner, 2026-10-12).
       await type('profile-velocity-fps', '900');
       await choose('profile-distance-unit', 'Metre');
       await type('profile-zero', '25');
@@ -285,7 +284,9 @@ void main() {
         final header = find.byKey(const Key('pro-section-rifle'));
         await tester.ensureVisible(header);
         await settle();
-        await tester.tap(header);
+        // On the title: the header's centre can be the ⓘ (2026-10-13).
+        final h = tester.getSize(header).height;
+        await tester.tapAt(tester.getTopLeft(header) + Offset(12, h / 2));
         await settle();
         await type('pro-tube-pressure', '120');
         await settle();
@@ -302,13 +303,8 @@ void main() {
         await wait(2);
         await page('hedef_atis');
       });
-      await step('hedef_tablo', () async {
-        await tester.tap(find.text('Tablo').first);
-        await settle();
-        await tester.tap(find.text('DOPE oluştur'));
-        await settle();
-        await page('hedef_tablo');
-      });
+      // No hedef_tablo page: the "Tek atış | Tablo" switch is hidden
+      // (owner, 2026-10-12; SHOT_TABLE_SWITCH in home_screen.dart).
     }
 
     debugPrint('SIMSCREEN_DONE failures=${failures.length}');

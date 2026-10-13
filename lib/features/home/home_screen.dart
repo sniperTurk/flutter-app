@@ -87,6 +87,15 @@ class _HomeScreenState extends State<HomeScreen> {
     _tabTools: 'Araçlar',
   };
 
+  /// Every title the top bar can show, incl. the single shot "Atış Çözümü";
+  /// the bar sizes its fixed title slot from these (owner, 2026-10-13).
+  static final List<String> _topBarTitles = List.unmodifiable([
+    ..._titles.values,
+    _shotTitle,
+  ]);
+
+  static const _shotTitle = 'Atış Çözümü';
+
   static const _navItems = [
     MenzilNavItem(MenzilGlyph.profile, 'Profil'),
     MenzilNavItem(MenzilGlyph.environment, 'Hava Durumu'),
@@ -307,8 +316,9 @@ class _HomeScreenState extends State<HomeScreen> {
         // The tab is "Hedef"; its single shot is "Atış Çözümü" (owner,
         // 2026-10-13: "Hedef Görünümü" was too long).
         title: tab == _tabShot && _shotMode == BallisticsView.shot
-            ? 'Atış Çözümü'
+            ? _shotTitle
             : _titles[tab],
+        slotTitles: _topBarTitles,
       ),
       bottomNavigationBar: MenzilBottomNavigation(
         items: _navItems,

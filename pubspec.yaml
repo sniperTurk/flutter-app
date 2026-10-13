@@ -37,8 +37,13 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 flutter:
   uses-material-design: true
-  # Inter (SIL OFL, assets/fonts/INTER-LICENSE.txt): the app typeface since
-  # 2026-10-12 (owner). Oswald stays bundled for the DOPE card PDF.
+  # The app screens use the iPhone system font (San Francisco) since
+  # 2026-10-13 (owner); SF cannot be bundled, it comes from iOS.
+  # Inter (SIL OFL, assets/fonts/INTER-LICENSE.txt): unused by the screens
+  # since 2026-10-13, kept (hide, not delete); test/ekran_boyutu_test.dart
+  # loads it as a width stand-in for SF, which does not exist on Linux CI.
+  # Oswald (SIL OFL): still embedded in the DOPE card PDF (dope_card.dart,
+  # loaded from assets/fonts), not used by the screens.
   fonts:
     - family: Inter
       fonts:

@@ -116,23 +116,36 @@ void main() {
       expect(title.style?.fontWeight, FontWeight.w400, reason: id);
     }
     expect(find.byKey(const Key('shot-incline')), findsNothing);
-    // Opening a box shows its fields and its explanation; one box at a time.
+    // Opening a box shows its fields; its explanation opens from the ⓘ
+    // next to the title (owner, 2026-10-13). One box at a time.
     await openProFor(tester, const Key('shot-incline'));
     expect(find.byKey(const Key('shot-incline')), findsOneWidget);
     expect(find.byKey(const Key('shot-cant')), findsOneWidget);
     expect(
       find.textContaining('Telefonu dik tut', findRichText: true),
+      findsNothing,
+    );
+    await _tapKey(tester, 'pro-info-angle');
+    expect(
+      find.textContaining('Telefonu dik tut', findRichText: true),
       findsWidgets,
     );
+    await tester.tap(find.text('Kapat'));
+    await tester.pumpAndSettle();
     await openProFor(tester, const Key('pro-latitude'));
     expect(find.byKey(const Key('shot-incline')), findsNothing);
     // No on/off switch: the data fields are always shown (owner, 2026-10-11).
     expect(find.byKey(const Key('pro-coriolis-switch')), findsNothing);
     expect(find.byKey(const Key('pro-latitude')), findsOneWidget);
-    // A PCP profile sees no powder temperature, but the PCP spin note.
+    // A PCP profile sees no powder temperature, but the PCP spin note (in
+    // the Tüfek düzeltmeleri ⓘ popup).
     await openProFor(tester, const Key('pro-turret-scale'));
     expect(find.byKey(const Key('pro-powder-source')), findsNothing);
+    expect(find.byKey(const Key('pro-spin-pcp-note')), findsNothing);
+    await _tapKey(tester, 'pro-info-rifle');
     expect(find.byKey(const Key('pro-spin-pcp-note')), findsOneWidget);
+    await tester.tap(find.text('Kapat'));
+    await tester.pumpAndSettle();
     await openProFor(tester, const Key('pro-latitude'));
     expect(find.byKey(const Key('pro-latitude')), findsOneWidget);
     expect(find.byKey(const Key('pro-azimuth')), findsOneWidget);

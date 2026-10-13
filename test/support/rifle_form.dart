@@ -148,6 +148,17 @@ Future<void> fillShotValues(
   await enterRifleField(tester, 'scope-sight-height', sight);
 }
 
+/// Taps "Aradığın dürbün listede yok mu?" under the Dürbün card: the
+/// typed scope entry (owner, 2026-10-13: no "Listede yok" in the list).
+Future<void> openScopeManual(WidgetTester tester) async {
+  final link = find.byKey(const Key('scope-not-listed'));
+  // Mid-screen: at the bottom edge a save bar can cover it.
+  await Scrollable.ensureVisible(tester.element(link), alignment: 0.5);
+  await tester.pumpAndSettle();
+  await tester.tap(link);
+  await tester.pumpAndSettle();
+}
+
 /// Fills the profile editor's manual scope form.
 Future<void> fillScopeForm(
   WidgetTester tester, {
@@ -160,7 +171,7 @@ Future<void> fillScopeForm(
   String click = '0,1 MRAD',
 }) async {
   if (find.byKey(const Key('scope-brand-select')).evaluate().isNotEmpty) {
-    await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');
+    await openScopeManual(tester);
   }
   await enterRifleField(tester, 'scope-brand', brand);
   // Büyütme and Mercek çapı are picked from lists (owner, 2026-10-11).
