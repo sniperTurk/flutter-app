@@ -805,18 +805,33 @@ class MenzilInfoButton extends StatelessWidget {
 
   /// Optional picture shown above the text (e.g. the wind direction dial).
   final Widget? illustration;
+
+  /// Optional rich content shown instead of [text] (Pro Ayarlar box
+  /// explanations, owner 2026-10-13: "Pro sayfasındaki açıklamalar popup
+  /// olsun").
+  final Widget? body;
+
+  /// Overrides the default "Bilgi: [title]" tooltip / VoiceOver label.
+  final String? tooltip;
+
+  /// Label of the closing action ("Tamam" for field ⓘ).
+  final String closeLabel;
   const MenzilInfoButton({
     super.key,
     required this.title,
-    required this.text,
+    this.text = '',
     this.illustration,
+    this.body,
+    this.tooltip,
+    this.closeLabel = 'Tamam',
   });
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    final content = body ?? Text(text, textAlign: TextAlign.justify);
     return IconButton(
-      tooltip: 'Bilgi: $title',
+      tooltip: tooltip ?? 'Bilgi: $title',
       constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
       padding: EdgeInsets.zero,
       // Not compact: compact density shrinks the 44 pt minimum to 40 pt and
@@ -829,20 +844,20 @@ class MenzilInfoButton extends StatelessWidget {
           title: Text(title),
           content: SingleChildScrollView(
             child: illustration == null
-                ? Text(text, textAlign: TextAlign.justify)
+                ? content
                 : Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       illustration!,
                       const SizedBox(height: MenzilSpace.md),
-                      Text(text, textAlign: TextAlign.justify),
+                      content,
                     ],
                   ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(),
-              child: const Text('Tamam'),
+              child: Text(closeLabel),
             ),
           ],
         ),
