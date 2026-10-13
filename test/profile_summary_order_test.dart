@@ -94,40 +94,42 @@ void main() {
     );
     expect(selector.width, lessThanOrEqualTo(170));
 
-    // The Tüfek/Mühimmat/Dürbün name card is gone (owner, 2026-10-09).
+    // Three cards (owner, 2026-10-13): Tüfek, Dürbün and Mühimmat
+    // bilgileri, each led by marka and model on one line.
     expect(find.textContaining('kişisel kayıt'), findsNothing);
-    expect(find.text('Hatsan'), findsOneWidget);
-    expect(find.text('Hercules'), findsWidgets); // also the profile name
+    expect(find.text('Hatsan Hercules'), findsOneWidget);
+    expect(find.text('GaziSniper 6-36 x 56 FFP · MRAD'), findsOneWidget);
     expect(find.text('Engin Sak'), findsOneWidget);
-
-    const order = [
+    for (final gone in const [
       'Tüfek Marka',
       'Tüfek Model',
+      'Dürbün Marka',
+      'Dürbün Model',
+      'Mühimmat Marka',
+      'Mühimmat Model',
+      'Dürbün birimi',
+    ]) {
+      expect(find.text(gone), findsNothing, reason: gone);
+    }
+
+    const order = [
+      'Tüfek bilgileri',
       'Namlu çıkış hızı',
       'Yiv yönü',
       'Kalibre',
       'Yiv oranı',
       'Sight height',
       'Sıfırlama mesafesi',
-      'Dürbün Marka',
-      'Dürbün Model',
-      'Dürbün',
-      'Dürbün birimi',
+      'Dürbün bilgileri',
       'Dürbün ayağı',
       'Dürbün üst kule',
-      'Mühimmat Marka',
-      'Mühimmat Model',
-      'Ağırlık',
+      'Mühimmat bilgileri',
       'Tip',
+      'Ağırlık',
       'BC / model',
     ];
     // Two columns, read row by row (left, then right).
-    Offset at(String label) {
-      final all = find.text(label);
-      // "Dürbün" and "Mühimmat" also label the name card above; take the
-      // last (the metric grid comes after it).
-      return tester.getTopLeft(all.last);
-    }
+    Offset at(String label) => tester.getTopLeft(find.text(label).last);
 
     for (var i = 1; i < order.length; i++) {
       final a = at(order[i - 1]), b = at(order[i]);
@@ -139,9 +141,6 @@ void main() {
       );
     }
 
-    // New names and values.
-    expect(find.text('6-36 x 56 FFP'), findsOneWidget);
-    expect(find.text('GaziSniper'), findsOneWidget);
     // Value and unit are one rich text: "260 klik", "50 gr".
     expect(find.text('260 klik'), findsOneWidget); // 26 mrad / 0.1
     expect(find.text('50 gr'), findsOneWidget);
