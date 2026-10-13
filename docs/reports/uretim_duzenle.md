@@ -11,7 +11,7 @@ TestFlight'ta (2026-10-13) kayıtlı bir Ateşli Tüfek profili ("Christensen Ar
 - Eklenen satır (kayıtlı tüfek listede bulunduğunda çalışan `if (known)` bloğunun başında):
   `_domestic = _domesticBrands.contains(rifleBrand.text);`
 
-Başka hiçbir kod değişmedi. Dürbün koduna dokunulmadı.
+Uygulama kodunda başka hiçbir şey değişmedi. Dürbün koduna dokunulmadı. (Yalnızca iOS CI için PR #267'deki entegrasyon testi düzeltmesi alındı; aşağıdaki "iOS CI (PR) notu" bölümüne bakın.)
 
 ## Nasıl çalışır
 
