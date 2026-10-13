@@ -126,8 +126,12 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Sağ').last);
     await tester.pumpAndSettle();
-    await choose('ammo-brand-select', 'Listede yok');
-    await type('ammo-brand', 'Test Mühimmat Slug');
+    // PCP asks no ammunition Marka/Model (owner, 2026-10-13): Tip first.
+    bool shown(String key) => find.byKey(Key(key)).evaluate().isNotEmpty;
+    if (shown('ammo-brand-select')) {
+      await choose('ammo-brand-select', 'Listede yok');
+    }
+    if (shown('ammo-brand')) await type('ammo-brand', 'Test Mühimmat Slug');
     await tester.ensureVisible(find.byKey(const Key('ammo-type')));
     await tester.tap(find.byKey(const Key('ammo-type')));
     await tester.pumpAndSettle();
@@ -135,11 +139,15 @@ void main() {
     await tester.pumpAndSettle();
     await type('ammo-grain', '33,95');
     await type('ammo-bc', '0,08');
-    await tester.ensureVisible(find.byKey(const Key('ammo-bc-model')));
-    await tester.tap(find.byKey(const Key('ammo-bc-model')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('G1').last);
-    await tester.pumpAndSettle();
+    // BC modeli is asked on firearms only; PCP is always G1 (owner,
+    // 2026-10-12).
+    if (shown('ammo-bc-model')) {
+      await tester.ensureVisible(find.byKey(const Key('ammo-bc-model')));
+      await tester.tap(find.byKey(const Key('ammo-bc-model')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('G1').last);
+      await tester.pumpAndSettle();
+    }
     await type('profile-velocity-fps', '900');
     await choose('profile-distance-unit', 'Metre');
     await type('profile-zero', '25');
