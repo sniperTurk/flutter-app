@@ -1247,21 +1247,21 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       // Every list box says "Seçiniz" until something is
                       // picked (owner, 2026-10-11).
                       hint: selectedIndex == null
-                            ? Text(
-                                w.hint ?? 'Seçiniz',
-                                style: TextStyle(color: c.ink2),
-                              )
-                            : DefaultTextStyle.merge(
-                                maxLines: 1,
-                                softWrap: false,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: c.ink),
-                                child: w.selectedLabels == null
-                                    ? MenzilSelect._oneLine(
-                                        items[selectedIndex].child,
-                                      )
-                                    : Text(w.selectedLabels![selectedIndex]),
-                              ),
+                          ? Text(
+                              w.hint ?? 'Seçiniz',
+                              style: TextStyle(color: c.ink2),
+                            )
+                          : DefaultTextStyle.merge(
+                              maxLines: 1,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: c.ink),
+                              child: w.selectedLabels == null
+                                  ? MenzilSelect._oneLine(
+                                      items[selectedIndex].child,
+                                    )
+                                  : Text(w.selectedLabels![selectedIndex]),
+                            ),
                       // List entries in regular weight (owner, 2026-10-11).
                       items: [
                         for (final it in items)
@@ -1293,26 +1293,26 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       selectedItemBuilder: (context) => [
                         for (var i = 0; i < items.length; i++)
                           Align(
-                              alignment: Alignment.centerLeft,
-                              child: DefaultTextStyle.merge(
-                                maxLines: 1,
-                                softWrap: false,
-                                overflow: TextOverflow.ellipsis,
-                                child: () {
-                                  final k = items[i].value == null
-                                      ? selectedIndex
-                                      : i;
-                                  if (k == null) {
-                                    return Text(
-                                      w.hint ?? 'Seçiniz',
-                                      style: TextStyle(color: c.ink2),
-                                    );
-                                  }
-                                  return w.selectedLabels == null
-                                      ? MenzilSelect._oneLine(items[k].child)
-                                      : Text(w.selectedLabels![k]);
-                                }(),
-                              ),
+                            alignment: Alignment.centerLeft,
+                            child: DefaultTextStyle.merge(
+                              maxLines: 1,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              child: () {
+                                final k = items[i].value == null
+                                    ? selectedIndex
+                                    : i;
+                                if (k == null) {
+                                  return Text(
+                                    w.hint ?? 'Seçiniz',
+                                    style: TextStyle(color: c.ink2),
+                                  );
+                                }
+                                return w.selectedLabels == null
+                                    ? MenzilSelect._oneLine(items[k].child)
+                                    : Text(w.selectedLabels![k]);
+                              }(),
+                            ),
                           ),
                       ],
                       isExpanded: true,

@@ -164,43 +164,44 @@ void main() {
     }
   });
 
-  testWidgets('closed box unchanged: text 16 pt in, arrow 16 pt from edge (as before)', (
-    tester,
-  ) async {
-    await _pump(tester);
-    for (final key in [_full, _left, _right]) {
-      final box = tester.getRect(_box(key));
-      final hint = find.descendant(
-        of: find.byKey(key),
-        matching: find.text('Seçiniz'),
+  testWidgets(
+    'closed box unchanged: text 16 pt in, arrow 16 pt from edge (as before)',
+    (tester) async {
+      await _pump(tester);
+      for (final key in [_full, _left, _right]) {
+        final box = tester.getRect(_box(key));
+        final hint = find.descendant(
+          of: find.byKey(key),
+          matching: find.text('Seçiniz'),
+        );
+        expect(
+          tester.getRect(hint.first).left,
+          moreOrLessEquals(box.left + 16, epsilon: 0.5),
+        );
+        final arrow = find.descendant(
+          of: find.byKey(key),
+          matching: find.byIcon(Icons.expand_more),
+        );
+        expect(
+          tester.getRect(arrow).right,
+          moreOrLessEquals(box.right - 16, epsilon: 0.5),
+        );
+      }
+      // A picked entry shows in the closed box at the same place.
+      await _open(tester, _full);
+      await tester.tap(
+        find.descendant(of: _menu, matching: find.text(_short)).last,
+      );
+      await tester.pumpAndSettle();
+      final box = tester.getRect(_box(_full));
+      final shown = find.descendant(
+        of: find.byKey(_full),
+        matching: find.text(_short),
       );
       expect(
-        tester.getRect(hint.first).left,
+        tester.getRect(shown.first).left,
         moreOrLessEquals(box.left + 16, epsilon: 0.5),
       );
-      final arrow = find.descendant(
-        of: find.byKey(key),
-        matching: find.byIcon(Icons.expand_more),
-      );
-      expect(
-        tester.getRect(arrow).right,
-        moreOrLessEquals(box.right - 16, epsilon: 0.5),
-      );
-    }
-    // A picked entry shows in the closed box at the same place.
-    await _open(tester, _full);
-    await tester.tap(
-      find.descendant(of: _menu, matching: find.text(_short)).last,
-    );
-    await tester.pumpAndSettle();
-    final box = tester.getRect(_box(_full));
-    final shown = find.descendant(
-      of: find.byKey(_full),
-      matching: find.text(_short),
-    );
-    expect(
-      tester.getRect(shown.first).left,
-      moreOrLessEquals(box.left + 16, epsilon: 0.5),
-    );
-  });
+    },
+  );
 }
