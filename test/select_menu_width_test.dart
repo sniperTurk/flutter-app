@@ -77,10 +77,8 @@ Future<void> _pump(WidgetTester tester, {double textScale = 1}) async {
   await tester.pumpAndSettle();
 }
 
-Finder _box(Key key) => find.descendant(
-  of: find.byKey(key),
-  matching: find.byType(InputDecorator),
-);
+Finder _box(Key key) =>
+    find.descendant(of: find.byKey(key), matching: find.byType(InputDecorator));
 
 /// The open list (Flutter's private dropdown menu widget).
 final Finder _menu = find.byWidgetPredicate(
@@ -126,9 +124,9 @@ void main() {
     final entries = find.descendant(of: _menu, matching: find.byType(Text));
     expect(tester.widget<Text>(entries.first).data, 'Seçiniz');
     // The long entry is shrunk less than in the old 260 pt list.
-    final textWidth = tester.getSize(
-      find.descendant(of: _menu, matching: find.text(_long)),
-    ).width;
+    final textWidth = tester
+        .getSize(find.descendant(of: _menu, matching: find.text(_long)))
+        .width;
     final oldScale = (_oldItemRoom / textWidth).clamp(0.0, 1.0);
     expect(_longScale(tester), greaterThanOrEqualTo(oldScale));
     expect(_longScale(tester), greaterThan(oldScale));

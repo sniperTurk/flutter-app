@@ -1223,105 +1223,112 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       context,
                     ).copyWith(alignedDropdown: true),
                     child: DropdownButton<T>(
-                    // Always opens DOWNWARD (owner, 2026-10-12): Flutter
-                    // places the list so the selected entry covers the box,
-                    // which opened it upward for a later entry. The box
-                    // therefore shows the choice as its hint and the list
-                    // starts at its first entry.
-                    value: null,
-                    // Every list box says "Seçiniz" until something is
-                    // picked (owner, 2026-10-11).
-                    hint: _StartBleed(
-                      child: selectedIndex == null
-                          ? Text(
-                              w.hint ?? 'Seçiniz',
-                              style: TextStyle(color: c.ink2),
-                            )
-                          : DefaultTextStyle.merge(
-                              maxLines: 1,
-                              softWrap: false,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: c.ink),
-                              child: w.selectedLabels == null
-                                  ? MenzilSelect._oneLine(
-                                      items[selectedIndex].child,
-                                    )
-                                  : Text(w.selectedLabels![selectedIndex]),
+                      // Always opens DOWNWARD (owner, 2026-10-12): Flutter
+                      // places the list so the selected entry covers the box,
+                      // which opened it upward for a later entry. The box
+                      // therefore shows the choice as its hint and the list
+                      // starts at its first entry.
+                      value: null,
+                      // Every list box says "Seçiniz" until something is
+                      // picked (owner, 2026-10-11).
+                      hint: _StartBleed(
+                        child: selectedIndex == null
+                            ? Text(
+                                w.hint ?? 'Seçiniz',
+                                style: TextStyle(color: c.ink2),
+                              )
+                            : DefaultTextStyle.merge(
+                                maxLines: 1,
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: c.ink),
+                                child: w.selectedLabels == null
+                                    ? MenzilSelect._oneLine(
+                                        items[selectedIndex].child,
+                                      )
+                                    : Text(w.selectedLabels![selectedIndex]),
+                              ),
+                      ),
+                      // List entries in regular weight (owner, 2026-10-11).
+                      items: [
+                        for (final it in items)
+                          DropdownMenuItem<T>(
+                            key: it.key,
+                            value: it.value,
+                            enabled: it.enabled,
+                            onTap: it.onTap,
+                            alignment: it.alignment,
+                            child: DefaultTextStyle.merge(
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                              ),
+                              child: it.child,
                             ),
+                          ),
+                      ],
+                      onChanged: w.onChanged == null
+                          ? null
+                          : (v) {
+                              setState(() => _value = v);
+                              w.onChanged!(v);
+                            },
+                      // The closed box always shows ONE line (owner,
+                      // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
+                      // With value null Flutter shows the entry whose value is
+                      // null ("Seçiniz" in lists that offer it): that slot
+                      // shows the current choice instead.
+                      selectedItemBuilder: (context) => [
+                        for (var i = 0; i < items.length; i++)
+                          _StartBleed(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: DefaultTextStyle.merge(
+                                maxLines: 1,
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis,
+                                child: () {
+                                  final k = items[i].value == null
+                                      ? selectedIndex
+                                      : i;
+                                  if (k == null) {
+                                    return Text(
+                                      w.hint ?? 'Seçiniz',
+                                      style: TextStyle(color: c.ink2),
+                                    );
+                                  }
+                                  return w.selectedLabels == null
+                                      ? MenzilSelect._oneLine(items[k].child)
+                                      : Text(w.selectedLabels![k]);
+                                }(),
+                              ),
+                            ),
+                          ),
+                      ],
+                      isExpanded: true,
+                      isDense: true,
+                      // Aligned, Flutter adds 16 pt before the text and 4 pt
+                      // after the arrow; with these and [_StartBleed] the text
+                      // still starts 12 pt in and the arrow ends 12 pt in, as
+                      // in every text box.
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                        0,
+                        13,
+                        8,
+                        13,
+                      ),
+                      // A compact list, not a full-screen sheet (owner,
+                      // 2026-10-11: "menüler çok büyük açılıyor").
+                      menuMaxHeight: 300,
+                      borderRadius: BorderRadius.circular(MenzilRadius.input),
+                      dropdownColor: c.surface,
+                      icon: Icon(Icons.expand_more, color: c.ink2),
+                      // Entries a bit smaller and not bold (owner, 2026-10-11).
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: c.ink,
+                      ),
                     ),
-                    // List entries in regular weight (owner, 2026-10-11).
-                    items: [
-                      for (final it in items)
-                        DropdownMenuItem<T>(
-                          key: it.key,
-                          value: it.value,
-                          enabled: it.enabled,
-                          onTap: it.onTap,
-                          alignment: it.alignment,
-                          child: DefaultTextStyle.merge(
-                            style: const TextStyle(fontWeight: FontWeight.w400),
-                            child: it.child,
-                          ),
-                        ),
-                    ],
-                    onChanged: w.onChanged == null
-                        ? null
-                        : (v) {
-                            setState(() => _value = v);
-                            w.onChanged!(v);
-                          },
-                    // The closed box always shows ONE line (owner,
-                    // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
-                    // With value null Flutter shows the entry whose value is
-                    // null ("Seçiniz" in lists that offer it): that slot
-                    // shows the current choice instead.
-                    selectedItemBuilder: (context) => [
-                      for (var i = 0; i < items.length; i++)
-                        _StartBleed(
-                          child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: DefaultTextStyle.merge(
-                            maxLines: 1,
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis,
-                            child: () {
-                              final k = items[i].value == null
-                                  ? selectedIndex
-                                  : i;
-                              if (k == null) {
-                                return Text(
-                                  w.hint ?? 'Seçiniz',
-                                  style: TextStyle(color: c.ink2),
-                                );
-                              }
-                              return w.selectedLabels == null
-                                  ? MenzilSelect._oneLine(items[k].child)
-                                  : Text(w.selectedLabels![k]);
-                            }(),
-                          ),
-                          ),
-                        ),
-                    ],
-                    isExpanded: true,
-                    isDense: true,
-                    // Aligned, Flutter adds 16 pt before the text and 4 pt
-                    // after the arrow; with these and [_StartBleed] the text
-                    // still starts 12 pt in and the arrow ends 12 pt in, as
-                    // in every text box.
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 13, 8, 13),
-                    // A compact list, not a full-screen sheet (owner,
-                    // 2026-10-11: "menüler çok büyük açılıyor").
-                    menuMaxHeight: 300,
-                    borderRadius: BorderRadius.circular(MenzilRadius.input),
-                    dropdownColor: c.surface,
-                    icon: Icon(Icons.expand_more, color: c.ink2),
-                    // Entries a bit smaller and not bold (owner, 2026-10-11).
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: c.ink,
-                    ),
-                  ),
                   ),
                 ),
               ),
@@ -1364,8 +1371,7 @@ class _RenderStartBleed extends RenderProxyBox {
   static const double _b = _StartBleed.bleed;
 
   /// Where the child is drawn: the extra width lies on the start side.
-  Offset get _shift =>
-      Offset(_textDirection == TextDirection.ltr ? -_b : 0, 0);
+  Offset get _shift => Offset(_textDirection == TextDirection.ltr ? -_b : 0, 0);
 
   BoxConstraints _wider(BoxConstraints c) => c.hasBoundedWidth
       ? c.copyWith(minWidth: c.minWidth + _b, maxWidth: c.maxWidth + _b)
