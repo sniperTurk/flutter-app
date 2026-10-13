@@ -120,6 +120,7 @@ const _slug = <String, dynamic>{
   'bcModel': 'g1',
   'lengthMm': 10,
 };
+
 /// The same slug saved without a length (Profil box hidden).
 const _slugNoLength = <String, dynamic>{
   'id': 'manual_ammo_slug_nolen',
