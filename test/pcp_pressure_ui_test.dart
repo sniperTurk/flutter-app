@@ -329,8 +329,10 @@ void main() {
       final none = await elevation(tester, _unregulatedAt(null));
       final full = await elevation(tester, _unregulatedAt(200));
       final low = await elevation(tester, _unregulatedAt(120));
-      // 270 m/s measured at 200 bar = the profile velocity.
-      expect(full, closeTo(none, 1e-12));
+      // 270 m/s measured at 200 bar = the profile velocity. The screen's
+      // velocity goes through the fps box (rounded), so the two agree to
+      // well under a click (0.1 mrad), not to the last bit.
+      expect(full, closeTo(none, 0.005));
       expect(low, isNot(closeTo(none, 1e-6)));
     });
 
