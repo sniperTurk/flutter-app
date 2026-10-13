@@ -144,7 +144,12 @@ void main() {
     await choose('profile-distance-unit', 'Metre');
     await type('profile-zero', '25');
     await type('scope-sight-height', '60');
-    await choose('scope-brand-select', 'Listede yok');
+    // The typed scope opens from the link under the Dürbün card (owner,
+    // 2026-10-13: no "Listede yok" in the scope Marka list).
+    await tester.ensureVisible(find.byKey(const Key('scope-not-listed')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('scope-not-listed')));
+    await tester.pumpAndSettle();
     await type('scope-brand', 'Test Optik');
     // Büyütme, Mercek çapı and Klik değeri are picked from lists; every
     // list box starts on "Seçiniz" (owner, 2026-10-11).
