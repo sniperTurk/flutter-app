@@ -1504,7 +1504,7 @@ class ScopeReticlePainter extends CustomPainter {
           text: s,
           style: TextStyle(
             fontFamily: MenzilType.familyFor(size),
-          fontFeatures: MenzilType.tabular,
+            fontFeatures: MenzilType.tabular,
             fontSize: size,
             fontWeight: weight,
             foreground: Paint()

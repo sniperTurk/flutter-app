@@ -364,11 +364,7 @@ class _LevelScreenState extends State<LevelScreen> {
     double height,
   ) {
     final c = MenzilColors.of(context);
-    final style = MenzilType.number(
-      c.levelControlInk,
-      size: 17,
-      live: true,
-    );
+    final style = MenzilType.number(c.levelControlInk, size: 17, live: true);
     return Container(
       height: height,
       padding: const EdgeInsets.only(left: MenzilSpace.lg),

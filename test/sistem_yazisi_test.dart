@@ -133,8 +133,14 @@ void main() {
       for (final e in styles.entries) {
         expect(_hasTabular(e.value.fontFeatures), isFalse, reason: e.key);
       }
-      expect(_hasTabular(MenzilType.display(ink, live: true).fontFeatures), isTrue);
-      expect(_hasTabular(MenzilType.number(ink, live: true).fontFeatures), isTrue);
+      expect(
+        _hasTabular(MenzilType.display(ink, live: true).fontFeatures),
+        isTrue,
+      );
+      expect(
+        _hasTabular(MenzilType.number(ink, live: true).fontFeatures),
+        isTrue,
+      );
     });
 
     test('weights: headings bold, values medium, labels regular', () {
@@ -149,17 +155,29 @@ void main() {
     for (final theme in [MenzilTheme.light(), MenzilTheme.dark()]) {
       final t = theme.textTheme;
       final roles = [
-        t.displayLarge, t.displayMedium, t.displaySmall,
-        t.headlineLarge, t.headlineMedium, t.headlineSmall,
-        t.titleLarge, t.titleMedium, t.titleSmall,
-        t.bodyLarge, t.bodyMedium, t.bodySmall,
-        t.labelLarge, t.labelMedium, t.labelSmall,
+        t.displayLarge,
+        t.displayMedium,
+        t.displaySmall,
+        t.headlineLarge,
+        t.headlineMedium,
+        t.headlineSmall,
+        t.titleLarge,
+        t.titleMedium,
+        t.titleSmall,
+        t.bodyLarge,
+        t.bodyMedium,
+        t.bodySmall,
+        t.labelLarge,
+        t.labelMedium,
+        t.labelSmall,
       ];
       for (final r in roles) {
         expect(_systemFamilies, contains(r!.fontFamily), reason: r.debugLabel);
       }
       expect(
-        theme.filledButtonTheme.style!.textStyle!.resolve(<WidgetState>{})!.fontFamily,
+        theme.filledButtonTheme.style!.textStyle!
+            .resolve(<WidgetState>{})!
+            .fontFamily,
         MenzilType.textFamily,
       );
       expect(
@@ -169,9 +187,7 @@ void main() {
     }
   });
 
-  testWidgets('Profil summary values use proportional figures', (
-    tester,
-  ) async {
+  testWidgets('Profil summary values use proportional figures', (tester) async {
     await _pumpHome(tester);
     final cards = find.byType(MenzilMetricCard);
     expect(cards, findsWidgets);
