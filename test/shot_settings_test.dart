@@ -287,7 +287,7 @@ void main() {
     }
 
     // The list builds lazily: after "DOPE oluştur" scroll back up to the
-    // Basınç ölçer card before looking for its warning.
+    // Basınç Ölçer card before looking for its warning.
     Future<void> backToPressure() => tester.scrollUntilVisible(
       field(BallisticsFieldKeys.pressure),
       -300,

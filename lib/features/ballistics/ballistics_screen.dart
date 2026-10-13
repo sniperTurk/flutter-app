@@ -3286,10 +3286,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ],
         ),
       ),
-      // Basınç ölçer (owner, 2026-10-12): station pressure and altitude
+      // Basınç Ölçer (owner, 2026-10-12): station pressure and altitude
       // under Atmosfer, with "Basıncı telefondan al" under the two boxes.
+      // Size 18 like the Profil summary headers (owner, 2026-10-13).
       const MenzilSectionHeader(
-        'Basınç ölçer',
+        'Basınç Ölçer',
+        size: 18,
         padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
       ),
       MenzilCard(
@@ -3383,6 +3385,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ),
       const MenzilSectionHeader(
         'Rüzgâr',
+        size: 18,
         padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
       ),
       MenzilCard(

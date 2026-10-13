@@ -117,7 +117,7 @@ void main() {
     expect(_text(tester, BallisticsFieldKeys.wind), '2.5');
     // Rüzgâr düzeltmesi is filled by its own button (owner, 2026-10-12).
     expect(await _windMaxOnPro(tester), '');
-    // Rüzgâr is further down since Basınç ölçer (2026-10-12): scroll to it.
+    // Rüzgâr is further down since Basınç Ölçer (2026-10-12): scroll to it.
     await tester.ensureVisible(_select);
     await tester.pumpAndSettle();
     expect(
