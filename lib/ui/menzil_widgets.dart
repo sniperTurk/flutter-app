@@ -1230,15 +1230,10 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
   /// The value currently picked (null: "Seçiniz"); read by tests.
   T? get value => _value;
 
-  /// The box width after layout (a LayoutBuilder breaks dialogs that ask
-  /// for intrinsic sizes); the menu is at most 260 pt and never wider.
-  double? _boxWidth;
-
-  void _measure(_) {
-    if (!mounted) return;
-    final w = context.size?.width;
-    if (w != null && w != _boxWidth) setState(() => _boxWidth = w);
-  }
+  /// The theme's outline border without the 4 pt gap it leaves for a
+  /// floating label (this box has none).
+  static InputBorder? _noGap(InputBorder? b) =>
+      b is OutlineInputBorder ? b.copyWith(gapPadding: 0) : b;
 
   @override
   void didUpdateWidget(covariant MenzilSelect<T> oldWidget) {
@@ -1253,7 +1248,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
     final c = MenzilColors.of(context);
     final w = widget;
     final items = w.items;
-    WidgetsBinding.instance.addPostFrameCallback(_measure);
+    final t = Theme.of(context).inputDecorationTheme;
     // A value that is not one of the items shows as empty.
     final value = items.where((i) => i.value == _value).length == 1
         ? _value
@@ -1284,107 +1279,129 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                   contentPadding: EdgeInsets.zero,
                   errorText: w.errorText,
                   errorMaxLines: 2,
+                  // An outline border keeps its gapPadding (4 pt) free on
+                  // both sides of the content; without it the button, and
+                  // so the open list, has exactly the box's edges.
+                  border: _noGap(t.border),
+                  enabledBorder: _noGap(t.enabledBorder),
+                  focusedBorder: _noGap(t.focusedBorder),
+                  errorBorder: _noGap(t.errorBorder),
+                  focusedErrorBorder: _noGap(t.focusedErrorBorder),
+                  disabledBorder: _noGap(t.disabledBorder),
                 ),
                 isEmpty: false,
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton<T>(
-                    // Always opens DOWNWARD (owner, 2026-10-12): Flutter
-                    // places the list so the selected entry covers the box,
-                    // which opened it upward for a later entry. The box
-                    // therefore shows the choice as its hint and the list
-                    // starts at its first entry.
-                    value: null,
-                    // Narrower than a full-width box (owner, 2026-10-11:
-                    // "sağa sola da çok açılıyor").
-                    menuWidth: _boxWidth == null
-                        ? null
-                        : math.min(_boxWidth!, 260),
-                    // Every list box says "Seçiniz" until something is
-                    // picked (owner, 2026-10-11).
-                    hint: selectedIndex == null
-                        ? Text(
-                            w.hint ?? 'Seçiniz',
-                            style: TextStyle(color: c.ink2),
-                          )
-                        : DefaultTextStyle.merge(
-                            maxLines: 1,
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: c.ink),
-                            child: w.selectedLabels == null
-                                ? MenzilSelect._oneLine(
-                                    items[selectedIndex].child,
-                                  )
-                                : Text(w.selectedLabels![selectedIndex]),
+                  // The open list has exactly the box's left and right edge
+                  // (owner, 2026-10-13: "daha büyük açılsın ama kutudan
+                  // dışarı çıkmasın"). Unaligned, Flutter widens the box by
+                  // 16 pt left and 24 pt right before placing the list;
+                  // aligned it uses the box itself, and with no menuWidth
+                  // the list is exactly as wide as the box.
+                  child: ButtonTheme.fromButtonThemeData(
+                    data: ButtonTheme.of(
+                      context,
+                    ).copyWith(alignedDropdown: true),
+                    child: DropdownButton<T>(
+                      // Always opens DOWNWARD (owner, 2026-10-12): Flutter
+                      // places the list so the selected entry covers the box,
+                      // which opened it upward for a later entry. The box
+                      // therefore shows the choice as its hint and the list
+                      // starts at its first entry.
+                      value: null,
+                      // Every list box says "Seçiniz" until something is
+                      // picked (owner, 2026-10-11).
+                      hint: selectedIndex == null
+                          ? Text(
+                              w.hint ?? 'Seçiniz',
+                              style: TextStyle(color: c.ink2),
+                            )
+                          : DefaultTextStyle.merge(
+                              maxLines: 1,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: c.ink),
+                              child: w.selectedLabels == null
+                                  ? MenzilSelect._oneLine(
+                                      items[selectedIndex].child,
+                                    )
+                                  : Text(w.selectedLabels![selectedIndex]),
+                            ),
+                      // List entries in regular weight (owner, 2026-10-11).
+                      items: [
+                        for (final it in items)
+                          DropdownMenuItem<T>(
+                            key: it.key,
+                            value: it.value,
+                            enabled: it.enabled,
+                            onTap: it.onTap,
+                            alignment: it.alignment,
+                            child: DefaultTextStyle.merge(
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                              ),
+                              child: it.child,
+                            ),
                           ),
-                    // List entries in regular weight (owner, 2026-10-11).
-                    items: [
-                      for (final it in items)
-                        DropdownMenuItem<T>(
-                          key: it.key,
-                          value: it.value,
-                          enabled: it.enabled,
-                          onTap: it.onTap,
-                          alignment: it.alignment,
-                          child: DefaultTextStyle.merge(
-                            style: const TextStyle(fontWeight: FontWeight.w400),
-                            child: it.child,
+                      ],
+                      onChanged: w.onChanged == null
+                          ? null
+                          : (v) {
+                              setState(() => _value = v);
+                              w.onChanged!(v);
+                            },
+                      // The closed box always shows ONE line (owner,
+                      // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
+                      // With value null Flutter shows the entry whose value is
+                      // null ("Seçiniz" in lists that offer it): that slot
+                      // shows the current choice instead.
+                      selectedItemBuilder: (context) => [
+                        for (var i = 0; i < items.length; i++)
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: DefaultTextStyle.merge(
+                              maxLines: 1,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              child: () {
+                                final k = items[i].value == null
+                                    ? selectedIndex
+                                    : i;
+                                if (k == null) {
+                                  return Text(
+                                    w.hint ?? 'Seçiniz',
+                                    style: TextStyle(color: c.ink2),
+                                  );
+                                }
+                                return w.selectedLabels == null
+                                    ? MenzilSelect._oneLine(items[k].child)
+                                    : Text(w.selectedLabels![k]);
+                              }(),
+                            ),
                           ),
-                        ),
-                    ],
-                    onChanged: w.onChanged == null
-                        ? null
-                        : (v) {
-                            setState(() => _value = v);
-                            w.onChanged!(v);
-                          },
-                    // The closed box always shows ONE line (owner,
-                    // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
-                    // With value null Flutter shows the entry whose value is
-                    // null ("Seçiniz" in lists that offer it): that slot
-                    // shows the current choice instead.
-                    selectedItemBuilder: (context) => [
-                      for (var i = 0; i < items.length; i++)
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: DefaultTextStyle.merge(
-                            maxLines: 1,
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis,
-                            child: () {
-                              final k = items[i].value == null
-                                  ? selectedIndex
-                                  : i;
-                              if (k == null) {
-                                return Text(
-                                  w.hint ?? 'Seçiniz',
-                                  style: TextStyle(color: c.ink2),
-                                );
-                              }
-                              return w.selectedLabels == null
-                                  ? MenzilSelect._oneLine(items[k].child)
-                                  : Text(w.selectedLabels![k]);
-                            }(),
-                          ),
-                        ),
-                    ],
-                    isExpanded: true,
-                    isDense: true,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 13,
-                    ),
-                    // A compact list, not a full-screen sheet (owner,
-                    // 2026-10-11: "menüler çok büyük açılıyor").
-                    menuMaxHeight: 300,
-                    borderRadius: BorderRadius.circular(MenzilRadius.input),
-                    dropdownColor: c.surface,
-                    icon: Icon(Icons.expand_more, color: c.ink2),
-                    // Entries a bit smaller and not bold (owner, 2026-10-11).
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: c.ink,
+                      ],
+                      isExpanded: true,
+                      isDense: true,
+                      // Aligned, Flutter adds 16 pt before the text and 4 pt
+                      // after the arrow, so the text still starts 16 pt and
+                      // the arrow ends 16 pt inside the box, as before.
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                        0,
+                        13,
+                        12,
+                        13,
+                      ),
+                      // A compact list, not a full-screen sheet (owner,
+                      // 2026-10-11: "menüler çok büyük açılıyor").
+                      menuMaxHeight: 300,
+                      borderRadius: BorderRadius.circular(MenzilRadius.input),
+                      dropdownColor: c.surface,
+                      icon: Icon(Icons.expand_more, color: c.ink2),
+                      // Entries a bit smaller and not bold (owner, 2026-10-11).
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: c.ink,
+                      ),
                     ),
                   ),
                 ),
