@@ -998,6 +998,10 @@ class _CompactLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    final style = MenzilType.label(c.ink);
+    final lineHeight =
+        MediaQuery.textScalerOf(context).scale(style.fontSize!) *
+        (style.height ?? 1.25);
     return Padding(
       key: const ValueKey('menzil-compact-label'),
       padding: const EdgeInsets.only(bottom: MenzilSpace.compactLabelGap),
@@ -1007,10 +1011,18 @@ class _CompactLabel extends StatelessWidget {
           children: [
             // One line that shrinks only as far as it must: side-by-side
             // labels, and so their boxes, always line up.
+            // The slot keeps the full one-line height even when the text
+            // shrinks, so neighbouring boxes start at the same height.
             Expanded(
-              child: DefaultTextStyle.merge(
-                style: MenzilType.label(c.ink),
-                child: MenzilFitText(label, minScale: 0.6),
+              child: SizedBox(
+                height: lineHeight,
+                child: Align(
+                  alignment: AlignmentDirectional.bottomStart,
+                  child: DefaultTextStyle.merge(
+                    style: style,
+                    child: MenzilFitText(label, minScale: 0.6),
+                  ),
+                ),
               ),
             ),
             if (trailing != null) trailing!,

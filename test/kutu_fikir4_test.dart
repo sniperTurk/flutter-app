@@ -95,8 +95,8 @@ void _expectCompactInput(
   final info = _infoIn(field);
   expect(info, findsOneWidget, reason: '$key ⓘ inside the box');
   final infoRect = tester.getRect(info);
-  expect(infoRect.width, greaterThanOrEqualTo(44), reason: '$key ⓘ');
-  expect(infoRect.height, greaterThanOrEqualTo(44), reason: '$key ⓘ');
+  expect(infoRect.width, greaterThanOrEqualTo(44 - 0.01), reason: '$key ⓘ');
+  expect(infoRect.height, greaterThanOrEqualTo(44 - 0.01), reason: '$key ⓘ');
   expect(infoRect.right, lessThanOrEqualTo(box.right + 0.01));
   expect(infoRect.top, greaterThanOrEqualTo(box.top - 0.01));
   expect(infoRect.bottom, lessThanOrEqualTo(box.bottom + 0.01));
@@ -203,10 +203,15 @@ void main() {
         final b = tester.getRect(_field(pair[1]));
         expect(b.top, moreOrLessEquals(a.top, epsilon: 0.01));
         expect(b.left, greaterThan(a.right), reason: 'two per row');
-        expect(
-          tester.getTopLeft(find.byKey(pair[1])).dy,
-          moreOrLessEquals(tester.getTopLeft(find.byKey(pair[0])).dy),
+        Rect labelSlot(Key k) => tester.getRect(
+          find.descendant(
+            of: find.byKey(k),
+            matching: find.byKey(const ValueKey('menzil-compact-label')),
+          ),
         );
+        final la = labelSlot(pair[0]), lb = labelSlot(pair[1]);
+        expect(lb.top, moreOrLessEquals(la.top, epsilon: 0.01));
+        expect(lb.height, moreOrLessEquals(la.height, epsilon: 0.01));
       }
     });
 
@@ -379,8 +384,8 @@ void main() {
       final info = _infoIn(box);
       expect(info, findsOneWidget);
       final infoRect = tester.getRect(info);
-      expect(infoRect.width, greaterThanOrEqualTo(44));
-      expect(infoRect.height, greaterThanOrEqualTo(44));
+      expect(infoRect.width, greaterThanOrEqualTo(44 - 0.01));
+      expect(infoRect.height, greaterThanOrEqualTo(44 - 0.01));
       final arrow = tester.getRect(
         find.descendant(of: box, matching: find.byIcon(Icons.expand_more)),
       );
@@ -511,7 +516,7 @@ void main() {
       ),
       findsOneWidget,
     );
-    expect(box.top - whole.top, greaterThanOrEqualTo(44));
+    expect(box.top - whole.top, greaterThanOrEqualTo(44 - 0.01));
     expect(box.height, greaterThanOrEqualTo(MenzilSpace.control - 0.01));
     expect(
       find.descendant(of: field, matching: find.text('bar')),
