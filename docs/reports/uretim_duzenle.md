@@ -61,6 +61,10 @@ CI, kod commit'i `5be2995` üzerinde koştu (bu rapor sonradan yalnızca belge o
 - Test (One-off test diagnostic, `files=test`): https://github.com/sniperTurk/flutter-app/actions/runs/38423158360 — başarılı (bütün `test` klasörü, yeni testler dahil)
 - Analiz (One-off analyze diagnostic): https://github.com/sniperTurk/flutter-app/actions/runs/38423161918 — başarılı (`flutter analyze --fatal-infos --fatal-warnings`)
 
+## iOS CI (PR) notu
+
+PR'ın `iOS CI / verify` işi ilk denemede (https://github.com/sniperTurk/flutter-app/actions/runs/38425602209) "Boot iOS Simulator and run launch smoke test" adımında düştü: `integration_test/app_launch_test.dart` 129. satır, PCP'de artık gösterilmeyen `ammo-brand-select` kutusunu arıyordu (`Bad state: No element`). Bu hata main'de de var ve bu PR'ın değişikliğiyle ilgisi yok. Düzeltmesi PR #267'de (`fix/ios-ci-pcp-marka`), orada simülatör testi geçti. Aynı üç `integration_test` dosyası #267'deki hâliyle birebir buraya alındı; #267 main'e girince bu değişiklik etkisiz olur, çakışma çıkmaz.
+
 TestFlight yüklemesi yapılmadı. PR taslak olarak açıldı; birleştirme sahibin ana oturumundadır.
 
 ---
