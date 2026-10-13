@@ -1442,9 +1442,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     }
   }
 
-  /// One line per model with its data (owner, 2026-10-13: "Marka Model ve
-  /// tüm veri tek satır"), e.g. "Discovery Optics HD Gen III 5-30x56 ·
-  /// MRAD · FFP · 34 mm".
+  /// One line per model with its data (owner, 2026-10-13), e.g.
+  /// "Continental x6 5-30x56i Fiber SFP · MOA".
   String _scopeModelLine(String brand, String model) {
     final s = _scopeLib
         .where(
@@ -1454,7 +1453,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               _scopeFilterAccepts(x),
         )
         .firstOrNull;
-    if (s == null) return '$brand $model';
+    if (s == null) return model;
     // What the product name already says is not repeated (owner,
     // 2026-10-13: "CONTINENTAL X6 4-24X56 MBR FFP 34MM").
     final name = model.toLowerCase().replaceAll(' ', '');
@@ -1465,14 +1464,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         : s.firstFocalPlane!
         ? 'FFP'
         : 'SFP';
-    final tube = s.tubeDiameterMm == null
-        ? null
-        : '${_num(s.tubeDiameterMm!)} mm';
+    // No brand and no tube on the line: too many parts made it tiny
+    // (owner, 2026-10-13); the brand is chosen above anyway.
     return [
-      '$brand $model',
+      model,
       if (!said(unit)) unit,
       if (focal != null && !said(focal)) focal,
-      if (tube != null && !said(tube)) tube,
     ].join(' · ');
   }
 
@@ -1767,8 +1764,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               }
               _scopeBrandSel = v;
               scopeBrand.text = v ?? '';
-              // Filters the new brand does not have go back to "Seçiniz".
-              _dropUnavailableScopeFilters();
+              // A new brand starts every filter on "Seçiniz" (owner,
+              // 2026-10-13).
+              _scopeUnitFilter = null;
+              _scopeFfpFilter = null;
+              _scopeTubeFilter = null;
+              _scopeMagFilter = null;
             }),
           ),
         ),
