@@ -116,7 +116,9 @@ void _expectFits(WidgetTester tester, String full, String short) {
       maxLines: 1,
     )..layout();
     final room = tester
-        .getRect(find.ancestor(of: shown, matching: find.byType(SizedBox)).first)
+        .getRect(
+          find.ancestor(of: shown, matching: find.byType(SizedBox)).first,
+        )
         .width;
     expect(p.width * 0.8, greaterThan(room), reason: full);
     p.dispose();
