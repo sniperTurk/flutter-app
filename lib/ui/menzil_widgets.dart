@@ -233,10 +233,7 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                   // On the narrowest phones the wordmark collapses to the
                   // reticle glyph so the profile selector keeps usable width.
                   final compact = constraints.maxWidth < 350;
-                  final titleStyle = MenzilType.heading(
-                    c.ink,
-                    size: titleSize,
-                  );
+                  final titleStyle = MenzilType.heading(c.ink, size: titleSize);
                   final base = DefaultTextStyle.of(context).style;
                   final slotWidth = titleSlotWidth(
                     barWidth: constraints.maxWidth,
