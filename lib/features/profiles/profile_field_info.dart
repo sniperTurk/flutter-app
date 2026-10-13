@@ -32,9 +32,6 @@ abstract final class ProfileFieldInfo {
       'Fişeğiniz listede yoksa merminin çapını seçin. Çap mermi kutusunda '
       'veya üreticinin sitesinde inç olarak yazar; örneğin .308 Win için '
       '.308 in · 7,82 mm, .223 Rem için .224 in · 5,69 mm.';
-  static const caliberOther =
-      'Merminin çapı, milimetre olarak. Mühimmat kutusunda ya da üreticinin '
-      'sitesinde yazar (inç verilmişse 25,4 ile çarpın: .308 inç = 7,82 mm).';
   static const twistDirection =
       'Namlunun içindeki yivlerin dönüş yönü. Namluya arkadan bakarken yivler '
       'saat yönünde dönüyorsa Sağ, tersiyse Sol. Namluların çoğu sağdır.';

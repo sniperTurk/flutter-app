@@ -52,6 +52,14 @@ Future<void> openProFor(WidgetTester tester, Key key) async {
   if (header.evaluate().isEmpty) return;
   await tester.ensureVisible(header);
   await tester.pumpAndSettle();
-  await tester.tap(header);
+  await tapProHeader(tester, header);
+}
+
+/// Taps a Pro box header on its title. The header's centre can fall on the
+/// ⓘ next to the title (owner, 2026-10-13), which opens the explanation
+/// popup instead of the box.
+Future<void> tapProHeader(WidgetTester tester, Finder header) async {
+  final h = tester.getSize(header).height;
+  await tester.tapAt(tester.getTopLeft(header) + Offset(12, h / 2));
   await tester.pumpAndSettle();
 }

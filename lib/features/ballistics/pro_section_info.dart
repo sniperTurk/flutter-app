@@ -188,13 +188,14 @@ abstract final class ProSectionInfo {
         '300 m\'nin ötesinde birkaç santim fark eder. Kısa mesafede gerek yok.',
     how:
         'Düğmeyi aç ve mermi uzunluğunu yaz; kumpasla ölçebilir ya da '
-        'kutusundan bakabilirsin. Yiv yönü ve yiv oranı profilden alınır.',
+        'kutusundan bakabilirsin. Boşsa profildeki mühimmat uzunluğu '
+        'kullanılır. Yiv yönü ve yiv oranı profilden alınır.',
   );
 
   /// Shown under spin drift only on PCP profiles (owner, 2026-10-09).
   static const spinDriftPcpNote =
       'PCP\'de 200 m\'nin ötesinde, slug ile anlamlıdır; yakın mesafede '
-      'açmana gerek yok.';
+      'açmana gerek yok. Diabolo pellet için hesaplanmaz.';
 
   static const pcpPressure = ProExplain(
     title: 'Tüp basıncı',
