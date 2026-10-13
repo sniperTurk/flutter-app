@@ -113,8 +113,15 @@ Future<void> _pumpRow(
 
 class _Shot {
   final Rect button, icon, text, kopyala, sil, kopyalaText, silText;
-  _Shot(this.button, this.icon, this.text, this.kopyala, this.sil,
-      this.kopyalaText, this.silText);
+  _Shot(
+    this.button,
+    this.icon,
+    this.text,
+    this.kopyala,
+    this.sil,
+    this.kopyalaText,
+    this.silText,
+  );
 }
 
 _Shot _measure(WidgetTester tester) => _Shot(
@@ -149,97 +156,94 @@ void main() {
   for (final dark in [false, true]) {
     for (final scale in scales) {
       for (final width in widths) {
-        testWidgets(
-          'Profil ekle + moves, label stays: ${width.toInt()} pt, '
-          '×$scale, ${dark ? 'koyu' : 'açık'}',
-          (tester) async {
-            await _pumpRow(
-              tester,
-              width: width,
-              shift: 0,
-              textScale: scale,
-              dark: dark,
-            );
-            expect(tester.takeException(), isNull);
-            final before = _measure(tester);
+        testWidgets('Profil ekle + moves, label stays: ${width.toInt()} pt, '
+            '×$scale, ${dark ? 'koyu' : 'açık'}', (tester) async {
+          await _pumpRow(
+            tester,
+            width: width,
+            shift: 0,
+            textScale: scale,
+            dark: dark,
+          );
+          expect(tester.takeException(), isNull);
+          final before = _measure(tester);
 
-            // Expected label position from the current layout: padding 2,
-            // icon 20, gap 2, then the label centred in what is left (right
-            // padding 14), set smaller when it does not fit.
-            final room = before.button.width - 2 - 14 - 22;
-            final shownWidth = before.text.width;
-            expect(shownWidth, lessThanOrEqualTo(room + 0.5));
-            final expectedTextLeft =
-                before.button.left + 2 + 22 + (room - shownWidth) / 2;
-            expect(before.text.left, closeTo(expectedTextLeft, 0.5));
-            expect(before.icon.left, closeTo(before.button.left + 2, 0.5));
+          // Expected label position from the current layout: padding 2,
+          // icon 20, gap 2, then the label centred in what is left (right
+          // padding 14), set smaller when it does not fit.
+          final room = before.button.width - 2 - 14 - 22;
+          final shownWidth = before.text.width;
+          expect(shownWidth, lessThanOrEqualTo(room + 0.5));
+          final expectedTextLeft =
+              before.button.left + 2 + 22 + (room - shownWidth) / 2;
+          expect(before.text.left, closeTo(expectedTextLeft, 0.5));
+          expect(before.icon.left, closeTo(before.button.left + 2, 0.5));
 
-            final gapBefore = before.text.left - before.icon.right;
-            final expectedShift = (gapBefore - MenzilPrimaryButton.minIconGap)
-                .clamp(0.0, 15.0)
-                .toDouble();
+          final gapBefore = before.text.left - before.icon.right;
+          final expectedShift = (gapBefore - MenzilPrimaryButton.minIconGap)
+              .clamp(0.0, 15.0)
+              .toDouble();
 
-            await _pumpRow(
-              tester,
-              width: width,
-              shift: 15,
-              textScale: scale,
-              dark: dark,
-            );
-            expect(tester.takeException(), isNull);
-            final after = _measure(tester);
+          await _pumpRow(
+            tester,
+            width: width,
+            shift: 15,
+            textScale: scale,
+            dark: dark,
+          );
+          expect(tester.takeException(), isNull);
+          final after = _measure(tester);
 
-            // The label: same place, same size, one line.
-            _expectRect(after.text, before.text, 'Profil ekle yazısı');
-            expect(after.text.left, closeTo(expectedTextLeft, 0.5));
+          // The label: same place, same size, one line.
+          _expectRect(after.text, before.text, 'Profil ekle yazısı');
+          expect(after.text.left, closeTo(expectedTextLeft, 0.5));
+          expect(
+            after.text.height,
+            lessThan(after.button.height),
+            reason: 'one line',
+          );
+          // The icon: moved right by the chosen amount only.
+          final moved = after.icon.left - before.icon.left;
+          expect(moved, closeTo(expectedShift, 0.5));
+          expect(after.icon.top, closeTo(before.icon.top, 0.5));
+          if (expectedShift > 0) {
             expect(
-              after.text.height,
-              lessThan(after.button.height),
-              reason: 'one line',
+              after.icon.right + MenzilPrimaryButton.minIconGap,
+              lessThanOrEqualTo(after.text.left + 0.5),
             );
-            // The icon: moved right by the chosen amount only.
-            final moved = after.icon.left - before.icon.left;
-            expect(moved, closeTo(expectedShift, 0.5));
-            expect(after.icon.top, closeTo(before.icon.top, 0.5));
-            if (expectedShift > 0) {
-              expect(
-                after.icon.right + MenzilPrimaryButton.minIconGap,
-                lessThanOrEqualTo(after.text.left + 0.5),
-              );
-            } else {
-              // No room: the icon stays put, nothing gets closer.
-              expect(after.text.left - after.icon.right,
-                  closeTo(gapBefore, 0.5));
-            }
-            // Never past the button.
-            expect(after.icon.left, greaterThanOrEqualTo(after.button.left));
-            _expectRect(after.button, before.button, 'Profil ekle düğmesi');
-            // Kopyala / Sil unchanged.
-            _expectRect(after.kopyala, before.kopyala, 'Kopyala');
-            _expectRect(after.sil, before.sil, 'Sil');
-            _expectRect(after.kopyalaText, before.kopyalaText, 'Kopyala yazı');
-            _expectRect(after.silText, before.silText, 'Sil yazı');
+          } else {
+            // No room: the icon stays put, nothing gets closer.
+            expect(after.text.left - after.icon.right, closeTo(gapBefore, 0.5));
+          }
+          // Never past the button.
+          expect(after.icon.left, greaterThanOrEqualTo(after.button.left));
+          _expectRect(after.button, before.button, 'Profil ekle düğmesi');
+          // Kopyala / Sil unchanged.
+          _expectRect(after.kopyala, before.kopyala, 'Kopyala');
+          _expectRect(after.sil, before.sil, 'Sil');
+          _expectRect(after.kopyalaText, before.kopyalaText, 'Kopyala yazı');
+          _expectRect(after.silText, before.silText, 'Sil yazı');
 
-            // ignore: avoid_print
-            print(
-              'PROFIL_EKLE|${width.toInt()}|x$scale|${dark ? 'koyu' : 'acik'}'
-              '|buton=${after.button.width.toStringAsFixed(1)}'
-              '|yazi_sol=${after.text.left.toStringAsFixed(2)}'
-              '|yazi_gen=${after.text.width.toStringAsFixed(1)}'
-              '|bosluk_once=${gapBefore.toStringAsFixed(1)}'
-              '|kayma=${moved.toStringAsFixed(1)}'
-              '|bosluk_sonra=${(after.text.left - after.icon.right).toStringAsFixed(1)}',
-            );
-          },
-        );
+          // ignore: avoid_print
+          print(
+            'PROFIL_EKLE|${width.toInt()}|x$scale|${dark ? 'koyu' : 'acik'}'
+            '|buton=${after.button.width.toStringAsFixed(1)}'
+            '|yazi_sol=${after.text.left.toStringAsFixed(2)}'
+            '|yazi_gen=${after.text.width.toStringAsFixed(1)}'
+            '|bosluk_once=${gapBefore.toStringAsFixed(1)}'
+            '|kayma=${moved.toStringAsFixed(1)}'
+            '|bosluk_sonra=${(after.text.left - after.icon.right).toStringAsFixed(1)}',
+          );
+        });
       }
     }
   }
 
   test('only Profil ekle asks for the shift', () {
-    final src = File('lib').listSync(recursive: true).whereType<File>().where(
-      (f) => f.path.endsWith('.dart'),
-    );
+    final src = File('lib')
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.dart'));
     final users = [
       for (final f in src)
         if (f.readAsStringSync().contains('iconShift:')) f.path,
