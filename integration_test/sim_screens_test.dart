@@ -284,7 +284,9 @@ void main() {
         final header = find.byKey(const Key('pro-section-rifle'));
         await tester.ensureVisible(header);
         await settle();
-        await tester.tap(header);
+        // On the title: the header's centre can be the ⓘ (2026-10-13).
+        final h = tester.getSize(header).height;
+        await tester.tapAt(tester.getTopLeft(header) + Offset(12, h / 2));
         await settle();
         await type('pro-tube-pressure', '120');
         await settle();

@@ -243,8 +243,7 @@ void main() {
       await big(tester);
       await tester.pumpWidget(app(_fx, BallisticsView.pro));
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('pro-section-rifle')));
-      await tester.pumpAndSettle();
+      await tapProHeader(tester, find.byKey(const Key('pro-section-rifle')));
       expect(find.byKey(const Key('pro-turret-scale')), findsOneWidget);
       expect(find.byKey(const Key('pro-tube-pressure')), findsNothing);
     });

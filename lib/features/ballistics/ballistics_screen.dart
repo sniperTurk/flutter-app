@@ -3655,13 +3655,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   // -------------------------------------------------------------------------
 
   /// One Pro Ayarlar box: a tappable header with a short summary; the
-  /// content (explanation first) shows only while it is the open box
-  /// (owner, 2026-10-09: all boxes start closed, one open at a time).
+  /// content shows only while it is the open box (owner, 2026-10-09: all
+  /// boxes start closed, one open at a time). The box's Ne? / Neden önemli?
+  /// / Nasıl? explanations ([info]) open from the ⓘ next to the title
+  /// (owner, 2026-10-13: "Pro sayfasındaki açıklamalar popup olsun").
   Widget _proBox({
     required String id,
     required String title,
     required String summary,
     required List<Widget> children,
+    List<_ProInfo> info = const [],
   }) {
     final c = MenzilColors.of(context);
     final open = _proOpen == id;
@@ -3686,13 +3689,30 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Text(
-                        title,
-                        // No bold box titles (owner, 2026-10-11): regular.
-                        style: MenzilType.heading(
-                          c.ink,
-                          size: 18,
-                        ).copyWith(fontWeight: FontWeight.w400),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              title,
+                              // No bold box titles (owner, 2026-10-11):
+                              // regular.
+                              style: MenzilType.heading(
+                                c.ink,
+                                size: 18,
+                              ).copyWith(fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                          // ⓘ right after the title; its own tap target and
+                          // VoiceOver button, so it does not open the box.
+                          if (info.isNotEmpty)
+                            MenzilInfoButton(
+                              key: Key('pro-info-$id'),
+                              title: title,
+                              tooltip: 'Açıklama: $title',
+                              closeLabel: 'Kapat',
+                              body: _proInfoBody(title, info),
+                            ),
+                        ],
                       ),
                     ),
                     if (!open)
@@ -3722,9 +3742,34 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
-  /// Ne? / Neden önemli? / Nasıl? block of one setting.
-  Widget _explain(ProExplain e, {String? note, bool showTitle = true}) {
-    final c = MenzilColors.of(context);
+  /// Popup body of a Pro box's ⓘ: its explanations in page order. A title
+  /// equal to the popup title is not repeated (owner, 2026-10-12).
+  Widget _proInfoBody(String boxTitle, List<_ProInfo> info) => Builder(
+    builder: (dialogContext) => Column(
+      key: const Key('pro-info-body'),
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (final i in info)
+          _explain(
+            i.explain,
+            note: i.note,
+            showTitle: i.explain.title != boxTitle,
+            within: dialogContext,
+          ),
+      ],
+    ),
+  );
+
+  /// Ne? / Neden önemli? / Nasıl? block of one setting. Since 2026-10-13 it
+  /// renders inside the box's ⓘ popup ([_proInfoBody]), not on the page.
+  Widget _explain(
+    ProExplain e, {
+    String? note,
+    bool showTitle = true,
+    BuildContext? within,
+  }) {
+    final c = MenzilColors.of(within ?? context);
     TextSpan part(String label, String text) => TextSpan(
       children: [
         TextSpan(
@@ -3855,8 +3900,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       id: 'wind',
       title: 'Rüzgâr düzeltmesi',
       summary: _summaryWind(),
-      // Owner, 2026-10-11: box first, its explanation under it; then the
-      // two zone boxes and their explanation.
+      info: const [
+        _ProInfo(ProSectionInfo.windMax),
+        _ProInfo(ProSectionInfo.windZones),
+      ],
+      // Owner, 2026-10-11: the box first, then the two zone boxes; their
+      // explanations are in the ⓘ popup (owner, 2026-10-13).
       children: [
         MenzilInput(
           key: const Key('pro-wind-max'),
@@ -3890,7 +3939,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           resetKey: const Key('pro-wind-max-reset'),
           onReset: _resetWindMax,
         ),
-        _explain(ProSectionInfo.windMax),
+        const SizedBox(height: MenzilSpace.sm),
         MenzilFieldGrid(
           children: [
             MenzilInput(
@@ -3911,7 +3960,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             ),
           ],
         ),
-        _explain(ProSectionInfo.windZones),
       ],
     );
   }
@@ -3984,17 +4032,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         id: 'angle',
         title: 'Açı',
         summary: _summaryAngle(),
-        children: [
-          _angleTiles(context),
-          _explain(ProSectionInfo.incline),
-          _explain(ProSectionInfo.cant),
+        info: const [
+          _ProInfo(ProSectionInfo.incline),
+          _ProInfo(ProSectionInfo.cant),
         ],
+        children: [_angleTiles(context)],
       ),
       _windCorrectionBox(context),
       _proBox(
         id: 'coriolis',
         title: 'Coriolis',
         summary: _coriolisOn ? 'açık' : 'kapalı',
+        info: const [_ProInfo(ProSectionInfo.coriolis)],
         children: [
           if (_coriolisOn) ...[
             const SizedBox(height: MenzilSpace.sm),
@@ -4082,13 +4131,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               style: MenzilType.body(c.ink),
             ),
           ],
-          _explain(ProSectionInfo.coriolis),
         ],
       ),
       _proBox(
         id: 'gravity',
         title: 'Yerçekimi',
         summary: _gravityOn ? 'açık' : 'kapalı',
+        info: const [_ProInfo(ProSectionInfo.gravity)],
         children: [
           if (_gravityOn) ...[
             const SizedBox(height: MenzilSpace.sm),
@@ -4153,16 +4202,19 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               },
             ),
           ],
-          _explain(ProSectionInfo.gravity),
         ],
       ),
       _proBox(
         id: 'target',
         title: 'Hareketli hedef',
         summary: _summaryTarget(),
+        info: const [
+          _ProInfo(ProSectionInfo.movingTarget),
+          _ProInfo(ProSectionInfo.hitProbability),
+        ],
         children: [
-          // Owner, 2026-10-12: boxes first, the explanation under them;
-          // Verileri sil under the boxes, the WEZ explanation last.
+          // Owner, 2026-10-12: boxes first, Verileri sil under them; the
+          // explanations are in the ⓘ popup (owner, 2026-10-13).
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -4192,7 +4244,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ),
             ],
           ),
-          _explain(ProSectionInfo.movingTarget, showTitle: false),
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -4269,15 +4320,25 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             expand: true,
             onPressed: _clearTargetBox,
           ),
-          _explain(ProSectionInfo.hitProbability),
         ],
       ),
       _proBox(
         id: 'rifle',
         title: 'Tüfek düzeltmeleri',
         summary: _summaryRifle(),
+        info: [
+          const _ProInfo(ProSectionInfo.turretScale),
+          const _ProInfo(ProSectionInfo.zeroOffset),
+          _ProInfo(
+            ProSectionInfo.spinDrift,
+            note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
+          ),
+          if (_isFirearm) const _ProInfo(ProSectionInfo.powder),
+          if (_isPcp) const _ProInfo(ProSectionInfo.pcpPressure),
+        ],
         children: [
-          // Owner, 2026-10-12: boxes first, each explanation under them.
+          // Owner, 2026-10-12: boxes first; the explanations are in the ⓘ
+          // popup since 2026-10-13.
           MenzilInput(
             key: const Key('pro-turret-scale'),
             controller: turretScaleCtl,
@@ -4292,7 +4353,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 : null,
             onChanged: (_) => _coriolisChanged(),
           ),
-          _explain(ProSectionInfo.turretScale),
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -4315,7 +4375,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ),
             ],
           ),
-          _explain(ProSectionInfo.zeroOffset),
           if (_spinDriftOn) ...[
             MenzilInput(
               key: const Key('pro-bullet-length'),
@@ -4334,10 +4393,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                     'hesaplanamaz.',
               ),
           ],
-          _explain(
-            ProSectionInfo.spinDrift,
-            note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
-          ),
           if (_isFirearm) ...[
             // The values are entered on Profil > Mühimmat (2026-10-11); here
             // only what is used and today's velocity.
@@ -4382,7 +4437,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 );
               },
             ),
-            _explain(ProSectionInfo.powder),
           ],
           // PCP tüp basıncı (owner, 2026-10-12): never on a firearm.
           if (_isPcp) ..._pcpPressureProFields(c),
@@ -4413,7 +4467,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final r = v0 == null || bad ? null : _pcpVelocity(v0);
     final fill = widget.profile?.tubePressureBar;
     return [
-      _explain(ProSectionInfo.pcpPressure),
       MenzilFieldGrid(
         children: [
           MenzilInput(
@@ -5242,3 +5295,11 @@ class _WezPainter extends CustomPainter {
 String _decimal(num? v) => v == null
     ? '—'
     : (v % 1 == 0 ? v.toStringAsFixed(0) : v.toString()).replaceAll('.', ',');
+
+/// One explanation in a Pro box's ⓘ popup, with an optional note under it
+/// (PCP spin drift note).
+class _ProInfo {
+  final ProExplain explain;
+  final String? note;
+  const _ProInfo(this.explain, {this.note});
+}
