@@ -116,20 +116,22 @@ Sahip kararları (2026-10-13 20:09, 20:28):
 - Profil, Hava Durumu, Hedef, Araçlar sayfalarındaki alan ⓘ'leri
   değişmedi; eski pencereyi açmaya devam ediyor.
 - Açıklama ve alan yazılarının hiçbiri değiştirilmedi.
-- `MenzilInfoButton` içindeki pencerenin hizası (`TextAlign.justify`) bu
-  PR'da değiştirilmedi; bu `fix/yasla-sadece-hedef`'in işi.
+- `MenzilInfoButton` içindeki pencerenin hizası bu PR'da değiştirilmedi;
+  o `fix/yasla-sadece-hedef`'in (#276) işiydi.
 - Hava Durumu rüzgâr rehberi (`fix/ruzgar-rehber`) ve yazı tipi
   (`feat/sistem-yazisi`) ile ilgili hiçbir şeye dokunulmadı.
 - Birleştirme (merge) ve TestFlight yapılmadı; PR taslak.
 
-## Diğer açık PR'larla çakışma
+## Diğer PR'larla çakışma
 
-- `fix/yasla-sadece-hedef`, `_explain` içindeki `TextAlign.justify` satırını
-  `start` yapıyor. Bu PR `_explain`'i kaldırdığı için o hunk çakışır: hangisi
-  sonra birleşirse `_explain` silinmiş hâliyle çözülmeli (yeni sayfa zaten
-  sola yaslı). Aynı dalın `MenzilInfoButton` penceresindeki hizalama değişikliği
-  de, bu PR `onPressed` sarmalı nedeniyle o bloğun girintisini değiştirdiği
-  için elle birleştirme isteyebilir; mantık olarak çakışmazlar.
+- Bu PR açıkken `fix/yasla-sadece-hedef` (#276), `fix/ruzgar-rehber` (#272)
+  ve `feat/sistem-yazisi` (#277) main'e birleşti. main bu dala birleştirildi
+  (merge commit, geçmiş yeniden yazılmadı).
+- Tek çakışma: #276'nın `_explain` içindeki `TextAlign.start` değişikliği.
+  Bu PR `_explain`'i kaldırdığı için çakışma `_explain` silinmiş hâliyle
+  çözüldü; yeni sayfa zaten sola yaslı, yani #276'nın amacı korunuyor.
+- `MenzilInfoButton` penceresinde #276'nın hizası (sola yaslı) aynen duruyor;
+  bu PR yalnız `onPressed` ve kapsam kontrolünü ekledi.
 
 ## Testler
 

@@ -73,9 +73,11 @@ void main() {
       final text = element.widget as Text;
       final weight = text.style?.fontWeight ?? FontWeight.w400;
       expect(weight.value, lessThan(FontWeight.w600.value), reason: text.data);
-      expect(text.style?.fontFamily, MenzilType.family);
+      expect(text.style?.fontFamily, MenzilType.textFamily);
       if (text.data != null && text.data!.length > 60) {
-        expect(text.textAlign ?? TextAlign.justify, TextAlign.justify);
+        // Left-aligned (owner, 2026-10-13: only the Hedef page is
+        // justified).
+        expect(text.textAlign ?? TextAlign.start, TextAlign.start);
       }
     }
     expect(tester.takeException(), isNull);
