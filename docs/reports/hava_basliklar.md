@@ -35,7 +35,7 @@ Yeni test: `test/hava_basliklar_test.dart`
 
 - Yerel: `python3 tools/offline_dart_lint.py` → PASS (0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 732 test OK.
 - Bu ortamda Flutter SDK yok; `flutter test` / `flutter analyze` yerelde çalıştırılmadı. Bunlar GitHub Actions'ta çalıştırıldı:
-  - Format (`format-fix.yml`): yeşil, değişiklik gerekmedi ("No formatting changes needed") — https://github.com/sniperTurk/flutter-app/actions/runs/38446934217
+  - Format (`format-fix.yml`): yeşil, değişiklik gerekmedi ("No formatting changes needed"; 3e0f6b0 üzerinde, sonraki tek değişiklik main birleştirmesi ve bu rapor) — https://github.com/sniperTurk/flutter-app/actions/runs/38446934217
   - Testler (`test-diag.yml`, `files=test`, tüm test klasörü): yeşil — https://github.com/sniperTurk/flutter-app/actions/runs/38448460368
   - Analiz (`analyze-diag.yml`): yeşil — https://github.com/sniperTurk/flutter-app/actions/runs/38448463220
   - Önceki test koşusu (main birleştirmeden önce) 2 testte kırmızıydı: `test/pro_info_popup_test.dart` popup'ın iki yana yaslı olmasını bekliyordu; bu, #276'dan sonra main'de de kırmızıydı ve #280 ile main'de düzeltildi. Main dala birleştirilince yeşile döndü. Bu PR'ın değişikliğiyle ilgisi yoktu — https://github.com/sniperTurk/flutter-app/actions/runs/38447207758
