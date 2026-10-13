@@ -832,6 +832,7 @@ class _ActiveProfileDetails extends StatelessWidget {
         // bilgileri, each led by its marka and model on one line.
         const MenzilSectionHeader(
           'Tüfek bilgileri',
+          size: 18,
           padding: EdgeInsets.only(bottom: MenzilSpace.sm),
         ),
         MenzilMetricGrid(
@@ -877,7 +878,7 @@ class _ActiveProfileDetails extends StatelessWidget {
             ),
           ],
         ),
-        const MenzilSectionHeader('Dürbün bilgileri'),
+        const MenzilSectionHeader('Dürbün bilgileri', size: 18),
         MenzilMetricGrid(
           key: const Key('profile-summary-scope'),
           columns: 2,
@@ -913,7 +914,7 @@ class _ActiveProfileDetails extends StatelessWidget {
               ),
           ],
         ),
-        const MenzilSectionHeader('Mühimmat bilgileri'),
+        const MenzilSectionHeader('Mühimmat bilgileri', size: 18),
         MenzilMetricGrid(
           key: const Key('profile-summary-ammo'),
           columns: 2,
