@@ -85,7 +85,9 @@ class _ProInfoSheetState extends State<ProInfoSheet> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final target = _highlightKey.currentContext;
         if (!mounted || target == null) return;
-        Scrollable.ensureVisible(target, alignment: 0.2);
+        // Its top (the bold label) at the top of the visible part, also when
+        // the entry is taller than the view (narrow phone, large text).
+        Scrollable.ensureVisible(target);
       });
     }
   }

@@ -76,7 +76,9 @@ Sahip kararları (2026-10-13 20:09, 20:28):
 3. Bulursa o kutunun sayfasını o satır vurgulu açar ve `true` döner; bulamazsa
    `false` döner ve eski pencere açılır (hiçbir ⓘ sessiz kalmaz).
 4. Sayfa açıldıktan sonraki ilk karede `Scrollable.ensureVisible` vurgulu
-   satırı görünür alana (üstten ~%20) kaydırır.
+   satırı, kalın etiketi görünür alanın en üstüne gelecek şekilde kaydırır
+   (satır görünür alandan uzunsa bile etiketi görünür; dar ekran + büyük
+   yazıda böyle olabiliyor, CI'daki ilk denemede bu yakalandı).
 
 ## Neden
 

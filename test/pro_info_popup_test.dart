@@ -299,14 +299,18 @@ Finder _fieldButtons(String id) => find.descendant(
   ),
 );
 
-/// [entry] lies inside the visible part of the sheet's scroll view.
+/// [entry] starts inside the visible part of the sheet's scroll view (its
+/// bold label shows); when it is shorter than the view it is fully visible.
 void _expectVisible(WidgetTester tester, Finder entry) {
   final view = tester.getRect(
     _inSheet(find.byKey(const Key('pro-info-scroll'))),
   );
   final r = tester.getRect(entry);
   expect(r.top, greaterThanOrEqualTo(view.top - 0.5));
-  expect(r.bottom, lessThanOrEqualTo(view.bottom + 0.5));
+  expect(r.top, lessThan(view.bottom - 20));
+  if (r.height <= view.height) {
+    expect(r.bottom, lessThanOrEqualTo(view.bottom + 0.5));
+  }
 }
 
 void _expectNoInlineExplanation() {
