@@ -1984,7 +1984,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             items: [for (final c in choices) c.item],
             fitSelected: true,
             // The open list is as wide as the half box, never wider (owner,
-            // 2026-10-13: "kutudan dışarı çıkmasın").
+            // 2026-10-13: "kutudan dışarı çıkmasın"), so a long cartridge
+            // wraps there: its entry grows with it instead of keeping 48 pt
+            // and spilling over the next one (a tap on its lower half chose
+            // nothing).
+            itemHeight: null,
             selectedLabels: [for (final c in choices) c.full],
             shortSelectedLabels: [for (final c in choices) c.short],
             onChanged: (v) => setState(() {

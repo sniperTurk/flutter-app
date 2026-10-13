@@ -148,16 +148,27 @@ Future<void> _pickInLongList(WidgetTester tester, String label) async {
   // Built is not shown: bring the entry into the list's visible part.
   await tester.ensureVisible(inMenu.last);
   await tester.pumpAndSettle();
-  // With the 1-em test font at 320 pt × 1.3 the entry wraps over several
-  // lines and its centre may not be hittable (a tap there closes the list
-  // without a choice); then the entry's own tap handler is called, which is
-  // what a finger on the entry does.
-  if (inMenu.last.hitTestable().evaluate().isNotEmpty) {
-    await tester.tap(inMenu.last);
-  } else {
-    final ink = find.ancestor(of: inMenu.last, matching: find.byType(InkWell));
-    tester.widget<InkWell>(ink.first).onTap!();
-  }
+  // The entry grows with its wrapped text (MenzilSelect.itemHeight null):
+  // the whole text lies inside its own row, so a finger anywhere on it
+  // picks it. With Flutter's fixed 48 pt rows the 1-em test font at 320 pt
+  // × 1.3 drew ".338-378 Weatherby Mag" 120 pt high in a 48 pt row and a
+  // tap on its centre chose nothing (run 38442566759).
+  final row = tester.getRect(
+    find
+        .ancestor(
+          of: inMenu.last,
+          matching: find.byWidgetPredicate(
+            (w) =>
+                w.runtimeType.toString().startsWith('_DropdownMenuItemButton'),
+          ),
+        )
+        .first,
+  );
+  final text = tester.getRect(inMenu.last);
+  expect(row.top, lessThanOrEqualTo(text.top + 0.5), reason: '$row / $text');
+  expect(row.bottom, greaterThanOrEqualTo(text.bottom - 0.5));
+  expect(inMenu.last.hitTestable(), findsOneWidget);
+  await tester.tap(inMenu.last);
   await tester.pumpAndSettle();
 }
 

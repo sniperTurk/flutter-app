@@ -1216,6 +1216,14 @@ class MenzilSelect<T> extends StatefulWidget {
   /// [MenzilFitText.minScale] ("Fişeğim listede yok" → "Listede yok").
   final List<String>? shortSelectedLabels;
 
+  /// Height of each entry of the open list. Flutter's default (48) is a
+  /// FIXED height: an entry that wraps onto more lines (a long cartridge in
+  /// the half-width Kalibre list, which is exactly as wide as its box since
+  /// #273) then spills over its neighbours and a tap on its lower lines
+  /// lands on the next entry or on nothing. Null lets every entry grow to
+  /// its content (still at least 48 high).
+  final double? itemHeight;
+
   const MenzilSelect({
     super.key,
     required this.label,
@@ -1230,6 +1238,7 @@ class MenzilSelect<T> extends StatefulWidget {
     this.errorText,
     this.fitSelected = false,
     this.shortSelectedLabels,
+    this.itemHeight = kMinInteractiveDimension,
   }) : assert(!fitSelected || selectedLabels != null);
 
   /// A list item that allows two lines (long model names) still shows one
@@ -1433,6 +1442,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       // A compact list, not a full-screen sheet (owner,
                       // 2026-10-11: "menüler çok büyük açılıyor").
                       menuMaxHeight: 300,
+                      itemHeight: w.itemHeight,
                       borderRadius: BorderRadius.circular(MenzilRadius.input),
                       dropdownColor: c.surface,
                       icon: Icon(Icons.expand_more, color: c.ink2),
