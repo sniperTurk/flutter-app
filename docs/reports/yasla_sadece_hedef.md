@@ -102,9 +102,11 @@ verilmemeli).
 Hepsi `fix/yasla-sadece-hedef` dalının `afe6102` commit'i üzerinde çalıştı
 (bu raporu ekleyen sonraki commit yalnız Markdown içerir).
 
-- Format (`format-fix.yml`, 375209577): başarılı, biçim değişikliği gerekmedi,
-  dala commit itilmedi —
-  https://github.com/sniperTurk/flutter-app/actions/runs/38439055213
+- Format (`format-fix.yml`, 375209577): başarılı, biçim değişikliği gerekmedi
+  (dala format commit'i itilmedi). Aynı dakikada iki format koşusu var;
+  benimki büyük olasılıkla ilki, ikisi de yeşil:
+  https://github.com/sniperTurk/flutter-app/actions/runs/38439055213 ,
+  https://github.com/sniperTurk/flutter-app/actions/runs/38439142128
 - Analyze (`analyze-diag.yml`, `--fatal-infos --fatal-warnings`): başarılı,
   0 bulgu — https://github.com/sniperTurk/flutter-app/actions/runs/38439058707
 - Testler (`test-diag.yml`, `files=test`, tüm test klasörü): başarılı (çıkış
