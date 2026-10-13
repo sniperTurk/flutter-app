@@ -226,7 +226,7 @@ void main() {
 
           // ignore: avoid_print
           print(
-            'Which: PROFIL_EKLE|${width.toInt()}|x$scale|${dark ? 'koyu' : 'acik'}'
+            'PROFIL_EKLE|${width.toInt()}|x$scale|${dark ? 'koyu' : 'acik'}'
             '|buton=${after.button.width.toStringAsFixed(1)}'
             '|yazi_sol=${after.text.left.toStringAsFixed(2)}'
             '|yazi_gen=${after.text.width.toStringAsFixed(1)}'
