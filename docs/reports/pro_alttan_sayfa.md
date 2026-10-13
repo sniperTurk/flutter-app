@@ -134,6 +134,9 @@ Sahip kararları (2026-10-13 20:09, 20:28):
   çözüldü; yeni sayfa zaten sola yaslı, yani #276'nın amacı korunuyor.
 - `MenzilInfoButton` penceresinde #276'nın hizası (sola yaslı) aynen duruyor;
   bu PR yalnız `onPressed` ve kapsam kontrolünü ekledi.
+- Sonra #280 (eski popup testinde `TextAlign.start` beklentisi) birleşti;
+  aynı test dosyası bu PR'da yeniden yazıldığı için bu dalın sürümü alındı
+  (yeni test sayfadaki her yazının sola yaslı olduğunu zaten denetliyor).
 
 ## Testler
 
