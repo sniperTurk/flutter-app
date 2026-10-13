@@ -2647,8 +2647,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final (double lo, double hi)? range = switch ((platform, type, model)) {
       (WeaponPlatform.firearm, _, BallisticModel.g1) => (0.32, 4.6),
       (WeaponPlatform.firearm, _, BallisticModel.g7) => (0.63, 1.8),
-      (WeaponPlatform.pcp, AmmunitionType.slug, BallisticModel.g1) => (0.36, 1.4),
-      (WeaponPlatform.pcp, AmmunitionType.pellet, BallisticModel.g1) => (0.95, 4.7),
+      (WeaponPlatform.pcp, AmmunitionType.slug, BallisticModel.g1) => (
+        0.36,
+        1.4,
+      ),
+      (WeaponPlatform.pcp, AmmunitionType.pellet, BallisticModel.g1) => (
+        0.95,
+        4.7,
+      ),
       _ => null,
     };
     if (range == null) return null;
@@ -4133,35 +4139,37 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   MenzilFullWidth(
                     child: MenzilFieldGrid(
                       children: [
-                      MenzilInput(
-                        key: const Key('profile-powder-coef'),
-                        controller: powderCoef,
-                        // Short label: "Barut sıcaklık katsayısı" next to its
-                        // unit and ⓘ was cut ("…") on 375–393 pt phones; the ⓘ
-                        // text still starts with the full name (2026-10-11).
-                        label: 'Barut katsayısı',
-                        unit: '%/15 °C',
-                        info: ProfileFieldInfo.powderCoef,
-                        keyboardType: const TextInputType.numberWithOptions(
-                          decimal: true,
-                          signed: true,
+                        MenzilInput(
+                          key: const Key('profile-powder-coef'),
+                          controller: powderCoef,
+                          // Short label: "Barut sıcaklık katsayısı" next to its
+                          // unit and ⓘ was cut ("…") on 375–393 pt phones; the ⓘ
+                          // text still starts with the full name (2026-10-11).
+                          label: 'Barut katsayısı',
+                          unit: '%/15 °C',
+                          info: ProfileFieldInfo.powderCoef,
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                            signed: true,
+                          ),
+                          onChanged: (_) =>
+                              setState(() => _powderAutoFilled = false),
+                          errorText: _shown(_powderCoefError, powderCoef),
                         ),
-                        onChanged: (_) => setState(() => _powderAutoFilled = false),
-                        errorText: _shown(_powderCoefError, powderCoef),
-                      ),
-                      MenzilInput(
-                        key: const Key('profile-powder-temp'),
-                        controller: powderTemp,
-                        label: 'Hız ölçüm sıcaklığı',
-                        unit: '°C',
-                        info: ProfileFieldInfo.powderTemp,
-                        keyboardType: const TextInputType.numberWithOptions(
-                          decimal: true,
-                          signed: true,
+                        MenzilInput(
+                          key: const Key('profile-powder-temp'),
+                          controller: powderTemp,
+                          label: 'Hız ölçüm sıcaklığı',
+                          unit: '°C',
+                          info: ProfileFieldInfo.powderTemp,
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                            signed: true,
+                          ),
+                          onChanged: (_) =>
+                              setState(() => _powderAutoFilled = false),
+                          errorText: _shown(_powderTempError, powderTemp),
                         ),
-                        onChanged: (_) => setState(() => _powderAutoFilled = false),
-                        errorText: _shown(_powderTempError, powderTemp),
-                      ),
                       ],
                     ),
                   ),
