@@ -1,7 +1,9 @@
 // Owner, 2026-10-13 19:43: Rüzgâr gözlemi wrote a Beaufort class middle into
 // Rüzgâr hızı and silently replaced a fetched or measured wind (2 m/s →
 // Orta 4,4). It is hidden; a display-only "Rüzgârı gözle tahmin et" guide
-// sits below the Rüzgâr card and above "Pro Ayarlara Geç".
+// replaces it. Follow-up (19:49): only a "Rüzgâr tahmini nasıl yapılır?"
+// link sits below the Rüzgâr card and above "Pro Ayarlara Geç"; the guide
+// opens in a popup (MenzilInfoButton dialog style) with a Kapat action.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -47,6 +49,27 @@ const _imperialLines = [
 
 const _weatherButton = Key('environment-fill-weather');
 const _proButton = Key('environment-continue-pro');
+const _link = Key('wind-guide-link');
+const _title = Key('wind-guide-title');
+const _close = Key('wind-guide-close');
+
+Finder _line(int i) => find.byKey(Key('wind-guide-line-$i'));
+
+Future<void> _openGuide(WidgetTester tester) async {
+  await tester.ensureVisible(find.byKey(_link));
+  await tester.pumpAndSettle();
+  await tester.tap(find.byKey(_link));
+  await tester.pumpAndSettle();
+}
+
+void _expectLines(WidgetTester tester, List<String> expected) {
+  for (var i = 0; i < 6; i++) {
+    expect(_line(i), findsOneWidget);
+    expect(tester.widget<Text>(_line(i)).data, expected[i]);
+    expect(tester.widget<Text>(_line(i)).textAlign, TextAlign.left);
+  }
+  expect(_line(6), findsNothing);
+}
 
 Finder _field(Key k) =>
     find.descendant(of: find.byKey(k), matching: find.byType(TextField));
@@ -112,22 +135,16 @@ void main() {
     expect(WindGuide.lines(metric: false), _imperialLines);
   });
 
-  testWidgets('guide sits between the Rüzgâr card and Pro Ayarlara Geç', (
+  testWidgets('only the link sits between the Rüzgâr card and Pro', (
     tester,
   ) async {
     await _screen(tester);
     // Hidden by default (WIND_OBSERVATION).
     expect(find.text('Rüzgâr gözlemi'), findsNothing);
-
-    final title = find.byKey(const Key('wind-guide-title'));
-    expect(title, findsOneWidget);
-    expect(tester.widget<Text>(title).data, 'Rüzgârı gözle tahmin et');
-    for (var i = 0; i < 6; i++) {
-      final line = find.byKey(Key('wind-guide-line-$i'));
-      expect(line, findsOneWidget);
-      expect(tester.widget<Text>(line).data, _metricLines[i]);
-    }
-    expect(find.byKey(const Key('wind-guide-line-6')), findsNothing);
+    // No inline guide any more: only the link.
+    expect(find.byKey(_title), findsNothing);
+    expect(_line(0), findsNothing);
+    expect(find.text('Rüzgâr tahmini nasıl yapılır?'), findsOneWidget);
 
     final windCard = find
         .ancestor(
@@ -136,34 +153,45 @@ void main() {
         )
         .first;
     final cardRect = tester.getRect(windCard);
-    final titleRect = tester.getRect(title);
-    final lastRect = tester.getRect(find.byKey(const Key('wind-guide-line-5')));
+    final linkRect = tester.getRect(find.byKey(_link));
     final proRect = tester.getRect(find.byKey(_proButton));
-    expect(titleRect.top, greaterThanOrEqualTo(cardRect.bottom));
-    for (var i = 1; i < 6; i++) {
-      expect(
-        tester.getRect(find.byKey(Key('wind-guide-line-$i'))).top,
-        greaterThan(
-          tester.getRect(find.byKey(Key('wind-guide-line-${i - 1}'))).top,
-        ),
-      );
-    }
-    expect(lastRect.bottom, lessThanOrEqualTo(proRect.top));
+    expect(linkRect.top, greaterThanOrEqualTo(cardRect.bottom));
+    expect(linkRect.bottom, lessThanOrEqualTo(proRect.top));
+    expect(linkRect.height, greaterThanOrEqualTo(44));
   });
 
-  testWidgets('imperial block shows mph', (tester) async {
+  testWidgets('the link opens the popup with 6 lines; Kapat closes it', (
+    tester,
+  ) async {
+    await _screen(tester);
+    await _openGuide(tester);
+    expect(find.byKey(const Key('wind-guide-dialog')), findsOneWidget);
+    expect(tester.widget<Text>(find.byKey(_title)).data, WindGuide.title);
+    expect(find.text('Rüzgârı gözle tahmin et'), findsOneWidget);
+    _expectLines(tester, _metricLines);
+    for (var i = 1; i < 6; i++) {
+      expect(
+        tester.getRect(_line(i)).top,
+        greaterThan(tester.getRect(_line(i - 1)).top),
+      );
+    }
+    expect(find.text('Kapat'), findsOneWidget);
+    await tester.tap(find.byKey(_close));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('wind-guide-dialog')), findsNothing);
+    expect(_line(0), findsNothing);
+  });
+
+  testWidgets('imperial popup shows mph', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         theme: MenzilTheme.light(),
-        home: const Scaffold(body: WindGuideBlock(metric: false)),
+        home: const Scaffold(body: WindGuideLink(metric: false)),
       ),
     );
-    for (var i = 0; i < 6; i++) {
-      expect(
-        tester.widget<Text>(find.byKey(Key('wind-guide-line-$i'))).data,
-        _imperialLines[i],
-      );
-    }
+    await tester.tap(find.byKey(_link));
+    await tester.pumpAndSettle();
+    _expectLines(tester, _imperialLines);
     expect(find.textContaining('m/s'), findsNothing);
   });
 
@@ -173,9 +201,11 @@ void main() {
     await tester.enterText(_field(BallisticsFieldKeys.wind), '2');
     await tester.pumpAndSettle();
     expect(_text(tester, BallisticsFieldKeys.wind), '2');
-    // Tapping the guide writes nothing.
-    await tester.ensureVisible(find.byKey(const Key('wind-guide-line-3')));
-    await tester.tap(find.byKey(const Key('wind-guide-line-3')));
+    // Opening the guide, tapping a line and closing writes nothing.
+    await _openGuide(tester);
+    await tester.tap(_line(3));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(_close));
     await tester.pumpAndSettle();
     expect(_text(tester, BallisticsFieldKeys.wind), '2');
   });
@@ -187,8 +217,10 @@ void main() {
     await tester.tap(find.byKey(_weatherButton));
     await tester.pumpAndSettle();
     expect(_text(tester, BallisticsFieldKeys.wind), '2.0');
-    await tester.ensureVisible(find.byKey(const Key('wind-guide-title')));
-    await tester.tap(find.byKey(const Key('wind-guide-line-3')));
+    await _openGuide(tester);
+    await tester.tap(_line(3));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(_close));
     await tester.pumpAndSettle();
     expect(_text(tester, BallisticsFieldKeys.wind), '2.0');
   });
@@ -203,13 +235,14 @@ void main() {
       theme: MenzilTheme.dark(),
     );
     expect(tester.takeException(), isNull);
-    final title = find.byKey(const Key('wind-guide-title'));
-    await tester.ensureVisible(title);
-    await tester.pumpAndSettle();
+    await _openGuide(tester);
     expect(tester.takeException(), isNull);
     for (var i = 0; i < 6; i++) {
-      final r = tester.getRect(find.byKey(Key('wind-guide-line-$i')));
+      final r = tester.getRect(_line(i));
       expect(r.right, lessThanOrEqualTo(320));
     }
+    await tester.tap(find.byKey(_close));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
   });
 }

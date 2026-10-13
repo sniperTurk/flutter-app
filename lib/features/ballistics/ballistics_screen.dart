@@ -572,8 +572,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Rüzgâr gözlemi is hidden (owner, 2026-10-13: "gizle, silme"): its
   /// class middle overwrote a fetched or measured Rüzgâr hızı. The
-  /// "Rüzgârı gözle tahmin et" guide below the Rüzgâr card replaces it and
-  /// writes nothing. Build with --dart-define=WIND_OBSERVATION=true to show
+  /// "Rüzgârı gözle tahmin et" popup (link below the Rüzgâr card) replaces
+  /// it and writes nothing. Build with --dart-define=WIND_OBSERVATION=true to show
   /// the old select again.
   static const bool _showWindObservation = bool.fromEnvironment(
     'WIND_OBSERVATION',
@@ -2916,8 +2916,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             // buttons sit under the Hava Durumu boxes.
             ..._environmentInputs(context, collapseShotInputs: true),
             // Below the Rüzgâr card, above Pro Ayarlara Geç (owner,
-            // 2026-10-13). Display only: it never fills Rüzgâr hızı.
-            WindGuideBlock(key: const Key('wind-guide'), metric: metric),
+            // 2026-10-13): only a link; the guide opens in a popup
+            // (2026-10-13 19:49). Display only: it never fills Rüzgâr hızı.
+            WindGuideLink(metric: metric),
             if (widget.onContinueToPro != null)
               MenzilPrimaryButton(
                 key: const Key('environment-continue-pro'),
