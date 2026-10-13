@@ -216,7 +216,8 @@ Future<void> _openInfo(WidgetTester tester, String id) =>
 
 Future<void> _close(WidgetTester tester) async {
   final close = _inSheet(find.byKey(const Key('pro-info-close')));
-  expect(find.descendant(of: close, matching: find.text('Kapat')),
+  expect(
+    find.descendant(of: close, matching: find.text('Kapat')),
     findsOneWidget,
   );
   await tester.tap(close);

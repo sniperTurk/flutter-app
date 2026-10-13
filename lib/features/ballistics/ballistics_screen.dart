@@ -4344,7 +4344,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           if (_isPcp) const ProInfoEntry(ProSectionInfo.pcpPressure),
         ],
         fields: [
-          const ProInfoField('Gerçek / yazan', EnvironmentFieldInfo.turretScale),
+          const ProInfoField(
+            'Gerçek / yazan',
+            EnvironmentFieldInfo.turretScale,
+          ),
           const ProInfoField('Yukarı + / aşağı −', EnvironmentFieldInfo.zeroUp),
           const ProInfoField('Sağ + / sol −', EnvironmentFieldInfo.zeroRight),
           if (_spinDriftOn)

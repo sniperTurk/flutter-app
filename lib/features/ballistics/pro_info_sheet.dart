@@ -233,9 +233,9 @@ class _Explanation extends StatelessWidget {
           if (showTitle) ...[
             Text(
               e.title,
-              style: MenzilType.body(c.ink).copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+              style: MenzilType.body(
+                c.ink,
+              ).copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: MenzilSpace.xs),
           ],

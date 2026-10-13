@@ -915,33 +915,35 @@ class MenzilInfoButton extends StatelessWidget {
       // fails Apple's tap-target guideline (found in the 2026-10-08 audit).
       visualDensity: VisualDensity.standard,
       icon: Icon(Icons.info_outline, size: 18, color: c.ink2),
-      onPressed: onPressed ?? () {
-        if (_handledByScope(context)) return;
-        showDialog<void>(
-        context: context,
-        builder: (dialogContext) => AlertDialog(
-          title: Text(title),
-          content: SingleChildScrollView(
-            child: illustration == null
-                ? content
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      illustration!,
-                      const SizedBox(height: MenzilSpace.md),
-                      content,
-                    ],
+      onPressed:
+          onPressed ??
+          () {
+            if (_handledByScope(context)) return;
+            showDialog<void>(
+              context: context,
+              builder: (dialogContext) => AlertDialog(
+                title: Text(title),
+                content: SingleChildScrollView(
+                  child: illustration == null
+                      ? content
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            illustration!,
+                            const SizedBox(height: MenzilSpace.md),
+                            content,
+                          ],
+                        ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(dialogContext).pop(),
+                    child: Text(closeLabel),
                   ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(),
-              child: Text(closeLabel),
-            ),
-          ],
-        ),
-      );
-      },
+                ],
+              ),
+            );
+          },
     );
   }
 }
