@@ -12,8 +12,8 @@ Dal: `fix/ruzgar-rehber` · Sahibin kararı: 2026-10-13 19:43 · Taslak PR, birl
   - "Rüzgâr gözlemi" seçimi (`MenzilSelect`, Key öneki `wind-observation-`) artık `_showWindObservation = bool.fromEnvironment('WIND_OBSERVATION')` bayrağının arkasında. Varsayılan kapalı: görünmez, Rüzgâr hızına hiçbir şey yazmaz. Kod silinmedi ("gizle, silme"); `--dart-define=WIND_OBSERVATION=true` ile eski hâli geri gelir.
   - `_pickWindObservation` ve elle yazınca `_windObservation`'ı temizleyen kısım olduğu gibi kaldı (seçim görünmediği için zararsız).
   - Rüzgâr hızı, Rüzgâr yönü ve saat kadranı değişmedi.
-  - Hava Durumu sayfasında (`BallisticsView.environment`) Rüzgâr kartının altına, "Pro Ayarlara Geç" düğmesinin üstüne `WindGuideBlock` eklendi (Key `wind-guide`). "Pro Ayarlara Geç" yerine "Hesapla" görünen durumda da aynı yerde durur.
-- `lib/features/ballistics/wind_guide.dart` (yeni): `WindGuide` (başlık, satır üretimi, sayı biçimi) ve `WindGuideBlock` (görünüm).
+  - Hava Durumu sayfasında (`BallisticsView.environment`) Rüzgâr kartının altına, "Pro Ayarlara Geç" düğmesinin üstüne rehber eklendi. "Pro Ayarlara Geç" yerine "Hesapla" görünen durumda da aynı yerde durur. (İlk sürümde sayfada açık bir bloktu; takipte bağlantı + popup oldu, aşağıdaki "Takip: popup" bölümüne bakın.)
+- `lib/features/ballistics/wind_guide.dart` (yeni): `WindGuide` (başlık, satır üretimi, sayı biçimi, popup), `WindGuideLines` (6 madde) ve `WindGuideLink` (sayfadaki bağlantı).
 - `lib/core/beaufort.dart`: `BeaufortClass`'a isteğe bağlı kısa tarif alanı `guide` ve `Beaufort.guideClasses` (kuvvet 0–5) eklendi. Uzun `land` metinleri değişmedi (gizli seçim onları kullanmaya devam eder).
 
 ## Rehber nasıl kuruluyor ve nereye yerleşiyor
@@ -53,8 +53,8 @@ Rehber yalnızca gösterir: dokunulunca hiçbir kutuya yazmaz. Kullanıcı ister
 - `test/wind_guide_test.dart` (yeni):
   - satırlar `Beaufort.classes`'tan (kuvvet 0–5) ve sahibin metniyle birebir (m/s);
   - mph satırları (Türkçe virgül, bir ondalık);
-  - Rüzgâr gözlemi varsayılan olarak görünmüyor; başlık ve 6 satır Rüzgâr kartının altında, "Pro Ayarlara Geç"in üstünde (dikdörtgen konumlarıyla sıra kontrolü);
-  - `WindGuideBlock(metric: false)` mph gösteriyor, m/s göstermiyor;
+  - Rüzgâr gözlemi varsayılan olarak görünmüyor; bağlantı Rüzgâr kartının altında, "Pro Ayarlara Geç"in üstünde (dikdörtgen konumlarıyla sıra kontrolü); bağlantı popup'ı açıyor (başlık + 6 satır), Kapat kapatıyor;
+  - mph popup'ı mph gösteriyor, m/s göstermiyor;
   - elle yazılan rüzgâr (2) değişmiyor, rehbere dokunmak bir şey yazmıyor;
   - konumdan alınan rüzgâr (2,0) alındığı gibi kalıyor;
   - 320 pt genişlik, yazı ölçeği 1,3, koyu tema: taşma yok.
@@ -75,6 +75,42 @@ CI (commit `08ac02f`, dal `fix/ruzgar-rehber`):
 - `flutter test test` (tüm test klasörü): başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38433633189
 
 Bu rapor `08ac02f`'ten sonra ayrı bir commit olarak eklendi (yalnızca bu Markdown dosyası). iOS CI / Simulator / cihaz / TestFlight çalıştırılmadı ve geçti sayılmamalıdır.
+
+## Takip: popup
+
+Sahibin kararı: 2026-10-13 19:49. Aynı dalda (`fix/ruzgar-rehber`, taslak PR #272) devam edildi; yeni dal açılmadı.
+
+**Ne değişti**
+
+- Rehber artık sayfada açık bir blok değil. Rüzgâr kartı ile "Pro Ayarlara Geç" düğmesi arasında yalnızca bağlantı görünümlü bir düğme var: **"Rüzgâr tahmini nasıl yapılır?"** (`WindGuideLink`, Key `wind-guide-link`; dokunma alanı en az 44 pt; "Aradığın dürbün listede yok mu?" bağlantısıyla aynı `TextButton` biçimi).
+- Dokununca bir popup açılır (`WindGuide.show`). Başlık **"Rüzgârı gözle tahmin et"**, altında aynı 6 madde (Beaufort'tan, m/s ya da mph), sola hizalı, rakamlar sabit genişlik. Tek eylem: **Kapat** (Key `wind-guide-close`).
+- Popup, alan ⓘ açıklamalarıyla aynı mekanizmayı kullanır (`MenzilInfoButton`'daki gibi `showDialog` + `AlertDialog`, kaydırılabilir içerik). `fix/pro-aciklama-popup` dalı main'e henüz birleşmediği için main'de ortak bir alt sayfa (bottom sheet) yardımcısı yok; o yüzden ⓘ diyaloğu örnek alındı. O PR birleşirse bu popup tek satırla ortak yardımcıya taşınabilir.
+- `WindGuideBlock` kaldırıldı (yerini `WindGuideLines` + popup aldı). Rüzgâr gözlemi seçimi `WIND_OBSERVATION` bayrağının arkasında gizli kalmaya devam ediyor. Araçlar'a sayfa eklenmedi.
+- Rehber hâlâ yalnızca gösterir: bağlantı, popup, madde ya da Kapat hiçbir kutuya yazmaz.
+- main bu dala yeniden birleştirilmek istendi; dal zaten güncel main'i (`e08c1e3`: üst çubuk, liste genişliği, dürbün formu) içeriyordu, çakışma yoktu.
+
+**Uç durumlar**
+
+- mph: popup'taki aralıklar mph'ye çevrilmiş, bir ondalık ve Türkçe virgülle gösterilir.
+- Dar telefon (320 pt), yazı ölçeği 1,3, koyu tema: sayfada ve açık popup'ta taşma yok; maddeler ekran içinde sarılır.
+- Kayıtlı profiller: değişiklik yok (gözlem seçimi hiç kaydedilmiyordu).
+
+**Testler** (`test/wind_guide_test.dart`, güncellendi)
+
+- Sayfada satır ya da başlık yok, yalnızca bağlantı var; bağlantı Rüzgâr kartının altında ve "Pro Ayarlara Geç"in üstünde (dikdörtgenlerle).
+- Bağlantıya dokununca popup açılıyor; başlık ve 6 satır sırayla, sola hizalı; Kapat popup'ı kapatıyor.
+- mph popup'ı mph gösteriyor.
+- Elle yazılan rüzgâr (2) ve konumdan alınan rüzgâr (2,0), popup açılıp bir maddeye dokunulup kapatıldıktan sonra da aynı kalıyor.
+- 320 pt, yazı ölçeği 1,3, koyu tema: popup açıkken ve kapandıktan sonra taşma yok.
+
+**Doğrulama** (commit `241874d`)
+
+- Yerel: `python3 tools/offline_dart_lint.py` → PASS (315 Dart dosyası, 0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 724 test, OK.
+- CI biçimlendirme (format-fix): başarılı, değişiklik yok (317 dosya, 0 değişti) — https://github.com/sniperTurk/flutter-app/actions/runs/38442989677
+- CI `flutter analyze --fatal-infos --fatal-warnings`: başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38443337447
+- CI `flutter test test`: başarılı (tüm test klasörü) — https://github.com/sniperTurk/flutter-app/actions/runs/38443332503
+- Bu rapor `241874d`'ten sonra ayrı bir commit olarak eklendi (yalnızca bu Markdown dosyası).
+- iOS CI / Simulator / cihaz / TestFlight bu takipte çalıştırılmadı ve geçti sayılmamalıdır. PR taslak; birleştirme yok.
 
 ---
 _Generated by [Claude Code](https://claude.ai/code)_
