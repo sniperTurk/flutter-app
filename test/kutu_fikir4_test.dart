@@ -103,8 +103,9 @@ void _expectCompactInput(
   final unitText = find.descendant(of: field, matching: find.text(unit));
   expect(unitText, findsOneWidget, reason: '$key unit inside the box');
   final unitRect = tester.getRect(unitText);
+  // Right before the ⓘ, at the right of the box.
   expect(unitRect.right, lessThanOrEqualTo(infoRect.left + 0.01));
-  expect(unitRect.left, greaterThan(box.center.dx), reason: '$key right');
+  expect(infoRect.left - unitRect.right, lessThan(1), reason: '$key unit');
   // No unit in a label row any more.
   expect(
     find.descendant(of: find.byKey(key), matching: find.text(unit)),
@@ -176,7 +177,12 @@ void main() {
       }
       // Measurements for docs/reports/kutu_fikir4.md.
       final box = tester.getRect(_field(BallisticsFieldKeys.temperature));
-      final label = tester.getRect(find.text('Sıcaklık'));
+      final label = tester.getRect(
+        find.descendant(
+          of: find.byKey(BallisticsFieldKeys.temperature),
+          matching: find.text('Sıcaklık'),
+        ),
+      );
       final whole = tester.getRect(find.byKey(BallisticsFieldKeys.temperature));
       debugPrint(
         'FIKIR4 compact: gap=${(box.top - label.bottom).toStringAsFixed(1)} '

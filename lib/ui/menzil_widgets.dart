@@ -1005,8 +1005,13 @@ class _CompactLabel extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            // One line that shrinks only as far as it must: side-by-side
+            // labels, and so their boxes, always line up.
             Expanded(
-              child: MenzilWrapText(label, style: MenzilType.label(c.ink)),
+              child: DefaultTextStyle.merge(
+                style: MenzilType.label(c.ink),
+                child: MenzilFitText(label, minScale: 0.6),
+              ),
             ),
             if (trailing != null) trailing!,
           ],
