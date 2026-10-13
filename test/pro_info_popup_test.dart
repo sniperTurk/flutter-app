@@ -137,7 +137,9 @@ Widget _app(
     ).copyWith(textScaler: TextScaler.linear(textScale)),
     child: child!,
   ),
-  home: Scaffold(body: BallisticsScreen(profile: profile, view: view)),
+  home: Scaffold(
+    body: BallisticsScreen(profile: profile, view: view),
+  ),
 );
 
 Future<void> _size(WidgetTester tester, Size size) async {
@@ -175,11 +177,7 @@ Future<void> _close(WidgetTester tester) async {
 
 void _expectNoInlineExplanation() {
   for (final q in ['Ne?', 'Neden önemli?', 'Nasıl?']) {
-    expect(
-      find.textContaining(q, findRichText: true),
-      findsNothing,
-      reason: q,
-    );
+    expect(find.textContaining(q, findRichText: true), findsNothing, reason: q);
   }
   for (final e in _all) {
     expect(
@@ -271,7 +269,11 @@ void main() {
           expect(paragraphs[i].textAlign, TextAlign.justify, reason: e.title);
           // Each title shows once: a title equal to the popup title is not
           // repeated under it (owner, 2026-10-12).
-          expect(_inDialog(find.text(e.title)), findsOneWidget, reason: e.title);
+          expect(
+            _inDialog(find.text(e.title)),
+            findsOneWidget,
+            reason: e.title,
+          );
         }
         // The PCP spin drift note rides along in the Tüfek popup.
         expect(
@@ -313,9 +315,7 @@ void main() {
     tester,
   ) async {
     await _size(tester, const Size(320, 568));
-    await tester.pumpWidget(
-      _app(_pcp, BallisticsView.pro, textScale: 1.3),
-    );
+    await tester.pumpWidget(_app(_pcp, BallisticsView.pro, textScale: 1.3));
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
     for (final id in _titles.keys) {
