@@ -888,6 +888,10 @@ class MenzilInfoButton extends StatelessWidget {
 
   /// Label of the closing action ("Tamam" for field ⓘ).
   final String closeLabel;
+
+  /// Replaces the popup (Pro Ayarlar box ⓘ opens a bottom sheet, owner
+  /// 2026-10-13).
+  final VoidCallback? onPressed;
   const MenzilInfoButton({
     super.key,
     required this.title,
@@ -896,7 +900,16 @@ class MenzilInfoButton extends StatelessWidget {
     this.body,
     this.tooltip,
     this.closeLabel = 'Tamam',
+    this.onPressed,
   });
+
+  /// True when a [MenzilInfoScope] above (Pro Ayarlar boxes) showed the
+  /// text itself; otherwise the usual popup opens.
+  bool _handledByScope(BuildContext context) {
+    if (body != null) return false;
+    final scope = context.getInheritedWidgetOfExactType<MenzilInfoScope>();
+    return scope != null && scope.onInfo(title, text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -911,32 +924,54 @@ class MenzilInfoButton extends StatelessWidget {
       // fails Apple's tap-target guideline (found in the 2026-10-08 audit).
       visualDensity: VisualDensity.standard,
       icon: Icon(Icons.info_outline, size: 18, color: c.ink2),
-      onPressed: () => showDialog<void>(
-        context: context,
-        builder: (dialogContext) => AlertDialog(
-          title: Text(title),
-          content: SingleChildScrollView(
-            child: illustration == null
-                ? content
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      illustration!,
-                      const SizedBox(height: MenzilSpace.md),
-                      content,
-                    ],
+      onPressed:
+          onPressed ??
+          () {
+            if (_handledByScope(context)) return;
+            showDialog<void>(
+              context: context,
+              builder: (dialogContext) => AlertDialog(
+                title: Text(title),
+                content: SingleChildScrollView(
+                  child: illustration == null
+                      ? content
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            illustration!,
+                            const SizedBox(height: MenzilSpace.md),
+                            content,
+                          ],
+                        ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(dialogContext).pop(),
+                    child: Text(closeLabel),
                   ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(),
-              child: Text(closeLabel),
-            ),
-          ],
-        ),
-      ),
+                ],
+              ),
+            );
+          },
     );
   }
+}
+
+/// Lets the field ⓘ buttons ([MenzilInfoButton]) below it show their text
+/// somewhere other than the usual popup. [onInfo] gets the ⓘ's title and
+/// text and returns true when it handled them; false falls back to the
+/// popup. Used by Pro Ayarlar (owner, 2026-10-13: every field ⓘ in a box
+/// opens the box's bottom sheet).
+class MenzilInfoScope extends InheritedWidget {
+  final bool Function(String title, String text) onInfo;
+  const MenzilInfoScope({
+    super.key,
+    required this.onInfo,
+    required super.child,
+  });
+
+  @override
+  bool updateShouldNotify(MenzilInfoScope oldWidget) => false;
 }
 
 /// Label row with an optional [MenzilInfoButton] on the right.
