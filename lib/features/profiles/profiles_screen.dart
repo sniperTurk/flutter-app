@@ -900,11 +900,9 @@ class _ActiveProfileDetails extends StatelessWidget {
           ),
           metrics: [
             if (reticle != null) MenzilMetric('Retikül', reticle),
-            MenzilMetric(
-              'Dürbün ayağı',
-              profile.mountCantMoa > 0 ? _trimNum(profile.mountCantMoa) : 'Yok',
-              profile.mountCantMoa > 0 ? 'MOA' : null,
-            ),
+            // "0 MOA" like the form's closed box, not "Yok" (owner,
+            // 2026-10-13); "—" only when no value exists.
+            mountCantSummary(profile.mountCantMoa),
             if (scope != null &&
                 _topTurretClicks(scope, profile.angularUnit) != null)
               MenzilMetric(
@@ -4435,6 +4433,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ),
   ];
 }
+
+/// Profil summary tile for Dürbün ayağı: "0 MOA", "15 MOA", "30 MOA" —
+/// the same text as the form's closed box — and "—" when no value is set.
+@visibleForTesting
+MenzilMetric mountCantSummary(double? moa) =>
+    moa == null || !moa.isFinite || moa < 0
+    ? const MenzilMetric('Dürbün ayağı', '—')
+    : MenzilMetric('Dürbün ayağı', _trimNum(moa), 'MOA');
 
 String _trimNum(double v) =>
     v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');

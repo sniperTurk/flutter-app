@@ -55,10 +55,10 @@ void main() {
       expect(find.text('Tahmin yok, hesap var.'), findsOneWidget);
       expect(find.byType(BallisticsScreen), findsNothing);
 
-      // The example preview is back (owner, 2026-10-12): distance on top,
-      // the scope, the slogan card and the explanations under the scope.
-      expect(find.byKey(const Key('empty-shot-range')), findsOneWidget);
-      expect(find.byType(ScopeDialView), findsOneWidget);
+      // No sample solve without a profile (owner, 2026-10-13): only the
+      // slogan card with "Profil oluştur"; no distance, no scope.
+      expect(find.byKey(const Key('empty-shot-range')), findsNothing);
+      expect(find.byType(ScopeDialView), findsNothing);
 
       await tester.tap(find.text('Pro'));
       await tester.pumpAndSettle();
