@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
@@ -120,5 +121,47 @@ void main() {
     await tester.pumpAndSettle(const Duration(seconds: 1));
     await _pump(tester, store, active);
     expect(_orange(tester), isTrue);
+  });
+
+  Finder field(Key key) =>
+      find.descendant(of: find.byKey(key), matching: find.byType(TextField));
+
+  Future<void> type(WidgetTester tester, Key key, String v) async {
+    await tester.ensureVisible(field(key));
+    await tester.pumpAndSettle();
+    await tester.enterText(field(key), v);
+    await tester.pumpAndSettle();
+  }
+
+  bool pressureOrange(WidgetTester tester) =>
+      tester.widget<MenzilSecondaryButton>(find.byKey(_pressureButton)).active;
+
+  // Owner, 2026-10-13: only a typed Sıcaklık or Bağıl nem turns the weather
+  // button gray; wind and İrtifa never do.
+  testWidgets('a typed Rüzgâr hızı keeps the weather button orange', (
+    tester,
+  ) async {
+    await _fetched(tester);
+    await type(tester, BallisticsFieldKeys.wind, '7');
+    expect(_orange(tester), isTrue);
+  });
+
+  testWidgets('a typed İrtifa clears the pressure button, not the weather', (
+    tester,
+  ) async {
+    await _fetched(tester);
+    await _press(tester, _pressureButton);
+    expect(pressureOrange(tester), isTrue);
+    await type(tester, BallisticsFieldKeys.altitude, '850');
+    expect(_orange(tester), isTrue);
+    expect(pressureOrange(tester), isFalse);
+  });
+
+  testWidgets('a typed Bağıl nem turns the weather button gray', (
+    tester,
+  ) async {
+    await _fetched(tester);
+    await type(tester, BallisticsFieldKeys.humidity, '40');
+    expect(_orange(tester), isFalse);
   });
 }
