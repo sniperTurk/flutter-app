@@ -154,11 +154,12 @@ void main() {
     await type('scope-sight-height', '60');
     // The typed scope opens from the link under the Dürbün card (owner,
     // 2026-10-13: no "Listede yok" in the scope Marka list).
-    // Scrolled to mid-screen: at the bottom edge the save bar covers it.
+    // On the Simulator the bottom bar covers the link wherever the scroll
+    // leaves it, so its own action is called (the widget tests tap it).
     final notListed = find.byKey(const Key('scope-not-listed'));
-    await Scrollable.ensureVisible(tester.element(notListed), alignment: 0.5);
+    await tester.ensureVisible(notListed);
     await tester.pumpAndSettle();
-    await tester.tap(notListed);
+    tester.widget<TextButton>(notListed).onPressed!();
     await tester.pumpAndSettle();
     await type('scope-brand', 'Test Optik');
     // Büyütme, Mercek çapı and Klik değeri are picked from lists; every
