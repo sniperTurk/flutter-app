@@ -149,7 +149,20 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   /// Page title shown instead of the brand (Hava Durumu, Pro, Hedef, …).
   final String? title;
 
+  /// Every page title this bar can show. The title slot is as wide as the
+  /// widest of these (and the brand), so the profile box keeps the same left
+  /// edge and width on every tab (owner, 2026-10-13: "ortadaki kutu büyüyüp
+  /// küçülüyor, bu olmasın"). The current [title] is always measured too.
+  final List<String> slotTitles;
+
   static const double height = 58;
+
+  /// Page title size (owner, 2026-10-12: every page title the same size).
+  static const double titleSize = 18;
+
+  /// Upper limit of the title slot as a share of the bar width; past it the
+  /// title scales down (FittedBox) instead of squeezing the profile box.
+  static const double titleSlotMaxFraction = 0.42;
 
   const MenzilTopBar({
     super.key,
@@ -160,7 +173,42 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
     this.onThemeTap,
     this.showBrand = true,
     this.title,
+    this.slotTitles = const [],
   });
+
+  /// Fixed width of the title slot: the widest of [titles] (and the brand
+  /// when [includeBrand]) laid out with the real styles and [textScaler],
+  /// capped at [titleSlotMaxFraction] of [barWidth].
+  static double titleSlotWidth({
+    required double barWidth,
+    required Iterable<String> titles,
+    required bool includeBrand,
+    required TextStyle titleStyle,
+    required TextStyle brandStyle,
+    required TextScaler textScaler,
+    TextDirection textDirection = TextDirection.ltr,
+    Locale? locale,
+  }) {
+    double widest = 0;
+    void measure(String text, TextStyle style) {
+      final painter = TextPainter(
+        text: TextSpan(text: text, style: style),
+        textDirection: textDirection,
+        textScaler: textScaler,
+        locale: locale,
+        maxLines: 1,
+      )..layout();
+      if (painter.width > widest) widest = painter.width;
+      painter.dispose();
+    }
+
+    for (final t in titles) {
+      measure(t, titleStyle);
+    }
+    if (includeBrand) measure(MenzilBrand.text, brandStyle);
+    final cap = barWidth * titleSlotMaxFraction;
+    return math.min(widest.ceilToDouble(), cap);
+  }
 
   @override
   Size get preferredSize => const Size.fromHeight(height);
@@ -185,30 +233,36 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                   // On the narrowest phones the wordmark collapses to the
                   // reticle glyph so the profile selector keeps usable width.
                   final compact = constraints.maxWidth < 350;
+                  final titleStyle = MenzilType.heading(c.ink, size: titleSize);
+                  final base = DefaultTextStyle.of(context).style;
+                  final slotWidth = titleSlotWidth(
+                    barWidth: constraints.maxWidth,
+                    titles: [...slotTitles, if (title != null) title!],
+                    includeBrand: showBrand,
+                    titleStyle: base.merge(titleStyle),
+                    brandStyle: base.merge(MenzilBrand.style(c.ink)),
+                    textScaler: MediaQuery.textScalerOf(context),
+                    textDirection: Directionality.of(context),
+                    locale: Localizations.maybeLocaleOf(context),
+                  );
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: MenzilSpace.gutter,
                     ),
                     child: Row(
                       children: [
-                        // Left: page title, or "Sniper Türk" on Profil. It
-                        // shrinks instead of overflowing on narrow phones.
-                        // Owner, 2026-10-12: every page title the same,
-                        // smaller size so the profile box is not squeezed.
-                        // Owner, 2026-10-12: no wide gap between the title and
-                        // the profile box; the title takes only its width and
-                        // the profile box the rest.
-                        // A Flexible title kept half the free width for
-                        // itself and left a gap on the right (owner,
-                        // 2026-10-12: "sağda çok boşluk var"); a width cap
-                        // lets the profile box take everything else.
-                        ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: constraints.maxWidth * 0.42,
-                          ),
+                        // Left: page title, or "Sniper Türk" on Profil, in a
+                        // slot of FIXED width (owner, 2026-10-13): the slot
+                        // fits the widest title of any tab, so the profile
+                        // box starts at the same x and has the same width on
+                        // every page. Titles stay left-aligned and scale
+                        // down (FittedBox) only when the cap is hit on
+                        // narrow phones or with large text.
+                        SizedBox(
+                          key: const Key('top-bar-title-slot'),
+                          width: slotWidth,
                           child: Align(
                             alignment: Alignment.centerLeft,
-                            widthFactor: 1,
                             child: title != null
                                 ? FittedBox(
                                     fit: BoxFit.scaleDown,
@@ -219,10 +273,7 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                                         title!,
                                         key: const Key('top-bar-title'),
                                         maxLines: 1,
-                                        style: MenzilType.heading(
-                                          c.ink,
-                                          size: 18,
-                                        ),
+                                        style: titleStyle,
                                       ),
                                     ),
                                   )
@@ -236,7 +287,12 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         ),
                         const SizedBox(width: MenzilSpace.md),
-                        Expanded(child: profileSelector),
+                        Expanded(
+                          child: KeyedSubtree(
+                            key: const Key('top-bar-profile-slot'),
+                            child: profileSelector,
+                          ),
+                        ),
                         const SizedBox(width: MenzilSpace.sm),
                         if (unitLabel != null) ...[
                           MenzilBarButton(
@@ -268,6 +324,14 @@ class MenzilBrand extends StatelessWidget {
   final bool compact;
   const MenzilBrand({super.key, this.compact = false});
 
+  static const String text = 'Sniper Türk';
+
+  /// Brand size (owner, 2026-10-13: "Sniper Türk yazısını biraz büyüt"),
+  /// up from 18; page titles stay at [MenzilTopBar.titleSize].
+  static const double fontSize = 20;
+
+  static TextStyle style(Color ink) => MenzilType.heading(ink, size: fontSize);
+
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
@@ -281,10 +345,10 @@ class MenzilBrand extends StatelessWidget {
           fit: BoxFit.scaleDown,
           alignment: Alignment.centerLeft,
           child: Text(
-            'Sniper Türk',
+            text,
             key: const Key('top-bar-brand'),
             maxLines: 1,
-            style: MenzilType.heading(c.ink, size: 18),
+            style: style(c.ink),
           ),
         ),
       ),
