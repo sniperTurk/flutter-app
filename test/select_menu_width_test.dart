@@ -1,6 +1,6 @@
 // The open list of every MenzilSelect has exactly the box's left and right
 // edge (owner, 2026-10-13: "daha büyük açılsın ama kutudan dışarı
-// çıkmasın"); before, it was at most 260 pt wide and started 16 pt left of
+// çıkmasın"); before, it was at most 260 pt wide and started 12 pt left of
 // the box.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
