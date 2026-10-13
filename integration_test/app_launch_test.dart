@@ -126,12 +126,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Sağ').last);
     await tester.pumpAndSettle();
-    // PCP asks no ammunition Marka/Model (owner, 2026-10-13): Tip first.
-    bool shown(String key) => find.byKey(Key(key)).evaluate().isNotEmpty;
-    if (shown('ammo-brand-select')) {
-      await choose('ammo-brand-select', 'Listede yok');
-    }
-    if (shown('ammo-brand')) await type('ammo-brand', 'Test Mühimmat Slug');
+    // PCP ammo has no Marka | Model list (hidden 2026-10-13, PCP_AMMO_BRAND).
     await tester.ensureVisible(find.byKey(const Key('ammo-type')));
     await tester.tap(find.byKey(const Key('ammo-type')));
     await tester.pumpAndSettle();
@@ -139,15 +134,9 @@ void main() {
     await tester.pumpAndSettle();
     await type('ammo-grain', '33,95');
     await type('ammo-bc', '0,08');
-    // BC modeli is asked on firearms only; PCP is always G1 (owner,
-    // 2026-10-12).
-    if (shown('ammo-bc-model')) {
-      await tester.ensureVisible(find.byKey(const Key('ammo-bc-model')));
-      await tester.tap(find.byKey(const Key('ammo-bc-model')));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('G1').last);
-      await tester.pumpAndSettle();
-    }
+    // PCP has no BC modeli box: pellets and slugs are always solved with G1
+    // (owner, 2026-10-12; `_bcModelForSave` in profiles_screen.dart).
+    expect(find.byKey(const Key('ammo-bc-model')), findsNothing);
     await type('profile-velocity-fps', '900');
     await choose('profile-distance-unit', 'Metre');
     await type('profile-zero', '25');
@@ -208,14 +197,11 @@ void main() {
     expect(find.byKey(const Key('scope-impact-text')), findsOneWidget);
     expect(tester.takeException(), isNull);
 
-    // Tablo is the second mode of the Atış tab.
-    await tester.tap(find.text('Tablo').first);
-    await tester.pumpAndSettle();
-    expect(find.text('DOPE oluştur'), findsOneWidget);
-    await tester.tap(find.text('DOPE oluştur'));
-    await tester.pumpAndSettle();
-    expect(find.byType(DataTable), findsOneWidget);
-    expect(tester.takeException(), isNull);
+    // The "Tek atış | Tablo" switch above the scope is hidden (owner,
+    // 2026-10-12; SHOT_TABLE_SWITCH in home_screen.dart), so the production
+    // Hedef tab stays on the single shot and offers no DOPE table.
+    expect(find.text('Tablo'), findsNothing);
+    expect(find.text('DOPE oluştur'), findsNothing);
 
     await tester.tap(find.text('Araçlar').first);
     await tester.pumpAndSettle();

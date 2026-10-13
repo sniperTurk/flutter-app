@@ -182,12 +182,11 @@ void main() {
       await settle();
       await type('rifle-twist-rate', '16');
       await choose('rifle-twist-direction', 'Sağ');
-      await choose('ammo-brand-select', 'Listede yok');
-      await type('ammo-brand', 'Test Mühimmat Slug');
+      // PCP ammo has no Marka | Model list (hidden 2026-10-13, PCP_AMMO_BRAND).
       await choose('ammo-type', 'Slug');
       await type('ammo-grain', '33,95');
       await type('ammo-bc', '0,08');
-      await choose('ammo-bc-model', 'G1');
+      // PCP has no BC modeli box: always G1 (owner, 2026-10-12).
       await type('profile-velocity-fps', '900');
       await choose('profile-distance-unit', 'Metre');
       await type('profile-zero', '25');

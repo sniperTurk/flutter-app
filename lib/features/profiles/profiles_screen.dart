@@ -2194,6 +2194,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       );
       _rifleManual = !known;
       if (known) {
+        // Üretim shows the saved rifle's origin, not "Seçiniz" (owner,
+        // 2026-10-13). The rifle's brand is in the list of its own origin,
+        // so Marka and Model keep their values. A typed rifle stays null.
+        _domestic = _domesticBrands.contains(rifleBrand.text);
         _rifleVariant = _variantFor(
           rifleBrand.text,
           rifleModel.text,

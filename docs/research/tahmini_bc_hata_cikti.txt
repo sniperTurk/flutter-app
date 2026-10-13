@@ -1,0 +1,160 @@
+# Output of tools/research/*.py, 2026-10-13 (python3 -I, numpy 2.5.3, scikit-learn 1.9.1)
+
+$ python3 -I tools/research/bc_estimator_cv.py
+
+=== firearm: n=1545  brands=16  with length=665
+in-sample global median: {'n': 1545, 'i': 0.582, 'median': 0.164, 'p75': 0.346, 'p90': 0.79}
+  family blunt        n= 293 median i=1.046 IQR 0.928-1.147
+  family bt           n=  91 median i=0.607 IQR 0.560-0.646
+  family fb_spitzer   n= 343 median i=0.678 IQR 0.617-0.794
+  family tipped_bt    n= 315 median i=0.540 IQR 0.507-0.582
+  family vld_match    n= 503 median i=0.494 IQR 0.466-0.531
+  M0 global median i (current app)                           kfold: med  16.4% p75  34.6% p90  79.1% bias  -0.1%  lobo: med  17.4% p75  35.3% p90  79.1% bias  -0.2%
+  M1 family median i                                         kfold: med   8.4% p75  16.7% p90  30.3% bias  +0.0%  lobo: med   9.0% p75  16.9% p90  31.2% bias  +0.1%
+  M2 calibre x SD band median i                              kfold: med  11.4% p75  22.9% p90  45.2% bias  +0.0%  lobo: med  12.0% p75  24.2% p90  47.9% bias  +0.1%
+  M1+2 family x SD band median i                             kfold: med   7.8% p75  14.8% p90  27.3% bias  +0.1%  lobo: med   8.4% p75  15.9% p90  28.3% bias  -0.0%
+  M3 length/diameter regression (L known only)               kfold: med  13.9% p75  26.7% p90  65.4% bias  -2.0%  lobo: med  14.7% p75  27.6% p90  66.7% bias  -1.5%
+  M4 brand median i (k-fold only)                            kfold: med  13.0% p75  24.4% p90  67.5% bias  +0.1%
+  M4b brand x family median i (k-fold only)                  kfold: med   7.9% p75  15.8% p90  27.0% bias  -0.1%
+  M5 nearest neighbours (d, SD, family[, L/d])               kfold: med   5.6% p75  11.7% p90  20.6% bias  +0.2%  lobo: med  10.0% p75  17.7% p90  32.3% bias  -0.2%
+  M6 ridge log-i regression (d, SD, family, flags, L/d)      kfold: med   8.6% p75  15.9% p90  25.3% bias  -0.4%  lobo: med  11.5% p75  19.6% p90  30.3% bias  -0.3%
+  M6b ridge + brand (k-fold only)                            kfold: med   8.7% p75  15.4% p90  23.6% bias  -0.8%
+  M7 boosted trees (d, SD, family, flags, L/d)               kfold: med   6.3% p75  12.0% p90  19.3% bias  -0.7%  lobo: med   9.6% p75  18.4% p90  30.8% bias  -1.5%
+  [L known, n=665] M0 global median i (current app)         kfold: med  15.7% p75  33.2% p90  66.0%  lobo: med  18.7% p75  36.1% p90  75.2%
+  [L known, n=665] M1 family median i                       kfold: med   7.4% p75  14.3% p90  27.8%  lobo: med   9.3% p75  16.8% p90  31.7%
+  [L known, n=665] M3 length/diameter regression (L known only) kfold: med  10.3% p75  18.7% p90  34.0%  lobo: med  11.7% p75  20.0% p90  37.4%
+  [L known, n=665] M6 ridge (no L/d)                        kfold: med   7.1% p75  14.1% p90  20.8%  lobo: med  11.2% p75  20.4% p90  37.3%
+  [L known, n=665] M6 ridge + L/d                           kfold: med   6.7% p75  11.8% p90  16.9%  lobo: med   9.5% p75  18.3% p90  30.3%
+  external factory-ammo check (trained on bullet library): n=654
+    M0 global median i (current app)         med  19.5% p75  46.5% p90  74.6%
+    M1 family median i                       med  15.1% p75  27.1% p90  49.0%
+    M1+2 family x SD band median i           med  14.1% p75  25.4% p90  45.4%
+    M6 ridge log-i regression                med  14.7% p75  28.2% p90  49.0%
+    M5 kNN                                   med  18.0% p75  39.7% p90  66.6%
+
+=== slug: n=209  brands=3  with length=149
+in-sample global median: {'n': 209, 'i': 0.825, 'median': 0.129, 'p75': 0.176, 'p90': 0.228}
+  family elr          n=   9 median i=0.468 IQR 0.448-0.517
+  family heavy        n=  16 median i=0.798 IQR 0.766-0.961
+  family hp_db        n=  73 median i=0.902 IQR 0.788-0.940
+  family hp_fb        n=  40 median i=0.874 IQR 0.725-0.952
+  family plain        n=  71 median i=0.783 IQR 0.714-0.872
+  M0 global median i (current app)                           kfold: med  12.8% p75  18.0% p90  23.3% bias  -0.4%  lobo: med  13.9% p75  20.7% p90  27.9% bias  +2.9%
+  M1 family median i                                         kfold: med  10.5% p75  18.6% p90  24.1% bias  -0.3%  lobo: med  14.1% p75  22.8% p90  28.9% bias  +7.7%
+  M2 calibre x SD band median i                              kfold: med   4.8% p75  12.7% p90  24.6% bias  -0.0%  lobo: med  13.6% p75  23.0% p90  37.0% bias  +0.9%
+  M1+2 family x SD band median i                             kfold: med   9.0% p75  16.3% p90  26.1% bias  +0.1%  lobo: med  15.1% p75  22.9% p90  29.6% bias  +7.7%
+  M3 length/diameter regression (L known only)               kfold: med   9.3% p75  14.1% p90  21.3% bias  +0.1%  lobo: med  12.0% p75  20.3% p90  25.9% bias  +3.7%
+  M4 brand median i (k-fold only)                            kfold: med  10.0% p75  19.5% p90  26.7% bias  +0.0%
+  M4b brand x family median i (k-fold only)                  kfold: med  10.0% p75  16.6% p90  23.7% bias  -0.4%
+  M5 nearest neighbours (d, SD, family[, L/d])               kfold: med   5.1% p75   9.6% p90  17.8% bias  -0.2%  lobo: med  17.4% p75  26.6% p90  34.4% bias +11.1%
+  M6 ridge log-i regression (d, SD, family, flags, L/d)      kfold: med   7.9% p75  12.5% p90  19.6% bias  +0.9%  lobo: med  25.2% p75  34.8% p90  59.6% bias  +5.9%
+  M6b ridge + brand (k-fold only)                            kfold: med   7.7% p75  12.7% p90  19.5% bias  +0.7%
+  M7 boosted trees (d, SD, family, flags, L/d)               kfold: med   3.5% p75   7.7% p90  17.0% bias  +0.5%  lobo: med  15.7% p75  28.1% p90  40.5% bias  +4.4%
+  S1 ELR keyword vs rest median i                            kfold: med  11.6% p75  17.3% p90  20.6% bias  -0.3%  lobo: med  14.0% p75  20.1% p90  26.1% bias  +1.6%
+  S2 ELR keyword, else L/d regression                        kfold: med   9.1% p75  13.0% p90  18.3% bias  +0.5%  lobo: med  10.9% p75  19.2% p90  22.9% bias  +1.9%
+  [L known, n=149] M0 global median i (current app)         kfold: med  12.5% p75  17.7% p90  22.0%  lobo: med  15.9% p75  22.9% p90  29.7%
+  [L known, n=149] M1 family median i                       kfold: med   9.4% p75  16.4% p90  26.6%  lobo: med  15.6% p75  22.9% p90  29.7%
+  [L known, n=149] M3 length/diameter regression (L known only) kfold: med   8.2% p75  13.3% p90  18.0%  lobo: med  12.5% p75  22.8% p90  25.5%
+  [L known, n=149] M6 ridge (no L/d)                        kfold: med   6.6% p75  10.3% p90  16.0%  lobo: med  19.5% p75  31.5% p90  40.7%
+  [L known, n=149] M6 ridge + L/d                           kfold: med   6.6% p75  10.4% p90  16.3%  lobo: med  19.3% p75  33.6% p90  45.0%
+
+=== pellet: n=45  brands=2  with length=1
+in-sample global median: {'n': 45, 'i': 2.062, 'median': 0.175, 'p75': 0.291, 'p90': 0.453}
+  family dome         n=  23 median i=1.896 IQR 1.632-2.138
+  family lead_free    n=   6 median i=1.565 IQR 1.350-1.788
+  family pointed      n=   8 median i=2.799 IQR 2.554-3.269
+  family wide_hp      n=   8 median i=2.456 IQR 2.083-2.607
+  M0 global median i (current app)                           kfold: med  19.7% p75  29.7% p90  45.8% bias  +0.8%
+  M1 family median i                                         kfold: med  16.6% p75  23.2% p90  34.3% bias  -1.3%
+  M2 calibre x SD band median i                              kfold: med  22.7% p75  30.0% p90  47.1% bias  -6.4%
+  M1+2 family x SD band median i                             kfold: med  16.7% p75  22.0% p90  36.4% bias  -3.0%
+  M3 length/diameter regression (L known only)               kfold: med  19.7% p75  29.7% p90  45.8% bias  +0.8%
+  M4 brand median i (k-fold only)                            kfold: med  19.2% p75  30.1% p90  45.5% bias  +0.5%
+  M4b brand x family median i (k-fold only)                  kfold: med  15.8% p75  23.2% p90  34.3% bias  -1.3%
+  M5 nearest neighbours (d, SD, family[, L/d])               kfold: med  17.4% p75  26.6% p90  39.8% bias  +0.5%
+  M6 ridge log-i regression (d, SD, family, flags, L/d)      kfold: med  16.7% p75  25.4% p90  37.6% bias  +0.2%
+  M6b ridge + brand (k-fold only)                            kfold: med  16.7% p75  25.4% p90  37.6% bias  -0.1%
+  M7 boosted trees (d, SD, family, flags, L/d)               kfold: med  16.2% p75  26.0% p90  38.9% bias  -1.7%
+
+ firearm_family_sd {"blunt|sd_band0": {"n": 30, "i": 0.981}, "blunt|sd_band1": {"n": 30, "i": 1.042}, "blunt|sd_band2": {"n": 52, "i": 0.983}, "blunt|sd_band3": {"n": 64, "i": 0.98}, "blunt|sd_band4": {"n": 86, "i": 1.088}, "blunt|sd_band5": {"n": 31, "i": 1.099}, "bt|sd_band0": {"n": 6, "i": 0.601}, "bt|sd_band1": {"n": 11, "i": 0.611}, "bt|sd_band2": {"n": 38, "i": 0.606}, "bt|sd_band3": {"n": 27, "i": 0.6}, "bt|sd_band4": {"n": 8, "i": 0.58}, "bt|sd_band5": {"n": 1, "i": 0.609}, "fb_spitzer|sd_band0": {"n": 62, "i": 0.723}, "fb_spitzer|sd_band1": {"n": 54, "i": 0.655}, "fb_spitzer|sd_band2": {"n": 82, "i": 0.654}, "fb_spitzer|sd_band3": {"n": 82, "i": 0.664}, "fb_spitzer|sd_band4": {"n": 51, "i": 0.763}, "fb_spitzer|sd_band5": {"n": 12, "i": 0.787}, "tipped_bt|sd_band0": {"n": 74, "i": 0.57}, "tipped_bt|sd_band1": {"n": 60, "i": 0.545}, "tipped_bt|sd_band2": {"n": 90, "i": 0.538}, "tipped_bt|sd_band3": {"n": 69, "i": 0.533}, "tipped_bt|sd_band4": {"n": 19, "i": 0.499}, "tipped_bt|sd_band5": {"n": 3, "i": 0.521}, "vld_match|sd_band0": {"n": 29, "i": 0.63}, "vld_match|sd_band1": {"n": 72, "i": 0.54}, "vld_match|sd_band2": {"n": 126, "i": 0.5}, "vld_match|sd_band3": {"n": 144, "i": 0.491}, "vld_match|sd_band4": {"n": 79, "i": 0.472}, "vld_match|sd_band5": {"n": 53, "i": 0.447}}
+
+ firearm_family {"blunt": {"n": 293, "i": 1.046}, "bt": {"n": 91, "i": 0.607}, "fb_spitzer": {"n": 343, "i": 0.678}, "tipped_bt": {"n": 315, "i": 0.54}, "vld_match": {"n": 503, "i": 0.494}}
+
+ slug {"elr_i": 0.468, "elr_n": 9, "rest_i": 0.846, "rest_n": 200, "ld_fit": "ln i = -0.379 + 0.524·ln(L/d)  (n=147, L/d 1.07–2.41)"}
+
+ pellet_family {"dome": {"n": 23, "i": 1.896}, "lead_free": {"n": 6, "i": 1.565}, "pointed": {"n": 8, "i": 2.799}, "wide_hp": {"n": 8, "i": 2.456}}
+
+ slug_brand_median_i {"H&N": {"n": 35, "i": 0.769}, "NSA": {"n": 113, "i": 0.879}, "Zan Projectiles": {"n": 61, "i": 0.783}}
+
+$ python3 -I tools/research/bc_drop_distribution.py
+
+firearm: firearm .277 130 gr G1 0.44, 3000 fps  (leave-one-brand-out, n=1545)
+  M0 global median i (current app) BC over-estimated in 50 %;  200 m: med 0.5 / p75 0.8 / p90 1.1 cm;  300 m: med 2.1 / p75 3.6 / p90 4.7 cm;  500 m: med 13.1 / p75 22.2 / p90 28.1 cm
+                                 truing change needed > 30 % (BallisticCoefficientTruing limit): 30.2 %;  > 20 % (DragBandTruing limit): 48.5 %
+  M1+2 family x SD band          BC over-estimated in 50 %;  200 m: med 0.2 / p75 0.4 / p90 0.6 cm;  300 m: med 0.9 / p75 1.7 / p90 2.8 cm;  500 m: med 5.6 / p75 10.8 / p90 17.8 cm
+                                 truing change needed > 30 % (BallisticCoefficientTruing limit): 8.2 %;  > 20 % (DragBandTruing limit): 17.0 %
+
+slug: PCP 6.35 mm 50 gr slug G1 0.140, 985 fps  (leave-one-brand-out, n=209)
+  M0 global median i (current app) BC over-estimated in 54 %;  200 m: med 4.8 / p75 6.9 / p90 9.0 cm;  300 m: med 20.1 / p75 28.8 / p90 38.0 cm;  500 m: med 118.9 / p75 165.8 / p90 230.3 cm
+                                 truing change needed > 30 % (BallisticCoefficientTruing limit): 6.7 %;  > 20 % (DragBandTruing limit): 25.8 %
+  S2 ELR keyword, else L/d       BC over-estimated in 58 %;  200 m: med 3.6 / p75 5.8 / p90 8.1 cm;  300 m: med 15.5 / p75 24.5 / p90 34.4 cm;  500 m: med 91.8 / p75 140.0 / p90 207.7 cm
+                                 truing change needed > 30 % (BallisticCoefficientTruing limit): 6.2 %;  > 20 % (DragBandTruing limit): 13.9 %
+
+$ python3 -I tools/research/bc_error_drop_cm.py
+
+firearm .277 130 gr G1 0.44, 3000 fps  (|drop change| cm: BC over-estimated … under-estimated)
+  error    100 m         200 m         300 m         500 m      
+     2 %    0.0–  0.0    0.0–  0.0    0.2–  0.2    1.3–  1.4
+     5 %    0.0–  0.0    0.1–  0.1    0.5–  0.6    3.2–  3.6
+     8 %    0.0–  0.0    0.2–  0.2    0.8–  0.9    4.9–  6.0
+    10 %    0.0–  0.0    0.2–  0.3    1.0–  1.2    5.9–  7.7
+    13 %    0.0–  0.0    0.3–  0.4    1.2–  1.6    7.5– 10.5
+    16 %    0.0–  0.0    0.3–  0.5    1.4–  2.1    8.9– 13.6
+    20 %    0.0–  0.0    0.4–  0.6    1.7–  2.8   10.6– 18.2
+    25 %    0.0–  0.0    0.5–  0.8    2.1–  3.8   12.6– 25.0
+    30 %    0.0–  0.0    0.5–  1.1    2.4–  5.0   14.4– 33.2
+    35 %    0.0–  0.0    0.6–  1.4    2.7–  6.4   16.1– 43.3
+    45 %    0.0–  0.0    0.7–  2.2    3.1– 10.2   19.0– 72.7
+    80 %    0.0–  0.0    1.0– 17.5    4.4– 96.0   26.2–648.8
+
+PCP 6.35 mm 50 gr slug G1 0.140, 985 fps  (|drop change| cm: BC over-estimated … under-estimated)
+  error    100 m         200 m         300 m         500 m      
+     2 %    0.0–  0.0    0.7–  0.7    2.8–  2.9   16.4– 17.2
+     5 %    0.0–  0.0    1.6–  1.8    6.8–  7.6   39.6– 44.8
+     8 %    0.0–  0.0    2.5–  3.0   10.6– 12.6   61.2– 74.6
+    10 %    0.0–  0.0    3.1–  3.8   13.0– 16.2   74.8– 95.9
+    13 %    0.0–  0.0    3.9–  5.1   16.4– 21.8   94.2–130.2
+    16 %    0.0–  0.0    4.7–  6.6   19.6– 28.0  112.3–167.7
+    20 %    0.0–  0.0    5.6–  8.6   23.6– 37.0  134.9–223.6
+    25 %    0.0–  0.0    6.7– 11.6   28.2– 49.8  160.7–304.8
+    30 %    0.0–  0.0    7.8– 15.0   32.4– 64.8  184.2–402.2
+    35 %    0.0–  0.0    8.7– 19.0   36.4– 82.6  205.8–521.4
+    45 %    0.0–  0.0   10.4– 29.5   43.3–130.6  243.8–862.7
+    80 %    0.0–  0.0   14.9–209.7   61.4–1248.4  340.4–22233.2
+
+$ python3 -I tools/research/bc_truing_error.py
+
+===== firearm: {'model': 'g1', 'bc': 0.44, 'grain': 130.0, 'caliber_in': 0.277, 'mv_mps': 914.4000000000001, 'zero_m': 100.0, 'sight_mm': 45.0}
+(a) two velocities, one chronograph moved downrange
+  x=100 m  v_x=841.5 m/s  loss 8.0%  dBC/BC per dv/v = 12.0  → σ_BC 1.84%  (LRF instead of tape 2.10%)  [far mean (SEM) +1.35%, near mean (SEM) -1.25%, tape ±0.1 m +0.10%]  common 0.5% scale error → -0.164%
+  x=200 m  v_x=772.4 m/s  loss 15.5%  dBC/BC per dv/v = 5.8  → σ_BC 0.95%  (LRF instead of tape 1.07%)  [far mean (SEM) +0.71%, near mean (SEM) -0.63%, tape ±0.1 m +0.05%]  common 0.5% scale error → -0.182%
+  x=300 m  v_x=706.6 m/s  loss 22.7%  dBC/BC per dv/v = 3.7  → σ_BC 0.65%  (LRF instead of tape 0.73%)  [far mean (SEM) +0.49%, near mean (SEM) -0.42%, tape ±0.1 m +0.03%]  common 0.5% scale error → -0.194%
+(b) drop at range R
+  R=200 m  +10% BC moves 0.01 mrad  σ_BC 83.01%  → residual drop σ 300 m 4.5 cm, 500 m 26.6 cm  [group centre (SEM) 27.21%, MV (SEM + chrono scale) 12.82%, range ±1 m (LRF) 4.87%, zero ±0.05 mrad 76.84%, sight height ±2 mm 7.55%]
+  R=300 m  +10% BC moves 0.03 mrad  σ_BC 21.56%  → residual drop σ 300 m 1.8 cm, 500 m 11.3 cm  [group centre (SEM) 11.49%, MV (SEM + chrono scale) 6.62%, range ±1 m (LRF) 2.13%, zero ±0.05 mrad 16.77%, sight height ±2 mm 1.83%]
+  R=400 m  +10% BC moves 0.07 mrad  σ_BC 10.48%  → residual drop σ 300 m 1.0 cm, 500 m 6.2 cm  [group centre (SEM) 5.88%, MV (SEM + chrono scale) 4.47%, range ±1 m (LRF) 1.20%, zero ±0.05 mrad 7.30%, sight height ±2 mm 0.66%]
+  R=500 m  +10% BC moves 0.12 mrad  σ_BC 6.21%  → residual drop σ 300 m 0.6 cm, 500 m 3.9 cm  [group centre (SEM) 3.37%, MV (SEM + chrono scale) 3.34%, range ±1 m (LRF) 0.78%, zero ±0.05 mrad 3.91%, sight height ±2 mm 0.30%]
+drag-shape error (noise-free fit, truth on another law)
+  truth G7: (a) fit at 100 m → error 300 m 0.0 cm, 500 m 0.5 cm;  (b) fit at 300 m → 300 m 0.0 cm, 500 m 0.2 cm
+
+===== slug: {'model': 'g1', 'bc': 0.14, 'grain': 50.0, 'caliber_in': 0.25, 'mv_mps': 300.228, 'zero_m': 100.0, 'sight_mm': 50.0}
+(a) two velocities, one chronograph moved downrange
+  x=50 m  v_x=279.6 m/s  loss 6.9%  dBC/BC per dv/v = 15.5  → σ_BC 3.29%  (LRF instead of tape 3.85%)  [far mean (SEM) +2.62%, near mean (SEM) -1.98%, tape ±0.1 m +0.20%]  common 0.5% scale error → +1.280%
+  x=100 m  v_x=262.8 m/s  loss 12.5%  dBC/BC per dv/v = 8.6  → σ_BC 1.84%  (LRF instead of tape 2.09%)  [far mean (SEM) +1.55%, near mean (SEM) -1.00%, tape ±0.1 m +0.10%]  common 0.5% scale error → +1.088%
+(b) drop at range R
+  R=150 m  +10% BC moves 0.06 mrad  σ_BC 20.71%  → residual drop σ 300 m 24.3 cm, 500 m 138.7 cm  [group centre (SEM) 10.15%, MV (SEM + chrono scale) 13.49%, range ±1 m (LRF) 8.97%, zero ±0.05 mrad 7.74%, sight height ±2 mm 1.88%]
+  R=200 m  +10% BC moves 0.15 mrad  σ_BC 9.79%  → residual drop σ 300 m 12.7 cm, 500 m 73.4 cm  [group centre (SEM) 4.43%, MV (SEM + chrono scale) 6.98%, range ±1 m (LRF) 4.24%, zero ±0.05 mrad 3.03%, sight height ±2 mm 0.58%]
+  R=300 m  +10% BC moves 0.43 mrad  σ_BC 4.55%  → residual drop σ 300 m 6.2 cm, 500 m 36.2 cm  [group centre (SEM) 1.62%, MV (SEM + chrono scale) 3.70%, range ±1 m (LRF) 1.81%, zero ±0.05 mrad 1.05%, sight height ±2 mm 0.14%]
+drag-shape error (noise-free fit, truth on another law)
+  truth G7: (a) fit at 50 m → error 300 m 14.3 cm, 500 m 138.6 cm;  (b) fit at 300 m → 300 m 0.0 cm, 500 m 54.0 cm
+  truth constant Cd: (a) fit at 50 m → error 300 m 23.4 cm, 500 m 219.7 cm;  (b) fit at 300 m → 300 m 0.0 cm, 500 m 80.1 cm
