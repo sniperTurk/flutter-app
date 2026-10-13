@@ -279,9 +279,9 @@ class _ProPreviewState extends State<ProPreview> {
                 part('Nasıl?', e.how),
               ],
             ),
-            // Justified like every paragraph (owner, 2026-10-12): the Pro
-            // cards do not inherit MenzilPage's default.
-            textAlign: TextAlign.justify,
+            // Left-aligned (owner, 2026-10-13: only the Hedef page is
+            // justified).
+            textAlign: TextAlign.start,
             style: MenzilType.caption(c.ink2).copyWith(height: 1.35),
           ),
         ],
