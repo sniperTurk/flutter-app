@@ -1,0 +1,21 @@
+{
+  "name": "ACSS 22LR G2",
+  "brand": "Primary Arms",
+  "scopes": [
+    "CLx 1-6x24 SFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=33959575&c=3901023&h=hZWzZU9rgQ8OqPXIO5iSm1O56yckRM9xZZ9qokhqOqQik5-X",
+  "notes": "'ACSS® 22LR G2 RETICLE MANUAL 1-6x24': 'advanced BDC reticle'; 'These BDC stadia are in 25-yard increments, starting at 75 yards at the top of the post' (75-200 yd); 'Each stadia line is sized to match the diameter of a clay pigeon, or roughly 4.3 inches'; 5 mph rüzgâr noktaları; 'The wind hold dots are calibrated for use at the scope's maximum magnification setting of 6x'. Ürün sayfası: 'a bold crosshair-style design with a center aiming dot' -> center_dot=true; SFP; spec 'Reticle Type BDC', 'Click Value 1/2 MOA'. Kılavuz MIL/MOA değeri vermiyor -> ölçü yok; birim taret birimi. BDC -> family ve sayısal alanlar null. Kaynak: https://www.primaryarms.com/core/media/media.nl?id=33959575&c=3901023&h=hZWzZU9rgQ8OqPXIO5iSm1O56yckRM9xZZ9qokhqOqQik5-X (okundu 2026-10-12); https://www.primaryarms.com/primary-arms-clx-1-6x24mm-sfp-rifle-scope-acss-22lr-g2-reticle (okundu 2026-10-12)"
+}

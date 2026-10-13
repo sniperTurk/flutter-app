@@ -1,0 +1,24 @@
+{
+  "name": "German-4",
+  "brand": "Konus",
+  "scopes": [
+    "Wild 4-12x40",
+    "Wild 3-9x40",
+    "Glory 2-16x50",
+    "Armada 4-16x50"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.konuscopes.com/ottiche/ottiche-da-caccia/wild-4x-12x40-zoom/",
+  "notes": "Wild 4-12x40: 'Reticolo: German-4 illuminato', 1/4 M.O.A.; Glory 2-16x50: 'RETICOLO: GERMAN-4', 1/4 M.O.A.; Armada 4-16x50: 'RETICOLO: GERMAN 4 CON DOPPIA ILLUMINAZIONE', 1/4 M.O.A. ('German 4' yazımı eşleştiricide aynı anahtar). Hiçbir sayfa ölçü veya odak düzlemi vermiyor. German #4 -> family=duplex (brief kuralı); ölçü yok, birim taret birimi (MOA). Direk, merkez nokta -> null. (Wild 3-9x40 sayfası bu turda okunmadı; girdideki dürbün kaydından.) Kaynak: https://www.konuscopes.com/ottiche/ottiche-da-caccia/wild-4x-12x40-zoom/ (okundu 2026-10-12); https://www.konuscopes.com/ottiche/ottiche-da-caccia/glory-2x-16x50/ (okundu 2026-10-12); https://www.konuscopes.com/ottiche/ottiche-da-tiro/armada-4x-16x50-zoom/ (okundu 2026-10-12)"
+}

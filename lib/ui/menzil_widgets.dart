@@ -193,10 +193,22 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         // Left: page title, or "Sniper Türk" on Profil. It
                         // shrinks instead of overflowing on narrow phones.
-                        Expanded(
-                          flex: 3,
+                        // Owner, 2026-10-12: every page title the same,
+                        // smaller size so the profile box is not squeezed.
+                        // Owner, 2026-10-12: no wide gap between the title and
+                        // the profile box; the title takes only its width and
+                        // the profile box the rest.
+                        // A Flexible title kept half the free width for
+                        // itself and left a gap on the right (owner,
+                        // 2026-10-12: "sağda çok boşluk var"); a width cap
+                        // lets the profile box take everything else.
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: constraints.maxWidth * 0.42,
+                          ),
                           child: Align(
                             alignment: Alignment.centerLeft,
+                            widthFactor: 1,
                             child: title != null
                                 ? FittedBox(
                                     fit: BoxFit.scaleDown,
@@ -209,26 +221,22 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                                         maxLines: 1,
                                         style: MenzilType.heading(
                                           c.ink,
-                                          size: 26,
+                                          size: 18,
                                         ),
                                       ),
                                     ),
                                   )
                                 : showBrand
-                                ? MenzilBrand(compact: compact)
+                                ? FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    alignment: Alignment.centerLeft,
+                                    child: MenzilBrand(compact: compact),
+                                  )
                                 : const SizedBox.shrink(),
                           ),
                         ),
-                        const SizedBox(width: MenzilSpace.sm),
-                        // The selector is only as wide as a profile name needs
-                        // (owner, 2026-10-09: it was needlessly long).
-                        Flexible(
-                          flex: 2,
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 170),
-                            child: profileSelector,
-                          ),
-                        ),
+                        const SizedBox(width: MenzilSpace.md),
+                        Expanded(child: profileSelector),
                         const SizedBox(width: MenzilSpace.sm),
                         if (unitLabel != null) ...[
                           MenzilBarButton(
@@ -276,7 +284,7 @@ class MenzilBrand extends StatelessWidget {
             'Sniper Türk',
             key: const Key('top-bar-brand'),
             maxLines: 1,
-            style: MenzilType.heading(c.ink, size: compact ? 22 : 26),
+            style: MenzilType.heading(c.ink, size: 18),
           ),
         ),
       ),
@@ -309,19 +317,19 @@ class MenzilBarButton extends StatelessWidget {
         child: ExcludeSemantics(
           child: Material(
             color: c.surface,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(MenzilRadius.button),
-              side: BorderSide(color: c.line),
-            ),
+            // Same height and rounding as the profile box beside it, with
+            // room above the bar's bottom line (owner, 2026-10-12).
+            shape: StadiumBorder(side: BorderSide(color: c.line)),
             child: InkWell(
-              borderRadius: BorderRadius.circular(MenzilRadius.button),
+              customBorder: const StadiumBorder(),
               onTap: onPressed,
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
                   child: Center(
                     widthFactor: 1,
+                    heightFactor: 1,
                     child: Text(
                       label,
                       style: TextStyle(
@@ -492,6 +500,10 @@ class MenzilCard extends StatelessWidget {
   final Color? accent;
   final double radius;
   final Color? background;
+
+  /// Edge colour instead of the hairline (owner, 2026-10-12: notices on
+  /// a plain card with a thin orange edge).
+  final Color? borderColor;
   final EdgeInsetsGeometry margin;
 
   const MenzilCard({
@@ -501,6 +513,7 @@ class MenzilCard extends StatelessWidget {
     this.accent,
     this.radius = MenzilRadius.card,
     this.background,
+    this.borderColor,
     this.margin = const EdgeInsets.only(bottom: MenzilSpace.md),
   });
 
@@ -532,7 +545,10 @@ class MenzilCard extends StatelessWidget {
         color: background ?? c.surface,
         shape: RoundedRectangleBorder(
           borderRadius: shape,
-          side: BorderSide(color: c.line, width: MenzilSpace.border),
+          side: BorderSide(
+            color: borderColor ?? c.line,
+            width: MenzilSpace.border,
+          ),
         ),
         clipBehavior: Clip.antiAlias,
         child: body,
@@ -619,9 +635,12 @@ class MenzilNotice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    // Warnings on the plain card with a thin orange edge instead of the
+    // brownish fill (owner, 2026-10-12: "gözüme güzel gözükmüyor").
+    final warning = tone == MenzilNoticeTone.warning;
     final (Color bg, Color edge) = switch (tone) {
       MenzilNoticeTone.info => (c.cyanSoft, c.cyan),
-      MenzilNoticeTone.warning => (c.amberSoft, c.amber),
+      MenzilNoticeTone.warning => (c.surface, c.amber),
       MenzilNoticeTone.danger => (c.dangerSoft, c.danger),
     };
     return Padding(
@@ -630,7 +649,9 @@ class MenzilNotice extends StatelessWidget {
         decoration: BoxDecoration(
           color: bg,
           borderRadius: BorderRadius.circular(MenzilRadius.button),
-          border: Border(left: BorderSide(color: edge, width: 5)),
+          border: warning
+              ? Border.all(color: edge)
+              : Border(left: BorderSide(color: edge, width: 5)),
         ),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
@@ -1394,6 +1415,29 @@ class MenzilPrimaryButton extends StatelessWidget {
             child: Text(label, maxLines: 1, softWrap: false),
           )
         : Text(label);
+    // One line with an icon (owner, 2026-10-12: "+ işareti sola kayacak"):
+    // the icon sits at the left edge and the label takes the space it frees,
+    // at the same size as the neighbouring buttons when it fits.
+    if (oneLine && icon != null) {
+      final b = FilledButton(
+        style: (style ?? const ButtonStyle()).merge(
+          FilledButton.styleFrom(
+            // Icon and label nearer the left edge (owner, 2026-10-12:
+            // "+ biraz daha sola kayabilir… sağda mesafe az").
+            padding: const EdgeInsets.only(left: 2, right: 14),
+          ),
+        ),
+        onPressed: onPressed,
+        child: Row(
+          children: [
+            Icon(icon, size: 20),
+            const SizedBox(width: 2),
+            Expanded(child: Center(child: text)),
+          ],
+        ),
+      );
+      return expand ? SizedBox(width: double.infinity, child: b) : b;
+    }
     final button = icon == null
         ? FilledButton(style: style, onPressed: onPressed, child: text)
         : FilledButton.icon(
@@ -1517,7 +1561,13 @@ class MenzilSecondaryButton extends StatelessWidget {
     final button = icon == null
         ? OutlinedButton(style: style, onPressed: onPressed, child: _label())
         : OutlinedButton.icon(
-            style: style,
+            // Equal space left and right of icon + label (owner,
+            // 2026-10-12: "sağda ve solda aynı boşluk kalsın").
+            style: (style ?? const ButtonStyle()).merge(
+              OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+              ),
+            ),
             onPressed: onPressed,
             icon: Icon(icon, size: 20),
             label: _label(),
@@ -1564,8 +1614,9 @@ class MenzilStepButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   label,
+                  // Soft grey, not bright white (owner, 2026-10-12).
                   style: MenzilType.number(
-                    small ? c.ink2 : c.ink,
+                    c.ink2,
                     size: 19,
                     weight: small ? FontWeight.w500 : FontWeight.w600,
                   ),

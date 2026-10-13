@@ -1,0 +1,21 @@
+{
+  "name": "PLRi",
+  "brand": "GPO",
+  "scopes": [
+    "GPOTAC 6X 4.5-27x50i"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://gpo-usa.com/shop/tactical/scopes-tactical/gpo-tac/gpotac-6x-4-5-27x50i/",
+  "notes": "GPOTAC 6X 4.5-27x50i sayfası iki seçenek sunuyor ('LRi Pro', 'PLRi'): 'both mil-based and utilizing our proprietary iCONTROL illumination technology', 'Magnifying first focal plane reticle' -> unit=mil, FFP. Sayfada ölçü yok; retikül görselleri sayfası (https://gpo-usa.com/reticle-images/) yalnız başlık veriyor, görseller okunamadı -> family ve tüm ölçüler null. Kaynak: https://gpo-usa.com/shop/tactical/scopes-tactical/gpo-tac/gpotac-6x-4-5-27x50i/ (okundu 2026-10-12); https://gpo-usa.com/reticle-images/ (okundu 2026-10-12)"
+}

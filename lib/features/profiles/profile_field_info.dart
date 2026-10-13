@@ -55,6 +55,11 @@ abstract final class ProfileFieldInfo {
   static const grain =
       'Bir saçmanın veya merminin ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: 25,39 gr pellet, 33,95 gr slug.';
+  static const ammoLength =
+      'Saçmanın veya slug\'ın boyu, milimetre olarak. Kumpasla ucundan '
+      'arkasına ölçülür ya da üreticinin sitesinde yazar. Boş '
+      'bırakılabilir; girilirse yiv oranıyla dengesi kontrol edilir. '
+      'Örnek: kumpasta 10,5 okunursa 10,5 yazın.';
   static const grainFirearm =
       'Merminin (çekirdeğin) ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: .223 için 55 gr, .308 için 168 gr, '
@@ -63,7 +68,22 @@ abstract final class ProfileFieldInfo {
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
       'etkilenir. Tipik: pellet 0,02–0,04, slug 0,05–0,15 (G1). Kutuda veya '
-      'üreticinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
+      'üreticinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır. '
+      'Saçma ve slug G1 ile hesaplanır. Bilinmiyorsa boş bırakın; sonuç '
+      'yaklaşık olur.';
+  static const scopeFilterUnit =
+      'Dürbününüzü bulmak için kulenin birimi. MRAD: klik 0,1 mil. MOA: '
+      'klik 1/4 MOA. SMOA: üretici "100 yardada 1/4 inç" diyorsa. Kulede ya '
+      'da kutuda yazar. Listede yalnız bu markada olan birimler çıkar.';
+  static const scopeFilterFocal =
+      'Odak düzlemi. FFP: retikül büyütmeyle büyür. SFP: retikül hep aynı '
+      'boyda kalır. Dürbünün adında ya da kutusunda FFP veya SFP yazar.';
+  static const scopeFilterMag =
+      'Dürbünün üstünde yazan büyütme aralığı. Örnek: 5-30x56 yazıyorsa '
+      '5-30x seçin. Yalnız kalan dürbünlerdeki aralıklar çıkar.';
+  static const scopeFilterTube =
+      'Dürbün gövdesinin çapı, mm; dürbün ayağının ölçüsüdür. Kutuda ya da '
+      'kılavuzda yazar. Örnek: 30, 34 veya 35 mm.';
   static const bcModel =
       'BC sayısının hangi standart mermi şekline göre verildiği. G1: küt uçlu '
       'klasik şekil; havalı tüfek saçması ve slug için neredeyse her zaman G1 '

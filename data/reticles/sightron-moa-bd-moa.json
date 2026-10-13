@@ -1,0 +1,21 @@
+{
+  "name": "MOA-BD",
+  "brand": "Sightron",
+  "scopes": [
+    "S6 10-60x56 ED Bench Rest"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://sightron.com/products/s6-10-60x56-ed-br-bench-rest",
+  "notes": "SFP ('Second Focal Plane'), tık '1/8 MOA'. Sayfa: 'BD (bracket dot) reticle allows you to bracket the target'; 'The floating center dot' → center_dot=true, floating_center=true. family: bracket-dot tasarımı şemadaki ailelere açıkça uymuyor → null. Tablolar: 'MOA-BD Measured in MOA - 10x at 100 Yards': .102 | .6 | 3.0 | 6.0 | 3.0 | 6.0 | 3.0 | 6.0 | .42 | 6.0; '- 60x at 100 Yards': .017 | .1 | .5 | 1.0 | .5 | 1.0 | .5 | 1.0 | .07 | 1.0. Sayfada 'Coming Soon'. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/s6-10-60x56-ed-br-bench-rest (okundu 2026-10-12)."
+}

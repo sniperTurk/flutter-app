@@ -1,0 +1,21 @@
+{
+  "name": "MOA-7",
+  "brand": "Sightron",
+  "scopes": [
+    "S6 5-30x56 ED Zero Stop"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://sightron.com/products/s6-5-30x56-ed",
+  "notes": "SFP, tık '1/4 MOA'. Sayfada retikül tarifi yok (yalnız aydınlatma/kazınmış cam) → family, merkez null. Tablolar: 'MOA-7 Measured in MOA - 5x at 100 Yards': 180 | 3.6 | 10.5 | 3.6 | 12 | 24 | 12 | 1.5 | 6 | 0.6 | 6; '- 30x': 40 | 20 | 10 | 1 | 2 | 4 | 2 | 0.25 | 1 | 0.1 | 1. Not: sayfadaki talimat PDF adı '66004_-_MOA-8_Reticle_Instructions.pdf' (MOA-8) — sayfa içi tutarsızlık. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/s6-5-30x56-ed (okundu 2026-10-12)."
+}

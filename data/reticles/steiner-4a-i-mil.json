@@ -1,0 +1,26 @@
+{
+  "name": "4A-I",
+  "brand": "Steiner",
+  "scopes": [
+    "Ranger 4 1-4x24 (4A-I)",
+    "Ranger 4 2,5-10x50 (4A-I)",
+    "Ranger 4 3-12x56 (4A-I)",
+    "Ranger 4 4-16x56 (4A-I)",
+    "Ranger 4 6-24x56 (4A-I)",
+    "Ranger 4S 4-16x44"
+  ],
+  "unit": "mil",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.steiner.de/media/58/42/34/1681201161/Manual_Ranger4.pdf",
+  "notes": "Ranger 4 kılavuzu (steiner.de): 'Reticle 4A-I illuminated', 'Reticle position 2nd focal plane', '4A-I Reticle Substensions', 'Substensions in cm at 100 m at min. / max. magnification' (1-4x24 1x/4x, 2.5-10x50 2.5x/10x, 3-12x56 3x/12x): A 7.5/1.9, 3.0/0.75, 2.5/0.6; B 36.0/9.0, 14.4/3.6, 12.0/3.0; W 1440/360, 576/144, 480/120; D 16.3/4.1, 6.5/1.6, 5.4/1.4 — harflerin hangi öğe olduğu metinde yok, eşlenmedi. unit=mil: üretici ölçüyü cm/100 m veriyor (1 cm/100 m = 0.1 mrad); taret 1 cm/100 m. Ürün sayfası (Ranger 4 1-4x24): reticle '4A-I', '2. BE'. Reticle Guide (steiner-optics.com, s.3): 4A/4A-I 'three posts and a center dot', 4A-I'de merkez nokta aydınlatmalı -> family=duplex, center_dot=true. 4-16x56, 6-24x56 ve Ranger 4S için tablo değeri kılavuz metninde yok. Kaynak: https://www.steiner.de/media/58/42/34/1681201161/Manual_Ranger4.pdf (okundu 2026-10-12); https://www.steiner.de/en/ranger-4-1-4x24-4a-i/8769900204 (okundu 2026-10-12); https://www.steiner-optics.com/sites/default/files/content/catalogs/2023-12/reticle_guide_1-8-18.pdf (okundu 2026-10-12)"
+}

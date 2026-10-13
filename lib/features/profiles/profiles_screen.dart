@@ -822,17 +822,8 @@ class _ActiveProfileDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        MenzilSectionHeader(
-          // The name is already in the top-bar selector and the list; it is
-          // not repeated here (owner, 2026-10-08).
-          'Aktif profil',
-          trailing: TextButton.icon(
-            onPressed: onEdit,
-            icon: const Icon(Icons.edit_outlined, size: 18),
-            label: const Text('Düzenle'),
-          ),
-          padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
-        ),
+        // No "Aktif profil" title or Düzenle here (owner, 2026-10-12): the
+        // list below shows the active profile with its edit pencil.
         // Order and names set by the owner (2026-10-09). Regülatör, Odak
         // düzlemi, Klik değeri and the name card have no box any more.
         MenzilMetricGrid(
@@ -1331,8 +1322,230 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   List<String> _scopeModels(String brand) => {
     for (final s in _scopeLib)
-      if (s.brand == brand) _scopeModelOf(s),
+      if (s.brand == brand && _scopeFilterAccepts(s)) _scopeModelOf(s),
   }.toList()..sort(_byName);
+
+  // ---- Dürbün filters (owner, 2026-10-13): what the user reads on the
+  // scope or its box, narrowing step by step ("süzerek gider"): Marka →
+  // Birim | Odak → Tüp | Büyütme → Model (no Objektif filter). Each list offers only
+  // the values the scopes left over have, so the Model list is never empty.
+  // "Seçiniz" = no filter.
+  AngularUnit? _scopeUnitFilter;
+  bool? _scopeFfpFilter;
+  double? _scopeTubeFilter;
+  String? _scopeMagFilter;
+
+  static String _num(double v) => v == v.roundToDouble()
+      ? v.toStringAsFixed(0)
+      : v.toString().replaceAll('.', ',');
+
+  static String _unitName(AngularUnit u) => switch (u) {
+    AngularUnit.mrad => 'MRAD',
+    AngularUnit.moa => 'MOA',
+    AngularUnit.smoa => 'SMOA',
+  };
+
+  /// The magnification range as printed on the scope, e.g. "5-30x".
+  static String? _magRange(ScopeOptic s) {
+    final lo = s.minMagnification, hi = s.maxMagnification;
+    if (hi == null) return null;
+    return lo == null || lo == hi ? '${_num(hi)}x' : '${_num(lo)}-${_num(hi)}x';
+  }
+
+  /// [level]: how many filters apply (1 Birim, 2 Odak, 3 Tüp, 4 Büyütme).
+  bool _scopeFilterAccepts(ScopeOptic s, [int level = 4]) {
+    if (level >= 1 &&
+        _scopeUnitFilter != null &&
+        s.clickUnit != _scopeUnitFilter) {
+      return false;
+    }
+    if (level >= 2 &&
+        _scopeFfpFilter != null &&
+        s.firstFocalPlane != _scopeFfpFilter) {
+      return false;
+    }
+    if (level >= 3 &&
+        _scopeTubeFilter != null &&
+        s.tubeDiameterMm != _scopeTubeFilter) {
+      return false;
+    }
+    if (level >= 4 &&
+        _scopeMagFilter != null &&
+        _magRange(s) != _scopeMagFilter) {
+      return false;
+    }
+    return true;
+  }
+
+  /// Scopes of the chosen brand that pass the filters before [level].
+  Iterable<ScopeOptic> _scopesBefore(int level) => _scopeLib.where(
+    (s) => s.brand == _scopeBrandSel && _scopeFilterAccepts(s, level - 1),
+  );
+
+  List<AngularUnit> get _scopeUnitChoices {
+    final have = {for (final s in _scopesBefore(1)) s.clickUnit};
+    return [
+      for (final u in AngularUnit.values)
+        if (have.contains(u)) u,
+    ];
+  }
+
+  List<bool> get _scopeFfpChoices {
+    final have = {
+      for (final s in _scopesBefore(2))
+        if (s.firstFocalPlane != null) s.firstFocalPlane!,
+    };
+    return [
+      for (final f in const [true, false])
+        if (have.contains(f)) f,
+    ];
+  }
+
+  List<String> get _scopeMagChoices {
+    final byLow = <String, (double, double)>{};
+    for (final s in _scopesBefore(4)) {
+      final r = _magRange(s);
+      if (r != null) {
+        byLow[r] = (s.minMagnification ?? 0, s.maxMagnification ?? 0);
+      }
+    }
+    return byLow.keys.toList()..sort((a, b) {
+      final (la, ha) = byLow[a]!;
+      final (lb, hb) = byLow[b]!;
+      return la != lb ? la.compareTo(lb) : ha.compareTo(hb);
+    });
+  }
+
+  List<double> get _scopeTubeChoices => {
+    for (final s in _scopesBefore(3))
+      if (s.tubeDiameterMm != null) s.tubeDiameterMm!,
+  }.toList()..sort();
+
+  /// After a change, a filter whose choice is no longer offered goes back
+  /// to "Seçiniz" (checked in order, each against the ones before it).
+  void _dropUnavailableScopeFilters() {
+    if (_scopeUnitFilter != null &&
+        !_scopeUnitChoices.contains(_scopeUnitFilter)) {
+      _scopeUnitFilter = null;
+    }
+    if (_scopeFfpFilter != null &&
+        !_scopeFfpChoices.contains(_scopeFfpFilter)) {
+      _scopeFfpFilter = null;
+    }
+    if (_scopeTubeFilter != null &&
+        !_scopeTubeChoices.contains(_scopeTubeFilter)) {
+      _scopeTubeFilter = null;
+    }
+    if (_scopeMagFilter != null &&
+        !_scopeMagChoices.contains(_scopeMagFilter)) {
+      _scopeMagFilter = null;
+    }
+  }
+
+  /// One line per model with its data (owner, 2026-10-13: "Marka Model ve
+  /// tüm veri tek satır"), e.g. "Discovery Optics HD Gen III 5-30x56 ·
+  /// MRAD · FFP · 34 mm".
+  String _scopeModelLine(String brand, String model) {
+    final s = _scopeLib
+        .where(
+          (x) =>
+              x.brand == brand &&
+              _scopeModelOf(x) == model &&
+              _scopeFilterAccepts(x),
+        )
+        .firstOrNull;
+    if (s == null) return '$brand $model';
+    // What the product name already says is not repeated (owner,
+    // 2026-10-13: "CONTINENTAL X6 4-24X56 MBR FFP 34MM").
+    final name = model.toLowerCase().replaceAll(' ', '');
+    bool said(String t) => name.contains(t.toLowerCase().replaceAll(' ', ''));
+    final unit = _unitName(s.clickUnit);
+    final focal = s.firstFocalPlane == null
+        ? null
+        : s.firstFocalPlane!
+        ? 'FFP'
+        : 'SFP';
+    final tube = s.tubeDiameterMm == null
+        ? null
+        : '${_num(s.tubeDiameterMm!)} mm';
+    return [
+      '$brand $model',
+      if (!said(unit)) unit,
+      if (focal != null && !said(focal)) focal,
+      if (tube != null && !said(tube)) tube,
+    ].join(' · ');
+  }
+
+  List<Widget> _scopeFilterFields() {
+    void changed(VoidCallback f) => setState(() {
+      f();
+      _dropUnavailableScopeFilters();
+      // A chosen model that the filter drops goes back to "Seçiniz".
+      final brand = _scopeBrandSel;
+      if (brand != null &&
+          _scopeModelKey != null &&
+          !_scopeModels(brand).contains(_scopeModelKey)) {
+        _scopeModelKey = null;
+        scopeReticle = null;
+      }
+      _scopePickToken++;
+    });
+    String k(String name, Object? v) => 'scope-filter-$name-$_scopeBrandSel-$v';
+    return [
+      MenzilSelect<AngularUnit>(
+        key: ValueKey(k('unit', _scopeUnitFilter)),
+        label: 'Birim',
+        hint: 'Seçiniz',
+        info: ProfileFieldInfo.scopeFilterUnit,
+        initialValue: _scopeUnitFilter,
+        items: [
+          const DropdownMenuItem<AngularUnit>(child: Text('Seçiniz')),
+          for (final u in _scopeUnitChoices)
+            DropdownMenuItem(value: u, child: Text(_unitName(u))),
+        ],
+        onChanged: (v) => changed(() => _scopeUnitFilter = v),
+      ),
+      MenzilSelect<bool>(
+        key: ValueKey(k('ffp', _scopeFfpFilter)),
+        label: 'Odak',
+        hint: 'Seçiniz',
+        info: ProfileFieldInfo.scopeFilterFocal,
+        initialValue: _scopeFfpFilter,
+        items: [
+          const DropdownMenuItem<bool>(child: Text('Seçiniz')),
+          for (final f in _scopeFfpChoices)
+            DropdownMenuItem(value: f, child: Text(f ? 'FFP' : 'SFP')),
+        ],
+        onChanged: (v) => changed(() => _scopeFfpFilter = v),
+      ),
+      MenzilSelect<double>(
+        key: ValueKey(k('tube', _scopeTubeFilter)),
+        label: 'Tüp',
+        hint: 'Seçiniz',
+        info: ProfileFieldInfo.scopeFilterTube,
+        initialValue: _scopeTubeFilter,
+        items: [
+          const DropdownMenuItem<double>(child: Text('Seçiniz')),
+          for (final d in _scopeTubeChoices)
+            DropdownMenuItem(value: d, child: Text('${_num(d)} mm')),
+        ],
+        onChanged: (v) => changed(() => _scopeTubeFilter = v),
+      ),
+      MenzilSelect<String>(
+        key: ValueKey(k('mag', _scopeMagFilter)),
+        label: 'Büyütme',
+        hint: 'Seçiniz',
+        info: ProfileFieldInfo.scopeFilterMag,
+        initialValue: _scopeMagFilter,
+        items: [
+          const DropdownMenuItem<String>(child: Text('Seçiniz')),
+          for (final r in _scopeMagChoices)
+            DropdownMenuItem(value: r, child: Text(r)),
+        ],
+        onChanged: (v) => changed(() => _scopeMagFilter = v),
+      ),
+    ];
+  }
 
   List<ScopeOptic> get _scopeGroup => [
     for (final s in _scopeLib)
@@ -1554,21 +1767,40 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               }
               _scopeBrandSel = v;
               scopeBrand.text = v ?? '';
+              // Filters the new brand does not have go back to "Seçiniz".
+              _dropUnavailableScopeFilters();
             }),
           ),
         ),
       ),
+      if (brand != null) ..._scopeFilterFields(),
       MenzilFullWidth(
         child: KeyedSubtree(
           key: const Key('scope-model-select'),
           child: MenzilSelect<String>(
-            key: ValueKey('scope-model-select-$brand-$model'),
+            key: ValueKey(
+              'scope-model-select-$brand-$model-$_scopeUnitFilter-'
+              '$_scopeFfpFilter-$_scopeTubeFilter-$_scopeMagFilter',
+            ),
             label: 'Model',
             hint: 'Seçiniz',
             initialValue: model,
             items: [
               for (final m in models)
-                DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
+                DropdownMenuItem(
+                  value: m,
+                  // Marka, model and the data on one line (owner,
+                  // 2026-10-13); a long line is set smaller, never cut.
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      _scopeModelLine(brand!, m),
+                      maxLines: 1,
+                      softWrap: false,
+                    ),
+                  ),
+                ),
             ],
             onChanged: (v) => setState(() {
               _scopeModelKey = v;
@@ -1750,6 +1982,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// library lists (owner, 2026-10-11: typed names are mistyped).
   bool _ammoManual = false;
   late final TextEditingController ammoGrain;
+
+  /// PCP projectile length in mm (optional; stability check).
+  late final TextEditingController ammoLength;
   late final TextEditingController ammoBc;
 
   /// Hıza göre BC (çoklu BC, owner 2026-10-09): up to two steps "below
@@ -1768,6 +2003,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   Ammunition? ammo;
   ScopeOptic? scope;
   late final TextEditingController name;
+  final FocusNode _nameFocus = FocusNode();
+  String _defaultName = '';
   late final TextEditingController velocity;
   late final TextEditingController zero;
   late final TextEditingController sight;
@@ -1942,6 +2179,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _ammoManual = !inFactory && !inLibrary;
     }
     ammoGrain = TextEditingController(text: num(a0?.grain));
+    ammoLength = TextEditingController(text: num(a0?.lengthMm));
     ammoBc = TextEditingController(text: num(a0?.ballisticCoefficient));
     // Stored bands are fastest first: [(s1, main), (s2, bc1), (0, bc2)].
     // Row i shows "below s(i+1) fps -> bc(i+1)".
@@ -1973,6 +2211,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     name = TextEditingController(
       text: p?.name ?? defaultProfileName(widget.takenNames),
     );
+    // New profile (owner, 2026-10-12): a tap on Profil adı clears the
+    // default name; leaving it empty puts the default back.
+    _defaultName = name.text;
+    if (p == null) {
+      _nameFocus.addListener(() {
+        if (_nameFocus.hasFocus && name.text == _defaultName) {
+          name.clear();
+        } else if (!_nameFocus.hasFocus && name.text.trim().isEmpty) {
+          name.text = _defaultName;
+        }
+      });
+    }
     // Muzzle velocity is entered in fps on Profil (owner decision); the
     // profile keeps storing m/s, so every calculation is unchanged.
     velocity = TextEditingController(
@@ -2173,11 +2423,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_ammoBrandError == null, 'Marka'),
       (_effectiveAmmoType != null, 'Tip'),
       (_grainError == null, 'Ağırlık'),
+      if (platform == WeaponPlatform.pcp) (_lengthError == null, 'Uzunluk'),
       if (_customCurve)
         (_dragCurve != null, 'Sürüklenme eğrisi')
       else ...[
         (_bcError == null, 'BC'),
-        (ammoBcModel != null, 'BC modeli'),
+        (_bcModelForSave != null, 'BC modeli'),
         (_bandsValid, 'Hıza göre BC'),
       ],
       if (platform == WeaponPlatform.firearm) (_powderValid, 'Barut sıcaklığı'),
@@ -2190,6 +2441,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   @override
   void dispose() {
+    _nameFocus.dispose();
     rifleBrand.dispose();
     rifleModel.dispose();
     rifleCaliber.dispose();
@@ -2204,6 +2456,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ammoBrand.dispose();
     ammoModel.dispose();
     ammoGrain.dispose();
+    ammoLength.dispose();
     ammoBc.dispose();
     powderCoef.dispose();
     powderTemp.dispose();
@@ -2324,9 +2577,27 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _clickError == null &&
       firstFocalPlane != null;
 
-  String? get _ammoBrandError => _textError(ammoBrand);
+  /// PCP needs no Marka (owner, 2026-10-13: the brand adds nothing to the
+  /// calculation); an empty one is saved as "Özel yapım".
+  String? get _ammoBrandError =>
+      platform == WeaponPlatform.pcp ? null : _textError(ammoBrand);
   String? get _grainError => _rangeError(ammoGrain, 1, 800);
-  String? get _bcError => _rangeError(ammoBc, 0.005, 1.5);
+
+  /// Uzunluk is optional; a typed one must be a plausible pellet/slug.
+  String? get _lengthError =>
+      ammoLength.text.trim().isEmpty ? null : _rangeError(ammoLength, 1, 60);
+
+  /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
+  /// publish none); a typed one is still range-checked.
+  String? get _bcError =>
+      platform == WeaponPlatform.pcp && ammoBc.text.trim().isEmpty
+      ? null
+      : _rangeError(ammoBc, 0.005, 1.5);
+
+  /// PCP pellets and slugs are always solved with G1 (owner, 2026-10-12);
+  /// the BC modeli box is not shown for them.
+  BallisticModel? get _bcModelForSave =>
+      platform == WeaponPlatform.pcp ? BallisticModel.g1 : ammoBcModel;
 
   /// A band row is optional, but half a row (speed without BC or the other
   /// way round) is an error.
@@ -2371,8 +2642,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             _parse(ammoBandBc[i])!,
           ),
     ];
-    if (rows.isEmpty) return const [];
-    final main = _parse(ammoBc)!;
+    final main = _parse(ammoBc);
+    if (rows.isEmpty || main == null) return const [];
     return [
       {'mps': rows[0].$1, 'bc': main},
       for (var i = 0; i < rows.length; i++)
@@ -2390,7 +2661,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _grainError == null &&
       (_customCurve
           ? _dragCurve != null && _curveSd != null
-          : _bcError == null && _bandsValid && ammoBcModel != null) &&
+          : _bcError == null && _bandsValid && _bcModelForSave != null) &&
       _effectiveAmmoType != null &&
       _powderValid &&
       _pcpPressureValid;
@@ -2468,6 +2739,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       // Caliber follows the rifle, so the pair can never mismatch.
       'caliberMm': _parse(rifleCaliber),
       'grain': _parse(ammoGrain),
+      if (platform == WeaponPlatform.pcp && _parse(ammoLength) != null)
+        'lengthMm': _parse(ammoLength),
       'ammoType': _effectiveAmmoType!.name,
       if (_customCurve) ...{
         'bc': _curveSd,
@@ -2475,7 +2748,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         'dragCurve': DragCurve.toJson(_dragCurve!),
       } else ...{
         'bc': _parse(ammoBc),
-        'bcModel': ammoBcModel!.name,
+        'bcModel': _bcModelForSave!.name,
         if (_bandEntries.isNotEmpty) 'bcBands': _bandEntries,
       },
       'sourceName': userCatalogSourceName,
@@ -2535,7 +2808,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final ProfileInput input;
     try {
       input = ProfileInput.validate(
-        name: name.text,
+        name: name.text.trim().isEmpty ? _defaultName : name.text,
         muzzleVelocityText: mps.toString(),
         zeroRangeText: _zeroMetersText,
         sightHeightText: sight.text,
@@ -2623,12 +2896,56 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   int _scopePickToken = 0;
 
   /// Empties the ammunition part of the form (another rifle type).
+  /// Back from typed ammunition to the list (owner, 2026-10-12): asks
+  /// before the typed values go and keeps Tip, so the brand list shows the
+  /// listed pellets or slugs of this Kalibre.
+  Future<void> _backToAmmoList() async {
+    final typed = [
+      ammoBrand,
+      ammoModel,
+      ammoGrain,
+      ammoLength,
+      ammoBc,
+    ].any((c) => c.text.trim().isNotEmpty);
+    if (typed) {
+      final ok = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Listeye dönülsün mü?'),
+          content: const Text('Girdiğiniz mühimmat bilgileri silinecek.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Vazgeç'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Listeye dön'),
+            ),
+          ],
+        ),
+      );
+      if (ok != true || !mounted) return;
+    }
+    setState(() {
+      final type = ammoType;
+      _clearAmmo();
+      ammoType = type;
+      _ammoListToken++;
+    });
+  }
+
+  /// Bumped when the ammunition list is shown again, so its selects start
+  /// fresh ("Seçiniz") instead of keeping "Listede yok".
+  int _ammoListToken = 0;
+
   void _clearAmmo() {
     ammo = null;
     ammoBrand.text = '';
     ammoModel.text = '';
     _ammoManual = false;
     ammoGrain.text = '';
+    ammoLength.text = '';
     ammoBc.text = '';
     ammoBcModel = null;
     ammoType = null;
@@ -2676,6 +2993,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   /// Library records for this rifle type and caliber (Marka/Model lists).
+  /// PCP: no listed pellet or slug for this Kalibre and Tip.
+  bool get _noPcpForCaliber =>
+      platform == WeaponPlatform.pcp &&
+      _parse(rifleCaliber) != null &&
+      _libraryHere.isEmpty;
+
   List<LibraryBullet> get _libraryHere {
     final cal = _parse(rifleCaliber);
     return [
@@ -2801,6 +3124,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   static const _manualKey = '__manual';
 
+  /// PCP Marka | Model lists, hidden (owner, 2026-10-13: "Pellet marka
+  /// bullet marka almanın hiç bir faydası yok"; hidden, not removed). PCP
+  /// asks only Tip, Ağırlık, Uzunluk and BC.
+  static const bool _showPcpAmmoBrand = bool.fromEnvironment('PCP_AMMO_BRAND');
+
   /// Marka | Model of the ammunition: two lists side by side (factory
   /// cartridges or the bullet library for this caliber); the typed boxes
   /// only after "Listede yok" or when nothing is listed here.
@@ -2810,6 +3138,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     required Widget modelText,
   }) {
     final firearm = platform == WeaponPlatform.firearm;
+    if (!firearm && !_showPcpAmmoBrand) return [type];
     // PCP: Marka | Tip; firearm: Mühimmat türü | Marka. Model gets a row.
     List<Widget> arrange(Widget brand, Widget model) => [
       if (firearm) ...[type, brand] else ...[brand, type],
@@ -2831,9 +3160,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               alignment: Alignment.centerLeft,
               child: TextButton.icon(
                 key: const Key('ammo-back-to-list'),
-                onPressed: () => setState(_clearAmmo),
+                onPressed: _backToAmmoList,
                 icon: const Icon(Icons.list_alt, size: 18),
-                label: const Text('Listeden seç'),
+                // "Listeden seç" read like a model list for a brand that is
+                // not listed (owner, 2026-10-12).
+                label: const Text('Listeye dön'),
               ),
             ),
           ),
@@ -2875,7 +3206,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       child: MenzilSelect<String>(
         key: ValueKey(
           'ammo-brand-select-${platform.name}-$factory-'
-          '${rifleCaliber.text}-$brand',
+          '${rifleCaliber.text}-$brand-$_ammoListToken',
         ),
         label: 'Marka',
         hint: 'Seçiniz',
@@ -3016,6 +3347,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   child: MenzilInput(
                     key: const Key('profile-name'),
                     controller: name,
+                    focusNode: _nameFocus,
                     label: 'Profil adı',
                     keyboardType: TextInputType.text,
                     maxLength: ProductionLimits.maxProfileNameLength,
@@ -3592,6 +3924,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                               'okuyup yazın; ağırlık, BC ve hız kutuda veya '
                               'üreticinin sitesinde yazar. Kendi doldurduğunuz '
                               'fişekse Mühimmat türünde El dolumu seçin.'
+                        : _noPcpForCaliber
+                        // Owner, 2026-10-12: the empty list must say why.
+                        ? 'Bu kalibre ve tipte listede henüz ürün yok. '
+                              'Markayı ve modeli kutunun üstünden okuyup '
+                              'yazın. BC bilinmiyorsa boş bırakabilirsiniz.'
                         : null,
                     keyboardType: TextInputType.text,
                     maxLength: 60,
@@ -3620,6 +3957,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_grainError, ammoGrain),
                 ),
+                // Uzunluk | BC on PCP (owner, 2026-10-13).
+                if (platform == WeaponPlatform.pcp)
+                  MenzilInput(
+                    key: const Key('ammo-length'),
+                    controller: ammoLength,
+                    label: 'Uzunluk',
+                    unit: 'mm',
+                    info: ProfileFieldInfo.ammoLength,
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_lengthError, ammoLength),
+                  ),
                 if (!_customCurve)
                   MenzilInput(
                     key: const Key('ammo-bc'),
@@ -3633,37 +3981,40 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     onChanged: (_) => setState(() {}),
                     errorText: _shown(_bcError, ammoBc),
                   ),
-                KeyedSubtree(
-                  key: const Key('ammo-bc-model'),
-                  child: MenzilSelect<String>(
-                    key: ValueKey(
-                      'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
-                    ),
-                    info:
-                        (platform == WeaponPlatform.firearm
-                            ? ProfileFieldInfo.bcModelFirearm
-                            : ProfileFieldInfo.bcModel) +
-                        ProfileFieldInfo.bcModelCustom,
-                    label: 'BC modeli',
-                    initialValue: _customCurve ? _customKey : ammoBcModel?.name,
-                    items: [
-                      for (final (m, text) in _bcModelChoices)
-                        DropdownMenuItem(value: m.name, child: Text(text)),
-                      const DropdownMenuItem(
-                        value: _customKey,
-                        child: Text('Özel eğri (Mach–Cd)'),
+                if (platform != WeaponPlatform.pcp)
+                  KeyedSubtree(
+                    key: const Key('ammo-bc-model'),
+                    child: MenzilSelect<String>(
+                      key: ValueKey(
+                        'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
                       ),
-                    ],
-                    onChanged: (v) => setState(() {
-                      _customCurve = v == _customKey;
-                      if (!_customCurve) {
-                        ammoBcModel = BallisticModel.values
-                            .where((m) => m.name == v)
-                            .firstOrNull;
-                      }
-                    }),
+                      info:
+                          (platform == WeaponPlatform.firearm
+                              ? ProfileFieldInfo.bcModelFirearm
+                              : ProfileFieldInfo.bcModel) +
+                          ProfileFieldInfo.bcModelCustom,
+                      label: 'BC modeli',
+                      initialValue: _customCurve
+                          ? _customKey
+                          : ammoBcModel?.name,
+                      items: [
+                        for (final (m, text) in _bcModelChoices)
+                          DropdownMenuItem(value: m.name, child: Text(text)),
+                        const DropdownMenuItem(
+                          value: _customKey,
+                          child: Text('Özel eğri (Mach–Cd)'),
+                        ),
+                      ],
+                      onChanged: (v) => setState(() {
+                        _customCurve = v == _customKey;
+                        if (!_customCurve) {
+                          ammoBcModel = BallisticModel.values
+                              .where((m) => m.name == v)
+                              .firstOrNull;
+                        }
+                      }),
+                    ),
                   ),
-                ),
                 MenzilInput(
                   key: const Key('profile-velocity-fps'),
                   controller: velocity,
@@ -3722,7 +4073,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       onChanged: (v) => setState(() => _dragCurve = v),
                     ),
                   ),
-                if (!_customCurve) ...[
+                // Hıza göre BC: hidden on PCP (owner, 2026-10-13: only Tip,
+                // Ağırlık, Uzunluk, BC).
+                if (!_customCurve && platform != WeaponPlatform.pcp) ...[
                   MenzilFullWidth(
                     child: Text(
                       'Hıza göre BC',
@@ -3752,7 +4105,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ],
                 ],
                 if (_showErrors &&
-                    ((!_customCurve && ammoBcModel == null) ||
+                    ((!_customCurve && _bcModelForSave == null) ||
                         _effectiveAmmoType == null))
                   const MenzilFullWidth(
                     child: MenzilNotice(

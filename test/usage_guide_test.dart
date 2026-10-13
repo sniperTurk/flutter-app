@@ -97,7 +97,7 @@ void main() {
         'Hava Durumu',
         'Hedef ekranında atış',
         'Pro ayarlar',
-        'Tablo / DOPE',
+        'DOPE kartı',
         'Araçlar',
       ]),
     );

@@ -20,6 +20,12 @@ OFFICIAL = {
     'Cutting Edge Bullets': ('cuttingedgebullets.com', 'cdn.shopify.com'),
     'Hammer Bullets': ('hammerbullets.com',),
     'Spoton': ('spoton.com.tr',),
+    # TR saçma/slug taraması (2026-10-12, data/muhimmat/TR_SACMA.md)
+    'Hatsan': ('hatsanairgunsusa.com',),
+    'H&N': ('hn-sport.de',),
+    'Diana': ('diana-airguns.de',),
+    'Gamo': ('gamousa.com',),
+    'SkyPellets': ('skypellets.com',),
 }
 FORBIDDEN = ('chairgun', 'strelok', 'appliedballistics', 'jbmballistics', 'quickload', 'grtools',
              'pyramydair', 'amazon.', 'midwayusa', 'opticsplanet', 'forum', 'blog')
@@ -72,10 +78,20 @@ class FactoryAmmoTests(unittest.TestCase):
         # Aguila Colibrí / Super Colibrí (420 / 590 fps) stay out (600-4500 fps).
         self.assertNotIn('Colibrí', AMMO)
 
-    def test_aguila_has_no_bc(self):
+    def test_aguila_bc_only_from_hunting_sheet(self):
+        # BC tamamlama 3 (2026-10-12): Aguila publishes BC (G1-labelled) only in
+        # its hunting 'Ballistic Information' PDF; 8 soft/round-nose loads carry
+        # it, every other Aguila round stays without BC.
+        with_bc = []
         for l in AMMO.splitlines():
             if "FactoryAmmo('Aguila'" in l:
-                self.assertRegex(l, r", null, null, [\d.]+, ")
+                if ', null, null, ' in l:
+                    self.assertRegex(l, r", null, null, [\d.]+, ")
+                else:
+                    self.assertIn('BallisticModel.g1', l)
+                    self.assertNotIn('Full Metal Jacket', l)
+                    with_bc.append(l)
+        self.assertEqual(len(with_bc), 8)
 
 
 class BulletLibraryTests(unittest.TestCase):
@@ -85,7 +101,8 @@ class BulletLibraryTests(unittest.TestCase):
 
     def test_bc_less_turkish_pcp_listed(self):
         for brand, n in (('Hatsan', 13), ('My Bullet', 7), ('Spoton', 30)):
-            rows = lib_rows(brand)
+            # Apolo rows (TR saçma taraması, 2026-10-12) are counted in test_v401.
+            rows = [r for r in lib_rows(brand) if not r[0].startswith('Apolo ')]
             self.assertEqual(len(rows), n, brand)
             self.assertTrue(all(bc == 'null' for _, _, _, bc in rows), brand)
 

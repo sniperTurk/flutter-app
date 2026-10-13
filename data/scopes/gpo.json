@@ -91,7 +91,7 @@
 "objective_mm": 50,
 "tube_mm": 30,
 "focal": "sfp",
-"click_unit": "moa",
+"click_unit": "smoa",
 "click_value": 0.25,
 "elevation_travel_moa": null,
 "windage_travel_moa": null,
@@ -102,7 +102,8 @@
 "zero_stop": true,
 "source_url": "https://gpo-usa.com/shop/tactical/scopes-tactical/spectra-scopes-tactical/spectra-6x-4-5-27x50i/",
 "accessed": "2026-10-12",
-"notes": "SKU RS673. '1/4\" @ 100' tık → 0.25 MOA olarak alındı. Aralık tabloda '70ft / 51ft', metinde '70 inches' → null. 'ZeroStop Locking PASSIONtrac turrets'. 10 yd→9.1 m. 14.1 in→358.1 mm, 26.6 oz→754.1 g."
+"notes": "SKU RS673. '1/4\" @ 100' tık → 0.25 MOA olarak alındı. Aralık tabloda '70ft / 51ft', metinde '70 inches' → null. 'ZeroStop Locking PASSIONtrac turrets'. 10 yd→9.1 m. 14.1 in→358.1 mm, 26.6 oz→754.1 g. SMOA (2026-10-12, https://gpo-usa.com/shop/tactical/scopes-tactical/spectra-scopes-tactical/spectra-6x-4-5-27x50i/): klik sayfada '1/4″ at 100 yards turret-adjustment' (tabloda 'Turret Click Adjustment: 1/4\" @ 100') (inç/100 yd, MOA yazmıyor) → click_unit smoa, 0.25. Taret aralığı sayfadaki birimiyle bırakıldı.",
+"smoa_source": "1/4″ at 100 yards turret-adjustment"
 },
 {
 "brand": "GPO",

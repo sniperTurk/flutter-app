@@ -39,6 +39,10 @@ def main(check=False):
     text = LIB.read_text()
     have = {(m.group(1), m.group(2)) for m in
             re.finditer(r"LibraryBullet\('((?:[^'\\]|\\.)*)', '((?:[^'\\]|\\.)*)'", text)}
+    # PCP names carry no caliber (the rifle already picks it; owner,
+    # 2026-10-12), so a PCP row is the same row only at the same caliber.
+    have_pcp = {(m.group(1), m.group(2), float(m.group(3))) for m in
+                re.finditer(r"LibraryBullet\('((?:[^'\\]|\\.)*)', '((?:[^'\\]|\\.)*)', '(?:[^'\\]|\\.)*', ([\d.]+), ", text)}
     # Kalibre list value of a true diameter, as the existing firearm rows use it.
     cal_of = {}
     counts = Counter((m.group(2), m.group(1)) for m in re.finditer(
@@ -70,7 +74,8 @@ def main(check=False):
     old_pcp = sorted(glob.glob(str(HERE / 'bullets-pcp/data/bullets-pcp/*.json')))
     for f in new_pcp + old_pcp:
         for r in json.load(open(f)):
-            if (r['brand'], r['name']) in have:
+            key = (r['brand'], r['name'], float(r['caliber_mm']))
+            if key in have_pcp:
                 continue
             # data/bullets-pcp rows with a BC were reviewed when the library was
             # built (#79, add_pcp_library_bullets.py); only the BC-less ones join.
@@ -80,6 +85,7 @@ def main(check=False):
                 skipped.append(r['name'])
                 continue
             have.add((r['brand'], r['name']))
+            have_pcp.add(key)
             typ = 'slug' if r['type'] == 'slug' else 'pellet'
             # A missing drag model is taken as G1 (owner's rule, as the existing PCP rows).
             rows.append(f"    LibraryBullet({dart_str(r['brand'])}, {dart_str(r['name'])}, {dart_str(r.get('item_number') or '')}, "

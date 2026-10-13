@@ -101,6 +101,11 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Atış shows either the single shot or the DOPE table; the choice is kept
   /// while visiting other tabs.
   BallisticsView _shotMode = BallisticsView.shot;
+
+  /// "Tek atış | Tablo" above the scope is hidden (owner, 2026-10-12).
+  static const bool _showShotModeSwitch = bool.fromEnvironment(
+    'SHOT_TABLE_SWITCH',
+  );
   bool metric = true;
   int _profilesRevision = 0;
 
@@ -299,10 +304,10 @@ class _HomeScreenState extends State<HomeScreen> {
         themeLabel: MenzilThemeController.labelFor(themeMode),
         onThemeTap: themeController?.cycle,
         // Each page shows its own name instead of Menzil (owner, 2026-10-08).
-        // The tab is "Hedef"; its single shot is "Hedef Görünümü" (owner,
-        // 2026-10-08).
+        // The tab is "Hedef"; its single shot is "Atış Çözümü" (owner,
+        // 2026-10-13: "Hedef Görünümü" was too long).
         title: tab == _tabShot && _shotMode == BallisticsView.shot
-            ? 'Hedef Görünümü'
+            ? 'Atış Çözümü'
             : _titles[tab],
       ),
       bottomNavigationBar: MenzilBottomNavigation(
@@ -383,7 +388,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                if (tab == _tabShot && active != null)
+                // Hidden, not removed (owner, 2026-10-12: "gizli yap,
+                // kaldırma"); build with
+                // --dart-define=SHOT_TABLE_SWITCH=true to show it again.
+                if (_showShotModeSwitch && tab == _tabShot && active != null)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(
                       MenzilSpace.gutter,
@@ -458,6 +466,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Align(
                     alignment: Alignment.centerLeft,
+                    heightFactor: 1,
                     child: Text(
                       loading ? '…' : 'Profil yok',
                       maxLines: 1,

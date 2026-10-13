@@ -1,0 +1,22 @@
+{
+  "name": "BLR1 SFP IR MOA",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Ares ETR UHD"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 0.5,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2023/07/Athlon-BLR1-SFP-IR-MOA-Reticle-Manual-Ares-ETR-UHD.pdf",
+  "notes": "SFP; ölçüler yalnız 40x'te geçerli (\"only valid at 40x for 15-60x56 scope\"). Benchrest/F-Class. Föy: \"An illuminated floating center dot (0.09 moa thick)\" -> center_dot=true, floating_center=true; \"0.5 moa markings increment both vertically and horizontally from the 0.09 moa floating center dot\" -> hash_step=0.5; \"Fine line thickness of the reticle (0.018 moa)\" -> line_width=0.018. Uzanımlar, büyük işaret, rakam belirtilmemiş -> null. A1-D3 etiketli tablo değerleri metinde öğelere bağlanmadığı için kullanılmadı. Kaynak: https://athlonoptics.com/wp-content/uploads/2023/07/Athlon-BLR1-SFP-IR-MOA-Reticle-Manual-Ares-ETR-UHD.pdf (okundu 2026-10-12); https://athlonoptics.com/product/ares-etr-uhd-15-60x56-blr1-sfp-ir-moa/ (okundu 2026-10-12)",
+  "line_width": 0.018
+}

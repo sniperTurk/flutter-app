@@ -1,0 +1,29 @@
+{
+  "name": "Mil-Dot",
+  "brand": "UTG",
+  "scopes": [
+    "Accushot 4-16x44 Mil-Dot SFP MOA",
+    "Accushot 4-16x44 Compact Mil-Dot SFP MOA",
+    "True Hunter 4-16x40 Mil-Dot SFP MOA",
+    "True Hunter 6-24x50 Mil-Dot SFP MOA",
+    "Accushot 3-12x44 Compact Mil-Dot SFP MOA",
+    "Accushot 2-7x44 Scout LER Mil-Dot SFP MOA",
+    "Bug Buster 3-12x32 Compact Mil-Dot SFP MOA (Dovetail Rings)",
+    "Bug Buster 3-12x32 Compact Mil-Dot SFP MOA (Picatinny Rings)",
+    "Bug Buster 3-9x32 Compact Mil-Dot SFP MOA"
+  ],
+  "unit": "mil",
+  "family": "mildot",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leapers.com/products-utg-scp3-u416aoiew.html",
+  "notes": "SFP. Tüm Leapers ürün sayfaları (aşağıdaki dokuz UTG dürbünü) aynı cümleyi veriyor: 'The distance between two adjacent marks subtends to 1 milli-radian.' -> unit=mil, hash_step=1.0. Başlık tel (wire) dürbünlerde 'WIRE MIL-DOT RETICLE', Accushot 2-7x44 Scout'ta 'ETCHED GLASS MIL-DOT RETICLE'; spec tablosunda 'Reticle: Mil-Dot'. Metinde tel ve cam sürüm arasında ölçü farkı yazmadığı için tek kayıt. Nokta sayısı/uzanım, nokta çapı, kalın direk başlangıcı, merkez nokta metinde yok -> null (Mil-Dot Chart PDF https://www.leapers.com/media/manual/Mil-Dot%20Chart-1000.pdf makine-okunur metin içermiyor). DİKKAT: dürbünlerin tareti 1/4 veya 1/3 MOA; retikül mil olduğundan eşleştirici bu dürbünleri birim-farki olarak bırakır (bilerek; birim üretici metnine göre). Kaynak: https://www.leapers.com/products-utg-scp3-u416aoiew.html (okundu 2026-10-12); https://www.leapers.com/products-utg-scp3-um416aoiew.html (okundu 2026-10-12); https://www.leapers.com/products-utg-scp-u4164aoiew.html (okundu 2026-10-12); https://www.leapers.com/products-utg-scp-u6245aoiew.html (okundu 2026-10-12); https://www.leapers.com/products-utg-scp3-um312aoiew.html (okundu 2026-10-12); https://www.leapers.com/products-utg-scp3-274laoiew.html (okundu 2026-10-12); https://www.leapers.com/products-utg-scp-m312aod.html (okundu 2026-10-12); https://www.leapers.com/products-utg-scp-m312aowq.html (okundu 2026-10-12); https://www.leapers.com/products-utg-scp-m392aolwq.html (okundu 2026-10-12)"
+}

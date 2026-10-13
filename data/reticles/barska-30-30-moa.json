@@ -1,0 +1,27 @@
+{
+  "name": "30/30",
+  "brand": "Barska",
+  "scopes": [
+    "Huntmaster",
+    "Huntmaster Pro",
+    "Varmint AO",
+    "Contour",
+    "Plinker-22",
+    "Colorado",
+    "Rimfire"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://shop.barska.com/products/3-9x40mm-huntmaster-30-30-rifle-scope-by-barska",
+  "notes": "Spesifikasyon \"Reticle: 30/30\", \"Focal Plane: Second\"; açıklama \"standard crosshair grid alignment\". Üretici retikül ölçüsü vermiyor; birim taret birimi (sayfa \"Click Value\" MOA). Sayfa direk/plex yapısını tarif etmiyor -> family null (30/30 adından duplex çıkarımı yapılmadı). Ölçüler yok -> null. Diğer 16 dürbün sayfası ayrıca okunmadı (girdi listesindeki ad). Ürün sayfasındaki kullanım kılavuzu PDF'i cdn.shopify.com üzerinde (üçüncü taraf CDN, kaynak kuralı gereği okunmadı); retikül görseli metin içermiyor.  Kaynak: https://shop.barska.com/products/3-9x40mm-huntmaster-30-30-rifle-scope-by-barska (okundu 2026-10-12)"
+}

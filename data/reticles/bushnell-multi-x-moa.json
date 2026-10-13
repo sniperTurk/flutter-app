@@ -1,0 +1,26 @@
+{
+  "name": "Multi-X",
+  "brand": "Bushnell",
+  "scopes": [
+    "R7 1-8x24 MOA",
+    "R7 2-10x42",
+    "R5 3-9x50",
+    "R5 3-9x40",
+    "R3 3-9x50",
+    "R3 3-9x40"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.bushnell.com/products/r7-1-8x24-riflescopes?variant=51896223367464",
+  "notes": "Bushnell R7 1-8x24 (MOA varyantı) sayfası: 'SFP MOA Multi-X Illuminated Reticle', 'Reticle Type, Scale: Multi-X, MOA', 'Focal Plane: 2nd'. R7 2-10x42 sayfası: 'SFP MOA Multi-X Illuminated Reticle', 'Reticle Type: Multi-X, MOA', 'Click Value Adjustment (MOA): 1/4'. R5/R3 3-9x sayfalarında seçenek 'Illuminated Multi-X' / 'Multi-X' (eşleştiricide 'MultiX' ve 'Illuminated MultiX' aynı anahtara düşer), 'Focal Plane: Second', 'Click Value: 0.25 MOA'; bu sayfalar Multi-X için ayrıca birim yazmıyor -> birim R7 sayfalarından. Bushnell metni retikülü 'duplex' olarak adlandırmadığından family null; ölçü yok -> diğer alanlar null. Kaynak: https://www.bushnell.com/products/r7-1-8x24-riflescopes?variant=51896223367464 (okundu 2026-10-12); https://www.bushnell.com/products/r7-2-10x42-riflescopes (okundu 2026-10-12); https://www.bushnell.com/products/r5-3-9x40-riflescope (okundu 2026-10-12); https://www.bushnell.com/products/r3-3-9x40-riflescope (okundu 2026-10-12)"
+}

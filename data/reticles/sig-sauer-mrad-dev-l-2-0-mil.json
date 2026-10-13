@@ -1,0 +1,23 @@
+{
+  "name": "MRAD DEV-L 2.0",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "BRAVO6T-BDX 3-18X44MM",
+    "BRAVO6T-BDX 5-30X56MM",
+    "TANGO-DMR 5-30X56MM (FFP)"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-BRAVO6T-7405809-01REV01_WEB.pdf",
+  "notes": "BRAVO6T-BDX ürün sayfası: SOBBDX63104 'First' 'MRAD DEV-L 2.0'. BRAVO6T kılavuzu '11.2 DEV-L MRAD RETICLE', notlar: 'RETICLE, MRAD, FFP, MRAD DEV-L 2.0.', '1MM IS EQUAL TO 1MRAD.', 'RETICLE AND NUMBERS ARE ILLUMINATED RED.', 'LARGE END FEATURES ARE NOT ILLUMINATED.'; lejant '0.2 MRAD', '1 MRAD'; çizimde 0-15 rakam dizileri ve 0.1 adımlı diziler var. TANGO-DMR kılavuzu 9.6 aynı notları ('MRAD DEV-L 2.0') veriyor. Rakam/ölçek dizilerinin hangi eksene ait olduğu metinde yazmadığından hash_step, numbers_every ve uzanımlar null (çıkarım yapılmadı). Kaynak: https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-BRAVO6T-7405809-01REV01_WEB.pdf (okundu 2026-10-12); https://www.sigsauer.com/bravo6t-bdxtm-3-18x44mm.html (okundu 2026-10-12); https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-TANGO-DMR-7404355-01-REV10-WEB-FILE.pdf (okundu 2026-10-12)"
+}

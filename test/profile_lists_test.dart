@@ -113,6 +113,28 @@ void main() {
     expect(cx.bc, 0.44);
     expect(cx.bcFromBullet, isTrue);
     expect(cx.note, isNull);
+    // BC completion round 3 (2026-10-12): Hornady V-MAX for a Black Hills
+    // load (catalog unlabelled -> G1 note) and an Aguila G1-labelled sheet.
+    final vmax = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Black Hills' &&
+          a.name.contains('50 gr Hornady V-MAX') &&
+          a.cartridge == '.223 Rem',
+    );
+    expect(vmax.bc, 0.242);
+    expect(vmax.model, BallisticModel.g1);
+    expect(vmax.bcFromBullet, isTrue);
+    expect(vmax.note, contains('G1 kabul edildi'));
+    final aguila = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Aguila' &&
+          a.cartridge == '.30-30 Win' &&
+          a.name.contains('150 Grain Round Nose'),
+    );
+    expect(aguila.bc, 0.186);
+    expect(aguila.model, BallisticModel.g1);
+    expect(aguila.bcFromBullet, isFalse);
+    expect(aguila.note, isNull);
     final eld = FactoryAmmoLibrary.all.firstWhere(
       (a) =>
           a.brand == 'Hornady' &&
@@ -259,7 +281,7 @@ void main() {
     await chooseInSelect(
       tester,
       'scope-model-select',
-      'Talos HMR 4-16x56 SFP IR MOA',
+      'Athlon Talos HMR 4-16x56 SFP IR MOA · 30 mm',
     );
     await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
     await tester.tap(find.byKey(const Key('scope-reticle')));
@@ -279,7 +301,11 @@ void main() {
   ) async {
     await _openNew(tester);
     await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
-    await chooseInSelect(tester, 'scope-model-select', 'Titan 5-25x56 FFP MOA');
+    await chooseInSelect(
+      tester,
+      'scope-model-select',
+      'Element Optics Titan 5-25x56 FFP MOA · 34 mm',
+    );
     await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
     // "APR-1C MOA / APR-2D MOA": nothing is chosen for the user.
     expect(_in('scope-reticle', find.text('Seçiniz')), findsOneWidget);
@@ -297,7 +323,11 @@ void main() {
   testWidgets('Dürbün: a single reticle is filled in', (tester) async {
     await _openNew(tester);
     await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
-    await chooseInSelect(tester, 'scope-model-select', 'Titan 3-18x50 FFP MOA');
+    await chooseInSelect(
+      tester,
+      'scope-model-select',
+      'Element Optics Titan 3-18x50 FFP MOA · 34 mm',
+    );
     await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
     expect(_in('scope-reticle', find.text('APR-2D MOA')), findsOneWidget);
     expect(_in('scope-reticle', find.text('Seçiniz')), findsNothing);
@@ -312,16 +342,19 @@ void main() {
     expect(t, contains('birden çok retikül'));
   });
 
-  testWidgets('PCP mühimmat: Marka | Tip, Model on its own row', (
+  testWidgets('PCP mühimmat: Tip | Ağırlık, Uzunluk | BC, no Marka', (
     tester,
   ) async {
     await _openNew(tester);
-    final brand = tester.getRect(find.byKey(const Key('ammo-brand-select')));
-    final type = tester.getRect(find.byKey(const Key('ammo-type')));
-    expect((brand.top - type.top).abs(), lessThan(1));
-    expect(brand.right, lessThan(type.left));
-    final model = tester.getRect(find.byKey(const Key('ammo-model-select')));
-    expect(model.top, greaterThanOrEqualTo(brand.bottom));
+    // Owner, 2026-10-13: PCP asks no Marka/Model.
+    expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
+    expect(find.byKey(const Key('ammo-brand')), findsNothing);
+    Rect r(String k) => tester.getRect(find.byKey(Key(k)));
+    expect((r('ammo-type').top - r('ammo-grain').top).abs(), lessThan(1));
+    expect(r('ammo-type').right, lessThan(r('ammo-grain').left));
+    expect((r('ammo-length').top - r('ammo-bc').top).abs(), lessThan(1));
+    expect(r('ammo-length').right, lessThan(r('ammo-bc').left));
+    expect(find.byKey(const Key('ammo-bands-title')), findsNothing);
   });
 
   testWidgets('Dürbün "Listede yok": values are picked from lists', (

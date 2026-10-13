@@ -1,8 +1,10 @@
 // FontFeature lives in dart:ui; the ignore keeps analyze green if material ever re-exports it.
+import 'dart:async' show unawaited;
 // ignore: unnecessary_import
 import 'dart:ui' show FontFeature;
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Menzil design tokens.
 ///
@@ -17,6 +19,10 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
   /// Fill of a state button showing the turrets' current state (white text
   /// on it, both brightnesses; owner, 2026-10-10).
   static const Color stateOrange = Color(0xFFE8590C);
+
+  /// Off-white scope field used in Koyu: the scope inside stays light in
+  /// both themes, a little dimmer at night (owner, 2026-10-12).
+  static const Color scopeBgDim = Color(0xFFE9EDF0);
 
   final Color bg;
   final Color surface;
@@ -683,25 +689,34 @@ abstract final class MenzilTheme {
   }
 }
 
-/// In-memory light/dark/system choice behind the top bar's theme button.
-/// Deliberately not persisted: theme is a display preference and this UI
-/// pass does not add new storage keys.
+/// Koyu / Açık choice behind the top bar's theme button (owner,
+/// 2026-10-12: no "Oto", two options, Koyu first). The choice is kept.
 class MenzilThemeController extends ValueNotifier<ThemeMode> {
-  MenzilThemeController([super.value = ThemeMode.system]);
+  MenzilThemeController([super.value = ThemeMode.dark]);
 
-  void cycle() {
-    value = switch (value) {
-      ThemeMode.system => ThemeMode.light,
-      ThemeMode.light => ThemeMode.dark,
-      ThemeMode.dark => ThemeMode.system,
-    };
+  static const storageKey = 'theme.dark';
+
+  /// Reads the kept choice; no storage (tests) keeps Koyu.
+  Future<void> load() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final dark = prefs.getBool(storageKey);
+      if (dark != null) value = dark ? ThemeMode.dark : ThemeMode.light;
+    } catch (_) {}
   }
 
-  static String labelFor(ThemeMode mode) => switch (mode) {
-    ThemeMode.system => 'Oto',
-    ThemeMode.light => 'Açık',
-    ThemeMode.dark => 'Koyu',
-  };
+  void cycle() {
+    value = value == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+    final dark = value == ThemeMode.dark;
+    unawaited(
+      SharedPreferences.getInstance()
+          .then((p) => p.setBool(storageKey, dark))
+          .catchError((Object _) => false),
+    );
+  }
+
+  static String labelFor(ThemeMode mode) =>
+      mode == ThemeMode.light ? 'Açık' : 'Koyu';
 }
 
 class MenzilThemeScope extends InheritedNotifier<MenzilThemeController> {

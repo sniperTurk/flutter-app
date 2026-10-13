@@ -1,0 +1,22 @@
+{
+  "name": "3PW-MOA",
+  "brand": "Burris",
+  "scopes": [
+    "Veracity PH 2.5-12x42mm",
+    "Veracity 2.5-12x42mm"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/3pw-moa",
+  "notes": "Burris '3PW-MOA' sayfaları (3pw-moa: Veracity PH 2.5-12x42mm; 3pw-moa-0: Veracity 2.5-12x42mm): yakın atış ve uzakta rüzgâr tutma için; 'thick six o'clock post'; 3P = üç direkli (iki yatay, bir dikey), üst direk yok. Veracity ürün sayfası/kılavuzu: 3PW-MOA 'Rear Focal Plane'. Birim yalnız adda 'MOA' -> moa. Ölçü sayıları sayfada ve kılavuzda yok ('For detailed reticle subtentions visit our website') -> family ve diğer alanlar null. Kaynak: https://www.burrisoptics.com/reticles/3pw-moa (okundu 2026-10-12); https://www.burrisoptics.com/reticles/3pw-moa-0 (okundu 2026-10-12); https://www.burrisoptics.com/riflescopes/veracitytm-25-12x42mm (okundu 2026-10-12); https://www.burrisoptics.com/sites/default/files/content/files/2026-01/Veracity%E2%84%A2%20User%20Guide.pdf (okundu 2026-10-12)"
+}

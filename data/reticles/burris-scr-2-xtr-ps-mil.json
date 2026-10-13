@@ -1,0 +1,22 @@
+{
+  "name": "SCR 2 XTR PS",
+  "brand": "Burris",
+  "scopes": [
+    "XTR PS 5.5-30x56mm",
+    "XTR PS 3.3-18x50mm"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/scr-2tm-xtr-ps-reticle",
+  "notes": "Burris 'SCR 2 XTR PS Reticle' sayfası: 'tree' tipi retikül, 'mrad-based design with 0.2 mrad graduations'; ürünler XTR PS 5.5-30x56mm ve 3.3-18x50mm. XTR PS kılavuzu: 'Focal Plane Front Front', 'Reticle SCR2-MIL ILLUM'; ölçü tablosu başlığı 'SCR 2 MIL', A..K: .02 .03 .05 .1 .15 .2 .4 .6 1.0 2.0 5.0 (harf eşlemesi görselde, eşlenemedi). family=tree, hash_step=0.2 metinden. Ağaç satırları, uzanımlar, rakam aralığı, merkez -> null. Kaynak: https://www.burrisoptics.com/reticles/scr-2tm-xtr-ps-reticle (okundu 2026-10-12); https://www.burrisoptics.com/sites/default/files/content/files/2025-02/INST-9201_XTRPSmanual_REV1.pdf (okundu 2026-10-12)"
+}

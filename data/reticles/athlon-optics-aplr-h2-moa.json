@@ -1,0 +1,23 @@
+{
+  "name": "APLR-H2",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Talos HMR",
+    "Midas HMR GEN2",
+    "Ares HLR"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": 10,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": true,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2026/05/Talos-HMR-APLR-H2-IR-MOA-Reticle-Manual-WEB.pdf",
+  "notes": "SFP, föy adı \"APLR-H2 SFP IR MOA\". Föy metni (üç föyde aynı): \"floating center cross hair\", \"1 moa center cross hair\", \"2 moa mark increment both vertically and horizontally from the 1 moa center cross hair\" -> hash_step=2; Talos HMR ve Midas HMR föyleri: \"only 10 MOA vertical reticle on the top of the cross hair\" -> extent_v_up=10 (Ares HLR föyünde bu cümle yok). Merkez nokta değil artı -> center_dot null; yüzen merkez artı olduğu için floating_center=true. Görsellerde 10/20/30 rakamları geçiyor ama metin bunları bağlamıyor -> numbers_every, extent_h, extent_v_down null. Referans büyütme: Talos HMR 6-24x50 16x; Midas HMR 2.5-15x50 15x, 2-12x42 12x, 4-24x50 16x; Ares HLR 2.5-15x42 15x, 4-24x50 16x. Kaynak: https://athlonoptics.com/wp-content/uploads/2026/05/Talos-HMR-APLR-H2-IR-MOA-Reticle-Manual-WEB.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2026/04/Midas-HMR-APLR-H2-IR-MOA-Reticle-Manual-2.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2026/04/Ares-HLR-APLR-H2-IR-MOA-Reticle-Manual-1.pdf (okundu 2026-10-12)"
+}

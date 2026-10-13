@@ -1,0 +1,23 @@
+{
+  "name": "Mil-Dot",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Argos HMR",
+    "Talos",
+    "Neos HMR"
+  ],
+  "unit": "mil",
+  "family": "mildot",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2022/02/Athlon-MIL-DOT-Reticle-Manual-Argos-HMR.pdf",
+  "notes": "SFP. Argos HMR ve Talos föyleri \"THE ATHLON® MIL-DOT RETICLE\", \"SUBTENSIONS IN MIL\" (Neos HMR föyünde birim yok; ürün 0.1 MIL tık). family=mildot retikül adından. Nokta aralığı, nokta boyutu, direkler metinde yazmıyor -> null. Etiketli değerler (A1 0.05, A2 0.25, C1 0.75, C2 1, D1 0.25) öğelere bağlanmadığı için kullanılmadı. Referans büyütme: Argos HMR 4-20x50 20x; Talos 3-12x40 12x, 4-16x40 16x; Neos HMR 4-12x40 12x. MILDOT/Mil-Dot yazımları aynı anahtara düşer. Kaynak: https://athlonoptics.com/wp-content/uploads/2022/02/Athlon-MIL-DOT-Reticle-Manual-Argos-HMR.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2022/02/Athlon-MIL-DOT-Reticle-Manual-Talos.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-MILDOT-Reticle-Manual.pdf (okundu 2026-10-12)"
+}

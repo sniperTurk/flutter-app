@@ -1,0 +1,23 @@
+{
+  "name": "Illum. PR1-MIL",
+  "brand": "Leupold",
+  "scopes": [
+    "Mark 5HD 3.6-18x44 M5C3 FFP",
+    "Mark 5HD 5-25x56 M5C3 FFP",
+    "Mark 4HD 4.5-18x52 M5C3 Side Focus FFP"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/pr1-mil-illum-ffp/",
+  "notes": "Leupold 'PR1-MIL Illum. FFP Reticle' sayfası (açıklama metni yok); ürünler: Mark 4HD 4.5-18x52 M5C3 Side Focus FFP Illum. PR1-MIL, Mark 5HD 3.6-18x44 M5C3 FFP Illum. PR1-MIL, Mark 5HD 5-25x56 M5C3 FFP Illum. PR1-Mil. Retikül listesi: 'Illuminated & First Focal Plane'. Föy 'FFP ILLUM. PR1-MIL Mark 5HD': ince 0.04, orta 0.10, kalın 0.25 MIL; Dot Diameter etiketi; diğer değerler 0.05/0.20/0.40/0.50/0.80/1.00/1.50/2.50 MIL; görüş daireleri 18x/25x. Etiketsiz değerler eşlenemedi; işaret aralığı, rakam, uzanım, merkez tipi ve aile -> null. Kaynak: https://www.leupold.com/reticle/pr1-mil-illum-ffp/ (okundu 2026-10-12); https://www.leupold.com/media/binaryanvil/reticle/FFP_Illum._PR1-MIL.pdf (okundu 2026-10-12); https://www.leupold.com/shop/reticles (okundu 2026-10-12)"
+}

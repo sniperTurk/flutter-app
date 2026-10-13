@@ -1,0 +1,21 @@
+{
+  "name": "P3",
+  "brand": "Schmidt & Bender",
+  "scopes": [
+    "4-16x50 Klassik P3 FFP 0.5cm"
+  ],
+  "unit": "mil",
+  "family": "mildot",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://assets.schmidtundbender.de/media/0c/0f/24/1790781160/S_B_Katalog_2026-V08-EN-LoRes.pdf",
+  "notes": "S&B Katalog 2026 (EN): P3 (1. FP), aydınlatmasız; 'fine reticle pattern and integrated mil-dot markings'; 'Thanks to the mil-dots, distances can be estimated...' -> family='mildot', unit=mil (mil-dot). Nokta aralığı sayı olarak yazılmadığı için hash_step null (tahmin edilmedi). Diğer alanlar verilmemiş -> null. Kaynak: https://assets.schmidtundbender.de/media/0c/0f/24/1790781160/S_B_Katalog_2026-V08-EN-LoRes.pdf (okundu 2026-10-12); https://www.schmidtundbender.de/4-16x50-Klassik (okundu 2026-10-12)"
+}

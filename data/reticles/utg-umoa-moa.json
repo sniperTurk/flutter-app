@@ -1,0 +1,22 @@
+{
+  "name": "UMOA",
+  "brand": "UTG",
+  "scopes": [
+    "OP3 4-16x44 Compact UMOA SFP MOA",
+    "OP3 3-12x44 Compact UMOA SFP MOA"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 30,
+  "extent_v_up": 20,
+  "extent_v_down": 50,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leapers.com/products-utg-op3-gm4164umoa.html",
+  "notes": "SFP, cam kazıma ('ETCHED GLASS UMOA RETICLE'). Sayfa: 'hash marks at minute of angle increments'; 'At 10X magnification at 100 yards, the reticle provides a 4 MOA (from end to end) center cross', 'equally distanced hash marks at 2 MOA increments all the way up to 50 MOA for holdover', '20 MOA for hold under, and 30 MOA on each side for wind drift' -> hash_step=2, extent_v_down=50 (holdover), extent_v_up=20 (hold under), extent_h=30; ölçüler 10x'te. Büyük işaret, rakam aralığı, direk, merkez nokta metinde yok -> null (merkezde 4 MOA'lık artı var, nokta yazmıyor). İki OP3 sayfası aynı değerleri veriyor. Kaynak: https://www.leapers.com/products-utg-op3-gm4164umoa.html (okundu 2026-10-12); https://www.leapers.com/products-utg-op3-gm3124umoa.html (okundu 2026-10-12)"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "MH-6",
+  "brand": "Sightron",
+  "scopes": [
+    "SVIII 5-40x56 ED FFP IR Zero Stop"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://sightron.com/products/sviii-ed-5-40x56-ffp-ir-zero-stop",
+  "notes": "FFP, tık '.1 MRAD'. Sayfa: 'The illuminated MH-6 is a mil-hash reticle' → family=hash; 'floating center dot with hash marks at .2 MIL spacing' → hash_step=0.2, center_dot=true, floating_center=true. Tablo: 'MH-6 Measured in MILS - All Magnifications at 100 meters': .2 | .2 | .1 | .03 | .075 | .03 | 1 | .03 | .2 | 1. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/sviii-ed-5-40x56-ffp-ir-zero-stop (okundu 2026-10-12)."
+}

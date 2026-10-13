@@ -1,7 +1,21 @@
 {
   "name": "MOAR (SFP)",
   "brand": "Nightforce",
-  "scopes": ["ATACR 5-25x56", "NXS 2.5-10x", "NXS 3.5-15x", "NXS 5.5-22x", "NXS 8-32x", "SHV 3-10x", "SHV 4-14x", "SHV 5-20x"],
+  "scopes": [
+    "ATACR 4-16x50mm F2",
+    "ATACR 5-25x56mm F2",
+    "NX6 2-12x42mm",
+    "NX6 3-18x50mm",
+    "NX6 4-24x50mm",
+    "NXS 2.5-10x42mm",
+    "NXS 3.5-15x50mm",
+    "NXS 5.5-22x50mm",
+    "NXS 5.5-22x56mm",
+    "NXS 8-32x56mm",
+    "SHV 3-10x42mm",
+    "SHV 4-14x56mm",
+    "SHV 5-20x56mm"
+  ],
   "unit": "moa",
   "family": "hash",
   "hash_step": 1.0,
@@ -14,6 +28,6 @@
   "posts_start": null,
   "center_dot": false,
   "floating_center": true,
-  "source_url": "https://www.nightforceoptics.com/content/files/downloads/NFO_MOAR_SFP_20170620.pdf",
-  "notes": "Nightforce MOAR ikinci odak düzlemi (SFP) föyü. Ölçüler büyütme halkasındaki 'R' işaretli referans büyütmede geçerli. Metin: 1 MOA yükseliş/yan aralıkları; 10/20/30 MOA yükseliş, 10 ve 20 MOA yan göstergeleri; 2x2 MOA yüzen merkez artı; 3, 6 ve 9 yönünde direkler (başlangıç mesafesi yok). Merkez altı ölçek modele göre: NXS 22x/32x, SHV 20x, ATACR 25x'te 20 MOA; NXS 10x/15x, SHV 10x/14x'te 30 MOA -> extent_v_down null. Föydeki 'NXS 10x, 15x, 22x, 32x' ve 'SHV 10x, 14x, 20x' kısaltmaları model adlarına çevrildi. Güncelleme (2026-10): merkez 2x2 MOA yüzen artı olarak tanımlanıyor, nokta anılmıyor -> center_dot=false (çıkarım). Sitede sürümler: MOAR - 20 MOA / 30 MOA, her biri Illuminated, Center Illuminated, Non-Illuminated (reticles/moar-20-moa-illuminated vb.); tek dosyada tutuldu, extent_v_down modele bağlı olduğundan null."
+  "source_url": "https://www.nightforceoptics.com/content/files/products/MOAR-Reticle-Sheet-2026.pdf",
+  "notes": "Nightforce MOAR ikinci odak düzlemi (SFP) föyü. Ölçüler büyütme halkasındaki 'R' işaretli referans büyütmede geçerli. Metin: 1 MOA yükseliş/yan aralıkları; 10/20/30 MOA yükseliş, 10 ve 20 MOA yan göstergeleri; 2x2 MOA yüzen merkez artı; 3, 6 ve 9 yönünde direkler (başlangıç mesafesi yok). Merkez altı ölçek modele göre: NXS 22x/32x, SHV 20x, ATACR 25x'te 20 MOA; NXS 10x/15x, SHV 10x/14x'te 30 MOA -> extent_v_down null. Föydeki 'NXS 10x, 15x, 22x, 32x' ve 'SHV 10x, 14x, 20x' kısaltmaları model adlarına çevrildi. Güncelleme (2026-10): merkez 2x2 MOA yüzen artı olarak tanımlanıyor, nokta anılmıyor -> center_dot=false (çıkarım). Sitede sürümler: MOAR - 20 MOA / 30 MOA, her biri Illuminated, Center Illuminated, Non-Illuminated (reticles/moar-20-moa-illuminated vb.); tek dosyada tutuldu, extent_v_down modele bağlı olduğundan null. Düzeltme (2026-10-12): 'MOAR' adı F1 ve SFP kayıtlarında aynı anahtara düştüğü için eşleştirici 'belirsiz' diyordu; scopes listesi dürbün kayıtlarındaki model yazımıyla (mm ile, F1 olmadan) yeniden yazıldı. Güncel föy 'MOAR Reticle Sheet 2026' (indirme sayfasında 'MOAR™ Second Focal Plane'): 2 MOA x 2 MOA yüzen merkez artı; '20 MOA: ATACR 5-25x56mm (25x), NX6 4-24x50mm (24x)', '30 MOA: NXS 4-16x50mm, NXS 3.5x15-50mm, NXS 2.5-10x42mm, NX6 3-18x50mm, NX6 2-12x42mm'; model tablosunda 'ATACR 16' satırı. Etiketler A 40, C .5, D 2, E 4, F 1, G 2, K .5, L 1, M 1, N 2 MOA; B/H/I/J/O modele göre; öğe eşlemesi yalnız çizimde -> geometri değişmedi. Ürün sayfaları: ATACR 4-16x50mm 'Focal Plane: Second', 'MOAR™ - 30 MOA Illuminated'; NX6 2-12x42mm 'Focal Plane: Second', 'MOAR™'. NXS 5.5-22/8-32 ve SHV 3-10/4-14x56/5-20 eski SFP föyünden (https://www.nightforceoptics.com/content/files/downloads/NFO_MOAR_SFP_20170620.pdf, önceki okuma). Kaynak: https://www.nightforceoptics.com/content/files/products/MOAR-Reticle-Sheet-2026.pdf (okundu 2026-10-12); https://www.nightforceoptics.com/riflescopes/atacr/atacr-4-16x50-f2 (okundu 2026-10-12); https://www.nightforceoptics.com/riflescopes/products/nx6/nx6-2-12x42mm/ (okundu 2026-10-12); https://www.nightforceoptics.com/download (okundu 2026-10-12)"
 }

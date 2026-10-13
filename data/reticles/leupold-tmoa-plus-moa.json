@@ -1,0 +1,22 @@
+{
+  "name": "TMOA Plus",
+  "brand": "Leupold",
+  "scopes": [
+    "Mark 5HD 7-35x56 M1C3 FFP",
+    "VX-6 7-42x56 CDS Side Focus Target (üretimden kalktı)"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 10,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": false,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/tmoa-plus/",
+  "notes": "Leupold 'TMOA Plus Reticle' sayfası: 'Based off a TMR style reticle, but in a MOA configuration', 'Rear (second) focal plane', 'Features a hollow aiming point in the center of the reticle', 'Hash marks are in 1 MOA (minute of angle) increments', 'Marks extend to 10 MOA on each side'. Ürün: 'Mark 5HD 7-35x56 M1C3 TMOA Plus' (dürbün kaydında FFP yazıyor; üretici retikülü SFP veriyor, ölçüler en yüksek büyütmede geçerli). family=hash, hash_step=1.0 metinden; extent_h=10 ÇIKARIM: 'each side' yatay sağ/sol olarak yorumlandı (TMOA kaydıyla tutarlı), dikey uzanım yazılmadı -> null. 'hollow aiming point' -> center_dot=false. Föy 'TMOA PLUS VX-5HD, MARK 5HD': 'measure (subtend) correctly when the riflescope is set to the highest available magnification'; ince 0.1, diğer 0.15/0.3/0.5/1.0 MOA (eşlenemedi). Büyük işaret, rakam, direk -> null. Kaynak: https://www.leupold.com/reticle/tmoa-plus/ (okundu 2026-10-12); https://www.leupold.com/media/binaryanvil/reticle/TMOA_Plus_reticle_119188.pdf (okundu 2026-10-12)"
+}

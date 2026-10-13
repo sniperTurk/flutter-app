@@ -1,0 +1,21 @@
+{
+  "name": "G5I",
+  "brand": "Bushnell",
+  "scopes": [
+    "Match Pro 3-18x50"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.bushnell.com/products/match-pro-3-18x50-riflescope-g5i",
+  "notes": "Bushnell 'Match Pro 3-18x50 Riflescope - G5I MRAD Reticle' sayfası: 'Focal Plane: First', 'Click Value: 0.1 MRAD', 'G5 MRAD Illuminated Reticle'; 'the all-new G5 reticle developed with George Gardner of GA Precision', 'The reticle features additional 1/10 MRAD intervals', 'a more evenly distributed tree shape with additional holdover windage dots and numerical identifiers on both sides', 'more clearly identifiable mover target markings'. family=tree ('tree shape'). '1/10 MRAD intervals' hangi bölgede olduğu yazmadığından hash_step null. Kılavuz vault.revelyst.com'da (izinli alan adı değil) -> okunmadı. Diğer alanlar null. Kaynak: https://www.bushnell.com/products/match-pro-3-18x50-riflescope-g5i (okundu 2026-10-12)"
+}

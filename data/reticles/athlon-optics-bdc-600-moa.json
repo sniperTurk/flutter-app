@@ -1,0 +1,24 @@
+{
+  "name": "BDC 600",
+  "brand": "Athlon Optics",
+  "scopes": [
+    "Talos HMR",
+    "Neos HMR",
+    "Argos HMR",
+    "Talos"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://athlonoptics.com/wp-content/uploads/2026/04/Talos-HMR-BDC600-IR-Reticle-Manual.pdf",
+  "notes": "SFP. Talos HMR föyü: \"based on the minute of angle\"; Argos HMR ve Talos föyleri \"SUBTENSIONS IN MOA\". Referans büyütme: Talos HMR 3-12x50 12x, 4-16x56 16x; Neos HMR 6-18x50 18x; Argos HMR 2-12x42 12x; Talos 3-12x40 12x, 4-16x40 16x, 6-24x50 18x. Merkez, tutma işaretlerinin konumu, direkler metinde tarif edilmiyor -> family ve ölçüler null. A1-D3 etiketli tablo değerleri metinde öğelere bağlanmadığı için kullanılmadı. Neos HMR BDC600 föyü: \"BDC 600\", birim yazmıyor, 6-18x50 18x. Uyarı: TALOS 6-24x50 BDC 600 IR ürün sayfasının URL'si \"ahmr\" içeriyor ve \"Available Reticles\" kısmında ATMR1 SFP IR MIL görünüyor; başlık ve bağlı föy BDC 600 IR. Kaynak: https://athlonoptics.com/wp-content/uploads/2026/04/Talos-HMR-BDC600-IR-Reticle-Manual.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2022/02/Athlon-BDC-600-Reticle-Manual-Argos-HMR.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2022/02/Athlon-BDC-600-IR-Reticle-Manual-Talos.pdf (okundu 2026-10-12); https://athlonoptics.com/wp-content/uploads/2026/03/Neos-HMR-BDC600-Reticle-Manual.pdf (okundu 2026-10-12); https://athlonoptics.com/product/rifle-scopes-talos-6-24x50-ahmr-sfp-moa/ (okundu 2026-10-12)"
+}

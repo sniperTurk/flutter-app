@@ -69,7 +69,7 @@ class WindClockPicker extends StatelessWidget {
                                   child: Text(
                                     '$i',
                                     style: MenzilType.number(
-                                      i == h ? c.amberInk : c.ink,
+                                      i == h ? Colors.white : c.ink,
                                       size: 16,
                                     ),
                                   ),

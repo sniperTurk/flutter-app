@@ -181,7 +181,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Profil: the saved profile is there and active.
-    expect(find.text('Aktif profil'), findsOneWidget);
+    expect(find.text('Namlu çıkış hızı'), findsOneWidget);
 
     // Hava Durumu: live weather fails with a clear message, the values are
     // typed by hand instead and the screen stays usable.
@@ -212,16 +212,12 @@ void main() {
 
     // Hedef: the shot is solved on the device.
     await _tapKey(tester, 'pro-continue-shot');
-    expect(_title(tester), 'Hedef Görünümü');
+    expect(_title(tester), 'Atış Çözümü');
     expect(find.byKey(ScopeDialKeys.impactText), findsOneWidget);
     expect(find.textContaining('klik'), findsWidgets);
 
-    // Hedef > Tablo: the DOPE table is built offline too.
-    await tester.tap(find.byKey(const Key('shot-mode-table')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('DOPE oluştur'));
-    await tester.pumpAndSettle();
-    expect(find.byType(DataTable), findsOneWidget);
+    // DOPE is made from the scope view offline too (no Tablo mode since
+    // 2026-10-12).
 
     // Nothing above went to the network except the one weather request the
     // user asked for, and that failed through the fake client.

@@ -123,7 +123,9 @@ Future<_Home> _pumpHome(
 void _expectAtmosphere(WidgetTester tester) {
   expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
   expect(_text(tester, BallisticsFieldKeys.humidity), '55');
-  expect(_text(tester, BallisticsFieldKeys.altitude), '900');
+  // İrtifa comes from "Basıncı telefondan al", not the weather button
+  // (owner, 2026-10-12).
+  expect(_text(tester, BallisticsFieldKeys.altitude), '');
 }
 
 double _number(WidgetTester tester, Key key) =>
@@ -287,9 +289,8 @@ void main() {
     expect(await _proText(tester, _windMax), '9');
   });
 
-  testWidgets('no profile → first profile: the weather and wind carry over', (
-    tester,
-  ) async {
+  testWidgets('no profile → first profile: the weather and wind speed carry '
+      'over, the wind direction does not', (tester) async {
     final (:weather, :store, :active) = await _pumpHome(
       tester,
       withProfile: false,
@@ -305,7 +306,9 @@ void main() {
     await _tab(tester, 'Hava Durumu');
     _expectAtmosphere(tester);
     expect(_number(tester, BallisticsFieldKeys.wind), closeTo(5.0, 1e-9));
-    expect(_text(tester, BallisticsFieldKeys.windDirection), '3');
+    // Rüzgâr yönü depends on where the shooter faces; a new profile starts
+    // without it (owner, 2026-10-13).
+    expect(_text(tester, BallisticsFieldKeys.windDirection), '');
     // Rüzgâr düzeltmesi starts empty until "Rüzgâr düzeltmesi al".
     expect(await _proText(tester, _windMax), '');
     expect(double.parse(await _proFill(tester)), closeTo(7.5, 1e-9));

@@ -1,0 +1,22 @@
+{
+  "name": "BDC 3",
+  "brand": "Meopta",
+  "scopes": [
+    "MeoHunter R5 3-15x50 SFP RD",
+    "MeoHunter R5 4-20x50 SFP RD"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.meoptasportsoptics.eu/files/reticle/reticle-BDC-3.pdf",
+  "notes": "Meopta BDC 3 (kılavuz matrisinde 'BDC3'). MeoHunter R5 SFP modellerinde 4C ile birlikte seçenek. SFP. MeoHunter R5 kılavuzu 'AIMING RETICLE' bölümünde iki ölçü tablosu var (yalnız cm/100m ve mRad sütunları; biri 'Applies at 6x magnification', öbürü SFP 3-15x50/4-20x50 ve FFP 3-15x50/5-25x56 sütunlu, 'Applies at 7x magnification' / 'Applies at all magnifications'), ardından '4C BDC 3' satırı; metin çıkarımında tablolar retikül adına bağlanamadı -> geometri null. Kılavuzdaki ölçüler mRad verildiği için unit=mil. Üretici retikül föyü (https://www.meoptasportsoptics.eu/files/reticle/reticle-BDC-3.pdf) yalnız görsel içeriyor, metin katmanı yok (WebFetch: 'empty or contains no machine-readable text') -> ölçü okunamadı, family ve tüm geometri null. Kaynak: https://www.meoptasportsoptics.eu/files/reticle/reticle-BDC-3.pdf (okundu 2026-10-12); https://www.meoptasportsoptics.eu/files/MeoHunter_R5_EN.pdf (okundu 2026-10-12); https://www.meoptasportsoptics.eu/files/katalog_2026_EN.pdf (okundu 2026-10-12)"
+}

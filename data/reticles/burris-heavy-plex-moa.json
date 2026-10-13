@@ -1,0 +1,22 @@
+{
+  "name": "Heavy Plex",
+  "brand": "Burris",
+  "scopes": [
+    "Fullfield 3-12x56mm",
+    "Scout 2.75x20mm"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.burrisoptics.com/reticles/heavy-plex",
+  "notes": "Burris 'Heavy Plex' sayfası: 'Clean, simple aiming device', 'Highly visible', 'Thick crosshair with bolded edges'; ürünler Fullfield 3-12x56mm, Scout 2.75x20mm. Fullfield kılavuzu: 'RETICLE HEAVY PLEX' (ölçü yok), rear focal plane. ÖLÇÜ YOK; BİRİM TARET BİRİMİ (MOA taret) -> moa. family=duplex (kalın kenarlı artı). Diğer alanlar null. Kaynak: https://www.burrisoptics.com/reticles/heavy-plex (okundu 2026-10-12); https://www.burrisoptics.com/sites/default/files/content/files/2025-08/INSTR-9500_Fullfield_UserManual_Rev1.pdf (okundu 2026-10-12)"
+}

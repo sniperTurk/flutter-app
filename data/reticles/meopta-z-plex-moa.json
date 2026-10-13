@@ -1,0 +1,23 @@
+{
+  "name": "Z-Plex",
+  "brand": "Meopta",
+  "scopes": [
+    "MeoPro R5 2-10x42 SFP",
+    "MeoPro R6 2.5-15x44 SFP",
+    "MeoPro R6 3-18x50 SFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.meoptasportsoptics.eu/files/reticle/reticle-ZPlex.pdf",
+  "notes": "Meopta Z-Plex (katalogda 'Z PLEX'; 2025 kataloğu dipnotu '** with Z-PLEX reticle' MeoPro R5 2-10x42 SFP satırı; MeoPro R6 kılavuzu '2.5-15x44 SFP – Z-Plex', '3-18x50 SFP – Z-Plex'). SFP. Üretici açısal ölçü vermiyor; unit taret birimi (MeoPro R5/R6: 0.25 MOA tık) -> 'ölçü yok; birim taret birimi'. Üretici retikül föyü (https://www.meoptasportsoptics.eu/files/reticle/reticle-ZPlex.pdf) yalnız görsel içeriyor, metin katmanı yok (WebFetch: 'empty or contains no machine-readable text') -> ölçü okunamadı, family ve tüm geometri null. Kaynak: https://www.meoptasportsoptics.eu/files/reticle/reticle-ZPlex.pdf (okundu 2026-10-12); https://www.meoptasportsoptics.eu/files/katalog_2026_EN.pdf (okundu 2026-10-12); https://www.meoptasportsoptics.eu/files/katalog_2025_EN.pdf (okundu 2026-10-12); https://www.meoptasportsoptics.eu/files/MeoPro_R6_EN.pdf (okundu 2026-10-12)"
+}

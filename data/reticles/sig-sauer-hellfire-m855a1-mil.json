@@ -1,0 +1,21 @@
+{
+  "name": "HELLFIRE M855A1",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "TANGO6T 1-6x24mm SFP"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/media/sigsauer/resources/tango6t-7401308-R06.pdf",
+  "notes": "TANGO6T 1-6x24 ürün sayfası model tablosu: 'HELLFIRE M855A1' (SOT61233), focal plane 'Second', 0.2 MRAD ayar. TANGO6T kılavuzu: 'M855A1 HELLFIRE RETICLE FEATURES': '100 Meter Zero', tutma işaretleri 300m*-600m (50 m arayla), rüzgâr 4/8/12 mph; 'Subtensions in MRAD on max magnification' -> unit=mil. Kılavuz çizimindeki sayılar metin katmanında konumsuz geldiği için hiçbir öğeye eşlenmedi; tüm sayısal alanlar null. BDC deseni şema ailelerine oturmuyor -> family null. Kaynak: https://www.sigsauer.com/media/sigsauer/resources/tango6t-7401308-R06.pdf (okundu 2026-10-12); https://www.sigsauer.com/tango6t-1-6x24-mm.html (okundu 2026-10-12)"
+}

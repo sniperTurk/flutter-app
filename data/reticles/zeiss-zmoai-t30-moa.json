@@ -1,0 +1,23 @@
+{
+  "name": "ZMOAi-T30",
+  "brand": "Zeiss",
+  "scopes": [
+    "Conquest V4 4-16x44",
+    "Conquest V4 4-16x50"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": 10,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": 30,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": true,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-zmoai-t30.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-zmoai-t30.pdf",
+  "notes": "Zeiss ZMOAi-T30 (Absehen #64) föyü, 10/2021, aydınlatmalı, SFP; föyde 4-16x44 ve 4-16x50 yıldızsız (mevcut). Metin: MOA işaretleri ve noktaları referans büyütmede 1 MOA, 30 MOA mermi düşüşünü kapsar; yan çizgiler ve tutma noktaları rüzgâr için. 16x sütunu (MOA): A çizgi 0.06, G rakam yüksekliği 0.75, H '10, 20' rakam yüksekliği 1.00, I nokta çapı 0.12, J nokta aralığı 2.00, O 32, Q merkez artı çevresi boşluk 0.50. ÇIKARIM (mevcut ZMOA-T30 kaydıyla aynı): extent_v_down=30 merkez altı olarak; numbers_every=10 'H: 10, 20 Number Height' etiketinden; floating_center=true Q 'Spacing Around Center Cross' ölçüsünden; line_width=0.06 16x (en yüksek büyütme) değeri. Satır yapısı/rüzgâr noktaları görselsiz eşlenemedi -> tree null; föy hangi parçanın aydınlatıldığını söylemiyor -> center_dot null. Kaynak: https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-illuminated-reticle-zmoai-t30.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-illuminated-reticle-zmoai-t30.pdf (okundu 2026-10-12); https://www.zeiss.com/photonics-and-optics/en/hunting/products/riflescopes/conquest-v4.html (okundu 2026-10-12)",
+  "line_width": 0.06
+}
