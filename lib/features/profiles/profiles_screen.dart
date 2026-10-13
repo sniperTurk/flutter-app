@@ -1914,6 +1914,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             initialValue: _caliberKey,
             items: [for (final c in choices) c.item],
             fitSelected: true,
+            // The cartridge list keeps its 260 pt width in the half box.
+            minMenuWidth: 260,
             selectedLabels: [for (final c in choices) c.full],
             shortSelectedLabels: [for (final c in choices) c.short],
             onChanged: (v) => setState(() {

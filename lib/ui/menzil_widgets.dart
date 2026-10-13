@@ -1137,6 +1137,10 @@ class MenzilSelect<T> extends StatefulWidget {
   /// [MenzilFitText.minScale] ("Fişeğim listede yok" → "Listede yok").
   final List<String>? shortSelectedLabels;
 
+  /// The open list is at least this wide (at most 260 pt, as always), even
+  /// when the box is narrower: a half-width box keeps readable entries.
+  final double? minMenuWidth;
+
   const MenzilSelect({
     super.key,
     required this.label,
@@ -1151,6 +1155,7 @@ class MenzilSelect<T> extends StatefulWidget {
     this.errorText,
     this.fitSelected = false,
     this.shortSelectedLabels,
+    this.minMenuWidth,
   }) : assert(!fitSelected || selectedLabels != null);
 
   /// A list item that allows two lines (long model names) still shows one
@@ -1258,16 +1263,26 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                     value: null,
                     // Narrower than a full-width box (owner, 2026-10-11:
                     // "sağa sola da çok açılıyor").
+                    // A half-width box still opens a list at least
+                    // [minMenuWidth] wide (owner, 2026-10-13: Kalibre).
                     menuWidth: _boxWidth == null
                         ? null
-                        : math.min(_boxWidth!, 260),
+                        : math.min(
+                            math.max(_boxWidth!, w.minMenuWidth ?? 0),
+                            260,
+                          ),
                     // Every list box says "Seçiniz" until something is
                     // picked (owner, 2026-10-11).
                     hint: selectedIndex == null
-                        ? Text(
-                            w.hint ?? 'Seçiniz',
-                            style: TextStyle(color: c.ink2),
-                          )
+                        ? (w.fitSelected
+                              ? DefaultTextStyle.merge(
+                                  style: TextStyle(color: c.ink2),
+                                  child: MenzilFitText(w.hint ?? 'Seçiniz'),
+                                )
+                              : Text(
+                                  w.hint ?? 'Seçiniz',
+                                  style: TextStyle(color: c.ink2),
+                                ))
                         : DefaultTextStyle.merge(
                             maxLines: 1,
                             softWrap: false,

@@ -193,7 +193,17 @@ void main() {
           width: width,
           textScale: textScale,
         );
-        await chooseInSelect(tester, 'rifle-caliber', 'Fişeğim listede yok');
+        // The last item of the long list.
+        await tester.ensureVisible(_key('rifle-caliber'));
+        await tester.tap(_key('rifle-caliber'));
+        await tester.pumpAndSettle();
+        await tester.dragUntilVisible(
+          find.text('Fişeğim listede yok'),
+          find.byType(Scrollable).last,
+          const Offset(0, -400),
+        );
+        await tester.tap(find.text('Fişeğim listede yok').last);
+        await tester.pumpAndSettle();
         _expectOneRow(tester);
         _expectFits(tester, 'Fişeğim listede yok', 'Listede yok');
         final c = tester.getRect(_key('rifle-caliber'));
