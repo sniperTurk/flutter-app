@@ -129,8 +129,10 @@ void main() {
       ),
       findsOneWidget,
     );
-    expect(selectedValue<double>(tester, 'scope-min-mag'), 6);
-    expect(selectedValue<double>(tester, 'scope-max-mag'), 24);
-    expect(selectedValue<double>(tester, 'scope-objective'), 50);
+    // Büyütme and Mercek çapı come from the record; their boxes are hidden
+    // (owner, 2026-10-13) and the values show in the designation above.
+    for (final key in ['scope-min-mag', 'scope-max-mag', 'scope-objective']) {
+      expect(find.byKey(Key(key)), findsNothing, reason: key);
+    }
   });
 }

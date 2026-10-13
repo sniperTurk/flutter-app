@@ -299,8 +299,13 @@ void main() {
     expect(find.text('MIL çizgili'), findsNothing);
     await tester.tap(find.text('AHMC').last);
     await tester.pumpAndSettle();
-    expect(selectedValue<double>(tester, 'scope-max-mag'), 16);
-    expect(selectedValue<double>(tester, 'scope-objective'), 56);
+    // Hidden boxes (owner, 2026-10-13): the record's values show in the
+    // designation.
+    expect(find.byKey(const Key('scope-max-mag')), findsNothing);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('scope-designation'))).data,
+      contains('4-16x56 SFP'),
+    );
   });
 
   testWidgets('Dürbün: a record of several reticles lists each on Seçiniz', (
@@ -356,11 +361,11 @@ void main() {
     expect(find.byKey(const Key('ammo-bands-title')), findsNothing);
   });
 
-  testWidgets('Dürbün "Listede yok": values are picked from lists', (
+  testWidgets('Dürbün typed entry: values are picked from lists', (
     tester,
   ) async {
     await _openNew(tester);
-    await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');
+    await openScopeManual(tester);
     // Büyütme, Mercek çapı, Odak düzlemi, Dürbün birimi and Klik değeri
     // are list boxes on "Seçiniz", each with an ⓘ.
     for (final key in [

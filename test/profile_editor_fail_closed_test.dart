@@ -119,7 +119,9 @@ void main() {
         ),
         findsOneWidget,
       );
-      expect(selectedValue<double>(tester, 'scope-max-mag'), 36);
+      // Its values come from the record; the boxes are hidden (owner,
+      // 2026-10-13) and the designation shows them.
+      expect(find.byKey(const Key('scope-max-mag')), findsNothing);
       expect(find.text('Dürbün: Gazi Sniper 6-36x56 FFP'), findsOneWidget);
 
       await enterRifleField(tester, 'rifle-twist-rate', '16');
@@ -153,11 +155,14 @@ void main() {
     expect(_updateAction(tester), isNull);
     await enterRifleField(tester, 'rifle-twist-rate', '9');
     expect(_updateAction(tester), isNotNull);
-    // Maximum magnification below the minimum is rejected.
+    // Maximum magnification below the minimum is rejected (a typed scope:
+    // a catalog scope's büyütme boxes are hidden).
+    await fillScopeForm(tester);
+    expect(_updateAction(tester), isNotNull);
     await chooseInSelect(tester, 'scope-max-mag', '4x');
     expect(find.text('Minimum büyütmeden küçük olamaz.'), findsOneWidget);
     expect(_updateAction(tester), isNull);
-    await chooseInSelect(tester, 'scope-max-mag', '36x');
+    await chooseInSelect(tester, 'scope-max-mag', '24x');
     expect(_updateAction(tester), isNotNull);
     // Kalibre is a list now: no free (out-of-range) typing.
     expect(
@@ -185,11 +190,6 @@ void main() {
       'Ağırlık',
       'BC',
       // BC modeli is not asked on PCP (always G1, owner 2026-10-12).
-      'Odak düzlemi',
-      'Minimum büyütme',
-      'Maksimum büyütme',
-      'Mercek çapı',
-      'Dürbün birimi',
       'Dürbün ayağı',
       'Üst kule klik sayısı',
       'Sight height',
@@ -203,8 +203,19 @@ void main() {
     ]) {
       expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
     }
-    // Not asked any more (owner, 2026-10-09).
-    expect(find.byTooltip('Bilgi: Klik değeri'), findsNothing);
+    // A catalog scope: its values come from the record, the boxes are
+    // hidden (owner, 2026-10-13); Klik değeri is asked only when typed.
+    const scopeLabels = [
+      'Odak düzlemi',
+      'Minimum büyütme',
+      'Maksimum büyütme',
+      'Mercek çapı',
+      'Dürbün birimi',
+      'Klik değeri',
+    ];
+    for (final label in scopeLabels) {
+      expect(find.byTooltip('Bilgi: $label'), findsNothing, reason: label);
+    }
     final bcInfo = find.byTooltip('Bilgi: BC');
     await tester.ensureVisible(bcInfo);
     await tester.tap(bcInfo);
@@ -219,6 +230,11 @@ void main() {
       find.textContaining('havayı ne kadar kolay yardığını'),
       findsNothing,
     );
+    // A typed scope asks each of them, every one with its ⓘ.
+    await openScopeManual(tester);
+    for (final label in scopeLabels) {
+      expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
+    }
   });
 }
 
@@ -248,12 +264,9 @@ void _unitsAndFirearmTests() {
     await chooseInSelect(tester, 'profile-distance-unit', 'Yard');
     // 25 m = 27.3 yd (no unit label next to the field; ⓘ explains it).
     expect(zero(), '27.3');
-    // SMOA is offered as a turret unit.
-    await chooseInSelect(
-      tester,
-      'profile-angular-unit-${_valid.angularUnit.name}',
-      'SMOA',
-    );
+    // SMOA is offered as a turret unit (a typed scope: a catalog scope
+    // brings its own unit and hides the box, owner 2026-10-13).
+    await fillScopeForm(tester, unit: 'SMOA', click: '1/4 SMOA');
     expect(_updateAction(tester), isNotNull);
     final update = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
     await tester.ensureVisible(update);
