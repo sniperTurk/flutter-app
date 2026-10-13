@@ -803,13 +803,23 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   bool get _isPcp => profileResolution?.rifle.platform == WeaponPlatform.pcp;
 
+  /// Pro "Kalan tüp basıncı", hidden (owner, 2026-10-14: "kalan basınç diye
+  /// bir şey olmaz", "her atışta basınç mı girecek"; hidden, not removed).
+  /// The tube pressure is asked once, on Profil > Mühimmat "Tüp basıncı".
+  static const bool _showProTubePressure = bool.fromEnvironment(
+    'PRO_TUBE_PRESSURE',
+  );
+
   /// PCP tüp ve regülatör basıncı (owner, 2026-10-12): the velocity at the
-  /// tube pressure typed on Pro, from the profile's regulator pressure and
-  /// basınca göre hız table. Null on a firearm (never applies there).
+  /// profile's Tüp basıncı, from its regulator pressure and basınca göre hız
+  /// table. A tube pressure saved on Pro before is ignored unless
+  /// PRO_TUBE_PRESSURE is on. Null on a firearm (never applies there).
   PcpVelocity? _pcpVelocity(double profileMps) {
     if (!_isPcp) return null;
     final p = widget.profile;
-    final tube = _parsed(tubePressureCtl);
+    final tube = _showProTubePressure
+        ? _parsed(tubePressureCtl)
+        : p?.tubePressureBar;
     return PcpPressure.velocity(
       profileMps: profileMps,
       regulatorBar: p?.pressureBar,
@@ -3892,7 +3902,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       zero.up != 0 || zero.right != 0,
       _spinDriftOn,
       _isFirearm && _powder.coef != null && _powder.referenceC != null,
-      _isPcp && tubePressureCtl.text.trim().isNotEmpty,
+      _isPcp &&
+          _showProTubePressure &&
+          tubePressureCtl.text.trim().isNotEmpty,
     ].where((x) => x).length;
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
@@ -4375,7 +4387,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
           ),
           if (_isFirearm) const ProInfoEntry(ProSectionInfo.powder),
-          if (_isPcp) const ProInfoEntry(ProSectionInfo.pcpPressure),
+          if (_isPcp && _showProTubePressure)
+            const ProInfoEntry(ProSectionInfo.pcpPressure),
         ],
         fields: [
           const ProInfoField(
@@ -4389,7 +4402,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               'Mermi uzunluğu',
               EnvironmentFieldInfo.bulletLength,
             ),
-          if (_isPcp)
+          if (_isPcp && _showProTubePressure)
             const ProInfoField(
               'Kalan tüp basıncı',
               EnvironmentFieldInfo.tubePressure,
@@ -4497,8 +4510,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               },
             ),
           ],
-          // PCP tüp basıncı (owner, 2026-10-12): never on a firearm.
-          if (_isPcp) ..._pcpPressureProFields(c),
+          // PCP tüp basıncı (owner, 2026-10-12): never on a firearm; hidden
+          // behind PRO_TUBE_PRESSURE (owner, 2026-10-14: asked on Profil).
+          if (_isPcp && _showProTubePressure) ..._pcpPressureProFields(c),
         ],
       ),
       const SizedBox(height: MenzilSpace.md),

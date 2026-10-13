@@ -108,7 +108,7 @@ Map<String, List<ProExplain>> _expected({required bool pcp}) => {
     ProSectionInfo.zeroOffset,
     ProSectionInfo.spinDrift,
     if (!pcp) ProSectionInfo.powder,
-    if (pcp) ProSectionInfo.pcpPressure,
+    // Tüp basıncı is asked on Profil (owner, 2026-10-14).
   ],
 };
 
@@ -143,7 +143,6 @@ Map<String, Map<String, String>> _fields({required bool pcp}) => {
     'Yukarı + / aşağı −': EnvironmentFieldInfo.zeroUp,
     'Sağ + / sol −': EnvironmentFieldInfo.zeroRight,
     'Mermi uzunluğu': EnvironmentFieldInfo.bulletLength,
-    if (pcp) 'Kalan tüp basıncı': EnvironmentFieldInfo.tubePressure,
   },
 };
 
@@ -541,14 +540,14 @@ void main() {
     await tester.pumpAndSettle();
     await tapProHeader(tester, header);
     final button = find.descendant(
-      of: find.byKey(const Key('pro-tube-pressure')),
+      of: find.byKey(const Key('pro-bullet-length')),
       matching: find.byType(MenzilInfoButton),
     );
     await _tapButton(tester, button);
     expect(tester.takeException(), isNull);
     final last = _entries(tester).length - 1;
     expect(_entries(tester)[last].highlighted, isTrue);
-    expect(_entries(tester)[last].field.label, 'Kalan tüp basıncı');
+    expect(_entries(tester)[last].field.label, 'Mermi uzunluğu');
     final scrollable = _inSheet(find.byType(Scrollable)).first;
     expect(
       tester.state<ScrollableState>(scrollable).position.pixels,
