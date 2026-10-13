@@ -100,10 +100,13 @@ class MillerSubsonic(unittest.TestCase):
 
 
 class SpinDriftWiring(unittest.TestCase):
-    def test_pellet_excluded_and_profile_length_used(self):
+    def test_pellet_excluded_and_only_pro_length_used(self):
+        # Owner, 2026-10-13 23:32: the Profil length fallback (#264) was
+        # withdrawn; Sg / spin drift read only the Pro "Mermi uzunluğu" box.
         src = re.sub(r"\s+", " ", SCREEN.read_text(encoding="utf-8"))
         self.assertIn("if (ammunition?.type == AmmunitionType.pellet) return null;", src)
-        self.assertIn("final v = typed ?? ammunition?.lengthMm;", src)
+        self.assertIn("final v = _parsed(bulletLengthCtl);", src)
+        self.assertNotIn("ammunition?.lengthMm", src)
         self.assertNotIn("_parsed(bulletLengthCtl)!", src)
 
 

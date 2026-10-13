@@ -194,7 +194,7 @@ abstract final class EnvironmentFieldInfo {
   static const bulletLength =
       'Merminin (slug\'ın) burundan tabana uzunluğu, milimetre olarak. '
       'Kumpasla ölçün. Dönüş kararlılığı ve spin drift buna göre hesaplanır. '
-      'Boşsa Profil > Mühimmat\'taki uzunluk kullanılır. '
+      'Boşsa hesaplanmaz. '
       'Örnek: .25 slug ~10 mm, .308 168 gr ~31 mm.';
   static const targetDirection =
       'Hedefin hangi yöne hareket ettiği: önüne, yani gittiği yöne nişan '

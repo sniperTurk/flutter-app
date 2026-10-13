@@ -346,18 +346,20 @@ void main() {
     expect(t, contains('birden çok retikül'));
   });
 
-  testWidgets('PCP mühimmat: Tip | Ağırlık, Uzunluk | BC, no Marka', (
+  testWidgets('PCP mühimmat: Tip, then Ağırlık | BC; no Marka, no Uzunluk', (
     tester,
   ) async {
     await _openNew(tester);
     // Owner, 2026-10-13: PCP asks no Marka/Model.
     expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
     expect(find.byKey(const Key('ammo-brand')), findsNothing);
+    // Owner, 2026-10-13 23:32: Uzunluk only in Pro > Mermi uzunluğu.
+    expect(find.byKey(const Key('ammo-length')), findsNothing);
     Rect r(String k) => tester.getRect(find.byKey(Key(k)));
-    expect((r('ammo-type').top - r('ammo-grain').top).abs(), lessThan(1));
-    expect(r('ammo-type').right, lessThan(r('ammo-grain').left));
-    expect((r('ammo-length').top - r('ammo-bc').top).abs(), lessThan(1));
-    expect(r('ammo-length').right, lessThan(r('ammo-bc').left));
+    // Tip takes its row; Ağırlık | BC share the next one.
+    expect(r('ammo-type').bottom, lessThanOrEqualTo(r('ammo-grain').top));
+    expect((r('ammo-grain').top - r('ammo-bc').top).abs(), lessThan(1));
+    expect(r('ammo-grain').right, lessThan(r('ammo-bc').left));
     expect(find.byKey(const Key('ammo-bands-title')), findsNothing);
   });
 

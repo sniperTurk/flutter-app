@@ -930,7 +930,10 @@ class _ActiveProfileDetails extends StatelessWidget {
             if (ammo != null) ...[
               MenzilMetric('Tip', _ammoTypeName(ammo.type)),
               MenzilMetric('Ağırlık', _trimNum(ammo.grain), 'gr'),
-              if (ammo.lengthMm != null)
+              // Hidden with the Profil box (owner, 2026-10-13 23:32): the
+              // length is asked only in Pro > Mermi uzunluğu.
+              if (ammo.lengthMm != null &&
+                  _ProfileDialogState._showProfileAmmoLength)
                 MenzilMetric('Uzunluk', _trimNum(ammo.lengthMm!), 'mm'),
             ],
             MenzilMetric(
@@ -2616,7 +2619,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_ammoBrandError == null, 'Marka'),
       (_effectiveAmmoType != null, 'Tip'),
       (_grainError == null, 'Ağırlık'),
-      if (platform == WeaponPlatform.pcp) (_lengthError == null, 'Uzunluk'),
+      if (platform == WeaponPlatform.pcp && _showProfileAmmoLength)
+        (_lengthError == null, 'Uzunluk'),
       if (_customCurve)
         (_dragCurve != null, 'Sürüklenme eğrisi')
       else ...[
@@ -2962,6 +2966,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     };
   }
 
+  /// Length written with the ammunition: the typed box when shown, else
+  /// the length this ammunition already had (unused by the calculation,
+  /// which asks only Pro > Mermi uzunluğu).
+  double? get _savedLengthMm =>
+      _showProfileAmmoLength ? _parse(ammoLength) : ammo?.lengthMm;
+
   Map<String, dynamic> _ammoEntry() {
     final existing = ammo;
     return <String, dynamic>{
@@ -2975,8 +2985,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       // Caliber follows the rifle, so the pair can never mismatch.
       'caliberMm': _parse(rifleCaliber),
       'grain': _parse(ammoGrain),
-      if (platform == WeaponPlatform.pcp && _parse(ammoLength) != null)
-        'lengthMm': _parse(ammoLength),
+      // Box hidden (owner, 2026-10-13 23:32): no new length is written; a
+      // length saved before is kept so old data is not lost.
+      if (platform == WeaponPlatform.pcp && _savedLengthMm != null)
+        'lengthMm': _savedLengthMm,
       'ammoType': _effectiveAmmoType!.name,
       if (_customCurve) ...{
         'bc': _curveSd,
@@ -3140,7 +3152,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ammoBrand,
       ammoModel,
       ammoGrain,
-      ammoLength,
+      if (_showProfileAmmoLength) ammoLength,
       ammoBc,
     ].any((c) => c.text.trim().isNotEmpty);
     if (typed) {
@@ -3362,8 +3374,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// PCP Marka | Model lists, hidden (owner, 2026-10-13: "Pellet marka
   /// bullet marka almanın hiç bir faydası yok"; hidden, not removed). PCP
-  /// asks only Tip, Ağırlık, Uzunluk and BC.
+  /// asks only Tip, Ağırlık and BC.
   static const bool _showPcpAmmoBrand = bool.fromEnvironment('PCP_AMMO_BRAND');
+
+  /// PCP Mühimmat "Uzunluk", hidden (owner, 2026-10-13 23:32: "Profilden
+  /// çıkartın"; hidden, not removed). The length is asked only in Pro >
+  /// Mermi uzunluğu, so one value never lives in two places.
+  static const bool _showProfileAmmoLength = bool.fromEnvironment(
+    'PROFILE_AMMO_LENGTH',
+  );
 
   /// Marka | Model of the ammunition: two lists side by side (factory
   /// cartridges or the bullet library for this caliber); the typed boxes
@@ -3374,7 +3393,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     required Widget modelText,
   }) {
     final firearm = platform == WeaponPlatform.firearm;
-    if (!firearm && !_showPcpAmmoBrand) return [type];
+    // Without Uzunluk, Tip takes its row so Ağırlık | BC pair up.
+    if (!firearm && !_showPcpAmmoBrand) {
+      return [_showProfileAmmoLength ? type : MenzilFullWidth(child: type)];
+    }
     // PCP: Marka | Tip; firearm: Mühimmat türü | Marka. Model gets a row.
     List<Widget> arrange(Widget brand, Widget model) => [
       if (firearm) ...[type, brand] else ...[brand, type],
@@ -4190,8 +4212,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_grainError, ammoGrain),
                 ),
-                // Uzunluk | BC on PCP (owner, 2026-10-13).
-                if (platform == WeaponPlatform.pcp)
+                // Uzunluk | BC on PCP (owner, 2026-10-13); hidden behind
+                // PROFILE_AMMO_LENGTH (owner, 2026-10-13 23:32).
+                if (platform == WeaponPlatform.pcp && _showProfileAmmoLength)
                   MenzilInput(
                     key: const Key('ammo-length'),
                     controller: ammoLength,
@@ -4322,7 +4345,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     ),
                   ),
                 // Hıza göre BC: hidden on PCP (owner, 2026-10-13: only Tip,
-                // Ağırlık, Uzunluk, BC).
+                // Ağırlık, BC).
                 if (!_customCurve && platform != WeaponPlatform.pcp) ...[
                   MenzilFullWidth(
                     child: Text(

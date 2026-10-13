@@ -845,13 +845,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return (sg: sg, lCal: lCal, dir: dir);
   }
 
-  /// Bullet length for Sg (mm): the Pro "Mermi uzunluğu" box when typed,
-  /// else the length saved with the profile's ammunition (Profil >
-  /// Mühimmat, formula audit 2026-10-13: it was saved but never used).
-  /// Null when neither is a plausible length (0–100 mm).
+  /// Bullet length for Sg (mm): only the Pro "Mermi uzunluğu" box. The
+  /// Profil > Mühimmat length fallback (formula audit 2026-10-13, #264) was
+  /// withdrawn by the owner (2026-10-13 23:32): that box is hidden, so a
+  /// saved profile length the user cannot see must never change spin
+  /// drift or Sg. Null when the box is empty or not plausible (0–100 mm).
   double? get _bulletLengthMm {
-    final typed = _parsed(bulletLengthCtl);
-    final v = typed ?? ammunition?.lengthMm;
+    final v = _parsed(bulletLengthCtl);
     return v != null && v.isFinite && v > 0 && v <= 100 ? v : null;
   }
 
