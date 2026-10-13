@@ -126,8 +126,12 @@ eşit olur. Liste kutudan hiçbir zaman geniş değildir.
 
 - Format (one-off dart format fix): [run 38433635282](https://github.com/sniperTurk/flutter-app/actions/runs/38433635282) → başarılı, `4a38bda` biçim commit'ini itti
 - Test, yalnızca yeni test (`1f9b804`): [run 38433638584](https://github.com/sniperTurk/flutter-app/actions/runs/38433638584) → başarılı
-- Son commit için analiz ve bütün test paketi: PR açıklamasında
-  güncellenir (aşağıya bakın).
+- Son kod commit'i `c678a76` (bu raporun ilk hali dahil):
+  - Format: [run 38434866146](https://github.com/sniperTurk/flutter-app/actions/runs/38434866146) → başarılı, değişiklik gerekmedi (312 dosya, 0 değişti)
+  - Analiz (`flutter analyze --fatal-infos --fatal-warnings`): [run 38434874836](https://github.com/sniperTurk/flutter-app/actions/runs/38434874836) → başarılı, sorun yok
+  - Bütün test paketi (`flutter test test`): [run 38434870802](https://github.com/sniperTurk/flutter-app/actions/runs/38434870802) → başarılı
+- Bu koşulardan sonraki tek commit yalnızca bu rapora CI bağlantılarını
+  ekler; kod değişmedi.
 
 iOS CI, Simulator, cihaz, TestFlight: çalıştırılmadı.
 
