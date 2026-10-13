@@ -770,6 +770,10 @@ String _ammoTypeName(AmmunitionType t) => switch (t) {
   return (brand, m);
 }
 
+/// Non-empty parts joined by a space ("Hatsan Hercules").
+String _joinSummary(List<String> parts) =>
+    parts.map((p) => p.trim()).where((p) => p.isNotEmpty).join(' ');
+
 /// The scope's reticle name for the summary; a focal plane is not one.
 String? _summaryReticle(ScopeOptic s) {
   final r = s.reticle?.trim();
@@ -824,16 +828,20 @@ class _ActiveProfileDetails extends StatelessWidget {
       children: [
         // No "Aktif profil" title or Düzenle here (owner, 2026-10-12): the
         // list below shows the active profile with its edit pencil.
-        // Order and names set by the owner (2026-10-09). Regülatör, Odak
-        // düzlemi, Klik değeri and the name card have no box any more.
+        // Three cards (owner, 2026-10-13): Tüfek, Dürbün and Mühimmat
+        // bilgileri, each led by its marka and model on one line.
+        const MenzilSectionHeader(
+          'Tüfek bilgileri',
+          padding: EdgeInsets.only(bottom: MenzilSpace.sm),
+        ),
         MenzilMetricGrid(
+          key: const Key('profile-summary-rifle'),
           columns: 2,
           twoLineText: true,
+          lead: rifle == null
+              ? null
+              : MenzilMetric('Marka / Model', _joinSummary([rifle.brand, rifle.model])),
           metrics: [
-            // The separate Tüfek/Mühimmat/Dürbün name card was removed
-            // (owner, 2026-10-09); brand and model have their own boxes.
-            if (rifle != null) MenzilMetric('Tüfek Marka', rifle.brand),
-            if (rifle != null) MenzilMetric('Tüfek Model', rifle.model),
             MenzilMetric(
               'Namlu çıkış hızı',
               units.velocityValue(profile.muzzleVelocityMps),
@@ -862,17 +870,28 @@ class _ActiveProfileDetails extends StatelessWidget {
               _zeroValue(profile),
               profile.distanceUnit.symbol,
             ),
-            // Owner, 2026-10-11: each scope fact in one box only.
-            if (scopeNames != null) ...[
-              MenzilMetric('Dürbün Marka', scopeNames.$1),
-              MenzilMetric(
-                'Dürbün Model',
-                scopeNames.$2.isEmpty ? '—' : scopeNames.$2,
-              ),
-            ],
-            if (scope != null && _scopeSummary(scope).isNotEmpty)
-              MenzilMetric('Dürbün', _scopeSummary(scope)),
-            MenzilMetric('Dürbün birimi', profile.angularUnit.label),
+          ],
+        ),
+        const MenzilSectionHeader('Dürbün bilgileri'),
+        MenzilMetricGrid(
+          key: const Key('profile-summary-scope'),
+          columns: 2,
+          twoLineText: true,
+          // Marka, model and the scope's data on one line (owner,
+          // 2026-10-13), e.g. "Barska … 6-36 x 56 FFP · MRAD".
+          lead: MenzilMetric(
+            'Marka / Model',
+            [
+              if (scopeNames != null)
+                _joinSummary([
+                  scopeNames.$1,
+                  scopeNames.$2,
+                  if (_scopeSummary(scope!).isNotEmpty) _scopeSummary(scope!),
+                ]),
+              profile.angularUnit.label,
+            ].join(' · '),
+          ),
+          metrics: [
             if (reticle != null) MenzilMetric('Retikül', reticle),
             MenzilMetric(
               'Dürbün ayağı',
@@ -886,14 +905,25 @@ class _ActiveProfileDetails extends StatelessWidget {
                 '${_topTurretClicks(scope, profile.angularUnit)}',
                 'klik',
               ),
+          ],
+        ),
+        const MenzilSectionHeader('Mühimmat bilgileri'),
+        MenzilMetricGrid(
+          key: const Key('profile-summary-ammo'),
+          columns: 2,
+          twoLineText: true,
+          lead: ammo == null
+              ? null
+              : MenzilMetric(
+                  'Marka / Model',
+                  _joinSummary([ammo.brand, ammoModel]),
+                ),
+          metrics: [
             if (ammo != null) ...[
-              MenzilMetric('Mühimmat Marka', ammo.brand),
-              MenzilMetric(
-                'Mühimmat Model',
-                ammoModel.isEmpty ? '—' : ammoModel,
-              ),
-              MenzilMetric('Ağırlık', _trimNum(ammo.grain), 'gr'),
               MenzilMetric('Tip', _ammoTypeName(ammo.type)),
+              MenzilMetric('Ağırlık', _trimNum(ammo.grain), 'gr'),
+              if (ammo.lengthMm != null)
+                MenzilMetric('Uzunluk', _trimNum(ammo.lengthMm!), 'mm'),
             ],
             MenzilMetric(
               'BC / model',

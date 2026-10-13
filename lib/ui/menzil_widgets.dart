@@ -1651,11 +1651,16 @@ class MenzilMetricGrid extends StatelessWidget {
   /// aligned (owner, 2026-10-11).
   final bool twoLineText;
 
+  /// With [twoLineText]: one full-width tile above the rows (Profil cards:
+  /// marka and model on one line, owner 2026-10-13).
+  final MenzilMetric? lead;
+
   const MenzilMetricGrid({
     super.key,
     required this.metrics,
     this.columns = 3,
     this.twoLineText = false,
+    this.lead,
   });
 
   @override
@@ -1718,7 +1723,12 @@ class MenzilMetricGrid extends StatelessWidget {
     final c = MenzilColors.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        if (lead != null) ...[
+          MenzilMetricCard(metric: lead!, twoLineText: true),
+          if (metrics.isNotEmpty) const SizedBox(height: 1),
+        ],
         for (var r = 0; r < metrics.length; r += cols) ...[
           if (r > 0) const SizedBox(height: 1),
           IntrinsicHeight(
