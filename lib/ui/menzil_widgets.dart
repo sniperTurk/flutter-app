@@ -565,11 +565,16 @@ class MenzilSectionHeader extends StatelessWidget {
   final Widget? trailing;
   final EdgeInsetsGeometry padding;
 
+  /// Title size; the Profil summary cards use a smaller 18 (owner,
+  /// 2026-10-13: "Başlıkları biraz küçültürmüsün").
+  final double size;
+
   const MenzilSectionHeader(
     this.title, {
     super.key,
     this.subtitle,
     this.trailing,
+    this.size = 22,
     this.padding = const EdgeInsets.only(
       top: MenzilSpace.sm,
       bottom: MenzilSpace.sm,
@@ -591,7 +596,7 @@ class MenzilSectionHeader extends StatelessWidget {
                   header: true,
                   child: Text(
                     title,
-                    style: MenzilType.heading(c.ink, size: 22),
+                    style: MenzilType.heading(c.ink, size: size),
                   ),
                 ),
               ),
