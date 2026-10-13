@@ -3902,9 +3902,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       zero.up != 0 || zero.right != 0,
       _spinDriftOn,
       _isFirearm && _powder.coef != null && _powder.referenceC != null,
-      _isPcp &&
-          _showProTubePressure &&
-          tubePressureCtl.text.trim().isNotEmpty,
+      _isPcp && _showProTubePressure && tubePressureCtl.text.trim().isNotEmpty,
     ].where((x) => x).length;
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
