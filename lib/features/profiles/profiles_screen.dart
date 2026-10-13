@@ -1116,14 +1116,23 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         if (i == _popularCount) header('#all', 'DİĞERLERİ (A-Z)');
         add(
           name,
-          Row(
-            children: [
-              Expanded(child: Text(name)),
-              Text(
-                '${d.toStringAsFixed(2).replaceAll('.', ',')} mm',
-                style: const TextStyle(fontSize: 12),
-              ),
-            ],
+          // The list is as wide as the half box (owner, 2026-10-13): the
+          // mm goes under the name when both do not fit on one line, so a
+          // narrow list or large text never overflows.
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: MenzilSpace.xs,
+              children: [
+                Text(name),
+                Text(
+                  '${d.toStringAsFixed(2).replaceAll('.', ',')} mm',
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ],
+            ),
           ),
           name,
           short: _shortCartridge(name),

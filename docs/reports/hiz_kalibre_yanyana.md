@@ -20,10 +20,9 @@ Dosyalar ve kodlar:
 - `lib/ui/menzil_widgets.dart`
   - Yeni `MenzilFieldPair`: iki alanı her genişlikte ve her yazı boyutunda yan yana koyuyor (`Row`, iki `Expanded`, aralık `MenzilSpace.md`). Bu aralık, formun diğer iki sütunlu satırlarındaki aralıkla aynı.
   - Yeni `MenzilFitText`: yazıyı tek satırda tutuyor. Sığmazsa yalnızca gerektiği kadar küçültüyor (`FittedBox`, `BoxFit.scaleDown`), hiç taşmıyor ve "…" ile kesmiyor. Tam yazı %80'in altına küçülmek zorunda kalırsa kısa yazıyı gösteriyor. Ölçüm yerleşimden sonra yapılıyor (`MenzilWrapText` ile aynı yöntem), `LayoutBuilder` kullanılmıyor; bu yüzden diyaloglar bozulmuyor. VoiceOver her zaman tam yazıyı okuyor.
-  - `MenzilSelect` üç yeni isteğe bağlı parametre aldı:
+  - `MenzilSelect` iki yeni isteğe bağlı parametre aldı:
     - `fitSelected`: kapalı kutuda seçim ve "Seçiniz" için `MenzilFitText` kullanılıyor.
     - `shortSelectedLabels`: kısa yazılar.
-    - `minMenuWidth`: kutu yarım genişlikte olsa da açılan liste en az bu kadar geniş. Kalibre için 260 pt veriliyor; bu, eski tam genişlikteki kutudaki liste genişliğiyle aynı. Liste ekran dışına taşmıyor, Flutter onu ekran içine kaydırıyor.
 
   Bu parametreleri yalnızca Kalibre kullanıyor. Başka hiçbir kutunun davranışı değişmedi.
 
@@ -54,7 +53,7 @@ TestFlight ekranında hız ve kalibre ayrı ayrı tam satır kaplıyordu. Sahip 
   - "Namlu çıkış hızı" etiketi gerekirse iki satıra iniyor (inceltilerek, mevcut `MenzilWrapText` davranışı).
   - Bu ölçekte formun diğer satırları `MenzilFieldGrid` kuralı gereği eskisi gibi tek sütuna düşüyor. Yalnızca bu satır iki kutu.
 - **Hata yazısı**: Hız aralık dışındaysa ("100–4900 arasında bir değer girin.") yazı sol kutunun içinde, gerekirse alt satıra kayarak görünüyor ve sağ kutuya taşmıyor. Kalibre kutusu yerinden oynamıyor.
-- **Açılan liste**: Yarım kutu yüzünden liste daralmasın diye Kalibre listesi 260 pt genişliğinde kalıyor (eski hâli). İlk denemede liste kutuyla birlikte daralmıştı ve ×1.3'te mm sütunu 1–2 px taşıyordu; bu düzeltildi.
+- **Açılan liste**: Bu dala `main` birleştirildi (#273, sahip kararı: "kutudan dışarı çıkmasın"). Bu yüzden Kalibre listesi de yarım kutunun genişliğinde açılıyor; önceki 260 pt `minMenuWidth` çözümü kaldırıldı. Dar listede fişek satırı (ad + mm) taşıyordu (iOS CI `dart-checks`, 320 pt ve ×1.3). Satır artık `Wrap` ile kuruluyor: ad ile mm bir satıra sığarsa yan yana (mm sağda), sığmazsa mm adın altına iniyor. Hiçbir genişlikte taşmıyor.
 
 ## CLAUDE.md'deki kuralın aşılması
 
