@@ -1,0 +1,63 @@
+{
+ "brand": "Air Arms",
+ "note": "2026-10-13: robots.txt read (resources.air-arms.co.uk; page allowed). Read the pellet range page: range-wide 'Crafted from high-grade lead alloys' -> lead_pellet for all; per-pellet 'Shape:' Domed (Express, Field, Field Plus Heavy), Pointed (Diabolo Hunter), Wadcutter (Match Flathead, Training Match). Base/skirt not stated.",
+ "sources": [
+  {
+   "id": "aa",
+   "url": "https://resources.air-arms.co.uk/airarmspellets",
+   "read_date": "2026-10-13",
+   "title": "Air Arms pellets"
+  }
+ ],
+ "families": [
+  {
+   "id": "all",
+   "lib": "bullet",
+   "name_regex": ".",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "aa",
+     "quote": "Crafted from high-grade lead alloys"
+    }
+   }
+  },
+  {
+   "id": "domed",
+   "lib": "bullet",
+   "name_regex": "^(Diabolo Express|Diabolo Field|Field Plus Heavy)\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "aa",
+     "quote": "Shape: Domed"
+    }
+   }
+  },
+  {
+   "id": "hunter",
+   "lib": "bullet",
+   "name_regex": "^Diabolo Hunter\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "pointed",
+     "src": "aa",
+     "quote": "Shape: Pointed"
+    }
+   }
+  },
+  {
+   "id": "wc",
+   "lib": "bullet",
+   "name_regex": "^(Match Flathead|Training Match)\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "wadcutter",
+     "src": "aa",
+     "quote": "Shape: Wadcutter"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

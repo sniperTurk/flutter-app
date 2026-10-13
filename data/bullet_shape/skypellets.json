@@ -1,0 +1,273 @@
+{
+ "brand": "SkyPellets",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt read (nothing disallowed). Read 45-dome-light and all 8 Flat/Point pages: Flat 'Yassı saçma kurşunlar' -> flat_nose, Point 'Sivri uçlu saçma kurşunlar' -> pointed; Dome from name. Material ('yüksek kaliteli malzemeler') and base not stated.",
+ "sources": [
+  {
+   "id": "fl45",
+   "url": "https://skypellets.com/tr/45-flat-light",
+   "read_date": "2026-10-13",
+   "title": "4,5 Flat Light"
+  },
+  {
+   "id": "fh45",
+   "url": "https://skypellets.com/tr/45-flat-heavy",
+   "read_date": "2026-10-13",
+   "title": "4,5 Flat Heavy"
+  },
+  {
+   "id": "fl55",
+   "url": "https://skypellets.com/tr/55-flat-light",
+   "read_date": "2026-10-13",
+   "title": "5,5 Flat Light"
+  },
+  {
+   "id": "fh55",
+   "url": "https://skypellets.com/tr/55-flat-heavy",
+   "read_date": "2026-10-13",
+   "title": "5,5 Flat Heavy"
+  },
+  {
+   "id": "pl45",
+   "url": "https://skypellets.com/tr/45-point-light",
+   "read_date": "2026-10-13",
+   "title": "4,5 Point Light"
+  },
+  {
+   "id": "ph45",
+   "url": "https://skypellets.com/tr/45-point-heavy",
+   "read_date": "2026-10-13",
+   "title": "4,5 Point Heavy"
+  },
+  {
+   "id": "pl55",
+   "url": "https://skypellets.com/tr/55-point-light",
+   "read_date": "2026-10-13",
+   "title": "5,5 Point Light"
+  },
+  {
+   "id": "ph55",
+   "url": "https://skypellets.com/tr/55-point-heavy",
+   "read_date": "2026-10-13",
+   "title": "5,5 Point Heavy"
+  }
+ ],
+ "records": {
+  "SkyPellets|Dome Light 8.48 gr|80.45DL / 92.45DL": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Dome Light 8.48 gr",
+   "grain": 8.48,
+   "library_source_url": "https://skypellets.com/tr/45-dome-light",
+   "caliber_mm": 4.5,
+   "item": "80.45DL / 92.45DL",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://skypellets.com/tr/45-dome-light",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Dome"
+   },
+   "base": null
+  },
+  "SkyPellets|Dome Heavy 9.56 gr|80.45DH / 92.45DH": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Dome Heavy 9.56 gr",
+   "grain": 9.56,
+   "library_source_url": "https://skypellets.com/tr/45-dome-heavy",
+   "caliber_mm": 4.5,
+   "item": "80.45DH / 92.45DH",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://skypellets.com/tr/45-dome-heavy",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Dome"
+   },
+   "base": null
+  },
+  "SkyPellets|Dome Light 15.89 gr|80.55DL / 92.55DL": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Dome Light 15.89 gr",
+   "grain": 15.89,
+   "library_source_url": "https://skypellets.com/tr/55-dome-light",
+   "caliber_mm": 5.5,
+   "item": "80.55DL / 92.55DL",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://skypellets.com/tr/55-dome-light",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Dome"
+   },
+   "base": null
+  },
+  "SkyPellets|Dome Heavy 18.13 gr|80.55DH / 92.55DH": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Dome Heavy 18.13 gr",
+   "grain": 18.13,
+   "library_source_url": "https://skypellets.com/tr/55-dome-heavy",
+   "caliber_mm": 5.5,
+   "item": "80.55DH / 92.55DH",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://skypellets.com/tr/55-dome-heavy",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Dome"
+   },
+   "base": null
+  },
+  "SkyPellets|Flat Light 7.87 gr|80.45FL / 92.45FL": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Flat Light 7.87 gr",
+   "grain": 7.87,
+   "library_source_url": "https://skypellets.com/tr/45-flat-light",
+   "caliber_mm": 4.5,
+   "item": "80.45FL / 92.45FL",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://skypellets.com/tr/45-flat-light",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Yassı saçma kurşunlar"
+   },
+   "base": null
+  },
+  "SkyPellets|Flat Heavy 8.17 gr|80.45FH / 92.45FH": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Flat Heavy 8.17 gr",
+   "grain": 8.17,
+   "library_source_url": "https://skypellets.com/tr/45-flat-heavy",
+   "caliber_mm": 4.5,
+   "item": "80.45FH / 92.45FH",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://skypellets.com/tr/45-flat-light",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Yassı saçma kurşunlar"
+   },
+   "base": null
+  },
+  "SkyPellets|Flat Light 13.88 gr|80.55FL / 92.55FL": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Flat Light 13.88 gr",
+   "grain": 13.88,
+   "library_source_url": "https://skypellets.com/tr/55-flat-light",
+   "caliber_mm": 5.5,
+   "item": "80.55FL / 92.55FL",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://skypellets.com/tr/45-flat-light",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Yassı saçma kurşunlar"
+   },
+   "base": null
+  },
+  "SkyPellets|Flat Heavy 15.43 gr|80.55FH / 92.55FH": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Flat Heavy 15.43 gr",
+   "grain": 15.43,
+   "library_source_url": "https://skypellets.com/tr/55-flat-heavy",
+   "caliber_mm": 5.5,
+   "item": "80.55FH / 92.55FH",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://skypellets.com/tr/45-flat-light",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Yassı saçma kurşunlar"
+   },
+   "base": null
+  },
+  "SkyPellets|Point Light 7.71 gr|80.45PL / 92.45PL": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Point Light 7.71 gr",
+   "grain": 7.71,
+   "library_source_url": "https://skypellets.com/tr/45-point-light",
+   "caliber_mm": 4.5,
+   "item": "80.45PL / 92.45PL",
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://skypellets.com/tr/45-point-light",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sivri uçlu saçma kurşunlar"
+   },
+   "base": null
+  },
+  "SkyPellets|Point Heavy 8.17 gr|80.45PH / 92.45PH": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Point Heavy 8.17 gr",
+   "grain": 8.17,
+   "library_source_url": "https://skypellets.com/tr/45-point-heavy",
+   "caliber_mm": 4.5,
+   "item": "80.45PH / 92.45PH",
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://skypellets.com/tr/45-point-light",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sivri uçlu saçma kurşunlar"
+   },
+   "base": null
+  },
+  "SkyPellets|Point Light 15.89 gr|80.55PL / 92.55PL": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Point Light 15.89 gr",
+   "grain": 15.89,
+   "library_source_url": "https://skypellets.com/tr/55-point-light",
+   "caliber_mm": 5.5,
+   "item": "80.55PL / 92.55PL",
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://skypellets.com/tr/45-point-light",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sivri uçlu saçma kurşunlar"
+   },
+   "base": null
+  },
+  "SkyPellets|Point Heavy 16.97 gr|80.55PH / 92.55PH": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Point Heavy 16.97 gr",
+   "grain": 16.97,
+   "library_source_url": "https://skypellets.com/tr/55-point-heavy",
+   "caliber_mm": 5.5,
+   "item": "80.55PH / 92.55PH",
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://skypellets.com/tr/45-point-light",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sivri uçlu saçma kurşunlar"
+   },
+   "base": null
+  }
+ }
+}

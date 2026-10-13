@@ -1,0 +1,33 @@
+{
+ "brand": "ELEY",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "eley.co.uk robots.txt allows all. tenex page states flat nose; construction/base not stated.",
+ "sources": [
+  {
+   "id": "tenex",
+   "url": "https://eley.co.uk/eley-tenex",
+   "read_date": "2026-10-13",
+   "title": "ELEY tenex"
+  }
+ ],
+ "records": {
+  "ELEY|ELEY tenex 40 gr|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "ELEY tenex 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://eley.co.uk/eley-tenex",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://eley.co.uk/eley-tenex",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The iconic flat nose projectile of ELEY tenex"
+   },
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

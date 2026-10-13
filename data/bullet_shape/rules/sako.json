@@ -1,0 +1,254 @@
+{
+  "brand": "Sako",
+  "note": "sako.global robots.txt allows all. Read each line page (Gamehead, Gamehead Pro, Gamehead Varmint RX, Hammerhead, Super Hammerhead, Powerhead Blade, Blade Pro, Blade Solid, Speedhead, TRG Precision/Sport/Defense). TRG Defense: nothing stated. Not stated: Gamehead Pro construction/base, Speedhead tip/base, Hammerhead base, Powerhead Blade/Blade Pro/Solid tip & base (Blade Solid .223 is 'un-tipped'), Varmint RX construction. No component bullet makers named.",
+  "sources": [
+    {
+      "id": "gh",
+      "url": "https://www.sako.global/ammunition/gamehead",
+      "read_date": "2026-10-13",
+      "title": "Sako Gamehead"
+    },
+    {
+      "id": "ghp",
+      "url": "https://www.sako.global/ammunition/gamehead-pro",
+      "read_date": "2026-10-13",
+      "title": "Sako Gamehead Pro"
+    },
+    {
+      "id": "ghrx",
+      "url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+      "read_date": "2026-10-13",
+      "title": "Sako Gamehead Varmint RX"
+    },
+    {
+      "id": "hh",
+      "url": "https://www.sako.global/ammunition/hammerhead",
+      "read_date": "2026-10-13",
+      "title": "Sako Hammerhead"
+    },
+    {
+      "id": "shh",
+      "url": "https://www.sako.global/ammunition/super-hammerhead",
+      "read_date": "2026-10-13",
+      "title": "Sako Super Hammerhead"
+    },
+    {
+      "id": "pb",
+      "url": "https://www.sako.global/ammunition/powerhead-blade",
+      "read_date": "2026-10-13",
+      "title": "Sako Powerhead Blade"
+    },
+    {
+      "id": "pbp",
+      "url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+      "read_date": "2026-10-13",
+      "title": "Sako Powerhead Blade Pro"
+    },
+    {
+      "id": "pbs",
+      "url": "https://www.sako.global/ammunition/powerhead-blade-solid",
+      "read_date": "2026-10-13",
+      "title": "Sako Powerhead Blade Solid"
+    },
+    {
+      "id": "sh",
+      "url": "https://www.sako.global/ammunition/speedhead",
+      "read_date": "2026-10-13",
+      "title": "Sako Speedhead"
+    },
+    {
+      "id": "trgp",
+      "url": "https://www.sako.global/ammunition/trg-precision",
+      "read_date": "2026-10-13",
+      "title": "Sako TRG Precision"
+    },
+    {
+      "id": "trgs",
+      "url": "https://www.sako.global/ammunition/trg-sport",
+      "read_date": "2026-10-13",
+      "title": "Sako TRG Sport"
+    }
+  ],
+  "families": [
+    {
+      "id": "gamehead",
+      "lib": "factory",
+      "name_regex": "\\bGamehead\\b",
+      "not_regex": "\\bGamehead (Pro|Varmint)\\b",
+      "fields": {
+        "construction": {
+          "value": "cup_and_core",
+          "src": "gh",
+          "quote": "Light jacket ... Non-bonded core"
+        },
+        "tip_shape": {
+          "value": "spitzer_soft_point",
+          "src": "gh",
+          "quote": "Spitzer-nosed soft-point bullet"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "gh",
+          "quote": "Spitzer Boat Tail shape ensures flat trajectory."
+        }
+      }
+    },
+    {
+      "id": "gamehead_pro",
+      "lib": "factory",
+      "name_regex": "\\bGamehead Pro\\b",
+      "fields": {
+        "tip_shape": {
+          "value": "polymer_tip",
+          "src": "ghp",
+          "quote": "The polymer tip and the aerodynamic design aim for high ballistic coefficient"
+        }
+      }
+    },
+    {
+      "id": "gamehead_varmint_rx",
+      "lib": "factory",
+      "name_regex": "\\bGamehead Varmint RX\\b",
+      "fields": {
+        "tip_shape": {
+          "value": "hollow_point",
+          "src": "ghrx",
+          "quote": "features a thin jacket and massive hollow-point"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "ghrx",
+          "quote": "high-precision boat-tailed bullet"
+        }
+      }
+    },
+    {
+      "id": "hammerhead",
+      "lib": "factory",
+      "name_regex": "(?<!Super )\\bHammerhead\\b",
+      "fields": {
+        "construction": {
+          "value": "bonded",
+          "src": "hh",
+          "quote": "A heavy jacketed and soft-point bullet with a bonded core."
+        },
+        "tip_shape": {
+          "value": "round_nose",
+          "src": "hh",
+          "quote": "Round nose design increases expansion speed and dependability."
+        }
+      }
+    },
+    {
+      "id": "super_hammerhead",
+      "lib": "factory",
+      "name_regex": "\\bSuper Hammerhead\\b",
+      "fields": {
+        "construction": {
+          "value": "bonded",
+          "src": "shh",
+          "quote": "A bonded core provides high weight retention"
+        },
+        "tip_shape": {
+          "value": "semi_spitzer",
+          "src": "shh",
+          "quote": "Semi-spitzer boat tail structure improves trajectory"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "shh",
+          "quote": "It is boat-tailed for high ballistic efficiency"
+        }
+      }
+    },
+    {
+      "id": "powerhead_blade",
+      "lib": "factory",
+      "name_regex": "\\bPowerhead Blade\\b",
+      "not_regex": "\\bBlade (Pro|Solid)\\b",
+      "fields": {
+        "construction": {
+          "value": "monolithic_copper",
+          "src": "pb",
+          "quote": "100% pure ductile copper and 5-Stage terminal architecture"
+        }
+      }
+    },
+    {
+      "id": "powerhead_blade_pro",
+      "lib": "factory",
+      "name_regex": "\\bPowerhead Blade Pro\\b",
+      "fields": {
+        "construction": {
+          "value": "monolithic_copper",
+          "src": "pbp",
+          "quote": "copper ammunition, we created a new monolithic bullet"
+        }
+      }
+    },
+    {
+      "id": "powerhead_blade_solid",
+      "lib": "factory",
+      "name_regex": "\\bPowerhead Blade Solid\\b",
+      "fields": {
+        "construction": {
+          "value": "monolithic_copper",
+          "src": "pbs",
+          "quote": "High-precision lathe-turned monolithic copper body"
+        }
+      }
+    },
+    {
+      "id": "speedhead",
+      "lib": "factory",
+      "name_regex": "\\bSpeedhead\\b",
+      "fields": {
+        "construction": {
+          "value": "fmj",
+          "src": "sh",
+          "quote": "A full-metal jacket bullet that delivers ultimate accuracy"
+        }
+      }
+    },
+    {
+      "id": "trg_precision",
+      "lib": "factory",
+      "name_regex": "\\bTRG Precision\\b",
+      "fields": {
+        "construction": {
+          "value": "match",
+          "src": "trgp",
+          "quote": "Open tip match bullet with boat-tail"
+        },
+        "tip_shape": {
+          "value": "open_tip_match",
+          "src": "trgp",
+          "quote": "Open tip match bullet with boat-tail"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "trgp",
+          "quote": "Open tip match bullet with boat-tail"
+        }
+      }
+    },
+    {
+      "id": "trg_sport",
+      "lib": "factory",
+      "name_regex": "\\bTRG Sport\\b",
+      "fields": {
+        "construction": {
+          "value": "match",
+          "src": "trgs",
+          "quote": "Precision Open Tip Match bullet design"
+        },
+        "tip_shape": {
+          "value": "open_tip_match",
+          "src": "trgs",
+          "quote": "Open Tip Match bullet"
+        }
+      }
+    }
+  ],
+  "records": {}
+}

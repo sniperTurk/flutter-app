@@ -1,0 +1,57 @@
+{
+ "brand": "Barrett",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "barrett.net robots.txt checked. Pages name the component bullets only; construction/tip/base not described.",
+ "sources": [
+  {
+   "id": "b416",
+   "url": "https://barrett.net/products/accessories/ammunition/416barrett/",
+   "read_date": "2026-10-13",
+   "title": "Barrett .416 Barrett ammunition"
+  },
+  {
+   "id": "b50",
+   "url": "https://barrett.net/products/accessories/ammunition/50bmg/",
+   "read_date": "2026-10-13",
+   "title": "Barrett .50 BMG ammunition"
+  }
+ ],
+ "records": {
+  "Barrett|(MRADELR 416 BARRETT) Hornady 500 Grain A-Tip Match|.416 Barrett": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "(MRADELR 416 BARRETT) Hornady 500 Grain A-Tip Match",
+   "grain": 500.0,
+   "library_source_url": "https://barrett.net/products/accessories/ammunition/416barrett/",
+   "cartridge": ".416 Barrett",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady A-Tip Match",
+    "source_url": "https://barrett.net/products/accessories/ammunition/416barrett/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® 500 Grain A-Tip® Match"
+   }
+  },
+  "Barrett|Precision (Cutting Edge Bullets MTAC 660 gr)|.50 BMG": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Precision (Cutting Edge Bullets MTAC 660 gr)",
+   "grain": 660.0,
+   "library_source_url": "https://barrett.net/products/accessories/ammunition/50bmg/",
+   "cartridge": ".50 BMG",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Cutting Edge Bullets MTAC",
+    "source_url": "https://barrett.net/products/accessories/ammunition/50bmg/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet / Weight: Cutting Edge Bullets MTAC / 660 gr"
+   }
+  }
+ }
+}

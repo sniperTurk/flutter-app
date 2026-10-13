@@ -1,0 +1,1362 @@
+{
+ "brand": "Nosler",
+ "note": "Read 2026-10-13 from nosler.com only (robots.txt empty = no restrictions). Line pages: Partition, AccuBond, AccuBond LR, Ballistic Tip Hunting/Varmint/Lead Free, Ballistic Silvertip, Expansion Tip, Custom Competition, RDF, Varmageddon, Solid, Solid Base; all 33 Partition, 5 Solid and 3 Solid Base component product pages (Bullet Base/Bullet Profile spec fields); most factory pages (Loaded with ... sentence, Bullet Type/Profile). Also checked the 2026 product guide PDF (no extra base data). Empty on purpose: Ballistic Tip Varmint construction (core not named); Solid construction (only \"lead-free alloy\", metal not named); Partition PPT tip (Protected Point, no enum); Bonded Solid Base tip/base (protected point, base shape not stated); factory Partition/Solid base (cartridge pages give no base). Partition tip = per-product Bullet Profile (Spitzer -> spitzer_soft_point). Factory line facts come from the Nosler line pages (same maker). Fetch error once: 458 Cal 300gr Ballistic Tip Hunting product page (line page covers it).",
+ "sources": [
+  {
+   "id": "pt",
+   "url": "https://www.nosler.com/products/bullets/product-line/partitionr.html",
+   "read_date": "2026-10-13",
+   "title": "Partition bullets (line page)"
+  },
+  {
+   "id": "ab",
+   "url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+   "read_date": "2026-10-13",
+   "title": "AccuBond bullets (line page)"
+  },
+  {
+   "id": "ablr",
+   "url": "https://www.nosler.com/products/bullets/product-line/accubondr-long-range.html",
+   "read_date": "2026-10-13",
+   "title": "AccuBond Long Range bullets (line page)"
+  },
+  {
+   "id": "bth",
+   "url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+   "read_date": "2026-10-13",
+   "title": "Ballistic Tip Hunting bullets (line page)"
+  },
+  {
+   "id": "btv",
+   "url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-varmint.html",
+   "read_date": "2026-10-13",
+   "title": "Ballistic Tip Varmint bullets (line page)"
+  },
+  {
+   "id": "btlf",
+   "url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-lead-free.html",
+   "read_date": "2026-10-13",
+   "title": "Ballistic Tip Lead Free bullets (line page)"
+  },
+  {
+   "id": "bst",
+   "url": "https://www.nosler.com/products/bullets/product-line/ballisticr-silver-tip.html",
+   "read_date": "2026-10-13",
+   "title": "Ballistic Silvertip bullets (line page)"
+  },
+  {
+   "id": "et",
+   "url": "https://www.nosler.com/products/bullets/product-line/expansion-tipr.html",
+   "read_date": "2026-10-13",
+   "title": "Expansion Tip bullets (line page)"
+  },
+  {
+   "id": "cc",
+   "url": "https://www.nosler.com/products/bullets/product-line/custom-competitionr.html",
+   "read_date": "2026-10-13",
+   "title": "Custom Competition bullets (line page)"
+  },
+  {
+   "id": "rdf",
+   "url": "https://www.nosler.com/products/bullets/product-line/rdfr.html",
+   "read_date": "2026-10-13",
+   "title": "RDF bullets (line page)"
+  },
+  {
+   "id": "varm",
+   "url": "https://www.nosler.com/products/bullets/product-line/varmageddonr.html",
+   "read_date": "2026-10-13",
+   "title": "Varmageddon bullets (line page)"
+  },
+  {
+   "id": "solid",
+   "url": "https://www.nosler.com/products/bullets/product-line/solidtm.html",
+   "read_date": "2026-10-13",
+   "title": "Solid bullets (line page)"
+  },
+  {
+   "id": "sb",
+   "url": "https://www.nosler.com/products/bullets/product-line/solid-base-bullet-components.html",
+   "read_date": "2026-10-13",
+   "title": "Solid Base bullets (line page)"
+  },
+  {
+   "id": "bsb64",
+   "url": "https://www.nosler.com/22-caliber-64gr-bonded-solid-base-100ct-blem.html",
+   "read_date": "2026-10-13",
+   "title": "22 Cal 64gr Bonded Solid Base (product page)"
+  },
+  {
+   "id": "bst150rn",
+   "url": "https://www.nosler.com/30-caliber-150gr-rn-ballistic-silvertip-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "30 Cal 150gr RN Ballistic Silvertip (product page)"
+  },
+  {
+   "id": "f_btv222",
+   "url": "https://www.nosler.com/222-remington-magnum-50gr-ballistic-tip-varmint-noslercustom-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "222 Rem Mag 50gr Ballistic Tip Varmint NoslerCustom"
+  },
+  {
+   "id": "f_fbhp222",
+   "url": "https://www.nosler.com/223-remington-55gr-ballistic-tip-varmint-ammunition-4.html",
+   "read_date": "2026-10-13",
+   "title": "222 Rem Mag 50gr FBHP NoslerCustom"
+  },
+  {
+   "id": "f_ab257",
+   "url": "https://www.nosler.com/257-rob-p-110gr-accubond-trophy-grade-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "257 Rob +P 110gr AccuBond Trophy Grade"
+  },
+  {
+   "id": "f_ablr270",
+   "url": "https://www.nosler.com/270-wby-mag-150gr-accubond-long-range-trophy-grade-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "270 Wby Mag 150gr AccuBond Long Range Trophy Grade"
+  },
+  {
+   "id": "f_et28",
+   "url": "https://www.nosler.com/28-nosler-150gr-expansion-tip-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "28 Nosler 150gr Expansion Tip"
+  },
+  {
+   "id": "f_bth28",
+   "url": "https://www.nosler.com/28-nosler-160gr-accubond-trophy-grade-ammunition-1.html",
+   "read_date": "2026-10-13",
+   "title": "28 Nosler 160gr Ballistic Tip Hunting"
+  },
+  {
+   "id": "f_cc28",
+   "url": "https://www.nosler.com/28-nosler-168gr-custom-competition-match-grade-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "28 Nosler 168gr Custom Competition Match Grade"
+  },
+  {
+   "id": "f_sol470",
+   "url": "https://www.nosler.com/470-nitro-express-500gr-solid-safari-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "470 NE 500gr Solid Safari"
+  },
+  {
+   "id": "p_270-caliber-130gr-partition",
+   "url": "https://www.nosler.com/270-caliber-130gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "270 Caliber 130gr Partition (product page)"
+  },
+  {
+   "id": "p_30-caliber-170gr-rn-partition",
+   "url": "https://www.nosler.com/30-caliber-170gr-rn-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "30 Caliber 170gr RN Partition (product page)"
+  },
+  {
+   "id": "p_8mm-200gr-partition",
+   "url": "https://www.nosler.com/8mm-200gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "8mm 200gr Partition (product page)"
+  },
+  {
+   "id": "p_6mm-85gr-partition",
+   "url": "https://www.nosler.com/6mm-85gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "6mm 85gr Partition (product page)"
+  },
+  {
+   "id": "p_6mm-95gr-partition",
+   "url": "https://www.nosler.com/6mm-95gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "6mm 95gr Partition (product page)"
+  },
+  {
+   "id": "p_6mm-100gr-partition",
+   "url": "https://www.nosler.com/6mm-100gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "6mm 100gr Partition (product page)"
+  },
+  {
+   "id": "p_25-caliber-100gr-partition",
+   "url": "https://www.nosler.com/25-caliber-100gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "25 Caliber 100gr Partition (product page)"
+  },
+  {
+   "id": "p_25-caliber-115gr-partition",
+   "url": "https://www.nosler.com/25-caliber-115gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "25 Caliber 115gr Partition (product page)"
+  },
+  {
+   "id": "p_25-caliber-120gr-partition",
+   "url": "https://www.nosler.com/25-caliber-120gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "25 Caliber 120gr Partition (product page)"
+  },
+  {
+   "id": "p_6-5mm-100gr-partition",
+   "url": "https://www.nosler.com/6-5mm-100gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "6.5mm 100gr Partition (product page)"
+  },
+  {
+   "id": "p_6-5mm-125gr-partition",
+   "url": "https://www.nosler.com/6-5mm-125gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "6.5mm 125gr Partition (product page)"
+  },
+  {
+   "id": "p_6-5mm-140gr-partition",
+   "url": "https://www.nosler.com/6-5mm-140gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "6.5mm 140gr Partition (product page)"
+  },
+  {
+   "id": "p_270-caliber-140gr-partition",
+   "url": "https://www.nosler.com/270-caliber-140gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "270 Caliber 140gr Partition (product page)"
+  },
+  {
+   "id": "p_270-caliber-150gr-partition",
+   "url": "https://www.nosler.com/270-caliber-150gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "270 Caliber 150gr Partition (product page)"
+  },
+  {
+   "id": "p_270-caliber-160gr-partition",
+   "url": "https://www.nosler.com/270-caliber-160gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "270 Caliber 160gr Partition (product page)"
+  },
+  {
+   "id": "p_7mm-140gr-partition",
+   "url": "https://www.nosler.com/7mm-140gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "7mm 140gr Partition (product page)"
+  },
+  {
+   "id": "p_7mm-150gr-partition",
+   "url": "https://www.nosler.com/7mm-150gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "7mm 150gr Partition (product page)"
+  },
+  {
+   "id": "p_7mm-160gr-partition",
+   "url": "https://www.nosler.com/7mm-160gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "7mm 160gr Partition (product page)"
+  },
+  {
+   "id": "p_7mm-175gr-partition",
+   "url": "https://www.nosler.com/7mm-175gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "7mm 175gr Partition (product page)"
+  },
+  {
+   "id": "p_30-caliber-150gr-partition",
+   "url": "https://www.nosler.com/30-caliber-150gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "30 Caliber 150gr Partition (product page)"
+  },
+  {
+   "id": "p_30-caliber-165gr-partition",
+   "url": "https://www.nosler.com/30-caliber-165gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "30 Caliber 165gr Partition (product page)"
+  },
+  {
+   "id": "p_30-caliber-180gr-partition",
+   "url": "https://www.nosler.com/30-caliber-180gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "30 Caliber 180gr Partition (product page)"
+  },
+  {
+   "id": "p_30-caliber-180gr-ppt-partition",
+   "url": "https://www.nosler.com/30-caliber-180gr-ppt-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "30 Caliber 180gr PPT Partition (product page)"
+  },
+  {
+   "id": "p_30-caliber-200gr-partition",
+   "url": "https://www.nosler.com/30-caliber-200gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "30 Caliber 200gr Partition (product page)"
+  },
+  {
+   "id": "p_30-caliber-220gr-partition",
+   "url": "https://www.nosler.com/30-caliber-220gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "30 Caliber 220gr Partition (product page)"
+  },
+  {
+   "id": "p_338-caliber-210gr-partition",
+   "url": "https://www.nosler.com/338-caliber-210gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "338 Caliber 210gr Partition (product page)"
+  },
+  {
+   "id": "p_338-caliber-225gr-partition",
+   "url": "https://www.nosler.com/338-caliber-225gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "338 Caliber 225gr Partition (product page)"
+  },
+  {
+   "id": "p_338-caliber-250gr-partition",
+   "url": "https://www.nosler.com/338-caliber-250gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "338 Caliber 250gr Partition (product page)"
+  },
+  {
+   "id": "p_35-caliber-225gr-partition",
+   "url": "https://www.nosler.com/35-caliber-225gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "35 Caliber 225gr Partition (product page)"
+  },
+  {
+   "id": "p_35-caliber-250gr-partition",
+   "url": "https://www.nosler.com/35-caliber-250gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "35 Caliber 250gr Partition (product page)"
+  },
+  {
+   "id": "p_9-3mm-286gr-partition",
+   "url": "https://www.nosler.com/9-3mm-286gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "9.3mm 286gr Partition (product page)"
+  },
+  {
+   "id": "p_375-caliber-260gr-partition",
+   "url": "https://www.nosler.com/375-caliber-260gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "375 Caliber 260gr Partition (product page)"
+  },
+  {
+   "id": "p_375-caliber-300gr-partition",
+   "url": "https://www.nosler.com/375-caliber-300gr-partition-50ct.html",
+   "read_date": "2026-10-13",
+   "title": "375 Caliber 300gr Partition (product page)"
+  },
+  {
+   "id": "p_9-3mm-286gr-solid",
+   "url": "https://www.nosler.com/9-3mm-286gr-solid-25ct.html",
+   "read_date": "2026-10-13",
+   "title": "9.3mm 286gr Solid (product page)"
+  },
+  {
+   "id": "p_375-caliber-260gr-solid",
+   "url": "https://www.nosler.com/375-caliber-260gr-solid-25ct.html",
+   "read_date": "2026-10-13",
+   "title": "375 Caliber 260gr Solid (product page)"
+  },
+  {
+   "id": "p_375-caliber-300gr-solid",
+   "url": "https://www.nosler.com/375-caliber-300gr-solid-25ct.html",
+   "read_date": "2026-10-13",
+   "title": "375 Caliber 300gr Solid (product page)"
+  },
+  {
+   "id": "p_416-caliber-400gr-solid",
+   "url": "https://www.nosler.com/416-caliber-400gr-solid-25ct.html",
+   "read_date": "2026-10-13",
+   "title": "416 Caliber 400gr Solid (product page)"
+  },
+  {
+   "id": "p_458-caliber-500gr-solid",
+   "url": "https://www.nosler.com/458-caliber-500gr-solid-25ct.html",
+   "read_date": "2026-10-13",
+   "title": "458 Caliber 500gr Solid (product page)"
+  },
+  {
+   "id": "p_6mm-100gr-solid-base",
+   "url": "https://www.nosler.com/6mm-100gr-solid-base.html",
+   "read_date": "2026-10-13",
+   "title": "6mm 100gr Solid Base (product page)"
+  },
+  {
+   "id": "p_6-5mm-140gr-solid-base-factory-seconds",
+   "url": "https://www.nosler.com/6-5mm-140gr-solid-base-factory-seconds.html",
+   "read_date": "2026-10-13",
+   "title": "6.5mm 140gr Solid Base (product page)"
+  },
+  {
+   "id": "p_7mm-140gr-solid-base",
+   "url": "https://www.nosler.com/7mm-140gr-solid-base.html",
+   "read_date": "2026-10-13",
+   "title": "7mm 140gr Solid Base (product page)"
+  },
+  {
+   "id": "f_pt28",
+   "url": "https://www.nosler.com/28-nosler-160gr-partition-trophy-grade-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "160gr Partition Trophy Grade Ammunition - RMEF .28 Nosler (product page)"
+  },
+  {
+   "id": "f_280-ackley-improved-160gr-partition-trophy-grade-ammunition",
+   "url": "https://www.nosler.com/280-ackley-improved-160gr-partition-trophy-grade-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "160gr Partition Trophy Grade Ammunition .280 Ackley Improved (product page)"
+  },
+  {
+   "id": "f_300-rum-165-partition-trophy-grade-ammunition",
+   "url": "https://www.nosler.com/300-rum-165-partition-trophy-grade-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "165 Partition Trophy Grade Ammunition .300 RUM (product page)"
+  },
+  {
+   "id": "f_300-rum-180gr-trophy-grade-partition-ammunition",
+   "url": "https://www.nosler.com/300-rum-180gr-trophy-grade-partition-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "180gr Trophy Grade Partition Ammunition .300 RUM (product page)"
+  },
+  {
+   "id": "f_338-win-mag-210gr-partition-trophy-grade-ammunition-1",
+   "url": "https://www.nosler.com/338-win-mag-210gr-partition-trophy-grade-ammunition-1.html",
+   "read_date": "2026-10-13",
+   "title": "210gr Partition Trophy Grade Ammunition - RMEF .338 Win Mag (product page)"
+  },
+  {
+   "id": "f_338-win-mag-250gr-partition-trophy-grade-ammunition",
+   "url": "https://www.nosler.com/338-win-mag-250gr-partition-trophy-grade-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "250gr Partition Trophy Grade Ammunition .338 Win Mag (product page)"
+  },
+  {
+   "id": "f_416-remington-mag-400gr-partition-trophy-grade-ammunition",
+   "url": "https://www.nosler.com/416-remington-mag-400gr-partition-trophy-grade-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "416 Remington Mag 400gr Partition Trophy Grade Ammunition .416 Rem Mag (product page)"
+  },
+  {
+   "id": "f_416-remington-mag-400gr-trophy-grade-safari-partition-ammunition",
+   "url": "https://www.nosler.com/416-remington-mag-400gr-trophy-grade-safari-partition-ammunition.html",
+   "read_date": "2026-10-13",
+   "title": "416 Remington Mag 400gr Trophy Grade-Safari Partition Ammunition .416 Rem Mag (product page)"
+  }
+ ],
+ "families": [
+  {
+   "id": "partition",
+   "lib": "any",
+   "name_regex": "\\bPartition\\b",
+   "fields": {
+    "construction": {
+     "value": "partition",
+     "src": "pt",
+     "quote": "two lead cores, separated by a monolithic partition"
+    }
+   }
+  },
+  {
+   "id": "accubond",
+   "lib": "any",
+   "name_regex": "\\bAccuBond\\b",
+   "not_regex": "Long Range",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "ab",
+     "quote": "Proprietary Bonding Process"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "ab",
+     "quote": "Unique White Polymer Tip"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "ab",
+     "quote": "Boat Tail Design"
+    }
+   }
+  },
+  {
+   "id": "accubond_lr",
+   "lib": "any",
+   "name_regex": "\\bAccuBond Long Range\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "ablr",
+     "quote": "Because the lead core is bonded to the copper jacket"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "ablr",
+     "quote": "Unique Gray Polymer Tip"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "ablr",
+     "quote": "Sleek, high-performance boat-tail."
+    }
+   }
+  },
+  {
+   "id": "bt_hunting",
+   "lib": "any",
+   "name_regex": "\\bBallistic Tip Hunting\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "bth",
+     "quote": "Fully-Tapered Jacket and Special Lead-Alloy Core"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "bth",
+     "quote": "Streamlined polymer tip, color-coded by caliber"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "bth",
+     "quote": "Boat tail configuration combines with the streamlined polymer tip"
+    }
+   }
+  },
+  {
+   "id": "bt_varmint",
+   "lib": "any",
+   "name_regex": "\\bBallistic Tip Varmint\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "btv",
+     "quote": "Nestled in the jacket mouth is the streamlined polymer tip"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "btv",
+     "quote": "Boat tail configuration combines with the streamlined polymer tip"
+    }
+   }
+  },
+  {
+   "id": "bt_lead_free",
+   "lib": "any",
+   "name_regex": "\\bBallistic Tip Lead Free\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "btlf",
+     "quote": "lead-less bullet features Nosler's patented Fragmenting Copper Core Technology"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "btlf",
+     "quote": "Nestled in the jacket mouth is the streamlined polymer tip"
+    },
+    "base": {
+     "value": "flat_base",
+     "src": "btlf",
+     "quote": "The flat-based, lead-less bullet"
+    }
+   }
+  },
+  {
+   "id": "ballistic_silvertip",
+   "lib": "any",
+   "name_regex": "\\bBallistic Silver ?tip\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "bst",
+     "quote": "Fully Tapered Jacket and Special Lead-Alloy Core"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "bst",
+     "quote": "Polymer Silvertip"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "bst",
+     "quote": "The boat tail configuration combines with the streamlined polymer tip"
+    }
+   }
+  },
+  {
+   "id": "expansion_tip",
+   "lib": "any",
+   "name_regex": "\\b(Expansion Tip|E-Tip)\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "et",
+     "quote": "Nosler's one-piece design and solid copper-alloy construction"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "et",
+     "quote": "Nosler's signature OD Green polymer tip"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "et",
+     "quote": "Boat tail configuration combines with the streamlined polymer tip"
+    }
+   }
+  },
+  {
+   "id": "custom_competition",
+   "lib": "any",
+   "name_regex": "\\bCustom Competition\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "cc",
+     "quote": "create the performance standard for match rifle and pistol bullets"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "cc",
+     "quote": "Nosler Hollow Point: Provides a small meplat for reduced drag"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "cc",
+     "quote": "Pronounced Boat Tail Design"
+    }
+   }
+  },
+  {
+   "id": "rdf",
+   "lib": "bullet",
+   "name_regex": "\\bRDF\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "rdf",
+     "quote": "the smallest, most consistent meplats of any hollow point match bullet line"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "rdf",
+     "quote": "any hollow point match bullet line"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "rdf",
+     "quote": "long, drag reducing boattail"
+    }
+   }
+  },
+  {
+   "id": "varmageddon",
+   "lib": "any",
+   "name_regex": "\\bVarmageddon\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "varm",
+     "quote": "made with a lead-alloy core and feature a copper-alloy jacket"
+    },
+    "base": {
+     "value": "flat_base",
+     "src": "varm",
+     "quote": "Flat Base: Provides bench-rest accuracy out of a varmint bullet."
+    }
+   }
+  },
+  {
+   "id": "varmageddon_tipped",
+   "lib": "bullet",
+   "name_regex": "\\bTipped\\b",
+   "not_regex": "FBHP",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "varm",
+     "quote": "Nestled in the jacket mouth is the streamlined polymer tip."
+    }
+   }
+  },
+  {
+   "id": "varmageddon_hp",
+   "lib": "bullet",
+   "name_regex": "\\bFBHP Varmageddon\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "varm",
+     "quote": "Bullet Profile: Hollow Point"
+    }
+   }
+  },
+  {
+   "id": "solid",
+   "lib": "any",
+   "name_regex": "\\bSolid\\b",
+   "not_regex": "Solid Base",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "solid",
+     "quote": "Flat-Nose Design"
+    }
+   }
+  },
+  {
+   "id": "solid_base",
+   "lib": "bullet",
+   "name_regex": "\\bSolid Base\\b",
+   "not_regex": "Bonded",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "sb",
+     "quote": "Lead-alloy core for effective energy transfer and wide wound channels."
+    },
+    "tip_shape": {
+     "value": "soft_point",
+     "src": "sb",
+     "quote": "Soft point lead nose for immediate expansion on impact"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "sb",
+     "quote": "Boat-tailed profile enhances accuracy."
+    }
+   }
+  },
+  {
+   "id": "cb_partition",
+   "lib": "factory",
+   "name_regex": "\\bPartition\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Nosler Partition",
+     "src": "f_pt28",
+     "quote": "Loaded with a 160gr Spitzer Partition® Bullet"
+    }
+   }
+  },
+  {
+   "id": "cb_accubond",
+   "lib": "factory",
+   "name_regex": "\\bAccuBond\\b",
+   "not_regex": "Long Range",
+   "fields": {
+    "component_bullet": {
+     "value": "Nosler AccuBond",
+     "src": "f_ab257",
+     "quote": "Loaded with a 110gr Spitzer AccuBond® Bullet"
+    }
+   }
+  },
+  {
+   "id": "cb_accubond_lr",
+   "lib": "factory",
+   "name_regex": "\\bAccuBond Long Range\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Nosler AccuBond Long Range",
+     "src": "f_ablr270",
+     "quote": "Loaded with a 150gr Spitzer AccuBond®-Long Range (LR) Bullet"
+    }
+   }
+  },
+  {
+   "id": "cb_bth",
+   "lib": "factory",
+   "name_regex": "\\bBallistic Tip Hunting\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Nosler Ballistic Tip Hunting",
+     "src": "f_bth28",
+     "quote": "Loaded with a 160gr Spitzer Ballistic Tip® Hunting Bullet"
+    }
+   }
+  },
+  {
+   "id": "cb_btv",
+   "lib": "factory",
+   "name_regex": "\\bBallistic Tip Varmint\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Nosler Ballistic Tip Varmint",
+     "src": "f_btv222",
+     "quote": "Loaded with a 50gr Ballistic Tip Varmint Bullet"
+    }
+   }
+  },
+  {
+   "id": "cb_etip",
+   "lib": "factory",
+   "name_regex": "\\bExpansion Tip\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Nosler E-Tip",
+     "src": "f_et28",
+     "quote": "Loaded with a 150gr Spitzer E-Tip® Bullet"
+    }
+   }
+  },
+  {
+   "id": "cb_cc",
+   "lib": "factory",
+   "name_regex": "\\bCustom Competition\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Nosler Custom Competition",
+     "src": "f_cc28",
+     "quote": "Loaded with a 168gr HPBT Custom Competition® Match Bullet"
+    }
+   }
+  },
+  {
+   "id": "cb_solid",
+   "lib": "factory",
+   "name_regex": "\\bSolid\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Nosler Solid",
+     "src": "f_sol470",
+     "quote": "Loaded with a Solid 500 Grain Flat Nose Bullet"
+    }
+   }
+  }
+ ],
+ "records": {
+  "Nosler|270 Caliber 130gr Partition|16322": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_270-caliber-130gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_270-caliber-130gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|30 Caliber 170gr RN Partition|16333": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_30-caliber-170gr-rn-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "src": "p_30-caliber-170gr-rn-partition",
+    "quote": "Bullet Profile: Round Nose"
+   }
+  },
+  "Nosler|8mm 200gr Partition|35277": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_8mm-200gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_8mm-200gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|6mm 85gr Partition|16314": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_6mm-85gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_6mm-85gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|6mm 95gr Partition|16315": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_6mm-95gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_6mm-95gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|6mm 100gr Partition|35642": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_6mm-100gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_6mm-100gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|25 Caliber 100gr Partition|16317": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_25-caliber-100gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_25-caliber-100gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|25 Caliber 115gr Partition|16318": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_25-caliber-115gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_25-caliber-115gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|25 Caliber 120gr Partition|35643": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_25-caliber-120gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_25-caliber-120gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|6.5mm 100gr Partition|16319": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_6-5mm-100gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_6-5mm-100gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|6.5mm 125gr Partition|16320": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_6-5mm-125gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_6-5mm-125gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|6.5mm 140gr Partition|16321": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_6-5mm-140gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_6-5mm-140gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|270 Caliber 140gr Partition|35200": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_270-caliber-140gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_270-caliber-140gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|270 Caliber 150gr Partition|16323": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_270-caliber-150gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_270-caliber-150gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|270 Caliber 160gr Partition|16324": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_270-caliber-160gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "src": "p_270-caliber-160gr-partition",
+    "quote": "Bullet Profile: Semi-Spitzer"
+   }
+  },
+  "Nosler|7mm 140gr Partition|16325": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_7mm-140gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_7mm-140gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|7mm 150gr Partition|16326": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_7mm-150gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_7mm-150gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|7mm 160gr Partition|16327": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_7mm-160gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_7mm-160gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|7mm 175gr Partition|35645": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_7mm-175gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_7mm-175gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|30 Caliber 150gr Partition|16329": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_30-caliber-150gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_30-caliber-150gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|30 Caliber 165gr Partition|16330": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_30-caliber-165gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_30-caliber-165gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|30 Caliber 180gr Partition|16331": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_30-caliber-180gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_30-caliber-180gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|30 Caliber 180gr PPT Partition|25396": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_30-caliber-180gr-ppt-partition",
+    "quote": "Bullet Base: Flat"
+   }
+  },
+  "Nosler|30 Caliber 200gr Partition|35626": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_30-caliber-200gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_30-caliber-200gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|30 Caliber 220gr Partition|16332": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_30-caliber-220gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "src": "p_30-caliber-220gr-partition",
+    "quote": "Bullet Profile: Semi-Spitzer"
+   }
+  },
+  "Nosler|338 Caliber 210gr Partition|16337": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_338-caliber-210gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_338-caliber-210gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|338 Caliber 225gr Partition|16336": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_338-caliber-225gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_338-caliber-225gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|338 Caliber 250gr Partition|35644": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_338-caliber-250gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_338-caliber-250gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|35 Caliber 225gr Partition|44800": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_35-caliber-225gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_35-caliber-225gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|35 Caliber 250gr Partition|44801": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_35-caliber-250gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_35-caliber-250gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|9.3mm 286gr Partition|44750": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_9-3mm-286gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_9-3mm-286gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|375 Caliber 260gr Partition|44850": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_375-caliber-260gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_375-caliber-260gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|375 Caliber 300gr Partition|44845": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_375-caliber-300gr-partition",
+    "quote": "Bullet Base: Flat"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_375-caliber-300gr-partition",
+    "quote": "Bullet Profile: Spitzer"
+   }
+  },
+  "Nosler|9.3mm 286gr Solid|29825": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_9-3mm-286gr-solid",
+    "quote": "Bullet Base: Flat"
+   }
+  },
+  "Nosler|375 Caliber 260gr Solid|29755": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_375-caliber-260gr-solid",
+    "quote": "Bullet Base: Flat"
+   }
+  },
+  "Nosler|375 Caliber 300gr Solid|28451": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_375-caliber-300gr-solid",
+    "quote": "Bullet Base: Flat"
+   }
+  },
+  "Nosler|416 Caliber 400gr Solid|23654": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_416-caliber-400gr-solid",
+    "quote": "Bullet Base: Flat"
+   }
+  },
+  "Nosler|458 Caliber 500gr Solid|27452": {
+   "base": {
+    "value": "flat_base",
+    "src": "p_458-caliber-500gr-solid",
+    "quote": "Bullet Base: Flat"
+   }
+  },
+  "Nosler|6mm 100gr Solid Base|38050": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_6mm-100gr-solid-base",
+    "quote": "Bullet Profile: Spitzer; \"dependable soft point design\""
+   }
+  },
+  "Nosler|6.5mm 140gr Solid Base|38052gB": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_6-5mm-140gr-solid-base-factory-seconds",
+    "quote": "Bullet Profile: Spitzer; \"dependable soft point design\""
+   }
+  },
+  "Nosler|7mm 140gr Solid Base|38056": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "p_7mm-140gr-solid-base",
+    "quote": "Bullet Profile: Spitzer; \"dependable soft point design\""
+   }
+  },
+  "Nosler|22 Caliber 64gr Bonded Solid Base|38135": {
+   "construction": {
+    "value": "bonded",
+    "src": "bsb64",
+    "quote": "The featured AccuBond bonding process eliminates the possibility of core-jacket separation"
+   }
+  },
+  "Nosler|160gr Partition Trophy Grade Ammunition - RMEF|.28 Nosler": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "f_pt28",
+    "quote": "Loaded with a 160gr Spitzer Partition® Bullet"
+   }
+  },
+  "Nosler|160gr Partition Trophy Grade Ammunition|.280 Ackley Improved": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "f_280-ackley-improved-160gr-partition-trophy-grade-ammunition",
+    "quote": "Loaded with a 160gr Spitzer Partition® Bullet"
+   }
+  },
+  "Nosler|165 Partition Trophy Grade Ammunition|.300 RUM": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "f_300-rum-165-partition-trophy-grade-ammunition",
+    "quote": "Loaded with a 165gr Spitzer Partition® Bullet"
+   }
+  },
+  "Nosler|180gr Trophy Grade Partition Ammunition|.300 RUM": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "f_300-rum-180gr-trophy-grade-partition-ammunition",
+    "quote": "Loaded with a 180gr Spitzer Partition® Bullet"
+   }
+  },
+  "Nosler|210gr Partition Trophy Grade Ammunition - RMEF|.338 Win Mag": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "f_338-win-mag-210gr-partition-trophy-grade-ammunition-1",
+    "quote": "Loaded with a 210gr Spitzer Partition® Bullet"
+   }
+  },
+  "Nosler|250gr Partition Trophy Grade Ammunition|.338 Win Mag": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "f_338-win-mag-250gr-partition-trophy-grade-ammunition",
+    "quote": "Loaded with a 250gr Spitzer Partition® Bullet"
+   }
+  },
+  "Nosler|416 Remington Mag 400gr Partition Trophy Grade Ammunition|.416 Rem Mag": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "f_416-remington-mag-400gr-partition-trophy-grade-ammunition",
+    "quote": "Loaded with a 400gr Spitzer Partition® Bullet"
+   }
+  },
+  "Nosler|416 Remington Mag 400gr Trophy Grade-Safari Partition Ammunition|.416 Rem Mag": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "f_416-remington-mag-400gr-trophy-grade-safari-partition-ammunition",
+    "quote": "Loaded with a 400gr Spitzer Partition® Bullet"
+   }
+  },
+  "Nosler|50gr FBHP NoslerCustom Ammunition|.222 Rem Mag": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "varm",
+    "quote": "made with a lead-alloy core and feature a copper-alloy jacket"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "src": "f_fbhp222",
+    "quote": "Bullet Profile: Hollow Point"
+   },
+   "base": {
+    "value": "flat_base",
+    "src": "f_fbhp222",
+    "quote": "Bullet Base: Flat"
+   },
+   "component_bullet": {
+    "value": "Nosler Varmageddon FBHP",
+    "src": "f_fbhp222",
+    "quote": "Bullet Type: Varmageddon; \"Loaded with a 50gr FBHP Bullet\""
+   }
+  },
+  "Nosler|470 Nitro Express 500gr Solid Safari Ammunition|.470 NE": {
+   "tip_shape": {
+    "value": "flat_nose",
+    "src": "f_sol470",
+    "quote": "Loaded with a Solid 500 Grain Flat Nose Bullet"
+   }
+  }
+ }
+}

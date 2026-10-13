@@ -1,0 +1,87 @@
+{
+ "brand": "Blaser",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: blaser.de robots.txt disallows URLs with '?', so the ballistics PDF was read without its query string; it has no CDC description. Blaser ammunition page read for CDC: lead-free, polymer tip, boattail. Construction left empty (page says only 'lead-free expanding bullet', not copper/monolithic in body text). No component bullet name stated.",
+ "sources": [
+  {
+   "id": "cdc",
+   "url": "https://www.blaser.de/en/products/blaser-ammunition/blaser-cdc-the-accurate-copper-bullet-made-by-barnes",
+   "read_date": "2026-10-13",
+   "title": "Blaser ammunition - Blaser CDC"
+  }
+ ],
+ "records": {
+  "Blaser|Blaser CDC .300 Blaser Magnum 10.4 g / 160 gr|.300 Blaser Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Blaser CDC .300 Blaser Magnum 10.4 g / 160 gr",
+   "grain": 160.0,
+   "library_source_url": "https://www.blaser.de/media/99/c8/c2/1769499423/BLA_JH26_Munitionsvitrine_ballistische_Daten_DINA4_V02_prev%202-69786b29bdb50.pdf?1769499434=",
+   "cartridge": ".300 Blaser Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.blaser.de/en/products/blaser-ammunition/blaser-cdc-the-accurate-copper-bullet-made-by-barnes",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for optimized BC and fast deformation."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.blaser.de/en/products/blaser-ammunition/blaser-cdc-the-accurate-copper-bullet-made-by-barnes",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail design for increased ballistic coefficients"
+   },
+   "component_bullet": null
+  },
+  "Blaser|Blaser CDC 7mm Blaser Magnum 9.4 g / 145 gr|7mm Blaser Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Blaser CDC 7mm Blaser Magnum 9.4 g / 145 gr",
+   "grain": 145.0,
+   "library_source_url": "https://www.blaser.de/media/99/c8/c2/1769499423/BLA_JH26_Munitionsvitrine_ballistische_Daten_DINA4_V02_prev%202-69786b29bdb50.pdf?1769499434=",
+   "cartridge": "7mm Blaser Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.blaser.de/en/products/blaser-ammunition/blaser-cdc-the-accurate-copper-bullet-made-by-barnes",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for optimized BC and fast deformation."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.blaser.de/en/products/blaser-ammunition/blaser-cdc-the-accurate-copper-bullet-made-by-barnes",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail design for increased ballistic coefficients"
+   },
+   "component_bullet": null
+  },
+  "Blaser|Blaser CDC 11.0 g / 170 gr|8x68 S": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Blaser CDC 11.0 g / 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.blaser.de/media/99/c8/c2/1769499423/BLA_JH26_Munitionsvitrine_ballistische_Daten_DINA4_V02_prev%202-69786b29bdb50.pdf?1769499434=",
+   "cartridge": "8x68 S",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.blaser.de/en/products/blaser-ammunition/blaser-cdc-the-accurate-copper-bullet-made-by-barnes",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for optimized BC and fast deformation."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.blaser.de/en/products/blaser-ammunition/blaser-cdc-the-accurate-copper-bullet-made-by-barnes",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail design for increased ballistic coefficients"
+   },
+   "component_bullet": null
+  }
+ }
+}

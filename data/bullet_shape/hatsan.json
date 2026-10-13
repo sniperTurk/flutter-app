@@ -1,0 +1,879 @@
+{
+ "brand": "Hatsan",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt read (hatsan.com.tr, hatsanairgunsusa.com; product paths allowed). Read hatsan.com.tr/en/pellets (Pointed Head only) and 15 hatsanairgunsusa product pages. Stated: Pointed Head lead; Vortex Strike domed + lead; Big Bore Supreme 'Heavier lead pellets'; Air Boss Match / Champion 'Pellet Shape: Flat' -> flat_nose; Domed Hollow 'Domed Hollow Point' -> hollow_point; Magnum 'Pointed'. Not stated: Apolo Slug, Hunter, Monster, Destroyer, Conic ('Conic shape' not mapped); material on Apolo pages only a Prop 65 image. No base stated anywhere.",
+ "sources": [
+  {
+   "id": "hpel",
+   "url": "https://hatsan.com.tr/en/pellets/",
+   "read_date": "2026-10-13",
+   "title": "Hatsan pellets"
+  },
+  {
+   "id": "vstrike",
+   "url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Vortex STRIKE Pellets"
+  },
+  {
+   "id": "vbb",
+   "url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Vortex Big Bore Supreme Pellets"
+  },
+  {
+   "id": "abmc",
+   "url": "https://hatsanairgunsusa.com/product/apolo-air-boss-match-competition/",
+   "read_date": "2026-10-13",
+   "title": "Apolo Air Boss Match Competition"
+  },
+  {
+   "id": "abmcp",
+   "url": "https://hatsanairgunsusa.com/product/apolo-air-boss-match-competition-air-pistol/",
+   "read_date": "2026-10-13",
+   "title": "Apolo Air Boss Match Competition Air Pistol"
+  },
+  {
+   "id": "champ",
+   "url": "https://hatsanairgunsusa.com/product/apolo-champion/",
+   "read_date": "2026-10-13",
+   "title": "Apolo Champion"
+  },
+  {
+   "id": "dh",
+   "url": "https://hatsanairgunsusa.com/product/apolo-domed-hollow/",
+   "read_date": "2026-10-13",
+   "title": "Apolo Domed Hollow"
+  },
+  {
+   "id": "mag",
+   "url": "https://hatsanairgunsusa.com/product/apolo-magnum/",
+   "read_date": "2026-10-13",
+   "title": "Apolo Magnum"
+  }
+ ],
+ "records": {
+  "Hatsan|Pointed Head .177 8.41 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Pointed Head .177 8.41 gr",
+   "grain": 8.41,
+   "library_source_url": "https://hatsan.com.tr/en/pellets/",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://hatsan.com.tr/en/pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pointed head & waisted design lead pellets"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://hatsan.com.tr/en/pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed"
+   },
+   "base": null
+  },
+  "Hatsan|Pointed Head .22 14 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Pointed Head .22 14 gr",
+   "grain": 14.0,
+   "library_source_url": "https://hatsan.com.tr/en/pellets/",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://hatsan.com.tr/en/pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pointed head & waisted design lead pellets"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://hatsan.com.tr/en/pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed"
+   },
+   "base": null
+  },
+  "Hatsan|Pointed Head .25 24.85 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Pointed Head .25 24.85 gr",
+   "grain": 24.85,
+   "library_source_url": "https://hatsan.com.tr/en/pellets/",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://hatsan.com.tr/en/pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pointed head & waisted design lead pellets"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://hatsan.com.tr/en/pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed"
+   },
+   "base": null
+  },
+  "Hatsan|Vortex Strike .177 9.25 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Vortex Strike .177 9.25 gr",
+   "grain": 9.25,
+   "library_source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavier lead pellets"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed head for long-range accuracy"
+   },
+   "base": null
+  },
+  "Hatsan|Vortex Strike .22 17.75 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Vortex Strike .22 17.75 gr",
+   "grain": 17.75,
+   "library_source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavier lead pellets"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed head for long-range accuracy"
+   },
+   "base": null
+  },
+  "Hatsan|Vortex Strike .25 24.7 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Vortex Strike .25 24.7 gr",
+   "grain": 24.7,
+   "library_source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavier lead pellets"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed head for long-range accuracy"
+   },
+   "base": null
+  },
+  "Hatsan|Vortex Strike .30 48.6 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Vortex Strike .30 48.6 gr",
+   "grain": 48.6,
+   "library_source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+   "caliber_mm": 7.62,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavier lead pellets"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed head for long-range accuracy"
+   },
+   "base": null
+  },
+  "Hatsan|Vortex Strike .35 82 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Vortex Strike .35 82 gr",
+   "grain": 82.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+   "caliber_mm": 9.0,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavier lead pellets"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed head for long-range accuracy"
+   },
+   "base": null
+  },
+  "Hatsan|Vortex Big Bore Supreme Flat Point Slug .45 180 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Vortex Big Bore Supreme Flat Point Slug .45 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+   "caliber_mm": 11.43,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavier lead pellets"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Flat Point"
+   },
+   "base": null
+  },
+  "Hatsan|Vortex Big Bore Supreme Hollow Point Slug .45 295 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Vortex Big Bore Supreme Hollow Point Slug .45 295 gr",
+   "grain": 295.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+   "caliber_mm": 11.43,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavier lead pellets"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Hatsan|Vortex Big Bore Supreme Flat Point Slug .45 525 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Vortex Big Bore Supreme Flat Point Slug .45 525 gr",
+   "grain": 525.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+   "caliber_mm": 11.43,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavier lead pellets"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Flat Point"
+   },
+   "base": null
+  },
+  "Hatsan|Vortex Big Bore Supreme Hollow Point Slug .50 520 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Vortex Big Bore Supreme Hollow Point Slug .50 520 gr",
+   "grain": 520.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+   "caliber_mm": 12.7,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavier lead pellets"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Hatsan|Vortex Big Bore Supreme Hollow Point Slug .50 550 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Vortex Big Bore Supreme Hollow Point Slug .50 550 gr",
+   "grain": 550.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+   "caliber_mm": 12.7,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavier lead pellets"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Slug 12 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Slug 12 gr",
+   "grain": 12.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-slug/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Slug 18 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Slug 18 gr",
+   "grain": 18.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-slug/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Slug 21 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Slug 21 gr",
+   "grain": 21.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-slug/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Slug 25 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Slug 25 gr",
+   "grain": 25.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-slug/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Slug 28 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Slug 28 gr",
+   "grain": 28.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-slug/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Slug 33 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Slug 33 gr",
+   "grain": 33.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-slug/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Slug 40 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Slug 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-slug/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Slug HP 32 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Slug HP 32 gr",
+   "grain": 32.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-slug-hp/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-slug-hp/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Hunter 18.5 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Hunter 18.5 gr",
+   "grain": 18.5,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-hunter/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Air Boss Match Competition 8.48 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Air Boss Match Competition 8.48 gr",
+   "grain": 8.48,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-match-competition/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-match-competition/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pellet Shape | Flat"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Air Boss Match Competition 17 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Air Boss Match Competition 17 gr",
+   "grain": 17.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-match-competition/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-match-competition/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pellet Shape | Flat"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Air Boss Match Competition Air Pistol 7 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Air Boss Match Competition Air Pistol 7 gr",
+   "grain": 7.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-match-competition-air-pistol/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-match-competition-air-pistol/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pellet Shape | Flat"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Air Boss Domed 49 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Air Boss Domed 49 gr",
+   "grain": 49.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-domed/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-domed/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Air Boss Domed 82 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Air Boss Domed 82 gr",
+   "grain": 82.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-domed/",
+   "caliber_mm": 9.0,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-domed/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Air Boss Domed Field Target 9 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Air Boss Domed Field Target 9 gr",
+   "grain": 9.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-domed-field-target/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-domed-field-target/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Air Boss Domed Field Target 18 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Air Boss Domed Field Target 18 gr",
+   "grain": 18.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-domed-field-target/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-domed-field-target/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Air Boss Domed Field Target 33 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Air Boss Domed Field Target 33 gr",
+   "grain": 33.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-domed-field-target/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-air-boss-domed-field-target/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Monster 11 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Monster 11 gr",
+   "grain": 11.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-monster/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Monster 25.4 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Monster 25.4 gr",
+   "grain": 25.4,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-monster/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Domed 9 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Domed 9 gr",
+   "grain": 9.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-domed/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-domed/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Domed 16 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Domed 16 gr",
+   "grain": 16.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-domed/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-domed/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Domed 25 gr@5.5 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Domed 25 gr",
+   "grain": 25.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-domed/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-domed/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Domed 25 gr@6.35 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Domed 25 gr",
+   "grain": 25.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-domed/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-domed/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Domed 33 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Domed 33 gr",
+   "grain": 33.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-domed/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-domed/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Destroyer 28 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Destroyer 28 gr",
+   "grain": 28.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-destroyer/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Hatsan|Apolo Domed Hollow 8.48 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Domed Hollow 8.48 gr",
+   "grain": 8.48,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-domed-hollow/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-domed-hollow/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed Hollow Point"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Domed Hollow 14.6 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Domed Hollow 14.6 gr",
+   "grain": 14.6,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-domed-hollow/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-domed-hollow/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed Hollow Point"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Hollow Point 18 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Hollow Point 18 gr",
+   "grain": 18.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-hollow-point/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-hollow-point/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Pointed 9 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Pointed 9 gr",
+   "grain": 9.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-pointed/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-pointed/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Pointed 18 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Pointed 18 gr",
+   "grain": 18.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-pointed/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-pointed/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Champion 8.45 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Champion 8.45 gr",
+   "grain": 8.45,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-champion/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-champion/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pellet Shape | Flat"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Champion 17 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Champion 17 gr",
+   "grain": 17.0,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-champion/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-champion/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pellet Shape | Flat"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Magnum 8.48 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Magnum 8.48 gr",
+   "grain": 8.48,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-magnum/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pointed Shape"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Magnum 15.4 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Magnum 15.4 gr",
+   "grain": 15.4,
+   "library_source_url": "https://hatsanairgunsusa.com/product/apolo-magnum/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://hatsanairgunsusa.com/product/apolo-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pointed Shape"
+   },
+   "base": null
+  },
+  "Hatsan|Apolo Conic 7.1 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Apolo Conic 7.1 gr",
+   "grain": 7.1,
+   "library_source_url": "https://hatsanairgunsusa.com/product/conic/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  }
+ }
+}

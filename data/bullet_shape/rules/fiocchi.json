@@ -1,0 +1,152 @@
+{
+ "brand": "Fiocchi",
+ "note": "fiocchi.com product pages (bullet type field only), 2025 hunting catalogue PDF, fiocchiusa.com product pages and Sierra MatchKing page read. Left empty: SE Freccia Nera construction (rifle text says only 'Solid Expansive lead free', copper stated only in the shotgun section), all EPN/SP construction and bases, rimfire 'copper-plated' bullets (no enum), GameKing construction, Exacta 140 HPBT maker/construction (page does not name Sierra).",
+ "sources": [
+  {
+   "id": "fi_epn",
+   "url": "https://fiocchi.com/en/705635.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Performance .223 Rem 55 gr EPN"
+  },
+  {
+   "id": "fi_cat",
+   "url": "https://fiocchi.com/pub/static/frontend/bs_mazia/bs_mazia2/it_IT/media/catalogs/Cat-CACCIA-02-2025-web.pdf",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi hunting catalogue 2025"
+  },
+  {
+   "id": "fi_frg",
+   "url": "https://fiocchi.com/en/745582.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Classic .223 Rem 45 gr Duty ZP FRG"
+  },
+  {
+   "id": "fi_fmjhp",
+   "url": "https://fiocchi.com/en/705559.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Classic .223 Rem 50 gr FMJHP"
+  },
+  {
+   "id": "fi_fmc",
+   "url": "https://fiocchi.com/en/703009.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Classic .300 Blackout 147 gr FMC"
+  },
+  {
+   "id": "fi_mk",
+   "url": "https://fiocchi.com/en/709890.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Exacta .308 Win 168 gr HPBT Sierra MatchKing"
+  },
+  {
+   "id": "fiusa_350",
+   "url": "https://www.fiocchiusa.com/centerfire-rifle/field-dynamics/field-dynamics-big-game/33-350LB.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Field Dynamics Big Game .350 Legend 180 gr FSP"
+  },
+  {
+   "id": "si_mk_69",
+   "url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 22 cal 69 gr HPBT MatchKing"
+  }
+ ],
+ "families": [
+  {
+   "id": "epn",
+   "lib": "factory",
+   "name_regex": "\\bEPN\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "fi_epn",
+     "quote": "EPN - Expansion polymer nose"
+    }
+   }
+  },
+  {
+   "id": "fmjhp",
+   "lib": "factory",
+   "name_regex": "\\bFMJHP\\b",
+   "fields": {
+    "construction": {
+     "value": "fmj",
+     "src": "fi_fmjhp",
+     "quote": "FMJHP - Full metal jacket hollow point"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "fi_fmjhp",
+     "quote": "FMJHP - Full metal jacket hollow point"
+    }
+   }
+  },
+  {
+   "id": "fmc",
+   "lib": "factory",
+   "name_regex": "\\bFMC\\b",
+   "fields": {
+    "construction": {
+     "value": "fmj",
+     "src": "fi_fmc",
+     "quote": "FMC - Full metal case"
+    }
+   }
+  },
+  {
+   "id": "frg",
+   "lib": "factory",
+   "name_regex": "\\bFRG\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "fi_frg",
+     "quote": "FRG - Frangible; Lead Free Projectile"
+    }
+   }
+  },
+  {
+   "id": "smk",
+   "lib": "factory",
+   "name_regex": "\\bSierra MatchKing\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "si_mk_69",
+     "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Sierra MatchKing",
+     "src": "fi_mk",
+     "quote": "HPBT Sierra Match King - Hollow point boat tail"
+    }
+   }
+  },
+  {
+   "id": "sgk",
+   "lib": "factory",
+   "name_regex": "\\bSierra GameKing\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Sierra GameKing",
+     "src": "fi_cat",
+     "quote": "HPBT – Sierra GameKing"
+    }
+   }
+  },
+  {
+   "id": "fsp_350",
+   "lib": "factory",
+   "name_regex": "\\bFlat Soft Point\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "fiusa_350",
+     "quote": "Bullet Style: Flat Soft Point"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

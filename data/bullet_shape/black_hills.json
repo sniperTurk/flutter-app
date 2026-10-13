@@ -1,0 +1,2667 @@
+{
+ "brand": "Black Hills",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Black Hills shop/category pages read: they give only bullet names (plus a Dual Performance line text), no tip/base descriptions. Construction/tip/base come from Hornady, Barnes and Sierra own pages. Left empty: Black Hills generic Match HP / Heavy Match HP / OTM / Soft Point / FMJ bases, CX/TSX/TAC-TX/V-MAX bases (makers list BT and FB variants or do not state), V-MAX construction, GMX fields (no Hornady GMX page anymore), Dual Performance tip.",
+ "sources": [
+  {
+   "id": "bh_gold",
+   "url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "read_date": "2026-10-13",
+   "title": "Black Hills Gold ammunition"
+  },
+  {
+   "id": "bh_223",
+   "url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "read_date": "2026-10-13",
+   "title": "Black Hills .223 Remington (with related rifle products)"
+  },
+  {
+   "id": "si_mk_69",
+   "url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 22 cal 69 gr HPBT MatchKing"
+  },
+  {
+   "id": "si_mk_338_250",
+   "url": "https://sierrabullets.com/338-cal-250-gr-hpbt-matchking-smk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 338 cal 250 gr HPBT MatchKing"
+  },
+  {
+   "id": "si_mk_338_300",
+   "url": "https://sierrabullets.com/338-cal-300-gr-hpbt-matchking-smk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 338 cal 300 gr HPBT MatchKing"
+  },
+  {
+   "id": "si_tmk_168",
+   "url": "https://sierrabullets.com/30-cal-168-gr-tipped-matchking-tmk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 30 cal 168 gr Tipped MatchKing"
+  },
+  {
+   "id": "si_tmk_family",
+   "url": "https://sierrabullets.com/bullets/product-family/tipped-matchking/",
+   "read_date": "2026-10-13",
+   "title": "Sierra Tipped MatchKing family"
+  },
+  {
+   "id": "h_eldx",
+   "url": "https://www.hornady.com/bullets/eld-x",
+   "read_date": "2026-10-13",
+   "title": "Hornady ELD-X bullets"
+  },
+  {
+   "id": "h_eldm",
+   "url": "https://www.hornady.com/bullets/eld-match",
+   "read_date": "2026-10-13",
+   "title": "Hornady ELD Match bullets"
+  },
+  {
+   "id": "h_cx",
+   "url": "https://www.hornady.com/bullets/cx",
+   "read_date": "2026-10-13",
+   "title": "Hornady CX bullets"
+  },
+  {
+   "id": "h_sst",
+   "url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+   "read_date": "2026-10-13",
+   "title": "Hornady SST bullets"
+  },
+  {
+   "id": "h_dgxb",
+   "url": "https://www.hornady.com/bullets/dgx-bonded",
+   "read_date": "2026-10-13",
+   "title": "Hornady DGX Bonded bullets"
+  },
+  {
+   "id": "h_dgs",
+   "url": "https://www.hornady.com/bullets/dgs-dangerous-game-solid",
+   "read_date": "2026-10-13",
+   "title": "Hornady DGS bullets"
+  },
+  {
+   "id": "h_vmax",
+   "url": "https://www.hornady.com/bullets/v-max",
+   "read_date": "2026-10-13",
+   "title": "Hornady V-MAX bullets"
+  },
+  {
+   "id": "h_match",
+   "url": "https://www.hornady.com/bullets/match",
+   "read_date": "2026-10-13",
+   "title": "Hornady Match bullets"
+  },
+  {
+   "id": "b_ttsx",
+   "url": "https://barnesbullets.com/0-308-30-cal-ttsx-bt/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 30 cal TTSX BT"
+  },
+  {
+   "id": "b_tsx",
+   "url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 30 cal TSX BT"
+  },
+  {
+   "id": "b_tactx",
+   "url": "https://barnesbullets.com/0-308-300-acc-blk-tac-tx-110-gr-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 300 BLK TAC-TX 110 gr FB"
+  },
+  {
+   "id": "b_vg",
+   "url": "https://barnesbullets.com/0-224-22-cal-varmint-grenade-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 22 cal Varmint Grenade FB"
+  },
+  {
+   "id": "b_mpg",
+   "url": "https://barnesbullets.com/0-224-22-cal-mpg-55-gr-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 22 cal MPG 55 gr FB"
+  }
+ ],
+ "records": {
+  "Black Hills|Black Hills Gold 36 gr Barnes Varmint Grenade|.22-250 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 36 gr Barnes Varmint Grenade",
+   "grain": 36.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".22-250 Rem",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://barnesbullets.com/0-224-22-cal-varmint-grenade-fb/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "frangible copper-tin powdered metal core"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes Varmint Grenade",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes Varmint Grenade"
+   }
+  },
+  "Black Hills|Black Hills Gold 50 gr Hornady V-MAX|.22-250 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 50 gr Hornady V-MAX",
+   "grain": 50.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".22-250 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/v-max",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "varmint bullet with polymer tip and streamlined design"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady V-MAX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady V-MAX"
+   }
+  },
+  "Black Hills|Black Hills 36 gr Varmint Grenade|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 36 gr Varmint Grenade",
+   "grain": 36.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://barnesbullets.com/0-224-22-cal-varmint-grenade-fb/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "frangible copper-tin powdered metal core"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Varmint Grenade",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Varmint Grenade"
+   }
+  },
+  "Black Hills|Black Hills 40 gr Hornady V-MAX|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 40 gr Hornady V-MAX",
+   "grain": 40.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/v-max",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "varmint bullet with polymer tip and streamlined design"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady V-MAX",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady V-MAX ®"
+   }
+  },
+  "Black Hills|Black Hills 50 gr Hornady V-MAX|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 50 gr Hornady V-MAX",
+   "grain": 50.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/v-max",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "varmint bullet with polymer tip and streamlined design"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady V-MAX",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady V-MAX ®"
+   }
+  },
+  "Black Hills|Black Hills 52 gr Match HP|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 52 gr Match HP",
+   "grain": 52.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills 55 gr Barnes MPG|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 55 gr Barnes MPG",
+   "grain": 55.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://barnesbullets.com/0-224-22-cal-mpg-55-gr-fb/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "powdered-metal copper-tin core inside a gilding metal jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes MPG",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes MPG"
+   }
+  },
+  "Black Hills|Black Hills 55 gr Barnes TSX|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 55 gr Barnes TSX",
+   "grain": 55.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills 55 gr Full Metal Jacket|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 55 gr Full Metal Jacket",
+   "grain": 55.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills 55 gr Soft Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 55 gr Soft Point",
+   "grain": 55.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills 60 gr Hornady V-MAX|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 60 gr Hornady V-MAX",
+   "grain": 60.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/v-max",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "varmint bullet with polymer tip and streamlined design"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady V-MAX",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady V-MAX ®"
+   }
+  },
+  "Black Hills|Black Hills 60 gr Soft Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 60 gr Soft Point",
+   "grain": 60.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills 62 gr Barnes TSX|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 62 gr Barnes TSX",
+   "grain": 62.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills 68 gr Heavy Match HP|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 68 gr Heavy Match HP",
+   "grain": 68.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills 69 gr Sierra MatchKing|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 69 gr Sierra MatchKing",
+   "grain": 69.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "22 CAL 69 GR HPBT MatchKing (SMK)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "22 CAL 69 GR HPBT MatchKing (SMK)"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra MatchKing"
+   }
+  },
+  "Black Hills|Black Hills 75 gr Heavy Match HP|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 75 gr Heavy Match HP",
+   "grain": 75.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills 77 gr Open Tip Match|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 77 gr Open Tip Match",
+   "grain": 77.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills Gold 58 gr Hornady V-MAX|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 58 gr Hornady V-MAX",
+   "grain": 58.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/v-max",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "varmint bullet with polymer tip and streamlined design"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady V-MAX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady V-MAX"
+   }
+  },
+  "Black Hills|Black Hills Gold 80 gr Hornady CX|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 80 gr Hornady CX",
+   "grain": 80.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 85 gr Barnes TSX|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 85 gr Barnes TSX",
+   "grain": 85.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills Gold 95 gr Hornady SST|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 95 gr Hornady SST",
+   "grain": 95.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "mechanically locks the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the hard polymer tip drives into the lead core like a wedge"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combined with a boattail base"
+   },
+   "component_bullet": {
+    "value": "Hornady SST",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady SST"
+   }
+  },
+  "Black Hills|Black Hills Gold 100 gr Barnes TSX|.25-06 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 100 gr Barnes TSX",
+   "grain": 100.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".25-06 Rem",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills Gold 117 gr Hornady SST|.25-06 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 117 gr Hornady SST",
+   "grain": 117.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".25-06 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "mechanically locks the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the hard polymer tip drives into the lead core like a wedge"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combined with a boattail base"
+   },
+   "component_bullet": {
+    "value": "Hornady SST",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady SST"
+   }
+  },
+  "Black Hills|Black Hills Gold 120 gr Hornady CX|.260 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 120 gr Hornady CX",
+   "grain": 120.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".260 Rem",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 140 gr Hornady ELD Match|.260 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 140 gr Hornady ELD Match",
+   "grain": 140.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".260 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "enhanced accuracy target bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "featuring Heat Shield® tips with the PERFECT MEPLAT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "An optimum secant ogive and boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD Match",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD Match"
+   }
+  },
+  "Black Hills|Black Hills Gold 130 gr Barnes TSX|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 130 gr Barnes TSX",
+   "grain": 130.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills Gold 130 gr Hornady CX|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 130 gr Hornady CX",
+   "grain": 130.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 130 gr Hornady SST|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 130 gr Hornady SST",
+   "grain": 130.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "mechanically locks the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the hard polymer tip drives into the lead core like a wedge"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combined with a boattail base"
+   },
+   "component_bullet": {
+    "value": "Hornady SST",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady SST"
+   }
+  },
+  "Black Hills|Black Hills Gold 150 gr Hornady CX|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 150 gr Hornady CX",
+   "grain": 150.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 155 gr Hornady ELD Match|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 155 gr Hornady ELD Match",
+   "grain": 155.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "enhanced accuracy target bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "featuring Heat Shield® tips with the PERFECT MEPLAT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "An optimum secant ogive and boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD Match",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD Match"
+   }
+  },
+  "Black Hills|Black Hills Gold 165 gr Hornady CX|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 165 gr Hornady CX",
+   "grain": 165.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 168 gr Hornady ELD Match|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 168 gr Hornady ELD Match",
+   "grain": 168.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "enhanced accuracy target bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "featuring Heat Shield® tips with the PERFECT MEPLAT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "An optimum secant ogive and boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD Match",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD Match"
+   }
+  },
+  "Black Hills|Black Hills Gold 168 gr Hornady Match Hollow Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 168 gr Hornady Match Hollow Point",
+   "grain": 168.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.hornady.com/bullets/match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Hornady® Match™ bullets are manufactured to the tightest standards"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The angle and length of the boattail is unique and optimized"
+   },
+   "component_bullet": {
+    "value": "Hornady Match Hollow Point",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady Match Hollow Point"
+   }
+  },
+  "Black Hills|Black Hills Gold 178 gr Hornady ELD-X|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 178 gr Hornady ELD-X",
+   "grain": 178.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD-X"
+   }
+  },
+  "Black Hills|Black Hills Gold 180 gr Barnes TSX|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 180 gr Barnes TSX",
+   "grain": 180.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills 110 gr Barnes TAC-TX|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 110 gr Barnes TAC-TX",
+   "grain": 110.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-300-acc-blk-tac-tx-110-gr-fb/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "expanding all-copper bullet that is optimized around AR platforms"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TAC-TX",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TAC-TX™"
+   }
+  },
+  "Black Hills|Black Hills 115 gr Dual Performance (monolithic copper)|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 115 gr Dual Performance (monolithic copper)",
+   "grain": 115.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features a monolithic machined copper projectile"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Dual Performance",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Dual Performance™"
+   }
+  },
+  "Black Hills|Black Hills 125 gr Open Tip Match|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 125 gr Open Tip Match",
+   "grain": 125.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills 125 gr Sierra TMK|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 125 gr Sierra TMK",
+   "grain": 125.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullets/product-family/tipped-matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Match Bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/30-cal-168-gr-tipped-matchking-tmk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combine MatchKing precision with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra TMK",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra TMK"
+   }
+  },
+  "Black Hills|Black Hills 198 gr Dual Performance (monolithic copper)|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 198 gr Dual Performance (monolithic copper)",
+   "grain": 198.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features a monolithic machined copper projectile"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Dual Performance",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Dual Performance™"
+   }
+  },
+  "Black Hills|Black Hills 220 gr Open Tip Match|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 220 gr Open Tip Match",
+   "grain": 220.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills Gold 212 gr Hornady ELD-X|.300 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 212 gr Hornady ELD-X",
+   "grain": 212.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".300 PRC",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD-X"
+   }
+  },
+  "Black Hills|Black Hills Gold 225 gr Hornady ELD Match|.300 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 225 gr Hornady ELD Match",
+   "grain": 225.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".300 PRC",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "enhanced accuracy target bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "featuring Heat Shield® tips with the PERFECT MEPLAT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "An optimum secant ogive and boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD Match",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD Match"
+   }
+  },
+  "Black Hills|Black Hills 190 gr Match Hollow Point|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 190 gr Match Hollow Point",
+   "grain": 190.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-winchester-magnum/",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-winchester-magnum/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/300-winchester-magnum/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills Gold 165 gr Hornady CX|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 165 gr Hornady CX",
+   "grain": 165.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 180 gr Barnes TSX|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 180 gr Barnes TSX",
+   "grain": 180.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills Gold 180 gr Hornady CX|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 180 gr Hornady CX",
+   "grain": 180.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 200 gr Hornady ELD-X|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 200 gr Hornady ELD-X",
+   "grain": 200.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD-X"
+   }
+  },
+  "Black Hills|Black Hills 168 gr Match Hollow Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 168 gr Match Hollow Point",
+   "grain": 168.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills 175 gr Match Hollow Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 175 gr Match Hollow Point",
+   "grain": 175.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills Gold 125 gr Hornady CX|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 125 gr Hornady CX",
+   "grain": 125.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 150 gr Hornady CX|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 150 gr Hornady CX",
+   "grain": 150.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 150 gr Hornady SST|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 150 gr Hornady SST",
+   "grain": 150.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "mechanically locks the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the hard polymer tip drives into the lead core like a wedge"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combined with a boattail base"
+   },
+   "component_bullet": {
+    "value": "Hornady SST",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady SST"
+   }
+  },
+  "Black Hills|Black Hills Gold 152 gr Dual Performance|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 152 gr Dual Performance",
+   "grain": 152.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features a monolithic machined copper projectile"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Dual Performance",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Dual Performance"
+   }
+  },
+  "Black Hills|Black Hills Gold 155 gr Hornady ELD Match|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 155 gr Hornady ELD Match",
+   "grain": 155.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "enhanced accuracy target bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "featuring Heat Shield® tips with the PERFECT MEPLAT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "An optimum secant ogive and boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD Match",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD Match"
+   }
+  },
+  "Black Hills|Black Hills Gold 155 gr Sierra TMK|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 155 gr Sierra TMK",
+   "grain": 155.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullets/product-family/tipped-matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Match Bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/30-cal-168-gr-tipped-matchking-tmk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combine MatchKing precision with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra TMK",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra TMK"
+   }
+  },
+  "Black Hills|Black Hills Gold 165 gr Hornady CX|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 165 gr Hornady CX",
+   "grain": 165.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 168 gr Barnes TSX|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 168 gr Barnes TSX",
+   "grain": 168.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills Gold 168 gr Hornady ELD Match|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 168 gr Hornady ELD Match",
+   "grain": 168.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "enhanced accuracy target bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "featuring Heat Shield® tips with the PERFECT MEPLAT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "An optimum secant ogive and boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD Match",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD Match"
+   }
+  },
+  "Black Hills|Black Hills Gold 168 gr Sierra TMK|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 168 gr Sierra TMK",
+   "grain": 168.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullets/product-family/tipped-matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Match Bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/30-cal-168-gr-tipped-matchking-tmk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combine MatchKing precision with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra TMK",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra TMK"
+   }
+  },
+  "Black Hills|Black Hills Gold 175 gr Sierra TMK|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 175 gr Sierra TMK",
+   "grain": 175.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullets/product-family/tipped-matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Match Bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/30-cal-168-gr-tipped-matchking-tmk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combine MatchKing precision with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra TMK",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra TMK"
+   }
+  },
+  "Black Hills|Black Hills Gold 178 gr Hornady ELD-X|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 178 gr Hornady ELD-X",
+   "grain": 178.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD-X"
+   }
+  },
+  "Black Hills|Black Hills 250 gr Sierra MatchKing|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 250 gr Sierra MatchKing",
+   "grain": 250.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/338-lapua/",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/338-cal-250-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "338 CAL 250 GR HPBT MATCHKING (SMK)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/338-cal-250-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "338 CAL 250 GR HPBT MATCHKING (SMK)"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra MatchKing"
+   }
+  },
+  "Black Hills|Black Hills 300 gr Sierra MatchKing|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 300 gr Sierra MatchKing",
+   "grain": 300.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/338-lapua/",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/338-cal-300-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "338 CAL 300 GR HPBT MATCHKING (SMK)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/338-cal-300-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "338 CAL 300 GR HPBT MATCHKING (SMK)"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra MatchKing"
+   }
+  },
+  "Black Hills|Black Hills Gold 225 gr Hornady CX|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 225 gr Hornady CX",
+   "grain": 225.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 285 gr Hornady ELD Match|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 285 gr Hornady ELD Match",
+   "grain": 285.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "enhanced accuracy target bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "featuring Heat Shield® tips with the PERFECT MEPLAT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "An optimum secant ogive and boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD Match",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD Match"
+   }
+  },
+  "Black Hills|Black Hills 300 gr Sierra MatchKing|.338 Norma Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 300 gr Sierra MatchKing",
+   "grain": 300.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/338-norma-magnum/",
+   "cartridge": ".338 Norma Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/338-cal-300-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "338 CAL 300 GR HPBT MATCHKING (SMK)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/338-cal-300-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "338 CAL 300 GR HPBT MATCHKING (SMK)"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra MatchKing"
+   }
+  },
+  "Black Hills|Black Hills 50 gr Barnes TSX|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 50 gr Barnes TSX",
+   "grain": 50.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills 62 gr Barnes TSX|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 62 gr Barnes TSX",
+   "grain": 62.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills 62 gr Dual Performance (monolithic copper)|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 62 gr Dual Performance (monolithic copper)",
+   "grain": 62.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features a monolithic machined copper projectile"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Dual Performance",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Dual Performance™"
+   }
+  },
+  "Black Hills|Black Hills 69 gr Open Tip Match|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 69 gr Open Tip Match",
+   "grain": 69.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills 69 gr Sierra TMK|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 69 gr Sierra TMK",
+   "grain": 69.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullets/product-family/tipped-matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Match Bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/30-cal-168-gr-tipped-matchking-tmk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combine MatchKing precision with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra TMK",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra TMK"
+   }
+  },
+  "Black Hills|Black Hills 70 gr Hornady GMX|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 70 gr Hornady GMX",
+   "grain": 70.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+   "cartridge": "5.56x45 NATO",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady GMX",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady GMX™"
+   }
+  },
+  "Black Hills|Black Hills 77 gr Open Tip Match|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 77 gr Open Tip Match",
+   "grain": 77.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Black Hills|Black Hills 77 gr Sierra TMK|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills 77 gr Sierra TMK",
+   "grain": 77.0,
+   "library_source_url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullets/product-family/tipped-matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Match Bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/30-cal-168-gr-tipped-matchking-tmk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combine MatchKing precision with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra TMK",
+    "source_url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra TMK"
+   }
+  },
+  "Black Hills|Black Hills Gold 120 gr Hornady CX|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 120 gr Hornady CX",
+   "grain": 120.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 130 gr Dual Performance|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 130 gr Dual Performance",
+   "grain": 130.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features a monolithic machined copper projectile"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Dual Performance",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Dual Performance"
+   }
+  },
+  "Black Hills|Black Hills Gold 143 gr Hornady ELD-X|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 143 gr Hornady ELD-X",
+   "grain": 143.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD-X"
+   }
+  },
+  "Black Hills|Black Hills Gold 147 gr Hornady ELD Match|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 147 gr Hornady ELD Match",
+   "grain": 147.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "enhanced accuracy target bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "featuring Heat Shield® tips with the PERFECT MEPLAT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "An optimum secant ogive and boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD Match",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD Match"
+   }
+  },
+  "Black Hills|Black Hills Gold 143 gr Hornady ELD-X|6.5 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 143 gr Hornady ELD-X",
+   "grain": 143.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "6.5 PRC",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD-X"
+   }
+  },
+  "Black Hills|Black Hills Gold 103 gr Hornady ELD-X|6mm ARC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 103 gr Hornady ELD-X",
+   "grain": 103.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "6mm ARC",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD-X"
+   }
+  },
+  "Black Hills|Black Hills Gold 90 gr Dual Performance|6mm ARC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 90 gr Dual Performance",
+   "grain": 90.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "6mm ARC",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features a monolithic machined copper projectile"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Dual Performance",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Dual Performance"
+   }
+  },
+  "Black Hills|Black Hills Gold 103 gr Hornady ELD-X|6mm Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 103 gr Hornady ELD-X",
+   "grain": 103.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "6mm Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD-X"
+   }
+  },
+  "Black Hills|Black Hills Gold 108 gr Hornady ELD Match|6mm Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 108 gr Hornady ELD Match",
+   "grain": 108.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "6mm Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "enhanced accuracy target bullets"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "featuring Heat Shield® tips with the PERFECT MEPLAT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-match",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "An optimum secant ogive and boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD Match",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD Match"
+   }
+  },
+  "Black Hills|Black Hills Gold 139 gr Hornady CX|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 139 gr Hornady CX",
+   "grain": 139.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "MONOLITHIC COPPER ALLOY BULLET"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/cx",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The Heat Shield® tip is made of a heat resistant polymer."
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady CX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady CX"
+   }
+  },
+  "Black Hills|Black Hills Gold 140 gr Barnes TSX|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 140 gr Barnes TSX",
+   "grain": 140.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes TSX"
+   }
+  },
+  "Black Hills|Black Hills Gold 154 gr Hornady SST|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 154 gr Hornady SST",
+   "grain": 154.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "mechanically locks the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the hard polymer tip drives into the lead core like a wedge"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combined with a boattail base"
+   },
+   "component_bullet": {
+    "value": "Hornady SST",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady SST"
+   }
+  },
+  "Black Hills|Black Hills Gold 175 gr Hornady ELD-X|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Black Hills Gold 175 gr Hornady ELD-X",
+   "grain": 175.0,
+   "library_source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady ELD-X"
+   }
+  }
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "brand": "Magtech",
+ "note": "Read the 2026 catalogue PDF and the 308 Win 168 gr HPBT Sniper product page. Hunt/Tactical/Subsonic lines give no bullet construction, tip or base text; abbreviations (PSP, JSP, HPBT...) are not expanded in the catalogue. Ball/Solid 50 BMG and NATO Ball loads have no description -> empty.",
+ "sources": [
+  {
+   "id": "mt_cat",
+   "url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "read_date": "2026-10-13",
+   "title": "Magtech 2026 catalogue"
+  },
+  {
+   "id": "mt_308_smk",
+   "url": "https://magtechammunition.com/products/ammunition/308-win-168gr-hpbt-sniper/",
+   "read_date": "2026-10-13",
+   "title": "308 Win 168gr HPBT Sniper"
+  }
+ ],
+ "families": [
+  {
+   "id": "mt_frangible",
+   "lib": "factory",
+   "name_regex": "\\bFrangible\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "mt_cat",
+     "quote": "crafted using a unique blend of copper and tin composite material"
+    },
+    "component_bullet": {
+     "value": "SinterFire",
+     "src": "mt_cat",
+     "quote": "This lead-free ammunition features SinterFire® projectiles"
+    }
+   }
+  }
+ ],
+ "records": {
+  "Magtech|168 gr HPBT (Precision)|.308 Win": {
+   "construction": {
+    "value": "match",
+    "src": "mt_308_smk",
+    "quote": "loaded with Sierra MatchKings"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "src": "mt_308_smk",
+    "quote": "Sierra MatchKing HPBT projectiles are widely accepted as the most accurate"
+   }
+  }
+ }
+}

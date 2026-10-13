@@ -1,0 +1,2991 @@
+{
+ "brand": "Weatherby",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Weatherby store pages (cartridge pages repeat the same per-bullet text), ballistics chart page and 2021 chart PDF read; component lines from Hornady, Barnes, Nosler, Swift, Hammer, Berger own pages. Not stated anywhere (left empty): Scirocco tip material ('signature black tips'), Partition/Elite Hunter/VLD tip, InterBond fields, DGS construction, most bases (TTSX/TSX/InterLock/Hammer/Scirocco/A-Frame). Barnes family pages list BT and FB variants, so no line-wide base. First WebFetch attempts on weatherby.com timed out on permission, a retry worked.",
+ "sources": [
+  {
+   "id": "wby_chart",
+   "url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby ballistics charts"
+  },
+  {
+   "id": "wby_pdf",
+   "url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "read_date": "2026-10-13",
+   "title": "Weatherby ballistic chart PDF (legend)"
+  },
+  {
+   "id": "wby_25rpm",
+   "url": "https://weatherby.com/store/25-weatherby-rpm/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 25 RPM ammunition"
+  },
+  {
+   "id": "wby_7mm",
+   "url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 7mm Wby Mag ammunition"
+  },
+  {
+   "id": "wby_300",
+   "url": "https://weatherby.com/store/300-weatherby-magnum/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 300 Wby Mag ammunition"
+  },
+  {
+   "id": "wby_6530",
+   "url": "https://weatherby.com/store/6-5-300-weatherby-magnum/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 6.5-300 Wby Mag ammunition"
+  },
+  {
+   "id": "wby_257",
+   "url": "https://weatherby.com/store/257-weatherby-magnum/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 257 Wby Mag ammunition"
+  },
+  {
+   "id": "wby_280ai",
+   "url": "https://weatherby.com/store/280-ackley-improved/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 280 Ackley Improved ammunition"
+  },
+  {
+   "id": "n_accubond",
+   "url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+   "read_date": "2026-10-13",
+   "title": "Nosler AccuBond line"
+  },
+  {
+   "id": "n_bt",
+   "url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+   "read_date": "2026-10-13",
+   "title": "Nosler Ballistic Tip Hunting line"
+  },
+  {
+   "id": "s_home",
+   "url": "https://www.swiftbullets.com/",
+   "read_date": "2026-10-13",
+   "title": "Swift Bullet Company"
+  },
+  {
+   "id": "hm_home",
+   "url": "https://hammerbullets.com/",
+   "read_date": "2026-10-13",
+   "title": "Hammer Bullets"
+  },
+  {
+   "id": "be_25_133",
+   "url": "https://bergerbullets.com/product/25-caliber-133-grain-elite-hunter/",
+   "read_date": "2026-10-13",
+   "title": "Berger 25 cal 133 gr Elite Hunter"
+  },
+  {
+   "id": "be_65_156",
+   "url": "https://bergerbullets.com/product/6-5-mm-156-grain-elite-hunter/",
+   "read_date": "2026-10-13",
+   "title": "Berger 6.5 mm 156 gr Elite Hunter"
+  },
+  {
+   "id": "be_7_168",
+   "url": "https://bergerbullets.com/product/7-mm-168-grain-classic-hunter/",
+   "read_date": "2026-10-13",
+   "title": "Berger 7 mm 168 gr Classic Hunter"
+  },
+  {
+   "id": "be_7_180",
+   "url": "https://bergerbullets.com/product/7-mm-180-grain-very-low-drag-vld-hunting/",
+   "read_date": "2026-10-13",
+   "title": "Berger 7 mm 180 gr VLD Hunting"
+  },
+  {
+   "id": "h_eldx",
+   "url": "https://www.hornady.com/bullets/eld-x",
+   "read_date": "2026-10-13",
+   "title": "Hornady ELD-X bullets"
+  },
+  {
+   "id": "h_eldm",
+   "url": "https://www.hornady.com/bullets/eld-match",
+   "read_date": "2026-10-13",
+   "title": "Hornady ELD Match bullets"
+  },
+  {
+   "id": "h_cx",
+   "url": "https://www.hornady.com/bullets/cx",
+   "read_date": "2026-10-13",
+   "title": "Hornady CX bullets"
+  },
+  {
+   "id": "h_sst",
+   "url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+   "read_date": "2026-10-13",
+   "title": "Hornady SST bullets"
+  },
+  {
+   "id": "h_dgxb",
+   "url": "https://www.hornady.com/bullets/dgx-bonded",
+   "read_date": "2026-10-13",
+   "title": "Hornady DGX Bonded bullets"
+  },
+  {
+   "id": "h_dgs",
+   "url": "https://www.hornady.com/bullets/dgs-dangerous-game-solid",
+   "read_date": "2026-10-13",
+   "title": "Hornady DGS bullets"
+  },
+  {
+   "id": "h_vmax",
+   "url": "https://www.hornady.com/bullets/v-max",
+   "read_date": "2026-10-13",
+   "title": "Hornady V-MAX bullets"
+  },
+  {
+   "id": "h_match",
+   "url": "https://www.hornady.com/bullets/match",
+   "read_date": "2026-10-13",
+   "title": "Hornady Match bullets"
+  },
+  {
+   "id": "b_ttsx",
+   "url": "https://barnesbullets.com/0-308-30-cal-ttsx-bt/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 30 cal TTSX BT"
+  },
+  {
+   "id": "b_tsx",
+   "url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 30 cal TSX BT"
+  },
+  {
+   "id": "b_tactx",
+   "url": "https://barnesbullets.com/0-308-300-acc-blk-tac-tx-110-gr-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 300 BLK TAC-TX 110 gr FB"
+  },
+  {
+   "id": "b_vg",
+   "url": "https://barnesbullets.com/0-224-22-cal-varmint-grenade-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 22 cal Varmint Grenade FB"
+  },
+  {
+   "id": "b_mpg",
+   "url": "https://barnesbullets.com/0-224-22-cal-mpg-55-gr-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 22 cal MPG 55 gr FB"
+  }
+ ],
+ "records": {
+  "Weatherby|240 Weatherby Magnum 100 gr Hornady InterLock|.240 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "240 Weatherby Magnum 100 gr Hornady InterLock",
+   "grain": 100.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".240 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|240 Weatherby Magnum 100 gr Nosler Partition|.240 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "240 Weatherby Magnum 100 gr Nosler Partition",
+   "grain": 100.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": ".240 Weatherby Mag",
+   "construction": {
+    "value": "partition",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Partition"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   },
+   "component_bullet": {
+    "value": "Nosler Partition",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   }
+  },
+  "Weatherby|240 Weatherby Magnum 72 gr Hammer Custom|.240 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "240 Weatherby Magnum 72 gr Hammer Custom",
+   "grain": 72.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".240 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|240 Weatherby Magnum 80 gr Barnes TTSX|.240 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "240 Weatherby Magnum 80 gr Barnes TTSX",
+   "grain": 80.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".240 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|107 gr Hammer Custom|.25 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "107 gr Hammer Custom",
+   "grain": 107.0,
+   "library_source_url": "https://weatherby.com/store/25-weatherby-rpm/",
+   "cartridge": ".25 Weatherby RPM",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer HBC Custom Bullets",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer HBC Custom Bullets"
+   }
+  },
+  "Weatherby|117 gr Barnes LRX|.25 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "117 gr Barnes LRX",
+   "grain": 117.0,
+   "library_source_url": "https://weatherby.com/store/25-weatherby-rpm/",
+   "cartridge": ".25 Weatherby RPM",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/6-5-300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "An all copper bullet with polymer tip that initiates expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/6-5-300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "An all copper bullet with polymer tip that initiates expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://weatherby.com/store/25-weatherby-rpm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "increasing ogive and boat tail lengths"
+   },
+   "component_bullet": {
+    "value": "Barnes LRX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® LRX®"
+   }
+  },
+  "Weatherby|117 gr Hornady SST|.25 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "117 gr Hornady SST",
+   "grain": 117.0,
+   "library_source_url": "https://weatherby.com/store/25-weatherby-rpm/",
+   "cartridge": ".25 Weatherby RPM",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "mechanically locks the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "the hard polymer tip drives into the lead core like a wedge"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "combined with a boattail base"
+   },
+   "component_bullet": {
+    "value": "Hornady SST",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® SST®"
+   }
+  },
+  "Weatherby|133 gr Berger Elite Hunter|.25 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "133 gr Berger Elite Hunter",
+   "grain": 133.0,
+   "library_source_url": "https://weatherby.com/store/25-weatherby-rpm/",
+   "cartridge": ".25 Weatherby RPM",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://bergerbullets.com/product/25-caliber-133-grain-elite-hunter/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Base Style: Boat Tail"
+   },
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Berger Elite Hunter"
+   }
+  },
+  "Weatherby|257 Weatherby Magnum 100 gr Barnes TTSX|.257 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "257 Weatherby Magnum 100 gr Barnes TTSX",
+   "grain": 100.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".257 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|257 Weatherby Magnum 100 gr Hornady InterLock|.257 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "257 Weatherby Magnum 100 gr Hornady InterLock",
+   "grain": 100.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".257 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|257 Weatherby Magnum 100 gr Swift Scirocco|.257 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "257 Weatherby Magnum 100 gr Swift Scirocco",
+   "grain": 100.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".257 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core are joined together using proven Swift bonding technology"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ Scirocco®"
+   }
+  },
+  "Weatherby|257 Weatherby Magnum 110 gr Hornady ELD-X|.257 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "257 Weatherby Magnum 110 gr Hornady ELD-X",
+   "grain": 110.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".257 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® ELD-X®"
+   }
+  },
+  "Weatherby|257 Weatherby Magnum 110 gr Nosler AccuBond|.257 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "257 Weatherby Magnum 110 gr Nosler AccuBond",
+   "grain": 110.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": ".257 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Through an exclusive bonding process that eliminates voids in the bullet core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The unique white polymer tip resists deforming"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Combines with the streamlined polymer tip for long-range performance"
+   },
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Accubond"
+   }
+  },
+  "Weatherby|257 Weatherby Magnum 115 gr Nosler Ballistic Tip|.257 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "257 Weatherby Magnum 115 gr Nosler Ballistic Tip",
+   "grain": 115.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".257 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Fully-Tapered Jacket and Special Lead-Alloy Core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Ballistic Tip"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Boat tail configuration"
+   },
+   "component_bullet": {
+    "value": "Nosler Ballistic Tip",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® Ballistic Tip®"
+   }
+  },
+  "Weatherby|257 Weatherby Magnum 120 gr Nosler Partition|.257 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "257 Weatherby Magnum 120 gr Nosler Partition",
+   "grain": 120.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": ".257 Weatherby Mag",
+   "construction": {
+    "value": "partition",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Partition"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   },
+   "component_bullet": {
+    "value": "Nosler Partition",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   }
+  },
+  "Weatherby|257 Weatherby Magnum 92 gr Hammer Custom|.257 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "257 Weatherby Magnum 92 gr Hammer Custom",
+   "grain": 92.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".257 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|270 Weatherby Magnum 130 gr Barnes TTSX|.270 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "270 Weatherby Magnum 130 gr Barnes TTSX",
+   "grain": 130.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".270 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|270 Weatherby Magnum 130 gr Hornady InterLock|.270 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "270 Weatherby Magnum 130 gr Hornady InterLock",
+   "grain": 130.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".270 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|270 Weatherby Magnum 130 gr Swift Scirocco|.270 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "270 Weatherby Magnum 130 gr Swift Scirocco",
+   "grain": 130.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".270 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core are joined together using proven Swift bonding technology"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ Scirocco®"
+   }
+  },
+  "Weatherby|270 Weatherby Magnum 134 gr Hammer Custom|.270 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "270 Weatherby Magnum 134 gr Hammer Custom",
+   "grain": 134.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".270 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|270 Weatherby Magnum 140 gr Nosler AccuBond|.270 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "270 Weatherby Magnum 140 gr Nosler AccuBond",
+   "grain": 140.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".270 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Through an exclusive bonding process that eliminates voids in the bullet core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The unique white polymer tip resists deforming"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Combines with the streamlined polymer tip for long-range performance"
+   },
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® AccuBond®"
+   }
+  },
+  "Weatherby|270 Weatherby Magnum 140 gr Nosler Ballistic Tip|.270 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "270 Weatherby Magnum 140 gr Nosler Ballistic Tip",
+   "grain": 140.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".270 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Fully-Tapered Jacket and Special Lead-Alloy Core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Ballistic Tip"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Boat tail configuration"
+   },
+   "component_bullet": {
+    "value": "Nosler Ballistic Tip",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® Ballistic Tip®"
+   }
+  },
+  "Weatherby|270 Weatherby Magnum 150 gr Nosler Partition|.270 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "270 Weatherby Magnum 150 gr Nosler Partition",
+   "grain": 150.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".270 Weatherby Mag",
+   "construction": {
+    "value": "partition",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Partition"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   },
+   "component_bullet": {
+    "value": "Nosler Partition",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® Partition®"
+   }
+  },
+  "Weatherby|150 gr Swift Scirocco|.28 Nosler": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "150 gr Swift Scirocco",
+   "grain": 150.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".28 Nosler",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core are joined together using proven Swift bonding technology"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ Scirocco®"
+   }
+  },
+  "Weatherby|163 gr Hammer Custom|.28 Nosler": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "163 gr Hammer Custom",
+   "grain": 163.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".28 Nosler",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|180 gr Berger VLD Hunting|.28 Nosler": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "180 gr Berger VLD Hunting",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".28 Nosler",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://bergerbullets.com/product/7-mm-180-grain-very-low-drag-vld-hunting/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Base Style: Boat Tail"
+   },
+   "component_bullet": {
+    "value": "Berger VLD Hunting",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Berger VLD Hunting"
+   }
+  },
+  "Weatherby|139 gr Hammer Custom|.280 Ackley Improved": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "139 gr Hammer Custom",
+   "grain": 139.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".280 Ackley Improved",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|150 gr Sierra Tipped GameKing|.280 Ackley Improved": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "150 gr Sierra Tipped GameKing",
+   "grain": 150.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".280 Ackley Improved",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizes a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "transparent green polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra Tipped GameKing",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra® Tipped GameKing®"
+   }
+  },
+  "Weatherby|150 gr Swift Scirocco|.280 Ackley Improved": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "150 gr Swift Scirocco",
+   "grain": 150.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".280 Ackley Improved",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core are joined together using proven Swift bonding technology"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ Scirocco®"
+   }
+  },
+  "Weatherby|168 gr Berger Classic Hybrid Hunter|.280 Ackley Improved": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "168 gr Berger Classic Hybrid Hunter",
+   "grain": 168.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".280 Ackley Improved",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://bergerbullets.com/product/7-mm-168-grain-classic-hunter/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Base Style: Boat Tail"
+   },
+   "component_bullet": {
+    "value": "Berger Classic Hybrid Hunter",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Berger Classic Hybrid Hunter"
+   }
+  },
+  "Weatherby|30-378 Weatherby Magnum 165 gr Barnes TTSX|.30-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-378 Weatherby Magnum 165 gr Barnes TTSX",
+   "grain": 165.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".30-378 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|30-378 Weatherby Magnum 165 gr Nosler Ballistic Tip|.30-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-378 Weatherby Magnum 165 gr Nosler Ballistic Tip",
+   "grain": 165.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".30-378 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Fully-Tapered Jacket and Special Lead-Alloy Core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Ballistic Tip"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Boat tail configuration"
+   },
+   "component_bullet": {
+    "value": "Nosler Ballistic Tip",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® Ballistic Tip®"
+   }
+  },
+  "Weatherby|30-378 Weatherby Magnum 180 gr Barnes TTSX|.30-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-378 Weatherby Magnum 180 gr Barnes TTSX",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".30-378 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|30-378 Weatherby Magnum 180 gr Hornady InterLock|.30-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-378 Weatherby Magnum 180 gr Hornady InterLock",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".30-378 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|30-378 Weatherby Magnum 180 gr Nosler AccuBond|.30-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-378 Weatherby Magnum 180 gr Nosler AccuBond",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".30-378 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Through an exclusive bonding process that eliminates voids in the bullet core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The unique white polymer tip resists deforming"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Combines with the streamlined polymer tip for long-range performance"
+   },
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® AccuBond®"
+   }
+  },
+  "Weatherby|30-378 Weatherby Magnum 180 gr Nosler Ballistic Tip|.30-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-378 Weatherby Magnum 180 gr Nosler Ballistic Tip",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".30-378 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Fully-Tapered Jacket and Special Lead-Alloy Core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Ballistic Tip"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Boat tail configuration"
+   },
+   "component_bullet": {
+    "value": "Nosler Ballistic Tip",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® Ballistic Tip®"
+   }
+  },
+  "Weatherby|30-378 Weatherby Magnum 180 gr Swift Scirocco|.30-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-378 Weatherby Magnum 180 gr Swift Scirocco",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".30-378 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core are joined together using proven Swift bonding technology"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ Scirocco®"
+   }
+  },
+  "Weatherby|30-378 Weatherby Magnum 195 gr Hammer Custom|.30-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-378 Weatherby Magnum 195 gr Hammer Custom",
+   "grain": 195.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".30-378 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|30-378 Weatherby Magnum 200 gr Nosler Partition|.30-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-378 Weatherby Magnum 200 gr Nosler Partition",
+   "grain": 200.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".30-378 Weatherby Mag",
+   "construction": {
+    "value": "partition",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Partition"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   },
+   "component_bullet": {
+    "value": "Nosler Partition",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® Partition®"
+   }
+  },
+  "Weatherby|30-378 Weatherby Magnum 220 gr Hornady ELD-X|.30-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-378 Weatherby Magnum 220 gr Hornady ELD-X",
+   "grain": 220.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".30-378 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® ELD-X®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 165 gr Hornady InterLock|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 165 gr Hornady InterLock",
+   "grain": 165.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 165 gr Nosler Ballistic Tip|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 165 gr Nosler Ballistic Tip",
+   "grain": 165.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Fully-Tapered Jacket and Special Lead-Alloy Core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Ballistic Tip"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Boat tail configuration"
+   },
+   "component_bullet": {
+    "value": "Nosler Ballistic Tip",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BST = Nosler® Ballistic Tip®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 170 gr Hammer Custom|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 170 gr Hammer Custom",
+   "grain": 170.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 180 gr Barnes TTSX|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 180 gr Barnes TTSX",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 180 gr Hornady InterBond|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 180 gr Hornady InterBond",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady Interbond",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® Interbond®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 180 gr Hornady InterLock|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 180 gr Hornady InterLock",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 180 gr Nosler AccuBond|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 180 gr Nosler AccuBond",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Through an exclusive bonding process that eliminates voids in the bullet core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The unique white polymer tip resists deforming"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Combines with the streamlined polymer tip for long-range performance"
+   },
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Accubond"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 180 gr Nosler Ballistic Tip|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 180 gr Nosler Ballistic Tip",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Fully-Tapered Jacket and Special Lead-Alloy Core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Ballistic Tip"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Boat tail configuration"
+   },
+   "component_bullet": {
+    "value": "Nosler Ballistic Tip",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BST = Nosler® Ballistic Tip®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 180 gr Sierra Tipped GameKing|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 180 gr Sierra Tipped GameKing",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizes a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "transparent green polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra Tipped GameKing",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra® Tipped GameKing®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 180 gr Swift Scirocco|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 180 gr Swift Scirocco",
+   "grain": 180.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core are joined together using proven Swift bonding technology"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ Scirocco®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 195 gr Hammer Custom|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 195 gr Hammer Custom",
+   "grain": 195.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 200 gr Hornady ELD-X|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 200 gr Hornady ELD-X",
+   "grain": 200.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.hornady.com/bullets/eld-x",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high InterLock® ring keep the core and jacket together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Heat Shield® tip is immune to the effects of aerodynamic heating"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A streamlined secant ogive with optimum boattail design"
+   },
+   "component_bullet": {
+    "value": "Hornady ELD-X",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® ELD-X®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 200 gr Nosler AccuBond|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 Weatherby Magnum 200 gr Nosler AccuBond",
+   "grain": 200.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Through an exclusive bonding process that eliminates voids in the bullet core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The unique white polymer tip resists deforming"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Combines with the streamlined polymer tip for long-range performance"
+   },
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Accubond"
+   }
+  },
+  "Weatherby|185 gr Barnes TTSX|.338 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "185 gr Barnes TTSX",
+   "grain": 185.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".338 Weatherby RPM",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|225 gr Barnes TTSX|.338 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "225 gr Barnes TTSX",
+   "grain": 225.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".338 Weatherby RPM",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|225 gr Hornady InterLock|.338 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "225 gr Hornady InterLock",
+   "grain": 225.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".338 Weatherby RPM",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|225 gr Nosler AccuBond|.338 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "225 gr Nosler AccuBond",
+   "grain": 225.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".338 Weatherby RPM",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Through an exclusive bonding process that eliminates voids in the bullet core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The unique white polymer tip resists deforming"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Combines with the streamlined polymer tip for long-range performance"
+   },
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® AccuBond®"
+   }
+  },
+  "Weatherby|338-378 Weatherby Magnum 225 gr Barnes TTSX|.338-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "338-378 Weatherby Magnum 225 gr Barnes TTSX",
+   "grain": 225.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".338-378 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|338-378 Weatherby Magnum 250 gr Nosler Partition|.338-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "338-378 Weatherby Magnum 250 gr Nosler Partition",
+   "grain": 250.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".338-378 Weatherby Mag",
+   "construction": {
+    "value": "partition",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Partition"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   },
+   "component_bullet": {
+    "value": "Nosler Partition",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® Partition®"
+   }
+  },
+  "Weatherby|338-378 Weatherby Magnum 262 gr Hammer Custom|.338-378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "338-378 Weatherby Magnum 262 gr Hammer Custom",
+   "grain": 262.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".338-378 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|340 Weatherby Magnum 225 gr Barnes TTSX|.340 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "340 Weatherby Magnum 225 gr Barnes TTSX",
+   "grain": 225.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".340 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|340 Weatherby Magnum 225 gr Hornady InterLock|.340 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "340 Weatherby Magnum 225 gr Hornady InterLock",
+   "grain": 225.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".340 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|340 Weatherby Magnum 250 gr Hornady InterLock|.340 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "340 Weatherby Magnum 250 gr Hornady InterLock",
+   "grain": 250.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".340 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|340 Weatherby Magnum 250 gr Nosler Partition|.340 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "340 Weatherby Magnum 250 gr Nosler Partition",
+   "grain": 250.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".340 Weatherby Mag",
+   "construction": {
+    "value": "partition",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Partition"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   },
+   "component_bullet": {
+    "value": "Nosler Partition",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Nosler® Partition®"
+   }
+  },
+  "Weatherby|378 Weatherby Magnum 270 gr Barnes TSX|.378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "378 Weatherby Magnum 270 gr Barnes TSX",
+   "grain": 270.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".378 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TSX™"
+   }
+  },
+  "Weatherby|378 Weatherby Magnum 270 gr Hornady InterLock|.378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "378 Weatherby Magnum 270 gr Hornady InterLock",
+   "grain": 270.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".378 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|378 Weatherby Magnum 270 gr Swift A-Frame|.378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "378 Weatherby Magnum 270 gr Swift A-Frame",
+   "grain": 270.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".378 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift A-Frame",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ A-Frame®"
+   }
+  },
+  "Weatherby|378 Weatherby Magnum 300 gr Hornady DGS|.378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "378 Weatherby Magnum 300 gr Hornady DGS",
+   "grain": 300.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".378 Weatherby Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.hornady.com/bullets/dgs-dangerous-game-solid",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "features a wide, flat nose that delivers maximum energy upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady DGS",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® DGS®"
+   }
+  },
+  "Weatherby|378 Weatherby Magnum 300 gr Hornady DGX Bonded|.378 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "378 Weatherby Magnum 300 gr Hornady DGX Bonded",
+   "grain": 300.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".378 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Bonded"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.hornady.com/bullets/dgx-bonded",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "a flat nose with serrated sections"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady DGXB",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® DGXB®"
+   }
+  },
+  "Weatherby|416 Weatherby Magnum 350 gr Barnes TTSX|.416 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "416 Weatherby Magnum 350 gr Barnes TTSX",
+   "grain": 350.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".416 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|416 Weatherby Magnum 400 gr Hornady DGX Bonded|.416 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "416 Weatherby Magnum 400 gr Hornady DGX Bonded",
+   "grain": 400.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".416 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Bonded"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.hornady.com/bullets/dgx-bonded",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "a flat nose with serrated sections"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady DGXB",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® DGXB®"
+   }
+  },
+  "Weatherby|460 Weatherby Magnum 450 gr Barnes TSX|.460 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "460 Weatherby Magnum 450 gr Barnes TSX",
+   "grain": 450.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".460 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "These all-copper bullets have unmatched accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TSX™"
+   }
+  },
+  "Weatherby|460 Weatherby Magnum 500 gr Hornady DGS|.460 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "460 Weatherby Magnum 500 gr Hornady DGS",
+   "grain": 500.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".460 Weatherby Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.hornady.com/bullets/dgs-dangerous-game-solid",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "features a wide, flat nose that delivers maximum energy upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady DGS",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® DGS®"
+   }
+  },
+  "Weatherby|460 Weatherby Magnum 500 gr Hornady DGX Bonded|.460 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "460 Weatherby Magnum 500 gr Hornady DGX Bonded",
+   "grain": 500.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": ".460 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Bonded"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.hornady.com/bullets/dgx-bonded",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "a flat nose with serrated sections"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady DGXB",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® DGXB®"
+   }
+  },
+  "Weatherby|124 gr Hammer Custom|6.5 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "124 gr Hammer Custom",
+   "grain": 124.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "6.5 Weatherby RPM",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|127 gr Barnes LRX|6.5 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "127 gr Barnes LRX",
+   "grain": 127.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "6.5 Weatherby RPM",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/6-5-300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "An all copper bullet with polymer tip that initiates expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/6-5-300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "An all copper bullet with polymer tip that initiates expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes LRX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® LRX®"
+   }
+  },
+  "Weatherby|130 gr Swift Scirocco|6.5 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "130 gr Swift Scirocco",
+   "grain": 130.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "6.5 Weatherby RPM",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core are joined together using proven Swift bonding technology"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ Scirocco®"
+   }
+  },
+  "Weatherby|140 gr Hornady InterLock|6.5 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "140 gr Hornady InterLock",
+   "grain": 140.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "6.5 Weatherby RPM",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|140 gr Nosler AccuBond|6.5 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "140 gr Nosler AccuBond",
+   "grain": 140.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": "6.5 Weatherby RPM",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Through an exclusive bonding process that eliminates voids in the bullet core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The unique white polymer tip resists deforming"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Combines with the streamlined polymer tip for long-range performance"
+   },
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Accubond"
+   }
+  },
+  "Weatherby|156 gr Berger Elite Hunter|6.5 Weatherby RPM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "156 gr Berger Elite Hunter",
+   "grain": 156.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "6.5 Weatherby RPM",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://bergerbullets.com/product/6-5-mm-156-grain-elite-hunter/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Base Style: Boat Tail"
+   },
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Berger Elite Hunter"
+   }
+  },
+  "Weatherby|6.5-300 Weatherby Magnum 127 gr Barnes LRX|6.5-300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6.5-300 Weatherby Magnum 127 gr Barnes LRX",
+   "grain": 127.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "6.5-300 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/6-5-300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "An all copper bullet with polymer tip that initiates expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/6-5-300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "An all copper bullet with polymer tip that initiates expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes LRX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® LRX®"
+   }
+  },
+  "Weatherby|6.5-300 Weatherby Magnum 129 gr Hammer Custom|6.5-300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6.5-300 Weatherby Magnum 129 gr Hammer Custom",
+   "grain": 129.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "6.5-300 Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|6.5-300 Weatherby Magnum 130 gr Swift Scirocco|6.5-300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6.5-300 Weatherby Magnum 130 gr Swift Scirocco",
+   "grain": 130.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "6.5-300 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core are joined together using proven Swift bonding technology"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ Scirocco®"
+   }
+  },
+  "Weatherby|6.5-300 Weatherby Magnum 140 gr Hornady InterLock|6.5-300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6.5-300 Weatherby Magnum 140 gr Hornady InterLock",
+   "grain": 140.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "6.5-300 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|6.5-300 Weatherby Magnum 140 gr Nosler AccuBond|6.5-300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6.5-300 Weatherby Magnum 140 gr Nosler AccuBond",
+   "grain": 140.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": "6.5-300 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Through an exclusive bonding process that eliminates voids in the bullet core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "The unique white polymer tip resists deforming"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Combines with the streamlined polymer tip for long-range performance"
+   },
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Accubond"
+   }
+  },
+  "Weatherby|6.5-300 Weatherby Magnum 156 gr Berger Elite Hunter|6.5-300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6.5-300 Weatherby Magnum 156 gr Berger Elite Hunter",
+   "grain": 156.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "6.5-300 Weatherby Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://bergerbullets.com/product/6-5-mm-156-grain-elite-hunter/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Base Style: Boat Tail"
+   },
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Berger Elite Hunter"
+   }
+  },
+  "Weatherby|7mm Weatherby Magnum 140 gr Barnes TTSX|7mm Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7mm Weatherby Magnum 140 gr Barnes TTSX",
+   "grain": 140.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "7mm Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A 100-percent copper bullet with a polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Barnes TTSX",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Barnes® TTSX™"
+   }
+  },
+  "Weatherby|7mm Weatherby Magnum 146 gr Hammer Custom|7mm Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7mm Weatherby Magnum 146 gr Hammer Custom",
+   "grain": 146.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "7mm Weatherby Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "use a unique solid copper blend"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://weatherby.com/store/300-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow point design, initiates expansion upon impact"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hammer Bullet",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hammer Bullet"
+   }
+  },
+  "Weatherby|7mm Weatherby Magnum 150 gr Nosler Ballistic Tip|7mm Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7mm Weatherby Magnum 150 gr Nosler Ballistic Tip",
+   "grain": 150.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": "7mm Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Fully-Tapered Jacket and Special Lead-Alloy Core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Ballistic Tip"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Boat tail configuration"
+   },
+   "component_bullet": {
+    "value": "Nosler Ballistic Tip",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BST = Nosler® Ballistic Tip®"
+   }
+  },
+  "Weatherby|7mm Weatherby Magnum 150 gr Swift Scirocco|7mm Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7mm Weatherby Magnum 150 gr Swift Scirocco",
+   "grain": 150.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "7mm Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core are joined together using proven Swift bonding technology"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ Scirocco®"
+   }
+  },
+  "Weatherby|7mm Weatherby Magnum 154 gr Hornady InterLock|7mm Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7mm Weatherby Magnum 154 gr Hornady InterLock",
+   "grain": 154.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "7mm Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|7mm Weatherby Magnum 154 gr Hornady InterLock (Stamp)|7mm Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7mm Weatherby Magnum 154 gr Hornady InterLock (Stamp)",
+   "grain": 154.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "7mm Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "keeps the core and jacket locked together during expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features an exposed lead tip for controlled expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady InterLock",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® InterLock®"
+   }
+  },
+  "Weatherby|7mm Weatherby Magnum 160 gr Nosler Partition|7mm Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7mm Weatherby Magnum 160 gr Nosler Partition",
+   "grain": 160.0,
+   "library_source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "cartridge": "7mm Weatherby Mag",
+   "construction": {
+    "value": "partition",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Partition"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   },
+   "component_bullet": {
+    "value": "Nosler Partition",
+    "source_url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   }
+  },
+  "Weatherby|7mm Weatherby Magnum 160 gr Swift A-Frame|7mm Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7mm Weatherby Magnum 160 gr Swift A-Frame",
+   "grain": 160.0,
+   "library_source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "cartridge": "7mm Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Swift A-Frame",
+    "source_url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift™ A-Frame®"
+   }
+  }
+ }
+}

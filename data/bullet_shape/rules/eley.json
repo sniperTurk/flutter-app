@@ -1,0 +1,22 @@
+{
+  "brand": "ELEY",
+  "note": "eley.co.uk robots.txt allows all. tenex page states flat nose; construction/base not stated.",
+  "sources": [
+    {
+      "id": "tenex",
+      "url": "https://eley.co.uk/eley-tenex",
+      "read_date": "2026-10-13",
+      "title": "ELEY tenex"
+    }
+  ],
+  "families": [],
+  "records": {
+    "ELEY|ELEY tenex 40 gr|.22 LR": {
+      "tip_shape": {
+        "value": "flat_nose",
+        "src": "tenex",
+        "quote": "The iconic flat nose projectile of ELEY tenex"
+      }
+    }
+  }
+}

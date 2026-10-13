@@ -1,0 +1,133 @@
+{
+ "brand": "Peregrine",
+ "note": "Read 2026-10-13 from peregrinebullets.com (robots.txt allows /bullets, /about-us, /wp-content/uploads PDF). Construction: reload-data PDF says all Peregrine bullets are gilding-metal monolithics; Glider = target bullet -> match; Brass Backup (brass monolithic) mapped to monolithic_copper (copper alloy). Tip: only Backup/Brass Backup state a large meplat -> flat_nose. PlainsMaster/BushMaster 'plunging tip/initiator' has no enum value; VLR5, Glider, Subsonic, Rex tip not stated. Base not stated on any line page or store page. Store page /store/308-plainsmaster/ gives no construction details.",
+ "sources": [
+  {
+   "id": "pdf",
+   "url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+   "read_date": "2026-10-13",
+   "title": "Peregrine Comprehensive Reload Data"
+  },
+  {
+   "id": "about",
+   "url": "https://peregrinebullets.com/about-us/",
+   "read_date": "2026-10-13",
+   "title": "About Us"
+  },
+  {
+   "id": "glider",
+   "url": "https://peregrinebullets.com/bullets/glider/",
+   "read_date": "2026-10-13",
+   "title": "Glider"
+  },
+  {
+   "id": "backup",
+   "url": "https://peregrinebullets.com/bullets/backup/",
+   "read_date": "2026-10-13",
+   "title": "Backup"
+  },
+  {
+   "id": "brass",
+   "url": "https://peregrinebullets.com/bullets/brass-backup/",
+   "read_date": "2026-10-13",
+   "title": "Brass Backup"
+  },
+  {
+   "id": "subs",
+   "url": "https://peregrinebullets.com/bullets/subsonic/",
+   "read_date": "2026-10-13",
+   "title": "Subsonic"
+  },
+  {
+   "id": "rex",
+   "url": "https://peregrinebullets.com/bullets/rex/",
+   "read_date": "2026-10-13",
+   "title": "REX"
+  }
+ ],
+ "families": [
+  {
+   "id": "all_mono",
+   "lib": "bullet",
+   "name_regex": ".",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "pdf",
+     "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+    }
+   }
+  },
+  {
+   "id": "glider",
+   "lib": "bullet",
+   "name_regex": "\\bGlider\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "glider",
+     "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+    }
+   }
+  },
+  {
+   "id": "subsonic",
+   "lib": "bullet",
+   "name_regex": "\\bSubsonic\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "subs",
+     "quote": "A revolutionary monolithic bullet"
+    }
+   }
+  },
+  {
+   "id": "rex",
+   "lib": "bullet",
+   "name_regex": "\\bRex\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "rex",
+     "quote": "REX is manufactured from solid copper"
+    }
+   }
+  },
+  {
+   "id": "backup",
+   "lib": "bullet",
+   "name_regex": "^Backup Solid\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "backup",
+     "quote": "a solid non-expanding bullet"
+    },
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "backup",
+     "quote": "With an oversized meplat"
+    }
+   }
+  },
+  {
+   "id": "brass_backup",
+   "lib": "bullet",
+   "name_regex": "^Brass Backup\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "about",
+     "quote": "various copper and brass monolithic bullets"
+    },
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "brass",
+     "quote": "Large meplat design for maximum stopping power"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

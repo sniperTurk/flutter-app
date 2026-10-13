@@ -1,0 +1,362 @@
+{
+ "brand": "Spoton",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt read (only /wp-admin/ disallowed). Read spoton.com.tr pages Match, Falcon, Mercur, Crow, Hunter, Upper Cut, Solid, Excel: only generic boilerplate ('genellikle kurşun veya alaşımlı' = usually lead or alloy, hedged, not product-specific); no head shape or base stated. Nothing filled beyond name words; remaining pages (same template) not read.",
+ "sources": [],
+ "records": {
+  "Spoton|Match": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Match",
+   "grain": 9.25,
+   "library_source_url": "https://spoton.com.tr/spoton-match",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Falcon": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Falcon",
+   "grain": 13.43,
+   "library_source_url": "https://spoton.com.tr/spoton-falcon",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Crow": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Crow",
+   "grain": 8.44,
+   "library_source_url": "https://spoton.com.tr/spoton-crow",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Sniper": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Sniper",
+   "grain": 16.97,
+   "library_source_url": "https://spoton.com.tr/spoton-sniper",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Hawk": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hawk",
+   "grain": 10.34,
+   "library_source_url": "https://spoton.com.tr/spoton-hawk",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Bullet 4.5": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Bullet 4.5",
+   "grain": 13.88,
+   "library_source_url": "https://spoton.com.tr/spoton-bullet",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Upper Cut": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Upper Cut",
+   "grain": 15.0,
+   "library_source_url": "https://spoton.com.tr/spoton-upper-cut",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Blow Up": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Blow Up",
+   "grain": 13.0,
+   "library_source_url": "https://spoton.com.tr/spoton-blow-up",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Hunter 4.5": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hunter 4.5",
+   "grain": 9.72,
+   "library_source_url": "https://spoton.com.tr/spoton-hunter",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Pointed 4.5": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Pointed 4.5",
+   "grain": 9.72,
+   "library_source_url": "https://spoton.com.tr/spoton-pointed",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://spoton.com.tr/spoton-pointed",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed"
+   },
+   "base": null
+  },
+  "Spoton|Dome 4.5": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Dome 4.5",
+   "grain": 10.34,
+   "library_source_url": "https://spoton.com.tr/spoton-dome",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://spoton.com.tr/spoton-dome",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Dome"
+   },
+   "base": null
+  },
+  "Spoton|Ares": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Ares",
+   "grain": 29.0,
+   "library_source_url": "https://spoton.com.tr/spoton-ares",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Crazy Solid": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Crazy Solid",
+   "grain": 21.91,
+   "library_source_url": "https://spoton.com.tr/spoton-crazy-solid",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Bullet 5.5": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Bullet 5.5",
+   "grain": 24.7,
+   "library_source_url": "https://spoton.com.tr/spoton-bullet-s",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Hunter 5.5": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hunter 5.5",
+   "grain": 14.0,
+   "library_source_url": "https://spoton.com.tr/spoton-hunter-s",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Pointed 5.5": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Pointed 5.5",
+   "grain": 22.0,
+   "library_source_url": "https://spoton.com.tr/spoton-pointed-s",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://spoton.com.tr/spoton-pointed-s",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed"
+   },
+   "base": null
+  },
+  "Spoton|Dome 5.5": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Dome 5.5",
+   "grain": 16.5,
+   "library_source_url": "https://spoton.com.tr/spoton-dome-s",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://spoton.com.tr/spoton-dome-s",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Dome"
+   },
+   "base": null
+  },
+  "Spoton|Solid": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Solid",
+   "grain": 26.0,
+   "library_source_url": "https://spoton.com.tr/spoton-solid",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Match 5.5": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Match 5.5",
+   "grain": 15.1,
+   "library_source_url": "https://spoton.com.tr/spoton-match-s",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Pars": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Pars",
+   "grain": 18.13,
+   "library_source_url": "https://spoton.com.tr/spoton-pars",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Mercur 38 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Mercur 38 gr",
+   "grain": 38.0,
+   "library_source_url": "https://spoton.com.tr/spoton-mercur",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Mercur 40 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Mercur 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://spoton.com.tr/spoton-mercur",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Mercur 42 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Mercur 42 gr",
+   "grain": 42.0,
+   "library_source_url": "https://spoton.com.tr/spoton-mercur",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Mercur 44 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Mercur 44 gr",
+   "grain": 44.0,
+   "library_source_url": "https://spoton.com.tr/spoton-mercur",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Mercur 46 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Mercur 46 gr",
+   "grain": 46.0,
+   "library_source_url": "https://spoton.com.tr/spoton-mercur",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Hercules": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hercules",
+   "grain": 44.0,
+   "library_source_url": "https://spoton.com.tr/spoton-hercules",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Zeus": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Zeus",
+   "grain": 38.0,
+   "library_source_url": "https://spoton.com.tr/spoton-zeus",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Ghost": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Ghost",
+   "grain": 32.0,
+   "library_source_url": "https://spoton.com.tr/spoton-ghost",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Monster": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Monster",
+   "grain": 45.0,
+   "library_source_url": "https://spoton.com.tr/spoton-monster",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Spoton|Excel": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excel",
+   "grain": 81.0,
+   "library_source_url": "https://spoton.com.tr/spoton-excel",
+   "caliber_mm": 9.0,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  }
+ }
+}

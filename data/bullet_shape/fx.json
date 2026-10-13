@@ -1,0 +1,32 @@
+{
+ "brand": "FX",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt fetched (empty). Read FX Halo page: 'massive hollow point' -> hollow_point. Material and base not stated.",
+ "sources": [
+  {
+   "id": "halo",
+   "url": "https://www.fxairguns.com/accessories/ammunition/fx-halo/",
+   "read_date": "2026-10-13",
+   "title": "FX Halo"
+  }
+ ],
+ "records": {
+  "FX|FX Halo .30 46 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "FX Halo .30 46 gr",
+   "grain": 46.0,
+   "library_source_url": "https://www.fxairguns.com/accessories/ammunition/fx-halo/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.fxairguns.com/accessories/ammunition/fx-halo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "its massive hollow point"
+   },
+   "base": null
+  }
+ }
+}

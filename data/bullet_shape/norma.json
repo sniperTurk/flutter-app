@@ -1,0 +1,4269 @@
+{
+ "brand": "Norma",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: Norma line pages (Oryx, Oryx Silencer, Tipstrike, Tipstrike Silencer, Ecostrike, Ecostrike Silencer, Bondstrike, Whitetail, Vulkan, Evostrike, ODIN, Jaktmatch, Golden Target, Diamond Line, Plastic Point, African PH, African PH Solids, VerminXtreme) and several product pages read. robots.txt allows all. Vulkan tip from Bullet Description 'SP' on all 7 Vulkan product pages. Empty: Norma Solid (page contradicts itself: brass alloy vs steel-jacketed), TAC-22 (no bullet data; one fetch failed), Vermin Xtreme Tipped (page says 'Tipped SP' and 'hollow point' - conflicting), Vulkan/Oryx/Tipstrike/Evostrike/Whitetail/Plastic Point base and Plastic Point construction not stated. Some fetches needed retries (permission timeouts / CLIENT_ERROR).",
+ "sources": [
+  {
+   "id": "oryx",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+   "read_date": "2026-10-13",
+   "title": "Norma Oryx line"
+  },
+  {
+   "id": "oryx_p",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-243-winchester-100gr---20160332",
+   "read_date": "2026-10-13",
+   "title": "Norma Oryx .243 Win 100gr"
+  },
+  {
+   "id": "oryx_sil",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+   "read_date": "2026-10-13",
+   "title": "Norma Oryx Silencer Series"
+  },
+  {
+   "id": "tipstrike",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+   "read_date": "2026-10-13",
+   "title": "Norma Tipstrike line"
+  },
+  {
+   "id": "tipstrike_sil",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+   "read_date": "2026-10-13",
+   "title": "Norma Tipstrike Silencer Series"
+  },
+  {
+   "id": "ecostrike",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+   "read_date": "2026-10-13",
+   "title": "Norma Ecostrike line"
+  },
+  {
+   "id": "ecostrike_sil",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+   "read_date": "2026-10-13",
+   "title": "Norma Ecostrike Silencer Series"
+  },
+  {
+   "id": "bondstrike",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+   "read_date": "2026-10-13",
+   "title": "Norma Bondstrike line"
+  },
+  {
+   "id": "whitetail",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+   "read_date": "2026-10-13",
+   "title": "Norma Whitetail line"
+  },
+  {
+   "id": "vulkan",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan",
+   "read_date": "2026-10-13",
+   "title": "Norma Vulkan line"
+  },
+  {
+   "id": "vulkan_p",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-30-06-springfield-180gr---20176592",
+   "read_date": "2026-10-13",
+   "title": "Norma Vulkan .30-06 180gr (Bullet Description SP; same on all Vulkan product pages)"
+  },
+  {
+   "id": "evostrike",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+   "read_date": "2026-10-13",
+   "title": "Norma Evostrike line"
+  },
+  {
+   "id": "odin",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+   "read_date": "2026-10-13",
+   "title": "Norma ODIN line"
+  },
+  {
+   "id": "jaktmatch",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch",
+   "read_date": "2026-10-13",
+   "title": "Norma Jaktmatch line"
+  },
+  {
+   "id": "golden_target",
+   "url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+   "read_date": "2026-10-13",
+   "title": "Norma Golden Target line"
+  },
+  {
+   "id": "diamond_line",
+   "url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+   "read_date": "2026-10-13",
+   "title": "Norma Diamond Line"
+  },
+  {
+   "id": "plastic_point",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-plastic-point",
+   "read_date": "2026-10-13",
+   "title": "Norma Plastic Point line"
+  },
+  {
+   "id": "african_ph",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+   "read_date": "2026-10-13",
+   "title": "Norma African PH (Woodleigh)"
+  },
+  {
+   "id": "verminxtreme",
+   "url": "https://www.norma-ammunition.com/products/hunting/norma-verminxtreme",
+   "read_date": "2026-10-13",
+   "title": "Norma VerminXtreme line"
+  }
+ ],
+ "records": {
+  "Norma|Norma TAC-22 40 gr|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma TAC-22 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-tac-22/norma-tac-22-40gr---2425092",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Vermin Xtreme Tipped 55 gr|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Vermin Xtreme Tipped 55 gr",
+   "grain": 55.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-verminxtreme/norma-vermin-xtreme-tipped-223-rem-55gr---20158080",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma VerminXtreme 55 gr|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma VerminXtreme 55 gr",
+   "grain": 55.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-verminxtreme/norma-verminxtreme-223-remington-55gr---20157842",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-verminxtreme",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aggressive hollow point design for rapid expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Whitetail 55 gr|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 55 gr",
+   "grain": 55.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-223-rem-55gr---20158022",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 100 gr|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-243-winchester-100gr---20160332",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Tipstrike Varmint 76 gr|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike Varmint 76 gr",
+   "grain": 76.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-varmint-243-winchester-76gr---20160052",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Whitetail .257 Weath. Mag. 100gr|.257 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail .257 Weath. Mag. 100gr",
+   "grain": 100.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-257-weath-mag-100gr---20166612",
+   "cartridge": ".257 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx .270 Weath. Mag. 150gr|.270 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx .270 Weath. Mag. 150gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-270-weath-mag-150gr---20169512",
+   "cartridge": ".270 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Evostrike 96 gr|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Evostrike 96 gr",
+   "grain": 96.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike/norma-evostrike-270-winchester-96gr---20168972",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "lead-free fragmentation bullet ... Front core of tin"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollowed polymer tip for flat trajectory and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Evostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EVOSTRIKE is our lead-free fragmentation bullet"
+   }
+  },
+  "Norma|Norma Jaktmatch 130 gr|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Jaktmatch 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch/norma-jaktmatch-270-winchester-130gr---20169070",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 150 gr|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-270-winchester-150gr---20169012",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Tipstrike 140 gr|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-270-winchester-140gr---20169292",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Vulkan 156 gr|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Vulkan 156 gr",
+   "grain": 156.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-270-winchester-156gr---20169412",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The jacket is folded at the tip to protect the lead core"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-30-06-springfield-180gr---20176592",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Description: SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Whitetail 130 gr|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-270-winchester-130-g---20169562",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Bondstrike 180 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-30-06-springfield-180gr---20176422",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Ecostrike 150 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-30-06-springfield-150gr---20177572",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Ecostrike 165 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-30-06-springfield-165gr---20177492",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Ecostrike Silencer 150 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike Silencer 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series/norma-ecostrike-silencer-30-06-spring-150-gr---20177552",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Evostrike 139 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Evostrike 139 gr",
+   "grain": 139.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike/norma-evostrike-30-06-springfield-139gr---20177342",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "lead-free fragmentation bullet ... Front core of tin"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollowed polymer tip for flat trajectory and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Evostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EVOSTRIKE is our lead-free fragmentation bullet"
+   }
+  },
+  "Norma|Norma ODIN 162 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma ODIN 162 gr",
+   "grain": 162.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin/norma-odin-30-06-spring-162gr---20178222",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "100% monolithic copper bullet."
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip for higher BC and quick expansion."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail design for excellent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma ODIN 180 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma ODIN 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin/norma-odin-30-06-spring-180gr---20178302",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "100% monolithic copper bullet."
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip for higher BC and quick expansion."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail design for excellent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 165 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-30-06-springfield-165gr---20174702",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx 180 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/en-gb/products/dedicated-hunting/centerfire-rifle/norma-oryx/norma-oryx-30-06-springfield-180gr---20174742",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx 200 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://www.norma-ammunition.com/en-gb/products/dedicated-hunting/centerfire-rifle/norma-oryx/norma-oryx-30-06-springfield-200gr---20176772",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx Silencer 180 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx Silencer 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series/norma-oryx-silencer-30-06-springfield-180-gr---20177282",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Tipstrike 150 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-30-06-springfield-150gr---20177682",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Tipstrike 170 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-30-06-springfield-170gr---20174342",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Tipstrike Silencer 170 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike Silencer 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series/norma-tipstrike-silencer-30-06-springfield-170-gr---20177532",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Vulkan 180 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Vulkan 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-30-06-springfield-180gr---20176592",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The jacket is folded at the tip to protect the lead core"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-30-06-springfield-180gr---20176592",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Description: SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Whitetail 180 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-30-06-springfield-180gr---20177602",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Bondstrike 180 gr|.300 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-300-prc-180gr---20177762",
+   "cartridge": ".300 PRC",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Ecostrike 165 gr|.300 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-300-prc-165gr---20177772",
+   "cartridge": ".300 PRC",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Golden Target 220 gr|.300 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Golden Target 220 gr",
+   "grain": 220.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target/norma-golden-target-300-prc-220gr---20177732",
+   "cartridge": ".300 PRC",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully designed boat tail for the highest possible BC"
+   },
+   "component_bullet": {
+    "value": "Norma Golden Target",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   }
+  },
+  "Norma|Norma ODIN 180 gr|.300 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma ODIN 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin/norma-odin-300-prc-180gr---20178252",
+   "cartridge": ".300 PRC",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "100% monolithic copper bullet."
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip for higher BC and quick expansion."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail design for excellent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Bondstrike 300 Rem. Ultra Mag. 180gr|.300 RUM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 300 Rem. Ultra Mag. 180gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-300-rem-ultra-mag-180gr---20176102",
+   "cartridge": ".300 RUM",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 300 Weath. Mag. 180gr|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 300 Weath. Mag. 180gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-300-weath-mag-180gr---20174622",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Bondstrike 180 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-300-winchester-magnum-180gr---20176332",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Ecostrike 165 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-300-winchester-magnum-165gr---20177502",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Evostrike 139 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Evostrike 139 gr",
+   "grain": 139.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike/norma-evostrike-300-winchester-magnum-139-gr---20177372",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "lead-free fragmentation bullet ... Front core of tin"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollowed polymer tip for flat trajectory and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Evostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EVOSTRIKE is our lead-free fragmentation bullet"
+   }
+  },
+  "Norma|Norma Golden Target 220 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Golden Target 220 gr",
+   "grain": 220.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target/norma-golden-target-300-win-mag-220gr---20177722",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully designed boat tail for the highest possible BC"
+   },
+   "component_bullet": {
+    "value": "Norma Golden Target",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   }
+  },
+  "Norma|Norma Jaktmatch 150 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Jaktmatch 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch/norma-jaktmatch-300-winchester-magnum-150gr---20175450",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma ODIN 180 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma ODIN 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin/norma-odin-300-win-mag-180gr---20178232",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "100% monolithic copper bullet."
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip for higher BC and quick expansion."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail design for excellent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 180 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/en-gb/products/dedicated-hunting/centerfire-rifle/norma-oryx/norma-oryx-300-winchester-magnum-180gr---20174762",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx 200 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-300-winchester-magnum-200gr---20176762",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Plastic Point 180 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Plastic Point 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-plastic-point/norma-plastic-point-300-winchester-magnum-180gr---20176872",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-plastic-point",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Plastic tip for protection & BC"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Tipstrike 170 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-300-winchester-magnum-170gr---20174362",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Vulkan 180 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Vulkan 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-300-winchester-magnum-180gr---20175752",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The jacket is folded at the tip to protect the lead core"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-30-06-springfield-180gr---20176592",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Description: SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Whitetail 150 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-300-winchester-magnum-150-gr---20177412",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Whitetail 180 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-300-win-mag-180gr---20178012",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Bondstrike 180 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-308-winchester-180gr---20176412",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Diamond Line Match 168 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Diamond Line Match 168 gr",
+   "grain": 168.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line/norma-diamond-line-match-308-winchester-168gr---10176152",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma Diamond Line Match ... Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "moly-coated hollow point bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The bullet features a carefully designed boat tail"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Ecostrike 150 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-308-winchester-150gr---20177562",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Ecostrike 165 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-308-winchester-165gr---20177482",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Ecostrike Silencer 150 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike Silencer 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series/norma-ecostrike-silencer-308-win-150-gr---20177542",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Evostrike 139 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Evostrike 139 gr",
+   "grain": 139.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike/norma-evostrike-308-winchester-139g---20177352",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "lead-free fragmentation bullet ... Front core of tin"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollowed polymer tip for flat trajectory and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Evostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EVOSTRIKE is our lead-free fragmentation bullet"
+   }
+  },
+  "Norma|Norma Golden Target 155 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Golden Target 155 gr",
+   "grain": 155.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target/norma-golden-target-308-winchester-155gr---10177422",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully designed boat tail for the highest possible BC"
+   },
+   "component_bullet": {
+    "value": "Norma Golden Target",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   }
+  },
+  "Norma|Norma Golden Target 175 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Golden Target 175 gr",
+   "grain": 175.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target/norma-golden-target-308-winchester-175gr---10177442",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully designed boat tail for the highest possible BC"
+   },
+   "component_bullet": {
+    "value": "Norma Golden Target",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   }
+  },
+  "Norma|Norma Jaktmatch 150 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Jaktmatch 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch/norma-jaktmatch-308-winchester-150gr---20176220",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma ODIN 150 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma ODIN 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin/norma-odin-308-win-150gr---20178192",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "100% monolithic copper bullet."
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip for higher BC and quick expansion."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail design for excellent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma ODIN 162 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma ODIN 162 gr",
+   "grain": 162.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin/norma-odin-308-win-162gr---20178212",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "100% monolithic copper bullet."
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip for higher BC and quick expansion."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail design for excellent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 165 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-308-winchester-165gr---20174712",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx 180 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-308-winchester-180gr---20174732",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx Silencer 165 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx Silencer 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series/norma-oryx-silencer-308-win-165-gr---20177302",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Plastic Point 180 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Plastic Point 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/en-gb/products/dedicated-hunting/centerfire-rifle/norma-plastic-point/norma-plastic-point-308-winchester-180gr---20176282",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-plastic-point",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Plastic tip for protection & BC"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Tipstrike 150 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-308-winchester-150gr---20177692",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Tipstrike 170 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-308-winchester-170gr---20174352",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Tipstrike Silencer 170 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike Silencer 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series/norma-tipstrike-silencer-308-win-170-gr---20177522",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Vulkan 180 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Vulkan 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/en-gb/products/dedicated-hunting/centerfire-rifle/norma-vulkan/norma-vulkan-308-winchester-180gr---20176602",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The jacket is folded at the tip to protect the lead core"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-30-06-springfield-180gr---20176592",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Description: SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Whitetail 180 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-308-winchester-180gr---20177592",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Golden Target 250 gr|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Golden Target 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target/norma-golden-target-338-lapua-mag-250gr---10185442",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully designed boat tail for the highest possible BC"
+   },
+   "component_bullet": {
+    "value": "Norma Golden Target",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   }
+  },
+  "Norma|Norma ECOSTRIKE .338 Winchester Magnum 200gr|.338 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma ECOSTRIKE .338 Winchester Magnum 200gr",
+   "grain": 200.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-338-winchester-magnum-200gr---20185422",
+   "cartridge": ".338 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Jaktmatch .338 Winchester Magnum 225gr|.338 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Jaktmatch .338 Winchester Magnum 225gr",
+   "grain": 225.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch/norma-jaktmatch-338-winchester-magnum-225gr---20185100",
+   "cartridge": ".338 Win Mag",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx .338 Winchester Magnum 230gr|.338 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx .338 Winchester Magnum 230gr",
+   "grain": 230.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-338-winchester-magnum-230gr---20185112",
+   "cartridge": ".338 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx 250gr|.35 Whelen": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 250gr",
+   "grain": 250.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-35-whelen-250gr---20190092",
+   "cartridge": ".35 Whelen",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Solid (Riml. N.E.) 400gr|.404 Jeffery": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Solid (Riml. N.E.) 400gr",
+   "grain": 400.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph-solids/norma-solid-404-jeffery-riml-n-e-400gr---20110352",
+   "cartridge": ".404 Jeffery",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Woodleigh Soft Nose (Riml. N.E.) 450gr|.404 Jeffery": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Woodleigh Soft Nose (Riml. N.E.) 450gr",
+   "grain": 450.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph/norma-woodleigh-soft-nose-404-jeffery-riml-n-e-450gr---20110302",
+   "cartridge": ".404 Jeffery",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "steel-jacketed solids and bonded-core softpoints"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Woodleigh Soft Nose"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Woodleigh Soft Nose",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma has teamed up with Woodleigh bullets"
+   }
+  },
+  "Norma|Norma Solid .416 Remington Magnum 400gr|.416 Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Solid .416 Remington Magnum 400gr",
+   "grain": 400.0,
+   "library_source_url": "https://www.norma-ammunition.com/en-gb/products/dedicated-hunting/centerfire-rifle/norma-african-ph-solids/norma-solid-416-remington-magnum-400gr---20110752",
+   "cartridge": ".416 Rem Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Woodleigh Soft Nose .416 Remington Magnum 450gr|.416 Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Woodleigh Soft Nose .416 Remington Magnum 450gr",
+   "grain": 450.0,
+   "library_source_url": "https://www.norma-ammunition.com/en-gb/products/dedicated-hunting/centerfire-rifle/norma-african-ph/norma-woodleigh-soft-nose-416-remington-magnum-450gr---20110722",
+   "cartridge": ".416 Rem Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "steel-jacketed solids and bonded-core softpoints"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Woodleigh Soft Nose"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Woodleigh Soft Nose",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma has teamed up with Woodleigh bullets"
+   }
+  },
+  "Norma|Norma Solid 400gr|.416 Rigby": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Solid 400gr",
+   "grain": 400.0,
+   "library_source_url": "https://www.norma-ammunition.com/en-gb/products/dedicated-hunting/centerfire-rifle/norma-african-ph-solids/norma-solid-416-rigby-400gr---20110762",
+   "cartridge": ".416 Rigby",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Woodleigh Soft Nose 450gr|.416 Rigby": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Woodleigh Soft Nose 450gr",
+   "grain": 450.0,
+   "library_source_url": "https://www.norma-ammunition.com/en-gb/products/dedicated-hunting/centerfire-rifle/norma-african-ph/norma-woodleigh-soft-nose-416-rigby-450gr---20110702",
+   "cartridge": ".416 Rigby",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "steel-jacketed solids and bonded-core softpoints"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Woodleigh Soft Nose"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Woodleigh Soft Nose",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma has teamed up with Woodleigh bullets"
+   }
+  },
+  "Norma|Norma Solid Rimless 500gr|.450 Rigby": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Solid Rimless 500gr",
+   "grain": 500.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph-solids/norma-solid-450-rigby-rimless-500gr---20111042",
+   "cartridge": ".450 Rigby",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Woodleigh Soft Nose Rimless 550gr|.450 Rigby": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Woodleigh Soft Nose Rimless 550gr",
+   "grain": 550.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph/norma-woodleigh-soft-nose-450-rigby-rimless-550gr---20111052",
+   "cartridge": ".450 Rigby",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "steel-jacketed solids and bonded-core softpoints"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Woodleigh Soft Nose"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Woodleigh Soft Nose",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma has teamed up with Woodleigh bullets"
+   }
+  },
+  "Norma|Norma Solid 500gr|.458 Lott": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Solid 500gr",
+   "grain": 500.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph-solids/norma-solid-458-lott-500gr---20111172",
+   "cartridge": ".458 Lott",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Woodleigh Soft Nose 550gr|.458 Lott": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Woodleigh Soft Nose 550gr",
+   "grain": 550.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph/norma-woodleigh-soft-nose-458-lott-550gr---20111132",
+   "cartridge": ".458 Lott",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "steel-jacketed solids and bonded-core softpoints"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Woodleigh Soft Nose"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Woodleigh Soft Nose",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma has teamed up with Woodleigh bullets"
+   }
+  },
+  "Norma|Norma Woodleigh Soft Nose 470 Nitro Express 500gr|.470 NE": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Woodleigh Soft Nose 470 Nitro Express 500gr",
+   "grain": 500.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph/norma-woodleigh-soft-nose-470-nitro-express-500gr---20112052",
+   "cartridge": ".470 NE",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "steel-jacketed solids and bonded-core softpoints"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Woodleigh Soft Nose"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Woodleigh Soft Nose",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma has teamed up with Woodleigh bullets"
+   }
+  },
+  "Norma|Norma Solid 540gr|.500 Jeffery": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Solid 540gr",
+   "grain": 540.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph-solids/norma-solid-500-jeffery-540gr---20113182",
+   "cartridge": ".500 Jeffery",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Woodleigh Soft Nose 570gr|.500 Jeffery": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Woodleigh Soft Nose 570gr",
+   "grain": 570.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph/norma-woodleigh-soft-nose-500-jeffery-570gr---20113162",
+   "cartridge": ".500 Jeffery",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "steel-jacketed solids and bonded-core softpoints"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Woodleigh Soft Nose"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Woodleigh Soft Nose",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma has teamed up with Woodleigh bullets"
+   }
+  },
+  "Norma|Norma Woodleigh Soft Nose .500 Nitro Express 3 570gr|.500 NE 3\"": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Woodleigh Soft Nose .500 Nitro Express 3 570gr",
+   "grain": 570.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph/norma-woodleigh-soft-nose-500-nitro-express-3-570gr---20113012",
+   "cartridge": ".500 NE 3\"",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "steel-jacketed solids and bonded-core softpoints"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Woodleigh Soft Nose"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Woodleigh Soft Nose",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma has teamed up with Woodleigh bullets"
+   }
+  },
+  "Norma|Norma Woodleigh Soft Nose .500/416 Nitro Express 410gr|.500/.416 NE": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Woodleigh Soft Nose .500/416 Nitro Express 410gr",
+   "grain": 410.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph/norma-woodleigh-soft-nose-500416-nitro-express-410gr---20110532",
+   "cartridge": ".500/.416 NE",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "steel-jacketed solids and bonded-core softpoints"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Woodleigh Soft Nose"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Woodleigh Soft Nose",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma has teamed up with Woodleigh bullets"
+   }
+  },
+  "Norma|Norma Bondstrike 143 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 143 gr",
+   "grain": 143.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-6-5-creedmoor-143gr---20166402",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Ecostrike 120 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-6-5-creedmoor-120gr---20166572",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Evostrike 93 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Evostrike 93 gr",
+   "grain": 93.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike/norma-evostrike-6-5-creedmoor-93-gr---20166482",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "lead-free fragmentation bullet ... Front core of tin"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollowed polymer tip for flat trajectory and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Evostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EVOSTRIKE is our lead-free fragmentation bullet"
+   }
+  },
+  "Norma|Norma Golden Target 130 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Golden Target 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target/norma-golden-target-6-5-creedmoor-130gr---10166312",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully designed boat tail for the highest possible BC"
+   },
+   "component_bullet": {
+    "value": "Norma Golden Target",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   }
+  },
+  "Norma|Norma Golden Target 143 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Golden Target 143 gr",
+   "grain": 143.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target/norma-golden-target-6-5-creedmoor-143gr---10166522",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully designed boat tail for the highest possible BC"
+   },
+   "component_bullet": {
+    "value": "Norma Golden Target",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   }
+  },
+  "Norma|Norma ODIN 120 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma ODIN 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin/norma-odin-6-5-creedmoor-120gr---20166952",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "100% monolithic copper bullet."
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip for higher BC and quick expansion."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail design for excellent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 156 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 156 gr",
+   "grain": 156.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-6-5-creedmoor-156gr---20166442",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Tipstrike 140 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-6-5-creedmoor-140gr---20166512",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Whitetail 140 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-6-5-creedmoor-140-gr---20166492",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Bondstrike 143 gr|6.5 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 143 gr",
+   "grain": 143.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-6-5-prc-143gr---20166452",
+   "cartridge": "6.5 PRC",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Golden Target 143 gr|6.5 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Golden Target 143 gr",
+   "grain": 143.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target/norma-golden-target-6-5-prc-143gr---10166462",
+   "cartridge": "6.5 PRC",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully designed boat tail for the highest possible BC"
+   },
+   "component_bullet": {
+    "value": "Norma Golden Target",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   }
+  },
+  "Norma|Norma Whitetail 140 gr|6.5 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-6-5-prc-140gr---20166592",
+   "cartridge": "6.5 PRC",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Bondstrike 6,5-284 Norma 143 gr|6.5-284 Norma": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 6,5-284 Norma 143 gr",
+   "grain": 143.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-6-5-284-norma-143-gr---20166422",
+   "cartridge": "6.5-284 Norma",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Golden Target 6,5-284 Norma 130gr|6.5-284 Norma": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Golden Target 6,5-284 Norma 130gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target/norma-golden-target-6-5-284-norma-130gr---10166092",
+   "cartridge": "6.5-284 Norma",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully designed boat tail for the highest possible BC"
+   },
+   "component_bullet": {
+    "value": "Norma Golden Target",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Golden Target is the ultimate match bullet"
+   }
+  },
+  "Norma|Norma Bondstrike 6 XC 105gr|6XC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 6 XC 105gr",
+   "grain": 105.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-6-xc-105gr---20160492",
+   "cartridge": "6XC",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Diamond Line 105gr|6XC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Diamond Line 105gr",
+   "grain": 105.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line/norma-diamond-line-6xc-105gr---10160182",
+   "cartridge": "6XC",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma Diamond Line Match ... Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "moly-coated hollow point bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The bullet features a carefully designed boat tail"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 100 gr|6XC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-6xc-100-gr---20160222",
+   "cartridge": "6XC",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Diamond Line 6 mm Norma BR 105gr|6mm BR Norma": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Diamond Line 6 mm Norma BR 105gr",
+   "grain": 105.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line/norma-diamond-line-6-mm-norma-br-105gr---10160162",
+   "cartridge": "6mm BR Norma",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Norma Diamond Line Match ... Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "moly-coated hollow point bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The bullet features a carefully designed boat tail"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Bondstrike 165 gr|7mm PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-7mm-prc-165gr---20171582",
+   "cartridge": "7mm PRC",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Bondstrike 165 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike/norma-bondstrike-7-mm-rem-mag-165gr---20171522",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Ecostrike 140 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-7-mm-remington-magnum-140gr---20171172",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Evostrike 127 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Evostrike 127 gr",
+   "grain": 127.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike/norma-evostrike-7-mm-remington-magnum-127-gr---20171492",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "lead-free fragmentation bullet ... Front core of tin"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollowed polymer tip for flat trajectory and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Evostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EVOSTRIKE is our lead-free fragmentation bullet"
+   }
+  },
+  "Norma|Norma Jaktmatch 150 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Jaktmatch 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch/norma-jaktmatch-7-mm-remington-magnum-150gr---20170260",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 170 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-7-mm-remington-magnum-170gr---20170232",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Plastic Point 170 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Plastic Point 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-plastic-point/norma-plastic-point-7-mm-remington-magnum-170gr---20170272",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-plastic-point",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Plastic tip for protection & BC"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Tipstrike 160 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 160 gr",
+   "grain": 160.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-7-mm-remington-magnum-160gr---20170142",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Vulkan 170 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Vulkan 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-7-mm-remington-magnum-170gr---20170242",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The jacket is folded at the tip to protect the lead core"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-30-06-springfield-180gr---20176592",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Description: SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Whitetail 150 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-7-mm-remington-magnum-150-gr---20171512",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 7mm Weath. Mag. 170gr|7mm Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 7mm Weath. Mag. 170gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-7mm-weath-mag-170gr---20171072",
+   "cartridge": "7mm Weatherby Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Tipstrike 160 gr|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 160 gr",
+   "grain": 160.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-7-mm-08-remington-160gr---20170362",
+   "cartridge": "7mm-08 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Whitetail 150 gr|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-7-mm-08-remington-150-gr---20171502",
+   "cartridge": "7mm-08 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Jaktmatch 8,5x55 Blaser 225gr|8.5x55 Blaser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Jaktmatch 8,5x55 Blaser 225gr",
+   "grain": 225.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch/norma-jaktmatch-8-5x55-blaser-225gr---20185532",
+   "cartridge": "8.5x55 Blaser",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 8,5 x 55 Blaser 230 gr|8.5x55 Blaser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 8,5 x 55 Blaser 230 gr",
+   "grain": 230.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-8-5-x-55-blaser-230-gr---20185362",
+   "cartridge": "8.5x55 Blaser",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Ecostrike 160 gr|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike 160 gr",
+   "grain": 160.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-8x57-js-160gr---20180442",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Ecostrike Silencer 160 gr|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike Silencer 160 gr",
+   "grain": 160.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series/norma-ecostrike-silencer-8x57-js-160-gr---20180422",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Evostrike 139 gr|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Evostrike 139 gr",
+   "grain": 139.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike/norma-evostrike-8x57-js-139gr---20180382",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "lead-free fragmentation bullet ... Front core of tin"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollowed polymer tip for flat trajectory and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Evostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EVOSTRIKE is our lead-free fragmentation bullet"
+   }
+  },
+  "Norma|Norma Jaktmatch 123 gr|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Jaktmatch 123 gr",
+   "grain": 123.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch/norma-jaktmatch-8x57-js-123gr---20180090",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 196 gr|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 196 gr",
+   "grain": 196.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-8x57-js-196gr---20180042",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx Silencer 196 gr|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx Silencer 196 gr",
+   "grain": 196.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series/norma-oryx-silencer-8x57-js-196-gr---20180342",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Tipstrike 180 gr|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-8x57-js-180gr---20180392",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Vulkan 196 gr|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Vulkan 196 gr",
+   "grain": 196.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-8x57-js-196gr---20180202",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The jacket is folded at the tip to protect the lead core"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-30-06-springfield-180gr---20176592",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Description: SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Whitetail 196 gr|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 196 gr",
+   "grain": 196.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-8x57-js-196gr---20180452",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma TIPSTRIKE 180gr|8x68 S": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma TIPSTRIKE 180gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-8x68-s-180gr---20180412",
+   "cartridge": "8x68 S",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Ecostrike 250 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Ecostrike 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike/norma-ecostrike-9-3-x-62-250gr---20193482",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our nickel-coated copper bullet delivers deep penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail designed for increased ballistic coefficient"
+   },
+   "component_bullet": {
+    "value": "Norma Ecostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "our popular lead free Ecostrike bullet"
+   }
+  },
+  "Norma|Norma Evostrike 184 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Evostrike 184 gr",
+   "grain": 184.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike/norma-evostrike-9-3x62-184gr---20193242",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "lead-free fragmentation bullet ... Front core of tin"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollowed polymer tip for flat trajectory and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Evostrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EVOSTRIKE is our lead-free fragmentation bullet"
+   }
+  },
+  "Norma|Norma Jaktmatch 232 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Jaktmatch 232 gr",
+   "grain": 232.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch/norma-jaktmatch-9-3-x-62-232gr---20193180",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma ODIN 230 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma ODIN 230 gr",
+   "grain": 230.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin/norma-odin-9-3x62-230gr---20193622",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "100% monolithic copper bullet."
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip for higher BC and quick expansion."
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail design for excellent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Oryx 232 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 232 gr",
+   "grain": 232.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-9-3-x-62-232gr---20193072",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx 285 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 285 gr",
+   "grain": 285.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-9-3-x-62-285gr---20193132",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx 325 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx 325 gr",
+   "grain": 325.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-9-3-x-62-325gr---20193162",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Oryx Silencer 285 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Oryx Silencer 285 gr",
+   "grain": 285.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series/norma-oryx-silencer-9-3x62-285-gr---20193232",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "ORYX is a premium bonded bullet"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft nose to secure massive mushrooming"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Oryx",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Oryx bullet"
+   }
+  },
+  "Norma|Norma Plastic Point 285 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Plastic Point 285 gr",
+   "grain": 285.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-plastic-point/norma-plastic-point-9-3-x-62-285gr---20193142",
+   "cartridge": "9.3x62",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-plastic-point",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Plastic tip for protection & BC"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Tipstrike 255 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Tipstrike 255 gr",
+   "grain": 255.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike/norma-tipstrike-9-3x62-255gr---20193292",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Norma Tipstrike",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with our popular Tipstrike bullet"
+   }
+  },
+  "Norma|Norma Vulkan 232 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Vulkan 232 gr",
+   "grain": 232.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-9-3-x-62-232gr---20193172",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The jacket is folded at the tip to protect the lead core"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-30-06-springfield-180gr---20176592",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Description: SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Norma|Norma Whitetail 285 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Norma Whitetail 285 gr",
+   "grain": 285.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail/norma-whitetail-9-3x62-285gr---20193502",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Soft point nose for rapid expansion"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Flat base provides consistent accuracy"
+   },
+   "component_bullet": null
+  },
+  "Norma|Norma Bondstrike 7 mm (.284) 165 gr|20670171": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Norma Bondstrike 7 mm (.284) 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.norma-ammunition.com/products/components/hunting-bullets/norma-bondstrike-7-mm-284-165gr---20670171",
+   "caliber_mm": 7.21,
+   "item": "20670171",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Unique bonding technology for high retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match boat tail for minimal drag and consistent accuracy"
+   }
+  }
+ }
+}

@@ -1,0 +1,96 @@
+{
+ "brand": "Zan Projectiles",
+ "note": "2026-10-13: robots.txt read (/shop/ allowed). All 21 source pages read. Stated: .177 slugs 'deep hollow point' + 'shallow hollow base'; .457 slugs deep hollow point + Boat Tail; ELR Hyper Line 'round nose and boat tail profile'; Lead Free .30 pellets lead-free. Not stated: .20/.22/.25/.30 slugs, Hyper Line (.177/.22/.30/.357, only a 'Hollow point' shop category), ELR ('lead or alternative alloys' = not specific), Fat Boy, BR50/BR100. .25 page lists '44 grain BT' undefined -> not used. ZAN .22 ELR 35.5 gr source URL now shows the 33 gr ELR HP product -> left empty.",
+ "sources": [
+  {
+   "id": "z177",
+   "url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+   "read_date": "2026-10-13",
+   "title": ".177 / 4.5mm slugs"
+  },
+  {
+   "id": "z457",
+   "url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+   "read_date": "2026-10-13",
+   "title": ".457 / 11,6mm Slug"
+  },
+  {
+   "id": "zelrhl",
+   "url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+   "read_date": "2026-10-13",
+   "title": "ELR Hyper Line Slugs"
+  },
+  {
+   "id": "zlf30",
+   "url": "https://zanprojectiles.com/shop/lead-free-30-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Lead Free .30 Pellets"
+  }
+ ],
+ "families": [
+  {
+   "id": "z177",
+   "lib": "bullet",
+   "name_regex": "^ZAN \\.177 \\d+(\\.\\d+)? gr HP Slug$",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "z177",
+     "quote": "deep hollow point for huge expansion"
+    },
+    "base": {
+     "value": "hollow_base",
+     "src": "z177",
+     "quote": "Base shape (shallow hollow base)"
+    }
+   }
+  },
+  {
+   "id": "z457",
+   "lib": "bullet",
+   "name_regex": "^ZAN \\.457 ",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "z457",
+     "quote": "The deep hollow point design"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "z457",
+     "quote": "high ballistic coefficient due to the Boat Tail"
+    }
+   }
+  },
+  {
+   "id": "zelr_hyper",
+   "lib": "bullet",
+   "name_regex": "^ZAN \\.22 ELR Hyper Line ",
+   "fields": {
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "zelrhl",
+     "quote": "round nose and boat tail profile"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "zelrhl",
+     "quote": "round nose and boat tail profile"
+    }
+   }
+  },
+  {
+   "id": "zlf30",
+   "lib": "bullet",
+   "name_regex": "^ZAN Lead Free \\.30 ",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "zlf30",
+     "quote": "Heavy Lead Free pellet is perfect for longer ranges"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

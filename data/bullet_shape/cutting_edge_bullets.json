@@ -1,0 +1,1611 @@
+{
+ "brand": "Cutting Edge Bullets",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read 2026-10-13: TechDataSheets2026.pdf (cdn.shopify.com, robots ok) and cuttingedgebullets.com blog/collection/product pages (robots ok). All lines solid copper lead-free -> monolithic_copper; MTAC is a non-expanding target bullet -> match. Tip: LAZER 'expanding hollow point' (tip material not stated, so hollow_point), MTH 'hollow point counterpart'; MTAC nose not stated. Base not stated for any line (only FB Raptor, not in records, is flat base). 'MAX'/'GEN2'/'SINGLE FEED' suffixes not explained, so MAXIMUS-line text was not applied to MAX records.",
+ "sources": [
+  {
+   "id": "tds",
+   "url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "read_date": "2026-10-13",
+   "title": "Tech Data Sheets 2026"
+  },
+  {
+   "id": "lines",
+   "url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+   "read_date": "2026-10-13",
+   "title": "Our Bullet Lines"
+  },
+  {
+   "id": "og",
+   "url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+   "read_date": "2026-10-13",
+   "title": "Our OG Solid Copper Bullet Line: MTAC & MTH"
+  },
+  {
+   "id": "lazer",
+   "url": "https://cuttingedgebullets.com/collections/lazer",
+   "read_date": "2026-10-13",
+   "title": "LAZER collection"
+  }
+ ],
+ "records": {
+  "Cutting Edge Bullets|MTH Flat Base (Match/Tactical/Hunting) .224 40 gr|FBH 224 40": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH Flat Base (Match/Tactical/Hunting) .224 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 5.7,
+   "item": "FBH 224 40",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Flat Base"
+   }
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .224 55 gr|MTH 224 55": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .224 55 gr",
+   "grain": 55.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 5.7,
+   "item": "MTH 224 55",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .224 65 gr|MTH 224 65": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .224 65 gr",
+   "grain": 65.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 5.7,
+   "item": "MTH 224 65",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .224 78 gr MAX|MTH 224 78 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .224 78 gr MAX",
+   "grain": 78.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 5.7,
+   "item": "MTH 224 78 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .243 77 gr Gen2|MTH 243 77 Gen2": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .243 77 gr Gen2",
+   "grain": 77.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.17,
+   "item": "MTH 243 77 Gen2",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .243 88 gr Gen2|MTH 243 88 Gen2": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .243 88 gr Gen2",
+   "grain": 88.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.17,
+   "item": "MTH 243 88 Gen2",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .243 100 gr MAX|MTH 243 100 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .243 100 gr MAX",
+   "grain": 100.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.17,
+   "item": "MTH 243 100 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .257 100 gr|MTH 257 100": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .257 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.53,
+   "item": "MTH 257 100",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .257 115 gr|MTH 257 115": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .257 115 gr",
+   "grain": 115.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.53,
+   "item": "MTH 257 115",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .264 120 gr|MTH 264 120": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .264 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.71,
+   "item": "MTH 264 120",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .264 130 gr|MTH 264 130": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .264 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.71,
+   "item": "MTH 264 130",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .277 120 gr|MTH 277 120": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .277 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.04,
+   "item": "MTH 277 120",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .277 130 gr|MTH 277 130": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .277 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.04,
+   "item": "MTH 277 130",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .277 140 gr MAX|MTH 277 140 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .277 140 gr MAX",
+   "grain": 140.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.04,
+   "item": "MTH 277 140 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .284 130 gr|MTH 284 130": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .284 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.21,
+   "item": "MTH 284 130",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .284 145 gr|MTH 284 145": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .284 145 gr",
+   "grain": 145.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.21,
+   "item": "MTH 284 145",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .284 168 gr|MTH 284 168": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .284 168 gr",
+   "grain": 168.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.21,
+   "item": "MTH 284 168",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .284 180 gr MAX|MTH 284 180 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .284 180 gr MAX",
+   "grain": 180.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.21,
+   "item": "MTH 284 180 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .308 130 gr|MTH 308 130": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .308 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "MTH 308 130",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .308 150 gr|MTH 308 150": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .308 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "MTH 308 150",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .308 200 gr MAX|MTH 308 200 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .308 200 gr MAX",
+   "grain": 200.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "MTH 308 200 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .323 225 gr MAX|MTH 323 225 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .323 225 gr MAX",
+   "grain": 225.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 8.22,
+   "item": "MTH 323 225 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .323 256 gr MAX|MTH 323 256 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .323 256 gr MAX",
+   "grain": 256.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 8.22,
+   "item": "MTH 323 256 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .338 252 gr|MTH 338 252": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .338 252 gr",
+   "grain": 252.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 8.59,
+   "item": "MTH 338 252",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .338 265 gr|MTH 338 265": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .338 265 gr",
+   "grain": 265.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 8.59,
+   "item": "MTH 338 265",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .358 340 gr MAX|MTH 358 340 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .358 340 gr MAX",
+   "grain": 340.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 9.09,
+   "item": "MTH 358 340 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .375 425 gr MAX|MTH 375 425 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .375 425 gr MAX",
+   "grain": 425.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 9.53,
+   "item": "MTH 375 425 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .416 340 gr MAX|MTH 416 340 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .416 340 gr MAX",
+   "grain": 340.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 10.57,
+   "item": "MTH 416 340 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .416 350 gr|MTH 416 350": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .416 350 gr",
+   "grain": 350.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 10.57,
+   "item": "MTH 416 350",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .416 350 gr MAX|MTH 416 350 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .416 350 gr MAX",
+   "grain": 350.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 10.57,
+   "item": "MTH 416 350 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .416 375 gr MAX|MTH 416 375 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .416 375 gr MAX",
+   "grain": 375.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 10.57,
+   "item": "MTH 416 375 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTH (Match/Tactical/Hunting) .510 798 gr MAX|MTH 510 798 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTH (Match/Tactical/Hunting) .510 798 gr MAX",
+   "grain": 798.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 12.95,
+   "item": "MTH 510 798 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Solid Copper, Lead Free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .224 55 gr|MTAC 224 55": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .224 55 gr",
+   "grain": 55.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 5.7,
+   "item": "MTAC 224 55",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .224 65 gr|MTAC 224 65": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .224 65 gr",
+   "grain": 65.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 5.7,
+   "item": "MTAC 224 65",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .224 79 gr MAX|MTAC 224 79 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .224 79 gr MAX",
+   "grain": 79.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 5.7,
+   "item": "MTAC 224 79 MAX",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .243 90 gr MAX|MTAC 243 90 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .243 90 gr MAX",
+   "grain": 90.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.17,
+   "item": "MTAC 243 90 MAX",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .243 102 gr MAX|MTAC 243 102 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .243 102 gr MAX",
+   "grain": 102.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.17,
+   "item": "MTAC 243 102 MAX",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .264 133 gr|MTAC 264 133": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .264 133 gr",
+   "grain": 133.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.71,
+   "item": "MTAC 264 133",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .277 120 gr|MTAC 277 120": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .277 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.04,
+   "item": "MTAC 277 120",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .277 125 gr|MTAC 277 125": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .277 125 gr",
+   "grain": 125.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.04,
+   "item": "MTAC 277 125",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .284 157 gr MAX|MTAC 284 157 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .284 157 gr MAX",
+   "grain": 157.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.21,
+   "item": "MTAC 284 157 MAX",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .284 192 gr MAX|MTAC 284 192 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .284 192 gr MAX",
+   "grain": 192.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.21,
+   "item": "MTAC 284 192 MAX",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .308 132 gr|MTAC 308 132": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .308 132 gr",
+   "grain": 132.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "MTAC 308 132",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .308 155 gr|MTAC 308 155": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .308 155 gr",
+   "grain": 155.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "MTAC 308 155",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .308 168 gr|MTAC 308 168": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .308 168 gr",
+   "grain": 168.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "MTAC 308 168",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .308 175 gr|MTAC 308 175": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .308 175 gr",
+   "grain": 175.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "MTAC 308 175",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .308 182 gr|MTAC 308 182": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .308 182 gr",
+   "grain": 182.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "MTAC 308 182",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .308 182 gr MAX|MTAC 308 182 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .308 182 gr MAX",
+   "grain": 182.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "MTAC 308 182 MAX",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .338 227 gr|MTAC 338 227": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .338 227 gr",
+   "grain": 227.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 8.59,
+   "item": "MTAC 338 227",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .338 254 gr|MTAC 338 254": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .338 254 gr",
+   "grain": 254.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 8.59,
+   "item": "MTAC 338 254",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .338 267 gr|MTAC 338 267": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .338 267 gr",
+   "grain": 267.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 8.59,
+   "item": "MTAC 338 267",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .338 277 gr|MTAC 338 277": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .338 277 gr",
+   "grain": 277.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 8.59,
+   "item": "MTAC 338 277",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .510 660 gr|MTAC 510 660": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .510 660 gr",
+   "grain": 660.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 12.95,
+   "item": "MTAC 510 660",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|MTAC (Match/Tactical) .510 902 gr MAX|MTAC 510 902 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MTAC (Match/Tactical) .510 902 gr MAX",
+   "grain": 902.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 12.95,
+   "item": "MTAC 510 902 MAX",
+   "construction": {
+    "value": "match",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid, non expanding bullet intended for target use only"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .264 125 gr|LZR 264 125": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .264 125 gr",
+   "grain": 125.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 6.71,
+   "item": "LZR 264 125",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .277 115 gr|LZR 277 115": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .277 115 gr",
+   "grain": 115.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.04,
+   "item": "LZR 277 115",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .277 150 gr MAX|LZR 277 150 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .277 150 gr MAX",
+   "grain": 150.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.04,
+   "item": "LZR 277 150 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .284 145 gr MAX|LZR 284 145 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .284 145 gr MAX",
+   "grain": 145.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.21,
+   "item": "LZR 284 145 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .284 160 gr MAX|LZR 284 160 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .284 160 gr MAX",
+   "grain": 160.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.21,
+   "item": "LZR 284 160 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .284 185 gr MAX|LZR 284 185 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .284 185 gr MAX",
+   "grain": 185.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.21,
+   "item": "LZR 284 185 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .308 165 gr GEN2|LZR 308 165 GEN2": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .308 165 gr GEN2",
+   "grain": 165.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "LZR 308 165 GEN2",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .308 180 gr MAX GEN2|LZR 308 180 MAX GEN2": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .308 180 gr MAX GEN2",
+   "grain": 180.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "LZR 308 180 MAX GEN2",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .308 200 gr MAX|LZR 308 200 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .308 200 gr MAX",
+   "grain": 200.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "LZR 308 200 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .308 220 gr MAX GEN2|LZR 308 220 MAX GEN2": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .308 220 gr MAX GEN2",
+   "grain": 220.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "LZR 308 220 MAX GEN2",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .308 230 gr MAX GEN2|LZR 308 230 MAX GEN2": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .308 230 gr MAX GEN2",
+   "grain": 230.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "LZR 308 230 MAX GEN2",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .308 230 gr MAX NM GEN2|LZR 308 230 MAX NM GEN2": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .308 230 gr MAX NM GEN2",
+   "grain": 230.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "LZR 308 230 MAX NM GEN2",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .308 240 gr MAX|LZR 308 240 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .308 240 gr MAX",
+   "grain": 240.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 7.82,
+   "item": "LZR 308 240 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .338 275 gr MAX GEN2|LZR 338 275 MAX GEN2": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .338 275 gr MAX GEN2",
+   "grain": 275.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 8.59,
+   "item": "LZR 338 275 MAX GEN2",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .416 450 gr MAX|LZR 416 450 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .416 450 gr MAX",
+   "grain": 450.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 10.57,
+   "item": "LZR 416 450 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .458 700 gr MAX|LZR 458 700 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .458 700 gr MAX",
+   "grain": 700.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 11.63,
+   "item": "LZR 458 700 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  },
+  "Cutting Edge Bullets|Lazer Tipped Hollow Point .510 850 gr MAX|LZR 510 850 MAX": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Lazer Tipped Hollow Point .510 850 gr MAX",
+   "grain": 850.0,
+   "library_source_url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "caliber_mm": 12.95,
+   "item": "LZR 510 850 MAX",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "monolithic, lathe turned projectile that is lead-free"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is an expanding hollow point"
+   },
+   "base": null
+  }
+ }
+}

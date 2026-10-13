@@ -1,0 +1,2919 @@
+{
+ "brand": "Remington",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "remington.com product pages read 2026-10-13 (robots ok; WebFetch PROVENANCE_REQUIRED on first 3 tries, then ok). Component maker pages: speer.com (Impact boat tail), sierrabullets.com MatchKing family (HPBT names). Not stated: base for Core-Lokt, Core-Lokt Tipped, CuT, AccuTip(-V), Core-Lokt Copper, UMC, Subsonic; CuT tip ('precision tip', polymer not said); Premier AccuTip (Power Port tip, brass jacket) left empty; UMC/Subsonic construction not stated.",
+ "sources": [
+  {
+   "id": "cl",
+   "url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+   "read_date": "2026-10-13",
+   "title": "Core-Lokt 308 Win 150 gr PSP"
+  },
+  {
+   "id": "clt",
+   "url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+   "read_date": "2026-10-13",
+   "title": "Core-Lokt Tipped 308 Win 150 gr"
+  },
+  {
+   "id": "cltl",
+   "url": "https://www.remington.com/rifle/core-lokt-tipped-lever-gun/29-R21428.html",
+   "read_date": "2026-10-13",
+   "title": "Core-Lokt Tipped Lever Gun 30-30 150 gr"
+  },
+  {
+   "id": "clc",
+   "url": "https://www.remington.com/rifle/core-lokt-copper/29-R27855.html",
+   "read_date": "2026-10-13",
+   "title": "Core-Lokt Copper 270 Win 130 gr"
+  },
+  {
+   "id": "hsb",
+   "url": "https://www.remington.com/rifle/hypersonic-bonded/29-28955.html",
+   "read_date": "2026-10-13",
+   "title": "Hypersonic Bonded 270 Win 140 gr"
+  },
+  {
+   "id": "cut",
+   "url": "https://www.remington.com/rifle/premier-cut/29-R22344.html",
+   "read_date": "2026-10-13",
+   "title": "Premier CuT 308 Win 150 gr"
+  },
+  {
+   "id": "plr",
+   "url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+   "read_date": "2026-10-13",
+   "title": "Premier Long Range 308 Win 172 gr"
+  },
+  {
+   "id": "sci",
+   "url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+   "read_date": "2026-10-13",
+   "title": "Premier Scirocco 308 Win 165 gr"
+  },
+  {
+   "id": "pm",
+   "url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+   "read_date": "2026-10-13",
+   "title": "Premier Match 308 Win 168 gr"
+  },
+  {
+   "id": "atv",
+   "url": "https://www.remington.com/rifle/premier-accutip-v/29-29192.html",
+   "read_date": "2026-10-13",
+   "title": "Premier AccuTip-V 223 Rem 55 gr"
+  },
+  {
+   "id": "atv_rf",
+   "url": "https://www.remington.com/rimfire/magnum-rimfire/29-21184.html",
+   "read_date": "2026-10-13",
+   "title": "Premier Magnum Rimfire 22 WMR 33 gr AccuTip-V"
+  },
+  {
+   "id": "speer_impact",
+   "url": "https://www.speer.com/speer-stories/bonding-benefits.html",
+   "read_date": "2026-10-13",
+   "title": "Speer: The Best Bonded Bullets (Impact)"
+  },
+  {
+   "id": "smk",
+   "url": "https://sierrabullets.com/bullets/product-family/matchking/",
+   "read_date": "2026-10-13",
+   "title": "Sierra MatchKing product family"
+  }
+ ],
+ "records": {
+  "Remington|Premier Magnum Rimfire 33 gr AccuTip-V 2000 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Magnum Rimfire 33 gr AccuTip-V 2000 fps",
+   "grain": 33.0,
+   "library_source_url": "https://www.remington.com/rimfire/magnum-rimfire/29-21184.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rimfire/magnum-rimfire/29-21184.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "AccuTip-V's precision-engineered polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Remington Magnum Rimfire 40 gr Jacketed Hollow Point 1910 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Remington Magnum Rimfire 40 gr Jacketed Hollow Point 1910 fps",
+   "grain": 40.0,
+   "library_source_url": "https://www.remington.com/rimfire/magnum-rimfire/29-21170.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rimfire/magnum-rimfire/29-21170.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Remington Magnum Rimfire 40 gr Pointed Soft Point 1910 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Remington Magnum Rimfire 40 gr Pointed Soft Point 1910 fps",
+   "grain": 40.0,
+   "library_source_url": "https://www.remington.com/rimfire/magnum-rimfire/29-21172.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rimfire/magnum-rimfire/29-21172.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|High Performance Rifle 55 gr Pointed Soft Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "High Performance Rifle 55 gr Pointed Soft Point",
+   "grain": 55.0,
+   "library_source_url": "https://www.remington.com/rifle/high-performance-rifle/29-28399.html",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/high-performance-rifle/29-28399.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier AccuTip-V 50 gr AccuTip-V|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier AccuTip-V 50 gr AccuTip-V",
+   "grain": 50.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-accutip-v/29-29184.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/premier-accutip-v/29-29192.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the thin jacket and soft lead core to fragment violently"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-accutip-v/29-29192.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "AccuTip's gold polymer tip is driven rearward"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier AccuTip-V 55 gr AccuTip-V|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier AccuTip-V 55 gr AccuTip-V",
+   "grain": 55.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-accutip-v/29-29192.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/premier-accutip-v/29-29192.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the thin jacket and soft lead core to fragment violently"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-accutip-v/29-29192.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "AccuTip's gold polymer tip is driven rearward"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Match 52 gr Open Tip Match|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Match 52 gr Open Tip Match",
+   "grain": 52.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-match/29-27682.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully selected open-tip match bullets for exceptional accuracy"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-27682.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Match 62 gr Hollow Point Match|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Match 62 gr Hollow Point Match",
+   "grain": 62.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-match/29-22106.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully selected open-tip match bullets for exceptional accuracy"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-22106.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Match 69 gr MatchKing Open Tip Match|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Match 69 gr MatchKing Open Tip Match",
+   "grain": 69.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-match/29-27680.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully selected open-tip match bullets for exceptional accuracy"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-27680.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullets/product-family/matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "22 CAL 69 GR HPBT MatchKing (SMK)"
+   },
+   "component_bullet": {
+    "value": "MatchKing",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "MatchKing Open Tip Match"
+   }
+  },
+  "Remington|Premier Match 77 gr MatchKing Open Tip Match|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Match 77 gr MatchKing Open Tip Match",
+   "grain": 77.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-match/29-27686.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully selected open-tip match bullets for exceptional accuracy"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-27686.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullets/product-family/matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "22 CAL 77 GR HPBT MatchKing (SMK)"
+   },
+   "component_bullet": {
+    "value": "MatchKing",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "MatchKing Open Tip Match"
+   }
+  },
+  "Remington|UMC Centerfire Rifle 45 gr Jacketed Hollow Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "UMC Centerfire Rifle 45 gr Jacketed Hollow Point",
+   "grain": 45.0,
+   "library_source_url": "https://www.remington.com/rifle/umc-rifle/29-23748.html",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rifle/umc-rifle/29-23748.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|UMC Centerfire Rifle 50 gr Jacketed Hollow Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "UMC Centerfire Rifle 50 gr Jacketed Hollow Point",
+   "grain": 50.0,
+   "library_source_url": "https://www.remington.com/rifle/umc-rifle/29-R23812.html",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rifle/umc-rifle/29-R23812.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|UMC Centerfire Rifle 55 gr Full Metal Jacket|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "UMC Centerfire Rifle 55 gr Full Metal Jacket",
+   "grain": 55.0,
+   "library_source_url": "https://www.remington.com/rifle/umc-rifle/29-23897.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.remington.com/rifle/umc-rifle/29-23897.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 100 gr Pointed Soft Point Core Lokt|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 100 gr Pointed Soft Point Core Lokt",
+   "grain": 100.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27802.html",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27802.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Copper 85 gr Copper HP|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Copper 85 gr Copper HP",
+   "grain": 85.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27856.html",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/core-lokt-copper/29-R27855.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "MONOLITHIC COPPER BULLET: Lead-free construction retains its integrity"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27856.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 95 gr Core-Lokt Tipped|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 95 gr Core-Lokt Tipped",
+   "grain": 95.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29015.html",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|High Performance Rifle 80 gr Pointed Soft Point|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "High Performance Rifle 80 gr Pointed Soft Point",
+   "grain": 80.0,
+   "library_source_url": "https://www.remington.com/rifle/high-performance-rifle/29-27800.html",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/high-performance-rifle/29-27800.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier AccuTip-V 75 gr AccuTip-V|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier AccuTip-V 75 gr AccuTip-V",
+   "grain": 75.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-accutip-v/29-29194.html",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/premier-accutip-v/29-29192.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the thin jacket and soft lead core to fragment violently"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-accutip-v/29-29192.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "AccuTip's gold polymer tip is driven rearward"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Scirocco 90 gr Swift Scirocco Bonded|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 90 gr Swift Scirocco Bonded",
+   "grain": 90.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-scirocco/29-29320.html",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|Core-Lokt 117 gr Core-Lokt Soft Point 2650 fps|.257 Roberts": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 117 gr Core-Lokt Soft Point 2650 fps",
+   "grain": 117.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-28335.html",
+   "cartridge": ".257 Roberts",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-28335.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 100 gr Pointed Soft Point Core Lokt|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 100 gr Pointed Soft Point Core Lokt",
+   "grain": 100.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21325.html",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21325.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 130 gr Pointed Soft Point Core Lokt|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 130 gr Pointed Soft Point Core Lokt",
+   "grain": 130.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27808.html",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27808.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 150 gr Core-Lokt Soft Point|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 150 gr Core-Lokt Soft Point",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27810.html",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27810.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Copper 130 gr Copper HP|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Copper 130 gr Copper HP",
+   "grain": 130.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-copper/29-R27855.html",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/core-lokt-copper/29-R27855.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "MONOLITHIC COPPER BULLET: Lead-free construction retains its integrity"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rifle/core-lokt-copper/29-R27855.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 130 gr Core-Lokt Tipped|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 130 gr Core-Lokt Tipped",
+   "grain": 130.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29019.html",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Hypersonic Bonded 140 gr Core-Lokt Ultra Bonded Pointed Soft Point|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Hypersonic Bonded 140 gr Core-Lokt Ultra Bonded Pointed Soft Point",
+   "grain": 140.0,
+   "library_source_url": "https://www.remington.com/rifle/hypersonic-bonded/29-28955.html",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/hypersonic-bonded/29-28955.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "today's most advanced bonded bullet design, Core-Lokt Ultra Bonded"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/hypersonic-bonded/29-28955.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier CuT 130 gr Copper Tipped|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier CuT 130 gr Copper Tipped",
+   "grain": 130.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-cut/29-R22337.html",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/premier-cut/29-R22344.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Premier CuT's monolithic copper alloy bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Long Range 150 gr Speer Impact|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Long Range 150 gr Speer Impact",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-long-range/29-R21342.html",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BONDED CONSTRUCTION: Keeps the jacket and core together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SLIPSTREAM POLYMER TIP: Improves aerodynamics"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/speer-stories/bonding-benefits.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "streamlined, boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Speer Impact",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HIGH BALLISTIC COEFFIENT SPEER IMPACT BULLET"
+   }
+  },
+  "Remington|Premier Scirocco 130 gr Swift Scirocco Bonded|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 130 gr Swift Scirocco Bonded",
+   "grain": 130.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-scirocco/29-29322.html",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|Core-Lokt 125 gr Pointed Soft Point Core Lokt|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 125 gr Pointed Soft Point Core Lokt",
+   "grain": 125.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21401.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21401.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 150 gr Pointed Soft Point Core Lokt|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 150 gr Pointed Soft Point Core Lokt",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27826.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27826.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 165 gr Pointed Soft Point Core Lokt|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 165 gr Pointed Soft Point Core Lokt",
+   "grain": 165.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R21415.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R21415.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 180 gr Core-Lokt Soft Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 180 gr Core-Lokt Soft Point",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21407.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21407.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 180 gr Pointed Soft Point Core Lokt|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 180 gr Pointed Soft Point Core Lokt",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27828.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27828.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 220 gr Core-Lokt Soft Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 220 gr Core-Lokt Soft Point",
+   "grain": 220.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27830.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27830.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Copper 150 gr Copper HP|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Copper 150 gr Copper HP",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27853.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/core-lokt-copper/29-R27855.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "MONOLITHIC COPPER BULLET: Lead-free construction retains its integrity"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27853.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 150 gr Core-Lokt Tipped|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 150 gr Core-Lokt Tipped",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29027.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 165 gr Core-Lokt Tipped|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 165 gr Core-Lokt Tipped",
+   "grain": 165.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29035.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 180 gr Core-Lokt Tipped|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 180 gr Core-Lokt Tipped",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29037.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Hypersonic Bonded 180 gr Core-Lokt Ultra Bonded Pointed Soft Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Hypersonic Bonded 180 gr Core-Lokt Ultra Bonded Pointed Soft Point",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/hypersonic-bonded/29-29009.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/hypersonic-bonded/29-28955.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "today's most advanced bonded bullet design, Core-Lokt Ultra Bonded"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/hypersonic-bonded/29-29009.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier CuT 150 gr Copper Tipped|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier CuT 150 gr Copper Tipped",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-cut/29-R22343.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/premier-cut/29-R22344.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Premier CuT's monolithic copper alloy bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Long Range 172 gr Speer Impact|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Long Range 172 gr Speer Impact",
+   "grain": 172.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-long-range/29-R21344.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BONDED CONSTRUCTION: Keeps the jacket and core together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SLIPSTREAM POLYMER TIP: Improves aerodynamics"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/speer-stories/bonding-benefits.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "streamlined, boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Speer Impact",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HIGH BALLISTIC COEFFIENT SPEER IMPACT BULLET"
+   }
+  },
+  "Remington|Premier Scirocco 150 gr Swift Scirocco Bonded|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 150 gr Swift Scirocco Bonded",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-scirocco/29-29318.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|Premier Scirocco 180 gr Swift Scirocco Bonded|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 180 gr Swift Scirocco Bonded",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-scirocco/29-29328.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|UMC Centerfire Rifle 150 gr Full Metal Jacket|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "UMC Centerfire Rifle 150 gr Full Metal Jacket",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/umc-rifle/29-23699.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.remington.com/rifle/umc-rifle/29-23699.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 150 gr Core-Lokt Soft Point|.30-30 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 150 gr Core-Lokt Soft Point",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27818.html",
+   "cartridge": ".30-30 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27818.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 170 gr Core-Lokt Soft Point|.30-30 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 170 gr Core-Lokt Soft Point",
+   "grain": 170.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27820.html",
+   "cartridge": ".30-30 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27820.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped Lever Gun 150 gr Core-Lokt Tipped|.30-30 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped Lever Gun 150 gr Core-Lokt Tipped",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped-lever-gun/29-R21428.html",
+   "cartridge": ".30-30 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped-lever-gun/29-R21428.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its flat polymer tip improves aerodynamics, initiates expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Subsonic Rifle 220 gr Open Tip Flat Base|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Subsonic Rifle 220 gr Open Tip Flat Base",
+   "grain": 220.0,
+   "library_source_url": "https://www.remington.com/rifle/subsonic-rifle/29-28430.html",
+   "cartridge": ".300 Blackout",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.remington.com/rifle/subsonic-rifle/29-28430.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Flat Base"
+   },
+   "component_bullet": null
+  },
+  "Remington|UMC Centerfire Rifle 220 gr Open Tip Flat Base|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "UMC Centerfire Rifle 220 gr Open Tip Flat Base",
+   "grain": 220.0,
+   "library_source_url": "https://www.remington.com/rifle/umc-rifle/29-24026.html",
+   "cartridge": ".300 Blackout",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://www.remington.com/rifle/umc-rifle/29-24026.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Flat Base"
+   },
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 300 Rem Ultra Mag 180 gr Pointed Soft Point Core Lokt 3175 fps|.300 RUM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 300 Rem Ultra Mag 180 gr Pointed Soft Point Core Lokt 3175 fps",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27641.html",
+   "cartridge": ".300 RUM",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27641.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Long Range 300 Rem Ultra Mag 190 gr Speer Impact 3130 fps|.300 RUM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Long Range 300 Rem Ultra Mag 190 gr Speer Impact 3130 fps",
+   "grain": 190.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-long-range/29-R21347.html",
+   "cartridge": ".300 RUM",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BONDED CONSTRUCTION: Keeps the jacket and core together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SLIPSTREAM POLYMER TIP: Improves aerodynamics"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/speer-stories/bonding-benefits.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "streamlined, boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Speer Impact",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HIGH BALLISTIC COEFFIENT SPEER IMPACT BULLET"
+   }
+  },
+  "Remington|Premier Scirocco 300 Rem Ultra Mag 150 gr Swift Scirocco Bonded 3450 fps|.300 RUM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 300 Rem Ultra Mag 150 gr Swift Scirocco Bonded 3450 fps",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27950.html",
+   "cartridge": ".300 RUM",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|Premier Scirocco 300 Rem Ultra Mag 180 gr Swift Scirocco Bonded 3250 fps|.300 RUM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 300 Rem Ultra Mag 180 gr Swift Scirocco Bonded 3250 fps",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27936.html",
+   "cartridge": ".300 RUM",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|Core-Lokt 150 gr Pointed Soft Point Core Lokt|.300 WSM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 150 gr Pointed Soft Point Core Lokt",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-29489.html",
+   "cartridge": ".300 WSM",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-29489.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 150 gr Core-Lokt Tipped|.300 WSM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 150 gr Core-Lokt Tipped",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29043.html",
+   "cartridge": ".300 WSM",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Scirocco 180 gr Swift Scirocco Bonded|.300 WSM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 180 gr Swift Scirocco Bonded",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-scirocco/29-29345.html",
+   "cartridge": ".300 WSM",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|Core-Lokt 300 Wby Mag 180 gr Pointed Soft Point Core Lokt 3120 fps|.300 Weatherby Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 300 Wby Mag 180 gr Pointed Soft Point Core Lokt 3120 fps",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-29279.html",
+   "cartridge": ".300 Weatherby Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-29279.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 150 gr Pointed Soft Point Core Lokt|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 150 gr Pointed Soft Point Core Lokt",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-29495.html",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-29495.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 180 gr Pointed Soft Point Core Lokt|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 180 gr Pointed Soft Point Core Lokt",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt/29-29497.html",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/core-lokt/29-29497.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Copper 180 gr Copper HP|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Copper 180 gr Copper HP",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27858.html",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/core-lokt-copper/29-R27855.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "MONOLITHIC COPPER BULLET: Lead-free construction retains its integrity"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27858.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 180 gr Core-Lokt Tipped|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 180 gr Core-Lokt Tipped",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-R29038.html",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier CuT 180 gr Copper Tipped|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier CuT 180 gr Copper Tipped",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-cut/29-R22345.html",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/premier-cut/29-R22344.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Premier CuT's monolithic copper alloy bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Long Range 190 gr Speer Impact|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Long Range 190 gr Speer Impact",
+   "grain": 190.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-long-range/29-R21346.html",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BONDED CONSTRUCTION: Keeps the jacket and core together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SLIPSTREAM POLYMER TIP: Improves aerodynamics"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/speer-stories/bonding-benefits.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "streamlined, boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Speer Impact",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HIGH BALLISTIC COEFFIENT SPEER IMPACT BULLET"
+   }
+  },
+  "Remington|Premier Scirocco 180 gr Swift Scirocco Bonded|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 180 gr Swift Scirocco Bonded",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-scirocco/29-R29330.html",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|Core-Lokt 150 gr Pointed Soft Point Core Lokt|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 150 gr Pointed Soft Point Core Lokt",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 180 gr Core-Lokt Soft Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 180 gr Core-Lokt Soft Point",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27844.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27844.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 180 gr Pointed Soft Point Core Lokt|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 180 gr Pointed Soft Point Core Lokt",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21479.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21479.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Copper 150 gr Copper HP|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Copper 150 gr Copper HP",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27854.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/core-lokt-copper/29-R27855.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "MONOLITHIC COPPER BULLET: Lead-free construction retains its integrity"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-R27854.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 150 gr Core-Lokt Tipped|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 150 gr Core-Lokt Tipped",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 165 gr Core-Lokt Tipped|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 165 gr Core-Lokt Tipped",
+   "grain": 165.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29044.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 180 gr Core-Lokt Tipped|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 180 gr Core-Lokt Tipped",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29041.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|High Performance Rifle 180 gr Pointed Soft Point Boat Tail|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "High Performance Rifle 180 gr Pointed Soft Point Boat Tail",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/high-performance-rifle/29-R21473.html",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/high-performance-rifle/29-R21473.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/high-performance-rifle/29-R21473.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Boat Tail"
+   },
+   "component_bullet": null
+  },
+  "Remington|Premier CuT 150 gr Copper Tipped|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier CuT 150 gr Copper Tipped",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-cut/29-R22344.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/premier-cut/29-R22344.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Premier CuT's monolithic copper alloy bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Long Range 172 gr Speer Impact|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Long Range 172 gr Speer Impact",
+   "grain": 172.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BONDED CONSTRUCTION: Keeps the jacket and core together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SLIPSTREAM POLYMER TIP: Improves aerodynamics"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/speer-stories/bonding-benefits.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "streamlined, boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Speer Impact",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HIGH BALLISTIC COEFFIENT SPEER IMPACT BULLET"
+   }
+  },
+  "Remington|Premier Match 168 gr MatchKing Open Tip Match|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Match 168 gr MatchKing Open Tip Match",
+   "grain": 168.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully selected open-tip match bullets for exceptional accuracy"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullets/product-family/matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "30 CAL 168 GR HPBT MATCHKING (SMK)"
+   },
+   "component_bullet": {
+    "value": "MatchKing",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "MatchKing Open Tip Match"
+   }
+  },
+  "Remington|Premier Match 175 gr MatchKing Open Tip Match|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Match 175 gr MatchKing Open Tip Match",
+   "grain": 175.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-match/29-21486.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully selected open-tip match bullets for exceptional accuracy"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21486.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullets/product-family/matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "30 CAL 175 GR HPBT MATCHKING (SMK)"
+   },
+   "component_bullet": {
+    "value": "MatchKing",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "MatchKing Open Tip Match"
+   }
+  },
+  "Remington|Premier Scirocco 165 gr Swift Scirocco Bonded|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 165 gr Swift Scirocco Bonded",
+   "grain": 165.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|Subsonic Rifle 205 gr Hollow Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Subsonic Rifle 205 gr Hollow Point",
+   "grain": 205.0,
+   "library_source_url": "https://www.remington.com/rifle/subsonic-rifle/29-27746.html",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rifle/subsonic-rifle/29-27746.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|UMC Centerfire Rifle 150 gr Full Metal Jacket|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "UMC Centerfire Rifle 150 gr Full Metal Jacket",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/umc-rifle/29-23715.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.remington.com/rifle/umc-rifle/29-23715.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 225 gr Pointed Soft Point Core Lokt 2780 fps|.338 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 225 gr Pointed Soft Point Core Lokt 2780 fps",
+   "grain": 225.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-22189.html",
+   "cartridge": ".338 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-22189.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 250 gr Pointed Soft Point Core Lokt 2660 fps|.338 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 250 gr Pointed Soft Point Core Lokt 2660 fps",
+   "grain": 250.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-22191.html",
+   "cartridge": ".338 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-22191.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 200 gr Pointed Soft Point Core Lokt 2675 fps|.35 Whelen": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 200 gr Pointed Soft Point Core Lokt 2675 fps",
+   "grain": 200.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21495.html",
+   "cartridge": ".35 Whelen",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21495.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|High Performance Rifle 250 gr Pointed Soft Point 2400 fps|.35 Whelen": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "High Performance Rifle 250 gr Pointed Soft Point 2400 fps",
+   "grain": 250.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21499.html",
+   "cartridge": ".35 Whelen",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21499.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 180 gr Jacketed Soft Point 2100 fps|.350 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 180 gr Jacketed Soft Point 2100 fps",
+   "grain": 180.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-20012.html",
+   "cartridge": ".350 Legend",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-20012.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier AccuTip 160 gr AccuTip 2200 fps|.350 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier AccuTip 160 gr AccuTip 2200 fps",
+   "grain": 160.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-accutip/29-27945.html",
+   "cartridge": ".350 Legend",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 210 gr Soft Point Core Lokt 2250 fps|.400 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 210 gr Soft Point Core Lokt 2250 fps",
+   "grain": 210.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt/29-R21307.html",
+   "cartridge": ".400 Legend",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.remington.com/rifle/core-lokt/29-R21307.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier AccuTip 195 gr AccuTip 2215 fps|.400 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier AccuTip 195 gr AccuTip 2215 fps",
+   "grain": 195.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-accutip/29-27947.html",
+   "cartridge": ".400 Legend",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped Lever Gun 300 gr Core-Lokt Tipped|.45-70 Govt": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped Lever Gun 300 gr Core-Lokt Tipped",
+   "grain": 300.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped-lever-gun/29-R21430.html",
+   "cartridge": ".45-70 Govt",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped-lever-gun/29-R21428.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its flat polymer tip improves aerodynamics, initiates expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Subsonic Rifle 300 gr Bonded Hollow Point|.45-70 Govt": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Subsonic Rifle 300 gr Bonded Hollow Point",
+   "grain": 300.0,
+   "library_source_url": "https://www.remington.com/rifle/subsonic-rifle/29-27747.html",
+   "cartridge": ".45-70 Govt",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/subsonic-rifle/29-27747.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Bonded"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.remington.com/rifle/subsonic-rifle/29-27747.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 260 gr Pointed Soft Point Core Lokt 2040 fps|.450 Bushmaster": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 260 gr Pointed Soft Point Core Lokt 2040 fps",
+   "grain": 260.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27941.html",
+   "cartridge": ".450 Bushmaster",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27941.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier AccuTip 260 gr AccuTip 2180 fps|.450 Bushmaster": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier AccuTip 260 gr AccuTip 2180 fps",
+   "grain": 260.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27943.html",
+   "cartridge": ".450 Bushmaster",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|UMC Centerfire Rifle 260 gr Full Metal Jacket 2040 fps|.450 Bushmaster": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "UMC Centerfire Rifle 260 gr Full Metal Jacket 2040 fps",
+   "grain": 260.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-23661.html",
+   "cartridge": ".450 Bushmaster",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-23661.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 140 gr Pointed Soft Point Core Lokt|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 140 gr Pointed Soft Point Core Lokt",
+   "grain": 140.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27657.html",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27657.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 129 gr Core-Lokt Tipped|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 129 gr Core-Lokt Tipped",
+   "grain": 129.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29017.html",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier CuT 120 gr Copper Tipped|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier CuT 120 gr Copper Tipped",
+   "grain": 120.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-cut/29-R22334.html",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/premier-cut/29-R22344.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Premier CuT's monolithic copper alloy bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Long Range 140 gr Speer Impact|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Long Range 140 gr Speer Impact",
+   "grain": 140.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-long-range/29-R21341.html",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BONDED CONSTRUCTION: Keeps the jacket and core together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SLIPSTREAM POLYMER TIP: Improves aerodynamics"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/speer-stories/bonding-benefits.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "streamlined, boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Speer Impact",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HIGH BALLISTIC COEFFIENT SPEER IMPACT BULLET"
+   }
+  },
+  "Remington|Premier Match 140 gr MatchKing Open Tip Match|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Match 140 gr MatchKing Open Tip Match",
+   "grain": 140.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-match/29-27661.html",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "carefully selected open-tip match bullets for exceptional accuracy"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-27661.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Open Tip Match"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullets/product-family/matchking/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "6.5MM 140 GR HPBT MatchKing (SMK)"
+   },
+   "component_bullet": {
+    "value": "MatchKing",
+    "source_url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "MatchKing Open Tip Match"
+   }
+  },
+  "Remington|Premier Scirocco 130 gr Swift Scirocco Bonded|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 130 gr Swift Scirocco Bonded",
+   "grain": 130.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-scirocco/29-29344.html",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|Core-Lokt 6mm Remington 100 gr Pointed Soft Point Core Lokt 3100 fps|6mm Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 6mm Remington 100 gr Pointed Soft Point Core Lokt 3100 fps",
+   "grain": 100.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-29051.html",
+   "cartridge": "6mm Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-29051.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 175 gr Jacketed Soft Point 3100 fps|7mm Backcountry": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 175 gr Jacketed Soft Point 3100 fps",
+   "grain": 175.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt/29-28987.html",
+   "cartridge": "7mm Backcountry",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.remington.com/rifle/core-lokt/29-28987.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 175 gr Core-Lokt Tipped 3125 fps|7mm Backcountry": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 175 gr Core-Lokt Tipped 3125 fps",
+   "grain": 175.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-28989.html",
+   "cartridge": "7mm Backcountry",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Long Range 175 gr Speer Impact 3125 fps|7mm Backcountry": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Long Range 175 gr Speer Impact 3125 fps",
+   "grain": 175.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-long-range/29-28988.html",
+   "cartridge": "7mm Backcountry",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BONDED CONSTRUCTION: Keeps the jacket and core together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SLIPSTREAM POLYMER TIP: Improves aerodynamics"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/speer-stories/bonding-benefits.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "streamlined, boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Speer Impact",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HIGH BALLISTIC COEFFIENT SPEER IMPACT BULLET"
+   }
+  },
+  "Remington|Core-Lokt 140 gr Pointed Soft Point Core Lokt|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 140 gr Pointed Soft Point Core Lokt",
+   "grain": 140.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-28821.html",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-28821.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 150 gr Pointed Soft Point Core Lokt|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 150 gr Pointed Soft Point Core Lokt",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-29487.html",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-29487.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt 175 gr Pointed Soft Point Core Lokt|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 175 gr Pointed Soft Point Core Lokt",
+   "grain": 175.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27814.html",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27814.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 150 gr Core-Lokt Tipped|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 150 gr Core-Lokt Tipped",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29021.html",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier CuT 150 gr Copper Tipped|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier CuT 150 gr Copper Tipped",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-cut/29-R22341.html",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/premier-cut/29-R22344.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Premier CuT's monolithic copper alloy bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier Long Range 175 gr Speer Impact|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Long Range 175 gr Speer Impact",
+   "grain": 175.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-long-range/29-R21343.html",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "BONDED CONSTRUCTION: Keeps the jacket and core together"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SLIPSTREAM POLYMER TIP: Improves aerodynamics"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/speer-stories/bonding-benefits.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "streamlined, boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Speer Impact",
+    "source_url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HIGH BALLISTIC COEFFIENT SPEER IMPACT BULLET"
+   }
+  },
+  "Remington|Premier Scirocco 150 gr Swift Scirocco Bonded|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier Scirocco 150 gr Swift Scirocco Bonded",
+   "grain": 150.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-scirocco/29-29316.html",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail bullet design for reduced air drag"
+   },
+   "component_bullet": {
+    "value": "Swift Scirocco",
+    "source_url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Swift Scirocco Bonded"
+   }
+  },
+  "Remington|Core-Lokt 140 gr Pointed Soft Point Core Lokt|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt 140 gr Pointed Soft Point Core Lokt",
+   "grain": 140.0,
+   "library_source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21337.html",
+   "cartridge": "7mm-08 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-21337.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Core-Lokt Tipped 140 gr Core-Lokt Tipped|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Core-Lokt Tipped 140 gr Core-Lokt Tipped",
+   "grain": 140.0,
+   "library_source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-R20039.html",
+   "cartridge": "7mm-08 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Its Big Green polymer tip improves aerodynamics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Remington|Premier CuT 140 gr Copper Tipped|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Premier CuT 140 gr Copper Tipped",
+   "grain": 140.0,
+   "library_source_url": "https://www.remington.com/rifle/premier-cut/29-R22339.html",
+   "cartridge": "7mm-08 Rem",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.remington.com/rifle/premier-cut/29-R22344.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Premier CuT's monolithic copper alloy bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

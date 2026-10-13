@@ -1,0 +1,408 @@
+{
+ "brand": "Gamo",
+ "note": "2026-10-13: robots.txt read (gamousa.com; /product/ allowed). All 18 product pages read; construction from spec 'Material: Lead' / 'Non-Lead'. Tips stated per page (polymer tip, round nose/domed tip, spire point, flat-nose wadcutter, pyramid tip, pointed head, pointed hollow point). Rocket tip ('Hardened steel tip') and Whisper tip not mapped. No base stated (only 'long skirt').",
+ "sources": [
+  {
+   "id": "redfire",
+   "url": "https://gamousa.com/product/red-fire-pellets-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "Red Fire Polymer Tip Pellets"
+  },
+  {
+   "id": "hunter",
+   "url": "https://gamousa.com/product/hunter-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "Gamo Hunter .22 Lead Pellets"
+  },
+  {
+   "id": "rocket",
+   "url": "https://gamousa.com/product/rocket-pellets-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "Rocket Steel Tip Pellets"
+  },
+  {
+   "id": "magnum",
+   "url": "https://gamousa.com/product/magnum-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "Magnum Pointed Tip Pellets"
+  },
+  {
+   "id": "match",
+   "url": "https://gamousa.com/product/match-pellets-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "Match Flat Nose Pellets"
+  },
+  {
+   "id": "lethal",
+   "url": "https://gamousa.com/product/lethal-177-cal-qty/",
+   "read_date": "2026-10-13",
+   "title": "Lethal Steel Domed Tip Pellets"
+  },
+  {
+   "id": "pbab",
+   "url": "https://gamousa.com/product/pba-bullet-pellets-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "PBA Bullet Domed Tip Pellets"
+  },
+  {
+   "id": "ts",
+   "url": "https://gamousa.com/product/ts-10-22-pellets/",
+   "read_date": "2026-10-13",
+   "title": "TS-10 / TS-22 Pellets"
+  },
+  {
+   "id": "luxor",
+   "url": "https://gamousa.com/product/luxor-cu-sharp-pyramid-shaped-pellet-22/",
+   "read_date": "2026-10-13",
+   "title": "Luxor Cu Pyramid Shaped Pellets"
+  },
+  {
+   "id": "whisper",
+   "url": "https://gamousa.com/product/whisper-pellet-high-weight-quiet-pellet-22-cal-qty-100-blister/",
+   "read_date": "2026-10-13",
+   "title": "Whisper Heavy Weight Quiet Pellets"
+  },
+  {
+   "id": "raptor",
+   "url": "https://gamousa.com/product/pba-raptor-pellets-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "PBA Raptor Domed Tip Pellets"
+  },
+  {
+   "id": "matchlf",
+   "url": "https://gamousa.com/product/match-lead-free-177-cal/",
+   "read_date": "2026-10-13",
+   "title": "Match Lead Free Pellets"
+  },
+  {
+   "id": "plat",
+   "url": "https://gamousa.com/product/pba-platinum-pellets-22cal/",
+   "read_date": "2026-10-13",
+   "title": "PBA Platinum Domed Tip Pellets"
+  },
+  {
+   "id": "ghammer",
+   "url": "https://gamousa.com/product/g-hammer-heavy-weight-pellet-177-cal/",
+   "read_date": "2026-10-13",
+   "title": "G-Hammer Heavy Weight Pellets"
+  },
+  {
+   "id": "promag",
+   "url": "https://gamousa.com/product/pro-magnum-pellets-25-cal/",
+   "read_date": "2026-10-13",
+   "title": "Pro Magnum Domed Tip Pellets"
+  },
+  {
+   "id": "bomber",
+   "url": "https://gamousa.com/product/blue-bomber-pellets-22/",
+   "read_date": "2026-10-13",
+   "title": "Blue Bomber Pellets .22 Hard Polymer Tip"
+  },
+  {
+   "id": "swarm",
+   "url": "https://gamousa.com/product/swarm-10x-hollow-point-pellet-22-250/",
+   "read_date": "2026-10-13",
+   "title": "AccuTek Swarm 10X Hollow Point Pellet"
+  },
+  {
+   "id": "toma",
+   "url": "https://gamousa.com/product/tomahawk-22-cal-pellet-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "Tomahawk Hollow Point Pellets"
+  }
+ ],
+ "families": [
+  {
+   "id": "redfire",
+   "lib": "bullet",
+   "name_regex": "^Red Fire\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "redfire",
+     "quote": "Material: Lead"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "redfire",
+     "quote": "a diamond shaped hard red polymer tip"
+    }
+   }
+  },
+  {
+   "id": "hunter",
+   "lib": "bullet",
+   "name_regex": "^Hunter\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "hunter",
+     "quote": "Lead Pellets"
+    },
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "hunter",
+     "quote": "The domed (round-nose) profile"
+    }
+   }
+  },
+  {
+   "id": "rocket",
+   "lib": "bullet",
+   "name_regex": "^Rocket\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "rocket",
+     "quote": "Material: Lead"
+    }
+   }
+  },
+  {
+   "id": "magnum",
+   "lib": "bullet",
+   "name_regex": "^Magnum\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "magnum",
+     "quote": "pointed lead pellets"
+    },
+    "tip_shape": {
+     "value": "pointed",
+     "src": "magnum",
+     "quote": "hard-hitting, pointed pellets"
+    }
+   }
+  },
+  {
+   "id": "match",
+   "lib": "bullet",
+   "name_regex": "^Match \\d",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "match",
+     "quote": "Material: Lead"
+    },
+    "tip_shape": {
+     "value": "wadcutter",
+     "src": "match",
+     "quote": "classic flat-nose wadcutter shape"
+    }
+   }
+  },
+  {
+   "id": "lethal",
+   "lib": "bullet",
+   "name_regex": "^Lethal\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "lethal",
+     "quote": "Steel domed tip. Non-lead"
+    },
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "lethal",
+     "quote": "Symmetric steel dome tip for terminal penetration"
+    }
+   }
+  },
+  {
+   "id": "pbab",
+   "lib": "bullet",
+   "name_regex": "^PBA Bullet\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "pbab",
+     "quote": "PBA (Performance Ballistic Alloy) (Non-Lead)"
+    },
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "pbab",
+     "quote": "Domed tip, PBA (Performance Ballistic Alloy) and copper"
+    }
+   }
+  },
+  {
+   "id": "ts",
+   "lib": "bullet",
+   "name_regex": "^TS-10",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "ts",
+     "quote": "performance lead pellets"
+    },
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "ts",
+     "quote": "domed tip design"
+    }
+   }
+  },
+  {
+   "id": "luxor",
+   "lib": "bullet",
+   "name_regex": "^Luxor Cu\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "luxor",
+     "quote": "Lead-free material for increased velocity and impact"
+    },
+    "tip_shape": {
+     "value": "pointed",
+     "src": "luxor",
+     "quote": "Sharp, pyramid-shaped tip to cut and shatter"
+    }
+   }
+  },
+  {
+   "id": "whisper",
+   "lib": "bullet",
+   "name_regex": "^Whisper\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "whisper",
+     "quote": "Material: Lead"
+    }
+   }
+  },
+  {
+   "id": "raptor",
+   "lib": "bullet",
+   "name_regex": "^PBA Raptor\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "raptor",
+     "quote": "LEAD-FREE PBA is guaranteed lead-free"
+    },
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "raptor",
+     "quote": "Domed tip"
+    }
+   }
+  },
+  {
+   "id": "matchlf",
+   "lib": "bullet",
+   "name_regex": "^Match Lead Free\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "matchlf",
+     "quote": "Material: Non-Lead"
+    },
+    "tip_shape": {
+     "value": "wadcutter",
+     "src": "matchlf",
+     "quote": "non-lead wadcutter pellets"
+    }
+   }
+  },
+  {
+   "id": "plat",
+   "lib": "bullet",
+   "name_regex": "^PBA Platinum\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "plat",
+     "quote": "LEAD-FREE PBA is guaranteed lead-free"
+    },
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "plat",
+     "quote": "Domed tip, PBA (Performance Ballistic Alloy)"
+    }
+   }
+  },
+  {
+   "id": "ghammer",
+   "lib": "bullet",
+   "name_regex": "^G-Hammer\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "ghammer",
+     "quote": "Material: Lead"
+    },
+    "tip_shape": {
+     "value": "pointed",
+     "src": "ghammer",
+     "quote": "a pointed head"
+    }
+   }
+  },
+  {
+   "id": "promag",
+   "lib": "bullet",
+   "name_regex": "^Pro Magnum\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "promag",
+     "quote": "Domed tip. Lead."
+    },
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "promag",
+     "quote": "classic domed (round-nose) shape"
+    }
+   }
+  },
+  {
+   "id": "bomber",
+   "lib": "bullet",
+   "name_regex": "^Blue Bomber\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "bomber",
+     "quote": "Material: Lead"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "bomber",
+     "quote": "diamond shaped hard polymer tip"
+    }
+   }
+  },
+  {
+   "id": "swarm",
+   "lib": "bullet",
+   "name_regex": "^Swarm 10X\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "swarm",
+     "quote": "Material: Lead"
+    }
+   }
+  },
+  {
+   "id": "toma",
+   "lib": "bullet",
+   "name_regex": "^Tomahawk\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "toma",
+     "quote": "Material: Lead"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "toma",
+     "quote": "Pointed Hollow Point"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

@@ -1,0 +1,3369 @@
+{
+ "brand": "Winchester",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "winchester.com line/product pages read 2026-10-13 (robots ok; WebFetch PROVENANCE_REQUIRED on first 3 tries, succeeded on 4th). Nosler AccuBond LR page for base. Power-Point line/product pages state no construction/tip/base (only 350 Legend page: notching + lead core). Not stated: base for DSXP, Power Max Bonded, Expedition, Varmint X, Defender; Super-X, USA, Super Suppressed and most rimfire construction; AccuBond CT base; Match tip left to name words.",
+ "sources": [
+  {
+   "id": "bst",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "read_date": "2026-10-13",
+   "title": "Ballistic Silvertip line"
+  },
+  {
+   "id": "dsxp",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "read_date": "2026-10-13",
+   "title": "Deer Season XP line"
+  },
+  {
+   "id": "ci",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "read_date": "2026-10-13",
+   "title": "Copper Impact line"
+  },
+  {
+   "id": "ebg",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "read_date": "2026-10-13",
+   "title": "Expedition Big Game line"
+  },
+  {
+   "id": "match",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+   "read_date": "2026-10-13",
+   "title": "Match line"
+  },
+  {
+   "id": "vx",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+   "read_date": "2026-10-13",
+   "title": "Varmint X line"
+  },
+  {
+   "id": "vxlf",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X-Lead-Free/X22250PLF",
+   "read_date": "2026-10-13",
+   "title": "Varmint X Lead Free 22-250"
+  },
+  {
+   "id": "vxlf17",
+   "url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-X-Lead-Free/X17W15PLF",
+   "read_date": "2026-10-13",
+   "title": "Varmint X Lead Free 17 WSM"
+  },
+  {
+   "id": "pmb",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+   "read_date": "2026-10-13",
+   "title": "Power Max Bonded line"
+  },
+  {
+   "id": "def",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Defender/S223RPDB",
+   "read_date": "2026-10-13",
+   "title": "Defender 223 Rem Split Core"
+  },
+  {
+   "id": "vmax",
+   "url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-HV/S22M2PT",
+   "read_date": "2026-10-13",
+   "title": "Varmint HV 22 WMR V-MAX"
+  },
+  {
+   "id": "tin",
+   "url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-LF/X22LRHLF",
+   "read_date": "2026-10-13",
+   "title": "Varmint LF 22 LR Tin HP"
+  },
+  {
+   "id": "l350",
+   "url": "https://winchester.com/350-Legend.",
+   "read_date": "2026-10-13",
+   "title": "350 Legend cartridge page"
+  },
+  {
+   "id": "nab_lr",
+   "url": "https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html",
+   "read_date": "2026-10-13",
+   "title": "Nosler AccuBond Long Range 6.5mm 142 gr"
+  }
+ ],
+ "records": {
+  "Winchester|Super X 20 gr Jacketed Hollow Point|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super X 20 gr Jacketed Hollow Point",
+   "grain": 20.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".17 HMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint HV 17 gr Polymer Tip|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint HV 17 gr Polymer Tip",
+   "grain": 17.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".17 HMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Polymer Tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint LF 15.5 gr Polymer Tip|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint LF 15.5 gr Polymer Tip",
+   "grain": 15.5,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".17 HMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Polymer Tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint HE 17 Win Super Mag 25 gr Polymer Tip|.17 WSM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint HE 17 Win Super Mag 25 gr Polymer Tip",
+   "grain": 25.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".17 WSM",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Polymer Tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint HV 17 Win Super Mag 20 gr Polymer Tip|.17 WSM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint HV 17 Win Super Mag 20 gr Polymer Tip",
+   "grain": 20.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".17 WSM",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Polymer Tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint X Lead Free 17 Win Super Mag 15 gr Polymer Tip|.17 WSM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint X Lead Free 17 Win Super Mag 15 gr Polymer Tip",
+   "grain": 15.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".17 WSM",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-X-Lead-Free/X17W15PLF",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead Free Core: Designed for rapid fragmentation"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-X-Lead-Free/X17W15PLF",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer Tip: Maximizes long range performance"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|M22 40 gr Black Copper Plated Round Nose|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "M22 40 gr Black Copper Plated Round Nose",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Round Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|M22 Subsonic 45 gr Black Copper Plated Round Nose|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "M22 Subsonic 45 gr Black Copper Plated Round Nose",
+   "grain": 45.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Round Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Silvertip Rimfire 37 gr Segmenting Hollow Point Plated|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Silvertip Rimfire 37 gr Segmenting Hollow Point Plated",
+   "grain": 37.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super Suppressed 45 gr Black Copper Plated Round Nose|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super Suppressed 45 gr Black Copper Plated Round Nose",
+   "grain": 45.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Round Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super X 37 gr Hollow Point Copper Plated|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super X 37 gr Hollow Point Copper Plated",
+   "grain": 37.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super X 40 gr Lead Round Nose Copper Plated|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super X 40 gr Lead Round Nose Copper Plated",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Round Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super X 40 gr Power-Point Hollow Point Copper Plated|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super X 40 gr Power-Point Hollow Point Copper Plated",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super X 40 gr Power-Point HP Copper Plated|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super X 40 gr Power-Point HP Copper Plated",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super X Super Speed 37 gr Hollow Point Copper Plated|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super X Super Speed 37 gr Hollow Point Copper Plated",
+   "grain": 37.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super X Super Speed 40 gr Round Nose Copper Plated|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super X Super Speed 40 gr Round Nose Copper Plated",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Round Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|USA 36 gr Hollow Point Copper Plated|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "USA 36 gr Hollow Point Copper Plated",
+   "grain": 36.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint HE 37 gr 3-1 Segmenting Expansion|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint HE 37 gr 3-1 Segmenting Expansion",
+   "grain": 37.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint HV 40 gr Hyper Velocity Hollow Point Copper Plated|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint HV 40 gr Hyper Velocity Hollow Point Copper Plated",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint LF 26 gr Tin Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint LF 26 gr Tin Hollow Point",
+   "grain": 26.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-LF/X22LRHLF",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Patented Tin Technology"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-LF/X22LRHLF",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "deep hollow point for explosive expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Wildcat 40 gr Copper Plated DynaPoint|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Wildcat 40 gr Copper Plated DynaPoint",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Xpert 42 gr Copper Plated Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Xpert 42 gr Copper Plated Hollow Point",
+   "grain": 42.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Defender 22 Win Mag 40 gr JHP|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Defender 22 Win Mag 40 gr JHP",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "JHP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Silvertip Rimfire 22 Win Mag 40 gr JHP|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Silvertip Rimfire 22 Win Mag 40 gr JHP",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "JHP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super X 22 Win Mag 40 gr FMJ|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super X 22 Win Mag 40 gr FMJ",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 WMR",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super X 22 Win Mag 40 gr JHP|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super X 22 Win Mag 40 gr JHP",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "JHP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|USA 22 Win Mag 45 gr Copper Plated DynaPoint|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "USA 22 Win Mag 45 gr Copper Plated DynaPoint",
+   "grain": 45.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint HE 22 Win Mag 34 gr JHP|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint HE 22 Win Mag 34 gr JHP",
+   "grain": 34.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "JHP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint HV 22 Win Mag 30 gr JHP|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint HV 22 Win Mag 30 gr JHP",
+   "grain": 30.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "JHP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint HV 22 Win Mag 30 gr V-MAX|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint HV 22 Win Mag 30 gr V-MAX",
+   "grain": 30.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-HV/S22M2PT",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer Tip V-Max Bullet"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "V-Max",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-HV/S22M2PT",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer Tip V-Max Bullet"
+   }
+  },
+  "Winchester|Varmint LF 22 Win Mag 25 gr Polymer Tip|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint LF 22 Win Mag 25 gr Polymer Tip",
+   "grain": 25.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rimfire",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Polymer Tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 55 gr Fragmenting Polymer Tip|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 55 gr Fragmenting Polymer Tip",
+   "grain": 55.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 64 gr Extreme Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 64 gr Extreme Point",
+   "grain": 64.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Defender 60 gr Split Core Hollow Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Defender 60 gr Split Core Hollow Point",
+   "grain": 60.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Defender/S223RPDB",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bonded rear core maximizes retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Defender/S223RPDB",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Protected hollow point promotes sure feeding"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Defender 77 gr Split Core Hollow Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Defender 77 gr Split Core Hollow Point",
+   "grain": 77.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Defender/S223RPDB",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bonded rear core maximizes retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Defender/S223RPDB",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Protected hollow point promotes sure feeding"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Match 69 gr Match BTHP|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Match 69 gr Match BTHP",
+   "grain": 69.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match-Style Bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match BTHP"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sleek profile, large boattail and small hollow point"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Super-X 55 gr Pointed Soft Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X 55 gr Pointed Soft Point",
+   "grain": 55.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Super-X",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Super-X",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 64 gr Power-Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 64 gr Power-Point",
+   "grain": 64.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|USA 45 gr Jacketed Hollow Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "USA 45 gr Jacketed Hollow Point",
+   "grain": 45.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|USA 55 gr Full Metal Jacket|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "USA 55 gr Full Metal Jacket",
+   "grain": 55.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|USA 62 gr Full Metal Jacket|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "USA 62 gr Full Metal Jacket",
+   "grain": 62.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint X 40 gr Polymer Tip Rapid Expansion|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint X 40 gr Polymer Tip Rapid Expansion",
+   "grain": 40.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Thin alloy jacket and soft lead core create massive impact trauma"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip facilitates quick energy transfer"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint X 55 gr Extreme Point|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint X 55 gr Extreme Point",
+   "grain": 55.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Thin alloy jacket and soft lead core create massive impact trauma"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip facilitates quick energy transfer"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint X 55 gr Polymer Tip Rapid Expansion|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint X 55 gr Polymer Tip Rapid Expansion",
+   "grain": 55.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Thin alloy jacket and soft lead core create massive impact trauma"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip facilitates quick energy transfer"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint X Lead Free 38 gr Zinc Core Lead Free Rapid Expansion|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint X Lead Free 38 gr Zinc Core Lead Free Rapid Expansion",
+   "grain": 38.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X-Lead-Free/X22250PLF",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The sleek, lead free, zinc core bullets are explosive upon impact"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 95 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 95 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 95.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 85 gr Copper Extreme Point|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 85 gr Copper Extreme Point",
+   "grain": 85.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 95 gr Extreme Point|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 95 gr Extreme Point",
+   "grain": 95.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power Max Bonded 100 gr Bonded Rapid Expansion Protected Hollow Point|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power Max Bonded 100 gr Bonded Rapid Expansion Protected Hollow Point",
+   "grain": 100.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The lead core is bonded to the jacket for maximum retained weight"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The protected hollow point promotes rapid expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X 80 gr Pointed Soft Point|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X 80 gr Pointed Soft Point",
+   "grain": 80.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Super-X",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Super-X",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 100 gr Power-Point|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 100 gr Power-Point",
+   "grain": 100.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint X 58 gr Polymer Tip Rapid Expansion|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint X 58 gr Polymer Tip Rapid Expansion",
+   "grain": 58.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Thin alloy jacket and soft lead core create massive impact trauma"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip facilitates quick energy transfer"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint X 65 gr Extreme Point|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint X 65 gr Extreme Point",
+   "grain": 65.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Thin alloy jacket and soft lead core create massive impact trauma"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip facilitates quick energy transfer"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint X Lead Free 55 gr Zinc Core Lead Free Rapid Expansion|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint X Lead Free 55 gr Zinc Core Lead Free Rapid Expansion",
+   "grain": 55.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X-Lead-Free/X22250PLF",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The sleek, lead free, zinc core bullets are explosive upon impact"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power-Point +P 117 gr|.257 Roberts": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power-Point +P 117 gr",
+   "grain": 117.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".257 Roberts",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 130 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 130 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 130.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 130 gr Copper Extreme Point|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 130 gr Copper Extreme Point",
+   "grain": 130.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 130 gr Extreme Point|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 130 gr Extreme Point",
+   "grain": 130.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Expedition Big Game 150 gr AccuBond LR|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Expedition Big Game 150 gr AccuBond LR",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded, lead-alloy core allows for deeper penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A polymer tip helps resist deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high-performance boat-tail base"
+   },
+   "component_bullet": {
+    "value": "Accubond Long Range",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tough, deep penetrating Accubond Long Range bullet"
+   }
+  },
+  "Winchester|Power Max Bonded 130 gr Bonded Rapid Expansion Protected Hollow Point|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power Max Bonded 130 gr Bonded Rapid Expansion Protected Hollow Point",
+   "grain": 130.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The lead core is bonded to the jacket for maximum retained weight"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The protected hollow point promotes rapid expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 130 gr Power-Point|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 130 gr Power-Point",
+   "grain": 130.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 150 gr Power-Point|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 150 gr Power-Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 150 gr|.28 Nosler": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": ".28 Nosler",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 150 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 150 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 180 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 180 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 150 gr Copper Extreme Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 150 gr Copper Extreme Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 180 gr Copper Extreme Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 180 gr Copper Extreme Point",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 150 gr Extreme Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 150 gr Extreme Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 180 gr Extreme Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 180 gr Extreme Point",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Expedition Big Game 190 gr AccuBond LR|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Expedition Big Game 190 gr AccuBond LR",
+   "grain": 190.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded, lead-alloy core allows for deeper penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A polymer tip helps resist deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high-performance boat-tail base"
+   },
+   "component_bullet": {
+    "value": "Accubond Long Range",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tough, deep penetrating Accubond Long Range bullet"
+   }
+  },
+  "Winchester|Power Max Bonded 150 gr Bonded Rapid Expansion Protected Hollow Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power Max Bonded 150 gr Bonded Rapid Expansion Protected Hollow Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The lead core is bonded to the jacket for maximum retained weight"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The protected hollow point promotes rapid expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power Max Bonded 180 gr Bonded Rapid Expansion Protected Hollow Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power Max Bonded 180 gr Bonded Rapid Expansion Protected Hollow Point",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The lead core is bonded to the jacket for maximum retained weight"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The protected hollow point promotes rapid expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X 125 gr Pointed Soft Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X 125 gr Pointed Soft Point",
+   "grain": 125.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Super-X",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Super-X",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 150 gr Power-Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 150 gr Power-Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 165 gr Power-Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 165 gr Power-Point",
+   "grain": 165.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 180 gr Power-Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 180 gr Power-Point",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|USA 147 gr Full Metal Jacket|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "USA 147 gr Full Metal Jacket",
+   "grain": 147.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 180 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 180 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 150 gr Copper Extreme Point|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 150 gr Copper Extreme Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 180 gr Copper Extreme Point|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 180 gr Copper Extreme Point",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 150 gr Extreme Point|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 150 gr Extreme Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 180 gr Extreme Point|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 180 gr Extreme Point",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Expedition Big Game 180 gr AccuBond CT|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Expedition Big Game 180 gr AccuBond CT",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded, lead-alloy core allows for deeper penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A polymer tip helps resist deformation"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "AccuBond CT",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "AccuBond CT"
+   }
+  },
+  "Winchester|Expedition Big Game 190 gr AccuBond LR|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Expedition Big Game 190 gr AccuBond LR",
+   "grain": 190.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded, lead-alloy core allows for deeper penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A polymer tip helps resist deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high-performance boat-tail base"
+   },
+   "component_bullet": {
+    "value": "Accubond Long Range",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tough, deep penetrating Accubond Long Range bullet"
+   }
+  },
+  "Winchester|Power Max Bonded 180 gr Bonded Rapid Expansion Protected Hollow Point|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power Max Bonded 180 gr Bonded Rapid Expansion Protected Hollow Point",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The lead core is bonded to the jacket for maximum retained weight"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The protected hollow point promotes rapid expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 150 gr Power-Point|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 150 gr Power-Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 180 gr Power-Point|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 180 gr Power-Point",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 150 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 150 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 168 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 168 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 168.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 150 gr Copper Extreme Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 150 gr Copper Extreme Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 150 gr Extreme Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 150 gr Extreme Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 168 gr Extreme Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 168 gr Extreme Point",
+   "grain": 168.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Defender 120 gr Split Core Hollow Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Defender 120 gr Split Core Hollow Point",
+   "grain": 120.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Defender/S223RPDB",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bonded rear core maximizes retained weight and penetration"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Defender/S223RPDB",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Protected hollow point promotes sure feeding"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Expedition Big Game 168 gr AccuBond LR|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Expedition Big Game 168 gr AccuBond LR",
+   "grain": 168.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded, lead-alloy core allows for deeper penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A polymer tip helps resist deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high-performance boat-tail base"
+   },
+   "component_bullet": {
+    "value": "Accubond Long Range",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tough, deep penetrating Accubond Long Range bullet"
+   }
+  },
+  "Winchester|Match 168 gr Match BTHP|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Match 168 gr Match BTHP",
+   "grain": 168.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match-Style Bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match BTHP"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sleek profile, large boattail and small hollow point"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Match 169 gr Match BTHP|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Match 169 gr Match BTHP",
+   "grain": 169.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match-Style Bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match BTHP"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sleek profile, large boattail and small hollow point"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Power Max Bonded 150 gr Bonded Rapid Expansion Protected Hollow Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power Max Bonded 150 gr Bonded Rapid Expansion Protected Hollow Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The lead core is bonded to the jacket for maximum retained weight"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The protected hollow point promotes rapid expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power Max Bonded 180 gr Bonded Rapid Expansion Protected Hollow Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power Max Bonded 180 gr Bonded Rapid Expansion Protected Hollow Point",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The lead core is bonded to the jacket for maximum retained weight"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The protected hollow point promotes rapid expansion"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 150 gr Power-Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 150 gr Power-Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 180 gr Power-Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 180 gr Power-Point",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 185 gr Power-Point Subsonic|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 185 gr Power-Point Subsonic",
+   "grain": 185.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|USA 147 gr Full Metal Jacket|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "USA 147 gr Full Metal Jacket",
+   "grain": 147.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Match 285 gr Match BTHP|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Match 285 gr Match BTHP",
+   "grain": 285.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match-Style Bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match BTHP"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sleek profile, large boattail and small hollow point"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Power-Point 338 Winchester Magnum 200 gr|.338 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power-Point 338 Winchester Magnum 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".338 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power-Point 200 gr|.35 Whelen": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power-Point 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".35 Whelen",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 150 gr|.350 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": ".350 Legend",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 150 gr|.350 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".350 Legend",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power-Point 180 gr|.350 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power-Point 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".350 Legend",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/350-Legend.",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Strategic Notching ... Alloyed Lead Core: Increases retained weight"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super Suppressed 255 gr Open Tip Range|.350 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super Suppressed 255 gr Open Tip Range",
+   "grain": 255.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Super-Suppressed",
+   "cartridge": ".350 Legend",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|USA 145 gr FMJ|.350 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "USA 145 gr FMJ",
+   "grain": 145.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/USA",
+   "cartridge": ".350 Legend",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/USA",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power-Point 358 Winchester 200 gr|.358 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power-Point 358 Winchester 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".358 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power-Point 38-55 Winchester 255 gr|.38-55 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power-Point 38-55 Winchester 255 gr",
+   "grain": 255.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".38-55 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 190 gr|.400 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 190 gr",
+   "grain": 190.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".400 Legend",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power-Point 215 gr|.400 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power-Point 215 gr",
+   "grain": 215.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".400 Legend",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super Suppressed 300 gr Open Tip Range|.400 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super Suppressed 300 gr Open Tip Range",
+   "grain": 300.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Super-Suppressed",
+   "cartridge": ".400 Legend",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 250 gr|.450 Bushmaster": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": ".450 Bushmaster",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power-Point 260 gr|.450 Bushmaster": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power-Point 260 gr",
+   "grain": 260.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": ".450 Bushmaster",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Match 77 gr Match BTHP|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Match 77 gr Match BTHP",
+   "grain": 77.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match-Style Bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match BTHP"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sleek profile, large boattail and small hollow point"
+   },
+   "component_bullet": null
+  },
+  "Winchester|USA 55 gr Full Metal Jacket|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "USA 55 gr Full Metal Jacket",
+   "grain": 55.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 140 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 140 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 140.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 125 gr Copper Extreme Point|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 125 gr Copper Extreme Point",
+   "grain": 125.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 125 gr Extreme Point|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 125 gr Extreme Point",
+   "grain": 125.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 140 gr Extreme Point|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 140 gr Extreme Point",
+   "grain": 140.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Expedition Big Game 142 gr AccuBond LR|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Expedition Big Game 142 gr AccuBond LR",
+   "grain": 142.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded, lead-alloy core allows for deeper penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A polymer tip helps resist deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high-performance boat-tail base"
+   },
+   "component_bullet": {
+    "value": "Accubond Long Range",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tough, deep penetrating Accubond Long Range bullet"
+   }
+  },
+  "Winchester|Match 140 gr Match BTHP|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Match 140 gr Match BTHP",
+   "grain": 140.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match-Style Bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match BTHP"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sleek profile, large boattail and small hollow point"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 129 gr Power-Point|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 129 gr Power-Point",
+   "grain": 129.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 140 gr Soft Point|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 140 gr Soft Point",
+   "grain": 140.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Varmint X 95 gr Extreme Point|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Varmint X 95 gr Extreme Point",
+   "grain": 95.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Thin alloy jacket and soft lead core create massive impact trauma"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer tip facilitates quick energy transfer"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 140 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|6.5 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 140 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 140.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": "6.5 PRC",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 125 gr Copper Extreme Point|6.5 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 125 gr Copper Extreme Point",
+   "grain": 125.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": "6.5 PRC",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Expedition Big Game 142 gr AccuBond LR|6.5 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Expedition Big Game 142 gr AccuBond LR",
+   "grain": 142.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "cartridge": "6.5 PRC",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded, lead-alloy core allows for deeper penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A polymer tip helps resist deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high-performance boat-tail base"
+   },
+   "component_bullet": {
+    "value": "Accubond Long Range",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tough, deep penetrating Accubond Long Range bullet"
+   }
+  },
+  "Winchester|Match 140 gr Match BTHP|6.5 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Match 140 gr Match BTHP",
+   "grain": 140.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+   "cartridge": "6.5 PRC",
+   "construction": {
+    "value": "match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Match-Style Bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match BTHP"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sleek profile, large boattail and small hollow point"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 170 gr|6.8 Western": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": "6.8 Western",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Copper Impact 162 gr|6.8 Western": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Copper Impact 162 gr",
+   "grain": 162.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "cartridge": "6.8 Western",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizing a tough solid copper expanding projectile"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large diameter polymer tip delivers rapid impact trauma"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "engineered boattail improves long range flight characteristics"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Expedition Big Game 165 gr AccuBond LR|6.8 Western": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Expedition Big Game 165 gr AccuBond LR",
+   "grain": 165.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "cartridge": "6.8 Western",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded, lead-alloy core allows for deeper penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A polymer tip helps resist deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high-performance boat-tail base"
+   },
+   "component_bullet": {
+    "value": "Accubond Long Range",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tough, deep penetrating Accubond Long Range bullet"
+   }
+  },
+  "Winchester|Power-Point 170 gr|6.8 Western": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power-Point 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": "6.8 Western",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Power-Point 6mm Remington 100 gr|6mm Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Power-Point 6mm Remington 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": "6mm Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 123 gr Extreme Point|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 123 gr Extreme Point",
+   "grain": 123.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": "7.62x39",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 123 gr Power-Point|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 123 gr Power-Point",
+   "grain": 123.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": "7.62x39",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|USA 123 gr Full Metal Jacket|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "USA 123 gr Full Metal Jacket",
+   "grain": 123.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle",
+   "cartridge": "7.62x39",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 150 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 150 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 140 gr Extreme Point|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 140 gr Extreme Point",
+   "grain": 140.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Expedition Big Game 160 gr AccuBond CT|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Expedition Big Game 160 gr AccuBond CT",
+   "grain": 160.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded, lead-alloy core allows for deeper penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A polymer tip helps resist deformation"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "AccuBond CT",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "AccuBond CT"
+   }
+  },
+  "Winchester|Expedition Big Game 168 gr AccuBond LR|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Expedition Big Game 168 gr AccuBond LR",
+   "grain": 168.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded, lead-alloy core allows for deeper penetration"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A polymer tip helps resist deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "high-performance boat-tail base"
+   },
+   "component_bullet": {
+    "value": "Accubond Long Range",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tough, deep penetrating Accubond Long Range bullet"
+   }
+  },
+  "Winchester|Super-X Power-Point 150 gr Power-Point|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 150 gr Power-Point",
+   "grain": 150.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 175 gr Power-Point|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 175 gr Power-Point",
+   "grain": 175.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Ballistic Silvertip 140 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Ballistic Silvertip 140 gr Ballistic Silvertip (Rapid Controlled Expansion Polymer Tip)",
+   "grain": 140.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "cartridge": "7mm-08 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the contoured jacket peels back while holding together the lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip resists deformation"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boattail design enhances accuracy"
+   },
+   "component_bullet": null
+  },
+  "Winchester|Deer Season XP 140 gr Extreme Point|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Deer Season XP 140 gr Extreme Point",
+   "grain": 140.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "cartridge": "7mm-08 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Contoured jacket with tapered profile and alloyed lead core"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Streamlined profile and large polymer tip"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 140 gr Power-Point|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 140 gr Power-Point",
+   "grain": 140.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": "7mm-08 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Winchester|Super-X Power-Point 170 gr Power-Point|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Super-X Power-Point 170 gr Power-Point",
+   "grain": 170.0,
+   "library_source_url": "https://winchester.com/Products/Ammunition/Rifle/Power-Point",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

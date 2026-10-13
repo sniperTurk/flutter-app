@@ -1,0 +1,158 @@
+{
+ "brand": "Hatsan",
+ "note": "2026-10-13: robots.txt read (hatsan.com.tr, hatsanairgunsusa.com; product paths allowed). Read hatsan.com.tr/en/pellets (Pointed Head only) and 15 hatsanairgunsusa product pages. Stated: Pointed Head lead; Vortex Strike domed + lead; Big Bore Supreme 'Heavier lead pellets'; Air Boss Match / Champion 'Pellet Shape: Flat' -> flat_nose; Domed Hollow 'Domed Hollow Point' -> hollow_point; Magnum 'Pointed'. Not stated: Apolo Slug, Hunter, Monster, Destroyer, Conic ('Conic shape' not mapped); material on Apolo pages only a Prop 65 image. No base stated anywhere.",
+ "sources": [
+  {
+   "id": "hpel",
+   "url": "https://hatsan.com.tr/en/pellets/",
+   "read_date": "2026-10-13",
+   "title": "Hatsan pellets"
+  },
+  {
+   "id": "vstrike",
+   "url": "https://hatsanairgunsusa.com/product/vortex-strike-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Vortex STRIKE Pellets"
+  },
+  {
+   "id": "vbb",
+   "url": "https://hatsanairgunsusa.com/product/vortex-big-bore-supreme-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Vortex Big Bore Supreme Pellets"
+  },
+  {
+   "id": "abmc",
+   "url": "https://hatsanairgunsusa.com/product/apolo-air-boss-match-competition/",
+   "read_date": "2026-10-13",
+   "title": "Apolo Air Boss Match Competition"
+  },
+  {
+   "id": "abmcp",
+   "url": "https://hatsanairgunsusa.com/product/apolo-air-boss-match-competition-air-pistol/",
+   "read_date": "2026-10-13",
+   "title": "Apolo Air Boss Match Competition Air Pistol"
+  },
+  {
+   "id": "champ",
+   "url": "https://hatsanairgunsusa.com/product/apolo-champion/",
+   "read_date": "2026-10-13",
+   "title": "Apolo Champion"
+  },
+  {
+   "id": "dh",
+   "url": "https://hatsanairgunsusa.com/product/apolo-domed-hollow/",
+   "read_date": "2026-10-13",
+   "title": "Apolo Domed Hollow"
+  },
+  {
+   "id": "mag",
+   "url": "https://hatsanairgunsusa.com/product/apolo-magnum/",
+   "read_date": "2026-10-13",
+   "title": "Apolo Magnum"
+  }
+ ],
+ "families": [
+  {
+   "id": "pointed_head",
+   "lib": "bullet",
+   "name_regex": "^Pointed Head\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "hpel",
+     "quote": "Pointed head & waisted design lead pellets"
+    }
+   }
+  },
+  {
+   "id": "vortex_strike",
+   "lib": "bullet",
+   "name_regex": "^Vortex Strike\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "vstrike",
+     "quote": "Heavier lead pellets"
+    },
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "vstrike",
+     "quote": "Domed head for long-range accuracy"
+    }
+   }
+  },
+  {
+   "id": "vortex_bb",
+   "lib": "bullet",
+   "name_regex": "^Vortex Big Bore Supreme\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_slug",
+     "src": "vbb",
+     "quote": "Heavier lead pellets"
+    }
+   }
+  },
+  {
+   "id": "abmc",
+   "lib": "bullet",
+   "name_regex": "^Apolo Air Boss Match Competition \\d",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "abmc",
+     "quote": "Pellet Shape | Flat"
+    }
+   }
+  },
+  {
+   "id": "abmcp",
+   "lib": "bullet",
+   "name_regex": "^Apolo Air Boss Match Competition Air Pistol\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "abmcp",
+     "quote": "Pellet Shape | Flat"
+    }
+   }
+  },
+  {
+   "id": "champion",
+   "lib": "bullet",
+   "name_regex": "^Apolo Champion\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "champ",
+     "quote": "Pellet Shape | Flat"
+    }
+   }
+  },
+  {
+   "id": "domed_hollow",
+   "lib": "bullet",
+   "name_regex": "^Apolo Domed Hollow\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "dh",
+     "quote": "Domed Hollow Point"
+    }
+   }
+  },
+  {
+   "id": "magnum",
+   "lib": "bullet",
+   "name_regex": "^Apolo Magnum\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "pointed",
+     "src": "mag",
+     "quote": "Pointed Shape"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

@@ -1,0 +1,758 @@
+{
+ "brand": "Federal",
+ "note": "federalpremium.com product pages read (robots ok) per line; component maker pages: hornady.com (ELD-X, V-MAX), swiftbullets.com/pages/partners (Scirocco boat tail). shop.barnesbullets.com robots-disallowed; nosler.com/partition fetch error. Base not stated for Fusion, Power-Shok, Partition, TSX, LRX, A-Frame, Berger Hybrid Hunter, CenterStrike, AE; tip shape not stated for Power-Shok/Fusion beyond 'soft point', Partition, A-Frame, Woodleigh (concave nose + polymer cap) left empty. Rimfire/AE/Training lines: pages give no construction detail beyond names.",
+ "sources": [
+  {
+   "id": "ta",
+   "url": "https://www.federalpremium.com/rifle/terminal-ascent/11-P270TA1.html",
+   "read_date": "2026-10-13",
+   "title": "Terminal Ascent 270 Win 136 gr"
+  },
+  {
+   "id": "ta_line",
+   "url": "https://www.federalpremium.com/terminal-ascent.html",
+   "read_date": "2026-10-13",
+   "title": "Terminal Ascent line page"
+  },
+  {
+   "id": "tbt",
+   "url": "https://www.federalpremium.com/rifle/trophy-bonded-tip/11-P308TT1.html",
+   "read_date": "2026-10-13",
+   "title": "Trophy Bonded Tip 308 Win 180 gr"
+  },
+  {
+   "id": "tbt_comp",
+   "url": "https://www.federalpremium.com/reloading/bullets/trophy-bonded-tip-component-bullet/11-PB338TT200.html",
+   "read_date": "2026-10-13",
+   "title": "Trophy Bonded Tip component .338 200 gr"
+  },
+  {
+   "id": "tc",
+   "url": "https://www.federalpremium.com/rifle/trophy-copper/11-P308TC3.html",
+   "read_date": "2026-10-13",
+   "title": "Trophy Copper 308 Win 150 gr"
+  },
+  {
+   "id": "fusion",
+   "url": "https://www.federalpremium.com/rifle/fusion/11-F308FS1.html",
+   "read_date": "2026-10-13",
+   "title": "Fusion Rifle 308 Win 150 gr"
+  },
+  {
+   "id": "fusion_tipped",
+   "url": "https://www.federalpremium.com/rifle/fusion-tipped-rifle/11-F308TFS3.html",
+   "read_date": "2026-10-13",
+   "title": "Fusion Tipped Rifle 308 Win 180 gr"
+  },
+  {
+   "id": "subsonic",
+   "url": "https://www.federalpremium.com/rifle/federal-subsonic/11-F308TF3SUB.html",
+   "read_date": "2026-10-13",
+   "title": "Federal Subsonic 308 Win 190 gr Fusion Tipped"
+  },
+  {
+   "id": "powershok",
+   "url": "https://www.federalpremium.com/rifle/power-shok/11-308A.html",
+   "read_date": "2026-10-13",
+   "title": "Power-Shok Rifle 308 Win 150 gr"
+  },
+  {
+   "id": "psc",
+   "url": "https://www.federalpremium.com/rifle/power-shok-copper-rifle/11-308150LFA.html",
+   "read_date": "2026-10-13",
+   "title": "Power-Shok Copper Rifle 308 Win 150 gr"
+  },
+  {
+   "id": "partition",
+   "url": "https://www.federalpremium.com/rifle/nosler-partition/11-P308S.html",
+   "read_date": "2026-10-13",
+   "title": "Nosler Partition 308 Win 150 gr"
+  },
+  {
+   "id": "tsx",
+   "url": "https://www.federalpremium.com/rifle/barnes-tsx/11-P300WP.html",
+   "read_date": "2026-10-13",
+   "title": "Barnes TSX 300 Win Mag 180 gr"
+  },
+  {
+   "id": "lrx",
+   "url": "https://www.federalpremium.com/rifle/barnes-lrx/11-P7RLRX2.html",
+   "read_date": "2026-10-13",
+   "title": "Barnes LRX 7mm Rem Mag 145 gr"
+  },
+  {
+   "id": "bhh",
+   "url": "https://www.federalpremium.com/rifle/berger-hybrid-hunter/11-P65CRDBCH1.html",
+   "read_date": "2026-10-13",
+   "title": "Berger Hybrid Hunter 6.5 Creedmoor 135 gr"
+  },
+  {
+   "id": "beh",
+   "url": "https://www.federalpremium.com/rifle/berger-elite-hunter/11-P7PRCEH1.html",
+   "read_date": "2026-10-13",
+   "title": "Berger Elite Hunter 7mm PRC 195 gr"
+  },
+  {
+   "id": "eldx",
+   "url": "https://www.federalpremium.com/rifle/eld-x/11-P65CRDELDX1.html",
+   "read_date": "2026-10-13",
+   "title": "Federal ELD-X 6.5 Creedmoor"
+  },
+  {
+   "id": "hornady_eldx",
+   "url": "https://www.hornady.com/bullets/eld-x",
+   "read_date": "2026-10-13",
+   "title": "Hornady ELD-X bullets"
+  },
+  {
+   "id": "hornady_vmax",
+   "url": "https://www.hornady.com/bullets/v-max",
+   "read_date": "2026-10-13",
+   "title": "Hornady V-MAX bullets"
+  },
+  {
+   "id": "vp_vmax",
+   "url": "https://www.federalpremium.com/rifle/varmint-and-predator-2/11-V243VM75.html",
+   "read_date": "2026-10-13",
+   "title": "Varmint & Predator 243 Win 75 gr Hornady V-Max"
+  },
+  {
+   "id": "scirocco",
+   "url": "https://www.federalpremium.com/rifle/swift-scirocco-ii/11-P270SS1.html",
+   "read_date": "2026-10-13",
+   "title": "Swift Scirocco II 270 Win 130 gr"
+  },
+  {
+   "id": "swift_partners",
+   "url": "https://www.swiftbullets.com/pages/partners",
+   "read_date": "2026-10-13",
+   "title": "Swift: partners loading A-Frame & Scirocco"
+  },
+  {
+   "id": "aframe",
+   "url": "https://www.federalpremium.com/rifle/safari-swift-a-frame/11-P375SA.html",
+   "read_date": "2026-10-13",
+   "title": "Safari Swift A-Frame 375 H&H 300 gr"
+  },
+  {
+   "id": "tbbc",
+   "url": "https://www.federalpremium.com/rifle/safari-trophy-bonded-bear-claw/11-P375T1.html",
+   "read_date": "2026-10-13",
+   "title": "Safari Trophy Bonded Bear Claw 375 H&H"
+  },
+  {
+   "id": "sledge",
+   "url": "https://www.federalpremium.com/rifle/safari-trophy-bonded-sledgehammer-solid/11-P375T2.html",
+   "read_date": "2026-10-13",
+   "title": "Safari Trophy Bonded Sledgehammer Solid 375 H&H 300 gr"
+  },
+  {
+   "id": "woodleigh",
+   "url": "https://www.federalpremium.com/rifle/safari-woodleigh-hydro-solid/11-P375WH.html",
+   "read_date": "2026-10-13",
+   "title": "Safari Woodleigh Hydro Solid 375 H&H 300 gr"
+  },
+  {
+   "id": "smk",
+   "url": "https://www.federalpremium.com/rifle/gold-medal/gold-medal-sierra-matchking/11-GM308M2.html",
+   "read_date": "2026-10-13",
+   "title": "Gold Medal Sierra MatchKing 308 Win"
+  },
+  {
+   "id": "tmk",
+   "url": "https://www.federalpremium.com/rifle/gold-medal-sierra-tipped-matchking/11-GM65CRDPKTMK1.html",
+   "read_date": "2026-10-13",
+   "title": "Gold Medal Sierra Tipped MatchKing 6.5 Creedmoor +Peak 153 gr"
+  },
+  {
+   "id": "centerstrike",
+   "url": "https://www.federalpremium.com/rifle/gold-medal/gold-medal-centerstrike/11-GM308OTM1.html",
+   "read_date": "2026-10-13",
+   "title": "Gold Medal CenterStrike 308 Win 168 gr"
+  },
+  {
+   "id": "gmb",
+   "url": "https://www.federalpremium.com/rifle/gold-medal/gold-medal-berger/11-GM223BH73.html",
+   "read_date": "2026-10-13",
+   "title": "Gold Medal Berger 223 Rem 73 gr BT Target"
+  }
+ ],
+ "families": [
+  {
+   "id": "terminal_ascent",
+   "lib": "any",
+   "name_regex": "\\bTerminal Ascent\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "ta",
+     "quote": "Match-grade long-range accuracy in a bonded hunting bullet"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "ta",
+     "quote": "Exclusive Slipstream polymer tip"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "ta_line",
+     "quote": "Optimized boat-tail"
+    }
+   }
+  },
+  {
+   "id": "terminal_ascent_cb",
+   "lib": "factory",
+   "name_regex": "\\bTerminal Ascent\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Terminal Ascent",
+     "src": "ta",
+     "quote": "Bullet Style: Terminal Ascent"
+    }
+   }
+  },
+  {
+   "id": "trophy_bonded_tip",
+   "lib": "any",
+   "name_regex": "\\bTrophy Bonded Tip\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "tbt",
+     "quote": "Trophy Bonded Tip combines bonded construction"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "tbt",
+     "quote": "High-performance polymer tip for flat trajectory"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "tbt",
+     "quote": "with a boat-tail design and polymer tip"
+    }
+   }
+  },
+  {
+   "id": "trophy_bonded_tip_comp",
+   "lib": "bullet",
+   "name_regex": "\\bTrophy Bonded Tip\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "tbt_comp",
+     "quote": "bonded construction"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "tbt_comp",
+     "quote": "High-performance polymer tip and boat-tail"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "tbt_comp",
+     "quote": "High-performance polymer tip and boat-tail"
+    }
+   }
+  },
+  {
+   "id": "trophy_bonded_tip_cb",
+   "lib": "factory",
+   "name_regex": "\\bTrophy Bonded Tip\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Trophy Bonded Tip",
+     "src": "tbt",
+     "quote": "Bullet Style: Trophy Bonded Tip"
+    }
+   }
+  },
+  {
+   "id": "trophy_copper",
+   "lib": "factory",
+   "name_regex": "\\bTrophy Copper\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "tc",
+     "quote": "Copper bullet construction provides up to 99 percent weight retention"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "tc",
+     "quote": "Polymer tip and boat-tail design increase the ballistic coefficient"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "tc",
+     "quote": "Polymer tip and boat-tail design increase the ballistic coefficient"
+    },
+    "component_bullet": {
+     "value": "Trophy Copper",
+     "src": "tc",
+     "quote": "Bullet Style: Trophy Copper"
+    }
+   }
+  },
+  {
+   "id": "fusion_soft_point",
+   "lib": "factory",
+   "name_regex": "\\bFusion Soft Point\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "fusion",
+     "quote": "Copper jacket is electro-chemically bonded to the core"
+    },
+    "component_bullet": {
+     "value": "Fusion Soft Point",
+     "src": "fusion",
+     "quote": "Bullet Style: Fusion Soft Point"
+    }
+   }
+  },
+  {
+   "id": "fusion_tipped",
+   "lib": "factory",
+   "name_regex": "\\bFusion Tipped\\b",
+   "not_regex": "\\bSubsonic\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "fusion_tipped",
+     "quote": "pressure-formed lead core is molecularly bonded to a consistent copper jacket"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "fusion_tipped",
+     "quote": "Polymer-tipped design"
+    },
+    "component_bullet": {
+     "value": "Fusion Tipped",
+     "src": "fusion_tipped",
+     "quote": "Bullet Style: Fusion Tipped"
+    }
+   }
+  },
+  {
+   "id": "subsonic_fusion_tipped",
+   "lib": "factory",
+   "name_regex": "^Federal Subsonic\\b.*\\bFusion Tipped\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Fusion Tipped",
+     "src": "subsonic",
+     "quote": "Bullet Style: Fusion Tipped"
+    }
+   }
+  },
+  {
+   "id": "power_shok",
+   "lib": "factory",
+   "name_regex": "^Power-Shok\\b",
+   "not_regex": "Copper",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "powershok",
+     "quote": "traditional lead-core hunting bullets in Federal Power-Shok rifle loads"
+    }
+   }
+  },
+  {
+   "id": "power_shok_copper",
+   "lib": "factory",
+   "name_regex": "^Power-Shok Copper\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "psc",
+     "quote": "Copper-alloy construction"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "psc",
+     "quote": "Hollow-point design expands consistently"
+    }
+   }
+  },
+  {
+   "id": "nosler_partition",
+   "lib": "factory",
+   "name_regex": "\\bNosler Partition\\b",
+   "fields": {
+    "construction": {
+     "value": "partition",
+     "src": "partition",
+     "quote": "World-renowned bullet features a partitioned lead core"
+    },
+    "component_bullet": {
+     "value": "Nosler Partition",
+     "src": "partition",
+     "quote": "Bullet Style: Nosler Partition"
+    }
+   }
+  },
+  {
+   "id": "barnes_tsx",
+   "lib": "factory",
+   "name_regex": "\\bBarnes TSX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "tsx",
+     "quote": "One-piece copper construction"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "tsx",
+     "quote": "Deep hollow-point tip"
+    },
+    "component_bullet": {
+     "value": "Barnes TSX",
+     "src": "tsx",
+     "quote": "Barnes Triple-Shock X Bullet (TSX)"
+    }
+   }
+  },
+  {
+   "id": "barnes_lrx",
+   "lib": "factory",
+   "name_regex": "\\bBarnes LRX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "lrx",
+     "quote": "All-copper construction"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "lrx",
+     "quote": "Polymer tip boosts B.C. and helps initiate rapid expansion"
+    },
+    "component_bullet": {
+     "value": "Barnes LRX",
+     "src": "lrx",
+     "quote": "Barnes LRX"
+    }
+   }
+  },
+  {
+   "id": "berger_hybrid_hunter",
+   "lib": "factory",
+   "name_regex": "^Berger Hybrid Hunter\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Berger Hybrid Hunter",
+     "src": "bhh",
+     "quote": "Federal Premium Berger Hybrid Hunter bullet weights"
+    }
+   }
+  },
+  {
+   "id": "berger_elite_hunter",
+   "lib": "factory",
+   "name_regex": "\\bBerger Elite Hunter\\b",
+   "fields": {
+    "base": {
+     "value": "boat_tail",
+     "src": "beh",
+     "quote": "Boat-tail provides an aerodynamic advantage at longer ranges"
+    },
+    "component_bullet": {
+     "value": "Berger Elite Hunter",
+     "src": "beh",
+     "quote": "The Berger Elite Hunter offers some of the industry's highest ballistic coefficients"
+    }
+   }
+  },
+  {
+   "id": "eld_x",
+   "lib": "factory",
+   "name_regex": "\\bELD-X\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "hornady_eldx",
+     "quote": "high InterLock ring keep the core and jacket together",
+     "evidence": "component_maker_page"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "eldx",
+     "quote": "It features a unique polymer tip that resists deformation"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "hornady_eldx",
+     "quote": "optimum boattail design",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Hornady ELD-X",
+     "src": "eldx",
+     "quote": "Bullet Style: Hornady ELD-X"
+    }
+   }
+  },
+  {
+   "id": "vmax",
+   "lib": "factory",
+   "name_regex": "\\bV-Max\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "hornady_vmax",
+     "quote": "sharp, pointed polymer tip",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Hornady V-Max",
+     "src": "vp_vmax",
+     "quote": "Bullet Style: Hornady V-Max"
+    }
+   }
+  },
+  {
+   "id": "speer_tnt",
+   "lib": "factory",
+   "name_regex": "\\bSpeer TNT\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Speer TNT",
+     "src": "vp_vmax",
+     "quote": "Speer TNT Jacketed Hollow Point"
+    }
+   }
+  },
+  {
+   "id": "swift_scirocco",
+   "lib": "factory",
+   "name_regex": "\\bScirocco\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "scirocco",
+     "quote": "Tapered copper jacket bonded to lead core"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "scirocco",
+     "quote": "Proprietary polymer tip improves ballistics"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "swift_partners",
+     "quote": "Its secant ogive, 15 degree boat tail base and polymer tip",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Swift Scirocco II",
+     "src": "scirocco",
+     "quote": "Bullet Style: Swift Scirocco"
+    }
+   }
+  },
+  {
+   "id": "swift_a_frame",
+   "lib": "factory",
+   "name_regex": "\\bA-Frame\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "aframe",
+     "quote": "Bonded front core and progressively tapered jacket"
+    },
+    "component_bullet": {
+     "value": "Swift A-Frame",
+     "src": "aframe",
+     "quote": "Bullet Style: Swift A-Frame"
+    }
+   }
+  },
+  {
+   "id": "tbbc",
+   "lib": "factory",
+   "name_regex": "\\bTrophy Bonded Bear Claw\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "tbbc",
+     "quote": "Bonded jacket and core retain more than 95 percent"
+    },
+    "component_bullet": {
+     "value": "Trophy Bonded Bear Claw",
+     "src": "tbbc",
+     "quote": "The world-famous Trophy Bonded Bear Claw"
+    }
+   }
+  },
+  {
+   "id": "sledgehammer",
+   "lib": "factory",
+   "name_regex": "\\bSledgehammer\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "sledge",
+     "quote": "Core is bonded to a thick bronze jacket"
+    },
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "sledge",
+     "quote": "Flat nose design minimizes deflection"
+    },
+    "component_bullet": {
+     "value": "Trophy Bonded Sledgehammer Solid",
+     "src": "sledge",
+     "quote": "Safari Trophy Bonded Sledgehammer Solid"
+    }
+   }
+  },
+  {
+   "id": "woodleigh_hydro",
+   "lib": "factory",
+   "name_regex": "\\bWoodleigh Hydro Solid\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "woodleigh",
+     "quote": "Solid copper-alloy construction penetrates thick hide and heavy bone"
+    },
+    "component_bullet": {
+     "value": "Woodleigh Hydro Solid",
+     "src": "woodleigh",
+     "quote": "Bullet Style: Woodleigh Hydro Solid"
+    }
+   }
+  },
+  {
+   "id": "gm_smk",
+   "lib": "factory",
+   "name_regex": "^Gold Medal Sierra MatchKing\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "smk",
+     "quote": "Uniform match jacket ensures consistent, long-range accuracy"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "smk",
+     "quote": "Boat-tail hollow-point bullet"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "smk",
+     "quote": "Boat-tail hollow-point bullet"
+    },
+    "component_bullet": {
+     "value": "Sierra MatchKing",
+     "src": "smk",
+     "quote": "The precision-built Sierra MatchKing bullet"
+    }
+   }
+  },
+  {
+   "id": "gm_tmk",
+   "lib": "factory",
+   "name_regex": "\\bTipped MatchKing\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "tmk",
+     "quote": "An acetal resin tip gives the streamlined Sierra Tipped MatchKing bullet"
+    },
+    "component_bullet": {
+     "value": "Sierra Tipped MatchKing",
+     "src": "tmk",
+     "quote": "Bullet Style: Sierra Tipped MatchKing"
+    }
+   }
+  },
+  {
+   "id": "gm_centerstrike",
+   "lib": "factory",
+   "name_regex": "\\bCenterStrike\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "centerstrike",
+     "quote": "Precision-built OTM bullet design"
+    },
+    "tip_shape": {
+     "value": "open_tip_match",
+     "src": "centerstrike",
+     "quote": "leverages a proprietary open tip match design"
+    },
+    "component_bullet": {
+     "value": "CenterStrike Open Tipped Match",
+     "src": "centerstrike",
+     "quote": "Bullet Style: Centerstrike Open Tipped Match"
+    }
+   }
+  },
+  {
+   "id": "gm_berger",
+   "lib": "factory",
+   "name_regex": "^Gold Medal Berger\\b",
+   "fields": {
+    "base": {
+     "value": "boat_tail",
+     "src": "gmb",
+     "quote": "Gold Medal Berger loads feature an advanced boat-tail bullet"
+    }
+   }
+  },
+  {
+   "id": "gm_berger_bt",
+   "lib": "factory",
+   "name_regex": "\\bBerger BT Target\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Berger BT Target",
+     "src": "gmb",
+     "quote": "Bullet Style: Berger BT Target"
+    }
+   }
+  },
+  {
+   "id": "gm_berger_hybrid",
+   "lib": "factory",
+   "name_regex": "\\bGold Medal Berger\\b.*\\bBerger Hybrid$",
+   "fields": {
+    "component_bullet": {
+     "value": "Berger Hybrid",
+     "src": "gmb",
+     "quote": "Bullet Style: Berger Hybrid"
+    }
+   }
+  },
+  {
+   "id": "gm_berger_ar",
+   "lib": "factory",
+   "name_regex": "\\bBerger AR Hybrid OTM\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Berger AR Hybrid OTM",
+     "src": "gmb",
+     "quote": "Bullet Style: Berger AR Hybrid OTM"
+    }
+   }
+  },
+  {
+   "id": "gm_berger_jugg",
+   "lib": "factory",
+   "name_regex": "\\bBerger Juggernaut OTM\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Berger Juggernaut OTM",
+     "src": "gmb",
+     "quote": "Bullet Style: Berger Juggernaut OTM"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

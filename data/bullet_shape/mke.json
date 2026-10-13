@@ -1,0 +1,105 @@
+{
+ "brand": "MKE",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "mke.gov.tr robots.txt allows. Product pages give only 'Mermi Malzemesi' (e.g. 'Tombak, Kurşun Çekirdek'); FMJ/tip/base not stated, so ball/tracer/AP left empty. 8.59x70 Solid: material 'Pirinç' (brass) -> lead_free_other.",
+ "sources": [
+  {
+   "id": "solid",
+   "url": "https://www.mke.gov.tr/Urunler/859-mm-x-70-Solid-Fisek/150",
+   "read_date": "2026-10-13",
+   "title": "8.59x70 Solid Fişek"
+  }
+ ],
+ "records": {
+  "MKE|8.59×70 Fişek (Normal)|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "8.59×70 Fişek (Normal)",
+   "grain": 253.1,
+   "library_source_url": "https://www.mke.gov.tr/Urunler/859-mm-x-70-Fisek-Normal/151",
+   "cartridge": ".338 Lapua Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "MKE|8.59×70 Solid Fişek|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "8.59×70 Solid Fişek",
+   "grain": 240.7,
+   "library_source_url": "https://www.mke.gov.tr/Urunler/859-mm-x-70-Solid-Fisek/150",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.mke.gov.tr/Urunler/859-mm-x-70-Solid-Fisek/150",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Mermi Malzemesi | Pirinç"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "MKE|5.56×45 Fişek İzli (L110)|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "5.56×45 Fişek İzli (L110)",
+   "grain": 63.8,
+   "library_source_url": "https://www.mke.gov.tr/Urunler/556-mm-x-45-Fisek-Izli/167",
+   "cartridge": "5.56x45 NATO",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "MKE|5.56×45 Fişek Normal (SS109)|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "5.56×45 Fişek Normal (SS109)",
+   "grain": 61.7,
+   "library_source_url": "https://www.mke.gov.tr/Urunler/556-mm-x-45-Fisek-Normal-SS109/168",
+   "cartridge": "5.56x45 NATO",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "MKE|7.62×51 İzli Fişek (M62)|7.62x51 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7.62×51 İzli Fişek (M62)",
+   "grain": 142.0,
+   "library_source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-51-Izli-Fisek-M62/159",
+   "cartridge": "7.62x51 NATO",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "MKE|7.62×51 Normal Fişek (M80)|7.62x51 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7.62×51 Normal Fişek (M80)",
+   "grain": 148.9,
+   "library_source_url": "https://www.mke.gov.tr/Urunler/762mm-x-51-Normal-Fisek-M80/164",
+   "cartridge": "7.62x51 NATO",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "MKE|7.62×51 Zırh Delici Fişek (M61)|7.62x51 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7.62×51 Zırh Delici Fişek (M61)",
+   "grain": 145.8,
+   "library_source_url": "https://www.mke.gov.tr/Urunler/762-mm-x-51-Zirh-Delici-Fisek-M61/160",
+   "cartridge": "7.62x51 NATO",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

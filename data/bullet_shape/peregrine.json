@@ -1,0 +1,3739 @@
+{
+ "brand": "Peregrine",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read 2026-10-13 from peregrinebullets.com (robots.txt allows /bullets, /about-us, /wp-content/uploads PDF). Construction: reload-data PDF says all Peregrine bullets are gilding-metal monolithics; Glider = target bullet -> match; Brass Backup (brass monolithic) mapped to monolithic_copper (copper alloy). Tip: only Backup/Brass Backup state a large meplat -> flat_nose. PlainsMaster/BushMaster 'plunging tip/initiator' has no enum value; VLR5, Glider, Subsonic, Rex tip not stated. Base not stated on any line page or store page. Store page /store/308-plainsmaster/ gives no construction details.",
+ "sources": [
+  {
+   "id": "pdf",
+   "url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+   "read_date": "2026-10-13",
+   "title": "Peregrine Comprehensive Reload Data"
+  },
+  {
+   "id": "about",
+   "url": "https://peregrinebullets.com/about-us/",
+   "read_date": "2026-10-13",
+   "title": "About Us"
+  },
+  {
+   "id": "glider",
+   "url": "https://peregrinebullets.com/bullets/glider/",
+   "read_date": "2026-10-13",
+   "title": "Glider"
+  },
+  {
+   "id": "backup",
+   "url": "https://peregrinebullets.com/bullets/backup/",
+   "read_date": "2026-10-13",
+   "title": "Backup"
+  },
+  {
+   "id": "brass",
+   "url": "https://peregrinebullets.com/bullets/brass-backup/",
+   "read_date": "2026-10-13",
+   "title": "Brass Backup"
+  },
+  {
+   "id": "subs",
+   "url": "https://peregrinebullets.com/bullets/subsonic/",
+   "read_date": "2026-10-13",
+   "title": "Subsonic"
+  },
+  {
+   "id": "rex",
+   "url": "https://peregrinebullets.com/bullets/rex/",
+   "read_date": "2026-10-13",
+   "title": "REX"
+  }
+ ],
+ "records": {
+  "Peregrine|PlainsMaster .204 34 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .204 34 gr",
+   "grain": 34.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 5.18,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .224 44 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .224 44 gr",
+   "grain": 44.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .224 51 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .224 51 gr",
+   "grain": 51.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .224 58 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .224 58 gr",
+   "grain": 58.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .224 67 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .224 67 gr",
+   "grain": 67.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .243 75 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .243 75 gr",
+   "grain": 75.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .243 82 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .243 82 gr",
+   "grain": 82.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .243 91 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .243 91 gr",
+   "grain": 91.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .245 92 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .245 92 gr",
+   "grain": 92.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 6.22,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .257 80 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .257 80 gr",
+   "grain": 80.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 6.53,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .257 87 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .257 87 gr",
+   "grain": 87.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 6.53,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .257 100 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .257 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 6.53,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .264 100 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .264 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .264 118 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .264 118 gr",
+   "grain": 118.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .264 124 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .264 124 gr",
+   "grain": 124.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .277 125 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .277 125 gr",
+   "grain": 125.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .277 132 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .277 132 gr",
+   "grain": 132.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .277 140 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .277 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .284 132 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .284 132 gr",
+   "grain": 132.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .284 140 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .284 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .284 150 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .284 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .284 161 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .284 161 gr",
+   "grain": 161.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .308 136 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .308 136 gr",
+   "grain": 136.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .308 150 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .308 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .308 167 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .308 167 gr",
+   "grain": 167.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .308 183 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .308 183 gr",
+   "grain": 183.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .308 193 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .308 193 gr",
+   "grain": 193.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .308 203 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .308 203 gr",
+   "grain": 203.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .312 152 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .312 152 gr",
+   "grain": 152.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.92,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .312 160 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .312 160 gr",
+   "grain": 160.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.92,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .312 168 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .312 168 gr",
+   "grain": 168.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.92,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .314 152 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .314 152 gr",
+   "grain": 152.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.98,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .314 168 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .314 168 gr",
+   "grain": 168.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 7.98,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .318 175 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .318 175 gr",
+   "grain": 175.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 8.08,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .323 180 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .323 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 8.22,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .323 200 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .323 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 8.22,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .338 180 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .338 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .338 200 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .338 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .338 225 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .338 225 gr",
+   "grain": 225.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .338 248 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .338 248 gr",
+   "grain": 248.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .338 270 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .338 270 gr",
+   "grain": 270.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .338 300 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .338 300 gr",
+   "grain": 300.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .365 230 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .365 230 gr",
+   "grain": 230.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 9.27,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .365 250 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .365 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 9.27,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .376 230 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .376 230 gr",
+   "grain": 230.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .376 250 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .376 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .376 270 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .376 270 gr",
+   "grain": 270.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .416 300 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .416 300 gr",
+   "grain": 300.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .416 390 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .416 390 gr",
+   "grain": 390.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|PlainsMaster .416 448 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "PlainsMaster .416 448 gr",
+   "grain": 448.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/plainsmaster/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .222 45 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .222 45 gr",
+   "grain": 45.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 5.64,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .224 55 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .224 55 gr",
+   "grain": 55.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .224 70 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .224 70 gr",
+   "grain": 70.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .243 100 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .243 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .264 140 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .264 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .323 200 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .323 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 8.22,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .330 250 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .330 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 8.38,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .365 230 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .365 230 gr",
+   "grain": 230.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 9.27,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .365 250 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .365 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 9.27,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .365 286 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .365 286 gr",
+   "grain": 286.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 9.27,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .376 250 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .376 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .376 270 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .376 270 gr",
+   "grain": 270.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .376 300 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .376 300 gr",
+   "grain": 300.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .410 400 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .410 400 gr",
+   "grain": 400.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 10.41,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .416 340 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .416 340 gr",
+   "grain": 340.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .416 400 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .416 400 gr",
+   "grain": 400.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .422 350 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .422 350 gr",
+   "grain": 350.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 10.72,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .423 350 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .423 350 gr",
+   "grain": 350.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 10.74,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .424 350 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .424 350 gr",
+   "grain": 350.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 10.77,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .457 450 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .457 450 gr",
+   "grain": 450.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 11.61,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .458 500 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .458 500 gr",
+   "grain": 500.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 11.63,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .474 450 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .474 450 gr",
+   "grain": 450.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 12.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .474 500 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .474 500 gr",
+   "grain": 500.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 12.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .510 550 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .510 550 gr",
+   "grain": 550.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 12.95,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .510 600 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .510 600 gr",
+   "grain": 600.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 12.95,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .511 500 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .511 500 gr",
+   "grain": 500.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 12.98,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .511 550 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .511 550 gr",
+   "grain": 550.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 12.98,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .511 600 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .511 600 gr",
+   "grain": 600.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 12.98,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .512 550 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .512 550 gr",
+   "grain": 550.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 13.0,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|BushMaster .512 600 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "BushMaster .512 600 gr",
+   "grain": 600.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/bushmaster/",
+   "caliber_mm": 13.0,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Backup Solid .222 48 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .222 48 gr",
+   "grain": 48.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 5.64,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .224 49 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .224 49 gr",
+   "grain": 49.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .224 58 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .224 58 gr",
+   "grain": 58.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .224 73 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .224 73 gr",
+   "grain": 73.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .323 200 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .323 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 8.22,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .365 237 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .365 237 gr",
+   "grain": 237.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 9.27,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .365 257 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .365 257 gr",
+   "grain": 257.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 9.27,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .365 293 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .365 293 gr",
+   "grain": 293.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 9.27,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .376 257 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .376 257 gr",
+   "grain": 257.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .376 277 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .376 277 gr",
+   "grain": 277.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .376 307 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .376 307 gr",
+   "grain": 307.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .410 410 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .410 410 gr",
+   "grain": 410.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 10.41,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .416 350 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .416 350 gr",
+   "grain": 350.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .416 410 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .416 410 gr",
+   "grain": 410.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .423 362 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .423 362 gr",
+   "grain": 362.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 10.74,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .424 362 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .424 362 gr",
+   "grain": 362.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 10.77,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .457 465 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .457 465 gr",
+   "grain": 465.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 11.61,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .458 515 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .458 515 gr",
+   "grain": 515.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 11.63,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .474 462 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .474 462 gr",
+   "grain": 462.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 12.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .474 500 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .474 500 gr",
+   "grain": 500.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 12.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .474 512 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .474 512 gr",
+   "grain": 512.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 12.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .510 575 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .510 575 gr",
+   "grain": 575.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 12.95,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .510 625 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .510 625 gr",
+   "grain": 625.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 12.95,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .511 525 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .511 525 gr",
+   "grain": 525.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 12.98,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .511 575 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .511 575 gr",
+   "grain": 575.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 12.98,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .511 625 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .511 625 gr",
+   "grain": 625.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 12.98,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .512 575 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .512 575 gr",
+   "grain": 575.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 13.0,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Backup Solid .512 625 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Backup Solid .512 625 gr",
+   "grain": 625.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/backup/",
+   "caliber_mm": 13.0,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a solid non-expanding bullet"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With an oversized meplat"
+   },
+   "base": null
+  },
+  "Peregrine|Brass Backup Solid .376 300 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Brass Backup Solid .376 300 gr",
+   "grain": 300.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/brass-backup/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/about-us/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "various copper and brass monolithic bullets"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/brass-backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large meplat design for maximum stopping power"
+   },
+   "base": null
+  },
+  "Peregrine|Brass Backup Solid .458 480 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Brass Backup Solid .458 480 gr",
+   "grain": 480.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/brass-backup/",
+   "caliber_mm": 11.63,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/about-us/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "various copper and brass monolithic bullets"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/brass-backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large meplat design for maximum stopping power"
+   },
+   "base": null
+  },
+  "Peregrine|Brass Backup Solid .458 500 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Brass Backup Solid .458 500 gr",
+   "grain": 500.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/brass-backup/",
+   "caliber_mm": 11.63,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/about-us/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "various copper and brass monolithic bullets"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://peregrinebullets.com/bullets/brass-backup/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Large meplat design for maximum stopping power"
+   },
+   "base": null
+  },
+  "Peregrine|Glider .224 54 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .224 54 gr",
+   "grain": 54.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .224 65 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .224 65 gr",
+   "grain": 65.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .224 75 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .224 75 gr",
+   "grain": 75.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .243 81 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .243 81 gr",
+   "grain": 81.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .243 91 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .243 91 gr",
+   "grain": 91.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .243 97 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .243 97 gr",
+   "grain": 97.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .243 102 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .243 102 gr",
+   "grain": 102.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .257 100 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .257 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 6.53,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .264 120 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .264 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .264 125 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .264 125 gr",
+   "grain": 125.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .277 107 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .277 107 gr",
+   "grain": 107.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .277 121 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .277 121 gr",
+   "grain": 121.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .277 135 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .277 135 gr",
+   "grain": 135.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .284 145 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .284 145 gr",
+   "grain": 145.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .284 153 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .284 153 gr",
+   "grain": 153.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .284 160 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .284 160 gr",
+   "grain": 160.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .284 168 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .284 168 gr",
+   "grain": 168.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .284 177 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .284 177 gr",
+   "grain": 177.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .308 146 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .308 146 gr",
+   "grain": 146.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .308 150 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .308 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .308 155 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .308 155 gr",
+   "grain": 155.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .308 166 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .308 166 gr",
+   "grain": 166.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .308 176 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .308 176 gr",
+   "grain": 176.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .308 186 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .308 186 gr",
+   "grain": 186.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .308 196 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .308 196 gr",
+   "grain": 196.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .308 206 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .308 206 gr",
+   "grain": 206.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .308 216 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .308 216 gr",
+   "grain": 216.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .308 226 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .308 226 gr",
+   "grain": 226.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .338 220 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .338 220 gr",
+   "grain": 220.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .338 245 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .338 245 gr",
+   "grain": 245.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .338 260 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .338 260 gr",
+   "grain": 260.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .338 275 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .338 275 gr",
+   "grain": 275.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .338 290 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .338 290 gr",
+   "grain": 290.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .338 305 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .338 305 gr",
+   "grain": 305.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .375 350 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .375 350 gr",
+   "grain": 350.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 9.53,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .375 420 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .375 420 gr",
+   "grain": 420.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 9.53,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .376 300 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .376 300 gr",
+   "grain": 300.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .376 350 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .376 350 gr",
+   "grain": 350.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .408 408 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .408 408 gr",
+   "grain": 408.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 10.36,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .408 455 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .408 455 gr",
+   "grain": 455.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 10.36,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .416 430 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .416 430 gr",
+   "grain": 430.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .416 550 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .416 550 gr",
+   "grain": 550.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .416 555 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .416 555 gr",
+   "grain": 555.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .509 750 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .509 750 gr",
+   "grain": 750.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 12.93,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .509 830 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .509 830 gr",
+   "grain": 830.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 12.93,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Glider .509 870 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Glider .509 870 gr",
+   "grain": 870.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/glider/",
+   "caliber_mm": 12.93,
+   "construction": {
+    "value": "match",
+    "source_url": "https://peregrinebullets.com/bullets/glider/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision high-BC monolithic bullet ... premium Target bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .204 36 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .204 36 gr",
+   "grain": 36.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 5.18,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .224 46 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .224 46 gr",
+   "grain": 46.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .224 53 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .224 53 gr",
+   "grain": 53.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .224 60 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .224 60 gr",
+   "grain": 60.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .224 69 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .224 69 gr",
+   "grain": 69.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .243 79 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .243 79 gr",
+   "grain": 79.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .243 86 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .243 86 gr",
+   "grain": 86.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .243 95 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .243 95 gr",
+   "grain": 95.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 6.17,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .257 91 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .257 91 gr",
+   "grain": 91.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 6.53,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .257 104 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .257 104 gr",
+   "grain": 104.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 6.53,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .264 104 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .264 104 gr",
+   "grain": 104.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .264 122 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .264 122 gr",
+   "grain": 122.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .264 128 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .264 128 gr",
+   "grain": 128.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .277 129 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .277 129 gr",
+   "grain": 129.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .277 136 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .277 136 gr",
+   "grain": 136.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .284 136 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .284 136 gr",
+   "grain": 136.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .284 144 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .284 144 gr",
+   "grain": 144.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .284 154 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .284 154 gr",
+   "grain": 154.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .284 165 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .284 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .308 140 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .308 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .308 154 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .308 154 gr",
+   "grain": 154.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .308 171 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .308 171 gr",
+   "grain": 171.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .308 187 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .308 187 gr",
+   "grain": 187.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .308 197 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .308 197 gr",
+   "grain": 197.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .308 207 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .308 207 gr",
+   "grain": 207.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .323 186 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .323 186 gr",
+   "grain": 186.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 8.22,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .323 206 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .323 206 gr",
+   "grain": 206.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 8.22,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .338 186 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .338 186 gr",
+   "grain": 186.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .338 206 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .338 206 gr",
+   "grain": 206.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .338 231 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .338 231 gr",
+   "grain": 231.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .338 254 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .338 254 gr",
+   "grain": 254.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .338 276 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .338 276 gr",
+   "grain": 276.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .338 306 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .338 306 gr",
+   "grain": 306.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .365 236 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .365 236 gr",
+   "grain": 236.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 9.27,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .365 256 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .365 256 gr",
+   "grain": 256.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 9.27,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .376 236 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .376 236 gr",
+   "grain": 236.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .376 256 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .376 256 gr",
+   "grain": 256.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .376 276 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .376 276 gr",
+   "grain": 276.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .416 396 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .416 396 gr",
+   "grain": 396.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|VLR5 .416 454 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "VLR5 .416 454 gr",
+   "grain": 454.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/vlr5/",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/wp-content/uploads/2023/11/Peregrine-Comprehensive-Reload-Data-Draft-Rev12-9.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PEREGRINE bullets are made from gilding metal and are soft in comparison to other monolithic bullets"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Rex .308 165 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Rex .308 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/rex/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/rex/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "REX is manufactured from solid copper"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Subsonic .308 155 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Subsonic .308 155 gr",
+   "grain": 155.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/subsonic/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/subsonic/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A revolutionary monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Subsonic .308 188 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Subsonic .308 188 gr",
+   "grain": 188.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/subsonic/",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/subsonic/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A revolutionary monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Subsonic .311 165 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Subsonic .311 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/subsonic/",
+   "caliber_mm": 7.92,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/subsonic/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A revolutionary monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Subsonic .323 175 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Subsonic .323 175 gr",
+   "grain": 175.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/subsonic/",
+   "caliber_mm": 8.22,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/subsonic/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A revolutionary monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Subsonic .338 280 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Subsonic .338 280 gr",
+   "grain": 280.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/subsonic/",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/subsonic/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A revolutionary monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Subsonic .376 265 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Subsonic .376 265 gr",
+   "grain": 265.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/subsonic/",
+   "caliber_mm": 9.55,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/subsonic/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A revolutionary monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Subsonic .456 420 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Subsonic .456 420 gr",
+   "grain": 420.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/subsonic/",
+   "caliber_mm": 11.58,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/subsonic/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A revolutionary monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Peregrine|Subsonic .458 475 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Subsonic .458 475 gr",
+   "grain": 475.0,
+   "library_source_url": "https://peregrinebullets.com/bullets/subsonic/",
+   "caliber_mm": 11.63,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://peregrinebullets.com/bullets/subsonic/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A revolutionary monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null
+  }
+ }
+}

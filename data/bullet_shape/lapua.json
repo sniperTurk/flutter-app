@@ -1,0 +1,2799 @@
+{
+ "brand": "Lapua",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read lapua.com robots.txt (only /wp-admin/ disallowed), 2024 catalogue PDF and product pages. Scenar/Scenar-L/MaxRange/TRX/Mega/Lock Base/Naturalis lines filled from line text. Not stated on maker pages: AP/API cartridges (only 'Armor Piercing'), rimfire .22 LR (Center-X, Midas+ etc.: no bullet design), Scenar-L base, Mega tip shape/base, Naturalis tip, factory 'Open Tip' 8x57/9.3x62 lines. Initial fetches hit PROVENANCE_REQUIRED, succeeded on retry.",
+ "sources": [
+  {
+   "id": "cat2024",
+   "url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "read_date": "2026-10-13",
+   "title": "Lapua product catalog 2024"
+  },
+  {
+   "id": "gb422",
+   "url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+   "read_date": "2026-10-13",
+   "title": "Scenar OTM GB422"
+  },
+  {
+   "id": "gb550",
+   "url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+   "read_date": "2026-10-13",
+   "title": "Scenar-L OTM GB550"
+  },
+  {
+   "id": "sl6547",
+   "url": "https://www.lapua.com/product/6-5x47-open-tip-match-cartridge-lapua-scenar-l-88g-136gr-4316016/",
+   "read_date": "2026-10-13",
+   "title": "6.5x47 Scenar-L 136 gr cartridge"
+  },
+  {
+   "id": "gb582",
+   "url": "https://www.lapua.com/product/6-5-mm-175-gr-maxrange-target-bullet-otm-gb582/",
+   "read_date": "2026-10-13",
+   "title": "MaxRange Target OTM GB582"
+  },
+  {
+   "id": "maxrt",
+   "url": "https://www.lapua.com/product/6-5-creedmoor-9-3-g-144-grains-maxrt-otm-cartridge/",
+   "read_date": "2026-10-13",
+   "title": "6.5 Creedmoor MaxRT OTM 144 gr cartridge"
+  },
+  {
+   "id": "n585",
+   "url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+   "read_date": "2026-10-13",
+   "title": "TRX hunting bullet N585"
+  },
+  {
+   "id": "trx65",
+   "url": "https://www.lapua.com/product/6-5-creedmoor-7-8-g-120-grains-trx/",
+   "read_date": "2026-10-13",
+   "title": "6.5 Creedmoor TRX 120 gr cartridge"
+  },
+  {
+   "id": "e415",
+   "url": "https://www.lapua.com/product/30-cal-mega-hunting-bullet-e415-120-g-185-gr-sp/",
+   "read_date": "2026-10-13",
+   "title": "Mega SP E415"
+  },
+  {
+   "id": "b476",
+   "url": "https://www.lapua.com/product/30-cal-lock-base-bullet-b476-110-g-170-gr-fmjbt/",
+   "read_date": "2026-10-13",
+   "title": "Lock Base FMJBT B476"
+  },
+  {
+   "id": "g477",
+   "url": "https://www.lapua.com/product/30-cal-cutting-edge-bullet-g477-65-g-100-gr-hp/",
+   "read_date": "2026-10-13",
+   "title": "Cutting Edge G477"
+  },
+  {
+   "id": "g580",
+   "url": "https://www.lapua.com/product/30-cal-open-tip-bullet-g580-65-g-100-gr-ot/",
+   "read_date": "2026-10-13",
+   "title": "Open Tip G580"
+  }
+ ],
+ "records": {
+  "Lapua|Lapua Center-X 40 gr|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua Center-X 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua Long Range 40 gr|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua Long Range 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua Midas+ 40 gr|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua Midas+ 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua Pistol King 40 gr|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua Pistol King 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua Pistol OSP 40 gr|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua Pistol OSP 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua Polar Biathlon 40 gr|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua Polar Biathlon 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua Super Long Range 40 gr|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua Super Long Range 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua X-Act 40 gr|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua X-Act 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 3.2 g (50 gr) Naturalis|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 3.2 g (50 gr) Naturalis",
+   "grain": 50.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 3.6 g (55 gr) FMJ|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 3.6 g (55 gr) FMJ",
+   "grain": 55.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 4.5 g (69 gr) Scenar|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 4.5 g (69 gr) Scenar",
+   "grain": 69.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 4.5 g (69 gr) Scenar-L|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 4.5 g (69 gr) Scenar-L",
+   "grain": 69.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 5.8 g (90 gr) FMJ|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 5.8 g (90 gr) FMJ",
+   "grain": 90.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 5.8 g (90 gr) Naturalis|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 5.8 g (90 gr) Naturalis",
+   "grain": 90.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 6.5 g (100 gr) Soft Point|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 6.5 g (100 gr) Soft Point",
+   "grain": 100.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 10.7 g (165 gr) TRX|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 10.7 g (165 gr) TRX",
+   "grain": 165.0,
+   "library_source_url": "https://www.lapua.com/product/30-06-spring-10-7-g-165-grains-n317107trx/",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 11.0 g (170 gr) Naturalis|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 11.0 g (170 gr) Naturalis",
+   "grain": 170.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 12.0 g (185 gr) Mega|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 12.0 g (185 gr) Mega",
+   "grain": 185.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 13.0 g (200 gr) Mega|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 13.0 g (200 gr) Mega",
+   "grain": 200.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 8.0 g (123 gr) FMJ|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 8.0 g (123 gr) FMJ",
+   "grain": 123.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 10.7 g (165 gr) TRX|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 10.7 g (165 gr) TRX",
+   "grain": 165.0,
+   "library_source_url": "https://www.lapua.com/product/300-win-mag-10-7-g-165-grains-trx/",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 11.0 g (170 gr) Naturalis|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 11.0 g (170 gr) Naturalis",
+   "grain": 170.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 12.0 g (185 gr) Mega|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 12.0 g (185 gr) Mega",
+   "grain": 185.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 12.0 g (185 gr) Scenar|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 12.0 g (185 gr) Scenar",
+   "grain": 185.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 10.0 g (155 gr) Scenar-L|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 10.0 g (155 gr) Scenar-L",
+   "grain": 155.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 10.8 g (167 gr) AP555|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 10.8 g (167 gr) AP555",
+   "grain": 167.0,
+   "library_source_url": "https://www.lapua.com/product/308-win-10-8-g-167-gr-armor-piercing-tactical-cartridge_43m7075/",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 10.85 g (167 gr) Scenar|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 10.85 g (167 gr) Scenar",
+   "grain": 167.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 11.0 g (170 gr) Lock Base|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 11.0 g (170 gr) Lock Base",
+   "grain": 170.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "combines a full metal jacket and boat tail with a patented base design"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "combines a full metal jacket and boat tail"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 11.0 g (170 gr) Lock Base Semi-Auto|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 11.0 g (170 gr) Lock Base Semi-Auto",
+   "grain": 170.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "combines a full metal jacket and boat tail with a patented base design"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "combines a full metal jacket and boat tail"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 11.0 g (170 gr) Naturalis|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 11.0 g (170 gr) Naturalis",
+   "grain": 170.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 11.3 g (175 gr) Scenar-L|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 11.3 g (175 gr) Scenar-L",
+   "grain": 175.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 12.0 g (185 gr) FMJ Boat Tail|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 12.0 g (185 gr) FMJ Boat Tail",
+   "grain": 185.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Boat Tail"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 12.0 g (185 gr) Mega|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 12.0 g (185 gr) Mega",
+   "grain": 185.0,
+   "library_source_url": "https://www.lapua.com/product/308-win-hunting-cartridge-mega-soft-point-12g-185gr-4317189/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 12.0 g (185 gr) Scenar|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 12.0 g (185 gr) Scenar",
+   "grain": 185.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 13.0 g (200 gr) FMJ Boat Tail Subsonic|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 13.0 g (200 gr) FMJ Boat Tail Subsonic",
+   "grain": 200.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Boat Tail"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 8.0 g (123 gr) FMJ|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 8.0 g (123 gr) FMJ",
+   "grain": 123.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 9.7 g (150 gr) Mega|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 9.7 g (150 gr) Mega",
+   "grain": 150.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 9.7 g (150 gr) TRX|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 9.7 g (150 gr) TRX",
+   "grain": 150.0,
+   "library_source_url": "https://www.lapua.com/product/308-win-9-7-g-150-gr-trx-hunting-ammo-n317108/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 15 g (231 gr) Naturalis|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 15 g (231 gr) Naturalis",
+   "grain": 231.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 16.1 g (248 gr) AP485|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 16.1 g (248 gr) AP485",
+   "grain": 248.0,
+   "library_source_url": "https://www.lapua.com/product/338-lapua-mag-tactical-cartridge-armor-piercing-161g-248gr-4318035/",
+   "cartridge": ".338 Lapua Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 16.2 g (250 gr) Lock Base|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 16.2 g (250 gr) Lock Base",
+   "grain": 250.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "combines a full metal jacket and boat tail with a patented base design"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "combines a full metal jacket and boat tail"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 16.2 g (250 gr) Scenar|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 16.2 g (250 gr) Scenar",
+   "grain": 250.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 16.4 g (253 gr) API526|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 16.4 g (253 gr) API526",
+   "grain": 253.0,
+   "library_source_url": "https://www.lapua.com/product/338-lapua-mag-tactical-cartridge-api526-164g-253gr-4318048/",
+   "cartridge": ".338 Lapua Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 19.4 g (300 gr) AP529|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 19.4 g (300 gr) AP529",
+   "grain": 300.0,
+   "library_source_url": "https://www.lapua.com/product/338-lapua-mag-tactical-cartridge-armor-piercing-ap529-194g-300gr-43m8055/",
+   "cartridge": ".338 Lapua Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 19.4 g (300 gr) Scenar|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 19.4 g (300 gr) Scenar",
+   "grain": 300.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 10.1 g (156 gr) Mega|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 10.1 g (156 gr) Mega",
+   "grain": 156.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 7.8 g (120 gr) TRX|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 7.8 g (120 gr) TRX",
+   "grain": 120.0,
+   "library_source_url": "https://www.lapua.com/product/6-5-creedmoor-7-8-g-120-grains-trx/",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 8.0 g (123 gr) Scenar|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 8.0 g (123 gr) Scenar",
+   "grain": 123.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 8.8 g (136 gr) Scenar-L|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 8.8 g (136 gr) Scenar-L",
+   "grain": 136.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 9.1 g (140 gr) Naturalis|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 9.1 g (140 gr) Naturalis",
+   "grain": 140.0,
+   "library_source_url": "https://www.lapua.com/product/6-5-creedmoor-naturalis-hunting-cartridge-91g-140gr-n316401/",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 9.3 g (144 gr) MaxRT|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 9.3 g (144 gr) MaxRT",
+   "grain": 144.0,
+   "library_source_url": "https://www.lapua.com/product/6-5-creedmoor-9-3-g-144-grains-maxrt-otm-cartridge/",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/6-5-creedmoor-9-3-g-144-grains-maxrt-otm-cartridge/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Open Tip Match"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/6-5-creedmoor-9-3-g-144-grains-maxrt-otm-cartridge/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "factory-loaded with the 144 grain (9.3 gram) open-tip bullet"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 9.4 g (145 gr) AP570|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 9.4 g (145 gr) AP570",
+   "grain": 145.0,
+   "library_source_url": "https://www.lapua.com/product/6-5-creedmoor-9-4-g-145-gr-ap-armor-piercing-cartridge-43m6001ap570/",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|7.8 g (120 gr) Scenar-L|6.5x47 Lapua": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7.8 g (120 gr) Scenar-L",
+   "grain": 120.0,
+   "library_source_url": "https://lapua.com/product/6-5x47-open-tip-match-cartridge-scenar-l-78g-120gr-4316017",
+   "cartridge": "6.5x47 Lapua",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|8.0 g (123 gr) Scenar|6.5x47 Lapua": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "8.0 g (123 gr) Scenar",
+   "grain": 123.0,
+   "library_source_url": "https://lapua.com/product/6-5x47-open-tip-match-cartridge-lapua-scenar-8g-123gr-4316011",
+   "cartridge": "6.5x47 Lapua",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   },
+   "component_bullet": null
+  },
+  "Lapua|8.8 g (136 gr) Scenar-L|6.5x47 Lapua": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "8.8 g (136 gr) Scenar-L",
+   "grain": 136.0,
+   "library_source_url": "https://www.lapua.com/product/6-5x47-open-tip-match-cartridge-lapua-scenar-l-88g-136gr-4316016/",
+   "cartridge": "6.5x47 Lapua",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|9.0 g (139 gr) Scenar|6.5x47 Lapua": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "9.0 g (139 gr) Scenar",
+   "grain": 139.0,
+   "library_source_url": "https://lapua.com/product/6-5x47-open-tip-match-cartridge-lapua-scenar-9g-139gr-4316012",
+   "cartridge": "6.5x47 Lapua",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   },
+   "component_bullet": null
+  },
+  "Lapua|9.1 g (140 gr) Naturalis|6.5x47 Lapua": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "9.1 g (140 gr) Naturalis",
+   "grain": 140.0,
+   "library_source_url": "https://lapua.com/product/6-5x47-lapua-naturalis-leadfree-hunting-cartridge-91g-140gr-n316301",
+   "cartridge": "6.5x47 Lapua",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   },
+   "component_bullet": null
+  },
+  "Lapua|6 mm B.R. Norma / 5.8 g (90 gr) Scenar-L|6mm BR Norma": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6 mm B.R. Norma / 5.8 g (90 gr) Scenar-L",
+   "grain": 90.0,
+   "library_source_url": "https://www.lapua.com/product/6-mm-br-norma-target-cartridge-scenar-l-58g-90gr-4316044/",
+   "cartridge": "6mm BR Norma",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|6 mm B.R. Norma / 6.8 g (105 gr) Scenar-L|6mm BR Norma": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6 mm B.R. Norma / 6.8 g (105 gr) Scenar-L",
+   "grain": 105.0,
+   "library_source_url": "https://www.lapua.com/product/6-mm-br-norma-target-cartridge-scenar-l-68g-105gr-4316047/",
+   "cartridge": "6mm BR Norma",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|6 mm BR Norma 6.8 g (105 gr) Scenar|6mm BR Norma": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6 mm BR Norma 6.8 g (105 gr) Scenar",
+   "grain": 105.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": "6mm BR Norma",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 8.0 g (123 gr) FMJ|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 8.0 g (123 gr) FMJ",
+   "grain": 123.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": "7.62x39",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 11.7 g (180 gr) Naturalis|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 11.7 g (180 gr) Naturalis",
+   "grain": 180.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 7.8 g (120 gr) Open Tip|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 7.8 g (120 gr) Open Tip",
+   "grain": 120.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 12.0 g (185 gr) Open Tip|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 12.0 g (185 gr) Open Tip",
+   "grain": 185.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": "9.3x62",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Lapua 16.2 g (250 gr) Naturalis|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 16.2 g (250 gr) Naturalis",
+   "grain": 250.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   },
+   "component_bullet": null
+  },
+  "Lapua|Lapua 18.5 g (285 gr) Mega|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Lapua 18.5 g (285 gr) Mega",
+   "grain": 285.0,
+   "library_source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Lapua|Naturalis N566|N PL 5001": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Naturalis N566",
+   "grain": 50.0,
+   "library_source_url": "https://www.lapua.com/product/224-naturalis-hunting-bullet-n566-32-g-50-gr/",
+   "caliber_mm": 5.7,
+   "item": "N PL 5001",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   }
+  },
+  "Lapua|Scenar-L OTM GB544|4 PL/HL 5015": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB544",
+   "grain": 69.0,
+   "library_source_url": "https://www.lapua.com/product/224-scenar-l-bullet-gb544-45-g-69-gr-otm/",
+   "caliber_mm": 5.7,
+   "item": "4 PL/HL 5015",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Scenar-L OTM GB545|4 PL/HL 5016": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB545",
+   "grain": 77.0,
+   "library_source_url": "https://www.lapua.com/product/224-scenar-l-bullet-gb545-50-g-77gr-otm/",
+   "caliber_mm": 5.7,
+   "item": "4 PL/HL 5016",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Naturalis N509|N PL 6201": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Naturalis N509",
+   "grain": 90.0,
+   "library_source_url": "https://www.lapua.com/product/243-naturalis-bullet-n509-5-8-g-90-gr/",
+   "caliber_mm": 6.17,
+   "item": "N PL 6201",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   }
+  },
+  "Lapua|Scenar-L OTM GB543|4 PL/HL 6055": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB543",
+   "grain": 90.0,
+   "library_source_url": "https://www.lapua.com/product/6-mm-cal-scenar-l-bullet-gb543-58-g-90-gr-otm/",
+   "caliber_mm": 6.17,
+   "item": "4 PL/HL 6055",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Scenar-L OTM GB542|4 PL/HL 6050": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB542",
+   "grain": 105.0,
+   "library_source_url": "https://www.lapua.com/product/6-mm-scenar-l-bullet-gb542-68-g-105-gr-otm/",
+   "caliber_mm": 6.17,
+   "item": "4 PL/HL 6050",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Scenar OTM GB504|4 PL/HL 6033": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar OTM GB504",
+   "grain": 100.0,
+   "library_source_url": "https://www.lapua.com/product/65-mm-scenar-bullet-gb504-65-g-100-gr-otm-2/",
+   "caliber_mm": 6.71,
+   "item": "4 PL/HL 6033",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   }
+  },
+  "Lapua|Scenar OTM GB464|4 PL/HL 6020": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar OTM GB464",
+   "grain": 108.0,
+   "library_source_url": "https://www.lapua.com/product/65-mm-scenar-bullet-gb464-70-g-108-gr-otm/",
+   "caliber_mm": 6.71,
+   "item": "4 PL/HL 6020",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   }
+  },
+  "Lapua|Scenar-L OTM GB547|4 PL/HL 6021": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB547",
+   "grain": 120.0,
+   "library_source_url": "https://www.lapua.com/product/65-mm-scenar-l-bullet-gb547-78-g-120-gr-otm/",
+   "caliber_mm": 6.71,
+   "item": "4 PL/HL 6021",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Scenar OTM GB489|4 PL/HL 6032": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar OTM GB489",
+   "grain": 123.0,
+   "library_source_url": "https://www.lapua.com/product/65-mm-scenar-bullet-gb489-80-g-123-gr-otm/",
+   "caliber_mm": 6.71,
+   "item": "4 PL/HL 6032",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   }
+  },
+  "Lapua|Scenar-L OTM GB546|4 PL/HL 6019": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB546",
+   "grain": 136.0,
+   "library_source_url": "https://www.lapua.com/product/65-mm-cal-scenar-l-bullet-gb546-88-g-136-gr-otm/",
+   "caliber_mm": 6.71,
+   "item": "4 PL/HL 6019",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Scenar OTM GB458|4 PL/HL 6018": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar OTM GB458",
+   "grain": 139.0,
+   "library_source_url": "https://www.lapua.com/product/65-mm-cal-scenar-bullet-gb458-90-g-139-gr-otm/",
+   "caliber_mm": 6.71,
+   "item": "4 PL/HL 6018",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   }
+  },
+  "Lapua|Naturalis N563|N PL 6203": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Naturalis N563",
+   "grain": 140.0,
+   "library_source_url": "https://www.lapua.com/product/65-mm-cal-naturalis-hunting-bullet-n563-91-g-140-gr/",
+   "caliber_mm": 6.71,
+   "item": "N PL 6203",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   }
+  },
+  "Lapua|MaxRange Target OTM GB582|4 PL 6022": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MaxRange Target OTM GB582",
+   "grain": 144.0,
+   "library_source_url": "https://www.lapua.com/product/6-5-mm-175-gr-maxrange-target-bullet-otm-gb582/",
+   "caliber_mm": 6.71,
+   "item": "4 PL 6022",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/6-5-mm-175-gr-maxrange-target-bullet-otm-gb582/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the new match bullet by Lapua"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/6-5-mm-175-gr-maxrange-target-bullet-otm-gb582/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "OTM"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/6-5-mm-175-gr-maxrange-target-bullet-otm-gb582/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lapua's boat-tailed 6.5mm MaxRange Target projectile"
+   }
+  },
+  "Lapua|Mega SP E471|4 PL 6010": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Mega SP E471",
+   "grain": 155.0,
+   "library_source_url": "https://www.lapua.com/product/65-mm-mega-bullet-e471/",
+   "caliber_mm": 6.71,
+   "item": "4 PL 6010",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null
+  },
+  "Lapua|Scenar-L OTM GB553|4 PL/HL 7400": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB553",
+   "grain": 150.0,
+   "library_source_url": "https://www.lapua.com/product/7mm-cal-scenar-l-bullet-gb553-97-g-150-gr-otm/",
+   "caliber_mm": 7.21,
+   "item": "4 PL/HL 7400",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Naturalis N564|N PL 7027": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Naturalis N564",
+   "grain": 156.0,
+   "library_source_url": "https://www.lapua.com/product/7-mm-cal-naturalis-hunting-bullet-n564-101-g-156-gr/",
+   "caliber_mm": 7.21,
+   "item": "N PL 7027",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   }
+  },
+  "Lapua|Scenar-L OTM GB554|4 PL/HL 7401": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB554",
+   "grain": 180.0,
+   "library_source_url": "https://www.lapua.com/product/7mm-cal-scenar-l-bullet-gb554-117-g-180-gr-otm/",
+   "caliber_mm": 7.21,
+   "item": "4 PL/HL 7401",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Mega SP E469|4 PL 7057": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Mega SP E469",
+   "grain": 150.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-mega-hunting-bullet-e469-97-g-150-gr-sp/",
+   "caliber_mm": 7.82,
+   "item": "4 PL 7057",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null
+  },
+  "Lapua|Scenar-L OTM GB552|4 PL/HL 7063": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB552",
+   "grain": 155.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-scenar-l-bullet-gb552-100-g-155-gr-otm/",
+   "caliber_mm": 7.82,
+   "item": "4 PL/HL 7063",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Scenar OTM GB422|4 PL/HL 7069": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar OTM GB422",
+   "grain": 167.0,
+   "library_source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+   "caliber_mm": 7.82,
+   "item": "4 PL/HL 7069",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   }
+  },
+  "Lapua|Naturalis N558|N PL 7105": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Naturalis N558",
+   "grain": 170.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-naturalis-hunting-bullet-n558-11-0-g-170-gr/",
+   "caliber_mm": 7.82,
+   "item": "N PL 7105",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   }
+  },
+  "Lapua|MaxRange Target OTM GB581|4PL 7080": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "MaxRange Target OTM GB581",
+   "grain": 175.0,
+   "library_source_url": "https://www.lapua.com/product/30cal-175-gr-maxrange-target-bullet-otm-gb581/",
+   "caliber_mm": 7.82,
+   "item": "4PL 7080",
+   "construction": null,
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30cal-175-gr-maxrange-target-bullet-otm-gb581/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "OTM"
+   },
+   "base": null
+  },
+  "Lapua|Scenar-L OTM GB550|4 PL/HL 7061": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB550",
+   "grain": 175.0,
+   "library_source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+   "caliber_mm": 7.82,
+   "item": "4 PL/HL 7061",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Scenar OTM GB432|4 PL/HL 7071": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar OTM GB432",
+   "grain": 185.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-scenar-bullet-gb432-120-g-185-gr-otm/",
+   "caliber_mm": 7.82,
+   "item": "4 PL/HL 7071",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   }
+  },
+  "Lapua|Mega SP E415|4 PL 7213": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Mega SP E415",
+   "grain": 185.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-mega-hunting-bullet-e415-120-g-185-gr-sp/",
+   "caliber_mm": 7.82,
+   "item": "4 PL 7213",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null
+  },
+  "Lapua|Mega SP E401|4 PL 7047": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Mega SP E401",
+   "grain": 200.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-mega-hunting-bullet-e401-130-g-200-gr-sp/",
+   "caliber_mm": 7.82,
+   "item": "4 PL 7047",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null
+  },
+  "Lapua|Scenar-L OTM GB551|4 PL/HL 7062": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar-L OTM GB551",
+   "grain": 220.0,
+   "library_source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb551-143-g-220-gr-otm/",
+   "caliber_mm": 7.82,
+   "item": "4 PL/HL 7062",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L is the ultimate match bullet"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scenar-L Open Tip projectile"
+   },
+   "base": null
+  },
+  "Lapua|Naturalis N508|N PL 8020": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Naturalis N508",
+   "grain": 231.0,
+   "library_source_url": "https://www.lapua.com/product/338-cal-naturalis-leadfree-hunting-bullet-n508-15-0-g-231-gr/",
+   "caliber_mm": 8.59,
+   "item": "N PL 8020",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   }
+  },
+  "Lapua|Scenar OTM GB488|4 PL 8017": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar OTM GB488",
+   "grain": 250.0,
+   "library_source_url": "https://www.lapua.com/product/338-cal-scenar-bullet-gb488-162-g-250-gr-otm/",
+   "caliber_mm": 8.59,
+   "item": "4 PL 8017",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   }
+  },
+  "Lapua|Scenar OTM GB528|4 PL 8013": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scenar OTM GB528",
+   "grain": 300.0,
+   "library_source_url": "https://www.lapua.com/product/338-cal-scenar-bullet-gb528-194-g-300-gr-otm/",
+   "caliber_mm": 8.59,
+   "item": "4 PL 8013",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet with a boat tail design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Scenar is an open tip match bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "an open tip match bullet with a boat tail design"
+   }
+  },
+  "Lapua|Center-X .22 LR (rimfire cartridge)|420163": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Center-X .22 LR (rimfire cartridge)",
+   "grain": 40.0,
+   "library_source_url": "https://www.lapua.com/product/22-lr-lapua-center-x-rimfire-ammo/",
+   "caliber_mm": 5.69,
+   "item": "420163",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Lapua|Midas+ .22 LR (rimfire cartridge)|420162": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Midas+ .22 LR (rimfire cartridge)",
+   "grain": 40.0,
+   "library_source_url": "https://www.lapua.com/product/22-lr-lapua-midas-plus-rimfire-ammo/",
+   "caliber_mm": 5.69,
+   "item": "420162",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Lapua|.32 S&W Wadcutter C427 83 gr|4HL8023": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".32 S&W Wadcutter C427 83 gr",
+   "grain": 83.0,
+   "library_source_url": "https://www.lapua.com/product/32-sw-lapua-wadcutter-bullet-c427-535-g-83-gr/",
+   "caliber_mm": 7.98,
+   "item": "4HL8023",
+   "construction": null,
+   "tip_shape": {
+    "value": "wadcutter",
+    "source_url": "https://www.lapua.com/product/32-sw-lapua-wadcutter-bullet-c427-535-g-83-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Wadcutter"
+   },
+   "base": null
+  },
+  "Lapua|.32 S&W Wadcutter C356 98 gr|4HL8021": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".32 S&W Wadcutter C356 98 gr",
+   "grain": 98.0,
+   "library_source_url": "https://www.lapua.com/product/32-sw-lapua-wadcutter-bullet-c356-635-g-98-gr/",
+   "caliber_mm": 7.98,
+   "item": "4HL8021",
+   "construction": null,
+   "tip_shape": {
+    "value": "wadcutter",
+    "source_url": "https://www.lapua.com/product/32-sw-lapua-wadcutter-bullet-c356-635-g-98-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Wadcutter"
+   },
+   "base": null
+  },
+  "Lapua|.224 FMJ S569 55 gr|4 PL/HL 5017": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 FMJ S569 55 gr",
+   "grain": 55.0,
+   "library_source_url": "https://www.lapua.com/product/224-fmj-bullet-s569-36g-55gr-2/",
+   "caliber_mm": 5.7,
+   "item": "4 PL/HL 5017",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/product/224-fmj-bullet-s569-36g-55gr-2/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Lapua|.224 Soft Point E539 55 gr|4 PL 5006": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 Soft Point E539 55 gr",
+   "grain": 55.0,
+   "library_source_url": "https://www.lapua.com/product/224-cal-soft-point-bullet-e539-36-g-55-gr/",
+   "caliber_mm": 5.7,
+   "item": "4 PL 5006",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/product/224-cal-soft-point-bullet-e539-36-g-55-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null
+  },
+  "Lapua|6.5 mm FMJ S341 100 gr|4 PL/HL 6014": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5 mm FMJ S341 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://www.lapua.com/product/65-mm-fmj-bullet-s341-65-g-100-gr/",
+   "caliber_mm": 6.71,
+   "item": "4 PL/HL 6014",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/product/65-mm-fmj-bullet-s341-65-g-100-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Lapua|6.5 mm FMJ Cutting Edge S496 100 gr|4 PL/HL 6015": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5 mm FMJ Cutting Edge S496 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://www.lapua.com/product/264-cal-fmj-cutting-edge-bullet-s496-65-g-100-gr/",
+   "caliber_mm": 6.71,
+   "item": "4 PL/HL 6015",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/product/264-cal-fmj-cutting-edge-bullet-s496-65-g-100-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Lapua|6.5 mm TRX N583 120 gr|NPL6204": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5 mm TRX N583 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://www.lapua.com/product/7-8-g-120-gr-truerange-expanding-hunting-bullet-n583/",
+   "caliber_mm": 6.71,
+   "item": "NPL6204",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "base": null
+  },
+  "Lapua|6.5 mm FMJBT B343 144 gr|4 PL/HL 6000": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5 mm FMJBT B343 144 gr",
+   "grain": 144.0,
+   "library_source_url": "https://www.lapua.com/product/65-mm-fmjbt-bullet-b343-93-g-144-gr/",
+   "caliber_mm": 6.71,
+   "item": "4 PL/HL 6000",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/product/65-mm-fmjbt-bullet-b343-93-g-144-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/65-mm-fmjbt-bullet-b343-93-g-144-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   }
+  },
+  "Lapua|.30 OT Cutting Edge G477 100 gr|4 PL/HL 7224": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 OT Cutting Edge G477 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-cutting-edge-bullet-g477-65-g-100-gr-hp/",
+   "caliber_mm": 7.82,
+   "item": "4 PL/HL 7224",
+   "construction": null,
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-cal-cutting-edge-bullet-g477-65-g-100-gr-hp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "An open tip bullet capable of incredible accuracy"
+   },
+   "base": null
+  },
+  "Lapua|.30 Open Tip G580 100 gr|4 PL/HL 7225": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 Open Tip G580 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-open-tip-bullet-g580-65-g-100-gr-ot/",
+   "caliber_mm": 7.82,
+   "item": "4 PL/HL 7225",
+   "construction": null,
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.lapua.com/product/30-cal-open-tip-bullet-g580-65-g-100-gr-ot/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new Open Tip (OT) bullet for target sports"
+   },
+   "base": null
+  },
+  "Lapua|.30 FMJ S374 123 gr|4 PL/HL 7003": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 FMJ S374 123 gr",
+   "grain": 123.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-fmj-bullet-s374-80-g-123-gr/",
+   "caliber_mm": 7.82,
+   "item": "4 PL/HL 7003",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/product/30-cal-fmj-bullet-s374-80-g-123-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Lapua|.311 FMJ S405 123 gr|4 PL/HL 7045": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".311 FMJ S405 123 gr",
+   "grain": 123.0,
+   "library_source_url": "https://www.lapua.com/product/311-cal-fmj-bullet-s405-8-0-g-123-gr-fmj/",
+   "caliber_mm": 7.92,
+   "item": "4 PL/HL 7045",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/product/311-cal-fmj-bullet-s405-8-0-g-123-gr-fmj/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Lapua|.30 TRX N585 150 gr|NPL7251": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 TRX N585 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+   "caliber_mm": 7.82,
+   "item": "NPL7251",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boat tail length 3.4mm/0.1338”"
+   }
+  },
+  "Lapua|.30 TRX N584 165 gr|NPL7250": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 TRX N584 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.lapua.com/product/10-7-g-165-gr-trx-hunting-bullet-n584/",
+   "caliber_mm": 7.82,
+   "item": "NPL7250",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "solid-copper, polymer-tipped design"
+   },
+   "base": null
+  },
+  "Lapua|.30 Lock Base FMJBT B476 170 gr|4 PL/HL 7086": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 Lock Base FMJBT B476 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-lock-base-bullet-b476-110-g-170-gr-fmjbt/",
+   "caliber_mm": 7.82,
+   "item": "4 PL/HL 7086",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "combines a full metal jacket and boat tail with a patented base design"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "combines a full metal jacket and boat tail"
+   }
+  },
+  "Lapua|.30 D46 FMJBT 185 gr|4 PL/HL 7019": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 D46 FMJBT 185 gr",
+   "grain": 185.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-d46-fmjbt-bullet-120-g-185-gr/",
+   "caliber_mm": 7.82,
+   "item": "4 PL/HL 7019",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/product/30-cal-d46-fmjbt-bullet-120-g-185-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-cal-d46-fmjbt-bullet-120-g-185-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   }
+  },
+  "Lapua|.30 Subsonic FMJBT B416 200 gr|4 PL 7060": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 Subsonic FMJBT B416 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://www.lapua.com/product/30-cal-fmjbt-subsonic-bullet-b416-130-g-200-gr/",
+   "caliber_mm": 7.82,
+   "item": "4 PL 7060",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/product/30-cal-fmjbt-subsonic-bullet-b416-130-g-200-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/30-cal-fmjbt-subsonic-bullet-b416-130-g-200-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   }
+  },
+  "Lapua|7.62 mm D166 FMJBT 200 gr|4 PL/HL 7005": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7.62 mm D166 FMJBT 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://www.lapua.com/product/762-cal-d166-fmjbt-bullet-130-g-200-gr/",
+   "caliber_mm": 7.92,
+   "item": "4 PL/HL 7005",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/product/762-cal-d166-fmjbt-bullet-130-g-200-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/product/762-cal-d166-fmjbt-bullet-130-g-200-gr/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   }
+  },
+  "Lapua|8 mm Naturalis N559 180 gr|N PL 8009": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "8 mm Naturalis N559 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.lapua.com/product/8mm-cal-naturalis-leadfree-hunting-bullet-n559-11-7-g-180-gr/",
+   "caliber_mm": 8.22,
+   "item": "N PL 8009",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   }
+  },
+  "Lapua|.338 Lock Base FMJBT B408 250 gr|4 PL/HL 8012": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".338 Lock Base FMJBT B408 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://www.lapua.com/product/338-cal-lock-base-bullet-b408-162-g-250-gr-fmjbt/",
+   "caliber_mm": 8.59,
+   "item": "4 PL/HL 8012",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "combines a full metal jacket and boat tail with a patented base design"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "combines a full metal jacket and boat tail"
+   }
+  },
+  "Lapua|9.3 mm Naturalis N560 250 gr|N PL 9204": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "9.3 mm Naturalis N560 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://www.lapua.com/product/93-mm-cal-naturalis-leadfree-hunting-bullet-n560-16-2-g-250-gr/",
+   "caliber_mm": 9.3,
+   "item": "N PL 9204",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The boat tail design of the bullet eases reloading."
+   }
+  },
+  "Lapua|9.3 mm Mega SP E433 285 gr|4 PL 9017": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "9.3 mm Mega SP E433 285 gr",
+   "grain": 285.0,
+   "library_source_url": "https://www.lapua.com/product/93-mm-cal-mega-hunting-bullet-e433-1854-g-285-gr-sp/",
+   "caliber_mm": 9.3,
+   "item": "4 PL 9017",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "traditional lead-core and copper jacket that are bonded"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The Lapua Mega is a soft point bullet"
+   },
+   "base": null
+  }
+ }
+}

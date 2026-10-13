@@ -1,0 +1,132 @@
+{
+ "brand": "Diana",
+ "note": "2026-10-13: robots.txt read (product paths allowed). All 6 product pages read: each lists 'Material: Blei' (Stitch Copper 'Blei, verkupfert') -> lead_pellet. Point/Stitch Copper 'präzise Spitzkugel' -> pointed; Sport 'Geriffeltes Flachkopf-Diabolo' -> flat_nose. High Power / Hunters Mate head shape and all bases not stated.",
+ "sources": [
+  {
+   "id": "xxl",
+   "url": "https://www.diana-airguns.de/DIANA-DOMED-XXL-Diabolos/44405001",
+   "read_date": "2026-10-13",
+   "title": "DIANA DOMED XXL Diabolos"
+  },
+  {
+   "id": "hpw",
+   "url": "https://www.diana-airguns.de/DIANA-High-Power-Diabolos/44800006",
+   "read_date": "2026-10-13",
+   "title": "DIANA High Power Diabolos"
+  },
+  {
+   "id": "hm",
+   "url": "https://www.diana-airguns.de/DIANA-Hunters-Mate-Diabolos/44403006",
+   "read_date": "2026-10-13",
+   "title": "DIANA Hunters Mate Diabolos"
+  },
+  {
+   "id": "pt",
+   "url": "https://www.diana-airguns.de/DIANA-Point-Diabolos/44600005",
+   "read_date": "2026-10-13",
+   "title": "DIANA Point Diabolos"
+  },
+  {
+   "id": "sp",
+   "url": "https://www.diana-airguns.de/DIANA-Sport-Diabolos/44400005",
+   "read_date": "2026-10-13",
+   "title": "DIANA Sport Diabolos"
+  },
+  {
+   "id": "sc",
+   "url": "https://www.diana-airguns.de/DIANA-Stitch-Copper-Diabolos/44403009",
+   "read_date": "2026-10-13",
+   "title": "DIANA Stitch Copper Diabolos"
+  }
+ ],
+ "families": [
+  {
+   "id": "xxl",
+   "lib": "bullet",
+   "name_regex": "^Domed XXL\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "xxl",
+     "quote": "Material: Blei"
+    }
+   }
+  },
+  {
+   "id": "hpw",
+   "lib": "bullet",
+   "name_regex": "^High Power\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "hpw",
+     "quote": "Material: Blei"
+    }
+   }
+  },
+  {
+   "id": "hm",
+   "lib": "bullet",
+   "name_regex": "^Hunters Mate\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "hm",
+     "quote": "Material: Blei"
+    }
+   }
+  },
+  {
+   "id": "pt",
+   "lib": "bullet",
+   "name_regex": "^Point \\d",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "pt",
+     "quote": "Material: Blei"
+    },
+    "tip_shape": {
+     "value": "pointed",
+     "src": "pt",
+     "quote": "präzise Spitzkugel"
+    }
+   }
+  },
+  {
+   "id": "sp",
+   "lib": "bullet",
+   "name_regex": "^Sport \\d",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "sp",
+     "quote": "Material: Blei"
+    },
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "sp",
+     "quote": "Geriffeltes Flachkopf-Diabolo"
+    }
+   }
+  },
+  {
+   "id": "sc",
+   "lib": "bullet",
+   "name_regex": "^Stitch Copper\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "sc",
+     "quote": "Blei, verkupfert"
+    },
+    "tip_shape": {
+     "value": "pointed",
+     "src": "sc",
+     "quote": "Mittelschwere, präzise Spitzkugel"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

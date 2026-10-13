@@ -1,0 +1,98 @@
+{
+  "brand": "RWS",
+  "note": "2026-10-13: rws-technology.com robots.txt could not be fetched (CLIENT_ERROR after 4 tries; the homepage loads, so the file is probably missing). Only the 2025 hunting/sport catalogue download page was read; quotes are German. rws-ammunition.com skipped per brief, so Target Elite Plus, rimfire and all 44 PCP pellets stay empty (not in the catalogue text). Not stated: HIT/EVO/EVO GREEN/Speed Tip tip material (Twin-Compression/Rapid-X/Speed-Tip, no 'polymer'), V-Tail/torpedo tails, DK/ID/UNI construction class, and whether 'MJ' = Match Jagd.",
+  "sources": [
+    {
+      "id": "kat",
+      "url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+      "read_date": "2026-10-13",
+      "title": "RWS Katalog Jagd und Sportschießen 2025"
+    }
+  ],
+  "families": [
+    {
+      "id": "hit",
+      "lib": "any",
+      "name_regex": "\\bHIT\\b",
+      "fields": {
+        "construction": {
+          "value": "monolithic_copper",
+          "src": "kat",
+          "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "kat",
+          "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+        }
+      }
+    },
+    {
+      "id": "evo",
+      "lib": "any",
+      "name_regex": "\\bEVO(LUTION)?\\b",
+      "not_regex": "\\bGREEN\\b",
+      "fields": {
+        "construction": {
+          "value": "bonded",
+          "src": "kat",
+          "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+        }
+      }
+    },
+    {
+      "id": "evo_green",
+      "lib": "any",
+      "name_regex": "\\bEVO(LUTION)? GREEN\\b",
+      "fields": {
+        "construction": {
+          "value": "lead_free_other",
+          "src": "kat",
+          "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+        }
+      }
+    },
+    {
+      "id": "ks",
+      "lib": "any",
+      "name_regex": "\\bKS\\b",
+      "fields": {
+        "construction": {
+          "value": "cup_and_core",
+          "src": "kat",
+          "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+        }
+      }
+    },
+    {
+      "id": "driven_hunt",
+      "lib": "factory",
+      "name_regex": "\\bDRIVEN HUNT\\b",
+      "fields": {
+        "construction": {
+          "value": "monolithic_copper",
+          "src": "kat",
+          "quote": "Das bleifreie Deformationsgeschoss aus Kupfer"
+        },
+        "tip_shape": {
+          "value": "hollow_point",
+          "src": "kat",
+          "quote": "Breite und tiefe Hohlspitze für maximales Aufpilzen"
+        }
+      }
+    },
+    {
+      "id": "match_jagd",
+      "lib": "bullet",
+      "name_regex": "\\bMatch Jagd\\b",
+      "fields": {
+        "tip_shape": {
+          "value": "hollow_point",
+          "src": "kat",
+          "quote": "Durch die besondere Hohlspitzkonstruktion ist das Geschoss höchstpräzise"
+        }
+      }
+    }
+  ],
+  "records": {}
+}

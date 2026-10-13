@@ -1,0 +1,91 @@
+{
+ "brand": "Prvi Partizan",
+ "note": "Bullet-type legend and descriptions read from the PPU 2023 catalogue PDF (prvipartizan.com). ppu-usa.com product pages list only abbreviations (no descriptions). Supreme 'SMK' is not expanded and Sierra is not named on PPU pages/PDF -> component_bullet empty. Construction of SP/PSP not stated beyond 'lead nose' -> empty. .375 H&H 300 gr FMJ left without tip (FMJ shape not confirmed for that load).",
+ "sources": [
+  {
+   "id": "ppu_cat",
+   "url": "https://prvipartizan.com/download/PPU_2023.pdf",
+   "read_date": "2026-10-13",
+   "title": "PPU catalogue 2023 (bullet types)"
+  }
+ ],
+ "families": [
+  {
+   "id": "ppu_psp",
+   "lib": "factory",
+   "name_regex": "\\bPSP(BT)?\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "spitzer_soft_point",
+     "src": "ppu_cat",
+     "quote": "PSP bullets have a sharp lead nose"
+    }
+   }
+  },
+  {
+   "id": "ppu_spbt",
+   "lib": "factory",
+   "name_regex": "\\bP?SPBT\\b",
+   "fields": {
+    "base": {
+     "value": "boat_tail",
+     "src": "ppu_cat",
+     "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+    }
+   }
+  },
+  {
+   "id": "ppu_fsp",
+   "lib": "factory",
+   "name_regex": "\\bFSP\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "ppu_cat",
+     "quote": "FSP bullets have a flat lead nose with increased diameter."
+    }
+   }
+  },
+  {
+   "id": "ppu_sjfp",
+   "lib": "factory",
+   "name_regex": "\\bSJFP\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "ppu_cat",
+     "quote": "Semi Jacket Flat Point (SJFP)"
+    }
+   }
+  },
+  {
+   "id": "ppu_hp",
+   "lib": "factory",
+   "name_regex": "\\d gr HP$",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "ppu_cat",
+     "quote": "HP rifle bullets are designed primarily for shooting competitions."
+    }
+   }
+  },
+  {
+   "id": "ppu_fmj",
+   "lib": "factory",
+   "name_regex": "\\d gr FMJ$",
+   "fields": {
+    "tip_shape": {
+     "value": "fmj_pointed",
+     "src": "ppu_cat",
+     "quote": "Full Metal Jacket rifle bullets ... Due to their sharp nose"
+    }
+   }
+  }
+ ],
+ "records": {
+  "Prvi Partizan|PPU Standard Rifle 300 gr FMJ|.375 H&H Mag": {
+   "tip_shape": null
+  }
+ }
+}

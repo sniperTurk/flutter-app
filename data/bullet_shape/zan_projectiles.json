@@ -1,0 +1,1235 @@
+{
+ "brand": "Zan Projectiles",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt read (/shop/ allowed). All 21 source pages read. Stated: .177 slugs 'deep hollow point' + 'shallow hollow base'; .457 slugs deep hollow point + Boat Tail; ELR Hyper Line 'round nose and boat tail profile'; Lead Free .30 pellets lead-free. Not stated: .20/.22/.25/.30 slugs, Hyper Line (.177/.22/.30/.357, only a 'Hollow point' shop category), ELR ('lead or alternative alloys' = not specific), Fat Boy, BR50/BR100. .25 page lists '44 grain BT' undefined -> not used. ZAN .22 ELR 35.5 gr source URL now shows the 33 gr ELR HP product -> left empty.",
+ "sources": [
+  {
+   "id": "z177",
+   "url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+   "read_date": "2026-10-13",
+   "title": ".177 / 4.5mm slugs"
+  },
+  {
+   "id": "z457",
+   "url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+   "read_date": "2026-10-13",
+   "title": ".457 / 11,6mm Slug"
+  },
+  {
+   "id": "zelrhl",
+   "url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+   "read_date": "2026-10-13",
+   "title": "ELR Hyper Line Slugs"
+  },
+  {
+   "id": "zlf30",
+   "url": "https://zanprojectiles.com/shop/lead-free-30-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Lead Free .30 Pellets"
+  }
+ ],
+ "records": {
+  "Zan Projectiles|ZAN .22 33 gr ELR HP Slug|22ELR33GN-HP": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 33 gr ELR HP Slug",
+   "grain": 33.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-caliber-35-5-grain-elr-slugs/",
+   "caliber_mm": 5.5,
+   "item": "22ELR33GN-HP",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/22-caliber-35-5-grain-elr-slugs/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 45.3 gr ELR HP Slug|22ELR33GN-HP-1": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 45.3 gr ELR HP Slug",
+   "grain": 45.3,
+   "library_source_url": "https://zanprojectiles.com/shop/25-caliber-45-3-grain-elr-hollow-point-slugs/",
+   "caliber_mm": 6.35,
+   "item": "22ELR33GN-HP-1",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/25-caliber-45-3-grain-elr-hollow-point-slugs/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 20 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 20 gr Slug .217",
+   "grain": 20.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN Lead Free .30 37 gr Pellet|3830079160643": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN Lead Free .30 37 gr Pellet",
+   "grain": 37.0,
+   "library_source_url": "https://zanprojectiles.com/shop/lead-free-30-pellets/",
+   "caliber_mm": 7.62,
+   "item": "3830079160643",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://zanprojectiles.com/shop/lead-free-30-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Heavy Lead Free pellet is perfect for longer ranges"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .177 10 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .177 10 gr HP Slug",
+   "grain": 10.0,
+   "library_source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "deep hollow point for huge expansion"
+   },
+   "base": {
+    "value": "hollow_base",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Base shape (shallow hollow base)"
+   }
+  },
+  "Zan Projectiles|ZAN .177 13 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .177 13 gr HP Slug",
+   "grain": 13.0,
+   "library_source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "deep hollow point for huge expansion"
+   },
+   "base": {
+    "value": "hollow_base",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Base shape (shallow hollow base)"
+   }
+  },
+  "Zan Projectiles|ZAN .177 16 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .177 16 gr HP Slug",
+   "grain": 16.0,
+   "library_source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "deep hollow point for huge expansion"
+   },
+   "base": {
+    "value": "hollow_base",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Base shape (shallow hollow base)"
+   }
+  },
+  "Zan Projectiles|ZAN .177 20 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .177 20 gr HP Slug",
+   "grain": 20.0,
+   "library_source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "deep hollow point for huge expansion"
+   },
+   "base": {
+    "value": "hollow_base",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Base shape (shallow hollow base)"
+   }
+  },
+  "Zan Projectiles|ZAN .22 20 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 20 gr Slug .217",
+   "grain": 20.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 20 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 20 gr Slug .218",
+   "grain": 20.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 22 gr Slug .219": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 22 gr Slug .219",
+   "grain": 22.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 23 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 23 gr Slug .217",
+   "grain": 23.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 23 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 23 gr Slug .218",
+   "grain": 23.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 25.5 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 25.5 gr Slug .217",
+   "grain": 25.5,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 25.5 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 25.5 gr Slug .218",
+   "grain": 25.5,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 28 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 28 gr Slug .217",
+   "grain": 28.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 28 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 28 gr Slug .218",
+   "grain": 28.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 28 gr Slug .219": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 28 gr Slug .219",
+   "grain": 28.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 36 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 36 gr Slug .217",
+   "grain": 36.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 36 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 36 gr Slug .218",
+   "grain": 36.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 26.5 gr MKII Slug .250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 26.5 gr MKII Slug .250",
+   "grain": 26.5,
+   "library_source_url": "https://zanprojectiles.com/shop/25-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 28 gr Slug .250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 28 gr Slug .250",
+   "grain": 28.0,
+   "library_source_url": "https://zanprojectiles.com/shop/25-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 30 gr Slug .250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 30 gr Slug .250",
+   "grain": 30.0,
+   "library_source_url": "https://zanprojectiles.com/shop/25-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 33 gr Slug .250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 33 gr Slug .250",
+   "grain": 33.0,
+   "library_source_url": "https://zanprojectiles.com/shop/25-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 33 gr Slug .253": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 33 gr Slug .253",
+   "grain": 33.0,
+   "library_source_url": "https://zanprojectiles.com/shop/25-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 35 gr Slug .250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 35 gr Slug .250",
+   "grain": 35.0,
+   "library_source_url": "https://zanprojectiles.com/shop/25-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 37 gr Slug .250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 37 gr Slug .250",
+   "grain": 37.0,
+   "library_source_url": "https://zanprojectiles.com/shop/25-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 38 gr Slug .253": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 38 gr Slug .253",
+   "grain": 38.0,
+   "library_source_url": "https://zanprojectiles.com/shop/25-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 41 gr Slug .250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 41 gr Slug .250",
+   "grain": 41.0,
+   "library_source_url": "https://zanprojectiles.com/shop/25-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 45 gr Slug .250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 45 gr Slug .250",
+   "grain": 45.0,
+   "library_source_url": "https://zanprojectiles.com/shop/25-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 45.5 gr Slug .300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 45.5 gr Slug .300",
+   "grain": 45.5,
+   "library_source_url": "https://zanprojectiles.com/shop/30-slugs/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 49 gr Slug .300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 49 gr Slug .300",
+   "grain": 49.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-slugs/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 54 gr Slug .300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 54 gr Slug .300",
+   "grain": 54.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-slugs/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 59 gr Slug .300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 59 gr Slug .300",
+   "grain": 59.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-slugs/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 63 gr Slug .300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 63 gr Slug .300",
+   "grain": 63.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-slugs/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 68 gr Slug .300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 68 gr Slug .300",
+   "grain": 68.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-slugs/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .457 380 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .457 380 gr Slug",
+   "grain": 380.0,
+   "library_source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+   "caliber_mm": 11.43,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The deep hollow point design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "high ballistic coefficient due to the Boat Tail"
+   }
+  },
+  "Zan Projectiles|ZAN .457 388 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .457 388 gr Slug",
+   "grain": 388.0,
+   "library_source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+   "caliber_mm": 11.43,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The deep hollow point design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "high ballistic coefficient due to the Boat Tail"
+   }
+  },
+  "Zan Projectiles|ZAN .22 ELR 35.5 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 ELR 35.5 gr Slug",
+   "grain": 35.5,
+   "library_source_url": "https://zanprojectiles.com/shop/22-elr-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 ELR Hyper Line 34.6 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 ELR Hyper Line 34.6 gr Slug .217",
+   "grain": 34.6,
+   "library_source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "round nose and boat tail profile"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "round nose and boat tail profile"
+   }
+  },
+  "Zan Projectiles|ZAN .22 ELR Hyper Line 34.6 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 ELR Hyper Line 34.6 gr Slug .218",
+   "grain": 34.6,
+   "library_source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "round nose and boat tail profile"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "round nose and boat tail profile"
+   }
+  },
+  "Zan Projectiles|ZAN .22 ELR Hyper Line 40.7 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 ELR Hyper Line 40.7 gr Slug .217",
+   "grain": 40.7,
+   "library_source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "round nose and boat tail profile"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "round nose and boat tail profile"
+   }
+  },
+  "Zan Projectiles|ZAN .22 ELR Hyper Line 40.7 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 ELR Hyper Line 40.7 gr Slug .218",
+   "grain": 40.7,
+   "library_source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "round nose and boat tail profile"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://zanprojectiles.com/shop/217-caliber-407-grain-elr-hyper-line-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "round nose and boat tail profile"
+   }
+  },
+  "Zan Projectiles|ZAN .25 ELR 46.9 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 ELR 46.9 gr Slug",
+   "grain": 46.9,
+   "library_source_url": "https://zanprojectiles.com/shop/25-elr-slugs/",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 ELR 61.3 gr Slug|25ELR613GN": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 ELR 61.3 gr Slug",
+   "grain": 61.3,
+   "library_source_url": "https://zanprojectiles.com/shop/25-elr-slugs/",
+   "caliber_mm": 6.35,
+   "item": "25ELR613GN",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 20 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 20 gr Slug .218",
+   "grain": 20.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 23 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 23 gr Slug .217",
+   "grain": 23.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 23 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 23 gr Slug .218",
+   "grain": 23.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 30.5 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 30.5 gr Slug .217",
+   "grain": 30.5,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 30.5 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 30.5 gr Slug .218",
+   "grain": 30.5,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 33 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 33 gr Slug .217",
+   "grain": 33.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 33 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 33 gr Slug .218",
+   "grain": 33.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 36 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 36 gr Slug .217",
+   "grain": 36.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 36 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 36 gr Slug .218",
+   "grain": 36.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 40 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 40 gr Slug .217",
+   "grain": 40.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 Hyper Line 40 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 Hyper Line 40 gr Slug .218",
+   "grain": 40.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-hyper-line-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .177 Hyper Line 10 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .177 Hyper Line 10 gr Slug",
+   "grain": 10.0,
+   "library_source_url": "https://zanprojectiles.com/shop/177-4-5mm-hyper-line-slugs/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .177 Hyper Line 13 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .177 Hyper Line 13 gr Slug",
+   "grain": 13.0,
+   "library_source_url": "https://zanprojectiles.com/shop/177-4-5mm-hyper-line-slugs/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .177 Hyper Line 16 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .177 Hyper Line 16 gr Slug",
+   "grain": 16.0,
+   "library_source_url": "https://zanprojectiles.com/shop/177-4-5mm-hyper-line-slugs/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .177 Hyper Line 20 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .177 Hyper Line 20 gr Slug",
+   "grain": 20.0,
+   "library_source_url": "https://zanprojectiles.com/shop/177-4-5mm-hyper-line-slugs/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 Hyper Line 58 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 Hyper Line 58 gr Slug",
+   "grain": 58.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-hyper-line-slugs/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 Hyper Line 68 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 Hyper Line 68 gr Slug",
+   "grain": 68.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-hyper-line-slugs/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .177 22 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .177 22 gr HP Slug",
+   "grain": 22.0,
+   "library_source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "deep hollow point for huge expansion"
+   },
+   "base": {
+    "value": "hollow_base",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Base shape (shallow hollow base)"
+   }
+  },
+  "Zan Projectiles|ZAN .177 24 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .177 24 gr HP Slug",
+   "grain": 24.0,
+   "library_source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "deep hollow point for huge expansion"
+   },
+   "base": {
+    "value": "hollow_base",
+    "source_url": "https://zanprojectiles.com/shop/17-4-5mm-slugs/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Base shape (shallow hollow base)"
+   }
+  },
+  "Zan Projectiles|ZAN .20 15 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .20 15 gr Slug",
+   "grain": 15.0,
+   "library_source_url": "https://zanprojectiles.com/shop/20-slugs/",
+   "caliber_mm": 5.0,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .20 20 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .20 20 gr Slug",
+   "grain": 20.0,
+   "library_source_url": "https://zanprojectiles.com/shop/20-slugs/",
+   "caliber_mm": 5.0,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .20 25 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .20 25 gr Slug",
+   "grain": 25.0,
+   "library_source_url": "https://zanprojectiles.com/shop/20-slugs/",
+   "caliber_mm": 5.0,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 30.5 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 30.5 gr Slug .217",
+   "grain": 30.5,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 30.5 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 30.5 gr Slug .218",
+   "grain": 30.5,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 33 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 33 gr Slug .217",
+   "grain": 33.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 33 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 33 gr Slug .218",
+   "grain": 33.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 40 gr Slug .217": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 40 gr Slug .217",
+   "grain": 40.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 40 gr Slug .218": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 40 gr Slug .218",
+   "grain": 40.0,
+   "library_source_url": "https://zanprojectiles.com/shop/22-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 51 gr Slug .303": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 51 gr Slug .303",
+   "grain": 51.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-slugs/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 61 gr Slug .303": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 61 gr Slug .303",
+   "grain": 61.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-slugs/",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .357 81 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .357 81 gr HP Slug",
+   "grain": 81.0,
+   "library_source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
+   "caliber_mm": 9.0,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Zan Projectiles|ZAN .357 90 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .357 90 gr HP Slug",
+   "grain": 90.0,
+   "library_source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
+   "caliber_mm": 9.0,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Zan Projectiles|ZAN .357 100 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .357 100 gr HP Slug",
+   "grain": 100.0,
+   "library_source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
+   "caliber_mm": 9.0,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Zan Projectiles|ZAN .357 112 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .357 112 gr HP Slug",
+   "grain": 112.0,
+   "library_source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
+   "caliber_mm": 9.0,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Zan Projectiles|ZAN .357 125 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .357 125 gr HP Slug",
+   "grain": 125.0,
+   "library_source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
+   "caliber_mm": 9.0,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/112-grain-357-hp-100pcs/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Zan Projectiles|ZAN .457 285 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .457 285 gr Slug",
+   "grain": 285.0,
+   "library_source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+   "caliber_mm": 11.43,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The deep hollow point design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://zanprojectiles.com/shop/457-126mm-slug/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "high ballistic coefficient due to the Boat Tail"
+   }
+  },
+  "Zan Projectiles|ZAN .510 320 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .510 320 gr HP Slug",
+   "grain": 320.0,
+   "library_source_url": "https://zanprojectiles.com/shop/510-1295-mm-slug/",
+   "caliber_mm": 12.7,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/510-1295-mm-slug/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Zan Projectiles|ZAN .510 350 gr HP Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .510 350 gr HP Slug",
+   "grain": 350.0,
+   "library_source_url": "https://zanprojectiles.com/shop/510-1295-mm-slug/",
+   "caliber_mm": 12.7,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://zanprojectiles.com/shop/510-1295-mm-slug/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Zan Projectiles|ZAN .22 ELR 42.3 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .22 ELR 42.3 gr Slug",
+   "grain": 42.3,
+   "library_source_url": "https://zanprojectiles.com/shop/22-elr-slugs/",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .357 Hyper Line 100 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .357 Hyper Line 100 gr Slug",
+   "grain": 100.0,
+   "library_source_url": "https://zanprojectiles.com/shop/357-hyper-line-slugs/",
+   "caliber_mm": 9.0,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .357 Hyper Line 125 gr Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .357 Hyper Line 125 gr Slug",
+   "grain": 125.0,
+   "library_source_url": "https://zanprojectiles.com/shop/357-hyper-line-slugs/",
+   "caliber_mm": 9.0,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .25 Fat Boy 31.5 gr Pellet|.25FATBOY": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .25 Fat Boy 31.5 gr Pellet",
+   "grain": 31.5,
+   "library_source_url": "https://zanprojectiles.com/shop/25-fat-boy-pellets/",
+   "caliber_mm": 6.35,
+   "item": ".25FATBOY",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 BR50 48 gr Pellet|.30BR100-1": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 BR50 48 gr Pellet",
+   "grain": 48.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-pellets-br50/",
+   "caliber_mm": 7.62,
+   "item": ".30BR100-1",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Zan Projectiles|ZAN .30 BR100 56 gr Pellet|.30BR100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "ZAN .30 BR100 56 gr Pellet",
+   "grain": 56.0,
+   "library_source_url": "https://zanprojectiles.com/shop/30-pellets-br100/",
+   "caliber_mm": 7.62,
+   "item": ".30BR100",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  }
+ }
+}

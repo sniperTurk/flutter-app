@@ -1,0 +1,636 @@
+{
+ "brand": "Black Hills",
+ "note": "Black Hills shop/category pages read: they give only bullet names (plus a Dual Performance line text), no tip/base descriptions. Construction/tip/base come from Hornady, Barnes and Sierra own pages. Left empty: Black Hills generic Match HP / Heavy Match HP / OTM / Soft Point / FMJ bases, CX/TSX/TAC-TX/V-MAX bases (makers list BT and FB variants or do not state), V-MAX construction, GMX fields (no Hornady GMX page anymore), Dual Performance tip.",
+ "sources": [
+  {
+   "id": "bh_gold",
+   "url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "read_date": "2026-10-13",
+   "title": "Black Hills Gold ammunition"
+  },
+  {
+   "id": "bh_223",
+   "url": "https://www.black-hills.com/shop/new-rifle-ammo/223-remington/",
+   "read_date": "2026-10-13",
+   "title": "Black Hills .223 Remington (with related rifle products)"
+  },
+  {
+   "id": "si_mk_69",
+   "url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 22 cal 69 gr HPBT MatchKing"
+  },
+  {
+   "id": "si_mk_338_250",
+   "url": "https://sierrabullets.com/338-cal-250-gr-hpbt-matchking-smk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 338 cal 250 gr HPBT MatchKing"
+  },
+  {
+   "id": "si_mk_338_300",
+   "url": "https://sierrabullets.com/338-cal-300-gr-hpbt-matchking-smk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 338 cal 300 gr HPBT MatchKing"
+  },
+  {
+   "id": "si_tmk_168",
+   "url": "https://sierrabullets.com/30-cal-168-gr-tipped-matchking-tmk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 30 cal 168 gr Tipped MatchKing"
+  },
+  {
+   "id": "si_tmk_family",
+   "url": "https://sierrabullets.com/bullets/product-family/tipped-matchking/",
+   "read_date": "2026-10-13",
+   "title": "Sierra Tipped MatchKing family"
+  },
+  {
+   "id": "h_eldx",
+   "url": "https://www.hornady.com/bullets/eld-x",
+   "read_date": "2026-10-13",
+   "title": "Hornady ELD-X bullets"
+  },
+  {
+   "id": "h_eldm",
+   "url": "https://www.hornady.com/bullets/eld-match",
+   "read_date": "2026-10-13",
+   "title": "Hornady ELD Match bullets"
+  },
+  {
+   "id": "h_cx",
+   "url": "https://www.hornady.com/bullets/cx",
+   "read_date": "2026-10-13",
+   "title": "Hornady CX bullets"
+  },
+  {
+   "id": "h_sst",
+   "url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+   "read_date": "2026-10-13",
+   "title": "Hornady SST bullets"
+  },
+  {
+   "id": "h_dgxb",
+   "url": "https://www.hornady.com/bullets/dgx-bonded",
+   "read_date": "2026-10-13",
+   "title": "Hornady DGX Bonded bullets"
+  },
+  {
+   "id": "h_dgs",
+   "url": "https://www.hornady.com/bullets/dgs-dangerous-game-solid",
+   "read_date": "2026-10-13",
+   "title": "Hornady DGS bullets"
+  },
+  {
+   "id": "h_vmax",
+   "url": "https://www.hornady.com/bullets/v-max",
+   "read_date": "2026-10-13",
+   "title": "Hornady V-MAX bullets"
+  },
+  {
+   "id": "h_match",
+   "url": "https://www.hornady.com/bullets/match",
+   "read_date": "2026-10-13",
+   "title": "Hornady Match bullets"
+  },
+  {
+   "id": "b_ttsx",
+   "url": "https://barnesbullets.com/0-308-30-cal-ttsx-bt/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 30 cal TTSX BT"
+  },
+  {
+   "id": "b_tsx",
+   "url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 30 cal TSX BT"
+  },
+  {
+   "id": "b_tactx",
+   "url": "https://barnesbullets.com/0-308-300-acc-blk-tac-tx-110-gr-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 300 BLK TAC-TX 110 gr FB"
+  },
+  {
+   "id": "b_vg",
+   "url": "https://barnesbullets.com/0-224-22-cal-varmint-grenade-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 22 cal Varmint Grenade FB"
+  },
+  {
+   "id": "b_mpg",
+   "url": "https://barnesbullets.com/0-224-22-cal-mpg-55-gr-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 22 cal MPG 55 gr FB"
+  }
+ ],
+ "families": [
+  {
+   "id": "cx",
+   "lib": "factory",
+   "name_regex": "\\bHornady CX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "h_cx",
+     "quote": "MONOLITHIC COPPER ALLOY BULLET",
+     "evidence": "component_maker_page"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "h_cx",
+     "quote": "The Heat Shield® tip is made of a heat resistant polymer.",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "eld_match",
+   "lib": "factory",
+   "name_regex": "\\bHornady ELD Match\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "h_eldm",
+     "quote": "enhanced accuracy target bullets",
+     "evidence": "component_maker_page"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "h_eldm",
+     "quote": "featuring Heat Shield® tips with the PERFECT MEPLAT",
+     "evidence": "component_maker_page"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "h_eldm",
+     "quote": "An optimum secant ogive and boattail design",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "eldx",
+   "lib": "factory",
+   "name_regex": "\\bHornady ELD-X\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "h_eldx",
+     "quote": "high InterLock® ring keep the core and jacket together",
+     "evidence": "component_maker_page"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "h_eldx",
+     "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating",
+     "evidence": "component_maker_page"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "h_eldx",
+     "quote": "Streamlined secant ogive with optimum boattail design",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "sst",
+   "lib": "factory",
+   "name_regex": "\\bHornady SST\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "h_sst",
+     "quote": "mechanically locks the core and jacket together",
+     "evidence": "component_maker_page"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "h_sst",
+     "quote": "the hard polymer tip drives into the lead core like a wedge",
+     "evidence": "component_maker_page"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "h_sst",
+     "quote": "combined with a boattail base",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "vmax",
+   "lib": "factory",
+   "name_regex": "\\bHornady V-MAX\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "h_vmax",
+     "quote": "varmint bullet with polymer tip and streamlined design",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "hornady_match",
+   "lib": "factory",
+   "name_regex": "\\bHornady Match Hollow Point\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "h_match",
+     "quote": "Hornady® Match™ bullets are manufactured to the tightest standards",
+     "evidence": "component_maker_page"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "h_match",
+     "quote": "The angle and length of the boattail is unique and optimized",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "tsx",
+   "lib": "factory",
+   "name_regex": "\\bBarnes TSX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "b_tsx",
+     "quote": "These all-copper bullets have unmatched accuracy",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "tactx",
+   "lib": "factory",
+   "name_regex": "\\bBarnes TAC-TX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "b_tactx",
+     "quote": "expanding all-copper bullet that is optimized around AR platforms",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "vg",
+   "lib": "factory",
+   "name_regex": "\\bVarmint Grenade\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "b_vg",
+     "quote": "frangible copper-tin powdered metal core",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "mpg",
+   "lib": "factory",
+   "name_regex": "\\bBarnes MPG\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "b_mpg",
+     "quote": "powdered-metal copper-tin core inside a gilding metal jacket",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "dual_perf",
+   "lib": "factory",
+   "name_regex": "\\bDual Performance\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "bh_gold",
+     "quote": "features a monolithic machined copper projectile"
+    }
+   }
+  },
+  {
+   "id": "smk",
+   "lib": "factory",
+   "name_regex": "\\bSierra MatchKing\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "si_mk_69",
+     "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "smk_69",
+   "lib": "factory",
+   "name_regex": "\\b69 gr Sierra MatchKing\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "si_mk_69",
+     "quote": "22 CAL 69 GR HPBT MatchKing (SMK)",
+     "evidence": "component_maker_page"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "si_mk_69",
+     "quote": "22 CAL 69 GR HPBT MatchKing (SMK)",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "smk_250",
+   "lib": "factory",
+   "name_regex": "\\b250 gr Sierra MatchKing\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "si_mk_338_250",
+     "quote": "338 CAL 250 GR HPBT MATCHKING (SMK)",
+     "evidence": "component_maker_page"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "si_mk_338_250",
+     "quote": "338 CAL 250 GR HPBT MATCHKING (SMK)",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "smk_300",
+   "lib": "factory",
+   "name_regex": "\\b300 gr Sierra MatchKing\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "si_mk_338_300",
+     "quote": "338 CAL 300 GR HPBT MATCHKING (SMK)",
+     "evidence": "component_maker_page"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "si_mk_338_300",
+     "quote": "338 CAL 300 GR HPBT MATCHKING (SMK)",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "tmk",
+   "lib": "factory",
+   "name_regex": "\\bSierra TMK\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "si_tmk_family",
+     "quote": "Match Bullets",
+     "evidence": "component_maker_page"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "si_tmk_168",
+     "quote": "combine MatchKing precision with a polymer tip",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "vg_cb_gold",
+   "lib": "factory",
+   "name_regex": "^Black Hills Gold .*Varmint Grenade",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes Varmint Grenade",
+     "src": "bh_gold",
+     "quote": "Barnes Varmint Grenade"
+    }
+   }
+  },
+  {
+   "id": "vg_cb",
+   "lib": "factory",
+   "name_regex": "^Black Hills (?!Gold ).*Varmint Grenade",
+   "fields": {
+    "component_bullet": {
+     "value": "Varmint Grenade",
+     "src": "bh_223",
+     "quote": "Varmint Grenade"
+    }
+   }
+  },
+  {
+   "id": "vmax_cb_gold",
+   "lib": "factory",
+   "name_regex": "^Black Hills Gold .*Hornady V-MAX",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady V-MAX",
+     "src": "bh_gold",
+     "quote": "Hornady V-MAX"
+    }
+   }
+  },
+  {
+   "id": "vmax_cb",
+   "lib": "factory",
+   "name_regex": "^Black Hills (?!Gold ).*Hornady V-MAX",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady V-MAX",
+     "src": "bh_223",
+     "quote": "Hornady V-MAX ®"
+    }
+   }
+  },
+  {
+   "id": "tsx_cb_gold",
+   "lib": "factory",
+   "name_regex": "^Black Hills Gold .*Barnes TSX",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes TSX",
+     "src": "bh_gold",
+     "quote": "Barnes TSX"
+    }
+   }
+  },
+  {
+   "id": "tsx_cb",
+   "lib": "factory",
+   "name_regex": "^Black Hills (?!Gold ).*Barnes TSX",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes TSX",
+     "src": "bh_223",
+     "quote": "Barnes TSX"
+    }
+   }
+  },
+  {
+   "id": "mpg_cb",
+   "lib": "factory",
+   "name_regex": "^Black Hills (?!Gold ).*Barnes MPG",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes MPG",
+     "src": "bh_223",
+     "quote": "Barnes MPG"
+    }
+   }
+  },
+  {
+   "id": "tactx_cb",
+   "lib": "factory",
+   "name_regex": "^Black Hills (?!Gold ).*Barnes TAC-TX",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes TAC-TX",
+     "src": "bh_223",
+     "quote": "Barnes TAC-TX™"
+    }
+   }
+  },
+  {
+   "id": "cx_cb_gold",
+   "lib": "factory",
+   "name_regex": "^Black Hills Gold .*Hornady CX",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady CX",
+     "src": "bh_gold",
+     "quote": "Hornady CX"
+    }
+   }
+  },
+  {
+   "id": "sst_cb_gold",
+   "lib": "factory",
+   "name_regex": "^Black Hills Gold .*Hornady SST",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady SST",
+     "src": "bh_gold",
+     "quote": "Hornady SST"
+    }
+   }
+  },
+  {
+   "id": "eldx_cb_gold",
+   "lib": "factory",
+   "name_regex": "^Black Hills Gold .*Hornady ELD-X",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady ELD-X",
+     "src": "bh_gold",
+     "quote": "Hornady ELD-X"
+    }
+   }
+  },
+  {
+   "id": "eldm_cb_gold",
+   "lib": "factory",
+   "name_regex": "^Black Hills Gold .*Hornady ELD Match",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady ELD Match",
+     "src": "bh_gold",
+     "quote": "Hornady ELD Match"
+    }
+   }
+  },
+  {
+   "id": "hmhp_cb_gold",
+   "lib": "factory",
+   "name_regex": "^Black Hills Gold .*Hornady Match Hollow Point",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady Match Hollow Point",
+     "src": "bh_gold",
+     "quote": "Hornady Match Hollow Point"
+    }
+   }
+  },
+  {
+   "id": "gmx_cb",
+   "lib": "factory",
+   "name_regex": "^Black Hills (?!Gold ).*Hornady GMX",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady GMX",
+     "src": "bh_223",
+     "quote": "Hornady GMX™"
+    }
+   }
+  },
+  {
+   "id": "smk_cb",
+   "lib": "factory",
+   "name_regex": "^Black Hills (?!Gold ).*Sierra MatchKing",
+   "fields": {
+    "component_bullet": {
+     "value": "Sierra MatchKing",
+     "src": "bh_223",
+     "quote": "Sierra MatchKing"
+    }
+   }
+  },
+  {
+   "id": "tmk_cb_gold",
+   "lib": "factory",
+   "name_regex": "^Black Hills Gold .*Sierra TMK",
+   "fields": {
+    "component_bullet": {
+     "value": "Sierra TMK",
+     "src": "bh_gold",
+     "quote": "Sierra TMK"
+    }
+   }
+  },
+  {
+   "id": "tmk_cb",
+   "lib": "factory",
+   "name_regex": "^Black Hills (?!Gold ).*Sierra TMK",
+   "fields": {
+    "component_bullet": {
+     "value": "Sierra TMK",
+     "src": "bh_223",
+     "quote": "Sierra TMK"
+    }
+   }
+  },
+  {
+   "id": "dp_cb_gold",
+   "lib": "factory",
+   "name_regex": "^Black Hills Gold .*Dual Performance",
+   "fields": {
+    "component_bullet": {
+     "value": "Dual Performance",
+     "src": "bh_gold",
+     "quote": "Dual Performance"
+    }
+   }
+  },
+  {
+   "id": "dp_cb",
+   "lib": "factory",
+   "name_regex": "^Black Hills (?!Gold ).*Dual Performance",
+   "fields": {
+    "component_bullet": {
+     "value": "Dual Performance",
+     "src": "bh_223",
+     "quote": "Dual Performance™"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

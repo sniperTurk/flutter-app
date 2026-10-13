@@ -1,0 +1,403 @@
+{
+ "brand": "Hammer Bullets",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read 2026-10-13 from hammerbullets.com (robots.txt allows product and info pages): home, /hammer-hunter, /about-our-bullets/, one product page. Construction from brand-wide statement (all Hammer bullets solid copper, lead free). Hammer Hunter: 1.5mm hollow point. Base (boat tail/flat) not stated for Hammer Hunter; product page gives no shape details.",
+ "sources": [
+  {
+   "id": "about",
+   "url": "https://hammerbullets.com/about-our-bullets/",
+   "read_date": "2026-10-13",
+   "title": "About our bullets"
+  },
+  {
+   "id": "hh",
+   "url": "https://hammerbullets.com/hammer-hunter",
+   "read_date": "2026-10-13",
+   "title": "Hammer Hunter"
+  }
+ ],
+ "records": {
+  "Hammer Bullets|.308 Cal-181 gr Hammer Hunter®|30181HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 Cal-181 gr Hammer Hunter®",
+   "grain": 180.0,
+   "library_source_url": "https://hammerbullets.com/product/308-cal-181gr-hammer-hunter/",
+   "caliber_mm": 7.82,
+   "item": "30181HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.264 Cal-131 gr Hammer Hunter®|26131HH-50": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".264 Cal-131 gr Hammer Hunter®",
+   "grain": 132.0,
+   "library_source_url": "https://hammerbullets.com/product/264-cal-131gr-hammer-hunter/",
+   "caliber_mm": 6.71,
+   "item": "26131HH-50",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.224 Cal-73 gr Hammer Hunter®|22073HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 Cal-73 gr Hammer Hunter®",
+   "grain": 73.0,
+   "library_source_url": "https://hammerbullets.com/product/224-cal-73gr-hammer-hunter/",
+   "caliber_mm": 5.7,
+   "item": "22073HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.224 Cal-60 gr Hammer Hunter®": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 Cal-60 gr Hammer Hunter®",
+   "grain": 60.0,
+   "library_source_url": "https://hammerbullets.com/product/224-cal-060gr-hammer-hunter/",
+   "caliber_mm": 5.7,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.224 Cal-83 gr Hammer Hunter®|22083HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 Cal-83 gr Hammer Hunter®",
+   "grain": 83.0,
+   "library_source_url": "https://hammerbullets.com/product/224-cal-83gr-hammer-hunter/",
+   "caliber_mm": 5.7,
+   "item": "22083HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.243 Cal-080 gr Hammer Hunter®|24080HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".243 Cal-080 gr Hammer Hunter®",
+   "grain": 80.0,
+   "library_source_url": "https://hammerbullets.com/product/243-80gr-hammer-hunter/",
+   "caliber_mm": 6.17,
+   "item": "24080HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.243 Cal-088 gr Hammer Hunter®|24088HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".243 Cal-088 gr Hammer Hunter®",
+   "grain": 88.0,
+   "library_source_url": "https://hammerbullets.com/product/243-cal-88gr-hammer-hunter-100/",
+   "caliber_mm": 6.17,
+   "item": "24088HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.243 Cal-101 gr Hammer Hunter®|24101HH-50": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".243 Cal-101 gr Hammer Hunter®",
+   "grain": 101.0,
+   "library_source_url": "https://hammerbullets.com/product/243-cal-101gr-hammer-hunter-50/",
+   "caliber_mm": 6.17,
+   "item": "24101HH-50",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.264 Cal-110 gr Hammer Hunter®|26110HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".264 Cal-110 gr Hammer Hunter®",
+   "grain": 107.0,
+   "library_source_url": "https://hammerbullets.com/product/264-cal-110gr-hammer-hunter/",
+   "caliber_mm": 6.71,
+   "item": "26110HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.264 Cal-125 gr Hammer Hunter®|26124HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".264 Cal-125 gr Hammer Hunter®",
+   "grain": 124.0,
+   "library_source_url": "https://hammerbullets.com/product/264-cal-125gr-hammer-hunter/",
+   "caliber_mm": 6.71,
+   "item": "26124HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.264 Cal-137 gr Hammer Hunter®|26137HH-50": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".264 Cal-137 gr Hammer Hunter®",
+   "grain": 139.0,
+   "library_source_url": "https://hammerbullets.com/product/264-cal-137gr-hammer-hunter-50/",
+   "caliber_mm": 6.71,
+   "item": "26137HH-50",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.277 Cal-124 gr Hammer Hunter®|27124HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 Cal-124 gr Hammer Hunter®",
+   "grain": 124.0,
+   "library_source_url": "https://hammerbullets.com/product/277-cal-124gr-hammer-hunter/",
+   "caliber_mm": 7.04,
+   "item": "27124HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.277 Cal-140 gr Hammer Hunter®|28140HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 Cal-140 gr Hammer Hunter®",
+   "grain": 140.0,
+   "library_source_url": "https://hammerbullets.com/product/277-cal-140gr-hammer-hunter/",
+   "caliber_mm": 7.04,
+   "item": "28140HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.277 Cal-162 gr Hammer Hunter®": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 Cal-162 gr Hammer Hunter®",
+   "grain": 162.0,
+   "library_source_url": "https://hammerbullets.com/product/277-cal-162gr-hammer-hunter/",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.284 Cal-143 gr Hammer Hunter®|28143HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 Cal-143 gr Hammer Hunter®",
+   "grain": 143.0,
+   "library_source_url": "https://hammerbullets.com/product/284-cal-143gr-hammer-hunter-2/",
+   "caliber_mm": 7.21,
+   "item": "28143HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  },
+  "Hammer Bullets|.284 Cal-155 gr Hammer Hunter®|28155HH": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 Cal-155 gr Hammer Hunter®",
+   "grain": 155.0,
+   "library_source_url": "https://hammerbullets.com/product/284-cal-155gr-hammer-hunter/",
+   "caliber_mm": 7.21,
+   "item": "28155HH",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://hammerbullets.com/about-our-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://hammerbullets.com/hammer-hunter",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "These bullets all have 1.5mm hollow point"
+   },
+   "base": null
+  }
+ }
+}

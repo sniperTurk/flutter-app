@@ -1,0 +1,5121 @@
+{
+ "brand": "Sierra",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read 2026-10-13: sierrabullets.com robots.txt (product pages allowed), Bullet 101 line descriptions, ammo category page, MatchKing family page (product list only, no line text), product pages of MKX/SGK/TMK/TGK and all 12 Tipped VarmintKing (polymer tip stated on each). Not stated, left empty: MatchKing/TMK base ('majority'/'all but one' boat tail), TGK base, GameKing/Pro-Hunter/VarmintKing construction, MatchKing X construction, Prairie Enemy tip/base. 'CN' not used (Sierra Bullet 101 defines it as closed nose, ambiguous with cannelure). FMJBT tip shape not stated.",
+ "sources": [
+  {
+   "id": "b101",
+   "url": "https://sierrabullets.com/bullet-101/",
+   "read_date": "2026-10-13",
+   "title": "Sierra Bullet Selection (Bullet 101)"
+  },
+  {
+   "id": "ammo",
+   "url": "https://www.sierrabullets.com/product-category/ammo/",
+   "read_date": "2026-10-13",
+   "title": "Sierra ammunition (GameChanger, Prairie Enemy)"
+  },
+  {
+   "id": "tmk130",
+   "url": "https://www.sierrabullets.com/6-5mm-130-gr-tipped-matchking-tmk/",
+   "read_date": "2026-10-13",
+   "title": "6.5mm 130 gr Tipped MatchKing"
+  },
+  {
+   "id": "tvk_6mm-55-gr",
+   "url": "https://www.sierrabullets.com/6mm-55-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "6mm 55 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_22-cal-55-gr",
+   "url": "https://www.sierrabullets.com/22-cal-55-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "22 Cal 55 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_25-cal-70-gr",
+   "url": "https://www.sierrabullets.com/25-cal-70-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "25 Cal 70 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_20-cal-36-gr",
+   "url": "https://www.sierrabullets.com/20-cal-36-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "20 Cal 36 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_6mm-70-gr",
+   "url": "https://www.sierrabullets.com/6mm-70-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "6mm 70 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_20-cal-39-gr",
+   "url": "https://www.sierrabullets.com/20-cal-39-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "20 Cal 39 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_22-cal-69-gr",
+   "url": "https://www.sierrabullets.com/22-cal-69-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "22 Cal 69 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_20-cal-32-gr",
+   "url": "https://www.sierrabullets.com/20-cal-32-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "20 Cal 32 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_22-cal-50-gr",
+   "url": "https://www.sierrabullets.com/22-cal-50-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "22 Cal 50 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_25-cal-90-gr",
+   "url": "https://www.sierrabullets.com/25-cal-90-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "25 Cal 90 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_22-cal-40-gr",
+   "url": "https://www.sierrabullets.com/22-cal-40-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "22 Cal 40 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_6-5mm-105-gr",
+   "url": "https://www.sierrabullets.com/6-5mm-105-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "6.5mm 105 gr Tipped VarmintKing TVK"
+  }
+ ],
+ "records": {
+  "Sierra|Sierra Prairie Enemy 69 gr BlitzKing|.224 Valkyrie": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sierra Prairie Enemy 69 gr BlitzKing",
+   "grain": 69.0,
+   "library_source_url": "https://www.sierrabullets.com/product-category/ammo/",
+   "cartridge": ".224 Valkyrie",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra BlitzKing",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "utilizes our world famous BlitzKing bullets"
+   }
+  },
+  "Sierra|Sierra GameChanger 90 gr Tipped GameKing|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sierra GameChanger 90 gr Tipped GameKing",
+   "grain": 90.0,
+   "library_source_url": "https://www.sierrabullets.com/product-category/ammo/",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core encased in a thick, tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a polymer tip seated in a hollow point design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Tipped GameKing bullet with an extremely accurate boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Sierra Tipped GameKing",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each GameChanger round utilizes a Sierra Tipped GameKing bullet"
+   }
+  },
+  "Sierra|Sierra GameChanger 140 gr Tipped GameKing|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sierra GameChanger 140 gr Tipped GameKing",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/product-category/ammo/",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core encased in a thick, tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a polymer tip seated in a hollow point design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Tipped GameKing bullet with an extremely accurate boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Sierra Tipped GameKing",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each GameChanger round utilizes a Sierra Tipped GameKing bullet"
+   }
+  },
+  "Sierra|Sierra GameChanger 165 gr Tipped GameKing|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sierra GameChanger 165 gr Tipped GameKing",
+   "grain": 165.0,
+   "library_source_url": "https://www.sierrabullets.com/product-category/ammo/",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core encased in a thick, tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a polymer tip seated in a hollow point design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Tipped GameKing bullet with an extremely accurate boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Sierra Tipped GameKing",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each GameChanger round utilizes a Sierra Tipped GameKing bullet"
+   }
+  },
+  "Sierra|Sierra GameChanger 180 gr Tipped GameKing|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sierra GameChanger 180 gr Tipped GameKing",
+   "grain": 180.0,
+   "library_source_url": "https://www.sierrabullets.com/product-category/ammo/",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core encased in a thick, tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a polymer tip seated in a hollow point design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Tipped GameKing bullet with an extremely accurate boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Sierra Tipped GameKing",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each GameChanger round utilizes a Sierra Tipped GameKing bullet"
+   }
+  },
+  "Sierra|Sierra GameChanger 165 gr Tipped GameKing|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sierra GameChanger 165 gr Tipped GameKing",
+   "grain": 165.0,
+   "library_source_url": "https://www.sierrabullets.com/product-category/ammo/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core encased in a thick, tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a polymer tip seated in a hollow point design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Tipped GameKing bullet with an extremely accurate boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Sierra Tipped GameKing",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each GameChanger round utilizes a Sierra Tipped GameKing bullet"
+   }
+  },
+  "Sierra|Sierra GameChanger 100 gr Tipped GameKing|6mm Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sierra GameChanger 100 gr Tipped GameKing",
+   "grain": 100.0,
+   "library_source_url": "https://www.sierrabullets.com/product-category/ammo/",
+   "cartridge": "6mm Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core encased in a thick, tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a polymer tip seated in a hollow point design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Tipped GameKing bullet with an extremely accurate boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Sierra Tipped GameKing",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each GameChanger round utilizes a Sierra Tipped GameKing bullet"
+   }
+  },
+  "Sierra|Sierra GameChanger 150 gr Tipped GameKing|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sierra GameChanger 150 gr Tipped GameKing",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/product-category/ammo/",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core encased in a thick, tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a polymer tip seated in a hollow point design"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Tipped GameKing bullet with an extremely accurate boat tail profile"
+   },
+   "component_bullet": {
+    "value": "Sierra Tipped GameKing",
+    "source_url": "https://www.sierrabullets.com/product-category/ammo/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each GameChanger round utilizes a Sierra Tipped GameKing bullet"
+   }
+  },
+  "Sierra|6mm 107 gr HPBT MatchKing X MKX|1571": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 107 gr HPBT MatchKing X MKX",
+   "grain": 107.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-107-gr-hpbt-matchking-x-mkx/",
+   "caliber_mm": 6.17,
+   "item": "1571",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/6mm-107-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6mm-107-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6.5mm 144 gr HPBT MatchKing SMK|1744": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 144 gr HPBT MatchKing SMK",
+   "grain": 144.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-144-gr-hpbt-matchking-smk/",
+   "caliber_mm": 6.71,
+   "item": "1744",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6-5mm-144-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 175 gr HPBT MatchKing X MKX|2175": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 175 gr HPBT MatchKing X MKX",
+   "grain": 175.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-175-gr-hpbt-matchking-x-mkx/",
+   "caliber_mm": 7.82,
+   "item": "2175",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/30-cal-175-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-175-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6.5mm 120 gr HPBT MatchKing SMK|1725": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 120 gr HPBT MatchKing SMK",
+   "grain": 120.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-120-gr-hpbt-matchking-smk/",
+   "caliber_mm": 6.71,
+   "item": "1725",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6-5mm-120-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 200 gr HPBT CN MatchKing SMK|2231": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 200 gr HPBT CN MatchKing SMK",
+   "grain": 200.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-200-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2231",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-200-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6.5mm 150 gr HPBT CN MatchKing SMK|1755": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 150 gr HPBT CN MatchKing SMK",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-150-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 6.71,
+   "item": "1755",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6-5mm-150-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|22 Cal 40 gr HP VarmintKing VK|1385": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 40 gr HP VarmintKing VK",
+   "grain": 40.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-40-gr-hp-varmintking-vk/",
+   "caliber_mm": 5.7,
+   "item": "1385",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/22-cal-40-gr-hp-varmintking-vk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Sierra|22 Cal 88 gr Tipped MatchKing TMK|7188": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 88 gr Tipped MatchKing TMK",
+   "grain": 88.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-88-gr-tipped-matchking-tmk/",
+   "caliber_mm": 5.7,
+   "item": "7188",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 180 gr Tipped GameKing TGK|4682": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 180 gr Tipped GameKing TGK",
+   "grain": 180.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-180-gr-tipped-gameking-tgk/",
+   "caliber_mm": 7.82,
+   "item": "4682",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|6mm 100 gr Tipped GameKing TGK|4110": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 100 gr Tipped GameKing TGK",
+   "grain": 100.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-100-gr-tipped-gameking-tgk/",
+   "caliber_mm": 6.17,
+   "item": "4110",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 125 gr SPT Pro-Hunter|2120": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 125 gr SPT Pro-Hunter",
+   "grain": 125.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-125-gr-spt-pro-hunter/",
+   "caliber_mm": 7.82,
+   "item": "2120",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|375 Cal 350 gr HPBT CN MatchKing SMK|9350T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 Cal 350 gr HPBT CN MatchKing SMK",
+   "grain": 350.0,
+   "library_source_url": "https://www.sierrabullets.com/375-cal-350-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 9.53,
+   "item": "9350T",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/375-cal-350-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6mm 75 gr HP VarmintKing SVK|1510": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 75 gr HP VarmintKing SVK",
+   "grain": 75.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-75-gr-hp-varmintking-svk/",
+   "caliber_mm": 6.17,
+   "item": "1510",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/6mm-75-gr-hp-varmintking-svk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Sierra|7mm 180 gr HPBT CN optimized for 7 PRC MatchKing SMK|1981": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 180 gr HPBT CN optimized for 7 PRC MatchKing SMK",
+   "grain": 180.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-180-gr-hpbt-cn-optimized-for-7prc-matchking-smk/",
+   "caliber_mm": 7.21,
+   "item": "1981",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/7mm-180-gr-hpbt-cn-optimized-for-7prc-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 150 gr HP VarmintKing SVK|2136": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 150 gr HP VarmintKing SVK",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-150-gr-hp-varmintking-svk/",
+   "caliber_mm": 7.82,
+   "item": "2136",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/30-cal-150-gr-hp-varmintking-svk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 180 gr Tipped GameKing TGK optimized for 30 06|4681T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 180 gr Tipped GameKing TGK optimized for 30 06",
+   "grain": 180.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-180-gr-tipped-gameking-tgk-optimized-for-30-06/",
+   "caliber_mm": 7.82,
+   "item": "4681T",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|7mm 150 gr SBT GameKing SGK|1913": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 150 gr SBT GameKing SGK",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-150-gr-sbt-gameking-sgk/",
+   "caliber_mm": 7.21,
+   "item": "1913",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|6.5mm 130 gr Tipped MatchKing TMK|7430": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 130 gr Tipped MatchKing TMK",
+   "grain": 130.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-130-gr-tipped-matchking-tmk/",
+   "caliber_mm": 6.71,
+   "item": "7430",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 165 gr HPBT GameKing SGK|2140": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 165 gr HPBT GameKing SGK",
+   "grain": 165.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-165-gr-hpbt-gameking-sgk/",
+   "caliber_mm": 7.82,
+   "item": "2140",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/30-cal-165-gr-hpbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|223 Cal 40 gr Hornet VarmintKing SVK|1100": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "223 Cal 40 gr Hornet VarmintKing SVK",
+   "grain": 40.0,
+   "library_source_url": "https://www.sierrabullets.com/223-cal-40-gr-hornet-varmintking-svk/",
+   "caliber_mm": 5.66,
+   "item": "1100",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Sierra|22 Cal 55 gr FMJBT GameKing SGK|1355": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 55 gr FMJBT GameKing SGK",
+   "grain": 55.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-55-gr-fmjbt-gameking-sgk/",
+   "caliber_mm": 5.7,
+   "item": "1355",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sierrabullets.com/22-cal-55-gr-fmjbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|303 Cal 174 gr HPBT MatchKing SMK|2315": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "303 Cal 174 gr HPBT MatchKing SMK",
+   "grain": 174.0,
+   "library_source_url": "https://www.sierrabullets.com/303-cal-174-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.92,
+   "item": "2315",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/303-cal-174-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6mm 55 gr Tipped VarmintKing TVK|1502": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 55 gr Tipped VarmintKing TVK",
+   "grain": 55.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-55-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 6.17,
+   "item": "1502",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/6mm-55-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|8mm 220 gr SBT GameKing SGK|2420": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "8mm 220 gr SBT GameKing SGK",
+   "grain": 220.0,
+   "library_source_url": "https://www.sierrabullets.com/8mm-220-gr-sbt-gameking-sgk/",
+   "caliber_mm": 8.22,
+   "item": "2420",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|7mm 160 gr HPBT GameKing SGK|1925": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 160 gr HPBT GameKing SGK",
+   "grain": 160.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-160-gr-hpbt-gameking-sgk/",
+   "caliber_mm": 7.21,
+   "item": "1925",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/7mm-160-gr-hpbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|30 Cal 169 gr HPBT CN MatchKing SMK|2269": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 169 gr HPBT CN MatchKing SMK",
+   "grain": 169.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-169-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2269",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-169-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 215 gr HPBT CN MatchKing SMK|2237": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 215 gr HPBT CN MatchKing SMK",
+   "grain": 215.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-215-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2237",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-215-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|22 Cal 55 gr Tipped VarmintKing TVK|1455": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 55 gr Tipped VarmintKing TVK",
+   "grain": 55.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-55-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 5.7,
+   "item": "1455",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/22-cal-55-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|22 Cal 55 gr VarmintKing SVK|1345": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 55 gr VarmintKing SVK",
+   "grain": 55.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-55-gr-varmintking-svk/",
+   "caliber_mm": 5.7,
+   "item": "1345",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Sierra|6mm 100 gr SBT Pro-Hunter|1560": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 100 gr SBT Pro-Hunter",
+   "grain": 100.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-100-gr-sbt-pro-hunter/",
+   "caliber_mm": 6.17,
+   "item": "1560",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6mm-100-gr-sbt-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SBT"
+   }
+  },
+  "Sierra|6.5mm 140 gr SBT GameKing SGK|1730": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 140 gr SBT GameKing SGK",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-140-gr-sbt-gameking-sgk/",
+   "caliber_mm": 6.71,
+   "item": "1730",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|270 Cal 135 gr HPBT MatchKing X MKX|1834": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Cal 135 gr HPBT MatchKing X MKX",
+   "grain": 135.0,
+   "library_source_url": "https://www.sierrabullets.com/270-cal-135-gr-hpbt-matchking-x-mkx/",
+   "caliber_mm": 7.04,
+   "item": "1834",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/270-cal-135-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/270-cal-135-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6mm 85 gr HPBT GameKing SGK|1530": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 85 gr HPBT GameKing SGK",
+   "grain": 85.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-85-gr-hpbt-gameking-sgk/",
+   "caliber_mm": 6.17,
+   "item": "1530",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/6mm-85-gr-hpbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|270 Cal 130 gr SPT Pro-Hunter|1830": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Cal 130 gr SPT Pro-Hunter",
+   "grain": 130.0,
+   "library_source_url": "https://www.sierrabullets.com/270-cal-130-gr-spt-pro-hunter/",
+   "caliber_mm": 7.04,
+   "item": "1830",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|7mm 197 gr HPBT CN MatchKing SMK|1997": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 197 gr HPBT CN MatchKing SMK",
+   "grain": 197.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-197-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 7.21,
+   "item": "1997",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/7mm-197-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|338 Cal 250 gr HPBT MatchKing SMK|2650": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Cal 250 gr HPBT MatchKing SMK",
+   "grain": 250.0,
+   "library_source_url": "https://www.sierrabullets.com/338-cal-250-gr-hpbt-matchking-smk/",
+   "caliber_mm": 8.59,
+   "item": "2650",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/338-cal-250-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6.5mm 145 gr Tipped GameKing TGK|4345": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 145 gr Tipped GameKing TGK",
+   "grain": 145.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-145-gr-tipped-gameking-tgk/",
+   "caliber_mm": 6.71,
+   "item": "4345",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|7mm 175 gr HPBT MatchKing X MKX|1976": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 175 gr HPBT MatchKing X MKX",
+   "grain": 175.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-175-gr-hpbt-matchking-x-mkx/",
+   "caliber_mm": 7.21,
+   "item": "1976",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/7mm-175-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/7mm-175-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6.5mm 153 gr Tipped MatchKing TMK|7450": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 153 gr Tipped MatchKing TMK",
+   "grain": 153.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-153-gr-tipped-matchking-tmk/",
+   "caliber_mm": 6.71,
+   "item": "7450",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|25 Cal 87 gr SPT VarmintKing SVK|1610": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "25 Cal 87 gr SPT VarmintKing SVK",
+   "grain": 87.0,
+   "library_source_url": "https://www.sierrabullets.com/25-cal-87-gr-spt-varmintking-svk/",
+   "caliber_mm": 6.53,
+   "item": "1610",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer pointed flat base (SPT)"
+   }
+  },
+  "Sierra|22 Cal 50 gr SPT VarmintKing|1330": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 50 gr SPT VarmintKing",
+   "grain": 50.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-50-gr-spt-varmintking/",
+   "caliber_mm": 5.7,
+   "item": "1330",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer pointed flat base (SPT)"
+   }
+  },
+  "Sierra|22 Cal 69 gr HPBT MatchKing SMK|1380": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 69 gr HPBT MatchKing SMK",
+   "grain": 69.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+   "caliber_mm": 5.7,
+   "item": "1380",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|7mm 168 gr HPBT MatchKing SMK|1930": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 168 gr HPBT MatchKing SMK",
+   "grain": 168.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-168-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.21,
+   "item": "1930",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/7mm-168-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 135 gr HP VarmintKing SVK|2124": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 135 gr HP VarmintKing SVK",
+   "grain": 135.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-135-gr-hp-varmintking-svk/",
+   "caliber_mm": 7.82,
+   "item": "2124",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/30-cal-135-gr-hp-varmintking-svk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Sierra|25 Cal 70 gr Tipped VarmintKing TVK|1605": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "25 Cal 70 gr Tipped VarmintKing TVK",
+   "grain": 70.0,
+   "library_source_url": "https://www.sierrabullets.com/25-cal-70-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 6.53,
+   "item": "1605",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/25-cal-70-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|20 Cal 36 gr Tipped VarmintKing TVK|1036": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "20 Cal 36 gr Tipped VarmintKing TVK",
+   "grain": 36.0,
+   "library_source_url": "https://www.sierrabullets.com/20-cal-36-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 5.18,
+   "item": "1036",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/20-cal-36-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 150 gr SPT Pro-Hunter|2130": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 150 gr SPT Pro-Hunter",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-150-gr-spt-pro-hunter/",
+   "caliber_mm": 7.82,
+   "item": "2130",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|30 Cal 177 gr HPBT CN MatchKing SMK|2277": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 177 gr HPBT CN MatchKing SMK",
+   "grain": 177.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-177-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2277",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-177-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 155 gr HPBT MatchKing SMK|2155": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 155 gr HPBT MatchKing SMK",
+   "grain": 155.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-155-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2155",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-155-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|7mm 180 gr Tipped GameKing TGK|4580": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 180 gr Tipped GameKing TGK",
+   "grain": 180.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-180-gr-tipped-gameking-tgk/",
+   "caliber_mm": 7.21,
+   "item": "4580",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|6mm 70 gr Tipped VarmintKing TVK|1507": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 70 gr Tipped VarmintKing TVK",
+   "grain": 70.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-70-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 6.17,
+   "item": "1507",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/6mm-70-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 220 gr RN Pro-Hunter|2180": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 220 gr RN Pro-Hunter",
+   "grain": 220.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-220-gr-rn-pro-hunter/",
+   "caliber_mm": 7.82,
+   "item": "2180",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.sierrabullets.com/30-cal-220-gr-rn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RN"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|22 Cal 62 gr SBT GameKing SGK|9362": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 62 gr SBT GameKing SGK",
+   "grain": 62.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-62-gr-sbt-gameking-sgk/",
+   "caliber_mm": 5.7,
+   "item": "9362",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|22 Cal 69 gr Tipped MatchKing TMK|7169": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 69 gr Tipped MatchKing TMK",
+   "grain": 69.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-69-gr-tipped-matchking-tmk/",
+   "caliber_mm": 5.7,
+   "item": "7169",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|22 Cal 77 gr HPBT MatchKing X MKX KTZX|9380": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 77 gr HPBT MatchKing X MKX KTZX",
+   "grain": 77.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-77-gr-hpbt-matchking-x-mkx-ktzx/",
+   "caliber_mm": 5.7,
+   "item": "9380",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/22-cal-77-gr-hpbt-matchking-x-mkx-ktzx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/22-cal-77-gr-hpbt-matchking-x-mkx-ktzx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|22 Cal 45 gr Hornet VarmintKing VK|1210": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 45 gr Hornet VarmintKing VK",
+   "grain": 45.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-45-gr-hornet-varmintking-vk/",
+   "caliber_mm": 5.7,
+   "item": "1210",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Sierra|6.5mm 120 gr SPT Pro-Hunter|1720": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 120 gr SPT Pro-Hunter",
+   "grain": 120.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-120-gr-spt-pro-hunter/",
+   "caliber_mm": 6.71,
+   "item": "1720",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|22 Cal 95 gr HPBT CN MatchKing SMK|1396": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 95 gr HPBT CN MatchKing SMK",
+   "grain": 95.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-95-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 5.7,
+   "item": "1396",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/22-cal-95-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|7mm 100 gr HP VarmintKing VK|1895": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 100 gr HP VarmintKing VK",
+   "grain": 100.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-100-gr-hp-varmintking-vk/",
+   "caliber_mm": 7.21,
+   "item": "1895",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/7mm-100-gr-hp-varmintking-vk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 190 gr HPBT MatchKing SMK|2210": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 190 gr HPBT MatchKing SMK",
+   "grain": 190.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-190-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2210",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-190-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|25 Cal 100 gr SBT GameKing SGK|1625": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "25 Cal 100 gr SBT GameKing SGK",
+   "grain": 100.0,
+   "library_source_url": "https://www.sierrabullets.com/25-cal-100-gr-sbt-gameking-sgk/",
+   "caliber_mm": 6.53,
+   "item": "1625",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|303 Cal 180 gr SPT Pro-Hunter|2310": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "303 Cal 180 gr SPT Pro-Hunter",
+   "grain": 180.0,
+   "library_source_url": "https://www.sierrabullets.com/303-cal-180-gr-spt-pro-hunter/",
+   "caliber_mm": 7.92,
+   "item": "2310",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|270 Cal 130 gr SBT GameKing SGK|1820": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Cal 130 gr SBT GameKing SGK",
+   "grain": 130.0,
+   "library_source_url": "https://www.sierrabullets.com/270-cal-130-gr-sbt-gameking-sgk/",
+   "caliber_mm": 7.04,
+   "item": "1820",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|45 Cal 260 gr FN Pro-Hunter|8760": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "45 Cal 260 gr FN Pro-Hunter",
+   "grain": 260.0,
+   "library_source_url": "https://www.sierrabullets.com/45-cal-260-gr-fn-pro-hunter/",
+   "caliber_mm": 11.47,
+   "item": "8760",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.sierrabullets.com/45-cal-260-gr-fn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|30 Cal 115 gr HP VarmintKing SVK|2116": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 115 gr HP VarmintKing SVK",
+   "grain": 115.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-115-gr-hp-varmintking-svk/",
+   "caliber_mm": 7.82,
+   "item": "2116",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/30-cal-115-gr-hp-varmintking-svk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Sierra|20 Cal 39 gr Tipped VarmintKing TVK|1039": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "20 Cal 39 gr Tipped VarmintKing TVK",
+   "grain": 39.0,
+   "library_source_url": "https://www.sierrabullets.com/20-cal-39-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 5.18,
+   "item": "1039",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/20-cal-39-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|22 Cal 55 gr HPBT GameKing SGK|1390": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 55 gr HPBT GameKing SGK",
+   "grain": 55.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-55-gr-hpbt-gameking-sgk/",
+   "caliber_mm": 5.7,
+   "item": "1390",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/22-cal-55-gr-hpbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|7mm 140 gr Tipped GameKing TGK BGB|4540C": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 140 gr Tipped GameKing TGK BGB",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-140-gr-tipped-gameking-tgk-bgb/",
+   "caliber_mm": 7.21,
+   "item": "4540C",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 200 gr HPBT MatchKing X MKX|2232": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 200 gr HPBT MatchKing X MKX",
+   "grain": 200.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-200-gr-hpbt-matchking-x-mkx/",
+   "caliber_mm": 7.82,
+   "item": "2232",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/30-cal-200-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-200-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|35 Cal 225 gr SBT GameKing SGK|2850": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "35 Cal 225 gr SBT GameKing SGK",
+   "grain": 225.0,
+   "library_source_url": "https://www.sierrabullets.com/35-cal-225-gr-sbt-gameking-sgk/",
+   "caliber_mm": 9.09,
+   "item": "2850",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|6.5mm 130 gr HPBT GameKing SGK|1728": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 130 gr HPBT GameKing SGK",
+   "grain": 130.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-130-gr-hpbt-gameking-sgk/",
+   "caliber_mm": 6.71,
+   "item": "1728",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/6-5mm-130-gr-hpbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|270 Cal 140 gr HPBT GameKing SGK|1835": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Cal 140 gr HPBT GameKing SGK",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/270-cal-140-gr-hpbt-gameking-sgk/",
+   "caliber_mm": 7.04,
+   "item": "1835",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/270-cal-140-gr-hpbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|30 Cal 200 gr HPBT MatchKing SMK|2230": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 200 gr HPBT MatchKing SMK",
+   "grain": 200.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-200-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2230",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-200-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 165 gr SBT GameKing SGK|2145": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 165 gr SBT GameKing SGK",
+   "grain": 165.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-165-gr-sbt-gameking-sgk/",
+   "caliber_mm": 7.82,
+   "item": "2145",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|6.5mm 140 gr HPBT MatchKing SMK|1740": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 140 gr HPBT MatchKing SMK",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-140-gr-hpbt-matchking-smk/",
+   "caliber_mm": 6.71,
+   "item": "1740",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6-5mm-140-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 125 gr Tipped GameKing TGK|4625": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 125 gr Tipped GameKing TGK",
+   "grain": 125.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-125-gr-tipped-gameking-tgk/",
+   "caliber_mm": 7.82,
+   "item": "4625",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|270 Cal 140 gr SBT GameKing SGK|1845": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Cal 140 gr SBT GameKing SGK",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/270-cal-140-gr-sbt-gameking-sgk/",
+   "caliber_mm": 7.04,
+   "item": "1845",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|22 Cal 69 gr Tipped VarmintKing TVK|7170": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 69 gr Tipped VarmintKing TVK",
+   "grain": 69.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-69-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 5.7,
+   "item": "7170",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/22-cal-69-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/22-cal-69-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The 69 grain #7170 has a boat tail"
+   }
+  },
+  "Sierra|30 Cal 180 gr SBT GameKing SGK|2160": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 180 gr SBT GameKing SGK",
+   "grain": 180.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-180-gr-sbt-gameking-sgk/",
+   "caliber_mm": 7.82,
+   "item": "2160",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|30 Cal 125 gr HP FN Pro-Hunter|2020": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 125 gr HP FN Pro-Hunter",
+   "grain": 125.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-125-gr-hp-fn-pro-hunter/",
+   "caliber_mm": 7.82,
+   "item": "2020",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/30-cal-125-gr-hp-fn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|25 Cal 100 gr HPBT MatchKing SMK|1628": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "25 Cal 100 gr HPBT MatchKing SMK",
+   "grain": 100.0,
+   "library_source_url": "https://www.sierrabullets.com/25-cal-100-gr-hpbt-matchking-smk/",
+   "caliber_mm": 6.53,
+   "item": "1628",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/25-cal-100-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|8mm 200 gr HPBT MatchKing SMK|2415": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "8mm 200 gr HPBT MatchKing SMK",
+   "grain": 200.0,
+   "library_source_url": "https://www.sierrabullets.com/8mm-200-gr-hpbt-matchking-smk/",
+   "caliber_mm": 8.22,
+   "item": "2415",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/8mm-200-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|7mm 160 gr SBT GameKing SGK|1920": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 160 gr SBT GameKing SGK",
+   "grain": 160.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-160-gr-sbt-gameking-sgk/",
+   "caliber_mm": 7.21,
+   "item": "1920",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|7mm 175 gr SBT GameKing SGK|1940": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 175 gr SBT GameKing SGK",
+   "grain": 175.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-175-gr-sbt-gameking-sgk/",
+   "caliber_mm": 7.21,
+   "item": "1940",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|30 Cal 168 gr Tipped MatchKing TMK|7768": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 168 gr Tipped MatchKing TMK",
+   "grain": 168.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-168-gr-tipped-matchking-tmk/",
+   "caliber_mm": 7.82,
+   "item": "7768",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 210 gr Tipped GameKing TGK|4610GT": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 210 gr Tipped GameKing TGK",
+   "grain": 210.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-210-gr-tipped-gameking-tgk/",
+   "caliber_mm": 7.82,
+   "item": "4610GT",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 150 gr SBT GameKing SGK|2125": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 150 gr SBT GameKing SGK",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-150-gr-sbt-gameking-sgk/",
+   "caliber_mm": 7.82,
+   "item": "2125",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|22 Cal 50 gr VarmintKing SVK|1340": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 50 gr VarmintKing SVK",
+   "grain": 50.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-50-gr-varmintking-svk/",
+   "caliber_mm": 5.7,
+   "item": "1340",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Sierra|22 Cal 63 gr SMP VarmintKing VK|1370": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 63 gr SMP VarmintKing VK",
+   "grain": 63.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-63-gr-smp-varmintking-vk/",
+   "caliber_mm": 5.7,
+   "item": "1370",
+   "construction": null,
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "semi-pointed (SMP)"
+   },
+   "base": null
+  },
+  "Sierra|338 Cal 250 gr SBT GameKing SGK|2600": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Cal 250 gr SBT GameKing SGK",
+   "grain": 250.0,
+   "library_source_url": "https://www.sierrabullets.com/338-cal-250-gr-sbt-gameking-sgk/",
+   "caliber_mm": 8.59,
+   "item": "2600",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|6mm 90 gr Tipped GameKing TGK|4100T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 90 gr Tipped GameKing TGK",
+   "grain": 90.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-90-gr-tipped-gameking-tgk/",
+   "caliber_mm": 6.17,
+   "item": "4100T",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|25 Cal 135 gr Tipped MatchKing TMK|7334": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "25 Cal 135 gr Tipped MatchKing TMK",
+   "grain": 135.0,
+   "library_source_url": "https://www.sierrabullets.com/25-cal-135-gr-tipped-matchking-tmk/",
+   "caliber_mm": 6.53,
+   "item": "7334",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|7mm 183 gr HPBT CN MatchKing SMK|1983": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 183 gr HPBT CN MatchKing SMK",
+   "grain": 183.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-183-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 7.21,
+   "item": "1983",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/7mm-183-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|22 Cal 77 gr HPBT MatchKing SMK|9377T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 77 gr HPBT MatchKing SMK",
+   "grain": 77.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-77-gr-hpbt-matchking-smk/",
+   "caliber_mm": 5.7,
+   "item": "9377T",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/22-cal-77-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|45 70 cal 300 gr HP FN Pro-Hunter|8900": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "45 70 cal 300 gr HP FN Pro-Hunter",
+   "grain": 300.0,
+   "library_source_url": "https://www.sierrabullets.com/45-70-cal-300-gr-hp-fn-pro-hunter/",
+   "caliber_mm": 11.63,
+   "item": "8900",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/45-70-cal-300-gr-hp-fn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|30 Cal 230 gr HPBT CN MatchKing SMK|2251": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 230 gr HPBT CN MatchKing SMK",
+   "grain": 230.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-230-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2251",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-230-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|22 Cal 60 gr Tipped MatchKing TMK|7160": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 60 gr Tipped MatchKing TMK",
+   "grain": 60.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-60-gr-tipped-matchking-tmk/",
+   "caliber_mm": 5.7,
+   "item": "7160",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|20 Cal 32 gr Tipped VarmintKing TVK|1032": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "20 Cal 32 gr Tipped VarmintKing TVK",
+   "grain": 32.0,
+   "library_source_url": "https://www.sierrabullets.com/20-cal-32-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 5.18,
+   "item": "1032",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/20-cal-32-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|35 Cal 200 gr RN Pro-Hunter|2800": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "35 Cal 200 gr RN Pro-Hunter",
+   "grain": 200.0,
+   "library_source_url": "https://www.sierrabullets.com/35-cal-200-gr-rn-pro-hunter/",
+   "caliber_mm": 9.09,
+   "item": "2800",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.sierrabullets.com/35-cal-200-gr-rn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RN"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|375 Cal 200 gr FN Pro-Hunter|2900": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 Cal 200 gr FN Pro-Hunter",
+   "grain": 200.0,
+   "library_source_url": "https://www.sierrabullets.com/375-cal-200-gr-fn-pro-hunter/",
+   "caliber_mm": 9.53,
+   "item": "2900",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.sierrabullets.com/375-cal-200-gr-fn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|30 Cal 175 gr Tipped MatchKing TMK|7775": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 175 gr Tipped MatchKing TMK",
+   "grain": 175.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-175-gr-tipped-matchking-tmk/",
+   "caliber_mm": 7.82,
+   "item": "7775",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|22 Cal 50 gr Tipped VarmintKing TVK|1450": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 50 gr Tipped VarmintKing TVK",
+   "grain": 50.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-50-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 5.7,
+   "item": "1450",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/22-cal-50-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|6mm 95 gr HPBT CN MatchKing SMK|1537": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 95 gr HPBT CN MatchKing SMK",
+   "grain": 95.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-95-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 6.17,
+   "item": "1537",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6mm-95-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|338 Cal 225 gr SPT Pro-Hunter|2620": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Cal 225 gr SPT Pro-Hunter",
+   "grain": 225.0,
+   "library_source_url": "https://www.sierrabullets.com/338-cal-225-gr-spt-pro-hunter/",
+   "caliber_mm": 8.59,
+   "item": "2620",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|7mm 140 gr Tipped GameKing TGK|4540": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 140 gr Tipped GameKing TGK",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-140-gr-tipped-gameking-tgk/",
+   "caliber_mm": 7.21,
+   "item": "4540",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|6.5mm 107 gr Tipped MatchKing TMK|7407": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 107 gr Tipped MatchKing TMK",
+   "grain": 107.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-107-gr-tipped-matchking-tmk/",
+   "caliber_mm": 6.71,
+   "item": "7407",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 168 gr HPBT MatchKing SMK|2200": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 168 gr HPBT MatchKing SMK",
+   "grain": 168.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-168-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2200",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-168-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|22 Cal 40 gr Hornet VarmintKing SVK|1200": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 40 gr Hornet VarmintKing SVK",
+   "grain": 40.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-40-gr-hornet-varmintking-svk/",
+   "caliber_mm": 5.7,
+   "item": "1200",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Sierra|22 Cal 55 gr SBT GameKing SGK|1365": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 55 gr SBT GameKing SGK",
+   "grain": 55.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-55-gr-sbt-gameking-sgk/",
+   "caliber_mm": 5.7,
+   "item": "1365",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|30 Cal 220 gr Tipped MatchKing TMK|7720": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 220 gr Tipped MatchKing TMK",
+   "grain": 220.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-220-gr-tipped-matchking-tmk/",
+   "caliber_mm": 7.82,
+   "item": "7720",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|6mm 110 gr HPBT CN MatchKing SMK|1575": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 110 gr HPBT CN MatchKing SMK",
+   "grain": 110.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-110-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 6.17,
+   "item": "1575",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6mm-110-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|8mm 150 gr SPT Pro-Hunter|2400": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "8mm 150 gr SPT Pro-Hunter",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/8mm-150-gr-spt-pro-hunter/",
+   "caliber_mm": 8.22,
+   "item": "2400",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|7mm 175 gr HPBT MatchKing SMK|1975": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 175 gr HPBT MatchKing SMK",
+   "grain": 175.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-175-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.21,
+   "item": "1975",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/7mm-175-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|22 Cal 90 gr HPBT CN MatchKing SMK|9290T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 90 gr HPBT CN MatchKing SMK",
+   "grain": 90.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-90-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 5.7,
+   "item": "9290T",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/22-cal-90-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6.5mm 140 gr Tipped GameKing TGK|4340": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 140 gr Tipped GameKing TGK",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-140-gr-tipped-gameking-tgk/",
+   "caliber_mm": 6.71,
+   "item": "4340",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|7mm 120 gr SPT Pro-Hunter|1900": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 120 gr SPT Pro-Hunter",
+   "grain": 120.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-120-gr-spt-pro-hunter/",
+   "caliber_mm": 7.21,
+   "item": "1900",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|30 Cal 195 gr Tipped MatchKing TMK|7795": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 195 gr Tipped MatchKing TMK",
+   "grain": 195.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-195-gr-tipped-matchking-tmk/",
+   "caliber_mm": 7.82,
+   "item": "7795",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 155 gr HPBT CN Palma MatchKing SMK|2156": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 155 gr HPBT CN Palma MatchKing SMK",
+   "grain": 155.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-155-gr-hpbt-cn-palma-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2156",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-155-gr-hpbt-cn-palma-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|270 Cal 115 gr HPBT MatchKing SMK|1815": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Cal 115 gr HPBT MatchKing SMK",
+   "grain": 115.0,
+   "library_source_url": "https://www.sierrabullets.com/270-cal-115-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.04,
+   "item": "1815",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/270-cal-115-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 110 gr RN Pro-Hunter|2100": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 110 gr RN Pro-Hunter",
+   "grain": 110.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-110-gr-rn-pro-hunter/",
+   "caliber_mm": 7.82,
+   "item": "2100",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.sierrabullets.com/30-cal-110-gr-rn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RN"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|6.5mm 100 gr HP VarmintKing SVK|1710": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 100 gr HP VarmintKing SVK",
+   "grain": 100.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-100-gr-hp-varmintking-svk/",
+   "caliber_mm": 6.71,
+   "item": "1710",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/6-5mm-100-gr-hp-varmintking-svk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 110 gr HP VarmintKing SVK|2110": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 110 gr HP VarmintKing SVK",
+   "grain": 110.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-110-gr-hp-varmintking-svk/",
+   "caliber_mm": 7.82,
+   "item": "2110",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/30-cal-110-gr-hp-varmintking-svk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Sierra|25 Cal 90 gr Tipped VarmintKing TVK|1616": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "25 Cal 90 gr Tipped VarmintKing TVK",
+   "grain": 90.0,
+   "library_source_url": "https://www.sierrabullets.com/25-cal-90-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 6.53,
+   "item": "1616",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/25-cal-90-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|303 Cal 125 gr SPT Pro-Hunter|2305": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "303 Cal 125 gr SPT Pro-Hunter",
+   "grain": 125.0,
+   "library_source_url": "https://www.sierrabullets.com/303-cal-125-gr-spt-pro-hunter/",
+   "caliber_mm": 7.92,
+   "item": "2305",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|22 Cal 77 gr HPBT MatchKing SMK Cannelure|9377GT": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 77 gr HPBT MatchKing SMK Cannelure",
+   "grain": 77.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-77-gr-hpbt-matchking-smk-cannelure/",
+   "caliber_mm": 5.7,
+   "item": "9377GT",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/22-cal-77-gr-hpbt-matchking-smk-cannelure/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|7mm 160 gr Tipped MatchKing TMK|7660": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 160 gr Tipped MatchKing TMK",
+   "grain": 160.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-160-gr-tipped-matchking-tmk/",
+   "caliber_mm": 7.21,
+   "item": "7660",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|6mm 70 gr HPBT MatchKing SMK|1505": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 70 gr HPBT MatchKing SMK",
+   "grain": 70.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-70-gr-hpbt-matchking-smk/",
+   "caliber_mm": 6.17,
+   "item": "1505",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6mm-70-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6.5mm 130 gr Tipped GameKing TGK|4330T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 130 gr Tipped GameKing TGK",
+   "grain": 130.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-130-gr-tipped-gameking-tgk/",
+   "caliber_mm": 6.71,
+   "item": "4330T",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|22 Cal 64 gr Tipped GameKing TGK|4062": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 64 gr Tipped GameKing TGK",
+   "grain": 64.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-64-gr-tipped-gameking-tgk/",
+   "caliber_mm": 5.7,
+   "item": "4062",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 150 gr HPBT MatchKing SMK|2190": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 150 gr HPBT MatchKing SMK",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-150-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2190",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-150-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 180 gr RN Pro-Hunter|2170": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 180 gr RN Pro-Hunter",
+   "grain": 180.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-180-gr-rn-pro-hunter/",
+   "caliber_mm": 7.82,
+   "item": "2170",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.sierrabullets.com/30-cal-180-gr-rn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RN"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|30 Cal 200 gr SBT GameKing SGK|2165": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 200 gr SBT GameKing SGK",
+   "grain": 200.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-200-gr-sbt-gameking-sgk/",
+   "caliber_mm": 7.82,
+   "item": "2165",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|25 Cal 110 gr Tipped GameKing TGK|4210": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "25 Cal 110 gr Tipped GameKing TGK",
+   "grain": 110.0,
+   "library_source_url": "https://www.sierrabullets.com/25-cal-110-gr-tipped-gameking-tgk/",
+   "caliber_mm": 6.53,
+   "item": "4210",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|270 Cal 140 gr Tipped GameKing TGK|4440T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Cal 140 gr Tipped GameKing TGK",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/270-cal-140-gr-tipped-gameking-tgk/",
+   "caliber_mm": 7.04,
+   "item": "4440T",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 150 gr FN Pro-Hunter|2000": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 150 gr FN Pro-Hunter",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-150-gr-fn-pro-hunter/",
+   "caliber_mm": 7.82,
+   "item": "2000",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.sierrabullets.com/30-cal-150-gr-fn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|30 Cal 125 gr Tipped MatchKing TMK|7725": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 125 gr Tipped MatchKing TMK",
+   "grain": 125.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-125-gr-tipped-matchking-tmk/",
+   "caliber_mm": 7.82,
+   "item": "7725",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 210 gr HPBT CN MatchKing SMK|9240T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 210 gr HPBT CN MatchKing SMK",
+   "grain": 210.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-210-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "9240T",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-210-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|375 Cal 250 gr SBT GameKing SGK|2950": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 Cal 250 gr SBT GameKing SGK",
+   "grain": 250.0,
+   "library_source_url": "https://www.sierrabullets.com/375-cal-250-gr-sbt-gameking-sgk/",
+   "caliber_mm": 9.53,
+   "item": "2950",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|22 Cal 52 gr HPBT MatchKing SMK|1410": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 52 gr HPBT MatchKing SMK",
+   "grain": 52.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-52-gr-hpbt-matchking-smk/",
+   "caliber_mm": 5.7,
+   "item": "1410",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/22-cal-52-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|22 Cal 40 gr Tipped VarmintKing TVK|1440": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 40 gr Tipped VarmintKing TVK",
+   "grain": 40.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-40-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 5.7,
+   "item": "1440",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/22-cal-40-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|6mm 80 gr SBT VarmintKing VK|1515": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 80 gr SBT VarmintKing VK",
+   "grain": 80.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-80-gr-sbt-varmintking-vk/",
+   "caliber_mm": 6.17,
+   "item": "1515",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6mm-80-gr-sbt-varmintking-vk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SBT"
+   }
+  },
+  "Sierra|45 70 cal 400 gr HP FN Pro-Hunter|8950": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "45 70 cal 400 gr HP FN Pro-Hunter",
+   "grain": 400.0,
+   "library_source_url": "https://www.sierrabullets.com/45-70-cal-400-gr-hp-fn-pro-hunter/",
+   "caliber_mm": 11.63,
+   "item": "8950",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/45-70-cal-400-gr-hp-fn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|7mm 150 gr Tipped GameKing TGK|4550T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 150 gr Tipped GameKing TGK",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-150-gr-tipped-gameking-tgk/",
+   "caliber_mm": 7.21,
+   "item": "4550T",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|6.5mm 100 gr HPBT MatchKing SMK|1711C": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 100 gr HPBT MatchKing SMK",
+   "grain": 100.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-100-gr-hpbt-matchking-smk/",
+   "caliber_mm": 6.71,
+   "item": "1711C",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6-5mm-100-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 175 gr HPBT MatchKing SMK|2275": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 175 gr HPBT MatchKing SMK",
+   "grain": 175.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-175-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2275",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-175-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6.5mm 123 gr HPBT CN MatchKing SMK|1727": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 123 gr HPBT CN MatchKing SMK",
+   "grain": 123.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-123-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 6.71,
+   "item": "1727",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6-5mm-123-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|35 Cal 155 gr FN Pro-Hunter|2755": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "35 Cal 155 gr FN Pro-Hunter",
+   "grain": 155.0,
+   "library_source_url": "https://www.sierrabullets.com/35-cal-155-gr-fn-pro-hunter/",
+   "caliber_mm": 9.02,
+   "item": "2755",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.sierrabullets.com/35-cal-155-gr-fn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|6mm 105 gr HPBT CN MatchKing SMK|1565": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 105 gr HPBT CN MatchKing SMK",
+   "grain": 105.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-105-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 6.17,
+   "item": "1565",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6mm-105-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|7mm 140 gr HPBT GameKing SGK|1912": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 140 gr HPBT GameKing SGK",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-140-gr-hpbt-gameking-sgk/",
+   "caliber_mm": 7.21,
+   "item": "1912",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/7mm-140-gr-hpbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|6mm 95 gr Tipped MatchKing TMK|7295": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 95 gr Tipped MatchKing TMK",
+   "grain": 95.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-95-gr-tipped-matchking-tmk/",
+   "caliber_mm": 6.17,
+   "item": "7295",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|338 Cal 215 gr SBT GameKing SGK|2610": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Cal 215 gr SBT GameKing SGK",
+   "grain": 215.0,
+   "library_source_url": "https://www.sierrabullets.com/338-cal-215-gr-sbt-gameking-sgk/",
+   "caliber_mm": 8.59,
+   "item": "2610",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|6.5mm 107 gr HPBT MatchKing SMK|1715": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 107 gr HPBT MatchKing SMK",
+   "grain": 107.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-107-gr-hpbt-matchking-smk/",
+   "caliber_mm": 6.71,
+   "item": "1715",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6-5mm-107-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6mm 107 gr HPBT CN MatchKing SMK|1570": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 107 gr HPBT CN MatchKing SMK",
+   "grain": 107.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-107-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 6.17,
+   "item": "1570",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6mm-107-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 205 gr HPBT GameKing SGK|2236": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 205 gr HPBT GameKing SGK",
+   "grain": 205.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-205-gr-hpbt-gameking-sgk/",
+   "caliber_mm": 7.82,
+   "item": "2236",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/30-cal-205-gr-hpbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|30 Cal 165 gr Tipped GameKing TGK|4665T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 165 gr Tipped GameKing TGK",
+   "grain": 165.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-165-gr-tipped-gameking-tgk/",
+   "caliber_mm": 7.82,
+   "item": "4665T",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|6.5mm 142 gr HPBT MatchKing X MKX|1743": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 142 gr HPBT MatchKing X MKX",
+   "grain": 142.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-142-gr-hpbt-matchking-x-mkx/",
+   "caliber_mm": 6.71,
+   "item": "1743",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/6-5mm-142-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6-5mm-142-gr-hpbt-matchking-x-mkx/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|7mm 140 gr SBT GameKing SGK|1905": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 140 gr SBT GameKing SGK",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-140-gr-sbt-gameking-sgk/",
+   "caliber_mm": 7.21,
+   "item": "1905",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|30 Cal 125 gr HP CN MatchKing SMK|2121": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 125 gr HP CN MatchKing SMK",
+   "grain": 125.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-125-gr-hp-cn-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2121",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": null
+  },
+  "Sierra|375 Cal 300 gr SBT GameKing SGK|3000": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 Cal 300 gr SBT GameKing SGK",
+   "grain": 300.0,
+   "library_source_url": "https://www.sierrabullets.com/375-cal-300-gr-sbt-gameking-sgk/",
+   "caliber_mm": 9.53,
+   "item": "3000",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|30 Cal 170 gr FN Pro-Hunter|2010": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 170 gr FN Pro-Hunter",
+   "grain": 170.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-170-gr-fn-pro-hunter/",
+   "caliber_mm": 7.82,
+   "item": "2010",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.sierrabullets.com/30-cal-170-gr-fn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|6mm 116 gr Tipped MatchKing TMK|7216": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 116 gr Tipped MatchKing TMK",
+   "grain": 116.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-116-gr-tipped-matchking-tmk/",
+   "caliber_mm": 6.17,
+   "item": "7216",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|22 Cal 55 gr SPT VarmintKing VK|1360": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 55 gr SPT VarmintKing VK",
+   "grain": 55.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-55-gr-spt-varmintking-vk/",
+   "caliber_mm": 5.7,
+   "item": "1360",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer pointed flat base (SPT)"
+   }
+  },
+  "Sierra|8mm 175 gr SPT Pro-Hunter|2410": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "8mm 175 gr SPT Pro-Hunter",
+   "grain": 175.0,
+   "library_source_url": "https://www.sierrabullets.com/8mm-175-gr-spt-pro-hunter/",
+   "caliber_mm": 8.22,
+   "item": "2410",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|6.5mm 142 gr HPBT CN MatchKing SMK|1742": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 142 gr HPBT CN MatchKing SMK",
+   "grain": 142.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-142-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 6.71,
+   "item": "1742",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6-5mm-142-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 180 gr Tipped GameKing TGK optimized for 300 Win Mag|4680T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 180 gr Tipped GameKing TGK optimized for 300 Win Mag",
+   "grain": 180.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-180-gr-tipped-gameking-tgk-optimized-for-300-win-mag/",
+   "caliber_mm": 7.82,
+   "item": "4680T",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 155 gr Tipped MatchKing TMK|7755": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 155 gr Tipped MatchKing TMK",
+   "grain": 155.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-155-gr-tipped-matchking-tmk/",
+   "caliber_mm": 7.82,
+   "item": "7755",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|22 Cal 80 gr HPBT CN MatchKing SMK|9390T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 80 gr HPBT CN MatchKing SMK",
+   "grain": 80.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-80-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 5.7,
+   "item": "9390T",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/22-cal-80-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|7mm 180 gr HPBT MatchKing SMK|1980": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 180 gr HPBT MatchKing SMK",
+   "grain": 180.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-180-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.21,
+   "item": "1980",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/7mm-180-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6mm 100 gr SPT Pro-Hunter|1540": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 100 gr SPT Pro-Hunter",
+   "grain": 100.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-100-gr-spt-pro-hunter/",
+   "caliber_mm": 6.17,
+   "item": "1540",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|22 Cal 77 gr Tipped MatchKing TMK|7177": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 77 gr Tipped MatchKing TMK",
+   "grain": 77.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-77-gr-tipped-matchking-tmk/",
+   "caliber_mm": 5.7,
+   "item": "7177",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|22 Cal 45 gr SPT VarmintKing VK|1310": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 45 gr SPT VarmintKing VK",
+   "grain": 45.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-45-gr-spt-varmintking-vk/",
+   "caliber_mm": 5.7,
+   "item": "1310",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer pointed flat base (SPT)"
+   }
+  },
+  "Sierra|223 Cal 45 gr Hornet VarmintKing SVK|1110": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "223 Cal 45 gr Hornet VarmintKing SVK",
+   "grain": 45.0,
+   "library_source_url": "https://www.sierrabullets.com/223-cal-45-gr-hornet-varmintking-svk/",
+   "caliber_mm": 5.66,
+   "item": "1110",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Sierra|22 Cal 60 gr HP VarmintKing SVK|1375": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 60 gr HP VarmintKing SVK",
+   "grain": 60.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-60-gr-hp-varmintking-svk/",
+   "caliber_mm": 5.7,
+   "item": "1375",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/22-cal-60-gr-hp-varmintking-svk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Sierra|7mm 185 gr Tipped MatchKing TMK|7685": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 185 gr Tipped MatchKing TMK",
+   "grain": 185.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-185-gr-tipped-matchking-tmk/",
+   "caliber_mm": 7.21,
+   "item": "7685",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "they are designed for maximum accuracy performance as the utmost goal"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "With the proprietary acetyl resin tips added"
+   },
+   "base": null
+  },
+  "Sierra|303 Cal 150 gr SPT Pro-Hunter|2300": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "303 Cal 150 gr SPT Pro-Hunter",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/303-cal-150-gr-spt-pro-hunter/",
+   "caliber_mm": 7.92,
+   "item": "2300",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|7mm 165 gr Tipped GameKing TGK|4565T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 165 gr Tipped GameKing TGK",
+   "grain": 165.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-165-gr-tipped-gameking-tgk/",
+   "caliber_mm": 7.21,
+   "item": "4565T",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|6mm 60 gr HP VarmintKing SVK|1500": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 60 gr HP VarmintKing SVK",
+   "grain": 60.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-60-gr-hp-varmintking-svk/",
+   "caliber_mm": 6.17,
+   "item": "1500",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/6mm-60-gr-hp-varmintking-svk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Sierra|6.5mm 130 gr HPBT CN MatchKing SMK|1729": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 130 gr HPBT CN MatchKing SMK",
+   "grain": 130.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-130-gr-hpbt-cn-matchking-smk/",
+   "caliber_mm": 6.71,
+   "item": "1729",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/6-5mm-130-gr-hpbt-cn-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|30 Cal 150 gr RN Pro-Hunter|2135": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 150 gr RN Pro-Hunter",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-150-gr-rn-pro-hunter/",
+   "caliber_mm": 7.82,
+   "item": "2135",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.sierrabullets.com/30-cal-150-gr-rn-pro-hunter/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RN"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|22 Cal 53 gr HP MatchKing SMK|1400": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 53 gr HP MatchKing SMK",
+   "grain": 53.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-53-gr-hp-matchking-smk/",
+   "caliber_mm": 5.7,
+   "item": "1400",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": null
+  },
+  "Sierra|22 Cal 69 gr Tipped GameKing TGK|7171": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 69 gr Tipped GameKing TGK",
+   "grain": 69.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-69-gr-tipped-gameking-tgk/",
+   "caliber_mm": 5.7,
+   "item": "7171",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|6.5mm 105 gr Tipped VarmintKing TVK|1785": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 105 gr Tipped VarmintKing TVK",
+   "grain": 105.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-105-gr-tipped-varmintking-tvk/",
+   "caliber_mm": 6.71,
+   "item": "1785",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sierrabullets.com/6-5mm-105-gr-tipped-varmintking-tvk/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": null
+  },
+  "Sierra|338 Cal 300 gr HPBT MatchKing SMK|9300T": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Cal 300 gr HPBT MatchKing SMK",
+   "grain": 300.0,
+   "library_source_url": "https://www.sierrabullets.com/338-cal-300-gr-hpbt-matchking-smk/",
+   "caliber_mm": 8.59,
+   "item": "9300T",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/338-cal-300-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|22 Cal 65 gr SBT GameKing SGK|1395": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "22 Cal 65 gr SBT GameKing SGK",
+   "grain": 65.0,
+   "library_source_url": "https://www.sierrabullets.com/22-cal-65-gr-sbt-gameking-sgk/",
+   "caliber_mm": 5.7,
+   "item": "1395",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|30 Cal 150 gr FMJBT GameKing SGK|2115": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 150 gr FMJBT GameKing SGK",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-150-gr-fmjbt-gameking-sgk/",
+   "caliber_mm": 7.82,
+   "item": "2115",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sierrabullets.com/30-cal-150-gr-fmjbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|25 Cal 117 gr SBT GameKing SGK|1630": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "25 Cal 117 gr SBT GameKing SGK",
+   "grain": 117.0,
+   "library_source_url": "https://www.sierrabullets.com/25-cal-117-gr-sbt-gameking-sgk/",
+   "caliber_mm": 6.53,
+   "item": "1630",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer boat tail (SBT)"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  },
+  "Sierra|6mm 85 gr SPT VarmintKing SVK|1520": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6mm 85 gr SPT VarmintKing SVK",
+   "grain": 85.0,
+   "library_source_url": "https://www.sierrabullets.com/6mm-85-gr-spt-varmintking-svk/",
+   "caliber_mm": 6.17,
+   "item": "1520",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer pointed flat base (SPT)"
+   }
+  },
+  "Sierra|7mm 150 gr HPBT MatchKing SMK|1915": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 150 gr HPBT MatchKing SMK",
+   "grain": 150.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-150-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.21,
+   "item": "1915",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/7mm-150-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|270 Cal 135 gr HPBT MatchKing SMK|1833": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Cal 135 gr HPBT MatchKing SMK",
+   "grain": 135.0,
+   "library_source_url": "https://www.sierrabullets.com/270-cal-135-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.04,
+   "item": "1833",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/270-cal-135-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|6.5mm 120 gr Tipped GameKing TGK|4320": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm 120 gr Tipped GameKing TGK",
+   "grain": 120.0,
+   "library_source_url": "https://www.sierrabullets.com/6-5mm-120-gr-tipped-gameking-tgk/",
+   "caliber_mm": 6.71,
+   "item": "4320",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|30 Cal 220 gr HPBT MatchKing SMK|2240": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30 Cal 220 gr HPBT MatchKing SMK",
+   "grain": 220.0,
+   "library_source_url": "https://www.sierrabullets.com/30-cal-220-gr-hpbt-matchking-smk/",
+   "caliber_mm": 7.82,
+   "item": "2240",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All MatchKing have a hollow point design with a very small meplat"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sierrabullets.com/30-cal-220-gr-hpbt-matchking-smk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   }
+  },
+  "Sierra|270 Cal 175 gr Tipped GameKing TGK|4475": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Cal 175 gr Tipped GameKing TGK",
+   "grain": 175.0,
+   "library_source_url": "https://www.sierrabullets.com/270-cal-175-gr-tipped-gameking-tgk/",
+   "caliber_mm": 7.04,
+   "item": "4475",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a special lead alloy surrounded by a tough copper jacket"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fitted it with a transparent polymer green tip"
+   },
+   "base": null
+  },
+  "Sierra|7mm 140 gr SPT Pro-Hunter|1910": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm 140 gr SPT Pro-Hunter",
+   "grain": 140.0,
+   "library_source_url": "https://www.sierrabullets.com/7mm-140-gr-spt-pro-hunter/",
+   "caliber_mm": 7.21,
+   "item": "1910",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "spitzer-pointed (SPT)"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullet shapes in this classification are flat base"
+   }
+  },
+  "Sierra|25 Cal 90 gr HPBT GameKing SGK|1615": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "25 Cal 90 gr HPBT GameKing SGK",
+   "grain": 90.0,
+   "library_source_url": "https://www.sierrabullets.com/25-cal-90-gr-hpbt-gameking-sgk/",
+   "caliber_mm": 6.53,
+   "item": "1615",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sierrabullets.com/25-cal-90-gr-hpbt-gameking-sgk/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://sierrabullets.com/bullet-101/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "All bullets in this classification are for hunting and all have boat tails."
+   }
+  }
+ }
+}

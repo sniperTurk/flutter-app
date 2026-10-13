@@ -1,0 +1,701 @@
+{
+ "brand": "Weatherby",
+ "note": "Weatherby store pages (cartridge pages repeat the same per-bullet text), ballistics chart page and 2021 chart PDF read; component lines from Hornady, Barnes, Nosler, Swift, Hammer, Berger own pages. Not stated anywhere (left empty): Scirocco tip material ('signature black tips'), Partition/Elite Hunter/VLD tip, InterBond fields, DGS construction, most bases (TTSX/TSX/InterLock/Hammer/Scirocco/A-Frame). Barnes family pages list BT and FB variants, so no line-wide base. First WebFetch attempts on weatherby.com timed out on permission, a retry worked.",
+ "sources": [
+  {
+   "id": "wby_chart",
+   "url": "https://weatherby.com/ammunition-org/ballistics-charts/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby ballistics charts"
+  },
+  {
+   "id": "wby_pdf",
+   "url": "https://weatherby.com/wp-content/uploads/2019/09/BALLISTIC-CHART-4-5-21-MSv2.pdf",
+   "read_date": "2026-10-13",
+   "title": "Weatherby ballistic chart PDF (legend)"
+  },
+  {
+   "id": "wby_25rpm",
+   "url": "https://weatherby.com/store/25-weatherby-rpm/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 25 RPM ammunition"
+  },
+  {
+   "id": "wby_7mm",
+   "url": "https://weatherby.com/store/7mm-weatherby-magnum/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 7mm Wby Mag ammunition"
+  },
+  {
+   "id": "wby_300",
+   "url": "https://weatherby.com/store/300-weatherby-magnum/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 300 Wby Mag ammunition"
+  },
+  {
+   "id": "wby_6530",
+   "url": "https://weatherby.com/store/6-5-300-weatherby-magnum/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 6.5-300 Wby Mag ammunition"
+  },
+  {
+   "id": "wby_257",
+   "url": "https://weatherby.com/store/257-weatherby-magnum/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 257 Wby Mag ammunition"
+  },
+  {
+   "id": "wby_280ai",
+   "url": "https://weatherby.com/store/280-ackley-improved/",
+   "read_date": "2026-10-13",
+   "title": "Weatherby 280 Ackley Improved ammunition"
+  },
+  {
+   "id": "n_accubond",
+   "url": "https://www.nosler.com/products/bullets/product-line/accubond.html",
+   "read_date": "2026-10-13",
+   "title": "Nosler AccuBond line"
+  },
+  {
+   "id": "n_bt",
+   "url": "https://www.nosler.com/products/bullets/product-line/ballistic-tipr-hunting.html",
+   "read_date": "2026-10-13",
+   "title": "Nosler Ballistic Tip Hunting line"
+  },
+  {
+   "id": "s_home",
+   "url": "https://www.swiftbullets.com/",
+   "read_date": "2026-10-13",
+   "title": "Swift Bullet Company"
+  },
+  {
+   "id": "hm_home",
+   "url": "https://hammerbullets.com/",
+   "read_date": "2026-10-13",
+   "title": "Hammer Bullets"
+  },
+  {
+   "id": "be_25_133",
+   "url": "https://bergerbullets.com/product/25-caliber-133-grain-elite-hunter/",
+   "read_date": "2026-10-13",
+   "title": "Berger 25 cal 133 gr Elite Hunter"
+  },
+  {
+   "id": "be_65_156",
+   "url": "https://bergerbullets.com/product/6-5-mm-156-grain-elite-hunter/",
+   "read_date": "2026-10-13",
+   "title": "Berger 6.5 mm 156 gr Elite Hunter"
+  },
+  {
+   "id": "be_7_168",
+   "url": "https://bergerbullets.com/product/7-mm-168-grain-classic-hunter/",
+   "read_date": "2026-10-13",
+   "title": "Berger 7 mm 168 gr Classic Hunter"
+  },
+  {
+   "id": "be_7_180",
+   "url": "https://bergerbullets.com/product/7-mm-180-grain-very-low-drag-vld-hunting/",
+   "read_date": "2026-10-13",
+   "title": "Berger 7 mm 180 gr VLD Hunting"
+  },
+  {
+   "id": "h_eldx",
+   "url": "https://www.hornady.com/bullets/eld-x",
+   "read_date": "2026-10-13",
+   "title": "Hornady ELD-X bullets"
+  },
+  {
+   "id": "h_eldm",
+   "url": "https://www.hornady.com/bullets/eld-match",
+   "read_date": "2026-10-13",
+   "title": "Hornady ELD Match bullets"
+  },
+  {
+   "id": "h_cx",
+   "url": "https://www.hornady.com/bullets/cx",
+   "read_date": "2026-10-13",
+   "title": "Hornady CX bullets"
+  },
+  {
+   "id": "h_sst",
+   "url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+   "read_date": "2026-10-13",
+   "title": "Hornady SST bullets"
+  },
+  {
+   "id": "h_dgxb",
+   "url": "https://www.hornady.com/bullets/dgx-bonded",
+   "read_date": "2026-10-13",
+   "title": "Hornady DGX Bonded bullets"
+  },
+  {
+   "id": "h_dgs",
+   "url": "https://www.hornady.com/bullets/dgs-dangerous-game-solid",
+   "read_date": "2026-10-13",
+   "title": "Hornady DGS bullets"
+  },
+  {
+   "id": "h_vmax",
+   "url": "https://www.hornady.com/bullets/v-max",
+   "read_date": "2026-10-13",
+   "title": "Hornady V-MAX bullets"
+  },
+  {
+   "id": "h_match",
+   "url": "https://www.hornady.com/bullets/match",
+   "read_date": "2026-10-13",
+   "title": "Hornady Match bullets"
+  },
+  {
+   "id": "b_ttsx",
+   "url": "https://barnesbullets.com/0-308-30-cal-ttsx-bt/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 30 cal TTSX BT"
+  },
+  {
+   "id": "b_tsx",
+   "url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 30 cal TSX BT"
+  },
+  {
+   "id": "b_tactx",
+   "url": "https://barnesbullets.com/0-308-300-acc-blk-tac-tx-110-gr-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 300 BLK TAC-TX 110 gr FB"
+  },
+  {
+   "id": "b_vg",
+   "url": "https://barnesbullets.com/0-224-22-cal-varmint-grenade-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 22 cal Varmint Grenade FB"
+  },
+  {
+   "id": "b_mpg",
+   "url": "https://barnesbullets.com/0-224-22-cal-mpg-55-gr-fb/",
+   "read_date": "2026-10-13",
+   "title": "Barnes 22 cal MPG 55 gr FB"
+  }
+ ],
+ "families": [
+  {
+   "id": "hammer",
+   "lib": "factory",
+   "name_regex": "\\bHammer Custom\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "wby_300",
+     "quote": "use a unique solid copper blend"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "wby_300",
+     "quote": "The hollow point design, initiates expansion upon impact"
+    },
+    "component_bullet": {
+     "value": "Hammer Bullet",
+     "src": "wby_chart",
+     "quote": "Hammer Bullet"
+    }
+   }
+  },
+  {
+   "id": "hammer_25rpm",
+   "lib": "factory",
+   "name_regex": "\\bHammer Custom\\b",
+   "cartridge_regex": "25 Weatherby RPM",
+   "fields": {
+    "component_bullet": {
+     "value": "Hammer HBC Custom Bullets",
+     "src": "wby_chart",
+     "quote": "Hammer HBC Custom Bullets"
+    }
+   }
+  },
+  {
+   "id": "ttsx",
+   "lib": "factory",
+   "name_regex": "\\bBarnes TTSX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "wby_300",
+     "quote": "A 100-percent copper bullet with a polymer tip"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "wby_300",
+     "quote": "A 100-percent copper bullet with a polymer tip"
+    },
+    "component_bullet": {
+     "value": "Barnes TTSX",
+     "src": "wby_chart",
+     "quote": "Barnes® TTSX™"
+    }
+   }
+  },
+  {
+   "id": "lrx",
+   "lib": "factory",
+   "name_regex": "\\bBarnes LRX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "wby_6530",
+     "quote": "An all copper bullet with polymer tip that initiates expansion"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "wby_6530",
+     "quote": "An all copper bullet with polymer tip that initiates expansion"
+    },
+    "component_bullet": {
+     "value": "Barnes LRX",
+     "src": "wby_chart",
+     "quote": "Barnes® LRX®"
+    }
+   }
+  },
+  {
+   "id": "lrx_25rpm",
+   "lib": "factory",
+   "name_regex": "\\bBarnes LRX\\b",
+   "cartridge_regex": "25 Weatherby RPM",
+   "fields": {
+    "base": {
+     "value": "boat_tail",
+     "src": "wby_25rpm",
+     "quote": "increasing ogive and boat tail lengths"
+    }
+   }
+  },
+  {
+   "id": "tsx",
+   "lib": "factory",
+   "name_regex": "\\bBarnes TSX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "b_tsx",
+     "quote": "These all-copper bullets have unmatched accuracy",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Barnes TSX",
+     "src": "wby_chart",
+     "quote": "Barnes® TSX™"
+    }
+   }
+  },
+  {
+   "id": "interlock",
+   "lib": "factory",
+   "name_regex": "\\bHornady InterLock\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "wby_7mm",
+     "quote": "keeps the core and jacket locked together during expansion"
+    },
+    "tip_shape": {
+     "value": "soft_point",
+     "src": "wby_7mm",
+     "quote": "features an exposed lead tip for controlled expansion"
+    },
+    "component_bullet": {
+     "value": "Hornady InterLock",
+     "src": "wby_chart",
+     "quote": "Hornady® InterLock®"
+    }
+   }
+  },
+  {
+   "id": "eldx",
+   "lib": "factory",
+   "name_regex": "\\bHornady ELD-X\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "h_eldx",
+     "quote": "high InterLock® ring keep the core and jacket together",
+     "evidence": "component_maker_page"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "wby_300",
+     "quote": "The Heat Shield® tip is immune to the effects of aerodynamic heating"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "wby_300",
+     "quote": "A streamlined secant ogive with optimum boattail design"
+    },
+    "component_bullet": {
+     "value": "Hornady ELD-X",
+     "src": "wby_chart",
+     "quote": "Hornady® ELD-X®"
+    }
+   }
+  },
+  {
+   "id": "sst",
+   "lib": "factory",
+   "name_regex": "\\bHornady SST\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "h_sst",
+     "quote": "mechanically locks the core and jacket together",
+     "evidence": "component_maker_page"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "h_sst",
+     "quote": "the hard polymer tip drives into the lead core like a wedge",
+     "evidence": "component_maker_page"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "h_sst",
+     "quote": "combined with a boattail base",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Hornady SST",
+     "src": "wby_chart",
+     "quote": "Hornady® SST®"
+    }
+   }
+  },
+  {
+   "id": "interbond",
+   "lib": "factory",
+   "name_regex": "\\bHornady InterBond\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady Interbond",
+     "src": "wby_chart",
+     "quote": "Hornady® Interbond®"
+    }
+   }
+  },
+  {
+   "id": "dgxb",
+   "lib": "factory",
+   "name_regex": "\\bHornady DGX Bonded\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "h_dgxb",
+     "quote": "a flat nose with serrated sections",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Hornady DGXB",
+     "src": "wby_chart",
+     "quote": "Hornady® DGXB®"
+    }
+   }
+  },
+  {
+   "id": "dgs",
+   "lib": "factory",
+   "name_regex": "\\bHornady DGS\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "h_dgs",
+     "quote": "features a wide, flat nose that delivers maximum energy upon impact",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Hornady DGS",
+     "src": "wby_chart",
+     "quote": "Hornady® DGS®"
+    }
+   }
+  },
+  {
+   "id": "accubond",
+   "lib": "factory",
+   "name_regex": "\\bNosler AccuBond\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "n_accubond",
+     "quote": "Through an exclusive bonding process that eliminates voids in the bullet core",
+     "evidence": "component_maker_page"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "n_accubond",
+     "quote": "The unique white polymer tip resists deforming",
+     "evidence": "component_maker_page"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "n_accubond",
+     "quote": "Combines with the streamlined polymer tip for long-range performance",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Nosler AccuBond",
+     "src": "wby_chart",
+     "quote": "Nosler® AccuBond®"
+    }
+   }
+  },
+  {
+   "id": "ballistic_tip",
+   "lib": "factory",
+   "name_regex": "\\bNosler Ballistic Tip\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "n_bt",
+     "quote": "Fully-Tapered Jacket and Special Lead-Alloy Core",
+     "evidence": "component_maker_page"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "n_bt",
+     "quote": "Boat tail configuration",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Nosler Ballistic Tip",
+     "src": "wby_chart",
+     "quote": "Nosler® Ballistic Tip®"
+    }
+   }
+  },
+  {
+   "id": "partition",
+   "lib": "factory",
+   "name_regex": "\\bNosler Partition\\b",
+   "fields": {
+    "base": {
+     "value": "flat_base",
+     "src": "wby_pdf",
+     "quote": "Partition = Nosler® Partition® Flat Base"
+    },
+    "component_bullet": {
+     "value": "Nosler Partition",
+     "src": "wby_chart",
+     "quote": "Nosler® Partition®"
+    }
+   }
+  },
+  {
+   "id": "scirocco",
+   "lib": "factory",
+   "name_regex": "\\bSwift Scirocco\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "wby_7mm",
+     "quote": "Jacket and core are joined together using proven Swift bonding technology"
+    },
+    "component_bullet": {
+     "value": "Swift Scirocco",
+     "src": "wby_chart",
+     "quote": "Swift™ Scirocco®"
+    }
+   }
+  },
+  {
+   "id": "aframe",
+   "lib": "factory",
+   "name_regex": "\\bSwift A-Frame\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "s_home",
+     "quote": "with a copper-jacketed and bonded core design",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Swift A-Frame",
+     "src": "wby_chart",
+     "quote": "Swift™ A-Frame®"
+    }
+   }
+  },
+  {
+   "id": "tgk",
+   "lib": "factory",
+   "name_regex": "\\bSierra Tipped GameKing\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "wby_300",
+     "quote": "utilizes a special lead alloy surrounded by a tough copper jacket"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "wby_300",
+     "quote": "transparent green polymer tip"
+    },
+    "component_bullet": {
+     "value": "Sierra Tipped GameKing",
+     "src": "wby_chart",
+     "quote": "Sierra® Tipped GameKing®"
+    }
+   }
+  },
+  {
+   "id": "elite_hunter",
+   "lib": "factory",
+   "name_regex": "\\bBerger Elite Hunter\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Berger Elite Hunter",
+     "src": "wby_chart",
+     "quote": "Berger Elite Hunter"
+    }
+   }
+  },
+  {
+   "id": "eh_133",
+   "lib": "factory",
+   "name_regex": "\\b133 gr Berger Elite Hunter\\b",
+   "fields": {
+    "base": {
+     "value": "boat_tail",
+     "src": "be_25_133",
+     "quote": "Base Style: Boat Tail",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "eh_156",
+   "lib": "factory",
+   "name_regex": "\\b156 gr Berger Elite Hunter\\b",
+   "fields": {
+    "base": {
+     "value": "boat_tail",
+     "src": "be_65_156",
+     "quote": "Base Style: Boat Tail",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "chh",
+   "lib": "factory",
+   "name_regex": "\\bBerger Classic Hybrid Hunter\\b",
+   "fields": {
+    "base": {
+     "value": "boat_tail",
+     "src": "be_7_168",
+     "quote": "Base Style: Boat Tail",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Berger Classic Hybrid Hunter",
+     "src": "wby_chart",
+     "quote": "Berger Classic Hybrid Hunter"
+    }
+   }
+  },
+  {
+   "id": "vld_hunting",
+   "lib": "factory",
+   "name_regex": "\\bBerger VLD Hunting\\b",
+   "fields": {
+    "base": {
+     "value": "boat_tail",
+     "src": "be_7_180",
+     "quote": "Base Style: Boat Tail",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Berger VLD Hunting",
+     "src": "wby_chart",
+     "quote": "Berger VLD Hunting"
+    }
+   }
+  }
+ ],
+ "records": {
+  "Weatherby|240 Weatherby Magnum 100 gr Nosler Partition|.240 Weatherby Mag": {
+   "component_bullet": {
+    "value": "Nosler Partition",
+    "src": "wby_pdf",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   }
+  },
+  "Weatherby|257 Weatherby Magnum 110 gr Nosler AccuBond|.257 Weatherby Mag": {
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "src": "wby_pdf",
+    "quote": "Accubond"
+   }
+  },
+  "Weatherby|257 Weatherby Magnum 120 gr Nosler Partition|.257 Weatherby Mag": {
+   "component_bullet": {
+    "value": "Nosler Partition",
+    "src": "wby_pdf",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 165 gr Nosler Ballistic Tip|.300 Weatherby Mag": {
+   "component_bullet": {
+    "value": "Nosler Ballistic Tip",
+    "src": "wby_pdf",
+    "quote": "BST = Nosler® Ballistic Tip®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 180 gr Nosler AccuBond|.300 Weatherby Mag": {
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "src": "wby_pdf",
+    "quote": "Accubond"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 180 gr Nosler Ballistic Tip|.300 Weatherby Mag": {
+   "component_bullet": {
+    "value": "Nosler Ballistic Tip",
+    "src": "wby_pdf",
+    "quote": "BST = Nosler® Ballistic Tip®"
+   }
+  },
+  "Weatherby|300 Weatherby Magnum 200 gr Nosler AccuBond|.300 Weatherby Mag": {
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "src": "wby_pdf",
+    "quote": "Accubond"
+   }
+  },
+  "Weatherby|140 gr Nosler AccuBond|6.5 Weatherby RPM": {
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "src": "wby_pdf",
+    "quote": "Accubond"
+   }
+  },
+  "Weatherby|6.5-300 Weatherby Magnum 140 gr Nosler AccuBond|6.5-300 Weatherby Mag": {
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "src": "wby_pdf",
+    "quote": "Accubond"
+   }
+  },
+  "Weatherby|7mm Weatherby Magnum 150 gr Nosler Ballistic Tip|7mm Weatherby Mag": {
+   "component_bullet": {
+    "value": "Nosler Ballistic Tip",
+    "src": "wby_pdf",
+    "quote": "BST = Nosler® Ballistic Tip®"
+   }
+  },
+  "Weatherby|7mm Weatherby Magnum 160 gr Nosler Partition|7mm Weatherby Mag": {
+   "component_bullet": {
+    "value": "Nosler Partition",
+    "src": "wby_pdf",
+    "quote": "Partition = Nosler® Partition® Flat Base"
+   }
+  }
+ }
+}

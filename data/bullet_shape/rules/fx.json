@@ -1,0 +1,27 @@
+{
+ "brand": "FX",
+ "note": "2026-10-13: robots.txt fetched (empty). Read FX Halo page: 'massive hollow point' -> hollow_point. Material and base not stated.",
+ "sources": [
+  {
+   "id": "halo",
+   "url": "https://www.fxairguns.com/accessories/ammunition/fx-halo/",
+   "read_date": "2026-10-13",
+   "title": "FX Halo"
+  }
+ ],
+ "families": [
+  {
+   "id": "halo",
+   "lib": "bullet",
+   "name_regex": "^FX Halo\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "halo",
+     "quote": "its massive hollow point"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

@@ -1,0 +1,421 @@
+{
+ "brand": "Speer",
+ "note": "Read 2026-10-13: speer.com robots.txt (product/category pages allowed); line listing pages (Bullet Style per product) and product pages for Boat-Tail, Gold Dot (2 pages, bonded), Grand Slam, Hot-Cor (all 29 styles from listing pages 1-2, construction text on 2211/2223), Target Match (both), TNT, TNT Green, Varmint SP (all 6 say Spitzer tip), Varmint HP, JHP, SP Flat Nose. Not stated: base of Gold Dot/Grand Slam/Hot-Cor/TNT/Varmint/TMJ; construction of Boat-Tail, Grand Slam, TNT, Varmint lines; nose shape of Boat-Tail/Grand Slam/Gold Dot (only 'Soft Point'). .257 100 gr Varmint Hollow Point (1407) is listed by Speer as 'Jacketed Soft Point' - conflicts with name, tip cleared.",
+ "sources": [
+  {
+   "id": "bt",
+   "url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "read_date": "2026-10-13",
+   "title": "Speer Boat-Tail rifle bullets"
+  },
+  {
+   "id": "gd",
+   "url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "read_date": "2026-10-13",
+   "title": "Speer Gold Dot rifle component bullets"
+  },
+  {
+   "id": "gd168",
+   "url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+   "read_date": "2026-10-13",
+   "title": "Gold Dot Rifle .308 168 gr"
+  },
+  {
+   "id": "gs",
+   "url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "read_date": "2026-10-13",
+   "title": "Speer Grand Slam rifle bullets"
+  },
+  {
+   "id": "hc",
+   "url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+   "read_date": "2026-10-13",
+   "title": "Speer Hot-Cor rifle bullets (1-18)"
+  },
+  {
+   "id": "hc2",
+   "url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+   "read_date": "2026-10-13",
+   "title": "Speer Hot-Cor rifle bullets (19-29)"
+  },
+  {
+   "id": "hc2211",
+   "url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+   "read_date": "2026-10-13",
+   "title": "Hot-Cor .308 200 gr"
+  },
+  {
+   "id": "tm2040",
+   "url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/19-2040.html",
+   "read_date": "2026-10-13",
+   "title": "Target Match .308 168 gr"
+  },
+  {
+   "id": "tm1036",
+   "url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/19-1036.html",
+   "read_date": "2026-10-13",
+   "title": "Target Match .224 52 gr"
+  },
+  {
+   "id": "tnt1616",
+   "url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+   "read_date": "2026-10-13",
+   "title": "TNT .284 110 gr"
+  },
+  {
+   "id": "tnt",
+   "url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "read_date": "2026-10-13",
+   "title": "Speer TNT bullets"
+  },
+  {
+   "id": "tntg",
+   "url": "https://www.speer.com/bullets/rifle-bullets/tnt-green-bullet/19-1021.html",
+   "read_date": "2026-10-13",
+   "title": "TNT Green .224 30 gr"
+  },
+  {
+   "id": "vsp",
+   "url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/19-1053.html",
+   "read_date": "2026-10-13",
+   "title": "Varmint Soft Point .224 70 gr (same text on 1047/1024/1029/1017/1023)"
+  },
+  {
+   "id": "vhp",
+   "url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+   "read_date": "2026-10-13",
+   "title": "Speer Varmint Hollow Point bullets"
+  }
+ ],
+ "families": [
+  {
+   "id": "boat_tail",
+   "lib": "bullet",
+   "name_regex": "\\d gr Boat-Tail$",
+   "fields": {
+    "tip_shape": {
+     "value": "soft_point",
+     "src": "bt",
+     "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "bt",
+     "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+    }
+   }
+  },
+  {
+   "id": "gold_dot",
+   "lib": "bullet",
+   "name_regex": "Gold Dot Rifle",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "gd168",
+     "quote": "bonds the uniform jacket to the core one atom at a time"
+    },
+    "tip_shape": {
+     "value": "soft_point",
+     "src": "gd",
+     "quote": "Bullet Style: Gold Dot Soft Point"
+    }
+   }
+  },
+  {
+   "id": "grand_slam",
+   "lib": "bullet",
+   "name_regex": "Grand Slam",
+   "fields": {
+    "tip_shape": {
+     "value": "soft_point",
+     "src": "gs",
+     "quote": "Bullet Style: Grand Slam Soft Point"
+    }
+   }
+  },
+  {
+   "id": "hot_cor",
+   "lib": "bullet",
+   "name_regex": "Hot-Cor",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "hc2211",
+     "quote": "Molten lead is poured into the jacket during the construction process"
+    }
+   }
+  },
+  {
+   "id": "target_match",
+   "lib": "bullet",
+   "name_regex": "Target Match",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "tm2040",
+     "quote": "Bullet Style: Open Tip Match"
+    },
+    "tip_shape": {
+     "value": "open_tip_match",
+     "src": "tm2040",
+     "quote": "Bullet Style: Open Tip Match"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "tm2040",
+     "quote": "Hollow-point boat-tail design"
+    }
+   }
+  },
+  {
+   "id": "tnt",
+   "lib": "bullet",
+   "name_regex": "\\bTNT$",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "tnt1616",
+     "quote": "Long ogive and small hollow point"
+    }
+   }
+  },
+  {
+   "id": "tnt_green",
+   "lib": "bullet",
+   "name_regex": "TNT Green",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "tntg",
+     "quote": "Thin jacket around compressed powder core"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "tntg",
+     "quote": "Bullet Style: TNT Jacketed Hollow Point"
+    }
+   }
+  },
+  {
+   "id": "varmint_sp",
+   "lib": "bullet",
+   "name_regex": "Varmint Soft Point",
+   "fields": {
+    "tip_shape": {
+     "value": "spitzer_soft_point",
+     "src": "vsp",
+     "quote": "Their Spitzer tip provides both accuracy and superior terminal performance."
+    }
+   }
+  }
+ ],
+ "records": {
+  "Speer|.308 200 gr Hot-Cor|2211": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.257 100 gr Hot-Cor|1405": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.308 150 gr Hot-Cor|2011": {
+   "tip_shape": {
+    "value": "flat_nose",
+    "src": "hc",
+    "quote": "Bullet Style: Soft Point Flat Nose"
+   }
+  },
+  "Speer|.308 130 gr Hot-Cor|2007": {
+   "tip_shape": {
+    "value": "flat_nose",
+    "src": "hc",
+    "quote": "Bullet Style: Soft Point Flat Nose"
+   }
+  },
+  "Speer|.284 145 gr Hot-Cor|1629": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.257 87 gr Hot-Cor|1241": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.416 350 gr Hot-Cor|2477": {
+   "tip_shape": {
+    "value": "soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Magnum Tip Soft Point"
+   }
+  },
+  "Speer|.458 350 gr Hot-Cor|2478": {
+   "tip_shape": {
+    "value": "soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Magnum Tip Soft Point"
+   }
+  },
+  "Speer|.375 235 gr Hot-Cor|2471": {
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "src": "hc",
+    "quote": "Bullet Style: Semi-Spitzer Soft Point"
+   }
+  },
+  "Speer|.323 200 gr Hot-Cor|2285": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.358 250 gr Hot-Cor|2453": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.308 170 gr Hot-Cor|2041": {
+   "tip_shape": {
+    "value": "flat_nose",
+    "src": "hc",
+    "quote": "Bullet Style: Soft Point Flat Nose"
+   }
+  },
+  "Speer|.323 170 gr Hot-Cor|2283": {
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "src": "hc",
+    "quote": "Bullet Style: Semi-Spitzer Soft Point"
+   }
+  },
+  "Speer|.338 200 gr Hot-Cor|2405": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.308 150 gr Hot-Cor|2023": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.308 165 gr Hot-Cor|2035": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.284 160 gr Hot-Cor|1635": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc2",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.311 150 gr Hot-Cor|2217": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc2",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.311 180 gr Hot-Cor|2223": {
+   "tip_shape": {
+    "value": "round_nose",
+    "src": "hc2",
+    "quote": "Bullet Style: Soft Point Round Nose"
+   }
+  },
+  "Speer|.308 180 gr Hot-Cor|2053": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc2",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.323 150 gr Hot-Cor|2277": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc2",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.358 180 gr Hot-Cor|2435": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc2",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.243 90 gr Hot-Cor|1217": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc2",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.264 140 gr Hot-Cor|1441": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc2",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.277 150 gr Hot-Cor|1605": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.284 130 gr Hot-Cor|1623": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc2",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.277 130 gr Hot-Cor|1459": {
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "src": "hc",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   }
+  },
+  "Speer|.366 270 gr Hot-Cor|2459": {
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "src": "hc2",
+    "quote": "Bullet Style: Semi-Spitzer Soft Point"
+   }
+  },
+  "Speer|.321 170 gr Hot-Cor|2259": {
+   "tip_shape": {
+    "value": "flat_nose",
+    "src": "hc2",
+    "quote": "Bullet Style: Soft Point Flat Nose"
+   }
+  },
+  "Speer|.257 100 gr Varmint Hollow Point|1407": {
+   "tip_shape": null
+  }
+ }
+}

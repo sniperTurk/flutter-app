@@ -1,0 +1,669 @@
+{
+ "brand": "Magtech",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read the 2026 catalogue PDF and the 308 Win 168 gr HPBT Sniper product page. Hunt/Tactical/Subsonic lines give no bullet construction, tip or base text; abbreviations (PSP, JSP, HPBT...) are not expanded in the catalogue. Ball/Solid 50 BMG and NATO Ball loads have no description -> empty.",
+ "sources": [
+  {
+   "id": "mt_cat",
+   "url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "read_date": "2026-10-13",
+   "title": "Magtech 2026 catalogue"
+  },
+  {
+   "id": "mt_308_smk",
+   "url": "https://magtechammunition.com/products/ammunition/308-win-168gr-hpbt-sniper/",
+   "read_date": "2026-10-13",
+   "title": "308 Win 168gr HPBT Sniper"
+  }
+ ],
+ "records": {
+  "Magtech|42 gr Frangible (Frangible)|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "42 gr Frangible (Frangible)",
+   "grain": 42.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "crafted using a unique blend of copper and tin composite material"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "SinterFire",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "This lead-free ammunition features SinterFire® projectiles"
+   }
+  },
+  "Magtech|55 gr FMJ (Tactical Rifle)|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "55 gr FMJ (Tactical Rifle)",
+   "grain": 55.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|55 gr PSP (Hunt)|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "55 gr PSP (Hunt)",
+   "grain": 55.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "PSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|58 gr JHP (Hunt)|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "58 gr JHP (Hunt)",
+   "grain": 58.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "JHP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|63 gr PSP (Hunt)|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "63 gr PSP (Hunt)",
+   "grain": 63.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "PSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|77 gr HPBT (Precision)|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "77 gr HPBT (Precision)",
+   "grain": 77.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Magtech|110 gr FMJ (Tactical Rifle)|.30 Carbine": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "110 gr FMJ (Tactical Rifle)",
+   "grain": 110.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".30 Carbine",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|110 gr JHP (Tactical Rifle)|.30 Carbine": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "110 gr JHP (Tactical Rifle)",
+   "grain": 110.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".30 Carbine",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "JHP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|110 gr JSP (Tactical Rifle)|.30 Carbine": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "110 gr JSP (Tactical Rifle)",
+   "grain": 110.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".30 Carbine",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "JSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|165 gr PSP (Hunt)|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "165 gr PSP (Hunt)",
+   "grain": 165.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "PSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|180 gr FMJ (Tactical Rifle)|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "180 gr FMJ (Tactical Rifle)",
+   "grain": 180.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|180 gr PSP (Hunt)|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "180 gr PSP (Hunt)",
+   "grain": 180.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "PSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|115 gr OTM (Tactical Rifle)|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "115 gr OTM (Tactical Rifle)",
+   "grain": 115.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".300 Blackout",
+   "construction": null,
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "OTM"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|123 gr FMJ (Tactical Rifle)|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "123 gr FMJ (Tactical Rifle)",
+   "grain": 123.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|147 gr FMJ (Tactical Rifle)|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "147 gr FMJ (Tactical Rifle)",
+   "grain": 147.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|147 gr PSP (Hunt)|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "147 gr PSP (Hunt)",
+   "grain": 147.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".300 Blackout",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "PSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|200 gr FMJ Subsonic (Subsonic)|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "200 gr FMJ Subsonic (Subsonic)",
+   "grain": 200.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|150 gr FMJ (Tactical Rifle)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "150 gr FMJ (Tactical Rifle)",
+   "grain": 150.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|150 gr PSP (Hunt)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "150 gr PSP (Hunt)",
+   "grain": 150.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "PSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|165 gr PSP (Hunt)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "165 gr PSP (Hunt)",
+   "grain": 165.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "PSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|168 gr HPBT (Precision)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "168 gr HPBT (Precision)",
+   "grain": 168.0,
+   "library_source_url": "https://magtechammunition.com/products/ammunition/308-win-168gr-hpbt-sniper/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://magtechammunition.com/products/ammunition/308-win-168gr-hpbt-sniper/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with Sierra MatchKings"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://magtechammunition.com/products/ammunition/308-win-168gr-hpbt-sniper/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://magtechammunition.com/products/ammunition/308-win-168gr-hpbt-sniper/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://magtechammunition.com/products/ammunition/308-win-168gr-hpbt-sniper/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sierra MatchKing HPBT projectiles are widely accepted as the most accurate"
+   }
+  },
+  "Magtech|175 gr HPBT (Precision)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "175 gr HPBT (Precision)",
+   "grain": 175.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Magtech|180 gr FMJ (Tactical Rifle)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "180 gr FMJ (Tactical Rifle)",
+   "grain": 180.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|180 gr PSP (Hunt)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "180 gr PSP (Hunt)",
+   "grain": 180.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "PSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|250 gr HPBT (Precision)|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "250 gr HPBT (Precision)",
+   "grain": 250.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".338 Lapua Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Magtech|656 gr Ball (Tactical Rifle)|.50 BMG": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "656 gr Ball (Tactical Rifle)",
+   "grain": 656.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".50 BMG",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|770 gr Solid (Precision)|.50 BMG": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "770 gr Solid (Precision)",
+   "grain": 770.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": ".50 BMG",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|55 gr Ball M193 (Tactical Rifle)|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "55 gr Ball M193 (Tactical Rifle)",
+   "grain": 55.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": "5.56x45 NATO",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|62 gr FMJ (Tactical Rifle)|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "62 gr FMJ (Tactical Rifle)",
+   "grain": 62.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|62 gr NATO Ball (Tactical Rifle)|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "62 gr NATO Ball (Tactical Rifle)",
+   "grain": 62.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": "5.56x45 NATO",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|77 gr HPBT (Tactical Rifle)|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "77 gr HPBT (Tactical Rifle)",
+   "grain": 77.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": "5.56x45 NATO",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Magtech|140 gr FMJ BT (Tactical Rifle)|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "140 gr FMJ BT (Tactical Rifle)",
+   "grain": 140.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "BT"
+   },
+   "component_bullet": null
+  },
+  "Magtech|140 gr PSP (Hunt)|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "140 gr PSP (Hunt)",
+   "grain": 140.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "PSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|144 gr NATO Ball (Tactical Rifle)|7.62x51 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "144 gr NATO Ball (Tactical Rifle)",
+   "grain": 144.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": "7.62x51 NATO",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Magtech|147 gr Ball Mil Std (Tactical Rifle)|7.62x51 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "147 gr Ball Mil Std (Tactical Rifle)",
+   "grain": 147.0,
+   "library_source_url": "https://magtechammunition.com/wp-content/uploads/2025/12/Magtech-2026-Catalogue.pdf",
+   "cartridge": "7.62x51 NATO",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

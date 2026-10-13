@@ -1,0 +1,374 @@
+{
+ "brand": "Barnes",
+ "note": "Read barnesbullets.com (robots.txt checked; www. host fetch permission timed out, non-www used) product pages, bullet-material pages, the Barnes hunting-bullet blog article and the CFR ballistics chart; Sierra TGK pages for Harvest Collection. Barnes product/family pages never spell out BT/FB/FN/RN, so base/tip mostly come from name words. Not stated: LRX tip (only 'some' LRX tipped), TAC-TX tip ('larger tip', material not given), Match Burner tip, TTSX/TSX base (both BT and FB exist), Pro-Hunter shape (varies per Sierra item), XFB construction, TGK construction. barnesbullets.com/catalog/ fetch failed (client error).",
+ "sources": [
+  {
+   "id": "blog",
+   "url": "https://barnesbullets.com/blog/how-to-pick-the-best-hunting-bullet-for-you/",
+   "read_date": "2026-10-13",
+   "title": "How To Pick The Best Hunting Bullet For You (Barnes)"
+  },
+  {
+   "id": "copper_mat",
+   "url": "https://barnesbullets.com/bullets/bullet-material/100-copper/",
+   "read_date": "2026-10-13",
+   "title": "Bullet material: 100% Copper (lists TSX, TTSX, LRX, TAC-TX)"
+  },
+  {
+   "id": "ttsx_page",
+   "url": "https://barnesbullets.com/0-308-30-cal-ttsx-bt/",
+   "read_date": "2026-10-13",
+   "title": "0.308 30 CAL TTSX BT"
+  },
+  {
+   "id": "tsx_page",
+   "url": "https://barnesbullets.com/0-308-30-cal-tsx-bt/",
+   "read_date": "2026-10-13",
+   "title": "0.308 30 CAL TSX BT"
+  },
+  {
+   "id": "tactx_page",
+   "url": "https://barnesbullets.com/0-308-300-acc-blk-tac-tx-110-gr-fb/",
+   "read_date": "2026-10-13",
+   "title": "0.308 300 ACC BLK TAC-TX 110 GR FB"
+  },
+  {
+   "id": "mb_page",
+   "url": "https://barnesbullets.com/0-264-6-5mm-match-burner-bt/",
+   "read_date": "2026-10-13",
+   "title": "0.264 6.5mm Match Burner BT"
+  },
+  {
+   "id": "vg_page",
+   "url": "https://barnesbullets.com/0-224-22-cal-varmint-grenade-fb/",
+   "read_date": "2026-10-13",
+   "title": "0.224 22 CAL Varmint Grenade FB"
+  },
+  {
+   "id": "vmt_page",
+   "url": "https://barnesbullets.com/0-243-6mm-varminator-hp-fb/",
+   "read_date": "2026-10-13",
+   "title": "0.243 6MM Varminator HP FB"
+  },
+  {
+   "id": "orig_page",
+   "url": "https://barnesbullets.com/0-510-50-110-win-barnes-original-fn-fb/",
+   "read_date": "2026-10-13",
+   "title": "0.510 50-110 WIN Barnes Original FN FB"
+  },
+  {
+   "id": "brass_mat",
+   "url": "https://barnesbullets.com/bullets/bullet-material/solid-brass/",
+   "read_date": "2026-10-13",
+   "title": "Bullet material: Solid Brass (lists Banded Solid only)"
+  },
+  {
+   "id": "lr_family",
+   "url": "https://barnesbullets.com/ammunition/product-family/vor-tx-lr/",
+   "read_date": "2026-10-13",
+   "title": "Ammunition product family VOR-TX LR"
+  },
+  {
+   "id": "cfr",
+   "url": "https://barnesbullets.com/content/Barnes-Ballistics-Charts/CFR-Imperial.pdf",
+   "read_date": "2026-10-13",
+   "title": "Barnes centerfire rifle ballistics chart (Bullet Style column)"
+  },
+  {
+   "id": "hc308",
+   "url": "https://barnesbullets.com/harvest-collection-308win/",
+   "read_date": "2026-10-13",
+   "title": "Harvest Collection .308 WIN 165gr"
+  },
+  {
+   "id": "hc350",
+   "url": "https://barnesbullets.com/harvest-collection-350-legend-155gr-pro-hunter/",
+   "read_date": "2026-10-13",
+   "title": "Harvest Collection 350 Legend 155gr Pro-Hunter"
+  },
+  {
+   "id": "tgk69",
+   "url": "https://sierrabullets.com/22-cal-69-gr-tipped-gameking-tgk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 22 CAL 69 GR Tipped GameKing"
+  },
+  {
+   "id": "tgk90",
+   "url": "https://sierrabullets.com/6mm-90-gr-tipped-gameking-tgk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 6MM 90 GR Tipped GameKing"
+  },
+  {
+   "id": "tgk165",
+   "url": "https://sierrabullets.com/30-cal-165-gr-tipped-gameking-tgk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 30 CAL 165 GR Tipped GameKing"
+  }
+ ],
+ "families": [
+  {
+   "id": "tsx",
+   "lib": "any",
+   "name_regex": "\\bTSX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "blog",
+     "quote": "three main lines of solid copper bullets: the TSX, TTSX, and LRX"
+    }
+   }
+  },
+  {
+   "id": "tsx_hp",
+   "lib": "any",
+   "name_regex": "\\bTSX\\b",
+   "not_regex": "\\bFN\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "blog",
+     "quote": "controlled expansion bullets with hydraulic driven nose cavities"
+    }
+   }
+  },
+  {
+   "id": "ttsx",
+   "lib": "any",
+   "name_regex": "\\bTTSX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "blog",
+     "quote": "three main lines of solid copper bullets: the TSX, TTSX, and LRX"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "ttsx_page",
+     "quote": "these bullets have a polymer tip that boosts B.C."
+    }
+   }
+  },
+  {
+   "id": "lrx",
+   "lib": "any",
+   "name_regex": "\\bLRX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "blog",
+     "quote": "three main lines of solid copper bullets: the TSX, TTSX, and LRX"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "blog",
+     "quote": "longer, sleeker ogive profiles, long boattails"
+    }
+   }
+  },
+  {
+   "id": "tac_tx",
+   "lib": "any",
+   "name_regex": "\\bTAC-TX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "tactx_page",
+     "quote": "special purpose expanding all-copper bullet"
+    }
+   }
+  },
+  {
+   "id": "match_burner",
+   "lib": "any",
+   "name_regex": "\\bMatch Burner\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "mb_page",
+     "quote": "lead core match-grade bullets"
+    }
+   }
+  },
+  {
+   "id": "varmint_grenade",
+   "lib": "any",
+   "name_regex": "\\bVarmint Grenade\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "vg_page",
+     "quote": "frangible copper-tin powdered metal core surrounded by a gilding metal jacket"
+    }
+   }
+  },
+  {
+   "id": "varminator",
+   "lib": "any",
+   "name_regex": "\\bVarminator\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "vmt_page",
+     "quote": "Jacketed Lead Core (material category); thin tapered jacket"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "vmt_page",
+     "quote": "hollow point design with scored nose cavity"
+    }
+   }
+  },
+  {
+   "id": "original",
+   "lib": "any",
+   "name_regex": "\\bBarnes Original\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "orig_page",
+     "quote": "pressure-forming pure copper tubing around a pure lead core"
+    }
+   }
+  },
+  {
+   "id": "banded_solid",
+   "lib": "any",
+   "name_regex": "\\bBanded Solid\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "brass_mat",
+     "quote": "Bullet material: Solid Brass"
+    }
+   }
+  },
+  {
+   "id": "f_tsx",
+   "lib": "factory",
+   "name_regex": "\\bTSX\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes TSX",
+     "src": "cfr",
+     "quote": "BULLET STYLE: TSX FB / TSX BT"
+    }
+   }
+  },
+  {
+   "id": "f_ttsx",
+   "lib": "factory",
+   "name_regex": "\\bTTSX\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes TTSX",
+     "src": "cfr",
+     "quote": "BULLET STYLE: TTSX BT / TTSX FB"
+    }
+   }
+  },
+  {
+   "id": "f_lrx",
+   "lib": "factory",
+   "name_regex": "\\bLRX\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes LRX",
+     "src": "lr_family",
+     "quote": "loaded with premium all-copper Barnes LRX bullets"
+    }
+   }
+  },
+  {
+   "id": "f_banded",
+   "lib": "factory",
+   "name_regex": "\\bBanded Solid\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes Banded Solid",
+     "src": "cfr",
+     "quote": "BULLET STYLE: BANDED SOLID"
+    }
+   }
+  },
+  {
+   "id": "f_xfb",
+   "lib": "factory",
+   "name_regex": "\\bXFB\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes XFB",
+     "src": "cfr",
+     "quote": "BULLET STYLE: XFB"
+    }
+   }
+  },
+  {
+   "id": "f_mb",
+   "lib": "factory",
+   "name_regex": "\\bPrecision Match\\b.*\\bMatch Burner\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Barnes Match Burner",
+     "src": "cfr",
+     "quote": "BULLET STYLE: Match Burner"
+    }
+   }
+  },
+  {
+   "id": "f_tgk",
+   "lib": "factory",
+   "name_regex": "\\bSierra TGK\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Sierra Tipped GameKing",
+     "src": "hc308",
+     "quote": "Powered by Sierra's revolutionary Tipped GameKing"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "tgk69",
+     "quote": "combine the proven Sierra GameKing design with a polymer tip",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "f_prohunter",
+   "lib": "factory",
+   "name_regex": "\\bPro-?Hunter\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Sierra Pro-Hunter",
+     "src": "hc350",
+     "quote": "Powered by Sierra's dependable Pro-Hunter"
+    }
+   }
+  }
+ ],
+ "records": {
+  "Barnes|Harvest Collection 69 gr Sierra TGK|.223 Rem": {
+   "base": {
+    "value": "boat_tail",
+    "src": "tgk69",
+    "quote": "its polymer tip and boat tail spitzer profile",
+    "evidence": "component_maker_page"
+   }
+  },
+  "Barnes|Harvest Collection 90 gr Sierra TGK|.243 Win": {
+   "base": {
+    "value": "boat_tail",
+    "src": "tgk90",
+    "quote": "Boat tail design for stable flight and accuracy",
+    "evidence": "component_maker_page"
+   }
+  },
+  "Barnes|Harvest Collection 165 gr Sierra TGK|.308 Win": {
+   "base": {
+    "value": "boat_tail",
+    "src": "tgk165",
+    "quote": "Boat tail design for stable flight and accuracy",
+    "evidence": "component_maker_page"
+   }
+  }
+ }
+}

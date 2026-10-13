@@ -1,0 +1,145 @@
+{
+  "brand": "Geco",
+  "note": "2026-10-13: geco-ammunition.com robots.txt only disallows /private/ (crawl-delay 5). Read GECO line pages (Plus product page, Express, DTX, Star, Zero, Target HP, rimfire Rifle/Semi-Auto) and the 2026 EN Magalogue PDF. Rimfire tip from spec 'Bullet type: LRN'. Not stated anywhere: bases for every line, Express/DTX construction and tip, Star jacketed or monolithic, Target HP match status, component bullet names.",
+  "sources": [
+    {
+      "id": "plus",
+      "url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+      "read_date": "2026-10-13",
+      "title": "GECO .270 Win PLUS 9.7g"
+    },
+    {
+      "id": "mag",
+      "url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+      "read_date": "2026-10-13",
+      "title": "GECO Magalogue EN 2026"
+    },
+    {
+      "id": "star",
+      "url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+      "read_date": "2026-10-13",
+      "title": "GECO STAR"
+    },
+    {
+      "id": "zero",
+      "url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+      "read_date": "2026-10-13",
+      "title": "GECO ZERO"
+    },
+    {
+      "id": "target_hp",
+      "url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp",
+      "read_date": "2026-10-13",
+      "title": "GECO TARGET HP"
+    },
+    {
+      "id": "rifle22",
+      "url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-rifle",
+      "read_date": "2026-10-13",
+      "title": "GECO RIFLE .22 lr"
+    },
+    {
+      "id": "semi22",
+      "url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-semi-auto",
+      "read_date": "2026-10-13",
+      "title": "GECO SEMI-AUTO .22 lr"
+    }
+  ],
+  "families": [
+    {
+      "id": "plus",
+      "lib": "factory",
+      "name_regex": "\\bGECO PLUS\\b",
+      "fields": {
+        "construction": {
+          "value": "bonded",
+          "src": "plus",
+          "quote": "Bullet type: Bonded"
+        }
+      }
+    },
+    {
+      "id": "softpoint",
+      "lib": "factory",
+      "name_regex": "\\bGECO SOFTPOINT\\b",
+      "fields": {
+        "construction": {
+          "value": "cup_and_core",
+          "src": "mag",
+          "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+        },
+        "tip_shape": {
+          "value": "soft_point",
+          "src": "mag",
+          "quote": "Deformation begins from its pronounced lead tip."
+        }
+      }
+    },
+    {
+      "id": "star",
+      "lib": "factory",
+      "name_regex": "\\bGECO STAR\\b",
+      "fields": {
+        "tip_shape": {
+          "value": "hollow_point",
+          "src": "star",
+          "quote": "The hollow-point design provides deformation you can count on"
+        }
+      }
+    },
+    {
+      "id": "zero",
+      "lib": "factory",
+      "name_regex": "\\bGECO ZERO\\b",
+      "fields": {
+        "construction": {
+          "value": "lead_free_other",
+          "src": "zero",
+          "quote": "Highly innovative jacketed bullet with two tin cores"
+        },
+        "tip_shape": {
+          "value": "hollow_point",
+          "src": "zero",
+          "quote": "Hollow-point construction for high accuracy and best effectiveness"
+        }
+      }
+    },
+    {
+      "id": "target_hp",
+      "lib": "factory",
+      "name_regex": "\\bGECO TARGET HP\\b",
+      "fields": {
+        "tip_shape": {
+          "value": "hollow_point",
+          "src": "target_hp",
+          "quote": "Precisely manufactured hollow-point bullet for excellent precision"
+        }
+      }
+    },
+    {
+      "id": "rifle22",
+      "lib": "factory",
+      "name_regex": "\\bGECO RIFLE \\.22\\b",
+      "fields": {
+        "tip_shape": {
+          "value": "round_nose",
+          "src": "rifle22",
+          "quote": "Bullet type: LRN"
+        }
+      }
+    },
+    {
+      "id": "semi22",
+      "lib": "factory",
+      "name_regex": "\\bGECO SEMI-AUTO \\.22\\b",
+      "fields": {
+        "tip_shape": {
+          "value": "round_nose",
+          "src": "semi22",
+          "quote": "Bullet type: LRN"
+        }
+      }
+    }
+  ],
+  "records": {}
+}

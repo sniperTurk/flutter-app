@@ -1,0 +1,32 @@
+{
+ "brand": "CheyTac",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "cheytac.com robots.txt checked. Pages only say 'Copper Nickel Alloy bullet' (.375) / 'Match Grade Copper Alloy Bullet' (.408), 'Balanced Flight Projectile'; monolithic/tip/base not stated, left empty.",
+ "sources": [],
+ "records": {
+  "CheyTac|CheyTac® .375/350 gr Ammunition|.375 CheyTac": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CheyTac® .375/350 gr Ammunition",
+   "grain": 350.0,
+   "library_source_url": "https://cheytac.com/product/cheytac-375-350-gr-ammunition/",
+   "cartridge": ".375 CheyTac",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "CheyTac|CheyTac® .408/419 gr Ammunition|.408 CheyTac": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CheyTac® .408/419 gr Ammunition",
+   "grain": 419.0,
+   "library_source_url": "https://cheytac.com/product/cheytac-408-419-gr-ammunition/",
+   "cartridge": ".408 CheyTac",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

@@ -1,0 +1,1209 @@
+{
+ "brand": "Fiocchi",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "fiocchi.com product pages (bullet type field only), 2025 hunting catalogue PDF, fiocchiusa.com product pages and Sierra MatchKing page read. Left empty: SE Freccia Nera construction (rifle text says only 'Solid Expansive lead free', copper stated only in the shotgun section), all EPN/SP construction and bases, rimfire 'copper-plated' bullets (no enum), GameKing construction, Exacta 140 HPBT maker/construction (page does not name Sierra).",
+ "sources": [
+  {
+   "id": "fi_epn",
+   "url": "https://fiocchi.com/en/705635.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Performance .223 Rem 55 gr EPN"
+  },
+  {
+   "id": "fi_cat",
+   "url": "https://fiocchi.com/pub/static/frontend/bs_mazia/bs_mazia2/it_IT/media/catalogs/Cat-CACCIA-02-2025-web.pdf",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi hunting catalogue 2025"
+  },
+  {
+   "id": "fi_frg",
+   "url": "https://fiocchi.com/en/745582.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Classic .223 Rem 45 gr Duty ZP FRG"
+  },
+  {
+   "id": "fi_fmjhp",
+   "url": "https://fiocchi.com/en/705559.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Classic .223 Rem 50 gr FMJHP"
+  },
+  {
+   "id": "fi_fmc",
+   "url": "https://fiocchi.com/en/703009.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Classic .300 Blackout 147 gr FMC"
+  },
+  {
+   "id": "fi_mk",
+   "url": "https://fiocchi.com/en/709890.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Exacta .308 Win 168 gr HPBT Sierra MatchKing"
+  },
+  {
+   "id": "fiusa_350",
+   "url": "https://www.fiocchiusa.com/centerfire-rifle/field-dynamics/field-dynamics-big-game/33-350LB.html",
+   "read_date": "2026-10-13",
+   "title": "Fiocchi Field Dynamics Big Game .350 Legend 180 gr FSP"
+  },
+  {
+   "id": "si_mk_69",
+   "url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+   "read_date": "2026-10-13",
+   "title": "Sierra 22 cal 69 gr HPBT MatchKing"
+  }
+ ],
+ "records": {
+  "Fiocchi|Field Dynamics Rimfire 40 gr Jacketed Hollow Point 1910 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Field Dynamics Rimfire 40 gr Jacketed Hollow Point 1910 fps",
+   "grain": 40.0,
+   "library_source_url": "https://www.fiocchiusa.com/rimfire/field-dynamics-rimfire/33-22FWMB.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.fiocchiusa.com/rimfire/field-dynamics-rimfire/33-22FWMB.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Field Dynamics Rimfire 40 gr Jacketed Soft Point 1910 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Field Dynamics Rimfire 40 gr Jacketed Soft Point 1910 fps",
+   "grain": 40.0,
+   "library_source_url": "https://www.fiocchiusa.com/rimfire/field-dynamics-rimfire/33-22FWMA.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.fiocchiusa.com/rimfire/field-dynamics-rimfire/33-22FWMA.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Range Dynamics Rimfire 40 gr Full Metal Jacket 1900 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Range Dynamics Rimfire 40 gr Full Metal Jacket 1900 fps",
+   "grain": 40.0,
+   "library_source_url": "https://www.fiocchiusa.com/rimfire/range-dynamics-rimfire/33-22FWMC.html",
+   "cartridge": ".22 WMR",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.fiocchiusa.com/rimfire/range-dynamics-rimfire/33-22FWMC.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 50 gr FMJHP|.222 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 50 gr FMJHP",
+   "grain": 50.0,
+   "library_source_url": "https://fiocchi.com/en/702220.html",
+   "cartridge": ".222 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://fiocchi.com/en/705559.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FMJHP - Full metal jacket hollow point"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/705559.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FMJHP - Full metal jacket hollow point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Performance 50 gr EPN|.222 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 50 gr EPN",
+   "grain": 50.0,
+   "library_source_url": "https://fiocchi.com/en/702221.html",
+   "cartridge": ".222 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 45 gr Duty ZP FRG|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 45 gr Duty ZP FRG",
+   "grain": 45.0,
+   "library_source_url": "https://fiocchi.com/en/745582.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://fiocchi.com/en/745582.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FRG - Frangible; Lead Free Projectile"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 50 gr FMJHP|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 50 gr FMJHP",
+   "grain": 50.0,
+   "library_source_url": "https://fiocchi.com/en/705559.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://fiocchi.com/en/705559.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FMJHP - Full metal jacket hollow point"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/705559.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FMJHP - Full metal jacket hollow point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 55 gr FMJ|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 55 gr FMJ",
+   "grain": 55.0,
+   "library_source_url": "https://fiocchi.com/en/705561.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://fiocchi.com/en/705561.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 55 gr SP|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 55 gr SP",
+   "grain": 55.0,
+   "library_source_url": "https://fiocchi.com/en/705632.html",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://fiocchi.com/en/705632.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 62 gr Duty FMJ|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 62 gr Duty FMJ",
+   "grain": 62.0,
+   "library_source_url": "https://fiocchi.com/en/705556.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://fiocchi.com/en/705556.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Exacta 69 gr HPBT Sierra MatchKing|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Exacta 69 gr HPBT Sierra MatchKing",
+   "grain": 69.0,
+   "library_source_url": "https://fiocchi.com/en/705630.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/705630.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/705630.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT Sierra Match King - Hollow point boat tail"
+   }
+  },
+  "Fiocchi|Fiocchi Perfecta 69 gr HPBT Sierra MatchKing|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Perfecta 69 gr HPBT Sierra MatchKing",
+   "grain": 69.0,
+   "library_source_url": "https://fiocchi.com/en/705609.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/705609.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/705609.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT Sierra Match King - Hollow point boat tail"
+   }
+  },
+  "Fiocchi|Fiocchi Perfecta 77 gr HPBT Sierra MatchKing|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Perfecta 77 gr HPBT Sierra MatchKing",
+   "grain": 77.0,
+   "library_source_url": "https://fiocchi.com/en/705612.html",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/705612.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/705612.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT Sierra Match King - Hollow point boat tail"
+   }
+  },
+  "Fiocchi|Fiocchi Performance 50 gr EPN|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 50 gr EPN",
+   "grain": 50.0,
+   "library_source_url": "https://fiocchi.com/en/705629.html",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Performance 55 gr EPN|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 55 gr EPN",
+   "grain": 55.0,
+   "library_source_url": "https://fiocchi.com/en/705635.html",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Performance 60 gr EPN|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 60 gr EPN",
+   "grain": 60.0,
+   "library_source_url": "https://fiocchi.com/en/705657.html",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 100 gr SP|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 100 gr SP",
+   "grain": 100.0,
+   "library_source_url": "https://fiocchi.com/en/702431.html",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://fiocchi.com/en/702431.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Performance 95 gr EPN|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 95 gr EPN",
+   "grain": 95.0,
+   "library_source_url": "https://fiocchi.com/en/702432.html",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 130 gr SP|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 130 gr SP",
+   "grain": 130.0,
+   "library_source_url": "https://fiocchi.com/en/702701.html",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://fiocchi.com/en/702701.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Performance 130 gr EPN|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 130 gr EPN",
+   "grain": 130.0,
+   "library_source_url": "https://fiocchi.com/en/702702.html",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 147 gr FMJ|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 147 gr FMJ",
+   "grain": 147.0,
+   "library_source_url": "https://fiocchi.com/en/703005.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://fiocchi.com/en/703005.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 150 gr SP|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 150 gr SP",
+   "grain": 150.0,
+   "library_source_url": "https://fiocchi.com/en/703001.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://fiocchi.com/en/703001.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 180 gr SP|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 180 gr SP",
+   "grain": 180.0,
+   "library_source_url": "https://fiocchi.com/en/703002.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://fiocchi.com/en/703002.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Excellence 165 gr SE Freccia Nera|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Excellence 165 gr SE Freccia Nera",
+   "grain": 165.0,
+   "library_source_url": "https://fiocchi.com/en/709899.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Excellence 180 gr SE Freccia Nera|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Excellence 180 gr SE Freccia Nera",
+   "grain": 180.0,
+   "library_source_url": "https://fiocchi.com/en/709900.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Performance 150 gr EPN|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 150 gr EPN",
+   "grain": 150.0,
+   "library_source_url": "https://fiocchi.com/en/703004.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Performance 165 gr HPBT Sierra GameKing|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 165 gr HPBT Sierra GameKing",
+   "grain": 165.0,
+   "library_source_url": "https://fiocchi.com/en/703006.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/703006.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/703006.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://fiocchi.com/pub/static/frontend/bs_mazia/bs_mazia2/it_IT/media/catalogs/Cat-CACCIA-02-2025-web.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT – Sierra GameKing"
+   }
+  },
+  "Fiocchi|Fiocchi Performance 180 gr EPN|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 180 gr EPN",
+   "grain": 180.0,
+   "library_source_url": "https://fiocchi.com/en/703003.html",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 147 gr FMC|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 147 gr FMC",
+   "grain": 147.0,
+   "library_source_url": "https://fiocchi.com/en/703009.html",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://fiocchi.com/en/703009.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FMC - Full metal case"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Excellence 110 gr SE Freccia Nera|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Excellence 110 gr SE Freccia Nera",
+   "grain": 110.0,
+   "library_source_url": "https://fiocchi.com/en/703010.html",
+   "cartridge": ".300 Blackout",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 180 gr SP|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 180 gr SP",
+   "grain": 180.0,
+   "library_source_url": "https://fiocchi.com/en/709875.html",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://fiocchi.com/en/709875.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Exacta 190 gr HPBT Sierra MatchKing|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Exacta 190 gr HPBT Sierra MatchKing",
+   "grain": 190.0,
+   "library_source_url": "https://fiocchi.com/en/709874.html",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/709874.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/709874.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT Sierra Match King - Hollow point boat tail"
+   }
+  },
+  "Fiocchi|Fiocchi Performance 180 gr EPN|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 180 gr EPN",
+   "grain": 180.0,
+   "library_source_url": "https://fiocchi.com/en/709876.html",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 147 gr FMJ|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 147 gr FMJ",
+   "grain": 147.0,
+   "library_source_url": "https://fiocchi.com/en/709967.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://fiocchi.com/en/709967.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 150 gr SP|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 150 gr SP",
+   "grain": 150.0,
+   "library_source_url": "https://fiocchi.com/en/709914.html",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://fiocchi.com/en/709914.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 180 gr SP|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 180 gr SP",
+   "grain": 180.0,
+   "library_source_url": "https://fiocchi.com/en/709911.html",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://fiocchi.com/en/709911.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Exacta 168 gr HPBT Sierra MatchKing|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Exacta 168 gr HPBT Sierra MatchKing",
+   "grain": 168.0,
+   "library_source_url": "https://fiocchi.com/en/709890.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT Sierra Match King - Hollow point boat tail"
+   }
+  },
+  "Fiocchi|Fiocchi Exacta 175 gr HPBT Sierra MatchKing|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Exacta 175 gr HPBT Sierra MatchKing",
+   "grain": 175.0,
+   "library_source_url": "https://fiocchi.com/en/709889.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/709889.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/709889.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT Sierra Match King - Hollow point boat tail"
+   }
+  },
+  "Fiocchi|Fiocchi Excellence 165 gr SE Freccia Nera|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Excellence 165 gr SE Freccia Nera",
+   "grain": 165.0,
+   "library_source_url": "https://fiocchi.com/en/709897.html",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Excellence 180 gr SE Freccia Nera|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Excellence 180 gr SE Freccia Nera",
+   "grain": 180.0,
+   "library_source_url": "https://fiocchi.com/en/709898.html",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Perfecta 168 gr HPBT Sierra MatchKing|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Perfecta 168 gr HPBT Sierra MatchKing",
+   "grain": 168.0,
+   "library_source_url": "https://fiocchi.com/en/709958.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/709958.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/709958.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT Sierra Match King - Hollow point boat tail"
+   }
+  },
+  "Fiocchi|Fiocchi Perfecta 175 gr HPBT Sierra MatchKing|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Perfecta 175 gr HPBT Sierra MatchKing",
+   "grain": 175.0,
+   "library_source_url": "https://fiocchi.com/en/709959.html",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/709959.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/709959.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT Sierra Match King - Hollow point boat tail"
+   }
+  },
+  "Fiocchi|Fiocchi Performance 150 gr EPN|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 150 gr EPN",
+   "grain": 150.0,
+   "library_source_url": "https://fiocchi.com/en/709912.html",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Performance 165 gr HPBT Sierra GameKing|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 165 gr HPBT Sierra GameKing",
+   "grain": 165.0,
+   "library_source_url": "https://fiocchi.com/en/709891.html",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/709891.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/709891.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://fiocchi.com/pub/static/frontend/bs_mazia/bs_mazia2/it_IT/media/catalogs/Cat-CACCIA-02-2025-web.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT – Sierra GameKing"
+   }
+  },
+  "Fiocchi|Fiocchi Performance 180 gr EPN|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 180 gr EPN",
+   "grain": 180.0,
+   "library_source_url": "https://fiocchi.com/en/709913.html",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Perfecta 250 gr FMJBT|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Perfecta 250 gr FMJBT",
+   "grain": 250.0,
+   "library_source_url": "https://fiocchi.com/en/709978.html",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://fiocchi.com/en/709978.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/709978.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Perfecta 250 gr HPBT Sierra MatchKing|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Perfecta 250 gr HPBT Sierra MatchKing",
+   "grain": 250.0,
+   "library_source_url": "https://fiocchi.com/en/709976.html",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/709976.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/709976.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT Sierra Match King - Hollow point boat tail"
+   }
+  },
+  "Fiocchi|Fiocchi Perfecta 300 gr HPBT Sierra MatchKing|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Perfecta 300 gr HPBT Sierra MatchKing",
+   "grain": 300.0,
+   "library_source_url": "https://fiocchi.com/en/709977.html",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://sierrabullets.com/22-cal-69-gr-hpbt-matchking-smk/",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Sierra MatchKing (SMK) bullets are the benchmark for precision"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/709977.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/709977.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": {
+    "value": "Sierra MatchKing",
+    "source_url": "https://fiocchi.com/en/709890.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HPBT Sierra Match King - Hollow point boat tail"
+   }
+  },
+  "Fiocchi|Field Dynamics Big Game 180 gr Flat Soft Point 2100 fps|.350 Legend": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Field Dynamics Big Game 180 gr Flat Soft Point 2100 fps",
+   "grain": 180.0,
+   "library_source_url": "https://www.fiocchiusa.com/centerfire-rifle/field-dynamics/field-dynamics-big-game/33-350LB.html",
+   "cartridge": ".350 Legend",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.fiocchiusa.com/centerfire-rifle/field-dynamics/field-dynamics-big-game/33-350LB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Flat Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Exacta 140 gr HPBT|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Exacta 140 gr HPBT",
+   "grain": 140.0,
+   "library_source_url": "https://fiocchi.com/en/706502.html",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://fiocchi.com/en/706502.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://fiocchi.com/en/706502.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Performance 129 gr EPN|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 129 gr EPN",
+   "grain": 129.0,
+   "library_source_url": "https://fiocchi.com/en/706503.html",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Classic 160 gr RNSP|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Classic 160 gr RNSP",
+   "grain": 160.0,
+   "library_source_url": "https://fiocchi.com/en/706501.html",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://fiocchi.com/en/706501.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RNSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Fiocchi|Fiocchi Performance 129 gr EPN|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Fiocchi Performance 129 gr EPN",
+   "grain": 129.0,
+   "library_source_url": "https://fiocchi.com/en/706500.html",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://fiocchi.com/en/705635.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "EPN - Expansion polymer nose"
+   },
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

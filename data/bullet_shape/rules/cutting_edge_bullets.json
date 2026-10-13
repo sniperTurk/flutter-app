@@ -1,0 +1,86 @@
+{
+ "brand": "Cutting Edge Bullets",
+ "note": "Read 2026-10-13: TechDataSheets2026.pdf (cdn.shopify.com, robots ok) and cuttingedgebullets.com blog/collection/product pages (robots ok). All lines solid copper lead-free -> monolithic_copper; MTAC is a non-expanding target bullet -> match. Tip: LAZER 'expanding hollow point' (tip material not stated, so hollow_point), MTH 'hollow point counterpart'; MTAC nose not stated. Base not stated for any line (only FB Raptor, not in records, is flat base). 'MAX'/'GEN2'/'SINGLE FEED' suffixes not explained, so MAXIMUS-line text was not applied to MAX records.",
+ "sources": [
+  {
+   "id": "tds",
+   "url": "https://cdn.shopify.com/s/files/1/0838/7185/8986/files/TechDataSheets2026.pdf?v=1791473847",
+   "read_date": "2026-10-13",
+   "title": "Tech Data Sheets 2026"
+  },
+  {
+   "id": "lines",
+   "url": "https://cuttingedgebullets.com/blogs/news/our-bullet-lines",
+   "read_date": "2026-10-13",
+   "title": "Our Bullet Lines"
+  },
+  {
+   "id": "og",
+   "url": "https://cuttingedgebullets.com/blogs/news/our-og-solid-copper-bullet-line-mtac-mth",
+   "read_date": "2026-10-13",
+   "title": "Our OG Solid Copper Bullet Line: MTAC & MTH"
+  },
+  {
+   "id": "lazer",
+   "url": "https://cuttingedgebullets.com/collections/lazer",
+   "read_date": "2026-10-13",
+   "title": "LAZER collection"
+  }
+ ],
+ "families": [
+  {
+   "id": "all_copper",
+   "lib": "bullet",
+   "name_regex": "\\b(Lazer|MTAC|MTH)\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "tds",
+     "quote": "Solid Copper, Lead Free"
+    }
+   }
+  },
+  {
+   "id": "lazer",
+   "lib": "bullet",
+   "name_regex": "\\bLazer\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "lines",
+     "quote": "monolithic, lathe turned projectile that is lead-free"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "lines",
+     "quote": "It is an expanding hollow point"
+    }
+   }
+  },
+  {
+   "id": "mtac",
+   "lib": "bullet",
+   "name_regex": "\\bMTAC\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "og",
+     "quote": "a solid, non expanding bullet intended for target use only"
+    }
+   }
+  },
+  {
+   "id": "mth",
+   "lib": "bullet",
+   "name_regex": "\\bMTH\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "og",
+     "quote": "The MTH Match/Tactical/Hunting bullet is its hollow point counterpart."
+    }
+   }
+  }
+ ],
+ "records": {}
+}

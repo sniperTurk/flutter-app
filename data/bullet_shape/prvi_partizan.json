@@ -1,0 +1,1605 @@
+{
+ "brand": "Prvi Partizan",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Bullet-type legend and descriptions read from the PPU 2023 catalogue PDF (prvipartizan.com). ppu-usa.com product pages list only abbreviations (no descriptions). Supreme 'SMK' is not expanded and Sierra is not named on PPU pages/PDF -> component_bullet empty. Construction of SP/PSP not stated beyond 'lead nose' -> empty. .375 H&H 300 gr FMJ left without tip (FMJ shape not confirmed for that load).",
+ "sources": [
+  {
+   "id": "ppu_cat",
+   "url": "https://prvipartizan.com/download/PPU_2023.pdf",
+   "read_date": "2026-10-13",
+   "title": "PPU catalogue 2023 (bullet types)"
+  }
+ ],
+ "records": {
+  "Prvi Partizan|PPU Standard Rifle 45 gr SP|.22 Hornet": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 45 gr SP",
+   "grain": 45.0,
+   "library_source_url": "https://ppu-usa.com/ppu/22-hornet/",
+   "cartridge": ".22 Hornet",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/22-hornet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 55 gr SP|.22-250 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 55 gr SP",
+   "grain": 55.0,
+   "library_source_url": "https://ppu-usa.com/ppu/22-250-remington/",
+   "cartridge": ".22-250 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/22-250-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 50 gr SP|.222 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 50 gr SP",
+   "grain": 50.0,
+   "library_source_url": "https://ppu-usa.com/ppu/222-remington/",
+   "cartridge": ".222 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/222-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Match 69 gr HPBT|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Match 69 gr HPBT",
+   "grain": 69.0,
+   "library_source_url": "https://ppu-usa.com/ppu/223-remington-match/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://ppu-usa.com/ppu/223-remington-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/223-remington-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/223-remington-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Match 75 gr HPBT|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Match 75 gr HPBT",
+   "grain": 75.0,
+   "library_source_url": "https://ppu-usa.com/ppu/223-remington-match/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://ppu-usa.com/ppu/223-remington-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/223-remington-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/223-remington-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 55 gr FMJBT|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 55 gr FMJBT",
+   "grain": 55.0,
+   "library_source_url": "https://ppu-usa.com/ppu/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 55 gr SP|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 55 gr SP",
+   "grain": 55.0,
+   "library_source_url": "https://ppu-usa.com/ppu/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 62 gr FMJBT|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 62 gr FMJBT",
+   "grain": 62.0,
+   "library_source_url": "https://ppu-usa.com/ppu/223-remington/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/223-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Supreme 69 gr SMK HPBT|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Supreme 69 gr SMK HPBT",
+   "grain": 69.0,
+   "library_source_url": "https://ppu-usa.com/ppu/223-remington-supreme/",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/223-remington-supreme/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/223-remington-supreme/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 100 gr SP|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 100 gr SP",
+   "grain": 100.0,
+   "library_source_url": "https://ppu-usa.com/ppu/243-winchester/",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/243-winchester/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 90 gr SP|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 90 gr SP",
+   "grain": 90.0,
+   "library_source_url": "https://ppu-usa.com/ppu/243-winchester/",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/243-winchester/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 100 gr PSP|.25-06 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 100 gr PSP",
+   "grain": 100.0,
+   "library_source_url": "https://ppu-usa.com/ppu/25-06-remington/",
+   "cartridge": ".25-06 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PSP bullets have a sharp lead nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 90 gr HP|.25-06 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 90 gr HP",
+   "grain": 90.0,
+   "library_source_url": "https://ppu-usa.com/ppu/25-06-remington/",
+   "cartridge": ".25-06 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "HP rifle bullets are designed primarily for shooting competitions."
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/25-06-remington/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 140 gr PSP|.264 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 140 gr PSP",
+   "grain": 140.0,
+   "library_source_url": "https://ppu-usa.com/ppu/264-winchester-magnum/",
+   "cartridge": ".264 Win Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PSP bullets have a sharp lead nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 130 gr SP|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 130 gr SP",
+   "grain": 130.0,
+   "library_source_url": "https://ppu-usa.com/ppu/270-winchester/",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/270-winchester/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 150 gr SP|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 150 gr SP",
+   "grain": 150.0,
+   "library_source_url": "https://ppu-usa.com/ppu/270-winchester/",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/270-winchester/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 110 gr FMJRN|.30 Carbine": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 110 gr FMJRN",
+   "grain": 110.0,
+   "library_source_url": "https://ppu-usa.com/ppu/30-carbine/",
+   "cartridge": ".30 Carbine",
+   "construction": null,
+   "tip_shape": {
+    "value": "fmj_round",
+    "source_url": "https://ppu-usa.com/ppu/30-carbine/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJRN"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 110 gr SPRN|.30 Carbine": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 110 gr SPRN",
+   "grain": 110.0,
+   "library_source_url": "https://ppu-usa.com/ppu/30-carbine/",
+   "cartridge": ".30 Carbine",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://ppu-usa.com/ppu/30-carbine/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SPRN"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 150 gr FMJ|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 150 gr FMJ",
+   "grain": 150.0,
+   "library_source_url": "https://ppu-usa.com/ppu/30-06-springfield-standard",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/30-06-springfield-standard",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": {
+    "value": "fmj_pointed",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket rifle bullets ... Due to their sharp nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 150 gr SP|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 150 gr SP",
+   "grain": 150.0,
+   "library_source_url": "https://ppu-usa.com/ppu/30-06-springfield-standard",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/30-06-springfield-standard",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 165 gr PSPBT|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 165 gr PSPBT",
+   "grain": 165.0,
+   "library_source_url": "https://ppu-usa.com/ppu/30-06-springfield-standard",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PSP bullets have a sharp lead nose"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 180 gr SP|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 180 gr SP",
+   "grain": 180.0,
+   "library_source_url": "https://ppu-usa.com/ppu/30-06-springfield-standard",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/30-06-springfield-standard",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 150 gr FSP|.30-30 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 150 gr FSP",
+   "grain": 150.0,
+   "library_source_url": "https://ppu-usa.com/ppu/30-30-winchester/",
+   "cartridge": ".30-30 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FSP bullets have a flat lead nose with increased diameter."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 170 gr FSP|.30-30 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 170 gr FSP",
+   "grain": 170.0,
+   "library_source_url": "https://ppu-usa.com/ppu/30-30-winchester/",
+   "cartridge": ".30-30 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FSP bullets have a flat lead nose with increased diameter."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 125 gr FMJ|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 125 gr FMJ",
+   "grain": 125.0,
+   "library_source_url": "https://ppu-usa.com/ppu/300-aac-blackout/",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/300-aac-blackout/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": {
+    "value": "fmj_pointed",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket rifle bullets ... Due to their sharp nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 125 gr HPBT|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 125 gr HPBT",
+   "grain": 125.0,
+   "library_source_url": "https://ppu-usa.com/ppu/300-aac-blackout/",
+   "cartridge": ".300 Blackout",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/300-aac-blackout/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/300-aac-blackout/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 150 gr SP|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 150 gr SP",
+   "grain": 150.0,
+   "library_source_url": "https://ppu-usa.com/ppu/300-winchester-magnum-standard/",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/300-winchester-magnum-standard/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 165 gr SPBT|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 165 gr SPBT",
+   "grain": 165.0,
+   "library_source_url": "https://ppu-usa.com/ppu/300-winchester-magnum-standard/",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 180 gr SP|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 180 gr SP",
+   "grain": 180.0,
+   "library_source_url": "https://ppu-usa.com/ppu/300-winchester-magnum-standard/",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/300-winchester-magnum-standard/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 150 gr SPBT|.303 British": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 150 gr SPBT",
+   "grain": 150.0,
+   "library_source_url": "https://ppu-usa.com/ppu/303-british/",
+   "cartridge": ".303 British",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 174 gr FMJBT|.303 British": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 174 gr FMJBT",
+   "grain": 174.0,
+   "library_source_url": "https://ppu-usa.com/ppu/303-british/",
+   "cartridge": ".303 British",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/303-british/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/303-british/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 180 gr SPBT|.303 British": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 180 gr SPBT",
+   "grain": 180.0,
+   "library_source_url": "https://ppu-usa.com/ppu/303-british/",
+   "cartridge": ".303 British",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Match 155 gr HPBT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Match 155 gr HPBT",
+   "grain": 155.0,
+   "library_source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Match 168 gr HPBT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Match 168 gr HPBT",
+   "grain": 168.0,
+   "library_source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Match 175 gr FMJBT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Match 175 gr FMJBT",
+   "grain": 175.0,
+   "library_source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 150 gr SP|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 150 gr SP",
+   "grain": 150.0,
+   "library_source_url": "https://ppu-usa.com/ppu/308-winchester-standard/",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-standard/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 165 gr PSPBT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 165 gr PSPBT",
+   "grain": 165.0,
+   "library_source_url": "https://ppu-usa.com/ppu/308-winchester-standard/",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PSP bullets have a sharp lead nose"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 180 gr SP|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 180 gr SP",
+   "grain": 180.0,
+   "library_source_url": "https://ppu-usa.com/ppu/308-winchester-standard/",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-standard/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Supreme 168 gr SMK HPBT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Supreme 168 gr SMK HPBT",
+   "grain": 168.0,
+   "library_source_url": "https://ppu-usa.com/ppu/308-winchester-supreme/",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-supreme/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/308-winchester-supreme/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 250 gr FMJBT|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 250 gr FMJBT",
+   "grain": 250.0,
+   "library_source_url": "https://ppu-usa.com/ppu/338-lapua-magnum/",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/338-lapua-magnum/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/338-lapua-magnum/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 250 gr HPBT|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 250 gr HPBT",
+   "grain": 250.0,
+   "library_source_url": "https://ppu-usa.com/ppu/338-lapua-magnum/",
+   "cartridge": ".338 Lapua Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/338-lapua-magnum/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/338-lapua-magnum/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Supreme 250 gr SMK HPBT|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Supreme 250 gr SMK HPBT",
+   "grain": 250.0,
+   "library_source_url": "https://ppu-usa.com/ppu/338-lapua-magnum-supreme/",
+   "cartridge": ".338 Lapua Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/338-lapua-magnum-supreme/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/338-lapua-magnum-supreme/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 300 gr FMJ|.375 H&H Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 300 gr FMJ",
+   "grain": 300.0,
+   "library_source_url": "https://ppu-usa.com/ppu/375-hh-magnum/",
+   "cartridge": ".375 H&H Mag",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/375-hh-magnum/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 300 gr SPRN|.375 H&H Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 300 gr SPRN",
+   "grain": 300.0,
+   "library_source_url": "https://ppu-usa.com/ppu/375-hh-magnum/",
+   "cartridge": ".375 H&H Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://ppu-usa.com/ppu/375-hh-magnum/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SPRN"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 405 gr SJFP|.45-70 Govt": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 405 gr SJFP",
+   "grain": 405.0,
+   "library_source_url": "https://ppu-usa.com/ppu/45-70-government/",
+   "cartridge": ".45-70 Govt",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi Jacket Flat Point (SJFP)"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 110 gr FMJBT|6.5 Grendel": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 110 gr FMJBT",
+   "grain": 110.0,
+   "library_source_url": "https://ppu-usa.com/ppu/6-5mm-grendel/",
+   "cartridge": "6.5 Grendel",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/6-5mm-grendel/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/6-5mm-grendel/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 120 gr HPBT|6.5 Grendel": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 120 gr HPBT",
+   "grain": 120.0,
+   "library_source_url": "https://ppu-usa.com/ppu/6-5mm-grendel/",
+   "cartridge": "6.5 Grendel",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/6-5mm-grendel/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/6-5mm-grendel/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Match 120 gr HPBT|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Match 120 gr HPBT",
+   "grain": 120.0,
+   "library_source_url": "https://ppu-usa.com/ppu/6-5x55-swedish-match/",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "match",
+    "source_url": "https://ppu-usa.com/ppu/6-5x55-swedish-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/6-5x55-swedish-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/6-5x55-swedish-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 139 gr FMJBT|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 139 gr FMJBT",
+   "grain": 139.0,
+   "library_source_url": "https://ppu-usa.com/ppu/6-5x55-swedish/",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/6-5x55-swedish/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/6-5x55-swedish/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 139 gr SPBT|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 139 gr SPBT",
+   "grain": 139.0,
+   "library_source_url": "https://ppu-usa.com/ppu/6-5x55-swedish/",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 139 gr SPBT|6.5x57": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 139 gr SPBT",
+   "grain": 139.0,
+   "library_source_url": "https://ppu-usa.com/ppu/6-5x57-mauser/",
+   "cartridge": "6.5x57",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 115 gr FMJBT|6.8 Rem SPC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 115 gr FMJBT",
+   "grain": 115.0,
+   "library_source_url": "https://ppu-usa.com/ppu/6-8mm-remington-spc/",
+   "cartridge": "6.8 Rem SPC",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/6-8mm-remington-spc/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/6-8mm-remington-spc/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 115 gr HPBT|6.8 Rem SPC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 115 gr HPBT",
+   "grain": 115.0,
+   "library_source_url": "https://ppu-usa.com/ppu/6-8mm-remington-spc/",
+   "cartridge": "6.8 Rem SPC",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://ppu-usa.com/ppu/6-8mm-remington-spc/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/6-8mm-remington-spc/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|6 mm Remington 100 gr SP|6mm Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6 mm Remington 100 gr SP",
+   "grain": 100.0,
+   "library_source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+   "cartridge": "6mm Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|6 mm Remington 90 gr SP|6mm Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6 mm Remington 90 gr SP",
+   "grain": 90.0,
+   "library_source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+   "cartridge": "6mm Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 174 gr FMJBT|7.5x55 Swiss": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 174 gr FMJBT",
+   "grain": 174.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7-5x55-swiss/",
+   "cartridge": "7.5x55 Swiss",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/7-5x55-swiss/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/7-5x55-swiss/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 174 gr SP|7.5x55 Swiss": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 174 gr SP",
+   "grain": 174.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7-5x55-swiss/",
+   "cartridge": "7.5x55 Swiss",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/7-5x55-swiss/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 123 gr FMJ|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 123 gr FMJ",
+   "grain": 123.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7-62x39/",
+   "cartridge": "7.62x39",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/7-62x39/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": {
+    "value": "fmj_pointed",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Full Metal Jacket rifle bullets ... Due to their sharp nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 123 gr PSP|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 123 gr PSP",
+   "grain": 123.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7-62x39/",
+   "cartridge": "7.62x39",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PSP bullets have a sharp lead nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 123 gr SPRN|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 123 gr SPRN",
+   "grain": 123.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7-62x39/",
+   "cartridge": "7.62x39",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://ppu-usa.com/ppu/7-62x39/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SPRN"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Match 182 gr FMJBT|7.62x54R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Match 182 gr FMJBT",
+   "grain": 182.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7-62x54-r-match/",
+   "cartridge": "7.62x54R",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/7-62x54-r-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/7-62x54-r-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 150 gr SPBT|7.62x54R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 150 gr SPBT",
+   "grain": 150.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7-62x54-r/",
+   "cartridge": "7.62x54R",
+   "construction": null,
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 182 gr FMJBT|7.62x54R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 182 gr FMJBT",
+   "grain": 182.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7-62x54-r/",
+   "cartridge": "7.62x54R",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/7-62x54-r/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/7-62x54-r/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 140 gr PSPBT|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 140 gr PSPBT",
+   "grain": 140.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7mm-remington-magnum-standard/",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PSP bullets have a sharp lead nose"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Standard Rifle 174 gr PSPBT|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Standard Rifle 174 gr PSPBT",
+   "grain": 174.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7mm-remington-magnum-standard/",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PSP bullets have a sharp lead nose"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 140 gr PSPBT|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 140 gr PSPBT",
+   "grain": 140.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7mm-08-remington/",
+   "cartridge": "7mm-08 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PSP bullets have a sharp lead nose"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 139 gr SP|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 139 gr SP",
+   "grain": 139.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7mm-mauser-metric/",
+   "cartridge": "7x57 Mauser",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/7mm-mauser-metric/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 139 gr SP|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 139 gr SP",
+   "grain": 139.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7x57-r/",
+   "cartridge": "7x57 R",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/7x57-r/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 140 gr PSPBT|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 140 gr PSPBT",
+   "grain": 140.0,
+   "library_source_url": "https://ppu-usa.com/ppu/7x64/",
+   "cartridge": "7x64",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PSP bullets have a sharp lead nose"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://prvipartizan.com/download/PPU_2023.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SP BT and PSP BT bullets have a specially shaped back part"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 196 gr SP|8x57 IRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 196 gr SP",
+   "grain": 196.0,
+   "library_source_url": "https://ppu-usa.com/ppu/8x57-irs/",
+   "cartridge": "8x57 IRS",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/8x57-irs/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Match 200 gr FMJBT|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Match 200 gr FMJBT",
+   "grain": 200.0,
+   "library_source_url": "https://ppu-usa.com/ppu/8mm-mauser-match/",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/8mm-mauser-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/8mm-mauser-match/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 196 gr SP|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 196 gr SP",
+   "grain": 196.0,
+   "library_source_url": "https://ppu-usa.com/ppu/8mm-mauser-metric/",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/8mm-mauser-metric/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 198 gr FMJBT|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 198 gr FMJBT",
+   "grain": 198.0,
+   "library_source_url": "https://ppu-usa.com/ppu/8mm-mauser-metric/",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://ppu-usa.com/ppu/8mm-mauser-metric/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://ppu-usa.com/ppu/8mm-mauser-metric/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJBT"
+   },
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 285 gr SP|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 285 gr SP",
+   "grain": 285.0,
+   "library_source_url": "https://ppu-usa.com/ppu/9-3x62/",
+   "cartridge": "9.3x62",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/9-3x62/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Prvi Partizan|PPU Metric Rifle 285 gr SP|9.3x74 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "PPU Metric Rifle 285 gr SP",
+   "grain": 285.0,
+   "library_source_url": "https://ppu-usa.com/ppu/9-3x74-r/",
+   "cartridge": "9.3x74 R",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://ppu-usa.com/ppu/9-3x74-r/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

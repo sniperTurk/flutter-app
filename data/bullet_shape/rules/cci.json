@@ -1,0 +1,173 @@
+{
+ "brand": "CCI",
+ "note": "Read 2026-10-13: cci-ammunition.com robots.txt (product pages allowed), product pages of V-Max, VNT, TNT Green (17 HMR + 22 WMR), TNT 17 HMR, A17, 2026 catalog PDF; Speer TNT Green component page for construction. Most rimfire tip shapes come from product-name words. Not stated: A17 'Varmint Tip' material, TNT component maker, construction of lead/copper-plated rimfire bullets (no fitting enum), bases. Quiet-22 Semi-Auto: catalog says both 'RN' and 'Soft Point' - left to name.",
+ "sources": [
+  {
+   "id": "vmax17",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-49.html",
+   "read_date": "2026-10-13",
+   "title": "CCI V-Max 17 HMR"
+  },
+  {
+   "id": "vmax22",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-73.html",
+   "read_date": "2026-10-13",
+   "title": "CCI V-Max 22 WMR"
+  },
+  {
+   "id": "vnt17",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-959CC.html",
+   "read_date": "2026-10-13",
+   "title": "CCI VNT 17 HMR"
+  },
+  {
+   "id": "vnt22",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-929CC.html",
+   "read_date": "2026-10-13",
+   "title": "CCI VNT 22 WMR"
+  },
+  {
+   "id": "tntg17",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-951.html",
+   "read_date": "2026-10-13",
+   "title": "CCI TNT Green 17 HMR"
+  },
+  {
+   "id": "tntg22",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-60.html",
+   "read_date": "2026-10-13",
+   "title": "CCI TNT Green 22 WMR"
+  },
+  {
+   "id": "speer_tntg",
+   "url": "https://www.speer.com/bullets/rifle-bullets/tnt-green-bullet/19-1021.html",
+   "read_date": "2026-10-13",
+   "title": "Speer TNT Green component bullet"
+  },
+  {
+   "id": "cat2026",
+   "url": "https://www.cci-ammunition.com/on/demandware.static/-/Library-Sites-VistaCCISharedLibrary/default/v91e820dd9e99e25799a98c3df74baf9b44b130a9/pdfDocuments/catalog/CC313_Catalog-2026_WEB.pdf",
+   "read_date": "2026-10-13",
+   "title": "CCI 2026 catalog"
+  },
+  {
+   "id": "a17",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/a17/6-949CC.html",
+   "read_date": "2026-10-13",
+   "title": "CCI A17"
+  }
+ ],
+ "families": [
+  {
+   "id": "vmax",
+   "lib": "factory",
+   "name_regex": "\\bV-Max\\b",
+   "cartridge_regex": "17 HMR",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady V-Max",
+     "src": "vmax17",
+     "quote": "Hornady® V-Max® bullet"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "vmax17",
+     "quote": "a polymer-tipped design"
+    }
+   }
+  },
+  {
+   "id": "vmax_wmr",
+   "lib": "factory",
+   "name_regex": "\\bV-Max\\b",
+   "cartridge_regex": "22 WMR",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady V-Max",
+     "src": "vmax22",
+     "quote": "loaded with the Hornady® V-Max® bullet"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "vmax22",
+     "quote": "Polymer-tipped bullet design"
+    }
+   }
+  },
+  {
+   "id": "vnt",
+   "lib": "factory",
+   "name_regex": "\\bVNT\\b",
+   "cartridge_regex": "17 HMR",
+   "fields": {
+    "component_bullet": {
+     "value": "Speer VNT",
+     "src": "vnt17",
+     "quote": "feature a Speer® bullet with an extremely thin jacket and polymer tip"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "vnt17",
+     "quote": "Very thin jacket combined with precision-built polymer tip"
+    }
+   }
+  },
+  {
+   "id": "vnt_wmr",
+   "lib": "factory",
+   "name_regex": "\\bVNT\\b",
+   "cartridge_regex": "22 WMR",
+   "fields": {
+    "component_bullet": {
+     "value": "Speer VNT",
+     "src": "vnt22",
+     "quote": "a Speer® bullet"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "vnt22",
+     "quote": "precision-built polymer tip"
+    }
+   }
+  },
+  {
+   "id": "tnt_green",
+   "lib": "factory",
+   "name_regex": "TNT Green",
+   "cartridge_regex": "17 HMR",
+   "fields": {
+    "component_bullet": {
+     "value": "Speer TNT Green",
+     "src": "tntg17",
+     "quote": "Bullet Style: Speer TNT Green Hollow Point"
+    },
+    "construction": {
+     "value": "lead_free_other",
+     "src": "speer_tntg",
+     "quote": "Thin jacket around compressed powder core",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "tnt_green_wmr",
+   "lib": "factory",
+   "name_regex": "TNT Green",
+   "cartridge_regex": "22 WMR",
+   "fields": {
+    "component_bullet": {
+     "value": "Speer TNT Green",
+     "src": "tntg22",
+     "quote": "Bullet Style: Speer TNT Green Hollow Point"
+    },
+    "construction": {
+     "value": "lead_free_other",
+     "src": "speer_tntg",
+     "quote": "Thin jacket around compressed powder core",
+     "evidence": "component_maker_page"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

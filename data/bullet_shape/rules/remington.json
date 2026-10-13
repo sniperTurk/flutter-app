@@ -1,0 +1,314 @@
+{
+ "brand": "Remington",
+ "note": "remington.com product pages read 2026-10-13 (robots ok; WebFetch PROVENANCE_REQUIRED on first 3 tries, then ok). Component maker pages: speer.com (Impact boat tail), sierrabullets.com MatchKing family (HPBT names). Not stated: base for Core-Lokt, Core-Lokt Tipped, CuT, AccuTip(-V), Core-Lokt Copper, UMC, Subsonic; CuT tip ('precision tip', polymer not said); Premier AccuTip (Power Port tip, brass jacket) left empty; UMC/Subsonic construction not stated.",
+ "sources": [
+  {
+   "id": "cl",
+   "url": "https://www.remington.com/rifle/shop-by-caliber/shop-all-calibers/29-27842.html",
+   "read_date": "2026-10-13",
+   "title": "Core-Lokt 308 Win 150 gr PSP"
+  },
+  {
+   "id": "clt",
+   "url": "https://www.remington.com/rifle/core-lokt-tipped/29-29039.html",
+   "read_date": "2026-10-13",
+   "title": "Core-Lokt Tipped 308 Win 150 gr"
+  },
+  {
+   "id": "cltl",
+   "url": "https://www.remington.com/rifle/core-lokt-tipped-lever-gun/29-R21428.html",
+   "read_date": "2026-10-13",
+   "title": "Core-Lokt Tipped Lever Gun 30-30 150 gr"
+  },
+  {
+   "id": "clc",
+   "url": "https://www.remington.com/rifle/core-lokt-copper/29-R27855.html",
+   "read_date": "2026-10-13",
+   "title": "Core-Lokt Copper 270 Win 130 gr"
+  },
+  {
+   "id": "hsb",
+   "url": "https://www.remington.com/rifle/hypersonic-bonded/29-28955.html",
+   "read_date": "2026-10-13",
+   "title": "Hypersonic Bonded 270 Win 140 gr"
+  },
+  {
+   "id": "cut",
+   "url": "https://www.remington.com/rifle/premier-cut/29-R22344.html",
+   "read_date": "2026-10-13",
+   "title": "Premier CuT 308 Win 150 gr"
+  },
+  {
+   "id": "plr",
+   "url": "https://www.remington.com/rifle/premier-long-range/29-R21345.html",
+   "read_date": "2026-10-13",
+   "title": "Premier Long Range 308 Win 172 gr"
+  },
+  {
+   "id": "sci",
+   "url": "https://www.remington.com/rifle/premier-scirocco/29-29332.html",
+   "read_date": "2026-10-13",
+   "title": "Premier Scirocco 308 Win 165 gr"
+  },
+  {
+   "id": "pm",
+   "url": "https://www.remington.com/rifle/premier-match/29-21485.html",
+   "read_date": "2026-10-13",
+   "title": "Premier Match 308 Win 168 gr"
+  },
+  {
+   "id": "atv",
+   "url": "https://www.remington.com/rifle/premier-accutip-v/29-29192.html",
+   "read_date": "2026-10-13",
+   "title": "Premier AccuTip-V 223 Rem 55 gr"
+  },
+  {
+   "id": "atv_rf",
+   "url": "https://www.remington.com/rimfire/magnum-rimfire/29-21184.html",
+   "read_date": "2026-10-13",
+   "title": "Premier Magnum Rimfire 22 WMR 33 gr AccuTip-V"
+  },
+  {
+   "id": "speer_impact",
+   "url": "https://www.speer.com/speer-stories/bonding-benefits.html",
+   "read_date": "2026-10-13",
+   "title": "Speer: The Best Bonded Bullets (Impact)"
+  },
+  {
+   "id": "smk",
+   "url": "https://sierrabullets.com/bullets/product-family/matchking/",
+   "read_date": "2026-10-13",
+   "title": "Sierra MatchKing product family"
+  }
+ ],
+ "families": [
+  {
+   "id": "core_lokt",
+   "lib": "factory",
+   "name_regex": "\\bCore[- ]?Lokt\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "cl",
+     "quote": "Locked jacket and lead core, retain weight and drive through tough game"
+    }
+   }
+  },
+  {
+   "id": "core_lokt_tipped",
+   "lib": "factory",
+   "name_regex": "^Core-Lokt Tipped\\b",
+   "not_regex": "Lever Gun",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "clt",
+     "quote": "the proven Core-Lokt jacket and lead core deliver dependable weight retention"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "clt",
+     "quote": "Its Big Green polymer tip improves aerodynamics"
+    }
+   }
+  },
+  {
+   "id": "core_lokt_tipped_lever",
+   "lib": "factory",
+   "name_regex": "^Core-Lokt Tipped Lever Gun\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "cltl",
+     "quote": "Its flat polymer tip improves aerodynamics, initiates expansion"
+    }
+   }
+  },
+  {
+   "id": "core_lokt_copper",
+   "lib": "factory",
+   "name_regex": "^Core-Lokt Copper\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "clc",
+     "quote": "MONOLITHIC COPPER BULLET: Lead-free construction retains its integrity"
+    }
+   }
+  },
+  {
+   "id": "hypersonic_bonded",
+   "lib": "factory",
+   "name_regex": "\\bUltra Bonded\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "hsb",
+     "quote": "today's most advanced bonded bullet design, Core-Lokt Ultra Bonded"
+    }
+   }
+  },
+  {
+   "id": "cut",
+   "lib": "factory",
+   "name_regex": "^Premier CuT\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "cut",
+     "quote": "Premier CuT's monolithic copper alloy bullet"
+    }
+   }
+  },
+  {
+   "id": "speer_impact",
+   "lib": "factory",
+   "name_regex": "\\bSpeer Impact\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "plr",
+     "quote": "BONDED CONSTRUCTION: Keeps the jacket and core together"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "plr",
+     "quote": "SLIPSTREAM POLYMER TIP: Improves aerodynamics"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "speer_impact",
+     "quote": "streamlined, boat tail profile",
+     "evidence": "component_maker_page"
+    },
+    "component_bullet": {
+     "value": "Speer Impact",
+     "src": "plr",
+     "quote": "HIGH BALLISTIC COEFFIENT SPEER IMPACT BULLET"
+    }
+   }
+  },
+  {
+   "id": "scirocco",
+   "lib": "factory",
+   "name_regex": "\\bSwift Scirocco\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "sci",
+     "quote": "Jacket and core bonded together to eliminate jacket/core separations"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "sci",
+     "quote": "Precision shaped polymer tip for reduced frontal air resistance"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "sci",
+     "quote": "Boat tail bullet design for reduced air drag"
+    },
+    "component_bullet": {
+     "value": "Swift Scirocco",
+     "src": "sci",
+     "quote": "Swift Scirocco Bonded"
+    }
+   }
+  },
+  {
+   "id": "premier_match",
+   "lib": "factory",
+   "name_regex": "^Premier Match\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "pm",
+     "quote": "carefully selected open-tip match bullets for exceptional accuracy"
+    }
+   }
+  },
+  {
+   "id": "premier_match_mk",
+   "lib": "factory",
+   "name_regex": "^Premier Match\\b.*\\bMatchKing\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "MatchKing",
+     "src": "pm",
+     "quote": "MatchKing Open Tip Match"
+    }
+   }
+  },
+  {
+   "id": "accutip_v",
+   "lib": "factory",
+   "name_regex": "^Premier AccuTip-V\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "atv",
+     "quote": "the thin jacket and soft lead core to fragment violently"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "atv",
+     "quote": "AccuTip's gold polymer tip is driven rearward"
+    }
+   }
+  },
+  {
+   "id": "accutip_v_rf",
+   "lib": "factory",
+   "name_regex": "^Premier Magnum Rimfire\\b.*\\bAccuTip-V\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "atv_rf",
+     "quote": "AccuTip-V's precision-engineered polymer tip"
+    }
+   }
+  }
+ ],
+ "records": {
+  "Remington|Premier Match 69 gr MatchKing Open Tip Match|.223 Rem": {
+   "base": {
+    "value": "boat_tail",
+    "src": "smk",
+    "quote": "22 CAL 69 GR HPBT MatchKing (SMK)",
+    "evidence": "component_maker_page"
+   }
+  },
+  "Remington|Premier Match 77 gr MatchKing Open Tip Match|.223 Rem": {
+   "base": {
+    "value": "boat_tail",
+    "src": "smk",
+    "quote": "22 CAL 77 GR HPBT MatchKing (SMK)",
+    "evidence": "component_maker_page"
+   }
+  },
+  "Remington|Premier Match 168 gr MatchKing Open Tip Match|.308 Win": {
+   "base": {
+    "value": "boat_tail",
+    "src": "smk",
+    "quote": "30 CAL 168 GR HPBT MATCHKING (SMK)",
+    "evidence": "component_maker_page"
+   }
+  },
+  "Remington|Premier Match 175 gr MatchKing Open Tip Match|.308 Win": {
+   "base": {
+    "value": "boat_tail",
+    "src": "smk",
+    "quote": "30 CAL 175 GR HPBT MATCHKING (SMK)",
+    "evidence": "component_maker_page"
+   }
+  },
+  "Remington|Premier Match 140 gr MatchKing Open Tip Match|6.5 Creedmoor": {
+   "base": {
+    "value": "boat_tail",
+    "src": "smk",
+    "quote": "6.5MM 140 GR HPBT MatchKing (SMK)",
+    "evidence": "component_maker_page"
+   }
+  }
+ }
+}

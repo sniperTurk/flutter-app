@@ -1,0 +1,45 @@
+{
+  "brand": "SIG Sauer",
+  "note": "sigsauer.com robots.txt checked (product .html pages allowed). Hybrid Hunter names Nosler AccuBond bonded core; Hybrid Match names Sierra MatchKing HPBT (HPBT not expanded, so tip/base left empty). Elite Ball: only FMJ (from name). 6.8x51 Hybrid Ball: page says 'Solid Copper' but also 'Lead Free: No' -> contradictory, left empty.",
+  "sources": [
+    {
+      "id": "hh150",
+      "url": "https://www.sigsauer.com/277-sig-fury-150-hybrid-hunter.html",
+      "read_date": "2026-10-13",
+      "title": "277 SIG Fury 150 gr Hybrid Hunter"
+    },
+    {
+      "id": "hm155",
+      "url": "https://www.sigsauer.com/277-sig-fury-hybrid-match.html",
+      "read_date": "2026-10-13",
+      "title": "277 SIG Fury 155 gr Hybrid Match"
+    }
+  ],
+  "families": [],
+  "records": {
+    "SIG Sauer|277 SIG FURY, 150GR HYBRID HUNTER|.277 SIG Fury": {
+      "construction": {
+        "value": "bonded",
+        "src": "hh150",
+        "quote": "Featuring NOSLER Accubond bonded core bullets for maximum weight retention"
+      },
+      "component_bullet": {
+        "value": "Nosler AccuBond",
+        "src": "hh150",
+        "quote": "Featuring NOSLER Accubond bonded core bullets"
+      }
+    },
+    "SIG Sauer|277 SIG FURY, 155GR HYBRID MATCH|.277 SIG Fury": {
+      "construction": {
+        "value": "match",
+        "src": "hm155",
+        "quote": "Featuring Sierra MatchKing HPBT bullet."
+      },
+      "component_bullet": {
+        "value": "Sierra MatchKing HPBT",
+        "src": "hm155",
+        "quote": "Featuring Sierra MatchKing HPBT bullet."
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+ "brand": "Warner",
+ "note": "Read 2026-10-13 from warner-tool.com (robots.txt allows /product and /flat-line-bullets). Flat Line line page and product pages: CNC-turned monolithic copper solids. Nose/tip and base (boat tail/flat) not stated on line page, .416 550gr or .30 155.5gr PALMA pages; PALMA/FTR variants not explained.",
+ "sources": [
+  {
+   "id": "fl",
+   "url": "https://www.warner-tool.com/flat-line-bullets/",
+   "read_date": "2026-10-13",
+   "title": "WTC Flat Line Bullets"
+  },
+  {
+   "id": "p416",
+   "url": "https://www.warner-tool.com/product/416-550gr-flat-line/",
+   "read_date": "2026-10-13",
+   "title": ".416 550gr Flat Line Bullet"
+  },
+  {
+   "id": "palma",
+   "url": "https://www.warner-tool.com/product/30-155gr-flat-line-palma/",
+   "read_date": "2026-10-13",
+   "title": ".30 155.5gr Flat Line Palma"
+  }
+ ],
+ "families": [
+  {
+   "id": "flat_line",
+   "lib": "bullet",
+   "name_regex": "\\bFLAT LINE\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "fl",
+     "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+    }
+   }
+  }
+ ],
+ "records": {}
+}

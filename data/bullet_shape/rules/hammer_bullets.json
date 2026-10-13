@@ -1,0 +1,38 @@
+{
+ "brand": "Hammer Bullets",
+ "note": "Read 2026-10-13 from hammerbullets.com (robots.txt allows product and info pages): home, /hammer-hunter, /about-our-bullets/, one product page. Construction from brand-wide statement (all Hammer bullets solid copper, lead free). Hammer Hunter: 1.5mm hollow point. Base (boat tail/flat) not stated for Hammer Hunter; product page gives no shape details.",
+ "sources": [
+  {
+   "id": "about",
+   "url": "https://hammerbullets.com/about-our-bullets/",
+   "read_date": "2026-10-13",
+   "title": "About our bullets"
+  },
+  {
+   "id": "hh",
+   "url": "https://hammerbullets.com/hammer-hunter",
+   "read_date": "2026-10-13",
+   "title": "Hammer Hunter"
+  }
+ ],
+ "families": [
+  {
+   "id": "hammer_hunter",
+   "lib": "bullet",
+   "name_regex": "Hammer Hunter",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "about",
+     "quote": "custom turned on a CNC lathe, using only the highest-quality solid copper"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "hh",
+     "quote": "These bullets all have 1.5mm hollow point"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

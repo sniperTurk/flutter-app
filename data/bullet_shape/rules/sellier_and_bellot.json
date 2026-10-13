@@ -1,0 +1,165 @@
+{
+ "brand": "Sellier & Bellot",
+ "note": "Read sellier-bellot.cz line (category) pages for SP, SPCE, HPC, PTS, eXergy Blue, Sierra, Target (Match), FMJ plus sample detail pages. robots.txt could not be fetched (fetch error); only public product pages were read. eXergy Edge line/detail pages give no bullet description (type 'EDGE' only) -> empty. FMJ/Target pages add nothing beyond the product-name words. No tip shape stated for SP/FMJ; no base stated except eXergy Blue, Sierra SBT, HPBT.",
+ "sources": [
+  {
+   "id": "sb_sp",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+   "read_date": "2026-10-13",
+   "title": "Rifle ammunition SP"
+  },
+  {
+   "id": "sb_spce",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+   "read_date": "2026-10-13",
+   "title": "Rifle ammunition SPCE"
+  },
+  {
+   "id": "sb_hpc",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+   "read_date": "2026-10-13",
+   "title": "Rifle ammunition HPC"
+  },
+  {
+   "id": "sb_pts",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+   "read_date": "2026-10-13",
+   "title": "Hunting rifle ammunition with PTS bullets"
+  },
+  {
+   "id": "sb_pts_vmax",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/115",
+   "read_date": "2026-10-13",
+   "title": "17 Hornet V-MAX 20 gr"
+  },
+  {
+   "id": "sb_exblue",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+   "read_date": "2026-10-13",
+   "title": "Rifle ammunition with eXergy Blue bullets"
+  },
+  {
+   "id": "sb_sierra",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+   "read_date": "2026-10-13",
+   "title": "Rifle hunting ammunition with Sierra bullets"
+  }
+ ],
+ "families": [
+  {
+   "id": "sb_sp",
+   "lib": "factory",
+   "name_regex": "^Sellier & Bellot SP \\d",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "sb_sp",
+     "quote": "A lead core with a precisely engineered jacket"
+    }
+   }
+  },
+  {
+   "id": "sb_spce",
+   "lib": "factory",
+   "name_regex": "\\bSPCE\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "sb_spce",
+     "quote": "The cut-through edge locks the jacket and lead core together"
+    },
+    "tip_shape": {
+     "value": "soft_point",
+     "src": "sb_spce",
+     "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+    }
+   }
+  },
+  {
+   "id": "sb_hpc",
+   "lib": "factory",
+   "name_regex": "\\bHPC\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "sb_hpc",
+     "quote": "The expanding hollow point bullet has excellent ballistic characteristics"
+    }
+   }
+  },
+  {
+   "id": "sb_pts",
+   "lib": "factory",
+   "name_regex": "\\bPTS line\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "sb_pts",
+     "quote": "PTS bullets contain a premium polymer tip"
+    },
+    "component_bullet": {
+     "value": "Hornady PTS",
+     "src": "sb_pts",
+     "quote": "The PTS bullet was designed and manufactured by Hornady"
+    }
+   }
+  },
+  {
+   "id": "sb_pts_vmax",
+   "lib": "factory",
+   "name_regex": "\\bV-MAX\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady V-MAX",
+     "src": "sb_pts_vmax",
+     "quote": "Bullet: V-MAX; designed and manufactured by Hornady"
+    }
+   }
+  },
+  {
+   "id": "sb_exergy_blue",
+   "lib": "factory",
+   "name_regex": "\\beXergy Blue\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "sb_exblue",
+     "quote": "the solid copper construction maximizes weight retention"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "sb_exblue",
+     "quote": "Blue plastic tip enhances expansion at all ranges"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "sb_exblue",
+     "quote": "incorporating a boat-tail base with a new, pointed tip"
+    }
+   }
+  },
+  {
+   "id": "sb_sierra_gameking",
+   "lib": "factory",
+   "name_regex": "\\bSierra GameKing SBT\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "spitzer_soft_point",
+     "src": "sb_sierra",
+     "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "sb_sierra",
+     "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+    },
+    "component_bullet": {
+     "value": "Sierra GameKing",
+     "src": "sb_sierra",
+     "quote": "SBT GameKing – Spitzer Boat Tail bullets are designed for hunting"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

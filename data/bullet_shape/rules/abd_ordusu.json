@@ -1,0 +1,22 @@
+{
+  "brand": "ABD Ordusu",
+  "note": "DTIC ADA549416 (US Army M855A1 EPR Media Day). apps.dtic.mil/robots.txt returned a fetch error twice. Legacy M855 diagram lists 'Steel Penetrator / Lead Slug / Copper Jacket (FMJ)' (M855 vs M855A1 attribution from layout; table: M855 slug lead). Tip/base not stated.",
+  "sources": [
+    {
+      "id": "dtic",
+      "url": "https://apps.dtic.mil/sti/tr/pdf/ADA549416.pdf",
+      "read_date": "2026-10-13",
+      "title": "M855A1 Enhanced Performance Round (EPR) Media Day"
+    }
+  ],
+  "families": [],
+  "records": {
+    "ABD Ordusu|M855|5.56x45 NATO": {
+      "construction": {
+        "value": "fmj",
+        "src": "dtic",
+        "quote": "Steel Penetrator / Lead Slug / Copper Jacket (FMJ)"
+      }
+    }
+  }
+}

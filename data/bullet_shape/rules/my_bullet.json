@@ -1,0 +1,57 @@
+{
+ "brand": "My Bullet",
+ "note": "2026-10-13: robots.txt could not be fetched (CLIENT_ERROR twice; treated as absent). Read urunler-55.php and urunler-635.php. Base: 'düz taban' (flat base) stated for 5.5 22/38 gr and 6.35 32/45/60 gr; 5.5 30 gr and 6.35 38 gr say 'oval taban' (no enum) -> empty. Construction: 5.5 page 'tel kurşun' (lead wire) -> lead_slug; 6.35 page states no material. HP from name.",
+ "sources": [
+  {
+   "id": "mb55",
+   "url": "https://mybullet.com.tr/urunler-55.php",
+   "read_date": "2026-10-13",
+   "title": "My Bullet 5.5 mm"
+  },
+  {
+   "id": "mb635",
+   "url": "https://mybullet.com.tr/urunler-635.php",
+   "read_date": "2026-10-13",
+   "title": "My Bullet 6.35 mm"
+  }
+ ],
+ "families": [
+  {
+   "id": "mb55",
+   "lib": "bullet",
+   "name_regex": "^5\\.5mm ",
+   "fields": {
+    "construction": {
+     "value": "lead_slug",
+     "src": "mb55",
+     "quote": "tel kurşun ve hollow point slug"
+    }
+   }
+  },
+  {
+   "id": "flat55",
+   "lib": "bullet",
+   "name_regex": "^5\\.5mm (22|38) Grain",
+   "fields": {
+    "base": {
+     "value": "flat_base",
+     "src": "mb55",
+     "quote": "düz taban tasarımı"
+    }
+   }
+  },
+  {
+   "id": "flat635",
+   "lib": "bullet",
+   "name_regex": "^6\\.35mm (32|45|60) Grain",
+   "fields": {
+    "base": {
+     "value": "flat_base",
+     "src": "mb635",
+     "quote": "düz taban tasarımıyla"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

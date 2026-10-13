@@ -1,0 +1,452 @@
+{
+ "brand": "Crosman",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt read (product paths and uploads allowed). All 10 product pages + 2026-27 catalog PDF read. Spec 'Material: Lead' for Hollow Point, Domed, Piranha, Pointed, Destroyer, Wadcutter. Penetrators 'Lead Free Pointed Polymer Belted' / catalog 'pointed, lead-free'. Destroyer 'Shape: Pointed'. Not stated: Premier Copper Domed material (only copper coating), Domed Ultra Heavy material, Challenger material (Prop 65 only). No base stated.",
+ "sources": [
+  {
+   "id": "hp",
+   "url": "https://www.crosman.com/product/crosman-hollow-point-pellet/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Hollow Point Pellet"
+  },
+  {
+   "id": "dom",
+   "url": "https://www.crosman.com/product/crosman-domed-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Domed Pellets"
+  },
+  {
+   "id": "pir",
+   "url": "https://www.crosman.com/product/crosman-piranha-hollow-point-pellet/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Piranha Hollow Point Pellet"
+  },
+  {
+   "id": "rfp",
+   "url": "https://www.crosman.com/product/crosman-red-flight-penetrator-22/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Red Flight Penetrator .22"
+  },
+  {
+   "id": "ffp",
+   "url": "https://www.crosman.com/product/crosman-fast-flight-penetrator-177/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Fast Flight Penetrator .177"
+  },
+  {
+   "id": "cat",
+   "url": "https://www.crosman.com/wp-content/uploads/2026/03/2026_27_Crosman_Catalog.pdf",
+   "read_date": "2026-10-13",
+   "title": "Crosman 2026-27 Catalog"
+  },
+  {
+   "id": "pt",
+   "url": "https://www.crosman.com/product/crosman-pointed-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Pointed Pellets"
+  },
+  {
+   "id": "des",
+   "url": "https://www.crosman.com/product/crosman-destroyer-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Destroyer Pellets"
+  },
+  {
+   "id": "wc",
+   "url": "https://www.crosman.com/product/crosman-wadcutter-pellet-177/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Wadcutter Pellet .177"
+  }
+ ],
+ "records": {
+  "Crosman|Hollow Point .177 7.6 gr|LHP77": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hollow Point .177 7.6 gr",
+   "grain": 7.6,
+   "library_source_url": "https://www.crosman.com/product/crosman-hollow-point-pellet/",
+   "caliber_mm": 4.5,
+   "item": "LHP77",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-hollow-point-pellet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.crosman.com/product/crosman-hollow-point-pellet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Crosman|Hollow Point .22 14.3 gr|LHP22": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hollow Point .22 14.3 gr",
+   "grain": 14.3,
+   "library_source_url": "https://www.crosman.com/product/crosman-hollow-point-pellet/",
+   "caliber_mm": 5.5,
+   "item": "LHP22",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-hollow-point-pellet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.crosman.com/product/crosman-hollow-point-pellet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Crosman|Domed Ultra Magnum .177 10.5 gr|LUM77": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Domed Ultra Magnum .177 10.5 gr",
+   "grain": 10.5,
+   "library_source_url": "https://www.crosman.com/product/crosman-domed-pellets/",
+   "caliber_mm": 4.5,
+   "item": "LUM77",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-domed-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.crosman.com/product/crosman-domed-pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Crosman|Domed .22 14.3 gr|LDP22": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Domed .22 14.3 gr",
+   "grain": 14.3,
+   "library_source_url": "https://www.crosman.com/product/crosman-domed-pellets/",
+   "caliber_mm": 5.5,
+   "item": "LDP22",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-domed-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.crosman.com/product/crosman-domed-pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Crosman|Domed Ultra Heavy .22 22 gr|LDHP226P": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Domed Ultra Heavy .22 22 gr",
+   "grain": 22.0,
+   "library_source_url": "https://www.crosman.com/wp-content/uploads/2026/03/2026_27_Crosman_Catalog.pdf",
+   "caliber_mm": 5.5,
+   "item": "LDHP226P",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.crosman.com/wp-content/uploads/2026/03/2026_27_Crosman_Catalog.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Crosman|Premier Copper Domed .22 14.4 gr|CPD22-0130": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Premier Copper Domed .22 14.4 gr",
+   "grain": 14.4,
+   "library_source_url": "https://www.crosman.com/product/crosman-premier-copper-domed-22-caliber-pellets-14-4-grain/",
+   "caliber_mm": 5.5,
+   "item": "CPD22-0130",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.crosman.com/product/crosman-premier-copper-domed-22-caliber-pellets-14-4-grain/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Crosman|Piranha Hollow Point .177 10.5 gr|LPPH76P": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Piranha Hollow Point .177 10.5 gr",
+   "grain": 10.5,
+   "library_source_url": "https://www.crosman.com/product/crosman-piranha-hollow-point-pellet/",
+   "caliber_mm": 4.5,
+   "item": "LPPH76P",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-piranha-hollow-point-pellet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.crosman.com/product/crosman-piranha-hollow-point-pellet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Crosman|Piranha Hollow Point .22 14.3 gr|LPPH26P": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Piranha Hollow Point .22 14.3 gr",
+   "grain": 14.3,
+   "library_source_url": "https://www.crosman.com/product/crosman-piranha-hollow-point-pellet/",
+   "caliber_mm": 5.5,
+   "item": "LPPH26P",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-piranha-hollow-point-pellet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.crosman.com/product/crosman-piranha-hollow-point-pellet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Crosman|Red Flight Penetrator .22 16.7 gr|LF22167-01": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Red Flight Penetrator .22 16.7 gr",
+   "grain": 16.7,
+   "library_source_url": "https://www.crosman.com/product/crosman-red-flight-penetrator-22/",
+   "caliber_mm": 5.5,
+   "item": "LF22167-01",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-red-flight-penetrator-22/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead Free Pointed Polymer Belted"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.crosman.com/product/crosman-red-flight-penetrator-22/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "16.7-grain pointed, belted design"
+   },
+   "base": null
+  },
+  "Crosman|Fast Flight Penetrator .177 5.4 gr|LF1754-01": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Fast Flight Penetrator .177 5.4 gr",
+   "grain": 5.4,
+   "library_source_url": "https://www.crosman.com/product/crosman-fast-flight-penetrator-177/",
+   "caliber_mm": 4.5,
+   "item": "LF1754-01",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-fast-flight-penetrator-177/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead Free Pointed Polymer Belted"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.crosman.com/product/crosman-fast-flight-penetrator-177/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "belted, pointed design"
+   },
+   "base": null
+  },
+  "Crosman|Gold Flight Penetrator .177 8.5 gr|LF17856P": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Gold Flight Penetrator .177 8.5 gr",
+   "grain": 8.5,
+   "library_source_url": "https://www.crosman.com/wp-content/uploads/2026/03/2026_27_Crosman_Catalog.pdf",
+   "caliber_mm": 4.5,
+   "item": "LF17856P",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://www.crosman.com/wp-content/uploads/2026/03/2026_27_Crosman_Catalog.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Mid-weight pointed, lead-free, environmentally-friendly pellets"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.crosman.com/wp-content/uploads/2026/03/2026_27_Crosman_Catalog.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Mid-weight pointed, lead-free, environmentally-friendly pellets"
+   },
+   "base": null
+  },
+  "Crosman|Pointed .177 7.6 gr|P177": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Pointed .177 7.6 gr",
+   "grain": 7.6,
+   "library_source_url": "https://www.crosman.com/product/crosman-pointed-pellets/",
+   "caliber_mm": 4.5,
+   "item": "P177",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-pointed-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.crosman.com/product/crosman-pointed-pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed"
+   },
+   "base": null
+  },
+  "Crosman|Pointed .22 14.3 gr|P022": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Pointed .22 14.3 gr",
+   "grain": 14.3,
+   "library_source_url": "https://www.crosman.com/product/crosman-pointed-pellets/",
+   "caliber_mm": 5.5,
+   "item": "P022",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-pointed-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.crosman.com/product/crosman-pointed-pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Pointed"
+   },
+   "base": null
+  },
+  "Crosman|Destroyer .177 7.6 gr|DS177": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Destroyer .177 7.6 gr",
+   "grain": 7.6,
+   "library_source_url": "https://www.crosman.com/product/crosman-destroyer-pellets/",
+   "caliber_mm": 4.5,
+   "item": "DS177",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-destroyer-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.crosman.com/product/crosman-destroyer-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Pointed"
+   },
+   "base": null
+  },
+  "Crosman|Destroyer .22 14.3 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Destroyer .22 14.3 gr",
+   "grain": 14.3,
+   "library_source_url": "https://www.crosman.com/product/crosman-destroyer-pellets/",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-destroyer-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.crosman.com/product/crosman-destroyer-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Pointed"
+   },
+   "base": null
+  },
+  "Crosman|Wadcutter .177 7.4 gr|6177-01": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Wadcutter .177 7.4 gr",
+   "grain": 7.4,
+   "library_source_url": "https://www.crosman.com/product/crosman-wadcutter-pellet-177/",
+   "caliber_mm": 4.5,
+   "item": "6177-01",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.crosman.com/product/crosman-wadcutter-pellet-177/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "wadcutter",
+    "source_url": "https://www.crosman.com/product/crosman-wadcutter-pellet-177/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Wadcutter"
+   },
+   "base": null
+  },
+  "Crosman|Challenger Competition Select .177 Wadcutter 8.06 gr|CCSP77": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Challenger Competition Select .177 Wadcutter 8.06 gr",
+   "grain": 8.06,
+   "library_source_url": "https://www.crosman.com/product/challenger-competition-select-177-pellets/",
+   "caliber_mm": 4.5,
+   "item": "CCSP77",
+   "construction": null,
+   "tip_shape": {
+    "value": "wadcutter",
+    "source_url": "https://www.crosman.com/product/challenger-competition-select-177-pellets/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Wadcutter"
+   },
+   "base": null
+  }
+ }
+}

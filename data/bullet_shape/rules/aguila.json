@@ -1,0 +1,14 @@
+{
+ "brand": "Aguila",
+ "note": "Read the Aguila 2023 catalogue PDF (content.aguilaammo.com) and the 308 Win 150 gr SP product page; www.aguilaammo.com/robots.txt returned a fetch error. The catalogue states only what the product names already say (Soft Point, FMJ BT, Round Nose, Hollow Point); 'solid point' and lead/copper-plated rimfire bullets have no matching enum; no maker, base or tip geometry otherwise stated -> no rules added.",
+ "sources": [
+  {
+   "id": "ag_cat",
+   "url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "read_date": "2026-10-13",
+   "title": "Aguila catalogue 2023"
+  }
+ ],
+ "families": [],
+ "records": {}
+}

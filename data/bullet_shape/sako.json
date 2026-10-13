@@ -1,0 +1,771 @@
+{
+ "brand": "Sako",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "sako.global robots.txt allows all. Read each line page (Gamehead, Gamehead Pro, Gamehead Varmint RX, Hammerhead, Super Hammerhead, Powerhead Blade, Blade Pro, Blade Solid, Speedhead, TRG Precision/Sport/Defense). TRG Defense: nothing stated. Not stated: Gamehead Pro construction/base, Speedhead tip/base, Hammerhead base, Powerhead Blade/Blade Pro/Solid tip & base (Blade Solid .223 is 'un-tipped'), Varmint RX construction. No component bullet makers named.",
+ "sources": [
+  {
+   "id": "gh",
+   "url": "https://www.sako.global/ammunition/gamehead",
+   "read_date": "2026-10-13",
+   "title": "Sako Gamehead"
+  },
+  {
+   "id": "ghp",
+   "url": "https://www.sako.global/ammunition/gamehead-pro",
+   "read_date": "2026-10-13",
+   "title": "Sako Gamehead Pro"
+  },
+  {
+   "id": "ghrx",
+   "url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+   "read_date": "2026-10-13",
+   "title": "Sako Gamehead Varmint RX"
+  },
+  {
+   "id": "hh",
+   "url": "https://www.sako.global/ammunition/hammerhead",
+   "read_date": "2026-10-13",
+   "title": "Sako Hammerhead"
+  },
+  {
+   "id": "shh",
+   "url": "https://www.sako.global/ammunition/super-hammerhead",
+   "read_date": "2026-10-13",
+   "title": "Sako Super Hammerhead"
+  },
+  {
+   "id": "pb",
+   "url": "https://www.sako.global/ammunition/powerhead-blade",
+   "read_date": "2026-10-13",
+   "title": "Sako Powerhead Blade"
+  },
+  {
+   "id": "pbp",
+   "url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+   "read_date": "2026-10-13",
+   "title": "Sako Powerhead Blade Pro"
+  },
+  {
+   "id": "pbs",
+   "url": "https://www.sako.global/ammunition/powerhead-blade-solid",
+   "read_date": "2026-10-13",
+   "title": "Sako Powerhead Blade Solid"
+  },
+  {
+   "id": "sh",
+   "url": "https://www.sako.global/ammunition/speedhead",
+   "read_date": "2026-10-13",
+   "title": "Sako Speedhead"
+  },
+  {
+   "id": "trgp",
+   "url": "https://www.sako.global/ammunition/trg-precision",
+   "read_date": "2026-10-13",
+   "title": "Sako TRG Precision"
+  },
+  {
+   "id": "trgs",
+   "url": "https://www.sako.global/ammunition/trg-sport",
+   "read_date": "2026-10-13",
+   "title": "Sako TRG Sport"
+  }
+ ],
+ "records": {
+  "Sako|Sako Gamehead Varmint RX 52 gr|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Gamehead Varmint RX 52 gr",
+   "grain": 52.0,
+   "library_source_url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features a thin jacket and massive hollow-point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "high-precision boat-tailed bullet"
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Powerhead Blade Solid 40 gr|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Powerhead Blade Solid 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.sako.global/ammunition/powerhead-blade-solid",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sako.global/ammunition/powerhead-blade-solid",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "High-precision lathe-turned monolithic copper body"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako TRG Defense 63 gr|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako TRG Defense 63 gr",
+   "grain": 63.0,
+   "library_source_url": "https://www.sako.global/ammunition/trg-defense",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako TRG Sport Range 53 gr|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako TRG Sport Range 53 gr",
+   "grain": 53.0,
+   "library_source_url": "https://www.sako.global/ammunition/trg-sport",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sako.global/ammunition/trg-sport",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precision Open Tip Match bullet design"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.sako.global/ammunition/trg-sport",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open Tip Match bullet"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Powerhead Blade Pro 120 gr|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Powerhead Blade Pro 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "copper ammunition, we created a new monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Super Hammerhead 130 gr|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Super Hammerhead 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.sako.global/ammunition/super-hammerhead",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.sako.global/ammunition/super-hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded core provides high weight retention"
+   },
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "source_url": "https://www.sako.global/ammunition/super-hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-spitzer boat tail structure improves trajectory"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/super-hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is boat-tailed for high ballistic efficiency"
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Gamehead Varmint RX 130 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Gamehead Varmint RX 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features a thin jacket and massive hollow-point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "high-precision boat-tailed bullet"
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Powerhead Blade Pro 162 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Powerhead Blade Pro 162 gr",
+   "grain": 162.0,
+   "library_source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "copper ammunition, we created a new monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Speedhead 123 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Speedhead 123 gr",
+   "grain": 123.0,
+   "library_source_url": "https://www.sako.global/ammunition/speedhead",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sako.global/ammunition/speedhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A full-metal jacket bullet that delivers ultimate accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Super Hammerhead 150 gr|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Super Hammerhead 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.sako.global/ammunition/super-hammerhead",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.sako.global/ammunition/super-hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded core provides high weight retention"
+   },
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "source_url": "https://www.sako.global/ammunition/super-hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-spitzer boat tail structure improves trajectory"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/super-hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is boat-tailed for high ballistic efficiency"
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Powerhead Blade Pro 174 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Powerhead Blade Pro 174 gr",
+   "grain": 174.0,
+   "library_source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "copper ammunition, we created a new monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako TRG Precision 174 gr|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako TRG Precision 174 gr",
+   "grain": 174.0,
+   "library_source_url": "https://www.sako.global/ammunition/trg-precision",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Gamehead Varmint RX 130 gr|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Gamehead Varmint RX 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "features a thin jacket and massive hollow-point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/gamehead-varmint-rx",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "high-precision boat-tailed bullet"
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Gamehead 140 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Gamehead 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.sako.global/ammunition/gamehead",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Light jacket ... Non-bonded core"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Spitzer-nosed soft-point bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Spitzer Boat Tail shape ensures flat trajectory."
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Gamehead Pro 130 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Gamehead Pro 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.sako.global/ammunition/gamehead-pro",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sako.global/ammunition/gamehead-pro",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip and the aerodynamic design aim for high ballistic coefficient"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Gamehead Pro 140 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Gamehead Pro 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.sako.global/ammunition/gamehead-pro",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sako.global/ammunition/gamehead-pro",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip and the aerodynamic design aim for high ballistic coefficient"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Powerhead Blade 120 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Powerhead Blade 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://www.sako.global/ammunition",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sako.global/ammunition/powerhead-blade",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "100% pure ductile copper and 5-Stage terminal architecture"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Powerhead Blade Pro 123 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Powerhead Blade Pro 123 gr",
+   "grain": 123.0,
+   "library_source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "copper ammunition, we created a new monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Speedhead 144 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Speedhead 144 gr",
+   "grain": 144.0,
+   "library_source_url": "https://www.sako.global/ammunition/speedhead",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sako.global/ammunition/speedhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A full-metal jacket bullet that delivers ultimate accuracy"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Super Hammerhead 140 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Super Hammerhead 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.sako.global/ammunition/super-hammerhead",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.sako.global/ammunition/super-hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A bonded core provides high weight retention"
+   },
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "source_url": "https://www.sako.global/ammunition/super-hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-spitzer boat tail structure improves trajectory"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/super-hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "It is boat-tailed for high ballistic efficiency"
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako TRG Precision 136 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako TRG Precision 136 gr",
+   "grain": 136.0,
+   "library_source_url": "https://www.sako.global/ammunition/trg-precision",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako TRG Precision 140 gr|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako TRG Precision 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.sako.global/ammunition/trg-precision",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako TRG Precision 136 gr|6.5 PRC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako TRG Precision 136 gr",
+   "grain": 136.0,
+   "library_source_url": "https://www.sako.global/ammunition/trg-precision",
+   "cartridge": "6.5 PRC",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/trg-precision",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Open tip match bullet with boat-tail"
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Gamehead 123 gr|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Gamehead 123 gr",
+   "grain": 123.0,
+   "library_source_url": "https://www.sako.global/ammunition/gamehead",
+   "cartridge": "7.62x39",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Light jacket ... Non-bonded core"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Spitzer-nosed soft-point bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Spitzer Boat Tail shape ensures flat trajectory."
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Hammerhead 170 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Hammerhead 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.sako.global/ammunition/hammerhead",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.sako.global/ammunition/hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A heavy jacketed and soft-point bullet with a bonded core."
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.sako.global/ammunition/hammerhead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Round nose design increases expansion speed and dependability."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Powerhead Blade Pro 140 gr|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Powerhead Blade Pro 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "copper ammunition, we created a new monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Gamehead 140 gr|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Gamehead 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.sako.global/ammunition/gamehead",
+   "cartridge": "7mm-08 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Light jacket ... Non-bonded core"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Spitzer-nosed soft-point bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Spitzer Boat Tail shape ensures flat trajectory."
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Gamehead Pro 150 gr|7mm-08 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Gamehead Pro 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.sako.global/ammunition/gamehead-pro",
+   "cartridge": "7mm-08 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sako.global/ammunition/gamehead-pro",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The polymer tip and the aerodynamic design aim for high ballistic coefficient"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sako|Sako Gamehead 150 gr|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Gamehead 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.sako.global/ammunition/gamehead",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Light jacket ... Non-bonded core"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Spitzer-nosed soft-point bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sako.global/ammunition/gamehead",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Spitzer Boat Tail shape ensures flat trajectory."
+   },
+   "component_bullet": null
+  },
+  "Sako|Sako Powerhead Blade Pro 201 gr|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sako Powerhead Blade Pro 201 gr",
+   "grain": 201.0,
+   "library_source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sako.global/ammunition/powerhead-blade-pro",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "copper ammunition, we created a new monolithic bullet"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

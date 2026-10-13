@@ -1,0 +1,271 @@
+{
+ "brand": "Air Arms",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt read (resources.air-arms.co.uk; page allowed). Read the pellet range page: range-wide 'Crafted from high-grade lead alloys' -> lead_pellet for all; per-pellet 'Shape:' Domed (Express, Field, Field Plus Heavy), Pointed (Diabolo Hunter), Wadcutter (Match Flathead, Training Match). Base/skirt not stated.",
+ "sources": [
+  {
+   "id": "aa",
+   "url": "https://resources.air-arms.co.uk/airarmspellets",
+   "read_date": "2026-10-13",
+   "title": "Air Arms pellets"
+  }
+ ],
+ "records": {
+  "Air Arms|Diabolo Express .177 7.87 gr|PDE74.52": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Diabolo Express .177 7.87 gr",
+   "grain": 7.87,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 4.5,
+   "item": "PDE74.52",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Domed"
+   },
+   "base": null
+  },
+  "Air Arms|Diabolo Field .177 8.44 gr (4.51)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Diabolo Field .177 8.44 gr (4.51)",
+   "grain": 8.44,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Domed"
+   },
+   "base": null
+  },
+  "Air Arms|Diabolo Field .177 8.44 gr (4.52)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Diabolo Field .177 8.44 gr (4.52)",
+   "grain": 8.44,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Domed"
+   },
+   "base": null
+  },
+  "Air Arms|Diabolo Field .22 15.89 gr (5.51)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Diabolo Field .22 15.89 gr (5.51)",
+   "grain": 15.89,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Domed"
+   },
+   "base": null
+  },
+  "Air Arms|Diabolo Field .22 15.89 gr (5.52)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Diabolo Field .22 15.89 gr (5.52)",
+   "grain": 15.89,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Domed"
+   },
+   "base": null
+  },
+  "Air Arms|Diabolo Field .25 25.39 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Diabolo Field .25 25.39 gr",
+   "grain": 25.39,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Domed"
+   },
+   "base": null
+  },
+  "Air Arms|Field Plus Heavy .22 18.13 gr|PFH25.52-500": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Field Plus Heavy .22 18.13 gr",
+   "grain": 18.13,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 5.5,
+   "item": "PFH25.52-500",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Domed"
+   },
+   "base": null
+  },
+  "Air Arms|Diabolo Hunter .22 16 gr|PH2": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Diabolo Hunter .22 16 gr",
+   "grain": 16.0,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 5.5,
+   "item": "PH2",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Pointed"
+   },
+   "base": null
+  },
+  "Air Arms|Match Flathead .177 7.33 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Match Flathead .177 7.33 gr",
+   "grain": 7.33,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "wadcutter",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Wadcutter"
+   },
+   "base": null
+  },
+  "Air Arms|Training Match Heavy .177 8.26 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Training Match Heavy .177 8.26 gr",
+   "grain": 8.26,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "wadcutter",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Wadcutter"
+   },
+   "base": null
+  },
+  "Air Arms|Training Match Medium .177 8.02 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Training Match Medium .177 8.02 gr",
+   "grain": 8.02,
+   "library_source_url": "https://resources.air-arms.co.uk/airarmspellets",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Crafted from high-grade lead alloys"
+   },
+   "tip_shape": {
+    "value": "wadcutter",
+    "source_url": "https://resources.air-arms.co.uk/airarmspellets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Shape: Wadcutter"
+   },
+   "base": null
+  }
+ }
+}

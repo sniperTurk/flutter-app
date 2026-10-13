@@ -1,0 +1,57 @@
+{
+ "brand": "NSA",
+ "note": "2026-10-13: robots.txt read (products/ allowed; first 2 attempts PROVENANCE_REQUIRED, 3rd ok). Product pages read: 240gr, 31.2gr, 28.5gr, 265gr TC, 75gr .257, 110gr .35. Every page: 'swaged from soft lead' -> lead_slug (all records). Nose HP comes from the name. NSA 'DB' = 'dish base' (page: 'hollow point nose with a dish base'); base enum has no dish base, so DB records keep base empty (not mapped to hollow_base). FB = flat base comes from the name. Conflicts: 28.5gr and .257 75gr pages say both 'dish base' and 'flat base'; 265gr 'Truncated Cone' page still says hollow point nose.",
+ "sources": [
+  {
+   "id": "nsa240",
+   "url": "https://nielsenspecialtyammo.com/products/240-grains-swaged-hollow-point",
+   "read_date": "2026-10-13",
+   "title": "45 cal 240 gr slugs"
+  },
+  {
+   "id": "nsa312",
+   "url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+   "read_date": "2026-10-13",
+   "title": "22 cal 31.2 gr slugs"
+  },
+  {
+   "id": "nsa285",
+   "url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+   "read_date": "2026-10-13",
+   "title": "22 cal 28.5 gr slugs"
+  },
+  {
+   "id": "nsa265tc",
+   "url": "https://nielsenspecialtyammo.com/products/45-cal-265-grain-truncated-cone-50ct-0-44-rd",
+   "read_date": "2026-10-13",
+   "title": ".45 cal 265 gr Truncated Cone"
+  },
+  {
+   "id": "nsa257",
+   "url": "https://nielsenspecialtyammo.com/products/75-grain-257-flat-base-hollow-point",
+   "read_date": "2026-10-13",
+   "title": ".257 75 gr slugs"
+  },
+  {
+   "id": "nsa110",
+   "url": "https://nielsenspecialtyammo.com/products/110-gr-hp-fb-35-cal",
+   "read_date": "2026-10-13",
+   "title": "35 cal 110 gr slugs"
+  }
+ ],
+ "families": [
+  {
+   "id": "nsa_all",
+   "lib": "bullet",
+   "name_regex": "^NSA\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_slug",
+     "src": "nsa312",
+     "quote": "slugs are swaged from soft lead to give excellent expansion"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

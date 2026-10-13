@@ -1,0 +1,191 @@
+{
+ "brand": "Crosman",
+ "note": "2026-10-13: robots.txt read (product paths and uploads allowed). All 10 product pages + 2026-27 catalog PDF read. Spec 'Material: Lead' for Hollow Point, Domed, Piranha, Pointed, Destroyer, Wadcutter. Penetrators 'Lead Free Pointed Polymer Belted' / catalog 'pointed, lead-free'. Destroyer 'Shape: Pointed'. Not stated: Premier Copper Domed material (only copper coating), Domed Ultra Heavy material, Challenger material (Prop 65 only). No base stated.",
+ "sources": [
+  {
+   "id": "hp",
+   "url": "https://www.crosman.com/product/crosman-hollow-point-pellet/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Hollow Point Pellet"
+  },
+  {
+   "id": "dom",
+   "url": "https://www.crosman.com/product/crosman-domed-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Domed Pellets"
+  },
+  {
+   "id": "pir",
+   "url": "https://www.crosman.com/product/crosman-piranha-hollow-point-pellet/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Piranha Hollow Point Pellet"
+  },
+  {
+   "id": "rfp",
+   "url": "https://www.crosman.com/product/crosman-red-flight-penetrator-22/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Red Flight Penetrator .22"
+  },
+  {
+   "id": "ffp",
+   "url": "https://www.crosman.com/product/crosman-fast-flight-penetrator-177/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Fast Flight Penetrator .177"
+  },
+  {
+   "id": "cat",
+   "url": "https://www.crosman.com/wp-content/uploads/2026/03/2026_27_Crosman_Catalog.pdf",
+   "read_date": "2026-10-13",
+   "title": "Crosman 2026-27 Catalog"
+  },
+  {
+   "id": "pt",
+   "url": "https://www.crosman.com/product/crosman-pointed-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Pointed Pellets"
+  },
+  {
+   "id": "des",
+   "url": "https://www.crosman.com/product/crosman-destroyer-pellets/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Destroyer Pellets"
+  },
+  {
+   "id": "wc",
+   "url": "https://www.crosman.com/product/crosman-wadcutter-pellet-177/",
+   "read_date": "2026-10-13",
+   "title": "Crosman Wadcutter Pellet .177"
+  }
+ ],
+ "families": [
+  {
+   "id": "hp",
+   "lib": "bullet",
+   "name_regex": "^Hollow Point \\.",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "hp",
+     "quote": "Material: Lead"
+    }
+   }
+  },
+  {
+   "id": "dom",
+   "lib": "bullet",
+   "name_regex": "^Domed (Ultra Magnum \\.177|\\.22 14\\.3)",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "dom",
+     "quote": "Material: Lead"
+    }
+   }
+  },
+  {
+   "id": "pir",
+   "lib": "bullet",
+   "name_regex": "^Piranha Hollow Point\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "pir",
+     "quote": "Material: Lead"
+    }
+   }
+  },
+  {
+   "id": "rfp",
+   "lib": "bullet",
+   "name_regex": "^Red Flight Penetrator\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "rfp",
+     "quote": "Lead Free Pointed Polymer Belted"
+    },
+    "tip_shape": {
+     "value": "pointed",
+     "src": "rfp",
+     "quote": "16.7-grain pointed, belted design"
+    }
+   }
+  },
+  {
+   "id": "ffp",
+   "lib": "bullet",
+   "name_regex": "^Fast Flight Penetrator\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "ffp",
+     "quote": "Lead Free Pointed Polymer Belted"
+    },
+    "tip_shape": {
+     "value": "pointed",
+     "src": "ffp",
+     "quote": "belted, pointed design"
+    }
+   }
+  },
+  {
+   "id": "gfp",
+   "lib": "bullet",
+   "name_regex": "^Gold Flight Penetrator\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "cat",
+     "quote": "Mid-weight pointed, lead-free, environmentally-friendly pellets"
+    },
+    "tip_shape": {
+     "value": "pointed",
+     "src": "cat",
+     "quote": "Mid-weight pointed, lead-free, environmentally-friendly pellets"
+    }
+   }
+  },
+  {
+   "id": "pt",
+   "lib": "bullet",
+   "name_regex": "^Pointed \\.",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "pt",
+     "quote": "Material: Lead"
+    }
+   }
+  },
+  {
+   "id": "des",
+   "lib": "bullet",
+   "name_regex": "^Destroyer\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "des",
+     "quote": "Material: Lead"
+    },
+    "tip_shape": {
+     "value": "pointed",
+     "src": "des",
+     "quote": "Shape: Pointed"
+    }
+   }
+  },
+  {
+   "id": "wc",
+   "lib": "bullet",
+   "name_regex": "^Wadcutter \\.177",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "wc",
+     "quote": "Material: Lead"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

@@ -1,0 +1,234 @@
+{
+  "brand": "Lapua",
+  "note": "Read lapua.com robots.txt (only /wp-admin/ disallowed), 2024 catalogue PDF and product pages. Scenar/Scenar-L/MaxRange/TRX/Mega/Lock Base/Naturalis lines filled from line text. Not stated on maker pages: AP/API cartridges (only 'Armor Piercing'), rimfire .22 LR (Center-X, Midas+ etc.: no bullet design), Scenar-L base, Mega tip shape/base, Naturalis tip, factory 'Open Tip' 8x57/9.3x62 lines. Initial fetches hit PROVENANCE_REQUIRED, succeeded on retry.",
+  "sources": [
+    {
+      "id": "cat2024",
+      "url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+      "read_date": "2026-10-13",
+      "title": "Lapua product catalog 2024"
+    },
+    {
+      "id": "gb422",
+      "url": "https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/",
+      "read_date": "2026-10-13",
+      "title": "Scenar OTM GB422"
+    },
+    {
+      "id": "gb550",
+      "url": "https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/",
+      "read_date": "2026-10-13",
+      "title": "Scenar-L OTM GB550"
+    },
+    {
+      "id": "sl6547",
+      "url": "https://www.lapua.com/product/6-5x47-open-tip-match-cartridge-lapua-scenar-l-88g-136gr-4316016/",
+      "read_date": "2026-10-13",
+      "title": "6.5x47 Scenar-L 136 gr cartridge"
+    },
+    {
+      "id": "gb582",
+      "url": "https://www.lapua.com/product/6-5-mm-175-gr-maxrange-target-bullet-otm-gb582/",
+      "read_date": "2026-10-13",
+      "title": "MaxRange Target OTM GB582"
+    },
+    {
+      "id": "maxrt",
+      "url": "https://www.lapua.com/product/6-5-creedmoor-9-3-g-144-grains-maxrt-otm-cartridge/",
+      "read_date": "2026-10-13",
+      "title": "6.5 Creedmoor MaxRT OTM 144 gr cartridge"
+    },
+    {
+      "id": "n585",
+      "url": "https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/",
+      "read_date": "2026-10-13",
+      "title": "TRX hunting bullet N585"
+    },
+    {
+      "id": "trx65",
+      "url": "https://www.lapua.com/product/6-5-creedmoor-7-8-g-120-grains-trx/",
+      "read_date": "2026-10-13",
+      "title": "6.5 Creedmoor TRX 120 gr cartridge"
+    },
+    {
+      "id": "e415",
+      "url": "https://www.lapua.com/product/30-cal-mega-hunting-bullet-e415-120-g-185-gr-sp/",
+      "read_date": "2026-10-13",
+      "title": "Mega SP E415"
+    },
+    {
+      "id": "b476",
+      "url": "https://www.lapua.com/product/30-cal-lock-base-bullet-b476-110-g-170-gr-fmjbt/",
+      "read_date": "2026-10-13",
+      "title": "Lock Base FMJBT B476"
+    },
+    {
+      "id": "g477",
+      "url": "https://www.lapua.com/product/30-cal-cutting-edge-bullet-g477-65-g-100-gr-hp/",
+      "read_date": "2026-10-13",
+      "title": "Cutting Edge G477"
+    },
+    {
+      "id": "g580",
+      "url": "https://www.lapua.com/product/30-cal-open-tip-bullet-g580-65-g-100-gr-ot/",
+      "read_date": "2026-10-13",
+      "title": "Open Tip G580"
+    }
+  ],
+  "families": [
+    {
+      "id": "scenar",
+      "lib": "any",
+      "name_regex": "\\bScenar(?!-L)\\b",
+      "fields": {
+        "construction": {
+          "value": "match",
+          "src": "gb422",
+          "quote": "The Scenar is an open tip match bullet with a boat tail design"
+        },
+        "tip_shape": {
+          "value": "open_tip_match",
+          "src": "gb422",
+          "quote": "The Scenar is an open tip match bullet"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "gb422",
+          "quote": "an open tip match bullet with a boat tail design"
+        }
+      }
+    },
+    {
+      "id": "scenar_l",
+      "lib": "any",
+      "name_regex": "\\bScenar-L\\b",
+      "fields": {
+        "construction": {
+          "value": "match",
+          "src": "gb550",
+          "quote": "Scenar-L is the ultimate match bullet"
+        },
+        "tip_shape": {
+          "value": "open_tip_match",
+          "src": "gb550",
+          "quote": "Scenar-L Open Tip projectile"
+        }
+      }
+    },
+    {
+      "id": "naturalis",
+      "lib": "any",
+      "name_regex": "\\bNaturalis\\b",
+      "fields": {
+        "construction": {
+          "value": "monolithic_copper",
+          "src": "cat2024",
+          "quote": "The Naturalis bullet is designed and manufactured by using pure copper."
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "cat2024",
+          "quote": "The boat tail design of the bullet eases reloading."
+        }
+      }
+    },
+    {
+      "id": "mega",
+      "lib": "any",
+      "name_regex": "\\bMega\\b",
+      "fields": {
+        "construction": {
+          "value": "bonded",
+          "src": "cat2024",
+          "quote": "traditional lead-core and copper jacket that are bonded"
+        },
+        "tip_shape": {
+          "value": "soft_point",
+          "src": "cat2024",
+          "quote": "The Lapua Mega is a soft point bullet"
+        }
+      }
+    },
+    {
+      "id": "trx",
+      "lib": "any",
+      "name_regex": "\\bTRX\\b",
+      "fields": {
+        "construction": {
+          "value": "monolithic_copper",
+          "src": "n585",
+          "quote": "solid-copper, polymer-tipped design"
+        },
+        "tip_shape": {
+          "value": "polymer_tip",
+          "src": "n585",
+          "quote": "solid-copper, polymer-tipped design"
+        }
+      }
+    },
+    {
+      "id": "lock_base",
+      "lib": "any",
+      "name_regex": "\\bLock Base\\b",
+      "fields": {
+        "construction": {
+          "value": "fmj",
+          "src": "cat2024",
+          "quote": "combines a full metal jacket and boat tail with a patented base design"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "cat2024",
+          "quote": "combines a full metal jacket and boat tail"
+        }
+      }
+    }
+  ],
+  "records": {
+    "Lapua|MaxRange Target OTM GB582|4 PL 6022": {
+      "construction": {
+        "value": "match",
+        "src": "gb582",
+        "quote": "the new match bullet by Lapua"
+      },
+      "base": {
+        "value": "boat_tail",
+        "src": "gb582",
+        "quote": "Lapua's boat-tailed 6.5mm MaxRange Target projectile"
+      }
+    },
+    "Lapua|Lapua 9.3 g (144 gr) MaxRT|6.5 Creedmoor": {
+      "tip_shape": {
+        "value": "open_tip_match",
+        "src": "maxrt",
+        "quote": "factory-loaded with the 144 grain (9.3 gram) open-tip bullet"
+      },
+      "construction": {
+        "value": "match",
+        "src": "maxrt",
+        "quote": "Bullet type: Open Tip Match"
+      }
+    },
+    "Lapua|.30 TRX N585 150 gr|NPL7251": {
+      "base": {
+        "value": "boat_tail",
+        "src": "n585",
+        "quote": "Boat tail length 3.4mm/0.1338”"
+      }
+    },
+    "Lapua|.30 OT Cutting Edge G477 100 gr|4 PL/HL 7224": {
+      "tip_shape": {
+        "value": "open_tip_match",
+        "src": "g477",
+        "quote": "An open tip bullet capable of incredible accuracy"
+      }
+    },
+    "Lapua|.30 Open Tip G580 100 gr|4 PL/HL 7225": {
+      "tip_shape": {
+        "value": "open_tip_match",
+        "src": "g580",
+        "quote": "a new Open Tip (OT) bullet for target sports"
+      }
+    }
+  }
+}

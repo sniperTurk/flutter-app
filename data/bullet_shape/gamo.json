@@ -1,0 +1,861 @@
+{
+ "brand": "Gamo",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt read (gamousa.com; /product/ allowed). All 18 product pages read; construction from spec 'Material: Lead' / 'Non-Lead'. Tips stated per page (polymer tip, round nose/domed tip, spire point, flat-nose wadcutter, pyramid tip, pointed head, pointed hollow point). Rocket tip ('Hardened steel tip') and Whisper tip not mapped. No base stated (only 'long skirt').",
+ "sources": [
+  {
+   "id": "redfire",
+   "url": "https://gamousa.com/product/red-fire-pellets-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "Red Fire Polymer Tip Pellets"
+  },
+  {
+   "id": "hunter",
+   "url": "https://gamousa.com/product/hunter-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "Gamo Hunter .22 Lead Pellets"
+  },
+  {
+   "id": "rocket",
+   "url": "https://gamousa.com/product/rocket-pellets-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "Rocket Steel Tip Pellets"
+  },
+  {
+   "id": "magnum",
+   "url": "https://gamousa.com/product/magnum-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "Magnum Pointed Tip Pellets"
+  },
+  {
+   "id": "match",
+   "url": "https://gamousa.com/product/match-pellets-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "Match Flat Nose Pellets"
+  },
+  {
+   "id": "lethal",
+   "url": "https://gamousa.com/product/lethal-177-cal-qty/",
+   "read_date": "2026-10-13",
+   "title": "Lethal Steel Domed Tip Pellets"
+  },
+  {
+   "id": "pbab",
+   "url": "https://gamousa.com/product/pba-bullet-pellets-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "PBA Bullet Domed Tip Pellets"
+  },
+  {
+   "id": "ts",
+   "url": "https://gamousa.com/product/ts-10-22-pellets/",
+   "read_date": "2026-10-13",
+   "title": "TS-10 / TS-22 Pellets"
+  },
+  {
+   "id": "luxor",
+   "url": "https://gamousa.com/product/luxor-cu-sharp-pyramid-shaped-pellet-22/",
+   "read_date": "2026-10-13",
+   "title": "Luxor Cu Pyramid Shaped Pellets"
+  },
+  {
+   "id": "whisper",
+   "url": "https://gamousa.com/product/whisper-pellet-high-weight-quiet-pellet-22-cal-qty-100-blister/",
+   "read_date": "2026-10-13",
+   "title": "Whisper Heavy Weight Quiet Pellets"
+  },
+  {
+   "id": "raptor",
+   "url": "https://gamousa.com/product/pba-raptor-pellets-22-cal/",
+   "read_date": "2026-10-13",
+   "title": "PBA Raptor Domed Tip Pellets"
+  },
+  {
+   "id": "matchlf",
+   "url": "https://gamousa.com/product/match-lead-free-177-cal/",
+   "read_date": "2026-10-13",
+   "title": "Match Lead Free Pellets"
+  },
+  {
+   "id": "plat",
+   "url": "https://gamousa.com/product/pba-platinum-pellets-22cal/",
+   "read_date": "2026-10-13",
+   "title": "PBA Platinum Domed Tip Pellets"
+  },
+  {
+   "id": "ghammer",
+   "url": "https://gamousa.com/product/g-hammer-heavy-weight-pellet-177-cal/",
+   "read_date": "2026-10-13",
+   "title": "G-Hammer Heavy Weight Pellets"
+  },
+  {
+   "id": "promag",
+   "url": "https://gamousa.com/product/pro-magnum-pellets-25-cal/",
+   "read_date": "2026-10-13",
+   "title": "Pro Magnum Domed Tip Pellets"
+  },
+  {
+   "id": "bomber",
+   "url": "https://gamousa.com/product/blue-bomber-pellets-22/",
+   "read_date": "2026-10-13",
+   "title": "Blue Bomber Pellets .22 Hard Polymer Tip"
+  },
+  {
+   "id": "swarm",
+   "url": "https://gamousa.com/product/swarm-10x-hollow-point-pellet-22-250/",
+   "read_date": "2026-10-13",
+   "title": "AccuTek Swarm 10X Hollow Point Pellet"
+  },
+  {
+   "id": "toma",
+   "url": "https://gamousa.com/product/tomahawk-22-cal-pellet-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "Tomahawk Hollow Point Pellets"
+  }
+ ],
+ "records": {
+  "Gamo|Red Fire 7.87 gr|632270454-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Red Fire 7.87 gr",
+   "grain": 7.87,
+   "library_source_url": "https://gamousa.com/product/red-fire-pellets-22-cal/",
+   "caliber_mm": 4.5,
+   "item": "632270454-001v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/red-fire-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://gamousa.com/product/red-fire-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a diamond shaped hard red polymer tip"
+   },
+   "base": null
+  },
+  "Gamo|Red Fire 15.59 gr|632270454-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Red Fire 15.59 gr",
+   "grain": 15.59,
+   "library_source_url": "https://gamousa.com/product/red-fire-pellets-22-cal/",
+   "caliber_mm": 5.5,
+   "item": "632270454-001v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/red-fire-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://gamousa.com/product/red-fire-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a diamond shaped hard red polymer tip"
+   },
+   "base": null
+  },
+  "Gamo|Hunter 7.56 gr|6320525BL54-01v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hunter 7.56 gr",
+   "grain": 7.56,
+   "library_source_url": "https://gamousa.com/product/hunter-22-cal/",
+   "caliber_mm": 4.5,
+   "item": "6320525BL54-01v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/hunter-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead Pellets"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/hunter-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The domed (round-nose) profile"
+   },
+   "base": null
+  },
+  "Gamo|Hunter 15.43 gr|6320525BL54-01v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hunter 15.43 gr",
+   "grain": 15.43,
+   "library_source_url": "https://gamousa.com/product/hunter-22-cal/",
+   "caliber_mm": 5.5,
+   "item": "6320525BL54-01v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/hunter-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead Pellets"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/hunter-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The domed (round-nose) profile"
+   },
+   "base": null
+  },
+  "Gamo|Rocket 9.6 gr|632127554-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Rocket 9.6 gr",
+   "grain": 9.6,
+   "library_source_url": "https://gamousa.com/product/rocket-pellets-22-cal/",
+   "caliber_mm": 4.5,
+   "item": "632127554-001v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/rocket-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Gamo|Rocket 14.5 gr|632127554-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Rocket 14.5 gr",
+   "grain": 14.5,
+   "library_source_url": "https://gamousa.com/product/rocket-pellets-22-cal/",
+   "caliber_mm": 5.5,
+   "item": "632127554-001v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/rocket-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Gamo|Magnum 7.56 gr|6320225BL54-01v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Magnum 7.56 gr",
+   "grain": 7.56,
+   "library_source_url": "https://gamousa.com/product/magnum-22-cal/",
+   "caliber_mm": 4.5,
+   "item": "6320225BL54-01v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/magnum-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "pointed lead pellets"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://gamousa.com/product/magnum-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "hard-hitting, pointed pellets"
+   },
+   "base": null
+  },
+  "Gamo|Magnum 15.43 gr|6320225BL54-01v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Magnum 15.43 gr",
+   "grain": 15.43,
+   "library_source_url": "https://gamousa.com/product/magnum-22-cal/",
+   "caliber_mm": 5.5,
+   "item": "6320225BL54-01v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/magnum-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "pointed lead pellets"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://gamousa.com/product/magnum-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "hard-hitting, pointed pellets"
+   },
+   "base": null
+  },
+  "Gamo|Match 7.56 gr|6320025B54-01v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Match 7.56 gr",
+   "grain": 7.56,
+   "library_source_url": "https://gamousa.com/product/match-pellets-22-cal/",
+   "caliber_mm": 4.5,
+   "item": "6320025B54-01v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/match-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "wadcutter",
+    "source_url": "https://gamousa.com/product/match-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "classic flat-nose wadcutter shape"
+   },
+   "base": null
+  },
+  "Gamo|Match 15.43 gr|6320025B54-01v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Match 15.43 gr",
+   "grain": 15.43,
+   "library_source_url": "https://gamousa.com/product/match-pellets-22-cal/",
+   "caliber_mm": 5.5,
+   "item": "6320025B54-01v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/match-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "wadcutter",
+    "source_url": "https://gamousa.com/product/match-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "classic flat-nose wadcutter shape"
+   },
+   "base": null
+  },
+  "Gamo|Lethal 5.56 gr|632274054-001": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Lethal 5.56 gr",
+   "grain": 5.56,
+   "library_source_url": "https://gamousa.com/product/lethal-177-cal-qty/",
+   "caliber_mm": 4.5,
+   "item": "632274054-001",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://gamousa.com/product/lethal-177-cal-qty/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Steel domed tip. Non-lead"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/lethal-177-cal-qty/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Symmetric steel dome tip for terminal penetration"
+   },
+   "base": null
+  },
+  "Gamo|PBA Bullet 7.1 gr|632272154-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "PBA Bullet 7.1 gr",
+   "grain": 7.1,
+   "library_source_url": "https://gamousa.com/product/pba-bullet-pellets-22-cal/",
+   "caliber_mm": 4.5,
+   "item": "632272154-001v",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://gamousa.com/product/pba-bullet-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PBA (Performance Ballistic Alloy) (Non-Lead)"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/pba-bullet-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed tip, PBA (Performance Ballistic Alloy) and copper"
+   },
+   "base": null
+  },
+  "Gamo|PBA Bullet 14.4 gr|632272154-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "PBA Bullet 14.4 gr",
+   "grain": 14.4,
+   "library_source_url": "https://gamousa.com/product/pba-bullet-pellets-22-cal/",
+   "caliber_mm": 5.5,
+   "item": "632272154-001v",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://gamousa.com/product/pba-bullet-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PBA (Performance Ballistic Alloy) (Non-Lead)"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/pba-bullet-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed tip, PBA (Performance Ballistic Alloy) and copper"
+   },
+   "base": null
+  },
+  "Gamo|TS-10 / TS-22 10.49 gr|632176854-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "TS-10 / TS-22 10.49 gr",
+   "grain": 10.49,
+   "library_source_url": "https://gamousa.com/product/ts-10-22-pellets/",
+   "caliber_mm": 4.5,
+   "item": "632176854-001v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/ts-10-22-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "performance lead pellets"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/ts-10-22-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "domed tip design"
+   },
+   "base": null
+  },
+  "Gamo|TS-10 / TS-22 21.75 gr|632176854-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "TS-10 / TS-22 21.75 gr",
+   "grain": 21.75,
+   "library_source_url": "https://gamousa.com/product/ts-10-22-pellets/",
+   "caliber_mm": 5.5,
+   "item": "632176854-001v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/ts-10-22-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "performance lead pellets"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/ts-10-22-pellets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "domed tip design"
+   },
+   "base": null
+  },
+  "Gamo|Luxor Cu 5.2 gr|632282154-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Luxor Cu 5.2 gr",
+   "grain": 5.2,
+   "library_source_url": "https://gamousa.com/product/luxor-cu-sharp-pyramid-shaped-pellet-22/",
+   "caliber_mm": 4.5,
+   "item": "632282154-001v",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://gamousa.com/product/luxor-cu-sharp-pyramid-shaped-pellet-22/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead-free material for increased velocity and impact"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://gamousa.com/product/luxor-cu-sharp-pyramid-shaped-pellet-22/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sharp, pyramid-shaped tip to cut and shatter"
+   },
+   "base": null
+  },
+  "Gamo|Luxor Cu 9.9 gr|632282154-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Luxor Cu 9.9 gr",
+   "grain": 9.9,
+   "library_source_url": "https://gamousa.com/product/luxor-cu-sharp-pyramid-shaped-pellet-22/",
+   "caliber_mm": 5.5,
+   "item": "632282154-001v",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://gamousa.com/product/luxor-cu-sharp-pyramid-shaped-pellet-22/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead-free material for increased velocity and impact"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://gamousa.com/product/luxor-cu-sharp-pyramid-shaped-pellet-22/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Sharp, pyramid-shaped tip to cut and shatter"
+   },
+   "base": null
+  },
+  "Gamo|Whisper 10.5 gr|632272354-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Whisper 10.5 gr",
+   "grain": 10.5,
+   "library_source_url": "https://gamousa.com/product/whisper-pellet-high-weight-quiet-pellet-22-cal-qty-100-blister/",
+   "caliber_mm": 4.5,
+   "item": "632272354-001v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/whisper-pellet-high-weight-quiet-pellet-22-cal-qty-100-blister/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Gamo|Whisper 21.8 gr|632272354-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Whisper 21.8 gr",
+   "grain": 21.8,
+   "library_source_url": "https://gamousa.com/product/whisper-pellet-high-weight-quiet-pellet-22-cal-qty-100-blister/",
+   "caliber_mm": 5.5,
+   "item": "632272354-001v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/whisper-pellet-high-weight-quiet-pellet-22-cal-qty-100-blister/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Gamo|PBA Raptor 5.1 gr|632264554-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "PBA Raptor 5.1 gr",
+   "grain": 5.1,
+   "library_source_url": "https://gamousa.com/product/pba-raptor-pellets-22-cal/",
+   "caliber_mm": 4.5,
+   "item": "632264554-001v",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://gamousa.com/product/pba-raptor-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "LEAD-FREE PBA is guaranteed lead-free"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/pba-raptor-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed tip"
+   },
+   "base": null
+  },
+  "Gamo|PBA Raptor 9.8 gr|632264554-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "PBA Raptor 9.8 gr",
+   "grain": 9.8,
+   "library_source_url": "https://gamousa.com/product/pba-raptor-pellets-22-cal/",
+   "caliber_mm": 5.5,
+   "item": "632264554-001v",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://gamousa.com/product/pba-raptor-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "LEAD-FREE PBA is guaranteed lead-free"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/pba-raptor-pellets-22-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed tip"
+   },
+   "base": null
+  },
+  "Gamo|Match Lead Free 5.1 gr|632002654-001": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Match Lead Free 5.1 gr",
+   "grain": 5.1,
+   "library_source_url": "https://gamousa.com/product/match-lead-free-177-cal/",
+   "caliber_mm": 4.5,
+   "item": "632002654-001",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://gamousa.com/product/match-lead-free-177-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Non-Lead"
+   },
+   "tip_shape": {
+    "value": "wadcutter",
+    "source_url": "https://gamousa.com/product/match-lead-free-177-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "non-lead wadcutter pellets"
+   },
+   "base": null
+  },
+  "Gamo|PBA Platinum 5.1 gr|632265554-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "PBA Platinum 5.1 gr",
+   "grain": 5.1,
+   "library_source_url": "https://gamousa.com/product/pba-platinum-pellets-22cal/",
+   "caliber_mm": 4.5,
+   "item": "632265554-001v",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://gamousa.com/product/pba-platinum-pellets-22cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "LEAD-FREE PBA is guaranteed lead-free"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/pba-platinum-pellets-22cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed tip, PBA (Performance Ballistic Alloy)"
+   },
+   "base": null
+  },
+  "Gamo|PBA Platinum 9.7 gr|632265554-001v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "PBA Platinum 9.7 gr",
+   "grain": 9.7,
+   "library_source_url": "https://gamousa.com/product/pba-platinum-pellets-22cal/",
+   "caliber_mm": 5.5,
+   "item": "632265554-001v",
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://gamousa.com/product/pba-platinum-pellets-22cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "LEAD-FREE PBA is guaranteed lead-free"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/pba-platinum-pellets-22cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed tip, PBA (Performance Ballistic Alloy)"
+   },
+   "base": null
+  },
+  "Gamo|G-Hammer 15.42 gr|6322832BL54-01": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "G-Hammer 15.42 gr",
+   "grain": 15.42,
+   "library_source_url": "https://gamousa.com/product/g-hammer-heavy-weight-pellet-177-cal/",
+   "caliber_mm": 4.5,
+   "item": "6322832BL54-01",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/g-hammer-heavy-weight-pellet-177-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://gamousa.com/product/g-hammer-heavy-weight-pellet-177-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a pointed head"
+   },
+   "base": null
+  },
+  "Gamo|Pro Magnum 7.56 gr|6321736S54v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Pro Magnum 7.56 gr",
+   "grain": 7.56,
+   "library_source_url": "https://gamousa.com/product/pro-magnum-pellets-25-cal/",
+   "caliber_mm": 4.5,
+   "item": "6321736S54v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/pro-magnum-pellets-25-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed tip. Lead."
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/pro-magnum-pellets-25-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "classic domed (round-nose) shape"
+   },
+   "base": null
+  },
+  "Gamo|Pro Magnum 21.8 gr|6321736S54v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Pro Magnum 21.8 gr",
+   "grain": 21.8,
+   "library_source_url": "https://gamousa.com/product/pro-magnum-pellets-25-cal/",
+   "caliber_mm": 6.35,
+   "item": "6321736S54v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/pro-magnum-pellets-25-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Domed tip. Lead."
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://gamousa.com/product/pro-magnum-pellets-25-cal/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "classic domed (round-nose) shape"
+   },
+   "base": null
+  },
+  "Gamo|Blue Bomber 15.4 gr|6322705BL54-01": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Blue Bomber 15.4 gr",
+   "grain": 15.4,
+   "library_source_url": "https://gamousa.com/product/blue-bomber-pellets-22/",
+   "caliber_mm": 5.5,
+   "item": "6322705BL54-01",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/blue-bomber-pellets-22/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://gamousa.com/product/blue-bomber-pellets-22/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "diamond shaped hard polymer tip"
+   },
+   "base": null
+  },
+  "Gamo|Swarm 10X Hollow Point 7.6 gr|6322547BL54-01v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Swarm 10X Hollow Point 7.6 gr",
+   "grain": 7.6,
+   "library_source_url": "https://gamousa.com/product/swarm-10x-hollow-point-pellet-22-250/",
+   "caliber_mm": 4.5,
+   "item": "6322547BL54-01v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/swarm-10x-hollow-point-pellet-22-250/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://gamousa.com/product/swarm-10x-hollow-point-pellet-22-250/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Gamo|Swarm 10X Hollow Point 15.43 gr|6322547BL54-01v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Swarm 10X Hollow Point 15.43 gr",
+   "grain": 15.43,
+   "library_source_url": "https://gamousa.com/product/swarm-10x-hollow-point-pellet-22-250/",
+   "caliber_mm": 5.5,
+   "item": "6322547BL54-01v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/swarm-10x-hollow-point-pellet-22-250/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://gamousa.com/product/swarm-10x-hollow-point-pellet-22-250/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Gamo|Tomahawk 7.56 gr|6322545CP54-01v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Tomahawk 7.56 gr",
+   "grain": 7.56,
+   "library_source_url": "https://gamousa.com/product/tomahawk-22-cal-pellet-ammunition/",
+   "caliber_mm": 4.5,
+   "item": "6322545CP54-01v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/tomahawk-22-cal-pellet-ammunition/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://gamousa.com/product/tomahawk-22-cal-pellet-ammunition/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pointed Hollow Point"
+   },
+   "base": null
+  },
+  "Gamo|Tomahawk 15.43 gr|6322545CP54-01v": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Tomahawk 15.43 gr",
+   "grain": 15.43,
+   "library_source_url": "https://gamousa.com/product/tomahawk-22-cal-pellet-ammunition/",
+   "caliber_mm": 5.5,
+   "item": "6322545CP54-01v",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://gamousa.com/product/tomahawk-22-cal-pellet-ammunition/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://gamousa.com/product/tomahawk-22-cal-pellet-ammunition/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Pointed Hollow Point"
+   },
+   "base": null
+  }
+ }
+}

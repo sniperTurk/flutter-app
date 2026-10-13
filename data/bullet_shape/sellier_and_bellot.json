@@ -1,0 +1,3567 @@
+{
+ "brand": "Sellier & Bellot",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read sellier-bellot.cz line (category) pages for SP, SPCE, HPC, PTS, eXergy Blue, Sierra, Target (Match), FMJ plus sample detail pages. robots.txt could not be fetched (fetch error); only public product pages were read. eXergy Edge line/detail pages give no bullet description (type 'EDGE' only) -> empty. FMJ/Target pages add nothing beyond the product-name words. No tip shape stated for SP/FMJ; no base stated except eXergy Blue, Sierra SBT, HPBT.",
+ "sources": [
+  {
+   "id": "sb_sp",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+   "read_date": "2026-10-13",
+   "title": "Rifle ammunition SP"
+  },
+  {
+   "id": "sb_spce",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+   "read_date": "2026-10-13",
+   "title": "Rifle ammunition SPCE"
+  },
+  {
+   "id": "sb_hpc",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+   "read_date": "2026-10-13",
+   "title": "Rifle ammunition HPC"
+  },
+  {
+   "id": "sb_pts",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+   "read_date": "2026-10-13",
+   "title": "Hunting rifle ammunition with PTS bullets"
+  },
+  {
+   "id": "sb_pts_vmax",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/115",
+   "read_date": "2026-10-13",
+   "title": "17 Hornet V-MAX 20 gr"
+  },
+  {
+   "id": "sb_exblue",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+   "read_date": "2026-10-13",
+   "title": "Rifle ammunition with eXergy Blue bullets"
+  },
+  {
+   "id": "sb_sierra",
+   "url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+   "read_date": "2026-10-13",
+   "title": "Rifle hunting ammunition with Sierra bullets"
+  }
+ ],
+ "records": {
+  "Sellier & Bellot|Sellier & Bellot PTS line 20 gr V-MAX|.17 Hornet": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 20 gr V-MAX",
+   "grain": 20.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/115",
+   "cartridge": ".17 Hornet",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady V-MAX",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/115",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet: V-MAX; designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 32 gr PTS|.204 Ruger": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 32 gr PTS",
+   "grain": 32.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/238",
+   "cartridge": ".204 Ruger",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 45 gr FMJ|.22 Hornet": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 45 gr FMJ",
+   "grain": 45.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/184",
+   "cartridge": ".22 Hornet",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/184",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 45 gr SP|.22 Hornet": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 45 gr SP",
+   "grain": 45.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/185",
+   "cartridge": ".22 Hornet",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/185",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 55 gr FMJ|.22-250 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 55 gr FMJ",
+   "grain": 55.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/466",
+   "cartridge": ".22-250 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/466",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 55 gr SP|.22-250 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 55 gr SP",
+   "grain": 55.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/511",
+   "cartridge": ".22-250 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/511",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 50 gr FMJ|.222 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 50 gr FMJ",
+   "grain": 50.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/182",
+   "cartridge": ".222 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/182",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 50 gr SP|.222 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 50 gr SP",
+   "grain": 50.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/183",
+   "cartridge": ".222 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/183",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 52 gr HPBT|.222 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 52 gr HPBT",
+   "grain": 52.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/194",
+   "cartridge": ".222 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/194",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/194",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/194",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 55 gr SP|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 55 gr SP",
+   "grain": 55.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/181",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/181",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 52 gr HPBT|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 52 gr HPBT",
+   "grain": 52.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/193",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/193",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/193",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/193",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 69 gr HPBT|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 69 gr HPBT",
+   "grain": 69.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/192",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/192",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/192",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/192",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 77 gr HPBT|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 77 gr HPBT",
+   "grain": 77.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/471",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/471",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/471",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/471",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 80 gr FMJ|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 80 gr FMJ",
+   "grain": 80.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/174",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/174",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 95 gr PTS|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 95 gr PTS",
+   "grain": 95.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/237",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 100 gr SP|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 100 gr SP",
+   "grain": 100.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/175",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/175",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 150 gr PTS|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 150 gr PTS",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/233",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 130 gr SP|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 130 gr SP",
+   "grain": 130.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/250",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/250",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 150 gr SP|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 150 gr SP",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/167",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/167",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 110 gr FMJ|.30 Carbine": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 110 gr FMJ",
+   "grain": 110.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/147",
+   "cartridge": ".30 Carbine",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/147",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 110 gr SP|.30 Carbine": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 110 gr SP",
+   "grain": 110.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/251",
+   "cartridge": ".30 Carbine",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/251",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 165 gr eXergy Blue TXRG (lead-free)|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 165 gr eXergy Blue TXRG (lead-free)",
+   "grain": 165.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/505",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 180 gr eXergy Blue TXRG (lead-free)|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 180 gr eXergy Blue TXRG (lead-free)",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/789",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 165 gr eXergy Edge (lead-free)|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 165 gr eXergy Edge (lead-free)",
+   "grain": 165.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/831",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 180 gr eXergy Edge (lead-free)|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 180 gr eXergy Edge (lead-free)",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/837",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 147 gr FMJ|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 147 gr FMJ",
+   "grain": 147.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/134",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/134",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 180 gr FMJ|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 180 gr FMJ",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/139",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/139",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot HPC 180 gr HPC|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot HPC 180 gr HPC",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/detail/135",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The expanding hollow point bullet has excellent ballistic characteristics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 180 gr PTS|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 180 gr PTS",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/227",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot Sierra line 180 gr Sierra GameKing SBT|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Sierra line 180 gr Sierra GameKing SBT",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/detail/118",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets are designed for hunting"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 180 gr SP|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 180 gr SP",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/138",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/138",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 150 gr SPCE|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 150 gr SPCE",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/137",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 180 gr SPCE|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 180 gr SPCE",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/136",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 168 gr HPBT|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 168 gr HPBT",
+   "grain": 168.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/188",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/188",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/188",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/188",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 150 gr SP|.30-30 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 150 gr SP",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/146",
+   "cartridge": ".30-30 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/146",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 110 gr eXergy Blue TXRG (lead-free)|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 110 gr eXergy Blue TXRG (lead-free)",
+   "grain": 110.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/617",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 180 gr eXergy Blue TXRG (lead-free)|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 180 gr eXergy Blue TXRG (lead-free)",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/506",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 180 gr eXergy Edge (lead-free)|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 180 gr eXergy Edge (lead-free)",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/838",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 180 gr PTS|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 180 gr PTS",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/226",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 180 gr SPCE|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 180 gr SPCE",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/845",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 168 gr HPBT|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 168 gr HPBT",
+   "grain": 168.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/187",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/187",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/187",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/187",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 190 gr HPBT|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 190 gr HPBT",
+   "grain": 190.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/483",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/483",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/483",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/483",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 220 gr HPBT|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 220 gr HPBT",
+   "grain": 220.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/484",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/484",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/484",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/484",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 180 gr FMJ|.303 British": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 180 gr FMJ",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/149",
+   "cartridge": ".303 British",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/149",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 150 gr SP|.303 British": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 150 gr SP",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/148",
+   "cartridge": ".303 British",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/148",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 180 gr SP|.303 British": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 180 gr SP",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/496",
+   "cartridge": ".303 British",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/496",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 110 gr eXergy Blue TXRG (lead-free)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 110 gr eXergy Blue TXRG (lead-free)",
+   "grain": 110.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/720",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 165 gr eXergy Blue TXRG (lead-free)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 165 gr eXergy Blue TXRG (lead-free)",
+   "grain": 165.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/504",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 110 gr eXergy Edge (lead-free)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 110 gr eXergy Edge (lead-free)",
+   "grain": 110.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/907",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 165 gr eXergy Edge (lead-free)|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 165 gr eXergy Edge (lead-free)",
+   "grain": 165.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/834",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 147 gr FMJ|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 147 gr FMJ",
+   "grain": 147.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/145",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/145",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 180 gr FMJ|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 180 gr FMJ",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/144",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/144",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot HPC 180 gr HPC|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot HPC 180 gr HPC",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/detail/140",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The expanding hollow point bullet has excellent ballistic characteristics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 180 gr PTS|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 180 gr PTS",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/228",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot Sierra line 180 gr Sierra GameKing SBT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Sierra line 180 gr Sierra GameKing SBT",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/detail/113",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets are designed for hunting"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 180 gr SP|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 180 gr SP",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/143",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/143",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 150 gr SPCE|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 150 gr SPCE",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/142",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 180 gr SPCE|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 180 gr SPCE",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/141",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 168 gr HPBT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 168 gr HPBT",
+   "grain": 168.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/190",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/190",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/190",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/190",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 175 gr HPBT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 175 gr HPBT",
+   "grain": 175.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/472",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/472",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/472",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/472",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 180 gr HPBT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 180 gr HPBT",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/189",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/189",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/189",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/189",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 190 gr HPBT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 190 gr HPBT",
+   "grain": 190.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/473",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/473",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/473",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/473",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 250 gr HPBT|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 250 gr HPBT",
+   "grain": 250.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/474",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/474",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/474",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/474",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 300 gr HPBT|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 300 gr HPBT",
+   "grain": 300.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/475",
+   "cartridge": ".338 Lapua Mag",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/475",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/475",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/475",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 300 gr SP|.375 H&H Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 300 gr SP",
+   "grain": 300.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/860",
+   "cartridge": ".375 H&H Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/860",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 405 gr SP|.45-70 Govt": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 405 gr SP",
+   "grain": 405.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/609",
+   "cartridge": ".45-70 Govt",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/609",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 55 gr FMJ|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 55 gr FMJ",
+   "grain": 55.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/745",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/745",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 77 gr HPBT|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 77 gr HPBT",
+   "grain": 77.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/792",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/792",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/792",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/792",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 50 gr FMJ|5.6x50 R Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 50 gr FMJ",
+   "grain": 50.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/178",
+   "cartridge": "5.6x50 R Mag",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/178",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 50 gr SP|5.6x50 R Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 50 gr SP",
+   "grain": 50.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/179",
+   "cartridge": "5.6x50 R Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/179",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 70 gr FMJ|5.6x52 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 70 gr FMJ",
+   "grain": 70.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/176",
+   "cartridge": "5.6x52 R",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/176",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 70 gr SP|5.6x52 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 70 gr SP",
+   "grain": 70.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/177",
+   "cartridge": "5.6x52 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/177",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 120 gr eXergy Blue TXRG (lead-free)|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 120 gr eXergy Blue TXRG (lead-free)",
+   "grain": 120.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/618",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 120 gr eXergy Edge (lead-free)|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 120 gr eXergy Edge (lead-free)",
+   "grain": 120.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/816",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 140 gr FMJ|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 140 gr FMJ",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/560",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/560",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 131 gr SP|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 131 gr SP",
+   "grain": 131.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/564",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/564",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 140 gr SP|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 140 gr SP",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/565",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/565",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 156 gr SP|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 156 gr SP",
+   "grain": 156.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/566",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/566",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 142 gr HPBT|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 142 gr HPBT",
+   "grain": 142.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/610",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/610",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/610",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/610",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 142 gr HPBT|6.5 Grendel": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 142 gr HPBT",
+   "grain": 142.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/848",
+   "cartridge": "6.5 Grendel",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/848",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/848",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/848",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 117 gr SP|6.5x52 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 117 gr SP",
+   "grain": 117.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/173",
+   "cartridge": "6.5x52 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/173",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 120 gr eXergy Blue TXRG (lead-free)|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 120 gr eXergy Blue TXRG (lead-free)",
+   "grain": 120.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/721",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 120 gr eXergy Edge (lead-free)|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 120 gr eXergy Edge (lead-free)",
+   "grain": 120.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/817",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 140 gr FMJ|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 140 gr FMJ",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/172",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/172",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Sierra line 140 gr Sierra GameKing SBT|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Sierra line 140 gr Sierra GameKing SBT",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/detail/119",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets are designed for hunting"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 131 gr SP|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 131 gr SP",
+   "grain": 131.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/171",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/171",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 140 gr SP|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 140 gr SP",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/170",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/170",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 156 gr SP|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 156 gr SP",
+   "grain": 156.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/481",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/481",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 142 gr HPBT|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 142 gr HPBT",
+   "grain": 142.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/191",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/191",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/191",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/191",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 120 gr eXergy Blue TXRG (lead-free)|6.5x57": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 120 gr eXergy Blue TXRG (lead-free)",
+   "grain": 120.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/619",
+   "cartridge": "6.5x57",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 131 gr SP|6.5x57": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 131 gr SP",
+   "grain": 131.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/169",
+   "cartridge": "6.5x57",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/169",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 131 gr SP|6.5x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 131 gr SP",
+   "grain": 131.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/168",
+   "cartridge": "6.5x57 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/168",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 110 gr FMJ|6.8 Rem SPC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 110 gr FMJ",
+   "grain": 110.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/248",
+   "cartridge": "6.8 Rem SPC",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/248",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 110 gr PTS|6.8 Rem SPC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 110 gr PTS",
+   "grain": 110.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/235",
+   "cartridge": "6.8 Rem SPC",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 115 gr HPBT|6.8 Rem SPC": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 115 gr HPBT",
+   "grain": 115.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/495",
+   "cartridge": "6.8 Rem SPC",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/495",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/495",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/495",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 100 gr SP|6mm Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 100 gr SP",
+   "grain": 100.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/858",
+   "cartridge": "6mm Creedmoor",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/858",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 124 gr FMJ|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 124 gr FMJ",
+   "grain": 124.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/132",
+   "cartridge": "7.62x39",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/132",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 124 gr SP|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 124 gr SP",
+   "grain": 124.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/131",
+   "cartridge": "7.62x39",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/131",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ Subsonic 200 gr FMJ|7.62x51 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ Subsonic 200 gr FMJ",
+   "grain": 200.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/769",
+   "cartridge": "7.62x51 NATO",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/769",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Rifle ammunition FMJ 180 gr FMJ|7.62x54R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Rifle ammunition FMJ 180 gr FMJ",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en/products/rifle-ammunition/rifle-ammunition-fmj/pdf/130/",
+   "cartridge": "7.62x54R",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en/products/rifle-ammunition/rifle-ammunition-fmj/pdf/130/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 180 gr SP|7.62x54R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 180 gr SP",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/129",
+   "cartridge": "7.62x54R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/129",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Target (Match) 174 gr HPBT|7.62x54R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Target (Match) 174 gr HPBT",
+   "grain": 174.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/186",
+   "cartridge": "7.62x54R",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/186",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/186",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-target-match/detail/186",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HPBT"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 150 gr eXergy Blue TXRG (lead-free)|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 150 gr eXergy Blue TXRG (lead-free)",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/626",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 150 gr eXergy Edge (lead-free)|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 150 gr eXergy Edge (lead-free)",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/844",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 162 gr PTS|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 162 gr PTS",
+   "grain": 162.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/229",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT",
+   "grain": 175.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/detail/114",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets are designed for hunting"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 140 gr SP|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 140 gr SP",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/469",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/469",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 173 gr SPCE|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 173 gr SPCE",
+   "grain": 173.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/150",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Blue 150 gr eXergy Blue TXRG (lead-free)|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Blue 150 gr eXergy Blue TXRG (lead-free)",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/detail/622",
+   "cartridge": "7x57 Mauser",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the solid copper construction maximizes weight retention"
+   },
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blue plastic tip enhances expansion at all ranges"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-with-exergy-blue-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "incorporating a boat-tail base with a new, pointed tip"
+   },
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 150 gr eXergy Edge (lead-free)|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 150 gr eXergy Edge (lead-free)",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/840",
+   "cartridge": "7x57 Mauser",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 140 gr FMJ|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 140 gr FMJ",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/163",
+   "cartridge": "7x57 Mauser",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/163",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot HPC 158 gr HPC|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot HPC 158 gr HPC",
+   "grain": 158.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/detail/164",
+   "cartridge": "7x57 Mauser",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The expanding hollow point bullet has excellent ballistic characteristics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 162 gr PTS|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 162 gr PTS",
+   "grain": 162.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/232",
+   "cartridge": "7x57 Mauser",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT",
+   "grain": 175.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/detail/493",
+   "cartridge": "7x57 Mauser",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets are designed for hunting"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 140 gr SP|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 140 gr SP",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/166",
+   "cartridge": "7x57 Mauser",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/166",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 173 gr SPCE|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 173 gr SPCE",
+   "grain": 173.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/165",
+   "cartridge": "7x57 Mauser",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 150 gr eXergy Edge (lead-free)|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 150 gr eXergy Edge (lead-free)",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/841",
+   "cartridge": "7x57 R",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 140 gr FMJ|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 140 gr FMJ",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/159",
+   "cartridge": "7x57 R",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/159",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot HPC 158 gr HPC|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot HPC 158 gr HPC",
+   "grain": 158.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/detail/160",
+   "cartridge": "7x57 R",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The expanding hollow point bullet has excellent ballistic characteristics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 162 gr PTS|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 162 gr PTS",
+   "grain": 162.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/489",
+   "cartridge": "7x57 R",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 140 gr SP|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 140 gr SP",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/162",
+   "cartridge": "7x57 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/162",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 173 gr SPCE|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 173 gr SPCE",
+   "grain": 173.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/161",
+   "cartridge": "7x57 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 150 gr eXergy Edge (lead-free)|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 150 gr eXergy Edge (lead-free)",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/842",
+   "cartridge": "7x64",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 140 gr FMJ|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 140 gr FMJ",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/155",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/155",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot HPC 158 gr HPC|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot HPC 158 gr HPC",
+   "grain": 158.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/detail/156",
+   "cartridge": "7x64",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The expanding hollow point bullet has excellent ballistic characteristics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 162 gr PTS|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 162 gr PTS",
+   "grain": 162.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/231",
+   "cartridge": "7x64",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT",
+   "grain": 175.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/detail/494",
+   "cartridge": "7x64",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets are designed for hunting"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 140 gr SP|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 140 gr SP",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/158",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/158",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 173 gr SPCE|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 173 gr SPCE",
+   "grain": 173.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/157",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 150 gr eXergy Edge (lead-free)|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 150 gr eXergy Edge (lead-free)",
+   "grain": 150.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/843",
+   "cartridge": "7x65 R",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 140 gr FMJ|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 140 gr FMJ",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/151",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/151",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot HPC 158 gr HPC|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot HPC 158 gr HPC",
+   "grain": 158.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/detail/152",
+   "cartridge": "7x65 R",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The expanding hollow point bullet has excellent ballistic characteristics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot PTS line 162 gr PTS|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot PTS line 162 gr PTS",
+   "grain": 162.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/detail/230",
+   "cartridge": "7x65 R",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "PTS bullets contain a premium polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady PTS",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/hunting-rifle-ammunition-with-pts-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The PTS bullet was designed and manufactured by Hornady"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT",
+   "grain": 175.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/detail/468",
+   "cartridge": "7x65 R",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets are designed for hunting"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 140 gr SP|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 140 gr SP",
+   "grain": 140.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/508",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/508",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 173 gr SPCE|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 173 gr SPCE",
+   "grain": 173.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/153",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 196 gr SP|8x57 JR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 196 gr SP",
+   "grain": 196.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/128",
+   "cartridge": "8x57 JR",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/128",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 180 gr eXergy Edge (lead-free)|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 180 gr eXergy Edge (lead-free)",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/855",
+   "cartridge": "8x57 JRS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot HPC 196 gr HPC|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot HPC 196 gr HPC",
+   "grain": 196.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/detail/123",
+   "cartridge": "8x57 JRS",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The expanding hollow point bullet has excellent ballistic characteristics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Sierra line 220 gr Sierra GameKing SBT|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Sierra line 220 gr Sierra GameKing SBT",
+   "grain": 220.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/detail/109",
+   "cartridge": "8x57 JRS",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets are designed for hunting"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 196 gr SPCE|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 196 gr SPCE",
+   "grain": 196.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/124",
+   "cartridge": "8x57 JRS",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot eXergy Edge 180 gr eXergy Edge (lead-free)|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot eXergy Edge 180 gr eXergy Edge (lead-free)",
+   "grain": 180.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/exergy-edge/detail/854",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 196 gr FMJ|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 196 gr FMJ",
+   "grain": 196.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/120",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/120",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot HPC 196 gr HPC|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot HPC 196 gr HPC",
+   "grain": 196.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/detail/126",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The expanding hollow point bullet has excellent ballistic characteristics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot Sierra line 220 gr Sierra GameKing SBT|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot Sierra line 220 gr Sierra GameKing SBT",
+   "grain": 220.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/detail/110",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets"
+   },
+   "component_bullet": {
+    "value": "Sierra GameKing",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-hunting-ammunition-with-sierra-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "SBT GameKing – Spitzer Boat Tail bullets are designed for hunting"
+   }
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 196 gr SPCE|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 196 gr SPCE",
+   "grain": 196.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/127",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot HPC 196 gr HPC|8x64 S": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot HPC 196 gr HPC",
+   "grain": 196.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/detail/121",
+   "cartridge": "8x64 S",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-hpc/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The expanding hollow point bullet has excellent ballistic characteristics"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SPCE 196 gr SPCE|8x64 S": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SPCE 196 gr SPCE",
+   "grain": 196.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/detail/122",
+   "cartridge": "8x64 S",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The cut-through edge locks the jacket and lead core together"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-spce/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Semi-Jacketed Soft Point Cut-Through Edge bullet."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot FMJ 232 gr FMJ|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot FMJ 232 gr FMJ",
+   "grain": 232.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/515",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-fmj/detail/515",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 286 gr SP|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 286 gr SP",
+   "grain": 286.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/239",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/239",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 193 gr SP|9.3x72 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 193 gr SP",
+   "grain": 193.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/240",
+   "cartridge": "9.3x72 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/240",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Sellier & Bellot|Sellier & Bellot SP 286 gr SP|9.3x74 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Sellier & Bellot SP 286 gr SP",
+   "grain": 286.0,
+   "library_source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/241",
+   "cartridge": "9.3x74 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "A lead core with a precisely engineered jacket"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.sellier-bellot.cz/en-us/products/rifle-ammunition/rifle-ammunition-sp/detail/241",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

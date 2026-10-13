@@ -1,0 +1,354 @@
+{
+ "brand": "Sierra",
+ "note": "Read 2026-10-13: sierrabullets.com robots.txt (product pages allowed), Bullet 101 line descriptions, ammo category page, MatchKing family page (product list only, no line text), product pages of MKX/SGK/TMK/TGK and all 12 Tipped VarmintKing (polymer tip stated on each). Not stated, left empty: MatchKing/TMK base ('majority'/'all but one' boat tail), TGK base, GameKing/Pro-Hunter/VarmintKing construction, MatchKing X construction, Prairie Enemy tip/base. 'CN' not used (Sierra Bullet 101 defines it as closed nose, ambiguous with cannelure). FMJBT tip shape not stated.",
+ "sources": [
+  {
+   "id": "b101",
+   "url": "https://sierrabullets.com/bullet-101/",
+   "read_date": "2026-10-13",
+   "title": "Sierra Bullet Selection (Bullet 101)"
+  },
+  {
+   "id": "ammo",
+   "url": "https://www.sierrabullets.com/product-category/ammo/",
+   "read_date": "2026-10-13",
+   "title": "Sierra ammunition (GameChanger, Prairie Enemy)"
+  },
+  {
+   "id": "tmk130",
+   "url": "https://www.sierrabullets.com/6-5mm-130-gr-tipped-matchking-tmk/",
+   "read_date": "2026-10-13",
+   "title": "6.5mm 130 gr Tipped MatchKing"
+  },
+  {
+   "id": "tvk_6mm-55-gr",
+   "url": "https://www.sierrabullets.com/6mm-55-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "6mm 55 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_22-cal-55-gr",
+   "url": "https://www.sierrabullets.com/22-cal-55-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "22 Cal 55 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_25-cal-70-gr",
+   "url": "https://www.sierrabullets.com/25-cal-70-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "25 Cal 70 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_20-cal-36-gr",
+   "url": "https://www.sierrabullets.com/20-cal-36-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "20 Cal 36 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_6mm-70-gr",
+   "url": "https://www.sierrabullets.com/6mm-70-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "6mm 70 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_20-cal-39-gr",
+   "url": "https://www.sierrabullets.com/20-cal-39-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "20 Cal 39 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_22-cal-69-gr",
+   "url": "https://www.sierrabullets.com/22-cal-69-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "22 Cal 69 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_20-cal-32-gr",
+   "url": "https://www.sierrabullets.com/20-cal-32-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "20 Cal 32 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_22-cal-50-gr",
+   "url": "https://www.sierrabullets.com/22-cal-50-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "22 Cal 50 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_25-cal-90-gr",
+   "url": "https://www.sierrabullets.com/25-cal-90-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "25 Cal 90 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_22-cal-40-gr",
+   "url": "https://www.sierrabullets.com/22-cal-40-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "22 Cal 40 gr Tipped VarmintKing TVK"
+  },
+  {
+   "id": "tvk_6-5mm-105-gr",
+   "url": "https://www.sierrabullets.com/6-5mm-105-gr-tipped-varmintking-tvk/",
+   "read_date": "2026-10-13",
+   "title": "6.5mm 105 gr Tipped VarmintKing TVK"
+  }
+ ],
+ "families": [
+  {
+   "id": "sbt",
+   "lib": "bullet",
+   "name_regex": "\\bSBT\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "spitzer_soft_point",
+     "src": "b101",
+     "quote": "spitzer boat tail (SBT)"
+    }
+   }
+  },
+  {
+   "id": "spt",
+   "lib": "bullet",
+   "name_regex": "\\bSPT\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "spitzer_soft_point",
+     "src": "b101",
+     "quote": "spitzer-pointed (SPT)"
+    }
+   }
+  },
+  {
+   "id": "smp",
+   "lib": "bullet",
+   "name_regex": "\\bSMP\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "semi_spitzer",
+     "src": "b101",
+     "quote": "semi-pointed (SMP)"
+    }
+   }
+  },
+  {
+   "id": "matchking",
+   "lib": "bullet",
+   "name_regex": "\\bMatchKing\\b",
+   "not_regex": "Tipped|MatchKing X|\\bMKX\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "b101",
+     "quote": "The driving motivation for the design of each MatchKing bullet is accuracy."
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "b101",
+     "quote": "All MatchKing have a hollow point design with a very small meplat"
+    }
+   }
+  },
+  {
+   "id": "tipped_matchking",
+   "lib": "bullet",
+   "name_regex": "Tipped MatchKing",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "b101",
+     "quote": "they are designed for maximum accuracy performance as the utmost goal"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "b101",
+     "quote": "With the proprietary acetyl resin tips added"
+    }
+   }
+  },
+  {
+   "id": "gameking",
+   "lib": "bullet",
+   "name_regex": "\\bGameKing\\b",
+   "not_regex": "Tipped",
+   "fields": {
+    "base": {
+     "value": "boat_tail",
+     "src": "b101",
+     "quote": "All bullets in this classification are for hunting and all have boat tails."
+    }
+   }
+  },
+  {
+   "id": "tipped_gameking",
+   "lib": "bullet",
+   "name_regex": "Tipped GameKing",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "b101",
+     "quote": "a special lead alloy surrounded by a tough copper jacket"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "b101",
+     "quote": "fitted it with a transparent polymer green tip"
+    }
+   }
+  },
+  {
+   "id": "pro_hunter",
+   "lib": "bullet",
+   "name_regex": "Pro-Hunter",
+   "not_regex": "\\bSBT\\b",
+   "fields": {
+    "base": {
+     "value": "flat_base",
+     "src": "b101",
+     "quote": "All bullet shapes in this classification are flat base"
+    }
+   }
+  },
+  {
+   "id": "spt_varmintking",
+   "lib": "bullet",
+   "name_regex": "\\bSPT VarmintKing",
+   "fields": {
+    "base": {
+     "value": "flat_base",
+     "src": "b101",
+     "quote": "spitzer pointed flat base (SPT)"
+    }
+   }
+  },
+  {
+   "id": "gamechanger",
+   "lib": "factory",
+   "name_regex": "GameChanger",
+   "fields": {
+    "component_bullet": {
+     "value": "Sierra Tipped GameKing",
+     "src": "ammo",
+     "quote": "Each GameChanger round utilizes a Sierra Tipped GameKing bullet"
+    },
+    "construction": {
+     "value": "cup_and_core",
+     "src": "ammo",
+     "quote": "A lead core encased in a thick, tough copper jacket"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "ammo",
+     "quote": "a polymer tip seated in a hollow point design"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "ammo",
+     "quote": "Tipped GameKing bullet with an extremely accurate boat tail profile"
+    }
+   }
+  },
+  {
+   "id": "prairie_enemy",
+   "lib": "factory",
+   "name_regex": "Prairie Enemy",
+   "fields": {
+    "component_bullet": {
+     "value": "Sierra BlitzKing",
+     "src": "ammo",
+     "quote": "utilizes our world famous BlitzKing bullets"
+    }
+   }
+  }
+ ],
+ "records": {
+  "Sierra|6mm 55 gr Tipped VarmintKing TVK|1502": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_6mm-55-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  },
+  "Sierra|22 Cal 55 gr Tipped VarmintKing TVK|1455": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_22-cal-55-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  },
+  "Sierra|25 Cal 70 gr Tipped VarmintKing TVK|1605": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_25-cal-70-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  },
+  "Sierra|20 Cal 36 gr Tipped VarmintKing TVK|1036": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_20-cal-36-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  },
+  "Sierra|6mm 70 gr Tipped VarmintKing TVK|1507": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_6mm-70-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  },
+  "Sierra|20 Cal 39 gr Tipped VarmintKing TVK|1039": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_20-cal-39-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  },
+  "Sierra|22 Cal 69 gr Tipped VarmintKing TVK|7170": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_22-cal-69-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "tvk_22-cal-69-gr",
+    "quote": "The 69 grain #7170 has a boat tail"
+   }
+  },
+  "Sierra|20 Cal 32 gr Tipped VarmintKing TVK|1032": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_20-cal-32-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  },
+  "Sierra|22 Cal 50 gr Tipped VarmintKing TVK|1450": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_22-cal-50-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  },
+  "Sierra|25 Cal 90 gr Tipped VarmintKing TVK|1616": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_25-cal-90-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  },
+  "Sierra|22 Cal 40 gr Tipped VarmintKing TVK|1440": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_22-cal-40-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  },
+  "Sierra|6.5mm 105 gr Tipped VarmintKing TVK|1785": {
+   "tip_shape": {
+    "value": "polymer_tip",
+    "src": "tvk_6-5mm-105-gr",
+    "quote": "featuring a polymer tip and purpose-built thin jacket"
+   }
+  }
+ }
+}

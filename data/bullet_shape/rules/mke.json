@@ -1,0 +1,22 @@
+{
+  "brand": "MKE",
+  "note": "mke.gov.tr robots.txt allows. Product pages give only 'Mermi Malzemesi' (e.g. 'Tombak, Kurşun Çekirdek'); FMJ/tip/base not stated, so ball/tracer/AP left empty. 8.59x70 Solid: material 'Pirinç' (brass) -> lead_free_other.",
+  "sources": [
+    {
+      "id": "solid",
+      "url": "https://www.mke.gov.tr/Urunler/859-mm-x-70-Solid-Fisek/150",
+      "read_date": "2026-10-13",
+      "title": "8.59x70 Solid Fişek"
+    }
+  ],
+  "families": [],
+  "records": {
+    "MKE|8.59×70 Solid Fişek|.338 Lapua Mag": {
+      "construction": {
+        "value": "lead_free_other",
+        "src": "solid",
+        "quote": "Mermi Malzemesi | Pirinç"
+      }
+    }
+  }
+}

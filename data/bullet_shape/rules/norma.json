@@ -1,0 +1,407 @@
+{
+  "brand": "Norma",
+  "note": "2026-10-13: Norma line pages (Oryx, Oryx Silencer, Tipstrike, Tipstrike Silencer, Ecostrike, Ecostrike Silencer, Bondstrike, Whitetail, Vulkan, Evostrike, ODIN, Jaktmatch, Golden Target, Diamond Line, Plastic Point, African PH, African PH Solids, VerminXtreme) and several product pages read. robots.txt allows all. Vulkan tip from Bullet Description 'SP' on all 7 Vulkan product pages. Empty: Norma Solid (page contradicts itself: brass alloy vs steel-jacketed), TAC-22 (no bullet data; one fetch failed), Vermin Xtreme Tipped (page says 'Tipped SP' and 'hollow point' - conflicting), Vulkan/Oryx/Tipstrike/Evostrike/Whitetail/Plastic Point base and Plastic Point construction not stated. Some fetches needed retries (permission timeouts / CLIENT_ERROR).",
+  "sources": [
+    {
+      "id": "oryx",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-oryx",
+      "read_date": "2026-10-13",
+      "title": "Norma Oryx line"
+    },
+    {
+      "id": "oryx_p",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-oryx/norma-oryx-243-winchester-100gr---20160332",
+      "read_date": "2026-10-13",
+      "title": "Norma Oryx .243 Win 100gr"
+    },
+    {
+      "id": "oryx_sil",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-oryx-silencer-series",
+      "read_date": "2026-10-13",
+      "title": "Norma Oryx Silencer Series"
+    },
+    {
+      "id": "tipstrike",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike",
+      "read_date": "2026-10-13",
+      "title": "Norma Tipstrike line"
+    },
+    {
+      "id": "tipstrike_sil",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-tipstrike-silencer-series",
+      "read_date": "2026-10-13",
+      "title": "Norma Tipstrike Silencer Series"
+    },
+    {
+      "id": "ecostrike",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike",
+      "read_date": "2026-10-13",
+      "title": "Norma Ecostrike line"
+    },
+    {
+      "id": "ecostrike_sil",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-ecostrike-silencer-series",
+      "read_date": "2026-10-13",
+      "title": "Norma Ecostrike Silencer Series"
+    },
+    {
+      "id": "bondstrike",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-bondstrike",
+      "read_date": "2026-10-13",
+      "title": "Norma Bondstrike line"
+    },
+    {
+      "id": "whitetail",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-whitetail",
+      "read_date": "2026-10-13",
+      "title": "Norma Whitetail line"
+    },
+    {
+      "id": "vulkan",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan",
+      "read_date": "2026-10-13",
+      "title": "Norma Vulkan line"
+    },
+    {
+      "id": "vulkan_p",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-vulkan/norma-vulkan-30-06-springfield-180gr---20176592",
+      "read_date": "2026-10-13",
+      "title": "Norma Vulkan .30-06 180gr (Bullet Description SP; same on all Vulkan product pages)"
+    },
+    {
+      "id": "evostrike",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-evostrike",
+      "read_date": "2026-10-13",
+      "title": "Norma Evostrike line"
+    },
+    {
+      "id": "odin",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-odin",
+      "read_date": "2026-10-13",
+      "title": "Norma ODIN line"
+    },
+    {
+      "id": "jaktmatch",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-jaktmatch",
+      "read_date": "2026-10-13",
+      "title": "Norma Jaktmatch line"
+    },
+    {
+      "id": "golden_target",
+      "url": "https://www.norma-ammunition.com/products/shooting/norma-golden-target",
+      "read_date": "2026-10-13",
+      "title": "Norma Golden Target line"
+    },
+    {
+      "id": "diamond_line",
+      "url": "https://www.norma-ammunition.com/products/shooting/norma-diamond-line",
+      "read_date": "2026-10-13",
+      "title": "Norma Diamond Line"
+    },
+    {
+      "id": "plastic_point",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-plastic-point",
+      "read_date": "2026-10-13",
+      "title": "Norma Plastic Point line"
+    },
+    {
+      "id": "african_ph",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-african-ph",
+      "read_date": "2026-10-13",
+      "title": "Norma African PH (Woodleigh)"
+    },
+    {
+      "id": "verminxtreme",
+      "url": "https://www.norma-ammunition.com/products/hunting/norma-verminxtreme",
+      "read_date": "2026-10-13",
+      "title": "Norma VerminXtreme line"
+    }
+  ],
+  "families": [
+    {
+      "id": "oryx",
+      "lib": "any",
+      "name_regex": "\\bOryx\\b",
+      "fields": {
+        "construction": {
+          "value": "bonded",
+          "src": "oryx",
+          "quote": "ORYX is a premium bonded bullet"
+        },
+        "tip_shape": {
+          "value": "soft_point",
+          "src": "oryx",
+          "quote": "Soft nose to secure massive mushrooming"
+        },
+        "component_bullet": {
+          "value": "Norma Oryx",
+          "src": "oryx_sil",
+          "quote": "loaded with our popular Oryx bullet"
+        }
+      }
+    },
+    {
+      "id": "tipstrike",
+      "lib": "any",
+      "name_regex": "\\bTipstrike\\b",
+      "fields": {
+        "construction": {
+          "value": "cup_and_core",
+          "src": "tipstrike",
+          "quote": "Lead core expands very aggressively ... Thin jacket for rapid expansion"
+        },
+        "tip_shape": {
+          "value": "polymer_tip",
+          "src": "tipstrike",
+          "quote": "Aerodynamic polymer tip for high BC and rapid expansion"
+        },
+        "component_bullet": {
+          "value": "Norma Tipstrike",
+          "src": "tipstrike_sil",
+          "quote": "loaded with our popular Tipstrike bullet"
+        }
+      }
+    },
+    {
+      "id": "ecostrike",
+      "lib": "any",
+      "name_regex": "\\bEcostrike\\b",
+      "fields": {
+        "construction": {
+          "value": "monolithic_copper",
+          "src": "ecostrike",
+          "quote": "Our nickel-coated copper bullet delivers deep penetration"
+        },
+        "tip_shape": {
+          "value": "polymer_tip",
+          "src": "ecostrike",
+          "quote": "Aerodynamic polymer tip for high BC and rapid deformation"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "ecostrike",
+          "quote": "Boat tail designed for increased ballistic coefficient"
+        },
+        "component_bullet": {
+          "value": "Norma Ecostrike",
+          "src": "ecostrike_sil",
+          "quote": "our popular lead free Ecostrike bullet"
+        }
+      }
+    },
+    {
+      "id": "bondstrike",
+      "lib": "any",
+      "name_regex": "\\bBondstrike\\b",
+      "fields": {
+        "construction": {
+          "value": "bonded",
+          "src": "bondstrike",
+          "quote": "Unique bonding technology for high retained weight and penetration"
+        },
+        "tip_shape": {
+          "value": "polymer_tip",
+          "src": "bondstrike",
+          "quote": "Aerodynamic polymer tip for high BC and quick expansion"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "bondstrike",
+          "quote": "Match boat tail for minimal drag and consistent accuracy"
+        }
+      }
+    },
+    {
+      "id": "whitetail",
+      "lib": "factory",
+      "name_regex": "\\bWhitetail\\b",
+      "fields": {
+        "construction": {
+          "value": "cup_and_core",
+          "src": "whitetail",
+          "quote": "a quick expanding lead core ... Thin Jacket for expansion"
+        },
+        "tip_shape": {
+          "value": "soft_point",
+          "src": "whitetail",
+          "quote": "Soft point nose for rapid expansion"
+        },
+        "base": {
+          "value": "flat_base",
+          "src": "whitetail",
+          "quote": "Flat base provides consistent accuracy"
+        }
+      }
+    },
+    {
+      "id": "vulkan",
+      "lib": "factory",
+      "name_regex": "\\bVulkan\\b",
+      "fields": {
+        "construction": {
+          "value": "cup_and_core",
+          "src": "vulkan",
+          "quote": "The jacket is folded at the tip to protect the lead core"
+        },
+        "tip_shape": {
+          "value": "soft_point",
+          "src": "vulkan_p",
+          "quote": "Bullet Description: SP"
+        }
+      }
+    },
+    {
+      "id": "evostrike",
+      "lib": "factory",
+      "name_regex": "\\bEvostrike\\b",
+      "fields": {
+        "construction": {
+          "value": "lead_free_other",
+          "src": "evostrike",
+          "quote": "lead-free fragmentation bullet ... Front core of tin"
+        },
+        "tip_shape": {
+          "value": "polymer_tip",
+          "src": "evostrike",
+          "quote": "Hollowed polymer tip for flat trajectory and rapid expansion"
+        },
+        "component_bullet": {
+          "value": "Norma Evostrike",
+          "src": "evostrike",
+          "quote": "EVOSTRIKE is our lead-free fragmentation bullet"
+        }
+      }
+    },
+    {
+      "id": "odin",
+      "lib": "factory",
+      "name_regex": "\\bODIN\\b",
+      "fields": {
+        "construction": {
+          "value": "monolithic_copper",
+          "src": "odin",
+          "quote": "100% monolithic copper bullet."
+        },
+        "tip_shape": {
+          "value": "polymer_tip",
+          "src": "odin",
+          "quote": "Polymer tip for higher BC and quick expansion."
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "odin",
+          "quote": "Boat tail design for excellent accuracy"
+        }
+      }
+    },
+    {
+      "id": "jaktmatch",
+      "lib": "factory",
+      "name_regex": "\\bJaktmatch\\b",
+      "fields": {
+        "construction": {
+          "value": "fmj",
+          "src": "jaktmatch",
+          "quote": "Full Metal Jacket"
+        }
+      }
+    },
+    {
+      "id": "golden_target",
+      "lib": "factory",
+      "name_regex": "\\bGolden Target\\b",
+      "fields": {
+        "construction": {
+          "value": "match",
+          "src": "golden_target",
+          "quote": "Golden Target is the ultimate match bullet"
+        },
+        "tip_shape": {
+          "value": "hollow_point",
+          "src": "golden_target",
+          "quote": "Hollow Point"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "golden_target",
+          "quote": "carefully designed boat tail for the highest possible BC"
+        },
+        "component_bullet": {
+          "value": "Norma Golden Target",
+          "src": "golden_target",
+          "quote": "Golden Target is the ultimate match bullet"
+        }
+      }
+    },
+    {
+      "id": "diamond_line",
+      "lib": "factory",
+      "name_regex": "\\bDiamond Line\\b",
+      "fields": {
+        "construction": {
+          "value": "match",
+          "src": "diamond_line",
+          "quote": "Norma Diamond Line Match ... Match"
+        },
+        "tip_shape": {
+          "value": "hollow_point",
+          "src": "diamond_line",
+          "quote": "moly-coated hollow point bullet"
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "diamond_line",
+          "quote": "The bullet features a carefully designed boat tail"
+        }
+      }
+    },
+    {
+      "id": "plastic_point",
+      "lib": "factory",
+      "name_regex": "\\bPlastic Point\\b",
+      "fields": {
+        "tip_shape": {
+          "value": "polymer_tip",
+          "src": "plastic_point",
+          "quote": "Plastic tip for protection & BC"
+        }
+      }
+    },
+    {
+      "id": "woodleigh_sn",
+      "lib": "factory",
+      "name_regex": "\\bWoodleigh Soft Nose\\b",
+      "fields": {
+        "construction": {
+          "value": "bonded",
+          "src": "african_ph",
+          "quote": "steel-jacketed solids and bonded-core softpoints"
+        },
+        "tip_shape": {
+          "value": "soft_point",
+          "src": "african_ph",
+          "quote": "Woodleigh Soft Nose"
+        },
+        "component_bullet": {
+          "value": "Woodleigh Soft Nose",
+          "src": "african_ph",
+          "quote": "Norma has teamed up with Woodleigh bullets"
+        }
+      }
+    },
+    {
+      "id": "verminxtreme",
+      "lib": "factory",
+      "name_regex": "\\bVermin ?Xtreme\\b",
+      "not_regex": "\\bTipped\\b",
+      "fields": {
+        "tip_shape": {
+          "value": "hollow_point",
+          "src": "verminxtreme",
+          "quote": "Aggressive hollow point design for rapid expansion"
+        }
+      }
+    }
+  ],
+  "records": {}
+}

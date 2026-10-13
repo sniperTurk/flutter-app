@@ -1,0 +1,279 @@
+{
+ "brand": "PMC",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read pmcammo.com product pages (robots.txt allows /product/). Pages give only bullet-type abbreviations (FMJ-BT, PSP, SP, OTM), already in the names. X-TAC Match page names Sierra Bullets for the .223/.308 loads (bullet model not named); 50 cal Solid Brass stated as match grade. No tip/base text otherwise.",
+ "sources": [
+  {
+   "id": "pmc_xm223",
+   "url": "https://pmcammo.com/product/x-tac-match-223xm/",
+   "read_date": "2026-10-13",
+   "title": "X-TAC Match 223 Remington"
+  },
+  {
+   "id": "pmc_xm308",
+   "url": "https://pmcammo.com/product/x-tac-match-308xm/",
+   "read_date": "2026-10-13",
+   "title": "X-TAC Match 308 Winchester"
+  },
+  {
+   "id": "pmc_xm50",
+   "url": "https://pmcammo.com/product/x-tac-match-50xm/",
+   "read_date": "2026-10-13",
+   "title": "X-TAC Match 50 Caliber"
+  }
+ ],
+ "records": {
+  "PMC|Bronze 223 Remington 55 gr FMJ-BT|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Bronze 223 Remington 55 gr FMJ-BT",
+   "grain": 55.0,
+   "library_source_url": "https://pmcammo.com/product/bronze-223a/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://pmcammo.com/product/bronze-223a/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://pmcammo.com/product/bronze-223a/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ-BT"
+   },
+   "component_bullet": null
+  },
+  "PMC|Bronze 223 Remington 55 gr PSP|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Bronze 223 Remington 55 gr PSP",
+   "grain": 55.0,
+   "library_source_url": "https://pmcammo.com/product/bronze-223sp/",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://pmcammo.com/product/bronze-223sp/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "PSP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "PMC|X-TAC Match 223 Remington 77 gr OTM|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "X-TAC Match 223 Remington 77 gr OTM",
+   "grain": 77.0,
+   "library_source_url": "https://pmcammo.com/product/x-tac-match-223xm/",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "match",
+    "source_url": "https://pmcammo.com/product/x-tac-match-223xm/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://pmcammo.com/product/x-tac-match-223xm/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "OTM"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra Bullets",
+    "source_url": "https://pmcammo.com/product/x-tac-match-223xm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the world-class ballistics of Sierra Bullets in our .223 Remington and .308"
+   }
+  },
+  "PMC|Bronze 308 Winchester (7.62 NATO) 147 gr FMJ-BT|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Bronze 308 Winchester (7.62 NATO) 147 gr FMJ-BT",
+   "grain": 147.0,
+   "library_source_url": "https://pmcammo.com/product/bronze-308b/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://pmcammo.com/product/bronze-308b/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://pmcammo.com/product/bronze-308b/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ-BT"
+   },
+   "component_bullet": null
+  },
+  "PMC|Bronze 308 Winchester 150 gr SP|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Bronze 308 Winchester 150 gr SP",
+   "grain": 150.0,
+   "library_source_url": "https://pmcammo.com/product/308sp/",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://pmcammo.com/product/308sp/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "SP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "PMC|X-TAC Match 308 Winchester 168 gr OTM|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "X-TAC Match 308 Winchester 168 gr OTM",
+   "grain": 168.0,
+   "library_source_url": "https://pmcammo.com/product/x-tac-match-308xm/",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "match",
+    "source_url": "https://pmcammo.com/product/x-tac-match-308xm/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Match"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://pmcammo.com/product/x-tac-match-308xm/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "OTM"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra Bullets",
+    "source_url": "https://pmcammo.com/product/x-tac-match-308xm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the world-class ballistics of Sierra Bullets in our .223 Remington and .308"
+   }
+  },
+  "PMC|Bronze 50 Caliber 660 gr FMJ-BT|.50 BMG": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Bronze 50 Caliber 660 gr FMJ-BT",
+   "grain": 660.0,
+   "library_source_url": "https://pmcammo.com/product/bronze-50a/",
+   "cartridge": ".50 BMG",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://pmcammo.com/product/bronze-50a/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://pmcammo.com/product/bronze-50a/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ-BT"
+   },
+   "component_bullet": null
+  },
+  "PMC|X-TAC Match 50 Caliber 740 gr Solid Brass|.50 BMG": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "X-TAC Match 50 Caliber 740 gr Solid Brass",
+   "grain": 740.0,
+   "library_source_url": "https://pmcammo.com/product/x-tac-match-50xm/",
+   "cartridge": ".50 BMG",
+   "construction": {
+    "value": "match",
+    "source_url": "https://pmcammo.com/product/x-tac-match-50xm/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Our match grade bullet in caliber 50"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "PMC|X-TAC 5.56mm NATO 55 gr FMJ-BT|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "X-TAC 5.56mm NATO 55 gr FMJ-BT",
+   "grain": 55.0,
+   "library_source_url": "https://pmcammo.com/product/x-tac-5-56x/",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://pmcammo.com/product/x-tac-5-56x/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://pmcammo.com/product/x-tac-5-56x/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ-BT"
+   },
+   "component_bullet": null
+  },
+  "PMC|Bronze 7.62 x 39 123 gr FMJ|7.62x39": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Bronze 7.62 x 39 123 gr FMJ",
+   "grain": 123.0,
+   "library_source_url": "https://pmcammo.com/product/bronze-7-62a/",
+   "cartridge": "7.62x39",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://pmcammo.com/product/bronze-7-62a/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "PMC|X-TAC 147 gr FMJ-BT|7.62x51 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "X-TAC 147 gr FMJ-BT",
+   "grain": 147.0,
+   "library_source_url": "https://pmcammo.com/product/x-tac-7-62x/",
+   "cartridge": "7.62x51 NATO",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://pmcammo.com/product/x-tac-7-62x/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://pmcammo.com/product/x-tac-7-62x/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ-BT"
+   },
+   "component_bullet": null
+  }
+ }
+}

@@ -1,0 +1,645 @@
+{
+ "brand": "CCI",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read 2026-10-13: cci-ammunition.com robots.txt (product pages allowed), product pages of V-Max, VNT, TNT Green (17 HMR + 22 WMR), TNT 17 HMR, A17, 2026 catalog PDF; Speer TNT Green component page for construction. Most rimfire tip shapes come from product-name words. Not stated: A17 'Varmint Tip' material, TNT component maker, construction of lead/copper-plated rimfire bullets (no fitting enum), bases. Quiet-22 Semi-Auto: catalog says both 'RN' and 'Soft Point' - left to name.",
+ "sources": [
+  {
+   "id": "vmax17",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-49.html",
+   "read_date": "2026-10-13",
+   "title": "CCI V-Max 17 HMR"
+  },
+  {
+   "id": "vmax22",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-73.html",
+   "read_date": "2026-10-13",
+   "title": "CCI V-Max 22 WMR"
+  },
+  {
+   "id": "vnt17",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-959CC.html",
+   "read_date": "2026-10-13",
+   "title": "CCI VNT 17 HMR"
+  },
+  {
+   "id": "vnt22",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-929CC.html",
+   "read_date": "2026-10-13",
+   "title": "CCI VNT 22 WMR"
+  },
+  {
+   "id": "tntg17",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-951.html",
+   "read_date": "2026-10-13",
+   "title": "CCI TNT Green 17 HMR"
+  },
+  {
+   "id": "tntg22",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-60.html",
+   "read_date": "2026-10-13",
+   "title": "CCI TNT Green 22 WMR"
+  },
+  {
+   "id": "speer_tntg",
+   "url": "https://www.speer.com/bullets/rifle-bullets/tnt-green-bullet/19-1021.html",
+   "read_date": "2026-10-13",
+   "title": "Speer TNT Green component bullet"
+  },
+  {
+   "id": "cat2026",
+   "url": "https://www.cci-ammunition.com/on/demandware.static/-/Library-Sites-VistaCCISharedLibrary/default/v91e820dd9e99e25799a98c3df74baf9b44b130a9/pdfDocuments/catalog/CC313_Catalog-2026_WEB.pdf",
+   "read_date": "2026-10-13",
+   "title": "CCI 2026 catalog"
+  },
+  {
+   "id": "a17",
+   "url": "https://www.cci-ammunition.com/rimfire/cci/a17/6-949CC.html",
+   "read_date": "2026-10-13",
+   "title": "CCI A17"
+  }
+ ],
+ "records": {
+  "CCI|CCI A17 17 gr Tipped Varmint|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI A17 17 gr Tipped Varmint",
+   "grain": 17.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/a17/6-949CC.html",
+   "cartridge": ".17 HMR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Full Metal Jacket 20 gr Full Metal Jacket|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Full Metal Jacket 20 gr Full Metal Jacket",
+   "grain": 20.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/full-metal-jacket/6-55.html",
+   "cartridge": ".17 HMR",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/full-metal-jacket/6-55.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Gamepoint 20 gr Jacketed Soft Point|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Gamepoint 20 gr Jacketed Soft Point",
+   "grain": 20.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/gamepoint/6-52.html",
+   "cartridge": ".17 HMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/gamepoint/6-52.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI TNT 17 gr Jacketed Hollow Point|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI TNT 17 gr Jacketed Hollow Point",
+   "grain": 17.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/tnt/6-53.html",
+   "cartridge": ".17 HMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/tnt/6-53.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI TNT Green 16 gr Speer TNT Green Hollow Point|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI TNT Green 16 gr Speer TNT Green Hollow Point",
+   "grain": 16.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-951.html",
+   "cartridge": ".17 HMR",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-green-bullet/19-1021.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Thin jacket around compressed powder core"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-951.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Speer TNT Green",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-951.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Speer TNT Green Hollow Point"
+   }
+  },
+  "CCI|CCI V-Max 17 gr V-Max|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI V-Max 17 gr V-Max",
+   "grain": 17.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-49.html",
+   "cartridge": ".17 HMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-49.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a polymer-tipped design"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady V-Max",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-49.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hornady® V-Max® bullet"
+   }
+  },
+  "CCI|CCI VNT 17 gr VNT|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI VNT 17 gr VNT",
+   "grain": 17.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-959CC.html",
+   "cartridge": ".17 HMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-959CC.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Very thin jacket combined with precision-built polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Speer VNT",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-959CC.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "feature a Speer® bullet with an extremely thin jacket and polymer tip"
+   }
+  },
+  "CCI|CCI 22 Suppressor 45 gr Lead Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI 22 Suppressor 45 gr Lead Hollow Point",
+   "grain": 45.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/22-suppressor/6-957.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/22-suppressor/6-957.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Clean-22 Suppressor 45 gr Lead Round Nose|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Clean-22 Suppressor 45 gr Lead Round Nose",
+   "grain": 45.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/clean-22-suppressor/6-980CC.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/clean-22-suppressor/6-980CC.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Round Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Hunter Series 40 gr Lead Flat Nose|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Hunter Series 40 gr Lead Flat Nose",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/hunter-series/6-3R40LFN.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/hunter-series/6-3R40LFN.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Flat Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Mini-Mag HP 36 gr Copper Plated Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Mini-Mag HP 36 gr Copper Plated Hollow Point",
+   "grain": 36.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/mini-mag/6-31.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/mini-mag/6-31.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Mini-Mag Segmented HP 40 gr Segmented Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Mini-Mag Segmented HP 40 gr Segmented Hollow Point",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/mini-mag-segmented-hp/6-36CC.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/mini-mag-segmented-hp/6-36CC.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Quiet-22 40 gr Lead Round Nose|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Quiet-22 40 gr Lead Round Nose",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/quiet-22/6-960.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/quiet-22/6-960.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Round Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Quiet-22 Segmented HP 40 gr Segmented Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Quiet-22 Segmented HP 40 gr Segmented Hollow Point",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/quiet-22-segmented-hp/6-970.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/quiet-22-segmented-hp/6-970.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Quiet-22 Semi-Auto 45 gr Soft Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Quiet-22 Semi-Auto 45 gr Soft Point",
+   "grain": 45.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/quiet-22-semi-auto/6-975CC.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/quiet-22-semi-auto/6-975CC.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Standard Velocity 40 gr Lead Round Nose|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Standard Velocity 40 gr Lead Round Nose",
+   "grain": 40.0,
+   "library_source_url": "https://cci-ammunition.com/rimfire/cci/standard-velocity/6-32.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://cci-ammunition.com/rimfire/cci/standard-velocity/6-32.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Round Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Stinger 32 gr Copper Plated Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Stinger 32 gr Copper Plated Hollow Point",
+   "grain": 32.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/stinger/6-50.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/stinger/6-50.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Sub-Sonic HP 40 gr Lead Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Sub-Sonic HP 40 gr Lead Hollow Point",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/sub-sonic-hp/6-56.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/sub-sonic-hp/6-56.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Target Mini-Mag 40 gr Copper Plated Round Nose|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Target Mini-Mag 40 gr Copper Plated Round Nose",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/target-mini-mag/6-30.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/target-mini-mag/6-30.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Round Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|CCI Velocitor HP 40 gr Copper Plated Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "CCI Velocitor HP 40 gr Copper Plated Hollow Point",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/velocitor-hp/6-47.html",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/velocitor-hp/6-47.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|Gamepoint 40 gr Jacketed Soft Point 1875 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Gamepoint 40 gr Jacketed Soft Point 1875 fps",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/gamepoint/6-22.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/gamepoint/6-22.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|Maxi-Mag +V 30 gr Jacketed Hollow Point 2200 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Maxi-Mag +V 30 gr Jacketed Hollow Point 2200 fps",
+   "grain": 30.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/maxi-mag--v/6-59.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/maxi-mag--v/6-59.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|Maxi-Mag 40 gr Jacketed Hollow Point 1875 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Maxi-Mag 40 gr Jacketed Hollow Point 1875 fps",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/maxi-mag/6-24.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/maxi-mag/6-24.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|Maxi-Mag Segmented Hollow Point 46 gr Segmented Hollow Point 1875 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Maxi-Mag Segmented Hollow Point 46 gr Segmented Hollow Point 1875 fps",
+   "grain": 46.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/maxi-mag/6-972CC.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/maxi-mag/6-972CC.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|Maxi-Mag TMJ 40 gr Total Metal Jacket 1875 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Maxi-Mag TMJ 40 gr Total Metal Jacket 1875 fps",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/maxi-mag-tmj/6-23.html",
+   "cartridge": ".22 WMR",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/maxi-mag-tmj/6-23.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "TMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|Maxi-Mag TNT 30 gr TNT Jacketed Hollow Point 2200 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Maxi-Mag TNT 30 gr TNT Jacketed Hollow Point 2200 fps",
+   "grain": 30.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/maxi-mag-tnt/6-63.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/maxi-mag-tnt/6-63.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|TNT Green 30 gr Speer TNT Green Hollow Point 2050 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "TNT Green 30 gr Speer TNT Green Hollow Point 2050 fps",
+   "grain": 30.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-60.html",
+   "cartridge": ".22 WMR",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-green-bullet/19-1021.html",
+    "read_date": "2026-10-13",
+    "evidence": "component_maker_page",
+    "quote": "Thin jacket around compressed powder core"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-60.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Speer TNT Green",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/tnt-green/6-60.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Speer TNT Green Hollow Point"
+   }
+  },
+  "CCI|Uppercut 40 gr Copper Plated Hollow Point 1050 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Uppercut 40 gr Copper Plated Hollow Point 1050 fps",
+   "grain": 40.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/uppercut/6-22WMRUP.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/uppercut/6-22WMRUP.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "CCI|V-Max 30 gr V-Max 2200 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "V-Max 30 gr V-Max 2200 fps",
+   "grain": 30.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-73.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-73.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Polymer-tipped bullet design"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Hornady V-Max",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/v-max/6-73.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "loaded with the Hornady® V-Max® bullet"
+   }
+  },
+  "CCI|VNT 30 gr VNT 2200 fps|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "VNT 30 gr VNT 2200 fps",
+   "grain": 30.0,
+   "library_source_url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-929CC.html",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-929CC.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "precision-built polymer tip"
+   },
+   "base": null,
+   "component_bullet": {
+    "value": "Speer VNT",
+    "source_url": "https://www.cci-ammunition.com/rimfire/cci/vnt/6-929CC.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a Speer® bullet"
+   }
+  }
+ }
+}

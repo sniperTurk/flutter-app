@@ -1,0 +1,1367 @@
+{
+ "brand": "Swift",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read swiftbullets.com (robots.txt checked) home page and the A-Frame, Zephyr, Scirocco collection pages and sample product pages. Product pages give only profile codes (BTS, AF/SS) without explanation, so base and nose shape stay empty except name words (RN/FN/HP). Scirocco II tip = 'Signature Black Tip' (maker does not say polymer; mapped to polymer_tip as the only tipped value); Scirocco construction and all bases not stated.",
+ "sources": [
+  {
+   "id": "home",
+   "url": "https://swiftbullets.com/",
+   "read_date": "2026-10-13",
+   "title": "Swift Bullet Company home page"
+  },
+  {
+   "id": "af_coll",
+   "url": "https://swiftbullets.com/collections/a-frame-rifle-bullets",
+   "read_date": "2026-10-13",
+   "title": "A-Frame rifle bullets collection"
+  },
+  {
+   "id": "zephyr",
+   "url": "https://swiftbullets.com/collections/zephyr-long-range-hunting-bullets",
+   "read_date": "2026-10-13",
+   "title": "Zephyr long range hunting bullets collection"
+  },
+  {
+   "id": "scirocco",
+   "url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+   "read_date": "2026-10-13",
+   "title": "Scirocco rifle bullets collection"
+  }
+ ],
+ "records": {
+  "Swift|Scirocco II .224 62 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .224 62 gr",
+   "grain": 62.0,
+   "library_source_url": "https://www.swiftbullets.com/products/scirocco-rifle-bullets",
+   "caliber_mm": 5.7,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Scirocco II .224 75 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .224 75 gr",
+   "grain": 75.0,
+   "library_source_url": "https://www.swiftbullets.com/products/scirocco-rifle-bullets-cal-224",
+   "caliber_mm": 5.7,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Scirocco II .243 90 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .243 90 gr",
+   "grain": 90.0,
+   "library_source_url": "https://www.swiftbullets.com/products/scirocco-rifle-bullets-cal-6mm",
+   "caliber_mm": 6.17,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Scirocco II .257 100 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .257 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://www.swiftbullets.com/products/scirocco-rifle-bullets-cal-25",
+   "caliber_mm": 6.53,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Scirocco II .264 130 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .264 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.swiftbullets.com/products/scirocco-rifle-bullets-cal-6-5mm",
+   "caliber_mm": 6.71,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Scirocco II .277 130 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .277 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.swiftbullets.com/products/scirocco-rifle-bullets-1",
+   "caliber_mm": 7.04,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Scirocco II .284 150 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .284 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.swiftbullets.com/products/srirocco-rifle-bullets-cal-7mm",
+   "caliber_mm": 7.21,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Scirocco II .308 150 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .308 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.swiftbullets.com/products/srirocco-rifle-bullets-cal-30",
+   "caliber_mm": 7.82,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Scirocco II .308 165 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .308 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.swiftbullets.com/products/srirocco-rifle-bullets-cal-31",
+   "caliber_mm": 7.82,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Scirocco II .308 180 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .308 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.swiftbullets.com/products/srirocco-rifle-bullets-cal-32",
+   "caliber_mm": 7.82,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Scirocco II .338 210 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Scirocco II .338 210 gr",
+   "grain": 210.0,
+   "library_source_url": "https://www.swiftbullets.com/products/scirocco-rifle-bullets-cal-338",
+   "caliber_mm": 8.59,
+   "construction": null,
+   "tip_shape": {
+    "value": "polymer_tip",
+    "source_url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Scirocco® II, with the Signature Black Tip™"
+   },
+   "base": null
+  },
+  "Swift|Zephyr .284 175 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "Zephyr .284 175 gr",
+   "grain": 175.0,
+   "library_source_url": "https://www.swiftbullets.com/products/zephyr-long-range-hunting-bullets-cal-7mm-175-gr",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/collections/zephyr-long-range-hunting-bullets",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a heavy jacket wall, and a bonded core"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .257 100 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .257 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullet-cal-25",
+   "caliber_mm": 6.53,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .257 120 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .257 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifl-bullet-cal-25",
+   "caliber_mm": 6.53,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .264 120 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .264 120 gr",
+   "grain": 120.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullet-cal-6-5",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .264 140 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .264 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-6-5",
+   "caliber_mm": 6.71,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .277 130 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .277 130 gr",
+   "grain": 130.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-270",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .277 140 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .277 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-271",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .277 150 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .277 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-272",
+   "caliber_mm": 7.04,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .284 140 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .284 140 gr",
+   "grain": 140.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-7mm",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .284 160 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .284 160 gr",
+   "grain": 160.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-7mm-1",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .284 175 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .284 175 gr",
+   "grain": 175.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-7mm-2",
+   "caliber_mm": 7.21,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .308 165 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .308 165 gr",
+   "grain": 165.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-30",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .308 180 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .308 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-31",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .308 200 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .308 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-32",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .323 200 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .323 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-8mm",
+   "caliber_mm": 8.22,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .323 220 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .323 220 gr",
+   "grain": 220.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-8mm-1",
+   "caliber_mm": 8.22,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .338 225 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .338 225 gr",
+   "grain": 225.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-339",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .338 250 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .338 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-340",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .338 275 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .338 275 gr",
+   "grain": 275.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-338",
+   "caliber_mm": 8.59,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .358 225 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .358 225 gr",
+   "grain": 225.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-35",
+   "caliber_mm": 9.09,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .358 250 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .358 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-36",
+   "caliber_mm": 9.09,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .358 280 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .358 280 gr",
+   "grain": 280.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-rifle-bullets-cal-37",
+   "caliber_mm": 9.09,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .366 250 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .366 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-9-3mm",
+   "caliber_mm": 9.3,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .366 286 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .366 286 gr",
+   "grain": 286.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-9-3mm-1",
+   "caliber_mm": 9.3,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .366 300 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .366 300 gr",
+   "grain": 300.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-9-3mm-2",
+   "caliber_mm": 9.3,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .375 250 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .375 250 gr",
+   "grain": 250.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-375",
+   "caliber_mm": 9.53,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .375 270 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .375 270 gr",
+   "grain": 270.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal",
+   "caliber_mm": 9.53,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .375 300 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .375 300 gr",
+   "grain": 300.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-cal-375",
+   "caliber_mm": 9.53,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .410 350 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .410 350 gr",
+   "grain": 350.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-cal-400",
+   "caliber_mm": 10.41,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .410 400 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .410 400 gr",
+   "grain": 400.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-riffle-bullets-cal-400",
+   "caliber_mm": 10.41,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .416 350 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .416 350 gr",
+   "grain": 350.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-416",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .416 400 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .416 400 gr",
+   "grain": 400.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-417",
+   "caliber_mm": 10.57,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .423 400 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .423 400 gr",
+   "grain": 400.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-404",
+   "caliber_mm": 10.74,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame FN .457 400 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame FN .457 400 gr",
+   "grain": 400.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-458",
+   "caliber_mm": 11.61,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-458",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame .457 450 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .457 450 gr",
+   "grain": 450.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-459",
+   "caliber_mm": 11.61,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame .457 500 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame .457 500 gr",
+   "grain": 500.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-470",
+   "caliber_mm": 11.61,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Swift|A-Frame RN .474 500 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame RN .474 500 gr",
+   "grain": 500.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-471",
+   "caliber_mm": 12.04,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-471",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame RN .505 535 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame RN .505 535 gr",
+   "grain": 535.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-505",
+   "caliber_mm": 12.83,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-505",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame RN .505 570 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame RN .505 570 gr",
+   "grain": 570.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-506",
+   "caliber_mm": 12.83,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-506",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame RN .509 535 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame RN .509 535 gr",
+   "grain": 535.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-500",
+   "caliber_mm": 12.93,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-500",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame RN .509 570 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame RN .509 570 gr",
+   "grain": 570.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-501",
+   "caliber_mm": 12.93,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-heavy-rifle-bullets-cal-501",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "RN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Lever Action FN .308 150 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Lever Action FN .308 150 gr",
+   "grain": 150.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-lever-action-rifle-bullets-cal-30-30",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-lever-action-rifle-bullets-cal-30-30",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Lever Action FN .308 170 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Lever Action FN .308 170 gr",
+   "grain": 170.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-lever-action-rifle-bullets",
+   "caliber_mm": 7.82,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-lever-action-rifle-bullets",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Lever Action FN .348 200 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Lever Action FN .348 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-lever-action-rifle-bullets-cal-348",
+   "caliber_mm": 8.84,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-lever-action-rifle-bullets-cal-348",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Lever Action FN .457 350 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Lever Action FN .457 350 gr",
+   "grain": 350.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-lever-action-rifle-bullets-cal-45-70",
+   "caliber_mm": 11.61,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-lever-action-rifle-bullets-cal-45-70",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Lever Action FN .509 450 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Lever Action FN .509 450 gr",
+   "grain": 450.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-lever-action-rifle-bullets-cal-50",
+   "caliber_mm": 12.93,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-lever-action-rifle-bullets-cal-50",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FN"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .312 100 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .312 100 gr",
+   "grain": 100.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-357-100-gr",
+   "caliber_mm": 7.92,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-357-100-gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .357 158 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .357 158 gr",
+   "grain": 158.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets",
+   "caliber_mm": 9.07,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .357 180 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .357 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-357",
+   "caliber_mm": 9.07,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-357",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .410 210 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .410 210 gr",
+   "grain": 210.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-41",
+   "caliber_mm": 10.41,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-41",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .429 240 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .429 240 gr",
+   "grain": 240.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-44",
+   "caliber_mm": 10.9,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-44",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .429 280 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .429 280 gr",
+   "grain": 280.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-45",
+   "caliber_mm": 10.9,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-45",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .429 300 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .429 300 gr",
+   "grain": 300.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-46",
+   "caliber_mm": 10.9,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-46",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .452 265 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .452 265 gr",
+   "grain": 265.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-47",
+   "caliber_mm": 11.48,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-47",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .452 300 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .452 300 gr",
+   "grain": 300.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-48",
+   "caliber_mm": 11.48,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-48",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .452 325 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .452 325 gr",
+   "grain": 325.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-49",
+   "caliber_mm": 11.48,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-49",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .499 325 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .499 325 gr",
+   "grain": 325.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-50",
+   "caliber_mm": 12.67,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-50",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .400 180 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .400 180 gr",
+   "grain": 180.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-10mm-180-gr",
+   "caliber_mm": 10.16,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-10mm-180-gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "Swift|A-Frame Revolver HP .400 200 gr": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "A-Frame Revolver HP .400 200 gr",
+   "grain": 200.0,
+   "library_source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-10mm-200-gr",
+   "caliber_mm": 10.16,
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://swiftbullets.com/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.swiftbullets.com/products/a-frame-revolver-bullets-cal-10mm-200-gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  }
+ }
+}

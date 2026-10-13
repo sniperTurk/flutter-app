@@ -1,0 +1,835 @@
+{
+ "brand": "Hornady",
+ "note": "Read 2026-10-13 from hornady.com only (robots.txt allows /bullets and /ammunition). Line pages: ELD Match, ELD-X, ELD-VT, A-Tip Match, A-MAX, CX, ECX, MonoFlex, NTX, V-MAX, SST, InterLock, FTX, Sub-X, DGS, DGX Bonded, Match, AeroMatch, XTP, Varmint; product pages for records without a line word in the name. Empty on purpose: A-Tip tip (aluminium tip, no enum value); A-MAX tip/construction (page says only 'sharp pointed tip'); V-MAX base (line has both boattail and flat base); Varmint line tip/base ('Primarily' spire point / flat base, not per product); InterLock/FTX/CX/ECX/MonoFlex/Sub-X/XTP/NTX/ELD-VT base not stated; XTP construction not stated (lead not named); FMJ base/nose not stated; Traditional & FMJ (.224 55 HP, .257 60 FP, .308 125 HP) not stated. Flex Tip (FTX/MonoFlex/Sub-X) and Heat Shield (ELD) mapped to polymer_tip; DGS 'Solid' with copper-clad steel jacket over lead core mapped to fmj. Factory cartridge pages mostly give no bullet details; line-page facts applied via the bullet line named in the cartridge name; component_bullet from the cartridge name. Not readable: /bullets/rifle/30-cal-308-110-gr-sp (JavaScript wall twice); ammunition line page precision-hunter (fetch error). .51 750 gr A-MAX URL now shows the A-Tip Match 750 gr page; only A-MAX line base used.",
+ "sources": [
+  {
+   "id": "eldm",
+   "url": "https://www.hornady.com/bullets/eld-match",
+   "read_date": "2026-10-13",
+   "title": "ELD Match bullets"
+  },
+  {
+   "id": "eldx",
+   "url": "https://www.hornady.com/bullets/eld-x",
+   "read_date": "2026-10-13",
+   "title": "ELD-X bullets"
+  },
+  {
+   "id": "eldvt",
+   "url": "https://www.hornady.com/eld-vt",
+   "read_date": "2026-10-13",
+   "title": "ELD-VT bullets"
+  },
+  {
+   "id": "atip",
+   "url": "https://www.hornady.com/bullets/a-tip-match",
+   "read_date": "2026-10-13",
+   "title": "A-Tip Match bullets"
+  },
+  {
+   "id": "amax",
+   "url": "https://www.hornady.com/bullets/a-max",
+   "read_date": "2026-10-13",
+   "title": "A-MAX bullets"
+  },
+  {
+   "id": "cx",
+   "url": "https://www.hornady.com/bullets/cx",
+   "read_date": "2026-10-13",
+   "title": "CX bullets"
+  },
+  {
+   "id": "ecx",
+   "url": "https://www.hornady.com/bullets/ecx",
+   "read_date": "2026-10-13",
+   "title": "ECX bullets"
+  },
+  {
+   "id": "monoflex",
+   "url": "https://www.hornady.com/bullets/monoflex",
+   "read_date": "2026-10-13",
+   "title": "MonoFlex bullets"
+  },
+  {
+   "id": "ntx",
+   "url": "https://www.hornady.com/bullets/ntx",
+   "read_date": "2026-10-13",
+   "title": "NTX bullets"
+  },
+  {
+   "id": "vmax",
+   "url": "https://www.hornady.com/bullets/v-max",
+   "read_date": "2026-10-13",
+   "title": "V-MAX bullets"
+  },
+  {
+   "id": "sst",
+   "url": "https://www.hornady.com/bullets/sst-(super-shock-tip)",
+   "read_date": "2026-10-13",
+   "title": "SST bullets"
+  },
+  {
+   "id": "interlock",
+   "url": "https://www.hornady.com/bullets/interlock",
+   "read_date": "2026-10-13",
+   "title": "InterLock bullets"
+  },
+  {
+   "id": "ftx",
+   "url": "https://www.hornady.com/bullets/ftx",
+   "read_date": "2026-10-13",
+   "title": "FTX bullets"
+  },
+  {
+   "id": "subx",
+   "url": "https://www.hornady.com/bullets/sub-x",
+   "read_date": "2026-10-13",
+   "title": "Sub-X bullets"
+  },
+  {
+   "id": "dgs",
+   "url": "https://www.hornady.com/bullets/dgs-dangerous-game-solid",
+   "read_date": "2026-10-13",
+   "title": "DGS bullets"
+  },
+  {
+   "id": "dgxb",
+   "url": "https://www.hornady.com/bullets/dgx-bonded",
+   "read_date": "2026-10-13",
+   "title": "DGX Bonded bullets"
+  },
+  {
+   "id": "dgx505",
+   "url": "https://www.hornady.com/bullets/rifle/505-cal-505-525-gr-dgx-505-gibbs",
+   "read_date": "2026-10-13",
+   "title": "505 Cal .505 525 gr DGX (DGX line text)"
+  },
+  {
+   "id": "match",
+   "url": "https://www.hornady.com/bullets/match",
+   "read_date": "2026-10-13",
+   "title": "Match bullets"
+  },
+  {
+   "id": "aeromatch",
+   "url": "https://www.hornady.com/bullets/aeromatch",
+   "read_date": "2026-10-13",
+   "title": "AeroMatch bullets"
+  },
+  {
+   "id": "xtp",
+   "url": "https://www.hornady.com/bullets/xtp",
+   "read_date": "2026-10-13",
+   "title": "XTP bullets"
+  },
+  {
+   "id": "varmint",
+   "url": "https://www.hornady.com/bullets/varmint",
+   "read_date": "2026-10-13",
+   "title": "Varmint bullets"
+  },
+  {
+   "id": "v_hpbee",
+   "url": "https://www.hornady.com/bullets/rifle/22-cal-224-45-gr-hp-bee",
+   "read_date": "2026-10-13",
+   "title": "22 Cal .224 45 gr HP Bee (Varmint line)"
+  },
+  {
+   "id": "v_hornet",
+   "url": "https://www.hornady.com/bullets/rifle/22-cal-224-45-gr-hornet",
+   "read_date": "2026-10-13",
+   "title": "22 Cal .224 45 gr Hornet (Varmint line)"
+  },
+  {
+   "id": "v_60sp",
+   "url": "https://www.hornady.com/bullets/rifle/22-cal-224-60-gr-sp",
+   "read_date": "2026-10-13",
+   "title": "22 Cal .224 60 gr SP (Varmint line)"
+  },
+  {
+   "id": "v_50sx",
+   "url": "https://www.hornady.com/bullets/rifle/22-cal-224-50-gr-sp-sx",
+   "read_date": "2026-10-13",
+   "title": "22 Cal .224 50 gr SP SX (Varmint line)"
+  },
+  {
+   "id": "v_55sx",
+   "url": "https://www.hornady.com/bullets/rifle/22-cal-224-55-gr-sp-sx",
+   "read_date": "2026-10-13",
+   "title": "22 Cal .224 55 gr SP SX (Varmint line)"
+  },
+  {
+   "id": "v_87bthp",
+   "url": "https://www.hornady.com/bullets/rifle/6mm-243-87-gr-bthp",
+   "read_date": "2026-10-13",
+   "title": "6mm .243 87 gr BTHP (Varmint line)"
+  },
+  {
+   "id": "il_458hp",
+   "url": "https://www.hornady.com/bullets/rifle/45-cal-458-300-gr-hp",
+   "read_date": "2026-10-13",
+   "title": "45 Cal .458 300 gr HP (InterLock line)"
+  },
+  {
+   "id": "il_31sp",
+   "url": "https://www.hornady.com/bullets/rifle/7-62-cal-310-123-gr-sp",
+   "read_date": "2026-10-13",
+   "title": "7.62 Cal .310 123 gr SP (InterLock line)"
+  },
+  {
+   "id": "il_355",
+   "url": "https://www.hornady.com/bullets/rifle/35-cal-.355-170-gr-sp",
+   "read_date": "2026-10-13",
+   "title": "35 Cal .355 170 gr InterLock"
+  },
+  {
+   "id": "il_452",
+   "url": "https://www.hornady.com/bullets/rifle/45-cal-.452-245-gr-sp",
+   "read_date": "2026-10-13",
+   "title": "45 Cal .452 245 gr InterLock"
+  },
+  {
+   "id": "m_277",
+   "url": "https://www.hornady.com/bullets/rifle/270-6-8mm-277-110-gr-bthp-with-cannelure",
+   "read_date": "2026-10-13",
+   "title": "270 Cal .277 110 gr BTHP with Cannelure (Match line)"
+  },
+  {
+   "id": "m_53hp",
+   "url": "https://www.hornady.com/bullets/rifle/22-cal-224-53-gr-hp-match",
+   "read_date": "2026-10-13",
+   "title": "22 Cal .224 53 gr HP Match"
+  },
+  {
+   "id": "ammo_ph",
+   "url": "https://www.hornady.com/ammunition/rifle/6-5-creedmoor-143-gr-eld-x-precision-hunter",
+   "read_date": "2026-10-13",
+   "title": "6.5 Creedmoor 143 gr ELD-X Precision Hunter"
+  },
+  {
+   "id": "ammo_aw",
+   "url": "https://www.hornady.com/ammunition/rifle/308-win-150-gr-interlock-sp-american-whitetail",
+   "read_date": "2026-10-13",
+   "title": "308 Win 150 gr InterLock SP American Whitetail"
+  },
+  {
+   "id": "ammo_cx",
+   "url": "https://www.hornady.com/ammunition/rifle/308-win-165-gr.-cx-outfitter",
+   "read_date": "2026-10-13",
+   "title": "308 Win 165 gr CX Outfitter"
+  }
+ ],
+ "families": [
+  {
+   "id": "eld_match",
+   "lib": "any",
+   "name_regex": "\\bELD[- ]?Match\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "eldm",
+     "quote": "enhanced accuracy target bullets"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "eldm",
+     "quote": "Heat Shield® tips"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "eldm",
+     "quote": "optimum boattail design"
+    }
+   }
+  },
+  {
+   "id": "eld_x",
+   "lib": "any",
+   "name_regex": "\\bELD-?X\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "eldx",
+     "quote": "high InterLock® ring keep the core and jacket together"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "eldx",
+     "quote": "the Heat Shield® tip is immune to the effects of aerodynamic heating"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "eldx",
+     "quote": "optimum boattail design"
+    }
+   }
+  },
+  {
+   "id": "eld_vt",
+   "lib": "any",
+   "name_regex": "\\bELD-?VT\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "eldvt",
+     "quote": "ELD-VT bullets incorporate the Heat Shield® tip"
+    }
+   }
+  },
+  {
+   "id": "a_tip_match",
+   "lib": "any",
+   "name_regex": "\\bA-?Tip\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "atip",
+     "quote": "the ultimate low drag, high performance match bullet"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "atip",
+     "quote": "optimized boattail by caliber"
+    }
+   }
+  },
+  {
+   "id": "a_max",
+   "lib": "any",
+   "name_regex": "\\bA-?MAX\\b",
+   "fields": {
+    "base": {
+     "value": "boat_tail",
+     "src": "amax",
+     "quote": "The angle and length of the boattail is unique to each caliber"
+    }
+   }
+  },
+  {
+   "id": "cx",
+   "lib": "any",
+   "name_regex": "\\bCX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "cx",
+     "quote": "One-piece copper alloy won't separate"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "cx",
+     "quote": "Heat Shield® Tip is made of a heat resistant polymer"
+    }
+   }
+  },
+  {
+   "id": "ecx",
+   "lib": "any",
+   "name_regex": "\\bECX\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "ecx",
+     "quote": "MONOLITHIC COPPER ALLOY BULLET"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "ecx",
+     "quote": "FLAT POLYMER TIP"
+    }
+   }
+  },
+  {
+   "id": "monoflex",
+   "lib": "any",
+   "name_regex": "\\bMonoFlex\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "monoflex",
+     "quote": "One-piece copper alloy won't separate"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "monoflex",
+     "quote": "Patented Flex Tip® Design"
+    }
+   }
+  },
+  {
+   "id": "ntx",
+   "lib": "any",
+   "name_regex": "\\bNTX\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "ntx",
+     "quote": "California compatible, lead-free ... crafted from a frangible copper alloy"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "ntx",
+     "quote": "hard polymer tip"
+    }
+   }
+  },
+  {
+   "id": "v_max",
+   "lib": "any",
+   "name_regex": "\\bV-?MAX\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "vmax",
+     "quote": "match grade AMP® bullet jacket ... Swaged Lead Core"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "vmax",
+     "quote": "Polymer Tip"
+    }
+   }
+  },
+  {
+   "id": "sst",
+   "lib": "any",
+   "name_regex": "\\bSST\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "sst",
+     "quote": "InterLock® Ring mechanically locks the core and jacket together"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "sst",
+     "quote": "the hard polymer tip drives into the lead core like a wedge"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "sst",
+     "quote": "combined with a boattail base"
+    }
+   }
+  },
+  {
+   "id": "interlock",
+   "lib": "any",
+   "name_regex": "\\bInterLock\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "interlock",
+     "quote": "a raised ring inside the jacket that is embedded in the bullet's core"
+    }
+   }
+  },
+  {
+   "id": "interlock_tip",
+   "lib": "any",
+   "name_regex": "\\bInterLock\\b",
+   "not_regex": "\\b(RN|FP|HP)\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "soft_point",
+     "src": "interlock",
+     "quote": "exposed lead tips for controlled expansion"
+    }
+   }
+  },
+  {
+   "id": "ftx",
+   "lib": "any",
+   "name_regex": "\\bFTX\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "ftx",
+     "quote": "one-piece, high antimony lead core ... locked to the jacket with an InterLock ring"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "ftx",
+     "quote": "Patented Flex Tip® Bullet Technology"
+    }
+   }
+  },
+  {
+   "id": "sub_x",
+   "lib": "any",
+   "name_regex": "\\bSub-?X\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "subx",
+     "quote": "gilding metal jacket ... features a lead core"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "subx",
+     "quote": "the patented Flex Tip® insert within the bullet's hollowpoint cavity"
+    }
+   }
+  },
+  {
+   "id": "dgs",
+   "lib": "any",
+   "name_regex": "\\bDGS\\b",
+   "fields": {
+    "construction": {
+     "value": "fmj",
+     "src": "dgs",
+     "quote": "Solid ... high antimony lead core with a copper-clad steel jacket"
+    },
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "dgs",
+     "quote": "wide, flat nose that delivers maximum energy upon impact"
+    }
+   }
+  },
+  {
+   "id": "dgx",
+   "lib": "any",
+   "name_regex": "\\bDGX\\b",
+   "not_regex": "\\bBonded\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "dgx505",
+     "quote": "copper-clad steel jacket and high antimony lead core"
+    },
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "dgx505",
+     "quote": "The flat nose aids in expansion and straight penetration"
+    }
+   }
+  },
+  {
+   "id": "dgx_bonded",
+   "lib": "any",
+   "name_regex": "\\bDGX\\s+Bonded\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "dgxb",
+     "quote": "copper-clad steel jacket bonded to a lead core"
+    },
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "dgxb",
+     "quote": "a flat nose with serrated sections"
+    }
+   }
+  },
+  {
+   "id": "match_line",
+   "lib": "bullet",
+   "name_regex": "\\b(BTHP|HP)\\s+Match\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "match",
+     "quote": "All Hornady® Match™ bullets feature revolutionary AMP® ... bullet jackets"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "match",
+     "quote": "The angle and length of the boattail is unique and optimized for each caliber"
+    }
+   }
+  },
+  {
+   "id": "aeromatch",
+   "lib": "any",
+   "name_regex": "\\bAeroMatch\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "aeromatch",
+     "quote": "feature the most popular match bullet profiles and weights"
+    }
+   }
+  },
+  {
+   "id": "cb_eld_match",
+   "lib": "factory",
+   "name_regex": "\\bELD[- ]?Match\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady ELD Match",
+     "src": "eldm",
+     "quote": "ELD Match (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_eld_x",
+   "lib": "factory",
+   "name_regex": "\\bELD-?X\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady ELD-X",
+     "src": "ammo_ph",
+     "quote": "Featuring the radically superior ELD-X bullet with Heat Shield tip",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_eld_vt",
+   "lib": "factory",
+   "name_regex": "\\bELD-?VT\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady ELD-VT",
+     "src": "eldvt",
+     "quote": "ELD-VT (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_a_tip",
+   "lib": "factory",
+   "name_regex": "\\bA-?Tip\\s+Match\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady A-Tip Match",
+     "src": "atip",
+     "quote": "A-Tip Match (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_cx",
+   "lib": "factory",
+   "name_regex": "\\bCX\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady CX",
+     "src": "ammo_cx",
+     "quote": "CX™ bullet provides uniform, controlled expansion",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_ntx",
+   "lib": "factory",
+   "name_regex": "\\bNTX\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady NTX",
+     "src": "ntx",
+     "quote": "NTX (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_vmax",
+   "lib": "factory",
+   "name_regex": "\\bV-?MAX\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady V-MAX",
+     "src": "vmax",
+     "quote": "V-MAX (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_xtp",
+   "lib": "factory",
+   "name_regex": "\\bXTP\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady XTP",
+     "src": "xtp",
+     "quote": "XTP (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_sst",
+   "lib": "factory",
+   "name_regex": "\\bSST\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady SST",
+     "src": "sst",
+     "quote": "SST (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_interlock",
+   "lib": "factory",
+   "name_regex": "\\bInterLock\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady InterLock",
+     "src": "ammo_aw",
+     "quote": "Loaded with our legendary Hornady® InterLock® bullets",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_ftx",
+   "lib": "factory",
+   "name_regex": "\\bFTX\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady FTX",
+     "src": "ftx",
+     "quote": "FTX (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_monoflex",
+   "lib": "factory",
+   "name_regex": "\\bMonoFlex\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady MonoFlex",
+     "src": "monoflex",
+     "quote": "MonoFlex (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_subx",
+   "lib": "factory",
+   "name_regex": "\\bSub-?X\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady Sub-X",
+     "src": "subx",
+     "quote": "Sub-X (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_dgs",
+   "lib": "factory",
+   "name_regex": "\\bDGS\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady DGS",
+     "src": "dgs",
+     "quote": "DGS (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  },
+  {
+   "id": "cb_dgx_bonded",
+   "lib": "factory",
+   "name_regex": "\\bDGX\\s+Bonded\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Hornady DGX Bonded",
+     "src": "dgxb",
+     "quote": "DGX Bonded (cartridge name)",
+     "evidence": "product_name"
+    }
+   }
+  }
+ ],
+ "records": {
+  "Hornady|.224 45 gr HP Bee|2229": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "v_hpbee",
+    "quote": "Its lead core and match-grade copper jacket"
+   }
+  },
+  "Hornady|.224 45 gr Hornet|2230": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "v_hornet",
+    "quote": "Its lead core and match-grade copper jacket"
+   }
+  },
+  "Hornady|.224 60 gr SP|2270": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "v_60sp",
+    "quote": "Its lead core and match-grade copper jacket"
+   }
+  },
+  "Hornady|.224 50 gr SP SX|2240": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "v_50sx",
+    "quote": "Its lead core and match-grade copper jacket"
+   }
+  },
+  "Hornady|.224 55 gr SP SX|2260": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "v_55sx",
+    "quote": "Its lead core and match-grade copper jacket"
+   }
+  },
+  "Hornady|.243 87 gr BTHP|2442": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "v_87bthp",
+    "quote": "Its lead core and match-grade copper jacket"
+   }
+  },
+  "Hornady|.458 300 gr HP|4500": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "il_458hp",
+    "quote": "a raised ring inside the jacket that is embedded in the bullet's core"
+   }
+  },
+  "Hornady|.31 123 gr SP|3140": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "il_31sp",
+    "quote": "works with InterLock® ring to ensure the core and jacket remain locked"
+   }
+  },
+  "Hornady|.355 170 gr SP|3501": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "il_355",
+    "quote": "a raised ring inside the jacket that is embedded in the bullet's core"
+   }
+  },
+  "Hornady|.452 245 gr SP|45204": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "il_452",
+    "quote": "a raised ring inside the jacket that is embedded in the bullet's core"
+   }
+  },
+  "Hornady|.277 110 gr BTHP with Cannelure|27200": {
+   "construction": {
+    "value": "match",
+    "src": "m_277",
+    "quote": "the boattail is unique and optimized for each caliber and weight of Match™ bullets"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "m_277",
+    "quote": "The angle and length of the boattail is unique and optimized"
+   }
+  }
+ }
+}

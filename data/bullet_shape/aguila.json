@@ -1,0 +1,537 @@
+{
+ "brand": "Aguila",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read the Aguila 2023 catalogue PDF (content.aguilaammo.com) and the 308 Win 150 gr SP product page; www.aguilaammo.com/robots.txt returned a fetch error. The catalogue states only what the product names already say (Soft Point, FMJ BT, Round Nose, Hollow Point); 'solid point' and lead/copper-plated rimfire bullets have no matching enum; no maker, base or tip geometry otherwise stated -> no rules added.",
+ "sources": [
+  {
+   "id": "ag_cat",
+   "url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "read_date": "2026-10-13",
+   "title": "Aguila catalogue 2023"
+  }
+ ],
+ "records": {
+  "Aguila|Jacketed Hollow Point|.17 HMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "Jacketed Hollow Point",
+   "grain": 20.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".17 HMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22 Long Rifle Interceptor Copper-Plated Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22 Long Rifle Interceptor Copper-Plated Hollow Point",
+   "grain": 40.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22 Long Rifle Interceptor Copper-Plated Solid Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22 Long Rifle Interceptor Copper-Plated Solid Point",
+   "grain": 40.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22 Long Rifle Sniper Subsonic Lead Solid Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22 Long Rifle Sniper Subsonic Lead Solid Point",
+   "grain": 60.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22 Long Rifle Standard Velocity Lead Solid Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22 Long Rifle Standard Velocity Lead Solid Point",
+   "grain": 29.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22 Long Rifle Subsonic Lead Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22 Long Rifle Subsonic Lead Hollow Point",
+   "grain": 38.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22 Long Rifle Subsonic Lead Solid Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22 Long Rifle Subsonic Lead Solid Point",
+   "grain": 40.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22 Long Rifle SuperMaximum Copper-Plated Hollow Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22 Long Rifle SuperMaximum Copper-Plated Hollow Point",
+   "grain": 30.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22 Long Rifle SuperMaximum Copper-Plated Solid Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22 Long Rifle SuperMaximum Copper-Plated Solid Point",
+   "grain": 30.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22 Long Rifle Target Competition Lead Solid Point|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22 Long Rifle Target Competition Lead Solid Point",
+   "grain": 40.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22 Win Mag Semi-Jacketed Soft Point|.22 WMR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22 Win Mag Semi-Jacketed Soft Point",
+   "grain": 40.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22 WMR",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|22-250 REM 60 Grain Soft Point|.22-250 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "22-250 REM 60 Grain Soft Point",
+   "grain": 60.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".22-250 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|223 REM 55 Grain Full Metal Jacket|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "223 REM 55 Grain Full Metal Jacket",
+   "grain": 55.0,
+   "library_source_url": "https://www.aguilaammo.com/products/223-rem-full-metal-jacket",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.aguilaammo.com/products/223-rem-full-metal-jacket",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|243 WIN 100 Grain Boat Tail Soft Point|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "243 WIN 100 Grain Boat Tail Soft Point",
+   "grain": 100.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Boat Tail"
+   },
+   "component_bullet": null
+  },
+  "Aguila|270 WIN 130 Grain Soft Point|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "270 WIN 130 Grain Soft Point",
+   "grain": 130.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|110 Grain Full Metal Jacket|.30 Carbine": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "110 Grain Full Metal Jacket",
+   "grain": 110.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".30 Carbine",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|30-06 SPRG 150 Grain Soft Point|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-06 SPRG 150 Grain Soft Point",
+   "grain": 150.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|30-30 WIN 150 Grain Round Nose|.30-30 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "30-30 WIN 150 Grain Round Nose",
+   "grain": 150.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".30-30 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Round Nose"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|300 AAC Blackout 150 Grain Full Metal Jacket|.300 Blackout": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 AAC Blackout 150 Grain Full Metal Jacket",
+   "grain": 150.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".300 Blackout",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|300 WIN MAG 180 Grain Soft Point|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "300 WIN MAG 180 Grain Soft Point",
+   "grain": 180.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|308 WIN 150 Grain Full Metal Jacket Boat Tail|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "308 WIN 150 Grain Full Metal Jacket Boat Tail",
+   "grain": 150.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Boat Tail"
+   },
+   "component_bullet": null
+  },
+  "Aguila|308 WIN 150 Grain Soft Point|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "308 WIN 150 Grain Soft Point",
+   "grain": 150.0,
+   "library_source_url": "https://www.aguilaammo.com/products/308-win-150-gr-soft-point",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.aguilaammo.com/products/308-win-150-gr-soft-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|5.56 x 45mm 55 Grain Full Metal Jacket Boat Tail|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "5.56 x 45mm 55 Grain Full Metal Jacket Boat Tail",
+   "grain": 55.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Boat Tail"
+   },
+   "component_bullet": null
+  },
+  "Aguila|5.56 x 45mm 62 Grain Full Metal Jacket Boat Tail|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "5.56 x 45mm 62 Grain Full Metal Jacket Boat Tail",
+   "grain": 62.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Boat Tail"
+   },
+   "component_bullet": null
+  },
+  "Aguila|5.56 x 45mm NATO 55 Grain FMJ|5.56x45 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "5.56 x 45mm NATO 55 Grain FMJ",
+   "grain": 55.0,
+   "library_source_url": "https://www.aguilaammo.com/products/5-56-x-45mm-nato-55-grain-full-metal-jacket",
+   "cartridge": "5.56x45 NATO",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.aguilaammo.com/products/5-56-x-45mm-nato-55-grain-full-metal-jacket",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|129 Grain Soft Point|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "129 Grain Soft Point",
+   "grain": 129.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Aguila|140 Grain Full Metal Jacket Boat Tail|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "140 Grain Full Metal Jacket Boat Tail",
+   "grain": 140.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Boat Tail"
+   },
+   "component_bullet": null
+  },
+  "Aguila|7.62 x 51mm 150 Grain Full Metal Jacket Boat Tail|7.62x51 NATO": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7.62 x 51mm 150 Grain Full Metal Jacket Boat Tail",
+   "grain": 150.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": "7.62x51 NATO",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Full Metal Jacket"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Boat Tail"
+   },
+   "component_bullet": null
+  },
+  "Aguila|7MM REM MAG 139 Grain Soft Point|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "7MM REM MAG 139 Grain Soft Point",
+   "grain": 139.0,
+   "library_source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://content.aguilaammo.com/uploads/Aguila_Catalog2023_5489a2e44d.pdf",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

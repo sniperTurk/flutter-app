@@ -1,0 +1,339 @@
+{
+ "brand": "Diana",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt read (product paths allowed). All 6 product pages read: each lists 'Material: Blei' (Stitch Copper 'Blei, verkupfert') -> lead_pellet. Point/Stitch Copper 'präzise Spitzkugel' -> pointed; Sport 'Geriffeltes Flachkopf-Diabolo' -> flat_nose. High Power / Hunters Mate head shape and all bases not stated.",
+ "sources": [
+  {
+   "id": "xxl",
+   "url": "https://www.diana-airguns.de/DIANA-DOMED-XXL-Diabolos/44405001",
+   "read_date": "2026-10-13",
+   "title": "DIANA DOMED XXL Diabolos"
+  },
+  {
+   "id": "hpw",
+   "url": "https://www.diana-airguns.de/DIANA-High-Power-Diabolos/44800006",
+   "read_date": "2026-10-13",
+   "title": "DIANA High Power Diabolos"
+  },
+  {
+   "id": "hm",
+   "url": "https://www.diana-airguns.de/DIANA-Hunters-Mate-Diabolos/44403006",
+   "read_date": "2026-10-13",
+   "title": "DIANA Hunters Mate Diabolos"
+  },
+  {
+   "id": "pt",
+   "url": "https://www.diana-airguns.de/DIANA-Point-Diabolos/44600005",
+   "read_date": "2026-10-13",
+   "title": "DIANA Point Diabolos"
+  },
+  {
+   "id": "sp",
+   "url": "https://www.diana-airguns.de/DIANA-Sport-Diabolos/44400005",
+   "read_date": "2026-10-13",
+   "title": "DIANA Sport Diabolos"
+  },
+  {
+   "id": "sc",
+   "url": "https://www.diana-airguns.de/DIANA-Stitch-Copper-Diabolos/44403009",
+   "read_date": "2026-10-13",
+   "title": "DIANA Stitch Copper Diabolos"
+  }
+ ],
+ "records": {
+  "Diana|Domed XXL 49 gr|44405001": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Domed XXL 49 gr",
+   "grain": 49.0,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-DOMED-XXL-Diabolos/44405001",
+   "caliber_mm": 7.62,
+   "item": "44405001",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-DOMED-XXL-Diabolos/44405001",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.diana-airguns.de/DIANA-DOMED-XXL-Diabolos/44405001",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Diana|Domed XXL 82 gr|44405001": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Domed XXL 82 gr",
+   "grain": 82.0,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-DOMED-XXL-Diabolos/44405001",
+   "caliber_mm": 9.0,
+   "item": "44405001",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-DOMED-XXL-Diabolos/44405001",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.diana-airguns.de/DIANA-DOMED-XXL-Diabolos/44405001",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Domed"
+   },
+   "base": null
+  },
+  "Diana|High Power 10.65 gr|44800006": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "High Power 10.65 gr",
+   "grain": 10.65,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-High-Power-Diabolos/44800006",
+   "caliber_mm": 4.5,
+   "item": "44800006",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-High-Power-Diabolos/44800006",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Diana|High Power 21.14 gr|44800006": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "High Power 21.14 gr",
+   "grain": 21.14,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-High-Power-Diabolos/44800006",
+   "caliber_mm": 5.5,
+   "item": "44800006",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-High-Power-Diabolos/44800006",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Diana|High Power 31.02 gr|44800006": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "High Power 31.02 gr",
+   "grain": 31.02,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-High-Power-Diabolos/44800006",
+   "caliber_mm": 6.35,
+   "item": "44800006",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-High-Power-Diabolos/44800006",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Diana|Hunters Mate 25 gr|44403006": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hunters Mate 25 gr",
+   "grain": 25.0,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-Hunters-Mate-Diabolos/44403006",
+   "caliber_mm": 5.5,
+   "item": "44403006",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-Hunters-Mate-Diabolos/44403006",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Diana|Hunters Mate 28 gr|44403006": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hunters Mate 28 gr",
+   "grain": 28.0,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-Hunters-Mate-Diabolos/44403006",
+   "caliber_mm": 5.5,
+   "item": "44403006",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-Hunters-Mate-Diabolos/44403006",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Diana|Hunters Mate 33 gr|44403006": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hunters Mate 33 gr",
+   "grain": 33.0,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-Hunters-Mate-Diabolos/44403006",
+   "caliber_mm": 6.35,
+   "item": "44403006",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-Hunters-Mate-Diabolos/44403006",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Diana|Hunters Mate 40 gr|44403006": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hunters Mate 40 gr",
+   "grain": 40.0,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-Hunters-Mate-Diabolos/44403006",
+   "caliber_mm": 6.35,
+   "item": "44403006",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-Hunters-Mate-Diabolos/44403006",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Diana|Point 8.64 gr|44600005": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Point 8.64 gr",
+   "grain": 8.64,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-Point-Diabolos/44600005",
+   "caliber_mm": 4.5,
+   "item": "44600005",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-Point-Diabolos/44600005",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.diana-airguns.de/DIANA-Point-Diabolos/44600005",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "präzise Spitzkugel"
+   },
+   "base": null
+  },
+  "Diana|Point 15.4 gr|44600005": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Point 15.4 gr",
+   "grain": 15.4,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-Point-Diabolos/44600005",
+   "caliber_mm": 5.5,
+   "item": "44600005",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-Point-Diabolos/44600005",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.diana-airguns.de/DIANA-Point-Diabolos/44600005",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "präzise Spitzkugel"
+   },
+   "base": null
+  },
+  "Diana|Sport 7.25 gr|44400005": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Sport 7.25 gr",
+   "grain": 7.25,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-Sport-Diabolos/44400005",
+   "caliber_mm": 4.5,
+   "item": "44400005",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-Sport-Diabolos/44400005",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.diana-airguns.de/DIANA-Sport-Diabolos/44400005",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Geriffeltes Flachkopf-Diabolo"
+   },
+   "base": null
+  },
+  "Diana|Sport 12.81 gr|44400005": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Sport 12.81 gr",
+   "grain": 12.81,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-Sport-Diabolos/44400005",
+   "caliber_mm": 5.5,
+   "item": "44400005",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-Sport-Diabolos/44400005",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Material: Blei"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.diana-airguns.de/DIANA-Sport-Diabolos/44400005",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Geriffeltes Flachkopf-Diabolo"
+   },
+   "base": null
+  },
+  "Diana|Stitch Copper 16 gr|44403009": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Stitch Copper 16 gr",
+   "grain": 16.0,
+   "library_source_url": "https://www.diana-airguns.de/DIANA-Stitch-Copper-Diabolos/44403009",
+   "caliber_mm": 5.5,
+   "item": "44403009",
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.diana-airguns.de/DIANA-Stitch-Copper-Diabolos/44403009",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Blei, verkupfert"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.diana-airguns.de/DIANA-Stitch-Copper-Diabolos/44403009",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Mittelschwere, präzise Spitzkugel"
+   },
+   "base": null
+  }
+ }
+}

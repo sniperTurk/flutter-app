@@ -1,0 +1,93 @@
+{
+ "brand": "Woodleigh",
+ "note": "Read 2026-10-13 from woodleighbullets.com.au (Joomla robots.txt, /products and /images/downloads allowed). Weldcore = lead fused to gilding-metal jacket -> bonded. FMJ = steel-jacketed solids -> fmj. Nose from 2020 catalogue key: RN SN round nose, FN SN flat nose, PP SN 'small flat nose' -> flat_nose. FMJ nose shape and all bases (flat/boat tail) not stated; FMJ base only 'rolled back 90 degrees'. 'Heavy Duty' not defined. Bullet-list pages give no construction text.",
+ "sources": [
+  {
+   "id": "weld",
+   "url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+   "read_date": "2026-10-13",
+   "title": "Weldcore Soft Nose"
+  },
+  {
+   "id": "fmj",
+   "url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+   "read_date": "2026-10-13",
+   "title": "Full Metal Jacket"
+  },
+  {
+   "id": "pp",
+   "url": "https://www.woodleighbullets.com.au/products/protected-point",
+   "read_date": "2026-10-13",
+   "title": "Protected Point"
+  },
+  {
+   "id": "cat",
+   "url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+   "read_date": "2026-10-13",
+   "title": "Woodleigh Catalogue 2020"
+  }
+ ],
+ "families": [
+  {
+   "id": "weldcore",
+   "lib": "bullet",
+   "name_regex": "\\bWeldcore\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "weld",
+     "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+    }
+   }
+  },
+  {
+   "id": "rn_sn",
+   "lib": "bullet",
+   "name_regex": "\\bRN SN\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "cat",
+     "quote": "RN SN = Round Nose Soft Nose"
+    }
+   }
+  },
+  {
+   "id": "fn_sn",
+   "lib": "bullet",
+   "name_regex": "\\bFN SN\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "cat",
+     "quote": "FN SN = Flat Nose Soft Nose"
+    }
+   }
+  },
+  {
+   "id": "pp_sn",
+   "lib": "bullet",
+   "name_regex": "\\bPP SN\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "flat_nose",
+     "src": "cat",
+     "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+    }
+   }
+  },
+  {
+   "id": "fmj",
+   "lib": "bullet",
+   "name_regex": "\\bFMJ\\b",
+   "fields": {
+    "construction": {
+     "value": "fmj",
+     "src": "fmj",
+     "quote": "The most heavily constructed steel jacketed solids available."
+    }
+   }
+  }
+ ],
+ "records": {}
+}

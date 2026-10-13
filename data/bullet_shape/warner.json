@@ -1,0 +1,279 @@
+{
+ "brand": "Warner",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read 2026-10-13 from warner-tool.com (robots.txt allows /product and /flat-line-bullets). Flat Line line page and product pages: CNC-turned monolithic copper solids. Nose/tip and base (boat tail/flat) not stated on line page, .416 550gr or .30 155.5gr PALMA pages; PALMA/FTR variants not explained.",
+ "sources": [
+  {
+   "id": "fl",
+   "url": "https://www.warner-tool.com/flat-line-bullets/",
+   "read_date": "2026-10-13",
+   "title": "WTC Flat Line Bullets"
+  },
+  {
+   "id": "p416",
+   "url": "https://www.warner-tool.com/product/416-550gr-flat-line/",
+   "read_date": "2026-10-13",
+   "title": ".416 550gr Flat Line Bullet"
+  },
+  {
+   "id": "palma",
+   "url": "https://www.warner-tool.com/product/30-155gr-flat-line-palma/",
+   "read_date": "2026-10-13",
+   "title": ".30 155.5gr Flat Line Palma"
+  }
+ ],
+ "records": {
+  "Warner|.416 550gr FLAT LINE BULLET|5030": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".416 550gr FLAT LINE BULLET",
+   "grain": 550.0,
+   "library_source_url": "https://www.warner-tool.com/product/416-550gr-flat-line/",
+   "caliber_mm": 10.57,
+   "item": "5030",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|.416 505gr FLAT LINE BULLET|5025": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".416 505gr FLAT LINE BULLET",
+   "grain": 505.0,
+   "library_source_url": "https://www.warner-tool.com/?p=2560",
+   "caliber_mm": 10.57,
+   "item": "5025",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|.375 400gr FLAT LINE BULLET|5015": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".375 400gr FLAT LINE BULLET",
+   "grain": 400.0,
+   "library_source_url": "https://www.warner-tool.com/product/375-400gr-flat-line/",
+   "caliber_mm": 9.53,
+   "item": "5015",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|.375 361gr FLAT LINE BULLET|5005": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".375 361gr FLAT LINE BULLET",
+   "grain": 361.0,
+   "library_source_url": "https://www.warner-tool.com/product/375-361gr-flat-line/",
+   "caliber_mm": 9.53,
+   "item": "5005",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|.338 285gr FLAT LINE BULLET|5020": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".338 285gr FLAT LINE BULLET",
+   "grain": 285.0,
+   "library_source_url": "https://www.warner-tool.com/product/338-285gr-flat-line/",
+   "caliber_mm": 8.59,
+   "item": "5020",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|.338 256gr FLAT LINE BULLET|5003": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".338 256gr FLAT LINE BULLET",
+   "grain": 256.0,
+   "library_source_url": "https://www.warner-tool.com/product/338-256gr-flat-line/",
+   "caliber_mm": 8.59,
+   "item": "5003",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|.30 198gr FLAT LINE BULLET|5002": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 198gr FLAT LINE BULLET",
+   "grain": 198.0,
+   "library_source_url": "https://www.warner-tool.com/product/30-198gr-flat-line/",
+   "caliber_mm": 7.82,
+   "item": "5002",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|.30 180gr FTR FLAT LINE BULLET|5001": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 180gr FTR FLAT LINE BULLET",
+   "grain": 180.0,
+   "library_source_url": "https://www.warner-tool.com/product/30-180gr-flat-line/",
+   "caliber_mm": 7.82,
+   "item": "5001",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|.30 160gr FLAT LINE BULLET|5006": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 160gr FLAT LINE BULLET",
+   "grain": 160.0,
+   "library_source_url": "https://www.warner-tool.com/product/30-160gr-flat-line/",
+   "caliber_mm": 7.82,
+   "item": "5006",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|.30 155.5gr FLAT LINE PALMA|5000": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".30 155.5gr FLAT LINE PALMA",
+   "grain": 155.5,
+   "library_source_url": "https://www.warner-tool.com/product/30-155gr-flat-line-palma/",
+   "caliber_mm": 7.82,
+   "item": "5000",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|7MM 151gr FLAT LINE BULLET|5004": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7MM 151gr FLAT LINE BULLET",
+   "grain": 151.0,
+   "library_source_url": "https://www.warner-tool.com/product/7mm-151gr-flat-line/",
+   "caliber_mm": 7.21,
+   "item": "5004",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|6.5MM 123gr FLAT LINE BULLET|5040": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5MM 123gr FLAT LINE BULLET",
+   "grain": 123.0,
+   "library_source_url": "https://www.warner-tool.com/product/65mm-123gr-flat-line/",
+   "caliber_mm": 6.71,
+   "item": "5040",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|6.5MM 121gr FLAT LINE BULLET|5007": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5MM 121gr FLAT LINE BULLET",
+   "grain": 121.0,
+   "library_source_url": "https://www.warner-tool.com/product/65mm-121gr-flat-line/",
+   "caliber_mm": 6.71,
+   "item": "5007",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Warner|6MM 88gr FLAT LINE BULLET|5008": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6MM 88gr FLAT LINE BULLET",
+   "grain": 88.0,
+   "library_source_url": "https://www.warner-tool.com/product/6mm-88gr-flat-line/",
+   "caliber_mm": 6.17,
+   "item": "5008",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.warner-tool.com/flat-line-bullets/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Each Flat Line Projectile is CNC lathe-turned, from a solid piece of copper."
+   },
+   "tip_shape": null,
+   "base": null
+  }
+ }
+}

@@ -1,0 +1,32 @@
+{
+  "brand": "Blaser",
+  "note": "2026-10-13: blaser.de robots.txt disallows URLs with '?', so the ballistics PDF was read without its query string; it has no CDC description. Blaser ammunition page read for CDC: lead-free, polymer tip, boattail. Construction left empty (page says only 'lead-free expanding bullet', not copper/monolithic in body text). No component bullet name stated.",
+  "sources": [
+    {
+      "id": "cdc",
+      "url": "https://www.blaser.de/en/products/blaser-ammunition/blaser-cdc-the-accurate-copper-bullet-made-by-barnes",
+      "read_date": "2026-10-13",
+      "title": "Blaser ammunition - Blaser CDC"
+    }
+  ],
+  "families": [
+    {
+      "id": "cdc",
+      "lib": "factory",
+      "name_regex": "\\bCDC\\b",
+      "fields": {
+        "tip_shape": {
+          "value": "polymer_tip",
+          "src": "cdc",
+          "quote": "Aerodynamic polymer tip for optimized BC and fast deformation."
+        },
+        "base": {
+          "value": "boat_tail",
+          "src": "cdc",
+          "quote": "Boattail design for increased ballistic coefficients"
+        }
+      }
+    }
+  ],
+  "records": {}
+}

@@ -1,0 +1,3093 @@
+{
+ "brand": "NSA",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt read (products/ allowed; first 2 attempts PROVENANCE_REQUIRED, 3rd ok). Product pages read: 240gr, 31.2gr, 28.5gr, 265gr TC, 75gr .257, 110gr .35. Every page: 'swaged from soft lead' -> lead_slug (all records). Nose HP comes from the name. NSA 'DB' = 'dish base' (page: 'hollow point nose with a dish base'); base enum has no dish base, so DB records keep base empty (not mapped to hollow_base). FB = flat base comes from the name. Conflicts: 28.5gr and .257 75gr pages say both 'dish base' and 'flat base'; 265gr 'Truncated Cone' page still says hollow point nose.",
+ "sources": [
+  {
+   "id": "nsa240",
+   "url": "https://nielsenspecialtyammo.com/products/240-grains-swaged-hollow-point",
+   "read_date": "2026-10-13",
+   "title": "45 cal 240 gr slugs"
+  },
+  {
+   "id": "nsa312",
+   "url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+   "read_date": "2026-10-13",
+   "title": "22 cal 31.2 gr slugs"
+  },
+  {
+   "id": "nsa285",
+   "url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+   "read_date": "2026-10-13",
+   "title": "22 cal 28.5 gr slugs"
+  },
+  {
+   "id": "nsa265tc",
+   "url": "https://nielsenspecialtyammo.com/products/45-cal-265-grain-truncated-cone-50ct-0-44-rd",
+   "read_date": "2026-10-13",
+   "title": ".45 cal 265 gr Truncated Cone"
+  },
+  {
+   "id": "nsa257",
+   "url": "https://nielsenspecialtyammo.com/products/75-grain-257-flat-base-hollow-point",
+   "read_date": "2026-10-13",
+   "title": ".257 75 gr slugs"
+  },
+  {
+   "id": "nsa110",
+   "url": "https://nielsenspecialtyammo.com/products/110-gr-hp-fb-35-cal",
+   "read_date": "2026-10-13",
+   "title": "35 cal 110 gr slugs"
+  }
+ ],
+ "records": {
+  "NSA|NSA .457 240 gr HP DB Slug|457S-240-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .457 240 gr HP DB Slug",
+   "grain": 240.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/240-grains-swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "457S-240-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/240-grains-swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .454 240 gr HP DB Slug|454S-240-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .454 240 gr HP DB Slug",
+   "grain": 240.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/240-grains-swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "454S-240-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/240-grains-swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .452 240 gr HP DB Slug|452S-240-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .452 240 gr HP DB Slug",
+   "grain": 240.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/240-grains-swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "452S-240-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/240-grains-swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .457 265 gr HP FB Slug|457S-265-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .457 265 gr HP FB Slug",
+   "grain": 265.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/265-grains-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "457S-265-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/265-grains-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/265-grains-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .454 265 gr HP FB Slug|454S-265-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .454 265 gr HP FB Slug",
+   "grain": 265.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/265-grains-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "454S-265-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/265-grains-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/265-grains-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .452 265 gr HP FB Slug|452S-265-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .452 265 gr HP FB Slug",
+   "grain": 265.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/265-grains-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "452S-265-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/265-grains-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/265-grains-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .457 290 gr HP DB Slug|457S-290-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .457 290 gr HP DB Slug",
+   "grain": 290.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "457S-290-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .454 290 gr HP DB Slug|454S-290-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .454 290 gr HP DB Slug",
+   "grain": 290.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "454S-290-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .452 290 gr HP DB Slug|452S-290-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .452 290 gr HP DB Slug",
+   "grain": 290.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "452S-290-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .457 196 gr HP DB Slug|457S-196-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .457 196 gr HP DB Slug",
+   "grain": 196.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/196-grains-swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "457S-196-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/196-grains-swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .454 196 gr HP DB Slug|454S-196-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .454 196 gr HP DB Slug",
+   "grain": 196.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/196-grains-swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "454S-196-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/196-grains-swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .452 196 gr HP DB Slug|452S-196-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .452 196 gr HP DB Slug",
+   "grain": 196.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/196-grains-swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "452S-196-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/196-grains-swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .457 220 gr HP DB Slug|457S-220-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .457 220 gr HP DB Slug",
+   "grain": 220.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/220-grains-swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "457S-220-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/220-grains-swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .454 220 gr HP DB Slug|454S-220-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .454 220 gr HP DB Slug",
+   "grain": 220.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/220-grains-swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "454S-220-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/220-grains-swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .452 220 gr HP DB Slug|452S-220-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .452 220 gr HP DB Slug",
+   "grain": 220.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/220-grains-swaged-hollow-point",
+   "caliber_mm": 11.43,
+   "item": "452S-220-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/220-grains-swaged-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .498 235 gr HP DB Slug|498S-235-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .498 235 gr HP DB Slug",
+   "grain": 235.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/235-grain-hollow-point",
+   "caliber_mm": 12.7,
+   "item": "498S-235-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/235-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .495 235 gr HP DB Slug|495S-235-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .495 235 gr HP DB Slug",
+   "grain": 235.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/235-grain-hollow-point",
+   "caliber_mm": 12.7,
+   "item": "495S-235-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/235-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .510 388 gr HP DB Slug|510S-388-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .510 388 gr HP DB Slug",
+   "grain": 388.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/388-gr-hp-510-cal",
+   "caliber_mm": 12.7,
+   "item": "510S-388-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/388-gr-hp-510-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .223 36 gr HP FB Slug|223S-36.0-215": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .223 36 gr HP FB Slug",
+   "grain": 36.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/36-grain-hollow-point-huben-pellets-223-caliber-air-gun-slug-swaged",
+   "caliber_mm": 5.5,
+   "item": "223S-36.0-215",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/36-grain-hollow-point-huben-pellets-223-caliber-air-gun-slug-swaged",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/36-grain-hollow-point-huben-pellets-223-caliber-air-gun-slug-swaged",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .200 14.9 gr HP FB Slug|200S-14.9-300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .200 14.9 gr HP FB Slug",
+   "grain": 14.9,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/200-14-9-gr-300-slugs-0-057-rd",
+   "caliber_mm": 5.0,
+   "item": "200S-14.9-300",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/200-14-9-gr-300-slugs-0-057-rd",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/200-14-9-gr-300-slugs-0-057-rd",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .200 18.9 gr HP FB Slug|200S-18.9-300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .200 18.9 gr HP FB Slug",
+   "grain": 18.9,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/200-18-9-gr-300-slugs-0-057-rd",
+   "caliber_mm": 5.0,
+   "item": "200S-18.9-300",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/200-18-9-gr-300-slugs-0-057-rd",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/200-18-9-gr-300-slugs-0-057-rd",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .300 43.8 gr HP DB Slug|300S-43.8-170": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .300 43.8 gr HP DB Slug",
+   "grain": 43.8,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/43-8-grain-225-count-300-slug-nsa",
+   "caliber_mm": 7.62,
+   "item": "300S-43.8-170",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/43-8-grain-225-count-300-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .217 38 gr HP FB Slug|217S-38.0-200": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .217 38 gr HP FB Slug",
+   "grain": 38.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/22-cal-airgun-slugs-38-0-gr",
+   "caliber_mm": 5.5,
+   "item": "217S-38.0-200",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/22-cal-airgun-slugs-38-0-gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/22-cal-airgun-slugs-38-0-gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .217 35 gr HP DB Slug|217S-35.0-200": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .217 35 gr HP DB Slug",
+   "grain": 35.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/22-cal-airgun-slugs-35-0-gr",
+   "caliber_mm": 5.5,
+   "item": "217S-35.0-200",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/22-cal-airgun-slugs-35-0-gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .510 330 gr HP DB Slug|510S-330-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .510 330 gr HP DB Slug",
+   "grain": 330.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/330-gr-hp-510-cal",
+   "caliber_mm": 12.7,
+   "item": "510S-330-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/330-gr-hp-510-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .250 33.6 gr HP DB Slug|250S-33.6-215": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .250 33.6 gr HP DB Slug",
+   "grain": 33.6,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/33-5-grain-250-slug",
+   "caliber_mm": 6.35,
+   "item": "250S-33.6-215",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/33-5-grain-250-slug",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .254 33.6 gr HP DB Slug|254S-33.6-215": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .254 33.6 gr HP DB Slug",
+   "grain": 33.6,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/33-5-grain-250-slug",
+   "caliber_mm": 6.35,
+   "item": "254S-33.6-215",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/33-5-grain-250-slug",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .250 33.5 gr HP FB Slug|250S-33.5-215": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .250 33.5 gr HP FB Slug",
+   "grain": 33.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/33-5-grain-275-count-250-slug-nsa",
+   "caliber_mm": 6.35,
+   "item": "250S-33.5-215",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/33-5-grain-275-count-250-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/33-5-grain-275-count-250-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .178 20.5 gr HP DB Slug|178S-20.5-300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .178 20.5 gr HP DB Slug",
+   "grain": 20.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/20-5-gr-hp-db-178-cal-1",
+   "caliber_mm": 4.5,
+   "item": "178S-20.5-300",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/20-5-gr-hp-db-178-cal-1",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .250 38.9 gr HP DB Slug|250S-38.9-200": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .250 38.9 gr HP DB Slug",
+   "grain": 38.9,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/38-9-grain-250-slug",
+   "caliber_mm": 6.35,
+   "item": "250S-38.9-200",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/38-9-grain-250-slug",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .250 34.9 gr HP DB Slug|250S-34.9-215": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .250 34.9 gr HP DB Slug",
+   "grain": 34.9,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/34-9-grain-250-slug",
+   "caliber_mm": 6.35,
+   "item": "250S-34.9-215",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/34-9-grain-250-slug",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .216 31.2 gr HP DB Slug|216S-31.2-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .216 31.2 gr HP DB Slug",
+   "grain": 31.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "216S-31.2-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2165 31.2 gr HP DB Slug|2165S-31.2-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2165 31.2 gr HP DB Slug",
+   "grain": 31.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2165S-31.2-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .217 31.2 gr HP DB Slug|217S-31.2-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .217 31.2 gr HP DB Slug",
+   "grain": 31.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "217S-31.2-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2175 31.2 gr HP DB Slug|2175S-31.2-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2175 31.2 gr HP DB Slug",
+   "grain": 31.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2175S-31.2-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .218 31.2 gr HP DB Slug|218S-31.2-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .218 31.2 gr HP DB Slug",
+   "grain": 31.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "218S-31.2-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .219 31.2 gr HP DB Slug|219S-31.2-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .219 31.2 gr HP DB Slug",
+   "grain": 31.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "219S-31.2-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .216 28.5 gr HP FB Slug|216S-28.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .216 28.5 gr HP FB Slug",
+   "grain": 28.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "216S-28.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .2165 28.5 gr HP FB Slug|2165S-28.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2165 28.5 gr HP FB Slug",
+   "grain": 28.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2165S-28.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .217 28.5 gr HP FB Slug|217S-28.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .217 28.5 gr HP FB Slug",
+   "grain": 28.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "217S-28.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .2175 28.5 gr HP FB Slug|2175S-28.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2175 28.5 gr HP FB Slug",
+   "grain": 28.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2175S-28.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .218 28.5 gr HP FB Slug|218S-28.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .218 28.5 gr HP FB Slug",
+   "grain": 28.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "218S-28.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/28-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .216 27.5 gr HP DB Slug|216S-27.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .216 27.5 gr HP DB Slug",
+   "grain": 27.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "216S-27.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2165 27.5 gr HP DB Slug|2165S-27.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2165 27.5 gr HP DB Slug",
+   "grain": 27.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2165S-27.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .217 27.5 gr HP DB Slug|217S-27.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .217 27.5 gr HP DB Slug",
+   "grain": 27.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "217S-27.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2175 27.5 gr HP DB Slug|2175S-27.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2175 27.5 gr HP DB Slug",
+   "grain": 27.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2175S-27.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .218 27.5 gr HP DB Slug|218S-27.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .218 27.5 gr HP DB Slug",
+   "grain": 27.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "218S-27.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .219 27.5 gr HP DB Slug|219S-27.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .219 27.5 gr HP DB Slug",
+   "grain": 27.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "219S-27.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/27-5-grain-325-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2155 17.5 gr HP DB Slug|2155S-17.5-300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2155 17.5 gr HP DB Slug",
+   "grain": 17.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/17-5-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2155S-17.5-300",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/17-5-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .216 17.5 gr HP DB Slug|216S-17.5-300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .216 17.5 gr HP DB Slug",
+   "grain": 17.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/17-5-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "216S-17.5-300",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/17-5-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2165 17.5 gr HP DB Slug|2165S-17.5-300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2165 17.5 gr HP DB Slug",
+   "grain": 17.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/17-5-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2165S-17.5-300",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/17-5-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .217 17.5 gr HP DB Slug|217S-17.5-300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .217 17.5 gr HP DB Slug",
+   "grain": 17.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/17-5-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "217S-17.5-300",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/17-5-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2175 17.5 gr HP DB Slug|2175S-17.5-300": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2175 17.5 gr HP DB Slug",
+   "grain": 17.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/17-5-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2175S-17.5-300",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/17-5-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .216 20.2 gr HP DB Slug|216S-20.2-275": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .216 20.2 gr HP DB Slug",
+   "grain": 20.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "216S-20.2-275",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2165 20.2 gr HP DB Slug|2165S-20.2-275": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2165 20.2 gr HP DB Slug",
+   "grain": 20.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2165S-20.2-275",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .217 20.2 gr HP DB Slug|217S-20.2-275": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .217 20.2 gr HP DB Slug",
+   "grain": 20.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "217S-20.2-275",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2175 20.2 gr HP DB Slug|2175S-20.2-275": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2175 20.2 gr HP DB Slug",
+   "grain": 20.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2175S-20.2-275",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .218 20.2 gr HP DB Slug|218S-20.2-275": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .218 20.2 gr HP DB Slug",
+   "grain": 20.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "218S-20.2-275",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .219 20.2 gr HP DB Slug|219S-20.2-275": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .219 20.2 gr HP DB Slug",
+   "grain": 20.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "219S-20.2-275",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/20-2-grain-375-count-22-cal-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .216 24.8 gr HP DB Slug|216S-24.8-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .216 24.8 gr HP DB Slug",
+   "grain": 24.8,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "216S-24.8-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2165 24.8 gr HP DB Slug|2165S-24.8-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2165 24.8 gr HP DB Slug",
+   "grain": 24.8,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2165S-24.8-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .217 24.8 gr HP DB Slug|217S-24.8-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .217 24.8 gr HP DB Slug",
+   "grain": 24.8,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "217S-24.8-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .2175 24.8 gr HP DB Slug|2175S-24.8-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2175 24.8 gr HP DB Slug",
+   "grain": 24.8,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2175S-24.8-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .218 24.8 gr HP DB Slug|218S-24.8-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .218 24.8 gr HP DB Slug",
+   "grain": 24.8,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "218S-24.8-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .219 24.8 gr HP DB Slug|219S-24.8-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .219 24.8 gr HP DB Slug",
+   "grain": 24.8,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "219S-24.8-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/24-8-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .216 23 gr HP FB Slug|216S-23.0-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .216 23 gr HP FB Slug",
+   "grain": 23.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "216S-23.0-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .2165 23 gr HP FB Slug|2165S-23.0-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2165 23 gr HP FB Slug",
+   "grain": 23.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2165S-23.0-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .217 23 gr HP FB Slug|217S-23.0-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .217 23 gr HP FB Slug",
+   "grain": 23.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "217S-23.0-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .2175 23 gr HP FB Slug|2175S-23.0-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .2175 23 gr HP FB Slug",
+   "grain": 23.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "2175S-23.0-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .218 23 gr HP FB Slug|218S-23.0-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .218 23 gr HP FB Slug",
+   "grain": 23.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+   "caliber_mm": 5.5,
+   "item": "218S-23.0-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/23-0-grain-350-count-217-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .358 178 gr HP FB Slug|358S-178-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .358 178 gr HP FB Slug",
+   "grain": 178.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/178-grain-hollow-point",
+   "caliber_mm": 9.0,
+   "item": "358S-178-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/178-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/178-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .357 178 gr HP FB Slug|357S-178-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .357 178 gr HP FB Slug",
+   "grain": 178.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/178-grain-hollow-point",
+   "caliber_mm": 9.0,
+   "item": "357S-178-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/178-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/178-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .356 178 gr HP FB Slug|356S-178-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .356 178 gr HP FB Slug",
+   "grain": 178.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/178-grain-hollow-point",
+   "caliber_mm": 9.0,
+   "item": "356S-178-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/178-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/178-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .357 142 gr HP FB Slug|357S-142-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .357 142 gr HP FB Slug",
+   "grain": 142.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/142-grain-hollow-point",
+   "caliber_mm": 9.0,
+   "item": "357S-142-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/142-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/142-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .356 142 gr HP FB Slug|356S-142-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .356 142 gr HP FB Slug",
+   "grain": 142.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/142-grain-hollow-point",
+   "caliber_mm": 9.0,
+   "item": "356S-142-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/142-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/142-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .358 142 gr HP FB Slug|358S-142-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .358 142 gr HP FB Slug",
+   "grain": 142.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/142-grain-hollow-point",
+   "caliber_mm": 9.0,
+   "item": "358S-142-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/142-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/142-grain-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .308 85 gr HP DB Slug|308S-85-125": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .308 85 gr HP DB Slug",
+   "grain": 85.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/85-gr-hp-db-308-cal",
+   "caliber_mm": 7.62,
+   "item": "308S-85-125",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/85-gr-hp-db-308-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .308 120 gr HP DB Slug|308S-120-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .308 120 gr HP DB Slug",
+   "grain": 120.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/120-gr-hp-db-308-cal-1",
+   "caliber_mm": 7.62,
+   "item": "308S-120-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/120-gr-hp-db-308-cal-1",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .308 105 gr HP DB Slug|308S-105-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .308 105 gr HP DB Slug",
+   "grain": 105.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-db-308-cal",
+   "caliber_mm": 7.62,
+   "item": "308S-105-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-db-308-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .308 65 gr HP DB Slug|308S-65-125": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .308 65 gr HP DB Slug",
+   "grain": 65.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/65-gr-hp-db-308-cal",
+   "caliber_mm": 7.62,
+   "item": "308S-65-125",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/65-gr-hp-db-308-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .178 12.5 gr HP DB Slug|178S-12.5-400": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .178 12.5 gr HP DB Slug",
+   "grain": 12.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/12-5-gr-hp-fb-178-cal",
+   "caliber_mm": 4.5,
+   "item": "178S-12.5-400",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/12-5-gr-hp-fb-178-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .178 15 gr HP DB Slug|178S-15.0-400": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .178 15 gr HP DB Slug",
+   "grain": 15.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/15-0-gr-hp-fb-177-cal",
+   "caliber_mm": 4.5,
+   "item": "178S-15.0-400",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/15-0-gr-hp-fb-177-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .300 54.5 gr HP DB Slug|300S-54.5-140": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .300 54.5 gr HP DB Slug",
+   "grain": 54.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/54-5-grain-175-count-300-slug-nsa",
+   "caliber_mm": 7.62,
+   "item": "300S-54.5-140",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/54-5-grain-175-count-300-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .300 61.5 gr HP DB Slug|300S-61.5-120": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .300 61.5 gr HP DB Slug",
+   "grain": 61.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/61-5-grain-200-count-300-slug-nsa",
+   "caliber_mm": 7.62,
+   "item": "300S-61.5-120",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/61-5-grain-200-count-300-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .303 61.5 gr HP DB Slug|303S-61.5-120": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .303 61.5 gr HP DB Slug",
+   "grain": 61.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/61-5-grain-200-count-300-slug-nsa",
+   "caliber_mm": 7.62,
+   "item": "303S-61.5-120",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/61-5-grain-200-count-300-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .249 26.8 gr HP DB Slug|249S-26.8-250": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .249 26.8 gr HP DB Slug",
+   "grain": 26.8,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/26-8-grain-325-count-249-slug-nsa",
+   "caliber_mm": 6.35,
+   "item": "249S-26.8-250",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/26-8-grain-325-count-249-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .358 125 gr HP FB Slug|358S-125-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .358 125 gr HP FB Slug",
+   "grain": 125.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/125-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "358S-125-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/125-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/125-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .357 125 gr HP FB Slug|357S-125-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .357 125 gr HP FB Slug",
+   "grain": 125.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/125-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "357S-125-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/125-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/125-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .356 125 gr HP FB Slug|356S-125-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .356 125 gr HP FB Slug",
+   "grain": 125.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/125-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "356S-125-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/125-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/125-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .358 110 gr HP DB Slug|358S-110-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .358 110 gr HP DB Slug",
+   "grain": 110.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/110-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "358S-110-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/110-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .357 110 gr HP DB Slug|357S-110-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .357 110 gr HP DB Slug",
+   "grain": 110.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/110-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "357S-110-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/110-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .356 110 gr HP DB Slug|356S-110-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .356 110 gr HP DB Slug",
+   "grain": 110.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/110-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "356S-110-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/110-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .358 108 gr HP FB Slug|358S-108-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .358 108 gr HP FB Slug",
+   "grain": 108.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "358S-108-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .357 108 gr HP FB Slug|357S-108-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .357 108 gr HP FB Slug",
+   "grain": 108.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "357S-108-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .356 108 gr HP FB Slug|356S-108-100": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .356 108 gr HP FB Slug",
+   "grain": 108.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "356S-108-100",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/105-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .358 93 gr HP FB Slug|358S-93-110": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .358 93 gr HP FB Slug",
+   "grain": 93.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/93-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "358S-93-110",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/93-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/93-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .357 93 gr HP FB Slug|357S-93-110": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .357 93 gr HP FB Slug",
+   "grain": 93.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/93-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "357S-93-110",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/93-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/93-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .356 93 gr HP FB Slug|356S-93-110": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .356 93 gr HP FB Slug",
+   "grain": 93.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/93-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "356S-93-110",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/93-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/93-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .358 79 gr HP FB Slug|358S-79-125": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .358 79 gr HP FB Slug",
+   "grain": 79.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/79-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "358S-79-125",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/79-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/79-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .357 79 gr HP FB Slug|357S-79-125": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .357 79 gr HP FB Slug",
+   "grain": 79.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/79-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "357S-79-125",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/79-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/79-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .356 79 gr HP FB Slug|356S-79-125": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .356 79 gr HP FB Slug",
+   "grain": 79.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/79-gr-hp-fb-35-cal",
+   "caliber_mm": 9.0,
+   "item": "356S-79-125",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/79-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/79-gr-hp-fb-35-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .300 65.5 gr HP DB Slug|300S-65.5-110": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .300 65.5 gr HP DB Slug",
+   "grain": 65.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/65-5-grain-125-count-300-slug-nsa",
+   "caliber_mm": 7.62,
+   "item": "300S-65.5-110",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/65-5-grain-125-count-300-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .300 49.5 gr HP DB Slug|300S-49.5-150": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .300 49.5 gr HP DB Slug",
+   "grain": 49.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/49-5-grain-200-count-300-slug-nsa",
+   "caliber_mm": 7.62,
+   "item": "300S-49.5-150",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/49-5-grain-200-count-300-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .300 47.2 gr HP DB Slug|300S-47.2-150": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .300 47.2 gr HP DB Slug",
+   "grain": 47.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/47-2-grain-200-count-300-slug-nsa",
+   "caliber_mm": 7.62,
+   "item": "300S-47.2-150",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/47-2-grain-200-count-300-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .303 47.2 gr HP DB Slug|303S-47.2-150": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .303 47.2 gr HP DB Slug",
+   "grain": 47.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/47-2-grain-200-count-300-slug-nsa",
+   "caliber_mm": 7.62,
+   "item": "303S-47.2-150",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/47-2-grain-200-count-300-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .249 29.5 gr HP FB Slug|249S-29.5-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .249 29.5 gr HP FB Slug",
+   "grain": 29.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/29-5-grain-300-count-249-slug-nsa",
+   "caliber_mm": 6.35,
+   "item": "249S-29.5-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/29-5-grain-300-count-249-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/29-5-grain-300-count-249-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .250 55.5 gr HP DB Slug|250S-55.5-150": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .250 55.5 gr HP DB Slug",
+   "grain": 55.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/55-5-gr-hp-fb-25-cal-nsa",
+   "caliber_mm": 6.35,
+   "item": "250S-55.5-150",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/55-5-gr-hp-fb-25-cal-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .249 29 gr HP DB Slug|249S-29.0-225": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .249 29 gr HP DB Slug",
+   "grain": 29.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/29-0-grain-300-count-249-slug-nsa",
+   "caliber_mm": 6.35,
+   "item": "249S-29.0-225",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/29-0-grain-300-count-249-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .250 43.5 gr HP DB Slug|250S-43.5-200": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .250 43.5 gr HP DB Slug",
+   "grain": 43.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/43-5-gr-hp-fb-25-cal",
+   "caliber_mm": 6.35,
+   "item": "250S-43.5-200",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/43-5-gr-hp-fb-25-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .254 43.5 gr HP DB Slug|254S-43-5-200": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .254 43.5 gr HP DB Slug",
+   "grain": 43.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/43-5-gr-hp-fb-25-cal",
+   "caliber_mm": 6.35,
+   "item": "254S-43-5-200",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/43-5-gr-hp-fb-25-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .250 36.2 gr HP FB Slug|250S-36.2-215": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .250 36.2 gr HP FB Slug",
+   "grain": 36.2,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/36-grain-275-count-250-slug-nsa",
+   "caliber_mm": 6.35,
+   "item": "250S-36.2-215",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/36-grain-275-count-250-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/36-grain-275-count-250-slug-nsa",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .250 38.5 gr HP FB Slug|250S-38.5-200": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .250 38.5 gr HP FB Slug",
+   "grain": 38.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/38-5-gr-hp-fb-25-cal",
+   "caliber_mm": 6.35,
+   "item": "250S-38.5-200",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/38-5-gr-hp-fb-25-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/38-5-gr-hp-fb-25-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .254 38.5 gr HP FB Slug|254S-38.5-200": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .254 38.5 gr HP FB Slug",
+   "grain": 38.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/38-5-gr-hp-fb-25-cal",
+   "caliber_mm": 6.35,
+   "item": "254S-38.5-200",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/38-5-gr-hp-fb-25-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://nielsenspecialtyammo.com/products/38-5-gr-hp-fb-25-cal",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FB"
+   }
+  },
+  "NSA|NSA .300 59.5 gr HP DB Slug|NSA-300S-595-120": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .300 59.5 gr HP DB Slug",
+   "grain": 59.5,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/300-59-5-gr-120-slugs-0-158-rd",
+   "caliber_mm": 7.62,
+   "item": "NSA-300S-595-120",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/300-59-5-gr-120-slugs-0-158-rd",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .457 265 gr HP DB Slug|457S-265TC-50": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .457 265 gr HP DB Slug",
+   "grain": 265.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/45-cal-265-grain-truncated-cone-50ct-0-44-rd",
+   "caliber_mm": 11.43,
+   "item": "457S-265TC-50",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/45-cal-265-grain-truncated-cone-50ct-0-44-rd",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .257 75 gr HP DB Slug|257S-75-110": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .257 75 gr HP DB Slug",
+   "grain": 75.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/75-grain-257-flat-base-hollow-point",
+   "caliber_mm": 6.35,
+   "item": "257S-75-110",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/75-grain-257-flat-base-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "NSA|NSA .257 65 gr HP DB Slug|257S-65-125": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "NSA .257 65 gr HP DB Slug",
+   "grain": 65.0,
+   "library_source_url": "https://nielsenspecialtyammo.com/products/65-grain-257-flat-base-hollow-point",
+   "caliber_mm": 6.35,
+   "item": "257S-65-125",
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://nielsenspecialtyammo.com/products/31-2-grain-300-count-22-cal-slug-nsa",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "slugs are swaged from soft lead to give excellent expansion"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://nielsenspecialtyammo.com/products/65-grain-257-flat-base-hollow-point",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  }
+ }
+}

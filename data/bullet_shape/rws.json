@@ -1,0 +1,3307 @@
+{
+ "brand": "RWS",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: rws-technology.com robots.txt could not be fetched (CLIENT_ERROR after 4 tries; the homepage loads, so the file is probably missing). Only the 2025 hunting/sport catalogue download page was read; quotes are German. rws-ammunition.com skipped per brief, so Target Elite Plus, rimfire and all 44 PCP pellets stay empty (not in the catalogue text). Not stated: HIT/EVO/EVO GREEN/Speed Tip tip material (Twin-Compression/Rapid-X/Speed-Tip, no 'polymer'), V-Tail/torpedo tails, DK/ID/UNI construction class, and whether 'MJ' = Match Jagd.",
+ "sources": [
+  {
+   "id": "kat",
+   "url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "read_date": "2026-10-13",
+   "title": "RWS Katalog Jagd und Sportschießen 2025"
+  }
+ ],
+ "records": {
+  "RWS|RWS HIT 2.6 g|.22 Hornet": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 2.6 g",
+   "grain": 40.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".22 Hornet",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS MJ 3.0 g|.22 Hornet": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS MJ 3.0 g",
+   "grain": 46.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".22 Hornet",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS TMS 3.0 g|.22 Hornet": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS TMS 3.0 g",
+   "grain": 46.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".22 Hornet",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Club|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Club",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-club",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS High Velocity|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS High Velocity",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-high-velocity",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS High Velocity HP|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS High Velocity HP",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-high-velocity-hp",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-high-velocity-hp",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Long Range Match|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Long Range Match",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-long-range-match",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS R 100|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS R 100",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-r-100",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS R 50|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS R 50",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-r-50",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS R Plus Long Range|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS R Plus Long Range",
+   "grain": 43.2,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-r-plus-long-range",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Rifle Match|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Rifle Match",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-rifle-match",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Rifle Match S|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Rifle Match S",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-rifle-match-s",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Special Match|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Special Match",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-special-match",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Subsonic HP|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Subsonic HP",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-subsonic-hp",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-subsonic-hp",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Rifle|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Rifle",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/rimfire-cartridges/rws-target-rifle",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 2.6 g|.222 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 2.6 g",
+   "grain": 40.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".222 Rem",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS MJ 3.4 g|.222 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS MJ 3.4 g",
+   "grain": 52.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".222 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS TMS 3.2 g|.222 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS TMS 3.2 g",
+   "grain": 50.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".222 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 3.4 g|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 3.4 g",
+   "grain": 52.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 3.4 g|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 3.4 g",
+   "grain": 52.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-223-rem-target-elite-plus-3-4g",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 4.5 g|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 4.5 g",
+   "grain": 69.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-223-rem-target-elite-plus-4-5g",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 5.0 g|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 5.0 g",
+   "grain": 77.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-target-elite-plus-223-rem-5-0g",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS TMS 3.6 g|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS TMS 3.6 g",
+   "grain": 55.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 5.2 g|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 5.2 g",
+   "grain": 80.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS KS 6.2 g|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 6.2 g",
+   "grain": 96.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS TMS 6.5 g|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS TMS 6.5 g",
+   "grain": 100.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 8.4 g|.270 WSM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 8.4 g",
+   "grain": 130.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".270 WSM",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 10.0 g|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 10.0 g",
+   "grain": 154.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 6.2 g|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 6.2 g",
+   "grain": 96.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 8.4 g|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 8.4 g",
+   "grain": 130.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS KS 9.7 g|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 9.7 g",
+   "grain": 150.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 9.1 g|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 9.1 g",
+   "grain": 140.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DK 10.7 g|.30 R Blaser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DK 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30 R Blaser",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 11.9 g|.30 R Blaser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 11.9 g",
+   "grain": 184.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30 R Blaser",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 9.0 g|.30 R Blaser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 9.0 g",
+   "grain": 139.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30 R Blaser",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS UNI CLASSIC 11.7 g|.30 R Blaser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS UNI CLASSIC 11.7 g",
+   "grain": 180.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30 R Blaser",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DK 10.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DK 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DRIVEN HUNT 10.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DRIVEN HUNT 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Das bleifreie Deformationsgeschoss aus Kupfer"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Breite und tiefe Hohlspitze für maximales Aufpilzen"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DRIVEN HUNT Short Rifle 9.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DRIVEN HUNT Short Rifle 9.7 g",
+   "grain": 150.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Das bleifreie Deformationsgeschoss aus Kupfer"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Breite und tiefe Hohlspitze für maximales Aufpilzen"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 11.9 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 11.9 g",
+   "grain": 184.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 9.0 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 9.0 g",
+   "grain": 139.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN Short Rifle 9.0 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN Short Rifle 9.0 g",
+   "grain": 139.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 10.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS HIT Short Rifle 10.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT Short Rifle 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS ID CLASSIC 9.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS ID CLASSIC 9.7 g",
+   "grain": 150.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 10.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 9.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 9.7 g",
+   "grain": 150.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 10.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO Short Rifle 10.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO Short Rifle 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS UNI CLASSIC 11.7 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS UNI CLASSIC 11.7 g",
+   "grain": 180.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS UNI CLASSIC 13.0 g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS UNI CLASSIC 13.0 g",
+   "grain": 200.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 11.9 g|.300 WSM": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 11.9 g",
+   "grain": 184.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".300 WSM",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DK 10.7 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DK 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DRIVEN HUNT 10.7 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DRIVEN HUNT 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Das bleifreie Deformationsgeschoss aus Kupfer"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Breite und tiefe Hohlspitze für maximales Aufpilzen"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 11.9 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 11.9 g",
+   "grain": 184.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 9.0 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 9.0 g",
+   "grain": 139.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 10.7 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS HIT Short Rifle 10.7 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT Short Rifle 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS KS 10.7 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 10.7 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 11.3 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 11.3 g",
+   "grain": 175.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-300-win-mag-target-elite-plus-11-3g",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 12.3 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 12.3 g",
+   "grain": 190.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-target-elite-plus-300-win-mag-12-3g",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS UNI CLASSIC 11.7 g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS UNI CLASSIC 11.7 g",
+   "grain": 180.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DK 10.7 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DK 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DRIVEN HUNT 10.7 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DRIVEN HUNT 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Das bleifreie Deformationsgeschoss aus Kupfer"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Breite und tiefe Hohlspitze für maximales Aufpilzen"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DRIVEN HUNT Short Rifle 9.7 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DRIVEN HUNT Short Rifle 9.7 g",
+   "grain": 150.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Das bleifreie Deformationsgeschoss aus Kupfer"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Breite und tiefe Hohlspitze für maximales Aufpilzen"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 11.9 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 11.9 g",
+   "grain": 184.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 9.0 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 9.0 g",
+   "grain": 139.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN Short Rifle 9.0 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN Short Rifle 9.0 g",
+   "grain": 139.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 10.7 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS HIT Short Rifle 9.7 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT Short Rifle 9.7 g",
+   "grain": 150.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS ID CLASSIC 9.7 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS ID CLASSIC 9.7 g",
+   "grain": 150.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 9.7 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 9.7 g",
+   "grain": 150.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 10.7 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO Short Rifle 10.7 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO Short Rifle 10.7 g",
+   "grain": 165.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 10.0 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 10.0 g",
+   "grain": 154.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-308-win-target-elite-plus-10-0g",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 10.9 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 10.9 g",
+   "grain": 168.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-target-elite-plus-308-win-10-9g",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 12.3 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 12.3 g",
+   "grain": 190.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-target-elite-plus-308-win-12-3g",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS UNI CLASSIC 11.7 g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS UNI CLASSIC 11.7 g",
+   "grain": 180.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 16.2 g|.338 Lapua Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 16.2 g",
+   "grain": 250.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-338-lapua-mag-target-elite-plus-16-2g",
+   "cartridge": ".338 Lapua Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 2.6 g|5.6x50 R Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 2.6 g",
+   "grain": 40.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "5.6x50 R Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS TMS 3.2 g|5.6x50 R Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS TMS 3.2 g",
+   "grain": 50.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "5.6x50 R Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS TMS 4.1 g|5.6x50 R Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS TMS 4.1 g",
+   "grain": 63.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "5.6x50 R Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS TMS 4.6 g|5.6x52 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS TMS 4.6 g",
+   "grain": 71.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "5.6x52 R",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 4.8 g|5.6x57": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 4.8 g",
+   "grain": 74.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "5.6x57",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 6.0 g|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 6.0 g",
+   "grain": 93.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 7.8 g|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 7.8 g",
+   "grain": 120.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5 Creedmoor",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 9.1 g|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 9.1 g",
+   "grain": 140.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DK 9.1 g|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DK 9.1 g",
+   "grain": 140.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 6.0 g|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 6.0 g",
+   "grain": 93.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 7.8 g|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 7.8 g",
+   "grain": 120.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 9.1 g|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 9.1 g",
+   "grain": 140.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 8.4 g|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 8.4 g",
+   "grain": 130.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-6-5x55-se-target-elite-plus-8-4g",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS Target Elite Plus 9.3 g|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus 9.3 g",
+   "grain": 143.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-6-5x55se-target-elite-plus-9-3g",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DK 9.1 g|6.5x57": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DK 9.1 g",
+   "grain": 140.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x57",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 6.0 g|6.5x57": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 6.0 g",
+   "grain": 93.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x57",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 8.2 g|6.5x57": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 8.2 g",
+   "grain": 127.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x57",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DK 9.1 g|6.5x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DK 9.1 g",
+   "grain": 140.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x57 R",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 6.0 g|6.5x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 6.0 g",
+   "grain": 93.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x57 R",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 8.2 g|6.5x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 8.2 g",
+   "grain": 127.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x57 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 8.2 g|6.5x65 R RWS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 8.2 g",
+   "grain": 127.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x65 R RWS",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 6.0 g|6.5x68": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 6.0 g",
+   "grain": 93.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x68",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 8.2 g|6.5x68": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 8.2 g",
+   "grain": 127.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "6.5x68",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 10.3 g|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 10.3 g",
+   "grain": 159.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 8.2 g|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 8.2 g",
+   "grain": 127.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 9.1 g|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 9.1 g",
+   "grain": 140.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS ID CLASSIC 11.5 g|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS ID CLASSIC 11.5 g",
+   "grain": 177.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 10.5 g|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 10.5 g",
+   "grain": 162.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 9.7 g|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 9.7 g",
+   "grain": 150.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS ID CLASSIC 10.5 g|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS ID CLASSIC 10.5 g",
+   "grain": 162.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x57 Mauser",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 8.2 g|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 8.2 g",
+   "grain": 127.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x57 R",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS ID CLASSIC 11.5 g|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS ID CLASSIC 11.5 g",
+   "grain": 177.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x57 R",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 10.5 g|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 10.5 g",
+   "grain": 162.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x57 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 10.3 g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 10.3 g",
+   "grain": 159.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 8.2 g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 8.2 g",
+   "grain": 127.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 9.1 g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 9.1 g",
+   "grain": 140.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS ID CLASSIC 10.5 g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS ID CLASSIC 10.5 g",
+   "grain": 162.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x64",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS ID CLASSIC 11.5 g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS ID CLASSIC 11.5 g",
+   "grain": 177.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x64",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 10.5 g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 10.5 g",
+   "grain": 162.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 8.0 g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 8.0 g",
+   "grain": 123.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 9.7 g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 9.7 g",
+   "grain": 150.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x64",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 10.3 g|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 10.3 g",
+   "grain": 159.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 8.2 g|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 8.2 g",
+   "grain": 127.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 9.1 g|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 9.1 g",
+   "grain": 140.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS ID CLASSIC 11.5 g|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS ID CLASSIC 11.5 g",
+   "grain": 177.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x65 R",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 10.5 g|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 10.5 g",
+   "grain": 162.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS KS 8.0 g|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 8.0 g",
+   "grain": 123.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DRIVEN HUNT 10.4 g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DRIVEN HUNT 10.4 g",
+   "grain": 161.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JRS",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Das bleifreie Deformationsgeschoss aus Kupfer"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Breite und tiefe Hohlspitze für maximales Aufpilzen"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 13.0 g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 13.0 g",
+   "grain": 200.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JRS",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 9.0 g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 9.0 g",
+   "grain": 139.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JRS",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 10.4 g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 10.4 g",
+   "grain": 160.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JRS",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS ID CLASSIC 12.8 g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS ID CLASSIC 12.8 g",
+   "grain": 198.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JRS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 11.7 g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 11.7 g",
+   "grain": 180.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JRS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DRIVEN HUNT 10.4 g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DRIVEN HUNT 10.4 g",
+   "grain": 161.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Das bleifreie Deformationsgeschoss aus Kupfer"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Breite und tiefe Hohlspitze für maximales Aufpilzen"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO 13.0 g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO 13.0 g",
+   "grain": 200.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVO GREEN 9.0 g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVO GREEN 9.0 g",
+   "grain": 139.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 10.4 g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 10.4 g",
+   "grain": 160.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS HIT Short Rifle 10.4 g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT Short Rifle 10.4 g",
+   "grain": 160.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS ID CLASSIC 12.8 g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS ID CLASSIC 12.8 g",
+   "grain": 198.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 11.7 g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 11.7 g",
+   "grain": 180.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO Short Rifle 11.7 g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO Short Rifle 11.7 g",
+   "grain": 180.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DRIVEN HUNT 10,4g|8x68 S": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DRIVEN HUNT 10,4g",
+   "grain": 160.5,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-8-x-68-s-driven-hunt-10-4g",
+   "cartridge": "8x68 S",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Das bleifreie Deformationsgeschoss aus Kupfer"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Breite und tiefe Hohlspitze für maximales Aufpilzen"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVOLUTION 13,0g|8x68 S": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVOLUTION 13,0g",
+   "grain": 200.6,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-8x68-s-evo-13-0g",
+   "cartridge": "8x68 S",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS EVOLUTION GREEN 9,0g|8x68 S": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS EVOLUTION GREEN 9,0g",
+   "grain": 138.9,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-8x68-s-evo-green-9-0g",
+   "cartridge": "8x68 S",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT 10,4g|8x68 S": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT 10,4g",
+   "grain": 160.5,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-8x68-s-hit-10-4g",
+   "cartridge": "8x68 S",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS KS 11,7g|8x68 S": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS KS 11,7g",
+   "grain": 180.6,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-8x68-s-ks-11-7g",
+   "cartridge": "8x68 S",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS SPEED TIP PRO 11,7g|8x68 S": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS SPEED TIP PRO 11,7g",
+   "grain": 180.6,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-8x68-s-speed-tip-pro-11-7g",
+   "cartridge": "8x68 S",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS DRIVEN HUNT Short Rifle 16.2 g|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS DRIVEN HUNT Short Rifle 16.2 g",
+   "grain": 250.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Das bleifreie Deformationsgeschoss aus Kupfer"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Breite und tiefe Hohlspitze für maximales Aufpilzen"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "RWS|RWS HIT Short Rifle 16.2 g|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "RWS HIT Short Rifle 16.2 g",
+   "grain": 250.0,
+   "library_source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   },
+   "component_bullet": null
+  },
+  "RWS|RWS HIT .224 2.6 g / 40.1 gr (.22 Hornet)|2419837": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS HIT .224 2.6 g / 40.1 gr (.22 Hornet)",
+   "grain": 40.1,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-22-hornet-hit-2-6g",
+   "caliber_mm": 5.7,
+   "item": "2419837",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   }
+  },
+  "RWS|RWS Soft Point .224 3 g / 46.3 gr (.22 Hornet)|2116375": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Soft Point .224 3 g / 46.3 gr (.22 Hornet)",
+   "grain": 46.3,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-22-hornet-tms-3-0g",
+   "caliber_mm": 5.7,
+   "item": "2116375",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-22-hornet-tms-3-0g",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null
+  },
+  "RWS|RWS Match Jagd .224 3.4 g / 52 gr (.222 Rem.)|2417854": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Match Jagd .224 3.4 g / 52 gr (.222 Rem.)",
+   "grain": 52.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-222-rem-match-jagd-3-4g",
+   "caliber_mm": 5.7,
+   "item": "2417854",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Durch die besondere Hohlspitzkonstruktion ist das Geschoss höchstpräzise"
+   },
+   "base": null
+  },
+  "RWS|RWS Soft Point .224 3.2 g / 49.4 gr (.222 Rem.)|2116405": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Soft Point .224 3.2 g / 49.4 gr (.222 Rem.)",
+   "grain": 49.4,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-222-rem-tms-3-2g",
+   "caliber_mm": 5.7,
+   "item": "2116405",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-222-rem-tms-3-2g",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null
+  },
+  "RWS|RWS Soft Point .224 3.6 g / 55.6 gr (.223 Rem.)|2116472": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Soft Point .224 3.6 g / 55.6 gr (.223 Rem.)",
+   "grain": 55.6,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-223-rem-tms-3-6g",
+   "caliber_mm": 5.7,
+   "item": "2116472",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-223-rem-tms-3-6g",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null
+  },
+  "RWS|RWS Target Elite Plus .224 3.4 g / 52 gr (.223 Rem.)|2411633": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus .224 3.4 g / 52 gr (.223 Rem.)",
+   "grain": 52.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-223-rem-target-elite-plus-3-4g",
+   "caliber_mm": 5.7,
+   "item": "2411633",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|RWS Target Elite Plus .224 4.5 g / 69 gr (.223 Rem.)|2411868": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus .224 4.5 g / 69 gr (.223 Rem.)",
+   "grain": 69.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-223-rem-target-elite-plus-4-5g",
+   "caliber_mm": 5.7,
+   "item": "2411868",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|RWS Target Elite Plus .224 5 g / 77 gr (.223 Rem.)|2403868": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus .224 5 g / 77 gr (.223 Rem.)",
+   "grain": 77.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-target-elite-plus-223-rem-5-0g",
+   "caliber_mm": 5.7,
+   "item": "2403868",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|RWS Soft Point .224 4.1 g / 63.3 gr (5,6x50 Magnum)|2116499": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Soft Point .224 4.1 g / 63.3 gr (5,6x50 Magnum)",
+   "grain": 63.3,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-5-6x50-mag-tms-4-1g",
+   "caliber_mm": 5.7,
+   "item": "2116499",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-5-6x50-mag-tms-4-1g",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null
+  },
+  "RWS|RWS Soft Point .228 4.6 g / 71 gr (5,6x52 R)|2116863": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Soft Point .228 4.6 g / 71 gr (5,6x52 R)",
+   "grain": 71.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-5-6x52-r-tms-4-6g",
+   "caliber_mm": 5.79,
+   "item": "2116863",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-5-6x52-r-tms-4-6g",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null
+  },
+  "RWS|RWS Kegelspitz KS .224 4.8 g / 74 gr (5,6x57)|2116715": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Kegelspitz KS .224 4.8 g / 74 gr (5,6x57)",
+   "grain": 74.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-5-6x57-ks-4-8g",
+   "caliber_mm": 5.7,
+   "item": "2116715",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|RWS Kegelspitz KS .243 6.2 g / 95.7 gr (.243 Win.)|2116812": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Kegelspitz KS .243 6.2 g / 95.7 gr (.243 Win.)",
+   "grain": 95.7,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-243-win-ks-6-2g",
+   "caliber_mm": 6.17,
+   "item": "2116812",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Weicher Bleikern ... Tombak-Mantel mit Wandstärkenverlauf"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|RWS Soft Point .243 6.5 g / 100.3 gr (.243 Win.)|2116871": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Soft Point .243 6.5 g / 100.3 gr (.243 Win.)",
+   "grain": 100.3,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-243-win-tms-6-5g",
+   "caliber_mm": 6.17,
+   "item": "2116871",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-243-win-tms-6-5g",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Soft Point"
+   },
+   "base": null
+  },
+  "RWS|RWS Evolution Green .264 6 g / 93 gr (6,5 Creedmoor)|2411682": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Evolution Green .264 6 g / 93 gr (6,5 Creedmoor)",
+   "grain": 93.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-6-5-creedmoor-evolution-green-6-0g",
+   "caliber_mm": 6.71,
+   "item": "2411682",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Die Geschosskerne sind aus lebensmittelechtem Zinn."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|RWS HIT .264 7.8 g / 120.4 gr (6,5 Creedmoor)|2426462": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS HIT .264 7.8 g / 120.4 gr (6,5 Creedmoor)",
+   "grain": 120.4,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-6-5-creedmoor-hit-7-8g",
+   "caliber_mm": 6.71,
+   "item": "2426462",
+   "construction": {
+    "value": "monolithic_copper",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Kupfer-Deformationsgeschoss ... bleifreies, massestabiles Deformationsgeschoss auf Solid-Basis"
+   },
+   "tip_shape": null,
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Boattail-Heck für maximale Präzision und Flugstabilität"
+   }
+  },
+  "RWS|RWS Speed Tip Professional .264 9.1 g / 140.4 gr (6,5 Creedmoor)|2411631": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Speed Tip Professional .264 9.1 g / 140.4 gr (6,5 Creedmoor)",
+   "grain": 140.4,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-6-5-creedmoor-speed-tip-pro-9-1g",
+   "caliber_mm": 6.71,
+   "item": "2411631",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|RWS Doppelkern DK .264 9.1 g / 140 gr (6,5x55 SE)|2116995": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Doppelkern DK .264 9.1 g / 140 gr (6,5x55 SE)",
+   "grain": 140.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-6-5x55-se-dk-9-1g",
+   "caliber_mm": 6.71,
+   "item": "2116995",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|RWS Target Elite Plus .264 8.4 g / 130 gr (6,5x55 SE)|2409761": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus .264 8.4 g / 130 gr (6,5x55 SE)",
+   "grain": 130.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-6-5x55-se-target-elite-plus-8-4g",
+   "caliber_mm": 6.71,
+   "item": "2409761",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|RWS Target Elite Plus .264 9.3 g / 143 gr (6,5x55 SE)|2426659": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Target Elite Plus .264 9.3 g / 143 gr (6,5x55 SE)",
+   "grain": 143.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-6-5x55se-target-elite-plus-9-3g",
+   "caliber_mm": 6.71,
+   "item": "2426659",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|RWS Evolution .308 11.9 g / 184 gr (.308 Win.)|2315434": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "RWS Evolution .308 11.9 g / 184 gr (.308 Win.)",
+   "grain": 184.0,
+   "library_source_url": "https://rws-ammunition.com/en/products/centerfire-rifle-cartridges/rws-308-win-evo-11-9g",
+   "caliber_mm": 7.82,
+   "item": "2315434",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.rws-technology.com/de/downloads/download-detail/rws-katalog-jagd-und-sportschiessen-2025",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Verschmelzung des Bleikernes mit dem Tombak-Mantel (Power-Bonding)"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|R10 Match Plus .177 0,53 g 4.50 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "R10 Match Plus .177 0,53 g 4.50 mm",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|R10 Match (Heavy) .177 0,53 g 4.48 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "R10 Match (Heavy) .177 0,53 g 4.48 mm",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|R10 Match (Heavy) .177 0,53 g 4.49 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "R10 Match (Heavy) .177 0,53 g 4.49 mm",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|R10 Match (Heavy) .177 0,53 g 4.50 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "R10 Match (Heavy) .177 0,53 g 4.50 mm",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|R10 Match (Heavy) .177 0,53 g 4.51 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "R10 Match (Heavy) .177 0,53 g 4.51 mm",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|R10 Match .177 0,45 g 4.48 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "R10 Match .177 0,45 g 4.48 mm",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|R10 Match .177 0,45 g 4.49 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "R10 Match .177 0,45 g 4.49 mm",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|R10 Match .177 0,45 g 4.50 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "R10 Match .177 0,45 g 4.50 mm",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|R10 Match .177 0,45 g 4.51 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "R10 Match .177 0,45 g 4.51 mm",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Hypermatch .177 0,33 g 4.50 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hypermatch .177 0,33 g 4.50 mm",
+   "grain": 5.09,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Meisterkugeln .177 0,53 g 4.48 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Meisterkugeln .177 0,53 g 4.48 mm",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Meisterkugeln .177 0,53 g 4.49 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Meisterkugeln .177 0,53 g 4.49 mm",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Meisterkugeln .177 0,53 g 4.51 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Meisterkugeln .177 0,53 g 4.51 mm",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Meisterkugeln .177 0,53 g 4.50 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Meisterkugeln .177 0,53 g 4.50 mm",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Meisterkugeln .22 0,91 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Meisterkugeln .22 0,91 g",
+   "grain": 14.04,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Meisterkugeln .177 0,45 g 4.48 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Meisterkugeln .177 0,45 g 4.48 mm",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Meisterkugeln .177 0,45 g 4.49 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Meisterkugeln .177 0,45 g 4.49 mm",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Meisterkugeln .177 0,45 g 4.50 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Meisterkugeln .177 0,45 g 4.50 mm",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Meisterkugeln .177 0,45 g 4.51 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Meisterkugeln .177 0,45 g 4.51 mm",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Superpoint Extra .177 0,53 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Superpoint Extra .177 0,53 g",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Superpoint Extra .22 0,94 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Superpoint Extra .22 0,94 g",
+   "grain": 14.51,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Super-H-Point .177 0,45 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Super-H-Point .177 0,45 g",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Super-H-Point .22 0,92 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Super-H-Point .22 0,92 g",
+   "grain": 14.2,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Supermag .177 0,60 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Supermag .177 0,60 g",
+   "grain": 9.26,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Superfield .177 0,54 g 4.51 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Superfield .177 0,54 g 4.51 mm",
+   "grain": 8.33,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Superfield .177 0,54 g 4.52 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Superfield .177 0,54 g 4.52 mm",
+   "grain": 8.33,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Superfield .22 1,03 g 5.51 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Superfield .22 1,03 g 5.51 mm",
+   "grain": 15.9,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Superfield .22 1,03 g 5.52 mm": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Superfield .22 1,03 g 5.52 mm",
+   "grain": 15.9,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Superdome .177 0,54 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Superdome .177 0,54 g",
+   "grain": 8.33,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Superdome .22 0,94 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Superdome .22 0,94 g",
+   "grain": 14.51,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Hypermax .177 0,34 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hypermax .177 0,34 g",
+   "grain": 5.25,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Hypermax .22 0,64 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hypermax .22 0,64 g",
+   "grain": 9.88,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Hyperdome .177 0,36 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hyperdome .177 0,36 g",
+   "grain": 5.56,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Hyperdome .22 0,71 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hyperdome .22 0,71 g",
+   "grain": 10.96,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Power Piercing .177 0,58 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Power Piercing .177 0,58 g",
+   "grain": 8.95,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Power Piercing .22 0,89 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Power Piercing .22 0,89 g",
+   "grain": 13.73,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Power Ball .177 0,61 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Power Ball .177 0,61 g",
+   "grain": 9.41,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Power Bolt .177 0,92 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Power Bolt .177 0,92 g",
+   "grain": 14.2,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Power Bolt .22 1,60 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Power Bolt .22 1,60 g",
+   "grain": 24.69,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Club .177 0,45 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Club .177 0,45 g",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Hobby .177 0,45 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hobby .177 0,45 g",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Hobby .22 0,77 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hobby .22 0,77 g",
+   "grain": 11.88,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Training .177 0,53 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Training .177 0,53 g",
+   "grain": 8.18,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "RWS|Diabolo Basic .177 0,45 g": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Diabolo Basic .177 0,45 g",
+   "grain": 6.94,
+   "library_source_url": "https://rws-ammunition.com/fileadmin/user_upload/rws/Bilder/Seiten/Service/Downloadbereich/Weitere%20Downloads/Flyer/Englisch/Flyer_RWS_Airgunpellets_EN.pdf",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  }
+ }
+}

@@ -1,0 +1,270 @@
+{
+ "brand": "H&N",
+ "note": "2026-10-13: robots.txt read (product paths allowed). ~35 product pages read. Stated: Heavy Slug 'hollow point design with a large meplat combined with soft lead'; Grizzly hollow point + hollow base; GreenLine (Baracuda/FTT/Match Green) lead-free tin alloy; Power/Coppa 'encapsulating the lead core'; Hunter/Hunter Extreme/Crow Magnum hollow point; Hammer round head; Spike/Coppa-Spitzkugel pointed. Not stated (empty): Baracuda/Match/FT/8/15/18, FTT, Slug HP / HP II, Precision Slug, Hornet, Terminator ('tapered tip'), Rabbit Magnum II ('torpedo'), Silver Point, Spitzkugel, Finale Match, Match, Sport, Econ II, Plinking; 'special alloy' not mapped. No base stated except Grizzly.",
+ "sources": [
+  {
+   "id": "hs36",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+   "read_date": "2026-10-13",
+   "title": "Heavy Slug 36 gr .22"
+  },
+  {
+   "id": "hs25_40",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-25-40-gr",
+   "read_date": "2026-10-13",
+   "title": "Heavy Slug 40 gr .25"
+  },
+  {
+   "id": "grz25",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/grizzly-25",
+   "read_date": "2026-10-13",
+   "title": "Grizzly .25"
+  },
+  {
+   "id": "grz35",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/grizzly-35",
+   "read_date": "2026-10-13",
+   "title": "Grizzly .35"
+  },
+  {
+   "id": "bg22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-green-22",
+   "read_date": "2026-10-13",
+   "title": "Baracuda Green .22"
+  },
+  {
+   "id": "ftg22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-green-22",
+   "read_date": "2026-10-13",
+   "title": "Field Target Trophy Green .22"
+  },
+  {
+   "id": "mg177",
+   "url": "https://www.hn-sport.de/en/target-shooting/match-green-177",
+   "read_date": "2026-10-13",
+   "title": "Match Green .177"
+  },
+  {
+   "id": "bp22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-power-22",
+   "read_date": "2026-10-13",
+   "title": "Baracuda Power .22"
+  },
+  {
+   "id": "ftp22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-power-22",
+   "read_date": "2026-10-13",
+   "title": "Field Target Trophy Power .22"
+  },
+  {
+   "id": "coppa22",
+   "url": "https://www.hn-sport.de/en/action-shooting/coppa-spitzkugel-22",
+   "read_date": "2026-10-13",
+   "title": "Coppa-Spitzkugel .22"
+  },
+  {
+   "id": "spike22",
+   "url": "https://www.hn-sport.de/en/action-shooting/spike-22",
+   "read_date": "2026-10-13",
+   "title": "Spike .22"
+  },
+  {
+   "id": "hammer22",
+   "url": "https://www.hn-sport.de/en/action-shooting/hammer-22",
+   "read_date": "2026-10-13",
+   "title": "Hammer .22"
+  },
+  {
+   "id": "bh22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-22",
+   "read_date": "2026-10-13",
+   "title": "Baracuda Hunter .22"
+  },
+  {
+   "id": "bhe22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-extreme-22",
+   "read_date": "2026-10-13",
+   "title": "Baracuda Hunter Extreme .22"
+  },
+  {
+   "id": "crow22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/crow-magnum-22",
+   "read_date": "2026-10-13",
+   "title": "Crow Magnum .22"
+  }
+ ],
+ "families": [
+  {
+   "id": "heavy_slug",
+   "lib": "bullet",
+   "name_regex": "^Heavy Slug\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_slug",
+     "src": "hs36",
+     "quote": "new hollow point design with a large meplat combined with soft lead"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "hs36",
+     "quote": "a new hollow point design with a large meplat"
+    }
+   }
+  },
+  {
+   "id": "grizzly",
+   "lib": "bullet",
+   "name_regex": "^Grizzly\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "grz25",
+     "quote": "star-shaped hollow point for ideal mushrooming"
+    },
+    "base": {
+     "value": "hollow_base",
+     "src": "grz25",
+     "quote": "The hollow base offers superior sealing"
+    }
+   }
+  },
+  {
+   "id": "baracuda_green",
+   "lib": "bullet",
+   "name_regex": "^Baracuda Green\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "bg22",
+     "quote": "Lead-free, lightweight high-velocity pellet"
+    }
+   }
+  },
+  {
+   "id": "ftt_green",
+   "lib": "bullet",
+   "name_regex": "^Field Target Trophy Green\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "ftg22",
+     "quote": "no contact with lead thanks to special tin alloy"
+    }
+   }
+  },
+  {
+   "id": "match_green",
+   "lib": "bullet",
+   "name_regex": "^Match Green\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_pellet",
+     "src": "mg177",
+     "quote": "No contact with lead thanks to special tin alloy"
+    }
+   }
+  },
+  {
+   "id": "baracuda_power",
+   "lib": "bullet",
+   "name_regex": "^Baracuda Power\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "bp22",
+     "quote": "Completely encapsulating the lead core"
+    }
+   }
+  },
+  {
+   "id": "ftt_power",
+   "lib": "bullet",
+   "name_regex": "^Field Target Trophy Power\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "ftp22",
+     "quote": "Completely encapsulating the lead core"
+    }
+   }
+  },
+  {
+   "id": "coppa",
+   "lib": "bullet",
+   "name_regex": "Coppa-Spitzkugel",
+   "fields": {
+    "construction": {
+     "value": "lead_pellet",
+     "src": "coppa22",
+     "quote": "Completely encapsulating the lead core"
+    },
+    "tip_shape": {
+     "value": "pointed",
+     "src": "coppa22",
+     "quote": "copper plated pointed pellet"
+    }
+   }
+  },
+  {
+   "id": "spike",
+   "lib": "bullet",
+   "name_regex": "\\bSpike\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "pointed",
+     "src": "spike22",
+     "quote": "accurate pointed pellet"
+    }
+   }
+  },
+  {
+   "id": "hammer",
+   "lib": "bullet",
+   "name_regex": "\\bHammer\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "round_nose",
+     "src": "hammer22",
+     "quote": "English form (round head) for flat trajectories"
+    }
+   }
+  },
+  {
+   "id": "baracuda_hunter",
+   "lib": "bullet",
+   "name_regex": "^Baracuda Hunter\\b(?! Extreme)",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "bh22",
+     "quote": "Smooth with deep hollow point"
+    }
+   }
+  },
+  {
+   "id": "baracuda_hunter_extreme",
+   "lib": "bullet",
+   "name_regex": "^Baracuda Hunter Extreme\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "bhe22",
+     "quote": "Deep, cross-shaped hollow tip"
+    }
+   }
+  },
+  {
+   "id": "crow_magnum",
+   "lib": "bullet",
+   "name_regex": "^Crow Magnum\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "crow22",
+     "quote": "Smooth with large hollow point"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

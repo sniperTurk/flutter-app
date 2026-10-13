@@ -1,0 +1,1395 @@
+{
+ "brand": "Geco",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: geco-ammunition.com robots.txt only disallows /private/ (crawl-delay 5). Read GECO line pages (Plus product page, Express, DTX, Star, Zero, Target HP, rimfire Rifle/Semi-Auto) and the 2026 EN Magalogue PDF. Rimfire tip from spec 'Bullet type: LRN'. Not stated anywhere: bases for every line, Express/DTX construction and tip, Star jacketed or monolithic, Target HP match status, component bullet names.",
+ "sources": [
+  {
+   "id": "plus",
+   "url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+   "read_date": "2026-10-13",
+   "title": "GECO .270 Win PLUS 9.7g"
+  },
+  {
+   "id": "mag",
+   "url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "read_date": "2026-10-13",
+   "title": "GECO Magalogue EN 2026"
+  },
+  {
+   "id": "star",
+   "url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+   "read_date": "2026-10-13",
+   "title": "GECO STAR"
+  },
+  {
+   "id": "zero",
+   "url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+   "read_date": "2026-10-13",
+   "title": "GECO ZERO"
+  },
+  {
+   "id": "target_hp",
+   "url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp",
+   "read_date": "2026-10-13",
+   "title": "GECO TARGET HP"
+  },
+  {
+   "id": "rifle22",
+   "url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-rifle",
+   "read_date": "2026-10-13",
+   "title": "GECO RIFLE .22 lr"
+  },
+  {
+   "id": "semi22",
+   "url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-semi-auto",
+   "read_date": "2026-10-13",
+   "title": "GECO SEMI-AUTO .22 lr"
+  }
+ ],
+ "records": {
+  "Geco|GECO RIFLE .22 2,6g|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO RIFLE .22 2,6g",
+   "grain": 40.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-rifle",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-rifle",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: LRN"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SEMI-AUTO .22 2,6g|.22 LR": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SEMI-AUTO .22 2,6g",
+   "grain": 40.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-semi-auto",
+   "cartridge": ".22 LR",
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-semi-auto",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: LRN"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 3,6g|.222 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 3,6g",
+   "grain": 56.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": ".222 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO DTX 3,6g|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO DTX 3,6g",
+   "grain": 55.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-dtx/geco-223-rem-dtx-36g",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 3,6g|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 3,6g",
+   "grain": 56.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-express/geco-223-rem-express-36g",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 3,4g|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 3,4g",
+   "grain": 53.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-softpoint/geco-223-rem-softpoint-34g",
+   "cartridge": ".223 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO TARGET HP 3,4g|.223 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO TARGET HP 3,4g",
+   "grain": 52.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp/geco-223-rem-target-hp-34g",
+   "cartridge": ".223 Rem",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precisely manufactured hollow-point bullet for excellent precision"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 4,9g|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 4,9g",
+   "grain": 76.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-express/geco-243-win-express-49g",
+   "cartridge": ".243 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 6,8g|.243 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 6,8g",
+   "grain": 105.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-softpoint/geco-243-win-softpoint-68g",
+   "cartridge": ".243 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 8,4g|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 8,4g",
+   "grain": 130.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-express/geco-270-win-express-84g",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS 9,7g|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS 9,7g",
+   "grain": 150.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 9,1g|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 9,1g",
+   "grain": 140.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-softpoint/geco-270-win-softpoint-91g",
+   "cartridge": ".270 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO STAR 8,4g|.270 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO STAR 8,4g",
+   "grain": 130.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star/geco-270-win-star-84g",
+   "cartridge": ".270 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow-point design provides deformation you can count on"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 10,7g|.280 Rem": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": ".280 Rem",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS .30-06 10,7g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS .30-06 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-express/geco-30-06-express-107g",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS .30-06 11,0g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS .30-06 11,0g",
+   "grain": 170.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-30-06-plus-110g",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT .30-06 11,0g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT .30-06 11,0g",
+   "grain": 170.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-softpoint/geco-30-06-softpoint-110g",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO STAR .30-06 10,7g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO STAR .30-06 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star/geco-30-06-star-107g",
+   "cartridge": ".30-06 Springfield",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow-point design provides deformation you can count on"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO .30-06 8,8g|.30-06 Springfield": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO .30-06 8,8g",
+   "grain": 136.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero/geco-30-06-zero-88g",
+   "cartridge": ".30-06 Springfield",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS .300 Win. Mag. 10,7g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS .300 Win. Mag. 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-express/geco-300-win-mag-express-107g",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS .300 Win. Mag. 11,0g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS .300 Win. Mag. 11,0g",
+   "grain": 170.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-300-win-mag-plus-110g",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT .300 Win. Mag. 11,0g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT .300 Win. Mag. 11,0g",
+   "grain": 170.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-softpoint/geco-300-win-mag-softpoint-110g",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO STAR .300 Win. Mag. 10,7g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO STAR .300 Win. Mag. 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star/geco-300-win-mag-star-107g",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow-point design provides deformation you can count on"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO TARGET HP .300 Win. Mag. 12,3g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO TARGET HP .300 Win. Mag. 12,3g",
+   "grain": 190.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp/geco-300-win-mag-target-hp-123",
+   "cartridge": ".300 Win Mag",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precisely manufactured hollow-point bullet for excellent precision"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO .300 Win. Mag. 8,8g|.300 Win Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO .300 Win. Mag. 8,8g",
+   "grain": 136.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero/geco-300-win-mag-zero-88g",
+   "cartridge": ".300 Win Mag",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO DTX 7,0g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO DTX 7,0g",
+   "grain": 108.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-dtx/geco-308-win-dtx-70g",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 10,7g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-express/geco-308-win-express-107g",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS 11,0g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS 11,0g",
+   "grain": 170.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-308-win-plus-110g",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 11,0g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 11,0g",
+   "grain": 170.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-softpoint/geco-308-win-softpoint-110g",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO STAR 10,7g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO STAR 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star/geco-308-win-star-107g",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow-point design provides deformation you can count on"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO TARGET HP 10,9g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO TARGET HP 10,9g",
+   "grain": 168.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp/geco-308-win-target-hp-109g",
+   "cartridge": ".308 Win",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precisely manufactured hollow-point bullet for excellent precision"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO 8,8g|.308 Win": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO 8,8g",
+   "grain": 136.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero/geco-308-win-zero-88g",
+   "cartridge": ".308 Win",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 6,5 Creedmoor 9,1g|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 6,5 Creedmoor 9,1g",
+   "grain": 140.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-express/geco-65-creedmoor-express-91g",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO STAR 7,8g|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO STAR 7,8g",
+   "grain": 120.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star/geco-65-creedmoor-star-78g",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow-point design provides deformation you can count on"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO TARGET HP 6,5 Creedmoor 8,4g|6.5 Creedmoor": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO TARGET HP 6,5 Creedmoor 8,4g",
+   "grain": 130.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp/geco-65-creedmoor-target-hp-84g",
+   "cartridge": "6.5 Creedmoor",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precisely manufactured hollow-point bullet for excellent precision"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 9,1g|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 9,1g",
+   "grain": 140.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS 10,1g|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS 10,1g",
+   "grain": 156.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "6.5x55 Swedish",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO TARGET HP 8,4g|6.5x55 Swedish": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO TARGET HP 8,4g",
+   "grain": 130.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "6.5x55 Swedish",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-target-hp",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Precisely manufactured hollow-point bullet for excellent precision"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 7mm Rem. Mag. 10,0g|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 7mm Rem. Mag. 10,0g",
+   "grain": 155.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-express/geco-7mm-rem-mag-express-100g",
+   "cartridge": "7mm Rem Mag",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS 7mm Rem. Mag. 11,0g|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS 7mm Rem. Mag. 11,0g",
+   "grain": 170.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-7mm-rem-mag-plus-110g",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO 7mm Rem. Mag. 8,2g|7mm Rem Mag": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO 7mm Rem. Mag. 8,2g",
+   "grain": 127.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero/geco-7mm-rem-mag-zero-82g",
+   "cartridge": "7mm Rem Mag",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 10,7g|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x57 Mauser",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO 8,2g|7x57 Mauser": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO 8,2g",
+   "grain": 127.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x57 Mauser",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 10,7g|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x57 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO 8,2g|7x57 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO 8,2g",
+   "grain": 127.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x57 R",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 10,0g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 10,0g",
+   "grain": 155.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x64",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS 11,0g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS 11,0g",
+   "grain": 170.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 10,7g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO STAR 9,1g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO STAR 9,1g",
+   "grain": 140.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x64",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow-point design provides deformation you can count on"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO 8,2g|7x64": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO 8,2g",
+   "grain": 127.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x64",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS 11,0g|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS 11,0g",
+   "grain": 170.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 10,7g|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 10,7g",
+   "grain": 165.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO 8,2g|7x65 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO 8,2g",
+   "grain": 127.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "7x65 R",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 11,7g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 11,7g",
+   "grain": 181.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "8x57 JRS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS 12,7g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS 12,7g",
+   "grain": 196.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "8x57 JRS",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 12,0g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 12,0g",
+   "grain": 185.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "8x57 JRS",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO STAR 10,4g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO STAR 10,4g",
+   "grain": 160.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "8x57 JRS",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow-point design provides deformation you can count on"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO 9,0g|8x57 JRS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO 9,0g",
+   "grain": 139.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "8x57 JRS",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 8x57 IS 11,7g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 8x57 IS 11,7g",
+   "grain": 180.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-express/geco-8x57-is-express-117g",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS 12,7g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS 12,7g",
+   "grain": 196.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-8x57-js-plus-127g",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 12,0g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 12,0g",
+   "grain": 185.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-softpoint/geco-8x57-js-softpoint-120g",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO STAR 8x57 IS 10,4g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO STAR 8x57 IS 10,4g",
+   "grain": 160.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star/geco-8x57-is-star-104g",
+   "cartridge": "8x57 JS",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow-point design provides deformation you can count on"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO 9,0g|8x57 JS": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO 9,0g",
+   "grain": 139.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero/geco-8x57-js-zero-90g",
+   "cartridge": "8x57 JS",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO EXPRESS 9,3x62 16,5g|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO EXPRESS 9,3x62 16,5g",
+   "grain": 255.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-express/geco-93x62-express-165g",
+   "cartridge": "9.3x62",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS 9,3x62 16,5g|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS 9,3x62 16,5g",
+   "grain": 255.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-93x62-plus-165g",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 9,3x62 16,5g|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 9,3x62 16,5g",
+   "grain": 255.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-softpoint/geco-93x62-softpoint-165g",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO STAR 9,3x62 16,2g|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO STAR 9,3x62 16,2g",
+   "grain": 255.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star/geco-93x62-star-162",
+   "cartridge": "9.3x62",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-star",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow-point design provides deformation you can count on"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO 9,3x62 12,2g|9.3x62": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO 9,3x62 12,2g",
+   "grain": 188.0,
+   "library_source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero/geco-93x62-zero-119g",
+   "cartridge": "9.3x62",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO PLUS 16,5g|9.3x74 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO PLUS 16,5g",
+   "grain": 255.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "9.3x74 R",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-plus/geco-270-win-plus-97g",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet type: Bonded"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO SOFTPOINT 16,5g|9.3x74 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO SOFTPOINT 16,5g",
+   "grain": 255.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "9.3x74 R",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The thin-walled bullet jacket ... GECO LEAD CORE"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deformation begins from its pronounced lead tip."
+   },
+   "base": null,
+   "component_bullet": null
+  },
+  "Geco|GECO ZERO 11,9g|9.3x74 R": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "GECO ZERO 11,9g",
+   "grain": 184.0,
+   "library_source_url": "https://geco-ammunition.com/resources/user_upload/GECO_Magalogue_EN_2026_low-res.pdf",
+   "cartridge": "9.3x74 R",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Highly innovative jacketed bullet with two tin cores"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/centrefire-rifle-cartridges/geco-zero",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point construction for high accuracy and best effectiveness"
+   },
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

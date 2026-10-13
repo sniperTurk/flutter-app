@@ -1,0 +1,188 @@
+{
+ "brand": "My Bullet",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt could not be fetched (CLIENT_ERROR twice; treated as absent). Read urunler-55.php and urunler-635.php. Base: 'düz taban' (flat base) stated for 5.5 22/38 gr and 6.35 32/45/60 gr; 5.5 30 gr and 6.35 38 gr say 'oval taban' (no enum) -> empty. Construction: 5.5 page 'tel kurşun' (lead wire) -> lead_slug; 6.35 page states no material. HP from name.",
+ "sources": [
+  {
+   "id": "mb55",
+   "url": "https://mybullet.com.tr/urunler-55.php",
+   "read_date": "2026-10-13",
+   "title": "My Bullet 5.5 mm"
+  },
+  {
+   "id": "mb635",
+   "url": "https://mybullet.com.tr/urunler-635.php",
+   "read_date": "2026-10-13",
+   "title": "My Bullet 6.35 mm"
+  }
+ ],
+ "records": {
+  "My Bullet|5.5mm 22 Grain Hollow Point Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "5.5mm 22 Grain Hollow Point Slug",
+   "grain": 22.0,
+   "library_source_url": "https://mybullet.com.tr/urunler-55.php",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://mybullet.com.tr/urunler-55.php",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tel kurşun ve hollow point slug"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://mybullet.com.tr/urunler-55.php",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://mybullet.com.tr/urunler-55.php",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "düz taban tasarımı"
+   }
+  },
+  "My Bullet|5.5mm 30 Grain Hollow Point Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "5.5mm 30 Grain Hollow Point Slug",
+   "grain": 30.0,
+   "library_source_url": "https://mybullet.com.tr/urunler-55.php",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://mybullet.com.tr/urunler-55.php",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tel kurşun ve hollow point slug"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://mybullet.com.tr/urunler-55.php",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "My Bullet|5.5mm 38 Grain Hollow Point Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "5.5mm 38 Grain Hollow Point Slug",
+   "grain": 38.0,
+   "library_source_url": "https://mybullet.com.tr/urunler-55.php",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://mybullet.com.tr/urunler-55.php",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "tel kurşun ve hollow point slug"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://mybullet.com.tr/urunler-55.php",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://mybullet.com.tr/urunler-55.php",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "düz taban tasarımı"
+   }
+  },
+  "My Bullet|6.35mm 32 Grain Hollow Point Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "6.35mm 32 Grain Hollow Point Slug",
+   "grain": 32.0,
+   "library_source_url": "https://mybullet.com.tr/urunler-635.php",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://mybullet.com.tr/urunler-635.php",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://mybullet.com.tr/urunler-635.php",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "düz taban tasarımıyla"
+   }
+  },
+  "My Bullet|6.35mm 38 Grain Hollow Point Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "6.35mm 38 Grain Hollow Point Slug",
+   "grain": 38.0,
+   "library_source_url": "https://mybullet.com.tr/urunler-635.php",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://mybullet.com.tr/urunler-635.php",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "My Bullet|6.35mm 45 Grain Hollow Point Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "6.35mm 45 Grain Hollow Point Slug",
+   "grain": 45.0,
+   "library_source_url": "https://mybullet.com.tr/urunler-635.php",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://mybullet.com.tr/urunler-635.php",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://mybullet.com.tr/urunler-635.php",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "düz taban tasarımıyla"
+   }
+  },
+  "My Bullet|6.35mm 60 Grain Hollow Point Slug": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "6.35mm 60 Grain Hollow Point Slug",
+   "grain": 60.0,
+   "library_source_url": "https://mybullet.com.tr/urunler-635.php",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://mybullet.com.tr/urunler-635.php",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": {
+    "value": "flat_base",
+    "source_url": "https://mybullet.com.tr/urunler-635.php",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "düz taban tasarımıyla"
+   }
+  }
+ }
+}

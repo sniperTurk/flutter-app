@@ -1,0 +1,69 @@
+{
+ "brand": "Swift",
+ "note": "Read swiftbullets.com (robots.txt checked) home page and the A-Frame, Zephyr, Scirocco collection pages and sample product pages. Product pages give only profile codes (BTS, AF/SS) without explanation, so base and nose shape stay empty except name words (RN/FN/HP). Scirocco II tip = 'Signature Black Tip' (maker does not say polymer; mapped to polymer_tip as the only tipped value); Scirocco construction and all bases not stated.",
+ "sources": [
+  {
+   "id": "home",
+   "url": "https://swiftbullets.com/",
+   "read_date": "2026-10-13",
+   "title": "Swift Bullet Company home page"
+  },
+  {
+   "id": "af_coll",
+   "url": "https://swiftbullets.com/collections/a-frame-rifle-bullets",
+   "read_date": "2026-10-13",
+   "title": "A-Frame rifle bullets collection"
+  },
+  {
+   "id": "zephyr",
+   "url": "https://swiftbullets.com/collections/zephyr-long-range-hunting-bullets",
+   "read_date": "2026-10-13",
+   "title": "Zephyr long range hunting bullets collection"
+  },
+  {
+   "id": "scirocco",
+   "url": "https://swiftbullets.com/collections/scirocco-rifle-bullets",
+   "read_date": "2026-10-13",
+   "title": "Scirocco rifle bullets collection"
+  }
+ ],
+ "families": [
+  {
+   "id": "a_frame",
+   "lib": "bullet",
+   "name_regex": "\\bA-Frame\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "home",
+     "quote": "the A-Frame®, with a copper-jacketed and bonded core design"
+    }
+   }
+  },
+  {
+   "id": "zephyr",
+   "lib": "bullet",
+   "name_regex": "\\bZephyr\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "zephyr",
+     "quote": "a heavy jacket wall, and a bonded core"
+    }
+   }
+  },
+  {
+   "id": "scirocco",
+   "lib": "bullet",
+   "name_regex": "\\bScirocco\\b",
+   "fields": {
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "scirocco",
+     "quote": "Scirocco® II, with the Signature Black Tip™"
+    }
+   }
+  }
+ ],
+ "records": {}
+}

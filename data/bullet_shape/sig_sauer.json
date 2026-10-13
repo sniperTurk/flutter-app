@@ -1,0 +1,99 @@
+{
+ "brand": "SIG Sauer",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "sigsauer.com robots.txt checked (product .html pages allowed). Hybrid Hunter names Nosler AccuBond bonded core; Hybrid Match names Sierra MatchKing HPBT (HPBT not expanded, so tip/base left empty). Elite Ball: only FMJ (from name). 6.8x51 Hybrid Ball: page says 'Solid Copper' but also 'Lead Free: No' -> contradictory, left empty.",
+ "sources": [
+  {
+   "id": "hh150",
+   "url": "https://www.sigsauer.com/277-sig-fury-150-hybrid-hunter.html",
+   "read_date": "2026-10-13",
+   "title": "277 SIG Fury 150 gr Hybrid Hunter"
+  },
+  {
+   "id": "hm155",
+   "url": "https://www.sigsauer.com/277-sig-fury-hybrid-match.html",
+   "read_date": "2026-10-13",
+   "title": "277 SIG Fury 155 gr Hybrid Match"
+  }
+ ],
+ "records": {
+  "SIG Sauer|277 SIG FURY, 135GR FMJ , ELITE BALL|.277 SIG Fury": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "277 SIG FURY, 135GR FMJ , ELITE BALL",
+   "grain": 135.0,
+   "library_source_url": "https://www.sigsauer.com/elite-ball-fmj-277-sig-fury.html",
+   "cartridge": ".277 SIG Fury",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.sigsauer.com/elite-ball-fmj-277-sig-fury.html",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "FMJ"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  },
+  "SIG Sauer|277 SIG FURY, 150GR HYBRID HUNTER|.277 SIG Fury": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "277 SIG FURY, 150GR HYBRID HUNTER",
+   "grain": 150.0,
+   "library_source_url": "https://www.sigsauer.com/277-sig-fury-150-hybrid-hunter.html",
+   "cartridge": ".277 SIG Fury",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.sigsauer.com/277-sig-fury-150-hybrid-hunter.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Featuring NOSLER Accubond bonded core bullets for maximum weight retention"
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Nosler AccuBond",
+    "source_url": "https://www.sigsauer.com/277-sig-fury-150-hybrid-hunter.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Featuring NOSLER Accubond bonded core bullets"
+   }
+  },
+  "SIG Sauer|277 SIG FURY, 155GR HYBRID MATCH|.277 SIG Fury": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "277 SIG FURY, 155GR HYBRID MATCH",
+   "grain": 155.0,
+   "library_source_url": "https://www.sigsauer.com/277-sig-fury-hybrid-match.html",
+   "cartridge": ".277 SIG Fury",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.sigsauer.com/277-sig-fury-hybrid-match.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Featuring Sierra MatchKing HPBT bullet."
+   },
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": {
+    "value": "Sierra MatchKing HPBT",
+    "source_url": "https://www.sigsauer.com/277-sig-fury-hybrid-match.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Featuring Sierra MatchKing HPBT bullet."
+   }
+  },
+  "SIG Sauer|6.8x51, 113GR Hybrid Ball - Can (460rnds)|.277 SIG Fury": {
+   "lib": "factory",
+   "platform": "firearm",
+   "name": "6.8x51, 113GR Hybrid Ball - Can (460rnds)",
+   "grain": 113.0,
+   "library_source_url": "https://www.sigsauer.com/6-8x51mm-hybrid-ball-can.html",
+   "cartridge": ".277 SIG Fury",
+   "construction": null,
+   "tip_shape": null,
+   "base": null,
+   "component_bullet": null
+  }
+ }
+}

@@ -1,0 +1,2168 @@
+{
+ "brand": "Speer",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read 2026-10-13: speer.com robots.txt (product/category pages allowed); line listing pages (Bullet Style per product) and product pages for Boat-Tail, Gold Dot (2 pages, bonded), Grand Slam, Hot-Cor (all 29 styles from listing pages 1-2, construction text on 2211/2223), Target Match (both), TNT, TNT Green, Varmint SP (all 6 say Spitzer tip), Varmint HP, JHP, SP Flat Nose. Not stated: base of Gold Dot/Grand Slam/Hot-Cor/TNT/Varmint/TMJ; construction of Boat-Tail, Grand Slam, TNT, Varmint lines; nose shape of Boat-Tail/Grand Slam/Gold Dot (only 'Soft Point'). .257 100 gr Varmint Hollow Point (1407) is listed by Speer as 'Jacketed Soft Point' - conflicts with name, tip cleared.",
+ "sources": [
+  {
+   "id": "bt",
+   "url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "read_date": "2026-10-13",
+   "title": "Speer Boat-Tail rifle bullets"
+  },
+  {
+   "id": "gd",
+   "url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "read_date": "2026-10-13",
+   "title": "Speer Gold Dot rifle component bullets"
+  },
+  {
+   "id": "gd168",
+   "url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+   "read_date": "2026-10-13",
+   "title": "Gold Dot Rifle .308 168 gr"
+  },
+  {
+   "id": "gs",
+   "url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "read_date": "2026-10-13",
+   "title": "Speer Grand Slam rifle bullets"
+  },
+  {
+   "id": "hc",
+   "url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+   "read_date": "2026-10-13",
+   "title": "Speer Hot-Cor rifle bullets (1-18)"
+  },
+  {
+   "id": "hc2",
+   "url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+   "read_date": "2026-10-13",
+   "title": "Speer Hot-Cor rifle bullets (19-29)"
+  },
+  {
+   "id": "hc2211",
+   "url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+   "read_date": "2026-10-13",
+   "title": "Hot-Cor .308 200 gr"
+  },
+  {
+   "id": "tm2040",
+   "url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/19-2040.html",
+   "read_date": "2026-10-13",
+   "title": "Target Match .308 168 gr"
+  },
+  {
+   "id": "tm1036",
+   "url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/19-1036.html",
+   "read_date": "2026-10-13",
+   "title": "Target Match .224 52 gr"
+  },
+  {
+   "id": "tnt1616",
+   "url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+   "read_date": "2026-10-13",
+   "title": "TNT .284 110 gr"
+  },
+  {
+   "id": "tnt",
+   "url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "read_date": "2026-10-13",
+   "title": "Speer TNT bullets"
+  },
+  {
+   "id": "tntg",
+   "url": "https://www.speer.com/bullets/rifle-bullets/tnt-green-bullet/19-1021.html",
+   "read_date": "2026-10-13",
+   "title": "TNT Green .224 30 gr"
+  },
+  {
+   "id": "vsp",
+   "url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/19-1053.html",
+   "read_date": "2026-10-13",
+   "title": "Varmint Soft Point .224 70 gr (same text on 1047/1024/1029/1017/1023)"
+  },
+  {
+   "id": "vhp",
+   "url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+   "read_date": "2026-10-13",
+   "title": "Speer Varmint Hollow Point bullets"
+  }
+ ],
+ "records": {
+  "Speer|.375 270 gr Boat-Tail|2472": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".375 270 gr Boat-Tail",
+   "grain": 270.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 9.53,
+   "item": "2472",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.308 165 gr Boat-Tail|2034": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 165 gr Boat-Tail",
+   "grain": 165.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2034",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.284 130 gr Boat-Tail|1624": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 130 gr Boat-Tail",
+   "grain": 130.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 7.21,
+   "item": "1624",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.257 120 gr Boat-Tail|1410": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".257 120 gr Boat-Tail",
+   "grain": 120.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 6.53,
+   "item": "1410",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.284 145 gr Boat-Tail|1628": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 145 gr Boat-Tail",
+   "grain": 145.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 7.21,
+   "item": "1628",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.308 180 gr Boat-Tail|2052": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 180 gr Boat-Tail",
+   "grain": 180.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2052",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.338 225 gr Boat-Tail|2406": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".338 225 gr Boat-Tail",
+   "grain": 225.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 8.59,
+   "item": "2406",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.243 100 gr Boat-Tail|1220": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".243 100 gr Boat-Tail",
+   "grain": 100.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 6.17,
+   "item": "1220",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.243 85 gr Boat-Tail|1213": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".243 85 gr Boat-Tail",
+   "grain": 85.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 6.17,
+   "item": "1213",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.257 100 gr Boat-Tail|1408": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".257 100 gr Boat-Tail",
+   "grain": 100.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 6.53,
+   "item": "1408",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.308 150 gr Boat-Tail|2022": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 150 gr Boat-Tail",
+   "grain": 150.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2022",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.277 150 gr Boat-Tail|1604": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 150 gr Boat-Tail",
+   "grain": 150.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 7.04,
+   "item": "1604",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.284 160 gr Boat-Tail|1634": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 160 gr Boat-Tail",
+   "grain": 160.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 7.21,
+   "item": "1634",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.277 130 gr Boat-Tail|1458": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 130 gr Boat-Tail",
+   "grain": 130.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+   "caliber_mm": 7.04,
+   "item": "1458",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/boat-tail-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Jacketed Soft Point Boat-tail"
+   }
+  },
+  "Speer|.224 75 gr Gold Dot Rifle|22475GDB2": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 75 gr Gold Dot Rifle",
+   "grain": 75.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 5.7,
+   "item": "22475GDB2",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.308 168 gr Gold Dot Rifle|308168GDB": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 168 gr Gold Dot Rifle",
+   "grain": 168.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 7.82,
+   "item": "308168GDB",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.224 62 gr Gold Dot Rifle|22462GDB": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 62 gr Gold Dot Rifle",
+   "grain": 62.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 5.7,
+   "item": "22462GDB",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.308 150 gr Gold Dot Rifle|308150BLKGDB": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 150 gr Gold Dot Rifle",
+   "grain": 150.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 7.82,
+   "item": "308150BLKGDB",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.277 90 gr Gold Dot Rifle|27790GDB": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 90 gr Gold Dot Rifle",
+   "grain": 90.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 7.04,
+   "item": "27790GDB",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.264 140 gr Gold Dot Rifle|264140GDB": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".264 140 gr Gold Dot Rifle",
+   "grain": 140.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 6.71,
+   "item": "264140GDB",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.224 55 gr Gold Dot Rifle|22455GDB": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 55 gr Gold Dot Rifle",
+   "grain": 55.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 5.7,
+   "item": "22455GDB",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.310 123 gr Gold Dot Rifle|310123GDB": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".310 123 gr Gold Dot Rifle",
+   "grain": 123.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 7.92,
+   "item": "310123GDB",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.308 150 gr Gold Dot Rifle|308150GDB": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 150 gr Gold Dot Rifle",
+   "grain": 150.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 7.82,
+   "item": "308150GDB",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.277 115 gr Gold Dot Rifle|277115GDB": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 115 gr Gold Dot Rifle",
+   "grain": 115.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 7.04,
+   "item": "277115GDB",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.264 120 gr Gold Dot Rifle|264120GDB": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".264 120 gr Gold Dot Rifle",
+   "grain": 120.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+   "caliber_mm": 6.71,
+   "item": "264120GDB",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/19-308168GDB.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "bonds the uniform jacket to the core one atom at a time"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/gold-dot-rifle-component-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Gold Dot Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.284 175 gr Grand Slam|1643": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 175 gr Grand Slam",
+   "grain": 175.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 7.21,
+   "item": "1643",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.284 145 gr Grand Slam|1632": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 145 gr Grand Slam",
+   "grain": 145.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 7.21,
+   "item": "1632",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.243 100 gr Grand Slam|1222": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".243 100 gr Grand Slam",
+   "grain": 100.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 6.17,
+   "item": "1222",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.308 180 gr Grand Slam|2063": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 180 gr Grand Slam",
+   "grain": 180.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2063",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.277 150 gr Grand Slam|1608": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 150 gr Grand Slam",
+   "grain": 150.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 7.04,
+   "item": "1608",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.284 160 gr Grand Slam|1638": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 160 gr Grand Slam",
+   "grain": 160.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 7.21,
+   "item": "1638",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.257 120 gr Grand Slam|1415": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".257 120 gr Grand Slam",
+   "grain": 120.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 6.53,
+   "item": "1415",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.264 140 gr Grand Slam|1444A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".264 140 gr Grand Slam",
+   "grain": 140.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 6.71,
+   "item": "1444A",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.308 165 gr Grand Slam|2038": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 165 gr Grand Slam",
+   "grain": 165.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2038",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.277 130 gr Grand Slam|1465": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 130 gr Grand Slam",
+   "grain": 130.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 7.04,
+   "item": "1465",
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.338 250 gr Grand Slam": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".338 250 gr Grand Slam",
+   "grain": 250.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+   "caliber_mm": 8.59,
+   "construction": null,
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/grand-slam-rifle-bullet/",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Grand Slam Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.308 200 gr Hot-Cor|2211": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 200 gr Hot-Cor",
+   "grain": 200.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2211",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.257 100 gr Hot-Cor|1405": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".257 100 gr Hot-Cor",
+   "grain": 100.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 6.53,
+   "item": "1405",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.308 150 gr Hot-Cor|2011": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 150 gr Hot-Cor",
+   "grain": 150.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2011",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Soft Point Flat Nose"
+   },
+   "base": null
+  },
+  "Speer|.308 130 gr Hot-Cor|2007": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 130 gr Hot-Cor",
+   "grain": 130.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2007",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Soft Point Flat Nose"
+   },
+   "base": null
+  },
+  "Speer|.284 145 gr Hot-Cor|1629": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 145 gr Hot-Cor",
+   "grain": 145.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.21,
+   "item": "1629",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.257 87 gr Hot-Cor|1241": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".257 87 gr Hot-Cor",
+   "grain": 87.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 6.53,
+   "item": "1241",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.416 350 gr Hot-Cor|2477": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".416 350 gr Hot-Cor",
+   "grain": 350.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 10.57,
+   "item": "2477",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Magnum Tip Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.458 350 gr Hot-Cor|2478": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".458 350 gr Hot-Cor",
+   "grain": 350.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 11.63,
+   "item": "2478",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Magnum Tip Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.375 235 gr Hot-Cor|2471": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".375 235 gr Hot-Cor",
+   "grain": 235.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 9.53,
+   "item": "2471",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Semi-Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.323 200 gr Hot-Cor|2285": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".323 200 gr Hot-Cor",
+   "grain": 200.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 8.22,
+   "item": "2285",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.358 250 gr Hot-Cor|2453": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".358 250 gr Hot-Cor",
+   "grain": 250.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 9.09,
+   "item": "2453",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.308 170 gr Hot-Cor|2041": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 170 gr Hot-Cor",
+   "grain": 170.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2041",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Soft Point Flat Nose"
+   },
+   "base": null
+  },
+  "Speer|.323 170 gr Hot-Cor|2283": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".323 170 gr Hot-Cor",
+   "grain": 170.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 8.22,
+   "item": "2283",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Semi-Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.338 200 gr Hot-Cor|2405": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".338 200 gr Hot-Cor",
+   "grain": 200.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 8.59,
+   "item": "2405",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.308 150 gr Hot-Cor|2023": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 150 gr Hot-Cor",
+   "grain": 150.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2023",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.308 165 gr Hot-Cor|2035": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 165 gr Hot-Cor",
+   "grain": 165.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2035",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.284 160 gr Hot-Cor|1635": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 160 gr Hot-Cor",
+   "grain": 160.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.21,
+   "item": "1635",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.311 150 gr Hot-Cor|2217": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".311 150 gr Hot-Cor",
+   "grain": 150.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.92,
+   "item": "2217",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.311 180 gr Hot-Cor|2223": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".311 180 gr Hot-Cor",
+   "grain": 180.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.92,
+   "item": "2223",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Soft Point Round Nose"
+   },
+   "base": null
+  },
+  "Speer|.308 180 gr Hot-Cor|2053": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 180 gr Hot-Cor",
+   "grain": 180.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2053",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.323 150 gr Hot-Cor|2277": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".323 150 gr Hot-Cor",
+   "grain": 150.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 8.22,
+   "item": "2277",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.358 180 gr Hot-Cor|2435": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".358 180 gr Hot-Cor",
+   "grain": 180.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 9.09,
+   "item": "2435",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.243 90 gr Hot-Cor|1217": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".243 90 gr Hot-Cor",
+   "grain": 90.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 6.17,
+   "item": "1217",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.264 140 gr Hot-Cor|1441": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".264 140 gr Hot-Cor",
+   "grain": 140.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 6.71,
+   "item": "1441",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.277 150 gr Hot-Cor|1605": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 150 gr Hot-Cor",
+   "grain": 150.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.04,
+   "item": "1605",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.284 130 gr Hot-Cor|1623": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 130 gr Hot-Cor",
+   "grain": 130.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.21,
+   "item": "1623",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.277 130 gr Hot-Cor|1459": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 130 gr Hot-Cor",
+   "grain": 130.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 7.04,
+   "item": "1459",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=0&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.366 270 gr Hot-Cor|2459": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".366 270 gr Hot-Cor",
+   "grain": 270.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 9.3,
+   "item": "2459",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "semi_spitzer",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Semi-Spitzer Soft Point"
+   },
+   "base": null
+  },
+  "Speer|.321 170 gr Hot-Cor|2259": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".321 170 gr Hot-Cor",
+   "grain": 170.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/",
+   "caliber_mm": 8.15,
+   "item": "2259",
+   "construction": {
+    "value": "cup_and_core",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/19-2211.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Molten lead is poured into the jacket during the construction process"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/hot-cor-rifle-bullet/?start=18&sz=18",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Soft Point Flat Nose"
+   },
+   "base": null
+  },
+  "Speer|.458 300 gr JHP|2482": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".458 300 gr JHP",
+   "grain": 300.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/jacketed-hollow-point-rifle-bullet/",
+   "caliber_mm": 11.63,
+   "item": "2482",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/jacketed-hollow-point-rifle-bullet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "JHP"
+   },
+   "base": null
+  },
+  "Speer|.458 400 gr Soft Point Flat Nose|2479": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".458 400 gr Soft Point Flat Nose",
+   "grain": 400.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/soft-point-flat-nose-rifle-bullet/",
+   "caliber_mm": 11.63,
+   "item": "2479",
+   "construction": null,
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/soft-point-flat-nose-rifle-bullet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Flat Nose"
+   },
+   "base": null
+  },
+  "Speer|.308 168 gr Target Match|2040": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 168 gr Target Match",
+   "grain": 168.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2040",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/19-2040.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Open Tip Match"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/19-2040.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Open Tip Match"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/19-2040.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point boat-tail design"
+   }
+  },
+  "Speer|.224 52 gr Target Match|1036": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 52 gr Target Match",
+   "grain": 52.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/",
+   "caliber_mm": 5.7,
+   "item": "1036",
+   "construction": {
+    "value": "match",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/19-2040.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Open Tip Match"
+   },
+   "tip_shape": {
+    "value": "open_tip_match",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/19-2040.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: Open Tip Match"
+   },
+   "base": {
+    "value": "boat_tail",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/target-match-rifle-bullet/19-2040.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Hollow-point boat-tail design"
+   }
+  },
+  "Speer|.308 110 gr TMJ|1846": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 110 gr TMJ",
+   "grain": 110.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tmj-rifle-bullet/",
+   "caliber_mm": 7.82,
+   "item": "1846",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tmj-rifle-bullet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "TMJ"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Speer|.224 75 gr TMJ|22475TMJ": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 75 gr TMJ",
+   "grain": 75.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tmj-rifle-bullet/",
+   "caliber_mm": 5.7,
+   "item": "22475TMJ",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tmj-rifle-bullet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "TMJ"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Speer|.224 55 gr TMJ|22455TMJ": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 55 gr TMJ",
+   "grain": 55.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tmj-rifle-bullet/",
+   "caliber_mm": 5.7,
+   "item": "22455TMJ",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tmj-rifle-bullet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "TMJ"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Speer|.308 125 gr TNT|1986 / 4725": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 125 gr TNT",
+   "grain": 125.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 7.82,
+   "item": "1986 / 4725",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.277 90 gr TNT|1446 / 4723": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 90 gr TNT",
+   "grain": 90.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 7.04,
+   "item": "1446 / 4723",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.284 110 gr TNT|1616": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".284 110 gr TNT",
+   "grain": 110.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 7.21,
+   "item": "1616",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.204 39 gr TNT|1015": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".204 39 gr TNT",
+   "grain": 39.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 5.18,
+   "item": "1015",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.224 50 gr TNT|1030 / 4705": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 50 gr TNT",
+   "grain": 50.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 5.7,
+   "item": "1030 / 4705",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.257 87 gr TNT|1246": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".257 87 gr TNT",
+   "grain": 87.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 6.53,
+   "item": "1246",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.224 33 gr TNT|1014": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 33 gr TNT",
+   "grain": 33.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 5.7,
+   "item": "1014",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.243 70 gr TNT|4720 / 1206": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".243 70 gr TNT",
+   "grain": 70.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 6.17,
+   "item": "4720 / 1206",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.224 55 gr TNT|1032": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 55 gr TNT",
+   "grain": 55.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 5.7,
+   "item": "1032",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.257 87 gr TNT|4722": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".257 87 gr TNT",
+   "grain": 87.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 6.53,
+   "item": "4722",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.264 90 gr TNT|1445": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".264 90 gr TNT",
+   "grain": 90.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/",
+   "caliber_mm": 6.71,
+   "item": "1445",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-bullet/19-1616.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Long ogive and small hollow point"
+   },
+   "base": null
+  },
+  "Speer|.224 30 gr TNT Green|1021": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 30 gr TNT Green",
+   "grain": 30.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-green-bullet/",
+   "caliber_mm": 5.7,
+   "item": "1021",
+   "construction": {
+    "value": "lead_free_other",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-green-bullet/19-1021.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Thin jacket around compressed powder core"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/tnt-green-bullet/19-1021.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Bullet Style: TNT Jacketed Hollow Point"
+   },
+   "base": null
+  },
+  "Speer|.277 100 gr Varmint Hollow Point|1447": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".277 100 gr Varmint Hollow Point",
+   "grain": 100.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+   "caliber_mm": 7.04,
+   "item": "1447",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Speer|.243 75 gr Varmint Hollow Point|1205": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".243 75 gr Varmint Hollow Point",
+   "grain": 75.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+   "caliber_mm": 6.17,
+   "item": "1205",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Speer|.308 130 gr Varmint Hollow Point|2005": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 130 gr Varmint Hollow Point",
+   "grain": 130.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+   "caliber_mm": 7.82,
+   "item": "2005",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Speer|.224 52 gr Varmint Hollow Point|4708 / 1035": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 52 gr Varmint Hollow Point",
+   "grain": 52.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+   "caliber_mm": 5.7,
+   "item": "4708 / 1035",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Speer|.257 100 gr Varmint Hollow Point|1407": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".257 100 gr Varmint Hollow Point",
+   "grain": 100.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+   "caliber_mm": 6.53,
+   "item": "1407",
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "Speer|.308 110 gr Varmint Hollow Point|1835": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".308 110 gr Varmint Hollow Point",
+   "grain": 110.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+   "caliber_mm": 7.82,
+   "item": "1835",
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-hollow-point-bullet/",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "Hollow Point"
+   },
+   "base": null
+  },
+  "Speer|.224 55 gr Varmint Soft Point|4711 / 1047": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 55 gr Varmint Soft Point",
+   "grain": 55.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/",
+   "caliber_mm": 5.7,
+   "item": "4711 / 1047",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/19-1053.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Their Spitzer tip provides both accuracy and superior terminal performance."
+   },
+   "base": null
+  },
+  "Speer|.224 50 gr Varmint Soft Point|1029": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 50 gr Varmint Soft Point",
+   "grain": 50.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/",
+   "caliber_mm": 5.7,
+   "item": "1029",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/19-1053.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Their Spitzer tip provides both accuracy and superior terminal performance."
+   },
+   "base": null
+  },
+  "Speer|.224 46 gr Varmint Soft Point|1024": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 46 gr Varmint Soft Point",
+   "grain": 46.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/",
+   "caliber_mm": 5.7,
+   "item": "1024",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/19-1053.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Their Spitzer tip provides both accuracy and superior terminal performance."
+   },
+   "base": null
+  },
+  "Speer|.224 40 gr Varmint Soft Point|1017": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 40 gr Varmint Soft Point",
+   "grain": 40.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/",
+   "caliber_mm": 5.7,
+   "item": "1017",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/19-1053.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Their Spitzer tip provides both accuracy and superior terminal performance."
+   },
+   "base": null
+  },
+  "Speer|.224 70 gr Varmint Soft Point|1053": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 70 gr Varmint Soft Point",
+   "grain": 70.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/",
+   "caliber_mm": 5.7,
+   "item": "1053",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/19-1053.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Their Spitzer tip provides both accuracy and superior terminal performance."
+   },
+   "base": null
+  },
+  "Speer|.224 45 gr Varmint Soft Point|1023": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": ".224 45 gr Varmint Soft Point",
+   "grain": 45.0,
+   "library_source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/",
+   "caliber_mm": 5.7,
+   "item": "1023",
+   "construction": null,
+   "tip_shape": {
+    "value": "spitzer_soft_point",
+    "source_url": "https://www.speer.com/bullets/rifle-bullets/varmint-soft-point-bullet/19-1053.html",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Their Spitzer tip provides both accuracy and superior terminal performance."
+   },
+   "base": null
+  }
+ }
+}

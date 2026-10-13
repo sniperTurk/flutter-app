@@ -1,0 +1,1568 @@
+{
+ "brand": "Berger",
+ "note": "Read 2026-10-13 from bergerbullets.com only (robots.txt: Disallow empty). Base for component bullets from the Bullet Reference Charts table (Boat Tail column: FB or boat-tail length), 4 bullets not in the chart from their product pages (Base Style). Line pages: Target, VLD Target, Hybrid Target, LR Hybrid Target, OTM Tactical, Varmint, VLD Hunting, Classic Hunter, Elite Hunter; 2025 catalog PDF checked. All 34 ammunition pages read (bullet named + Boat Tail feature section; 4 LRHT pages give no base, base taken from the named LRHT bullet row of the chart). Empty on purpose: construction of hunting/varmint lines (pages name only the J4 copper jacket, never the core metal); tip shape of all non-OTM lines (no hollow point/open tip stated; LRHT only mentions MRT meplat). 300 Norma Mag 215 gr page sits in the OTM Tactical line and names a \"215gr Hybrid\" bullet.",
+ "sources": [
+  {
+   "id": "chart",
+   "url": "https://bergerbullets.com/information/lines-and-designs/bullet-reference-charts/",
+   "read_date": "2026-10-13",
+   "title": "Bullet Reference Charts"
+  },
+  {
+   "id": "tgt",
+   "url": "https://bergerbullets.com/information/lines-and-designs/target-bullets/",
+   "read_date": "2026-10-13",
+   "title": "Target bullets (line page)"
+  },
+  {
+   "id": "vldt",
+   "url": "https://bergerbullets.com/information/lines-and-designs/vld-target-bullets/",
+   "read_date": "2026-10-13",
+   "title": "VLD Target bullets (line page)"
+  },
+  {
+   "id": "ht185",
+   "url": "https://bergerbullets.com/product/30-caliber-185-grain-hybrid-target/",
+   "read_date": "2026-10-13",
+   "title": "30 Cal 185 gr Hybrid Target (product page)"
+  },
+  {
+   "id": "lrht",
+   "url": "https://bergerbullets.com/information/lines-and-designs/long-range-hybrid-target-bullets/",
+   "read_date": "2026-10-13",
+   "title": "LR Hybrid Target bullets (line page)"
+  },
+  {
+   "id": "otm",
+   "url": "https://bergerbullets.com/information/lines-and-designs/otm-tactical-bullets/",
+   "read_date": "2026-10-13",
+   "title": "OTM Tactical bullets (line page)"
+  },
+  {
+   "id": "elr379",
+   "url": "https://bergerbullets.com/product/375-caliber-379-grain-elr-match-solid-bullets/",
+   "read_date": "2026-10-13",
+   "title": "375 Cal 379 gr ELR Match Solid (product page)"
+  },
+  {
+   "id": "elr407",
+   "url": "https://bergerbullets.com/product/375-caliber-407-grain-elr-match-solid-bullets/",
+   "read_date": "2026-10-13",
+   "title": "375 Cal 407 gr ELR Match Solid (product page)"
+  },
+  {
+   "id": "p_eh170",
+   "url": "https://bergerbullets.com/product/270-caliber-170-grain-elite-hunter/",
+   "read_date": "2026-10-13",
+   "title": "270 Caliber 170 gr Elite Hunter (product page)"
+  },
+  {
+   "id": "p_eh217",
+   "url": "https://bergerbullets.com/product/30-caliber-217-grain-elite-hunter-rifle-bullet/",
+   "read_date": "2026-10-13",
+   "title": "30 Caliber 217 gr Elite Hunter (product page)"
+  },
+  {
+   "id": "p_bt69",
+   "url": "https://bergerbullets.com/product/22-caliber-69-grain-bt-target-rifle-bullet/",
+   "read_date": "2026-10-13",
+   "title": "22 Caliber 69 gr BT Target (product page)"
+  },
+  {
+   "id": "p_lrht120",
+   "url": "https://bergerbullets.com/product/6-mm-120-grain-long-range-hybrid-target-rifle-bullet/",
+   "read_date": "2026-10-13",
+   "title": "6mm 120 gr Long Range Hybrid Target (product page)"
+  },
+  {
+   "id": "a223_69",
+   "url": "https://bergerbullets.com/product/223-remington-69-grain-otm-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "223 Remington 69 Grain OTM Tactical Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a223_73",
+   "url": "https://bergerbullets.com/product/223-remington-73-grain-boat-tail-target/",
+   "read_date": "2026-10-13",
+   "title": "223 Remington 73 Grain Boat Tail Target Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a223_77",
+   "url": "https://bergerbullets.com/product/223-remington-77-grain-otm-tactical/",
+   "read_date": "2026-10-13",
+   "title": "223 Remington 77 Grain OTM Tactical Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a260_130",
+   "url": "https://bergerbullets.com/product/260-remington-130gr-hybrid-otm-tactical/",
+   "read_date": "2026-10-13",
+   "title": "260 Remington 130 Grain Hybrid OTM Tactical Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a300nm_215",
+   "url": "https://bergerbullets.com/product/300-norma-magnum-215gr-hybrid-target/",
+   "read_date": "2026-10-13",
+   "title": "300 Norma Magnum 215 Grain Hybrid Target Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a300nm_230",
+   "url": "https://bergerbullets.com/product/300-norma-magnum-230gr-hybrid-otm-tactical/",
+   "read_date": "2026-10-13",
+   "title": "300 Norma Magnum 230 Grain Hybrid OTM Tactical Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a300nm_245",
+   "url": "https://bergerbullets.com/product/300-norma-magnum-245gr-long-range-hybrid-target-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "300 Norma Magnum 245 Grain Long Range Hybrid Target Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a300prc_215",
+   "url": "https://bergerbullets.com/product/300-prc-215-grain-hybrid-target-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "215 Grain Hybrid Target Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a300prc_217",
+   "url": "https://bergerbullets.com/product/300-prc-217-grain-elite-hunter-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "217 Grain Elite Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a300prc_245",
+   "url": "https://bergerbullets.com/product/300-prc-245gr-elite-hunter-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "245 Grain Elite Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a300wm_168",
+   "url": "https://bergerbullets.com/product/300-winchester-magnum-168gr-classic-hunter/",
+   "read_date": "2026-10-13",
+   "title": "300 Winchester Magnum 168 Grain Classic Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a300wm_185",
+   "url": "https://bergerbullets.com/product/300-winchester-magnum-185gr-classic-hunter/",
+   "read_date": "2026-10-13",
+   "title": "300 Winchester Magnum 185 Grain Classic Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a308_168",
+   "url": "https://bergerbullets.com/product/308-winchester-168gr-classic-hunter/",
+   "read_date": "2026-10-13",
+   "title": "308 Winchester 168 Grain Classic Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a308_175",
+   "url": "https://bergerbullets.com/product/308-winchester-175gr-otm-tactical/",
+   "read_date": "2026-10-13",
+   "title": "308 Winchester 175 Grain OTM Tactical Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a308_185",
+   "url": "https://bergerbullets.com/product/308-winchester-185gr-classic-hunter/",
+   "read_date": "2026-10-13",
+   "title": "308 Winchester 185 Grain Classic Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a308_185j",
+   "url": "https://bergerbullets.com/product/308-winchester-185gr-juggernaut-otm-tactical/",
+   "read_date": "2026-10-13",
+   "title": "308 Winchester 185 Grain Juggernaut OTM Tactical Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a338lm_300eh",
+   "url": "https://bergerbullets.com/product/338-lapua-magnum-300gr-elite-hunter/",
+   "read_date": "2026-10-13",
+   "title": "338 Lapua Magnum 300 Grain Elite Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a338lm_300otm",
+   "url": "https://bergerbullets.com/product/338-lapua-magnum-300gr-hybrid-otm-tactical/",
+   "read_date": "2026-10-13",
+   "title": "338 Lapua Magnum 300 Grain Hybrid OTM Tactical Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a65cm_130",
+   "url": "https://bergerbullets.com/product/6-5-mm-creedmoor-130gr-hybrid-otm-tactical/",
+   "read_date": "2026-10-13",
+   "title": "6.5 mm Creedmoor 130 Grain Hybrid OTM Tactical Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a65cm_135",
+   "url": "https://bergerbullets.com/product/6-5-mm-creedmoor-135gr-classic-hunter/",
+   "read_date": "2026-10-13",
+   "title": "6.5 mm Creedmoor 135 Grain Classic Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a65cm_140eh",
+   "url": "https://bergerbullets.com/product/6-5-mm-creedmoor-140gr-elite-hunter-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "6.5 mm Creedmoor 140 Grain Elite Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a65cm_140ht",
+   "url": "https://bergerbullets.com/product/6-5-mm-creedmoor-140gr-hybrid-target/",
+   "read_date": "2026-10-13",
+   "title": "6.5 mm Creedmoor 140 Grain Hybrid Target Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a65cm_144",
+   "url": "https://bergerbullets.com/product/6-5-mm-creedmoor-144gr-long-range-hybrid-target/",
+   "read_date": "2026-10-13",
+   "title": "6.5 mm Creedmoor 144 Grain Long Range Hybrid Target Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a65cm_153",
+   "url": "https://bergerbullets.com/product/6-5-mm-creedmoor-153-5gr-long-range-hybrid-target/",
+   "read_date": "2026-10-13",
+   "title": "6.5 mm Creedmoor 153.5 Grain Long Range Hybrid Target Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a65cm_156",
+   "url": "https://bergerbullets.com/product/6-5-mm-creedmoor-156-grain-elite-hunter/",
+   "read_date": "2026-10-13",
+   "title": "6.5 mm Creedmoor 156 Grain Elite Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a65prc_140",
+   "url": "https://bergerbullets.com/product/6-5-prc-140gr-elite-hunter-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "140 Grain Elite Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a65prc_153",
+   "url": "https://bergerbullets.com/product/6-5-prc-153-5-grain-hybrid-target-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "153.5 Grain Hybrid Target Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a65prc_156",
+   "url": "https://bergerbullets.com/product/6-5-prc-156-grain-extreme-outer-limits-eol-elite-hunter-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "156 Grain Extreme Outer Limits (EOL) Elite Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a6cm_105",
+   "url": "https://bergerbullets.com/product/6-mm-creedmoor-105gr-hybrid-target/",
+   "read_date": "2026-10-13",
+   "title": "6 mm Creedmoor 105 Grain Hybrid Target Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a6cm_108",
+   "url": "https://bergerbullets.com/product/6-mm-creedmoor-108gr-elite-hunter-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "6 mm Creedmoor 108 Grain Elite Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a6cm_109",
+   "url": "https://bergerbullets.com/product/6-mm-creedmoor-109gr-long-range-hybrid-target/",
+   "read_date": "2026-10-13",
+   "title": "6 mm Creedmoor 109 Grain Long Range Hybrid Target Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a6cm_95",
+   "url": "https://bergerbullets.com/product/6-mm-creedmoor-95gr-classic-hunter/",
+   "read_date": "2026-10-13",
+   "title": "6 mm Creedmoor 95 Grain Classic Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a7prc_175",
+   "url": "https://bergerbullets.com/product/7mm-prc-175-gr-elite-hunter-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "175 Grain Elite Hunter Rifle Ammunition (product page)"
+  },
+  {
+   "id": "a7prc_195",
+   "url": "https://bergerbullets.com/product/7mm-prc-195-gr-elite-hunter-rifle-ammunition/",
+   "read_date": "2026-10-13",
+   "title": "195 Grain Elite Hunter Rifle Ammunition (product page)"
+  }
+ ],
+ "families": [
+  {
+   "id": "target",
+   "lib": "any",
+   "name_regex": "\\b(FB|BT|Fullbore|BR Column|Juggernaut|Boat Tail) Target\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "tgt",
+     "quote": "Producing match grade bullets for competitive shooters is our core competency."
+    }
+   }
+  },
+  {
+   "id": "vld_target",
+   "lib": "bullet",
+   "name_regex": "\\bVLD Target\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "vldt",
+     "quote": "Producing match grade bullets for competitive shooters is our core competency."
+    }
+   }
+  },
+  {
+   "id": "hybrid_target",
+   "lib": "any",
+   "name_regex": "\\bHybrid Target\\b",
+   "not_regex": "Long Range",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "ht185",
+     "quote": "competition proven and a favorite amongst today's top long range competition shooters"
+    }
+   }
+  },
+  {
+   "id": "lr_hybrid_target",
+   "lib": "any",
+   "name_regex": "\\bLong Range Hybrid Target\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "lrht",
+     "quote": "designed each offering around a specific long range shooting discipline"
+    }
+   }
+  },
+  {
+   "id": "otm",
+   "lib": "any",
+   "name_regex": "\\bOTM\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "otm",
+     "quote": "Berger Open Tip Match (OTM) Tactical Bullets"
+    },
+    "tip_shape": {
+     "value": "open_tip_match",
+     "src": "otm",
+     "quote": "Berger Open Tip Match (OTM) Tactical Bullets"
+    }
+   }
+  },
+  {
+   "id": "elr_solid",
+   "lib": "bullet",
+   "name_regex": "\\bELR Match Solid\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "elr379",
+     "quote": "precision lathe-turned solid copper Rifle Bullets"
+    }
+   }
+  }
+ ],
+ "records": {
+  "Berger|17 Caliber 25 gr FB Varmint|17308": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "17 Cal 25 gr FB Varmint | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|30 Caliber 175 gr VLD Target|30412": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 175 gr VLD Target | Boat Tail: 0.183 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 245 gr Long Range Hybrid Target|30487": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 245 gr LR Hybrid Target | Boat Tail: 0.227 (length of the boat tail)"
+   }
+  },
+  "Berger|25 Caliber 133 gr Elite Hunter|25586": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "25 Cal 133 gr Elite Hunter | Boat Tail: 0.214 (length of the boat tail)"
+   }
+  },
+  "Berger|25 Caliber 135 gr Long Range Hybrid Target|25485": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "25 Cal 135 gr LR Hybrid Target | Boat Tail: 0.216 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 108 gr Elite Hunter|24556": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 108 gr Elite Hunter | Boat Tail: 0.185 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 153.5 gr Long Range Hybrid Target|26486": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 153.5 gr LR Hybrid Target | Boat Tail: 0.186 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 205 gr Elite Hunter|30555": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 205 gr Elite Hunter | Boat Tail: 0.230 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 220 gr Long Range Hybrid Target|30486": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 220 gr LR Hybrid Target | Boat Tail: 0.213 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 208 gr Long Range Hybrid Target|30485": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 208 gr LR Hybrid Target | Boat Tail: 0.217 (length of the boat tail)"
+   }
+  },
+  "Berger|338 Caliber 300 gr Elite Hunter|33556": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "338 Cal 300 gr Elite Hunter | Boat Tail: 0.305 (length of the boat tail)"
+   }
+  },
+  "Berger|338 Caliber 250 gr Hybrid OTM Tactical|33107": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "338 Cal 250 gr Hybrid OTM Tactical | Boat Tail: 0.319 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 230 gr Hybrid Target|30430": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 230 gr Hybrid Target | Boat Tail: 0.280 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 245 gr EOL Elite Hunter|30560": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 245 gr EOL Elite Hunter | Boat Tail: 0.227 (length of the boat tail)"
+   }
+  },
+  "Berger|338 Caliber 250 gr Elite Hunter|33554": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "338 Cal 250 gr Elite Hunter | Boat Tail: 0.326 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 210 gr VLD Target|30415": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 210 gr VLD Target | Boat Tail: 0.207 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 215 gr Hybrid Target|30429": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 215 gr Hybrid Target | Boat Tail: 0.263 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 230 gr Hybrid OTM Tactical|30112": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 230 gr Hybrid OTM Tactical | Boat Tail: 0.272 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 200.20X Hybrid Target|30417": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 200.20x Hybrid Target | Boat Tail: 0.227 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 210 gr VLD Hunting|30515": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 210 gr VLD Hunting | Boat Tail: 0.209 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 185 gr VLD Target|30413": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 185 gr VLD Target | Boat Tail: 0.219 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 190 gr VLD Hunting|30514": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 190 gr VLD Hunting | Boat Tail: 0.215 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 200 gr Hybrid Target|30427": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 200 gr Hybrid Target | Boat Tail: 0.243 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 185 gr Classic Hunter|30571": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 185 gr Classic Hunter | Boat Tail: 0.242 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 180 gr Elite Hunter|30554": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 180 gr Elite Hunter | Boat Tail: 0.202 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 155 gr Hybrid Target|30426": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 155 gr Hybrid Target | Boat Tail: 0.221 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 155 gr VLD Hunting|30508": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 155 gr VLD Hunting | Boat Tail: 0.177 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 195 gr Elite Hunter|28550": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 195 gr EOL Elite Hunter | Boat Tail: 0.250 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 190 gr Long Range Hybrid Target|28485": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 190 gr LR Hybrid Target | Boat Tail: 0.207 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 180 gr VLD Hunting|28502": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 180 gr VLD Hunting | Boat Tail: 0.243 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 180 gr VLD Target|28405": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 180 gr VLD Target | Boat Tail: 0.243 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 184 gr F Open Hybrid Target|28408": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 184 gr F-Open Hybrid Target | Boat Tail: 0.225 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 168 gr VLD Target|28401": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 168 gr VLD Target | Boat Tail: 0.245 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 180 gr Hybrid Target|28407": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 180 gr Hybrid Target | Boat Tail: 0.245 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 168 gr Classic Hunter|28570": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 168 gr Classic Hunter | Boat Tail: 0.253 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 150 gr Classic Hunter|28571": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 150 gr Classic Hunter | Boat Tail: 0.206 (length of the boat tail)"
+   }
+  },
+  "Berger|270 Caliber 150 gr VLD Hunting|27503": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "270 Cal 150 gr VLD Hunting | Boat Tail: 0.230 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 140 gr VLD Hunting|28503": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 140 gr VLD Hunting | Boat Tail: 0.243 (length of the boat tail)"
+   }
+  },
+  "Berger|270 Caliber 130 gr VLD Hunting|27501": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "270 Cal 130 gr VLD Hunting | Boat Tail: 0.243 (length of the boat tail)"
+   }
+  },
+  "Berger|270 Caliber 140 gr Classic Hunter|27571": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "270 Cal 140 gr Classic Hunter | Boat Tail: 0.203 (length of the boat tail)"
+   }
+  },
+  "Berger|270 Caliber 140 gr VLD Hunting|27502": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "270 Cal 140 gr VLD Hunting | Boat Tail: 0.235 (length of the boat tail)"
+   }
+  },
+  "Berger|270 Caliber 130 gr Classic Hunter|27570": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "270 Cal 130 gr Classic Hunter | Boat Tail: 0.245 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 156 gr Elite Hunter|26550": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 156 gr EOL Elite Hunter | Boat Tail: 0.189 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 140 gr VLD Hunting|26504": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 140 gr VLD Hunting | Boat Tail: 0.224 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 140 gr VLD Target|26401": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 140 gr VLD Target | Boat Tail: 0.232 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 144 gr Long Range Hybrid Target|26485": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 144 gr LR Hybrid Target | Boat Tail: 0.188 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 140 gr Long Range BT Target|26409": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 140 gr LR BT Target | Boat Tail: 0.230 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 140 gr Elite Hunter|26552": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 140 gr Elite Hunter | Boat Tail: 0.190 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 130 gr VLD Hunting|26503": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 130 gr VLD Hunting | Boat Tail: 0.223 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 130 gr VLD Target|26403": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 130 gr VLD Target | Boat Tail: 0.223 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 135 gr Classic Hunter|26571": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 135 gr Classic Hunter | Boat Tail: 0.190 (length of the boat tail)"
+   }
+  },
+  "Berger|25 Caliber 115 gr VLD Hunting|25513": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "25 Cal 115 gr VLD Hunting | Boat Tail: 0.150 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 120 gr BT Target|26402": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 120 gr BT Target | Boat Tail: 0.138 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 130 gr AR Hybrid OTM Tactical|26195": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 130 gr AR Hybrid OTM Tactical | Boat Tail: 0.230 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 95 gr Classic Hunter|24570": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 95 gr Classic Hunter | Boat Tail: 0.165 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 95 gr VLD Hunting|24527": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 95 gr VLD Hunting | Boat Tail: 0.210 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 87 gr VLD Hunting|24524": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 87 gr VLD Hunting | Boat Tail: 0.156 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 95 gr VLD Target|24427": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 95 gr VLD Target | Boat Tail: 0.207 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 88 gr High BC FB Varmint|24323": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "6 mm 88 gr High BC FB Varmint | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|6mm 90 gr BT Target|24425": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 90 gr BT Target | Boat Tail: 0.112 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 65 gr BT Target|24408": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 65 gr BT Target | Boat Tail: 0.115 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 80 gr FB Varmint|24321": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "6 mm 80 gr FB Varmint | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|6mm 115 gr VLD Hunting|24530": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 115 gr VLD Hunting | Boat Tail: 0.196 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 115 gr VLD Target|24430": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 115 gr VLD Target | Boat Tail: 0.216 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm BR Column Target|24407": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "6 mm BR COLUMN Target | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|6mm 109 gr Long Range Hybrid Target|24485": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 109 gr LR Hybrid Target | Boat Tail: 0.168 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 105 gr BT Target|24428": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 105 gr BT Target | Boat Tail: 0.216 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 105 gr Hybrid Target|24433": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 105 gr Hybrid Target | Boat Tail: 0.213 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 105 gr VLD Hunting|24528": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 105 gr VLD Hunting | Boat Tail: 0.190 (length of the boat tail)"
+   }
+  },
+  "Berger|22 Caliber 90 gr VLD Target|22423": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "22 Cal 90 gr VLD Target | Boat Tail: 0.196 (length of the boat tail)"
+   }
+  },
+  "Berger|22 Caliber 85.5 gr Long Range Hybrid Target|22485": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "22 Cal 85.5 gr LR Hybrid Target | Boat Tail: 0.166 (length of the boat tail)"
+   }
+  },
+  "Berger|22 Caliber 77 gr OTM Tactical|22101": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "22 Cal 77 gr OTM Tactical | Boat Tail: 0.133 (length of the boat tail)"
+   }
+  },
+  "Berger|22 Caliber 80 gr VLD Target|22422": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "22 Cal 80 gr VLD Target | Boat Tail: 0.191 (length of the boat tail)"
+   }
+  },
+  "Berger|22 Caliber 80.5 gr Fullbore Target|22427": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "22 Cal 80.5 gr FULLBORE Target | Boat Tail: 0.185 (length of the boat tail)"
+   }
+  },
+  "Berger|22 Caliber 70 gr VLD Target|22418": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "22 Cal 70 gr VLD Target | Boat Tail: 0.192 (length of the boat tail)"
+   }
+  },
+  "Berger|22 Caliber 73 gr BT Target|22420": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "22 Cal 73 gr BT Target | Boat Tail: 0.140 (length of the boat tail)"
+   }
+  },
+  "Berger|22 Caliber 75 gr VLD Target|22421": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "22 Cal 75 gr VLD Target | Boat Tail: 0.191 (length of the boat tail)"
+   }
+  },
+  "Berger|22 Caliber 55 gr FB Varmint|22311": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "22 Cal 55 gr FB Varmint | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|22 Caliber 60 gr FB Varmint|22312": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "22 Cal 60 gr FB Varmint | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|22 Caliber 52 gr FB Target|22408": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "22 Cal 52 gr FB Target | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|22 Caliber 52 gr FB Varmint|22309": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "22 Cal 52 gr FB Varmint | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|22 Caliber 40 gr FB Varmint|22303": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "22 Cal 40 gr FB Varmint | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|30 Caliber 155.5 gr Fullbore Target|30416": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 155.5 gr FULLBORE Target | Boat Tail: 0.181 (length of the boat tail)"
+   }
+  },
+  "Berger|375 Caliber 410 gr Hybrid Target|37401": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "375 Cal 410 gr Hybrid Target | Boat Tail: 0.310 (length of the boat tail)"
+   }
+  },
+  "Berger|20 Caliber 40 gr BT Varmint|20304": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "20 Cal 40 gr BT Varmint | Boat Tail: 0.110 (length of the boat tail)"
+   }
+  },
+  "Berger|20 Caliber 35 gr FB Varmint|20303": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "20 Cal 35 gr FB Varmint | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|22 Caliber 55 gr FB Target|22410": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "22 Cal 55 gr FB Target | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|6mm 108 gr BT Target|24431": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6 mm 108 gr BT Target | Boat Tail: 0.217 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5mm 140 gr Hybrid Target|26414": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 140 gr Hybrid Target | Boat Tail: 0.224 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 168 gr Hybrid Target|30425": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 168 gr Hybrid Target | Boat Tail: 0.223 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 185 gr Hybrid Target|30424": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 185 gr Hybrid Target | Boat Tail: 0.241 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 168 gr VLD Hunting|30510": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 168 gr VLD Hunting | Boat Tail: 0.181 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 168 gr VLD Target|30410": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 168 gr VLD Target | Boat Tail: 0.171 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 168 gr Classic Hunter|30570": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 168 gr Classic Hunter | Boat Tail: 0.218 (length of the boat tail)"
+   }
+  },
+  "Berger|7mm 168 gr VLD Hunting|28501": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 168 gr VLD Hunting | Boat Tail: 0.245 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 175 gr OTM Tactical|30105": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 175 gr OTM Tactical | Boat Tail: 0.215 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 175 gr VLD Hunting|30512": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 175 gr VLD Hunting | Boat Tail: 0.186 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 175 gr Long Range BT Target|30420": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 175 gr LR BT Target | Boat Tail: 0.186 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 185 gr Juggernaut OTM Tactical|30107": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 185 gr Juggernaut OTM Tactical | Boat Tail: 0.223 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 185 gr Juggernaut Target|30418": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 185 gr Juggernaut Target | Boat Tail: 0.221 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 185 gr VLD Hunting|30513": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 185 gr VLD Hunting | Boat Tail: 0.214 (length of the boat tail)"
+   }
+  },
+  "Berger|30 Caliber 115 gr FB Target|30421": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "30 Cal 115 gr FB Target | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|30 Caliber 150 gr FB Target|30407": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "30 Cal 150 gr FB Target | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|338 Caliber 300 gr Hybrid OTM Tactical|33109": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "338 Cal 300 gr Hybrid OTM Tactical | Boat Tail: 0.311 (length of the boat tail)"
+   }
+  },
+  "Berger|375 Caliber 379 gr ELR Match Solid Bullets|37379": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "375 Cal 379 gr ELR Match Solid Bullets | Boat Tail: 0.308 (length of the boat tail)"
+   }
+  },
+  "Berger|375 Caliber 407 gr ELR Match Solid Bullets|37407": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "375 Cal 407 gr ELR Match Solid Bullets | Boat Tail: 0.300 (length of the boat tail)"
+   },
+   "construction": {
+    "value": "monolithic_copper",
+    "src": "elr407",
+    "quote": "precision lathe-turned solid copper Rifle Bullets"
+   }
+  },
+  "Berger|7mm 175 gr Elite Hunter|28554": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "7 mm 175 gr Elite Hunter | Boat Tail: 0.207 (length of the boat tail)"
+   }
+  },
+  "Berger|6mm 68 gr FB Target|24411": {
+   "base": {
+    "value": "flat_base",
+    "src": "chart",
+    "quote": "6 mm 68 gr FB Target | Boat Tail: FB (\"FB: Flat Base\")"
+   }
+  },
+  "Berger|270 Caliber 150 gr Hybrid Target|27401": {
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "270 Cal 150 gr Hybrid Target | Boat Tail: 0.195 (length of the boat tail)"
+   }
+  },
+  "Berger|270 Caliber 170 gr Elite Hunter|27575": {
+   "base": {
+    "value": "boat_tail",
+    "src": "p_eh170",
+    "quote": "Base Style: Boat Tail"
+   }
+  },
+  "Berger|30 Caliber 217 gr Elite Hunter|30551": {
+   "base": {
+    "value": "boat_tail",
+    "src": "p_eh217",
+    "quote": "Base Style: Boat Tail"
+   }
+  },
+  "Berger|22 Caliber 69 gr BT Target|22419": {
+   "base": {
+    "value": "boat_tail",
+    "src": "p_bt69",
+    "quote": "Base Style: Boat Tail"
+   }
+  },
+  "Berger|6mm 120 gr Long Range Hybrid Target|24486": {
+   "base": {
+    "value": "boat_tail",
+    "src": "p_lrht120",
+    "quote": "Base Style: Boat Tail"
+   }
+  },
+  "Berger|223 Remington 69 Grain OTM Tactical Rifle Ammunition|.223 Rem": {
+   "component_bullet": {
+    "value": "Berger OTM Tactical",
+    "src": "a223_69",
+    "quote": "Product Line: OTM Tactical"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a223_69",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|223 Remington 73 Grain Boat Tail Target Rifle Ammunition|.223 Rem": {
+   "component_bullet": {
+    "value": "Berger BT Target",
+    "src": "a223_73",
+    "quote": "The 73 Grain BT Target projectile"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a223_73",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|223 Remington 77 Grain OTM Tactical Rifle Ammunition|.223 Rem": {
+   "component_bullet": {
+    "value": "Berger OTM Tactical",
+    "src": "a223_77",
+    "quote": "The 77 Grain OTM Tactical projectile"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a223_77",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|260 Remington 130 Grain Hybrid OTM Tactical Rifle Ammunition|.260 Rem": {
+   "component_bullet": {
+    "value": "Berger AR Hybrid OTM Tactical",
+    "src": "a260_130",
+    "quote": "The Berger 6.5 mm 130 Grain AR Hybrid OTM Tactical Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a260_130",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|300 Norma Magnum 215 Grain Hybrid Target Rifle Ammunition|.300 Norma Mag": {
+   "component_bullet": {
+    "value": "Berger Hybrid",
+    "src": "a300nm_215",
+    "quote": "The 30 Caliber 215gr Hybrid Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a300nm_215",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|300 Norma Magnum 230 Grain Hybrid OTM Tactical Rifle Ammunition|.300 Norma Mag": {
+   "component_bullet": {
+    "value": "Berger Hybrid OTM Tactical",
+    "src": "a300nm_230",
+    "quote": "The 30 Caliber 230gr Hybrid Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a300nm_230",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|300 Norma Magnum 245 Grain Long Range Hybrid Target Rifle Ammunition|.300 Norma Mag": {
+   "component_bullet": {
+    "value": "Berger Long Range Hybrid Target",
+    "src": "a300nm_245",
+    "quote": "Berger's 245 Grain LRHT bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "30 Cal 245 gr LR Hybrid Target | Boat Tail: 0.227 (length of the boat tail)"
+   }
+  },
+  "Berger|215 Grain Hybrid Target Rifle Ammunition|.300 PRC": {
+   "component_bullet": {
+    "value": "Berger Hybrid Target",
+    "src": "a300prc_215",
+    "quote": "The 215 Grain Hybrid Target has a long-range accuracy following"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a300prc_215",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|217 Grain Elite Hunter Rifle Ammunition|.300 PRC": {
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "src": "a300prc_217",
+    "quote": "By loading the Berger 217 Grain Elite Hunter bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a300prc_217",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|245 Grain Elite Hunter Rifle Ammunition|.300 PRC": {
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "src": "a300prc_245",
+    "quote": "long-range 245 Grain Elite Hunter projectile"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a300prc_245",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|300 Winchester Magnum 168 Grain Classic Hunter Rifle Ammunition|.300 Win Mag": {
+   "component_bullet": {
+    "value": "Berger Classic Hunter",
+    "src": "a300wm_168",
+    "quote": "The 30 Caliber 168 Grain Classic Hunter Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a300wm_168",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|300 Winchester Magnum 185 Grain Classic Hunter Rifle Ammunition|.300 Win Mag": {
+   "component_bullet": {
+    "value": "Berger Classic Hunter",
+    "src": "a300wm_185",
+    "quote": "The 30 Caliber 185 Grain Classic Hunter Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a300wm_185",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|308 Winchester 168 Grain Classic Hunter Rifle Ammunition|.308 Win": {
+   "component_bullet": {
+    "value": "Berger Classic Hunter",
+    "src": "a308_168",
+    "quote": "The 30 Caliber 168 Grain Classic Hunter Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a308_168",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|308 Winchester 175 Grain OTM Tactical Rifle Ammunition|.308 Win": {
+   "component_bullet": {
+    "value": "Berger OTM Tactical",
+    "src": "a308_175",
+    "quote": "30 Caliber 175gr Berger OTM Tactical Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a308_175",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|308 Winchester 185 Grain Classic Hunter Rifle Ammunition|.308 Win": {
+   "component_bullet": {
+    "value": "Berger Classic Hunter",
+    "src": "a308_185",
+    "quote": "The 30 Caliber 185 Grain Classic Hunter Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a308_185",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|308 Winchester 185 Grain Juggernaut OTM Tactical Rifle Ammunition|.308 Win": {
+   "component_bullet": {
+    "value": "Berger Juggernaut OTM Tactical",
+    "src": "a308_185j",
+    "quote": "30 Caliber 185gr Berger Juggernaut OTM Tactical Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a308_185j",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|338 Lapua Magnum 300 Grain Elite Hunter Rifle Ammunition|.338 Lapua Mag": {
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "src": "a338lm_300eh",
+    "quote": "The 338 Caliber 300 Grain Elite Hunter"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a338lm_300eh",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|338 Lapua Magnum 300 Grain Hybrid OTM Tactical Rifle Ammunition|.338 Lapua Mag": {
+   "component_bullet": {
+    "value": "Berger Hybrid OTM Tactical",
+    "src": "a338lm_300otm",
+    "quote": "The 338 Caliber 300 Grain Hybrid OTM Target Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a338lm_300otm",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|6.5 mm Creedmoor 130 Grain Hybrid OTM Tactical Rifle Ammunition|6.5 Creedmoor": {
+   "component_bullet": {
+    "value": "Berger AR Hybrid OTM Tactical",
+    "src": "a65cm_130",
+    "quote": "The Berger 130gr AR Hybrid OTM Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a65cm_130",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|6.5 mm Creedmoor 135 Grain Classic Hunter Rifle Ammunition|6.5 Creedmoor": {
+   "component_bullet": {
+    "value": "Berger Classic Hunter",
+    "src": "a65cm_135",
+    "quote": "Berger's 6.5 mm 135 Grain Classic Hunter Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a65cm_135",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|6.5 mm Creedmoor 140 Grain Elite Hunter Rifle Ammunition|6.5 Creedmoor": {
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "src": "a65cm_140eh",
+    "quote": "The 140 Grain Elite Hunter"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a65cm_140eh",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|6.5 mm Creedmoor 140 Grain Hybrid Target Rifle Ammunition|6.5 Creedmoor": {
+   "component_bullet": {
+    "value": "Berger Hybrid Target",
+    "src": "a65cm_140ht",
+    "quote": "The Berger 6.5mm 140gr Hybrid target Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a65cm_140ht",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|6.5 mm Creedmoor 144 Grain Long Range Hybrid Target Rifle Ammunition|6.5 Creedmoor": {
+   "component_bullet": {
+    "value": "Berger Long Range Hybrid Target",
+    "src": "a65cm_144",
+    "quote": "6.5mm 144 Grain Long Range Hybrid Target Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 144 gr LR Hybrid Target | Boat Tail: 0.188 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5 mm Creedmoor 153.5 Grain Long Range Hybrid Target Rifle Ammunition|6.5 Creedmoor": {
+   "component_bullet": {
+    "value": "Berger Long Range Hybrid Target",
+    "src": "a65cm_153",
+    "quote": "Product Line: Long Range Hybrid Target"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 153.5 gr LR Hybrid Target | Boat Tail: 0.186 (length of the boat tail)"
+   }
+  },
+  "Berger|6.5 mm Creedmoor 156 Grain Elite Hunter Rifle Ammunition|6.5 Creedmoor": {
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "src": "a65cm_156",
+    "quote": "The 6.5 mm 156 Grain Elite Hunter Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a65cm_156",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|140 Grain Elite Hunter Rifle Ammunition|6.5 PRC": {
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "src": "a65prc_140",
+    "quote": "utilizes Berger's 140 gr Elite Hunter bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a65prc_140",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|153.5 Grain Hybrid Target Rifle Ammunition|6.5 PRC": {
+   "component_bullet": {
+    "value": "Berger Long Range Hybrid Target",
+    "src": "a65prc_153",
+    "quote": "Berger's 6.5mm 153.5 Grain LRHT projectile"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "chart",
+    "quote": "6.5 mm 153.5 gr LR Hybrid Target | Boat Tail: 0.186 (length of the boat tail)"
+   }
+  },
+  "Berger|156 Grain Extreme Outer Limits (EOL) Elite Hunter Rifle Ammunition|6.5 PRC": {
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "src": "a65prc_156",
+    "quote": "utilizes Berger's 156 gr Elite Hunter bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a65prc_156",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|6 mm Creedmoor 105 Grain Hybrid Target Rifle Ammunition|6mm Creedmoor": {
+   "component_bullet": {
+    "value": "Berger Hybrid Target",
+    "src": "a6cm_105",
+    "quote": "Berger 105 Grain Hybrid target Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a6cm_105",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|6 mm Creedmoor 108 Grain Elite Hunter Rifle Ammunition|6mm Creedmoor": {
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "src": "a6cm_108",
+    "quote": "The 108 Grain Elite Hunter"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a6cm_108",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|6 mm Creedmoor 109 Grain Long Range Hybrid Target Rifle Ammunition|6mm Creedmoor": {
+   "component_bullet": {
+    "value": "Berger Long Range Hybrid Target",
+    "src": "a6cm_109",
+    "quote": "Product Line: Long Range Hybrid Target"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a6cm_109",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|6 mm Creedmoor 95 Grain Classic Hunter Rifle Ammunition|6mm Creedmoor": {
+   "component_bullet": {
+    "value": "Berger Classic Hunter",
+    "src": "a6cm_95",
+    "quote": "built around the 6 mm 95 Grain Classic Hunter Rifle Bullet"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a6cm_95",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|175 Grain Elite Hunter Rifle Ammunition|7mm PRC": {
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "src": "a7prc_175",
+    "quote": "It features the 175 Grain Elite Hunter projectile"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a7prc_175",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  },
+  "Berger|195 Grain Elite Hunter Rifle Ammunition|7mm PRC": {
+   "component_bullet": {
+    "value": "Berger Elite Hunter",
+    "src": "a7prc_195",
+    "quote": "It features the heaviest-in-class 195 Grain Elite Hunter"
+   },
+   "base": {
+    "value": "boat_tail",
+    "src": "a7prc_195",
+    "quote": "Boat Tail bullets provide an aerodynamic advantage at longer ranges over their flat base counterparts"
+   }
+  }
+ }
+}

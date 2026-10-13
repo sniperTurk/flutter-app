@@ -1,0 +1,2889 @@
+{
+ "brand": "Woodleigh",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "Read 2026-10-13 from woodleighbullets.com.au (Joomla robots.txt, /products and /images/downloads allowed). Weldcore = lead fused to gilding-metal jacket -> bonded. FMJ = steel-jacketed solids -> fmj. Nose from 2020 catalogue key: RN SN round nose, FN SN flat nose, PP SN 'small flat nose' -> flat_nose. FMJ nose shape and all bases (flat/boat tail) not stated; FMJ base only 'rolled back 90 degrees'. 'Heavy Duty' not defined. Bullet-list pages give no construction text.",
+ "sources": [
+  {
+   "id": "weld",
+   "url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+   "read_date": "2026-10-13",
+   "title": "Weldcore Soft Nose"
+  },
+  {
+   "id": "fmj",
+   "url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+   "read_date": "2026-10-13",
+   "title": "Full Metal Jacket"
+  },
+  {
+   "id": "pp",
+   "url": "https://www.woodleighbullets.com.au/products/protected-point",
+   "read_date": "2026-10-13",
+   "title": "Protected Point"
+  },
+  {
+   "id": "cat",
+   "url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+   "read_date": "2026-10-13",
+   "title": "Woodleigh Catalogue 2020"
+  }
+ ],
+ "records": {
+  "Woodleigh|6.5mm .264\" 140 gr Weldcore PP SN|80": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm .264\" 140 gr Weldcore PP SN",
+   "grain": 140.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 6.71,
+   "item": "80",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|6.5mm .264\" 160 gr Weldcore PP SN|80A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm .264\" 160 gr Weldcore PP SN",
+   "grain": 160.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 6.71,
+   "item": "80A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|6.5mm .264\" 160 gr Weldcore RN SN|80B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "6.5mm .264\" 160 gr Weldcore RN SN",
+   "grain": 160.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 6.71,
+   "item": "80B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|270 Win .277\" 130 gr Weldcore PP SN|72": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Win .277\" 130 gr Weldcore PP SN",
+   "grain": 130.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.04,
+   "item": "72",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|270 Win .277\" 150 gr Weldcore PP SN|73": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Win .277\" 150 gr Weldcore PP SN",
+   "grain": 150.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.04,
+   "item": "73",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|270 Win .277\" 180 gr Weldcore PP SN|73A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "270 Win .277\" 180 gr Weldcore PP SN",
+   "grain": 180.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.04,
+   "item": "73A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|7mm .284\" 140 gr Weldcore PP SN|74": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm .284\" 140 gr Weldcore PP SN",
+   "grain": 140.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.21,
+   "item": "74",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|7mm .284\" 160 gr Weldcore PP SN|75": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm .284\" 160 gr Weldcore PP SN",
+   "grain": 160.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.21,
+   "item": "75",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|7mm .284\" 175 gr Weldcore PP SN|76": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "7mm .284\" 175 gr Weldcore PP SN",
+   "grain": 175.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.21,
+   "item": "76",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|275 H&H .287\" 160 gr Weldcore PP SN|77": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "275 H&H .287\" 160 gr Weldcore PP SN",
+   "grain": 160.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.29,
+   "item": "77",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|275 H&H .287\" 175 gr Weldcore PP SN|78": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "275 H&H .287\" 175 gr Weldcore PP SN",
+   "grain": 175.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.29,
+   "item": "78",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|308 .308\" 130 gr Weldcore PP SN|65I": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "308 .308\" 130 gr Weldcore PP SN",
+   "grain": 130.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.82,
+   "item": "65I",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|308 .308\" 150 gr Weldcore PP SN|65F": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "308 .308\" 150 gr Weldcore PP SN",
+   "grain": 150.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.82,
+   "item": "65F",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|308 .308\" 165 gr Weldcore PP SN|65A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "308 .308\" 165 gr Weldcore PP SN",
+   "grain": 165.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.82,
+   "item": "65A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|308 .308\" 180 gr Weldcore PP SN|65B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "308 .308\" 180 gr Weldcore PP SN",
+   "grain": 180.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.82,
+   "item": "65B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|308 .308\" 220 gr Weldcore RN SN|65C": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "308 .308\" 220 gr Weldcore RN SN",
+   "grain": 220.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.82,
+   "item": "65C",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|30-30 .308\" 150 gr Weldcore FN SN|65H": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30-30 .308\" 150 gr Weldcore FN SN",
+   "grain": 150.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.82,
+   "item": "65H",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FN SN = Flat Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|30-06 .308\" 240 gr Weldcore PP SN|65G": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "30-06 .308\" 240 gr Weldcore PP SN",
+   "grain": 240.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.82,
+   "item": "65G",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|300 Win Mag .308\" 180 gr Weldcore PP SN|65D": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "300 Win Mag .308\" 180 gr Weldcore PP SN",
+   "grain": 180.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.82,
+   "item": "65D",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|300 Win Mag .308\" 200 gr Weldcore PP SN|65E": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "300 Win Mag .308\" 200 gr Weldcore PP SN",
+   "grain": 200.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.82,
+   "item": "65E",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|303 British .312\" 174 gr Weldcore PP SN|68A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "303 British .312\" 174 gr Weldcore PP SN",
+   "grain": 174.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.92,
+   "item": "68A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|303 British .312\" 215 gr Weldcore RN SN|68": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "303 British .312\" 215 gr Weldcore RN SN",
+   "grain": 215.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.92,
+   "item": "68",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|303 / 7.62x39 .312\" 130 gr Weldcore PP SN|68B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "303 / 7.62x39 .312\" 130 gr Weldcore PP SN",
+   "grain": 130.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 7.92,
+   "item": "68B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|8mm .323\" 196 gr Weldcore RN SN|64B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "8mm .323\" 196 gr Weldcore RN SN",
+   "grain": 196.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 8.22,
+   "item": "64B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|8mm .323\" 220 gr Weldcore RN SN|64C": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "8mm .323\" 220 gr Weldcore RN SN",
+   "grain": 220.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 8.22,
+   "item": "64C",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|8mm .323\" 250 gr Weldcore RN SN|64D": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "8mm .323\" 250 gr Weldcore RN SN",
+   "grain": 250.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 8.22,
+   "item": "64D",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|325 Win / 8x57 IS .323\" 200 gr Weldcore PP SN|64F": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "325 Win / 8x57 IS .323\" 200 gr Weldcore PP SN",
+   "grain": 200.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 8.22,
+   "item": "64F",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|325 Win / 8x57 IS .323\" 220 gr Weldcore PP SN|64G": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "325 Win / 8x57 IS .323\" 220 gr Weldcore PP SN",
+   "grain": 220.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 8.22,
+   "item": "64G",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|8x57 I .318\" 200 gr Weldcore RN SN|64E": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "8x57 I .318\" 200 gr Weldcore RN SN",
+   "grain": 200.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 8.08,
+   "item": "64E",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|318 Westley Richards .330\" 250 gr Weldcore RN SN|63": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "318 Westley Richards .330\" 250 gr Weldcore RN SN",
+   "grain": 250.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 8.38,
+   "item": "63",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|333 Jeffery .333\" 250 gr Weldcore RN SN|60": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "333 Jeffery .333\" 250 gr Weldcore RN SN",
+   "grain": 250.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 8.46,
+   "item": "60",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|333 Jeffery .333\" 300 gr Weldcore RN SN|61": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "333 Jeffery .333\" 300 gr Weldcore RN SN",
+   "grain": 300.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/264-333-list",
+   "caliber_mm": 8.46,
+   "item": "61",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|338 Fed / 338-06 .338\" 180 gr Weldcore PP SN|56C": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Fed / 338-06 .338\" 180 gr Weldcore PP SN",
+   "grain": 180.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 8.59,
+   "item": "56C",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|338 Fed / 338-06 .338\" 200 gr Weldcore PP SN|56D": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Fed / 338-06 .338\" 200 gr Weldcore PP SN",
+   "grain": 200.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 8.59,
+   "item": "56D",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|33 Win .338\" 200 gr Weldcore FN SN|56E": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "33 Win .338\" 200 gr Weldcore FN SN",
+   "grain": 200.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 8.59,
+   "item": "56E",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FN SN = Flat Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|338 Mag .338\" 225 gr Weldcore PP SN|56A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Mag .338\" 225 gr Weldcore PP SN",
+   "grain": 225.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 8.59,
+   "item": "56A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|338 Mag .338\" 250 gr Weldcore RN SN|56": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Mag .338\" 250 gr Weldcore RN SN",
+   "grain": 250.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 8.59,
+   "item": "56",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|338 Mag .338\" 250 gr Weldcore PP SN|56B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Mag .338\" 250 gr Weldcore PP SN",
+   "grain": 250.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 8.59,
+   "item": "56B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|338 Mag .338\" 300 gr Weldcore RN SN|58": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "338 Mag .338\" 300 gr Weldcore RN SN",
+   "grain": 300.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 8.59,
+   "item": "58",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|348 Win .348\" 250 gr Weldcore FN SN|348": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "348 Win .348\" 250 gr Weldcore FN SN",
+   "grain": 250.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 8.84,
+   "item": "348",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FN SN = Flat Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|358 .358\" 225 gr Weldcore RN SN|51": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "358 .358\" 225 gr Weldcore RN SN",
+   "grain": 225.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.09,
+   "item": "51",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|358 .358\" 225 gr Weldcore PP SN|51A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "358 .358\" 225 gr Weldcore PP SN",
+   "grain": 225.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.09,
+   "item": "51A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|358 .358\" 250 gr Weldcore RN SN|53": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "358 .358\" 250 gr Weldcore RN SN",
+   "grain": 250.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.09,
+   "item": "53",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|358 .358\" 250 gr Weldcore PP SN|53A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "358 .358\" 250 gr Weldcore PP SN",
+   "grain": 250.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.09,
+   "item": "53A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|358 .358\" 275 gr Weldcore PP SN|53B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "358 .358\" 275 gr Weldcore PP SN",
+   "grain": 275.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.09,
+   "item": "53B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|358 .358\" 310 gr Weldcore RN SN|54": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "358 .358\" 310 gr Weldcore RN SN",
+   "grain": 310.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.09,
+   "item": "54",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|9.3mm .366\" 232 gr Weldcore PP SN|47D": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "9.3mm .366\" 232 gr Weldcore PP SN",
+   "grain": 232.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.3,
+   "item": "47D",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|9.3mm .366\" 250 gr Weldcore RN SN|47A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "9.3mm .366\" 250 gr Weldcore RN SN",
+   "grain": 250.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.3,
+   "item": "47A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|9.3mm .366\" 250 gr Weldcore PP SN|47C": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "9.3mm .366\" 250 gr Weldcore PP SN",
+   "grain": 250.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.3,
+   "item": "47C",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|9.3mm .366\" 286 gr Weldcore RN SN|47": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "9.3mm .366\" 286 gr Weldcore RN SN",
+   "grain": 286.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.3,
+   "item": "47",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|9.3mm .366\" 286 gr Weldcore PP SN|47B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "9.3mm .366\" 286 gr Weldcore PP SN",
+   "grain": 286.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.3,
+   "item": "47B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|9.3mm .366\" 320 gr Weldcore RN SN|49": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "9.3mm .366\" 320 gr Weldcore RN SN",
+   "grain": 320.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.3,
+   "item": "49",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|9.3mm .366\" 320 gr Weldcore PP SN|49A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "9.3mm .366\" 320 gr Weldcore PP SN",
+   "grain": 320.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.3,
+   "item": "49A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|375 Mag .375\" 235 gr Weldcore PP SN|42A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 Mag .375\" 235 gr Weldcore PP SN",
+   "grain": 235.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.53,
+   "item": "42A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|375 Mag .375\" 270 gr Weldcore RN SN|42": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 Mag .375\" 270 gr Weldcore RN SN",
+   "grain": 270.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.53,
+   "item": "42",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|375 Mag .375\" 270 gr Weldcore PP SN|43A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 Mag .375\" 270 gr Weldcore PP SN",
+   "grain": 270.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.53,
+   "item": "43A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|375 .375\" 300 gr Weldcore RN SN Heavy Duty|44HD": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 .375\" 300 gr Weldcore RN SN Heavy Duty",
+   "grain": 300.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.53,
+   "item": "44HD",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|375 .375\" 300 gr Weldcore RN SN|44": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 .375\" 300 gr Weldcore RN SN",
+   "grain": 300.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.53,
+   "item": "44",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|375 .375\" 300 gr Weldcore PP SN|45A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 .375\" 300 gr Weldcore PP SN",
+   "grain": 300.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.53,
+   "item": "45A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|375 .375\" 300 gr FMJ|46": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 .375\" 300 gr FMJ",
+   "grain": 300.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.53,
+   "item": "46",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|375 .375\" 350 gr Weldcore RN SN Heavy Duty|46BHD": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 .375\" 350 gr Weldcore RN SN Heavy Duty",
+   "grain": 350.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.53,
+   "item": "46BHD",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|375 .375\" 350 gr Weldcore PP SN|46C": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 .375\" 350 gr Weldcore PP SN",
+   "grain": 350.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.53,
+   "item": "46C",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|375 .375\" 350 gr FMJ|46D": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "375 .375\" 350 gr FMJ",
+   "grain": 350.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/338-375-list",
+   "caliber_mm": 9.53,
+   "item": "46D",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|400 Purdey .405\" 230 gr Weldcore RN SN|81": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "400 Purdey .405\" 230 gr Weldcore RN SN",
+   "grain": 230.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.29,
+   "item": "81",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|450/400 Nitro .408\" 400 gr Weldcore RN SN|40A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "450/400 Nitro .408\" 400 gr Weldcore RN SN",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.36,
+   "item": "40A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|450/400 .411\" 400 gr Weldcore RN SN|40": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "450/400 .411\" 400 gr Weldcore RN SN",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.44,
+   "item": "40",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|450/400 3in Ruger .410\" 400 gr Weldcore RN SN|40B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "450/400 3in Ruger .410\" 400 gr Weldcore RN SN",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.41,
+   "item": "40B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|450/400 .408\" 400 gr FMJ|41A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "450/400 .408\" 400 gr FMJ",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.36,
+   "item": "41A",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|450/400 Ruger .410\" 400 gr FMJ|41": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "450/400 Ruger .410\" 400 gr FMJ",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.41,
+   "item": "41",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|405 Win .412\" 300 gr Weldcore RN SN|71": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "405 Win .412\" 300 gr Weldcore RN SN",
+   "grain": 300.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.46,
+   "item": "71",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|416 .416\" 340 gr Weldcore PP SN|39": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "416 .416\" 340 gr Weldcore PP SN",
+   "grain": 340.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.57,
+   "item": "39",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|416 Rigby .416\" 410 gr Weldcore RN SN|37A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "416 Rigby .416\" 410 gr Weldcore RN SN",
+   "grain": 410.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.57,
+   "item": "37A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|416 Rigby .416\" 410 gr FMJ|38": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "416 Rigby .416\" 410 gr FMJ",
+   "grain": 410.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.57,
+   "item": "38",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|416 Rigby .416\" 450 gr Weldcore RN SN|37B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "416 Rigby .416\" 450 gr Weldcore RN SN",
+   "grain": 450.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.57,
+   "item": "37B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|416 Rigby .416\" 450 gr FMJ|38B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "416 Rigby .416\" 450 gr FMJ",
+   "grain": 450.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.57,
+   "item": "38B",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|416 Remington .416\" 400 gr Weldcore RN SN|37C": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "416 Remington .416\" 400 gr Weldcore RN SN",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.57,
+   "item": "37C",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|416 Remington .416\" 400 gr FMJ|38C": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "416 Remington .416\" 400 gr FMJ",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.57,
+   "item": "38C",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|404 Jeffery .422\" 350 gr Weldcore RN SN|35": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "404 Jeffery .422\" 350 gr Weldcore RN SN",
+   "grain": 350.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.72,
+   "item": "35",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|404 Jeffery .422\" 400 gr Weldcore RN SN|33A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "404 Jeffery .422\" 400 gr Weldcore RN SN",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.72,
+   "item": "33A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|404 Jeffery .422\" 400 gr FMJ|34": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "404 Jeffery .422\" 400 gr FMJ",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.72,
+   "item": "34",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|404 Jeffery .422\" 450 gr Weldcore RN SN|33B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "404 Jeffery .422\" 450 gr Weldcore RN SN",
+   "grain": 450.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.72,
+   "item": "33B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|404 Jeffery .422\" 450 gr FMJ|34B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "404 Jeffery .422\" 450 gr FMJ",
+   "grain": 450.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.72,
+   "item": "34B",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|10.75x68 .423\" 347 gr Weldcore RN SN|36": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "10.75x68 .423\" 347 gr Weldcore RN SN",
+   "grain": 347.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.74,
+   "item": "36",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|10.75x68 .423\" 347 gr FMJ|36A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "10.75x68 .423\" 347 gr FMJ",
+   "grain": 347.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.74,
+   "item": "36A",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|444 Marlin .430\" 280 gr Weldcore FN SN|444": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "444 Marlin .430\" 280 gr Weldcore FN SN",
+   "grain": 280.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 10.92,
+   "item": "444",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FN SN = Flat Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|425 Westley Richards .435\" 410 gr Weldcore RN SN|31": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "425 Westley Richards .435\" 410 gr Weldcore RN SN",
+   "grain": 410.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.05,
+   "item": "31",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|425 Westley Richards .435\" 410 gr FMJ|32": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "425 Westley Richards .435\" 410 gr FMJ",
+   "grain": 410.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.05,
+   "item": "32",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|11.2 Schuler .440\" 401 gr Weldcore RN SN|67": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "11.2 Schuler .440\" 401 gr Weldcore RN SN",
+   "grain": 401.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.18,
+   "item": "67",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|458 .458\" 400 gr Weldcore PP SN|30": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "458 .458\" 400 gr Weldcore PP SN",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "30",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|458 Mag .458\" 480 gr Weldcore RN SN|24A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "458 Mag .458\" 480 gr Weldcore RN SN",
+   "grain": 480.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "24A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|458 Mag .458\" 480 gr FMJ|25A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "458 Mag .458\" 480 gr FMJ",
+   "grain": 480.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "25A",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|458 .458\" 500 gr Weldcore RN SN|26": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "458 .458\" 500 gr Weldcore RN SN",
+   "grain": 500.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "26",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|458 .458\" 500 gr Weldcore PP SN|26A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "458 .458\" 500 gr Weldcore PP SN",
+   "grain": 500.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "26A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|458 .458\" 500 gr FMJ|28": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "458 .458\" 500 gr FMJ",
+   "grain": 500.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "28",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|458 .458\" 550 gr Weldcore RN SN|27": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "458 .458\" 550 gr Weldcore RN SN",
+   "grain": 550.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "27",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|458 .458\" 550 gr FMJ|29": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "458 .458\" 550 gr FMJ",
+   "grain": 550.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "29",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|450 BPE .458\" 350 gr Weldcore RN SN|30A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "450 BPE .458\" 350 gr Weldcore RN SN",
+   "grain": 350.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "30A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|45-70 .458\" 405 gr Weldcore FN SN|30B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "45-70 .458\" 405 gr Weldcore FN SN",
+   "grain": 405.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "30B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FN SN = Flat Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|45-70 .458\" 300 gr Weldcore FN SN|30C": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "45-70 .458\" 300 gr Weldcore FN SN",
+   "grain": 300.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "30C",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FN SN = Flat Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|450 Nitro .458\" 480 gr Weldcore RN SN|24": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "450 Nitro .458\" 480 gr Weldcore RN SN",
+   "grain": 480.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/405-458-list",
+   "caliber_mm": 11.63,
+   "item": "24",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|465 Nitro .468\" 480 gr Weldcore RN SN|22": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "465 Nitro .468\" 480 gr Weldcore RN SN",
+   "grain": 480.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 11.89,
+   "item": "22",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|465 Nitro .468\" 480 gr FMJ|23": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "465 Nitro .468\" 480 gr FMJ",
+   "grain": 480.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 11.89,
+   "item": "23",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|470 Nitro .474\" 500 gr Weldcore RN SN|20": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "470 Nitro .474\" 500 gr Weldcore RN SN",
+   "grain": 500.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.04,
+   "item": "20",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|470 Nitro .474\" 500 gr FMJ|21": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "470 Nitro .474\" 500 gr FMJ",
+   "grain": 500.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.04,
+   "item": "21",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|476 Westley Richards .476\" 520 gr Weldcore RN SN|18": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "476 Westley Richards .476\" 520 gr Weldcore RN SN",
+   "grain": 520.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.09,
+   "item": "18",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|476 Westley Richards .476\" 520 gr FMJ|19": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "476 Westley Richards .476\" 520 gr FMJ",
+   "grain": 520.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.09,
+   "item": "19",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|475 No. 2 .483\" 480 gr Weldcore RN SN|15": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "475 No. 2 .483\" 480 gr Weldcore RN SN",
+   "grain": 480.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.27,
+   "item": "15",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|475 No. 2 .483\" 480 gr FMJ|16": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "475 No. 2 .483\" 480 gr FMJ",
+   "grain": 480.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.27,
+   "item": "16",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|475 No. 2 Jeffery .488\" 500 gr Weldcore RN SN|13": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "475 No. 2 Jeffery .488\" 500 gr Weldcore RN SN",
+   "grain": 500.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.4,
+   "item": "13",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|475 No. 2 Jeffery .488\" 500 gr FMJ|14": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "475 No. 2 Jeffery .488\" 500 gr FMJ",
+   "grain": 500.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.4,
+   "item": "14",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|500 S&W .500\" 400 gr Weldcore FN SN|83": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "500 S&W .500\" 400 gr Weldcore FN SN",
+   "grain": 400.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.7,
+   "item": "83",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FN SN = Flat Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|505 Gibbs .505\" 525 gr Weldcore RN SN|11": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "505 Gibbs .505\" 525 gr Weldcore RN SN",
+   "grain": 525.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.83,
+   "item": "11",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|505 Gibbs .505\" 525 gr FMJ|12": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "505 Gibbs .505\" 525 gr FMJ",
+   "grain": 525.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.83,
+   "item": "12",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|505 Gibbs .505\" 600 gr Weldcore PP SN|11A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "505 Gibbs .505\" 600 gr Weldcore PP SN",
+   "grain": 600.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.83,
+   "item": "11A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|505 Gibbs .505\" 600 gr FMJ|12A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "505 Gibbs .505\" 600 gr FMJ",
+   "grain": 600.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.83,
+   "item": "12A",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|500 Jeffery .510\" 535 gr Weldcore RN SN|9": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "500 Jeffery .510\" 535 gr Weldcore RN SN",
+   "grain": 535.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.95,
+   "item": "9",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|500 Jeffery .510\" 535 gr Weldcore PP SN|9A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "500 Jeffery .510\" 535 gr Weldcore PP SN",
+   "grain": 535.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.95,
+   "item": "9A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|500 Jeffery .510\" 535 gr FMJ|10": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "500 Jeffery .510\" 535 gr FMJ",
+   "grain": 535.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.95,
+   "item": "10",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|500 Jeffery .510\" 600 gr Weldcore PP SN|10B": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "500 Jeffery .510\" 600 gr Weldcore PP SN",
+   "grain": 600.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.95,
+   "item": "10B",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The small flat nose with minimal lead showing will not deform under recoil"
+   },
+   "base": null
+  },
+  "Woodleigh|500 Jeffery .510\" 600 gr FMJ|10A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "500 Jeffery .510\" 600 gr FMJ",
+   "grain": 600.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.95,
+   "item": "10A",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "Woodleigh|500 BP .510\" 440 gr Weldcore RN SN|8": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "500 BP .510\" 440 gr Weldcore RN SN",
+   "grain": 440.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.95,
+   "item": "8",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|50 Alaskan / 50-110 .510\" 500 gr Weldcore FN SN|82": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "50 Alaskan / 50-110 .510\" 500 gr Weldcore FN SN",
+   "grain": 500.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.95,
+   "item": "82",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "flat_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "FN SN = Flat Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|500 Nitro .510\" 450 gr Weldcore RN SN|06A": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "500 Nitro .510\" 450 gr Weldcore RN SN",
+   "grain": 450.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.95,
+   "item": "06A",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|500 Nitro .510\" 570 gr Weldcore RN SN|6": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "500 Nitro .510\" 570 gr Weldcore RN SN",
+   "grain": 570.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.95,
+   "item": "6",
+   "construction": {
+    "value": "bonded",
+    "source_url": "https://www.woodleighbullets.com.au/products/weldcore-soft-nose",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "fusing the pure lead to the gilding metal jacket, hence the name 'Weldcore'"
+   },
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.woodleighbullets.com.au/images/downloads/woodleigh_bullets_2020_catalogue.pdf",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "RN SN = Round Nose Soft Nose"
+   },
+   "base": null
+  },
+  "Woodleigh|500 Nitro .510\" 570 gr FMJ|7": {
+   "lib": "bullet",
+   "platform": "firearm",
+   "name": "500 Nitro .510\" 570 gr FMJ",
+   "grain": 570.0,
+   "library_source_url": "https://www.woodleighbullets.com.au/bullet-lists/traditional/468-700-list",
+   "caliber_mm": 12.95,
+   "item": "7",
+   "construction": {
+    "value": "fmj",
+    "source_url": "https://www.woodleighbullets.com.au/products/full-metal-jacket",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The most heavily constructed steel jacketed solids available."
+   },
+   "tip_shape": null,
+   "base": null
+  }
+ }
+}

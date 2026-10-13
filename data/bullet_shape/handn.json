@@ -1,0 +1,1611 @@
+{
+ "brand": "H&N",
+ "generated_by": "tools/data_gen/bullet_shape.py expand",
+ "note": "2026-10-13: robots.txt read (product paths allowed). ~35 product pages read. Stated: Heavy Slug 'hollow point design with a large meplat combined with soft lead'; Grizzly hollow point + hollow base; GreenLine (Baracuda/FTT/Match Green) lead-free tin alloy; Power/Coppa 'encapsulating the lead core'; Hunter/Hunter Extreme/Crow Magnum hollow point; Hammer round head; Spike/Coppa-Spitzkugel pointed. Not stated (empty): Baracuda/Match/FT/8/15/18, FTT, Slug HP / HP II, Precision Slug, Hornet, Terminator ('tapered tip'), Rabbit Magnum II ('torpedo'), Silver Point, Spitzkugel, Finale Match, Match, Sport, Econ II, Plinking; 'special alloy' not mapped. No base stated except Grizzly.",
+ "sources": [
+  {
+   "id": "hs36",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+   "read_date": "2026-10-13",
+   "title": "Heavy Slug 36 gr .22"
+  },
+  {
+   "id": "hs25_40",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-25-40-gr",
+   "read_date": "2026-10-13",
+   "title": "Heavy Slug 40 gr .25"
+  },
+  {
+   "id": "grz25",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/grizzly-25",
+   "read_date": "2026-10-13",
+   "title": "Grizzly .25"
+  },
+  {
+   "id": "grz35",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/grizzly-35",
+   "read_date": "2026-10-13",
+   "title": "Grizzly .35"
+  },
+  {
+   "id": "bg22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-green-22",
+   "read_date": "2026-10-13",
+   "title": "Baracuda Green .22"
+  },
+  {
+   "id": "ftg22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-green-22",
+   "read_date": "2026-10-13",
+   "title": "Field Target Trophy Green .22"
+  },
+  {
+   "id": "mg177",
+   "url": "https://www.hn-sport.de/en/target-shooting/match-green-177",
+   "read_date": "2026-10-13",
+   "title": "Match Green .177"
+  },
+  {
+   "id": "bp22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-power-22",
+   "read_date": "2026-10-13",
+   "title": "Baracuda Power .22"
+  },
+  {
+   "id": "ftp22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-power-22",
+   "read_date": "2026-10-13",
+   "title": "Field Target Trophy Power .22"
+  },
+  {
+   "id": "coppa22",
+   "url": "https://www.hn-sport.de/en/action-shooting/coppa-spitzkugel-22",
+   "read_date": "2026-10-13",
+   "title": "Coppa-Spitzkugel .22"
+  },
+  {
+   "id": "spike22",
+   "url": "https://www.hn-sport.de/en/action-shooting/spike-22",
+   "read_date": "2026-10-13",
+   "title": "Spike .22"
+  },
+  {
+   "id": "hammer22",
+   "url": "https://www.hn-sport.de/en/action-shooting/hammer-22",
+   "read_date": "2026-10-13",
+   "title": "Hammer .22"
+  },
+  {
+   "id": "bh22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-22",
+   "read_date": "2026-10-13",
+   "title": "Baracuda Hunter .22"
+  },
+  {
+   "id": "bhe22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-extreme-22",
+   "read_date": "2026-10-13",
+   "title": "Baracuda Hunter Extreme .22"
+  },
+  {
+   "id": "crow22",
+   "url": "https://www.hn-sport.de/en/air-gun-hunting/crow-magnum-22",
+   "read_date": "2026-10-13",
+   "title": "Crow Magnum .22"
+  }
+ ],
+ "records": {
+  "H&N|Baracuda Match .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Match .22 cal.",
+   "grain": 21.14,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting-target-shooting/baracuda-match-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda Match .177 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Match .177 cal.",
+   "grain": 10.65,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting-target-shooting/baracuda-match-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda .177 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda .177 cal.",
+   "grain": 10.65,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda .22 cal.",
+   "grain": 21.14,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda .25 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda .25 cal.",
+   "grain": 30.86,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-25",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda 8 .177 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda 8 .177 cal.",
+   "grain": 8.44,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting-target-shooting/baracuda-8-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda 15 .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda 15 .22 cal.",
+   "grain": 15.89,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-15-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda 18 .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda 18 .22 cal.",
+   "grain": 18.13,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-18-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda FT .177 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda FT .177 cal.",
+   "grain": 9.57,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting-target-shooting/baracuda-FT-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda Hunter .177 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Hunter .177 cal.",
+   "grain": 10.49,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Smooth with deep hollow point"
+   },
+   "base": null
+  },
+  "H&N|Baracuda Hunter .25 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Hunter .25 cal.",
+   "grain": 27.47,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-25",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Smooth with deep hollow point"
+   },
+   "base": null
+  },
+  "H&N|Baracuda Hunter Extreme .25 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Hunter Extreme .25 cal.",
+   "grain": 28.24,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-extreme-25",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-extreme-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deep, cross-shaped hollow tip"
+   },
+   "base": null
+  },
+  "H&N|Baracuda Green .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Green .22 cal.",
+   "grain": 12.96,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-green-22",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-green-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead-free, lightweight high-velocity pellet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda Green .25 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Green .25 cal.",
+   "grain": 19.91,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-green-25",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-green-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead-free, lightweight high-velocity pellet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Field Target Trophy .177 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Field Target Trophy .177 cal.",
+   "grain": 8.64,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting-target-shooting/field-target-trophy-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Field Target Trophy .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Field Target Trophy .22 cal.",
+   "grain": 14.66,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting-target-shooting/field-target-trophy-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Field Target Trophy .25 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Field Target Trophy .25 cal.",
+   "grain": 20.06,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-25",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Slug HP 10 gr .177 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP 10 gr .177 cal.",
+   "grain": 10.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-hp-177-10",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-hp-177-10",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP 13 gr .177 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP 13 gr .177 cal.",
+   "grain": 13.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-hp-177-13",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-hp-177-13",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP 16 gr .177 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP 16 gr .177 cal.",
+   "grain": 16.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-hp-177-16",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-hp-177-16",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP 20 gr .177 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP 20 gr .177 cal.",
+   "grain": 20.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-hp-177-20",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-hp-177-20",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP 21 gr .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP 21 gr .22 cal.",
+   "grain": 21.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-21gr",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-21gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II 25 gr .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II 25 gr .22 cal.",
+   "grain": 25.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-25gr",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-25gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II 27 gr .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II 27 gr .22 cal.",
+   "grain": 27.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-27gr",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-27gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II 30 gr .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II 30 gr .22 cal.",
+   "grain": 30.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-30gr",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-30gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug 34 gr .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug 34 gr .22 cal.",
+   "grain": 34.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-34-gr",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug 36 gr .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug 36 gr .22 cal.",
+   "grain": 36.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug 38 gr .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug 38 gr .22 cal.",
+   "grain": 38.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-38-gr",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug 40 gr .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug 40 gr .22 cal.",
+   "grain": 40.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-40-gr",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Precision Slug 33 gr .22 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Precision Slug 33 gr .22 cal.",
+   "grain": 33.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/precision-slug-33-gr",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Slug HP II 30 gr .25 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II 30 gr .25 cal.",
+   "grain": 30.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-30gr",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-30gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II 32 gr .25 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II 32 gr .25 cal.",
+   "grain": 32.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-32gr",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-32gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II 34 gr .25 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II 34 gr .25 cal.",
+   "grain": 34.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-34gr",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-34gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug 40 gr .25 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug 40 gr .25 cal.",
+   "grain": 40.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-25-40-gr",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug 46 gr .25 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug 46 gr .25 cal.",
+   "grain": 46.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-25-46-gr",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II 50 gr .30 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II 50 gr .30 cal.",
+   "grain": 50.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-II-30-50gr",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-II-30-50gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II 54 gr .30 cal.": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II 54 gr .30 cal.",
+   "grain": 54.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-II-30-54gr",
+   "caliber_mm": 7.62,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-II-30-54gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug .25 38 gr (kafa 6.325 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug .25 38 gr (kafa 6.325 mm)",
+   "grain": 38.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-25-38-gr",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug .25 38 gr (kafa 6.35 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug .25 38 gr (kafa 6.35 mm)",
+   "grain": 38.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-25-38-gr",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug .25 38 gr (kafa 6.426 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug .25 38 gr (kafa 6.426 mm)",
+   "grain": 38.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-25-38-gr",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug .25 42 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug .25 42 gr",
+   "grain": 42.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-25-42-gr",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug .25 44 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug .25 44 gr",
+   "grain": 44.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-25-44-gr",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug .25 48 gr (kafa 6.426 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug .25 48 gr (kafa 6.426 mm)",
+   "grain": 48.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-48-gr",
+   "caliber_mm": 6.35,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Heavy Slug .22 35 gr (kafa 5.563 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Heavy Slug .22 35 gr (kafa 5.563 mm)",
+   "grain": 35.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-35-gr",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_slug",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "new hollow point design with a large meplat combined with soft lead"
+   },
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/heavy-slug-36-gr",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "a new hollow point design with a large meplat"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II .25 28 gr (kafa 6.337 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II .25 28 gr (kafa 6.337 mm)",
+   "grain": 28.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-28gr",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-28gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II .25 28 gr (kafa 6.363 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II .25 28 gr (kafa 6.363 mm)",
+   "grain": 28.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-28gr",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-28gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II .25 36 gr (kafa 6.337 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II .25 36 gr (kafa 6.337 mm)",
+   "grain": 36.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-36gr",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-36gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP II .25 36 gr (kafa 6.363 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP II .25 36 gr (kafa 6.363 mm)",
+   "grain": 36.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-36gr",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-25-36gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP .22 23 gr (kafa 5.512 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP .22 23 gr (kafa 5.512 mm)",
+   "grain": 23.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-23gr",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-23gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Slug HP .22 23 gr (kafa 5.537 mm)": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Slug HP .22 23 gr (kafa 5.537 mm)",
+   "grain": 23.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-23gr",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/slug-HP-22-23gr",
+    "read_date": null,
+    "evidence": "product_name",
+    "quote": "HP"
+   },
+   "base": null
+  },
+  "H&N|Grizzly .25 31 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Grizzly .25 31 gr",
+   "grain": 31.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/grizzly-25",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/grizzly-25",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "star-shaped hollow point for ideal mushrooming"
+   },
+   "base": {
+    "value": "hollow_base",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/grizzly-25",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow base offers superior sealing"
+   }
+  },
+  "H&N|Grizzly .35 82 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Grizzly .35 82 gr",
+   "grain": 82.0,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/grizzly-35",
+   "caliber_mm": 9.0,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/grizzly-25",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "star-shaped hollow point for ideal mushrooming"
+   },
+   "base": {
+    "value": "hollow_base",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/grizzly-25",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "The hollow base offers superior sealing"
+   }
+  },
+  "H&N|Field Target Trophy .20 11.42 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Field Target Trophy .20 11.42 gr",
+   "grain": 11.42,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting-target-shooting/field-target-trophy-20",
+   "caliber_mm": 5.0,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda Hunter .22 18.21 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Hunter .22 18.21 gr",
+   "grain": 18.21,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Smooth with deep hollow point"
+   },
+   "base": null
+  },
+  "H&N|Baracuda .20 13.58 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda .20 13.58 gr",
+   "grain": 13.58,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-20",
+   "caliber_mm": 5.0,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda Hunter Extreme .22 18.52 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Hunter Extreme .22 18.52 gr",
+   "grain": 18.52,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-extreme-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-extreme-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deep, cross-shaped hollow tip"
+   },
+   "base": null
+  },
+  "H&N|Hornet .177 9.57 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hornet .177 9.57 gr",
+   "grain": 9.57,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/hornet-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Hornet .22 16.2 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hornet .22 16.2 gr",
+   "grain": 16.2,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/hornet-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Hornet .25 22.07 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Hornet .25 22.07 gr",
+   "grain": 22.07,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/hornet-25",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda Power .177 10.65 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Power .177 10.65 gr",
+   "grain": 10.65,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-power-177",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-power-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Completely encapsulating the lead core"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda Power .22 21.14 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Power .22 21.14 gr",
+   "grain": 21.14,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-power-22",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-power-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Completely encapsulating the lead core"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Baracuda Green .177 6.64 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Green .177 6.64 gr",
+   "grain": 6.64,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-green-177",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-green-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Lead-free, lightweight high-velocity pellet"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Field Target Trophy Power .177 8.8 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Field Target Trophy Power .177 8.8 gr",
+   "grain": 8.8,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-power-177",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-power-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Completely encapsulating the lead core"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Field Target Trophy Power .22 14.66 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Field Target Trophy Power .22 14.66 gr",
+   "grain": 14.66,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-power-22",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-power-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Completely encapsulating the lead core"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Field Target Trophy Green .177 5.71 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Field Target Trophy Green .177 5.71 gr",
+   "grain": 5.71,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-green-177",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-green-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "no contact with lead thanks to special tin alloy"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Field Target Trophy Green .22 9.57 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Field Target Trophy Green .22 9.57 gr",
+   "grain": 9.57,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-green-22",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/field-target-trophy-green-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "no contact with lead thanks to special tin alloy"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Crow Magnum .177 8.8 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Crow Magnum .177 8.8 gr",
+   "grain": 8.8,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/crow-magnum-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/crow-magnum-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Smooth with large hollow point"
+   },
+   "base": null
+  },
+  "H&N|Crow Magnum .22 18.21 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Crow Magnum .22 18.21 gr",
+   "grain": 18.21,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/crow-magnum-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/crow-magnum-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Smooth with large hollow point"
+   },
+   "base": null
+  },
+  "H&N|Crow Magnum .25 26.24 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Crow Magnum .25 26.24 gr",
+   "grain": 26.24,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/crow-magnum-25",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/crow-magnum-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Smooth with large hollow point"
+   },
+   "base": null
+  },
+  "H&N|Baracuda Hunter Extreme 9.57 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Baracuda Hunter Extreme 9.57 gr",
+   "grain": 9.57,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-extreme-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "hollow_point",
+    "source_url": "https://www.hn-sport.de/en/air-gun-hunting/baracuda-hunter-extreme-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Deep, cross-shaped hollow tip"
+   },
+   "base": null
+  },
+  "H&N|Terminator 7.25 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Terminator 7.25 gr",
+   "grain": 7.25,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/terminator-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Terminator 16.36 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Terminator 16.36 gr",
+   "grain": 16.36,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/terminator-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Rabbit Magnum II 15.74 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Rabbit Magnum II 15.74 gr",
+   "grain": 15.74,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/rabbit-magnum-II-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Rabbit Magnum II 25.31 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Rabbit Magnum II 25.31 gr",
+   "grain": 25.31,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/rabbit-magnum-II-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Silver Point 11.57 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Silver Point 11.57 gr",
+   "grain": 11.57,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/silver-point-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Silver Point 17.13 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Silver Point 17.13 gr",
+   "grain": 17.13,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/silver-point-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Silver Point 24.38 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Silver Point 24.38 gr",
+   "grain": 24.38,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/silver-point-25",
+   "caliber_mm": 6.35,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Spitzkugel 8.64 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Spitzkugel 8.64 gr",
+   "grain": 8.64,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/spitzkugel-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Spitzkugel 16.05 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Spitzkugel 16.05 gr",
+   "grain": 16.05,
+   "library_source_url": "https://www.hn-sport.de/en/air-gun-hunting/spitzkugel-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Finale Match Light 7.87 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Finale Match Light 7.87 gr",
+   "grain": 7.87,
+   "library_source_url": "https://www.hn-sport.de/en/target-shooting/finale-match-light-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Finale Match Heavy 8.18 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Finale Match Heavy 8.18 gr",
+   "grain": 8.18,
+   "library_source_url": "https://www.hn-sport.de/en/target-shooting/finale-match-heavy-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Match Heavy 8.18 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Match Heavy 8.18 gr",
+   "grain": 8.18,
+   "library_source_url": "https://www.hn-sport.de/en/target-shooting/match-heavy-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Match Light 7.87 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Match Light 7.87 gr",
+   "grain": 7.87,
+   "library_source_url": "https://www.hn-sport.de/en/target-shooting/match-light-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Match Green 5.25 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Match Green 5.25 gr",
+   "grain": 5.25,
+   "library_source_url": "https://www.hn-sport.de/en/target-shooting/match-green-177",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_free_pellet",
+    "source_url": "https://www.hn-sport.de/en/target-shooting/match-green-177",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "No contact with lead thanks to special tin alloy"
+   },
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Sport 8.18 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Sport 8.18 gr",
+   "grain": 8.18,
+   "library_source_url": "https://www.hn-sport.de/en/target-shooting/sport-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Sport 13.73 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Sport 13.73 gr",
+   "grain": 13.73,
+   "library_source_url": "https://www.hn-sport.de/en/target-shooting/sport-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Excite Econ II 7.4 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excite Econ II 7.4 gr",
+   "grain": 7.4,
+   "library_source_url": "https://www.hn-sport.de/en/action-shooting/econ-II-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Excite Econ II 13.12 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excite Econ II 13.12 gr",
+   "grain": 13.12,
+   "library_source_url": "https://www.hn-sport.de/en/action-shooting/econ-II-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Excite Coppa-Spitzkugel 7.56 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excite Coppa-Spitzkugel 7.56 gr",
+   "grain": 7.56,
+   "library_source_url": "https://www.hn-sport.de/en/action-shooting/coppa-spitzkugel-177",
+   "caliber_mm": 4.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.hn-sport.de/en/action-shooting/coppa-spitzkugel-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Completely encapsulating the lead core"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.hn-sport.de/en/action-shooting/coppa-spitzkugel-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "copper plated pointed pellet"
+   },
+   "base": null
+  },
+  "H&N|Excite Coppa-Spitzkugel 16.05 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excite Coppa-Spitzkugel 16.05 gr",
+   "grain": 16.05,
+   "library_source_url": "https://www.hn-sport.de/en/action-shooting/coppa-spitzkugel-22",
+   "caliber_mm": 5.5,
+   "construction": {
+    "value": "lead_pellet",
+    "source_url": "https://www.hn-sport.de/en/action-shooting/coppa-spitzkugel-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "Completely encapsulating the lead core"
+   },
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.hn-sport.de/en/action-shooting/coppa-spitzkugel-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "copper plated pointed pellet"
+   },
+   "base": null
+  },
+  "H&N|Excite Spike 8.64 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excite Spike 8.64 gr",
+   "grain": 8.64,
+   "library_source_url": "https://www.hn-sport.de/en/action-shooting/spike-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.hn-sport.de/en/action-shooting/spike-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "accurate pointed pellet"
+   },
+   "base": null
+  },
+  "H&N|Excite Spike 15.74 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excite Spike 15.74 gr",
+   "grain": 15.74,
+   "library_source_url": "https://www.hn-sport.de/en/action-shooting/spike-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "pointed",
+    "source_url": "https://www.hn-sport.de/en/action-shooting/spike-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "accurate pointed pellet"
+   },
+   "base": null
+  },
+  "H&N|Excite Hammer 7.87 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excite Hammer 7.87 gr",
+   "grain": 7.87,
+   "library_source_url": "https://www.hn-sport.de/en/action-shooting/hammer-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.hn-sport.de/en/action-shooting/hammer-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "English form (round head) for flat trajectories"
+   },
+   "base": null
+  },
+  "H&N|Excite Hammer 14.66 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excite Hammer 14.66 gr",
+   "grain": 14.66,
+   "library_source_url": "https://www.hn-sport.de/en/action-shooting/hammer-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": {
+    "value": "round_nose",
+    "source_url": "https://www.hn-sport.de/en/action-shooting/hammer-22",
+    "read_date": "2026-10-13",
+    "evidence": "maker_page",
+    "quote": "English form (round head) for flat trajectories"
+   },
+   "base": null
+  },
+  "H&N|Excite Plinking 7.25 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excite Plinking 7.25 gr",
+   "grain": 7.25,
+   "library_source_url": "https://www.hn-sport.de/en/action-shooting/plinking-177",
+   "caliber_mm": 4.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  },
+  "H&N|Excite Plinking 12.81 gr": {
+   "lib": "bullet",
+   "platform": "pcp",
+   "name": "Excite Plinking 12.81 gr",
+   "grain": 12.81,
+   "library_source_url": "https://www.hn-sport.de/en/action-shooting/plinking-22",
+   "caliber_mm": 5.5,
+   "construction": null,
+   "tip_shape": null,
+   "base": null
+  }
+ }
+}

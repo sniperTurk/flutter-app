@@ -1,0 +1,341 @@
+{
+ "brand": "Winchester",
+ "note": "winchester.com line/product pages read 2026-10-13 (robots ok; WebFetch PROVENANCE_REQUIRED on first 3 tries, succeeded on 4th). Nosler AccuBond LR page for base. Power-Point line/product pages state no construction/tip/base (only 350 Legend page: notching + lead core). Not stated: base for DSXP, Power Max Bonded, Expedition, Varmint X, Defender; Super-X, USA, Super Suppressed and most rimfire construction; AccuBond CT base; Match tip left to name words.",
+ "sources": [
+  {
+   "id": "bst",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Ballistic-Silvertip",
+   "read_date": "2026-10-13",
+   "title": "Ballistic Silvertip line"
+  },
+  {
+   "id": "dsxp",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Deer-Season-XP",
+   "read_date": "2026-10-13",
+   "title": "Deer Season XP line"
+  },
+  {
+   "id": "ci",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Copper-Impact",
+   "read_date": "2026-10-13",
+   "title": "Copper Impact line"
+  },
+  {
+   "id": "ebg",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Expedition-Big-Game",
+   "read_date": "2026-10-13",
+   "title": "Expedition Big Game line"
+  },
+  {
+   "id": "match",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Match",
+   "read_date": "2026-10-13",
+   "title": "Match line"
+  },
+  {
+   "id": "vx",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X",
+   "read_date": "2026-10-13",
+   "title": "Varmint X line"
+  },
+  {
+   "id": "vxlf",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Varmint-X-Lead-Free/X22250PLF",
+   "read_date": "2026-10-13",
+   "title": "Varmint X Lead Free 22-250"
+  },
+  {
+   "id": "vxlf17",
+   "url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-X-Lead-Free/X17W15PLF",
+   "read_date": "2026-10-13",
+   "title": "Varmint X Lead Free 17 WSM"
+  },
+  {
+   "id": "pmb",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Power-Max-Bonded",
+   "read_date": "2026-10-13",
+   "title": "Power Max Bonded line"
+  },
+  {
+   "id": "def",
+   "url": "https://winchester.com/Products/Ammunition/Rifle/Defender/S223RPDB",
+   "read_date": "2026-10-13",
+   "title": "Defender 223 Rem Split Core"
+  },
+  {
+   "id": "vmax",
+   "url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-HV/S22M2PT",
+   "read_date": "2026-10-13",
+   "title": "Varmint HV 22 WMR V-MAX"
+  },
+  {
+   "id": "tin",
+   "url": "https://winchester.com/Products/Ammunition/Rimfire/Varmint-LF/X22LRHLF",
+   "read_date": "2026-10-13",
+   "title": "Varmint LF 22 LR Tin HP"
+  },
+  {
+   "id": "l350",
+   "url": "https://winchester.com/350-Legend.",
+   "read_date": "2026-10-13",
+   "title": "350 Legend cartridge page"
+  },
+  {
+   "id": "nab_lr",
+   "url": "https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html",
+   "read_date": "2026-10-13",
+   "title": "Nosler AccuBond Long Range 6.5mm 142 gr"
+  }
+ ],
+ "families": [
+  {
+   "id": "bst",
+   "lib": "factory",
+   "name_regex": "\\bBallistic Silvertip\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "bst",
+     "quote": "the contoured jacket peels back while holding together the lead core"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "bst",
+     "quote": "The polymer tip resists deformation"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "bst",
+     "quote": "The boattail design enhances accuracy"
+    }
+   }
+  },
+  {
+   "id": "dsxp",
+   "lib": "factory",
+   "name_regex": "\\bDeer Season XP\\b",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "dsxp",
+     "quote": "Contoured jacket with tapered profile and alloyed lead core"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "dsxp",
+     "quote": "Streamlined profile and large polymer tip"
+    }
+   }
+  },
+  {
+   "id": "ci",
+   "lib": "factory",
+   "name_regex": "\\bCopper Impact\\b",
+   "fields": {
+    "construction": {
+     "value": "monolithic_copper",
+     "src": "ci",
+     "quote": "utilizing a tough solid copper expanding projectile"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "ci",
+     "quote": "Large diameter polymer tip delivers rapid impact trauma"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "ci",
+     "quote": "engineered boattail improves long range flight characteristics"
+    }
+   }
+  },
+  {
+   "id": "ebg",
+   "lib": "factory",
+   "name_regex": "\\bExpedition Big Game\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "ebg",
+     "quote": "A bonded, lead-alloy core allows for deeper penetration"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "ebg",
+     "quote": "A polymer tip helps resist deformation"
+    }
+   }
+  },
+  {
+   "id": "ebg_lr",
+   "lib": "factory",
+   "name_regex": "\\bExpedition Big Game\\b.*\\bAccuBond LR\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "Accubond Long Range",
+     "src": "ebg",
+     "quote": "tough, deep penetrating Accubond Long Range bullet"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "nab_lr",
+     "quote": "high-performance boat-tail base",
+     "evidence": "component_maker_page"
+    }
+   }
+  },
+  {
+   "id": "ebg_ct",
+   "lib": "factory",
+   "name_regex": "\\bExpedition Big Game\\b.*\\bAccuBond CT\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "AccuBond CT",
+     "src": "ebg",
+     "quote": "AccuBond CT"
+    }
+   }
+  },
+  {
+   "id": "match",
+   "lib": "factory",
+   "name_regex": "^Match\\b.*\\bMatch BTHP\\b",
+   "fields": {
+    "construction": {
+     "value": "match",
+     "src": "match",
+     "quote": "Match-Style Bullet"
+    },
+    "base": {
+     "value": "boat_tail",
+     "src": "match",
+     "quote": "Sleek profile, large boattail and small hollow point"
+    }
+   }
+  },
+  {
+   "id": "vx",
+   "lib": "factory",
+   "name_regex": "^Varmint X\\b",
+   "not_regex": "Lead Free",
+   "fields": {
+    "construction": {
+     "value": "cup_and_core",
+     "src": "vx",
+     "quote": "Thin alloy jacket and soft lead core create massive impact trauma"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "vx",
+     "quote": "Polymer tip facilitates quick energy transfer"
+    }
+   }
+  },
+  {
+   "id": "vxlf",
+   "lib": "factory",
+   "name_regex": "^Varmint X Lead Free\\b.*\\bZinc Core\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "vxlf",
+     "quote": "The sleek, lead free, zinc core bullets are explosive upon impact"
+    }
+   }
+  },
+  {
+   "id": "vxlf17",
+   "lib": "factory",
+   "name_regex": "^Varmint X Lead Free 17 Win Super Mag\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "vxlf17",
+     "quote": "Lead Free Core: Designed for rapid fragmentation"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "vxlf17",
+     "quote": "Polymer Tip: Maximizes long range performance"
+    }
+   }
+  },
+  {
+   "id": "pmb",
+   "lib": "factory",
+   "name_regex": "\\bPower Max Bonded\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "pmb",
+     "quote": "The lead core is bonded to the jacket for maximum retained weight"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "pmb",
+     "quote": "The protected hollow point promotes rapid expansion"
+    }
+   }
+  },
+  {
+   "id": "def_split",
+   "lib": "factory",
+   "name_regex": "^Defender\\b.*\\bSplit Core\\b",
+   "fields": {
+    "construction": {
+     "value": "bonded",
+     "src": "def",
+     "quote": "Bonded rear core maximizes retained weight and penetration"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "def",
+     "quote": "Protected hollow point promotes sure feeding"
+    }
+   }
+  },
+  {
+   "id": "vmax",
+   "lib": "factory",
+   "name_regex": "^Varmint HV\\b.*\\bV-MAX\\b",
+   "fields": {
+    "component_bullet": {
+     "value": "V-Max",
+     "src": "vmax",
+     "quote": "Polymer Tip V-Max Bullet"
+    },
+    "tip_shape": {
+     "value": "polymer_tip",
+     "src": "vmax",
+     "quote": "Polymer Tip V-Max Bullet"
+    }
+   }
+  },
+  {
+   "id": "tin",
+   "lib": "factory",
+   "name_regex": "^Varmint LF\\b.*\\bTin Hollow Point\\b",
+   "fields": {
+    "construction": {
+     "value": "lead_free_other",
+     "src": "tin",
+     "quote": "Patented Tin Technology"
+    },
+    "tip_shape": {
+     "value": "hollow_point",
+     "src": "tin",
+     "quote": "deep hollow point for explosive expansion"
+    }
+   }
+  }
+ ],
+ "records": {
+  "Winchester|Power-Point 180 gr|.350 Legend": {
+   "construction": {
+    "value": "cup_and_core",
+    "src": "l350",
+    "quote": "Strategic Notching ... Alloyed Lead Core: Increases retained weight"
+   }
+  }
+ }
+}
