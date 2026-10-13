@@ -141,7 +141,15 @@ void main() {
     await choose('profile-distance-unit', 'Metre');
     await type('profile-zero', '25');
     await type('scope-sight-height', '60');
-    await choose('scope-brand-select', 'Listede yok');
+    // The typed scope opens from the link under the Dürbün card (owner,
+    // 2026-10-13: no "Listede yok" in the scope Marka list).
+    // On the Simulator the bottom bar covers the link wherever the scroll
+    // leaves it, so its own action is called (the widget tests tap it).
+    final notListed = find.byKey(const Key('scope-not-listed'));
+    await tester.ensureVisible(notListed);
+    await tester.pumpAndSettle();
+    tester.widget<TextButton>(notListed).onPressed!();
+    await tester.pumpAndSettle();
     await type('scope-brand', 'Test Optik');
     // Büyütme, Mercek çapı and Klik değeri are picked from lists; every
     // list box starts on "Seçiniz" (owner, 2026-10-11).

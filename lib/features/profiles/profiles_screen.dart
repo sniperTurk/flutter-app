@@ -1328,9 +1328,75 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   // ---- Dürbün Marka / Model / Retikül lists (owner, 2026-10-11) ----
 
-  /// True after "Listede yok": the scope is typed in.
+  /// True after "Aradığın dürbün listede yok mu?": the scope is typed in.
   bool _scopeManual = false;
   String? _scopeBrandSel;
+
+  /// "Listede yok" in the scope Marka list, hidden (owner, 2026-10-13:
+  /// "gizle, silme"); the link under the card opens the typed entry.
+  static const bool _showScopeListedeYok = bool.fromEnvironment(
+    'SCOPE_LISTEDE_YOK',
+  );
+
+  /// The catalog record the scope values came from (null: none chosen or a
+  /// typed scope). Its missing values decide which hidden boxes show.
+  ScopeOptic? _scopeRecord;
+
+  /// Profili Düzenle of a catalog scope: Birim / Odak / Tüp / Büyütme stay
+  /// hidden until Marka changes (owner, 2026-10-13).
+  bool _scopeFiltersHidden = false;
+
+  /// A catalog scope (picked from the lists): Minimum / Maksimum büyütme,
+  /// Mercek çapı, Odak düzlemi and Dürbün birimi come from the record and
+  /// are hidden (owner, 2026-10-13: "gizle, silme"). Only a value the
+  /// record lacks shows its box so the user can fill it; before a Model is
+  /// chosen they all stay hidden.
+  bool get _scopeFromList => !_scopeManual && _scopeBrands.isNotEmpty;
+
+  bool get _scopeMinMagShown =>
+      !_scopeFromList ||
+      (_scopeModelKey != null && _scopeRecord?.minMagnification == null);
+
+  bool get _scopeMaxMagShown =>
+      !_scopeFromList ||
+      (_scopeModelKey != null && _scopeRecord?.maxMagnification == null);
+
+  bool get _scopeObjectiveShown =>
+      !_scopeFromList ||
+      (_scopeModelKey != null &&
+          ((_scopeRecord?.objectiveDiameterMm ?? 0) <= 0));
+
+  bool get _scopeFocalShown =>
+      !_scopeFromList ||
+      (_scopeModelKey != null && _scopeRecord?.firstFocalPlane == null);
+
+  bool get _scopeUnitShown =>
+      !_scopeFromList ||
+      (_scopeModelKey != null && (_scopeRecord == null || !_angularUnitSet));
+
+  /// Opens the typed scope entry ("Aradığın dürbün listede yok mu?", and the
+  /// hidden "Listede yok" item): every box starts on "Seçiniz".
+  void _openScopeManual() {
+    _scopeModelKey = null;
+    scopeReticle = null;
+    _scopePickToken++;
+    _scopeManual = true;
+    _scopeBrandSel = null;
+    _scopeRecord = null;
+    _scopeFiltersHidden = false;
+    scopeBrand.text = '';
+    for (final c in [
+      scopeMinMag,
+      scopeMaxMag,
+      scopeObjective,
+      scopeClick,
+      scopeTravelElevation,
+    ]) {
+      c.clear();
+    }
+    firstFocalPlane = null;
+    _angularUnitSet = false;
+  }
 
   /// The chosen model: the catalog model without its reticle name.
   String? _scopeModelKey;
@@ -1701,14 +1767,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   void _applyScope(ScopeOptic s, {String? reticle}) {
     _angularUnitSet = true; // the catalog scope tells its unit
     final series = ScopePickerScreen.seriesOf(_scopeModelOf(s));
+    _scopeRecord = s;
     scopeBrand.text = series.isEmpty ? s.brand : '${s.brand} $series';
-    if (s.minMagnification != null) {
-      scopeMinMag.text = _trimNum(s.minMagnification!);
-    }
-    if (s.maxMagnification != null) {
-      scopeMaxMag.text = _trimNum(s.maxMagnification!);
-    }
-    scopeObjective.text = _trimNum(s.objectiveDiameterMm);
+    // A value the record lacks is emptied (not kept from an earlier model)
+    // and its box is shown for the user to fill.
+    scopeMinMag.text = s.minMagnification == null
+        ? ''
+        : _trimNum(s.minMagnification!);
+    scopeMaxMag.text = s.maxMagnification == null
+        ? ''
+        : _trimNum(s.maxMagnification!);
+    scopeObjective.text = s.objectiveDiameterMm > 0
+        ? _trimNum(s.objectiveDiameterMm)
+        : '';
     firstFocalPlane = s.firstFocalPlane;
     angularUnit = s.clickUnit;
     scopeClick.text = _trimNum(s.clickValue);
@@ -1746,6 +1817,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   _scopeManual = false;
                   _scopeBrandSel = null;
                   _scopeModelKey = null;
+                  _scopeRecord = null;
                   scopeBrand.text = '';
                   scopeClick.text = _trimNum(_defaultClick(angularUnit));
                   scopeReticle = null;
@@ -1773,33 +1845,23 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             items: [
               for (final b in brands)
                 DropdownMenuItem(value: b, child: Text(b)),
-              const DropdownMenuItem(
-                value: _manualKey,
-                child: Text('Listede yok'),
-              ),
+              if (_showScopeListedeYok)
+                const DropdownMenuItem(
+                  value: _manualKey,
+                  child: Text('Listede yok'),
+                ),
             ],
             onChanged: (v) => setState(() {
-              _scopeModelKey = null;
-              scopeReticle = null;
-              _scopePickToken++;
               if (v == _manualKey) {
-                _scopeManual = true;
-                _scopeBrandSel = null;
-                scopeBrand.text = '';
-                // A typed scope starts empty: every list on "Seçiniz".
-                for (final c in [
-                  scopeMinMag,
-                  scopeMaxMag,
-                  scopeObjective,
-                  scopeClick,
-                  scopeTravelElevation,
-                ]) {
-                  c.clear();
-                }
-                firstFocalPlane = null;
-                _angularUnitSet = false;
+                _openScopeManual();
                 return;
               }
+              _scopeModelKey = null;
+              _scopeRecord = null;
+              scopeReticle = null;
+              _scopePickToken++;
+              // A changed Marka shows the filters again (owner, 2026-10-13).
+              _scopeFiltersHidden = false;
               _scopeBrandSel = v;
               scopeBrand.text = v ?? '';
               // A new brand starts every filter on "Seçiniz" (owner,
@@ -1812,7 +1874,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ),
         ),
       ),
-      if (brand != null) ..._scopeFilterFields(),
+      if (brand != null && !_scopeFiltersHidden) ..._scopeFilterFields(),
       MenzilFullWidth(
         child: KeyedSubtree(
           key: const Key('scope-model-select'),
@@ -2173,6 +2235,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       } else {
         _scopeBrandSel = hit.brand;
         _scopeModelKey = _scopeModelOf(hit);
+        _scopeRecord = hit;
+        // Profili Düzenle of a catalog scope: no filter boxes (owner,
+        // 2026-10-13); they come back when Marka changes.
+        _scopeFiltersHidden = true;
       }
     }
     angularUnit = p?.angularUnit ?? s0?.clickUnit ?? AngularUnit.mrad;
@@ -3721,91 +3787,96 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 ..._scopeNameFields(),
                 // Owner, 2026-10-11: picked from standard values, not
                 // typed; Minimum | Maksimum side by side.
-                _numberSelect(
-                  key: 'scope-min-mag',
-                  label: 'Minimum büyütme',
-                  info: ProfileFieldInfo.minMag,
-                  controller: scopeMinMag,
-                  options: _minMagOptions,
-                  suffix: 'x',
-                  errorText: _shownSelect(_minMagError),
-                ),
-                _numberSelect(
-                  key: 'scope-max-mag',
-                  label: 'Maksimum büyütme',
-                  info: ProfileFieldInfo.maxMag,
-                  controller: scopeMaxMag,
-                  options: _maxMagOptions,
-                  suffix: 'x',
-                  errorText: _shownSelect(_maxMagError, scopeMaxMag),
-                ),
-                _numberSelect(
-                  key: 'scope-objective',
-                  label: 'Mercek çapı',
-                  info: ProfileFieldInfo.objective,
-                  controller: scopeObjective,
-                  options: _objectiveOptions,
-                  suffix: ' mm',
-                  errorText: _shownSelect(_objectiveError),
-                ),
-                KeyedSubtree(
-                  key: const Key('scope-focal-plane'),
-                  child: MenzilSelect<bool>(
-                    key: ValueKey('scope-focal-plane-$_scopePickToken'),
-                    info: ProfileFieldInfo.focalPlane,
-                    label: 'Odak düzlemi',
-                    initialValue: firstFocalPlane,
-                    items: const [
-                      DropdownMenuItem(value: true, child: Text('FFP')),
-                      DropdownMenuItem(value: false, child: Text('SFP')),
-                    ],
-                    onChanged: (v) => setState(() => firstFocalPlane = v),
+                if (_scopeMinMagShown)
+                  _numberSelect(
+                    key: 'scope-min-mag',
+                    label: 'Minimum büyütme',
+                    info: ProfileFieldInfo.minMag,
+                    controller: scopeMinMag,
+                    options: _minMagOptions,
+                    suffix: 'x',
+                    errorText: _shownSelect(_minMagError),
                   ),
-                ),
-                KeyedSubtree(
-                  key: const Key('scope-unit'),
-                  child: MenzilSelect<AngularUnit>(
-                    key: ValueKey(
-                      'profile-angular-unit-${angularUnit.name}'
-                      '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
+                if (_scopeMaxMagShown)
+                  _numberSelect(
+                    key: 'scope-max-mag',
+                    label: 'Maksimum büyütme',
+                    info: ProfileFieldInfo.maxMag,
+                    controller: scopeMaxMag,
+                    options: _maxMagOptions,
+                    suffix: 'x',
+                    errorText: _shownSelect(_maxMagError, scopeMaxMag),
+                  ),
+                if (_scopeObjectiveShown)
+                  _numberSelect(
+                    key: 'scope-objective',
+                    label: 'Mercek çapı',
+                    info: ProfileFieldInfo.objective,
+                    controller: scopeObjective,
+                    options: _objectiveOptions,
+                    suffix: ' mm',
+                    errorText: _shownSelect(_objectiveError),
+                  ),
+                if (_scopeFocalShown)
+                  KeyedSubtree(
+                    key: const Key('scope-focal-plane'),
+                    child: MenzilSelect<bool>(
+                      key: ValueKey('scope-focal-plane-$_scopePickToken'),
+                      info: ProfileFieldInfo.focalPlane,
+                      label: 'Odak düzlemi',
+                      initialValue: firstFocalPlane,
+                      items: const [
+                        DropdownMenuItem(value: true, child: Text('FFP')),
+                        DropdownMenuItem(value: false, child: Text('SFP')),
+                      ],
+                      onChanged: (v) => setState(() => firstFocalPlane = v),
                     ),
-                    info: ProfileFieldInfo.scopeUnit,
-                    label: 'Dürbün birimi',
-                    initialValue: _angularUnitSet ? angularUnit : null,
-                    items: const [
-                      DropdownMenuItem(
-                        value: AngularUnit.mrad,
-                        child: Text('MRAD'),
-                      ),
-                      DropdownMenuItem(
-                        value: AngularUnit.moa,
-                        child: Text('MOA'),
-                      ),
-                      // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
-                      DropdownMenuItem(
-                        value: AngularUnit.smoa,
-                        child: Text('SMOA'),
-                      ),
-                    ],
-                    onChanged: (v) => setState(() {
-                      _angularUnitSet = v != null;
-                      final next = v ?? AngularUnit.mrad;
-                      // A catalog scope's click follows the unit (0.1 MRAD,
-                      // 1/4 MOA; owner, 2026-10-09).
-                      if (_scopeManual) {
-                        // A typed scope picks its Klik değeri from the
-                        // new unit's list; one that does not fit is cleared.
-                        final click = _parse(scopeClick);
-                        if (!_clickOptions(next).any((o) => o.$1 == click)) {
-                          scopeClick.clear();
-                        }
-                      } else if (next != angularUnit) {
-                        scopeClick.text = _trimNum(_defaultClick(next));
-                      }
-                      angularUnit = next;
-                    }),
                   ),
-                ),
+                if (_scopeUnitShown)
+                  KeyedSubtree(
+                    key: const Key('scope-unit'),
+                    child: MenzilSelect<AngularUnit>(
+                      key: ValueKey(
+                        'profile-angular-unit-${angularUnit.name}'
+                        '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
+                      ),
+                      info: ProfileFieldInfo.scopeUnit,
+                      label: 'Dürbün birimi',
+                      initialValue: _angularUnitSet ? angularUnit : null,
+                      items: const [
+                        DropdownMenuItem(
+                          value: AngularUnit.mrad,
+                          child: Text('MRAD'),
+                        ),
+                        DropdownMenuItem(
+                          value: AngularUnit.moa,
+                          child: Text('MOA'),
+                        ),
+                        // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
+                        DropdownMenuItem(
+                          value: AngularUnit.smoa,
+                          child: Text('SMOA'),
+                        ),
+                      ],
+                      onChanged: (v) => setState(() {
+                        _angularUnitSet = v != null;
+                        final next = v ?? AngularUnit.mrad;
+                        // A catalog scope's click follows the unit (0.1 MRAD,
+                        // 1/4 MOA; owner, 2026-10-09).
+                        if (_scopeManual) {
+                          // A typed scope picks its Klik değeri from the
+                          // new unit's list; one that does not fit is cleared.
+                          final click = _parse(scopeClick);
+                          if (!_clickOptions(next).any((o) => o.$1 == click)) {
+                            scopeClick.clear();
+                          }
+                        } else if (next != angularUnit) {
+                          scopeClick.text = _trimNum(_defaultClick(next));
+                        }
+                        angularUnit = next;
+                      }),
+                    ),
+                  ),
                 // Typed scope: Dürbün birimi | Klik değeri side by side.
                 if (_scopeManual || _scopeBrands.isEmpty) _clickSelect(),
                 KeyedSubtree(
@@ -3929,6 +4000,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     ],
                   ),
                 ),
+                // Owner, 2026-10-13: the typed entry opens from this link
+                // instead of a "Listede yok" item in the Marka list.
+                if (_scopeFromList)
+                  MenzilFullWidth(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                        key: const Key('scope-not-listed'),
+                        onPressed: () => setState(_openScopeManual),
+                        child: const Text('Aradığın dürbün listede yok mu?'),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
