@@ -97,9 +97,7 @@ void main() {
       expect(RegExp(r'\d').hasMatch(texts), isFalse, reason: texts);
     });
 
-    testWidgets('the profile is deleted while Hedef was used', (
-      tester,
-    ) async {
+    testWidgets('the profile is deleted while Hedef was used', (tester) async {
       final store = await _pumpHome(tester, profile: _profile(0));
       await tester.tap(find.text('Hedef'));
       await tester.pumpAndSettle();
