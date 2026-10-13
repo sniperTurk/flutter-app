@@ -164,6 +164,20 @@ Sahip kararları (2026-10-13 20:09, 20:28):
   çalıştı.
 - CI çalıştırmaları: aşağıda.
 
-CI_RUNS_PLACEHOLDER
+Hepsi `fix/pro-alttan-sayfa` dalı için, `main` üzerinden tetiklendi:
+
+| İş | Commit | Sonuç | Bağlantı |
+|---|---|---|---|
+| dart format (format-fix) | b265b14 → 552a965 biçimlendirme commit'i | geçti | https://github.com/sniperTurk/flutter-app/actions/runs/38444690221 |
+| flutter test (ilk) | 552a965 | **KALDI**: dar ekranda uzun sayfa tek kaydırmada sona gelmedi (test hatası; döngüyle düzeltildi) | https://github.com/sniperTurk/flutter-app/actions/runs/38445125009 |
+| flutter analyze (ilk) | 552a965 | geçti | https://github.com/sniperTurk/flutter-app/actions/runs/38445128932 |
+| flutter test (ikinci) | 56ad312 (main birleşmiş) | **KALDI**: vurgulu son alanın etiketi görünür alanın üstünde kalıyordu (gerçek kusur; `ensureVisible` hizası düzeltildi) | https://github.com/sniperTurk/flutter-app/actions/runs/38446893121 |
+| dart format (son) | 600b22f | değişiklik yok (temiz) | https://github.com/sniperTurk/flutter-app/actions/runs/38448085711 |
+| **flutter test (son, tüm testler)** | 600b22f | **geçti** | https://github.com/sniperTurk/flutter-app/actions/runs/38448296153 |
+| **flutter analyze --fatal-infos --fatal-warnings (son)** | 600b22f | **geçti** | https://github.com/sniperTurk/flutter-app/actions/runs/38448300015 |
+
+Bu raporu güncelleyen son commit yalnız bu dosyayı değiştirir (kod yok).
+`iOS CI / verify`, Simulator, cihaz, imzalama ve TestFlight **çalıştırılmadı**;
+geçti denmez.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
