@@ -61,7 +61,9 @@ void _expectOneRow(WidgetTester tester) {
   expect(v.left, greaterThanOrEqualTo(card.left));
   expect(c.right, lessThanOrEqualTo(card.right));
   // The text box and the list box start at the same height.
-  final field = tester.getRect(_in('profile-velocity-fps', find.byType(TextField)));
+  final field = tester.getRect(
+    _in('profile-velocity-fps', find.byType(TextField)),
+  );
   final select = tester.getRect(
     _in('rifle-caliber', find.byType(InputDecorator)),
   );
@@ -114,53 +116,54 @@ void main() {
       (_narrowest, 1.0),
       (_narrowest, 1.3),
     ]) {
-      testWidgets(
-        '$kind: Namlu çıkış hızı | Kalibre on one row '
-        '(width $width, text ×$textScale)',
-        (tester) async {
-          await _openNew(
+      testWidgets('$kind: Namlu çıkış hızı | Kalibre on one row '
+          '(width $width, text ×$textScale)', (tester) async {
+        await _openNew(
+          tester,
+          firearm: firearm,
+          width: width,
+          textScale: textScale,
+        );
+        _expectOneRow(tester);
+        if (firearm) {
+          // The longest cartridge name of the list.
+          await chooseInSelect(
             tester,
-            firearm: firearm,
-            width: width,
-            textScale: textScale,
+            'rifle-caliber',
+            '.338-378 Weatherby Mag',
           );
-          _expectOneRow(tester);
-          if (firearm) {
-            // The longest cartridge name of the list.
-            await chooseInSelect(
-              tester,
-              'rifle-caliber',
-              '.338-378 Weatherby Mag',
-            );
-            _expectFits(tester, '.338-378 Weatherby Mag', '.338-378 Wby Mag');
-          } else {
-            // The owner's screenshot: Hatsan Hercules.
-            await chooseInSelect(tester, 'rifle-brand-select', 'Hatsan');
-            await chooseInSelect(tester, 'rifle-model-select', 'Hercules');
-            await chooseInSelect(tester, 'rifle-caliber', '11.43 mm (.45)');
-            _expectFits(tester, '11.43 mm (.45)', '11.43 mm (.45)');
-          }
-          _expectOneRow(tester);
-          // A velocity error stays in the left box; the row holds.
-          await enterRifleField(tester, 'profile-velocity-fps', '6000');
-          await tester.pumpAndSettle();
-          final error = _in(
-            'profile-velocity-fps',
-            find.text('100–4900 arasında bir değer girin.'),
-          );
-          expect(error, findsOneWidget);
-          final e = tester.getRect(error);
-          final v = tester.getRect(_key('profile-velocity-fps'));
-          expect(e.left, greaterThanOrEqualTo(v.left));
-          expect(e.right, lessThanOrEqualTo(v.right + 0.5));
-          _expectOneRow(tester);
-          expect(tester.takeException(), isNull);
-        },
-      );
+          _expectFits(tester, '.338-378 Weatherby Mag', '.338-378 Wby Mag');
+        } else {
+          // The owner's screenshot: Hatsan Hercules.
+          await chooseInSelect(tester, 'rifle-brand-select', 'Hatsan');
+          await chooseInSelect(tester, 'rifle-model-select', 'Hercules');
+          await chooseInSelect(tester, 'rifle-caliber', '11.43 mm (.45)');
+          _expectFits(tester, '11.43 mm (.45)', '11.43 mm (.45)');
+        }
+        _expectOneRow(tester);
+        // A velocity error stays in the left box; the row holds.
+        await enterRifleField(tester, 'profile-velocity-fps', '6000');
+        await tester.pumpAndSettle();
+        final error = _in(
+          'profile-velocity-fps',
+          find.text('100–4900 arasında bir değer girin.'),
+        );
+        expect(error, findsOneWidget);
+        final e = tester.getRect(error);
+        final v = tester.getRect(_key('profile-velocity-fps'));
+        expect(e.left, greaterThanOrEqualTo(v.left));
+        expect(e.right, lessThanOrEqualTo(v.right + 0.5));
+        _expectOneRow(tester);
+        expect(tester.takeException(), isNull);
+      });
     }
   }
 
-  for (final (width, textScale) in [(_wide, 1.0), (_se, 1.3), (_narrowest, 1.3)]) {
+  for (final (width, textScale) in [
+    (_wide, 1.0),
+    (_se, 1.3),
+    (_narrowest, 1.3),
+  ]) {
     testWidgets(
       'Fişeğim listede yok fits the half box; Mermi çapı takes the row below '
       '(width $width, text ×$textScale)',

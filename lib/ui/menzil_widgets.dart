@@ -1363,12 +1363,7 @@ class MenzilFitText extends StatefulWidget {
   final String? short;
   final double minScale;
 
-  const MenzilFitText(
-    this.text, {
-    super.key,
-    this.short,
-    this.minScale = 0.8,
-  });
+  const MenzilFitText(this.text, {super.key, this.short, this.minScale = 0.8});
 
   @override
   State<MenzilFitText> createState() => _MenzilFitTextState();
