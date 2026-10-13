@@ -87,7 +87,11 @@ Açık ve koyu temada değerler aynı. Tema yalnız rengi değiştiriyor.
 - Analiz (analyze-diag): https://github.com/sniperTurk/flutter-app/actions/runs/38473016156 (başarılı).
 - Yeni test (test-diag, tek dosya): https://github.com/sniperTurk/flutter-app/actions/runs/38473013277 (başarılı).
 - Ölçüm çıktısı için geçici çalışma (değerleri tabloya almak içindi; geçici satır geri alındı): https://github.com/sniperTurk/flutter-app/actions/runs/38473986891 (başarılı).
-- Son commit için tüm testler (test-diag, files=test) ve analiz: PR açıklamasında eklenecek.
+- Kod son hâli (48335e4) için:
+  - Tüm testler (test-diag, files=test): https://github.com/sniperTurk/flutter-app/actions/runs/38474920412 (başarılı).
+  - Analiz (analyze-diag): https://github.com/sniperTurk/flutter-app/actions/runs/38474923676 (başarılı).
+  - Biçimlendirme (format-fix): https://github.com/sniperTurk/flutter-app/actions/runs/38474927250 (başarılı, değişiklik yok).
+- iOS CI / Simulator / TestFlight bu iş için çalıştırılmadı.
 
 TestFlight'a gönderilmedi. Birleştirme yapılmadı. PR taslak olarak açık.
 
