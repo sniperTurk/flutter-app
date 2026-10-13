@@ -577,6 +577,8 @@ class _HomeScreenState extends State<HomeScreen> {
       final shot = tab == _tabShot;
       return MenzilPage(
         key: PageStorageKey(shot ? 'empty-shot' : 'empty-pro'),
+        // Only the Hedef page is justified (owner, 2026-10-13).
+        justify: shot,
         children: [
           if (shot)
             ShotPreview(onCreate: _createProfile)

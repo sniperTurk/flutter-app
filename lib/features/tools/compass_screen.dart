@@ -87,7 +87,7 @@ class _CompassScreenState extends State<CompassScreen> {
                     child: Text.rich(
                       TextSpan(
                         text: '${CompassMath.wholeDegrees(degrees)}°',
-                        style: MenzilType.display(c.ink, size: 64),
+                        style: MenzilType.display(c.ink, size: 64, live: true),
                         children: [
                           TextSpan(
                             text: '  ${CompassMath.cardinal16(degrees)}',

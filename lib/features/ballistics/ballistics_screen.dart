@@ -53,6 +53,7 @@ import 'pro_section_info.dart';
 import 'scope_cant_screen.dart';
 import 'scope_dial_view.dart';
 import 'wind_clock_picker.dart';
+import 'wind_guide.dart';
 
 /// Which part of the ballistic workspace is shown.
 ///
@@ -568,6 +569,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// Typical gust factor over land: the bracket top is 1.5 × the wind.
   static const windGustFactor = 1.5;
+
+  /// Rüzgâr gözlemi is hidden (owner, 2026-10-13: "gizle, silme"): its
+  /// class middle overwrote a fetched or measured Rüzgâr hızı. The
+  /// "Rüzgârı gözle tahmin et" popup (link below the Rüzgâr card) replaces
+  /// it and writes nothing. Build with --dart-define=WIND_OBSERVATION=true to show
+  /// the old select again.
+  static const bool _showWindObservation = bool.fromEnvironment(
+    'WIND_OBSERVATION',
+  );
 
   /// Rüzgâr gözlemi (Ö2): the chosen Beaufort force, null = "Seçiniz".
   /// Not saved; the wind values it writes are. A typed wind clears it.
@@ -2898,11 +2908,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       case BallisticsView.shot:
         return MenzilPage(
           key: const PageStorageKey('ballistics-shot'),
+          // The Hedef page is the only justified page (owner, 2026-10-13).
+          justify: true,
           children: _shotSection(context),
         );
       case BallisticsView.table:
         return MenzilPage(
           key: const PageStorageKey('ballistics-table'),
+          // DOPE mode of the Hedef tab: justified like Atış Çözümü.
+          justify: true,
           children: [
             ..._tableHeader(context),
             _bcNotice(),
@@ -2925,6 +2939,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             // (owner, 2026-10-12); the page stays in Araçlar. The fetch
             // buttons sit under the Hava Durumu boxes.
             ..._environmentInputs(context, collapseShotInputs: true),
+            // Below the Rüzgâr card, above Pro Ayarlara Geç (owner,
+            // 2026-10-13): only a link; the guide opens in a popup
+            // (2026-10-13 19:49). Display only: it never fills Rüzgâr hızı.
+            WindGuideLink(metric: metric),
             if (widget.onContinueToPro != null)
               MenzilPrimaryButton(
                 key: const Key('environment-continue-pro'),
@@ -3398,30 +3416,32 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         child: MenzilFieldGrid(
           children: [
             // Ö2: Beaufort over land; long item texts, so a full row.
-            MenzilFullWidth(
-              child: MenzilSelect<int>(
-                key: ValueKey('wind-observation-$_windObservationToken'),
-                label: 'Rüzgâr gözlemi',
-                hint: 'Seçiniz',
-                info: EnvironmentFieldInfo.windObservation,
-                initialValue: _windObservation,
-                // "Seçiniz" stays in the list so the shooter can look and
-                // leave without choosing (owner, 2026-10-12).
-                items: [
-                  const DropdownMenuItem<int>(child: Text('Seçiniz')),
-                  for (final b in Beaufort.classes)
-                    DropdownMenuItem(
-                      value: b.force,
-                      child: Text('${b.name}: ${b.land}', maxLines: 2),
-                    ),
-                ],
-                selectedLabels: [
-                  'Seçiniz',
-                  for (final b in Beaufort.classes) b.name,
-                ],
-                onChanged: _pickWindObservation,
+            // Hidden behind WIND_OBSERVATION (owner, 2026-10-13).
+            if (_showWindObservation)
+              MenzilFullWidth(
+                child: MenzilSelect<int>(
+                  key: ValueKey('wind-observation-$_windObservationToken'),
+                  label: 'Rüzgâr gözlemi',
+                  hint: 'Seçiniz',
+                  info: EnvironmentFieldInfo.windObservation,
+                  initialValue: _windObservation,
+                  // "Seçiniz" stays in the list so the shooter can look and
+                  // leave without choosing (owner, 2026-10-12).
+                  items: [
+                    const DropdownMenuItem<int>(child: Text('Seçiniz')),
+                    for (final b in Beaufort.classes)
+                      DropdownMenuItem(
+                        value: b.force,
+                        child: Text('${b.name}: ${b.land}', maxLines: 2),
+                      ),
+                  ],
+                  selectedLabels: [
+                    'Seçiniz',
+                    for (final b in Beaufort.classes) b.name,
+                  ],
+                  onChanged: _pickWindObservation,
+                ),
               ),
-            ),
             MenzilInput(
               key: BallisticsFieldKeys.wind,
               controller: wind,
@@ -3502,9 +3522,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             'yoğunluk oranı: ${densityRatio!.toStringAsFixed(3).replaceAll('.', ',')} • '
             'ses hızı: ${speedOfSoundMps!.toStringAsFixed(1).replaceAll('.', ',')} m/s • '
             'namlu Mach: ${muzzleMach!.toStringAsFixed(3).replaceAll('.', ',')}',
-            style: MenzilType.body(
-              c.ink,
-            ).copyWith(fontFeatures: MenzilType.tabular),
+            style: MenzilType.body(c.ink),
           ),
         ],
       ),
@@ -3832,9 +3850,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 part('Nasıl?', e.how),
               ],
             ),
-            // Justified like every paragraph (owner, 2026-10-12): the Pro
-            // cards do not inherit MenzilPage's default.
-            textAlign: TextAlign.justify,
+            // Left-aligned (owner, 2026-10-13: only the Hedef page is
+            // justified).
+            textAlign: TextAlign.start,
             style: MenzilType.caption(c.ink2).copyWith(height: 1.35),
           ),
           if (note != null)
@@ -4793,9 +4811,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                                     children: [
                                       Text(
                                         '$display',
+                                        // Stepped live with ±1/±10:
+                                        // equal-width figures, no jitter.
                                         style: MenzilType.display(
                                           c.ink,
                                           size: display >= 1000 ? 44 : 52,
+                                          live: true,
                                         ),
                                       ),
                                       const SizedBox(width: 4),
