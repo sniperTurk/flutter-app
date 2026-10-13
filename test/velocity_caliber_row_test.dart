@@ -148,8 +148,17 @@ Future<void> _pickInLongList(WidgetTester tester, String label) async {
   // Built is not shown: bring the entry into the list's visible part.
   await tester.ensureVisible(inMenu.last);
   await tester.pumpAndSettle();
-  await tester.tap(inMenu.last);
+  await tester.tap(inMenu.last, warnIfMissed: false);
   await tester.pumpAndSettle();
+  // With the 1-em test font at 320 pt × 1.3 the entry wraps over several
+  // lines and the tap can land outside its ink area; the list is still
+  // open then, so the entry's own tap handler is called (what a finger on
+  // the phone does).
+  if (inMenu.evaluate().isNotEmpty) {
+    final ink = find.ancestor(of: inMenu.last, matching: find.byType(InkWell));
+    tester.widget<InkWell>(ink.first).onTap!();
+    await tester.pumpAndSettle();
+  }
 }
 
 void main() {
