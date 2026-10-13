@@ -126,8 +126,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Sağ').last);
     await tester.pumpAndSettle();
-    await choose('ammo-brand-select', 'Listede yok');
-    await type('ammo-brand', 'Test Mühimmat Slug');
+    // PCP ammo has no Marka | Model list (hidden 2026-10-13, PCP_AMMO_BRAND).
     await tester.ensureVisible(find.byKey(const Key('ammo-type')));
     await tester.tap(find.byKey(const Key('ammo-type')));
     await tester.pumpAndSettle();
