@@ -189,7 +189,7 @@ class _DiagramPainter extends CustomPainter {
       text: TextSpan(
         text: s,
         style: TextStyle(
-          fontFamily: MenzilType.family,
+          fontFamily: MenzilType.familyFor(size),
           color: color,
           fontSize: size,
           fontWeight: weight,

@@ -3515,9 +3515,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             'yoğunluk oranı: ${densityRatio!.toStringAsFixed(3).replaceAll('.', ',')} • '
             'ses hızı: ${speedOfSoundMps!.toStringAsFixed(1).replaceAll('.', ',')} m/s • '
             'namlu Mach: ${muzzleMach!.toStringAsFixed(3).replaceAll('.', ',')}',
-            style: MenzilType.body(
-              c.ink,
-            ).copyWith(fontFeatures: MenzilType.tabular),
+            style: MenzilType.body(c.ink),
           ),
         ],
       ),
@@ -4806,9 +4804,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                                     children: [
                                       Text(
                                         '$display',
+                                        // Stepped live with ±1/±10:
+                                        // equal-width figures, no jitter.
                                         style: MenzilType.display(
                                           c.ink,
                                           size: display >= 1000 ? 44 : 52,
+                                          live: true,
                                         ),
                                       ),
                                       const SizedBox(width: 4),
