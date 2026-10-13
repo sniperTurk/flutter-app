@@ -889,7 +889,7 @@ class _ActiveProfileDetails extends StatelessWidget {
                 _joinSummary([
                   scopeNames.$1,
                   scopeNames.$2,
-                  if (_scopeSummary(scope!).isNotEmpty) _scopeSummary(scope!),
+                  if (_scopeSummary(scope!).isNotEmpty) _scopeSummary(scope),
                 ]),
               profile.angularUnit.label,
             ].join(' · '),
