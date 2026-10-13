@@ -1214,6 +1214,24 @@ class MenzilSelect<T> extends StatefulWidget {
   /// Shown under the box in the error colour (e.g. a max below the min).
   final String? errorText;
 
+  /// The closed box fits its choice on ONE line by scaling the text down
+  /// (never overflowing) instead of cutting it with "…" (owner, 2026-10-13:
+  /// Kalibre in a half-width box). Needs [selectedLabels].
+  final bool fitSelected;
+
+  /// With [fitSelected]: a shorter text per item (same order as [items]),
+  /// shown when the [selectedLabels] text would have to shrink below
+  /// [MenzilFitText.minScale] ("Fişeğim listede yok" → "Listede yok").
+  final List<String>? shortSelectedLabels;
+
+  /// Height of each entry of the open list. Flutter's default (48) is a
+  /// FIXED height: an entry that wraps onto more lines (a long cartridge in
+  /// the half-width Kalibre list, which is exactly as wide as its box since
+  /// #273) then spills over its neighbours and a tap on its lower lines
+  /// lands on the next entry or on nothing. Null lets every entry grow to
+  /// its content (still at least 48 high).
+  final double? itemHeight;
+
   const MenzilSelect({
     super.key,
     required this.label,
@@ -1226,7 +1244,10 @@ class MenzilSelect<T> extends StatefulWidget {
     this.selectedLabels,
     this.hint,
     this.errorText,
-  });
+    this.fitSelected = false,
+    this.shortSelectedLabels,
+    this.itemHeight = kMinInteractiveDimension,
+  }) : assert(!fitSelected || selectedLabels != null);
 
   /// A list item that allows two lines (long model names) still shows one
   /// line in the closed box (owner, 2026-10-11: the second line overflowed).
@@ -1264,6 +1285,20 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
     if (widget.initialValue != oldWidget.initialValue) {
       _value = widget.initialValue;
     }
+  }
+
+  /// The closed box's text for item [i].
+  Widget _closed(int i, List<DropdownMenuItem<T>> items) {
+    final w = widget;
+    if (w.fitSelected) {
+      return MenzilFitText(
+        w.selectedLabels![i],
+        short: w.shortSelectedLabels?[i],
+      );
+    }
+    return w.selectedLabels == null
+        ? MenzilSelect._oneLine(items[i].child)
+        : Text(w.selectedLabels![i]);
   }
 
   @override
@@ -1334,20 +1369,21 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       // Every list box says "Seçiniz" until something is
                       // picked (owner, 2026-10-11).
                       hint: selectedIndex == null
-                          ? Text(
-                              w.hint ?? 'Seçiniz',
-                              style: TextStyle(color: c.ink2),
-                            )
+                          ? (w.fitSelected
+                                ? DefaultTextStyle.merge(
+                                    style: TextStyle(color: c.ink2),
+                                    child: MenzilFitText(w.hint ?? 'Seçiniz'),
+                                  )
+                                : Text(
+                                    w.hint ?? 'Seçiniz',
+                                    style: TextStyle(color: c.ink2),
+                                  ))
                           : DefaultTextStyle.merge(
                               maxLines: 1,
                               softWrap: false,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(color: c.ink),
-                              child: w.selectedLabels == null
-                                  ? MenzilSelect._oneLine(
-                                      items[selectedIndex].child,
-                                    )
-                                  : Text(w.selectedLabels![selectedIndex]),
+                              child: _closed(selectedIndex, items),
                             ),
                       // List entries in regular weight (owner, 2026-10-11).
                       items: [
@@ -1395,9 +1431,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                                     style: TextStyle(color: c.ink2),
                                   );
                                 }
-                                return w.selectedLabels == null
-                                    ? MenzilSelect._oneLine(items[k].child)
-                                    : Text(w.selectedLabels![k]);
+                                return _closed(k, items);
                               }(),
                             ),
                           ),
@@ -1416,6 +1450,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       // A compact list, not a full-screen sheet (owner,
                       // 2026-10-11: "menüler çok büyük açılıyor").
                       menuMaxHeight: 300,
+                      itemHeight: w.itemHeight,
                       borderRadius: BorderRadius.circular(MenzilRadius.input),
                       dropdownColor: c.surface,
                       icon: Icon(Icons.expand_more, color: c.ink2),
@@ -1435,6 +1470,102 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
       ),
     );
   }
+}
+
+/// One line of text that shrinks only as much as it must to fit its width
+/// (never below what fits, never overflowing, never "…"). When [text] would
+/// need a scale under [minScale], [short] is shown instead (also scaled to
+/// fit). Measured after layout like [MenzilWrapText]: no LayoutBuilder, so
+/// dialogs that ask for intrinsic sizes still work.
+class MenzilFitText extends StatefulWidget {
+  final String text;
+  final String? short;
+  final double minScale;
+
+  const MenzilFitText(this.text, {super.key, this.short, this.minScale = 0.8});
+
+  @override
+  State<MenzilFitText> createState() => _MenzilFitTextState();
+}
+
+class _MenzilFitTextState extends State<MenzilFitText> {
+  bool _useShort = false;
+
+  void _measure(_) {
+    if (!mounted) return;
+    final short = widget.short;
+    final width = context.size?.width;
+    if (short == null || short == widget.text || width == null || width <= 0) {
+      if (_useShort) setState(() => _useShort = false);
+      return;
+    }
+    final p = TextPainter(
+      text: TextSpan(
+        text: widget.text,
+        style: DefaultTextStyle.of(context).style,
+      ),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+      maxLines: 1,
+    )..layout();
+    final useShort = p.width * widget.minScale > width + 0.5;
+    p.dispose();
+    if (useShort != _useShort) setState(() => _useShort = useShort);
+  }
+
+  @override
+  void didUpdateWidget(covariant MenzilFitText oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.text != widget.text) _useShort = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(_measure);
+    final shown = _useShort ? widget.short! : widget.text;
+    // Full width, so the measured size is the room available, not the text.
+    return SizedBox(
+      width: double.infinity,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: AlignmentDirectional.centerStart,
+        child: Text(
+          shown,
+          maxLines: 1,
+          softWrap: false,
+          overflow: TextOverflow.visible,
+          semanticsLabel: widget.text,
+        ),
+      ),
+    );
+  }
+}
+
+/// Two fields side by side on ONE row at every width and text size (owner,
+/// 2026-10-13: "Namlu çıkış hızı | Kalibre", every row two boxes). Put it in
+/// a [MenzilFullWidth] inside a [MenzilFieldGrid]; the columns match the
+/// grid's two-column rows (same gap).
+class MenzilFieldPair extends StatelessWidget {
+  final Widget start;
+  final Widget end;
+  final double gap;
+
+  const MenzilFieldPair({
+    super.key,
+    required this.start,
+    required this.end,
+    this.gap = MenzilSpace.md,
+  });
+
+  @override
+  Widget build(BuildContext context) => Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Expanded(child: start),
+      SizedBox(width: gap),
+      Expanded(child: end),
+    ],
+  );
 }
 
 /// Marks a child of [MenzilFieldGrid] that must span the full row.
