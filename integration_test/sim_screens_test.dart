@@ -286,7 +286,8 @@ void main() {
         await tester.ensureVisible(header);
         await settle();
         // On the title: the header's centre can be the ⓘ (2026-10-13).
-        await tester.tapAt(tester.getCenterLeft(header) + const Offset(12, 0));
+        final h = tester.getSize(header).height;
+        await tester.tapAt(tester.getTopLeft(header) + Offset(12, h / 2));
         await settle();
         await type('pro-tube-pressure', '120');
         await settle();

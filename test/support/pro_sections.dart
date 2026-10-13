@@ -59,6 +59,7 @@ Future<void> openProFor(WidgetTester tester, Key key) async {
 /// ⓘ next to the title (owner, 2026-10-13), which opens the explanation
 /// popup instead of the box.
 Future<void> tapProHeader(WidgetTester tester, Finder header) async {
-  await tester.tapAt(tester.getCenterLeft(header) + const Offset(12, 0));
+  final h = tester.getSize(header).height;
+  await tester.tapAt(tester.getTopLeft(header) + Offset(12, h / 2));
   await tester.pumpAndSettle();
 }

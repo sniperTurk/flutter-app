@@ -300,7 +300,7 @@ void main() {
     for (final MapEntry(key: id, value: title) in _titles.entries) {
       expect(
         tester.getSemantics(find.byKey(Key('pro-info-$id'))),
-        containsSemantics(
+        isSemantics(
           tooltip: 'Açıklama: $title',
           isButton: true,
           hasTapAction: true,
