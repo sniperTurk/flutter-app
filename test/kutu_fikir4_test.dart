@@ -319,6 +319,19 @@ void main() {
         label: 'BC hatası',
         unit: '%',
       );
+      // A Pro box field ⓘ opens the box's sheet (as today) and does not
+      // focus the field.
+      final speed = _field(const Key('pro-target-speed'));
+      await tester.tap(_infoIn(speed));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('pro-info-sheet')), findsOneWidget);
+      final editable = tester.widget<EditableText>(
+        find.descendant(of: speed, matching: find.byType(EditableText)),
+      );
+      expect(editable.focusNode.hasFocus, isFalse);
+      await tester.tap(find.byKey(const Key('pro-info-close')));
+      await tester.pumpAndSettle();
+      expect(editable.focusNode.hasFocus, isFalse);
     });
 
     testWidgets('an error stays below the 44 pt box', (tester) async {
@@ -368,12 +381,15 @@ void main() {
       expect(infoRect.right, lessThanOrEqualTo(arrow.left + 0.01));
       expect(arrow.right, lessThanOrEqualTo(rect.right));
 
+      // Same as today (#279): a field ⓘ in a Pro box opens the box's
+      // bottom sheet; never the list.
       await tester.tap(info);
       await tester.pumpAndSettle();
-      expect(find.byType(AlertDialog), findsOneWidget);
+      expect(find.byKey(const Key('pro-info-sheet')), findsOneWidget);
       expect(_dropdownMenu, findsNothing);
-      await tester.tap(find.text('Tamam'));
+      await tester.tap(find.byKey(const Key('pro-info-close')));
       await tester.pumpAndSettle();
+      expect(find.byKey(const Key('pro-info-sheet')), findsNothing);
 
       // The rest of the box still opens the list.
       await tester.tapAt(arrow.center);

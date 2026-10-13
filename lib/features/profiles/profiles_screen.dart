@@ -1071,43 +1071,62 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   bool get _caliberFromModel =>
       !_rifleManual && !_caliberAll && _rifleVariants.isNotEmpty;
 
-  List<DropdownMenuItem<String>> get _caliberItems {
+  /// Kalibre entries with the text of the closed box: [full] when it fits
+  /// the half-width box, [short] when it would have to shrink too much
+  /// (owner, 2026-10-13: Namlu çıkış hızı | Kalibre on one row).
+  List<({DropdownMenuItem<String> item, String full, String short})>
+  get _caliberChoices {
     final cal = _parse(rifleCaliber);
-    final items = <DropdownMenuItem<String>>[];
+    final out =
+        <({DropdownMenuItem<String> item, String full, String short})>[];
+    void add(
+      String value,
+      Widget child,
+      String full, {
+      String? short,
+      bool enabled = true,
+    }) => out.add((
+      item: DropdownMenuItem(value: value, enabled: enabled, child: child),
+      full: full,
+      short: short ?? full,
+    ));
     if (_caliberFromModel) {
       final variants = _rifleVariants;
       for (final (i, r) in variants.indexed) {
-        items.add(
-          DropdownMenuItem(
-            value: 'v:$i',
-            child: Text(_variantLabel(r, variants), maxLines: 2),
-          ),
+        final label = _variantLabel(r, variants);
+        add(
+          'v:$i',
+          Text(label, maxLines: 2),
+          label,
+          short: _shortCartridge(r.cartridge),
         );
       }
-      items.add(
-        const DropdownMenuItem(
-          value: _otherCaliberKey,
-          child: Text('Diğer kalibre'),
-        ),
-      );
-      return items;
+      add(_otherCaliberKey, const Text('Diğer kalibre'), 'Diğer kalibre');
+      return out;
     }
     if (platform == WeaponPlatform.firearm) {
-      DropdownMenuItem<String> header(String key, String text) =>
-          DropdownMenuItem(
-            value: key,
-            enabled: false,
-            child: Text(text, style: const TextStyle(fontSize: 12)),
-          );
-      items.add(header('#popular', 'EN ÇOK KULLANILAN'));
+      void header(String key, String text) => add(
+        key,
+        Text(text, style: const TextStyle(fontSize: 12)),
+        text,
+        enabled: false,
+      );
+      header('#popular', 'EN ÇOK KULLANILAN');
       for (final (i, (name, d)) in _firearmCartridges.indexed) {
-        if (i == _popularCount) items.add(header('#all', 'DİĞERLERİ (A-Z)'));
-        items.add(
-          DropdownMenuItem(
-            value: name,
-            child: Row(
+        if (i == _popularCount) header('#all', 'DİĞERLERİ (A-Z)');
+        add(
+          name,
+          // The list is as wide as the half box (owner, 2026-10-13): the
+          // mm goes under the name when both do not fit on one line, so a
+          // narrow list or large text never overflows.
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: MenzilSpace.xs,
               children: [
-                Expanded(child: Text(name)),
+                Text(name),
                 Text(
                   '${d.toStringAsFixed(2).replaceAll('.', ',')} mm',
                   style: const TextStyle(fontSize: 12),
@@ -1115,39 +1134,48 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               ],
             ),
           ),
+          name,
+          short: _shortCartridge(name),
         );
       }
       if (cal != null && !_caliberByDiameter && _cartridgeFor(cal) == null) {
-        items.add(
-          DropdownMenuItem(
-            value: 'mm:${_trimDot(cal)}',
-            child: Text('${_trimDot(cal)} mm (kayıtlı)'),
-          ),
+        final mm = _trimDot(cal);
+        add(
+          'mm:$mm',
+          Text('$mm mm (kayıtlı)'),
+          '$mm mm (kayıtlı)',
+          short: '$mm mm',
         );
       }
-      items.add(
-        const DropdownMenuItem(
-          value: _noCartridgeKey,
-          child: Text('Fişeğim listede yok'),
-        ),
+      add(
+        _noCartridgeKey,
+        const Text('Fişeğim listede yok'),
+        'Fişeğim listede yok',
+        short: 'Listede yok',
       );
-      return items;
+      return out;
     }
     for (final (mm, name) in _pcpCalibers) {
-      items.add(
-        DropdownMenuItem(value: 'mm:${_trimDot(mm)}', child: Text(name)),
-      );
+      add('mm:${_trimDot(mm)}', Text(name), name);
     }
     if (cal != null && _caliberItem(cal) == null) {
-      items.add(
-        DropdownMenuItem(
-          value: 'mm:${_trimDot(cal)}',
-          child: Text('${_trimDot(cal)} mm (kayıtlı)'),
-        ),
+      final mm = _trimDot(cal);
+      add(
+        'mm:$mm',
+        Text('$mm mm (kayıtlı)'),
+        '$mm mm (kayıtlı)',
+        short: '$mm mm',
       );
     }
-    return items;
+    return out;
   }
+
+  /// The usual short form of a long cartridge name for the half-width
+  /// Kalibre box (".338-378 Weatherby Mag" → ".338-378 Wby Mag").
+  static String _shortCartridge(String name) => name
+      .replaceAll('Weatherby', 'Wby')
+      .replaceAll('Ackley Improved', 'AI')
+      .replaceAll(' Springfield', '');
 
   void _onCaliberKey(String? key) {
     if (key == null || key.startsWith('#')) return;
@@ -1918,6 +1946,60 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         ),
       ),
     ];
+  }
+
+  /// "Namlu çıkış hızı | Kalibre" side by side (owner, 2026-10-13: "her
+  /// satır 2 kutu olsun"), velocity on the left. Two columns at every width
+  /// and text size; Kalibre fits its choice on one line by scaling it down
+  /// (a shorter text when it would get too small), never overflowing.
+  Widget _velocityCaliberRow() {
+    final choices = _caliberChoices;
+    return MenzilFullWidth(
+      child: MenzilFieldPair(
+        key: const Key('rifle-velocity-caliber-row'),
+        start: MenzilInput(
+          key: const Key('profile-velocity-fps'),
+          controller: velocity,
+          label: 'Namlu çıkış hızı',
+          info: platform == WeaponPlatform.firearm
+              ? ProfileFieldInfo.velocityFirearm
+              : ProfileFieldInfo.velocity,
+          onChanged: (_) => setState(() {}),
+          errorText: _shown(_velocityError, velocity),
+        ),
+        end: KeyedSubtree(
+          key: const Key('rifle-caliber'),
+          child: MenzilSelect<String>(
+            key: ValueKey(
+              'rifle-caliber-${platform.name}-${rifleCaliber.text}-'
+              '$_cartridge-${rifleBrand.text}-${rifleModel.text}-'
+              '$_caliberAll-$_caliberByDiameter',
+            ),
+            info: platform == WeaponPlatform.firearm
+                ? ProfileFieldInfo.caliberFirearm
+                : ProfileFieldInfo.caliber,
+            label: 'Kalibre',
+            hint: 'Seçiniz',
+            initialValue: _caliberKey,
+            items: [for (final c in choices) c.item],
+            fitSelected: true,
+            // The open list is as wide as the half box, never wider (owner,
+            // 2026-10-13: "kutudan dışarı çıkmasın"), so a long cartridge
+            // wraps there: its entry grows with it instead of keeping 48 pt
+            // and spilling over the next one (a tap on its lower half chose
+            // nothing).
+            itemHeight: null,
+            selectedLabels: [for (final c in choices) c.full],
+            shortSelectedLabels: [for (final c in choices) c.short],
+            onChanged: (v) => setState(() {
+              final before = (rifleCaliber.text, _cartridge);
+              _onCaliberKey(v);
+              _keepAmmoInCaliber(before);
+            }),
+          ),
+        ),
+      ),
+    );
   }
 
   /// Marka | Model of the rifle: two lists side by side; typed boxes after
@@ -3601,46 +3683,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
-                // Owner, 2026-10-11: Marka | Model on one row, Kalibre on
-                // its own row below; all three picked from lists.
+                // Owner, 2026-10-11: Marka, Model and Kalibre are picked
+                // from lists.
                 ..._rifleNameFields(),
-                // Namlu çıkış hızı under Marka | Model (owner, 2026-10-13).
-                MenzilFullWidth(
-                  child: MenzilInput(
-                    key: const Key('profile-velocity-fps'),
-                    controller: velocity,
-                    label: 'Namlu çıkış hızı',
-                    info: platform == WeaponPlatform.firearm
-                        ? ProfileFieldInfo.velocityFirearm
-                        : ProfileFieldInfo.velocity,
-                    onChanged: (_) => setState(() {}),
-                    errorText: _shown(_velocityError, velocity),
-                  ),
-                ),
-                MenzilFullWidth(
-                  child: KeyedSubtree(
-                    key: const Key('rifle-caliber'),
-                    child: MenzilSelect<String>(
-                      key: ValueKey(
-                        'rifle-caliber-${platform.name}-${rifleCaliber.text}-'
-                        '$_cartridge-${rifleBrand.text}-${rifleModel.text}-'
-                        '$_caliberAll-$_caliberByDiameter',
-                      ),
-                      info: platform == WeaponPlatform.firearm
-                          ? ProfileFieldInfo.caliberFirearm
-                          : ProfileFieldInfo.caliber,
-                      label: 'Kalibre',
-                      hint: 'Seçiniz',
-                      initialValue: _caliberKey,
-                      items: _caliberItems,
-                      onChanged: (v) => setState(() {
-                        final before = (rifleCaliber.text, _cartridge);
-                        _onCaliberKey(v);
-                        _keepAmmoInCaliber(before);
-                      }),
-                    ),
-                  ),
-                ),
+                // Namlu çıkış hızı | Kalibre on ONE row under Marka | Model
+                // (owner, 2026-10-13), for PCP and Ateşli Tüfek alike.
+                _velocityCaliberRow(),
                 if (platform == WeaponPlatform.firearm && _caliberByDiameter)
                   MenzilFullWidth(
                     child: KeyedSubtree(
