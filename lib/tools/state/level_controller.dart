@@ -332,12 +332,6 @@ class LevelController extends ChangeNotifier {
     if (!_disposed) notifyListeners();
   }
 
-  void setAutoMode(bool auto) {
-    if (auto == _autoMode) return;
-    _autoMode = auto;
-    if (!_disposed) notifyListeners();
-  }
-
   void setMode(TiltMode m) {
     _resetShown();
     _autoMode = false;
@@ -415,8 +409,6 @@ class LevelController extends ChangeNotifier {
     return done.future;
   }
 
-  void cancelCalibrationCapture() => _finishCapture(false);
-
   void _feedAverager(GravityVector raw) {
     final avg = _averager;
     if (avg == null) return;
@@ -470,15 +462,6 @@ class LevelController extends ChangeNotifier {
     _resetShown();
     if (!_disposed) notifyListeners();
     unawaited(_persist(mode));
-  }
-
-  void clearAllCalibration() {
-    _resetShown();
-    _calibration[TiltMode.flat] = const FlipCalibration();
-    _calibration[TiltMode.upright] = const FlipCalibration();
-    if (!_disposed) notifyListeners();
-    unawaited(_persist(TiltMode.flat));
-    unawaited(_persist(TiltMode.upright));
   }
 
   @override

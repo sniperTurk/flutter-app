@@ -2,7 +2,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'serial_mutation_lock.dart';
-import '../models/domain.dart';
 
 /// User records never acquire manufacturer provenance and never overwrite built-ins.
 class UserCatalogStore {
@@ -165,26 +164,4 @@ class UserCatalogStore {
       throw const FormatException('Dürbün objektifi ve klik değeri gerekli');
     }
   }
-
-  static Rifle rifle(Map<String, dynamic> e) => Rifle(
-    id: e['id'] as String, brand: e['brand'] as String, model: e['model'] as String,
-    platform: WeaponPlatform.values.byName(e['platform'] as String),
-    caliberMm: (e['caliberMm'] as num).toDouble(),
-    barrelLengthMm: (e['barrelLengthMm'] as num?)?.toDouble(),
-    airCapacityCc: (e['airCapacityCc'] as num?)?.toDouble(),
-    sourceName: 'Kullanıcı girdisi', sourceDocument: 'Kişisel kayıt; üretici doğrulaması yok');
-
-  static Ammunition ammunition(Map<String, dynamic> e) => Ammunition(
-    id: e['id'] as String, brand: e['brand'] as String, model: e['model'] as String,
-    platform: WeaponPlatform.values.byName(e['platform'] as String),
-    caliberMm: (e['caliberMm'] as num).toDouble(), grain: (e['grain'] as num).toDouble(),
-    type: AmmunitionType.values.byName(e['type'] as String),
-    sourceName: 'Kullanıcı girdisi', sourceDocument: 'Kişisel kayıt; üretici doğrulaması yok');
-
-  static ScopeOptic scope(Map<String, dynamic> e) => ScopeOptic(
-    id: e['id'] as String, brand: e['brand'] as String, model: e['model'] as String,
-    objectiveDiameterMm: (e['objectiveDiameterMm'] as num).toDouble(),
-    clickValue: (e['clickValue'] as num).toDouble(),
-    clickUnit: AngularUnit.values.byName(e['clickUnit'] as String),
-    sourceName: 'Kullanıcı girdisi', sourceDocument: 'Kişisel kayıt; üretici doğrulaması yok');
 }

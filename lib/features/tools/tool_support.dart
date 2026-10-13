@@ -137,9 +137,6 @@ abstract final class ToolFormat {
       ? '${dec(hpa, 1)} hPa'
       : '${dec(UnitSystem.hpaToInHg(hpa), 2)} inHg';
 
-  static String velocity(double mps, {required bool metric}) =>
-      metric ? '${dec(mps, 1)} m/s' : '${dec(UnitSystem.mpsToFps(mps), 0)} fps';
-
   /// Short Turkish condition text from a provider symbol code
   /// (e.g. `partlycloudy_day` -> "Parçalı bulutlu"). Unknown codes return
   /// null so the UI shows nothing instead of a guess.

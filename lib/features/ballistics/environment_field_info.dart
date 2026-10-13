@@ -191,11 +191,6 @@ abstract final class EnvironmentFieldInfo {
       'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
       'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '
       'tırıs ~3 m/s.';
-  static const spinDrift =
-      'Dönen mermi uçarken yivin döndüğü yöne doğru yana kayar (sağ yivde '
-      'sağa). Etki uçuş süresiyle büyür; slug ve ateşli tüfekte uzun '
-      'mesafede önemlidir. Litz formülüyle yaklaşık hesaplanır; diabolo '
-      'pellet için geçerli değildir. Yiv yönü ve yiv oranı profilden alınır.';
   static const bulletLength =
       'Merminin (slug\'ın) burundan tabana uzunluğu, milimetre olarak. '
       'Kumpasla ölçün. Dönüş kararlılığı ve spin drift buna göre hesaplanır. '
