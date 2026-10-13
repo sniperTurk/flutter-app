@@ -302,7 +302,6 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
 /// so selectors and text fields line up.
 abstract final class MenzilRadius {
   static const double card = 16;
-  static const double hold = 18;
   static const double input = 10;
   static const double button = 12;
   static const double chip = 999;

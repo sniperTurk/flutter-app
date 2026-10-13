@@ -54,8 +54,6 @@ class ColdBoreSummary {
 
   /// The extra first-shot correction: against the mean miss.
   double? get correctionUpMrad => meanUpMrad == null ? null : -meanUpMrad!;
-  double? get correctionRightMrad =>
-      meanRightMrad == null ? null : -meanRightMrad!;
 }
 
 /// Ö9 Soğuk namlu (Litz 2012, cold-bore shift; NIST/SEMATECH e-Handbook,

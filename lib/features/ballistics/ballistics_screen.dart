@@ -813,25 +813,45 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// when off or data is missing. Stability from the Miller formula.
   /// Gyroscopic stability (Miller) with the bullet length and length in
   /// calibres, or null when spin drift is off or data is missing.
+  ///
+  /// Not for a diabolo pellet (formula audit 2026-10-13): a pellet is
+  /// drag-stabilised (its centre of pressure sits behind the centre of
+  /// mass), so the Miller gyroscopic rule and Litz's spin-drift and jump
+  /// fits, both made for spin-stabilised bullets, do not describe it. The
+  /// PCP note ([ProSectionInfo.spinDriftPcpNote]) already limited it to
+  /// slugs; the code still applied it to pellets when a length was typed.
   ({double sg, double lCal, TwistDirection dir})? _stability(_ShotBasis basis) {
     if (!_spinDriftOn || !basis.drag) return null;
+    if (ammunition?.type == AmmunitionType.pellet) return null;
     final rifle = profileResolution?.rifle;
     final dir = rifle?.twistDirection;
     final sg = _muzzleSg(basis);
-    if (rifle == null || dir == null || sg == null) return null;
-    final lCal = _parsed(bulletLengthCtl)! / 25.4 / (rifle.caliberMm / 25.4);
+    final lengthMm = _bulletLengthMm;
+    if (rifle == null || dir == null || sg == null || lengthMm == null) {
+      return null;
+    }
+    final lCal = lengthMm / 25.4 / (rifle.caliberMm / 25.4);
     return (sg: sg, lCal: lCal, dir: dir);
+  }
+
+  /// Bullet length for Sg (mm): the Pro "Mermi uzunluğu" box when typed,
+  /// else the length saved with the profile's ammunition (Profil >
+  /// Mühimmat, formula audit 2026-10-13: it was saved but never used).
+  /// Null when neither is a plausible length (0–100 mm).
+  double? get _bulletLengthMm {
+    final typed = _parsed(bulletLengthCtl);
+    final v = typed ?? ammunition?.lengthMm;
+    return v != null && v.isFinite && v > 0 && v <= 100 ? v : null;
   }
 
   /// Miller Sg at the muzzle (Ö5), or null without bullet length or twist.
   double? _muzzleSg(_ShotBasis basis) {
     final rifle = profileResolution?.rifle;
     final twist = rifle?.twistRateIn;
-    final lengthMm = _parsed(bulletLengthCtl);
+    final lengthMm = _bulletLengthMm;
     if (rifle == null || twist == null || twist <= 0 || lengthMm == null) {
       return null;
     }
-    if (lengthMm <= 0 || lengthMm > 100) return null;
     return Stability.millerSg(
       grain: basis.grain,
       caliberMm: rifle.caliberMm,
