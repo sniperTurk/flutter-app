@@ -167,9 +167,7 @@ void main() {
     expect(find.textContaining('m/s'), findsNothing);
   });
 
-  testWidgets('typing a wind speed is unaffected by the guide', (
-    tester,
-  ) async {
+  testWidgets('typing a wind speed is unaffected by the guide', (tester) async {
     await _screen(tester);
     await tester.ensureVisible(_field(BallisticsFieldKeys.wind));
     await tester.enterText(_field(BallisticsFieldKeys.wind), '2');
