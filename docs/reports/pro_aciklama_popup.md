@@ -150,6 +150,8 @@ CI (hepsi `fix/pro-aciklama-popup` dalında):
 Çalıştırılmayanlar: iOS Simulator, cihaz, imzalama, TestFlight. `iOS CI /
 verify` işi bu rapor yazılırken çalışmadı; geçti denemez.
 
+Bu raporu ekleyen commit yalnız bu dosyayı ekler; kod ve testler CI'da koşan `4eec856` ile aynıdır.
+
 Taslak (draft) PR; birleştirme sahibin ana oturumunda.
 
 ---
