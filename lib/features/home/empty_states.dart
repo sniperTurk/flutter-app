@@ -479,7 +479,7 @@ class _ShotPreviewState extends State<ShotPreview> {
                   children: [
                     TextSpan(
                       text: '$_range',
-                      style: MenzilType.display(c.ink, size: 52),
+                      style: MenzilType.display(c.ink, size: 52, live: true),
                     ),
                     TextSpan(text: ' m', style: MenzilType.unit(c.ink2)),
                   ],

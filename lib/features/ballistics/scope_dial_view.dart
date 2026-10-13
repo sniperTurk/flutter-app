@@ -639,7 +639,7 @@ class ScopeDialView extends StatelessWidget {
           child: Text(
             '${_mag(currentMag)}x',
             textAlign: TextAlign.end,
-            style: MenzilType.number(c.ink, size: 16),
+            style: MenzilType.number(c.ink, size: 16, live: true),
           ),
         ),
       ],
@@ -826,7 +826,11 @@ class ScopeDialView extends StatelessWidget {
         Text(
           'Kule: ${dial(elevationClicks, dialedUp, 'yukarı', 'aşağı')} · '
           '${dial(windageClicks, dialedRight, 'sağ', 'sol')}',
-          style: MenzilType.body(c.ink),
+          // Clicks change live while a turret is dragged: equal-width
+          // figures so the line does not jitter.
+          style: MenzilType.body(
+            c.ink,
+          ).copyWith(fontFeatures: MenzilType.tabular),
         ),
         const SizedBox(height: MenzilSpace.xxs),
         Semantics(
@@ -834,7 +838,11 @@ class ScopeDialView extends StatelessWidget {
           child: Text(
             impactText,
             key: ScopeDialKeys.impactText,
-            style: TextStyle(fontWeight: FontWeight.w700, color: c.ink),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: c.ink,
+              fontFeatures: MenzilType.tabular,
+            ),
           ),
         ),
         const SizedBox(height: MenzilSpace.xxs),
@@ -1173,7 +1181,8 @@ class _DrumPainter extends CustomPainter {
       text: TextSpan(
         text: s,
         style: TextStyle(
-          fontFamily: MenzilType.family,
+          fontFamily: MenzilType.familyFor(size),
+          fontFeatures: MenzilType.tabular,
           color: color,
           fontSize: size,
           fontWeight: weight,
@@ -1494,7 +1503,8 @@ class ScopeReticlePainter extends CustomPainter {
         text: TextSpan(
           text: s,
           style: TextStyle(
-            fontFamily: MenzilType.family,
+            fontFamily: MenzilType.familyFor(size),
+          fontFeatures: MenzilType.tabular,
             fontSize: size,
             fontWeight: weight,
             foreground: Paint()
@@ -1513,7 +1523,8 @@ class ScopeReticlePainter extends CustomPainter {
       text: TextSpan(
         text: s,
         style: TextStyle(
-          fontFamily: MenzilType.family,
+          fontFamily: MenzilType.familyFor(size),
+          fontFeatures: MenzilType.tabular,
           color: color,
           fontSize: size,
           fontWeight: weight,
@@ -1531,7 +1542,8 @@ class ScopeReticlePainter extends CustomPainter {
       text: TextSpan(
         text: s,
         style: TextStyle(
-          fontFamily: MenzilType.family,
+          fontFamily: MenzilType.familyFor(size),
+          fontFeatures: MenzilType.tabular,
           fontSize: size,
           fontWeight: weight,
         ),

@@ -56,7 +56,7 @@ class MenzilPage extends StatelessWidget {
 }
 
 /// Header for secondary routes (Katalog, Ayarlar, profile editor). Uses the
-/// same bar background, border and condensed title as the main top bar.
+/// same bar background, border and bold title as the main top bar.
 class MenzilSubPageBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget> actions;
@@ -557,7 +557,7 @@ class MenzilCard extends StatelessWidget {
   }
 }
 
-/// Section title in the condensed heading face, optional trailing widget and
+/// Section title in the bold heading face, optional trailing widget and
 /// subtitle. Marked as a header for VoiceOver.
 class MenzilSectionHeader extends StatelessWidget {
   final String title;
@@ -1087,7 +1087,6 @@ class MenzilInput extends StatelessWidget {
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
                 color: c.ink,
-                fontFeatures: MenzilType.tabular,
               ),
               decoration: InputDecoration(
                 hintText: hintText,
@@ -1766,7 +1765,7 @@ class MenzilMetricGrid extends StatelessWidget {
   }
 }
 
-/// One metric tile (label above a large condensed number with unit).
+/// One metric tile (label above a number with unit, proportional figures).
 class MenzilMetricCard extends StatelessWidget {
   final MenzilMetric metric;
 
