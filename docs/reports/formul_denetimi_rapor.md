@@ -12,7 +12,7 @@ boyutu, tahmini BC, turuncu hava düğmesi, dürbün filtreleri vb. aynen duruyo
 |---|---|---|---|---|
 | 1 | Miller Sg ses altında ses hızındaki hız katsayısını kullanır | değişmez | Sg %4,3 yükselir, spin drift ~%3 artar | (2. madde yüzünden artık hesaplanmaz) |
 | 2 | Diabolo pellet'te spin drift ve rüzgâr sıçraması yok | değişmez | değişmez | kapatıldı |
-| 3 | Pro "Mermi uzunluğu" boşsa Profil > Mühimmat uzunluğu kullanılır | uzunluk profilde varsa Sg/spin drift artık çıkar | aynı | — |
+| 3 | ~~Pro "Mermi uzunluğu" boşsa Profil > Mühimmat uzunluğu kullanılır~~ (2026-10-13 23:32: sahip kararıyla geri alındı, yalnız Pro kutusu) | — | — | — |
 | 4 | Hiç kullanılmayan 11 kod parçası silindi | davranış aynı | aynı | aynı |
 
 ---
@@ -117,6 +117,12 @@ için hesaplanmaz." eklendi.
 ---
 
 ## 3. Profil > Mühimmat uzunluğu Sg için kullanılır
+
+> **Profil mermi uzunluğu — 2026-10-13 23:32: sahip kararıyla geri alındı,
+> yalnız Pro kutusu.** Profil > Mühimmat "Uzunluk" kutusu gizlendi; Sg ve
+> spin drift artık yalnız Pro "Mermi uzunluğu" kutusunu kullanır, kutu
+> boşsa hesaplanmaz. Ayrıntı: `docs/reports/uzunluk_sadece_pro.md`.
+> Aşağıdaki metin #264'ün o günkü hâlini anlatır.
 
 **NE:** `ballistics_screen.dart`, yeni getter `_bulletLengthMm`;
 `_muzzleSg()` ve `_stability()` artık bunu kullanıyor.

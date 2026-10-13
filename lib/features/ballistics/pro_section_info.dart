@@ -188,8 +188,8 @@ abstract final class ProSectionInfo {
         '300 m\'nin ötesinde birkaç santim fark eder. Kısa mesafede gerek yok.',
     how:
         'Düğmeyi aç ve mermi uzunluğunu yaz; kumpasla ölçebilir ya da '
-        'kutusundan bakabilirsin. Boşsa profildeki mühimmat uzunluğu '
-        'kullanılır. Yiv yönü ve yiv oranı profilden alınır.',
+        'kutusundan bakabilirsin. Boşsa hesaplanmaz. Yiv yönü ve yiv oranı '
+        'profilden alınır.',
   );
 
   /// Shown under spin drift only on PCP profiles (owner, 2026-10-09).

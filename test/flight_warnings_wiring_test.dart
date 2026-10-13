@@ -126,6 +126,25 @@ void main() {
     expect(find.byKey(marginal), findsNothing);
   });
 
+  testWidgets('kayıtlı mühimmat uzunluğu Sg\'ye girmez, yalnız Pro kutusu', (
+    tester,
+  ) async {
+    // Owner, 2026-10-13 23:32: the length comes only from Pro > Mermi
+    // uzunluğu; a length saved with the ammunition (45 mm, Sg < 1 if it
+    // were used) changes nothing while the Pro box is empty.
+    CatalogRepository.installUserCatalog(
+      UserCatalog.fromManualEntries([
+        _rifle,
+        {..._ammo, 'lengthMm': 45},
+      ]),
+    );
+    await shotWith(tester);
+    expect(find.byKey(unstable), findsNothing);
+    expect(find.byKey(marginal), findsNothing);
+    await shotWith(tester, lengthMm: '45');
+    expect(find.byKey(unstable), findsOneWidget);
+  });
+
   testWidgets('uzak hedefte transonik uyarısı, yakında yok', (tester) async {
     await shotWith(tester, rangeM: '100');
     expect(find.byKey(transonic), findsNothing);

@@ -4,8 +4,9 @@
 //    (tools/formul_denetimi_2026_10_13.py: range-stepped RK4, form-factor
 //    drag, ICAO dry air, secant zero) for the four loads the owner named.
 // 2. Miller Sg below the speed of sound (Courtney & Miller 2012).
-// 3. Spin drift: never for a diabolo pellet; the Profil bullet length is
-//    used when the Pro box is empty.
+// 3. Spin drift: never for a diabolo pellet; the bullet length comes only
+//    from the Pro box (owner, 2026-10-13 23:32: the Profil length fallback
+//    from #264 was withdrawn, docs/reports/uzunluk_sadece_pro.md).
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/core/ballistic_engine.dart';
@@ -119,6 +120,20 @@ const _slug = <String, dynamic>{
   'bcModel': 'g1',
   'lengthMm': 10,
 };
+
+/// The same slug saved without a length (Profil box hidden).
+const _slugNoLength = <String, dynamic>{
+  'id': 'manual_ammo_slug_nolen',
+  'kind': 'ammo',
+  'platform': 'pcp',
+  'brand': 'Test slug',
+  'model': '',
+  'caliberMm': 6.35,
+  'grain': 50,
+  'ammoType': 'slug',
+  'bc': 0.139,
+  'bcModel': 'g1',
+};
 const _pellet = <String, dynamic>{
   'id': 'manual_ammo_pellet',
   'kind': 'ammo',
@@ -199,7 +214,7 @@ void main() {
     });
   });
 
-  group('spin drift: pellets excluded, Profil length used', () {
+  group('spin drift: pellets excluded, only the Pro length used', () {
     tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
     Future<void> pump(
@@ -221,17 +236,59 @@ void main() {
       await tester.pumpAndSettle();
     }
 
-    testWidgets('slug: the Profil length gives spin drift with no Pro box', (
+    Future<void> typeProLength(
+      WidgetTester tester,
+      String ammoId,
+      String text,
+    ) async {
+      await pump(tester, ammoId, BallisticsView.pro);
+      await openProFor(tester, const Key('pro-bullet-length'));
+      final f = find.descendant(
+        of: find.byKey(const Key('pro-bullet-length')),
+        matching: find.byType(TextField),
+      );
+      await tester.ensureVisible(f);
+      await tester.enterText(f, text);
+      await tester.pump();
+    }
+
+    String? spinNote(WidgetTester tester) {
+      final f = find.byKey(const Key('shot-spin-drift'));
+      return f.evaluate().isEmpty ? null : tester.widget<Text>(f).data;
+    }
+
+    testWidgets('slug: a saved Profil length alone gives no spin drift', (
       tester,
     ) async {
+      // Owner, 2026-10-13 23:32: the Profil box is hidden, so its saved
+      // length must not change spin drift / Sg; the Pro box is empty.
       CatalogRepository.installUserCatalog(
         UserCatalog.fromManualEntries([_pcpRifle, _slug]),
       );
       await pump(tester, 'manual_ammo_slug', BallisticsView.shot);
-      final note = tester
-          .widget<Text>(find.byKey(const Key('shot-spin-drift')))
-          .data!;
-      expect(note, contains('sağa'));
+      expect(spinNote(tester), isNull);
+    });
+
+    testWidgets('slug: the Pro box length is used, the Profil one ignored', (
+      tester,
+    ) async {
+      CatalogRepository.installUserCatalog(
+        UserCatalog.fromManualEntries([_pcpRifle, _slug, _slugNoLength]),
+      );
+      // Saved Profil length 10 mm, Pro box 12 mm.
+      await typeProLength(tester, 'manual_ammo_slug', '12');
+      await pump(tester, 'manual_ammo_slug', BallisticsView.shot);
+      final withSaved = spinNote(tester);
+      expect(withSaved, contains('sağa'));
+      // No saved length, Pro box 12 mm: the very same result.
+      await typeProLength(tester, 'manual_ammo_slug_nolen', '12');
+      await pump(tester, 'manual_ammo_slug_nolen', BallisticsView.shot);
+      expect(spinNote(tester), withSaved);
+      // Pro box 10 mm (= the saved Profil length) differs from 12 mm, so
+      // the 12 mm result above did not come from the Profil length.
+      await typeProLength(tester, 'manual_ammo_slug', '10');
+      await pump(tester, 'manual_ammo_slug', BallisticsView.shot);
+      expect(spinNote(tester), isNot(withSaved));
     });
 
     testWidgets('pellet: no spin drift even with a typed length', (
