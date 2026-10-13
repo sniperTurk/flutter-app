@@ -154,9 +154,11 @@ void main() {
     await type('scope-sight-height', '60');
     // The typed scope opens from the link under the Dürbün card (owner,
     // 2026-10-13: no "Listede yok" in the scope Marka list).
-    await tester.ensureVisible(find.byKey(const Key('scope-not-listed')));
+    // Scrolled to mid-screen: at the bottom edge the save bar covers it.
+    final notListed = find.byKey(const Key('scope-not-listed'));
+    await Scrollable.ensureVisible(tester.element(notListed), alignment: 0.5);
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('scope-not-listed')));
+    await tester.tap(notListed);
     await tester.pumpAndSettle();
     await type('scope-brand', 'Test Optik');
     // Büyütme, Mercek çapı and Klik değeri are picked from lists; every

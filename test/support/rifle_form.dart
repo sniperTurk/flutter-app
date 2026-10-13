@@ -152,7 +152,8 @@ Future<void> fillShotValues(
 /// typed scope entry (owner, 2026-10-13: no "Listede yok" in the list).
 Future<void> openScopeManual(WidgetTester tester) async {
   final link = find.byKey(const Key('scope-not-listed'));
-  await tester.ensureVisible(link);
+  // Mid-screen: at the bottom edge a save bar can cover it.
+  await Scrollable.ensureVisible(tester.element(link), alignment: 0.5);
   await tester.pumpAndSettle();
   await tester.tap(link);
   await tester.pumpAndSettle();
