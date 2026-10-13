@@ -125,6 +125,30 @@ void _expectFits(WidgetTester tester, String full, String short) {
   }
 }
 
+/// Picks [label] in the open Kalibre list. The list is as wide as the half
+/// box (#273); with the test font at 320 pt and ×1.3 its entries wrap onto
+/// several lines, so the list is scrolled until the entry shows instead of
+/// the shared helper's fixed number of drags.
+Future<void> _pickInLongList(WidgetTester tester, String label) async {
+  await tester.ensureVisible(_key('rifle-caliber'));
+  await tester.tap(_key('rifle-caliber'));
+  await tester.pumpAndSettle();
+  final inMenu = find.descendant(
+    of: find.byWidgetPredicate(
+      (w) => w.runtimeType.toString().startsWith('_DropdownMenuItemButton'),
+    ),
+    matching: find.text(label),
+  );
+  await tester.dragUntilVisible(
+    inMenu,
+    find.byType(Scrollable).last,
+    const Offset(0, -300),
+    maxIteration: 400,
+  );
+  await tester.tap(inMenu.last);
+  await tester.pumpAndSettle();
+}
+
 void main() {
   for (final firearm in [false, true]) {
     final kind = firearm ? 'Ateşli Tüfek' : 'PCP';
@@ -146,11 +170,7 @@ void main() {
         _expectOneRow(tester);
         if (firearm) {
           // The longest cartridge name of the list.
-          await chooseInSelect(
-            tester,
-            'rifle-caliber',
-            '.338-378 Weatherby Mag',
-          );
+          await _pickInLongList(tester, '.338-378 Weatherby Mag');
           _expectFits(tester, '.338-378 Weatherby Mag', '.338-378 Wby Mag');
         } else {
           // The owner's screenshot: Hatsan Hercules.
@@ -194,16 +214,7 @@ void main() {
           textScale: textScale,
         );
         // The last item of the long list.
-        await tester.ensureVisible(_key('rifle-caliber'));
-        await tester.tap(_key('rifle-caliber'));
-        await tester.pumpAndSettle();
-        await tester.dragUntilVisible(
-          find.text('Fişeğim listede yok'),
-          find.byType(Scrollable).last,
-          const Offset(0, -400),
-        );
-        await tester.tap(find.text('Fişeğim listede yok').last);
-        await tester.pumpAndSettle();
+        await _pickInLongList(tester, 'Fişeğim listede yok');
         _expectOneRow(tester);
         _expectFits(tester, 'Fişeğim listede yok', 'Listede yok');
         final c = tester.getRect(_key('rifle-caliber'));
