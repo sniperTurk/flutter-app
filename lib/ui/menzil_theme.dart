@@ -327,6 +327,14 @@ abstract final class MenzilSpace {
   /// keeps every control above the 44 pt iOS touch-target minimum.
   static const double control = 46;
 
+  /// Box height of the compact field variant ([MenzilCompactFields]: Hava
+  /// Durumu and Pro Ayarlar only, owner "Fikir 4", 2026-10-13). 44 pt is
+  /// Apple's minimum touch target; [control] stays 46 everywhere else.
+  static const double compactControl = 44;
+
+  /// Gap between the small label and the box in the compact variant.
+  static const double compactLabelGap = 5;
+
   /// Content wider than this is centred (large phones in landscape, iPad).
   static const double maxContentWidth = 560;
 
