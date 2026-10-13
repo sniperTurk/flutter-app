@@ -1,6 +1,6 @@
 Resolving dependencies...
 Downloading packages...
-  archive 4.3.0 (4.5.1 available)
+  archive 4.3.0 (4.5.2 available)
   camera_avfoundation 0.10.3+1 (0.11.0 available)
   camera_platform_interface 2.14.0 (2.15.0 available)
   cross_file 0.3.5+5 (0.4.0 available)
@@ -28,4 +28,52 @@ The following plugins do not support Swift Package Manager for ios:
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
 Xcode build done.                                           103.0s
-No tests ran.
+00:00 +0: screenshot tour of the main pages
+SIMSCREEN:01_profil_karsilama
+SIMSCREEN:02_hava_durumu_bos
+SIMSCREEN:03_hava_durumu_bos_2
+SIMSCREEN:04_pro_ayarlar_bos
+SIMSCREEN:05_pro_ayarlar_bos_2
+SIMSCREEN:06_hedef_bos
+SIMSCREEN:07_hedef_bos_2
+SIMSCREEN:08_hedef_bos_3
+SIMSCREEN:09_araclar
+SIMSCREEN:10_araclar_2
+SIMSCREEN:11_araclar_3
+SIMSCREEN:12_hesaplayicilar
+SIMSCREEN:13_hesaplayicilar_2
+SIMSCREEN:14_hesaplayicilar_3
+SIMSCREEN:15_profil_olustur_pcp
+SIMSCREEN:16_profil_olustur_pcp_2
+SIMSCREEN:17_profil_olustur_pcp_3
+SIMSCREEN:18_profil_olustur_pcp_4
+SIMSCREEN:19_profil_olustur_pcp_5
+SIMSCREEN:20_profil_olustur_pcp_6
+SIMSCREEN:21_profil_olustur_atesli
+SIMSCREEN:22_profil_olustur_atesli_2
+SIMSCREEN:23_profil_olustur_atesli_3
+SIMSCREEN:24_profil_olustur_atesli_4
+SIMSCREEN:25_profil_olustur_atesli_5
+SIMSCREEN:26_profil_olustur_atesli_6
+SIMSCREEN:27_profil_retikul_liste
+SIMSCREEN:28_profil_olustur_dolu
+SIMSCREEN:29_profil_olustur_dolu_2
+SIMSCREEN:30_profil_olustur_dolu_3
+SIMSCREEN:31_profil_olustur_dolu_4
+SIMSCREEN:32_profil_olustur_dolu_5
+SIMSCREEN:33_profil_olustur_dolu_6
+SIMSCREEN:34_profil_olustur_dolu_7
+SIMSCREEN:35_profil_olustur_dolu_8
+SIMSCREEN:36_profil_kayitli
+SIMSCREEN:37_profil_kayitli_2
+SIMSCREEN:38_hava_durumu
+SIMSCREEN:39_hava_durumu_2
+SIMSCREEN:40_pro_ayarlar
+SIMSCREEN:41_pro_ayarlar_2
+SIMSCREEN:42_pro_tup_basinci
+SIMSCREEN:43_hedef_atis
+SIMSCREEN:44_hedef_atis_2
+SIMSCREEN:45_hedef_atis_3
+SIMSCREEN_DONE failures=0
+04:35 +1: (tearDownAll)
+04:39 +1: All tests passed!
