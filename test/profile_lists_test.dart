@@ -281,7 +281,7 @@ void main() {
     await chooseInSelect(
       tester,
       'scope-model-select',
-      'Athlon Talos HMR 4-16x56 SFP IR MOA · 30 mm',
+      'Talos HMR 4-16x56 SFP IR MOA',
     );
     await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
     await tester.tap(find.byKey(const Key('scope-reticle')));
@@ -304,7 +304,7 @@ void main() {
     await chooseInSelect(
       tester,
       'scope-model-select',
-      'Element Optics Titan 5-25x56 FFP MOA · 34 mm',
+      'Titan 5-25x56 FFP MOA',
     );
     await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
     // "APR-1C MOA / APR-2D MOA": nothing is chosen for the user.
@@ -326,7 +326,7 @@ void main() {
     await chooseInSelect(
       tester,
       'scope-model-select',
-      'Element Optics Titan 3-18x50 FFP MOA · 34 mm',
+      'Titan 3-18x50 FFP MOA',
     );
     await tester.ensureVisible(find.byKey(const Key('scope-reticle')));
     expect(_in('scope-reticle', find.text('APR-2D MOA')), findsOneWidget);
