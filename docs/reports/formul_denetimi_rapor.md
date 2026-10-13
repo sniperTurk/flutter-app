@@ -201,10 +201,32 @@ hâli + bilgi metinleri) çalıştı:
 Not: test işinin günlüğündeki "KESIK|…" ve yığın izi satırları, iş akışının
 `grep` ile her zaman yüzeye çıkardığı bilgi çıktılarıdır (metin kesilme
 taraması ve beklenen hata testleri); iş başarıyla bitti.
-Sonraki commit yalnız bu rapor dosyasını ekler (Dart kodu değişmez).
+Sonraki commit (`06d6b28`) yalnız bu rapor dosyasını ekler (Dart kodu değişmez).
 
-Çalışmayanlar (geçti denmez): iOS Simulator derlemesi, `iOS CI / verify`,
-cihaz, TestFlight. Birleştirme yapılmadı; PR taslak olarak duruyor.
+Sonraki tur (`8ce8b2d`: main'in yeni hâli #268 birleştirildi, yalnız
+`docs/research`; PR #267'deki entegrasyon testi düzeltmesi alındı):
+
+| İş | Çalışma | Sonuç |
+|---|---|---|
+| Dart format | [#309](https://github.com/sniperTurk/flutter-app/actions/runs/38429149796) | ✅ başarılı, değişiklik yok |
+| `flutter analyze` | [#234](https://github.com/sniperTurk/flutter-app/actions/runs/38429154559) | ✅ başarılı |
+| iOS CI `dart-checks` (format, analyze, testler) | [run 38429149488](https://github.com/sniperTurk/flutter-app/actions/runs/38429149488) | ✅ başarılı |
+| iOS CI `wind-acceptance` | aynı çalışma | ✅ başarılı |
+| iOS CI `verify` (macOS, Simulator) | aynı çalışma, deneme 1 ve 2 | ⛔ **ENGELLİ** — iki denemede de 15 dk macOS sırada bekleyip makine almadan iptal edildi; hiç çalışmadı |
+
+**iOS CI `verify` geçti DENMEZ.** İlk denemede (`06d6b28`,
+[run 38422927319](https://github.com/sniperTurk/flutter-app/actions/runs/38422927319))
+Simulator duman testi `integration_test/app_launch_test.dart:129`'da
+düştü: test PCP'de gizli olan `ammo-brand-select` kutusunu arıyordu
+(`PCP_AMMO_BRAND` bayrağı). Bu hata bu PR'ın değil, main'de de var;
+düzeltmesi PR #267'de (orada Simulator testi geçti,
+[run 38425348799](https://github.com/sniperTurk/flutter-app/actions/runs/38425348799)).
+Aynı değişiklik bu dala alındı (`7e13d5a`); #267 birleşince etkisiz kalır.
+Sonraki `verify` denemeleri macOS makinesi bulunamadığı için çalışmadı.
+Bir sonraki `verify` çalışmasının yeşil olması gerekiyor.
+
+Çalışmayanlar (geçti denmez): iOS Simulator duman testi (son hâl), cihaz,
+imza, TestFlight. Birleştirme yapılmadı; PR taslak olarak duruyor.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
