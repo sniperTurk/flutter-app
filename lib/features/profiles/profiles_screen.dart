@@ -840,7 +840,10 @@ class _ActiveProfileDetails extends StatelessWidget {
           twoLineText: true,
           lead: rifle == null
               ? null
-              : MenzilMetric('Marka / Model', _joinSummary([rifle.brand, rifle.model])),
+              : MenzilMetric(
+                  'Marka / Model',
+                  _joinSummary([rifle.brand, rifle.model]),
+                ),
           metrics: [
             MenzilMetric(
               'Namlu çıkış hızı',
