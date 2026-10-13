@@ -1378,7 +1378,7 @@ class _RenderStartBleed extends RenderProxyBox {
       : c.copyWith(minWidth: c.minWidth + _b);
 
   Size _own(BoxConstraints c, Size child) =>
-      c.constrain(Size(math.max(0, child.width - _b), child.height));
+      c.constrain(Size(math.max(0.0, child.width - _b), child.height));
 
   @override
   void performLayout() {
@@ -1404,19 +1404,19 @@ class _RenderStartBleed extends RenderProxyBox {
 
   @override
   double computeMinIntrinsicWidth(double height) =>
-      math.max(0, super.computeMinIntrinsicWidth(height) - _b);
+      math.max(0.0, (child?.getMinIntrinsicWidth(height) ?? 0) - _b);
 
   @override
   double computeMaxIntrinsicWidth(double height) =>
-      math.max(0, super.computeMaxIntrinsicWidth(height) - _b);
+      math.max(0.0, (child?.getMaxIntrinsicWidth(height) ?? 0) - _b);
 
   @override
   double computeMinIntrinsicHeight(double width) =>
-      super.computeMinIntrinsicHeight(width + _b);
+      child?.getMinIntrinsicHeight(width + _b) ?? 0;
 
   @override
   double computeMaxIntrinsicHeight(double width) =>
-      super.computeMaxIntrinsicHeight(width + _b);
+      child?.getMaxIntrinsicHeight(width + _b) ?? 0;
 
   @override
   void paint(PaintingContext context, Offset offset) {
