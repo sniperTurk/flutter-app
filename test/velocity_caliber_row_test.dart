@@ -145,6 +145,9 @@ Future<void> _pickInLongList(WidgetTester tester, String label) async {
     const Offset(0, -300),
     maxIteration: 400,
   );
+  // Built is not shown: bring the entry into the list's visible part.
+  await tester.ensureVisible(inMenu.last);
+  await tester.pumpAndSettle();
   await tester.tap(inMenu.last);
   await tester.pumpAndSettle();
 }
