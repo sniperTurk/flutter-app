@@ -189,14 +189,11 @@ void main() {
     expect(find.byKey(const Key('scope-impact-text')), findsOneWidget);
     expect(tester.takeException(), isNull);
 
-    // Tablo is the second mode of the Atış tab.
-    await tester.tap(find.text('Tablo').first);
-    await tester.pumpAndSettle();
-    expect(find.text('DOPE oluştur'), findsOneWidget);
-    await tester.tap(find.text('DOPE oluştur'));
-    await tester.pumpAndSettle();
-    expect(find.byType(DataTable), findsOneWidget);
-    expect(tester.takeException(), isNull);
+    // The "Tek atış | Tablo" switch above the scope is hidden (owner,
+    // 2026-10-12; SHOT_TABLE_SWITCH in home_screen.dart), so the production
+    // Hedef tab stays on the single shot and offers no DOPE table.
+    expect(find.text('Tablo'), findsNothing);
+    expect(find.text('DOPE oluştur'), findsNothing);
 
     await tester.tap(find.text('Araçlar').first);
     await tester.pumpAndSettle();

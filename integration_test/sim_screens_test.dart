@@ -301,13 +301,8 @@ void main() {
         await wait(2);
         await page('hedef_atis');
       });
-      await step('hedef_tablo', () async {
-        await tester.tap(find.text('Tablo').first);
-        await settle();
-        await tester.tap(find.text('DOPE oluştur'));
-        await settle();
-        await page('hedef_tablo');
-      });
+      // No hedef_tablo page: the "Tek atış | Tablo" switch is hidden
+      // (owner, 2026-10-12; SHOT_TABLE_SWITCH in home_screen.dart).
     }
 
     debugPrint('SIMSCREEN_DONE failures=${failures.length}');
