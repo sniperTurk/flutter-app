@@ -581,9 +581,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       if (b == null) return;
       String v(double mps) =>
           (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
-      // The class top is the shooter's own gust value, not ×1.5.
-      _weatherFilled = false;
-      _weatherWasReset = false;
+      // The class top is the shooter's own gust value, not ×1.5. The
+      // weather button stays orange (owner, 2026-10-13).
       // Only Rüzgâr hızı (owner, 2026-10-12): Rüzgâr düzeltmesi is filled
       // by its own button.
       wind.text = v(b.midMps);
@@ -1142,6 +1141,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// filled turns it back: the values on screen are no longer the service's.
   bool _weatherFilled = false;
 
+  /// The weather button is orange while its boxes hold the fetched values
+  /// (owner, 2026-10-13): fetched, and Sıcaklık and Bağıl nem not emptied.
+  bool get _weatherOrange =>
+      _weatherFilled &&
+      temperature.text.trim().isNotEmpty &&
+      humidity.text.trim().isNotEmpty;
+
   /// The same for "Basıncı telefondan al".
   bool _pressureFilled = false;
 
@@ -1464,20 +1470,20 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _filledRow(
-          filled: _weatherFilled,
+          filled: _weatherOrange,
           wasReset: _weatherWasReset,
           button: MenzilSecondaryButton(
             key: const Key('environment-fill-weather'),
             label: _weatherBusy
                 ? 'Alınıyor…'
-                : _weatherFilled
+                : _weatherOrange
                 ? 'Konumdan canlı hava verisi alındı'
                 : _weatherWasReset
                 ? 'Tekrar canlı konum verisi al'
                 : 'Konumdan canlı hava verisi al',
-            icon: _weatherFilled ? Icons.check : Icons.my_location,
+            icon: _weatherOrange ? Icons.check : Icons.my_location,
             expand: true,
-            active: _weatherFilled,
+            active: _weatherOrange,
             twoLines: true,
             maxLabelLines: 2,
             onPressed: _weatherBusy
@@ -3297,10 +3303,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                   controller: altitude,
                   label: 'İrtifa',
                   // A typed value is the user's: auto fill keeps it.
+                  // İrtifa belongs to "Basıncı telefondan al" (2026-10-12):
+                  // a typed one clears that button, never the weather one
+                  // (owner, 2026-10-13).
                   onChanged: (_) => setState(() {
                     _userEdited.add(altitude);
-                    _weatherFilled = false;
-                    _weatherWasReset = false;
+                    _pressureFilled = false;
+                    _pressureWasReset = false;
                   }),
                   info: EnvironmentFieldInfo.altitude,
                   unit: metric ? 'm' : 'ft',
@@ -3398,9 +3407,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               // longer comes from the Rüzgâr gözlemi class.
               onChanged: (_) {
                 _userEdited.add(wind);
-                if (_weatherFilled || _weatherWasReset) {
-                  setState(() => _weatherFilled = _weatherWasReset = false);
-                }
+                // The weather button stays orange (owner, 2026-10-13): only
+                // a typed Sıcaklık or Bağıl nem means the weather is no
+                // longer the fetched one.
                 if (_windObservation != null) {
                   setState(() {
                     _windObservation = null;
