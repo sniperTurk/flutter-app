@@ -364,9 +364,9 @@ void main() {
             .isNotEmpty;
         expect(cleared || warned, isTrue);
       },
-      skip:
-          'MUH-1: BC 0,324 (maker G1) stays and is saved as G7; i = 0.816 '
-          'is inside the G7 band, so no warning',
+      // MUH-1: BC 0,324 (maker G1) stays and is saved as G7; i = 0.816 is
+      // inside the G7 band, so no warning.
+      skip: true,
     );
 
     testWidgets('guard: typed round G1 -> G7 with a G1-sized BC is warned', (
@@ -463,9 +463,9 @@ void main() {
         await enterRifleField(tester, 'ammo-bc', '0,25');
         expect(selectedValue<String>(tester, 'ammo-bc-model'), isNull);
       },
-      skip:
-          'MUH-5: typing a BC picks G1 (owner rule 2026-10-13) while the '
-          '#305 note says "BC modelini de seçin"',
+      // MUH-5: typing a BC picks G1 (owner rule 2026-10-13) while the #305
+      // note says "BC modelini de seçin".
+      skip: true,
     );
   });
 }
