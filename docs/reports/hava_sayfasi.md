@@ -142,6 +142,9 @@ sayfanın açılışta kaymamasını istedi.
 - Metin sola yaslı; alanların altında yardım yazısı yok (yalnız yukarıdaki
   durum notları); etiketlerde parantez yok.
 - Tarih yazıları hiç alt satıra geçmez (gerekirse küçülür).
+- Başlıktaki tek ⓘ için ortak `MenzilSectionHeader`'a isteğe bağlı
+  `titleTrailing` eklendi (başlığın hemen sağına konur). Verilmeyince
+  başlık eskisi gibi çizilir; başka sayfalar etkilenmez.
 - Başka sayfaya dokunulmadı. Not: eski "Balistik / DOPE" alt sayfası
   (`BallisticsView.all`) Hava Durumu ile aynı giriş bölümünü kullandığı
   için yeni İrtifa kartı orada da görünür.
@@ -252,6 +255,29 @@ tarafından engelli, bu yüzden Dart testleri yalnız CI'da koştu):
 
 ## CI
 
-(CI bağlantıları aşağıda güncellenir.)
+Hepsi `fix/hava-sayfasi` dalında koştu.
+
+- Biçim (format-fix, 375209577):
+  [38575514071](https://github.com/sniperTurk/flutter-app/actions/runs/38575514071)
+  biçim commit'i ekledi (1dc035d), çekildi;
+  [38575751538](https://github.com/sniperTurk/flutter-app/actions/runs/38575751538)
+  7661fac üzerinde değişiklik gerekmedi.
+- Analiz (`flutter analyze --fatal-infos --fatal-warnings`):
+  [38575964720](https://github.com/sniperTurk/flutter-app/actions/runs/38575964720)
+  **başarılı** (7661fac).
+- Tüm testler (`flutter test test`):
+  [38575960171](https://github.com/sniperTurk/flutter-app/actions/runs/38575960171)
+  **başarılı** (7661fac). Önceki tam koşu
+  [38574710265](https://github.com/sniperTurk/flutter-app/actions/runs/38574710265)
+  `hava_basliklar_test` içinde Basınç Ölçer başlığını bulamadığı için
+  kırmızıydı; başlık yeniden `MenzilSectionHeader` yapıldı ve test İrtifa
+  başlığını da kapsayacak şekilde genişletildi.
+- Hedefli testler (13 dosya):
+  [38575185837](https://github.com/sniperTurk/flutter-app/actions/runs/38575185837)
+  başarılı.
+- PR'ın iOS CI koşusu (dart-checks):
+  [38575753908](https://github.com/sniperTurk/flutter-app/actions/runs/38575753908)
+  bu rapor yazılırken sürüyordu; sonucu PR'daki check'lerden okunmalı.
+  Simulator/TestFlight bu PR'da koşmadı (ios-simulator adımı atlandı).
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
