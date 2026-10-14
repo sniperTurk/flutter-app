@@ -62,3 +62,5 @@ PR'ın kendi kontrolleri (`verify`, `dart-checks`, `wind-acceptance`) PR sayfas�
 Sonuç PR yorumunda ve PR açıklamasında.
 
 iOS CI, Simulator, TestFlight ve App Store çalıştırılmadı.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
