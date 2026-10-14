@@ -1762,8 +1762,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// A plain reticle pattern that matches the scope's turret unit: MIL
   /// patterns for a MRAD scope, the MOA pattern for MOA / SMOA; Duplex fits
-  /// both.
+  /// both. A typed scope whose Dürbün birimi still says "Seçiniz" lists all
+  /// five (owner, 2026-10-14): the hidden unit (MRAD in a new profile, the
+  /// saved unit on edit) gave Profil Oluştur 4 and Profili Düzenle 2.
   bool _genericFitsUnit(String n) {
+    if (!_scopeFromList && !_angularUnitSet) return true;
     if (n == Reticles.duplex) return true;
     final moa = angularUnit.moaFamily;
     return n == Reticles.hashMoa ? moa : !moa;
@@ -2012,55 +2015,56 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ];
   }
 
-  /// "Namlu çıkış hızı | Kalibre" side by side (owner, 2026-10-13: "her
-  /// satır 2 kutu olsun"), velocity on the left. Two columns at every width
-  /// and text size; Kalibre fits its choice on one line by scaling it down
-  /// (a shorter text when it would get too small), never overflowing.
-  Widget _velocityCaliberRow() {
+  /// Namlu çıkış hızı, a half box beside Sıfırlama mesafesi on the last
+  /// Tüfek row (owner, 2026-10-14 18:58; it sat left of Kalibre before).
+  Widget _velocityField() => MenzilInput(
+    key: const Key('profile-velocity-fps'),
+    controller: velocity,
+    label: 'Namlu çıkış hızı',
+    info: platform == WeaponPlatform.firearm
+        ? ProfileFieldInfo.velocityFirearm
+        : ProfileFieldInfo.velocity,
+    onChanged: (_) => setState(() {}),
+    errorText: _shown(_velocityError, velocity),
+  );
+
+  /// Kalibre, full width and alone on its row under Marka and Model (owner,
+  /// 2026-10-14 18:56–18:58: an exception to "two boxes per row" for Marka,
+  /// Model and Kalibre). A long choice keeps its size and wraps; the box
+  /// grows (like the Model boxes, #308).
+  Widget _caliberField() {
     final choices = _caliberChoices;
     return MenzilFullWidth(
-      child: MenzilFieldPair(
-        key: const Key('rifle-velocity-caliber-row'),
-        start: MenzilInput(
-          key: const Key('profile-velocity-fps'),
-          controller: velocity,
-          label: 'Namlu çıkış hızı',
-          info: platform == WeaponPlatform.firearm
-              ? ProfileFieldInfo.velocityFirearm
-              : ProfileFieldInfo.velocity,
-          onChanged: (_) => setState(() {}),
-          errorText: _shown(_velocityError, velocity),
-        ),
-        end: KeyedSubtree(
-          key: const Key('rifle-caliber'),
-          child: MenzilSelect<String>(
-            key: ValueKey(
-              'rifle-caliber-${platform.name}-${rifleCaliber.text}-'
-              '$_cartridge-${rifleBrand.text}-${rifleModel.text}-'
-              '$_caliberAll-$_caliberByDiameter',
-            ),
-            info: platform == WeaponPlatform.firearm
-                ? ProfileFieldInfo.caliberFirearm
-                : ProfileFieldInfo.caliber,
-            label: 'Kalibre',
-            hint: 'Seçiniz',
-            initialValue: _caliberKey,
-            items: [for (final c in choices) c.item],
-            fitSelected: true,
-            // The open list is as wide as the half box, never wider (owner,
-            // 2026-10-13: "kutudan dışarı çıkmasın"), so a long cartridge
-            // wraps there: its entry grows with it instead of keeping 48 pt
-            // and spilling over the next one (a tap on its lower half chose
-            // nothing).
-            itemHeight: null,
-            selectedLabels: [for (final c in choices) c.full],
-            shortSelectedLabels: [for (final c in choices) c.short],
-            onChanged: (v) => setState(() {
-              final before = (rifleCaliber.text, _cartridge);
-              _onCaliberKey(v);
-              _keepAmmoInCaliber(before);
-            }),
+      child: KeyedSubtree(
+        key: const Key('rifle-caliber'),
+        child: MenzilSelect<String>(
+          key: ValueKey(
+            'rifle-caliber-${platform.name}-${rifleCaliber.text}-'
+            '$_cartridge-${rifleBrand.text}-${rifleModel.text}-'
+            '$_caliberAll-$_caliberByDiameter',
           ),
+          info: platform == WeaponPlatform.firearm
+              ? ProfileFieldInfo.caliberFirearm
+              : ProfileFieldInfo.caliber,
+          label: 'Kalibre',
+          hint: 'Seçiniz',
+          initialValue: _caliberKey,
+          items: [for (final c in choices) c.item],
+          wrapSelected: true,
+          // The open list is as wide as the box, never wider (owner,
+          // 2026-10-13: "kutudan dışarı çıkmasın"), so a long cartridge may
+          // wrap there: its entry grows with it instead of keeping 48 pt and
+          // spilling over the next one (a tap on its lower half chose
+          // nothing).
+          itemHeight: null,
+          selectedLabels: [for (final c in choices) c.full],
+          // Kept for the box's short form; unused while the text wraps.
+          shortSelectedLabels: [for (final c in choices) c.short],
+          onChanged: (v) => setState(() {
+            final before = (rifleCaliber.text, _cartridge);
+            _onCaliberKey(v);
+            _keepAmmoInCaliber(before);
+          }),
         ),
       ),
     );
@@ -2143,6 +2147,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             label: 'Marka',
             hint: 'Seçiniz',
             initialValue: brand,
+            // A long brand keeps its size and wraps; the box grows (owner,
+            // 2026-10-14 18:58, like Model).
+            wrapSelected: true,
             items: [
               for (final b in brands)
                 DropdownMenuItem(value: b, child: Text(b)),
@@ -2762,13 +2769,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     section('Tüfek', [
       (_brandError == null, 'Marka'),
       (_modelError == null, 'Model'),
-      (_velocityError == null, 'Namlu çıkış hızı'),
-      (twistDirection != null, 'Yiv yönü'),
       (_caliberError == null, 'Kalibre'),
       (_twistError == null, 'Yiv oranı'),
+      (twistDirection != null, 'Yiv yönü'),
       (_validSight, 'Sight height'),
-      (_zeroError == null, 'Sıfırlama mesafesi'),
       (_distanceUnitSet, 'Mesafe birimi'),
+      (_zeroError == null, 'Sıfırlama mesafesi'),
+      (_velocityError == null, 'Namlu çıkış hızı'),
     ]);
     // Only boxes the user can see are named (owner, 2026-10-14): a catalog
     // scope not chosen yet is "Model", not the five hidden boxes its record
@@ -4127,11 +4134,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             child: MenzilFieldGrid(
               children: [
                 // Owner, 2026-10-11: Marka, Model and Kalibre are picked
-                // from lists.
+                // from lists. Order (owner, 2026-10-14 18:56–18:58): Marka,
+                // Model, Kalibre each alone on a full row; then Yiv oranı |
+                // Namlu yiv yönü, Sight height | Mesafe birimi, Sıfırlama
+                // mesafesi | Namlu çıkış hızı.
                 ..._rifleNameFields(),
-                // Namlu çıkış hızı | Kalibre on ONE row under Marka | Model
-                // (owner, 2026-10-13), for PCP and Ateşli Tüfek alike.
-                _velocityCaliberRow(),
+                _caliberField(),
                 if (platform == WeaponPlatform.firearm && _caliberByDiameter)
                   MenzilFullWidth(
                     child: KeyedSubtree(
@@ -4163,6 +4171,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       ),
                     ),
                   ),
+                MenzilInput(
+                  key: const Key('rifle-twist-rate'),
+                  info: ProfileFieldInfo.twistRate,
+                  controller: rifleTwist,
+                  label: 'Yiv oranı',
+                  onChanged: (_) => setState(() {}),
+                  errorText: _shown(_twistError, rifleTwist),
+                ),
                 KeyedSubtree(
                   key: const Key('rifle-twist-direction'),
                   child: MenzilSelect<TwistDirection>(
@@ -4183,14 +4199,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     ],
                     onChanged: (v) => setState(() => twistDirection = v),
                   ),
-                ),
-                MenzilInput(
-                  key: const Key('rifle-twist-rate'),
-                  info: ProfileFieldInfo.twistRate,
-                  controller: rifleTwist,
-                  label: 'Yiv oranı',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_twistError, rifleTwist),
                 ),
                 if (_showErrors && twistDirection == null)
                   const MenzilFullWidth(
@@ -4253,6 +4261,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_zeroError, zero),
                 ),
+                _velocityField(),
               ],
             ),
           ),
