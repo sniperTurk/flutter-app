@@ -4737,6 +4737,22 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 // a firearm. Tüp | Regülatör on one row, then the optional
                 // basınca göre hız rows (Basınç | Hız).
                 if (platform == WeaponPlatform.pcp) ..._pcpPressureFields(c),
+                if (_customCurve)
+                  MenzilFullWidth(
+                    child: DragCurveField(
+                      key: const Key('ammo-curve'),
+                      curve: _dragCurve,
+                      errorText: _showErrors && _dragCurve == null
+                          ? 'Eğriyi yükleyin.'
+                          : null,
+                      onChanged: (v) => setState(() => _dragCurve = v),
+                    ),
+                  ),
+                // Ek mühimmat bilgileri (owner, 2026-10-14 18:07–18:20): the
+                // optional powder and BC-band fields as their own always-open
+                // sub-section at the end of Mühimmat; fields, keys, checks
+                // and saving unchanged.
+                if (_ammoExtraShown) _ammoExtraHeader(c),
                 // Barut sıcaklığı: firearms only, never on PCP (owner,
                 // 2026-10-11). Katsayı | Ölçüm sıcaklığı side by side.
                 // Own row pair, so BC modeli above keeps its place (2026-10-13).
@@ -4769,17 +4785,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                           error: _powderTempError,
                         ),
                       ],
-                    ),
-                  ),
-                if (_customCurve)
-                  MenzilFullWidth(
-                    child: DragCurveField(
-                      key: const Key('ammo-curve'),
-                      curve: _dragCurve,
-                      errorText: _showErrors && _dragCurve == null
-                          ? 'Eğriyi yükleyin.'
-                          : null,
-                      onChanged: (v) => setState(() => _dragCurve = v),
                     ),
                   ),
                 // Hıza göre BC: hidden on PCP (owner, 2026-10-13: only Tip,
@@ -4847,6 +4852,56 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ),
     );
   }
+
+  /// Ek mühimmat bilgileri has something to show: Barut katsayısı | Hız
+  /// ölçüm sıcaklığı (firearms) or the Hıza göre BC rows (same conditions
+  /// as before the move).
+  bool get _ammoExtraShown =>
+      platform == WeaponPlatform.firearm ||
+      (!_customCurve &&
+          platform != WeaponPlatform.pcp &&
+          (!_typedFirearmAmmo || _showTypedBands));
+
+  /// "Ek mühimmat bilgileri  isteğe bağlı ⓘ", left-aligned and always open
+  /// (owner, 2026-10-14 18:07–18:20): no chevron, one ⓘ with the long
+  /// "Nedir? / Neden önemli?" text.
+  Widget _ammoExtraHeader(MenzilColors c) => MenzilFullWidth(
+    child: Padding(
+      key: const Key('ammo-extra-header'),
+      padding: const EdgeInsets.only(top: MenzilSpace.sm),
+      child: Row(
+        children: [
+          Flexible(
+            child: Semantics(
+              header: true,
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Ek mühimmat bilgileri',
+                      style: MenzilType.heading(c.ink, size: 17),
+                    ),
+                    const TextSpan(text: '  '),
+                    TextSpan(
+                      text: 'isteğe bağlı',
+                      style: MenzilType.caption(c.ink2),
+                    ),
+                  ],
+                ),
+                key: const Key('ammo-extra-title'),
+                textAlign: TextAlign.start,
+              ),
+            ),
+          ),
+          const MenzilInfoButton(
+            key: Key('ammo-extra-info'),
+            title: 'Ek mühimmat bilgileri',
+            text: ProfileFieldInfo.ammoExtra,
+          ),
+        ],
+      ),
+    ),
+  );
 
   /// Typed firearm Ağırlık (owner, 2026-10-14): the maker weights of this
   /// Kalibre as "168 gr (10,9 g)"; "Listede yok" adds a typed grain box
