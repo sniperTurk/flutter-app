@@ -292,8 +292,14 @@ void main() {
         'Mermi uzunluğu',
       ]);
       // No Tüp basıncı explanation either.
-      expect(find.byKey(const ValueKey('pro-explain-Tüp basıncı')), findsNothing);
-      expect(find.byKey(const ValueKey('pro-explain-Spin drift')), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey('pro-explain-Tüp basıncı')),
+        findsNothing,
+      );
+      expect(
+        find.byKey(const ValueKey('pro-explain-Spin drift')),
+        findsOneWidget,
+      );
     });
 
     testWidgets('a saved tube pressure never moves a firearm solution', (
