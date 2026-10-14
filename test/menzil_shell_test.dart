@@ -273,7 +273,10 @@ void main() {
     await tester.pumpAndSettle();
     expect(active.value, 'p2');
 
-    await tester.ensureVisible(find.text('Kopyala'));
+    // Kopyala / Sil are in the row's ⋯ menu (owner, 2026-10-14).
+    await tester.ensureVisible(find.byKey(const Key('profile-menu-p2')));
+    await tester.tap(find.byKey(const Key('profile-menu-p2')));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Kopyala'));
     await tester.pumpAndSettle();
     expect((await store.all()).map((p) => p.name), contains('İki (kopya)'));
@@ -281,11 +284,13 @@ void main() {
     await tester.pump(const Duration(seconds: 5));
     await tester.pumpAndSettle();
 
-    await tester.ensureVisible(find.text('Sil'));
+    await tester.ensureVisible(find.byKey(const Key('profile-menu-p2')));
+    await tester.tap(find.byKey(const Key('profile-menu-p2')));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Sil'));
     await tester.pumpAndSettle();
-    expect(find.text('Profili sil?'), findsOneWidget);
-    await tester.tap(find.text('Vazgeç'));
+    expect(find.text('Profil silinsin mi?'), findsOneWidget);
+    await tester.tap(find.text('İptal'));
     await tester.pumpAndSettle();
     expect((await store.all()).length, 3, reason: 'cancel must not delete');
     semantics.dispose();
