@@ -129,7 +129,8 @@ class BallisticsScreen extends StatefulWidget {
 class _ShotBasis {
   final double velocityMps, grain, zeroRangeM, sightHeightMm;
 
-  /// Velocity on the zeroing day when today's differs (barut sıcaklığı).
+  /// Velocity on the zeroing day when today's differs (barut sıcaklığı or
+  /// PCP tube pressure).
   final double? zeroVelocityMps;
   final EnvironmentData environment;
 
@@ -472,8 +473,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
-  /// Pro Ayarlar → Coriolis: off until switched on; latitude (+N) and shot
-  /// azimuth (° from north) as typed or taken from GPS / compass.
+  /// Pro Ayarlar → Coriolis: always on (no switches since 2026-10-11; the
+  /// value is still saved as coriolisOn); it applies once latitude (+N) and
+  /// shot azimuth (° from north) are typed or taken from GPS / compass.
   final bool _coriolisOn = true;
   final TextEditingController latitudeCtl = TextEditingController();
   final TextEditingController azimuthCtl = TextEditingController();
@@ -580,8 +582,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       if (b == null) return;
       String v(double mps) =>
           (metric ? mps : UnitSystem.mpsToMph(mps)).toStringAsFixed(1);
-      // The class top is the shooter's own gust value, not ×1.5. The
-      // weather button stays orange (owner, 2026-10-13).
+      // The weather button stays orange (owner, 2026-10-13).
       // Only Rüzgâr hızı (owner, 2026-10-12): Rüzgâr düzeltmesi is filled
       // by its own button.
       wind.text = v(b.midMps);
@@ -598,7 +599,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   final TextEditingController bulletLengthCtl = TextEditingController();
   final TextEditingController powderCoefCtl = TextEditingController();
 
-  /// PCP: tube pressure left in the field, bar (Pro > Tüfek düzeltmeleri).
+  /// PCP: tube pressure left, bar (Pro > Tüfek düzeltmeleri). The box is
+  /// shown and used only with PRO_TUBE_PRESSURE; otherwise the profile's
+  /// Tüp basıncı is used (see [_pcpVelocity]).
   final TextEditingController tubePressureCtl = TextEditingController();
   final TextEditingController powderTempCtl = TextEditingController();
 
@@ -801,10 +804,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
-  /// Spin drift (Litz) as a sideways angle in mrad, + = to the right; null
-  /// when off or data is missing. Stability from the Miller formula.
-  /// Gyroscopic stability (Miller) with the bullet length and length in
-  /// calibres, or null when spin drift is off or data is missing.
+  /// Gyroscopic stability (Miller), length in calibres and twist direction,
+  /// or null when data is missing (no BC, Pro bullet length or twist).
   ///
   /// Not for a diabolo pellet (formula audit 2026-10-13): a pellet is
   /// drag-stabilised (its centre of pressure sits behind the centre of
@@ -874,6 +875,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     );
   }
 
+  /// Spin drift (Litz) as a sideways angle in mrad, + = to the right; null
+  /// when [_stability] is null. Stability from the Miller formula.
   double? _spinDriftMrad(TrajectoryPoint shot, _ShotBasis basis) {
     final st = _stability(basis);
     if (st == null) return null;
@@ -932,8 +935,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return v != null && v >= -90 && v <= 90 ? v : null;
   }
 
-  /// Pro → Yerçekimi (owner, 2026-10-10): off = standard gravity; on =
-  /// the local value in [gravityCtl] (computed from the location).
+  /// Pro → Yerçekimi: always on (no switches since 2026-10-11; still saved
+  /// as gravityOn); the local value in [gravityCtl] (computed from the
+  /// location), standard gravity while it is empty or out of range.
   final bool _gravityOn = true;
   final TextEditingController gravityCtl = TextEditingController();
   String? _gravityStatus;
@@ -1168,7 +1172,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   bool _weatherWasReset = false;
   bool _pressureWasReset = false;
 
-  /// Hava Durumu starting values (as in initState), in the shown units.
+  /// Sıfırla of the weather row: empties the boxes it fills.
   void _resetWeather() {
     setState(() {
       // Sıfırla empties the boxes (owner, 2026-10-12); an empty box is
@@ -1288,7 +1292,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   }
 
   /// Location → weather service → Hava Durumu fields. With [overwrite] the
-  /// user's own edits are replaced too (the "Yeniden doldur" button);
+  /// user's own edits are replaced too (the "Konumdan canlı hava verisi al"
+  /// button);
   /// otherwise only untouched fields are filled.
   Future<void> _fillWeather({bool overwrite = false}) async {
     if (_weatherBusy) return;
@@ -1376,9 +1381,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   bool _pressureFailed = false;
 
   /// "Basıncı telefondan al": reads the phone barometer once, ONLY on this
-  /// button (owner rule), and writes it into Basınç as the user's own value
-  /// (an automatic weather fill keeps it; the explicit weather button still
-  /// replaces it).
+  /// button (owner rule), and writes it into Basınç as the user's own value.
+  /// The weather fill never writes Basınç.
   Future<void> _readPhonePressure() async {
     if (_pressureBusy) return;
     final services = ToolsServicesScope.of(context);
@@ -1704,10 +1708,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         windMps: w,
         windDirectionDeg: wd,
       );
-      // Barut sıcaklığı (Pro, firearms): today's velocity from the profile
+      // Barut sıcaklığı (firearms): today's velocity from the profile
       // velocity; the zero stays solved with the zeroing-day velocity.
-      // PCP tüp basıncı (Pro): the velocity at the tube pressure left; a
-      // firearm never changes here.
+      // PCP tüp basıncı: the velocity at the profile's Tüp basıncı (the Pro
+      // box only with PRO_TUBE_PRESSURE); a firearm never changes here.
       final vPowder = _powderAdjusted(v, temp);
       final vToday = _pcpVelocity(vPowder)?.mps ?? vPowder;
       final double? vZero = vToday == v ? null : v;
@@ -2384,8 +2388,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     try {
       final bytes = await buildDopeCardPdf(
         data,
-        // Oswald like the app (owner, 2026-10-11); DejaVu only for the
-        // arrows Oswald lacks. The logo heads the card and fades behind it.
+        // The PDF keeps Oswald (owner, 2026-10-11; the screens use the
+        // system font since 2026-10-13); DejaVu only for the arrows Oswald
+        // lacks. The logo heads the card and fades behind it.
         regular: await rootBundle.load('assets/fonts/Oswald-Regular.ttf'),
         bold: await rootBundle.load('assets/fonts/Oswald-Medium.ttf'),
         fallback: await rootBundle.load('assets/fonts/DejaVuSans.ttf'),
@@ -3298,7 +3303,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ),
       ),
       // Basınç Ölçer (owner, 2026-10-12): station pressure and altitude
-      // under Atmosfer, with "Basıncı telefondan al" under the two boxes.
+      // under the weather card, with "Basıncı telefondan al" under the two
+      // boxes.
       // Size 18 like the Profil summary headers (owner, 2026-10-13).
       const MenzilSectionHeader(
         'Basınç Ölçer',
@@ -3896,7 +3902,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ProInfoField('Hedefte', EnvironmentFieldInfo.windFar),
       ],
       // Owner, 2026-10-11: the box first, then the two zone boxes; their
-      // explanations are in the ⓘ popup (owner, 2026-10-13).
+      // explanations are in the ⓘ bottom sheet (owner, 2026-10-13).
       children: [
         MenzilInput(
           key: const Key('pro-wind-max'),
@@ -4234,7 +4240,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ],
         children: [
           // Owner, 2026-10-12: boxes first, Verileri sil under them; the
-          // explanations are in the ⓘ popup (owner, 2026-10-13).
+          // explanations are in the ⓘ bottom sheet (owner, 2026-10-13).
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -4377,7 +4383,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ],
         children: [
           // Owner, 2026-10-12: boxes first; the explanations are in the ⓘ
-          // popup since 2026-10-13.
+          // bottom sheet since 2026-10-13.
           MenzilInput(
             key: const Key('pro-turret-scale'),
             controller: turretScaleCtl,
@@ -4742,7 +4748,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     _setAngles(cant: result);
   }
 
-  /// PCP with the Pro tube pressure below the profile's regulator pressure.
+  /// PCP with the tube pressure (the profile's, or Pro's with
+  /// PRO_TUBE_PRESSURE) below the regulator pressure.
   bool get _pcpRegulatorBypassed {
     final v0 = widget.profile?.muzzleVelocityMps;
     if (v0 == null) return false;
@@ -4810,7 +4817,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                                     children: [
                                       Text(
                                         '$display',
-                                        // Stepped live with ±1/±10:
+                                        // Stepped live with ±1/±5:
                                         // equal-width figures, no jitter.
                                         style: MenzilType.display(
                                           c.ink,
