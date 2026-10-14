@@ -176,6 +176,16 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
         builder: (_) => _ProfileDialog(
           initial: existing,
           takenNames: {for (final x in items) x.name},
+          // PRF-2: records another profile also points at are never
+          // overwritten; the edited profile gets its own copy instead.
+          sharedRecordIds: {
+            for (final x in items)
+              if (x.id != existing?.id) ...[
+                x.rifleId,
+                x.ammunitionId,
+                x.scopeId,
+              ],
+          },
         ),
       ),
     );
@@ -295,19 +305,70 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     }
   }
 
-  /// Saves an independent copy (new id) through the same store API.
+  /// Personal (user-entered) records of [p] copied under new ids, so
+  /// editing the copy never changes the original (PRF-2). Catalog records
+  /// are read-only and keep their catalog ids; an id missing from the
+  /// personal store is kept as it is. Returns the ids the copy points at.
+  Future<({String rifleId, String ammunitionId, String scopeId})>
+  _copyPersonalRecords(RifleProfile p) async {
+    final entries = await catalogStore.all();
+    final stamp = DateTime.now().microsecondsSinceEpoch;
+    var n = 0;
+    final written = <Map<String, dynamic>>[];
+    String copyOf(String id, String prefix) {
+      Map<String, dynamic>? found;
+      for (final e in entries) {
+        if (e['id'] == id) found = e;
+      }
+      if (found == null) return id;
+      final newId = '${prefix}_${stamp + n++}';
+      written.add({...found, 'id': newId});
+      return newId;
+    }
+
+    final ids = (
+      rifleId: copyOf(p.rifleId, 'manual_rifle'),
+      ammunitionId: copyOf(p.ammunitionId, 'manual_ammo'),
+      scopeId: copyOf(p.scopeId, 'manual_scope'),
+    );
+    for (final e in written) {
+      await catalogStore.upsert(e);
+    }
+    if (written.isNotEmpty) {
+      CatalogRepository.installUserCatalog(
+        UserCatalog.fromManualEntries(await catalogStore.all()),
+      );
+    }
+    return ids;
+  }
+
+  /// Saves an independent copy (new id) through the same store API. Its
+  /// personal rifle / ammunition / scope records are copied too (PRF-2).
   Future<void> _duplicate(RifleProfile p) async {
     const suffix = ' (kopya)';
     const maxBase = ProductionLimits.maxProfileNameLength - suffix.length;
     final base = p.name.length > maxBase
         ? p.name.substring(0, maxBase).trimRight()
         : p.name;
+    final ({String rifleId, String ammunitionId, String scopeId}) ids;
+    try {
+      ids = await _copyPersonalRecords(p);
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profil kopyalanamadı. Mevcut kayıtlar korunuyor.'),
+          ),
+        );
+      }
+      return;
+    }
     final copy = RifleProfile(
       id: DateTime.now().microsecondsSinceEpoch.toString(),
       name: '$base$suffix',
-      rifleId: p.rifleId,
-      ammunitionId: p.ammunitionId,
-      scopeId: p.scopeId,
+      rifleId: ids.rifleId,
+      ammunitionId: ids.ammunitionId,
+      scopeId: ids.scopeId,
       muzzleVelocityMps: p.muzzleVelocityMps,
       zeroRangeM: p.zeroRangeM,
       sightHeightMm: p.sightHeightMm,
@@ -1045,7 +1106,16 @@ class _ProfileDialog extends StatefulWidget {
 
   /// Names already used by saved profiles (for the new-profile default).
   final Set<String> takenNames;
-  const _ProfileDialog({this.initial, this.takenNames = const {}});
+
+  /// Rifle / ammunition / scope record ids other saved profiles point at.
+  /// A personal record listed here is saved under a new id instead of being
+  /// overwritten (PRF-2), so the other profile keeps its values.
+  final Set<String> sharedRecordIds;
+  const _ProfileDialog({
+    this.initial,
+    this.takenNames = const {},
+    this.sharedRecordIds = const {},
+  });
 
   @override
   State<_ProfileDialog> createState() => _ProfileDialogState();
@@ -3290,11 +3360,17 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? _shownSelect(String? error, [TextEditingController? c]) =>
       (_showErrors || (c != null && c.text.isNotEmpty)) ? error : null;
 
+  /// True when saving may update [record] in place: a personal record no
+  /// other profile points at. A shared one is written under a new id
+  /// (PRF-2); catalog records are read-only.
+  bool _ownsRecord(String? id, {required bool userEntered}) =>
+      id != null && userEntered && !widget.sharedRecordIds.contains(id);
+
   Map<String, dynamic> _rifleEntry() {
     final existing = rifle;
     return <String, dynamic>{
-      'id': existing != null && existing.userEntered
-          ? existing.id
+      'id': _ownsRecord(existing?.id, userEntered: existing?.userEntered == true)
+          ? existing!.id
           : 'manual_rifle_${DateTime.now().microsecondsSinceEpoch}',
       'kind': 'rifle',
       'platform': platform.name,
@@ -3316,8 +3392,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   Map<String, dynamic> _ammoEntry() {
     final existing = ammo;
     return <String, dynamic>{
-      'id': existing != null && existing.userEntered
-          ? existing.id
+      'id': _ownsRecord(existing?.id, userEntered: existing?.userEntered == true)
+          ? existing!.id
           : 'manual_ammo_${DateTime.now().microsecondsSinceEpoch}',
       'kind': 'ammo',
       'platform': platform.name,
@@ -3348,8 +3424,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final existing = scope;
     final lo = _parse(scopeMinMag)!, hi = _parse(scopeMaxMag)!;
     return <String, dynamic>{
-      'id': existing != null && existing.userEntered
-          ? existing.id
+      'id': _ownsRecord(existing?.id, userEntered: existing?.userEntered == true)
+          ? existing!.id
           : 'manual_scope_${DateTime.now().microsecondsSinceEpoch}',
       'kind': 'scope',
       'platform': platform.name,
