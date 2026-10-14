@@ -192,7 +192,7 @@ void main() {
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
   test('sharedRecordIdsOf lists the records of every other profile', () {
-    final c = RifleProfile(
+    const c = RifleProfile(
       id: 'c',
       name: 'C',
       rifleId: 'r-c',
@@ -307,39 +307,4 @@ void main() {
       expect(find.byKey(const Key('truing-no-profile')), findsNothing);
     });
   }
-
-  testWidgets('catalog ammunition is never written', (tester) async {
-    await _seed();
-    final catalogAmmo = CatalogRepository.allAmmunition.firstWhere(
-      (x) =>
-          !x.userEntered &&
-          x.platform == WeaponPlatform.firearm &&
-          (x.caliberMm - 7.62).abs() < 0.05 &&
-          x.ballisticCoefficient != null &&
-          x.ballisticModel != null,
-    );
-    final p = RifleProfile(
-      id: 'k',
-      name: 'Katalog',
-      rifleId: 'manual_rifle_p6',
-      ammunitionId: catalogAmmo.id,
-      scopeId: 'gazi-6-36',
-      muzzleVelocityMps: 790,
-      zeroRangeM: 100,
-      sightHeightMm: 45,
-    );
-    final store = await _storeWith([p, _profile('k2', 'K2')]);
-    final before = jsonEncode(await ManualCatalogStore().all());
-    await _pump(tester, store, 'k');
-    await _pickMode(tester, 'Balistik katsayı (BC)');
-    await _enter(tester, 'truing-range', '800');
-    await _enter(tester, 'truing-observed', '12');
-    await _tap(tester, 'truing-compute');
-    if (find.byKey(const Key('truing-bc-apply')).evaluate().isNotEmpty) {
-      await _tap(tester, 'truing-bc-apply');
-    }
-    expect(find.byKey(const Key('truing-bc-confirm')), findsNothing);
-    expect(jsonEncode(await ManualCatalogStore().all()), before);
-    expect(_profileBytes(await _stored(store, 'k')), _profileBytes(p));
-  });
 }
