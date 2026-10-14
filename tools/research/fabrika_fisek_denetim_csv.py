@@ -6,8 +6,10 @@ kontrol: line, field, lib, maker, status, url, date, quote, note) ve
 `fabrika_fisek_ic_denetim.py` iç tutarlılık bayrakları. Kaynağı okunmamış her
 kayıt/alan ERİŞİLEMEDİ olarak yazılır; hiçbir kontrol atlanmaz.
 
+Kaynak, JSONL dizini ya da önceki CSV olabilir (okunmuş kontroller korunur).
+
 Kullanım:
-  python3 tools/research/fabrika_fisek_denetim_csv.py SONUC_DIZINI \
+  python3 tools/research/fabrika_fisek_denetim_csv.py SONUC_DIZINI_VEYA_CSV \
       [--out data/veri_denetimi/fabrika_fisek.csv] [--unreachable-note METIN]
 """
 from __future__ import annotations
@@ -45,8 +47,23 @@ def lib_value(r: dict, field: str) -> str:
     }[field]
 
 
+def _from_csv(path: Path) -> list[dict]:
+    """Önceki CSV'deki denenmiş kontroller (okuma tarihi olanlar) yeniden çalıştırmada kaybolmasın."""
+    out = []
+    with path.open(encoding="utf-8") as fh:
+        for r in csv.DictReader(fh):
+            if r["field"] in FIELDS and (r["status"] != "ERİŞİLEMEDİ" or r["read_date"]):
+                out.append(dict(line=r["line"], field=r["field"], maker=r["maker_value"], status=r["status"],
+                                url=r["url"], date=r["read_date"], quote=r["quote"], note=r["note"]))
+    return out
+
+
 def load_checks(src: Path) -> dict[tuple[int, str], dict]:
     checks: dict[tuple[int, str], dict] = {}
+    if src.is_file() and src.suffix == ".csv":
+        for c in _from_csv(src):
+            checks[(int(c["line"]), c["field"])] = c
+        return checks
     for p in sorted(src.glob("*.jsonl")):
         for raw in p.read_text(encoding="utf-8").splitlines():
             if not raw.strip():
