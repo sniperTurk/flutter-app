@@ -28,7 +28,7 @@ Tarih: 14.10.2026 (İstanbul). Dal: `audit/veri-tufek`. Yalnız denetim: `lib/` 
 - **Kaynaksız yiv adımı (ŞÜPHELİ):** Sabatti Saphire E.R. (8 satır), Steyr SSG 08 .243 / SSG 08 A1, Barrett MRAD Covert / REC10, MKE KNT-76, Mossberg 7mm-08 (1:9.5, eski bülten 1:10) ve Patriot Predator .400 Legend / .450 BM (üreticinin kendi sayfaları çelişkili). Yanlışsa etkisi yine Sg ve spin sapmasıdır.
 - **Varyant/ad karışıklığı (ŞÜPHELİ):** Winchester "Model 70 Extreme Weather" satırları Extreme Tungsten MB sayfasından; Sauer "101 Classic" 6.5 CM / 8.5x55 satırları Elegance sayfasından; Derya "TM22 Metal" adı katalogda yok; Christensen CA-15 G2 / CA5five6 ve Seekins HIT PRO M3 üreticide ".223 Wylde", kütüphanede "5.56x45 NATO".
 - **Yerli/İthal:** AirMaks Arms (160 PCP satırı) Yerli listesinde yok; Türk markası olduğu düşünülüyor ama üretici sayfası okunamadığı için doğrulanamadı (ŞÜPHELİ).
-- Ruger Gen II / Mini Thirty ve Steyr SSG satırlarında yön "sağ" yazılı ama okunan üretici sayfası yön vermiyor (ŞÜPHELİ; Ruger özellik sayfalarında "RH" var, okunabilenler doğrulandı).
+- Ruger Gen II / Mini Thirty ve Steyr SSG satırlarında yön "sağ" yazılı ama okunan üretici sayfası yön vermiyor (ŞÜPHELİ). Okunabilen iki Ruger spec sheeti (46905, 46967) "RH" diyor ve uyuşuyor.
 
 ## Tüm HATALI ve ŞÜPHELİ kayıtlar (önerilen düzeltme ve kaynakla)
 
