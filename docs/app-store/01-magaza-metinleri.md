@@ -67,8 +67,8 @@ Sniper Türk, ateşli tüfek ve PCP havalı tüfek kullanan atıcılar için bir
 PROFİL
 • Ateşli tüfek ve PCP için ayrı profiller
 • Tüfek marka, model ve kalibresi, dürbün, retikül ve mühimmat listeden seçilir; aradığınız listede yoksa elle girilir
-• Ateşli tüfekte G1, G2, G5, G6, G7, G8, GI ve RA4; PCP'de G1, G7 ve GS sürüklenme modelleri. Saçmalar (pellet) G1 ile hesaplanır
-• İsterseniz merminin kendi Mach–Cd eğrisi (.drg/.csv)
+• Ateşli tüfekte G1, G2, G5, G6, G7, G8, GI ve RA4 sürüklenme modelleri ya da merminin kendi Mach–Cd eğrisi (.drg/.csv)
+• PCP saçma ve slug her zaman G1 ile hesaplanır
 • Her kutunun yanındaki ⓘ, değerin ne olduğunu, nereden bulunacağını ve tipik bir örneği anlatır
 • Profilleri dosya olarak yedekleme ve geri yükleme (iCloud Drive, Google Drive veya Dosyalar)
 
@@ -100,7 +100,7 @@ ARAÇLAR
 • Kullanım rehberi
 
 GİZLİLİK
-Hesap açmanız gerekmez. Reklam ve izleme yoktur. Profilleriniz ve ayarlarınız yalnızca cihazınızda saklanır. Harita için Google Maps SDK kullanılır. Ayrıntılar uygulamadaki Gizlilik politikası sayfasındadır.
+Hesap açmanız gerekmez. Reklam ve izleme yoktur. Profilleriniz ve ayarlarınız yalnızca cihazınızda saklanır. Harita görüntüsü Google Maps SDK veya Esri'den gelir. Ayrıntılar uygulamadaki Gizlilik politikası sayfasındadır.
 
 ÖNEMLİ
 Sniper Türk bir hesap yardımcısıdır; sonuçlar gerçek atışla doğrulanmalıdır. Uygulama silah veya mühimmat satmaz, satışa aracılık etmez. Silah ve atışla ilgili tüm yasal düzenlemelere ve güvenlik kurallarına uymak kullanıcının sorumluluğundadır.
@@ -163,8 +163,8 @@ Language: the app's interface is in Turkish only.
 PROFILES
 • Separate profiles for firearms and PCP air rifles
 • Pick rifle make, model and caliber, scope, reticle and ammunition from built-in lists; type them in when yours is not listed
-• G1, G2, G5, G6, G7, G8, GI and RA4 drag models for firearms; G1, G7 and GS for PCP. Pellets are calculated with G1
-• Optionally the bullet's own Mach–Cd drag curve (.drg/.csv)
+• G1, G2, G5, G6, G7, G8, GI and RA4 drag models for firearms, or the bullet's own Mach–Cd drag curve (.drg/.csv)
+• PCP pellets and slugs are always calculated with G1
 • An ⓘ next to every field explains the value, where to find it and a typical example
 • Back up and restore profiles as a file (iCloud Drive, Google Drive or Files)
 
@@ -196,7 +196,7 @@ TOOLS
 • Usage guide
 
 PRIVACY
-No account needed. No ads, no tracking. Your profiles and settings are stored only on your device. The map uses the Google Maps SDK. Details are in the privacy policy inside the app.
+No account needed. No ads, no tracking. Your profiles and settings are stored only on your device. Map imagery comes from the Google Maps SDK or Esri. Details are in the privacy policy inside the app.
 
 IMPORTANT
 Sniper Türk is a calculation aid; always confirm results with live fire. The app does not sell or broker firearms or ammunition. You are responsible for following all firearm laws and safety rules that apply to you.

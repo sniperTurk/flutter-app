@@ -100,23 +100,23 @@ temkinli olmak için eklenmedi).
   doğru değil) → "profillerin cihazında kalır".
 - "Tıklama", "vuruş olasılığı" gibi eski adlar güncel ekran adlarına çevrildi.
 
-**Eklenen güncel özellikler:** G1/G2/G5/G6/G7/G8/GI/RA4 (ateşli), G1/G7/GS
-(PCP); her kutuda ⓘ; listeden seçim ve "listede yok" ile elle giriş; profil
+**Eklenen güncel özellikler:** G1/G2/G5/G6/G7/G8/GI/RA4 ve kendi Mach–Cd
+eğrisi (ateşli), PCP her zaman G1 (bkz. "İnceleme düzeltmesi"); her kutuda ⓘ; listeden seçim ve "listede yok" ile elle giriş; profil
 yedekleme; barometre ve GPS irtifası; "Rüzgâr tahmini nasıl yapılır?"
 rehberi; Pro açıklamaları alttan açılan sayfada; rüzgâr düzeltmesi; Hesap
 dökümü; Kronograf, Paralaks Mesafesi (PCP), Avcı Sıfırı, Atış Öncesi
 Kontrol, Sıfır Grubu, Atış Günlüğü, Kullanım rehberi. İngilizce metinde
 "arayüz yalnızca Türkçe" notu duruyor.
 
-`check_lengths.py` çıktısı (2026-10-14):
+`check_lengths.py` çıktısı (2026-10-14, inceleme düzeltmesinden sonra):
 
 ```
 OK  Tanıtım metni (≤ 170): 167/170 chars
-OK  Açıklama: 2659/4000 chars
+OK  Açıklama: 2656/4000 chars
 OK  Anahtar kelimeler (≤ 100 bayt): 98/100 bytes
 OK  Yenilikler (1.0.0): 353/4000 chars
 OK  Promotional text (≤ 170): 160/170 chars
-OK  Description: 2529/4000 chars
+OK  Description: 2537/4000 chars
 OK  Keywords (≤ 100 bytes): 97/100 bytes
 OK  What's New (1.0.0): 350/4000 chars
 OK  Türkçe (tr) keywords repeat no name/subtitle word
@@ -129,6 +129,54 @@ Hesap dökümü ve DOPE kartını paylaş (PDF)"; eski görsellerin yeniden
 çekilmesi gerektiği işaretlendi. **05:** 5.1.1(i) "çözüldü"; inceleme notuna
 gizlilik sayfasının yeri eklendi. **README:** "Öne çıkan bulgular"
 güncellendi.
+
+## İnceleme düzeltmesi (2026-10-14, ana oturum incelemesi sonrası)
+
+**Bulgu:** açıklama (TR ve EN) PCP için "G1, G7 ve GS" modelleri diyordu.
+Bu yanlıştı. main'de PCP saçma ve slug **her zaman G1** ile hesaplanır
+(sahip kararı 2026-10-12): `profiles_screen.dart` içinde
+`_bcModelForSave => platform == WeaponPlatform.pcp ? BallisticModel.g1 : ammoBcModel`,
+ve "BC modeli" kutusu `if (platform != WeaponPlatform.pcp)` ile PCP'de hiç
+gösterilmez. Kendi Mach–Cd eğrisi ("Özel eğri (Mach–Cd)") yalnız bu kutudan
+seçildiği için PCP'de yoktur, yalnız ateşli tüfekte vardır.
+
+**Düzeltme (`01-magaza-metinleri.md`):**
+
+| | Önce | Sonra |
+|---|---|---|
+| TR | "Ateşli tüfekte G1, G2, G5, G6, G7, G8, GI ve RA4; PCP'de G1, G7 ve GS sürüklenme modelleri. Saçmalar (pellet) G1 ile hesaplanır" + "İsterseniz merminin kendi Mach–Cd eğrisi (.drg/.csv)" | "Ateşli tüfekte G1, G2, G5, G6, G7, G8, GI ve RA4 sürüklenme modelleri ya da merminin kendi Mach–Cd eğrisi (.drg/.csv)" + "PCP saçma ve slug her zaman G1 ile hesaplanır" |
+| EN | "…; G1, G7 and GS for PCP. Pellets are calculated with G1" + "Optionally the bullet's own Mach–Cd drag curve" | "…RA4 drag models for firearms, or the bullet's own Mach–Cd drag curve (.drg/.csv)" + "PCP pellets and slugs are always calculated with G1" |
+| TR/EN gizlilik satırı | "Harita için Google Maps SDK kullanılır" / "The map uses the Google Maps SDK" | "Harita görüntüsü Google Maps SDK veya Esri'den gelir" / "Map imagery comes from the Google Maps SDK or Esri" — Google haritası yalnız `GOOGLE_MAPS_ENABLED=true` derlemede gösterilir (`map_distance_screen.dart`), yoksa Esri |
+
+Uygulama içi gizlilik metninde ve kullanım rehberinde model iddiası yok;
+değişmedi.
+
+**Diğer iddiaların yeniden doğrulaması (main @ 47b7ab0, `grep`):**
+- Ateşli BC modeli listesi `_bcModelChoices`: G1, G2, G5, G6, G7, G8,
+  GI (Ingalls), RA4 + "Özel eğri (Mach–Cd)" — kutu ateşli tüfekte görünür.
+- Araçlar: listedeki 15 araç `tools_screen.dart`'ta bayraksız görünür;
+  Paralaks Mesafesi yalnız PCP profilinde (metinde "(PCP)" yazıyor).
+- Hesaplayıcılar: stadyametrik, retikül (mil-dot), mesafe, özel konum,
+  mesafedeki MOA, klik değeri doğrulama, 2 hızdan BC, enerji ve güç, hava
+  laboratuvarı, birim dönüştürücüler — hepsi görünür.
+- Pro: Açı + "Kamerayla ölç", Dürbün eğimi, Rüzgâr düzeltmesi, Coriolis,
+  Yerel yerçekimi, Hareketli hedef, İsabet olasılığı (WEZ), Kule ölçek
+  katsayısı, Sıfır ofseti, Mermi uzunluğu / spin drift; açıklamalar alttan
+  sayfada — hepsi bayraksız.
+- Hava Durumu: MET Norway sıcaklık, nem, rüzgâr hızı doldurur;
+  "Basıncı telefondan al" barometre + GPS irtifası; "Rüzgâr tahmini nasıl
+  yapılır?" bağlantısı. Rüzgâr gözlemi `WIND_OBSERVATION` ile gizli —
+  metinde yok.
+- Hedef: "Hesap dökümü" her çözümde görünür; "DOPE kartını paylaş (PDF)";
+  Tablo görünümü `SHOT_TABLE_SWITCH` ile gizli — metinde yok.
+- Profil: "Yedekle" / "Geri yükle" Profil sayfasında görünür (karşılama
+  ekranındaki geri yükleme `WELCOME_RESTORE` ile gizli; metin yalnız
+  Profil'deki düğmeyi anlatıyor).
+- Tüfek/dürbün "Listede yok" gizli, ama "Aradığın … listede yok mu?"
+  bağlantısı elle girişi açar — "listede yoksa elle girilir" doğru.
+
+`check_lengths.py`: ALL OK (TR açıklama 2656/4000, EN 2537/4000; diğer
+sayılar değişmedi).
 
 ## 4. Sahibin yapması gerekenler
 
