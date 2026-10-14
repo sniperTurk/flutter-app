@@ -201,6 +201,9 @@ void main() {
       'rifle-caliber',
       '.308 Win · 20 in namlu · 1:11',
     );
+    await chooseInSelect(tester, 'ammo-source', 'El dolumu');
+    await chooseInSelect(tester, 'ammo-brand-select', 'Hornady');
+    await tester.tap(find.byKey(const Key('ammo-model-select')));
     await tester.pumpAndSettle();
     await tester.tap(find.textContaining('168 gr ELD Match').last);
     await tester.pumpAndSettle();
