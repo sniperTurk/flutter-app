@@ -135,7 +135,22 @@ değerler, yenilenene ya da elle değiştirilene kadar **silinmez**.
 
 ## CI
 
-CI_SONUCLARI
+Son kod commit'i `e14882f` (bu rapor commit'i yalnız belge değiştirir):
+
+| İşlem | Sonuç | Çalışma |
+|---|---|---|
+| dart format (format-fix) | ✅ değişiklik yok | [#376](https://github.com/sniperTurk/flutter-app/actions/runs/38541051265) |
+| `flutter test test` (tümü) | ✅ geçti | [#448](https://github.com/sniperTurk/flutter-app/actions/runs/38541247891) |
+| `flutter analyze --fatal-infos --fatal-warnings` | ✅ geçti | [#305](https://github.com/sniperTurk/flutter-app/actions/runs/38541251083) |
+
+İlk tur (`00668c6`): format [#375](https://github.com/sniperTurk/flutter-app/actions/runs/38539932515)
+biçim commit'i üretti; analyze [#304](https://github.com/sniperTurk/flutter-app/actions/runs/38540243926)
+geçti; test [#447](https://github.com/sniperTurk/flutter-app/actions/runs/38540240718)
+**1 testte kaldı**: yeni testim ("elle Sıcaklık") ekranda "Hava verisi"
+geçen hiçbir yazı beklemiyordu, ama düğmenin altındaki bilgi notu da bu
+sözü içeriyor. Uygulama hatası değil, test fazla genişti; yalnız düğme
+yazılarını arayacak şekilde daraltıldı (`e14882f`) ve tüm testler
+geçti.
 
 iOS CI / verify, Simulator ve TestFlight bu işte **koşturulmadı**; geçti
 denmez.
