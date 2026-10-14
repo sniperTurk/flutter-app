@@ -48,6 +48,8 @@ class V1ToolScopeTests(unittest.TestCase):
             'tool-checklist', 'tool-zero-group', 'tool-shot-journal',
             # 2026-10-11: Kullanım rehberi (draft for the owner's review).
             'tool-usage-guide',
+            # 2026-10-14: Gizlilik politikası (App Review 5.1.1(i)).
+            'tool-privacy-policy',
         ):
             self.assertIn(f"Key('{key}')", hub)
         # V380: Ayarlar removed (the app is metric only).
@@ -59,9 +61,10 @@ class V1ToolScopeTests(unittest.TestCase):
         # 2026-10-12: typed Kronograf (Ö3, owner asked for the whole
         # yeni-hesaplar report) is a tool again; with Paralaks Mesafesi and
         # Avcı Sıfırı (#186) and the three #187 tools the hub source has
-        # fourteen tiles; Kullanım rehberi (#177) makes fifteen.
+        # fourteen tiles; Kullanım rehberi (#177) makes fifteen and
+        # Gizlilik politikası (2026-10-14) sixteen.
         self.assertIn("Key('tool-chrono')", hub)
-        self.assertEqual(15, hub.count('MenzilToolTile('))
+        self.assertEqual(16, hub.count('MenzilToolTile('))
 
     def test_still_retired_dependencies_and_ios_bridge_stay_absent(self):
         pubspec = (ROOT / 'pubspec.yaml').read_text(encoding='utf-8')
