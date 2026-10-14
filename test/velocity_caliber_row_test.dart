@@ -86,7 +86,10 @@ void _expectLayout(WidgetTester tester) {
 /// The closed Kalibre box shows [text] whole, at the normal size, wrapped
 /// onto as many lines as it needs, inside the box.
 void _expectWraps(WidgetTester tester, String text) {
-  final shown = _in('rifle-caliber', find.byKey(const Key('menzil-select-wrapped')));
+  final shown = _in(
+    'rifle-caliber',
+    find.byKey(const Key('menzil-select-wrapped')),
+  );
   expect(shown, findsOneWidget);
   final t = tester.widget<Text>(shown);
   expect(t.data, text);

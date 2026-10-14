@@ -1028,7 +1028,11 @@ void main() {
         'rifle-brand-select',
         'Accuracy International',
       );
-      _wrapsAtNormalSize(tester, 'rifle-brand-select', 'Accuracy International');
+      _wrapsAtNormalSize(
+        tester,
+        'rifle-brand-select',
+        'Accuracy International',
+      );
       await _pickCaliber(tester, '.338-378 Weatherby Mag');
       expect(
         selectedValue<String>(tester, 'rifle-caliber'),
