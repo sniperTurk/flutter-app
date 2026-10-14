@@ -219,7 +219,9 @@ void main() {
     expect(_text(tester, 'ammo-grain'), '');
   });
 
-  testWidgets('Ateşli: Mühimmat Marka keeps its "Listede yok" item', (
+  // Owner, 2026-10-14 (fix/atesli-elle-muhimmat): the ammo "Listede yok"
+  // item is hidden too; the typed round opens from its own link.
+  testWidgets('Ateşli: Mühimmat Marka has the link, not "Listede yok"', (
     tester,
   ) async {
     await _openNew(tester, firearm: true);
@@ -229,7 +231,8 @@ void main() {
         find.byKey(const Key('ammo-brand-select')).evaluate().isEmpty) {
       await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
     }
-    expect(_items(tester, 'ammo-brand-select'), contains('Listede yok'));
+    expect(_items(tester, 'ammo-brand-select'), isNot(contains('Listede yok')));
+    expect(_key('ammo-not-listed'), findsOneWidget);
   });
 
   testWidgets('PCP: a typed rifle saves and reopens in typed mode', (

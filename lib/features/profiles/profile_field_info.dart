@@ -61,6 +61,31 @@ abstract final class ProfileFieldInfo {
       'Merminin (çekirdeğin) ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: .223 için 55 gr, .308 için 168 gr, '
       '6.5 Creedmoor için 140 gr.';
+  // Elle girilen ateşli mühimmat (owner, 2026-10-14).
+  static const ammoBrandPick =
+      'Fişeğin veya merminin markası. Kutunun üstünde yazar. Listede '
+      'uygulamanın bildiği tüm markalar var. Örnek: Federal, Hornady, Sellier '
+      '& Bellot. Markanız listede yoksa en alttaki "Diğer"i seçip yazın.';
+  static const ammoNothingListed =
+      'Bu kalibre için listede henüz hazır ürün yok; bu yüzden mühimmat elle '
+      'giriliyor. Ağırlık, BC ve hız kutuda veya üreticinin sitesinde yazar. '
+      'Kendi doldurduğunuz fişekse Mühimmat türünde El dolumu seçin.';
+  static const ammoBrandOther =
+      'Listede olmayan markanın adı, kutunun üstünde yazdığı gibi. Örnek: '
+      'kutuda "Atölye Fişek" yazıyorsa Atölye Fişek.';
+  static const ammoModelTyped =
+      'Fişeğin veya merminin model adı, kutunun üstünde yazdığı gibi. Aynı '
+      'markanın başka mühimmatıyla karışmasın diye gerekli. Örnek: Gold '
+      'Medal Sierra MatchKing, ELD Match.';
+  static const grainPick =
+      'Merminin (çekirdeğin) ağırlığı. Kutudaki gr değeridir; gram değil '
+      '(1 gr = 0,0648 g, parantezde gram karşılığı var). Listede bu kalibre '
+      'için üreticilerin verdiği ağırlıklar var. Örnek: .308 için 168 gr '
+      '(10,9 g). Kutudaki değer listede yoksa "Listede yok"u seçip yazın.';
+  static const grainTyped =
+      'Kutudaki gr değeridir; gram değil. Kutunun yanındaki gram karşılığı '
+      'size yardımcı olur: 168 gr = 10,9 g. Bu kalibre için mantıksız bir '
+      'ağırlık kabul edilmez. Örnek: 175.';
   static const bc =
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
@@ -230,14 +255,16 @@ abstract final class ProfileFieldInfo {
       'bununla düzeltir. Fişek ve barut üreticileri çoğunlukla sayı vermez, '
       'yalnızca "sıcaklığa duyarsız" yazar; en doğrusu aynı fişeği soğuk ve '
       'sıcak bir günde kronografla ölçmektir. Örnek: 10 °C\'de 2600 fps, '
-      '25 °C\'de 2639 fps ölçtüyseniz 1,5 yazın. Fabrika fişeğinde üretici '
-      'sayı veriyorsa kendiliğinden dolar. Bilmiyorsanız boş bırakın. '
+      '25 °C\'de 2639 fps ölçtüyseniz 1,5 seçin. Fabrika fişeğinde üretici '
+      'sayı veriyorsa kendiliğinden dolar. Bilmiyorsanız "Seçiniz"de '
+      'bırakın; hız sıcaklığa göre düzeltilmez. '
       'Yalnızca ateşli tüfek.';
   static const powderTemp =
       'Namlu çıkış hızını kronografla ölçtüğünüz günkü hava sıcaklığı, °C. '
       'Üreticinin hızını kullanıyorsanız üreticinin belirttiği test '
-      'sıcaklığını yazın. Hız bu sıcaklıktan bugünkü sıcaklığa göre '
-      'düzeltilir. Katsayıyla birlikte girilir. Örnek: 20.';
+      'sıcaklığını seçin; çoğu üretici 21 °C kullanır. Hız bu sıcaklıktan '
+      'bugünkü sıcaklığa göre düzeltilir. Katsayıyla birlikte seçilir. '
+      'Örnek: 21.';
   static const zero =
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
       'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '

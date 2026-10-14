@@ -86,6 +86,9 @@ String _text(WidgetTester tester, String key) => tester
     .controller!
     .text;
 
+String? _sel(WidgetTester tester, String key) =>
+    selectedValue<String>(tester, key);
+
 Future<void> _pickHornady(WidgetTester tester, String model) async {
   await chooseInSelect(tester, 'ammo-brand-select', 'Hornady');
   await chooseInSelect(tester, 'ammo-model-select', model);
@@ -286,9 +289,13 @@ void main() {
         find.descendant(of: k, matching: find.byType(MenzilInfoButton)),
         findsOneWidget,
       );
-      // Empty until the shooter types (no example value in the box).
-      expect(_text(tester, 'profile-powder-coef'), '');
-      expect(_text(tester, 'profile-powder-temp'), '');
+      // Lists that start on "Seçiniz" (owner, 2026-10-14); no typing.
+      expect(_sel(tester, 'profile-powder-coef'), isNull);
+      expect(_sel(tester, 'profile-powder-temp'), isNull);
+      expect(
+        find.descendant(of: k, matching: find.byType(TextField)),
+        findsNothing,
+      );
     });
 
     testWidgets('PCP: no Barut sıcaklığı', (tester) async {
@@ -305,8 +312,8 @@ void main() {
       await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
       await _pickHornady(tester, 'ELD Match 168 gr ELD Match');
       expect(_text(tester, 'profile-velocity-fps'), '2700');
-      expect(_text(tester, 'profile-powder-coef'), '');
-      expect(_text(tester, 'profile-powder-temp'), '');
+      expect(_sel(tester, 'profile-powder-coef'), isNull);
+      expect(_sel(tester, 'profile-powder-temp'), isNull);
     });
 
     testWidgets('a maker figure fills the boxes; typed values stay', (
@@ -325,28 +332,37 @@ void main() {
       await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
       await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
       await _pickHornady(tester, 'ELD Match 168 gr ELD Match');
-      expect(_text(tester, 'profile-powder-coef'), '0,8');
-      expect(_text(tester, 'profile-powder-temp'), '21');
+      expect(_sel(tester, 'profile-powder-coef'), '0,8');
+      expect(_sel(tester, 'profile-powder-temp'), '21');
+      // 0,8 is not in the list: shown as the maker's figure.
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('profile-powder-coef')),
+          matching: find.text('0,8 (üretici)'),
+        ),
+        findsOneWidget,
+      );
 
       // Another round without a figure: the automatic values go.
       await _pickHornady(tester, 'Match 178 gr BTHP Match');
-      expect(_text(tester, 'profile-powder-coef'), '');
-      expect(_text(tester, 'profile-powder-temp'), '');
+      expect(_sel(tester, 'profile-powder-coef'), isNull);
+      expect(_sel(tester, 'profile-powder-temp'), isNull);
 
-      // A typed value is the shooter's own: a pick does not clear it.
-      await enterRifleField(tester, 'profile-powder-coef', '1,2');
-      await enterRifleField(tester, 'profile-powder-temp', '18');
+      // A picked value is the shooter's own: a pick does not clear it.
+      await chooseInSelect(tester, 'profile-powder-coef', '1,25');
+      await chooseInSelect(tester, 'profile-powder-temp', '15');
       await _pickHornady(tester, 'Precision Hunter 178 gr ELD-X');
-      expect(_text(tester, 'profile-powder-coef'), '1,2');
-      expect(_text(tester, 'profile-powder-temp'), '18');
+      expect(_sel(tester, 'profile-powder-coef'), '1,25');
+      expect(_sel(tester, 'profile-powder-temp'), '15');
     });
 
     testWidgets('only one of the pair shows an error', (tester) async {
       await _openNew(tester);
-      await enterRifleField(tester, 'profile-powder-coef', '1,5');
+      await chooseInSelect(tester, 'profile-powder-coef', '1,5');
       expect(find.text('Sıcaklığı da girin.'), findsNothing); // not yet shown
-      await enterRifleField(tester, 'profile-powder-coef', '15');
-      expect(find.text('-10 ile 10 arasında bir değer girin.'), findsOneWidget);
+      // "Seçiniz" in the list empties the box again.
+      await chooseInSelect(tester, 'profile-powder-coef', 'Seçiniz');
+      expect(_sel(tester, 'profile-powder-coef'), isNull);
     });
   });
 }

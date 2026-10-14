@@ -85,6 +85,10 @@ class FactoryAmmoTests(unittest.TestCase):
         with_bc = []
         for l in AMMO.splitlines():
             if "FactoryAmmo('Aguila'" in l:
+                # BC geri hesap (2026-10-14): BC from Aguila's own velocity
+                # table, labelled and covered by factory_ammo_bc_backsolve_test.
+                if "bcSource: 'maker-table-backsolve'" in l:
+                    continue
                 if ', null, null, ' in l:
                     self.assertRegex(l, r", null, null, [\d.]+, ")
                 else:
