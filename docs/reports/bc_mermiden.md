@@ -186,6 +186,14 @@ dokunulmadı.
 
 ## CI sonuçları
 
-(PR açıldıktan sonra doldurulacak.)
+Hepsi `eee3411` commit'inde çalıştı (bu commit'ten sonra yalnız bu rapor değişti).
+
+- Format (One-off dart format fix, #377): başarılı, biçim değişikliği gerekmedi, commit itilmedi.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38555099962
+- Testler (`test-diag.yml`, files=test, `flutter test` çıkış kodu 0): başarılı.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38555438086
+- Analiz (`analyze-diag.yml`): başarılı.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38555441513
+- iOS CI / Simulator / TestFlight: çalıştırılmadı.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
