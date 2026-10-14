@@ -41,10 +41,10 @@ Future<void> fillRifleForm(
       find.byKey(const Key('profile-platform')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
   }
-  // Marka / Model come from the lists; typed names need "Listede yok"
-  // first (owner, 2026-10-11).
+  // Marka / Model come from the lists; typed names open from the link
+  // "Aradığın tüfek listede yok mu?" (owner, 2026-10-11, 2026-10-14).
   if (find.byKey(const Key('rifle-brand-select')).evaluate().isNotEmpty) {
-    await chooseInSelect(tester, 'rifle-brand-select', 'Listede yok');
+    await openRifleManual(tester);
   }
   await enterRifleField(tester, 'rifle-brand', brand);
   await enterRifleField(tester, 'rifle-model', model);
@@ -146,6 +146,17 @@ Future<void> fillShotValues(
   await chooseInSelect(tester, 'profile-distance-unit', 'Metre');
   await enterRifleField(tester, 'profile-zero', zero);
   await enterRifleField(tester, 'scope-sight-height', sight);
+}
+
+/// Taps "Aradığın tüfek listede yok mu?" under Tüfek Marka | Model: the
+/// typed rifle entry (owner, 2026-10-14: no "Listede yok" in the list).
+Future<void> openRifleManual(WidgetTester tester) async {
+  final link = find.byKey(const Key('rifle-not-listed'));
+  // Mid-screen: at the bottom edge a save bar can cover it.
+  await Scrollable.ensureVisible(tester.element(link), alignment: 0.5);
+  await tester.pumpAndSettle();
+  await tester.tap(link);
+  await tester.pumpAndSettle();
 }
 
 /// Taps "Aradığın dürbün listede yok mu?" under the Dürbün card: the

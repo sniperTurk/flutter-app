@@ -2007,8 +2007,26 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
   }
 
+  /// "Listede yok" in the rifle Marka list, hidden (owner, 2026-10-14:
+  /// "gizle, silme"); the link under Marka | Model opens the typed entry.
+  static const bool _showRifleListedeYok = bool.fromEnvironment(
+    'RIFLE_LISTEDE_YOK',
+  );
+
+  /// Opens the typed rifle entry ("Aradığın tüfek listede yok mu?", and the
+  /// hidden "Listede yok" item): Marka and Model start empty; a listed
+  /// ammunition of another caliber goes as before.
+  void _openRifleManual() {
+    final before = (rifleCaliber.text, _cartridge);
+    rifleModel.text = '';
+    _clearRifleChoice();
+    _keepAmmoInCaliber(before);
+    _rifleManual = true;
+    rifleBrand.text = '';
+  }
+
   /// Marka | Model of the rifle: two lists side by side; typed boxes after
-  /// "Listede yok" (owner, 2026-10-11).
+  /// "Aradığın tüfek listede yok mu?" (owner, 2026-10-11, 2026-10-14).
   List<Widget> _rifleNameFields() {
     final brands = _rifleBrands;
     if (_rifleManual || brands.isEmpty) {
@@ -2069,21 +2087,21 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             items: [
               for (final b in brands)
                 DropdownMenuItem(value: b, child: Text(b)),
-              const DropdownMenuItem(
-                value: _manualKey,
-                child: Text('Listede yok'),
-              ),
+              if (_showRifleListedeYok)
+                const DropdownMenuItem(
+                  value: _manualKey,
+                  child: Text('Listede yok'),
+                ),
             ],
             onChanged: (v) => setState(() {
+              if (v == _manualKey) {
+                _openRifleManual();
+                return;
+              }
               final before = (rifleCaliber.text, _cartridge);
               rifleModel.text = '';
               _clearRifleChoice();
               _keepAmmoInCaliber(before);
-              if (v == _manualKey) {
-                _rifleManual = true;
-                rifleBrand.text = '';
-                return;
-              }
               rifleBrand.text = v ?? '';
             }),
           ),
@@ -2110,6 +2128,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               if (variants.length == 1) _applyRifleVariant(variants.first);
               _keepAmmoInCaliber(before);
             }),
+          ),
+        ),
+      ),
+      // Owner, 2026-10-14: the typed entry opens from this link instead of
+      // a "Listede yok" item in the Marka list (Ateşli and PCP).
+      MenzilFullWidth(
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton(
+            key: const Key('rifle-not-listed'),
+            onPressed: () => setState(_openRifleManual),
+            child: const Text('Aradığın tüfek listede yok mu?'),
           ),
         ),
       ),
