@@ -328,10 +328,13 @@ void _scan() {
           await _visit(tester, c, 'Profil formu (yeni)');
           await _popTop(tester);
 
-          final edit = find.byIcon(Icons.edit_outlined);
-          if (edit.evaluate().isNotEmpty) {
-            await tester.ensureVisible(edit.first);
-            await tester.tap(edit.first);
+          // Düzenle is in the row's ⋯ menu (owner, 2026-10-14).
+          final menu = find.byTooltip('Profil işlemleri');
+          if (menu.evaluate().isNotEmpty) {
+            await tester.ensureVisible(menu.first);
+            await tester.tap(menu.first);
+            await tester.pumpAndSettle();
+            await tester.tap(find.text('Düzenle'));
             await _visit(tester, c, 'Profil formu (düzenle)');
             await _popTop(tester);
           }

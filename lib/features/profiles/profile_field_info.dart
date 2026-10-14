@@ -310,4 +310,17 @@ abstract final class ProfileFieldInfo {
   static const pvFps =
       'O basınçta kronografla ölçtüğünüz namlu çıkış hızı, fps. Birkaç '
       'atışın ortalamasını yazın. Basınçla birlikte girilir. Örnek: 870.';
+
+  // Mühimmat → Ek mühimmat bilgileri başlığının ⓘ'si (owner, 2026-10-14
+  // 18:07–18:20: "Nedir?" / "Neden önemli?", uzun metin).
+  static const ammoExtra =
+      'Nedir?\n'
+      'Barut katsayısı, hız ölçüm sıcaklığı ve hıza göre BC; hesabı '
+      'inceltmek için girilen ek mühimmat bilgileridir. Boş bırakılabilir, '
+      'profil yine kaydedilir.\n'
+      '\n'
+      'Neden önemli?\n'
+      'Hava sıcaklığı değişince namlu çıkış hızı da değişir; mermi '
+      'yavaşladıkça BC düşer. Bu bilgileri girerseniz uzak mesafede düşüş ve '
+      'rüzgâr sapması daha doğru hesaplanır.';
 }

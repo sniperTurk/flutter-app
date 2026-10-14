@@ -106,10 +106,13 @@ void main() {
       // Delete the only profile on Profil, then come back to Hedef.
       await tester.tap(find.text('Profil'));
       await tester.pumpAndSettle();
-      await tester.ensureVisible(find.text('Sil'));
+      final menu = find.byTooltip('Profil işlemleri');
+      await tester.ensureVisible(menu);
+      await tester.tap(menu);
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Sil'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Profili sil'));
+      await tester.tap(find.widgetWithText(FilledButton, 'Sil'));
       await tester.pumpAndSettle();
       expect(await store.all(), isEmpty);
       await tester.tap(find.text('Hedef'));

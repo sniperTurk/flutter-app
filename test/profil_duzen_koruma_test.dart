@@ -695,7 +695,10 @@ void main() {
       final store = MemoryProfileStore();
       await store.save(_decode(_profileJson()));
       await _pumpList(tester, store, active: 'old');
-      await tester.ensureVisible(find.text('Kopyala'));
+      // Kopyala is in the row's ⋯ menu (owner, 2026-10-14).
+      await tester.ensureVisible(find.byTooltip('Profil işlemleri'));
+      await tester.tap(find.byTooltip('Profil işlemleri'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Kopyala'));
       await tester.pumpAndSettle();
       await tester.pump(const Duration(seconds: 5));
@@ -861,5 +864,240 @@ void main() {
       // The unit is explained in its ⓘ.
       expect(find.byTooltip('Bilgi: Barut katsayısı'), findsOneWidget);
     });
+  });
+  // Ek mühimmat bilgileri (owner, 2026-10-14 18:07–18:20): Barut katsayısı |
+  // Hız ölçüm sıcaklığı and Hıza göre BC as an always-open, optional
+  // sub-section at the end of Mühimmat with one ⓘ.
+  group('Mühimmat: Ek mühimmat bilgileri', () {
+    const info =
+        'Nedir?\nBarut katsayısı, hız ölçüm sıcaklığı ve hıza göre BC; '
+        'hesabı inceltmek için girilen ek mühimmat bilgileridir. Boş '
+        'bırakılabilir, profil yine kaydedilir.\n\nNeden önemli?\nHava '
+        'sıcaklığı değişince namlu çıkış hızı da değişir; mermi yavaşladıkça '
+        'BC düşer. Bu bilgileri girerseniz uzak mesafede düşüş ve rüzgâr '
+        'sapması daha doğru hesaplanır.';
+    const header = Key('ammo-extra-header');
+
+    Rect r(WidgetTester tester, String key) =>
+        tester.getRect(find.byKey(Key(key)));
+
+    /// The header and every moved box, once each, in the owner's order.
+    void expectSection(WidgetTester tester, {required bool bands}) {
+      expect(find.byKey(header), findsOneWidget);
+      for (final k in ['profile-powder-coef', 'profile-powder-temp']) {
+        expect(find.byKey(Key(k)), findsOneWidget, reason: k);
+      }
+      final h = tester.getRect(find.byKey(header));
+      final coef = r(tester, 'profile-powder-coef');
+      final temp = r(tester, 'profile-powder-temp');
+      // At the end of Mühimmat: under BC modeli.
+      expect(h.top, greaterThanOrEqualTo(r(tester, 'ammo-bc-model').bottom));
+      // Barut katsayısı | Hız ölçüm sıcaklığı on one row under the header.
+      expect(coef.top, greaterThanOrEqualTo(h.bottom - 0.5));
+      expect((coef.top - temp.top).abs(), lessThan(1));
+      expect(coef.right, lessThan(temp.left));
+      // Left-aligned with the boxes.
+      expect((h.left - coef.left).abs(), lessThan(1));
+      if (!bands) {
+        expect(find.byKey(const Key('ammo-bands-title')), findsNothing);
+        return;
+      }
+      final title = r(tester, 'ammo-bands-title');
+      expect(title.top, greaterThanOrEqualTo(coef.bottom - 0.5));
+      var above = title.bottom;
+      for (var i = 0; i < 2; i++) {
+        expect(find.byKey(Key('ammo-band-fps-$i')), findsOneWidget);
+        expect(find.byKey(Key('ammo-band-bc-$i')), findsOneWidget);
+        final fps = r(tester, 'ammo-band-fps-$i');
+        final bc = r(tester, 'ammo-band-bc-$i');
+        expect(fps.top, greaterThanOrEqualTo(above - 0.5));
+        expect((fps.top - bc.top).abs(), lessThan(1));
+        expect(fps.right, lessThan(bc.left));
+        above = fps.bottom;
+      }
+    }
+
+    testWidgets('header: title, "isteğe bağlı", one ⓘ with the owner text', (
+      tester,
+    ) async {
+      await _openNew(tester);
+      final h = find.byKey(header);
+      expect(
+        find.descendant(
+          of: h,
+          matching: find.textContaining(
+            'Ek mühimmat bilgileri',
+            findRichText: true,
+          ),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: h,
+          matching: find.textContaining('isteğe bağlı', findRichText: true),
+        ),
+        findsOneWidget,
+      );
+      final infos = find.descendant(
+        of: h,
+        matching: find.byType(MenzilInfoButton),
+      );
+      expect(infos, findsOneWidget);
+      expect(tester.widget<MenzilInfoButton>(infos).text, info);
+      // Always open: nothing to fold.
+      for (final icon in [
+        Icons.expand_more,
+        Icons.expand_less,
+        Icons.chevron_right,
+        Icons.keyboard_arrow_down,
+        Icons.keyboard_arrow_up,
+      ]) {
+        expect(
+          find.descendant(of: h, matching: find.byIcon(icon)),
+          findsNothing,
+        );
+      }
+      // The title and the ⓘ sit at the left, the ⓘ right of the title.
+      final title = tester.getRect(
+        find.descendant(
+          of: h,
+          matching: find.byKey(const Key('ammo-extra-title')),
+        ),
+      );
+      expect(tester.getRect(infos).left, greaterThanOrEqualTo(title.right - 1));
+      expect(
+        (title.left - r(tester, 'profile-powder-coef').left).abs(),
+        lessThan(1),
+      );
+      // The popup shows the text left-aligned.
+      await tester.ensureVisible(infos);
+      await tester.tap(infos);
+      await tester.pumpAndSettle();
+      final shown = find.descendant(
+        of: find.byType(AlertDialog),
+        matching: find.text(info),
+      );
+      expect(shown, findsOneWidget);
+      expect(tester.widget<Text>(shown).textAlign, TextAlign.start);
+      // Existing per-field ⓘs stay.
+      await tester.tap(
+        find.descendant(
+          of: find.byType(AlertDialog),
+          matching: find.text('Tamam'),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byTooltip('Bilgi: Barut katsayısı'), findsOneWidget);
+      expect(find.byTooltip('Bilgi: Hız ölçüm sıcaklığı'), findsOneWidget);
+    });
+
+    testWidgets('new profile: open on the first frame, fields in order', (
+      tester,
+    ) async {
+      await _openNew(tester);
+      // No tap needed: header and boxes are there on the first frame.
+      expect(find.byKey(header), findsOneWidget);
+      expect(find.byKey(const Key('profile-powder-coef')), findsOneWidget);
+      expect(find.byKey(const Key('profile-powder-temp')), findsOneWidget);
+      // A listed round shows Hıza göre BC too, under the same header.
+      await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
+      await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
+      expectSection(tester, bands: true);
+      // Optional: the banner never names them while they are empty.
+      final ammo = _missing(tester)['Mühimmat'] ?? const <String>[];
+      expect(ammo, isNot(contains('Barut sıcaklığı')));
+      expect(ammo, isNot(contains('Hıza göre BC')));
+    });
+
+    testWidgets('Profili Düzenle: open, old powder values and bands kept', (
+      tester,
+    ) async {
+      _install([
+        _oldRifle,
+        {
+          ..._oldAmmo,
+          'bcBands': [
+            {'mps': 700.0, 'bc': 0.475},
+            {'mps': 550.0, 'bc': 0.46},
+            {'mps': 0.0, 'bc': 0.44},
+          ],
+        },
+        _oldScope,
+      ]);
+      final store = await _openSaved(
+        tester,
+        _decode({
+          ..._profileJson(),
+          'powderTempCoef': 0.8,
+          'powderTempRefC': 20.0,
+        }),
+      );
+      // Typed round: Hıza göre BC stays hidden (AMMO_BC_BANDS_TYPED).
+      expectSection(tester, bands: false);
+      expect(selectedValue<String>(tester, 'profile-powder-coef'), '0,8');
+      expect(selectedValue<String>(tester, 'profile-powder-temp'), '20');
+      await _update(tester);
+      final saved = (await store.all()).single;
+      expect(saved.powderTempCoefPercentPer15C, 0.8);
+      expect(saved.powderTempReferenceC, 20);
+      final a = CatalogRepository.allAmmunition.singleWhere(
+        (x) => x.id == saved.ammunitionId,
+      );
+      expect(a.bcBands, hasLength(3));
+      expect(a.bcBands.map((b) => b.bc), [0.475, 0.46, 0.44]);
+      // Reopen: same values under the same header.
+      await _openEdit(tester, saved.name);
+      expectSection(tester, bands: false);
+      expect(selectedValue<String>(tester, 'profile-powder-coef'), '0,8');
+      expect(selectedValue<String>(tester, 'profile-powder-temp'), '20');
+    });
+
+    testWidgets('empty fields do not block saving', (tester) async {
+      _install([_oldRifle, _oldAmmo, _oldScope]);
+      final store = await _openSaved(tester, _decode(_profileJson()));
+      expect(selectedValue<String>(tester, 'profile-powder-coef'), isNull);
+      final ammo = _missing(tester)['Mühimmat'] ?? const <String>[];
+      expect(ammo, isNot(contains('Barut sıcaklığı')));
+      expect(ammo, isNot(contains('Hıza göre BC')));
+      await _update(tester);
+      final saved = (await store.all()).single;
+      expect(saved.powderTempCoefPercentPer15C, isNull);
+      expect(saved.powderTempReferenceC, isNull);
+    });
+
+    for (final scale in [1.0, 1.3]) {
+      testWidgets('320 pt, ×$scale: no overflow, section open', (tester) async {
+        _view(tester, width: 320);
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: MenzilTheme.light(),
+            builder: (context, child) => MediaQuery(
+              data: MediaQuery.of(
+                context,
+              ).copyWith(textScaler: TextScaler.linear(scale)),
+              child: child!,
+            ),
+            home: ProfilesScreen(store: MemoryProfileStore()),
+          ),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(find.byTooltip('Yeni profil'));
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+        expect(find.byKey(header), findsOneWidget);
+        final h = r(tester, 'ammo-extra-header');
+        final card = r(tester, 'profile-ammo-form');
+        expect(h.right, lessThanOrEqualTo(card.right + 0.5));
+        final i = tester.getRect(
+          find.descendant(
+            of: find.byKey(header),
+            matching: find.byType(MenzilInfoButton),
+          ),
+        );
+        expect(i.right, lessThanOrEqualTo(card.right + 0.5));
+        expect(i.width, greaterThanOrEqualTo(44));
+      });
+    }
   });
 }
