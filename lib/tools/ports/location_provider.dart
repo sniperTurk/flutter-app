@@ -33,7 +33,15 @@ class LocationFailure extends LocationResult {
 /// Port for the device location. UI and controllers depend on this only.
 abstract interface class LocationProvider {
   /// Asks for permission when needed and returns one coarse fix.
-  Future<LocationResult> current();
+  ///
+  /// [precise]: a fix good enough for GPS altitude, for this request only
+  /// (the Hava Durumu altitude warm-up, owner 2026-10-14); other callers
+  /// keep the coarse fix. [askPermission] false never shows the permission
+  /// prompt: without permission it returns [LocationDenied] at once.
+  Future<LocationResult> current({
+    bool precise = false,
+    bool askPermission = true,
+  });
 
   /// Opens the system Settings page of the app (for permanent denials).
   Future<bool> openSettings();

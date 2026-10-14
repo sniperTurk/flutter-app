@@ -8,13 +8,17 @@ class GeolocatorLocationProvider implements LocationProvider {
   const GeolocatorLocationProvider();
 
   @override
-  Future<LocationResult> current() async {
+  Future<LocationResult> current({
+    bool precise = false,
+    bool askPermission = true,
+  }) async {
     try {
       if (!await Geolocator.isLocationServiceEnabled()) {
         return const LocationServiceOff();
       }
       var permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
+      // A silent request ([askPermission] false) never prompts.
+      if (permission == LocationPermission.denied && askPermission) {
         permission = await Geolocator.requestPermission();
       }
       if (permission == LocationPermission.deniedForever) {
@@ -25,9 +29,11 @@ class GeolocatorLocationProvider implements LocationProvider {
         return const LocationDenied(permanent: false);
       }
       final position = await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.low,
-          timeLimit: Duration(seconds: 15),
+        locationSettings: LocationSettings(
+          // A cold, coarse fix rarely carries a usable altitude; the
+          // warm-up asks for a GPS-grade fix (this request only).
+          accuracy: precise ? LocationAccuracy.high : LocationAccuracy.low,
+          timeLimit: const Duration(seconds: 15),
         ),
       );
       // Altitude only when its vertical accuracy is known and usable.

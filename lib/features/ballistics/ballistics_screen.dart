@@ -1131,6 +1131,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // imperial only converts the fields, the stored basis stays SI.
     // Failures stay silent (the shot view says why).
     if (widget.view == BallisticsView.environment) _maybeAutoWeather();
+    _lifecycle = AppLifecycleListener(onStateChange: _onLifecycle);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted && widget.profile != null && _basis == null) {
         _silentErrors = true;
@@ -1218,6 +1219,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   void didUpdateWidget(covariant BallisticsScreen old) {
     super.didUpdateWidget(old);
+    _maybeWarmAltitude();
     if (_isShotView(old.view) && !_isShotView(widget.view)) _withdrawWatch();
     if (widget.view == BallisticsView.environment &&
         old.view != BallisticsView.environment) {
@@ -1395,12 +1397,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _pressureBusy = true;
       _pressureStatus = null;
     });
-    // İrtifa from the phone's GPS on the same tap (owner, 2026-10-12).
-    final altitudeFuture = services.location
-        .current()
-        .timeout(const Duration(seconds: 8))
-        .then<double?>((f) => f is LocationFix ? f.altitudeM : null)
-        .catchError((Object _) => null);
+    // İrtifa from the phone's GPS on the same tap (owner, 2026-10-12), or
+    // the altitude warmed up when Hava Durumu opened (owner, 2026-10-14).
+    final altitudeFuture = _tapAltitude(services);
+    final altitudeAtTap = altitude.text;
     PressureReading reading;
     try {
       reading = await sensor.read();
@@ -1409,6 +1409,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     final gpsAlt = await altitudeFuture;
     if (!mounted) return;
+    // An İrtifa typed while the button was reading is the user's: kept.
+    final altitudeTyped = altitude.text != altitudeAtTap;
     setState(() {
       _pressureBusy = false;
       if (reading is PressureRead) {
@@ -1417,7 +1419,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _pressureFailed = false;
         _pressureFilled = true;
         _pressureWasReset = false;
-        if (gpsAlt != null && gpsAlt.isFinite) {
+        if (gpsAlt != null && gpsAlt.isFinite && !altitudeTyped) {
           altitude.text = (metric ? gpsAlt : UnitSystem.metersToFeet(gpsAlt))
               .toStringAsFixed(0);
           _userEdited.add(altitude);
@@ -1426,7 +1428,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             'Basınç telefondan alındı: '
             '${_pressureText(reading.hpa).replaceAll('.', ',')} '
             '${metric ? 'hPa' : 'inHg'}'
-            '${gpsAlt != null && gpsAlt.isFinite ? ' · irtifa GPS\'ten ${altitude.text} ${metric ? 'm' : 'ft'}' : ' · irtifa alınamadı, elle girin'}.';
+            '${altitudeTyped ? '' : gpsAlt != null && gpsAlt.isFinite ? ' · irtifa GPS\'ten ${altitude.text} ${metric ? 'm' : 'ft'}' : ' · irtifa alınamadı, elle girin'}.';
       } else {
         _pressureFailed = true;
         final u = reading as PressureUnavailable;
@@ -1446,6 +1448,108 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       }
     });
     if (reading is PressureRead && widget.profile != null) _quietSolve();
+  }
+
+  // ---- İrtifa warm-up (owner, 2026-10-14) -------------------------------
+
+  /// "Hava Durumu sayfası açılınca al": one silent GPS request when the page
+  /// becomes visible, so the button has an altitude at once. Memory only.
+  static const _warmMaxAge = Duration(minutes: 10);
+  static const _tapAltitudeLimit = Duration(seconds: 8);
+  late final _AltitudeWarmup _warm =
+      widget.environmentCarry?._altitudeWarmup ?? _AltitudeWarmup();
+  late final AppLifecycleListener _lifecycle;
+  bool _inForeground = true;
+  bool _pageShown = false;
+  bool _envVisible = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // False while another tab of the shell's IndexedStack is shown.
+    _pageShown = Visibility.of(context);
+    _maybeWarmAltitude();
+  }
+
+  void _onLifecycle(AppLifecycleState state) {
+    if (!mounted) return;
+    final foreground =
+        state == AppLifecycleState.resumed ||
+        state == AppLifecycleState.inactive;
+    if (foreground == _inForeground) return;
+    _inForeground = foreground;
+    if (!foreground) _warm.cancel(this);
+    _maybeWarmAltitude();
+  }
+
+  /// Starts the warm-up when Hava Durumu turns visible: the first time, and
+  /// again once the last one started more than 10 minutes ago. No text, no
+  /// spinner; never asks for permission (the button still may, as before).
+  void _maybeWarmAltitude() {
+    final visible =
+        widget.view == BallisticsView.environment &&
+        _pageShown &&
+        _inForeground;
+    final becameVisible = visible && !_envVisible;
+    _envVisible = visible;
+    if (!becameVisible) return;
+    final w = _warm;
+    if (w.pending != null) {
+      // A re-keyed workspace takes over the running request.
+      w.owner = this;
+      return;
+    }
+    final services = ToolsServicesScope.of(context);
+    final now = services.clock.now();
+    final last = w.startedAt;
+    if (last != null) {
+      final since = now.difference(last);
+      if (!since.isNegative && since <= _warmMaxAge) return;
+    }
+    w.startedAt = now;
+    w.owner = this;
+    final gen = ++w.generation;
+    final request = services.location
+        .current(precise: true, askPermission: false)
+        .then<double?>((f) => f is LocationFix ? f.altitudeM : null)
+        .catchError((Object _) => null);
+    w.pending = request;
+    unawaited(
+      request.then((alt) {
+        if (w.generation != gen) return; // cancelled
+        w.pending = null;
+        w.owner = null;
+        if (alt != null && alt.isFinite) {
+          w.altitudeM = alt;
+          w.at = services.clock.now();
+        }
+      }),
+    );
+  }
+
+  /// İrtifa for "Basıncı telefondan al": the warmed-up altitude when at most
+  /// 10 minutes old; a still running warm-up for what is left of 8 s;
+  /// otherwise the request on the tap, as before (8 s).
+  Future<double?> _tapAltitude(ToolsServices services) {
+    final w = _warm;
+    final now = services.clock.now();
+    final alt = w.altitudeM, at = w.at;
+    if (alt != null && at != null) {
+      final age = now.difference(at);
+      if (!age.isNegative && age <= _warmMaxAge) return Future.value(alt);
+    }
+    final pending = w.pending, started = w.startedAt;
+    if (pending != null && started != null) {
+      final left = _tapAltitudeLimit - now.difference(started);
+      if (left > Duration.zero) {
+        return pending.timeout(left, onTimeout: () => null);
+      }
+    }
+    return services.location
+        .current()
+        .timeout(_tapAltitudeLimit)
+        .then<double?>((f) => f is LocationFix ? f.altitudeM : null)
+        .catchError((Object _) => null);
   }
 
   String _pressureText(double hpa) => metric
@@ -1840,6 +1944,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   @override
   void dispose() {
+    _lifecycle.dispose();
+    _warm.cancel(this);
     ShotSettingsStore.changes.removeListener(_reloadShotSettings);
     unawaited(_watchRanges?.cancel());
     _watchTimer?.cancel();
@@ -5256,10 +5362,35 @@ class _InclineDialogState extends State<_InclineDialog> {
   }
 }
 
+/// The latest usable GPS altitude from the Hava Durumu warm-up and the
+/// request in flight. In memory only: never persisted.
+class _AltitudeWarmup {
+  double? altitudeM;
+  DateTime? at;
+  DateTime? startedAt;
+  Future<double?>? pending;
+  Object? owner;
+  int generation = 0;
+
+  /// Drops [owner]'s running request (dispose, app in background); its
+  /// answer is ignored and the next visible page asks again.
+  void cancel(Object who) {
+    if (owner != who) return;
+    generation++;
+    if (pending != null) startedAt = null;
+    pending = null;
+    owner = null;
+  }
+}
+
 /// Hava Durumu values of the last workspace, in SI units, for the next
 /// workspace the shell builds (no profile → first profile, a profile
 /// rewritten by Profil or a tool, another profile chosen). One per shell.
 class EnvironmentCarry {
+  /// GPS altitude warmed up on Hava Durumu (owner, 2026-10-14): shared by
+  /// the shell's workspaces, in memory only, never saved.
+  final _AltitudeWarmup _altitudeWarmup = _AltitudeWarmup();
+
   Map<String, double>? _si;
   Set<String> _edited = {};
 

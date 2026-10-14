@@ -29,9 +29,41 @@ class TestClock implements Clock {
 class TestLocation implements LocationProvider {
   LocationResult result;
   int settingsOpened = 0;
+
+  /// Answer for a `precise` request (the Hava Durumu altitude warm-up);
+  /// null: [result].
+  LocationResult? preciseResult;
+
+  /// When set, a `precise` request waits for this instead.
+  Completer<LocationResult>? preciseHold;
+
+  /// False: no location permission yet. A request that may ask counts a
+  /// prompt (and is denied); a silent one is denied without a prompt.
+  bool granted = true;
+  int prompts = 0;
+
+  /// Every call, in order.
+  final List<({bool precise, bool askPermission})> calls = [];
+
+  /// Calls that reached the GPS (permission granted).
+  int get gpsRequests => _gps;
+  int _gps = 0;
+
   TestLocation(this.result);
   @override
-  Future<LocationResult> current() async => result;
+  Future<LocationResult> current({
+    bool precise = false,
+    bool askPermission = true,
+  }) async {
+    calls.add((precise: precise, askPermission: askPermission));
+    if (!granted) {
+      if (askPermission) prompts++;
+      return const LocationDenied(permanent: false);
+    }
+    _gps++;
+    if (precise && preciseHold != null) return preciseHold!.future;
+    return precise ? (preciseResult ?? result) : result;
+  }
   @override
   Future<bool> openSettings() async {
     settingsOpened++;
