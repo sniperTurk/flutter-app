@@ -48,10 +48,17 @@ Yerel (bu ortamda Flutter SDK indirilemedi, Flutter testleri yalnız CI'da koşa
 
 ## CI
 
-(CI sonuçları aşağıya eklenecek.)
+Kod commit'i `1fb0eb9` üzerinde:
+
+- Biçim (dart format): değişiklik gerekmedi — https://github.com/sniperTurk/flutter-app/actions/runs/38612208492 (ilk biçim commit'i `c286476`: https://github.com/sniperTurk/flutter-app/actions/runs/38608990669)
+- Testler (`test` klasörünün tamamı, `profil_duzen_koruma_test.dart` dahil): başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38613101750
+- Analiz (`--fatal-infos --fatal-warnings`): başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38613106694
+- İlk test koşusu (`c286476`) 3 testte kırmızıydı ve düzeltildi: Kopyala, kişisel kaydı olmayan profilde de kişisel kataloğu okumaya çalışıyordu (iki eski Kopyala testi); yeni gidiş-dönüş testi editörün hız yuvarlamasını (285 → 284,988 m/s) hesaba katmıyordu — https://github.com/sniperTurk/flutter-app/actions/runs/38609375206
+
+PR'ın kendi kontrolleri (`verify`, `dart-checks`, `wind-acceptance`) PR sayfasında.
 
 ## Birleştirme
 
-(Sonuç aşağıya eklenecek.)
+Sonuç PR yorumunda ve PR açıklamasında.
 
 iOS CI, Simulator, TestFlight ve App Store çalıştırılmadı.
