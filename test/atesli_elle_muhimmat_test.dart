@@ -102,7 +102,7 @@ void main() {
     expect(find.byKey(const Key('ammo-not-listed')), findsOneWidget);
   });
 
-  testWidgets('PCP: no link, Mühimmat unchanged (Tip | Ağırlık | BC)', (
+  testWidgets('PCP: no link; Tip | Ağırlık | BC | BC modeli (G1)', (
     tester,
   ) async {
     await _openNew(tester);
@@ -115,7 +115,8 @@ void main() {
     expect(find.byKey(const Key('ammo-type')), findsOneWidget);
     expect(_in('ammo-grain', find.byType(TextField)), findsOneWidget);
     expect(_in('ammo-bc', find.byType(TextField)), findsOneWidget);
-    expect(find.byKey(const Key('ammo-bc-model')), findsNothing);
+    // BC modeli on PCP since 2026-10-14 (owner): G1 selected by default.
+    expect(selectedValue<String>(tester, 'ammo-bc-model'), 'g1');
     expect(find.byKey(const Key('profile-powder-coef')), findsNothing);
   });
 

@@ -148,8 +148,7 @@ Future<void> openAmmoManual(WidgetTester tester) async {
   await tester.pumpAndSettle();
 }
 
-/// BC modeli is asked on firearms only; PCP is always G1 (owner,
-/// 2026-10-12).
+/// Picks the BC modeli (PCP shows it too since 2026-10-14, G1 by default).
 Future<void> chooseBcModel(WidgetTester tester, String label) async {
   if (find.byKey(const Key('ammo-bc-model')).evaluate().isEmpty) return;
   await chooseInSelect(tester, 'ammo-bc-model', label);

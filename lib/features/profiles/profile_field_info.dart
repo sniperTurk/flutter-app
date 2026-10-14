@@ -106,12 +106,24 @@ abstract final class ProfileFieldInfo {
   static const scopeFilterTube =
       'Dürbün gövdesinin çapı, mm; dürbün ayağının ölçüsüdür. Kutuda ya da '
       'kılavuzda yazar. Örnek: 30, 34 veya 35 mm.';
-  static const bcModel =
-      'BC sayısının hangi standart mermi şekline göre verildiği. G1: küt uçlu '
-      'klasik şekil; havalı tüfek saçması ve slug için neredeyse her zaman G1 '
-      'verilir. G7: uzun, sivri uzun menzil mermisi. Aynı mermide G7 değeri '
-      'G1\'in yaklaşık yarısıdır. GS: çelik bilye (BB). Yanlış model hesabı ciddi '
-      'saptırır. Bilmiyorsanız G1 seçin.';
+
+  /// BC modeli ⓘ, both rifle types (owner, 2026-10-14 11:35/11:38): one
+  /// line per model, the warning last. Firearms add [bcModelCustom] before
+  /// the warning ([bcModelWithCustom]).
+  static const _bcModelLines =
+      'G1: Düz dipli, klasik mermi. Saçma ve slug BC\'leri de çoğunlukla '
+      'buna göre verilir.\n'
+      'G7: Uzun, sivri ve konik dipli (boat-tail) mermi.\n'
+      'G2, G5, G6, G8, GI: Başka mermi şekilleri; az kullanılır.\n'
+      'GS: Küre şekli (yuvarlak bilye).\n'
+      'RA4: .22 LR rimfire.';
+  static const bcModelWarning =
+      'Uyarı: Yanlış eğri seçmek, hiç seçmemekten daha fazla hata yaratır. '
+      'Üretici BC\'yi hangi modele göre veriyorsa onu seçin; bilmiyorsanız '
+      'G1\'de bırakın.';
+  static const bcModel = '$_bcModelLines\n\n$bcModelWarning';
+  static const bcModelWithCustom =
+      '$_bcModelLines\n$bcModelCustom\n\n$bcModelWarning';
   static const bcFirearm =
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
@@ -134,15 +146,6 @@ abstract final class ProfileFieldInfo {
       'mermisinin ($standard) resmi test raporundan alındı ($report). Kendi '
       'tüfeğinizde fark olabilir; kutudaki ya da ölçtüğünüz değeri girebilir, '
       'Doğrulama ekranıyla düzeltebilirsiniz.';
-  static const bcModelFirearm =
-      'BC sayısının hangi standart mermi şekline göre verildiği. G1: klasik '
-      'av mermisi şekli. G7: uzun, sivri, arka tarafı daralan (boat-tail) '
-      'uzun menzil mermisi; bu mermilerde G7 daha doğrudur. Aynı mermide G7 '
-      'değeri G1\'in yaklaşık yarısıdır; yanlış model hesabı ciddi saptırır. '
-      'RA4: .22 LR gibi rimfire mermiler için. G2, G5, G6, G8 ve GI daha az '
-      'kullanılan standart şekillerdir. Üretici hangisini veriyorsa onu seçin; '
-      'bilmiyorsanız G1 seçin.';
-
   static const dragCurve =
       'Merminin kendi sürüklenme eğrisi: her Mach hızında havanın ne kadar '
       'frenlediği (Cd). Tek BC sayısından daha doğrudur; uzun menzilde ve ses '
@@ -150,7 +153,7 @@ abstract final class ProfileFieldInfo {
       'veya iki sütunlu CSV (Mach, Cd) yükleyin; örnek satır: 0,90 0,215. Çap '
       've ağırlık mühimmattan alınır.';
   static const bcModelCustom =
-      ' Özel eğri (Mach–Cd): merminin kendi eğrisi elinizdeyse (Lapua .drg, '
+      'Özel eğri (Mach–Cd): merminin kendi eğrisi elinizdeyse (Lapua .drg, '
       'radar ölçümü) seçin; BC gerekmez.';
 
   static const bandSpeed =

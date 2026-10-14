@@ -189,7 +189,8 @@ void main() {
       'Tip',
       'Ağırlık',
       'BC',
-      // BC modeli is not asked on PCP (always G1, owner 2026-10-12).
+      // BC modeli on PCP too since 2026-10-14 (owner), G1 by default.
+      'BC modeli',
       'Dürbün ayağı',
       'Üst kule klik sayısı',
       'Sight height',

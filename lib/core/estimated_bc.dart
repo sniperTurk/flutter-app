@@ -59,6 +59,7 @@ abstract final class EstimatedBc {
       sourceName: a.sourceName,
       sourceDocument: a.sourceDocument,
       userEntered: a.userEntered,
+      modelWithoutBc: a.modelWithoutBc,
     );
   }
 }
