@@ -61,7 +61,14 @@ Bu ortamda Flutter SDK yok; widget testleri yalnızca CI'da çalıştı.
   https://github.com/sniperTurk/flutter-app/actions/runs/38563658361
 - Analyze (analyze-diag): BAŞARILI —
   https://github.com/sniperTurk/flutter-app/actions/runs/38563661618
-- iOS CI / Simulator / TestFlight: çalıştırılmadı.
+- PR iOS CI (commit f3d5a78): dart-checks (format, analyze, tüm testler) ve
+  wind-acceptance BAŞARILI. verify ilk çalışmada simülatör açılış testi takılıp
+  25 dk zaman aşımıyla DÜŞTÜ (Xcode derlemesi başarılıydı; aynı anda #306 da
+  aynı adımda düştü). Bir kez yeniden çalıştırıldı: verify BAŞARILI (iOS
+  Simulator derlemesi ve açılış testi dahil) —
+  https://github.com/sniperTurk/flutter-app/actions/runs/38566125959/job/115877234815
+- ios-simulator işi bu PR'da atlandı (iş akışı kararı). Cihaz, imzalama,
+  TestFlight, App Store: çalıştırılmadı.
 
 Birleştirme ve TestFlight yapılmadı; PR taslak.
 
