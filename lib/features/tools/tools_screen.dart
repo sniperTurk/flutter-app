@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/domain.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import '../guide/privacy_policy_screen.dart';
 import '../guide/usage_guide_screen.dart';
 import 'calculators_screen.dart';
 import 'chrono_screen.dart';
@@ -22,7 +23,7 @@ import 'zero_group_screen.dart';
 /// Tool hub (Hız Doğrulama, Sight Height, Haritadan mesafe, Hava & Rüzgâr,
 /// Pusula, Su Terazisi, Vuruş Olasılığı, Paralaks Mesafesi (PCP), Avcı
 /// Sıfırı, Hesaplayıcılar, Atış Öncesi Kontrol, Sıfır Grubu, Atış Günlüğü,
-/// Kullanım rehberi).
+/// Kullanım rehberi, Gizlilik politikası).
 /// Katalog is no
 /// longer listed here (owner, 2026-10-08); its records and screen remain.
 /// The audio Kronograf was removed from the hub (owner, 2026-10-09); a typed
@@ -165,6 +166,16 @@ class ToolsScreen extends StatelessWidget {
           title: 'Kullanım rehberi',
           subtitle: 'Profil, sıfırlama, hava, Hedef, Pro ve Tablo kısaca',
           onTap: () => _open(context, const UsageGuideScreen()),
+        ),
+        // App Review 5.1.1(i) (owner, 2026-10-14): the privacy policy one
+        // tap from the Araçlar tab, next to Kullanım rehberi; the text is
+        // built in, so it opens offline.
+        MenzilToolTile(
+          tileKey: const Key('tool-privacy-policy'),
+          icon: Icons.privacy_tip_outlined,
+          title: 'Gizlilik politikası',
+          subtitle: 'Hangi veri cihazda kalır, hangisi nereye gider',
+          onTap: () => _open(context, const PrivacyPolicyScreen()),
         ),
         const SizedBox(height: MenzilSpace.md),
         Center(
