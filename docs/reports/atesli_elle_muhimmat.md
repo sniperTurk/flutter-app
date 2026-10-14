@@ -216,7 +216,11 @@ doğrulandı (başka oturumlar da aynı iş akışlarını tetikliyor).
   elle ağırlık kutusunun taşması yüzünden düştü (kutu kendi satırına alındı);
   main'e #289 eklenince onun "Mühimmat Marka keeps its Listede yok item" testi
   bu kararla çeliştiği için düştü (test yeni karara göre çevrildi).
-- `iOS CI / verify` (macOS, Simulator): bu dal için çalıştırılmadı. Simulator,
-  cihaz, imzalama, TestFlight: çalıştırılmadı.
+- PR iş akışı (`.github/workflows/ios-ci.yml`), PR başı `1951ce7`
+  (kod `1353464` ile aynı, üstüne yalnız rapor):
+  https://github.com/sniperTurk/flutter-app/actions/runs/38538247449 —
+  `verify` **başarılı**, `dart-checks` **başarılı**, `wind-acceptance`
+  **başarılı**; `ios-simulator` **atlandı** (skipped), yani Simulator derlemesi
+  çalışmadı. Cihaz, imzalama, TestFlight: çalıştırılmadı.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
