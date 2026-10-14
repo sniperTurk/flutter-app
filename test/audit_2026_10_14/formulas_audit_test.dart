@@ -165,7 +165,7 @@ void main() {
       // 1 mrad at 100 m is 10.0003 cm (tan).
       expect(
         ScopeDialMath.linearAtRange(1, 100, AngularUnit.mrad),
-        closeTo(0.1000003, 1e-7),
+        closeTo(0.10000003, 1e-9),
       );
     });
   });
@@ -382,7 +382,7 @@ void main() {
 
     test('DOPE ranges: sorted, unique; parallax: linear between marks', () {
       expect(DopeRanges.parse('300, 100;200 100'), [100, 200, 300]);
-      final pts = const [
+      const pts = [
         ParallaxPoint(mark: 1, distanceM: 20),
         ParallaxPoint(mark: 3, distanceM: 60),
       ];

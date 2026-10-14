@@ -52,53 +52,53 @@ class _Case {
   });
 }
 
-const _r308 = (mv: 2650 * _fps, bc: 0.462, zero: 100.0, sight: 38.1);
+const _mv308 = 2650 * _fps;
 
 // dart format off
-final _cases = <_Case>[
-  _Case('.308 168 gr G1 level', mvMps: _r308.mv, bc: _r308.bc,
-      model: BallisticModel.g1, zeroM: _r308.zero, sightMm: _r308.sight,
-      expected: const [
+const _cases = <_Case>[
+  _Case('.308 168 gr G1 level', mvMps: _mv308, bc: 0.462,
+      model: BallisticModel.g1, zeroM: 100, sightMm: 38.1,
+      expected: [
     (100.0, 0.0000, 0.0000, 0.12905),
     (300.0, 1.6372, 0.0000, 0.42282),
     (500.0, 4.0089, 0.0000, 0.77546),
     (800.0, 9.1019, 0.0000, 1.45031),
   ]),
-  _Case('.308 10 mph from saat 3 (270°)', mvMps: _r308.mv, bc: _r308.bc,
-      model: BallisticModel.g1, zeroM: _r308.zero, sightMm: _r308.sight,
-      windMps: 10 * _mph, windDeg: 270, expected: const [
+  _Case('.308 10 mph from saat 3 (270°)', mvMps: _mv308, bc: 0.462,
+      model: BallisticModel.g1, zeroM: 100, sightMm: 38.1,
+      windMps: 10 * _mph, windDeg: 270, expected: [
     (300.0, 1.6372, 0.7660, 0.42282),
     (500.0, 4.0089, 1.3986, 0.77546),
   ]),
-  _Case('.308 incline +30°', mvMps: _r308.mv, bc: _r308.bc,
-      model: BallisticModel.g1, zeroM: _r308.zero, sightMm: _r308.sight,
-      inclineDeg: 30, expected: const [
+  _Case('.308 incline +30°', mvMps: _mv308, bc: 0.462,
+      model: BallisticModel.g1, zeroM: 100, sightMm: 38.1,
+      inclineDeg: 30, expected: [
     (300.0, 1.2825, 0.0000, 0.42344),
     (500.0, 3.3471, 0.0000, 0.77775),
   ]),
-  _Case('.308 cant +5° (clockwise)', mvMps: _r308.mv, bc: _r308.bc,
-      model: BallisticModel.g1, zeroM: _r308.zero, sightMm: _r308.sight,
-      cantDeg: 5, expected: const [
+  _Case('.308 cant +5° (clockwise)', mvMps: _mv308, bc: 0.462,
+      model: BallisticModel.g1, zeroM: 100, sightMm: 38.1,
+      cantDeg: 5, expected: [
     (300.0, 1.6270, -0.2341, 0.42282),
     (500.0, 3.9895, -0.4452, 0.77546),
   ]),
-  _Case('.308 Coriolis 40° N, shot east', mvMps: _r308.mv, bc: _r308.bc,
-      model: BallisticModel.g1, zeroM: _r308.zero, sightMm: _r308.sight,
-      lat: 40, az: 90, expected: const [
+  _Case('.308 Coriolis 40° N, shot east', mvMps: _mv308, bc: 0.462,
+      model: BallisticModel.g1, zeroM: 100, sightMm: 38.1,
+      lat: 40, az: 90, expected: [
     (800.0, 9.0309, -0.0596, 1.45031),
   ]),
-  _Case('.308 Coriolis 40° N, shot north', mvMps: _r308.mv, bc: _r308.bc,
-      model: BallisticModel.g1, zeroM: _r308.zero, sightMm: _r308.sight,
-      lat: 40, az: 0, expected: const [
+  _Case('.308 Coriolis 40° N, shot north', mvMps: _mv308, bc: 0.462,
+      model: BallisticModel.g1, zeroM: 100, sightMm: 38.1,
+      lat: 40, az: 0, expected: [
     (800.0, 9.1019, -0.0600, 1.45031),
   ]),
   _Case('6.5 mm G7 0.315 2700 fps', mvMps: 2700 * _fps, bc: 0.315,
-      model: BallisticModel.g7, zeroM: 100, sightMm: 40, expected: const [
+      model: BallisticModel.g7, zeroM: 100, sightMm: 40, expected: [
     (300.0, 1.4420, 0.0000, 0.40020),
     (600.0, 4.5763, 0.0000, 0.88629),
   ]),
   _Case('.22 pellet G1 0.031 280 m/s', mvMps: 280, bc: 0.031,
-      model: BallisticModel.g1, zeroM: 30, sightMm: 50, expected: const [
+      model: BallisticModel.g1, zeroM: 30, sightMm: 50, expected: [
     (10.0, 1.8820, 0.0000, 0.03676),
     (30.0, 0.0000, 0.0000, 0.11634),
     (50.0, 0.9965, 0.0000, 0.20400),
@@ -106,12 +106,12 @@ final _cases = <_Case>[
   ]),
   _Case('.22 pellet 3 m/s from saat 9 (90°)', mvMps: 280, bc: 0.031,
       model: BallisticModel.g1, zeroM: 30, sightMm: 50, windMps: 3,
-      windDeg: 90, expected: const [
+      windDeg: 90, expected: [
     (50.0, 0.9966, -1.5256, 0.20400),
     (100.0, 5.7372, -3.1297, 0.46147),
   ]),
   _Case('.25 slug G1 0.110 290 m/s', mvMps: 290, bc: 0.110,
-      model: BallisticModel.g1, zeroM: 50, sightMm: 50, expected: const [
+      model: BallisticModel.g1, zeroM: 50, sightMm: 50, expected: [
     (100.0, 2.9418, 0.0000, 0.37438),
     (150.0, 6.5780, 0.0000, 0.58289),
   ]),
@@ -162,7 +162,7 @@ void main() {
       double? lat,
       double? az,
     }) => BallisticInput(
-      muzzleVelocityMps: _r308.mv,
+      muzzleVelocityMps: _mv308,
       grain: 168,
       zeroRangeM: 100,
       sightHeightMm: 38.1,
