@@ -167,6 +167,16 @@ void main() {
       await settle();
     }
 
+    // A "... listede yok mu?" link (owner, 2026-10-14): on the Simulator a
+    // bottom bar can cover it, so its own action is called.
+    Future<void> tapNotListed(String key) async {
+      final link = find.byKey(Key(key));
+      await tester.ensureVisible(link);
+      await settle();
+      tester.widget<TextButton>(link).onPressed!();
+      await settle();
+    }
+
     await wait(3);
 
     // ---- Clean install: no profile yet ---------------------------------
@@ -219,7 +229,9 @@ void main() {
     // ---- Save a PCP profile so the ballistic pages unlock --------------
     var saved = false;
     await step('profil_kaydet', () async {
-      await choose('rifle-brand-select', 'Listede yok');
+      // Typed rifle from the link under Marka | Model (owner, 2026-10-14:
+      // no "Listede yok" in the rifle Marka list).
+      await tapNotListed('rifle-not-listed');
       await type('rifle-brand', 'Test Marka');
       await type('rifle-model', 'Test Model');
       await tester.ensureVisible(find.byKey(const Key('rifle-caliber')));

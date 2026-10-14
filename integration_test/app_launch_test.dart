@@ -112,7 +112,14 @@ void main() {
     // A new profile starts on Ateşli Tüfek (owner, 2026-10-11); this tour
     // saves a PCP rifle (6.35 mm caliber), so Tür = PCP Tüfek first.
     await choose('profile-platform', 'PCP Tüfek');
-    await choose('rifle-brand-select', 'Listede yok');
+    // Typed rifle from the link under Marka | Model (owner, 2026-10-14:
+    // no "Listede yok" in the rifle Marka list); its own action is called
+    // as for the scope link below.
+    final rifleNotListed = find.byKey(const Key('rifle-not-listed'));
+    await tester.ensureVisible(rifleNotListed);
+    await tester.pumpAndSettle();
+    tester.widget<TextButton>(rifleNotListed).onPressed!();
+    await tester.pumpAndSettle();
     await type('rifle-brand', 'Test Marka');
     await type('rifle-model', 'Test Model');
     await tester.ensureVisible(find.byKey(const Key('rifle-caliber')));

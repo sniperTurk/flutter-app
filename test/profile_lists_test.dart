@@ -193,11 +193,11 @@ void main() {
     expect(_text(tester, 'rifle-twist-rate'), '11');
   });
 
-  testWidgets('"Listede yok" types Marka and Model; Kalibre has no typing', (
+  testWidgets('the rifle link types Marka and Model; Kalibre has no typing', (
     tester,
   ) async {
     await _openNew(tester, firearm: true);
-    await chooseInSelect(tester, 'rifle-brand-select', 'Listede yok');
+    await openRifleManual(tester);
     expect(find.byKey(const Key('rifle-brand')), findsOneWidget);
     expect(find.byKey(const Key('rifle-model')), findsOneWidget);
     // The last item of the long list.
