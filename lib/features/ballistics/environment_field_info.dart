@@ -41,6 +41,7 @@ abstract final class EnvironmentFieldInfo {
       'odada değil, açık havada basın. Ya da Kestrel, barometre veya '
       'Araçlar > hesaplayıcılar ile deniz seviyesinden istasyon basıncına '
       'çevirin. Örnek: 1000 m irtifada 900 hPa.';
+
   /// Basınç Ölçer card: ONE ⓘ right of the title (owner exception,
   /// 2026-10-14; no ⓘ in the box).
   static const barometerCard =

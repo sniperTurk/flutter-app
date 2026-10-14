@@ -84,6 +84,7 @@ abstract final class BallisticsFieldKeys {
   static const temperature = ValueKey('ballistics-temperature');
   static const pressure = ValueKey('ballistics-pressure');
   static const humidity = ValueKey('ballistics-humidity');
+
   /// İrtifa card → Telefondan irtifa (the former single İrtifa box; owner,
   /// 2026-10-14).
   static const altitude = ValueKey('ballistics-altitude');
@@ -257,6 +258,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   late final TextEditingController temperature;
   late final TextEditingController pressure;
   late final TextEditingController humidity;
+
   /// Telefondan irtifa (owner, 2026-10-14; the former İrtifa box, so an
   /// older saved İrtifa comes back here).
   late final TextEditingController altitude;
@@ -1866,7 +1868,9 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       padding: const EdgeInsets.only(top: MenzilSpace.sm),
       child: Row(
         children: [
-          Expanded(child: _oneLineText(date, key: dateKey, color: c.ink2)),
+          Expanded(
+            child: _oneLineText(date, key: dateKey, color: c.ink2),
+          ),
           const SizedBox(width: MenzilSpace.md),
           Expanded(
             child: _resetButton(
@@ -1922,7 +1926,10 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   Widget _headerWithInfo(String title, String info, {required Key infoKey}) {
     final c = MenzilColors.of(context);
     return Padding(
-      padding: const EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
+      padding: const EdgeInsets.only(
+        top: MenzilSpace.xxs,
+        bottom: MenzilSpace.sm,
+      ),
       child: Row(
         children: [
           Flexible(
@@ -3976,9 +3983,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
                     : _altMapAtMs != null
                     ? 'Haritadan alındı'
                     : 'Haritadan',
-                icon: _altMapAtMs != null || _altMapBusy
-                    ? null
-                    : Icons.terrain,
+                icon: _altMapAtMs != null || _altMapBusy ? null : Icons.terrain,
                 expand: true,
                 active: _altMapAtMs != null,
                 twoLines: true,

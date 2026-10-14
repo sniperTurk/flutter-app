@@ -247,7 +247,10 @@ void main() {
       final title = find.byKey(const ValueKey('wind-clock-title'));
       expect(tester.widget<Text>(title).data, 'Rüzgâr yönü');
       final dial12 = find.byKey(WindClockPicker.hourKey(12));
-      expect(tester.getBottomLeft(title).dy, lessThan(tester.getTopLeft(dial12).dy));
+      expect(
+        tester.getBottomLeft(title).dy,
+        lessThan(tester.getTopLeft(dial12).dy),
+      );
       // Left-aligned with the dial area.
       final picker = find.byType(WindClockPicker);
       expect(
@@ -429,7 +432,10 @@ void main() {
       expect(find.byKey(_altStatus), findsNothing);
       expect(_date(tester, _altDate), '14.10.2026');
       // The ⓘ is in the title only.
-      expect(find.byKey(const Key('environment-altitude-info')), findsOneWidget);
+      expect(
+        find.byKey(const Key('environment-altitude-info')),
+        findsOneWidget,
+      );
       for (final k in [
         BallisticsFieldKeys.altitude,
         BallisticsFieldKeys.mapAltitude,
@@ -587,7 +593,10 @@ void main() {
       elevation.result = const ElevationUnavailable(ElevationFailure.offline);
       await _tap(tester, _mapBtn);
       expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
-      expect(find.text('İnternet yok; harita irtifası alınamadı.'), findsOneWidget);
+      expect(
+        find.text('İnternet yok; harita irtifası alınamadı.'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('Sıfırla clears both boxes; the date is the latest fetch', (
@@ -708,9 +717,18 @@ void main() {
       tester,
     ) async {
       // ISA: 1062,2 hPa at -400 m → 1,2842 kg/m³ dry at 15 °C.
-      expect(await density(tester, phone: '', map: '-400'), closeTo(1.2842, 0.001));
-      expect(await density(tester, phone: '-400', map: ''), closeTo(1.2842, 0.001));
-      expect(await density(tester, phone: '0', map: '-400'), closeTo(1.2250, 0.001));
+      expect(
+        await density(tester, phone: '', map: '-400'),
+        closeTo(1.2842, 0.001),
+      );
+      expect(
+        await density(tester, phone: '-400', map: ''),
+        closeTo(1.2842, 0.001),
+      );
+      expect(
+        await density(tester, phone: '0', map: '-400'),
+        closeTo(1.2250, 0.001),
+      );
       expect(await density(tester, phone: '', map: ''), closeTo(1.2250, 0.001));
     });
   });
@@ -723,12 +741,7 @@ void main() {
         phone: TestPhoneAltitude(const LocationFix(39.9, 32.8, altitudeM: 126)),
         elevation: TestElevation(const ElevationRead(122)),
       );
-      await _pump(
-        tester,
-        rig,
-        size: const Size(320, 3000),
-        textScale: 1.3,
-      );
+      await _pump(tester, rig, size: const Size(320, 3000), textScale: 1.3);
       expect(tester.takeException(), isNull);
       for (final k in [_weatherBtn, _pressureBtn, _mapBtn, _phoneBtn]) {
         await _tap(tester, k);
