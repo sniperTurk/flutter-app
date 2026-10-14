@@ -221,22 +221,28 @@ void main() {
       );
     });
 
-    test('ICAO zero air: today\'s weather, incline and cant do not move it', () {
-      final base = _angle(_input(bc: 0.462));
-      const hot = EnvironmentData(
-        temperatureC: 35,
-        pressureHpa: 845.56,
-        humidityPercent: 80,
-        altitudeM: 1500,
-        windMps: 5,
-        windDirectionDeg: 270,
-      );
-      expect(_angle(_input(bc: 0.462, environment: hot)), closeTo(base, 1e-9));
-      expect(
-        _angle(_input(bc: 0.462, incline: 30, cant: 5)),
-        closeTo(base, 1e-9),
-      );
-    });
+    test(
+      'ICAO zero air: today\'s weather, incline and cant do not move it',
+      () {
+        final base = _angle(_input(bc: 0.462));
+        const hot = EnvironmentData(
+          temperatureC: 35,
+          pressureHpa: 845.56,
+          humidityPercent: 80,
+          altitudeM: 1500,
+          windMps: 5,
+          windDirectionDeg: 270,
+        );
+        expect(
+          _angle(_input(bc: 0.462, environment: hot)),
+          closeTo(base, 1e-9),
+        );
+        expect(
+          _angle(_input(bc: 0.462, incline: 30, cant: 5)),
+          closeTo(base, 1e-9),
+        );
+      },
+    );
   });
 
   group('F2 turret travel = report formula', () {
@@ -362,35 +368,27 @@ void main() {
   });
 
   group('KUL-2 Doğrulama vs the F3 table velocity', () {
-    test(
-      'truing knows the PCP table (or says it does not apply)',
-      () {
-        final src = File(
-          'lib/features/tools/truing_screen.dart',
-        ).readAsStringSync();
-        // Truing writes Namlu çıkış hızı; an unregulated PCP with a usable
-        // Profil table is zeroed and shot with the table velocity (F3), so
-        // the "Doğrulanmış hız profile uygulandı" result changes nothing.
-        expect(
-          src.contains('pressureVelocityTable') || src.contains('PcpPressure'),
-          isTrue,
-        );
-      },
-      skip: 'KUL-2: truing ignores the PCP table velocity',
-    );
+    test('truing knows the PCP table (or says it does not apply)', () {
+      final src = File(
+        'lib/features/tools/truing_screen.dart',
+      ).readAsStringSync();
+      // Truing writes Namlu çıkış hızı; an unregulated PCP with a usable
+      // Profil table is zeroed and shot with the table velocity (F3), so
+      // the "Doğrulanmış hız profile uygulandı" result changes nothing.
+      expect(
+        src.contains('pressureVelocityTable') || src.contains('PcpPressure'),
+        isTrue,
+      );
+    }, skip: 'KUL-2: truing ignores the PCP table velocity');
   });
 
   group('KUL-3 hidden PRO_TUBE_PRESSURE with an empty Pro box', () {
-    test(
-      'the Profil Tüp basıncı is the fallback of the Pro box',
-      () {
-        final src = File(
-          'lib/features/ballistics/ballistics_screen.dart',
-        ).readAsStringSync();
-        expect(src, contains('_parsed(tubePressureCtl) ?? p?.tubePressureBar'));
-      },
-      skip: 'KUL-3: flag on + empty Pro box ignores Profil tube/table',
-    );
+    test('the Profil Tüp basıncı is the fallback of the Pro box', () {
+      final src = File(
+        'lib/features/ballistics/ballistics_screen.dart',
+      ).readAsStringSync();
+      expect(src, contains('_parsed(tubePressureCtl) ?? p?.tubePressureBar'));
+    }, skip: 'KUL-3: flag on + empty Pro box ignores Profil tube/table');
   });
 
   group('F5 GA text', () {

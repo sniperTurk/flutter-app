@@ -345,8 +345,7 @@ void main() {
     }
 
     bool staleOrange(WidgetTester tester) =>
-        _text(tester, _windMax) == '7.5' &&
-        _button(tester, _windMaxBtn).active;
+        _text(tester, _windMax) == '7.5' && _button(tester, _windMaxBtn).active;
 
     testWidgets(
       'typed wind 8: the box is not left at 7.5 as "Düzeltme alındı"',
@@ -382,30 +381,33 @@ void main() {
     );
   });
 
-  group('chain: a weather fetch writes only Sıcaklık, Bağıl nem, Rüzgâr hızı', () {
-    testWidgets('Basınç, both İrtifa boxes, Rüzgâr yönü and its time stay', (
-      tester,
-    ) async {
-      // The location fix carries a GPS altitude (900 m): it must not leak.
-      final rig = _Rig();
-      await _show(tester, rig, BallisticsView.environment);
-      await _type(tester, BallisticsFieldKeys.pressure, '900');
-      await _type(tester, BallisticsFieldKeys.altitude, '500');
-      await _type(tester, BallisticsFieldKeys.windDirection, '3');
-      const when = ValueKey('wind-clock-date');
-      final dirTime = tester.widget<Text>(find.byKey(when)).data;
-      expect(dirTime, '14.10.2026 11:20');
+  group(
+    'chain: a weather fetch writes only Sıcaklık, Bağıl nem, Rüzgâr hızı',
+    () {
+      testWidgets('Basınç, both İrtifa boxes, Rüzgâr yönü and its time stay', (
+        tester,
+      ) async {
+        // The location fix carries a GPS altitude (900 m): it must not leak.
+        final rig = _Rig();
+        await _show(tester, rig, BallisticsView.environment);
+        await _type(tester, BallisticsFieldKeys.pressure, '900');
+        await _type(tester, BallisticsFieldKeys.altitude, '500');
+        await _type(tester, BallisticsFieldKeys.windDirection, '3');
+        const when = ValueKey('wind-clock-date');
+        final dirTime = tester.widget<Text>(find.byKey(when)).data;
+        expect(dirTime, '14.10.2026 11:20');
 
-      rig.advance(const Duration(minutes: 10));
-      await _tap(tester, _weatherBtn);
-      expect(_text(tester, BallisticsFieldKeys.wind), '5.0');
-      expect(_text(tester, BallisticsFieldKeys.pressure), '900');
-      expect(_text(tester, BallisticsFieldKeys.altitude), '500');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
-      expect(_text(tester, BallisticsFieldKeys.windDirection), '3');
-      expect(tester.widget<Text>(find.byKey(when)).data, dirTime);
-    });
-  });
+        rig.advance(const Duration(minutes: 10));
+        await _tap(tester, _weatherBtn);
+        expect(_text(tester, BallisticsFieldKeys.wind), '5.0');
+        expect(_text(tester, BallisticsFieldKeys.pressure), '900');
+        expect(_text(tester, BallisticsFieldKeys.altitude), '500');
+        expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
+        expect(_text(tester, BallisticsFieldKeys.windDirection), '3');
+        expect(tester.widget<Text>(find.byKey(when)).data, dirTime);
+      });
+    },
+  );
 
   group('chain: İrtifa card writes', () {
     testWidgets('Dead Sea map elevation (−430.4 m) is written as −430', (

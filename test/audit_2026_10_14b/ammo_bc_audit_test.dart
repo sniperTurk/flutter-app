@@ -323,18 +323,14 @@ void main() {
   });
 
   group('MUH-4: FA056 velocity vs its BC source', () {
-    test(
-      'FA056 MV equals the table the BC was solved from (2760 fps)',
-      () {
-        final a = _factory(
-          'Aguila',
-          '308 WIN 150 Grain Full Metal Jacket Boat Tail',
-          '.308 Win',
-        );
-        expect(a.muzzleVelocityFps, 2760);
-      },
-      skip: 'MUH-4: 2750 fps (catalog) vs 2760 fps (product page)',
-    );
+    test('FA056 MV equals the table the BC was solved from (2760 fps)', () {
+      final a = _factory(
+        'Aguila',
+        '308 WIN 150 Grain Full Metal Jacket Boat Tail',
+        '.308 Win',
+      );
+      expect(a.muzzleVelocityFps, 2760);
+    }, skip: 'MUH-4: 2750 fps (catalog) vs 2760 fps (product page)');
   });
 
   group('MUH-1: G1 <-> G7 switch on a listed round with a maker BC', () {

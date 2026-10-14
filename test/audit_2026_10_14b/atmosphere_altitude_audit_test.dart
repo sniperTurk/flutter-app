@@ -213,9 +213,7 @@ void main() {
   });
 
   group('chain: "Basınç al" + İrtifa never double counts', () {
-    testWidgets('phone barometer 998,4 hPa with İrtifa 1500 m', (
-      tester,
-    ) async {
+    testWidgets('phone barometer 998,4 hPa with İrtifa 1500 m', (tester) async {
       final rig = _Rig();
       await _open(tester, rig, BallisticsView.all);
       await _type(tester, BallisticsFieldKeys.temperature, '15');
@@ -301,9 +299,7 @@ void main() {
   });
 
   group('chain: pressure warning with the effective İrtifa', () {
-    testWidgets('map only is checked; Telefondan wins over it', (
-      tester,
-    ) async {
+    testWidgets('map only is checked; Telefondan wins over it', (tester) async {
       final rig = _Rig();
       await _open(tester, rig, BallisticsView.environment);
       await _type(tester, BallisticsFieldKeys.pressure, '1013');

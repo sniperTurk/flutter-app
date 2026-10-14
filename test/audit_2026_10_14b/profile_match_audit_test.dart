@@ -312,7 +312,10 @@ const Map<String, double> _tolerance = {
   'elevationRangeMrad': 0.05, // whole clicks
 };
 
-void _expectSameInputs(Map<String, Object?> before, Map<String, Object?> after) {
+void _expectSameInputs(
+  Map<String, Object?> before,
+  Map<String, Object?> after,
+) {
   expect(after.keys.toSet(), before.keys.toSet());
   for (final k in before.keys) {
     final b = before[k], a = after[k];
@@ -475,12 +478,16 @@ void main() {
       await tester.tap(cancel);
       await tester.pumpAndSettle();
       final stored = (await store.all()).single;
-      expect(const ProfileCodec().encode(stored), const ProfileCodec().encode(p));
-      final records = await ManualCatalogStore().all();
       expect(
-        records.map((e) => e['id']).toSet(),
-        {'manual_rifle_old', 'manual_ammo_old', 'manual_scope_old'},
+        const ProfileCodec().encode(stored),
+        const ProfileCodec().encode(p),
       );
+      final records = await ManualCatalogStore().all();
+      expect(records.map((e) => e['id']).toSet(), {
+        'manual_rifle_old',
+        'manual_ammo_old',
+        'manual_scope_old',
+      });
       final rifle = records.singleWhere((e) => e['id'] == 'manual_rifle_old');
       expect(rifle['brand'], 'TIKKA');
       expect(rifle['model'], 'T3X Tact A1');
@@ -692,8 +699,7 @@ void main() {
       expect(ProfileCatalogMatch.scope(saved, lib, (s) => s.model), isNull);
       // Only one of them: matched.
       expect(
-        ProfileCatalogMatch.scope(saved, lib.sublist(0, 1), (s) => s.model)
-            ?.id,
+        ProfileCatalogMatch.scope(saved, lib.sublist(0, 1), (s) => s.model)?.id,
         'a',
       );
     });
@@ -722,8 +728,11 @@ void main() {
         _rifles(WeaponPlatform.pcp),
       );
       // Expected: the exact model name (or no match), never another model.
-      expect(hit == null || hit.model == 'Hercules Bully', isTrue,
-          reason: 'matched ${hit?.brand} / ${hit?.model}');
+      expect(
+        hit == null || hit.model == 'Hercules Bully',
+        isTrue,
+        reason: 'matched ${hit?.brand} / ${hit?.model}',
+      );
     }, skip: 'PRF-4: caliber preference beats the exact model name');
 
     test('PRF-5: upper-case Turkish brand "SARSILMAZ" is "Sarsılmaz"', () {
