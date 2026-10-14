@@ -2814,9 +2814,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // mid-travel: it already holds the zero angle (bore above the sight
     // line), dialled UP when zeroing. That angle comes off the UP travel
     // and adds to the DOWN travel. Limits only; the required clicks stay.
-    final zeroClicks = basis == null
-        ? 0
-        : _zeroAngleClicks(basis, click, unit);
+    final zeroClicks = basis == null ? 0 : _zeroAngleClicks(basis, click, unit);
     // Known travel: the mount moves the zero down inside the SAME travel,
     // so UP can never exceed the whole travel and DOWN never goes below 0.
     final upClicks = halfUp == null

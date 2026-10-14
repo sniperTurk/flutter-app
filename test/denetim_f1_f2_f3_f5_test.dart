@@ -118,9 +118,7 @@ const _note = Key('shot-pressure-from-altitude');
 
 void main() {
   group('F1 pressure from İrtifa', () {
-    testWidgets('both empty: standard atmosphere, 1013,25 hPa', (
-      tester,
-    ) async {
+    testWidgets('both empty: standard atmosphere, 1013,25 hPa', (tester) async {
       final rho = await _density(tester, pressure: '', altitude: '');
       expect(rho, closeTo(1.2250, 0.001));
     });
@@ -264,13 +262,17 @@ void main() {
       // 60 MOA = 174 clicks of 0.1 mrad; half travel 130.
       await tester.pumpWidget(dial(mount: 174, zero: 41));
       expect(
-        tester.widget<ScopeDialView>(find.byType(ScopeDialView)).mountBlocksZero,
+        tester
+            .widget<ScopeDialView>(find.byType(ScopeDialView))
+            .mountBlocksZero,
         isTrue,
       );
       expect(find.byKey(ScopeDialKeys.mountZeroNote), findsOneWidget);
       await tester.pumpWidget(dial(mount: 174, zero: 44));
       expect(
-        tester.widget<ScopeDialView>(find.byType(ScopeDialView)).mountBlocksZero,
+        tester
+            .widget<ScopeDialView>(find.byType(ScopeDialView))
+            .mountBlocksZero,
         isFalse,
       );
       expect(find.byKey(ScopeDialKeys.mountZeroNote), findsNothing);

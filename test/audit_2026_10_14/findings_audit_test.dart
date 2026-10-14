@@ -207,16 +207,13 @@ void main() {
       expect(v.requiredUp!.abs(), lessThan(0.05));
     });
 
-    testWidgets(
-      'expected F3: at its own zero range the profile shoots on zero '
-      '(same velocity for zero and shot)',
-      (tester) async {
-        final v = await _shotView(tester, _unregulated(120));
-        // Before the fix: zero solved at 270 m/s, shot at 255 m/s → ≈ +1.0
-        // mrad at the zero range itself.
-        expect(v.requiredUp!.abs(), lessThan(0.05));
-      },
-    );
+    testWidgets('expected F3: at its own zero range the profile shoots on zero '
+        '(same velocity for zero and shot)', (tester) async {
+      final v = await _shotView(tester, _unregulated(120));
+      // Before the fix: zero solved at 270 m/s, shot at 255 m/s → ≈ +1.0
+      // mrad at the zero range itself.
+      expect(v.requiredUp!.abs(), lessThan(0.05));
+    });
 
     testWidgets('control F2: 0 MOA mount, travel taken from mid-travel', (
       tester,
@@ -263,14 +260,11 @@ void main() {
   });
 
   group('F5 leftover GA text (#195)', () {
-    test(
-      'expected: no GA advice in the BC-from-two-velocities note',
-      () {
-        final src = File(
-          'lib/features/tools/calculators_screen.dart',
-        ).readAsStringSync();
-        expect(src, isNot(contains('Diabolo saçmada GA')));
-      },
-    );
+    test('expected: no GA advice in the BC-from-two-velocities note', () {
+      final src = File(
+        'lib/features/tools/calculators_screen.dart',
+      ).readAsStringSync();
+      expect(src, isNot(contains('Diabolo saçmada GA')));
+    });
   });
 }
