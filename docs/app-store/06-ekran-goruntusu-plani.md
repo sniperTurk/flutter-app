@@ -1,6 +1,11 @@
 # 06 · Ekran görüntüsü planı
 
-> Plan; yeni Mac/simülatör çalıştırması **yapılmadı**. Referans:
+> Plan; yeni Mac/simülatör çalıştırması **yapılmadı**. 2026-10-14'te
+> `main @ 69e8a0e` ekran adlarına göre güncellendi: Hedef'teki
+> "Tek atış | Tablo" seçici gizli (`SHOT_TABLE_SWITCH`, 2026-10-12), Tablo
+> görünümü normal derlemede açılmıyor; Hava Durumu'nda Rüzgâr gözlemi gizli
+> (#272); Pro açıklamaları alttan açılan sayfada (#279); Araçlar'a
+> Gizlilik politikası eklendi (bu PR). Referans:
 > `ci/sim-screens` dalı `latest/*.png` (çalışma 38169066737,
 > `feat/retikul-eslestirme @ 783ba73`, iPhone 17 Pro / iOS 26.2, 40 PNG).
 
@@ -32,18 +37,18 @@ katmanına izin verir). Kısa tutuldu (≤ 32 karakter).
 
 | Sıra | Ekran (sekme) | Referans (`latest/`) | TR başlık | EN başlık |
 |---|---|---|---|---|
-| 1 | Hedef → Tek atış: dürbün retikülü, tutuş noktası ve kule klikleri | `38_hedef_atis.png`, `39_hedef_atis_2.png` | Kule klik ve retikül tutuşu | Turret clicks and reticle hold |
-| 2 | Hedef → Tablo: balistik tablo ve DOPE kartı | `40_hedef_tablo.png` | DOPE tablosu ve PDF kart | DOPE table and PDF card |
-| 3 | Hava Durumu: atmosfer + rüzgâr saati dolu | `32_hava_durumu.png`, `33_hava_durumu_2.png` | Hava ve rüzgâr konumundan | Weather and wind in one tap |
-| 4 | Profil: aktif profil kartı | `30_profil_kayitli.png` | Tüfek, dürbün, mühimmat | Rifle, scope and ammo profile |
-| 5 | Profil Oluştur: listeden seçim (Marka / Model / Kalibre) | `18_profil_olustur_atesli.png` | Listeden seç, elle yazma | Pick from built-in lists |
-| 6 | Pro Ayarlar: Coriolis, yerçekimi, hareketli hedef açık | `36_pro_ayarlar.png` | Coriolis, yerçekimi, spin | Coriolis, gravity, spin drift |
-| 7 | Araçlar listesi | `07_araclar.png` | Hız doğrulama ve saha araçları | Truing and field tools |
+| 1 | Hedef: dürbün retikülü, tutuş noktası ve kule klikleri (Tek atış) | `38_hedef_atis.png`, `39_hedef_atis_2.png` | Kule klik ve retikül tutuşu | Turret clicks and reticle hold |
+| 2 | Hedef: aşağı kaydırılmış — Hesap dökümü ve "DOPE kartını paylaş (PDF)" | **Yok** — yeniden çekilmeli (eski `40_hedef_tablo.png` artık açılmayan Tablo görünümü) | Hesap dökümü ve PDF DOPE kartı | Breakdown and PDF DOPE card |
+| 3 | Hava Durumu: Sıcaklık, nem, basınç, irtifa ve rüzgâr saati dolu ("Rüzgâr tahmini nasıl yapılır?" bağlantısı görünür) | `32_hava_durumu.png`, `33_hava_durumu_2.png` (eski; Rüzgâr gözlemi içeriyorsa yeniden çekilmeli) | Hava ve rüzgâr konumundan | Weather and wind in one tap |
+| 4 | Profil: aktif profil özeti (Tüfek, Dürbün, Mühimmat kartları) | `30_profil_kayitli.png` (eski düzen; yeniden çekilmeli) | Tüfek, dürbün, mühimmat | Rifle, scope and ammo profile |
+| 5 | Profil oluştur: listeden seçim (Marka / Model / Kalibre, ⓘ'ler) | `18_profil_olustur_atesli.png` (eski; yeniden çekilmeli) | Listeden seç, her kutuda ⓘ | Pick from lists, ⓘ on every field |
+| 6 | Pro: Coriolis, yerçekimi, hareketli hedef dolu; isteğe bağlı açık bir ⓘ alt sayfası | `36_pro_ayarlar.png` (eski; yeniden çekilmeli) | Coriolis, yerçekimi, spin | Coriolis, gravity, spin drift |
+| 7 | Araçlar listesi | `07_araclar.png` (eski; artık Gizlilik politikası satırı da var) | Hız doğrulama ve saha araçları | Truing and field tools |
 | 8 | Haritadan mesafe (uydu haritası, iki nokta, mesafe/yön) | **Yok** — sim turunda çekilmemiş | Haritadan mesafe ve yön | Distance and bearing from map |
 | 9 | Hesaplayıcılar | `09_hesaplayicilar.png` | Mesafe, MOA, BC, enerji | Range, MOA, BC, energy |
 
 İlk üç görsel arama sonuçlarında görünür; en güçlü ekranlar (retikül,
-DOPE, hava) bu yüzden başta.
+DOPE kartı, hava) bu yüzden başta.
 
 ## 3. Mevcut referans görsellerdeki sorunlar (yeniden çekim gerekir)
 
@@ -52,7 +57,8 @@ DOPE, hava) bu yüzden başta.
    tüfek ve mühimmat, anlamlı profil adı, ör. "Örnek .308").
 2. **Hata durumu:** `38_hedef_atis.png` "Değerler hesaplanamadı. Profil ve Hava
    Durumu değerlerini kontrol edin." gösteriyor ve kule "hesaplama bekleniyor";
-   `40_hedef_tablo.png` altta "Rüzgâr yönünü girin" bildirimi var. Neden:
+   `40_hedef_tablo.png` altta "Rüzgâr yönünü girin" bildirimi var (Tablo
+   görünümü 2026-10-12'den beri normal derlemede açılmıyor). Neden:
    turda **rüzgâr yönü** girilmemiş. Mağaza turunda rüzgâr yönü (ör. saat 3)
    ve mesafe (ör. 300 m) girilmeli ki retikülde tutuş noktası görünsün.
 3. **Dosya adı / içerik kayması:** bazı adlar içeriği tutmuyor (ör.
@@ -75,7 +81,8 @@ DOPE, hava) bu yüzden başta.
 
 - `integration_test/` altında mağazaya özel bir tur (ör. `store_screens_test.dart`):
   örnek profili listeden seçerek kaydet → Hava Durumu'nu doldur (rüzgâr hızı
-  ve yönü dahil) → Pro'da Coriolis/yerçekimi aç → Hedef'te 300 m → Tablo →
+  ve yönü dahil) → Pro'da Coriolis/yerçekimi doldur → Hedef'te 300 m →
+  aşağı kaydırıp Hesap dökümü / DOPE kartı →
   Haritadan mesafe (iki nokta) → Araçlar → Hesaplayıcılar.
 - Aynı turu iki simülatörde çalıştır: iPhone 17 Pro Max (6.9") ve iPhone 17
   Pro (6.3"); istenirse iPhone 11 Pro Max (6.5").
