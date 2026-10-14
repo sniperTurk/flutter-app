@@ -290,15 +290,19 @@ void main() {
       await tester.tap(find.text('Hedef'));
       await tester.pumpAndSettle();
       // 13 mrad half travel = 130 clicks; 60 MOA = 17.45 mrad = 174 clicks.
-      // UP can never exceed the whole travel (260 clicks), and a mount larger
-      // than half the travel cannot be zeroed: said in red.
+      // UP can never exceed the whole travel (260 clicks), and a mount
+      // larger than half the travel plus the zero's own angle (25 m PCP
+      // zero, ~4 mrad ≈ 41 clicks; denetim F2) cannot be zeroed: said in
+      // red, with the clicks the turret would have to go down.
+      final dial = tester.widget<ScopeDialView>(find.byType(ScopeDialView));
+      expect(dial.zeroAngleClicks, inInclusiveRange(35, 43));
       final info = _note(tester, ScopeDialKeys.mountNote);
       expect(info, contains('+174 klik'));
-      expect(info, contains('260 klik'));
+      expect(info, contains('yaklaşık 260 klik'));
       expect(info, isNot(contains('304')));
       final zero = _note(tester, ScopeDialKeys.mountZeroNote);
       expect(zero, contains('sıfırlanamaz'));
-      expect(zero, contains('174 klik'));
+      expect(zero, contains('yaklaşık ${174 - dial.zeroAngleClicks} klik'));
       expect(zero, contains('130 klik'));
     });
   });

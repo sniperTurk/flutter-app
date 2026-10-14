@@ -45,9 +45,10 @@ abstract final class EnvironmentFieldInfo {
       'Bağıl nem, yüzde olarak (0–100). Etkisi küçüktür: nemli hava biraz '
       'daha hafiftir. Hava durumunda yazar. Örnek: %60.';
   static const altitude =
-      'Atış yerinin deniz seviyesinden yüksekliği. Bilgi amaçlı kaydedilir; '
-      'hesap istasyon basıncını kullanır, irtifa hesaba ayrıca girmez. '
-      'Basıncı doğru girdiyseniz irtifa zaten içindedir.';
+      'Atış yerinin deniz seviyesinden yüksekliği. Basınç boşsa basınç '
+      'irtifadan tahmin edilir (standart atmosfer). Basınç doluysa irtifa '
+      'hesaba ayrıca girmez; ölçülen basınç irtifayı zaten içerir. Telefonda '
+      'veya haritada yazar. Örnek: 1000 m.';
   static const windSpeed =
       'Rüzgârın hızı. Anemometre (ör. Kestrel) ile atış yerinde ölçmek en '
       'doğrusudur. Yan rüzgâr saçmayı yana taşır; sapma BC ile hesaplanır. '
