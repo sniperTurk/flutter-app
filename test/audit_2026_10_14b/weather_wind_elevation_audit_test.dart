@@ -330,7 +330,7 @@ void main() {
         await _show(tester, rig, BallisticsView.shot, key: ws);
         expect(find.byKey(_bracket), findsNothing);
       },
-      skip: true, // RUZ-1: _putWindMaxFromWind returns early for w <= 0
+      skip: false, // RUZ-1: _putWindMaxFromWind returns early for w <= 0
     );
   });
 
@@ -362,7 +362,7 @@ void main() {
         // value; the owner decides which.
         expect(staleOrange(tester), isFalse);
       },
-      skip: true, // RUZ-2: only a weather fetch updates En çok rüzgâr
+      skip: false, // RUZ-2: only a weather fetch updates En çok rüzgâr
     );
 
     testWidgets(
@@ -378,7 +378,7 @@ void main() {
         await openProFor(tester, _windMax);
         expect(staleOrange(tester), isFalse);
       },
-      skip: true, // RUZ-2: weather Sıfırla leaves En çok rüzgâr untouched
+      skip: false, // RUZ-2: weather Sıfırla leaves En çok rüzgâr untouched
     );
   });
 

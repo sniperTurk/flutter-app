@@ -194,9 +194,7 @@ void main() {
         final kept = cat.ammunition.any((a) => a.ballisticCoefficient == 0.11);
         expect(kept || cat.blocked.isNotEmpty, isTrue);
       },
-      skip:
-          'MUH-3: bcModel "ga" (removed 2026-10-12) drops the BC; '
-          'PCP then uses the G1 estimate as if no BC was entered',
+      
     );
   });
 
@@ -318,7 +316,7 @@ void main() {
         );
         expect(a.muzzleVelocityFps, 1130);
       },
-      skip: 'MUH-2: still 1095 fps (.22 Short); owner decision pending (#304)',
+      
     );
   });
 
@@ -333,7 +331,7 @@ void main() {
         );
         expect(a.muzzleVelocityFps, 2760);
       },
-      skip: 'MUH-4: 2750 fps (catalog) vs 2760 fps (product page)',
+      
     );
   });
 
@@ -364,9 +362,7 @@ void main() {
             .isNotEmpty;
         expect(cleared || warned, isTrue);
       },
-      skip:
-          'MUH-1: BC 0,324 (maker G1) stays and is saved as G7; i = 0.816 '
-          'is inside the G7 band, so no warning',
+      
     );
 
     testWidgets('guard: typed round G1 -> G7 with a G1-sized BC is warned', (
@@ -463,9 +459,7 @@ void main() {
         await enterRifleField(tester, 'ammo-bc', '0,25');
         expect(selectedValue<String>(tester, 'ammo-bc-model'), isNull);
       },
-      skip:
-          'MUH-5: typing a BC picks G1 (owner rule 2026-10-13) while the '
-          '#305 note says "BC modelini de seçin"',
+      
     );
   });
 }

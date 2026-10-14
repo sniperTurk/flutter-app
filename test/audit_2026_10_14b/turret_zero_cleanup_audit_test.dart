@@ -299,7 +299,7 @@ void main() {
           lessThanOrEqualTo(2 * half),
         );
       },
-      skip: true, // KUL-1: down = half + zero is not clamped to 2·half
+      skip: false, // KUL-1: down = half + zero is not clamped to 2·half
     );
   });
 
@@ -376,7 +376,7 @@ void main() {
           isTrue,
         );
       },
-      skip: 'KUL-2: truing ignores the PCP table velocity',
+      
     );
   });
 
@@ -389,7 +389,7 @@ void main() {
         ).readAsStringSync();
         expect(src, contains('_parsed(tubePressureCtl) ?? p?.tubePressureBar'));
       },
-      skip: 'KUL-3: flag on + empty Pro box ignores Profil tube/table',
+      
     );
   });
 

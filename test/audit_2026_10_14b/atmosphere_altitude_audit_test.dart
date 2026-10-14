@@ -406,7 +406,7 @@ void main() {
         // No DOPE oluştur: the automatic solve must already use 1500 m.
         expect(_density(tester), closeTo(_rho1500, _rhoTol));
       },
-      skip: true, // ATM-1: shows 1,2211 (standard atmosphere) until re-solved
+      skip: false, // ATM-1: shows 1,2211 (standard atmosphere) until re-solved
     );
 
     testWidgets(
@@ -416,7 +416,7 @@ void main() {
         await _open(tester, _Rig(), BallisticsView.shot);
         expect(find.byKey(_note), findsOneWidget);
       },
-      skip: true, // ATM-1: the first solve ran before the İrtifa was restored
+      skip: false, // ATM-1: the first solve ran before the İrtifa was restored
     );
 
     testWidgets(
@@ -437,7 +437,7 @@ void main() {
         expect(first, isNotNull);
         expect(first!, closeTo(after!, 1e-9));
       },
-      skip: true, // ATM-1: first = standard atmosphere, after = 1500 m
+      skip: false, // ATM-1: first = standard atmosphere, after = 1500 m
     );
   });
 
@@ -449,7 +449,7 @@ void main() {
         expect(t, contains('basınç'));
         expect(t, contains('boş'));
       },
-      skip: true, // ATM-2: owner text dropped the F1 rule; .altitude unused
+      skip: false, // ATM-2: owner text dropped the F1 rule; .altitude unused
     );
   });
 
@@ -462,7 +462,7 @@ void main() {
           isNot(contains('Basıncı telefondan al')),
         );
       },
-      skip: true, // ATM-3: still the old name; phone_pressure_test locks it
+      skip: false, // ATM-3: still the old name; phone_pressure_test locks it
     );
   });
 }

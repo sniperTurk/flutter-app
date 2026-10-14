@@ -567,7 +567,7 @@ void main() {
       // manual copy written by _scopeEntry has no windageRangeMrad, so the
       // limit becomes "unknown" (100000 clicks).
       expect(r.after['windageRangeMrad'], 10.0);
-    }, skip: true); // PRF-1: _scopeEntry does not write windageRangeMrad
+    }, skip: false); // PRF-1: _scopeEntry does not write windageRangeMrad
   });
 
   group('PRF-2: Kopyala is an independent copy', () {
@@ -611,7 +611,7 @@ void main() {
       );
       // Expected: the original still flies with its own BC 0,1.
       expect(_solverInputs(savedOriginal)['bc'], closeTo(0.1, 1e-9));
-    }, skip: true); // PRF-2: copy and original share manual_ammo_pcp
+    }, skip: false); // PRF-2: copy and original share manual_ammo_pcp
   });
 
   group('PRF-3: profile unit differs from the old scope unit', () {
@@ -632,7 +632,7 @@ void main() {
         selectedValue<String>(tester, 'scope-model-select'),
         'SH-4 GENII 4-16x50 FFP',
       );
-    }, skip: true); // PRF-3: saved as MOA 0.25, reopens as the MOA model
+    }, skip: false); // PRF-3: saved as MOA 0.25, reopens as the MOA model
   });
 
   group('deleted catalog id is never substituted', () {
@@ -724,7 +724,7 @@ void main() {
       // Expected: the exact model name (or no match), never another model.
       expect(hit == null || hit.model == 'Hercules Bully', isTrue,
           reason: 'matched ${hit?.brand} / ${hit?.model}');
-    }, skip: 'PRF-4: caliber preference beats the exact model name');
+    }, );
 
     test('PRF-5: upper-case Turkish brand "SARSILMAZ" is "Sarsılmaz"', () {
       final hit = ProfileCatalogMatch.rifle(
@@ -734,7 +734,7 @@ void main() {
         _rifles(WeaponPlatform.firearm),
       );
       expect(hit?.brand, 'Sarsılmaz');
-    }, skip: 'PRF-5: toLowerCase maps I to i, not ı');
+    }, );
   });
 
   group('Barut katsayısı semantics (%/15 °C, unchanged by #308)', () {
