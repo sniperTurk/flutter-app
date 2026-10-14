@@ -162,7 +162,10 @@ Hepsi `fix/profiller-listesi` dalında, `ff16ba9` (biçimlendirme commit'i)
   notları geçen testlerin yazdırdığı tanı satırları; aynıları `main`
   üzerindeki önceki koşuda da var (38582190475), bu işle ilgisi yok.
 - Bu rapor commit'i yalnız belge ekler; kodu değiştirmez.
-- iOS CI, Simulator, TestFlight, App Store: **koşmadı** (istenmedi).
+- PR #309 üzerindeki iOS CI (`3f1be50`): **verify başarılı**, dart-checks
+  başarılı, wind-acceptance başarılı; ios-simulator işi **atlandı**
+  (koşmadı) — https://github.com/sniperTurk/flutter-app/actions/runs/38593397148
+- Simulator, TestFlight, App Store: **koşmadı**.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
