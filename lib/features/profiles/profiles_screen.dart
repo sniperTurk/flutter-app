@@ -1762,8 +1762,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// A plain reticle pattern that matches the scope's turret unit: MIL
   /// patterns for a MRAD scope, the MOA pattern for MOA / SMOA; Duplex fits
-  /// both.
+  /// both. A typed scope whose Dürbün birimi still says "Seçiniz" lists all
+  /// five (owner, 2026-10-14): the hidden unit (MRAD in a new profile, the
+  /// saved unit on edit) gave Profil Oluştur 4 and Profili Düzenle 2.
   bool _genericFitsUnit(String n) {
+    if (!_scopeFromList && !_angularUnitSet) return true;
     if (n == Reticles.duplex) return true;
     final moa = angularUnit.moaFamily;
     return n == Reticles.hashMoa ? moa : !moa;
