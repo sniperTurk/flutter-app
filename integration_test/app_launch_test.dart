@@ -141,9 +141,15 @@ void main() {
     await tester.pumpAndSettle();
     await type('ammo-grain', '33,95');
     await type('ammo-bc', '0,08');
-    // PCP has no BC modeli box: pellets and slugs are always solved with G1
-    // (owner, 2026-10-12; `_bcModelForSave` in profiles_screen.dart).
-    expect(find.byKey(const Key('ammo-bc-model')), findsNothing);
+    // PCP shows BC modeli since 2026-10-14 (owner), G1 selected by default.
+    expect(find.byKey(const Key('ammo-bc-model')), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('ammo-bc-model')),
+        matching: find.text('G1'),
+      ),
+      findsWidgets,
+    );
     await type('profile-velocity-fps', '900');
     await choose('profile-distance-unit', 'Metre');
     await type('profile-zero', '25');
