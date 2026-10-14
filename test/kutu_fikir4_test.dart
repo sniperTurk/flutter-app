@@ -61,6 +61,8 @@ Future<void> _pump(
     location: TestLocation(const LocationFix(39.9, 32.8, altitudeM: 900)),
     weather: TestWeather(observation(fetchedAt: DateTime.utc(2026, 10, 12))),
     pressure: TestPressure(const PressureRead(912.4)),
+    // Local 11:20, so the done texts carry "· 11:20" (owner, 2026-10-14).
+    clock: TestClock(DateTime(2026, 10, 14, 11, 20)),
   );
   await tester.pumpWidget(
     theme == null
@@ -140,18 +142,29 @@ void main() {
         label: 'Bağıl nem',
         unit: '%',
       );
-      _expectCompactInput(
-        tester,
-        BallisticsFieldKeys.pressure,
-        label: 'İstasyon basıncı',
-        unit: 'hPa',
-      );
-      _expectCompactInput(
-        tester,
-        BallisticsFieldKeys.altitude,
-        label: 'İrtifa',
-        unit: 'm',
-      );
+      // Basınç Ölçer and İrtifa (owner exception, 2026-10-14): ONE ⓘ right
+      // of the card title, none inside their boxes.
+      for (final (key, label, unit) in [
+        (BallisticsFieldKeys.pressure, 'İstasyon basıncı', 'hPa'),
+        (BallisticsFieldKeys.mapAltitude, 'Haritadan irtifa', 'm'),
+        (BallisticsFieldKeys.altitude, 'Telefondan irtifa', 'm'),
+      ]) {
+        expect(
+          find.descendant(of: find.byKey(key), matching: find.text(label)),
+          findsOneWidget,
+        );
+        expect(
+          find.descendant(of: _field(key), matching: find.text(unit)),
+          findsOneWidget,
+        );
+        expect(_infoIn(find.byKey(key)), findsNothing, reason: '$key');
+        expect(
+          tester.getRect(_field(key)).height,
+          moreOrLessEquals(44, epsilon: 0.01),
+        );
+      }
+      expect(find.byTooltip('Bilgi: Basınç Ölçer'), findsOneWidget);
+      expect(find.byTooltip('Bilgi: İrtifa'), findsOneWidget);
       _expectCompactInput(
         tester,
         BallisticsFieldKeys.wind,
@@ -196,7 +209,6 @@ void main() {
       await _pump(tester, BallisticsView.environment);
       for (final pair in [
         [BallisticsFieldKeys.temperature, BallisticsFieldKeys.humidity],
-        [BallisticsFieldKeys.pressure, BallisticsFieldKeys.altitude],
         [BallisticsFieldKeys.wind, BallisticsFieldKeys.windDirection],
       ]) {
         final a = tester.getRect(_field(pair[0]));
@@ -255,16 +267,14 @@ void main() {
         findsOneWidget,
       );
       expect(find.byTooltip('Bilgi: Sıcaklık'), findsOneWidget);
-      expect(find.byTooltip('Bilgi: İstasyon basıncı'), findsOneWidget);
+      expect(find.byTooltip('Bilgi: Basınç Ölçer'), findsOneWidget);
     });
 
-    testWidgets('done texts: "Hava verisi alındı", "Basınç alındı", one line', (
-      tester,
-    ) async {
+    testWidgets('done texts: "Hava verisi alındı", "Basınç alındı", one '
+        'line', (tester) async {
       await _pump(tester, BallisticsView.environment);
-      // Idle texts unchanged.
       expect(find.text('Konumdan canlı hava verisi al'), findsOneWidget);
-      expect(find.text('Basıncı telefondan al'), findsOneWidget);
+      expect(find.text('Basınç al'), findsOneWidget);
       for (final key in const [
         Key('environment-fill-weather'),
         Key('environment-phone-pressure'),

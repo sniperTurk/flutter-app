@@ -615,6 +615,10 @@ class MenzilSectionHeader extends StatelessWidget {
   final String title;
   final String? subtitle;
   final Widget? trailing;
+
+  /// Right after the title (not at the far right), e.g. the single ⓘ of
+  /// Hava Durumu's Basınç Ölçer and İrtifa cards (owner, 2026-10-14).
+  final Widget? titleTrailing;
   final EdgeInsetsGeometry padding;
 
   /// Title size; the Profil summary cards use a smaller 18 (owner,
@@ -626,6 +630,7 @@ class MenzilSectionHeader extends StatelessWidget {
     super.key,
     this.subtitle,
     this.trailing,
+    this.titleTrailing,
     this.size = 22,
     this.padding = const EdgeInsets.only(
       top: MenzilSpace.sm,
@@ -644,13 +649,28 @@ class MenzilSectionHeader extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Semantics(
-                  header: true,
-                  child: Text(
-                    title,
-                    style: MenzilType.heading(c.ink, size: size),
-                  ),
-                ),
+                child: titleTrailing == null
+                    ? Semantics(
+                        header: true,
+                        child: Text(
+                          title,
+                          style: MenzilType.heading(c.ink, size: size),
+                        ),
+                      )
+                    : Row(
+                        children: [
+                          Flexible(
+                            child: Semantics(
+                              header: true,
+                              child: Text(
+                                title,
+                                style: MenzilType.heading(c.ink, size: size),
+                              ),
+                            ),
+                          ),
+                          titleTrailing!,
+                        ],
+                      ),
               ),
               if (trailing != null) trailing!,
             ],

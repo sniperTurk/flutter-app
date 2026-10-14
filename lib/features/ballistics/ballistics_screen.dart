@@ -34,6 +34,8 @@ import '../../services/watch/watch_bridge.dart';
 import '../../services/watch/watch_solution.dart';
 import '../../tools/domain/field_calc.dart';
 import '../../tools/domain/shot_angle_math.dart';
+import '../../tools/ports/clock.dart';
+import '../../tools/ports/elevation_provider.dart';
 import '../../tools/ports/heading_provider.dart';
 import '../../tools/ports/location_provider.dart';
 import '../../tools/ports/pressure_sensor.dart';
@@ -47,6 +49,7 @@ import '../tools/parallax_screen.dart';
 import 'dope_card.dart';
 import '../profiles/profile_field_info.dart';
 import 'environment_field_info.dart';
+import 'fetch_date_text.dart';
 import 'flight_warnings.dart';
 import 'incline_measure_screen.dart';
 import 'pro_info_sheet.dart';
@@ -81,7 +84,13 @@ abstract final class BallisticsFieldKeys {
   static const temperature = ValueKey('ballistics-temperature');
   static const pressure = ValueKey('ballistics-pressure');
   static const humidity = ValueKey('ballistics-humidity');
+
+  /// İrtifa card → Telefondan irtifa (the former single İrtifa box; owner,
+  /// 2026-10-14).
   static const altitude = ValueKey('ballistics-altitude');
+
+  /// İrtifa card → Haritadan irtifa.
+  static const mapAltitude = ValueKey('ballistics-map-altitude');
   static const ranges = ValueKey('ballistics-ranges');
 }
 
@@ -209,7 +218,8 @@ class _ShotBasis {
   );
 }
 
-class _BallisticsScreenState extends State<BallisticsScreen> {
+class _BallisticsScreenState extends State<BallisticsScreen>
+    with WidgetsBindingObserver {
   late final TextEditingController velocity;
   late final TextEditingController grain;
   late final TextEditingController zero;
@@ -227,6 +237,17 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return h != null && h >= 1 && h <= 12 ? h : null;
   }
 
+  /// When the Rüzgâr yönü was set (dial tap or typed hour; owner,
+  /// 2026-10-14), saved with the weather state.
+  int? _windDirAtMs;
+
+  void _windDirectionSet() {
+    _windDirAtMs = _windHourValue == null
+        ? null
+        : _clock.now().millisecondsSinceEpoch;
+    _weatherChanged();
+  }
+
   void _syncWindHour() {
     final h = _windHourValue;
     if (h != null) {
@@ -237,7 +258,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   late final TextEditingController temperature;
   late final TextEditingController pressure;
   late final TextEditingController humidity;
+
+  /// Telefondan irtifa (owner, 2026-10-14; the former İrtifa box, so an
+  /// older saved İrtifa comes back here).
   late final TextEditingController altitude;
+
+  /// Haritadan irtifa (Google Maps Elevation API).
+  late final TextEditingController mapAltitude;
   late final TextEditingController ranges;
 
   List<TrajectoryPoint> points = [];
@@ -320,6 +347,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         // empty and is filled only by "Rüzgâr düzeltmesi al" or by hand.
         windMaxCtl.text = s.windMaxText;
         _windMaxFilled = s.windMaxFromWind && s.windMaxText.isNotEmpty;
+        _windMaxAtMs = _windMaxFilled ? s.windMaxAtMs : null;
         targetSpeedCtl.text = s.targetSpeedText;
         _targetMovesRight = s.targetMovesRight;
         bulletLengthCtl.text = s.bulletLengthText;
@@ -347,6 +375,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _shotCache.clear();
         _holdSamples = null;
       });
+      _scheduleFreshnessCheck();
     }
     _shotSettingsReady = true;
   }
@@ -381,11 +410,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final m = metric;
     final t = n(temperature), p = n(pressure), h = n(humidity);
     final a = n(altitude), w = n(wind), d = n(windDirection);
+    final ma = n(mapAltitude);
     return {
       if (t != null) 'temperature': m ? t : UnitSystem.fahrenheitToCelsius(t),
       if (p != null) 'pressure': m ? p : UnitSystem.inHgToHpa(p),
       if (h != null) 'humidity': h,
       if (a != null) 'altitude': m ? a : UnitSystem.feetToMeters(a),
+      if (ma != null) 'mapAltitude': m ? ma : UnitSystem.feetToMeters(ma),
       if (w != null) 'wind': m ? w : UnitSystem.mphToMps(w),
       if (d != null && _windHourValue != null) 'windDirection': d,
     };
@@ -414,9 +445,19 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     temperature.text = show('temperature', UnitSystem.celsiusToFahrenheit);
     pressure.text = show('pressure', UnitSystem.hpaToInHg);
     humidity.text = show('humidity', (v) => v);
+    // An older save's single İrtifa is the 'altitude' key: it comes back
+    // as Telefondan irtifa (owner, 2026-10-14).
     altitude.text = show('altitude', UnitSystem.metersToFeet);
+    mapAltitude.text = show('mapAltitude', UnitSystem.metersToFeet);
     wind.text = show('wind', UnitSystem.mpsToMph);
-    for (final c in [temperature, pressure, humidity, altitude, wind]) {
+    for (final c in [
+      temperature,
+      pressure,
+      humidity,
+      altitude,
+      mapAltitude,
+      wind,
+    ]) {
       if (c.text.isNotEmpty) _userEdited.add(c);
     }
     final wd = si['windDirection'];
@@ -426,6 +467,13 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     _weatherFilled = s.weatherFromLocation;
     _pressureFilled = s.pressureFromPhone && pressure.text.isNotEmpty;
+    // No time (older saves) = old: never orange (owner, 2026-10-14).
+    _weatherFetchedAtMs = s.weatherFetchedAtMs;
+    _pressureFetchedAtMs = s.pressureFetchedAtMs;
+    // The altitude buttons stay orange while their box holds the fetch.
+    _altPhoneAtMs = altitude.text.isEmpty ? null : s.altitudePhoneAtMs;
+    _altMapAtMs = mapAltitude.text.isEmpty ? null : s.altitudeMapAtMs;
+    _windDirAtMs = wd == null ? null : s.windDirectionAtMs;
   }
 
   void _saveShotSettings() {
@@ -447,6 +495,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       weatherSi: _weatherSi(),
       weatherFromLocation: _weatherFilled,
       pressureFromPhone: _pressureFilled,
+      weatherFetchedAtMs: _weatherFilled ? _weatherFetchedAtMs : null,
+      pressureFetchedAtMs: _pressureFilled ? _pressureFetchedAtMs : null,
+      altitudePhoneAtMs: altitude.text.trim().isEmpty ? null : _altPhoneAtMs,
+      altitudeMapAtMs: mapAltitude.text.trim().isEmpty ? null : _altMapAtMs,
+      windDirectionAtMs: _windHourValue == null ? null : _windDirAtMs,
+      windMaxAtMs: _windMaxFilled ? _windMaxAtMs : null,
       azimuthText: azimuthCtl.text.trim(),
       turretScaleText: turretScaleCtl.text.trim(),
       windMaxText: windMaxCtl.text.trim(),
@@ -528,29 +582,47 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   bool _windMaxFilled = false;
   bool _windMaxWasReset = false;
 
+  /// When En çok rüzgâr was written from Rüzgâr hızı (UTC epoch ms).
+  int? _windMaxAtMs;
+
   void _fillWindMax() {
-    final w = double.tryParse(wind.text.trim().replaceAll(',', '.'));
-    if (w == null || !w.isFinite || w <= 0) {
+    if (!_putWindMaxFromWind()) {
       ScaffoldMessenger.maybeOf(context)?.showSnackBar(
         const SnackBar(
           content: Text('Önce Hava Durumu\'nda rüzgâr hızını girin.'),
         ),
       );
-      return;
     }
+  }
+
+  /// En çok rüzgâr = Rüzgâr hızı × 1,5 (as "Düzeltme al" always did).
+  /// False when there is no usable Rüzgâr hızı.
+  bool _putWindMaxFromWind() {
+    final w = double.tryParse(wind.text.trim().replaceAll(',', '.'));
+    if (w == null || !w.isFinite || w <= 0) return false;
     setState(() {
       windMaxCtl.text = (w * windGustFactor).toStringAsFixed(1);
       _windMaxFilled = true;
       _windMaxWasReset = false;
+      _windMaxAtMs = _clock.now().millisecondsSinceEpoch;
       _shotCache.clear();
       _holdSamples = null;
     });
     _coriolisChanged();
+    return true;
+  }
+
+  /// A weather fill brought a new Rüzgâr hızı (owner, 2026-10-14): En çok
+  /// rüzgâr follows it when the box holds a "Düzeltme al" value; a typed
+  /// value (or an emptied box) is never overwritten.
+  void _windMaxFollowsWind() {
+    if (_windMaxFilled) _putWindMaxFromWind();
   }
 
   void _resetWindMax() {
     setState(() {
       windMaxCtl.text = '';
+      _windMaxAtMs = null;
       // Yol ortası and Hedefte are cleared too (owner, 2026-10-12).
       windMidCtl.text = '';
       windFarCtl.text = '';
@@ -970,8 +1042,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final fix = await services.location.current();
     if (!mounted) return;
     if (fix is LocationFix) {
-      // Altitude: the Hava Durumu value, else the GPS height.
-      final typedAlt = _parsed(altitude);
+      // Altitude: the İrtifa card (Telefondan, else Haritadan; owner,
+      // 2026-10-14), else the GPS height.
+      final typedAlt = _parsed(_altitudeCtl);
       final altM = typedAlt != null
           ? (metric ? typedAlt : UnitSystem.feetToMeters(typedAlt))
           : (fix.altitudeM ?? 0);
@@ -1064,6 +1137,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     ShotSettingsStore.externalWrites.addListener(_onExternalShotSettings);
     final p = widget.profile;
     profileResolution = p == null
@@ -1112,13 +1186,21 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     pressure = TextEditingController();
     humidity = TextEditingController();
     altitude = TextEditingController();
+    mapAltitude = TextEditingController();
     ranges = TextEditingController(
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
     widget.environmentCarry?._apply(this);
     // Every Hava Durumu change is kept for this profile until Sıfırla
     // (owner, 2026-10-12).
-    for (final c in [temperature, pressure, humidity, altitude, wind]) {
+    for (final c in [
+      temperature,
+      pressure,
+      humidity,
+      altitude,
+      mapAltitude,
+      wind,
+    ]) {
       c.addListener(_weatherChanged);
     }
     windDirection.addListener(_weatherChanged);
@@ -1130,7 +1212,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // reticle, hold labels and point of impact are ready at once. The fields are still SI here; a later switch to
     // imperial only converts the fields, the stored basis stays SI.
     // Failures stay silent (the shot view says why).
-    if (widget.view == BallisticsView.environment) _maybeAutoWeather();
+    if (widget.view == BallisticsView.environment) {
+      _maybeAutoWeather();
+      _warmUpPhoneAltitude();
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted && widget.profile != null && _basis == null) {
         _silentErrors = true;
@@ -1163,13 +1248,103 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// The weather button is orange while its boxes hold the fetched values
   /// (owner, 2026-10-13): fetched, and Sıcaklık and Bağıl nem not emptied.
-  bool get _weatherOrange =>
+  bool get _weatherOrange => _weatherHolds && _isFresh(_weatherFetchedAtMs);
+
+  /// The boxes still hold a fetch, but it is older than 30 minutes (or of
+  /// unknown age): "Hava verisi eski · Yenile" (owner, 2026-10-14).
+  bool get _weatherStale => _weatherHolds && !_isFresh(_weatherFetchedAtMs);
+
+  bool get _weatherHolds =>
       _weatherFilled &&
       temperature.text.trim().isNotEmpty &&
       humidity.text.trim().isNotEmpty;
 
   /// The same for "Basıncı telefondan al".
   bool _pressureFilled = false;
+  bool get _pressureOrange => _pressureFilled && _isFresh(_pressureFetchedAtMs);
+  bool get _pressureStale => _pressureFilled && !_isFresh(_pressureFetchedAtMs);
+
+  /// When the weather / pressure button last filled its boxes (UTC epoch
+  /// ms, from [_clock]); null = unknown (older saves), which counts as old.
+  int? _weatherFetchedAtMs;
+  int? _pressureFetchedAtMs;
+
+  /// A fetched value counts as current this long (owner, 2026-10-14:
+  /// "Hava verisi alındı turuncu ama tuşa bastım başka veriler geldi").
+  static const _freshFor = Duration(minutes: 30);
+
+  /// Time source (ToolsServices.clock) so tests can move time.
+  Clock _clock = const SystemClock();
+
+  /// Rebuilds the page when a fresh fetch turns old while it is open.
+  Timer? _freshnessTimer;
+
+  /// Fresh = fetched at most 30 minutes ago. A fetch time in the future
+  /// (the phone clock was set back) is not trusted: old.
+  bool _isFresh(int? atMs) {
+    if (atMs == null) return false;
+    final age = _clock.now().millisecondsSinceEpoch - atMs;
+    return age >= 0 && age <= _freshFor.inMilliseconds;
+  }
+
+  /// The date row under a fetch button: the fetch's date and time, or
+  /// today's date before any fetch (owner, 2026-10-14).
+  String _whenText(int? atMs) =>
+      atMs == null ? fetchDateText(_clock.now()) : fetchDateTimeText(atMs);
+
+  /// One timer for the earliest moment a fresh fetch turns old; it fires
+  /// just after the 30-minute mark, rebuilds and arms the next one.
+  void _scheduleFreshnessCheck() {
+    _freshnessTimer?.cancel();
+    _freshnessTimer = null;
+    final now = _clock.now().millisecondsSinceEpoch;
+    int? next;
+    for (final (filled, at) in [
+      (_weatherFilled, _weatherFetchedAtMs),
+      (_pressureFilled, _pressureFetchedAtMs),
+    ]) {
+      if (!filled || at == null) continue;
+      final age = now - at;
+      if (age < 0 || age > _freshFor.inMilliseconds) continue;
+      final left = _freshFor.inMilliseconds - age + 1;
+      if (next == null || left < next) next = left;
+    }
+    if (next == null) return;
+    _freshnessTimer = Timer(Duration(milliseconds: next), () {
+      _freshnessTimer = null;
+      if (!mounted) return;
+      setState(() {});
+      _scheduleFreshnessCheck();
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Not ToolsServicesScope.of: without a scope the system clock is
+    // enough, no need to build the production services here.
+    _clock =
+        context
+            .dependOnInheritedWidgetOfExactType<ToolsServicesScope>()
+            ?.services
+            .clock ??
+        const SystemClock();
+    _scheduleFreshnessCheck();
+  }
+
+  /// Back from the background (e.g. after an update, the owner's case):
+  /// re-check freshness at once.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Background: the silent altitude warm-up is dropped (owner, 2026-10-14).
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden) {
+      _cancelPhoneAltitudeWarmUp();
+    }
+    if (state != AppLifecycleState.resumed || !mounted) return;
+    setState(() {});
+    _scheduleFreshnessCheck();
+  }
 
   /// After "Sıfırla" the reset button stays, orange, as "Veriler sıfırlandı"
   /// (owner, 2026-10-12) until the next fetch or a typed value.
@@ -1200,11 +1375,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   void _resetPressure() {
     setState(() {
+      // Pressure only: İrtifa has its own card (owner, 2026-10-14).
       pressure.text = '';
-      altitude.text = '';
-      _userEdited
-        ..remove(pressure)
-        ..remove(altitude);
+      _userEdited.remove(pressure);
       _pressureFilled = false;
       _pressureWasReset = true;
       _pressureStatus = null;
@@ -1222,6 +1395,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (widget.view == BallisticsView.environment &&
         old.view != BallisticsView.environment) {
       _maybeAutoWeather();
+      _warmUpPhoneAltitude();
     }
     // Atış has no Hesapla button any more (owner, 2026-10-08): it is solved
     // with the current Hava Durumu / Pro values whenever it opens.
@@ -1264,9 +1438,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   String? get _pressureWarning {
     double? parse(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
-    // An empty İrtifa is solved as 0 m, so the check uses 0 m too.
+    // An empty İrtifa is solved as 0 m, so the check uses 0 m too. The
+    // effective İrtifa: Telefondan, else Haritadan (owner, 2026-10-14).
+    final alt = _altitudeCtl;
     final p = parse(pressure);
-    final a = altitude.text.trim().isEmpty ? 0.0 : parse(altitude);
+    final a = alt.text.trim().isEmpty ? 0.0 : parse(alt);
     if (p == null || a == null || !p.isFinite || !a.isFinite) return null;
     final pHpa = metric ? p : UnitSystem.inHgToHpa(p);
     final aM = metric ? a : UnitSystem.feetToMeters(a);
@@ -1278,7 +1454,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       return '${aM.round()} m irtifada gerçek basınç yaklaşık '
           '${typical.round()} hPa olur; girilen değer deniz seviyesi basıncı '
           'olabilir. Hava durumu uygulamasındaki basıncı istasyon basıncına '
-          'çevirin ya da "Konumdan canlı hava verisi al" düğmesini kullanın.';
+          'çevirin ya da "Basınç al" düğmesini kullanın.';
     }
     if (pHpa < low - 1) {
       return '${aM.round()} m irtifa için basınç çok düşük (yaklaşık '
@@ -1309,6 +1485,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     });
     String status;
     var failed = false;
+    String? windBefore;
     try {
       final fix = await services.location.current();
       if (fix is! LocationFix) {
@@ -1323,6 +1500,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         final obs = await services.weather.fetch(fix.latitude, fix.longitude);
         if (!mounted) return;
         if (overwrite) _userEdited.clear();
+        windBefore = wind.text;
         void put(TextEditingController c, String v) {
           if (!_userEdited.contains(c)) c.text = v;
         }
@@ -1347,8 +1525,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         final mm = t.minute.toString().padLeft(2, '0');
         status =
             'Hava verisi konumdan dolduruldu (${obs.sourceName}, $hh:$mm). '
-            'Basınç ve irtifa için "Basıncı telefondan al". Rüzgâr yönünü '
-            'siz seçin.';
+            'Basınç için "Basınç al", irtifa için İrtifa kartı. Rüzgâr '
+            'yönünü siz seçin.';
       }
     } on WeatherFailure {
       failed = true;
@@ -1365,8 +1543,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       if (!failed) {
         _weatherFilled = true;
         _weatherWasReset = false;
+        _weatherFetchedAtMs = _clock.now().millisecondsSinceEpoch;
       }
     });
+    if (!failed) {
+      // Stored even when the values came back the same (no text change).
+      _weatherChanged();
+      _scheduleFreshnessCheck();
+      // A new Rüzgâr hızı updates En çok rüzgâr (owner, 2026-10-14).
+      if (windBefore != null && wind.text != windBefore) _windMaxFollowsWind();
+    }
     // Re-solve with the new conditions (quietly: Atış says why if not).
     if (!failed && widget.profile != null) {
       _silentErrors = true;
@@ -1384,9 +1570,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   String? _pressureStatus;
   bool _pressureFailed = false;
 
-  /// "Basıncı telefondan al": reads the phone barometer once, ONLY on this
-  /// button (owner rule), and writes it into Basınç as the user's own value.
-  /// The weather fill never writes Basınç.
+  /// "Basınç al": reads the phone barometer once, ONLY on this button
+  /// (owner rule), and writes it into İstasyon basıncı as the user's own
+  /// value. The weather fill never writes Basınç, and since 2026-10-14 this
+  /// button no longer writes İrtifa (the İrtifa card has its own buttons).
   Future<void> _readPhonePressure() async {
     if (_pressureBusy) return;
     final services = ToolsServicesScope.of(context);
@@ -1395,19 +1582,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _pressureBusy = true;
       _pressureStatus = null;
     });
-    // İrtifa from the phone's GPS on the same tap (owner, 2026-10-12).
-    final altitudeFuture = services.location
-        .current()
-        .timeout(const Duration(seconds: 8))
-        .then<double?>((f) => f is LocationFix ? f.altitudeM : null)
-        .catchError((Object _) => null);
     PressureReading reading;
     try {
       reading = await sensor.read();
     } catch (_) {
       reading = const PressureUnavailable();
     }
-    final gpsAlt = await altitudeFuture;
     if (!mounted) return;
     setState(() {
       _pressureBusy = false;
@@ -1417,16 +1597,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _pressureFailed = false;
         _pressureFilled = true;
         _pressureWasReset = false;
-        if (gpsAlt != null && gpsAlt.isFinite) {
-          altitude.text = (metric ? gpsAlt : UnitSystem.metersToFeet(gpsAlt))
-              .toStringAsFixed(0);
-          _userEdited.add(altitude);
-        }
-        _pressureStatus =
-            'Basınç telefondan alındı: '
-            '${_pressureText(reading.hpa).replaceAll('.', ',')} '
-            '${metric ? 'hPa' : 'inHg'}'
-            '${gpsAlt != null && gpsAlt.isFinite ? ' · irtifa GPS\'ten ${altitude.text} ${metric ? 'm' : 'ft'}' : ' · irtifa alınamadı, elle girin'}.';
+        _pressureFetchedAtMs = _clock.now().millisecondsSinceEpoch;
+        // The date row under the button says when (owner, 2026-10-14).
+        _pressureStatus = null;
       } else {
         _pressureFailed = true;
         final u = reading as PressureUnavailable;
@@ -1445,8 +1618,321 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         };
       }
     });
+    if (reading is PressureRead) {
+      _weatherChanged();
+      _scheduleFreshnessCheck();
+    }
     if (reading is PressureRead && widget.profile != null) _quietSolve();
   }
+
+  // ---- İrtifa card (owner, 2026-10-14) -----------------------------------
+
+  /// When "Telefondan" / "Haritadan" wrote their box (UTC epoch ms); null =
+  /// typed, reset or never fetched. The buttons stay orange while set (no
+  /// 30-minute rule for altitude).
+  int? _altPhoneAtMs;
+  int? _altMapAtMs;
+  bool _altPhoneBusy = false;
+  bool _altMapBusy = false;
+
+  /// One short note under the İrtifa rows (failures only).
+  String? _altitudeStatus;
+
+  /// After Sıfırla, as on the other cards.
+  bool _altitudeWasReset = false;
+
+  /// The İrtifa used by the calculation: Telefondan irtifa when it holds a
+  /// value, else Haritadan irtifa (owner, 2026-10-14).
+  TextEditingController get _altitudeCtl =>
+      altitude.text.trim().isNotEmpty ? altitude : mapAltitude;
+
+  /// Silent GPS warm-up: one high-accuracy request when Hava Durumu opens,
+  /// exactly as if "Telefondan" were pressed, but its result is dropped
+  /// (nothing written, nothing shown). Bumping the token drops it too
+  /// (page closed, app in the background).
+  int _altWarmUpToken = 0;
+  Future<LocationResult>? _altWarmUp;
+
+  void _warmUpPhoneAltitude() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted || _altWarmUp != null) return;
+      final provider = ToolsServicesScope.of(context).phoneAltitude;
+      if (provider == null) return;
+      final token = ++_altWarmUpToken;
+      bool granted;
+      try {
+        granted = await provider.permissionGranted();
+      } catch (_) {
+        granted = false;
+      }
+      // Never the permission prompt from here: the button asks as today.
+      if (!granted || !mounted || token != _altWarmUpToken) return;
+      final request = provider.current().catchError(
+        (Object _) => const LocationFailure('Konum alınamadı.'),
+      );
+      _altWarmUp = request;
+      await request;
+      if (token == _altWarmUpToken) _altWarmUp = null;
+    });
+  }
+
+  void _cancelPhoneAltitudeWarmUp() {
+    _altWarmUpToken++;
+    _altWarmUp = null;
+  }
+
+  String _altitudeShown(double meters) =>
+      (metric ? meters : UnitSystem.metersToFeet(meters)).toStringAsFixed(0);
+
+  /// "Telefondan": a fresh (GPS already warmed) reading, written at once.
+  Future<void> _readPhoneAltitude() async {
+    if (_altPhoneBusy) return;
+    final services = ToolsServicesScope.of(context);
+    // A warm-up still running is this very request: wait for it instead of
+    // starting a second one.
+    final running = _altWarmUp;
+    _cancelPhoneAltitudeWarmUp();
+    setState(() {
+      _altPhoneBusy = true;
+      _altitudeStatus = null;
+    });
+    LocationResult fix;
+    try {
+      fix =
+          await (running ??
+              (services.phoneAltitude?.current() ??
+                  services.location.current()));
+    } catch (_) {
+      fix = const LocationFailure('Konum alınamadı.');
+    }
+    if (!mounted) return;
+    final meters = fix is LocationFix ? fix.altitudeM : null;
+    setState(() {
+      _altPhoneBusy = false;
+      if (meters != null && meters.isFinite) {
+        altitude.text = _altitudeShown(meters);
+        _userEdited.add(altitude);
+        _altPhoneAtMs = _clock.now().millisecondsSinceEpoch;
+        _altitudeWasReset = false;
+      } else {
+        // No usable altitude (0–50 m vertical accuracy rule): the box is
+        // emptied so the map value, if any, is used.
+        altitude.text = '';
+        _userEdited.remove(altitude);
+        _altPhoneAtMs = null;
+        _altitudeStatus = mapAltitude.text.trim().isNotEmpty
+            ? 'Telefon irtifası alınamadı; hesapta haritadan gelen irtifa '
+                  'kullanılıyor.'
+            : 'İrtifa alınamadı, elle girin.';
+      }
+    });
+    _altitudeChanged();
+  }
+
+  /// "Haritadan": the phone's position → Google Maps Elevation API.
+  Future<void> _readMapAltitude() async {
+    if (_altMapBusy) return;
+    final services = ToolsServicesScope.of(context);
+    final elevationService = services.elevation;
+    setState(() {
+      _altMapBusy = true;
+      _altitudeStatus = null;
+    });
+    String? failure;
+    double? meters;
+    if (elevationService == null) {
+      failure = 'Harita irtifası bu derlemede yok; irtifayı elle girin.';
+    } else {
+      LocationResult fix;
+      try {
+        fix = await services.location.current();
+      } catch (_) {
+        fix = const LocationFailure('Konum alınamadı.');
+      }
+      if (fix is! LocationFix) {
+        failure = switch (fix) {
+          LocationDenied() => 'Konum izni yok; irtifayı elle girin.',
+          LocationServiceOff() =>
+            'Konum Servisleri kapalı; irtifayı elle girin.',
+          _ => 'Konum alınamadı; irtifayı elle girin.',
+        };
+      } else {
+        ElevationResult result;
+        try {
+          result = await elevationService.elevation(
+            fix.latitude,
+            fix.longitude,
+          );
+        } catch (_) {
+          result = const ElevationUnavailable(ElevationFailure.error);
+        }
+        switch (result) {
+          case ElevationRead(meters: final m):
+            meters = m;
+          case ElevationUnavailable(:final reason):
+            failure = switch (reason) {
+              ElevationFailure.noKey =>
+                'Harita irtifası bu derlemede yok; irtifayı elle girin.',
+              ElevationFailure.offline =>
+                'İnternet yok; harita irtifası alınamadı.',
+              ElevationFailure.error =>
+                'Harita irtifası alınamadı; irtifayı elle girin.',
+            };
+        }
+      }
+    }
+    if (!mounted) return;
+    setState(() {
+      _altMapBusy = false;
+      final m = meters;
+      if (failure == null && m != null) {
+        mapAltitude.text = _altitudeShown(m);
+        _userEdited.add(mapAltitude);
+        _altMapAtMs = _clock.now().millisecondsSinceEpoch;
+        _altitudeWasReset = false;
+      } else {
+        mapAltitude.text = '';
+        _userEdited.remove(mapAltitude);
+        _altMapAtMs = null;
+        _altitudeStatus = failure ?? 'Harita irtifası alınamadı.';
+      }
+    });
+    _altitudeChanged();
+  }
+
+  /// Sıfırla of the İrtifa card: empties both boxes.
+  void _resetAltitude() {
+    setState(() {
+      altitude.text = '';
+      mapAltitude.text = '';
+      _userEdited
+        ..remove(altitude)
+        ..remove(mapAltitude);
+      _altPhoneAtMs = null;
+      _altMapAtMs = null;
+      _altitudeStatus = null;
+      _altitudeWasReset = true;
+    });
+    _altitudeChanged();
+  }
+
+  void _altitudeChanged() {
+    setState(() {
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+    // Stored even when the value came back the same (no text change).
+    _weatherChanged();
+    if (widget.profile != null) _quietSolve();
+  }
+
+  /// The İrtifa date row: the latest of the two altitude fetches.
+  int? get _altitudeAtMs {
+    final a = _altPhoneAtMs, b = _altMapAtMs;
+    if (a == null) return b;
+    if (b == null) return a;
+    return a > b ? a : b;
+  }
+
+  // ---- Shared rows (owner, 2026-10-14) ------------------------------------
+
+  /// "Sıfırla", the same size as the other buttons; after a reset it turns
+  /// orange "Veriler sıfırlandı" (owner, 2026-10-12).
+  Widget _resetButton({
+    required bool wasReset,
+    required Key resetKey,
+    required VoidCallback onReset,
+  }) => MenzilSecondaryButton(
+    key: resetKey,
+    label: wasReset ? 'Veriler sıfırlandı' : 'Sıfırla',
+    icon: wasReset ? Icons.check : Icons.restart_alt,
+    expand: true,
+    active: wasReset,
+    twoLines: true,
+    maxLabelLines: 2,
+    onPressed: onReset,
+  );
+
+  /// Always visible from the first frame (no layout jump): the date on the
+  /// left (one line, never wraps; shrinks when it must), Sıfırla on the
+  /// right.
+  Widget _dateResetRow({
+    required Key dateKey,
+    required String date,
+    required bool wasReset,
+    required Key resetKey,
+    required VoidCallback onReset,
+  }) {
+    final c = MenzilColors.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(top: MenzilSpace.sm),
+      child: Row(
+        children: [
+          Expanded(
+            child: _oneLineText(date, key: dateKey, color: c.ink2),
+          ),
+          const SizedBox(width: MenzilSpace.md),
+          Expanded(
+            child: _resetButton(
+              wasReset: wasReset,
+              resetKey: resetKey,
+              onReset: onReset,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Left-aligned text on one line that scales down instead of wrapping.
+  static Widget _oneLineText(String text, {Key? key, required Color color}) =>
+      Align(
+        alignment: AlignmentDirectional.centerStart,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: AlignmentDirectional.centerStart,
+          child: Text(
+            text,
+            key: key,
+            maxLines: 1,
+            softWrap: false,
+            textAlign: TextAlign.start,
+            style: MenzilType.caption(color),
+          ),
+        ),
+      );
+
+  /// A box on the left, its fetch button on the right, bottoms aligned.
+  /// Always two items, at any width or text size (owner, 2026-10-14).
+  Widget _boxButtonRow({required Widget box, required Widget button}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Expanded(child: box),
+        const SizedBox(width: MenzilSpace.md),
+        Expanded(
+          child: Padding(
+            // The compact box keeps md below it; the button lines up.
+            padding: const EdgeInsets.only(bottom: MenzilSpace.md),
+            child: button,
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// A card title (size 18, like the Profil summary headers) with ONE ⓘ
+  /// right after it (owner, 2026-10-14: Basınç Ölçer and İrtifa only).
+  Widget _headerWithInfo(String title, String info, {required Key infoKey}) =>
+      MenzilSectionHeader(
+        title,
+        size: 18,
+        padding: const EdgeInsets.only(
+          top: MenzilSpace.xxs,
+          bottom: MenzilSpace.sm,
+        ),
+        titleTrailing: MenzilInfoButton(key: infoKey, title: title, text: info),
+      );
 
   String _pressureText(double hpa) => metric
       ? hpa.toStringAsFixed(1)
@@ -1469,15 +1955,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         // (owner, 2026-10-12: "turuncu kutular üstteki kutulardan büyük").
         const SizedBox(width: MenzilSpace.md),
         Expanded(
-          child: MenzilSecondaryButton(
-            key: resetKey,
-            label: wasReset ? 'Veriler sıfırlandı' : 'Sıfırla',
-            icon: wasReset ? Icons.check : Icons.restart_alt,
-            expand: true,
-            active: wasReset,
-            twoLines: true,
-            maxLabelLines: 2,
-            onPressed: onReset,
+          child: _resetButton(
+            wasReset: wasReset,
+            resetKey: resetKey,
+            onReset: onReset,
           ),
         ),
       ],
@@ -1489,29 +1970,35 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _filledRow(
-          filled: _weatherOrange,
+        // Full width, one line (owner, 2026-10-14).
+        MenzilSecondaryButton(
+          key: const Key('environment-fill-weather'),
+          label: _weatherBusy
+              ? 'Alınıyor…'
+              : _weatherOrange
+              ? 'Hava verisi alındı'
+              : _weatherStale
+              // Older than 30 minutes: the values stay, the button asks
+              // for a new fetch (owner, 2026-10-14).
+              ? 'Veriyi yenile'
+              : _weatherWasReset
+              ? 'Tekrar canlı konum verisi al'
+              : 'Konumdan canlı hava verisi al',
+          icon: _weatherOrange
+              ? Icons.check
+              : _weatherStale
+              ? Icons.refresh
+              : Icons.my_location,
+          expand: true,
+          active: _weatherOrange,
+          twoLines: true,
+          maxLabelLines: 1,
+          onPressed: _weatherBusy ? null : () => _fillWeather(overwrite: true),
+        ),
+        _dateResetRow(
+          dateKey: const Key('environment-weather-date'),
+          date: _whenText(_weatherFilled ? _weatherFetchedAtMs : null),
           wasReset: _weatherWasReset,
-          button: MenzilSecondaryButton(
-            key: const Key('environment-fill-weather'),
-            label: _weatherBusy
-                ? 'Alınıyor…'
-                : _weatherOrange
-                // Short, one line (owner "Fikir 4", 2026-10-13).
-                ? 'Hava verisi alındı'
-                : _weatherWasReset
-                ? 'Tekrar canlı konum verisi al'
-                : 'Konumdan canlı hava verisi al',
-            icon: _weatherOrange ? Icons.check : Icons.my_location,
-            expand: true,
-            active: _weatherOrange,
-            twoLines: true,
-            // The done text always takes one line.
-            maxLabelLines: _weatherOrange ? 1 : 2,
-            onPressed: _weatherBusy
-                ? null
-                : () => _fillWeather(overwrite: true),
-          ),
           resetKey: const Key('environment-weather-reset'),
           onReset: _resetWeather,
         ),
@@ -1564,6 +2051,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final ammoC = double.tryParse(ammoTempCtl.text.trim().replaceAll(',', '.'));
     final pressureHpa = maybe(pressure);
     final altitudeM = maybe(altitude);
+    final mapAltitudeM = maybe(mapAltitude);
     final metricRanges = DopeRanges.parse(ranges.text);
 
     // Commit only after the complete source form has been validated. A
@@ -1590,6 +2078,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     if (altitudeM != null) {
       altitude.text = UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0);
+    }
+    if (mapAltitudeM != null) {
+      mapAltitude.text = UnitSystem.metersToFeet(
+        mapAltitudeM,
+      ).toStringAsFixed(0);
     }
     if (!_profileYards) {
       ranges.text = metricRanges
@@ -1633,7 +2126,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final rawTemperature = env(temperature, 15, 59);
     final rawPressure = env(pressure, 1013.25, 29.92);
     final rawHumidity = env(humidity, 50, 50);
-    final rawAltitude = env(altitude, 0, 0);
+    // İrtifa: Telefondan, else Haritadan (owner, 2026-10-14).
+    final altitudeBox = _altitudeCtl;
+    final rawAltitude = env(altitudeBox, 0, 0);
 
     if ([
       rawVelocity,
@@ -1678,7 +2173,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // ISA station pressure at that altitude, not 1013,25 hPa. A typed
     // pressure always wins; both empty stays the standard atmosphere.
     final pressureFromAltitude =
-        pressure.text.trim().isEmpty && altitude.text.trim().isNotEmpty;
+        pressure.text.trim().isEmpty && altitudeBox.text.trim().isNotEmpty;
     final pres = pressureFromAltitude
         ? FieldCalc.stationPressureHpa(1013.25, alt)
         : metric
@@ -1841,6 +2336,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   void dispose() {
     ShotSettingsStore.changes.removeListener(_reloadShotSettings);
+    WidgetsBinding.instance.removeObserver(this);
+    _freshnessTimer?.cancel();
+    _cancelPhoneAltitudeWarmUp();
     unawaited(_watchRanges?.cancel());
     _watchTimer?.cancel();
     velocity.dispose();
@@ -1854,6 +2352,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     pressure.dispose();
     humidity.dispose();
     altitude.dispose();
+    mapAltitude.dispose();
     ranges.dispose();
     latitudeCtl.dispose();
     azimuthCtl.dispose();
@@ -3357,14 +3856,12 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           ],
         ),
       ),
-      // Basınç Ölçer (owner, 2026-10-12): station pressure and altitude
-      // under the weather card, with "Basıncı telefondan al" under the two
-      // boxes.
-      // Size 18 like the Profil summary headers (owner, 2026-10-13).
-      const MenzilSectionHeader(
+      // Basınç Ölçer (owner, 2026-10-14): one ⓘ right of the title (none in
+      // the box), İstasyon basıncı | Basınç al, then date | Sıfırla.
+      _headerWithInfo(
         'Basınç Ölçer',
-        size: 18,
-        padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
+        EnvironmentFieldInfo.barometerCard,
+        infoKey: const Key('environment-barometer-info'),
       ),
       MenzilCard(
         key: const Key('environment-barometer-card'),
@@ -3377,62 +3874,45 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            MenzilFieldGrid(
-              children: [
-                MenzilInput(
-                  key: BallisticsFieldKeys.pressure,
-                  controller: pressure,
-                  label: 'İstasyon basıncı',
-                  // A typed value is the user's: auto fill keeps it.
-                  onChanged: (_) => setState(() {
-                    _userEdited.add(pressure);
-                    _pressureFilled = false;
-                    _pressureWasReset = false;
-                  }),
-                  info: EnvironmentFieldInfo.pressure,
-                  unit: metric ? 'hPa' : 'inHg',
-                ),
-                MenzilInput(
-                  key: BallisticsFieldKeys.altitude,
-                  controller: altitude,
-                  label: 'İrtifa',
-                  // A typed value is the user's: auto fill keeps it.
-                  // İrtifa belongs to "Basıncı telefondan al" (2026-10-12):
-                  // a typed one clears that button, never the weather one
-                  // (owner, 2026-10-13).
-                  onChanged: (_) => setState(() {
-                    _userEdited.add(altitude);
-                    _pressureFilled = false;
-                    _pressureWasReset = false;
-                  }),
-                  info: EnvironmentFieldInfo.altitude,
-                  unit: metric ? 'm' : 'ft',
-                  keyboardType: const TextInputType.numberWithOptions(
-                    decimal: true,
-                    signed: true,
-                  ),
-                ),
-              ],
-            ),
-            _filledRow(
-              filled: _pressureFilled,
-              wasReset: _pressureWasReset,
+            _boxButtonRow(
+              box: MenzilInput(
+                key: BallisticsFieldKeys.pressure,
+                controller: pressure,
+                label: 'İstasyon basıncı',
+                // A typed value is the user's: auto fill keeps it.
+                onChanged: (_) => setState(() {
+                  _userEdited.add(pressure);
+                  _pressureFilled = false;
+                  _pressureWasReset = false;
+                }),
+                unit: metric ? 'hPa' : 'inHg',
+              ),
               button: MenzilSecondaryButton(
                 key: const Key('environment-phone-pressure'),
                 label: _pressureBusy
                     ? 'Okunuyor…'
-                    : _pressureFilled
-                    // Short, one line (owner "Fikir 4", 2026-10-13).
+                    : _pressureOrange
                     ? 'Basınç alındı'
-                    : 'Basıncı telefondan al',
-                icon: _pressureFilled ? Icons.check : Icons.speed,
+                    : _pressureStale
+                    ? 'Basıncı yenile'
+                    : 'Basınç al',
+                icon: _pressureOrange
+                    ? Icons.check
+                    : _pressureStale
+                    ? Icons.refresh
+                    : Icons.speed,
                 expand: true,
-                active: _pressureFilled,
+                active: _pressureOrange,
                 twoLines: true,
-                // The done text always takes one line.
-                maxLabelLines: _pressureFilled ? 1 : 2,
+                // One line, shrinking when it must (owner, 2026-10-14).
+                maxLabelLines: 1,
                 onPressed: _pressureBusy ? null : _readPhonePressure,
               ),
+            ),
+            _dateResetRow(
+              dateKey: const Key('environment-pressure-date'),
+              date: _whenText(_pressureFilled ? _pressureFetchedAtMs : null),
+              wasReset: _pressureWasReset,
               resetKey: const Key('environment-pressure-reset'),
               onReset: _resetPressure,
             ),
@@ -3446,6 +3926,113 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                 message: _pressureStatus!,
               ),
             ],
+          ],
+        ),
+      ),
+      // İrtifa (owner, 2026-10-14): Haritadan | Telefondan, one ⓘ in the
+      // title; the calculation uses Telefondan, else Haritadan.
+      _headerWithInfo(
+        'İrtifa',
+        EnvironmentFieldInfo.altitudeCard,
+        infoKey: const Key('environment-altitude-info'),
+      ),
+      MenzilCard(
+        key: const Key('environment-altitude-card'),
+        padding: const EdgeInsets.fromLTRB(
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _boxButtonRow(
+              box: MenzilInput(
+                key: BallisticsFieldKeys.mapAltitude,
+                controller: mapAltitude,
+                label: 'Haritadan irtifa',
+                // A typed value is the user's (button no longer orange).
+                onChanged: (_) => setState(() {
+                  _userEdited.add(mapAltitude);
+                  _altMapAtMs = null;
+                  _altitudeWasReset = false;
+                  _shotCache.clear();
+                  _holdSamples = null;
+                }),
+                unit: metric ? 'm' : 'ft',
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                  signed: true,
+                ),
+              ),
+              button: MenzilSecondaryButton(
+                key: const Key('environment-map-altitude'),
+                label: _altMapBusy
+                    ? 'Alınıyor…'
+                    : _altMapAtMs != null
+                    ? 'Haritadan alındı'
+                    : 'Haritadan',
+                icon: _altMapAtMs != null || _altMapBusy ? null : Icons.terrain,
+                expand: true,
+                active: _altMapAtMs != null,
+                twoLines: true,
+                maxLabelLines: 1,
+                onPressed: _altMapBusy ? null : _readMapAltitude,
+              ),
+            ),
+            _boxButtonRow(
+              box: MenzilInput(
+                key: BallisticsFieldKeys.altitude,
+                controller: altitude,
+                label: 'Telefondan irtifa',
+                // A typed value is the user's (button no longer orange).
+                onChanged: (_) => setState(() {
+                  _userEdited.add(altitude);
+                  _altPhoneAtMs = null;
+                  _altitudeWasReset = false;
+                  _shotCache.clear();
+                  _holdSamples = null;
+                }),
+                unit: metric ? 'm' : 'ft',
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                  signed: true,
+                ),
+              ),
+              button: MenzilSecondaryButton(
+                key: const Key('environment-phone-altitude'),
+                label: _altPhoneBusy
+                    ? 'Alınıyor…'
+                    : _altPhoneAtMs != null
+                    ? 'Telefondan alındı'
+                    : 'Telefondan',
+                icon: _altPhoneAtMs != null || _altPhoneBusy
+                    ? null
+                    : Icons.my_location,
+                expand: true,
+                active: _altPhoneAtMs != null,
+                twoLines: true,
+                maxLabelLines: 1,
+                onPressed: _altPhoneBusy ? null : _readPhoneAltitude,
+              ),
+            ),
+            if (_altitudeStatus != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: MenzilSpace.xs),
+                child: MenzilNotice(
+                  key: const Key('environment-altitude-status'),
+                  tone: MenzilNoticeTone.warning,
+                  message: _altitudeStatus!,
+                ),
+              ),
+            _dateResetRow(
+              dateKey: const Key('environment-altitude-date'),
+              date: _whenText(_altitudeAtMs),
+              wasReset: _altitudeWasReset,
+              resetKey: const Key('environment-altitude-reset'),
+              onReset: _resetAltitude,
+            ),
           ],
         ),
       ),
@@ -3527,14 +4114,22 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               maxLength: 2,
-              onChanged: (_) => setState(() {}),
+              // The time it was set shows under the dial (owner,
+              // 2026-10-14).
+              onChanged: (_) => setState(_windDirectionSet),
               info: EnvironmentFieldInfo.windDirection,
             ),
             // Clock face: nothing pre-selected; a tapped hour fills the box.
             MenzilFullWidth(
               child: WindClockPicker(
                 hour: _windHourValue,
-                onChanged: (h) => setState(() => windHour.text = '$h'),
+                dateText: _whenText(
+                  _windHourValue == null ? null : _windDirAtMs,
+                ),
+                onChanged: (h) => setState(() {
+                  windHour.text = '$h';
+                  _windDirectionSet();
+                }),
               ),
             ),
           ],
@@ -3952,41 +4547,43 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ProInfoEntry(ProSectionInfo.windZones),
       ],
       fields: const [
-        ProInfoField('Rüzgâr hızı × 1,5', EnvironmentFieldInfo.windMax),
+        ProInfoField('En çok rüzgâr', EnvironmentFieldInfo.windMax),
         ProInfoField('Yol ortası', EnvironmentFieldInfo.windMid),
         ProInfoField('Hedefte', EnvironmentFieldInfo.windFar),
       ],
-      // Owner, 2026-10-11: the box first, then the two zone boxes; their
-      // explanations are in the ⓘ bottom sheet (owner, 2026-10-13).
+      // Owner, 2026-10-14: En çok rüzgâr | Düzeltme al, then date |
+      // Sıfırla; the two zone boxes follow (ⓘ in the bottom sheet).
       children: [
-        MenzilInput(
-          key: const Key('pro-wind-max'),
-          controller: windMaxCtl,
-          label: 'Rüzgâr hızı × 1,5',
-          unit: windUnit,
-          info: EnvironmentFieldInfo.windMax,
-          onChanged: (v) {
-            if (_windMaxFilled || _windMaxWasReset) {
-              setState(() => _windMaxFilled = _windMaxWasReset = false);
-            }
-            _coriolisChanged();
-          },
-        ),
-        _filledRow(
-          filled: _windMaxFilled,
-          wasReset: _windMaxWasReset,
+        _boxButtonRow(
+          box: MenzilInput(
+            key: const Key('pro-wind-max'),
+            controller: windMaxCtl,
+            label: 'En çok rüzgâr',
+            unit: windUnit,
+            info: EnvironmentFieldInfo.windMax,
+            onChanged: (v) {
+              if (_windMaxFilled || _windMaxWasReset) {
+                setState(() => _windMaxFilled = _windMaxWasReset = false);
+              }
+              _windMaxAtMs = null;
+              _coriolisChanged();
+            },
+          ),
           button: MenzilSecondaryButton(
             key: const Key('pro-wind-max-fill'),
-            label: _windMaxFilled
-                ? 'Rüzgâr düzeltmesi alındı'
-                : 'Rüzgâr düzeltmesi al',
-            icon: _windMaxFilled ? Icons.check : Icons.air,
+            label: _windMaxFilled ? 'Düzeltme alındı' : 'Düzeltme al',
+            icon: _windMaxFilled ? null : Icons.air,
             expand: true,
             active: _windMaxFilled,
             twoLines: true,
-            maxLabelLines: 2,
+            maxLabelLines: 1,
             onPressed: _fillWindMax,
           ),
+        ),
+        _dateResetRow(
+          dateKey: const Key('pro-wind-max-date'),
+          date: _whenText(_windMaxFilled ? _windMaxAtMs : null),
+          wasReset: _windMaxWasReset,
           resetKey: const Key('pro-wind-max-reset'),
           onReset: _resetWindMax,
         ),
@@ -5272,6 +5869,16 @@ class EnvironmentCarry {
   bool _weatherFilled = false;
   bool _pressureFilled = false;
 
+  /// Their fetch times (UTC epoch ms), so a tab switch never makes an old
+  /// fetch look new (owner, 2026-10-14).
+  int? _weatherFetchedAtMs;
+  int? _pressureFetchedAtMs;
+
+  /// İrtifa card fetch times and the Rüzgâr yönü time (owner, 2026-10-14).
+  int? _altPhoneAtMs;
+  int? _altMapAtMs;
+  int? _windDirAtMs;
+
   /// The profile the snapshot came from: Rüzgâr yönü depends on where the
   /// shooter faces, so it never moves to another (or a new) profile (owner,
   /// 2026-10-13: "rüzgâr yönü kurulu gelmemesi lazım").
@@ -5281,6 +5888,11 @@ class EnvironmentCarry {
     _profileId = s.widget.profile?.id;
     _weatherFilled = s._weatherFilled;
     _pressureFilled = s._pressureFilled;
+    _weatherFetchedAtMs = s._weatherFetchedAtMs;
+    _pressureFetchedAtMs = s._pressureFetchedAtMs;
+    _altPhoneAtMs = s._altPhoneAtMs;
+    _altMapAtMs = s._altMapAtMs;
+    _windDirAtMs = s._windDirAtMs;
     bool blank(TextEditingController c) => c.text.trim().isEmpty;
     double? n(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
@@ -5289,6 +5901,7 @@ class EnvironmentCarry {
       'pressure': s.pressure,
       'humidity': s.humidity,
       'altitude': s.altitude,
+      'mapAltitude': s.mapAltitude,
       'wind': s.wind,
     };
     // An unreadable (not empty) value keeps the last good snapshot.
@@ -5298,11 +5911,13 @@ class EnvironmentCarry {
     final m = s.metric;
     final t = n(s.temperature), p = n(s.pressure), h = n(s.humidity);
     final a = n(s.altitude), w = n(s.wind), d = n(s.windDirection);
+    final ma = n(s.mapAltitude);
     _si = {
       if (t != null) 'temperature': m ? t : UnitSystem.fahrenheitToCelsius(t),
       if (p != null) 'pressure': m ? p : UnitSystem.inHgToHpa(p),
       if (h != null) 'humidity': h,
       if (a != null) 'altitude': m ? a : UnitSystem.feetToMeters(a),
+      if (ma != null) 'mapAltitude': m ? ma : UnitSystem.feetToMeters(ma),
       if (w != null) 'wind': m ? w : UnitSystem.mphToMps(w),
       if (d != null && s._windHourValue != null) 'windDirection': d,
     };
@@ -5315,6 +5930,7 @@ class EnvironmentCarry {
       if (s._userEdited.contains(s.pressure)) 'pressure',
       if (s._userEdited.contains(s.humidity)) 'humidity',
       if (s._userEdited.contains(s.altitude)) 'altitude',
+      if (s._userEdited.contains(s.mapAltitude)) 'mapAltitude',
       if (s._userEdited.contains(s.wind)) 'wind',
     };
   }
@@ -5327,11 +5943,17 @@ class EnvironmentCarry {
     final sameProfile = _profileId == s.widget.profile?.id;
     s._weatherFilled = _weatherFilled;
     s._pressureFilled = _pressureFilled;
+    s._weatherFetchedAtMs = _weatherFetchedAtMs;
+    s._pressureFetchedAtMs = _pressureFetchedAtMs;
+    s._altPhoneAtMs = _altPhoneAtMs;
+    s._altMapAtMs = _altMapAtMs;
+    if (sameProfile) s._windDirAtMs = _windDirAtMs;
     final fields = {
       'temperature': s.temperature,
       'pressure': s.pressure,
       'humidity': s.humidity,
       'altitude': s.altitude,
+      'mapAltitude': s.mapAltitude,
       'wind': s.wind,
       'windDirection': s.windDirection,
     };

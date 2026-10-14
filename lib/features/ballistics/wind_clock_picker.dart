@@ -14,7 +14,20 @@ class WindClockPicker extends StatelessWidget {
   final int? hour;
   final ValueChanged<int> onChanged;
 
-  const WindClockPicker({super.key, this.hour, required this.onChanged});
+  /// Right of the line under the dial: when the direction was set
+  /// ("14.10.2026 14:55"), or today's date before any direction (owner,
+  /// 2026-10-14). Null shows nothing there.
+  final String? dateText;
+
+  const WindClockPicker({
+    super.key,
+    this.hour,
+    required this.onChanged,
+    this.dateText,
+  });
+
+  /// "Saat 3 yönünde" (owner, 2026-10-14).
+  static String hourText(int h) => 'Saat $h yönünde';
 
   static ValueKey<String> hourKey(int h) => ValueKey('wind-clock-$h');
 
@@ -30,6 +43,17 @@ class WindClockPicker extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // A small left-aligned title directly above the dial (owner,
+        // 2026-10-14).
+        Padding(
+          padding: const EdgeInsets.only(bottom: MenzilSpace.xs),
+          child: Text(
+            'Rüzgâr yönü',
+            key: const ValueKey('wind-clock-title'),
+            textAlign: TextAlign.start,
+            style: MenzilType.label(c.ink),
+          ),
+        ),
         Center(
           child: SizedBox.square(
             dimension: 236,
@@ -58,9 +82,17 @@ class WindClockPicker extends StatelessWidget {
                           child: ExcludeSemantics(
                             child: Material(
                               key: hourKey(i),
-                              color: i == h ? c.amber : c.surface2,
+                              // The same orange as the "…alındı" buttons
+                              // (owner, 2026-10-14).
+                              color: i == h
+                                  ? MenzilColors.stateOrange
+                                  : c.surface2,
                               shape: CircleBorder(
-                                side: BorderSide(color: c.line),
+                                side: BorderSide(
+                                  color: i == h
+                                      ? MenzilColors.stateOrange
+                                      : c.line,
+                                ),
                               ),
                               child: InkWell(
                                 customBorder: const CircleBorder(),
@@ -85,18 +117,63 @@ class WindClockPicker extends StatelessWidget {
             ),
           ),
         ),
-        if (h != null) ...[
-          const SizedBox(height: MenzilSpace.xs),
-          Text(
-            'Saat $h · ${WindClock.side(h)}',
-            key: const ValueKey('wind-clock-label'),
-            textAlign: TextAlign.center,
-            style: MenzilType.body(c.ink),
-          ),
-        ],
+        // ONE line: "Saat 3 yönünde" left, the time it was set right; both
+        // stay on one line (they shrink instead of wrapping).
+        const SizedBox(height: MenzilSpace.xs),
+        Row(
+          children: [
+            Expanded(
+              child: _OneLine(
+                h == null ? '' : hourText(h),
+                textKey: const ValueKey('wind-clock-label'),
+                color: c.ink,
+                alignment: AlignmentDirectional.centerStart,
+              ),
+            ),
+            const SizedBox(width: MenzilSpace.md),
+            Expanded(
+              child: _OneLine(
+                dateText ?? '',
+                textKey: const ValueKey('wind-clock-date'),
+                color: c.ink2,
+                alignment: AlignmentDirectional.centerEnd,
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
+}
+
+/// One line of text that scales down instead of wrapping.
+class _OneLine extends StatelessWidget {
+  final String text;
+  final Color color;
+  final AlignmentDirectional alignment;
+  final Key? textKey;
+  const _OneLine(
+    this.text, {
+    this.textKey,
+    required this.color,
+    required this.alignment,
+  });
+
+  @override
+  Widget build(BuildContext context) => Align(
+    alignment: alignment,
+    child: FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: alignment,
+      child: Text(
+        text,
+        key: textKey,
+        maxLines: 1,
+        softWrap: false,
+        style: MenzilType.caption(color),
+      ),
+    ),
+  );
 }
 
 class _ClockPainter extends CustomPainter {
@@ -125,7 +202,7 @@ class _ClockPainter extends CustomPainter {
     final tail = center + dir * (r - 30);
     final tip = center + dir * 16;
     final arrow = Paint()
-      ..color = colors.amberInk
+      ..color = MenzilColors.stateOrange
       ..strokeWidth = 4
       ..strokeCap = StrokeCap.round;
     canvas.drawLine(tail, tip, arrow);
@@ -137,7 +214,7 @@ class _ClockPainter extends CustomPainter {
       ..lineTo(left.dx, left.dy)
       ..lineTo(right.dx, right.dy)
       ..close();
-    canvas.drawPath(head, Paint()..color = colors.amberInk);
+    canvas.drawPath(head, Paint()..color = MenzilColors.stateOrange);
   }
 
   @override

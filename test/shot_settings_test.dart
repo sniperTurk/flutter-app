@@ -359,7 +359,7 @@ void main() {
       await openProFor(tester, const Key('pro-wind-max'));
       await tap(const Key('pro-wind-max-fill'));
       expect(text(), '3.0');
-      expect(find.text('Rüzgâr düzeltmesi alındı'), findsOneWidget);
+      expect(find.text('Düzeltme alındı'), findsOneWidget);
 
       await tester.ensureVisible(field(const Key('pro-wind-mid')));
       await tester.enterText(field(const Key('pro-wind-mid')), '4');
@@ -373,7 +373,7 @@ void main() {
       expect(of(const Key('pro-wind-mid')), '');
       expect(of(const Key('pro-wind-far')), '');
       expect(find.text('Veriler sıfırlandı'), findsOneWidget);
-      expect(find.text('Rüzgâr düzeltmesi al'), findsOneWidget);
+      expect(find.text('Düzeltme al'), findsOneWidget);
     });
 
     testWidgets('"Seçiniz" stays in the list and takes the choice back', (

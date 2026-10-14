@@ -1,11 +1,38 @@
 import 'package:geolocator/geolocator.dart';
 
 import '../ports/location_provider.dart';
+import '../ports/phone_altitude_provider.dart';
 
 /// Production [LocationProvider] backed by `geolocator`. Requests a coarse,
 /// when-in-use fix and never stores it.
-class GeolocatorLocationProvider implements LocationProvider {
-  const GeolocatorLocationProvider();
+///
+/// [accuracy] is optional: every existing caller keeps the coarse default;
+/// Hava Durumu → İrtifa → "Telefondan" uses a high-accuracy instance as its
+/// [PhoneAltitudeProvider] (owner, 2026-10-14).
+class GeolocatorLocationProvider
+    implements LocationProvider, PhoneAltitudeProvider {
+  final LocationAccuracy accuracy;
+
+  const GeolocatorLocationProvider({this.accuracy = LocationAccuracy.low});
+
+  /// The İrtifa → "Telefondan" request (high accuracy for it only).
+  static const highAccuracy = GeolocatorLocationProvider(
+    accuracy: LocationAccuracy.high,
+  );
+
+  /// Only checks: never asks, so the silent warm-up on Hava Durumu can never
+  /// show the iOS permission prompt.
+  @override
+  Future<bool> permissionGranted() async {
+    try {
+      if (!await Geolocator.isLocationServiceEnabled()) return false;
+      final permission = await Geolocator.checkPermission();
+      return permission == LocationPermission.whileInUse ||
+          permission == LocationPermission.always;
+    } catch (_) {
+      return false;
+    }
+  }
 
   @override
   Future<LocationResult> current() async {
@@ -25,9 +52,9 @@ class GeolocatorLocationProvider implements LocationProvider {
         return const LocationDenied(permanent: false);
       }
       final position = await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.low,
-          timeLimit: Duration(seconds: 15),
+        locationSettings: LocationSettings(
+          accuracy: accuracy,
+          timeLimit: const Duration(seconds: 15),
         ),
       );
       // Altitude only when its vertical accuracy is known and usable.

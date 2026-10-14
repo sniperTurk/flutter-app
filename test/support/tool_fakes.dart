@@ -10,9 +10,11 @@ import 'package:sniper_turk/tools/ports/photo_picker.dart';
 import 'package:sniper_turk/tools/ports/place_search.dart';
 import 'package:sniper_turk/tools/ports/pressure_sensor.dart';
 import 'package:sniper_turk/tools/ports/clock.dart';
+import 'package:sniper_turk/tools/ports/elevation_provider.dart';
 import 'package:sniper_turk/tools/ports/heading_provider.dart';
 import 'package:sniper_turk/tools/ports/level_calibration_store.dart';
 import 'package:sniper_turk/tools/ports/location_provider.dart';
+import 'package:sniper_turk/tools/ports/phone_altitude_provider.dart';
 import 'package:sniper_turk/tools/ports/tilt_provider.dart';
 import 'package:sniper_turk/tools/ports/vision_assist.dart';
 import 'package:sniper_turk/tools/ports/weather_provider.dart';
@@ -36,6 +38,44 @@ class TestLocation implements LocationProvider {
   Future<bool> openSettings() async {
     settingsOpened++;
     return true;
+  }
+}
+
+/// İrtifa → "Telefondan" double: counts permission checks and requests so
+/// tests can prove the silent warm-up never asks and writes nothing.
+class TestPhoneAltitude implements PhoneAltitudeProvider {
+  LocationResult result;
+  bool granted;
+  int permissionChecks = 0;
+  int requests = 0;
+
+  /// When set, [current] waits for it (a GPS fix still on its way).
+  Completer<LocationResult>? hold;
+  TestPhoneAltitude(this.result, {this.granted = true});
+  @override
+  Future<bool> permissionGranted() async {
+    permissionChecks++;
+    return granted;
+  }
+
+  @override
+  Future<LocationResult> current() async {
+    requests++;
+    final h = hold;
+    if (h != null) return h.future;
+    return result;
+  }
+}
+
+/// İrtifa → "Haritadan" double.
+class TestElevation implements ElevationProvider {
+  ElevationResult result;
+  final List<(double, double)> requests = [];
+  TestElevation(this.result);
+  @override
+  Future<ElevationResult> elevation(double latitude, double longitude) async {
+    requests.add((latitude, longitude));
+    return result;
   }
 }
 
@@ -161,6 +201,8 @@ ToolsServices testServices({
   Clock? clock,
   LevelCalibrationStore? levelCalibration,
   PressureSensor? pressure,
+  PhoneAltitudeProvider? phoneAltitude,
+  ElevationProvider? elevation,
 }) => ToolsServices(
   location: location ?? TestLocation(const LocationFix(39.9, 32.8)),
   weather:
@@ -175,6 +217,8 @@ ToolsServices testServices({
   clock: clock ?? TestClock(DateTime.utc(2026, 10, 3, 12)),
   levelCalibration: levelCalibration,
   pressure: pressure ?? TestPressure(),
+  phoneAltitude: phoneAltitude,
+  elevation: elevation,
 );
 
 Widget host(Widget child, {ToolsServices? services, double textScale = 1.0}) =>

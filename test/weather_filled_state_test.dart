@@ -104,7 +104,7 @@ void main() {
     });
   }
 
-  testWidgets('stays orange after "Basıncı telefondan al"', (tester) async {
+  testWidgets('stays orange after "Basınç al"', (tester) async {
     await _fetched(tester);
     await _press(tester, _pressureButton);
     expect(_orange(tester), isTrue);
@@ -146,7 +146,9 @@ void main() {
     expect(_orange(tester), isTrue);
   });
 
-  testWidgets('a typed İrtifa clears the pressure button, not the weather', (
+  // Owner, 2026-10-14: İrtifa has its own card; a typed İrtifa leaves both
+  // the weather and the pressure button as they are.
+  testWidgets('a typed İrtifa clears neither the weather nor the pressure', (
     tester,
   ) async {
     await _fetched(tester);
@@ -154,7 +156,7 @@ void main() {
     expect(pressureOrange(tester), isTrue);
     await type(tester, BallisticsFieldKeys.altitude, '850');
     expect(_orange(tester), isTrue);
-    expect(pressureOrange(tester), isFalse);
+    expect(pressureOrange(tester), isTrue);
   });
 
   testWidgets('a typed Bağıl nem turns the weather button gray', (

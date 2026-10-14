@@ -136,6 +136,10 @@ void main() {
     expect(_size(tester, 'Basınç Ölçer'), profilSize);
     expect(find.text('Basınç ölçer'), findsNothing);
 
+    // The new İrtifa card (owner, 2026-10-14): the same size.
+    await _scrollTo(tester, _header('İrtifa'));
+    expect(_size(tester, 'İrtifa'), profilSize);
+
     await _scrollTo(tester, _header('Rüzgâr'));
     expect(_header('Rüzgâr'), findsOneWidget);
     expect(_size(tester, 'Rüzgâr'), profilSize);

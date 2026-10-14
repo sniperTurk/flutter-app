@@ -41,6 +41,20 @@ abstract final class EnvironmentFieldInfo {
       'odada değil, açık havada basın. Ya da Kestrel, barometre veya '
       'Araçlar > hesaplayıcılar ile deniz seviyesinden istasyon basıncına '
       'çevirin. Örnek: 1000 m irtifada 900 hPa.';
+
+  /// Basınç Ölçer card: ONE ⓘ right of the title (owner exception,
+  /// 2026-10-14; no ⓘ in the box).
+  static const barometerCard =
+      'İstasyon basıncı: bulunduğunuz yerdeki gerçek hava basıncı, '
+      'telefonun basınç sensöründen alınır. Hava durumu uygulamalarındaki '
+      'deniz seviyesi basıncı değildir. Örnek: 998,4 hPa.';
+
+  /// İrtifa card: ONE ⓘ right of the title (owner exception, 2026-10-14).
+  static const altitudeCard =
+      'Bulunduğunuz yerin deniz seviyesinden yüksekliği. Haritadan: Google '
+      'haritadan zemin yüksekliği, internet ister. Telefondan: GPS ölçümü, '
+      'açık havada daha doğrudur. Telefon irtifası varsa hesap onu kullanır; '
+      'yoksa harita irtifası kullanılır. Örnek: 126 m.';
   static const humidity =
       'Bağıl nem, yüzde olarak (0–100). Etkisi küçüktür: nemli hava biraz '
       'daha hafiftir. Hava durumunda yazar. Örnek: %60.';
@@ -138,9 +152,10 @@ abstract final class EnvironmentFieldInfo {
       'ölçün; gerçek / yazan oranını girin. Örnek: gerçek 9,8 MRAD ise 0,98. '
       'Boş bırakırsanız 1 (düzeltme yok). Klikler bu katsayıya göre ayarlanır.';
   static const windMax =
-      'Rüzgârın sert estiği (hamle) andaki hızı. "Rüzgâr düzeltmesi al" '
-      'Hava Durumu\'ndaki rüzgâr hızı × 1,5 yazar (karada tipik hamle '
-      'oranı). Kendi ölçtüğünüz değeri de yazabilirsiniz. Boşsa aralık '
+      'Rüzgârın sert estiği (hamle) andaki hızı. "Düzeltme al" Hava '
+      'Durumu\'ndaki rüzgâr hızı × 1,5 yazar (karada tipik hamle oranı); hava '
+      'verisi yeni rüzgâr getirince kendiliğinden güncellenir. Kendi '
+      'ölçtüğünüz değeri de yazabilirsiniz, o değiştirilmez. Boşsa aralık '
       'gösterilmez. '
       'Hedef sayfası yan düzeltmeyi bu aralıkta gösterir. Örnek: rüzgâr '
       '2 m/s ise 3.';
