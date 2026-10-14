@@ -261,9 +261,7 @@ void main() {
     });
 
     testWidgets('done texts: "Hava verisi alındı · 11:20", "Basınç alındı · '
-        '11:20", one line', (
-      tester,
-    ) async {
+        '11:20", one line', (tester) async {
       await _pump(tester, BallisticsView.environment);
       // Idle texts unchanged.
       expect(find.text('Konumdan canlı hava verisi al'), findsOneWidget);
@@ -277,10 +275,7 @@ void main() {
         await tester.tap(find.byKey(key));
         await tester.pumpAndSettle();
       }
-      for (final t in [
-        'Hava verisi alındı · 11:20',
-        'Basınç alındı · 11:20',
-      ]) {
+      for (final t in ['Hava verisi alındı · 11:20', 'Basınç alındı · 11:20']) {
         expect(find.text(t), findsOneWidget, reason: t);
         expect(tester.widget<Text>(find.text(t)).maxLines, 1, reason: t);
       }
