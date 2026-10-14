@@ -231,10 +231,7 @@ void main() {
         find.byKey(const Key('ammo-brand-select')).evaluate().isEmpty) {
       await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
     }
-    expect(
-      _items(tester, 'ammo-brand-select'),
-      isNot(contains('Listede yok')),
-    );
+    expect(_items(tester, 'ammo-brand-select'), isNot(contains('Listede yok')));
     expect(_key('ammo-not-listed'), findsOneWidget);
   });
 
