@@ -12,6 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
+import 'package:sniper_turk/features/ballistics/pro_info_sheet.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
@@ -280,9 +281,19 @@ void main() {
       await tester.tap(info);
       await tester.pumpAndSettle();
       expect(find.byType(BottomSheet), findsOneWidget);
-      expect(find.text('Gerçek / yazan'), findsWidgets);
-      expect(find.text('Kalan tüp basıncı'), findsNothing);
-      expect(find.text('Tüp basıncı'), findsNothing);
+      final labels = tester
+          .widgetList<ProInfoFieldEntry>(find.byType(ProInfoFieldEntry))
+          .map((e) => e.field.label)
+          .toList();
+      expect(labels, [
+        'Gerçek / yazan',
+        'Yukarı + / aşağı −',
+        'Sağ + / sol −',
+        'Mermi uzunluğu',
+      ]);
+      // No Tüp basıncı explanation either.
+      expect(find.byKey(const ValueKey('pro-explain-Tüp basıncı')), findsNothing);
+      expect(find.byKey(const ValueKey('pro-explain-Spin drift')), findsOneWidget);
     });
 
     testWidgets('a saved tube pressure never moves a firearm solution', (
