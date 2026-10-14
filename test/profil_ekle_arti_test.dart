@@ -206,7 +206,10 @@ void main() {
 
           // One line, inside the button (right padding 14 kept).
           expect(after.text.height, lessThan(after.button.height));
-          expect(after.text.right, lessThanOrEqualTo(after.button.right - 14 + 0.5));
+          expect(
+            after.text.right,
+            lessThanOrEqualTo(after.button.right - 14 + 0.5),
+          );
           // Full size when it fits, shrunk to the space only when not.
           final room = after.button.width - 2 - 14 - _lead - 20 - 5;
           if (after.naturalWidth <= room) {
