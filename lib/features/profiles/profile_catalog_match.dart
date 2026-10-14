@@ -20,12 +20,12 @@ abstract final class ProfileCatalogMatch {
             .toLowerCase()
             .replaceAll(',', '.')
             .split(RegExp(r'[^a-z0-9çğıöşü.]+')))
-      if (w.replaceAll('.', '').isNotEmpty) w.replaceAll(RegExp(r'^\.+|\.+$'), ''),
+      if (w.replaceAll('.', '').isNotEmpty)
+        w.replaceAll(RegExp(r'^\.+|\.+$'), ''),
   ];
 
   /// Letters and digits only: "Gazi Sniper" and "GaziSniper" are equal.
-  static String squash(String text) =>
-      words(text).join().replaceAll('.', '');
+  static String squash(String text) => words(text).join().replaceAll('.', '');
 
   /// "5-25x56", "6–36×56", "4,5-29x56i", "10x42": the designation the
   /// numeric checks already compare.
@@ -83,7 +83,8 @@ abstract final class ProfileCatalogMatch {
   ) {
     if (saved.maxMagnification == null) return null;
     final savedText = '${saved.brand} ${saved.model}';
-    final hits = <({ScopeOptic s, String key, double score, int extra, bool reticle})>[];
+    final hits =
+        <({ScopeOptic s, String key, double score, int extra, bool reticle})>[];
     for (final r in lib) {
       if (!brandMatches(saved.brand, r.brand)) continue;
       if (r.maxMagnification == null) continue;
@@ -140,10 +141,7 @@ abstract final class ProfileCatalogMatch {
       break;
     }
     // Same model, several reticles: the saved reticle's record.
-    return hits
-            .where((h) => h.key == best.key && h.reticle)
-            .firstOrNull
-            ?.s ??
+    return hits.where((h) => h.key == best.key && h.reticle).firstOrNull?.s ??
         best.s;
   }
 

@@ -128,7 +128,9 @@ RifleProfile _decode(Map<String, dynamic> j) => const ProfileCodec().decode(j);
 
 void _install(List<Map<String, Object>> entries) =>
     CatalogRepository.installUserCatalog(
-      UserCatalog.fromManualEntries([for (final e in entries) {...e}]),
+      UserCatalog.fromManualEntries([
+        for (final e in entries) {...e},
+      ]),
     );
 
 // ---- Pumping ----
@@ -200,7 +202,9 @@ Future<void> _update(WidgetTester tester) async {
 // ---- Layout ----
 
 Finder _prefix(String p) => find.byWidgetPredicate(
-  (w) => w.key is ValueKey<String> && (w.key! as ValueKey<String>).value.startsWith(p),
+  (w) =>
+      w.key is ValueKey<String> &&
+      (w.key! as ValueKey<String>).value.startsWith(p),
 );
 
 /// Every Dürbün box / line that can be on the card, by a short name.
@@ -246,15 +250,16 @@ final Map<String, Finder> _rifleParts = {
 
 /// The parts on screen, row by row ("A | B" = one row), top to bottom.
 List<String> _layout(WidgetTester tester, Map<String, Finder> parts) {
-  final at = <(String, Offset)>[
-    for (final MapEntry(:key, :value) in parts.entries)
-      if (value.evaluate().isNotEmpty)
-        (key, tester.getTopLeft(value.first)),
-  ]..sort((a, b) {
-      final dy = a.$2.dy - b.$2.dy;
-      if (dy.abs() > 2) return dy.sign.toInt();
-      return a.$2.dx.compareTo(b.$2.dx);
-    });
+  final at =
+      <(String, Offset)>[
+        for (final MapEntry(:key, :value) in parts.entries)
+          if (value.evaluate().isNotEmpty)
+            (key, tester.getTopLeft(value.first)),
+      ]..sort((a, b) {
+        final dy = a.$2.dy - b.$2.dy;
+        if (dy.abs() > 2) return dy.sign.toInt();
+        return a.$2.dx.compareTo(b.$2.dx);
+      });
   final rows = <List<String>>[];
   double? top;
   for (final (name, o) in at) {
@@ -336,7 +341,10 @@ String _designation(WidgetTester tester) =>
 
 String _typed(WidgetTester tester, String key) => tester
     .widget<TextField>(
-      find.descendant(of: find.byKey(Key(key)), matching: find.byType(TextField)),
+      find.descendant(
+        of: find.byKey(Key(key)),
+        matching: find.byType(TextField),
+      ),
     )
     .controller!
     .text;
@@ -461,12 +469,13 @@ void main() {
 
   group('matching (pure)', () {
     test('old scope naming finds today\'s list record', () {
-      final saved = UserCatalog.fromManualEntries([{..._oldScope}]).scopes.single;
-      final hit = ProfileCatalogMatch.scope(
-        saved,
-        [for (final s in CatalogRepository.scopes) if (!s.userEntered) s],
-        (s) => s.model,
-      );
+      final saved = UserCatalog.fromManualEntries([
+        {..._oldScope},
+      ]).scopes.single;
+      final hit = ProfileCatalogMatch.scope(saved, [
+        for (final s in CatalogRepository.scopes)
+          if (!s.userEntered) s,
+      ], (s) => s.model);
       expect(hit?.id, 'lib-arken-optics-sh-4-genii-4-16x50-ffp');
     });
 
@@ -475,11 +484,10 @@ void main() {
         {..._typedScope},
       ]).scopes.single;
       expect(
-        ProfileCatalogMatch.scope(
-          saved,
-          [for (final s in CatalogRepository.scopes) if (!s.userEntered) s],
-          (s) => s.model,
-        ),
+        ProfileCatalogMatch.scope(saved, [
+          for (final s in CatalogRepository.scopes)
+            if (!s.userEntered) s,
+        ], (s) => s.model),
         isNull,
       );
     });
@@ -489,11 +497,10 @@ void main() {
         {..._oldScope, 'maxMag': 18, 'magnification': '4-18x'},
       ]).scopes.single;
       expect(
-        ProfileCatalogMatch.scope(
-          saved,
-          [for (final s in CatalogRepository.scopes) if (!s.userEntered) s],
-          (s) => s.model,
-        ),
+        ProfileCatalogMatch.scope(saved, [
+          for (final s in CatalogRepository.scopes)
+            if (!s.userEntered) s,
+        ], (s) => s.model),
         isNull,
       );
     });
@@ -548,7 +555,10 @@ void main() {
         ),
       );
       expect(_scopeLayout(tester), _scopeEditLayout);
-      expect(selectedValue<String>(tester, 'scope-brand-select'), 'Gazi Sniper');
+      expect(
+        selectedValue<String>(tester, 'scope-brand-select'),
+        'Gazi Sniper',
+      );
       expect(selectedValue<String>(tester, 'scope-model-select'), isNotNull);
       expect(_designation(tester), 'Dürbün: Gazi Sniper 6-36x56 FFP');
       // The built-in HATSAN / Hercules is the list's Hatsan / Hercules.
@@ -581,7 +591,10 @@ void main() {
       expect(_designation(tester), 'Dürbün: Arken SH-4 Gen II 4-16x50 FFP');
       expect(_rifleLayout(tester), _rifleListLayout);
       expect(selectedValue<String>(tester, 'rifle-brand-select'), 'Tikka');
-      expect(selectedValue<String>(tester, 'rifle-model-select'), 'T3x TACT A1');
+      expect(
+        selectedValue<String>(tester, 'rifle-model-select'),
+        'T3x TACT A1',
+      );
       expect(selectedValue<bool?>(tester, 'rifle-origin'), isFalse);
       expect(_typed(tester, 'rifle-twist-rate'), '11');
       // Nothing is missing: the old profile saves as it is.
@@ -623,7 +636,10 @@ void main() {
         selectedValue<String>(tester, 'scope-model-select'),
         'SH-4 GENII 4-16x50 FFP',
       );
-      expect(selectedValue<String>(tester, 'rifle-model-select'), 'T3x TACT A1');
+      expect(
+        selectedValue<String>(tester, 'rifle-model-select'),
+        'T3x TACT A1',
+      );
     });
 
     testWidgets('built-in list scope: Güncelle -> reopen stays in the lists', (
@@ -633,9 +649,7 @@ void main() {
       final store = await _openSaved(
         tester,
         _decode(
-          _profileJson(
-            scopeId: 'lib-arken-optics-sh-4-genii-4-16x50-ffp',
-          ),
+          _profileJson(scopeId: 'lib-arken-optics-sh-4-genii-4-16x50-ffp'),
         ),
       );
       expect(_scopeLayout(tester), _scopeEditLayout);
@@ -693,7 +707,10 @@ void main() {
         selectedValue<String>(tester, 'scope-model-select'),
         'SH-4 GENII 4-16x50 FFP',
       );
-      expect(selectedValue<String>(tester, 'rifle-model-select'), 'T3x TACT A1');
+      expect(
+        selectedValue<String>(tester, 'rifle-model-select'),
+        'T3x TACT A1',
+      );
     });
   });
 
@@ -748,7 +765,12 @@ void main() {
       await _openNew(tester);
       await openScopeManual(tester);
       final dur = _missing(tester)['Dürbün']!;
-      for (final n in ['Marka', 'Min. büyütme', 'Odak düzlemi', 'Klik değeri']) {
+      for (final n in [
+        'Marka',
+        'Min. büyütme',
+        'Odak düzlemi',
+        'Klik değeri',
+      ]) {
         expect(dur, contains(n), reason: n);
       }
       expect(dur, isNot(contains('Model')));
@@ -801,9 +823,7 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('a short Model stays one line in a normal box', (
-      tester,
-    ) async {
+    testWidgets('a short Model stays one line in a normal box', (tester) async {
       await _openNew(tester);
       await chooseInSelect(tester, 'rifle-brand-select', 'Tikka');
       await chooseInSelect(tester, 'rifle-model-select', 'T3x UPR');
