@@ -1884,6 +1884,17 @@ class MenzilPrimaryButton extends StatelessWidget {
   /// (owner, 2026-10-12: "Profil ekle 2. satıra kaymasın").
   final bool oneLine;
 
+  /// With [oneLine] and an [icon]: the icon starts this many points further
+  /// from the left edge and the label follows it after [iconLabelGap], both
+  /// as one group on the left (owner, 2026-10-14: "Profil ekle ve +
+  /// işaretinin arasındaki boşluğu kapat ama yapışmasınlar, + işaretini
+  /// soldan sağa 1 karakter al"). The label still shrinks only when it does
+  /// not fit. 0 = the usual layout (icon at the edge, label centred).
+  final double iconLead;
+
+  /// Space between icon and label when [iconLead] is set.
+  static const double iconLabelGap = 5;
+
   const MenzilPrimaryButton({
     super.key,
     required this.label,
@@ -1892,6 +1903,7 @@ class MenzilPrimaryButton extends StatelessWidget {
     this.expand = true,
     this.amber = false,
     this.oneLine = false,
+    this.iconLead = 0,
   });
 
   @override
@@ -1922,13 +1934,23 @@ class MenzilPrimaryButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Row(
-          children: [
-            Icon(icon, size: 20),
-            const SizedBox(width: 2),
-            Expanded(child: Center(child: text)),
-          ],
-        ),
+        child: iconLead <= 0
+            ? Row(
+                children: [
+                  Icon(icon, size: 20),
+                  const SizedBox(width: 2),
+                  Expanded(child: Center(child: text)),
+                ],
+              )
+            // Icon and label as one group on the left, close but apart.
+            : Row(
+                children: [
+                  SizedBox(width: iconLead),
+                  Icon(icon, size: 20),
+                  const SizedBox(width: iconLabelGap),
+                  Flexible(child: text),
+                ],
+              ),
       );
       return expand ? SizedBox(width: double.infinity, child: b) : b;
     }
