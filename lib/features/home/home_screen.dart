@@ -19,10 +19,10 @@ import '../tools/tools_screen.dart';
 import 'empty_states.dart';
 
 /// Application shell: fixed top bar, five tabs (Profil, Hava Durumu, Pro,
-/// Atış, Araçlar) and the active-profile state shared by all of them.
+/// Hedef, Araçlar) and the active-profile state shared by all of them.
 /// The app opens on Profil. Hava Durumu sits next to it so the conditions are
 /// set before shooting; Pro holds the incline, cant and Coriolis settings;
-/// Atış switches between a single shot and the DOPE table, as range-card
+/// Hedef switches between a single shot and the DOPE table, as range-card
 /// apps do.
 class HomeScreen extends StatefulWidget {
   final ProfileStore? profileStore;
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const _tabTools = 4;
 
   /// Page titles in the top bar (owner, 2026-10-08): each page shows its own
-  /// name instead of the Menzil wordmark.
+  /// name instead of the "Sniper Türk" brand.
   static const _titles = {
     _tabEnvironment: 'Hava Durumu',
     _tabPro: 'Pro Ayarlar',
@@ -267,7 +267,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  /// Display-only unit label for the top bar. Fails closed to metric, the
+  /// Unit preference (the top bar has no unit button; it only keys the
+  /// ballistic workspace). Fails closed to metric, the
   /// same default the ballistic screen uses when settings cannot be read.
   Future<void> _loadUnitPreference() async {
     try {
@@ -312,7 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
         profileSelector: _profileSelector(context),
         themeLabel: MenzilThemeController.labelFor(themeMode),
         onThemeTap: themeController?.cycle,
-        // Each page shows its own name instead of Menzil (owner, 2026-10-08).
+        // Each page shows its own name instead of the brand (2026-10-08).
         // The tab is "Hedef"; its single shot is "Atış Çözümü" (owner,
         // 2026-10-13: "Hedef Görünümü" was too long).
         title: tab == _tabShot && _shotMode == BallisticsView.shot

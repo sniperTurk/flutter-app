@@ -140,20 +140,14 @@ class MenzilStateMessage extends StatelessWidget {
 // ---------------------------------------------------------------------------
 
 /// Fixed top bar: page title or "Sniper Türk" (left), a compact
-/// active-profile selector and the unit / theme buttons (right).
+/// active-profile selector and the theme button (right). The app is metric
+/// only since V380, so there is no unit button.
 class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget profileSelector;
-
-  /// Unit button; omitted when null (the app is metric only since V380).
-  final String? unitLabel;
-  final VoidCallback? onUnitTap;
   final String themeLabel;
   final VoidCallback? onThemeTap;
 
-  /// False hides the "Sniper Türk" brand (shown when there is no title).
-  final bool showBrand;
-
-  /// Page title shown instead of the brand (Hava Durumu, Pro, Hedef, …).
+  /// Page title shown instead of the "Sniper Türk" brand (Hava Durumu, Pro, Hedef, …).
   final String? title;
 
   /// Every page title this bar can show. The title slot is as wide as the
@@ -174,11 +168,8 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   const MenzilTopBar({
     super.key,
     required this.profileSelector,
-    this.unitLabel,
-    this.onUnitTap,
     required this.themeLabel,
     this.onThemeTap,
-    this.showBrand = true,
     this.title,
     this.slotTitles = const [],
   });
@@ -245,7 +236,7 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                   final slotWidth = titleSlotWidth(
                     barWidth: constraints.maxWidth,
                     titles: [...slotTitles, if (title != null) title!],
-                    includeBrand: showBrand,
+                    includeBrand: true,
                     titleStyle: base.merge(titleStyle),
                     brandStyle: base.merge(MenzilBrand.style(c.ink)),
                     textScaler: MediaQuery.textScalerOf(context),
@@ -284,13 +275,11 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                                       ),
                                     ),
                                   )
-                                : showBrand
-                                ? FittedBox(
+                                : FittedBox(
                                     fit: BoxFit.scaleDown,
                                     alignment: Alignment.centerLeft,
                                     child: MenzilBrand(compact: compact),
-                                  )
-                                : const SizedBox.shrink(),
+                                  ),
                           ),
                         ),
                         const SizedBox(width: MenzilSpace.md),
@@ -301,14 +290,6 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         ),
                         const SizedBox(width: MenzilSpace.sm),
-                        if (unitLabel != null) ...[
-                          MenzilBarButton(
-                            label: unitLabel!,
-                            tooltip: 'Birim sistemi',
-                            onPressed: onUnitTap,
-                          ),
-                          const SizedBox(width: MenzilSpace.xs),
-                        ],
                         MenzilBarButton(
                           label: themeLabel,
                           tooltip: 'Tema',
@@ -878,16 +859,8 @@ class MenzilInfoButton extends StatelessWidget {
   /// Optional picture shown above the text (e.g. the wind direction dial).
   final Widget? illustration;
 
-  /// Optional rich content shown instead of [text] (Pro Ayarlar box
-  /// explanations, owner 2026-10-13: "Pro sayfasındaki açıklamalar popup
-  /// olsun").
-  final Widget? body;
-
   /// Overrides the default "Bilgi: [title]" tooltip / VoiceOver label.
   final String? tooltip;
-
-  /// Label of the closing action ("Tamam" for field ⓘ).
-  final String closeLabel;
 
   /// Replaces the popup (Pro Ayarlar box ⓘ opens a bottom sheet, owner
   /// 2026-10-13).
@@ -897,16 +870,13 @@ class MenzilInfoButton extends StatelessWidget {
     required this.title,
     this.text = '',
     this.illustration,
-    this.body,
     this.tooltip,
-    this.closeLabel = 'Tamam',
     this.onPressed,
   });
 
   /// True when a [MenzilInfoScope] above (Pro Ayarlar boxes) showed the
   /// text itself; otherwise the usual popup opens.
   bool _handledByScope(BuildContext context) {
-    if (body != null) return false;
     final scope = context.getInheritedWidgetOfExactType<MenzilInfoScope>();
     return scope != null && scope.onInfo(title, text);
   }
@@ -915,7 +885,7 @@ class MenzilInfoButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     // ⓘ popups are left-aligned (owner, 2026-10-13).
-    final content = body ?? Text(text, textAlign: TextAlign.start);
+    final content = Text(text, textAlign: TextAlign.start);
     return IconButton(
       tooltip: tooltip ?? 'Bilgi: $title',
       constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
@@ -947,7 +917,7 @@ class MenzilInfoButton extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(dialogContext).pop(),
-                    child: Text(closeLabel),
+                    child: const Text('Tamam'),
                   ),
                 ],
               ),
@@ -965,7 +935,8 @@ class MenzilInfoButton extends StatelessWidget {
 ///
 /// In the compact variant the small label sits 5 pt above a 44 pt box; the
 /// unit and the ⓘ are inside the box at its right edge. The ⓘ keeps its
-/// 44 × 44 pt tap target (the box height), opens the same popup and neither
+/// 44 × 44 pt tap target (the box height), opens the field's explanation (a
+/// popup, or Pro's bottom sheet via [MenzilInfoScope]) and neither
 /// focuses the field nor opens a list. Dialogs open on their own route and
 /// so keep the regular layout.
 class MenzilCompactFields extends InheritedWidget {
@@ -992,8 +963,7 @@ class MenzilCompactFields extends InheritedWidget {
 /// Small label straight above a compact box ([MenzilCompactFields]).
 class _CompactLabel extends StatelessWidget {
   final String label;
-  final Widget? trailing;
-  const _CompactLabel({required this.label, this.trailing});
+  const _CompactLabel({required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -1025,7 +995,6 @@ class _CompactLabel extends StatelessWidget {
                 ),
               ),
             ),
-            if (trailing != null) trailing!,
           ],
         ),
       ),
@@ -1154,8 +1123,6 @@ class _LabelWithInfo extends StatelessWidget {
   }
 }
 
-/// Label row shared by inputs and selectors: label on the left, unit on the
-/// right, constant gap to the control below.
 /// Text that drops its bold weight when it needs a second line (owner,
 /// 2026-10-11: a wrapped bold label or entry reads heavy). One line keeps
 /// [style] as given.
@@ -1211,17 +1178,13 @@ class _MenzilWrapTextState extends State<MenzilWrapText> {
   }
 }
 
+/// Label row shared by inputs and selectors: label on the left, unit on the
+/// right, constant gap to the control below.
 class MenzilFieldLabel extends StatelessWidget {
   final String label;
   final String? unit;
-  final Widget? trailing;
 
-  const MenzilFieldLabel({
-    super.key,
-    required this.label,
-    this.unit,
-    this.trailing,
-  });
+  const MenzilFieldLabel({super.key, required this.label, this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -1238,7 +1201,6 @@ class MenzilFieldLabel extends StatelessWidget {
             const SizedBox(width: MenzilSpace.xs),
             Text(unit!, style: MenzilType.unit(c.ink2)),
           ],
-          if (trailing != null) trailing!,
         ],
       ),
     );
@@ -1256,7 +1218,6 @@ class MenzilInput extends StatelessWidget {
   final String? errorText;
   final String? hintText;
   final ValueChanged<String>? onChanged;
-  final Widget? labelTrailing;
   final TextInputAction? textInputAction;
   final bool enabled;
   final int? maxLength;
@@ -1284,7 +1245,6 @@ class MenzilInput extends StatelessWidget {
     this.errorText,
     this.hintText,
     this.onChanged,
-    this.labelTrailing,
     this.textInputAction,
     this.enabled = true,
     this.maxLength,
@@ -1315,7 +1275,7 @@ class MenzilInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          _CompactLabel(label: label, trailing: labelTrailing),
+          _CompactLabel(label: label),
           Semantics(
             label: semanticLabel,
             child: TextField(
@@ -1379,11 +1339,7 @@ class MenzilInput extends StatelessWidget {
             title: label,
             info: info,
             label: ExcludeSemantics(
-              child: MenzilFieldLabel(
-                label: label,
-                unit: unit,
-                trailing: labelTrailing,
-              ),
+              child: MenzilFieldLabel(label: label, unit: unit),
             ),
           ),
           Semantics(
@@ -1694,7 +1650,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       dropdownColor: c.surface,
                       // Compact: the ⓘ sits left of the arrow, inside the
                       // box. Its own button takes the tap, so it opens the
-                      // popup and never the list. A dense button is as tall
+                      // explanation and never the list. A dense button is as tall
                       // as its icon size: 44 pt.
                       icon: compact
                           ? _CompactTrailing(

@@ -966,8 +966,6 @@ class _ActiveProfileDetails extends StatelessWidget {
   }
 }
 
-/// Full-screen profile editor (create / edit). Returns the validated profile
-/// via `Navigator.pop`; persistence stays with the caller.
 /// Default name for a new profile that does not repeat an existing one:
 /// "Yeni Profil", then "Yeni Profil 2", "Yeni Profil 3", ...
 String defaultProfileName(Set<String> taken) {
@@ -980,6 +978,8 @@ String defaultProfileName(Set<String> taken) {
   return '$base $n';
 }
 
+/// Full-screen profile editor (create / edit). Returns the validated profile
+/// via `Navigator.pop`; persistence stays with the caller.
 class _ProfileDialog extends StatefulWidget {
   final RifleProfile? initial;
 
@@ -1010,7 +1010,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController rifleModel;
   late final TextEditingController rifleCaliber;
 
-  /// Hides the Ağırlık example while the box is being typed in.
+  /// Focus of the Ağırlık box (the form rebuilds on focus change).
   final FocusNode _grainFocus = FocusNode();
 
   /// Kalibre lists (owner, 2026-10-09). Firearm calibers are the ones of the
@@ -1769,7 +1769,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
   }
 
-  /// Klik değeri, asked only for a typed ("Listede yok") scope; a catalog
+  /// Klik değeri, asked only for a typed scope ("Aradığın dürbün listede yok
+  /// mu?"); a catalog
   /// scope brings its own. Empty until Dürbün birimi is chosen.
   Widget _clickSelect() {
     final options = _angularUnitSet
@@ -1922,7 +1923,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               for (final m in models)
                 DropdownMenuItem(
                   value: m,
-                  // Marka, model and the data on one line (owner,
+                  // Model and its data on one line, no brand (owner,
                   // 2026-10-13); a long line is set smaller, never cut.
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
@@ -2172,7 +2173,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   bool _ammoManual = false;
   late final TextEditingController ammoGrain;
 
-  /// PCP projectile length in mm (optional; stability check).
+  /// PCP projectile length in mm. Its box is shown only with
+  /// PROFILE_AMMO_LENGTH; the value is still saved and loaded, but the
+  /// calculation reads only Pro > Mermi uzunluğu (owner, 2026-10-13).
   late final TextEditingController ammoLength;
   late final TextEditingController ammoBc;
 
@@ -2785,8 +2788,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   String? get _lengthError =>
       ammoLength.text.trim().isEmpty ? null : _rangeError(ammoLength, 1, 60);
 
-  /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
-  /// publish none); a typed one is still range-checked.
   /// A typed BC far outside every manufacturer BC of its kind in the
   /// library (owner, 2026-10-13: "1,2" for a 130 gr bullet). Bounds are
   /// the form factor i = SD / BC seen in lib/data/bullet_library.dart
@@ -2830,6 +2831,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return null;
   }
 
+  /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
+  /// publish none); a typed one is still range-checked.
   String? get _bcError =>
       platform == WeaponPlatform.pcp && ammoBc.text.trim().isEmpty
       ? null
@@ -2939,7 +2942,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return [body, plane].where((x) => x.isNotEmpty).join(' ');
   }
 
-  /// Caliber typed so far, used to list matching ammunition.
   /// Show field errors only after the user typed something or tried to save.
   bool _showErrors = false;
   String? _shown(String? error, TextEditingController c) =>
@@ -3144,7 +3146,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// is read once).
   int _scopePickToken = 0;
 
-  /// Empties the ammunition part of the form (another rifle type).
   /// Back from typed ammunition to the list (owner, 2026-10-12): asks
   /// before the typed values go and keeps Tip, so the brand list shows the
   /// listed pellets or slugs of this Kalibre.
@@ -3188,6 +3189,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// fresh ("Seçiniz") instead of keeping "Listede yok".
   int _ammoListToken = 0;
 
+  /// Empties the ammunition part of the form (another rifle type).
   void _clearAmmo() {
     ammo = null;
     ammoBrand.text = '';
@@ -3208,17 +3210,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// Fills the ammunition from a library record (list or library screen).
   void _applyBullet(LibraryBullet b, double? cal) {
-    String n(num v) =>
-        v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     _ammoManual = false;
     {
       ammoBrand.text = b.brand;
       ammoModel.text = b.name.toLowerCase().startsWith(b.brand.toLowerCase())
           ? b.name.substring(b.brand.length).trim()
           : b.name;
-      ammoGrain.text = n(b.grain);
+      ammoGrain.text = _trimNum(b.grain);
       // No maker BC (2026-10-12): the box stays empty for the shooter's own.
-      ammoBc.text = b.bc == null ? '' : n(b.bc!);
+      ammoBc.text = b.bc == null ? '' : _trimNum(b.bc!);
       ammoBcModel = b.model;
       // A library bullet carries its BC; one with a published measured
       // Cd–Mach curve also fills that curve (owner, 2026-10-11). The BC
@@ -3230,7 +3230,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       for (var i = 0; i < 2; i++) {
         final band = i < b.bands.length ? b.bands[i] : null;
         ammoBandFps[i].text = band == null ? '' : band.$1.toString();
-        ammoBandBc[i].text = band == null ? '' : n(band.$2);
+        ammoBandBc[i].text = band == null ? '' : _trimNum(band.$2);
       }
       // The ammunition's caliber follows the rifle: a bullet of another
       // caliber sets it.
@@ -3241,13 +3241,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     }
   }
 
-  /// Library records for this rifle type and caliber (Marka/Model lists).
   /// PCP: no listed pellet or slug for this Kalibre and Tip.
   bool get _noPcpForCaliber =>
       platform == WeaponPlatform.pcp &&
       _parse(rifleCaliber) != null &&
       _libraryHere.isEmpty;
 
+  /// Library records for this rifle type and caliber (Marka/Model lists).
   List<LibraryBullet> get _libraryHere {
     final cal = _parse(rifleCaliber);
     return [
@@ -3295,7 +3295,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return a.name.contains('$g gr') ? a.name : '${a.name} · $g gr';
   }
 
-  /// Fills the ammunition (and the velocity) from a factory cartridge.
   /// The manufacturer note of the listed factory round now in the form
   /// (e.g. "BC G1/G7 etiketi olmadan verilmiş; G1 kabul edildi…"), added to
   /// the BC ⓘ (owner, 2026-10-11: "bilgi notu olacak"); for a round whose BC
@@ -3330,10 +3329,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return '';
   }
 
+  /// Fills the ammunition (and the velocity) from a factory cartridge.
   void _applyFactory(FactoryAmmo a) {
     _ammoSourceSet = true; // a listed factory round: Fabrika fişeği
-    String n(num v) =>
-        v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     // Kalibre not chosen yet: the round tells it.
     if (_cartridge == null && rifleCaliber.text.trim().isEmpty) {
       _cartridge = a.cartridge;
@@ -3342,8 +3340,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     _ammoManual = false;
     ammoBrand.text = a.brand;
     ammoModel.text = a.name;
-    ammoGrain.text = n(a.grain);
-    ammoBc.text = a.bc == null ? '' : n(a.bc!);
+    ammoGrain.text = _trimNum(a.grain);
+    ammoBc.text = a.bc == null ? '' : _trimNum(a.bc!);
     ammoBcModel = a.model;
     _customCurve = false;
     _dragCurve = null;
@@ -3351,7 +3349,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ammoBandFps[i].text = '';
       ammoBandBc[i].text = '';
     }
-    velocity.text = n(a.muzzleVelocityFps);
+    velocity.text = _trimNum(a.muzzleVelocityFps);
     // Barut sıcaklığı: the maker's figure when it publishes one; otherwise
     // only a previous automatic fill goes (typed values stay).
     final pt = FactoryPowderTempLibrary.lookup(a.brand, a.name);
@@ -4104,9 +4102,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             ),
             child: MenzilFieldGrid(
               children: [
-                // Owner, 2026-10-11: PCP Marka | Tip, firearm Mühimmat türü
-                // | Marka; Model on its own row; Ağırlık | BC; BC modeli |
-                // Namlu çıkış hızı.
+                // Owner, 2026-10-11: firearm Mühimmat türü | Marka, Model on
+                // its own row; PCP Tip only (Marka | Tip with PCP_AMMO_BRAND);
+                // then Ağırlık | BC; BC modeli. Namlu çıkış hızı is on the
+                // Tüfek card since 2026-10-13.
                 ..._ammoNameFields(
                   type: platform == WeaponPlatform.firearm
                       ? KeyedSubtree(
@@ -4208,8 +4207,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   controller: ammoGrain,
                   focusNode: _grainFocus,
                   label: 'Ağırlık',
-                  // An example of how to write it; gone once the box is
-                  // tapped (owner, 2026-10-09).
                   onChanged: (_) => setState(() {}),
                   errorText: _shown(_grainError, ammoGrain),
                 ),
@@ -4471,8 +4468,8 @@ MenzilMetric mountCantSummary(double? moa) =>
 String _trimNum(double v) =>
     v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
 
-/// Shows the profile's SI values in the user's unit system (Ayarlar). The
-/// stored profile stays SI; only the display converts.
+/// Display units of the Profil summary. The stored profile stays SI; the
+/// velocity is shown in fps, distances in the profile's own unit.
 class _ProfileUnits {
   const _ProfileUnits();
 
