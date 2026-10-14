@@ -1,98 +1,94 @@
-# Profil ekle: + işareti sağa, yazı yerinde
+# Profil ekle: + işareti 1 harf sağa, yazı hemen yanında
 
-İstek (sahip, 13.10.2026 23:52): "Profil ekle + işareti 2 karakter sağa alır mısın ama yazı kaymasın."
+İstek (sahip, 14.10.2026 08:45): "Profil ekle ve + işaretinin arasındaki boşluğu kapat ama yapışmasınlar, + işaretini soldan sağa 1 karakter al."
+
+Bu karar, 13.10 tarihli "yazı kaymasın" isteğinin yerine geçti. O istek için yapılan çözüm (`iconShift`: yalnız + işaretini kaydırma, yazıyı yerinde tutma) bu PR'dan çıkarıldı. Telefonlarda + işaretine yer kalmadığı için o çözüm neredeyse hiç kayma vermiyordu (iPhone 15'te 0,6 pt).
 
 ## Kısa sonuç
 
-- "Profil ekle" yazısı hiç kıpırdamıyor. Yeri, boyu ve tek satırı aynı kalıyor (test ±0,5 pt ile ölçüyor).
-- Yalnız + işareti sağa kayıyor. Hedef 15 pt, yani bu yazı boyunda yaklaşık 2 harf.
-- **Ancak telefonlarda 2 harflik yer yok.** Yazı + ile arasında en fazla birkaç puanlık boşluk bırakıyor. İsteğe uygun olarak + işareti, yazıyla arasında en az 4 pt boşluk kalacak kadar kayıyor. Ölçülen değerler aşağıdaki tabloda.
+- + işareti, main'deki yerinden **8 pt sağa** geldi. Bu, düğmenin yazı boyunda yaklaşık 1 harf.
+- "Profil ekle" yazısı artık düğmenin ortasında durmuyor. + işaretinin hemen arkasından, **5 pt boşlukla** başlıyor. İkisi birlikte, düğmenin sol tarafında tek bir grup gibi duruyor. Yapışmıyorlar.
+- Yazı tek satır. Sığarsa yanındaki düğmelerle aynı boyda kalıyor. Sığmazsa (önceden olduğu gibi) yalnız sığacak kadar küçülüyor.
+- Kopyala, Sil, Yedekle, Geri yükle ve Hava/Basınç düğmeleri değişmedi.
 
 ## Ne değişti
 
-- `lib/ui/menzil_widgets.dart`: `MenzilPrimaryButton`'a yeni bir ayar eklendi: `iconShift`. Varsayılanı 0'dır ve 0 iken düğme eskisiyle birebir aynı çizilir. Ayar yalnız + işaretini sağa iter. Kayma, işaret ile yazı arasında en az 4 pt (`minIconGap`) kalacak şekilde kısaltılır.
-- `lib/features/profiles/profiles_screen.dart`: yalnız "Profil ekle" düğmesine `iconShift: 15` eklendi. Bu dosyada değişen tek satır bu (ve bir yorum).
-- `test/profil_ekle_arti_test.dart`: yeni test.
+- `lib/ui/menzil_widgets.dart`: `MenzilPrimaryButton`'a `iconLead` ayarı eklendi (varsayılan 0). 0 iken düğme main'deki ile birebir aynı çizilir. 0'dan büyükse düğmenin içi şöyle dizilir: sol boşluk 2 pt, `iconLead` kadar ek boşluk, + işareti (20 pt), 5 pt ara (`iconLabelGap`), yazı. Sağ boşluk 14 pt aynı kaldı.
+- `lib/features/profiles/profiles_screen.dart`: yalnız "Profil ekle" düğmesine `iconLead: 8` eklendi (bir satır ve bir yorum).
+- Önceki çözümün `iconShift` ayarı, ölçme kodu ve `Transform` kaydırması tamamen kaldırıldı.
+- `test/profil_ekle_arti_test.dart`: yeni düzene göre yeniden yazıldı.
 
-## + işareti nasıl kayıyor, yazı neden kaymıyor
+## Önce / sonra (düğmenin sol kenarından, pt)
 
-Düğmenin içi eskisi gibi dizilir: sol boşluk 2 pt, + işareti 20 pt, ara 2 pt, kalan yerin ortasında yazı, sağ boşluk 14 pt. Yazı sığmazsa küçülür.
+| | main (önce) | bu PR (sonra) |
+|---|---|---|
+| + işaretinin sol kenarı | 2 | **10** (+8) |
+| + işaretinin sağ kenarı | 22 | **30** |
+| + ile yazı arası boşluk | 2 ile 11 arası (yazı ortalandığı için ekrana göre değişiyor) | **5** (her ekranda aynı) |
+| Yazının sol kenarı | 24 ile 33 arası (ortalanmış) | **35** |
+| Yazıya kalan genişlik | düğme − 38 | düğme − 49 |
 
-Yeni ayar bu dizilişe dokunmaz. + işareti, dizilişteki yerinde kalır ama **yalnız çizilirken** sağa kaydırılarak gösterilir (`Transform.translate`). Diziliş değişmediği için yazının yeri de değişmez.
+Telefonlara göre hesap (yazı genişlikleri, dünkü CI ölçümünde Inter yazı tipiyle bulunan değerler; telefondaki SF yazı tipi buna yakın ama birebir aynı değil):
 
-Kayma miktarı çizimden önce hesaplanır. Düğmenin genişliği ve yazının kendi genişliği (aynı yazı tipi, boyut ve büyük yazı ayarıyla) ölçülür. Bunlardan yazının sol kenarı bulunur. Kayma = en çok 15 pt, ama "yazının sol kenarı − işaretin sağ kenarı − 4 pt" değerini geçmez. Yer yoksa kayma 0 olur.
+| Ekran | Düğme | Önce: yazının yeri | Sonra: yazının yeri | Yazı boyu |
+|---|---|---|---|---|
+| 320 pt (dar) | 92,0 | 24 (küçülmüş, 54 pt'ye sığdırılmış) | 35 | küçülüyor, 43 pt'ye sığdırılıyor |
+| 375 pt (iPhone SE) | 110,3 | 24 (küçülmüş, 72 pt'ye sığdırılmış) | 35 | küçülüyor, 61 pt'ye sığdırılıyor |
+| 393 pt (iPhone 15/16) | 116,3 | 26,6 (tam boy, ~73 pt) | 35 | biraz küçülüyor (~%92), 67 pt'ye sığdırılıyor |
+| 430 pt (Pro Max) | 128,7 | 32,8 (tam boy) | 35 | tam boy |
+| 700 pt (iPad gibi) | 218,7 | 77,8 (tam boy) | 35 | tam boy |
 
-## Ölçülen değerler (pt)
-
-CI'da ölçüldü. Yazı tipi olarak telefondaki SF yerine genişliği ona yakın olan Inter kullanıldı (diğer testlerdeki gibi). Sayfa kenar boşluğu 14 pt, üç düğme yan yana.
-
-| Ekran genişliği | Yazı büyüklüğü | Düğme | Önceki boşluk (+ → yazı) | + kayması | Sonraki boşluk | Yazının sol kenarı |
-|---|---|---|---|---|---|---|
-| 320 (dar telefon) | 1,0 | 92,0 | 2,0 | **0** | 2,0 | 38,00 (değişmedi) |
-| 375 (iPhone SE) | 1,0 | 110,3 | 2,0 | **0** | 2,0 | 38,00 (değişmedi) |
-| 393 (iPhone 15/16) | 1,0 | 116,3 | 4,6 | **0,6** | 4,0 | 40,63 (değişmedi) |
-| 430 (Pro Max) | 1,0 | 128,7 | 10,8 | **6,8** | 4,0 | 46,80 (değişmedi) |
-| 700 (iPad gibi geniş) | 1,0 | 218,7 | 55,8 | **15,0** | 40,8 | 91,80 (değişmedi) |
-| 320 / 375 / 393 / 430 | 1,3 | 92–129 | 2,0 | **0** | 2,0 | değişmedi |
-| 700 | 1,3 | 218,7 | 44,8 | **15,0** | 29,8 | 80,84 (değişmedi) |
-
-Açık ve koyu temada değerler aynı. Tema yalnız rengi değiştiriyor.
-
-**Sonuç:** Çoğu telefonda yazı, düğmede kendine kalan yeri zaten dolduruyor; 375 pt ve altında küçülerek sığıyor. Yazı yerinde kalırsa + işaretinin gidebileceği yer yok. iPhone 15'te kayma 0,6 pt, yani gözle görülmez. Pro Max'te 6,8 pt (yaklaşık 1 harf). Tam 2 harf (15 pt) yalnız iPad gibi geniş ekranlarda oluyor.
+Not: + işareti 8 pt sağa geldiği ve yazı ondan 5 pt sonra başladığı için yazıya kalan yer 11 pt azaldı. Bu yüzden dar telefonlarda ve iPhone 15'te yazı önceye göre biraz daha küçük görünür. Pro Max ve daha geniş ekranlarda yazı tam boyda kalır. Yazının küçülmesi istenmezse sağdaki 14 pt boşluk azaltılabilir. Bu PR'da o boşluğa dokunulmadı, çünkü istekte yoktu.
 
 ## Neden bu yol
 
-- Yazının yerine kesin olarak dokunmamanın en güvenli yolu, dizilişi hiç değiştirmemek ve yalnız işaretin çizildiği yeri kaydırmak.
-- Yeni ayar yalnız "Profil ekle" düğmesinde açık. Kopyala, Sil, Yedekle, Geri yükle, Hava Durumu'na geç ve Hava/Basınç düğmeleri değişmiyor. Diğer `MenzilPrimaryButton` kullanımlarında ayar 0 olduğu için eski kod yolu birebir çalışıyor.
-- Sabit 15 pt kaydırmak telefonlarda + işaretini yazının üstüne bindirirdi. Bu yüzden kayma her ekranda yere göre ayarlanıyor.
+- İstenen düzen basit: + işareti biraz içeride, yazı hemen arkasında. Bunun en sade yolu, işaret ile yazıyı sabit boşluklarla yan yana dizmek. Önceki çözümdeki ölçme ve kaydırma kodu gerekmiyor.
+- Ayar yalnız bu düğmede açık. Diğer bütün `MenzilPrimaryButton` kullanımlarında `iconLead` 0 olduğu için eski kod yolu hiç değişmeden çalışıyor.
+- 5 pt boşluk, istenen 4–6 pt aralığının ortası. + simgesinin çizgisi kendi kutusunun biraz içinde bittiği için gözle görülen boşluk 5 pt'den biraz fazla olur. Bu sayede yapışık görünmez.
 
 ## Kenar durumlar
 
-- **Dar telefon (320 pt):** kayma 0. Taşma yok, + yazıya binmiyor.
-- **Büyük yazı (1,3×):** yazı küçülerek tek satıra sığıyor, kayma 0. Taşma yok.
-- **Açık / koyu tema:** ölçüler aynı. İkisi de test ediliyor.
-- **iOS "Kalın yazı":** yazı genişliği kalın yazıyla ölçülüyor. Kalın yazı daha geniş olduğu için kayma azalır, bindirme olmaz.
+- **Dar telefon (320 pt):** yazı tek satırda kalıyor ve sığacak kadar küçülüyor. Taşma yok. Test bunu hem düğme satırında hem gerçek Profil sayfasında denetliyor.
+- **Büyük yazı (1,3×):** yazı küçülerek tek satıra sığıyor. + işaretinin yeri ve 5 pt boşluk değişmiyor. Taşma yok.
+- **Açık / koyu tema:** yalnız renk değişiyor, ölçüler aynı. İkisi de test ediliyor.
+- **iOS "Kalın yazı":** yazı daha geniş olursa yalnız biraz daha küçülür. Yerleşim değişmez.
 
 ## Bilerek değiştirilmeyenler
 
-- Yazının yeri, boyu, küçülme kuralı ve tek satır kuralı.
-- Düğmenin iç boşlukları (sol 2 / sağ 14 / ara 2). Bunlar değişseydi yazı da kayardı.
-- Diğer bütün düğmeler.
-
-## Sahibin karar vermesi gereken seçenekler
-
-1. **+ çizgisini ölçü almak:** + simgesinin görünen çizgisi, 20 pt'lik kutusunun sağ kenarından yaklaşık 4 pt içeride biter. Kuralı kutunun değil, görünen + çizgisinin yazıya en az 4 pt uzak olması diye değiştirirsek kayma iPhone 15'te yaklaşık 4,8 pt, Pro Max'te yaklaşık 11 pt olur. Bu PR'da kutu ölçüsü kullanıldı (istekteki test kuralı: icon.right + 4 ≤ text.left).
-2. **Tam 2 harf istenirse:** yazının da biraz sağa gitmesi ya da sağ boşluğun (14 pt) azalması gerekir. "Yazı kaymasın" isteği yüzünden bu PR'da yapılmadı.
+- Düğmenin sol (2 pt) ve sağ (14 pt) iç boşlukları, yüksekliği, rengi ve + simgesinin boyu (20 pt).
+- Yazının "tek satır, sığmazsa küçül" kuralı.
+- Kopyala, Sil, Yedekle, Geri yükle, Hava Durumu'na geç ve Hava/Basınç düğmeleri.
 
 ## Hangi test neyi denetliyor
 
 `test/profil_ekle_arti_test.dart`:
 
-- 320 / 375 / 393 / 430 / 700 pt genişlikte, 1,0× ve 1,3× yazı büyüklüğünde, açık ve koyu temada (20 durum):
-  - Yazının yeri önce düzenden hesaplanıyor: düğme solu + 2 + 22 + (kalan yer − yazı genişliği) / 2. Önceki ve sonraki ölçüm bu değere ±0,5 pt içinde eşit olmalı.
-  - + işareti tam hesaplanan kadar kaymalı. Kayma varsa işaretin sağ kenarı + 4 pt, yazının sol kenarını geçmemeli. Kayma yoksa işaret ile yazı arasındaki boşluk aynı kalmalı.
-  - Kopyala ve Sil düğmeleri ve yazıları hiç değişmemeli. Taşma ya da hata olmamalı.
-- `iconShift:` ayarı kodda yalnız `profiles_screen.dart` içinde ve tek yerde kullanılmalı.
-- Gerçek Profil sayfası 320 pt genişlikte, 1,0× ve 1,3× yazıyla, koyu temada: taşma yok, "Profil ekle" düğmesinde `iconShift` 15, + yazıya binmiyor.
+- Profil sayfasındaki düğme satırı (Profil ekle | Kopyala | Sil). Ekran genişliği 320 / 375 / 393 / 430 / 700 pt, yazı büyüklüğü 1,0× ve 1,3×, açık ve koyu tema (20 durum). Her durumda önce main düzeni (`iconLead: 0`), sonra yeni düzen (`iconLead: 8`) çiziliyor:
+  - main'de + işaretinin sol kenarı düğme solu + 2 pt.
+  - Yeni düzende + işareti main'e göre 8 pt (±0,5) sağda. Boyu ve yüksekliği aynı.
+  - + işaretinin sağ kenarı ile yazının sol kenarı arası 4 ile 6 pt arasında (5 ± 0,5). Yani yapışık değiller.
+  - Yazı tek satırda ve düğmenin içinde. Sığıyorsa tam boyda. Sığmıyorsa tam kalan yer kadar küçülmüş.
+  - Profil ekle düğmesinin kendisi, Kopyala ve Sil düğmeleri ve yazıları hiç değişmemiş. Taşma ya da hata yok.
+- `iconLead:` ayarı kodda yalnız `profiles_screen.dart` içinde ve tek yerde kullanılıyor.
+- Gerçek Profil sayfası 320 pt genişlikte, 1,0× ve 1,3× yazıyla, koyu temada: taşma yok, "Profil ekle" düğmesinde `iconLead` 8, + işareti düğme solu + 10 pt'de, + ile yazı arası 4–6 pt.
 
 ## Yerel denetimler
 
 - `python3 tools/offline_dart_lint.py`: GEÇTİ (326 Dart dosyası, 0 sorun).
 - `python3 -m unittest discover -s tools -p 'test_*.py'`: GEÇTİ (732 test).
-- Bu ortamda Flutter SDK kurulamadı: Google'ın arşiv sunucusuna erişim engellendi (403). Bu yüzden Flutter testleri ve analiz yalnız CI'da çalıştırıldı.
+- Bu ortamda Flutter SDK kurulamadı (Google arşiv sunucusu 403 verdi). Flutter testleri ve analiz yalnız CI'da çalıştı.
 
 ## CI çalışmaları
 
-- Biçimlendirme (format-fix): https://github.com/sniperTurk/flutter-app/actions/runs/38472045996 (başarılı; commit dala alındı).
-- Analiz (analyze-diag): https://github.com/sniperTurk/flutter-app/actions/runs/38473016156 (başarılı).
-- Yeni test (test-diag, tek dosya): https://github.com/sniperTurk/flutter-app/actions/runs/38473013277 (başarılı).
-- Ölçüm çıktısı için geçici çalışma (değerleri tabloya almak içindi; geçici satır geri alındı): https://github.com/sniperTurk/flutter-app/actions/runs/38473986891 (başarılı).
-- Kod son hâli (48335e4) için:
-  - Tüm testler (test-diag, files=test): https://github.com/sniperTurk/flutter-app/actions/runs/38474920412 (başarılı).
-  - Analiz (analyze-diag): https://github.com/sniperTurk/flutter-app/actions/runs/38474923676 (başarılı).
-  - Biçimlendirme (format-fix): https://github.com/sniperTurk/flutter-app/actions/runs/38474927250 (başarılı, değişiklik yok).
-- iOS CI / Simulator / TestFlight bu iş için çalıştırılmadı.
+Kodun son hâli eb5d15a için (bu commit'ten sonra yalnız bu rapor değişti):
 
-TestFlight'a gönderilmedi. Birleştirme yapılmadı. PR taslak olarak açık.
+- Biçimlendirme (format-fix): https://github.com/sniperTurk/flutter-app/actions/runs/38520243712 (başarılı; biçim commit'i eb5d15a dala alındı).
+- Tüm testler (test-diag, files=test): https://github.com/sniperTurk/flutter-app/actions/runs/38520449815 (başarılı).
+- Yeni test dosyası tek başına (test-diag): https://github.com/sniperTurk/flutter-app/actions/runs/38520454653 (başarılı).
+- Analiz (analyze-diag): https://github.com/sniperTurk/flutter-app/actions/runs/38520452050 (başarılı).
+
+Önceki deneme (f26f8c3 / b8aacca): yeni test 20 durumda kaldı. Sebep uygulamada değil, testin kendisindeydi: test, düğme satırını yüksekliği sınırlı bir alana koymuştu. main düzenindeki `Center` bu alanı doldurduğu için düğme çok uzun çıkıyordu ve + işaretinin yüksekliği karşılaştırılamıyordu. Test satırı, Profil sekmesindeki gibi kaydırılan bir sayfaya alındı ve sonra geçti. Kalan çalışma: https://github.com/sniperTurk/flutter-app/actions/runs/38519325038, analiz o turda da başarılıydı: https://github.com/sniperTurk/flutter-app/actions/runs/38519327078.
+
+iOS CI / Simulator / TestFlight bu iş için ayrıca çalıştırılmadı. TestFlight'a gönderilmedi. Birleştirme yapılmadı. PR taslak olarak açık.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
