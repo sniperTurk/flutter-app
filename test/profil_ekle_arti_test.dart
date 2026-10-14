@@ -76,41 +76,41 @@ Future<void> _pumpRow(
           padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.gutter),
           children: [
             Row(
-            children: [
-              Expanded(
-                child: MenzilPrimaryButton(
-                  key: const Key('ekle'),
-                  label: 'Profil ekle',
-                  icon: Icons.add,
-                  amber: true,
-                  oneLine: true,
-                  iconLead: lead,
-                  onPressed: () {},
+              children: [
+                Expanded(
+                  child: MenzilPrimaryButton(
+                    key: const Key('ekle'),
+                    label: 'Profil ekle',
+                    icon: Icons.add,
+                    amber: true,
+                    oneLine: true,
+                    iconLead: lead,
+                    onPressed: () {},
+                  ),
                 ),
-              ),
-              const SizedBox(width: MenzilSpace.sm),
-              Expanded(
-                child: MenzilSecondaryButton(
-                  key: const Key('kopyala'),
-                  label: 'Kopyala',
-                  icon: Icons.copy_outlined,
-                  expand: true,
-                  onPressed: () {},
+                const SizedBox(width: MenzilSpace.sm),
+                Expanded(
+                  child: MenzilSecondaryButton(
+                    key: const Key('kopyala'),
+                    label: 'Kopyala',
+                    icon: Icons.copy_outlined,
+                    expand: true,
+                    onPressed: () {},
+                  ),
                 ),
-              ),
-              const SizedBox(width: MenzilSpace.sm),
-              Expanded(
-                child: MenzilSecondaryButton(
-                  key: const Key('sil'),
-                  label: 'Sil',
-                  icon: Icons.delete_outline,
-                  destructive: true,
-                  expand: true,
-                  onPressed: () {},
+                const SizedBox(width: MenzilSpace.sm),
+                Expanded(
+                  child: MenzilSecondaryButton(
+                    key: const Key('sil'),
+                    label: 'Sil',
+                    icon: Icons.delete_outline,
+                    destructive: true,
+                    expand: true,
+                    onPressed: () {},
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
           ],
         ),
       ),
