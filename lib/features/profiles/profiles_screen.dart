@@ -2201,6 +2201,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// True: Marka/Model are typed ("Listede yok"); false: picked from the
   /// library lists (owner, 2026-10-11: typed names are mistyped).
   bool _ammoManual = false;
+
+  /// Typed firearm ammunition (owner, 2026-10-14): Marka is picked from
+  /// every known brand; "Diğer" ([_ammoBrandOther]) opens the typed box.
+  /// Ağırlık is picked from the maker weights of this Kalibre; "Listede
+  /// yok" ([_grainOther]) opens a typed grain box with a plausibility range.
+  bool _ammoBrandOther = false;
+  bool _grainOther = false;
   late final TextEditingController ammoGrain;
 
   /// PCP projectile length in mm. Its box is shown only with
@@ -2409,6 +2416,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _ammoManual = !inFactory && !inLibrary;
     }
     ammoGrain = TextEditingController(text: num(a0?.grain));
+    // A saved typed firearm round comes back in the typed boxes with its
+    // values: an unknown brand as "Diğer" + typed, an unlisted weight as
+    // "Listede yok" + typed (owner, 2026-10-14).
+    if (a0 != null && _ammoManual && platform == WeaponPlatform.firearm) {
+      _ammoBrandOther =
+          ammoBrand.text.isNotEmpty &&
+          !_allFirearmAmmoBrands.contains(ammoBrand.text);
+      _grainOther =
+          a0.grain > 0 && !_caliberWeights.contains(_parse(ammoGrain));
+    }
     ammoLength = TextEditingController(text: num(a0?.lengthMm));
     ammoBc = TextEditingController(text: num(a0?.ballisticCoefficient));
     // Stored bands are fastest first: [(s1, main), (s2, bc1), (0, bc2)].
@@ -2651,6 +2668,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     section('Mühimmat', [
       if (platform == WeaponPlatform.firearm) (_ammoSourceSet, 'Mühimmat türü'),
       (_ammoBrandError == null, 'Marka'),
+      if (_typedFirearmAmmo) (_ammoModelError == null, 'Model'),
       (_effectiveAmmoType != null, 'Tip'),
       (_grainError == null, 'Ağırlık'),
       if (platform == WeaponPlatform.pcp && _showProfileAmmoLength)
@@ -2812,7 +2830,157 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// calculation); an empty one is saved as "Özel yapım".
   String? get _ammoBrandError =>
       platform == WeaponPlatform.pcp ? null : _textError(ammoBrand);
-  String? get _grainError => _rangeError(ammoGrain, 1, 800);
+
+  /// Typed firearm ammunition needs its Model (owner, 2026-10-14: the same
+  /// brand's other rounds would be mixed up otherwise).
+  String? get _ammoModelError =>
+      _typedFirearmAmmo ? _textError(ammoModel) : null;
+
+  String? get _grainError =>
+      _typedFirearmAmmo ? _typedGrainError : _rangeError(ammoGrain, 1, 800);
+
+  // ---- Typed firearm ammunition (owner, 2026-10-14) ----------------------
+
+  /// "Diğer" in the typed Marka list; "Listede yok" in the Ağırlık list.
+  static const _otherKey = '__other';
+  static const double _grainOtherKey = -1;
+
+  /// Hız eşiğine göre BC for typed firearm ammunition, hidden (owner,
+  /// 2026-10-14; hidden, not removed). Saved bands are kept and used.
+  static const bool _showTypedBands = bool.fromEnvironment(
+    'AMMO_BC_BANDS_TYPED',
+  );
+
+  /// The "Listede yok" item of the firearm ammo Marka list, hidden (owner,
+  /// 2026-10-14): the typed entry opens from the "Aradığın mühimmat listede
+  /// yok mu?" link instead.
+  static const bool _showAmmoListedeYok = bool.fromEnvironment(
+    'AMMO_LISTEDE_YOK',
+  );
+
+  /// Barut katsayısı (%/15 °C) and Hız ölçüm sıcaklığı (°C) lists.
+  static const List<double> _powderCoefOptions = [
+    0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0, //
+  ];
+  static const List<double> _powderTempOptions = [
+    -10, -5, 0, 5, 10, 15, 21, 25, 30, 35, 40, //
+  ];
+
+  /// Every firearm ammunition brand the app knows (factory rounds and the
+  /// firearm bullets of the library), sorted.
+  static final List<String> _allFirearmAmmoBrands = {
+    for (final a in FactoryAmmoLibrary.all) a.brand,
+    for (final b in BulletLibrary.all)
+      if (b.platform == WeaponPlatform.firearm) b.brand,
+  }.toList()..sort(_byName);
+
+  /// Firearm ammunition the shooter types (link or nothing listed here).
+  bool get _typedFirearmAmmo =>
+      platform == WeaponPlatform.firearm && (_ammoManual || _ammoListEmpty);
+
+  /// The firearm Marka list has nothing for this Kalibre (Fabrika fişeği
+  /// without a Kalibre lists every round, so it is never empty).
+  bool get _ammoListEmpty {
+    if (platform != WeaponPlatform.firearm) return false;
+    if (_factoryAmmo) {
+      return _parse(rifleCaliber) != null && _factoryHere.isEmpty;
+    }
+    return _libraryHere.isEmpty;
+  }
+
+  String? _weightsKey;
+  List<double> _weightsCache = const [];
+
+  /// Maker weights (grain) in the app's data for this Kalibre: the factory
+  /// rounds of the cartridge (else of the diameter) and the firearm library
+  /// bullets of the diameter; unique, ascending. Empty without a Kalibre.
+  List<double> get _caliberWeights {
+    final cal = _parse(rifleCaliber);
+    if (cal == null) return const [];
+    final c = _cartridge;
+    final key = '$cal|$c';
+    if (key == _weightsKey) return _weightsCache;
+    final set = <double>{
+      for (final a in FactoryAmmoLibrary.all)
+        if (c != null ? a.cartridge == c : (a.diameterMm - cal).abs() < 0.02)
+          a.grain,
+      for (final b in BulletLibrary.all)
+        if (b.platform == WeaponPlatform.firearm &&
+            (b.caliberMm - cal).abs() < 0.02)
+          b.grain,
+    };
+    _weightsKey = key;
+    return _weightsCache = set.toList()..sort();
+  }
+
+  /// "168 gr (10,9 g)": grain with its gram equivalent, Turkish comma.
+  static String _grainLabel(double grain) =>
+      '${_trimNum(grain)} gr (${_gramText(grain)} g)';
+
+  static String _gramText(double grain) =>
+      (grain * 0.06479891).toStringAsFixed(1).replaceAll('.', ',');
+
+  /// Accepted typed weights for this Kalibre: 0,8 × lightest to 1,25 ×
+  /// heaviest listed weight; without listed weights, a sectional density of
+  /// 0,08–0,45 lb/in² (grain / (7000 · d²), d in inches).
+  (double, double)? get _typedGrainRange {
+    final cal = _parse(rifleCaliber);
+    if (cal == null || cal <= 0) return null;
+    final w = _caliberWeights;
+    if (w.isNotEmpty) return (0.8 * w.first, 1.25 * w.last);
+    final dIn = cal / 25.4;
+    final k = 7000 * dIn * dIn;
+    return (0.08 * k, 0.45 * k);
+  }
+
+  static const _implausibleGrain =
+      'Bu ağırlık bu kalibre için mantıklı değil. Kutudaki değeri kontrol '
+      'edin.';
+
+  String? get _typedGrainError {
+    if (_parse(rifleCaliber) == null) return 'Önce Kalibre seçin.';
+    final g = _parse(ammoGrain);
+    if (!_grainOther) {
+      // Only a listed weight; a weight of another Kalibre (Kalibre changed
+      // after the pick) is not taken silently.
+      if (ammoGrain.text.trim().isEmpty) return 'Gerekli.';
+      return g != null && _caliberWeights.contains(g)
+          ? null
+          : 'Ağırlığı listeden seçin.';
+    }
+    final e = _rangeError(ammoGrain, 1, 800);
+    if (e != null) return e;
+    final r = _typedGrainRange!;
+    return g! < r.$1 || g > r.$2 ? _implausibleGrain : null;
+  }
+
+  /// "Federal Gold Medal · .308 Win · 168 gr (10,9 g) · BC 0,462 G1", once
+  /// Marka, Model, Ağırlık, BC and BC modeli are valid; else null.
+  String? get _typedAmmoSummary {
+    if (!_typedFirearmAmmo || _customCurve) return null;
+    final model = _bcModelForSave;
+    final bc = _parse(ammoBc), g = _parse(ammoGrain);
+    if (_ammoBrandError != null ||
+        _ammoModelError != null ||
+        _grainError != null ||
+        _bcError != null ||
+        model == null ||
+        bc == null ||
+        g == null) {
+      return null;
+    }
+    final cal = _parse(rifleCaliber)!;
+    final caliber = _cartridge ?? '${_trimNum(cal)} mm';
+    final name = '${ammoBrand.text.trim()} ${ammoModel.text.trim()}';
+    return '$name · $caliber · ${_grainLabel(g)} · '
+        'BC ${_trimNum(bc)} ${model.name.toUpperCase()}';
+  }
+
+  /// Opens the typed firearm entry from the "listede yok mu?" link.
+  void _openAmmoManual() {
+    _clearAmmo();
+    _ammoManual = true;
+  }
 
   /// Uzunluk is optional; a typed one must be a plausible pellet/slug.
   String? get _lengthError =>
@@ -2932,6 +3100,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   bool get _ammoValid =>
       _ammoBrandError == null &&
+      _ammoModelError == null &&
       _grainError == null &&
       (_customCurve
           ? _dragCurve != null && _curveSd != null
@@ -3225,6 +3394,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     ammoBrand.text = '';
     ammoModel.text = '';
     _ammoManual = false;
+    _ammoBrandOther = false;
+    _grainOther = false;
     ammoGrain.text = '';
     ammoLength.text = '';
     ammoBc.text = '';
@@ -3438,6 +3609,65 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // fills the Kalibre), so it is never treated as empty.
     final noCaliber = factory && _parse(rifleCaliber) == null;
     final empty = !noCaliber && (factory ? fHere.isEmpty : lHere.isEmpty);
+    if (firearm && (_ammoManual || empty)) {
+      // Typed firearm round (owner, 2026-10-14): Marka from the list of
+      // every known brand ("Diğer" types it), Model typed.
+      final brandPick = KeyedSubtree(
+        key: const Key('ammo-brand-pick'),
+        child: MenzilSelect<String>(
+          key: ValueKey(
+            'ammo-brand-pick-$_ammoBrandOther-${_ammoBrandOther ? '' : ammoBrand.text}',
+          ),
+          label: 'Marka',
+          hint: 'Seçiniz',
+          info: empty
+              ? '${ProfileFieldInfo.ammoBrandPick}\n\n'
+                    '${ProfileFieldInfo.ammoNothingListed}'
+              : ProfileFieldInfo.ammoBrandPick,
+          initialValue: _ammoBrandOther
+              ? _otherKey
+              : (_allFirearmAmmoBrands.contains(ammoBrand.text)
+                    ? ammoBrand.text
+                    : null),
+          items: [
+            for (final b in _allFirearmAmmoBrands)
+              DropdownMenuItem(value: b, child: Text(b)),
+            const DropdownMenuItem(value: _otherKey, child: Text('Diğer')),
+          ],
+          errorText: _ammoBrandOther
+              ? null
+              : _shownSelect(_ammoBrandError, ammoBrand),
+          onChanged: (v) => setState(() {
+            if (v == null) return;
+            final other = v == _otherKey;
+            if (other && _ammoBrandOther) return;
+            _ammoBrandOther = other;
+            ammoBrand.text = other ? '' : v;
+          }),
+        ),
+      );
+      return [
+        type,
+        brandPick,
+        if (_ammoBrandOther) ...[
+          brandText,
+          modelText,
+        ] else
+          MenzilFullWidth(child: modelText),
+        if (!empty)
+          MenzilFullWidth(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                key: const Key('ammo-back-to-list'),
+                onPressed: _backToAmmoList,
+                icon: const Icon(Icons.list_alt, size: 18),
+                label: const Text('Listeye dön'),
+              ),
+            ),
+          ),
+      ];
+    }
     if (_ammoManual || empty) {
       return [
         ...arrange(brandText, modelText),
@@ -3500,7 +3730,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         initialValue: brand,
         items: [
           for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
-          const DropdownMenuItem(value: _manualKey, child: Text('Listede yok')),
+          // Firearm: hidden behind AMMO_LISTEDE_YOK (owner, 2026-10-14);
+          // the link under Model opens the typed entry.
+          if (!firearm || _showAmmoListedeYok)
+            const DropdownMenuItem(
+              value: _manualKey,
+              child: Text('Listede yok'),
+            ),
         ],
         onChanged: (v) => setState(() {
           if (v == _manualKey) {
@@ -3532,7 +3768,22 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         },
       ),
     );
-    return arrange(brandSelect, modelSelect);
+    return [
+      ...arrange(brandSelect, modelSelect),
+      // Owner, 2026-10-14: like the scope's link (#269), the typed firearm
+      // round opens from here instead of a "Listede yok" item.
+      if (firearm)
+        MenzilFullWidth(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              key: const Key('ammo-not-listed'),
+              onPressed: () => setState(_openAmmoManual),
+              child: const Text('Aradığın mühimmat listede yok mu?'),
+            ),
+          ),
+        ),
+    ];
   }
 
   @override
@@ -4203,7 +4454,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     label: 'Marka',
                     // The list has no factory round for this Kalibre: say so
                     // instead of a silently typed box (owner, 2026-10-11).
-                    info: _noFactoryForCaliber
+                    info: _typedFirearmAmmo
+                        ? ProfileFieldInfo.ammoBrandOther
+                        : _noFactoryForCaliber
                         ? 'Bu kalibre için listede henüz fabrika fişeği yok. '
                               'Fişeğin markasını ve modelini kutunun üstünden '
                               'okuyup yazın; ağırlık, BC ve hız kutuda veya '
@@ -4224,22 +4477,29 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     key: const Key('ammo-model'),
                     controller: ammoModel,
                     label: 'Model',
+                    info: _typedFirearmAmmo
+                        ? ProfileFieldInfo.ammoModelTyped
+                        : null,
                     keyboardType: TextInputType.text,
                     maxLength: 80,
                     onChanged: (_) => setState(() {}),
+                    errorText: _shown(_ammoModelError, ammoModel),
                   ),
                 ),
-                MenzilInput(
-                  key: const Key('ammo-grain'),
-                  info: platform == WeaponPlatform.firearm
-                      ? ProfileFieldInfo.grainFirearm
-                      : ProfileFieldInfo.grain,
-                  controller: ammoGrain,
-                  focusNode: _grainFocus,
-                  label: 'Ağırlık',
-                  onChanged: (_) => setState(() {}),
-                  errorText: _shown(_grainError, ammoGrain),
-                ),
+                if (_typedFirearmAmmo)
+                  ..._typedGrainFields()
+                else
+                  MenzilInput(
+                    key: const Key('ammo-grain'),
+                    info: platform == WeaponPlatform.firearm
+                        ? ProfileFieldInfo.grainFirearm
+                        : ProfileFieldInfo.grain,
+                    controller: ammoGrain,
+                    focusNode: _grainFocus,
+                    label: 'Ağırlık',
+                    onChanged: (_) => setState(() {}),
+                    errorText: _shown(_grainError, ammoGrain),
+                  ),
                 // Uzunluk | BC on PCP (owner, 2026-10-13); hidden behind
                 // PROFILE_AMMO_LENGTH (owner, 2026-10-13 23:32).
                 if (platform == WeaponPlatform.pcp && _showProfileAmmoLength)
@@ -4265,7 +4525,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     // A typed BC picks G1 when no model is chosen yet
                     // (owner, 2026-10-13); G7 or others stay selectable.
                     onChanged: (v) => setState(() {
+                      // Typed firearm round: BC modeli is chosen on
+                      // purpose (owner, 2026-10-14: starts "Seçiniz").
                       if (platform == WeaponPlatform.firearm &&
+                          !_typedFirearmAmmo &&
                           !_customCurve &&
                           ammoBcModel == null &&
                           v.trim().isNotEmpty) {
@@ -4295,17 +4558,23 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                               : ProfileFieldInfo.bcModel) +
                           ProfileFieldInfo.bcModelCustom,
                       label: 'BC modeli',
+                      hint: 'Seçiniz',
                       initialValue: _customCurve
                           ? _customKey
                           : ammoBcModel?.name,
-                      items: [
-                        for (final (m, text) in _bcModelChoices)
-                          DropdownMenuItem(value: m.name, child: Text(text)),
-                        const DropdownMenuItem(
-                          value: _customKey,
-                          child: Text('Özel eğri (Mach–Cd)'),
-                        ),
-                      ],
+                      items: _typedFirearmAmmo
+                          ? _typedBcModelItems
+                          : [
+                              for (final (m, text) in _bcModelChoices)
+                                DropdownMenuItem(
+                                  value: m.name,
+                                  child: Text(text),
+                                ),
+                              const DropdownMenuItem(
+                                value: _customKey,
+                                child: Text('Özel eğri (Mach–Cd)'),
+                              ),
+                            ],
                       onChanged: (v) => setState(() {
                         _customCurve = v == _customKey;
                         if (!_customCurve) {
@@ -4327,36 +4596,28 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   MenzilFullWidth(
                     child: MenzilFieldGrid(
                       children: [
-                        MenzilInput(
-                          key: const Key('profile-powder-coef'),
+                        // Lists, also for listed rounds (owner,
+                        // 2026-10-14); empty = no temperature correction.
+                        _powderSelect(
+                          key: 'profile-powder-coef',
                           controller: powderCoef,
-                          // Short label: "Barut sıcaklık katsayısı" next to its
-                          // unit and ⓘ was cut ("…") on 375–393 pt phones; the ⓘ
-                          // text still starts with the full name (2026-10-11).
+                          // Short label: "Barut sıcaklık katsayısı" next to
+                          // its unit and ⓘ was cut ("…") on 375–393 pt
+                          // phones; the ⓘ text starts with the full name.
                           label: 'Barut katsayısı',
                           unit: '%/15 °C',
                           info: ProfileFieldInfo.powderCoef,
-                          keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                            signed: true,
-                          ),
-                          onChanged: (_) =>
-                              setState(() => _powderAutoFilled = false),
-                          errorText: _shown(_powderCoefError, powderCoef),
+                          options: _powderCoefOptions,
+                          error: _powderCoefError,
                         ),
-                        MenzilInput(
-                          key: const Key('profile-powder-temp'),
+                        _powderSelect(
+                          key: 'profile-powder-temp',
                           controller: powderTemp,
                           label: 'Hız ölçüm sıcaklığı',
                           unit: '°C',
                           info: ProfileFieldInfo.powderTemp,
-                          keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                            signed: true,
-                          ),
-                          onChanged: (_) =>
-                              setState(() => _powderAutoFilled = false),
-                          errorText: _shown(_powderTempError, powderTemp),
+                          options: _powderTempOptions,
+                          error: _powderTempError,
                         ),
                       ],
                     ),
@@ -4374,7 +4635,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   ),
                 // Hıza göre BC: hidden on PCP (owner, 2026-10-13: only Tip,
                 // Ağırlık, BC).
-                if (!_customCurve && platform != WeaponPlatform.pcp) ...[
+                // Typed firearm round: hidden behind AMMO_BC_BANDS_TYPED
+                // (owner, 2026-10-14); saved bands stay in the record.
+                if (!_customCurve &&
+                    platform != WeaponPlatform.pcp &&
+                    (!_typedFirearmAmmo || _showTypedBands)) ...[
                   MenzilFullWidth(
                     child: Text(
                       'Hıza göre BC',
@@ -4412,10 +4677,165 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       message: 'Mühimmat tipini ve BC modelini (G1/G7) seçin.',
                     ),
                   ),
+                // Read-only check line above Kaydet (owner, 2026-10-14).
+                if (_typedAmmoSummary != null)
+                  MenzilFullWidth(
+                    child: MenzilCard(
+                      key: const Key('ammo-typed-summary'),
+                      padding: const EdgeInsets.all(MenzilSpace.md),
+                      child: Text(
+                        _typedAmmoSummary!,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: MenzilType.body(c.ink),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  /// Typed firearm Ağırlık (owner, 2026-10-14): the maker weights of this
+  /// Kalibre as "168 gr (10,9 g)"; "Listede yok" adds a typed grain box
+  /// under it that shows the grams and accepts only a plausible weight.
+  /// Without a Kalibre only a notice (no free typing).
+  List<Widget> _typedGrainFields() {
+    final cal = _parse(rifleCaliber);
+    if (cal == null) {
+      return const [
+        MenzilFullWidth(
+          child: MenzilNotice(
+            key: Key('ammo-grain-need-caliber'),
+            tone: MenzilNoticeTone.info,
+            message:
+                'Ağırlık listesi kalibreye göre gelir. Önce Tüfek bölümünde '
+                'Kalibre seçin.',
+          ),
+        ),
+      ];
+    }
+    final weights = _caliberWeights;
+    final g = _parse(ammoGrain);
+    final select = KeyedSubtree(
+      key: const Key('ammo-grain-select'),
+      child: MenzilSelect<double>(
+        key: ValueKey(
+          'ammo-grain-select-$cal-$_grainOther-'
+          '${_grainOther ? '' : ammoGrain.text}',
+        ),
+        label: 'Ağırlık',
+        hint: 'Seçiniz',
+        info: ProfileFieldInfo.grainPick,
+        initialValue: _grainOther
+            ? _grainOtherKey
+            : (g != null && weights.contains(g) ? g : null),
+        items: [
+          for (final w in weights)
+            DropdownMenuItem(value: w, child: Text(_grainLabel(w))),
+          const DropdownMenuItem(
+            value: _grainOtherKey,
+            child: Text('Listede yok'),
+          ),
+        ],
+        errorText: _grainOther ? null : _shownSelect(_grainError, ammoGrain),
+        onChanged: (v) => setState(() {
+          if (v == null) return;
+          if (v == _grainOtherKey) {
+            if (!_grainOther) ammoGrain.text = '';
+            _grainOther = true;
+            return;
+          }
+          _grainOther = false;
+          ammoGrain.text = _trimNum(v);
+        }),
+      ),
+    );
+    if (!_grainOther) return [MenzilFullWidth(child: select)];
+    // Each on its own row: the gram text next to the unit and ⓘ does not
+    // fit a half-width box on a phone.
+    return [
+      MenzilFullWidth(child: select),
+      MenzilFullWidth(
+        child: MenzilInput(
+          key: const Key('ammo-grain'),
+          controller: ammoGrain,
+          label: 'Kutudaki ağırlık',
+          // The gram equivalent in the unit area, so a gram value typed as
+          // grain stands out (owner: "Ağırlığın doğru yazılması çok önemli").
+          unit: g == null || g <= 0 ? 'gr' : 'gr = ${_gramText(g)} g',
+          info: ProfileFieldInfo.grainTyped,
+          onChanged: (_) => setState(() {}),
+          errorText: _shown(_grainError, ammoGrain),
+        ),
+      ),
+    ];
+  }
+
+  /// BC modeli of a typed firearm round: G1 or G7 (owner, 2026-10-14); a
+  /// saved other model or curve stays selectable so the record is kept.
+  List<DropdownMenuItem<String>> get _typedBcModelItems => [
+    const DropdownMenuItem(value: 'g1', child: Text('G1')),
+    const DropdownMenuItem(value: 'g7', child: Text('G7')),
+    if (!_customCurve &&
+        ammoBcModel != null &&
+        ammoBcModel != BallisticModel.g1 &&
+        ammoBcModel != BallisticModel.g7)
+      DropdownMenuItem(
+        value: ammoBcModel!.name,
+        child: Text('${ammoBcModel!.name.toUpperCase()} (kayıtlı)'),
+      ),
+    if (_customCurve)
+      const DropdownMenuItem(
+        value: _customKey,
+        child: Text('Özel eğri (kayıtlı)'),
+      ),
+  ];
+
+  /// Barut katsayısı / Hız ölçüm sıcaklığı as a list (owner, 2026-10-14).
+  /// Starts on "Seçiniz" (empty = no correction; "Seçiniz" in the list
+  /// empties it again). A value not in [options] (an older profile, a
+  /// maker figure) is listed as "(kayıtlı)" / "(üretici)" and kept.
+  Widget _powderSelect({
+    required String key,
+    required TextEditingController controller,
+    required String label,
+    required String unit,
+    required String info,
+    required List<double> options,
+    required String? error,
+  }) {
+    final cur = _parse(controller);
+    final extra = cur != null && !options.contains(cur);
+    final values = [...options, if (cur != null && extra) cur]..sort();
+    final tag = _powderAutoFilled ? 'üretici' : 'kayıtlı';
+    return KeyedSubtree(
+      key: Key(key),
+      child: MenzilSelect<String>(
+        key: ValueKey('$key-${controller.text}'),
+        label: label,
+        unit: unit,
+        info: info,
+        hint: 'Seçiniz',
+        initialValue: cur == null ? null : _trimNum(cur),
+        items: [
+          const DropdownMenuItem(value: '', child: Text('Seçiniz')),
+          for (final v in values)
+            DropdownMenuItem(
+              value: _trimNum(v),
+              child: Text(
+                extra && v == cur ? '${_trimNum(v)} ($tag)' : _trimNum(v),
+              ),
+            ),
+        ],
+        errorText: _shownSelect(error, controller),
+        onChanged: (v) => setState(() {
+          controller.text = v ?? '';
+          _powderAutoFilled = false;
+        }),
       ),
     );
   }
