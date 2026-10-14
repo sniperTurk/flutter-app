@@ -1008,8 +1008,10 @@ void main() {
         '.308 in · 7,82 mm',
       );
       expect(_rifleLayout(tester), withDiameter);
-      // The typed rifle keeps the same order.
+      // The typed rifle keeps the same order (opening it starts Kalibre
+      // over, as before; pick "Fişeğim listede yok" again).
       await openRifleManual(tester);
+      await _pickCaliber(tester, 'Fişeğim listede yok');
       expect(_rifleLayout(tester), [
         'Marka (yazılı)',
         'Model (yazılı)',
