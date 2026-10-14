@@ -108,8 +108,7 @@ Map<String, List<ProExplain>> _expected({required bool pcp}) => {
     ProSectionInfo.zeroOffset,
     ProSectionInfo.spinDrift,
     if (!pcp) ProSectionInfo.powder,
-    // Kalan tüp basıncı is hidden (owner, 2026-10-14): no Tüp basıncı
-    // explanation either.
+    // Tüp basıncı is asked on Profil (owner, 2026-10-14).
   ],
 };
 
@@ -144,7 +143,6 @@ Map<String, Map<String, String>> _fields({required bool pcp}) => {
     'Yukarı + / aşağı −': EnvironmentFieldInfo.zeroUp,
     'Sağ + / sol −': EnvironmentFieldInfo.zeroRight,
     'Mermi uzunluğu': EnvironmentFieldInfo.bulletLength,
-    // No 'Kalan tüp basıncı' on PCP: hidden since 2026-10-14 (owner).
   },
 };
 
@@ -549,13 +547,7 @@ void main() {
     expect(tester.takeException(), isNull);
     final last = _entries(tester).length - 1;
     expect(_entries(tester)[last].highlighted, isTrue);
-    // PCP: Kalan tüp basıncı is hidden (owner, 2026-10-14), so Mermi
-    // uzunluğu is the last field.
     expect(_entries(tester)[last].field.label, 'Mermi uzunluğu');
-    expect(
-      _entries(tester).map((e) => e.field.label),
-      isNot(contains('Kalan tüp basıncı')),
-    );
     final scrollable = _inSheet(find.byType(Scrollable)).first;
     expect(
       tester.state<ScrollableState>(scrollable).position.pixels,

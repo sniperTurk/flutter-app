@@ -1,61 +1,45 @@
-# Pro: "Kalan tüp basıncı" gizlendi
+# Pro: "Kalan tüp basıncı" gizli — kalan işler
 
 İstek (sahip, 2026-10-14 08:11, TestFlight ekran görüntüsü, Pro Ayarlar, PCP profili, "Tüfek düzeltmeleri" kartının altı): "Kalan tüp basıncını kaldıralım." Kural: gizle, silme.
 
-## Ne değişti
+## Önemli: asıl değişiklik main'de zaten var (#284)
 
-`lib/features/ballistics/ballistics_screen.dart`:
+Bu dal açıldıktan sonra main'e #284 ("Tüp basıncı yalnız Profil'de", 08:14'te birleştirildi) girdi. #284 aynı kutuyu aynı bayrakla (`PRO_TUBE_PRESSURE`, varsayılan kapalı) gizliyor; ⓘ sayfasından alanı ve "Tüp basıncı" açıklamasını, Pro uyarılarını, "Kullanılan hız" satırını ve özetteki sayımı da kaldırıyor.
 
-- Yeni bayrak: `static const bool _showProTubePressure = bool.fromEnvironment('PRO_TUBE_PRESSURE');` Varsayılan kapalı. `--dart-define=PRO_TUBE_PRESSURE=true` ile derlenirse eski davranış aynen geri gelir.
-- Bayrak kapalıyken Pro > Tüfek düzeltmeleri (PCP) içinde şunlar görünmez:
-  - "Kalan tüp basıncı" kutusu (bar, ⓘ),
-  - "Kalan basınç, profildeki tüp basıncından yüksek…" uyarısı,
-  - "Tüp basıncı regülatör basıncının altında…" uyarısı,
-  - "Kullanılan hız: … fps (profil … fps)" satırı.
-- Tüfek düzeltmeleri ⓘ alttan sayfasından "Kalan tüp basıncı" alan satırı ve "Tüp basıncı" açıklaması (kutuya yazmayı anlatıyordu) çıkarıldı.
-- Hedef sayfasındaki "Regülatör devre dışı: tüp basıncı regülatör basıncının altında, hız düşer." uyarısı görünmez.
-- Tüfek düzeltmeleri başlığındaki özet ("1 ayar açık" vb.) kayıtlı tüp basıncını artık saymaz.
+İlk sürümde bu dal aynı işi kendi kodu ile yapmıştı. Main ile birleştirirken **kod tarafında main'in (#284) hâli alındı**; bu PR artık `lib/` altında hiçbir dosyayı değiştirmiyor.
 
-## Hız şimdi nasıl seçiliyor
+## Bu PR'da kalanlar
 
-Bayrak kapalıyken `_pcpVelocity` hiç hesap yapmaz (null döner). Böylece hesapta kullanılan hız, kutu boşken olduğu gibi profil hızıdır (ateşli tüfekte barut sıcaklığı düzeltmesi aynen uygulanır; PCP'de bu düzeltme zaten yok). Sıfırlama hızı da profil hızı olarak kalır.
+- `integration_test/sim_screens_test.dart`: gizli kutuya 120 yazan `pro_tup_basinci` adımı kaldırıldı. #284 bu adıma dokunmamıştı; kutu artık olmadığı için Simulator ekran testinde bu adım bulunamayan kutuya yazmaya çalışırdı.
+- `test/pcp_pressure_ui_test.dart` (main'in hâline ek testler):
+  - Pro'da kayıtlı eski değer (120 bar) silinmiyor, depoda kalıyor.
+  - Kayıtlı değer varken Pro'da kutu, uyarılar ve "Kullanılan hız" yok; Tüfek düzeltmeleri özeti "1 ayar açık" (yalnız hep açık olan spin drift sayılıyor).
+  - Tüfek düzeltmeleri ⓘ sayfasında alanlar yalnız Gerçek / yazan, Yukarı + / aşağı −, Sağ + / sol −, Mermi uzunluğu; "Tüp basıncı" açıklaması yok.
+- Bu rapor.
 
-## Neden
+## Hız şimdi nasıl seçiliyor (main, #284)
 
-Sahip kutunun kaldırılmasını istedi. Kutu gizlenip eski kayıtlı değer hesapta kalsaydı kullanıcı göremediği ve değiştiremediği bir değer yüzünden farklı nişan alırdı. Bu yüzden gizliyken kayıtlı değer tamamen yok sayılır.
+Pro'ya kaydedilmiş değer hiç kullanılmıyor. Hesap Profil > Mühimmat'taki "Tüp basıncı" (dolum basıncı) ve "Regülatör basıncı"nı kullanıyor:
 
-## Uç durumlar
+- **Regülatörlü PCP:** form tüpü regülatörün üstünde tutuyor → hız profil hızı. Kayıtlı Pro 120 bar (150 bar regülatör) hızı değiştirmiyor, Hedef'te "Regülatör devre dışı" uyarısı çıkmıyor (test ediliyor).
+- **Regülatörsüz PCP, "Basınca göre hız" tablosu ve Profil Tüp basıncı dolu:** hız tablodan, Profil Tüp basıncındaki değerden bulunuyor.
+- **Profil Tüp basıncı boş:** profil hızı.
+- **Ateşli tüfek:** değişiklik yok.
 
-- **Eskiden kaydedilmiş değer:** Ayar kaydında (`ShotSettings.tubePressureText`, anahtar `tubePressure`) olduğu gibi kalır, silinmez; sayfa yine okur ve geri yazar. Yalnız gizliyken hesaba, uyarılara ve özete girmez. Bayrak açılırsa aynı değer yeniden kullanılır.
-- **Regülatörlü PCP:** Kayıtlı 120 bar, 150 bar regülatörün altında olsa bile hız profil hızıdır, Hedef'te uyarı çıkmaz.
-- **Regülatörsüz PCP:** Kayıtlı tüp basıncı, basınca göre hız tablosundan hız seçtirmez; profil hızı kullanılır.
-- **Ateşli tüfek:** Değişiklik yok; kutu zaten yoktu, kayıtlı değer zaten yok sayılıyordu.
-- **Tüfek düzeltmeleri kartı PCP'de boş kalmıyor:** Gerçek / yazan, Sıfır ofseti (Yukarı/Sağ) ve Mermi uzunluğu duruyor. Spin drift hep açık olduğu için özet boş kutuda olduğu gibi "1 ayar açık" gösterir.
+## Sahibin kararı gereken nokta
+
+Bu görevin tarifi "kutu gizliyken hız, kutu boşken olduğu gibi profilden gelsin" diyordu. #284 ise regülatörsüz + tablo + Profil Tüp basıncı dolu durumda hızı tablodan alıyor. Regülatörlü tüfekte iki yaklaşım aynı sonucu veriyor; fark yalnız regülatörsüz tüfekte, tablo ölçümü namlu çıkış hızından farklıysa ortaya çıkıyor. #284 sahip tarafından birleştirildiği için onu geri almadım. Hızın her durumda profil hızı olması isteniyorsa bu `_pcpVelocity` içinde tek satırlık bir değişiklik ve ayrı bir PR olarak yapılabilir.
 
 ## Bilerek yapılmayanlar
 
-- Profil formundaki PCP alanları (Tüp basıncı, Regülatör basıncı, Basınca göre hız tablosu) değişmedi. Profil sayfasına dokunulmadı (açık olan fix/profil-ekle-arti ile çakışma yok).
-- `PcpPressure` hesap kodu, `EnvironmentFieldInfo.tubePressure` ve `ProSectionInfo.pcpPressure` metinleri silinmedi; bayrak açılınca kullanılır.
-- `test/support/pro_sections.dart` içindeki eski anahtar eşlemeleri zararsız olduğu için bırakıldı.
-
-## Hangi test kapsıyor
-
-- `test/pcp_pressure_ui_test.dart` ("Pro and Hedef" grubu yeniden yazıldı):
-  - PCP Pro'da "Kalan tüp basıncı" kutusu, uyarıları ve "Kullanılan hız" yok; kartın diğer kutuları var; kayıtlı 120 bar varken özet "1 ayar açık".
-  - Tüfek düzeltmeleri ⓘ sayfasında alanlar yalnız Gerçek / yazan, Yukarı + / aşağı −, Sağ + / sol −, Mermi uzunluğu; "Tüp basıncı" açıklaması yok.
-  - Regülatörlü: kayıtlı 120 bar (150 bar regülatör) Hedef'teki yükselmeyi değiştirmiyor, "Regülatör devre dışı" uyarısı yok, kayıtlı değer depoda duruyor.
-  - Regülatörsüz: kayıtlı tüp basıncı tablo hızını seçtirmiyor.
-  - Ateşli tüfek: kayıtlı değer çözümü değiştirmiyor, Pro'da kutu yok.
-- `test/pro_info_popup_test.dart`: PCP beklenen ⓘ listelerinden tüp basıncı çıkarıldı; "en uzun sayfanın son alanı" testi artık Mermi uzunluğu ⓘ'sine dokunuyor ve listede "Kalan tüp basıncı" olmadığını denetliyor.
-- `integration_test/sim_screens_test.dart`: kutuya 120 yazan `pro_tup_basinci` adımı kaldırıldı.
+- Profil formundaki PCP alanları (Tüp basıncı, Regülatör basıncı, Basınca göre hız) değişmedi; Profil sayfasına dokunulmadı (fix/profil-ekle-arti ile çakışma yok).
+- Main'deki #284 kodu ve davranışı değiştirilmedi.
 
 ## Doğrulama
 
-- Yerel: `python3 tools/offline_dart_lint.py` → PASS (0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 732 test OK.
-- Bu ortamda Flutter SDK yok; `flutter test` / `flutter analyze` GitHub Actions'ta çalıştırıldı:
-  - Format (`format-fix.yml`): yeşil; iki kez çalıştı, ikisinde de CI biçimlendirme commit'i ekledi (9c11a4b, 50c343c), dala çekildi — https://github.com/sniperTurk/flutter-app/actions/runs/38515583540 , https://github.com/sniperTurk/flutter-app/actions/runs/38516245140
-  - Testler (`test-diag.yml`, `files=test`): ilk çalıştırma kırmızıydı (yeni ⓘ testi alan adını `find.text` ile arıyordu, alan adı zengin metin içinde; test `ProInfoFieldEntry` ile düzeltildi) — https://github.com/sniperTurk/flutter-app/actions/runs/38515674607 ; düzeltmeden sonra 50c343c üzerinde yeşil — https://github.com/sniperTurk/flutter-app/actions/runs/38516310489
-  - Analiz (`analyze-diag.yml`): 50c343c üzerinde yeşil — https://github.com/sniperTurk/flutter-app/actions/runs/38516313835
+- Yerel: `python3 tools/offline_dart_lint.py` → PASS (0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 732 test OK. Bu ortamda Flutter SDK yok.
+- Main ile birleştirmeden önceki ilk sürüm (kendi kodu ile): format https://github.com/sniperTurk/flutter-app/actions/runs/38516245140 , testler https://github.com/sniperTurk/flutter-app/actions/runs/38516310489 , analiz https://github.com/sniperTurk/flutter-app/actions/runs/38516313835 — hepsi yeşil (ilk test çalıştırması https://github.com/sniperTurk/flutter-app/actions/runs/38515674607 bir test hatası verdi, düzeltildi).
+- Birleştirmeden sonraki hâl: CI_AFTER_MERGE
 - iOS CI, Simulator, TestFlight çalıştırılmadı. Birleştirme yapılmadı (taslak PR).
 
 ---
