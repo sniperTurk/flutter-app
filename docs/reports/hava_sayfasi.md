@@ -243,7 +243,7 @@ denemeler yalnız geçici hatalarda ve en çok 2 kez.
   `fetch_reset_buttons_test`, `kutu_fikir4_test`, `wind_clock_test`,
   `phone_pressure_test`, `weather_filled_state_test` (yazılan İrtifa artık
   basınç düğmesini griye çevirmez), `shot_settings_test`,
-  `pro_info_popup_test`.
+  `pro_info_popup_test`, `hava_basliklar_test` (İrtifa başlığı da 18).
 - Python: `tools/test_elevation_key_wiring.py` (anahtar yalnız gizli
   değişkenden, depoda anahtar yok); `test_m1_tools_scope_contract.py`
   izinli adaptör listesine yeni adaptör eklendi.
