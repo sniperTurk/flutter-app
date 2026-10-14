@@ -71,9 +71,11 @@ Future<void> _pumpRow(
         child: child!,
       ),
       home: Scaffold(
-        body: Padding(
+        // A scrolling page, as on the Profil tab (unbounded height).
+        body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: MenzilSpace.gutter),
-          child: Row(
+          children: [
+            Row(
             children: [
               Expanded(
                 child: MenzilPrimaryButton(
@@ -109,6 +111,7 @@ Future<void> _pumpRow(
               ),
             ],
           ),
+          ],
         ),
       ),
     ),
