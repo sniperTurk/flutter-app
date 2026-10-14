@@ -1,0 +1,289 @@
+brand,name,cartridge,grain,bc,model,bullet,bullet_bc,status,rel_err
+Sellier & Bellot,Sellier & Bellot PTS line 20 gr V-MAX,.17 Hornet,20.0,0.085,g7,.172 20 gr V-MAX,,no_same_model_bc,
+Hornady,88 gr ELD Match,.22 ARC,88.0,0.274,g7,22 Cal .224 88 gr ELD Match,0.274,matched,0.0
+Barnes,VOR-TX LR LRX 65 GR BT,.22 Creedmoor,65.0,0.424,g1,.224 65 gr LRX BT,0.424,matched,0.0
+Barnes,Harvest Collection 69 gr Sierra TGK,.223 Rem,69.0,0.37,g1,22 Cal 69 gr Tipped GameKing TGK,0.37,matched,0.0
+Federal,Barnes TSX 55 gr Barnes TSX,.223 Rem,55.0,0.209,g1,.224 55 gr TSX FB,0.209,matched,0.0
+Federal,Gold Medal Sierra MatchKing 69 gr Sierra MatchKing BTHP,.223 Rem,69.0,0.165,g7,22 Cal 69 gr HPBT MatchKing SMK | 22 Cal 69 gr Tipped MatchKing TMK,,ambiguous,
+Federal,Gold Medal Sierra MatchKing 77 gr Sierra MatchKing BTHP,.223 Rem,77.0,0.188,g7,22 Cal 77 gr HPBT MatchKing SMK | 22 Cal 77 gr HPBT MatchKing SMK Cannelure | 22 Cal 77 gr HPBT MatchKing X MKX KTZX | 22 Cal 77 gr Tipped MatchKing TMK,,ambiguous,
+Federal,Varmint & Predator 53 gr Hornady V-Max,.223 Rem,53.0,0.29,g1,.224 53 gr V-MAX,0.29,matched,0.0
+Fiocchi,Fiocchi Exacta 69 gr HPBT Sierra MatchKing,.223 Rem,69.0,0.169,g7,22 Cal 69 gr HPBT MatchKing SMK | 22 Cal 69 gr Tipped MatchKing TMK,,ambiguous,
+Fiocchi,Fiocchi Perfecta 69 gr HPBT Sierra MatchKing,.223 Rem,69.0,0.169,g7,22 Cal 69 gr HPBT MatchKing SMK | 22 Cal 69 gr Tipped MatchKing TMK,,ambiguous,
+Fiocchi,Fiocchi Perfecta 77 gr HPBT Sierra MatchKing,.223 Rem,77.0,0.19,g7,22 Cal 77 gr HPBT MatchKing SMK | 22 Cal 77 gr HPBT MatchKing SMK Cannelure | 22 Cal 77 gr HPBT MatchKing X MKX KTZX | 22 Cal 77 gr Tipped MatchKing TMK,,ambiguous,
+Lapua,Lapua 3.2 g (50 gr) Naturalis,.223 Rem,50.0,0.197,g1,Naturalis N566,0.197,matched,0.0
+Lapua,Lapua 4.5 g (69 gr) Scenar-L,.223 Rem,69.0,0.171,g7,Scenar-L OTM GB544,0.171,matched,0.0
+Prvi Partizan,PPU Supreme 69 gr SMK HPBT,.223 Rem,69.0,0.301,g1,22 Cal 69 gr HPBT MatchKing SMK | 22 Cal 69 gr Tipped MatchKing TMK,,ambiguous,
+Remington,Premier Match 69 gr MatchKing Open Tip Match,.223 Rem,69.0,0.336,g1,22 Cal 69 gr HPBT MatchKing SMK | 22 Cal 69 gr Tipped MatchKing TMK,,ambiguous,
+Remington,Premier Match 77 gr MatchKing Open Tip Match,.223 Rem,77.0,0.362,g1,22 Cal 77 gr HPBT MatchKing SMK | 22 Cal 77 gr HPBT MatchKing SMK Cannelure | 22 Cal 77 gr HPBT MatchKing X MKX KTZX | 22 Cal 77 gr Tipped MatchKing TMK,,ambiguous,
+Weatherby,240 Weatherby Magnum 100 gr Hornady InterLock,.240 Weatherby Mag,100.0,0.405,g1,.243 100 gr InterLock BTSP,0.405,matched,0.0
+Weatherby,240 Weatherby Magnum 100 gr Nosler Partition,.240 Weatherby Mag,100.0,0.384,g1,6mm 100gr Partition,0.384,matched,0.0
+Weatherby,240 Weatherby Magnum 80 gr Barnes TTSX,.240 Weatherby Mag,80.0,0.333,g1,.243 80 gr TTSX BT,0.331,matched,-0.006
+Barnes,Harvest Collection 90 gr Sierra TGK,.243 Win,90.0,0.39,g1,6mm 90 gr Tipped GameKing TGK,0.49,matched,0.2564
+Barnes,VOR-TX 80 gr TTSX BT,.243 Win,80.0,0.331,g1,.243 80 gr TTSX BT,0.331,matched,0.0
+Federal,Barnes TSX 85 gr Barnes TSX,.243 Win,85.0,0.333,g1,.243 85 gr TSX BT,0.333,matched,0.0
+Federal,ELD-X 90 gr Hornady ELD-X,.243 Win,90.0,0.409,g1,6mm .243 90 gr ELD-X,0.41,matched,0.0024
+Federal,Nosler Partition 100 gr Nosler Partition,.243 Win,100.0,0.384,g1,6mm 100gr Partition,0.384,matched,0.0
+Federal,Varmint & Predator 75 gr Hornady V-Max,.243 Win,75.0,0.33,g1,.243 75 gr V-MAX,0.33,matched,0.0
+Lapua,Lapua 5.8 g (90 gr) Naturalis,.243 Win,90.0,0.23,g1,Naturalis N509,0.23,matched,0.0
+Remington,Premier Scirocco 90 gr Swift Scirocco Bonded,.243 Win,90.0,0.39,g1,Scirocco II .243 90 gr,0.419,matched,0.0744
+Sierra,Sierra GameChanger 90 gr Tipped GameKing,.243 Win,90.0,0.39,g1,6mm 90 gr Tipped GameKing TGK,0.49,matched,0.2564
+Weatherby,117 gr Barnes LRX,.25 Weatherby RPM,117.0,0.259,g7,.257 117 gr LRX BT,,no_same_model_bc,
+Weatherby,117 gr Hornady SST,.25 Weatherby RPM,117.0,0.197,g7,.257 117 gr SST,,no_same_model_bc,
+Weatherby,133 gr Berger Elite Hunter,.25 Weatherby RPM,133.0,0.315,g7,25 Caliber 133 gr Elite Hunter,0.315,matched,0.0
+Weatherby,257 Weatherby Magnum 100 gr Barnes TTSX,.257 Weatherby Mag,100.0,0.357,g1,.257 100 gr TTSX BT,0.357,matched,0.0
+Weatherby,257 Weatherby Magnum 100 gr Swift Scirocco,.257 Weatherby Mag,100.0,0.429,g1,Scirocco II .257 100 gr,0.429,matched,0.0
+Weatherby,257 Weatherby Magnum 110 gr Nosler AccuBond,.257 Weatherby Mag,110.0,0.418,g1,25 Caliber 110gr AccuBond,0.418,matched,0.0
+Weatherby,257 Weatherby Magnum 115 gr Nosler Ballistic Tip,.257 Weatherby Mag,115.0,0.453,g1,25 Caliber 115gr Ballistic Tip Hunting,0.453,matched,0.0
+Weatherby,257 Weatherby Magnum 120 gr Nosler Partition,.257 Weatherby Mag,120.0,0.391,g1,25 Caliber 120gr Partition,0.391,matched,0.0
+Weatherby,270 Weatherby Magnum 130 gr Barnes TTSX,.270 Weatherby Mag,130.0,0.392,g1,.277 130 gr TTSX BT,0.392,matched,0.0
+Weatherby,270 Weatherby Magnum 130 gr Hornady InterLock,.270 Weatherby Mag,130.0,0.409,g1,.277 130 gr InterLock SP,0.409,matched,0.0
+Weatherby,270 Weatherby Magnum 130 gr Swift Scirocco,.270 Weatherby Mag,130.0,0.45,g1,Scirocco II .277 130 gr,0.45,matched,0.0
+Weatherby,270 Weatherby Magnum 140 gr Nosler AccuBond,.270 Weatherby Mag,140.0,0.496,g1,270 Caliber 140gr AccuBond,0.46,matched,-0.0726
+Weatherby,270 Weatherby Magnum 140 gr Nosler Ballistic Tip,.270 Weatherby Mag,140.0,0.456,g1,270 Caliber 140gr Ballistic Tip Hunting,0.456,matched,0.0
+Weatherby,270 Weatherby Magnum 150 gr Nosler Partition,.270 Weatherby Mag,150.0,0.465,g1,270 Caliber 150gr Partition,0.465,matched,0.0
+Barnes,Harvest Collection 140 gr Sierra TGK,.270 Win,140.0,0.508,g1,270 Cal 140 gr Tipped GameKing TGK,0.508,matched,0.0
+Barnes,VOR-TX LR 129 gr LRX BT,.270 Win,129.0,0.463,g1,.277 129 gr LRX BT,0.463,matched,0.0
+Federal,Barnes TSX 130 gr Barnes TSX,.270 Win,130.0,0.374,g1,.277 130 gr TSX BT,0.374,matched,0.0
+Federal,ELD-X 145 gr Hornady ELD-X,.270 Win,145.0,0.536,g1,270 Cal .277 145 gr ELD-X,0.536,matched,0.0
+Federal,Nosler Partition 130 gr Nosler Partition,.270 Win,130.0,0.416,g1,270 Caliber 130gr Partition,0.416,matched,0.0
+Federal,Nosler Partition 150 gr Nosler Partition,.270 Win,150.0,0.466,g1,270 Caliber 150gr Partition,0.465,matched,-0.0021
+Federal,Swift Scirocco II 130 gr Swift Scirocco II,.270 Win,130.0,0.45,g1,Scirocco II .277 130 gr,0.45,matched,0.0
+Remington,Premier Scirocco 130 gr Swift Scirocco Bonded,.270 Win,130.0,0.433,g1,Scirocco II .277 130 gr,0.45,matched,0.0393
+Sierra,Sierra GameChanger 140 gr Tipped GameKing,.270 Win,140.0,0.508,g1,270 Cal 140 gr Tipped GameKing TGK,0.508,matched,0.0
+Winchester,Expedition Big Game 150 gr AccuBond LR,.270 Win,150.0,0.591,g1,270 Caliber 150gr AccuBond Long Range,0.591,matched,0.0
+Weatherby,150 gr Swift Scirocco,.28 Nosler,150.0,0.515,g1,Scirocco II .284 150 gr,0.515,matched,0.0
+Weatherby,180 gr Berger VLD Hunting,.28 Nosler,180.0,0.673,g1,7mm 180 gr VLD Hunting | 7mm 180 gr VLD Target,,ambiguous,
+Barnes,VOR-TX LR LRX 280 Ack Imp 152 GR BT,.280 Ackley Improved,152.0,0.467,g1,.284 152 gr LRX BT,0.467,matched,0.0
+Weatherby,150 gr Sierra Tipped GameKing,.280 Ackley Improved,150.0,0.545,g1,7mm 150 gr Tipped GameKing TGK,0.545,matched,0.0
+Weatherby,150 gr Swift Scirocco,.280 Ackley Improved,150.0,0.515,g1,Scirocco II .284 150 gr,0.515,matched,0.0
+Barnes,VOR-TX LR 30-06 Sprg 175 gr LRX BT,.30-06 Springfield,175.0,0.508,g1,.308 175 gr LRX BT,0.508,matched,0.0
+Federal,Barnes TSX 165 gr Barnes TSX,.30-06 Springfield,165.0,0.398,g1,.308 165 gr TSX BT,0.398,matched,0.0
+Federal,Barnes TSX 180 gr Barnes TSX,.30-06 Springfield,180.0,0.453,g1,.308 180 gr TSX BT,0.453,matched,0.0
+Federal,ELD-X 178 gr Hornady ELD-X,.30-06 Springfield,178.0,0.552,g1,30 Cal .308 178 gr ELD-X,0.552,matched,0.0
+Federal,Gold Medal Sierra MatchKing 168 gr Sierra MatchKing BTHP,.30-06 Springfield,168.0,0.224,g7,30 Cal 168 gr HPBT MatchKing SMK | 30 Cal 168 gr Tipped MatchKing TMK,,ambiguous,
+Federal,Nosler Partition 165 gr Nosler Partition,.30-06 Springfield,165.0,0.409,g1,30 Caliber 165gr Partition,0.41,matched,0.0024
+Federal,Swift Scirocco II 165 gr Swift Scirocco II,.30-06 Springfield,165.0,0.45,g1,Scirocco II .308 165 gr,0.47,matched,0.0444
+Fiocchi,Fiocchi Performance 165 gr HPBT Sierra GameKing,.30-06 Springfield,165.0,0.363,g1,30 Cal 165 gr HPBT GameKing SGK | 30 Cal 165 gr SBT GameKing SGK,,ambiguous,
+Lapua,Lapua 11.0 g (170 gr) Naturalis,.30-06 Springfield,170.0,0.177,g7,Naturalis N558,0.177,matched,0.0
+Remington,Premier Scirocco 150 gr Swift Scirocco Bonded,.30-06 Springfield,150.0,0.435,g1,Scirocco II .308 150 gr,0.43,matched,-0.0115
+Remington,Premier Scirocco 180 gr Swift Scirocco Bonded,.30-06 Springfield,180.0,0.5,g1,Scirocco II .308 180 gr,0.52,matched,0.04
+Sellier & Bellot,Sellier & Bellot Sierra line 180 gr Sierra GameKing SBT,.30-06 Springfield,180.0,0.218,g7,30 Cal 180 gr SBT GameKing SGK,0.253,matched,0.1606
+Sierra,Sierra GameChanger 165 gr Tipped GameKing,.30-06 Springfield,165.0,0.517,g1,30 Cal 165 gr Tipped GameKing TGK,0.53,matched,0.0251
+Winchester,Expedition Big Game 190 gr AccuBond LR,.30-06 Springfield,190.0,0.597,g1,30 Caliber 190gr AccuBond Long Range,0.597,matched,0.0
+Weatherby,30-378 Weatherby Magnum 165 gr Barnes TTSX,.30-378 Weatherby Mag,165.0,0.442,g1,.308 165 gr TTSX BT,0.442,matched,0.0
+Weatherby,30-378 Weatherby Magnum 180 gr Barnes TTSX,.30-378 Weatherby Mag,180.0,0.484,g1,.308 180 gr TTSX BT,0.484,matched,0.0
+Weatherby,30-378 Weatherby Magnum 180 gr Hornady InterLock,.30-378 Weatherby Mag,180.0,0.425,g1,.308 180 gr InterLock BTSP | .308 180 gr InterLock RN | .308 180 gr InterLock SP,,ambiguous,
+Weatherby,30-378 Weatherby Magnum 180 gr Nosler AccuBond,.30-378 Weatherby Mag,180.0,0.507,g1,30 Caliber 180gr AccuBond,0.507,matched,0.0
+Weatherby,30-378 Weatherby Magnum 180 gr Swift Scirocco,.30-378 Weatherby Mag,180.0,0.52,g1,Scirocco II .308 180 gr,0.52,matched,0.0
+Weatherby,30-378 Weatherby Magnum 200 gr Nosler Partition,.30-378 Weatherby Mag,200.0,0.481,g1,30 Caliber 200gr Partition,0.481,matched,0.0
+Weatherby,30-378 Weatherby Magnum 220 gr Hornady ELD-X,.30-378 Weatherby Mag,220.0,0.65,g1,30 Cal .308 220 gr ELD-X,0.654,matched,0.0062
+Berger,300 Norma Magnum 215 Grain Hybrid Target Rifle Ammunition,.300 Norma Mag,215.0,0.354,g7,30 Caliber 215 gr Hybrid Target,0.354,matched,0.0
+Berger,300 Norma Magnum 230 Grain Hybrid OTM Tactical Rifle Ammunition,.300 Norma Mag,230.0,0.368,g7,30 Caliber 230 gr Hybrid Target,0.368,matched,0.0
+Berger,300 Norma Magnum 245 Grain Long Range Hybrid Target Rifle Ammunition,.300 Norma Mag,245.0,0.433,g7,30 Caliber 245 gr Long Range Hybrid Target,0.433,matched,0.0
+Berger,215 Grain Hybrid Target Rifle Ammunition,.300 PRC,215.0,0.354,g7,30 Caliber 215 gr Hybrid Target,0.354,matched,0.0
+Berger,217 Grain Elite Hunter Rifle Ammunition,.300 PRC,217.0,0.347,g7,30 Caliber 217 gr Elite Hunter,0.356,matched,0.0259
+Berger,245 Grain Elite Hunter Rifle Ammunition,.300 PRC,245.0,0.413,g7,30 Caliber 245 gr EOL Elite Hunter,0.413,matched,0.0
+Federal,ELD-X 212 gr Hornady ELD-X,.300 PRC,212.0,0.663,g1,"30 Cal .308 212 gr ELD-X (1 in 10"" twist) | 30 Cal .308 212 gr ELD-X (1 in 7"" twist)",,ambiguous,
+Hornady,ELD Match 225 gr ELD Match,.300 PRC,225.0,0.391,g7,"30 Cal .308 225 gr ELD Match (1 in 10"" twist) | 30 Cal .308 225 gr ELD Match (1 in 7"" twist)",,ambiguous,
+Barnes,VOR-TX LR LRX 300 Rem Ultra Mag 190 GR BT,.300 RUM,190.0,0.54,g1,.308 190 gr LRX BT,0.541,matched,0.0019
+Barnes,VOR-TX Rifle TTSX 300 Rem Ultra Mag 165 GR BT,.300 RUM,165.0,0.442,g1,.308 165 gr TTSX BT,0.442,matched,0.0
+Barnes,VOR-TX Rifle TTSX 300 Rem Ultra Mag 180 GR BT,.300 RUM,180.0,0.484,g1,.308 180 gr TTSX BT,0.484,matched,0.0
+Remington,Premier Scirocco 300 Rem Ultra Mag 150 gr Swift Scirocco Bonded 3450 fps,.300 RUM,150.0,0.435,g1,Scirocco II .308 150 gr,0.43,matched,-0.0115
+Remington,Premier Scirocco 300 Rem Ultra Mag 180 gr Swift Scirocco Bonded 3250 fps,.300 RUM,180.0,0.5,g1,Scirocco II .308 180 gr,0.52,matched,0.04
+Remington,Premier Scirocco 180 gr Swift Scirocco Bonded,.300 WSM,180.0,0.507,g1,Scirocco II .308 180 gr,0.52,matched,0.0256
+Barnes,VOR-TX Rifle TTSX 300 Wby Mag 180 GR BT,.300 Weatherby Mag,180.0,0.484,g1,.308 180 gr TTSX BT,0.484,matched,0.0
+Weatherby,300 Weatherby Magnum 165 gr Hornady InterLock,.300 Weatherby Mag,165.0,0.387,g1,.308 165 gr InterLock BTSP | .308 165 gr InterLock SP,,ambiguous,
+Weatherby,300 Weatherby Magnum 180 gr Barnes TTSX,.300 Weatherby Mag,180.0,0.484,g1,.308 180 gr TTSX BT,0.484,matched,0.0
+Weatherby,300 Weatherby Magnum 180 gr Hornady InterLock,.300 Weatherby Mag,180.0,0.425,g1,.308 180 gr InterLock BTSP | .308 180 gr InterLock RN | .308 180 gr InterLock SP,,ambiguous,
+Weatherby,300 Weatherby Magnum 180 gr Nosler AccuBond,.300 Weatherby Mag,180.0,0.507,g1,30 Caliber 180gr AccuBond,0.507,matched,0.0
+Weatherby,300 Weatherby Magnum 180 gr Sierra Tipped GameKing,.300 Weatherby Mag,180.0,0.515,g1,30 Cal 180 gr Tipped GameKing TGK | 30 Cal 180 gr Tipped GameKing TGK optimized for 30 06 | 30 Cal 180 gr Tipped GameKing TGK optimized for 300 Win Mag,,ambiguous,
+Weatherby,300 Weatherby Magnum 180 gr Swift Scirocco,.300 Weatherby Mag,180.0,0.52,g1,Scirocco II .308 180 gr,0.52,matched,0.0
+Weatherby,300 Weatherby Magnum 200 gr Hornady ELD-X,.300 Weatherby Mag,200.0,0.597,g1,30 Cal .308 200 gr ELD-X,0.597,matched,0.0
+Weatherby,300 Weatherby Magnum 200 gr Nosler AccuBond,.300 Weatherby Mag,200.0,0.588,g1,30 Caliber 200gr AccuBond,0.588,matched,0.0
+Barnes,VOR-TX LR 190 gr LRX BT,.300 Win Mag,190.0,0.499,g1,.308 190 gr LRX BT,0.541,matched,0.0842
+Federal,Barnes TSX 165 gr Barnes TSX,.300 Win Mag,165.0,0.398,g1,.308 165 gr TSX BT,0.398,matched,0.0
+Federal,Barnes TSX 180 gr Barnes TSX,.300 Win Mag,180.0,0.453,g1,.308 180 gr TSX BT,0.453,matched,0.0
+Federal,ELD-X 200 gr Hornady ELD-X,.300 Win Mag,200.0,0.596,g1,30 Cal .308 200 gr ELD-X,0.597,matched,0.0017
+Federal,Gold Medal Sierra MatchKing 190 gr Sierra MatchKing BTHP,.300 Win Mag,190.0,0.275,g7,30 Cal 190 gr HPBT MatchKing SMK,0.265,matched,-0.0364
+Federal,Nosler Partition 180 gr Nosler Partition,.300 Win Mag,180.0,0.361,g1,30 Caliber 180gr PPT Partition | 30 Caliber 180gr Partition,,ambiguous,
+Federal,Swift Scirocco II 180 gr Swift Scirocco II,.300 Win Mag,180.0,0.52,g1,Scirocco II .308 180 gr,0.52,matched,0.0
+Fiocchi,Fiocchi Exacta 190 gr HPBT Sierra MatchKing,.300 Win Mag,190.0,0.27,g7,30 Cal 190 gr HPBT MatchKing SMK,0.265,matched,-0.0185
+Hornady,ELD Match 195 gr ELD Match,.300 Win Mag,195.0,0.294,g7,30 Cal .308 195 gr ELD Match,0.294,matched,0.0
+Lapua,Lapua 11.0 g (170 gr) Naturalis,.300 Win Mag,170.0,0.177,g7,Naturalis N558,0.177,matched,0.0
+Lapua,Lapua 12.0 g (185 gr) Scenar,.300 Win Mag,185.0,0.242,g7,Scenar OTM GB432,0.242,matched,0.0
+Remington,Premier Scirocco 180 gr Swift Scirocco Bonded,.300 Win Mag,180.0,0.507,g1,Scirocco II .308 180 gr,0.52,matched,0.0256
+Sierra,Sierra GameChanger 180 gr Tipped GameKing,.300 Win Mag,180.0,0.515,g1,30 Cal 180 gr Tipped GameKing TGK | 30 Cal 180 gr Tipped GameKing TGK optimized for 30 06 | 30 Cal 180 gr Tipped GameKing TGK optimized for 300 Win Mag,,ambiguous,
+Winchester,Expedition Big Game 180 gr AccuBond CT,.300 Win Mag,180.0,0.509,g1,30 Caliber 180gr AccuBond,0.507,matched,-0.0039
+Winchester,Expedition Big Game 190 gr AccuBond LR,.300 Win Mag,190.0,0.597,g1,30 Caliber 190gr AccuBond Long Range,0.597,matched,0.0
+Barnes,Harvest Collection 165 gr Sierra TGK,.308 Win,165.0,0.517,g1,30 Cal 165 gr Tipped GameKing TGK,0.53,matched,0.0251
+Barnes,Precision Match 175 gr OTM (Match Burner) BT,.308 Win,175.0,0.521,g1,.308 175 gr Match Burner BT,0.521,matched,0.0
+Federal,Barnes TSX 150 gr Barnes TSX,.308 Win,150.0,0.369,g1,.308 150 gr TSX BT | .308 150 gr TSX FN FB,,ambiguous,
+Federal,Barnes TSX 165 gr Barnes TSX,.308 Win,165.0,0.398,g1,.308 165 gr TSX BT,0.398,matched,0.0
+Federal,ELD-X 178 gr Hornady ELD-X,.308 Win,178.0,0.552,g1,30 Cal .308 178 gr ELD-X,0.552,matched,0.0
+Federal,Gold Medal Sierra MatchKing 168 gr Sierra MatchKing BTHP,.308 Win,168.0,0.224,g7,30 Cal 168 gr HPBT MatchKing SMK | 30 Cal 168 gr Tipped MatchKing TMK,,ambiguous,
+Federal,Gold Medal Sierra MatchKing 175 gr Sierra MatchKing BTHP,.308 Win,175.0,0.25,g7,30 Cal 175 gr HPBT MatchKing SMK | 30 Cal 175 gr HPBT MatchKing X MKX | 30 Cal 175 gr Tipped MatchKing TMK,,ambiguous,
+Federal,Nosler Partition 150 gr Nosler Partition,.308 Win,150.0,0.387,g1,30 Caliber 150gr Partition,0.387,matched,0.0
+Federal,Nosler Partition 180 gr Nosler Partition,.308 Win,180.0,0.474,g1,30 Caliber 180gr PPT Partition | 30 Caliber 180gr Partition,,ambiguous,
+Federal,Swift Scirocco II 165 gr Swift Scirocco II,.308 Win,165.0,0.47,g1,Scirocco II .308 165 gr,0.47,matched,0.0
+Fiocchi,Fiocchi Exacta 168 gr HPBT Sierra MatchKing,.308 Win,168.0,0.218,g7,30 Cal 168 gr HPBT MatchKing SMK | 30 Cal 168 gr Tipped MatchKing TMK,,ambiguous,
+Fiocchi,Fiocchi Exacta 175 gr HPBT Sierra MatchKing,.308 Win,175.0,0.243,g7,30 Cal 175 gr HPBT MatchKing SMK | 30 Cal 175 gr HPBT MatchKing X MKX | 30 Cal 175 gr Tipped MatchKing TMK,,ambiguous,
+Fiocchi,Fiocchi Perfecta 168 gr HPBT Sierra MatchKing,.308 Win,168.0,0.218,g7,30 Cal 168 gr HPBT MatchKing SMK | 30 Cal 168 gr Tipped MatchKing TMK,,ambiguous,
+Fiocchi,Fiocchi Perfecta 175 gr HPBT Sierra MatchKing,.308 Win,175.0,0.243,g7,30 Cal 175 gr HPBT MatchKing SMK | 30 Cal 175 gr HPBT MatchKing X MKX | 30 Cal 175 gr Tipped MatchKing TMK,,ambiguous,
+Fiocchi,Fiocchi Performance 165 gr HPBT Sierra GameKing,.308 Win,165.0,0.213,g7,30 Cal 165 gr HPBT GameKing SGK | 30 Cal 165 gr SBT GameKing SGK,,ambiguous,
+Hornady,ELD Match 168 gr ELD Match,.308 Win,168.0,0.263,g7,30 Cal .308 168 gr ELD Match,0.263,matched,0.0
+Hornady,Superformance Match 168 gr ELD Match,.308 Win,168.0,0.263,g7,30 Cal .308 168 gr ELD Match,0.263,matched,0.0
+Lapua,Lapua 10.0 g (155 gr) Scenar-L,.308 Win,155.0,0.23,g7,Scenar-L OTM GB552,0.23,matched,0.0
+Lapua,Lapua 10.85 g (167 gr) Scenar,.308 Win,167.0,0.223,g7,Scenar OTM GB422,0.223,matched,0.0
+Lapua,Lapua 11.0 g (170 gr) Naturalis,.308 Win,170.0,0.177,g7,Naturalis N558,0.177,matched,0.0
+Lapua,Lapua 11.3 g (175 gr) Scenar-L,.308 Win,175.0,0.247,g7,Scenar-L OTM GB550,0.247,matched,0.0
+Lapua,Lapua 12.0 g (185 gr) Scenar,.308 Win,185.0,0.242,g7,Scenar OTM GB432,0.242,matched,0.0
+Prvi Partizan,PPU Supreme 168 gr SMK HPBT,.308 Win,168.0,0.462,g1,30 Cal 168 gr HPBT MatchKing SMK | 30 Cal 168 gr Tipped MatchKing TMK,,ambiguous,
+Remington,Premier Match 168 gr MatchKing Open Tip Match,.308 Win,168.0,0.475,g1,30 Cal 168 gr HPBT MatchKing SMK | 30 Cal 168 gr Tipped MatchKing TMK,,ambiguous,
+Remington,Premier Match 175 gr MatchKing Open Tip Match,.308 Win,175.0,0.496,g1,30 Cal 175 gr HPBT MatchKing SMK | 30 Cal 175 gr HPBT MatchKing X MKX | 30 Cal 175 gr Tipped MatchKing TMK,,ambiguous,
+Remington,Premier Scirocco 165 gr Swift Scirocco Bonded,.308 Win,165.0,0.475,g1,Scirocco II .308 165 gr,0.47,matched,-0.0105
+Sellier & Bellot,Sellier & Bellot Sierra line 180 gr Sierra GameKing SBT,.308 Win,180.0,0.218,g7,30 Cal 180 gr SBT GameKing SGK,0.253,matched,0.1606
+Sierra,Sierra GameChanger 165 gr Tipped GameKing,.308 Win,165.0,0.517,g1,30 Cal 165 gr Tipped GameKing TGK,0.53,matched,0.0251
+Winchester,Expedition Big Game 168 gr AccuBond LR,.308 Win,168.0,0.525,g1,30 Caliber 168gr AccuBond Long Range,0.525,matched,0.0
+Berger,338 Lapua Magnum 300 Grain Elite Hunter Rifle Ammunition,.338 Lapua Mag,300.0,0.417,g7,338 Caliber 300 gr Elite Hunter,0.417,matched,0.0
+Federal,Gold Medal Sierra MatchKing 250 gr Sierra MatchKing BTHP,.338 Lapua Mag,250.0,0.318,g7,338 Cal 250 gr HPBT MatchKing SMK,0.295,matched,-0.0723
+Federal,Gold Medal Sierra MatchKing 300 gr Sierra MatchKing BTHP,.338 Lapua Mag,300.0,0.387,g7,338 Cal 300 gr HPBT MatchKing SMK,0.383,matched,-0.0103
+Fiocchi,Fiocchi Perfecta 250 gr HPBT Sierra MatchKing,.338 Lapua Mag,250.0,0.314,g7,338 Cal 250 gr HPBT MatchKing SMK,0.295,matched,-0.0605
+Fiocchi,Fiocchi Perfecta 300 gr HPBT Sierra MatchKing,.338 Lapua Mag,300.0,0.381,g7,338 Cal 300 gr HPBT MatchKing SMK,0.383,matched,0.0052
+Hornady,ELD Match 285 gr ELD Match,.338 Lapua Mag,285.0,0.417,g7,338 Cal .338 285 gr ELD Match,0.417,matched,0.0
+Lapua,Lapua 15 g (231 gr) Naturalis,.338 Lapua Mag,231.0,0.373,g1,Naturalis N508,0.373,matched,0.0
+Lapua,Lapua 16.2 g (250 gr) Scenar,.338 Lapua Mag,250.0,0.322,g7,Scenar OTM GB488,0.322,matched,0.0
+Lapua,Lapua 19.4 g (300 gr) Scenar,.338 Lapua Mag,300.0,0.368,g7,Scenar OTM GB528,0.368,matched,0.0
+Prvi Partizan,PPU Supreme 250 gr SMK HPBT,.338 Lapua Mag,250.0,0.587,g1,338 Cal 250 gr HPBT MatchKing SMK,0.587,matched,0.0
+Weatherby,185 gr Barnes TTSX,.338 Weatherby RPM,185.0,0.432,g1,.338 185 gr TTSX BT,0.432,matched,0.0
+Weatherby,225 gr Barnes TTSX,.338 Weatherby RPM,225.0,0.514,g1,.338 225 gr TTSX BT,0.514,matched,0.0
+Weatherby,225 gr Hornady InterLock,.338 Weatherby RPM,225.0,0.397,g1,.338 225 gr InterLock SP RP,0.397,matched,0.0
+Weatherby,225 gr Nosler AccuBond,.338 Weatherby RPM,225.0,0.55,g1,338 Caliber 225gr AccuBond,0.55,matched,0.0
+Barnes,VOR-TX Rifle TTSX 210 GR BT,.338 Win Mag,210.0,0.482,g1,.338 210 gr TTSX BT,0.482,matched,0.0
+Barnes,VOR-TX Rifle TTSX 225 GR BT,.338 Win Mag,225.0,0.514,g1,.338 225 gr TTSX BT,0.514,matched,0.0
+Weatherby,338-378 Weatherby Magnum 225 gr Barnes TTSX,.338-378 Weatherby Mag,225.0,0.514,g1,.338 225 gr TTSX BT,0.514,matched,0.0
+Weatherby,338-378 Weatherby Magnum 250 gr Nosler Partition,.338-378 Weatherby Mag,250.0,0.473,g1,338 Caliber 250gr Partition,0.473,matched,0.0
+Weatherby,340 Weatherby Magnum 225 gr Barnes TTSX,.340 Weatherby Mag,225.0,0.514,g1,.338 225 gr TTSX BT,0.514,matched,0.0
+Weatherby,340 Weatherby Magnum 225 gr Hornady InterLock,.340 Weatherby Mag,225.0,0.397,g1,.338 225 gr InterLock SP RP,0.397,matched,0.0
+Weatherby,340 Weatherby Magnum 250 gr Hornady InterLock,.340 Weatherby Mag,250.0,0.431,g1,.338 250 gr InterLock RN | .338 250 gr InterLock SP RP,,ambiguous,
+Weatherby,340 Weatherby Magnum 250 gr Nosler Partition,.340 Weatherby Mag,250.0,0.473,g1,338 Caliber 250gr Partition,0.473,matched,0.0
+Barnes,VOR-TX Rifle TTSX 180 GR FB,.35 Whelen,180.0,0.295,g1,.358 180 gr TTSX FB,0.295,matched,0.0
+Barnes,VOR-TX Rifle TTSX 200 GR BT,.35 Whelen,200.0,0.369,g1,.358 200 gr TTSX BT,0.369,matched,0.0
+Barnes,VOR-TX Rifle TSX 170 GR FB,.350 Legend,170.0,0.198,g1,.355 170 gr TSX FB,0.198,matched,0.0
+Weatherby,378 Weatherby Magnum 270 gr Barnes TSX,.378 Weatherby Mag,270.0,0.326,g1,.375 270 gr TSX FB,0.326,matched,0.0
+Weatherby,378 Weatherby Magnum 270 gr Hornady InterLock,.378 Weatherby Mag,270.0,0.38,g1,.375 270 gr InterLock SP RP,0.38,matched,0.0
+Weatherby,378 Weatherby Magnum 270 gr Swift A-Frame,.378 Weatherby Mag,270.0,0.349,g1,A-Frame .375 270 gr,0.349,matched,0.0
+Barnes,VOR-TX TSX 190gr,.400 Legend,190.0,0.183,g1,.400 190 gr TSX FB,0.183,matched,0.0
+Norma,Norma Woodleigh Soft Nose (Riml. N.E.) 450gr,.404 Jeffery,450.0,0.36,g1,"404 Jeffery .422"" 450 gr FMJ | 404 Jeffery .422"" 450 gr Weldcore RN SN",,ambiguous,
+Barnes,VOR-TX Safari TSX 400 GR FB,.416 Rem Mag,400.0,0.392,g1,.416 400 gr TSX FB,0.392,matched,0.0
+Federal,Safari Swift A-Frame 416 Rem Magnum 400 gr Swift A-Frame 2400 fps,.416 Rem Mag,400.0,0.367,g1,A-Frame .416 400 gr,0.367,matched,0.0
+Norma,Norma Woodleigh Soft Nose .416 Remington Magnum 450gr,.416 Rem Mag,450.0,0.338,g1,"416 Rigby .416"" 450 gr FMJ | 416 Rigby .416"" 450 gr Weldcore RN SN",,ambiguous,
+Barnes,VOR-TX Safari TSX 400 GR FB,.416 Rigby,400.0,0.392,g1,.416 400 gr TSX FB,0.392,matched,0.0
+Federal,Safari Swift A-Frame 400 gr Swift A-Frame 2350 fps,.416 Rigby,400.0,0.367,g1,A-Frame .416 400 gr,0.367,matched,0.0
+Norma,Norma Woodleigh Soft Nose 450gr,.416 Rigby,450.0,0.338,g1,"416 Rigby .416"" 450 gr FMJ | 416 Rigby .416"" 450 gr Weldcore RN SN",,ambiguous,
+Weatherby,416 Weatherby Magnum 350 gr Barnes TTSX,.416 Weatherby Mag,350.0,0.444,g1,.416 350 gr TTSX BT,0.444,matched,0.0
+Norma,Norma Woodleigh Soft Nose Rimless 550gr,.450 Rigby,550.0,0.34,g1,"458 .458"" 550 gr FMJ | 458 .458"" 550 gr Weldcore RN SN",,ambiguous,
+Barnes,VOR-TX Safari TSX 458 LOTT 500 GR FB,.458 Lott,500.0,0.412,g1,.458 500 gr TSX FB,0.412,matched,0.0
+Federal,Safari Woodleigh Hydro Solid 500 gr,.458 Lott,500.0,0.26,g1,"458 .458"" 500 gr FMJ | 458 .458"" 500 gr Weldcore PP SN | 458 .458"" 500 gr Weldcore RN SN",,ambiguous,
+Norma,Norma Woodleigh Soft Nose 550gr,.458 Lott,550.0,0.34,g1,"458 .458"" 550 gr FMJ | 458 .458"" 550 gr Weldcore RN SN",,ambiguous,
+Weatherby,460 Weatherby Magnum 450 gr Barnes TSX,.460 Weatherby Mag,450.0,0.369,g1,.458 450 gr TSX FB,0.369,matched,0.0
+Barrett,Precision (Cutting Edge Bullets MTAC 660 gr),.50 BMG,660.0,0.39,g7,MTAC (Match/Tactical) .510 660 gr,0.354,matched,-0.0923
+Norma,Norma Woodleigh Soft Nose 570gr,.500 Jeffery,570.0,0.368,g1,"500 Nitro .510"" 570 gr FMJ | 500 Nitro .510"" 570 gr Weldcore RN SN",,ambiguous,
+Barnes,VOR-TX Safari TSX 500 Nitro Express 570 GR FB,".500 NE 3""",570.0,0.369,g1,.509 570 gr TSX FB,0.369,matched,0.0
+Federal,Safari Swift A-Frame 500 Nitro Express 570 gr Swift A-Frame 2100 fps,".500 NE 3""",570.0,0.306,g1,A-Frame RN .509 570 gr,0.306,matched,0.0
+Federal,Safari Woodleigh Hydro Solid 500 Nitro Express 570 gr,".500 NE 3""",570.0,0.26,g1,"500 Nitro .510"" 570 gr FMJ | 500 Nitro .510"" 570 gr Weldcore RN SN",,ambiguous,
+Norma,Norma Woodleigh Soft Nose .500 Nitro Express 3 570gr,".500 NE 3""",570.0,0.368,g1,"500 Nitro .510"" 570 gr FMJ | 500 Nitro .510"" 570 gr Weldcore RN SN",,ambiguous,
+Norma,Norma Woodleigh Soft Nose .500/416 Nitro Express 410gr,.500/.416 NE,410.0,0.307,g1,"416 Rigby .416"" 410 gr FMJ | 416 Rigby .416"" 410 gr Weldcore RN SN",,ambiguous,
+Barnes,Harvest Collection 140 gr Sierra TGK,6.5 Creedmoor,140.0,0.563,g1,6.5mm 140 gr Tipped GameKing TGK,0.563,matched,0.0
+Barnes,VOR-TX LR 127 gr LRX BT,6.5 Creedmoor,127.0,0.468,g1,.264 127 gr LRX BT,0.468,matched,0.0
+Berger,6.5 mm Creedmoor 140 Grain Elite Hunter Rifle Ammunition,6.5 Creedmoor,140.0,0.31,g7,6.5mm 140 gr Elite Hunter,0.31,matched,0.0
+Berger,6.5 mm Creedmoor 140 Grain Hybrid Target Rifle Ammunition,6.5 Creedmoor,140.0,0.311,g7,6.5mm 140 gr Hybrid Target,0.311,matched,0.0
+Berger,6.5 mm Creedmoor 144 Grain Long Range Hybrid Target Rifle Ammunition,6.5 Creedmoor,144.0,0.336,g7,6.5mm 144 gr Long Range Hybrid Target,0.336,matched,0.0
+Berger,6.5 mm Creedmoor 153.5 Grain Long Range Hybrid Target Rifle Ammunition,6.5 Creedmoor,153.5,0.356,g7,6.5mm 153.5 gr Long Range Hybrid Target,0.356,matched,0.0
+Berger,6.5 mm Creedmoor 156 Grain Elite Hunter Rifle Ammunition,6.5 Creedmoor,156.0,0.347,g7,6.5mm 156 gr Elite Hunter,0.347,matched,0.0
+Federal,Barnes LRX +Peak 127 gr Barnes LRX,6.5 Creedmoor,127.0,0.229,g7,.264 127 gr LRX BT,,no_same_model_bc,
+Federal,Barnes TSX 130 gr Barnes TSX,6.5 Creedmoor,130.0,0.365,g1,.264 130 gr TSX BT,0.411,matched,0.126
+Federal,Berger Elite Hunter +Peak 156 gr Berger Elite Hunter,6.5 Creedmoor,156.0,0.347,g7,6.5mm 156 gr Elite Hunter,0.347,matched,0.0
+Federal,ELD-X 143 gr Hornady ELD-X,6.5 Creedmoor,143.0,0.625,g1,6.5mm .264 143 gr ELD-X,0.623,matched,-0.0032
+Federal,Gold Medal Berger 140 gr Berger Hybrid,6.5 Creedmoor,140.0,0.311,g7,6.5mm 140 gr Hybrid Target,0.311,matched,0.0
+Federal,Gold Medal Sierra MatchKing 140 gr Sierra MatchKing BTHP,6.5 Creedmoor,140.0,0.261,g7,6.5mm 140 gr HPBT MatchKing SMK,0.264,matched,0.0115
+Federal,Gold Medal Sierra Tipped MatchKing +Peak 153 gr Sierra Tipped MatchKing,6.5 Creedmoor,153.0,0.32,g7,6.5mm 153 gr Tipped MatchKing TMK,0.32,matched,0.0
+Federal,Swift Scirocco II 130 gr Swift Scirocco II,6.5 Creedmoor,130.0,0.571,g1,Scirocco II .264 130 gr,0.571,matched,0.0
+Federal,Varmint & Predator 95 gr Hornady V-Max,6.5 Creedmoor,95.0,0.365,g1,.264 95 gr V-MAX,0.365,matched,0.0
+Hornady,ELD Match 140 gr ELD Match,6.5 Creedmoor,140.0,0.61,g1,6.5mm .264 140 gr ELD Match,0.646,matched,0.059
+Hornady,ELD Match 147 gr ELD Match,6.5 Creedmoor,147.0,0.351,g7,6.5mm .264 147 gr ELD Match,0.351,matched,0.0
+Lapua,Lapua 8.0 g (123 gr) Scenar,6.5 Creedmoor,123.0,0.263,g7,Scenar OTM GB489,0.263,matched,0.0
+Lapua,Lapua 8.8 g (136 gr) Scenar-L,6.5 Creedmoor,136.0,0.274,g7,Scenar-L OTM GB546,0.274,matched,0.0
+Lapua,Lapua 9.1 g (140 gr) Naturalis,6.5 Creedmoor,140.0,0.201,g1,Naturalis N563,0.201,matched,0.0
+Remington,Premier Match 140 gr MatchKing Open Tip Match,6.5 Creedmoor,140.0,0.535,g1,6.5mm 140 gr HPBT MatchKing SMK,0.535,matched,0.0
+Remington,Premier Scirocco 130 gr Swift Scirocco Bonded,6.5 Creedmoor,130.0,0.547,g1,Scirocco II .264 130 gr,0.571,matched,0.0439
+Winchester,Expedition Big Game 142 gr AccuBond LR,6.5 Creedmoor,142.0,0.625,g1,6.5mm 142gr AccuBond Long Range,0.625,matched,0.0
+Barnes,Harvest Collection 145 gr Sierra TGK,6.5 PRC,145.0,0.597,g1,6.5mm 145 gr Tipped GameKing TGK,0.597,matched,0.0
+Barnes,VOR-TX 130 gr TSX BT,6.5 PRC,130.0,0.411,g1,.264 130 gr TSX BT,0.411,matched,0.0
+Barnes,VOR-TX LR 127 gr LRX BT,6.5 PRC,127.0,0.468,g1,.264 127 gr LRX BT,0.468,matched,0.0
+Berger,140 Grain Elite Hunter Rifle Ammunition,6.5 PRC,140.0,0.31,g7,6.5mm 140 gr Elite Hunter,0.31,matched,0.0
+Berger,153.5 Grain Hybrid Target Rifle Ammunition,6.5 PRC,153.5,0.356,g7,6.5mm 153.5 gr Long Range Hybrid Target,0.356,matched,0.0
+Berger,156 Grain Extreme Outer Limits (EOL) Elite Hunter Rifle Ammunition,6.5 PRC,156.0,0.347,g7,6.5mm 156 gr Elite Hunter,0.347,matched,0.0
+Federal,ELD-X 143 gr Hornady ELD-X,6.5 PRC,143.0,0.625,g1,6.5mm .264 143 gr ELD-X,0.623,matched,-0.0032
+Hornady,ELD Match 147 gr ELD Match,6.5 PRC,147.0,0.351,g7,6.5mm .264 147 gr ELD Match,0.351,matched,0.0
+Winchester,Expedition Big Game 142 gr AccuBond LR,6.5 PRC,142.0,0.625,g1,6.5mm 142gr AccuBond Long Range,0.625,matched,0.0
+Weatherby,127 gr Barnes LRX,6.5 Weatherby RPM,127.0,0.468,g1,.264 127 gr LRX BT,0.468,matched,0.0
+Weatherby,130 gr Swift Scirocco,6.5 Weatherby RPM,130.0,0.571,g1,Scirocco II .264 130 gr,0.571,matched,0.0
+Weatherby,140 gr Hornady InterLock,6.5 Weatherby RPM,140.0,0.465,g1,.264 140 gr InterLock SP,0.465,matched,0.0
+Weatherby,140 gr Nosler AccuBond,6.5 Weatherby RPM,140.0,0.509,g1,6.5mm 140gr AccuBond,0.509,matched,0.0
+Weatherby,156 gr Berger Elite Hunter,6.5 Weatherby RPM,156.0,0.679,g1,6.5mm 156 gr Elite Hunter,0.679,matched,0.0
+Weatherby,6.5-300 Weatherby Magnum 127 gr Barnes LRX,6.5-300 Weatherby Mag,127.0,0.468,g1,.264 127 gr LRX BT,0.468,matched,0.0
+Weatherby,6.5-300 Weatherby Magnum 130 gr Swift Scirocco,6.5-300 Weatherby Mag,130.0,0.571,g1,Scirocco II .264 130 gr,0.571,matched,0.0
+Weatherby,6.5-300 Weatherby Magnum 140 gr Hornady InterLock,6.5-300 Weatherby Mag,140.0,0.465,g1,.264 140 gr InterLock SP,0.465,matched,0.0
+Weatherby,6.5-300 Weatherby Magnum 140 gr Nosler AccuBond,6.5-300 Weatherby Mag,140.0,0.509,g1,6.5mm 140gr AccuBond,0.509,matched,0.0
+Weatherby,6.5-300 Weatherby Magnum 156 gr Berger Elite Hunter,6.5-300 Weatherby Mag,156.0,0.679,g1,6.5mm 156 gr Elite Hunter,0.679,matched,0.0
+Lapua,7.8 g (120 gr) Scenar-L,6.5x47 Lapua,120.0,0.246,g7,Scenar-L OTM GB547,0.246,matched,0.0
+Lapua,8.0 g (123 gr) Scenar,6.5x47 Lapua,123.0,0.263,g7,Scenar OTM GB489,0.263,matched,0.0
+Lapua,8.8 g (136 gr) Scenar-L,6.5x47 Lapua,136.0,0.274,g7,Scenar-L OTM GB546,0.274,matched,0.0
+Lapua,9.0 g (139 gr) Scenar,6.5x47 Lapua,139.0,0.29,g7,Scenar OTM GB458,0.29,matched,0.0
+Lapua,9.1 g (140 gr) Naturalis,6.5x47 Lapua,140.0,0.201,g1,Naturalis N563,0.201,matched,0.0
+Sellier & Bellot,Sellier & Bellot Sierra line 140 gr Sierra GameKing SBT,6.5x55 Swedish,140.0,0.234,g7,6.5mm 140 gr SBT GameKing SGK,0.246,matched,0.0513
+Lapua,6 mm B.R. Norma / 5.8 g (90 gr) Scenar-L,6mm BR Norma,90.0,0.216,g7,Scenar-L OTM GB543,0.216,matched,0.0
+Lapua,6 mm B.R. Norma / 6.8 g (105 gr) Scenar-L,6mm BR Norma,105.0,0.236,g7,Scenar-L OTM GB542,0.236,matched,0.0
+Berger,6 mm Creedmoor 105 Grain Hybrid Target Rifle Ammunition,6mm Creedmoor,105.0,0.275,g7,6mm 105 gr Hybrid Target,0.275,matched,0.0
+Berger,6 mm Creedmoor 108 Grain Elite Hunter Rifle Ammunition,6mm Creedmoor,108.0,0.287,g7,6mm 108 gr Elite Hunter,0.287,matched,0.0
+Berger,6 mm Creedmoor 109 Grain Long Range Hybrid Target Rifle Ammunition,6mm Creedmoor,109.0,0.292,g7,6mm 109 gr Long Range Hybrid Target,0.292,matched,0.0
+Sierra,Sierra GameChanger 100 gr Tipped GameKing,6mm Creedmoor,100.0,0.515,g1,6mm 100 gr Tipped GameKing TGK,0.515,matched,0.0
+Federal,Barnes LRX 168 gr Barnes LRX 3150 fps,7mm Backcountry,168.0,0.257,g7,.284 168 gr LRX BT,,no_same_model_bc,
+Federal,Berger Elite Hunter 195 gr Berger Elite Hunter 3000 fps,7mm Backcountry,195.0,0.387,g7,7mm 195 gr Elite Hunter,0.387,matched,0.0
+Barnes,VOR-TX LR 160 gr LRX BT,7mm PRC,160.0,0.608,g1,.284 160 gr LRX BT,0.608,matched,0.0
+Berger,175 Grain Elite Hunter Rifle Ammunition,7mm PRC,175.0,0.336,g7,7mm 175 gr Elite Hunter,0.336,matched,0.0
+Berger,195 Grain Elite Hunter Rifle Ammunition,7mm PRC,195.0,0.387,g7,7mm 195 gr Elite Hunter,0.387,matched,0.0
+Federal,Berger Elite Hunter 195 gr Berger Elite Hunter,7mm PRC,195.0,0.387,g7,7mm 195 gr Elite Hunter,0.387,matched,0.0
+Federal,ELD-X 175 gr Hornady ELD-X,7mm PRC,175.0,0.689,g1,7mm .284 175 gr ELD-X,0.689,matched,0.0
+Hornady,ELD Match 180 gr ELD Match,7mm PRC,180.0,0.401,g7,"7mm .284 180 gr ELD Match (1 in 7.5"" twist) | 7mm .284 180 gr ELD Match (1 in 8.75"" twist)",,ambiguous,
+Barnes,VOR-TX 160 gr TSX BT,7mm Rem Mag,160.0,0.443,g1,.284 160 gr TSX FB,0.392,matched,-0.1151
+Barnes,VOR-TX LR 139 gr LRX BT,7mm Rem Mag,139.0,0.434,g1,.284 139 gr LRX BT,0.434,matched,0.0
+Federal,Barnes LRX 145 gr Barnes LRX,7mm Rem Mag,145.0,0.449,g1,.284 145 gr LRX BT,0.449,matched,0.0
+Federal,Barnes TSX 160 gr Barnes TSX,7mm Rem Mag,160.0,0.392,g1,.284 160 gr TSX FB,0.392,matched,0.0
+Federal,ELD-X 162 gr Hornady ELD-X,7mm Rem Mag,162.0,0.318,g7,7mm .284 162 gr ELD-X,0.318,matched,0.0
+Federal,Nosler Partition 160 gr Nosler Partition,7mm Rem Mag,160.0,0.475,g1,7mm 160gr Partition,0.475,matched,0.0
+Federal,Swift Scirocco II 150 gr Swift Scirocco II,7mm Rem Mag,150.0,0.515,g1,Scirocco II .284 150 gr,0.515,matched,0.0
+Remington,Premier Scirocco 150 gr Swift Scirocco Bonded,7mm Rem Mag,150.0,0.533,g1,Scirocco II .284 150 gr,0.515,matched,-0.0338
+Sellier & Bellot,Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT,7mm Rem Mag,175.0,0.282,g7,7mm 175 gr SBT GameKing SGK,0.271,matched,-0.039
+Sierra,Sierra GameChanger 150 gr Tipped GameKing,7mm Rem Mag,150.0,0.545,g1,7mm 150 gr Tipped GameKing TGK,0.545,matched,0.0
+Winchester,Expedition Big Game 160 gr AccuBond CT,7mm Rem Mag,160.0,0.512,g1,7mm 160gr AccuBond,0.531,matched,0.0371
+Winchester,Expedition Big Game 168 gr AccuBond LR,7mm Rem Mag,168.0,0.616,g1,7mm 168gr AccuBond Long Range,0.616,matched,0.0
+Weatherby,7mm Weatherby Magnum 140 gr Barnes TTSX,7mm Weatherby Mag,140.0,0.412,g1,.284 140 gr TTSX BT,0.412,matched,0.0
+Weatherby,7mm Weatherby Magnum 150 gr Nosler Ballistic Tip,7mm Weatherby Mag,150.0,0.493,g1,7mm 150gr Ballistic Tip Hunting,0.493,matched,0.0
+Weatherby,7mm Weatherby Magnum 150 gr Swift Scirocco,7mm Weatherby Mag,150.0,0.515,g1,Scirocco II .284 150 gr,0.515,matched,0.0
+Weatherby,7mm Weatherby Magnum 154 gr Hornady InterLock,7mm Weatherby Mag,154.0,0.433,g1,.284 154 gr InterLock SP,0.433,matched,0.0
+Weatherby,7mm Weatherby Magnum 154 gr Hornady InterLock (Stamp),7mm Weatherby Mag,154.0,0.433,g1,.284 154 gr InterLock SP,0.433,matched,0.0
+Weatherby,7mm Weatherby Magnum 160 gr Nosler Partition,7mm Weatherby Mag,160.0,0.475,g1,7mm 160gr Partition,0.475,matched,0.0
+Weatherby,7mm Weatherby Magnum 160 gr Swift A-Frame,7mm Weatherby Mag,160.0,0.45,g1,A-Frame .284 160 gr,0.45,matched,0.0
+Federal,Barnes TSX 140 gr Barnes TSX,7mm-08 Rem,140.0,0.394,g1,.284 140 gr TSX BT,0.394,matched,0.0
+Sellier & Bellot,Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT,7x57 Mauser,175.0,0.282,g7,7mm 175 gr SBT GameKing SGK,0.271,matched,-0.039
+Sellier & Bellot,Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT,7x64,175.0,0.282,g7,7mm 175 gr SBT GameKing SGK,0.271,matched,-0.039
+Sellier & Bellot,Sellier & Bellot Sierra line 175 gr Sierra GameKing SBT,7x65 R,175.0,0.282,g7,7mm 175 gr SBT GameKing SGK,0.271,matched,-0.039
+Sellier & Bellot,Sellier & Bellot Sierra line 220 gr Sierra GameKing SBT,8x57 JRS,220.0,0.263,g7,8mm 220 gr SBT GameKing SGK,0.261,matched,-0.0076
+Barnes,VOR-TX Euro 160 gr TTSX FB,8x57 JS,160.0,0.4,g1,.323 160 gr TTSX BT,0.4,matched,0.0
+Lapua,Lapua 11.7 g (180 gr) Naturalis,8x57 JS,180.0,0.179,g7,8 mm Naturalis N559 180 gr,0.179,matched,0.0
+Sellier & Bellot,Sellier & Bellot Sierra line 220 gr Sierra GameKing SBT,8x57 JS,220.0,0.263,g7,8mm 220 gr SBT GameKing SGK,0.261,matched,-0.0076
+Barnes,VOR-TX Euro 250 gr TTSX BT,9.3x62,250.0,0.44,g1,.366 250 gr TTSX BT,0.44,matched,0.0
+Federal,Safari Swift A-Frame 286 gr Swift A-Frame,9.3x62,286.0,0.385,g1,A-Frame .366 286 gr,0.385,matched,0.0
+Federal,Safari Woodleigh Hydro Solid 286 gr Woodleigh Hydro Solid,9.3x62,286.0,0.26,g1,"9.3mm .366"" 286 gr Weldcore PP SN | 9.3mm .366"" 286 gr Weldcore RN SN",,ambiguous,
+Lapua,Lapua 16.2 g (250 gr) Naturalis,9.3x62,250.0,0.215,g7,9.3 mm Naturalis N560 250 gr,0.215,matched,0.0

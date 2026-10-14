@@ -1,0 +1,400 @@
+[
+ {
+  "id": "FA034",
+  "brand": "Black Hills",
+  "name": "Black Hills 36 gr Varmint Grenade",
+  "status": "linked",
+  "confidence": "medium",
+  "link": {
+   "url": "https://www.black-hills.com/shop/bh-gold-ammo/22-250/",
+   "read_date": "2026-10-14",
+   "quote": "36 Gr. Barnes Varmint Grenade"
+  },
+  "component": {
+   "maker": "Barnes",
+   "line": "Varmint Grenade FB",
+   "calibre_in": 0.224,
+   "weight_gr": 36,
+   "part_no": null
+  },
+  "bc": {
+   "g1": 0.149,
+   "g7": null,
+   "url": "https://barnesbullets.com/content/barnes-loaddata/rifle/224/223RemingtonWeb.pdf",
+   "read_date": "2026-10-14",
+   "quote": "36-grain Varmint Grenade ... Sectional Density .102 ... Ballistic Coefficient .149"
+  },
+  "candidates": [],
+  "notes": ".223 page (source_url) only says '36 Gr. Varmint Grenade' (no maker); maker taken from BH Gold .22-250 listing of same weight/line. Barnes PDF gives BC without G1/G7 label (Barnes convention G1). Barnes product page https://barnesbullets.com/0-224-22-cal-varmint-grenade-fb/ (SKU 022422CALV-2, 36/50 gr) shows specs only via JS, no BC in fetch. Fetch notes: no HTTP errors/blocks. Hornady bullet pages (hornady.com/bullets/rifle/...) and Barnes product page load specs/BC via JS; fetched content had no BC values (not worked around). hornady.com/bc only covers ELD Match/ELD-X/A-Tip/ELD-VT. Hornady 2022 Standard Ballistics Chart PDF has no BC column. No Black Hills page states any BC."
+ },
+ {
+  "id": "FA035",
+  "brand": "Black Hills",
+  "name": "Black Hills 52 gr Match HP",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ gives only the generic name ('52 gr Match HP'), no bullet maker/line; no BC stated."
+ },
+ {
+  "id": "FA036",
+  "brand": "Black Hills",
+  "name": "Black Hills 55 gr Full Metal Jacket",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ gives only the generic name ('55 gr Full Metal Jacket'), no bullet maker/line; no BC stated."
+ },
+ {
+  "id": "FA037",
+  "brand": "Black Hills",
+  "name": "Black Hills 55 gr Soft Point",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ gives only the generic name ('55 gr Soft Point'), no bullet maker/line; no BC stated."
+ },
+ {
+  "id": "FA038",
+  "brand": "Black Hills",
+  "name": "Black Hills 60 gr Soft Point",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ gives only the generic name ('60 gr Soft Point'), no bullet maker/line; no BC stated."
+ },
+ {
+  "id": "FA039",
+  "brand": "Black Hills",
+  "name": "Black Hills 68 gr Heavy Match HP",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ gives only the generic name ('68 gr Heavy Match HP'), no bullet maker/line; no BC stated."
+ },
+ {
+  "id": "FA040",
+  "brand": "Black Hills",
+  "name": "Black Hills 75 gr Heavy Match HP",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ gives only the generic name ('75 gr Heavy Match HP'), no bullet maker/line; no BC stated."
+ },
+ {
+  "id": "FA041",
+  "brand": "Black Hills",
+  "name": "Black Hills 77 gr Open Tip Match",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/223-remington/ lists '77 Gr. Open Tip Match' with no maker. BH sells Sierra TMK loads separately at some weights, so OTM is not inferable. MK 262 Mod 1-C page mentions 'Tipped MatchKing' but that is a different product; not used."
+ },
+ {
+  "id": "FA049",
+  "brand": "Black Hills",
+  "name": "Black Hills Gold 168 gr Hornady Match Hollow Point",
+  "status": "ambiguous",
+  "confidence": "medium",
+  "link": {
+   "url": "https://www.black-hills.com/shop/bh-gold-ammo/30-06-springfield/",
+   "read_date": "2026-10-14",
+   "quote": "168 Gr. Hornady Match Hollow Point ... Velocity: 2700 FPS"
+  },
+  "component": null,
+  "bc": null,
+  "candidates": [
+   {
+    "maker": "Hornady",
+    "line": "BTHP Match",
+    "calibre_in": 0.308,
+    "weight_gr": 168,
+    "part_no": "30501",
+    "url": "https://www.hornady.com/bullets/rifle/30-cal-308-168-gr-bthp-match#!/",
+    "bc": null,
+    "note": "most likely: BH lists 168 ELD Match as a separate load; BC not in fetched page (JS)"
+   },
+   {
+    "maker": "Hornady",
+    "line": "HPBT AeroMatch",
+    "calibre_in": 0.308,
+    "weight_gr": 168,
+    "part_no": null,
+    "url": "https://www.hornady.com/bullets/rifle/30-cal-.308-168-gr-hpbt-aeromatch-100ct",
+    "bc": null,
+    "note": "not fetched; BC unknown"
+   },
+   {
+    "maker": "Hornady",
+    "line": "ELD Match",
+    "calibre_in": 0.308,
+    "weight_gr": 168,
+    "part_no": "30506",
+    "url": "https://www.hornady.com/bc",
+    "bc": {
+     "g1": 0.523,
+     "g7": 0.263,
+     "read_date": "2026-10-14",
+     "quote": "30 Cal 168 gr. ELD Match | 0.523 G1 0.263 G7 (Mach 2.25)"
+    },
+    "note": "unlikely: BH sells '168 Gr. Hornady ELD Match®' separately at 2750 fps"
+   }
+  ],
+  "notes": "BH name 'Match Hollow Point' does not identify the Hornady line. Fetch notes: no HTTP errors/blocks. Hornady bullet pages (hornady.com/bullets/rifle/...) and Barnes product page load specs/BC via JS; fetched content had no BC values (not worked around). hornady.com/bc only covers ELD Match/ELD-X/A-Tip/ELD-VT. Hornady 2022 Standard Ballistics Chart PDF has no BC column. No Black Hills page states any BC."
+ },
+ {
+  "id": "FA051",
+  "brand": "Black Hills",
+  "name": "Black Hills 115 gr Dual Performance (monolithic copper)",
+  "status": "no_link",
+  "confidence": "none",
+  "link": {
+   "url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+   "read_date": "2026-10-14",
+   "quote": "Our Dual Performance™ line features a monolithic machined copper projectile"
+  },
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "Black Hills' own 'Dual Performance' monolithic copper projectile; BH quote: 'Our Dual Performance™ line features a monolithic machined copper projectile'. No third-party component bullet/BC published."
+ },
+ {
+  "id": "FA052",
+  "brand": "Black Hills",
+  "name": "Black Hills 125 gr Open Tip Match",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/ lists '125 Gr. Open Tip Match' with no maker. BH sells Sierra TMK loads separately at some weights, so OTM is not inferable. MK 262 Mod 1-C page mentions 'Tipped MatchKing' but that is a different product; not used."
+ },
+ {
+  "id": "FA053",
+  "brand": "Black Hills",
+  "name": "Black Hills 198 gr Dual Performance (monolithic copper)",
+  "status": "no_link",
+  "confidence": "none",
+  "link": {
+   "url": "https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/",
+   "read_date": "2026-10-14",
+   "quote": "Our Dual Performance™ line features a monolithic machined copper projectile"
+  },
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "Black Hills' own 'Dual Performance' monolithic copper projectile; BH quote: 'Our Dual Performance™ line features a monolithic machined copper projectile'. No third-party component bullet/BC published."
+ },
+ {
+  "id": "FA054",
+  "brand": "Black Hills",
+  "name": "Black Hills 220 gr Open Tip Match",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/300-blackout/ lists '220 Gr. Open Tip Match' with no maker. BH sells Sierra TMK loads separately at some weights, so OTM is not inferable. MK 262 Mod 1-C page mentions 'Tipped MatchKing' but that is a different product; not used."
+ },
+ {
+  "id": "FA055",
+  "brand": "Black Hills",
+  "name": "Black Hills 190 gr Match Hollow Point",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/300-winchester-magnum/ gives only the generic name ('190 gr Match Hollow Point'), no bullet maker/line; no BC stated."
+ },
+ {
+  "id": "FA057",
+  "brand": "Black Hills",
+  "name": "Black Hills 168 gr Match Hollow Point",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/ gives only the generic name ('168 gr Match Hollow Point'), no bullet maker/line; no BC stated."
+ },
+ {
+  "id": "FA058",
+  "brand": "Black Hills",
+  "name": "Black Hills 175 gr Match Hollow Point",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/308-winchester-match/ gives only the generic name ('175 gr Match Hollow Point'), no bullet maker/line; no BC stated."
+ },
+ {
+  "id": "FA059",
+  "brand": "Black Hills",
+  "name": "Black Hills Gold 125 gr Hornady CX",
+  "status": "linked",
+  "confidence": "medium",
+  "link": {
+   "url": "https://www.black-hills.com/shop/bh-gold-ammo/308-winchester/",
+   "read_date": "2026-10-14",
+   "quote": "125 Gr. Hornady CX™ ... Velocity: 3000 FPS"
+  },
+  "component": {
+   "maker": "Hornady",
+   "line": "CX (component listed as ECX)",
+   "calibre_in": 0.308,
+   "weight_gr": 125,
+   "part_no": "301944"
+  },
+  "bc": null,
+  "candidates": [
+   {
+    "maker": "Hornady",
+    "line": "ECX",
+    "calibre_in": 0.308,
+    "weight_gr": 125,
+    "part_no": "301944",
+    "url": "https://www.hornady.com/bullets/rifle/30-cal-308-125-gr-ecx",
+    "bc": null
+   }
+  ],
+  "notes": "Hornady bullet search shows .308 CX at 110/150/165/180/190 gr but no 125 gr CX; only '30 Cal 308 125 gr ECX™' (#301944, page refers to 'the CX™ bullet'). Identity CX vs ECX unconfirmed; BC not in fetched page. Fetch notes: no HTTP errors/blocks. Hornady bullet pages (hornady.com/bullets/rifle/...) and Barnes product page load specs/BC via JS; fetched content had no BC values (not worked around). hornady.com/bc only covers ELD Match/ELD-X/A-Tip/ELD-VT. Hornady 2022 Standard Ballistics Chart PDF has no BC column. No Black Hills page states any BC."
+ },
+ {
+  "id": "FA060",
+  "brand": "Black Hills",
+  "name": "Black Hills Gold 152 gr Dual Performance",
+  "status": "no_link",
+  "confidence": "none",
+  "link": {
+   "url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "read_date": "2026-10-14",
+   "quote": "Our Dual Performance™ line features a monolithic machined copper projectile"
+  },
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "Black Hills' own 'Dual Performance' monolithic copper projectile; BH quote: 'Our Dual Performance™ line features a monolithic machined copper projectile'. No third-party component bullet/BC published."
+ },
+ {
+  "id": "FA071",
+  "brand": "Black Hills",
+  "name": "Black Hills 62 gr Dual Performance (monolithic copper)",
+  "status": "no_link",
+  "confidence": "none",
+  "link": {
+   "url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+   "read_date": "2026-10-14",
+   "quote": "Our Dual Performance™ line features a monolithic machined copper projectile"
+  },
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "Black Hills' own 'Dual Performance' monolithic copper projectile; BH quote: 'Our Dual Performance™ line features a monolithic machined copper projectile'. No third-party component bullet/BC published."
+ },
+ {
+  "id": "FA072",
+  "brand": "Black Hills",
+  "name": "Black Hills 69 gr Open Tip Match",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/ lists '69 Gr. Open Tip Match' with no maker. BH sells Sierra TMK loads separately at some weights, so OTM is not inferable. MK 262 Mod 1-C page mentions 'Tipped MatchKing' but that is a different product; not used."
+ },
+ {
+  "id": "FA073",
+  "brand": "Black Hills",
+  "name": "Black Hills 70 gr Hornady GMX",
+  "status": "linked",
+  "confidence": "high",
+  "link": {
+   "url": "https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/",
+   "read_date": "2026-10-14",
+   "quote": "70 Gr. Hornady GMX™"
+  },
+  "component": {
+   "maker": "Hornady",
+   "line": "GMX",
+   "calibre_in": 0.224,
+   "weight_gr": 70,
+   "part_no": null
+  },
+  "bc": null,
+  "candidates": [],
+  "notes": "No current Hornady page for a 22 cal 70 gr GMX found (hornady.com search for GMX; current listing has '22 Cal .224 70 gr CX®' #22813, no GMX mention, no BC in fetch). GMX appears discontinued; maker BC not obtainable from manufacturer source. Do NOT substitute CX BC. Fetch notes: no HTTP errors/blocks. Hornady bullet pages (hornady.com/bullets/rifle/...) and Barnes product page load specs/BC via JS; fetched content had no BC values (not worked around). hornady.com/bc only covers ELD Match/ELD-X/A-Tip/ELD-VT. Hornady 2022 Standard Ballistics Chart PDF has no BC column. No Black Hills page states any BC."
+ },
+ {
+  "id": "FA074",
+  "brand": "Black Hills",
+  "name": "Black Hills 77 gr Open Tip Match",
+  "status": "no_link",
+  "confidence": "none",
+  "link": null,
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "BH page https://www.black-hills.com/shop/new-rifle-ammo/5-56mm/ lists '77 Gr. Open Tip Match' with no maker. BH sells Sierra TMK loads separately at some weights, so OTM is not inferable. MK 262 Mod 1-C page mentions 'Tipped MatchKing' but that is a different product; not used."
+ },
+ {
+  "id": "FA076",
+  "brand": "Black Hills",
+  "name": "Black Hills Gold 130 gr Dual Performance",
+  "status": "no_link",
+  "confidence": "none",
+  "link": {
+   "url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "read_date": "2026-10-14",
+   "quote": "Our Dual Performance™ line features a monolithic machined copper projectile"
+  },
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "Black Hills' own 'Dual Performance' monolithic copper projectile; BH quote: 'Our Dual Performance™ line features a monolithic machined copper projectile'. No third-party component bullet/BC published."
+ },
+ {
+  "id": "FA081",
+  "brand": "Black Hills",
+  "name": "Black Hills Gold 90 gr Dual Performance",
+  "status": "no_link",
+  "confidence": "none",
+  "link": {
+   "url": "https://www.black-hills.com/product-category/bh-gold-ammo/",
+   "read_date": "2026-10-14",
+   "quote": "Our Dual Performance™ line features a monolithic machined copper projectile"
+  },
+  "component": null,
+  "bc": null,
+  "candidates": [],
+  "notes": "Black Hills' own 'Dual Performance' monolithic copper projectile; BH quote: 'Our Dual Performance™ line features a monolithic machined copper projectile'. No third-party component bullet/BC published."
+ }
+]
