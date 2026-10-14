@@ -82,6 +82,20 @@ class ProfilesScreen extends StatefulWidget {
     this.pickBackup,
   });
 
+  /// Yedekle / Geri yükle under the Profiller list, hidden (owner,
+  /// 2026-10-14 17:33: they move to the user profile page later; 17:12
+  /// "şimdilik silme yok"). Backup/restore code and saved data are kept.
+  static const bool showBackupButtonsFlag = bool.fromEnvironment(
+    'PROFILE_BACKUP_BUTTONS',
+  );
+
+  /// Tests only: overrides [showBackupButtonsFlag] (null = the flag).
+  @visibleForTesting
+  static bool? debugShowBackupButtons;
+
+  static bool get showBackupButtons =>
+      debugShowBackupButtons ?? showBackupButtonsFlag;
+
   @override
   State<ProfilesScreen> createState() => _ProfilesScreenState();
 }
@@ -334,7 +348,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
         await showDialog<bool>(
           context: context,
           builder: (dialogContext) => AlertDialog(
-            title: const Text('Profili sil?'),
+            // Owner, 2026-10-14: "Profil silinsin mi?" with İptal / Sil.
+            title: const Text('Profil silinsin mi?'),
             content: Text(
               '“${p.name}” profili kalıcı olarak silinecek. '
               'Bu işlem geri alınamaz.',
@@ -342,14 +357,14 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(dialogContext, false),
-                child: const Text('Vazgeç'),
+                child: const Text('İptal'),
               ),
               FilledButton(
                 style: FilledButton.styleFrom(
                   backgroundColor: MenzilColors.of(dialogContext).danger,
                 ),
                 onPressed: () => Navigator.pop(dialogContext, true),
-                child: const Text('Profili sil'),
+                child: const Text('Sil'),
               ),
             ],
           ),
@@ -455,10 +470,39 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
           ),
           const SizedBox(height: MenzilSpace.lg),
         ],
-        MenzilSectionHeader(
-          'Profiller',
-          subtitle: items.isEmpty ? null : '${items.length} kayıtlı profil',
+        // "Profiller" left, Profil ekle right on the same row (owner,
+        // 2026-10-14 17:39, mockup B); the button row under the list is gone.
+        Padding(
+          key: const Key('profiles-list-header'),
           padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
+          child: Row(
+            children: [
+              Expanded(
+                child: MenzilSectionHeader(
+                  'Profiller',
+                  subtitle: items.isEmpty
+                      ? null
+                      : '${items.length} kayıtlı profil',
+                  padding: EdgeInsets.zero,
+                ),
+              ),
+              const SizedBox(width: MenzilSpace.sm),
+              SizedBox(
+                width: _addButtonWidth,
+                child: MenzilPrimaryButton(
+                  key: const Key('profiles-add'),
+                  label: 'Profil ekle',
+                  icon: Icons.add,
+                  amber: true,
+                  oneLine: true,
+                  // + one character right, label right after it (owner,
+                  // 2026-10-14).
+                  iconLead: 8,
+                  onPressed: _add,
+                ),
+              ),
+            ],
+          ),
         ),
         if (items.isEmpty)
           MenzilCard(
@@ -497,103 +541,78 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                     ? () => widget.onActivate!(p)
                     : () => _edit(p),
                 onEdit: () => _edit(p),
+                onCopy: () => _duplicate(p),
+                onDelete: () => _deleteViaButton(p),
               ),
             ),
-        const SizedBox(height: MenzilSpace.xs),
-        // Three equal columns (owner, 2026-10-12): Profil ekle | Kopyala |
-        // Sil, a line, then Yedekle | Geri yükle | ⓘ under them.
-        Row(
-          children: [
-            Expanded(
-              child: MenzilPrimaryButton(
-                label: 'Profil ekle',
-                icon: Icons.add,
-                amber: true,
-                oneLine: true,
-                // + one character right, label right after it (owner,
-                // 2026-10-14).
-                iconLead: 8,
-                onPressed: _add,
-              ),
-            ),
-            const SizedBox(width: MenzilSpace.sm),
-            Expanded(
-              child: selected == null
-                  ? const SizedBox.shrink()
-                  : MenzilSecondaryButton(
-                      label: 'Kopyala',
-                      icon: Icons.copy_outlined,
-                      expand: true,
-                      onPressed: () => _duplicate(selected),
-                    ),
-            ),
-            const SizedBox(width: MenzilSpace.sm),
-            Expanded(
-              child: selected == null
-                  ? const SizedBox.shrink()
-                  : MenzilSecondaryButton(
-                      label: 'Sil',
-                      icon: Icons.delete_outline,
-                      destructive: true,
-                      expand: true,
-                      onPressed: () => _deleteViaButton(selected),
-                    ),
-            ),
-          ],
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: MenzilSpace.sm),
-          child: Divider(height: 1),
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: MenzilSecondaryButton(
-                key: _backupButtonKey,
-                label: 'Yedekle',
-                icon: Icons.ios_share,
-                expand: true,
-                onPressed: items.isEmpty ? null : _backup,
-              ),
-            ),
-            const SizedBox(width: MenzilSpace.sm),
-            Expanded(
-              child: MenzilSecondaryButton(
-                label: 'Geri yükle',
-                icon: Icons.download_outlined,
-                expand: true,
-                // One line, set smaller if needed (owner, 2026-10-12).
-                twoLines: true,
-                onPressed: _restore,
-              ),
-            ),
-            const SizedBox(width: MenzilSpace.sm),
-            const Expanded(
-              child: Center(
-                child: MenzilInfoButton(
-                  title: 'Yedekle ve Geri yükle',
-                  text: ProfileFieldInfo.backup,
+        // Yedekle / Geri yükle: hidden behind PROFILE_BACKUP_BUTTONS (owner,
+        // 2026-10-14 17:33), not removed.
+        if (ProfilesScreen.showBackupButtons) ...[
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: MenzilSpace.sm),
+            child: Divider(height: 1),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: MenzilSecondaryButton(
+                  key: _backupButtonKey,
+                  label: 'Yedekle',
+                  icon: Icons.ios_share,
+                  expand: true,
+                  onPressed: items.isEmpty ? null : _backup,
                 ),
               ),
-            ),
-          ],
-        ),
+              const SizedBox(width: MenzilSpace.sm),
+              Expanded(
+                child: MenzilSecondaryButton(
+                  label: 'Geri yükle',
+                  icon: Icons.download_outlined,
+                  expand: true,
+                  // One line, set smaller if needed (owner, 2026-10-12).
+                  twoLines: true,
+                  onPressed: _restore,
+                ),
+              ),
+              const SizedBox(width: MenzilSpace.sm),
+              const Expanded(
+                child: Center(
+                  child: MenzilInfoButton(
+                    title: 'Yedekle ve Geri yükle',
+                    text: ProfileFieldInfo.backup,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ],
     );
   }
+
+  /// Width of the header's Profil ekle button; the label is set smaller
+  /// when a large text size does not fit (oneLine).
+  static const double _addButtonWidth = 148;
 }
+
+/// What the "⋯" menu of a profile row does.
+enum _ProfileAction { edit, copy, delete }
 
 class _ProfileRow extends StatelessWidget {
   final RifleProfile profile;
   final bool active;
   final VoidCallback onTap;
   final VoidCallback onEdit;
+  final VoidCallback onCopy;
+  final VoidCallback onDelete;
 
   const _ProfileRow({
     required this.profile,
     required this.active,
     required this.onTap,
     required this.onEdit,
+    required this.onCopy,
+    required this.onDelete,
   });
 
   @override
@@ -625,6 +644,8 @@ class _ProfileRow extends StatelessWidget {
               constraints: const BoxConstraints(minHeight: 60),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
+                // Dot, name (+ Aktif) and one "⋯" (owner, 2026-10-14
+                // 17:38–17:44, mockup B): no velocity · Sıfır line.
                 child: Row(
                   children: [
                     Container(
@@ -638,27 +659,17 @@ class _ProfileRow extends StatelessWidget {
                     const SizedBox(width: MenzilSpace.md),
                     Expanded(
                       child: ExcludeSemantics(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              profile.name,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                                color: c.ink,
-                              ),
-                            ),
-                            Text(
-                              '${_ProfileUnits.of(context).velocity(profile.muzzleVelocityMps)} • '
-                              'Sıfır ${_zeroText(profile)}',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: MenzilType.caption(c.ink2),
-                            ),
-                          ],
+                        child: Text(
+                          profile.name,
+                          key: const Key('profile-row-name'),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: c.ink,
+                          ),
                         ),
                       ),
                     ),
@@ -674,11 +685,7 @@ class _ProfileRow extends StatelessWidget {
                           ),
                         ),
                       ),
-                    IconButton(
-                      tooltip: 'Profili düzenle',
-                      icon: const Icon(Icons.edit_outlined),
-                      onPressed: onEdit,
-                    ),
+                    _menu(context, c),
                   ],
                 ),
               ),
@@ -686,6 +693,60 @@ class _ProfileRow extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  /// Düzenle, Kopyala, Sil in a popup anchored under "⋯": an overlay, so
+  /// the rows never move (owner, 2026-10-14 17:36, 17:43).
+  Widget _menu(BuildContext context, MenzilColors c) {
+    PopupMenuItem<_ProfileAction> item(
+      _ProfileAction value,
+      IconData icon,
+      String label, {
+      Color? color,
+    }) => PopupMenuItem(
+      value: value,
+      key: Key('profile-menu-${value.name}'),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 20, color: color ?? c.ink),
+          const SizedBox(width: MenzilSpace.sm),
+          Text(
+            label,
+            textAlign: TextAlign.start,
+            style: TextStyle(color: color ?? c.ink),
+          ),
+        ],
+      ),
+    );
+    return PopupMenuButton<_ProfileAction>(
+      key: Key('profile-menu-${profile.id}'),
+      tooltip: 'Profil işlemleri',
+      icon: Icon(Icons.more_horiz, color: c.ink),
+      position: PopupMenuPosition.under,
+      // The menu is as wide as its items (no 112 pt minimum).
+      constraints: const BoxConstraints(),
+      onSelected: (a) {
+        switch (a) {
+          case _ProfileAction.edit:
+            onEdit();
+          case _ProfileAction.copy:
+            onCopy();
+          case _ProfileAction.delete:
+            onDelete();
+        }
+      },
+      itemBuilder: (_) => [
+        item(_ProfileAction.edit, Icons.edit_outlined, 'Düzenle'),
+        item(_ProfileAction.copy, Icons.content_copy, 'Kopyala'),
+        item(
+          _ProfileAction.delete,
+          Icons.delete_outline,
+          'Sil',
+          color: c.danger,
+        ),
+      ],
     );
   }
 }
@@ -728,8 +789,6 @@ String _zeroValue(RifleProfile p) {
       ? v.toStringAsFixed(1).replaceAll('.', ',')
       : v.toStringAsFixed(0);
 }
-
-String _zeroText(RifleProfile p) => '${_zeroValue(p)} ${p.distanceUnit.symbol}';
 
 String _ammoTypeName(AmmunitionType t) => switch (t) {
   AmmunitionType.pellet => 'Pellet',
@@ -5016,7 +5075,7 @@ class _ProfileUnits {
   static _ProfileUnits of(BuildContext context) => const _ProfileUnits();
 
   // Muzzle velocity is entered and shown in fps on Profil (owner decision,
-  // 2026-10-07). Distances follow the profile's own unit (_zeroText).
+  // 2026-10-07). Distances follow the profile's own unit (_zeroValue).
   String get velocityUnit => 'fps';
 
   String velocityValue(double mps) =>
