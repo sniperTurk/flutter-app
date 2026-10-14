@@ -187,10 +187,23 @@ Okuma tarihi hepsinde 14.10.2026. Kaynak türü: "Fişek üreticisi (katalog)" y
   - `python3 -m unittest discover -s tools -p 'test_*.py'`: 740 test OK.
 - Flutter SDK bu ortamda yok; `flutter test` yerelde çalışmadı.
 - CI: aşağıda.
+- Not: bu dal önceki bir çalıştırmada eski main'den açılmıştı (PR #304, yalnız X651 ve FA007). main
+  (#296, #298) birleştirildi ve tüm iş bu çalıştırmada yeniden yapıldı; PR farkı yalnız bu dört dosya.
 
 ## CI
 
-CI_PLACEHOLDER
+Hepsi `fa5acf6` commit'inde çalıştı (veri ve test commit'i; bu rapor commit'i yalnız belge).
+
+- Format (`375209577`): **başarılı**, "Formatted 336 files (0 changed)", format commit'i gerekmedi.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38575174089
+- Test (`test-diag.yml`, `files=test`): **başarılı** (`flutter test` çıkış kodu 0). Görünen
+  "error" notları testlerin kendi tanı çıktısı (KESIK tablosu, beklenen hata yığınları), başarısız
+  test değil.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38575503012
+- Analyze (`analyze-diag.yml`, `--fatal-infos --fatal-warnings`): **başarılı** (çıkış kodu 0;
+  tek not `flutter pub outdated` ipucu).
+  https://github.com/sniperTurk/flutter-app/actions/runs/38575507895
+- iOS CI / Simulator / TestFlight: çalıştırılmadı.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
