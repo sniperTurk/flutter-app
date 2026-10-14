@@ -3369,7 +3369,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   Map<String, dynamic> _rifleEntry() {
     final existing = rifle;
     return <String, dynamic>{
-      'id': _ownsRecord(existing?.id, userEntered: existing?.userEntered == true)
+      'id':
+          _ownsRecord(existing?.id, userEntered: existing?.userEntered == true)
           ? existing!.id
           : 'manual_rifle_${DateTime.now().microsecondsSinceEpoch}',
       'kind': 'rifle',
@@ -3392,7 +3393,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   Map<String, dynamic> _ammoEntry() {
     final existing = ammo;
     return <String, dynamic>{
-      'id': _ownsRecord(existing?.id, userEntered: existing?.userEntered == true)
+      'id':
+          _ownsRecord(existing?.id, userEntered: existing?.userEntered == true)
           ? existing!.id
           : 'manual_ammo_${DateTime.now().microsecondsSinceEpoch}',
       'kind': 'ammo',
@@ -3424,7 +3426,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final existing = scope;
     final lo = _parse(scopeMinMag)!, hi = _parse(scopeMaxMag)!;
     return <String, dynamic>{
-      'id': _ownsRecord(existing?.id, userEntered: existing?.userEntered == true)
+      'id':
+          _ownsRecord(existing?.id, userEntered: existing?.userEntered == true)
           ? existing!.id
           : 'manual_scope_${DateTime.now().microsecondsSinceEpoch}',
       'kind': 'scope',

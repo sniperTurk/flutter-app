@@ -253,7 +253,6 @@ Future<void> _update(WidgetTester tester) async {
   expect(find.text('Profili Düzenle'), findsNothing);
 }
 
-
 // ---- PRF-2 helpers -----------------------------------------------------------
 
 RifleProfile _pcpProfile({String id = 'orig', String name = 'Eski Slug'}) =>
@@ -308,7 +307,10 @@ Future<RifleProfile> _copy(
 
 String _text(WidgetTester tester, String key) => tester
     .widget<TextField>(
-      find.descendant(of: find.byKey(Key(key)), matching: find.byType(TextField)),
+      find.descendant(
+        of: find.byKey(Key(key)),
+        matching: find.byType(TextField),
+      ),
     )
     .controller!
     .text;
@@ -379,10 +381,10 @@ void main() {
       // The copied records carry every saved field (incl. the hidden
       // length) apart from the id.
       final all = await _records();
-      expect({..._record(all, copy.ammunitionId), 'id': 'x'}, {
-        ..._pcpAmmo,
-        'id': 'x',
-      });
+      expect(
+        {..._record(all, copy.ammunitionId), 'id': 'x'},
+        {..._pcpAmmo, 'id': 'x'},
+      );
 
       await _openEdit(tester, 'Eski Slug (kopya)');
       await enterRifleField(tester, 'ammo-bc', '0,12');
@@ -477,10 +479,7 @@ void main() {
       final a2 = again.singleWhere((x) => x.id == 'a');
       expect(a2.ammunitionId, splitId);
       expect(_solverInputs(a2)['bc'], closeTo(0.14, 1e-9));
-      expect(
-        _solverInputs(again.singleWhere((x) => x.id == 'b')),
-        beforeB,
-      );
+      expect(_solverInputs(again.singleWhere((x) => x.id == 'b')), beforeB);
     });
 
     testWidgets('a record only this profile uses is updated in place', (
@@ -522,9 +521,7 @@ void main() {
       );
     });
 
-    testWidgets('deleting the copy leaves the original intact', (
-      tester,
-    ) async {
+    testWidgets('deleting the copy leaves the original intact', (tester) async {
       _seed([_pcpRifle, _pcpAmmo, _pcpScope]);
       final original = _pcpProfile();
       final before = _solverInputs(original);
