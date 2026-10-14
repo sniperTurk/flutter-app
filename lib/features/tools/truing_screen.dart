@@ -22,6 +22,7 @@ import '../../services/shot_settings_store.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../ballistics/environment_field_info.dart';
+import '../profiles/shared_records.dart';
 import 'tool_support.dart';
 
 /// ⓘ texts of the Hız Doğrulama page (owner rule: every entered value is
@@ -454,13 +455,11 @@ class _TruingScreenState extends State<TruingScreen> {
         'bcModel': BallisticModel.g1.name,
         'dragCurve': curveJson,
       }..remove('bcBands');
-      await store.upsert(updated);
-      CatalogRepository.installUserCatalog(
-        UserCatalog.fromManualEntries(await store.all()),
-      );
+      final profile = await _saveAmmoRecord(store, updated);
       if (!mounted) return;
       setState(() {
-        _resolution = const ProfileCatalogIntegrity().resolve(_profile!);
+        _profile = profile;
+        _resolution = const ProfileCatalogIntegrity().resolve(profile);
         _dragResult = null;
       });
       _snack('Doğrulanmış sürüklenme eğrisi mühimmata kaydedildi.');
@@ -468,6 +467,60 @@ class _TruingScreenState extends State<TruingScreen> {
       if (mounted) _snack('Mühimmat kaydedilemedi. Mevcut değerler korundu.');
     }
   }
+
+  /// Writes [updated], the trued copy of the active profile's personal
+  /// ammunition record, and returns the active profile to show next.
+  /// PRF-6: when another profile also points at that record (a Kopyala made
+  /// before #313 and never edited), the trued values go into a new record
+  /// under a new id and only the active profile is re-pointed to it, the
+  /// same rule as Profili Düzenle ([sharedRecordIdsOf]); the other profile
+  /// and the old record stay as they were. An unshared record is updated in
+  /// place under its own id.
+  Future<RifleProfile> _saveAmmoRecord(
+    ManualCatalogStore store,
+    Map<String, dynamic> updated,
+  ) async {
+    final p = _profile!;
+    final shared = sharedRecordIdsOf(
+      await _profiles.all(),
+      exceptProfileId: p.id,
+    ).contains(updated['id']);
+    var profile = p;
+    if (shared) {
+      final id = 'manual_ammo_${DateTime.now().microsecondsSinceEpoch}';
+      await store.upsert({...updated, 'id': id});
+      profile = _withAmmunition(p, id);
+      await _profiles.save(profile);
+    } else {
+      await store.upsert(updated);
+    }
+    CatalogRepository.installUserCatalog(
+      UserCatalog.fromManualEntries(await store.all()),
+    );
+    return profile;
+  }
+
+  /// [p] pointing at the ammunition record [ammunitionId]; every other value
+  /// kept as it is.
+  static RifleProfile _withAmmunition(RifleProfile p, String ammunitionId) =>
+      RifleProfile(
+        id: p.id,
+        name: p.name,
+        rifleId: p.rifleId,
+        ammunitionId: ammunitionId,
+        scopeId: p.scopeId,
+        muzzleVelocityMps: p.muzzleVelocityMps,
+        zeroRangeM: p.zeroRangeM,
+        sightHeightMm: p.sightHeightMm,
+        pressureBar: p.pressureBar,
+        tubePressureBar: p.tubePressureBar,
+        pressureVelocityTable: p.pressureVelocityTable,
+        angularUnit: p.angularUnit,
+        distanceUnit: p.distanceUnit,
+        mountCantMoa: p.mountCantMoa,
+        powderTempCoefPercentPer15C: p.powderTempCoefPercentPer15C,
+        powderTempReferenceC: p.powderTempReferenceC,
+      );
 
   static String _signedPercent(double scale) {
     final v = (scale - 1) * 100;
@@ -527,7 +580,7 @@ class _TruingScreenState extends State<TruingScreen> {
       // otherwise the trued BC would change nothing (audit 2026-10-11).
       final ratio = r.truedBc / r.baseBc;
       final bands = entry['bcBands'];
-      await store.upsert({
+      final profile = await _saveAmmoRecord(store, {
         ...entry,
         'bc': r.truedBc,
         if (bands is List)
@@ -536,12 +589,10 @@ class _TruingScreenState extends State<TruingScreen> {
               if (b is Map) {...b, 'bc': (b['bc'] as num) * ratio} else b,
           ],
       });
-      CatalogRepository.installUserCatalog(
-        UserCatalog.fromManualEntries(await store.all()),
-      );
       if (!mounted) return;
       setState(() {
-        _resolution = const ProfileCatalogIntegrity().resolve(_profile!);
+        _profile = profile;
+        _resolution = const ProfileCatalogIntegrity().resolve(profile);
         _bcResult = null;
       });
       _snack('Doğrulanmış BC mühimmata uygulandı.');
