@@ -44,4 +44,9 @@ jobs:
           grep -nE "_test\.dart [0-9]+:[0-9]+|_test\.dart:[0-9]+" test.log | head -8 | while IFS= read -r line; do
             echo "::error title=where::${line:0:400}"
           done
+          echo "===== FAILURE DETAIL ====="
+          grep -n -B45 -E "\[E\]$" test.log | cut -c1-300 | head -2500
+          echo "===== COMPILE ====="
+          grep -n -A6 -E "Error: |Compilation failed" test.log | cut -c1-300 | head -200
+          tail -3 test.log
           exit $rc
