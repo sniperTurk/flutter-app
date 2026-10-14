@@ -87,7 +87,7 @@ Kodun son hâli eb5d15a için (bu commit'ten sonra yalnız bu rapor değişti):
 - Yeni test dosyası tek başına (test-diag): https://github.com/sniperTurk/flutter-app/actions/runs/38520454653 (başarılı).
 - Analiz (analyze-diag): https://github.com/sniperTurk/flutter-app/actions/runs/38520452050 (başarılı).
 
-Önceki deneme (f26f8c3 / b8aacca): yeni test 20 durumda kaldı. Sebep uygulamada değil, testin kendisindeydi: test, düğme satırını yüksekliği sınırlı bir alana koymuştu. main düzenindeki `Center` bu alanı doldurduğu için düğme çok uzun çıkıyordu ve + işaretinin yüksekliği karşılaştırılamıyordu. Test satırı, Profil sekmesindeki gibi kaydırılan bir sayfaya alındı ve sonra geçti. Kalan çalışma: https://github.com/sniperTurk/flutter-app/actions/runs/38519325038, analiz o turda da başarılıydı: https://github.com/sniperTurk/flutter-app/actions/runs/38519327078.
+Önceki deneme (f26f8c3 / b8aacca): yeni testin düğme satırı durumları kaldı. Sebep uygulamada değil, testin kendisindeydi: test, düğme satırını yüksekliği sınırlı bir alana koymuştu. main düzenindeki `Center` bu alanı doldurduğu için düğme çok uzun çıkıyordu ve + işaretinin yüksekliği karşılaştırılamıyordu. Test satırı, Profil sekmesindeki gibi kaydırılan bir sayfaya alındı ve sonra geçti. Kalan çalışma: https://github.com/sniperTurk/flutter-app/actions/runs/38519325038, analiz o turda da başarılıydı: https://github.com/sniperTurk/flutter-app/actions/runs/38519327078.
 
 iOS CI / Simulator / TestFlight bu iş için ayrıca çalıştırılmadı. TestFlight'a gönderilmedi. Birleştirme yapılmadı. PR taslak olarak açık.
 
