@@ -4,6 +4,7 @@ import '../services/level_calibration_preferences.dart';
 import 'adapters/camera_plugin_service.dart';
 import 'adapters/flutter_compass_heading_provider.dart';
 import 'adapters/geolocator_location_provider.dart';
+import 'adapters/google_elevation_provider.dart';
 import 'adapters/image_picker_photo_picker.dart';
 import 'adapters/met_no_weather_provider.dart';
 import 'adapters/nominatim_place_search.dart';
@@ -11,9 +12,11 @@ import 'adapters/sensors_plus_pressure_sensor.dart';
 import 'adapters/sensors_plus_tilt_provider.dart';
 import 'ports/camera_service.dart';
 import 'ports/clock.dart';
+import 'ports/elevation_provider.dart';
 import 'ports/heading_provider.dart';
 import 'ports/level_calibration_store.dart';
 import 'ports/location_provider.dart';
+import 'ports/phone_altitude_provider.dart';
 import 'ports/photo_picker.dart';
 import 'ports/place_search.dart';
 import 'ports/pressure_sensor.dart';
@@ -42,6 +45,15 @@ class ToolsServices {
   /// Phone barometer for Hava Durumu's "Basıncı telefondan al" (Ö4).
   final PressureSensor pressure;
 
+  /// Hava Durumu → İrtifa → "Telefondan" (owner, 2026-10-14): a
+  /// high-accuracy GPS request. Null (tests that do not set it): the button
+  /// uses [location] and the page starts no background warm-up.
+  final PhoneAltitudeProvider? phoneAltitude;
+
+  /// Hava Durumu → İrtifa → "Haritadan": map ground elevation. Null = no
+  /// map service (the box stays empty with a short note).
+  final ElevationProvider? elevation;
+
   const ToolsServices({
     required this.location,
     required this.weather,
@@ -54,6 +66,8 @@ class ToolsServices {
     required this.clock,
     this.levelCalibration,
     this.pressure = const SensorsPlusPressureSensor(),
+    this.phoneAltitude,
+    this.elevation,
   });
 
   factory ToolsServices.production() => ToolsServices(
@@ -67,6 +81,8 @@ class ToolsServices {
     vision: const DisconnectedVisionAssist(),
     clock: const SystemClock(),
     levelCalibration: const PersistentLevelCalibrationStore(),
+    phoneAltitude: GeolocatorLocationProvider.highAccuracy,
+    elevation: const GoogleElevationProvider(),
   );
 }
 
