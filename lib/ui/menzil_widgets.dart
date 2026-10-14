@@ -140,20 +140,14 @@ class MenzilStateMessage extends StatelessWidget {
 // ---------------------------------------------------------------------------
 
 /// Fixed top bar: page title or "Sniper Türk" (left), a compact
-/// active-profile selector and the unit / theme buttons (right).
+/// active-profile selector and the theme button (right). The app is metric
+/// only since V380, so there is no unit button.
 class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget profileSelector;
-
-  /// Unit button; omitted when null (the app is metric only since V380).
-  final String? unitLabel;
-  final VoidCallback? onUnitTap;
   final String themeLabel;
   final VoidCallback? onThemeTap;
 
-  /// False hides the "Sniper Türk" brand (shown when there is no title).
-  final bool showBrand;
-
-  /// Page title shown instead of the brand (Hava Durumu, Pro, Hedef, …).
+  /// Page title shown instead of the "Sniper Türk" brand (Hava Durumu, Pro, Hedef, …).
   final String? title;
 
   /// Every page title this bar can show. The title slot is as wide as the
@@ -174,11 +168,8 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   const MenzilTopBar({
     super.key,
     required this.profileSelector,
-    this.unitLabel,
-    this.onUnitTap,
     required this.themeLabel,
     this.onThemeTap,
-    this.showBrand = true,
     this.title,
     this.slotTitles = const [],
   });
@@ -245,7 +236,7 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                   final slotWidth = titleSlotWidth(
                     barWidth: constraints.maxWidth,
                     titles: [...slotTitles, if (title != null) title!],
-                    includeBrand: showBrand,
+                    includeBrand: true,
                     titleStyle: base.merge(titleStyle),
                     brandStyle: base.merge(MenzilBrand.style(c.ink)),
                     textScaler: MediaQuery.textScalerOf(context),
@@ -284,13 +275,11 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                                       ),
                                     ),
                                   )
-                                : showBrand
-                                ? FittedBox(
+                                : FittedBox(
                                     fit: BoxFit.scaleDown,
                                     alignment: Alignment.centerLeft,
                                     child: MenzilBrand(compact: compact),
-                                  )
-                                : const SizedBox.shrink(),
+                                  ),
                           ),
                         ),
                         const SizedBox(width: MenzilSpace.md),
@@ -301,14 +290,6 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         ),
                         const SizedBox(width: MenzilSpace.sm),
-                        if (unitLabel != null) ...[
-                          MenzilBarButton(
-                            label: unitLabel!,
-                            tooltip: 'Birim sistemi',
-                            onPressed: onUnitTap,
-                          ),
-                          const SizedBox(width: MenzilSpace.xs),
-                        ],
                         MenzilBarButton(
                           label: themeLabel,
                           tooltip: 'Tema',
