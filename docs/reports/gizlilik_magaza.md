@@ -178,6 +178,21 @@ değişmedi.
 `check_lengths.py`: ALL OK (TR açıklama 2656/4000, EN 2537/4000; diğer
 sayılar değişmedi).
 
+Dal yeniden yazılmadı: "rebase" yerine güncel main (`47b7ab0`, #295)
+birleştirme commit'iyle alındı (`b550ae2`), böylece zorla itme gerekmedi;
+çakışma yoktu. Yerel: lint PASS (334 dosya, 0 sorun), Python testleri OK,
+`check_lengths.py` ALL OK.
+
+CI, baş `0ea4ef5` (işler `ref: fix/gizlilik-magaza` ile checkout eder):
+
+| İş | Sonuç | Bağlantı |
+|---|---|---|
+| Dart format | Başarılı — değişiklik yok, commit itilmedi | https://github.com/sniperTurk/flutter-app/actions/runs/38535023120 |
+| Testler (tüm `test/`) | Başarılı (çıkış kodu 0) | https://github.com/sniperTurk/flutter-app/actions/runs/38535026195 |
+| Analiz (`--fatal-infos --fatal-warnings`) | Başarılı (çıkış kodu 0) | https://github.com/sniperTurk/flutter-app/actions/runs/38535029798 |
+
+Bu tabloyu ekleyen commit yalnız bu rapor dosyasını değiştirir.
+
 ## 4. Sahibin yapması gerekenler
 
 1. Gizlilik politikasını web'de yayınlamak: yayındaki `PRIVACY_POLICY_URL`
