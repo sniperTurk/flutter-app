@@ -313,10 +313,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         turretScaleCtl.text = s.turretScaleText;
         // No automatic value any more (owner, 2026-10-12): the box starts
         // empty and is filled only by "Rüzgâr düzeltmesi al" or by hand.
-        _windMaxAuto = false;
         windMaxCtl.text = s.windMaxText;
         _windMaxFilled = s.windMaxFromWind && s.windMaxText.isNotEmpty;
-        _autoWindMax();
         targetSpeedCtl.text = s.targetSpeedText;
         _targetMovesRight = s.targetMovesRight;
         bulletLengthCtl.text = s.bulletLengthText;
@@ -449,8 +447,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       pressureFromPhone: _pressureFilled,
       azimuthText: azimuthCtl.text.trim(),
       turretScaleText: turretScaleCtl.text.trim(),
-      windMaxText: _windMaxAuto ? '' : windMaxCtl.text.trim(),
-      windMaxOff: !_windMaxAuto && windMaxCtl.text.trim().isEmpty,
+      windMaxText: windMaxCtl.text.trim(),
+      windMaxOff: windMaxCtl.text.trim().isEmpty,
       targetSpeedText: targetSpeedCtl.text.trim(),
       targetMovesRight: _targetMovesRight,
       spinDriftOn: _spinDriftOn,
@@ -522,13 +520,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Pro Ayarlar extras (owner, 2026-10-09).
   final TextEditingController turretScaleCtl = TextEditingController();
   final TextEditingController windMaxCtl = TextEditingController();
-
-  /// En yüksek rüzgâr is filled automatically from Rüzgâr hızı (owner,
-  /// 2026-10-09) until the shooter types a value. Clearing it turns the
-  /// bracket off (owner, 2026-10-10: the shooter must be able to delete an
-  /// automatic value); "Otomatik doldur" switches back. An automatic value
-  /// is not saved.
-  bool _windMaxAuto = false;
 
   /// "Rüzgâr düzeltmesi al" state (owner, 2026-10-12), as on Hava Durumu.
   bool _windMaxFilled = false;
@@ -602,18 +593,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       _holdSamples = null;
     });
     _saveShotSettings();
-  }
-
-  void _autoWindMax() {
-    if (!_windMaxAuto) return;
-    final w = double.tryParse(wind.text.trim().replaceAll(',', '.'));
-    final text = w == null || !w.isFinite || w <= 0
-        ? ''
-        : (w * windGustFactor).toStringAsFixed(1);
-    if (windMaxCtl.text == text) return;
-    windMaxCtl.text = text;
-    _shotCache.clear();
-    _holdSamples = null;
   }
 
   final TextEditingController targetSpeedCtl = TextEditingController();
@@ -1126,7 +1105,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     // Hava Durumu boxes start empty (owner, 2026-10-12: "Konum verisi
     // alınmadan kutular dolu geliyor"); an empty box is solved with the
     // standard atmosphere and no wind.
-    wind = TextEditingController()..addListener(_autoWindMax);
+    wind = TextEditingController();
     windDirection = TextEditingController(text: '90');
     windHour = TextEditingController()..addListener(_syncWindHour);
     temperature = TextEditingController();
@@ -3934,7 +3913,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
           unit: windUnit,
           info: EnvironmentFieldInfo.windMax,
           onChanged: (v) {
-            _windMaxAuto = false;
             if (_windMaxFilled || _windMaxWasReset) {
               setState(() => _windMaxFilled = _windMaxWasReset = false);
             }

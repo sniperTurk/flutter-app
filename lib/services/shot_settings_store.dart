@@ -25,8 +25,9 @@ class ShotSettings {
   final String gravityText;
   final String windMaxText;
 
-  /// The shooter cleared En yüksek rüzgâr: no wind bracket, no automatic
-  /// value until "Otomatik doldur" (owner, 2026-10-10).
+  /// En yüksek rüzgâr is empty: no wind bracket. Still written and read so
+  /// older saved settings keep loading; the box has no automatic value since
+  /// 2026-10-12, so nothing reads it back into the screen.
   final bool windMaxOff;
   final String targetSpeedText;
 
