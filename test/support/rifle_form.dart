@@ -112,10 +112,16 @@ Future<void> fillAmmoForm(
   if (find.byKey(const Key('ammo-source')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
   }
-  // Marka and Model are separate boxes again and come from the library
-  // lists; a typed name needs "Listede yok" first (owner, 2026-10-11).
-  if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
+  // Firearm: a typed round opens from the "listede yok mu?" link (owner,
+  // 2026-10-14); PCP (PCP_AMMO_BRAND on) keeps "Listede yok" in the list.
+  if (find.byKey(const Key('ammo-not-listed')).evaluate().isNotEmpty) {
+    await openAmmoManual(tester);
+  } else if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
+  }
+  // Typed firearm round: Marka from the list, "Diğer" types it.
+  if (find.byKey(const Key('ammo-brand-pick')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'ammo-brand-pick', 'Diğer');
   }
   // PCP asks no Marka/Model (owner, 2026-10-13).
   if (find.byKey(const Key('ammo-brand')).evaluate().isNotEmpty) {
@@ -123,9 +129,23 @@ Future<void> fillAmmoForm(
     await enterRifleField(tester, 'ammo-model', model);
   }
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);
+  // Typed firearm Ağırlık is a list; "Listede yok" types the grain.
+  if (find.byKey(const Key('ammo-grain-select')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'ammo-grain-select', 'Listede yok');
+  }
   await enterRifleField(tester, 'ammo-grain', grain);
   await enterRifleField(tester, 'ammo-bc', bc);
   await chooseBcModel(tester, bcModel);
+}
+
+/// Taps "Aradığın mühimmat listede yok mu?" under Mühimmat Model: the
+/// typed firearm round (owner, 2026-10-14: no "Listede yok" in the list).
+Future<void> openAmmoManual(WidgetTester tester) async {
+  final link = find.byKey(const Key('ammo-not-listed'));
+  await Scrollable.ensureVisible(tester.element(link), alignment: 0.5);
+  await tester.pumpAndSettle();
+  await tester.tap(link);
+  await tester.pumpAndSettle();
 }
 
 /// BC modeli is asked on firearms only; PCP is always G1 (owner,
