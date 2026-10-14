@@ -154,17 +154,20 @@ Seçimden hesaba kadar her adım koddan izlendi:
   - `test/profile_editor_fail_closed_test.dart` (ⓘ listesine "BC modeli" eklendi)
   - `test/profile_lists_test.dart` (PCP satır düzeni)
   - `test/support/rifle_form.dart` (açıklama)
+  - `integration_test/app_launch_test.dart` (PCP'de kutu görünür, G1 seçili)
 - **Yerelde çalıştırılanlar:**
   - `python3 tools/offline_dart_lint.py` → GEÇTİ (0 sorun).
   - `python3 -m unittest discover -s tools -p 'test_*.py'` → 740 test GEÇTİ.
 - **Flutter testleri ve analyzer:** yerelde Flutter SDK yok; yalnızca CI'da çalıştı (bkz. 7).
 
 ## 7. CI
-Hepsi `fix/bc-modeli-secim` dalında, `aba9a6b` commit'i üzerinde çalıştı:
+İlk üç çalıştırma `aba9a6b` commit'i üzerinde:
 - **Dart format:** https://github.com/sniperTurk/flutter-app/actions/runs/38564776350 — başarılı. Biçim düzeltmesini `aba9a6b` olarak commit'ledi; yalnızca yeni test dosyasında değişiklik vardı.
 - **`flutter analyze --fatal-infos --fatal-warnings`:** https://github.com/sniperTurk/flutter-app/actions/runs/38564988121 — YEŞİL.
 - **`flutter test test` (tüm test klasörü):** https://github.com/sniperTurk/flutter-app/actions/runs/38564984744 — YEŞİL.
-- **iOS CI / Simulator / TestFlight:** bu işte çalıştırılmadı; sonuç bildirmiyorum.
+- **PR'ın kendi CI'ı (`iOS CI`), ilk deneme `069c268`:** `verify` KIRMIZI — https://github.com/sniperTurk/flutter-app/actions/runs/38567648170/job/115868436784. Sebep bu PR'dı: `integration_test/app_launch_test.dart` PCP'de BC modeli kutusunun olmamasını bekliyordu. Test, kutunun görünmesini ve G1 seçili gelmesini bekleyecek şekilde güncellendi (`b99eeeb`).
+- **PR'ın kendi CI'ı, `b99eeeb`:** https://github.com/sniperTurk/flutter-app/actions/runs/38571385362 — `dart-checks` YEŞİL, `wind-acceptance` YEŞİL, `verify` YEŞİL. `verify` iOS Simulator'da entegrasyon testini çalıştırdı. Ayrı `ios-simulator` işi atlandı (skipped).
+- **TestFlight / App Store:** çalıştırılmadı.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
