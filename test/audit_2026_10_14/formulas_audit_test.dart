@@ -165,7 +165,7 @@ void main() {
       // 1 mrad at 100 m is 10.0003 cm (tan).
       expect(
         ScopeDialMath.linearAtRange(1, 100, AngularUnit.mrad),
-        closeTo(0.10000003, 1e-9),
+        closeTo(0.1000000333, 1e-9),
       );
     });
   });
