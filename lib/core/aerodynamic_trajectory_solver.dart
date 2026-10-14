@@ -182,6 +182,24 @@ class AerodynamicTrajectorySolver {
     return input.rangesM.map((r) => results[r]!).toList(growable: false);
   }
 
+  /// Launch angle of the bore above the line of sight at the zero, in
+  /// radians (level, zero-day velocity, ICAO zero air): the same angle
+  /// [solve] starts from. The turret holds this angle once zeroed, so it is
+  /// taken from the UP travel (denetim F2, 2026-10-14).
+  double zeroAngleRad(BallisticInput input) {
+    _validateStep();
+    final model = input.ballisticModel;
+    if (input.ballisticCoefficient == null || model == null) {
+      throw ArgumentError(
+        'ballisticCoefficient and ballisticModel (G1/G7) are required',
+      );
+    }
+    final drag = ReferenceDragModel(
+      input.dragTable ?? StandardDragTables.forModel(model),
+    );
+    return _zeroAngle(input, drag, input.bcAtSpeed);
+  }
+
   /// Backward-compatible no-wind validation entry point.
   List<TrajectoryPoint> solveNoWind(BallisticInput input) {
     if (input.environment.windMps != 0) {
