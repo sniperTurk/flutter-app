@@ -1925,15 +1925,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             hint: 'Seçiniz',
             initialValue: model,
             // Model and its data, no brand (owner, 2026-10-13). A long line
-            // keeps its size and wraps, in the list and in the box, which
-            // grows (owner, 2026-10-14: like Mühimmat Model; never smaller).
+            // keeps its size and wraps, in the list (two lines) and in the
+            // box, which grows (owner, 2026-10-14: like Mühimmat Model;
+            // never smaller).
             wrapSelected: true,
-            itemHeight: null,
             items: [
               for (final m in models)
                 DropdownMenuItem(
                   value: m,
-                  child: Text(_scopeModelLine(brand!, m)),
+                  child: Text(_scopeModelLine(brand!, m), maxLines: 2),
                 ),
             ],
             onChanged: (v) => setState(() {
