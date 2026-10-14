@@ -157,8 +157,8 @@ adı bilinmiyorsa çap yazılır ("7,82 mm").
 - **PCP Mühimmat:** aynen (Tip | Ağırlık | BC; Marka/Model yok, bağlantı yok,
   barut kutuları yok).
 - **Tüfek bölümü:** dokunulmadı. Paralel görev `fix/tufek-listede-yok`
-  main'e girdi (#289); bu dal onun üstüne yeniden kuruldu, çakışma yalnız
-  Ağırlık kutusunun bir yorum satırındaydı.
+  main'e girdi (#289); bu dal güncel main üstüne yeniden kuruldu, tek çakışma
+  Ağırlık kutusunun bir yorum satırındaydı (#291 kod temizliği).
 - **Listeden seçilen mühimmat akışı:** Marka/Model listeleri, ağırlık/BC/hız
   doldurma, eşikler, BC'den otomatik G1 aynen. Tek fark: Barut kutuları artık
   liste ve Marka listesinde "Listede yok" maddesi yok (bağlantı var).
