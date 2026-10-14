@@ -119,7 +119,7 @@ Map<String, Map<String, String>> _fields({required bool pcp}) => {
     'Dürbün eğimi': EnvironmentFieldInfo.cantFor(firearm: !pcp),
   },
   'wind': const {
-    'Rüzgâr hızı × 1,5': EnvironmentFieldInfo.windMax,
+    'En çok rüzgâr': EnvironmentFieldInfo.windMax,
     'Yol ortası': EnvironmentFieldInfo.windMid,
     'Hedefte': EnvironmentFieldInfo.windFar,
   },

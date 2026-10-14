@@ -1,7 +1,8 @@
 // Owner, TestFlight 2026-10-14 11:50: "Uygulamayı güncelledim, Hava
 // Durumu'na girdim, 'Hava verisi alındı' turuncu ama tuşa bastım başka
-// veriler geldi." A fetched value is orange ("…alındı · HH:mm") only for
-// 30 minutes; after that the button is normal, "… eski · Yenile", and the
+// veriler geldi." A fetched value is orange ("…alındı") only for 30
+// minutes, its date and time on the row below (2026-10-14: "14.10.2026
+// 11:20"); after that the button is normal, "⟳ … yenile", and the
 // values stay until refreshed or edited. Old saves without a time, and a
 // fetch time in the future (clock set back), count as old.
 import 'dart:convert';
@@ -36,6 +37,12 @@ const _profile = RifleProfile(
 
 const _weatherKey = Key('environment-fill-weather');
 const _pressureKey = Key('environment-phone-pressure');
+const _weatherDate = Key('environment-weather-date');
+const _pressureDate = Key('environment-pressure-date');
+
+/// The date row under a fetch button (owner, 2026-10-14).
+String _date(WidgetTester tester, Key key) =>
+    tester.widget<Text>(find.byKey(key)).data!;
 
 /// 11:20 on the phone (local time, so the label reads 11:20 in any zone).
 DateTime _at1120() => DateTime(2026, 10, 14, 11, 20);
@@ -187,7 +194,8 @@ void main() {
       expect(find.text('Konumdan canlı hava verisi al'), findsOneWidget);
 
       await _tap(tester, _weatherKey);
-      expect(find.text('Hava verisi alındı · 11:20'), findsOneWidget);
+      expect(find.text('Hava verisi alındı'), findsOneWidget);
+      expect(_date(tester, _weatherDate), '14.10.2026 11:20');
       expect(_button(tester, _weatherKey).active, isTrue);
       expect(_button(tester, _weatherKey).icon, Icons.check);
       expect(_button(tester, _weatherKey).maxLabelLines, 1);
@@ -196,13 +204,14 @@ void main() {
       // +29 min, page open: still current.
       rig.advance(const Duration(minutes: 29));
       await tester.pump(const Duration(minutes: 29));
-      expect(find.text('Hava verisi alındı · 11:20'), findsOneWidget);
+      expect(find.text('Hava verisi alındı'), findsOneWidget);
+      expect(_date(tester, _weatherDate), '14.10.2026 11:20');
       expect(_button(tester, _weatherKey).active, isTrue);
 
       // +31 min: the page's own timer turns it old, without a tap.
       rig.advance(const Duration(minutes: 2));
       await tester.pump(const Duration(minutes: 2));
-      expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
+      expect(find.text('Veriyi yenile'), findsOneWidget);
       expect(find.textContaining('Hava verisi alındı'), findsNothing);
       expect(_button(tester, _weatherKey).active, isFalse);
       expect(_button(tester, _weatherKey).icon, Icons.refresh);
@@ -215,7 +224,8 @@ void main() {
       // Tapping fetches again: orange with the new time (11:51).
       await _tap(tester, _weatherKey);
       expect(rig.weather.calls, 2);
-      expect(find.text('Hava verisi alındı · 11:51'), findsOneWidget);
+      expect(find.text('Hava verisi alındı'), findsOneWidget);
+      expect(_date(tester, _weatherDate), '14.10.2026 11:51');
       expect(_button(tester, _weatherKey).active, isTrue);
     });
 
@@ -226,11 +236,12 @@ void main() {
       rig.advance(const Duration(minutes: 30));
       // A resume rebuilds the page at exactly 30 min.
       await _resumeApp(tester);
-      expect(find.text('Hava verisi alındı · 11:20'), findsOneWidget);
+      expect(find.text('Hava verisi alındı'), findsOneWidget);
+      expect(_date(tester, _weatherDate), '14.10.2026 11:20');
       // One more second: old.
       rig.advance(const Duration(seconds: 1));
       await _resumeApp(tester);
-      expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
+      expect(find.text('Veriyi yenile'), findsOneWidget);
     });
 
     testWidgets('restart: the saved time comes back, old is old', (
@@ -251,12 +262,13 @@ void main() {
       // Started again 10 min later: still 11:20, orange.
       rig.advance(const Duration(minutes: 10));
       await _pump(tester, rig, key: UniqueKey());
-      expect(find.text('Hava verisi alındı · 11:20'), findsOneWidget);
+      expect(find.text('Hava verisi alındı'), findsOneWidget);
+      expect(_date(tester, _weatherDate), '14.10.2026 11:20');
 
       // Started again hours later: old, values kept.
       rig.advance(const Duration(hours: 3));
       await _pump(tester, rig, key: UniqueKey());
-      expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
+      expect(find.text('Veriyi yenile'), findsOneWidget);
       expect(_button(tester, _weatherKey).active, isFalse);
       expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
     });
@@ -264,7 +276,7 @@ void main() {
     testWidgets('old save without a time opens as eski', (tester) async {
       _saved(weather: true);
       await _pump(tester, _rig());
-      expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
+      expect(find.text('Veriyi yenile'), findsOneWidget);
       expect(_button(tester, _weatherKey).active, isFalse);
       expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
     });
@@ -275,7 +287,8 @@ void main() {
         weatherAtMs: DateTime(2026, 10, 14, 11, 10).millisecondsSinceEpoch,
       );
       await _pump(tester, _rig());
-      expect(find.text('Hava verisi alındı · 11:10'), findsOneWidget);
+      expect(find.text('Hava verisi alındı'), findsOneWidget);
+      expect(_date(tester, _weatherDate), '14.10.2026 11:10');
       expect(_button(tester, _weatherKey).active, isTrue);
     });
 
@@ -287,7 +300,7 @@ void main() {
         weatherAtMs: DateTime(2026, 10, 14, 12, 0).millisecondsSinceEpoch,
       );
       await _pump(tester, _rig());
-      expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
+      expect(find.text('Veriyi yenile'), findsOneWidget);
       expect(_button(tester, _weatherKey).active, isFalse);
     });
 
@@ -297,7 +310,7 @@ void main() {
       await _tap(tester, _weatherKey);
       rig.advance(const Duration(hours: -1));
       await _resumeApp(tester);
-      expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
+      expect(find.text('Veriyi yenile'), findsOneWidget);
     });
 
     testWidgets('a typed Sıcaklık is not orange (existing rule)', (
@@ -320,9 +333,10 @@ void main() {
       // Time passes while the app is in the background (no timer ran).
       rig.advance(const Duration(minutes: 31));
       await tester.pump();
-      expect(find.text('Hava verisi alındı · 11:20'), findsOneWidget);
+      expect(find.text('Hava verisi alındı'), findsOneWidget);
+      expect(_date(tester, _weatherDate), '14.10.2026 11:20');
       await _resumeApp(tester);
-      expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
+      expect(find.text('Veriyi yenile'), findsOneWidget);
       expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
     });
 
@@ -332,13 +346,15 @@ void main() {
       final rig = _rig(DateTime(2026, 10, 14, 23, 50));
       await _pump(tester, rig);
       await _tap(tester, _weatherKey);
-      expect(find.text('Hava verisi alındı · 23:50'), findsOneWidget);
+      expect(find.text('Hava verisi alındı'), findsOneWidget);
+      expect(_date(tester, _weatherDate), '14.10.2026 23:50');
       rig.advance(const Duration(minutes: 20));
       await tester.pump(const Duration(minutes: 20));
-      expect(find.text('Hava verisi alındı · 23:50'), findsOneWidget);
+      expect(find.text('Hava verisi alındı'), findsOneWidget);
+      expect(_date(tester, _weatherDate), '14.10.2026 23:50');
       rig.advance(const Duration(minutes: 11));
       await tester.pump(const Duration(minutes: 11));
-      expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
+      expect(find.text('Veriyi yenile'), findsOneWidget);
     });
 
     testWidgets('Sıfırla unchanged: empties and shows Veriler sıfırlandı', (
@@ -367,7 +383,7 @@ void main() {
         'x',
       );
       await _tap(tester, _weatherKey);
-      expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
+      expect(find.text('Veriyi yenile'), findsOneWidget);
       expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
     });
 
@@ -392,29 +408,33 @@ void main() {
         'Yenile reads again', (tester) async {
       final rig = _rig();
       await _pump(tester, rig);
-      expect(find.text('Basıncı telefondan al'), findsOneWidget);
+      expect(find.text('Basınç al'), findsOneWidget);
 
       await _tap(tester, _pressureKey);
-      expect(find.text('Basınç alındı · 11:20'), findsOneWidget);
+      expect(find.text('Basınç alındı'), findsOneWidget);
+      expect(_date(tester, _pressureDate), '14.10.2026 11:20');
       expect(_button(tester, _pressureKey).active, isTrue);
       expect(_button(tester, _pressureKey).maxLabelLines, 1);
       expect(rig.pressure.reads, 1);
 
       rig.advance(const Duration(minutes: 29));
       await tester.pump(const Duration(minutes: 29));
-      expect(find.text('Basınç alındı · 11:20'), findsOneWidget);
+      expect(find.text('Basınç alındı'), findsOneWidget);
+      expect(_date(tester, _pressureDate), '14.10.2026 11:20');
 
       rig.advance(const Duration(minutes: 2));
       await tester.pump(const Duration(minutes: 2));
-      expect(find.text('Basınç eski · Yenile'), findsOneWidget);
+      expect(find.text('Basıncı yenile'), findsOneWidget);
       expect(_button(tester, _pressureKey).active, isFalse);
       expect(_button(tester, _pressureKey).icon, Icons.refresh);
       expect(_text(tester, BallisticsFieldKeys.pressure), '912.4');
-      expect(_text(tester, BallisticsFieldKeys.altitude), '900');
+      // The pressure button no longer writes İrtifa (owner, 2026-10-14).
+      expect(_text(tester, BallisticsFieldKeys.altitude), '');
 
       await _tap(tester, _pressureKey);
       expect(rig.pressure.reads, 2);
-      expect(find.text('Basınç alındı · 11:51'), findsOneWidget);
+      expect(find.text('Basınç alındı'), findsOneWidget);
+      expect(_date(tester, _pressureDate), '14.10.2026 11:51');
       expect(_button(tester, _pressureKey).active, isTrue);
     });
 
@@ -427,17 +447,18 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
       rig.advance(const Duration(minutes: 10));
       await _pump(tester, rig, key: UniqueKey());
-      expect(find.text('Basınç alındı · 11:20'), findsOneWidget);
+      expect(find.text('Basınç alındı'), findsOneWidget);
+      expect(_date(tester, _pressureDate), '14.10.2026 11:20');
       rig.advance(const Duration(hours: 3));
       await _pump(tester, rig, key: UniqueKey());
-      expect(find.text('Basınç eski · Yenile'), findsOneWidget);
+      expect(find.text('Basıncı yenile'), findsOneWidget);
       expect(_text(tester, BallisticsFieldKeys.pressure), '912.4');
     });
 
     testWidgets('old save without a time opens as eski', (tester) async {
       _saved(pressure: true);
       await _pump(tester, _rig());
-      expect(find.text('Basınç eski · Yenile'), findsOneWidget);
+      expect(find.text('Basıncı yenile'), findsOneWidget);
       expect(_button(tester, _pressureKey).active, isFalse);
       expect(_text(tester, BallisticsFieldKeys.pressure), '912.4');
     });
@@ -450,7 +471,7 @@ void main() {
         pressureAtMs: DateTime(2026, 10, 14, 12, 0).millisecondsSinceEpoch,
       );
       await _pump(tester, _rig());
-      expect(find.text('Basınç eski · Yenile'), findsOneWidget);
+      expect(find.text('Basıncı yenile'), findsOneWidget);
     });
 
     testWidgets('a typed Basınç is not orange (existing rule)', (tester) async {
@@ -459,7 +480,7 @@ void main() {
       await _tap(tester, _pressureKey);
       await _type(tester, BallisticsFieldKeys.pressure, '900');
       expect(_button(tester, _pressureKey).active, isFalse);
-      expect(find.text('Basıncı telefondan al'), findsOneWidget);
+      expect(find.text('Basınç al'), findsOneWidget);
     });
 
     testWidgets('resume after 31 min → eski without a tap', (tester) async {
@@ -468,9 +489,10 @@ void main() {
       await _tap(tester, _pressureKey);
       rig.advance(const Duration(minutes: 31));
       await tester.pump();
-      expect(find.text('Basınç alındı · 11:20'), findsOneWidget);
+      expect(find.text('Basınç alındı'), findsOneWidget);
+      expect(_date(tester, _pressureDate), '14.10.2026 11:20');
       await _resumeApp(tester);
-      expect(find.text('Basınç eski · Yenile'), findsOneWidget);
+      expect(find.text('Basıncı yenile'), findsOneWidget);
     });
 
     testWidgets('each button has its own time', (tester) async {
@@ -480,16 +502,18 @@ void main() {
       rig.advance(const Duration(minutes: 20));
       await tester.pump(const Duration(minutes: 20));
       await _tap(tester, _pressureKey);
-      expect(find.text('Basınç alındı · 11:40'), findsOneWidget);
+      expect(find.text('Basınç alındı'), findsOneWidget);
+      expect(_date(tester, _pressureDate), '14.10.2026 11:40');
       // 11:51: weather old, pressure (11:40) still current.
       rig.advance(const Duration(minutes: 11));
       await tester.pump(const Duration(minutes: 11));
-      expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
-      expect(find.text('Basınç alındı · 11:40'), findsOneWidget);
+      expect(find.text('Veriyi yenile'), findsOneWidget);
+      expect(find.text('Basınç alındı'), findsOneWidget);
+      expect(_date(tester, _pressureDate), '14.10.2026 11:40');
       // 12:11: both old.
       rig.advance(const Duration(minutes: 20));
       await tester.pump(const Duration(minutes: 20));
-      expect(find.text('Basınç eski · Yenile'), findsOneWidget);
+      expect(find.text('Basıncı yenile'), findsOneWidget);
     });
   });
 
@@ -521,14 +545,14 @@ void main() {
     await _tap(tester, _weatherKey);
     await _tap(tester, _pressureKey);
     expect(tester.takeException(), isNull);
-    for (final t in ['Hava verisi alındı · 11:20', 'Basınç alındı · 11:20']) {
+    for (final t in ['Hava verisi alındı', 'Basınç alındı']) {
       expect(tester.widget<Text>(find.text(t)).maxLines, 1, reason: t);
     }
     rig.advance(const Duration(minutes: 31));
     await tester.pump(const Duration(minutes: 31));
     expect(tester.takeException(), isNull);
-    expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
-    expect(find.text('Basınç eski · Yenile'), findsOneWidget);
+    expect(find.text('Veriyi yenile'), findsOneWidget);
+    expect(find.text('Basıncı yenile'), findsOneWidget);
   });
 
   testWidgets('tabs (Hava Durumu → Hedef → back) keep the fetch time', (
@@ -566,14 +590,16 @@ void main() {
 
     await tab('Hava Durumu');
     await _tap(tester, _weatherKey);
-    expect(find.text('Hava verisi alındı · 11:20'), findsOneWidget);
+    expect(find.text('Hava verisi alındı'), findsOneWidget);
+    expect(_date(tester, _weatherDate), '14.10.2026 11:20');
     await tab('Hedef');
     rig.advance(const Duration(minutes: 10));
     await tab('Hava Durumu');
-    expect(find.text('Hava verisi alındı · 11:20'), findsOneWidget);
+    expect(find.text('Hava verisi alındı'), findsOneWidget);
+    expect(_date(tester, _weatherDate), '14.10.2026 11:20');
     await tab('Hedef');
     rig.advance(const Duration(minutes: 25));
     await tab('Hava Durumu');
-    expect(find.text('Hava verisi eski · Yenile'), findsOneWidget);
+    expect(find.text('Veriyi yenile'), findsOneWidget);
   });
 }

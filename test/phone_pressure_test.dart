@@ -175,13 +175,13 @@ void main() {
     );
   });
 
-  group('Hava Durumu: Basıncı telefondan al', () {
+  group('Hava Durumu: Basınç al', () {
     testWidgets('opening Hava Durumu (with auto weather) reads nothing', (
       tester,
     ) async {
       final pressure = TestPressure();
       await _pump(tester, pressure);
-      expect(find.text('Basıncı telefondan al'), findsOneWidget);
+      expect(find.text('Basınç al'), findsOneWidget);
       expect(pressure.reads, 0);
     });
 
@@ -193,9 +193,12 @@ void main() {
       await _tapButton(tester);
       expect(pressure.reads, 1);
       expect(_pressureText(tester), '912.4');
+      // No extra line: the orange button and the date row say it (owner,
+      // 2026-10-14).
+      expect(find.text('Basınç alındı'), findsOneWidget);
       expect(
-        find.textContaining('Basınç telefondan alındı: 912,4 hPa'),
-        findsOneWidget,
+        find.byKey(const Key('environment-phone-pressure-status')),
+        findsNothing,
       );
     });
 

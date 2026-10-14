@@ -74,7 +74,7 @@ void main() {
     expect(find.byKey(reset), findsOneWidget);
 
     await _tap(tester, const Key('environment-fill-weather'));
-    expect(find.text('Hava verisi alındı · 11:20'), findsOneWidget);
+    expect(find.text('Hava verisi alındı'), findsOneWidget);
     expect(find.byKey(reset), findsOneWidget);
     expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
 
@@ -113,19 +113,19 @@ void main() {
   ) async {
     await _pump(tester);
     const reset = Key('environment-pressure-reset');
-    expect(find.text('Basıncı telefondan al'), findsOneWidget);
+    expect(find.text('Basınç al'), findsOneWidget);
     expect(find.byKey(reset), findsOneWidget);
 
     await _tap(tester, const Key('environment-phone-pressure'));
-    expect(find.text('Basınç alındı · 11:20'), findsOneWidget);
+    expect(find.text('Basınç alındı'), findsOneWidget);
     expect(_text(tester, BallisticsFieldKeys.pressure), '912.4');
-    // İrtifa comes from the GPS on the same tap (owner, 2026-10-12).
-    expect(_text(tester, BallisticsFieldKeys.altitude), '900');
+    // İrtifa has its own card since 2026-10-14: not written here.
+    expect(_text(tester, BallisticsFieldKeys.altitude), '');
 
     await _tap(tester, reset);
     expect(_text(tester, BallisticsFieldKeys.pressure), '');
     expect(_text(tester, BallisticsFieldKeys.altitude), '');
-    expect(find.text('Basıncı telefondan al'), findsOneWidget);
+    expect(find.text('Basınç al'), findsOneWidget);
     expect(find.text('Veriler sıfırlandı'), findsOneWidget);
   });
 
