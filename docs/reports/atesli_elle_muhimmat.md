@@ -21,6 +21,9 @@ Dosyalar:
   ateşli tüfekte bağlantıyı, "Diğer"i ve Ağırlık "Listede yok"u kullanıyor.
 - `test/profile_editor_fail_closed_test.dart`,
   `test/powder_temperature_profile_test.dart` — yeni akışa göre güncellendi.
+- `test/rifle_not_listed_test.dart` (#289'dan) — "Ateşli: Mühimmat Marka keeps
+  its "Listede yok" item" testi bu kararla ters döndü: artık maddenin olmadığını
+  ve `ammo-not-listed` bağlantısının olduğunu kontrol ediyor.
 - Bu rapor.
 
 Yeni anahtarlar (Key): `ammo-not-listed` (bağlantı), `ammo-brand-pick` (elle
@@ -191,20 +194,6 @@ engelli): `python3 tools/offline_dart_lint.py` PASS,
 
 CI (yalnızca gerçekten çalışanlar):
 
-- Biçimlendirme (one-off dart format fix, iki kez; commit'ler dala alındı):
-  https://github.com/sniperTurk/flutter-app/actions/runs/38525529464 ve
-  https://github.com/sniperTurk/flutter-app/actions/runs/38527280000 — başarılı.
-- Tüm testler (`test`), son kod commit'i `cdcbd94` üzerinde:
-  https://github.com/sniperTurk/flutter-app/actions/runs/38527355979 —
-  **başarılı**. (İlk tam çalıştırma
-  https://github.com/sniperTurk/flutter-app/actions/runs/38525688473 yeni
-  testlerden ikisinde yarım genişlikteki elle ağırlık kutusunun taşması
-  yüzünden kırmızıydı; kutu kendi satırına alındı, sonra yeşil.)
-- `flutter analyze`:
-  https://github.com/sniperTurk/flutter-app/actions/runs/38527358790 —
-  **başarılı**.
-- `iOS CI / verify` (macOS, Simulator) bu dalda çalıştırılmadı; PR açılınca
-  kendi tetiklenirse sonucu PR'da görünür. Simulator, cihaz, imzalama,
-  TestFlight: çalıştırılmadı.
+CI_RUNS_PLACEHOLDER
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
