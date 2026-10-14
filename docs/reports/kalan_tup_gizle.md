@@ -39,7 +39,7 @@ Bu görevin tarifi "kutu gizliyken hız, kutu boşken olduğu gibi profilden gel
 
 - Yerel: `python3 tools/offline_dart_lint.py` → PASS (0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 732 test OK. Bu ortamda Flutter SDK yok.
 - Main ile birleştirmeden önceki ilk sürüm (kendi kodu ile): format https://github.com/sniperTurk/flutter-app/actions/runs/38516245140 , testler https://github.com/sniperTurk/flutter-app/actions/runs/38516310489 , analiz https://github.com/sniperTurk/flutter-app/actions/runs/38516313835 — hepsi yeşil (ilk test çalıştırması https://github.com/sniperTurk/flutter-app/actions/runs/38515674607 bir test hatası verdi, düzeltildi).
-- Birleştirmeden sonraki hâl: CI_AFTER_MERGE
+- Birleştirmeden sonraki hâl: format https://github.com/sniperTurk/flutter-app/actions/runs/38517052156 (CI biçimlendirme commit'i 36cc3bb eklendi, dala çekildi), testler (`files=test`, tüm klasör) https://github.com/sniperTurk/flutter-app/actions/runs/38517117643 , analiz https://github.com/sniperTurk/flutter-app/actions/runs/38517119773 — hepsi 36cc3bb üzerinde yeşil.
 - iOS CI, Simulator, TestFlight çalıştırılmadı. Birleştirme yapılmadı (taslak PR).
 
 ---
