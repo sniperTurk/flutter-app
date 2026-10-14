@@ -142,7 +142,7 @@ Hepsi `audit/testflight-2026-10-14c` dalında, commit 97df4ed (main ea9c9e8 + bu
 | `test/audit_2026_10_14b` + `test/audit_2026_10_14c` (ATM-1, PRF-2 skip'siz; PRF-6 skip'li) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38627918835 |
 | PRF-6 kanıtı (`--run-skipped`) | beklendiği gibi başarısız: PRF-6 düştü, koruma testi geçti | https://github.com/sniperTurk/flutter-app/actions/runs/38627923510 |
 
-- PR'ın iOS CI sonucu PR açıldıktan sonra PR yorumuna eklenecek.
+- PR #314'ün iOS CI turu (27a743b, rapor commit'i; kod 97df4ed ile aynı): `verify`, `dart-checks`, `wind-acceptance` başarılı. `ios-simulator` atlandı (skipped), yani Simulator derlemesi çalışmadı. https://github.com/sniperTurk/flutter-app/actions/runs/38629503147
 - Simulator ve App Store çalıştırılmadı; geçti denmiyor.
 - TestFlight bu denetimde çalıştırılmadı. Sahip hesabının 22:56'da başlattığı TestFlight iş akışı yukarıda not edildi.
 
