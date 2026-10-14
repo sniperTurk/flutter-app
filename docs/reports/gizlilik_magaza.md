@@ -187,7 +187,15 @@ Hepsi `fix/gizlilik-magaza` dalında çalıştı (iş günlüğünde checkout
 commit'ler yalnız belge (`docs/`, `check_lengths.py`) ve Dart kodunu
 değiştirmez. Son başa (head) göre yeniden çalıştırılan işler aşağıda.
 
-FINAL_CI
+Son baş `70c9e89` (yalnız belge değişikliği sonrası) için yeniden:
+
+| İş | Commit | Sonuç | Bağlantı |
+|---|---|---|---|
+| Dart format | `70c9e89` | Başarılı — değişiklik yok, commit itilmedi | https://github.com/sniperTurk/flutter-app/actions/runs/38531401672 |
+| Testler (tüm `test/`) | `70c9e89` | Başarılı (çıkış kodu 0) | https://github.com/sniperTurk/flutter-app/actions/runs/38531404441 |
+| Analiz | `70c9e89` | Başarılı (çıkış kodu 0) | https://github.com/sniperTurk/flutter-app/actions/runs/38531407658 |
+
+Bu satırı ekleyen commit de yalnız bu rapor dosyasını değiştirir.
 
 iOS Simulator derlemesi, TestFlight ve App Store işlemleri **çalıştırılmadı**.
 
