@@ -55,6 +55,8 @@ Future<void> _pump(WidgetTester tester) async {
           observation(fetchedAt: DateTime.utc(2026, 10, 12)),
         ),
         pressure: TestPressure(const PressureRead(912.4)),
+        // Local 11:20: the done texts carry the fetch time (2026-10-14).
+        clock: TestClock(DateTime(2026, 10, 12, 11, 20)),
       ),
     ),
   );
@@ -72,7 +74,7 @@ void main() {
     expect(find.byKey(reset), findsOneWidget);
 
     await _tap(tester, const Key('environment-fill-weather'));
-    expect(find.text('Hava verisi alındı'), findsOneWidget);
+    expect(find.text('Hava verisi alındı · 11:20'), findsOneWidget);
     expect(find.byKey(reset), findsOneWidget);
     expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
 
@@ -101,7 +103,7 @@ void main() {
     await tester.ensureVisible(_field(BallisticsFieldKeys.temperature));
     await tester.enterText(_field(BallisticsFieldKeys.temperature), '20');
     await tester.pumpAndSettle();
-    expect(find.text('Hava verisi alındı'), findsNothing);
+    expect(find.textContaining('Hava verisi alındı'), findsNothing);
     expect(find.text('Konumdan canlı hava verisi al'), findsOneWidget);
     expect(_text(tester, BallisticsFieldKeys.temperature), '20');
   });
@@ -115,7 +117,7 @@ void main() {
     expect(find.byKey(reset), findsOneWidget);
 
     await _tap(tester, const Key('environment-phone-pressure'));
-    expect(find.text('Basınç alındı'), findsOneWidget);
+    expect(find.text('Basınç alındı · 11:20'), findsOneWidget);
     expect(_text(tester, BallisticsFieldKeys.pressure), '912.4');
     // İrtifa comes from the GPS on the same tap (owner, 2026-10-12).
     expect(_text(tester, BallisticsFieldKeys.altitude), '900');

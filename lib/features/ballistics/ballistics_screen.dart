@@ -34,6 +34,7 @@ import '../../services/watch/watch_bridge.dart';
 import '../../services/watch/watch_solution.dart';
 import '../../tools/domain/field_calc.dart';
 import '../../tools/domain/shot_angle_math.dart';
+import '../../tools/ports/clock.dart';
 import '../../tools/ports/heading_provider.dart';
 import '../../tools/ports/location_provider.dart';
 import '../../tools/ports/pressure_sensor.dart';
@@ -209,7 +210,8 @@ class _ShotBasis {
   );
 }
 
-class _BallisticsScreenState extends State<BallisticsScreen> {
+class _BallisticsScreenState extends State<BallisticsScreen>
+    with WidgetsBindingObserver {
   late final TextEditingController velocity;
   late final TextEditingController grain;
   late final TextEditingController zero;
@@ -347,6 +349,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _shotCache.clear();
         _holdSamples = null;
       });
+      _scheduleFreshnessCheck();
     }
     _shotSettingsReady = true;
   }
@@ -426,6 +429,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     _weatherFilled = s.weatherFromLocation;
     _pressureFilled = s.pressureFromPhone && pressure.text.isNotEmpty;
+    // No time (older saves) = old: never orange (owner, 2026-10-14).
+    _weatherFetchedAtMs = s.weatherFetchedAtMs;
+    _pressureFetchedAtMs = s.pressureFetchedAtMs;
   }
 
   void _saveShotSettings() {
@@ -447,6 +453,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       weatherSi: _weatherSi(),
       weatherFromLocation: _weatherFilled,
       pressureFromPhone: _pressureFilled,
+      weatherFetchedAtMs: _weatherFilled ? _weatherFetchedAtMs : null,
+      pressureFetchedAtMs: _pressureFilled ? _pressureFetchedAtMs : null,
       azimuthText: azimuthCtl.text.trim(),
       turretScaleText: turretScaleCtl.text.trim(),
       windMaxText: windMaxCtl.text.trim(),
@@ -1064,6 +1072,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     ShotSettingsStore.externalWrites.addListener(_onExternalShotSettings);
     final p = widget.profile;
     profileResolution = p == null
@@ -1163,13 +1172,100 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// The weather button is orange while its boxes hold the fetched values
   /// (owner, 2026-10-13): fetched, and Sıcaklık and Bağıl nem not emptied.
-  bool get _weatherOrange =>
+  bool get _weatherOrange => _weatherHolds && _isFresh(_weatherFetchedAtMs);
+
+  /// The boxes still hold a fetch, but it is older than 30 minutes (or of
+  /// unknown age): "Hava verisi eski · Yenile" (owner, 2026-10-14).
+  bool get _weatherStale => _weatherHolds && !_isFresh(_weatherFetchedAtMs);
+
+  bool get _weatherHolds =>
       _weatherFilled &&
       temperature.text.trim().isNotEmpty &&
       humidity.text.trim().isNotEmpty;
 
   /// The same for "Basıncı telefondan al".
   bool _pressureFilled = false;
+  bool get _pressureOrange => _pressureFilled && _isFresh(_pressureFetchedAtMs);
+  bool get _pressureStale => _pressureFilled && !_isFresh(_pressureFetchedAtMs);
+
+  /// When the weather / pressure button last filled its boxes (UTC epoch
+  /// ms, from [_clock]); null = unknown (older saves), which counts as old.
+  int? _weatherFetchedAtMs;
+  int? _pressureFetchedAtMs;
+
+  /// A fetched value counts as current this long (owner, 2026-10-14:
+  /// "Hava verisi alındı turuncu ama tuşa bastım başka veriler geldi").
+  static const _freshFor = Duration(minutes: 30);
+
+  /// Time source (ToolsServices.clock) so tests can move time.
+  Clock _clock = const SystemClock();
+
+  /// Rebuilds the page when a fresh fetch turns old while it is open.
+  Timer? _freshnessTimer;
+
+  /// Fresh = fetched at most 30 minutes ago. A fetch time in the future
+  /// (the phone clock was set back) is not trusted: old.
+  bool _isFresh(int? atMs) {
+    if (atMs == null) return false;
+    final age = _clock.now().millisecondsSinceEpoch - atMs;
+    return age >= 0 && age <= _freshFor.inMilliseconds;
+  }
+
+  /// "11:20": the fetch time in the phone's local time, 24 h.
+  static String _fetchClock(int atMs) {
+    final t = DateTime.fromMillisecondsSinceEpoch(atMs);
+    return '${t.hour.toString().padLeft(2, '0')}:'
+        '${t.minute.toString().padLeft(2, '0')}';
+  }
+
+  /// One timer for the earliest moment a fresh fetch turns old; it fires
+  /// just after the 30-minute mark, rebuilds and arms the next one.
+  void _scheduleFreshnessCheck() {
+    _freshnessTimer?.cancel();
+    _freshnessTimer = null;
+    final now = _clock.now().millisecondsSinceEpoch;
+    int? next;
+    for (final (filled, at) in [
+      (_weatherFilled, _weatherFetchedAtMs),
+      (_pressureFilled, _pressureFetchedAtMs),
+    ]) {
+      if (!filled || at == null) continue;
+      final age = now - at;
+      if (age < 0 || age > _freshFor.inMilliseconds) continue;
+      final left = _freshFor.inMilliseconds - age + 1;
+      if (next == null || left < next) next = left;
+    }
+    if (next == null) return;
+    _freshnessTimer = Timer(Duration(milliseconds: next), () {
+      _freshnessTimer = null;
+      if (!mounted) return;
+      setState(() {});
+      _scheduleFreshnessCheck();
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Not ToolsServicesScope.of: without a scope the system clock is
+    // enough, no need to build the production services here.
+    _clock =
+        context
+            .dependOnInheritedWidgetOfExactType<ToolsServicesScope>()
+            ?.services
+            .clock ??
+        const SystemClock();
+    _scheduleFreshnessCheck();
+  }
+
+  /// Back from the background (e.g. after an update, the owner's case):
+  /// re-check freshness at once.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed || !mounted) return;
+    setState(() {});
+    _scheduleFreshnessCheck();
+  }
 
   /// After "Sıfırla" the reset button stays, orange, as "Veriler sıfırlandı"
   /// (owner, 2026-10-12) until the next fetch or a typed value.
@@ -1365,8 +1461,14 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       if (!failed) {
         _weatherFilled = true;
         _weatherWasReset = false;
+        _weatherFetchedAtMs = _clock.now().millisecondsSinceEpoch;
       }
     });
+    if (!failed) {
+      // Stored even when the values came back the same (no text change).
+      _weatherChanged();
+      _scheduleFreshnessCheck();
+    }
     // Re-solve with the new conditions (quietly: Atış says why if not).
     if (!failed && widget.profile != null) {
       _silentErrors = true;
@@ -1417,6 +1519,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         _pressureFailed = false;
         _pressureFilled = true;
         _pressureWasReset = false;
+        _pressureFetchedAtMs = _clock.now().millisecondsSinceEpoch;
         if (gpsAlt != null && gpsAlt.isFinite) {
           altitude.text = (metric ? gpsAlt : UnitSystem.metersToFeet(gpsAlt))
               .toStringAsFixed(0);
@@ -1445,6 +1548,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         };
       }
     });
+    if (reading is PressureRead) {
+      _weatherChanged();
+      _scheduleFreshnessCheck();
+    }
     if (reading is PressureRead && widget.profile != null) _quietSolve();
   }
 
@@ -1497,12 +1604,21 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             label: _weatherBusy
                 ? 'Alınıyor…'
                 : _weatherOrange
-                // Short, one line (owner "Fikir 4", 2026-10-13).
-                ? 'Hava verisi alındı'
+                // Short, one line (owner "Fikir 4", 2026-10-13), with the
+                // fetch time (owner, 2026-10-14).
+                ? 'Hava verisi alındı · ${_fetchClock(_weatherFetchedAtMs!)}'
+                : _weatherStale
+                // Older than 30 minutes: the values stay, the button asks
+                // for a new fetch (owner, 2026-10-14).
+                ? 'Hava verisi eski · Yenile'
                 : _weatherWasReset
                 ? 'Tekrar canlı konum verisi al'
                 : 'Konumdan canlı hava verisi al',
-            icon: _weatherOrange ? Icons.check : Icons.my_location,
+            icon: _weatherOrange
+                ? Icons.check
+                : _weatherStale
+                ? Icons.refresh
+                : Icons.my_location,
             expand: true,
             active: _weatherOrange,
             twoLines: true,
@@ -1841,6 +1957,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   @override
   void dispose() {
     ShotSettingsStore.changes.removeListener(_reloadShotSettings);
+    WidgetsBinding.instance.removeObserver(this);
+    _freshnessTimer?.cancel();
     unawaited(_watchRanges?.cancel());
     _watchTimer?.cancel();
     velocity.dispose();
@@ -3415,22 +3533,29 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               ],
             ),
             _filledRow(
-              filled: _pressureFilled,
+              filled: _pressureOrange,
               wasReset: _pressureWasReset,
               button: MenzilSecondaryButton(
                 key: const Key('environment-phone-pressure'),
                 label: _pressureBusy
                     ? 'Okunuyor…'
-                    : _pressureFilled
-                    // Short, one line (owner "Fikir 4", 2026-10-13).
-                    ? 'Basınç alındı'
+                    : _pressureOrange
+                    // Short, one line (owner "Fikir 4", 2026-10-13), with
+                    // the reading time (owner, 2026-10-14).
+                    ? 'Basınç alındı · ${_fetchClock(_pressureFetchedAtMs!)}'
+                    : _pressureStale
+                    ? 'Basınç eski · Yenile'
                     : 'Basıncı telefondan al',
-                icon: _pressureFilled ? Icons.check : Icons.speed,
+                icon: _pressureOrange
+                    ? Icons.check
+                    : _pressureStale
+                    ? Icons.refresh
+                    : Icons.speed,
                 expand: true,
-                active: _pressureFilled,
+                active: _pressureOrange,
                 twoLines: true,
                 // The done text always takes one line.
-                maxLabelLines: _pressureFilled ? 1 : 2,
+                maxLabelLines: _pressureOrange ? 1 : 2,
                 onPressed: _pressureBusy ? null : _readPhonePressure,
               ),
               resetKey: const Key('environment-pressure-reset'),
@@ -5272,6 +5397,11 @@ class EnvironmentCarry {
   bool _weatherFilled = false;
   bool _pressureFilled = false;
 
+  /// Their fetch times (UTC epoch ms), so a tab switch never makes an old
+  /// fetch look new (owner, 2026-10-14).
+  int? _weatherFetchedAtMs;
+  int? _pressureFetchedAtMs;
+
   /// The profile the snapshot came from: Rüzgâr yönü depends on where the
   /// shooter faces, so it never moves to another (or a new) profile (owner,
   /// 2026-10-13: "rüzgâr yönü kurulu gelmemesi lazım").
@@ -5281,6 +5411,8 @@ class EnvironmentCarry {
     _profileId = s.widget.profile?.id;
     _weatherFilled = s._weatherFilled;
     _pressureFilled = s._pressureFilled;
+    _weatherFetchedAtMs = s._weatherFetchedAtMs;
+    _pressureFetchedAtMs = s._pressureFetchedAtMs;
     bool blank(TextEditingController c) => c.text.trim().isEmpty;
     double? n(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
@@ -5327,6 +5459,8 @@ class EnvironmentCarry {
     final sameProfile = _profileId == s.widget.profile?.id;
     s._weatherFilled = _weatherFilled;
     s._pressureFilled = _pressureFilled;
+    s._weatherFetchedAtMs = _weatherFetchedAtMs;
+    s._pressureFetchedAtMs = _pressureFetchedAtMs;
     final fields = {
       'temperature': s.temperature,
       'pressure': s.pressure,

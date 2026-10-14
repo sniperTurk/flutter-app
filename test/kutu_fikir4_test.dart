@@ -61,6 +61,8 @@ Future<void> _pump(
     location: TestLocation(const LocationFix(39.9, 32.8, altitudeM: 900)),
     weather: TestWeather(observation(fetchedAt: DateTime.utc(2026, 10, 12))),
     pressure: TestPressure(const PressureRead(912.4)),
+    // Local 11:20, so the done texts carry "· 11:20" (owner, 2026-10-14).
+    clock: TestClock(DateTime(2026, 10, 14, 11, 20)),
   );
   await tester.pumpWidget(
     theme == null
@@ -258,7 +260,8 @@ void main() {
       expect(find.byTooltip('Bilgi: İstasyon basıncı'), findsOneWidget);
     });
 
-    testWidgets('done texts: "Hava verisi alındı", "Basınç alındı", one line', (
+    testWidgets('done texts: "Hava verisi alındı · 11:20", "Basınç alındı · '
+        '11:20", one line', (
       tester,
     ) async {
       await _pump(tester, BallisticsView.environment);
@@ -274,7 +277,10 @@ void main() {
         await tester.tap(find.byKey(key));
         await tester.pumpAndSettle();
       }
-      for (final t in ['Hava verisi alındı', 'Basınç alındı']) {
+      for (final t in [
+        'Hava verisi alındı · 11:20',
+        'Basınç alındı · 11:20',
+      ]) {
         expect(find.text(t), findsOneWidget, reason: t);
         expect(tester.widget<Text>(find.text(t)).maxLines, 1, reason: t);
       }

@@ -90,6 +90,12 @@ class ShotSettings {
   final bool weatherFromLocation;
   final bool pressureFromPhone;
 
+  /// When the weather / pressure button filled its boxes (UTC epoch ms).
+  /// "…alındı" is orange only for 30 minutes after it (owner, 2026-10-14);
+  /// older saves have no time and reopen as old ("eski").
+  final int? weatherFetchedAtMs;
+  final int? pressureFetchedAtMs;
+
   const ShotSettings({
     this.inclineDeg = 0,
     this.cantDeg = 0,
@@ -127,6 +133,8 @@ class ShotSettings {
     this.weatherSi = const {},
     this.weatherFromLocation = false,
     this.pressureFromPhone = false,
+    this.weatherFetchedAtMs,
+    this.pressureFetchedAtMs,
   });
 
   static const weatherKeys = {
@@ -174,6 +182,8 @@ class ShotSettings {
     if (weatherSaved) 'weather': weatherSi,
     'weatherGps': weatherFromLocation,
     'pressurePhone': pressureFromPhone,
+    if (weatherFetchedAtMs != null) 'weatherGpsAt': weatherFetchedAtMs,
+    if (pressureFetchedAtMs != null) 'pressurePhoneAt': pressureFetchedAtMs,
   };
 
   /// Unknown or damaged values fall back to the neutral default (level,
@@ -186,6 +196,11 @@ class ShotSettings {
     }
 
     String text(Object? v) => v is String && v.length <= 20 ? v : '';
+    // A fetch time: a positive whole number of ms, else none (= old).
+    int? epochMs(Object? v) =>
+        v is num && v.isFinite && v > 0 && v == v.roundToDouble()
+        ? v.toInt()
+        : null;
     return ShotSettings(
       inclineDeg: angle(json['incline']),
       cantDeg: angle(json['cant']),
@@ -238,6 +253,8 @@ class ShotSettings {
       },
       weatherFromLocation: json['weatherGps'] == true,
       pressureFromPhone: json['pressurePhone'] == true,
+      weatherFetchedAtMs: epochMs(json['weatherGpsAt']),
+      pressureFetchedAtMs: epochMs(json['pressurePhoneAt']),
     );
   }
 }
