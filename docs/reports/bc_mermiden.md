@@ -153,7 +153,18 @@ için hız/açıklama ile eşleştirildi; bu satırlar orta güvenli.
 
 ## CI
 
-CI_PLACEHOLDER
+Hepsi `8448f56` commit'inde çalıştı. Bu, çakışma çözümü ve 15:16 kararından sonraki veri ve test
+commit'i. Bu rapor commit'i yalnız belge.
+
+- **Format** (`375209577`): **başarılı**. Değişiklik yok, format commit'i gelmedi.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38577540785
+- **Test** (`test-diag.yml`, `files=test`): **başarılı** (`flutter test` çıkış kodu 0).
+  - Görünen "error" notları testlerin kendi tanı çıktısı (KESIK tablosu, beklenen hata yığınları).
+    Başarısız test değil.
+  - https://github.com/sniperTurk/flutter-app/actions/runs/38577545954
+- **Analyze** (`analyze-diag.yml`, `--fatal-infos --fatal-warnings`): **başarılı**.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38577550430
+- **iOS CI / Simulator / TestFlight:** çalıştırılmadı.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
