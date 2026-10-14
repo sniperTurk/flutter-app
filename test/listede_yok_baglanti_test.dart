@@ -92,7 +92,10 @@ List<String?> _items(WidgetTester tester, String key) => [
 
 String _text(WidgetTester tester, String key) => tester
     .widget<TextField>(
-      find.descendant(of: find.byKey(Key(key)), matching: find.byType(TextField)),
+      find.descendant(
+        of: find.byKey(Key(key)),
+        matching: find.byType(TextField),
+      ),
     )
     .controller!
     .text;
