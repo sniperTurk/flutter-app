@@ -55,12 +55,12 @@ Kod commit'i `1fb0eb9` üzerinde:
 - Analiz (`--fatal-infos --fatal-warnings`): başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38613106694
 - İlk test koşusu (`c286476`) 3 testte kırmızıydı ve düzeltildi: Kopyala, kişisel kaydı olmayan profilde de kişisel kataloğu okumaya çalışıyordu (iki eski Kopyala testi); yeni gidiş-dönüş testi editörün hız yuvarlamasını (285 → 284,988 m/s) hesaba katmıyordu — https://github.com/sniperTurk/flutter-app/actions/runs/38609375206
 
-PR'ın kendi kontrolleri (`verify`, `dart-checks`, `wind-acceptance`) PR sayfasında.
+PR'ın kendi kontrolleri (iOS CI): `ca572d9` üzerinde `verify`, `dart-checks` ve `wind-acceptance` başarılı, `ios-simulator` atlandı — https://github.com/sniperTurk/flutter-app/actions/runs/38615635396 . Bu rapor düzeltmesinden sonraki son commit'in sonuçları PR sayfasında ve birleştirme yorumunda.
 
 ## Birleştirme
 
 Sonuç PR yorumunda ve PR açıklamasında.
 
-iOS CI, Simulator, TestFlight ve App Store çalıştırılmadı.
+iOS Simulator işi (`ios-simulator`) atlandı; TestFlight ve App Store çalıştırılmadı.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
