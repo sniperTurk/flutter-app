@@ -194,6 +194,8 @@ Hepsi `eee3411` commit'inde çalıştı (bu commit'ten sonra yalnız bu rapor de
   https://github.com/sniperTurk/flutter-app/actions/runs/38555438086
 - Analiz (`analyze-diag.yml`): başarılı.
   https://github.com/sniperTurk/flutter-app/actions/runs/38555441513
-- iOS CI / Simulator / TestFlight: çalıştırılmadı.
+- PR'ın kendi iOS CI'ı (`d7484c4`): `verify`, `dart-checks`, `wind-acceptance` başarılı;
+  `ios-simulator` atlandı (skipped). https://github.com/sniperTurk/flutter-app/actions/runs/38557930208
+- Simulator ve TestFlight çalıştırılmadı.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
