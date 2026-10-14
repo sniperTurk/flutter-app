@@ -1,5 +1,5 @@
-// FontFeature lives in dart:ui; the ignore keeps analyze green if material ever re-exports it.
 import 'dart:async' show unawaited;
+// FontFeature lives in dart:ui; the ignore keeps analyze green if material ever re-exports it.
 // ignore: unnecessary_import
 import 'dart:ui' show FontFeature;
 
@@ -308,7 +308,7 @@ abstract final class MenzilRadius {
   static const double table = 14;
 }
 
-/// 4-pt spacing scale.
+/// Spacing scale (logical pixels).
 abstract final class MenzilSpace {
   static const double xxs = 4;
   static const double xs = 6;

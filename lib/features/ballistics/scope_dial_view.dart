@@ -28,6 +28,12 @@ abstract final class ScopeDialKeys {
   static const zoomReset = ValueKey('scope-zoom-reset');
 }
 
+/// Light scope palette whatever the app theme (owner, 2026-10-12).
+MenzilColors _scopeColors(MenzilColors c) =>
+    identical(c, MenzilColors.light) || c.scopeBg == MenzilColors.light.scopeBg
+    ? MenzilColors.light
+    : MenzilColors.light.copyWith(scopeBg: MenzilColors.scopeBgDim);
+
 /// Interactive scope: elevation turret on top, windage turret on the right,
 /// and a reticle that shows where the shot lands for the dialled clicks.
 ///
@@ -37,12 +43,6 @@ abstract final class ScopeDialKeys {
 /// The required windage comes from the drag solver (0 in the vacuum
 /// baseline, which has no wind model): with it the impact marker shows
 /// where the shot lands for the dialled windage in the entered wind.
-/// Light scope palette whatever the app theme (owner, 2026-10-12).
-MenzilColors _scopeColors(MenzilColors c) =>
-    identical(c, MenzilColors.light) || c.scopeBg == MenzilColors.light.scopeBg
-    ? MenzilColors.light
-    : MenzilColors.light.copyWith(scopeBg: MenzilColors.scopeBgDim);
-
 class ScopeDialView extends StatelessWidget {
   final AngularUnit unit;
   final double clickValue;
@@ -246,6 +246,7 @@ class ScopeDialView extends StatelessWidget {
 
   int get _downClicks => maxElevationDownClicks ?? maxElevationClicks;
 
+  /// Whole numbers without decimals, else one decimal with a comma.
   static String _trim(double v) => v == v.roundToDouble()
       ? v.toStringAsFixed(0)
       : v.toStringAsFixed(1).replaceAll('.', ',');
@@ -438,7 +439,7 @@ class ScopeDialView extends StatelessWidget {
                     cantDeg: cantDeg,
                     opticLine:
                         '${ffp ? 'FFP' : 'SFP'} · $unitLabel'
-                        '${hasZoom ? ' · ${_mag(currentMag)}x' : ''}',
+                        '${hasZoom ? ' · ${_trim(currentMag)}x' : ''}',
                     sfpNote: !ffp && hasZoom && (sub - 1).abs() > 1e-6
                         ? '1 çizgi = ${sub.toStringAsFixed(2).replaceAll('.', ',')} $unitLabel'
                         : null,
@@ -612,10 +613,6 @@ class ScopeDialView extends StatelessWidget {
     );
   }
 
-  static String _mag(double m) => m == m.roundToDouble()
-      ? m.toStringAsFixed(0)
-      : m.toStringAsFixed(1).replaceAll('.', ',');
-
   Widget _zoomRow(BuildContext context) {
     final c = MenzilColors.of(context);
     final min = minMagnification!, max = maxMagnification!;
@@ -630,14 +627,14 @@ class ScopeDialView extends StatelessWidget {
             max: max,
             divisions: steps > 0 ? steps : null,
             value: currentMag.clamp(min, max).toDouble(),
-            label: '${_mag(currentMag)}x',
+            label: '${_trim(currentMag)}x',
             onChanged: onMagnificationChanged,
           ),
         ),
         SizedBox(
           width: 52,
           child: Text(
-            '${_mag(currentMag)}x',
+            '${_trim(currentMag)}x',
             textAlign: TextAlign.end,
             style: MenzilType.number(c.ink, size: 16, live: true),
           ),
@@ -753,8 +750,8 @@ class ScopeDialView extends StatelessWidget {
     } else {
       final sub = subtension;
       lines.add(
-        'SFP: retikül yalnız ${_mag(calibrationMag)}x büyütmede doğru. '
-        '1 çizgi = ${_mag(calibrationMag)} / ${_mag(currentMag)} = '
+        'SFP: retikül yalnız ${_trim(calibrationMag)}x büyütmede doğru. '
+        '1 çizgi = ${_trim(calibrationMag)} / ${_trim(currentMag)} = '
         '${sub.toStringAsFixed(3).replaceAll('.', ',')} $unitLabel.',
       );
       if (impact != null) {
@@ -852,7 +849,7 @@ class ScopeDialView extends StatelessWidget {
           '($distanceUnit).'
           '${windMpsPerUnit == null ? '' : ' Turuncu sayılar: bu mesafede isabeti o işarete kaydıran yan rüzgâr hızı.'}'
           '${windNote == null ? '' : ' $windNote'}'
-          '${ffp ? ' FFP: retikül aralıkları her büyütmede geçerlidir.' : ' SFP: retikül aralıkları yalnız ${_mag(calibrationMag)}x büyütmede geçerlidir; sayılar seçili büyütmeye göre hesaplandı.'}',
+          '${ffp ? ' FFP: retikül aralıkları her büyütmede geçerlidir.' : ' SFP: retikül aralıkları yalnız ${_trim(calibrationMag)}x büyütmede geçerlidir; sayılar seçili büyütmeye göre hesaplandı.'}',
           // Hedef page paragraphs stay justified (owner, 2026-10-13: the
           // only justified page).
           textAlign: TextAlign.justify,
@@ -863,10 +860,6 @@ class ScopeDialView extends StatelessWidget {
   }
 }
 
-/// A turret drum that the user drags (or steps with buttons) one click at a
-/// time. Horizontal drum: dragging right dials UP. Vertical drum: dragging
-/// down dials RIGHT — the numbers on the drum move toward the pointer the
-/// way a real turret's markings do.
 /// Turrets around the scope, as in ChairGun: the elevation drum sits on top
 /// (its zero right above the reticle's vertical line); "L-R" slides the
 /// windage drum in from the right over the scope's right edge, its zero on
@@ -1002,6 +995,10 @@ class _TurretBarState extends State<_TurretBar> {
   }
 }
 
+/// A turret drum that the user drags (or steps with buttons) one click at a
+/// time. Horizontal drum: dragging right dials UP. Vertical drum: dragging
+/// down dials RIGHT — the numbers on the drum move toward the pointer the
+/// way a real turret's markings do.
 class _TurretDrum extends StatefulWidget {
   final Axis axis;
   final int clicks;
@@ -1198,10 +1195,6 @@ class _DrumPainter extends CustomPainter {
   String _letter(int v) =>
       v == 0 ? '' : (v > 0 ? positiveLetter : negativeLetter);
 
-  String _num(double v) => v == v.roundToDouble()
-      ? v.toStringAsFixed(0)
-      : v.toStringAsFixed(1).replaceAll('.', ',');
-
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
@@ -1248,7 +1241,7 @@ class _DrumPainter extends CustomPainter {
           final letter = _letter(v);
           _text(
             canvas,
-            '${_num(value)}$letter',
+            '${ScopeDialView._trim(value)}$letter',
             Offset(p, size.height * 0.40),
             label,
             15,
@@ -1261,7 +1254,7 @@ class _DrumPainter extends CustomPainter {
           final letter = _letter(v);
           _text(
             canvas,
-            '${_num(value)}$letter',
+            '${ScopeDialView._trim(value)}$letter',
             Offset(size.width * 0.62, p),
             label,
             13,
@@ -1313,9 +1306,6 @@ class _DrumPainter extends CustomPainter {
       old.unitLabel != unitLabel;
 }
 
-/// Reticle with hold marks, range labels for each mark and the point of
-/// impact for the current turret setting. Marks are drawn in the scope's
-/// angular unit: mil-dots every 1 mrad, or hashes every 2 MOA.
 /// The reticle square with two-finger zoom (owner, 2026-10-10, like the
 /// reference video): pinching enlarges the whole view — lines, marks, target
 /// and numbers together — about its centre; a double tap returns to 1×.
@@ -1413,6 +1403,9 @@ class _ReticleViewportState extends State<_ReticleViewport> {
   }
 }
 
+/// Reticle with hold marks, range labels for each mark and the point of
+/// impact for the current turret setting. Marks are drawn in the scope's
+/// angular unit: mil-dots every 1 mrad, or hashes every 2 MOA.
 class ScopeReticlePainter extends CustomPainter {
   final MenzilColors colors;
 

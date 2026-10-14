@@ -54,7 +54,19 @@ Typed product names and calibers are mistyped, so a value that can be chosen
 from a list is a `MenzilSelect` (Tüfek Marka | Model | Kalibre and Mühimmat
 Marka | Model come from `lib/data/rifle_library.dart`,
 `factory_ammo_library.dart` and `bullet_library.dart`; typed boxes only after
-"Listede yok"). Keep two boxes per row (Marka | Model side by side); Kalibre
-and similar long single values take a full row. No helper text under a field:
-every explanation goes into its ⓘ. Labels have no parentheses ("Yiv oranı",
+"Listede yok"). Keep two boxes per row (Marka | Model side by side); every
+row holds two boxes, Kalibre included (e.g. Namlu çıkış hızı | Kalibre share a
+row); a long selected value wraps or is shortened inside its box. No helper
+text under a field: every explanation goes into its ⓘ. Labels have no parentheses ("Yiv oranı",
 not "Yiv oranı (1:…)").
+
+## Working preferences (owner, 2026-10-14)
+- Reply to the owner in Turkish, briefly; use Istanbul time.
+- "bekle" means stop and wait. "tamam/evet" alone is not always a go-ahead; act on "başla", "yap", "görev aç", "yükle".
+- Never add anything the owner did not ask for; do only what was said.
+- The owner's main session does not write app code; every code change is a Superpowers task delivering a draft PR with a plain-Turkish report (what, how, why, edge cases, not done, tests, CI links).
+- Hide removed features, never delete them: gate behind `bool.fromEnvironment('FLAG')`, default off; keep saved user data.
+- Product data comes from manufacturers only (maker sites/PDFs/catalogues). No forum, blog or dealer values (dealer sites only as brand/model hint lists). Never use data from other ballistic apps (ChairGun, Strelok, Applied Ballistics, QuickLOAD, GRT, JBM). AI output is a hint list only. Respect robots.txt.
+- Do not add a form field the calculation cannot use (e.g. no "Namlu tipi"; the barrel's effect enters through measured velocity and group size; use one profile per barrel).
+- Text is left-aligned everywhere, popups included; only the Hedef page is justified. An open dropdown list is never wider than its box.
+- Never report CI, Simulator, TestFlight or App Store as passed unless that exact operation ran successfully.

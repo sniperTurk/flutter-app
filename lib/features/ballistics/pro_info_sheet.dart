@@ -127,7 +127,7 @@ class _ProInfoSheetState extends State<ProInfoSheet> {
               MenzilSpace.xl,
               MenzilSpace.md,
             ),
-            // Popups are left-aligned (owner, 2026-10-13 20:28).
+            // Left-aligned like every ⓘ text (owner, 2026-10-13 20:28).
             child: DefaultTextStyle.merge(
               textAlign: TextAlign.start,
               child: Column(
