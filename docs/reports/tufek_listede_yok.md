@@ -77,7 +77,10 @@ istemiyor; yazarak girişin açık bir bağlantıdan açılmasını istiyor. Kur
   - Önceki test çalıştırması https://github.com/sniperTurk/flutter-app/actions/runs/38522709933 (`e081adf`) yeni
     testte 1 hata verdi ("Ateşli: a listed rifle and its listed ammunition go": mühimmat önerisi bulunamadı).
     Test, mühimmatı El dolumu > Hornady > 168 gr ELD Match listesinden seçecek şekilde düzeltildi; uygulama kodu değişmedi.
-- Çalışmayanlar: integration_test (Simulator), iOS CI, cihaz, TestFlight. Bunlar başarılı sayılmaz.
+- PR'ın kendi `iOS CI` iş akışı (`ad9a509`): https://github.com/sniperTurk/flutter-app/actions/runs/38525245674 →
+  `dart-checks`, `wind-acceptance` ve `verify` başarılı; `ios-simulator` atlandı (skipped). İlk commit `6b24cbd`
+  üzerindeki `dart-checks` hatası, format commit'inden önceydi; güncel başta yeşil.
+- Çalışmayanlar: integration_test (Simulator, `ios-simulator` işi atlandı), cihaz, TestFlight. Bunlar başarılı sayılmaz.
 - Dal güncel `main` (237c14d) üzerinde; yeniden temellendirme gerekmedi.
 
 ---
