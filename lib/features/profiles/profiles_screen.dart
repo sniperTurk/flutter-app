@@ -35,6 +35,7 @@ import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
 import 'rifle_picker_screen.dart';
 import 'scope_picker_screen.dart';
+import 'shared_records.dart';
 
 /// Profile list and management.
 ///
@@ -178,14 +179,10 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
           takenNames: {for (final x in items) x.name},
           // PRF-2: records another profile also points at are never
           // overwritten; the edited profile gets its own copy instead.
-          sharedRecordIds: {
-            for (final x in items)
-              if (x.id != existing?.id) ...[
-                x.rifleId,
-                x.ammunitionId,
-                x.scopeId,
-              ],
-          },
+          sharedRecordIds: sharedRecordIdsOf(
+            items,
+            exceptProfileId: existing?.id,
+          ),
         ),
       ),
     );
