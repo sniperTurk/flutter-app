@@ -137,7 +137,10 @@ void main() {
       find.descendant(of: add, matching: find.text('Profil ekle')),
       findsOneWidget,
     );
-    expect(find.descendant(of: add, matching: find.byIcon(Icons.add)), findsOneWidget);
+    expect(
+      find.descendant(of: add, matching: find.byIcon(Icons.add)),
+      findsOneWidget,
+    );
     expect(tester.widget<MenzilPrimaryButton>(add).amber, isTrue);
     final b = tester.getRect(add);
     expect(b.left, greaterThan(title.right));

@@ -953,11 +953,17 @@ void main() {
         Icons.keyboard_arrow_down,
         Icons.keyboard_arrow_up,
       ]) {
-        expect(find.descendant(of: h, matching: find.byIcon(icon)), findsNothing);
+        expect(
+          find.descendant(of: h, matching: find.byIcon(icon)),
+          findsNothing,
+        );
       }
       // The title and the ⓘ sit at the left, the ⓘ right of the title.
       final title = tester.getRect(
-        find.descendant(of: h, matching: find.byKey(const Key('ammo-extra-title'))),
+        find.descendant(
+          of: h,
+          matching: find.byKey(const Key('ammo-extra-title')),
+        ),
       );
       expect(tester.getRect(infos).left, greaterThanOrEqualTo(title.right - 1));
       expect(
@@ -1021,7 +1027,11 @@ void main() {
       ]);
       final store = await _openSaved(
         tester,
-        _decode({..._profileJson(), 'powderTempCoef': 0.8, 'powderTempRefC': 20.0}),
+        _decode({
+          ..._profileJson(),
+          'powderTempCoef': 0.8,
+          'powderTempRefC': 20.0,
+        }),
       );
       // Typed round: Hıza göre BC stays hidden (AMMO_BC_BANDS_TYPED).
       expectSection(tester, bands: false);
@@ -1057,9 +1067,7 @@ void main() {
     });
 
     for (final scale in [1.0, 1.3]) {
-      testWidgets('320 pt, ×$scale: no overflow, section open', (
-        tester,
-      ) async {
+      testWidgets('320 pt, ×$scale: no overflow, section open', (tester) async {
         _view(tester, width: 320);
         await tester.pumpWidget(
           MaterialApp(
