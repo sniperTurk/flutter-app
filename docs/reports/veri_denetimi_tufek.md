@@ -8,7 +8,7 @@ Tarih: 14.10.2026 (İstanbul). Dal: `audit/veri-tufek`. Yalnız denetim: `lib/` 
 - Üretici kaynağı okunabilen satır: **2070 / 4924** (%42). Geri kalanı **ERİŞİLEMEDİ**: bu çalışmada web arama kotası (tur başına 200 arama, tüm alt ajanlar ortak) bitti ve üretici siteleri HTTP 429 (hız sınırı) döndü; değer tahmin edilmedi, başka yoldan (arşiv, bayi, curl) alınmadı.
 - Toplam **24861** alan denetimi kaydedildi: OK 9696, HATALI 5, ŞÜPHELİ 214, ERİŞİLEMEDİ 14946.
 - Okunabilen denetimlerde doğru oranı: **%97.8** (OK / (OK+HATALI+ŞÜPHELİ)).
-- İç tutarlılık (internet gerektirmeyen) denetimi tüm 4924 satırda yapıldı: tüm kalibre adları `cartridges.dart` listesinde var, çaplar birebir uyuşuyor, birebir kopya satır yok, birim hatası (mm↔inç) görünmüyor.
+- İç tutarlılık (internet gerektirmeyen) denetimi tüm 4924 satırda yapıldı: tüm kalibre adları `cartridges.dart` listesinde var, çaplar birebir uyuşuyor, birebir kopya satır yok, birim hatası (mm↔inç) görünmüyor. Öncelik için işaretlenenler: 37 satırda yiv C.I.P./SAAMI standart değeriyle birebir aynı (üretici değeri yerine standart kopyalanmış olabilir), 32 satırda aynı model/kalibre/namlu için iki farklı yiv (çoğu üreticinin iki seçeneği; Bergara B-14 Hunter, Sako 85 Hunter, Tikka T3x satırları kontrol edilmeli), 9 satırda olağan dışı namlu boyu.
 
 ### Alan bazında sonuç (okunabilen kaynaklar)
 
