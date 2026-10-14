@@ -166,6 +166,12 @@ class Ammunition {
 
   /// See [Rifle.userEntered].
   final bool userEntered;
+
+  /// BC modeli the user picked although no BC was given (PCP, owner
+  /// 2026-10-14). Never fed to the solver: without a BC there is no drag
+  /// law to apply, and the estimated BC is always G1. Kept so Profil shows
+  /// the pick again and the Balistik note can say G1 was used instead.
+  final BallisticModel? modelWithoutBc;
   const Ammunition({
     required this.id,
     required this.brand,
@@ -182,6 +188,7 @@ class Ammunition {
     this.sourceName,
     this.sourceDocument,
     this.userEntered = false,
+    this.modelWithoutBc,
   });
 
   /// [dragCurve] as a solver table; null = the standard table of the model.

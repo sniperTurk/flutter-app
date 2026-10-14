@@ -3622,14 +3622,22 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       );
     }
     if (_bcEstimated && _bcApplies()) {
+      // A model other than G1 picked without a BC cannot be used: the
+      // estimate is a G1 BC (owner, 2026-10-14).
+      final est = a!;
+      final picked = est.modelWithoutBc;
+      final otherModel = picked != null && picked != BallisticModel.g1
+          ? ' Seçtiğiniz ${picked.label} modeli BC olmadan kullanılamaz; '
+                'tahmin G1 ile yapıldı.'
+          : '';
       return MenzilNotice(
         key: const Key('ballistics-bc-estimated'),
         tone: MenzilNoticeTone.warning,
         message:
             'BC girilmediği için tahmini G1 BC '
-            '${_decimal(a!.ballisticCoefficient)} kullanılıyor (ağırlık ve '
+            '${_decimal(est.ballisticCoefficient)} kullanılıyor (ağırlık ve '
             'kalibreden). Uzak mesafede sapabilir; BC\'yi biliyorsanız '
-            'Profil\'de girin.',
+            'Profil\'de girin.$otherModel',
       );
     }
     final name = a!.ballisticModel!.name.toUpperCase();

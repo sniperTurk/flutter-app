@@ -2162,10 +2162,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             (BallisticModel.gi, 'GI (Ingalls)'),
             (BallisticModel.ra4, 'RA4 (.22 LR rimfire)'),
           ]
+        // PCP (owner, 2026-10-14 11:35/11:38): every standard table, G1
+        // first; the ⓘ says which shape each one is.
         : const [
             (BallisticModel.g1, 'G1'),
             (BallisticModel.g7, 'G7'),
-            (BallisticModel.gs, 'GS (bilye)'),
+            (BallisticModel.g2, 'G2'),
+            (BallisticModel.g5, 'G5'),
+            (BallisticModel.g6, 'G6'),
+            (BallisticModel.g8, 'G8'),
+            (BallisticModel.gi, 'GI'),
+            (BallisticModel.gs, 'GS'),
+            (BallisticModel.ra4, 'RA4'),
           ];
     final m = ammoBcModel;
     if (m == null || list.any((e) => e.$1 == m)) return list;
@@ -2445,7 +2453,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         ),
     ];
     ammoType = a0?.type;
-    ammoBcModel = a0?.ballisticModel;
+    // A PCP model picked without a BC is kept too (owner, 2026-10-14).
+    ammoBcModel = a0?.ballisticModel ?? a0?.modelWithoutBc;
     _dragCurve = a0?.dragCurve;
     _customCurve = _dragCurve != null;
     // The stored "BC" of a curve is the sectional density; not shown.
@@ -3029,6 +3038,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return null;
   }
 
+  /// The BC plausibility warning, full width.
+  Widget get _bcWarningNotice => MenzilFullWidth(
+    child: MenzilNotice(
+      key: const Key('ammo-bc-warning'),
+      tone: MenzilNoticeTone.warning,
+      message: _bcPlausibilityWarning!,
+    ),
+  );
+
   /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
   /// publish none); a typed one is still range-checked.
   String? get _bcError =>
@@ -3036,10 +3054,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ? null
       : _rangeError(ammoBc, 0.005, 1.5);
 
-  /// PCP pellets and slugs are always solved with G1 (owner, 2026-10-12);
-  /// the BC modeli box is not shown for them.
-  BallisticModel? get _bcModelForSave =>
-      platform == WeaponPlatform.pcp ? BallisticModel.g1 : ammoBcModel;
+  /// PCP: the BC modeli the user picked; G1 while none is known (owner,
+  /// 2026-10-14: "G1 seçili kalsın"). Firearm: as chosen, null = not yet.
+  BallisticModel? get _bcModelForSave => platform == WeaponPlatform.pcp
+      ? ammoBcModel ?? BallisticModel.g1
+      : ammoBcModel;
 
   /// A band row is optional, but half a row (speed without BC or the other
   /// way round) is an error.
@@ -3601,9 +3620,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     required Widget modelText,
   }) {
     final firearm = platform == WeaponPlatform.firearm;
-    // Without Uzunluk, Tip takes its row so Ağırlık | BC pair up.
+    // PCP rows (owner, 2026-10-14: BC | BC modeli): Tip | Ağırlık, BC |
+    // BC modeli; with Uzunluk, Tip takes its row and Ağırlık | Uzunluk.
     if (!firearm && !_showPcpAmmoBrand) {
-      return [_showProfileAmmoLength ? type : MenzilFullWidth(child: type)];
+      return [_showProfileAmmoLength ? MenzilFullWidth(child: type) : type];
     }
     // PCP: Marka | Tip; firearm: Mühimmat türü | Marka. Model gets a row.
     List<Widget> arrange(Widget brand, Widget model) => [
@@ -4545,54 +4565,61 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                     }),
                     errorText: _shown(_bcError, ammoBc),
                   ),
-                if (_bcPlausibilityWarning != null)
-                  MenzilFullWidth(
-                    child: MenzilNotice(
-                      key: const Key('ammo-bc-warning'),
-                      tone: MenzilNoticeTone.warning,
-                      message: _bcPlausibilityWarning!,
+                // Firearm: the warning under BC as before; PCP: under BC |
+                // BC modeli so the two stay on one row (owner, 2026-10-14).
+                if (_bcPlausibilityWarning != null &&
+                    platform != WeaponPlatform.pcp)
+                  _bcWarningNotice,
+                KeyedSubtree(
+                  key: const Key('ammo-bc-model'),
+                  child: MenzilSelect<String>(
+                    key: ValueKey(
+                      'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
                     ),
-                  ),
-                if (platform != WeaponPlatform.pcp)
-                  KeyedSubtree(
-                    key: const Key('ammo-bc-model'),
-                    child: MenzilSelect<String>(
-                      key: ValueKey(
-                        'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
-                      ),
-                      info:
-                          (platform == WeaponPlatform.firearm
-                              ? ProfileFieldInfo.bcModelFirearm
-                              : ProfileFieldInfo.bcModel) +
-                          ProfileFieldInfo.bcModelCustom,
-                      label: 'BC modeli',
-                      hint: 'Seçiniz',
-                      initialValue: _customCurve
-                          ? _customKey
-                          : ammoBcModel?.name,
-                      items: _typedFirearmAmmo
-                          ? _typedBcModelItems
-                          : [
-                              for (final (m, text) in _bcModelChoices)
-                                DropdownMenuItem(
-                                  value: m.name,
-                                  child: Text(text),
-                                ),
+                    info: platform == WeaponPlatform.firearm
+                        ? ProfileFieldInfo.bcModelWithCustom
+                        : ProfileFieldInfo.bcModel,
+                    label: 'BC modeli',
+                    hint: 'Seçiniz',
+                    // PCP starts on G1 (owner, 2026-10-14: "G1 seçili
+                    // kalsın"); a firearm starts on "Seçiniz" as before.
+                    initialValue: _customCurve
+                        ? _customKey
+                        : platform == WeaponPlatform.pcp
+                        ? _bcModelForSave!.name
+                        : ammoBcModel?.name,
+                    items: _typedFirearmAmmo
+                        ? _typedBcModelItems
+                        : [
+                            for (final (m, text) in _bcModelChoices)
+                              DropdownMenuItem(
+                                value: m.name,
+                                child: Text(text),
+                              ),
+                            if (platform == WeaponPlatform.firearm)
                               const DropdownMenuItem(
                                 value: _customKey,
                                 child: Text('Özel eğri (Mach–Cd)'),
+                              )
+                            else if (_customCurve)
+                              const DropdownMenuItem(
+                                value: _customKey,
+                                child: Text('Özel eğri (kayıtlı)'),
                               ),
-                            ],
-                      onChanged: (v) => setState(() {
-                        _customCurve = v == _customKey;
-                        if (!_customCurve) {
-                          ammoBcModel = BallisticModel.values
-                              .where((m) => m.name == v)
-                              .firstOrNull;
-                        }
-                      }),
-                    ),
+                          ],
+                    onChanged: (v) => setState(() {
+                      _customCurve = v == _customKey;
+                      if (!_customCurve) {
+                        ammoBcModel = BallisticModel.values
+                            .where((m) => m.name == v)
+                            .firstOrNull;
+                      }
+                    }),
                   ),
+                ),
+                if (_bcPlausibilityWarning != null &&
+                    platform == WeaponPlatform.pcp)
+                  _bcWarningNotice,
                 // PCP tüp ve regülatör basıncı (owner, 2026-10-12): never on
                 // a firearm. Tüp | Regülatör on one row, then the optional
                 // basınca göre hız rows (Basınç | Hız).
