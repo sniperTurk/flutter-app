@@ -962,8 +962,7 @@ class MenzilCompactFields extends InheritedWidget {
 /// Small label straight above a compact box ([MenzilCompactFields]).
 class _CompactLabel extends StatelessWidget {
   final String label;
-  final Widget? trailing;
-  const _CompactLabel({required this.label, this.trailing});
+  const _CompactLabel({required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -995,7 +994,6 @@ class _CompactLabel extends StatelessWidget {
                 ),
               ),
             ),
-            if (trailing != null) trailing!,
           ],
         ),
       ),
@@ -1184,14 +1182,8 @@ class _MenzilWrapTextState extends State<MenzilWrapText> {
 class MenzilFieldLabel extends StatelessWidget {
   final String label;
   final String? unit;
-  final Widget? trailing;
 
-  const MenzilFieldLabel({
-    super.key,
-    required this.label,
-    this.unit,
-    this.trailing,
-  });
+  const MenzilFieldLabel({super.key, required this.label, this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -1208,7 +1200,6 @@ class MenzilFieldLabel extends StatelessWidget {
             const SizedBox(width: MenzilSpace.xs),
             Text(unit!, style: MenzilType.unit(c.ink2)),
           ],
-          if (trailing != null) trailing!,
         ],
       ),
     );
@@ -1226,7 +1217,6 @@ class MenzilInput extends StatelessWidget {
   final String? errorText;
   final String? hintText;
   final ValueChanged<String>? onChanged;
-  final Widget? labelTrailing;
   final TextInputAction? textInputAction;
   final bool enabled;
   final int? maxLength;
@@ -1254,7 +1244,6 @@ class MenzilInput extends StatelessWidget {
     this.errorText,
     this.hintText,
     this.onChanged,
-    this.labelTrailing,
     this.textInputAction,
     this.enabled = true,
     this.maxLength,
@@ -1285,7 +1274,7 @@ class MenzilInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          _CompactLabel(label: label, trailing: labelTrailing),
+          _CompactLabel(label: label),
           Semantics(
             label: semanticLabel,
             child: TextField(
@@ -1349,11 +1338,7 @@ class MenzilInput extends StatelessWidget {
             title: label,
             info: info,
             label: ExcludeSemantics(
-              child: MenzilFieldLabel(
-                label: label,
-                unit: unit,
-                trailing: labelTrailing,
-              ),
+              child: MenzilFieldLabel(label: label, unit: unit),
             ),
           ),
           Semantics(
