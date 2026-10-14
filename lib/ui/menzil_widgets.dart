@@ -878,16 +878,8 @@ class MenzilInfoButton extends StatelessWidget {
   /// Optional picture shown above the text (e.g. the wind direction dial).
   final Widget? illustration;
 
-  /// Optional rich content shown instead of [text] (Pro Ayarlar box
-  /// explanations, owner 2026-10-13: "Pro sayfasındaki açıklamalar popup
-  /// olsun").
-  final Widget? body;
-
   /// Overrides the default "Bilgi: [title]" tooltip / VoiceOver label.
   final String? tooltip;
-
-  /// Label of the closing action ("Tamam" for field ⓘ).
-  final String closeLabel;
 
   /// Replaces the popup (Pro Ayarlar box ⓘ opens a bottom sheet, owner
   /// 2026-10-13).
@@ -897,16 +889,13 @@ class MenzilInfoButton extends StatelessWidget {
     required this.title,
     this.text = '',
     this.illustration,
-    this.body,
     this.tooltip,
-    this.closeLabel = 'Tamam',
     this.onPressed,
   });
 
   /// True when a [MenzilInfoScope] above (Pro Ayarlar boxes) showed the
   /// text itself; otherwise the usual popup opens.
   bool _handledByScope(BuildContext context) {
-    if (body != null) return false;
     final scope = context.getInheritedWidgetOfExactType<MenzilInfoScope>();
     return scope != null && scope.onInfo(title, text);
   }
@@ -915,7 +904,7 @@ class MenzilInfoButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     // ⓘ popups are left-aligned (owner, 2026-10-13).
-    final content = body ?? Text(text, textAlign: TextAlign.start);
+    final content = Text(text, textAlign: TextAlign.start);
     return IconButton(
       tooltip: tooltip ?? 'Bilgi: $title',
       constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
@@ -947,7 +936,7 @@ class MenzilInfoButton extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(dialogContext).pop(),
-                    child: Text(closeLabel),
+                    child: const Text('Tamam'),
                   ),
                 ],
               ),

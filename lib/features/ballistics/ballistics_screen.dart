@@ -3778,7 +3778,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
                               key: Key('pro-info-$id'),
                               title: title,
                               tooltip: 'Açıklama: $title',
-                              closeLabel: 'Kapat',
                               onPressed: () => showProInfoSheet(
                                 context,
                                 title: title,
