@@ -128,8 +128,12 @@ Hepsi `data/bc-geri-hesap` dalında, commit `e197936` üzerinde çalıştı:
 - Analiz (`analyze-diag.yml`, `flutter analyze --fatal-infos --fatal-warnings`): **başarılı**
   (yeşil) — https://github.com/sniperTurk/flutter-app/actions/runs/38532215535
 
-Bu rapor commit'i yalnız belge içerir (kod/test değişmedi). `iOS CI / verify`, Simulator,
-TestFlight ve App Store çalıştırılmadı; geçti denemez.
+- iOS CI (`.github/workflows/ios-ci.yml`, PR üzerinde, commit `8764cc8`): `verify` **başarılı**,
+  `dart-checks` başarılı, `wind-acceptance` başarılı; `ios-simulator` işi atlandı (skipped) —
+  https://github.com/sniperTurk/flutter-app/actions/runs/38533351039
+
+Rapor commit'leri yalnız belge içerir (kod/test değişmedi). Simulator derlemesi, TestFlight ve
+App Store çalıştırılmadı; geçti denemez.
 
 ## Yapılmayanlar
 
