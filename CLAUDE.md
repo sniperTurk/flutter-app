@@ -70,3 +70,5 @@ not "Yiv oranı (1:…)").
 - Do not add a form field the calculation cannot use (e.g. no "Namlu tipi"; the barrel's effect enters through measured velocity and group size; use one profile per barrel).
 - Text is left-aligned everywhere, popups included; only the Hedef page is justified. An open dropdown list is never wider than its box.
 - Never report CI, Simulator, TestFlight or App Store as passed unless that exact operation ran successfully.
+- Before every TestFlight build, run an end-to-end calculation audit (user input → displayed number) covering all changes merged since the previous TestFlight: compare against independent references (never another ballistic app), check hidden-flag paths, and check interactions between changes (empty fields, defaults, moved fields). It reports only; fixes go to separate tasks. Do not start TestFlight while a high-severity finding is open.
+- The audit findings' tests under test/audit_*/ stay in the suite as regression guards; a fixed finding's `skip:` test is un-skipped and must pass.
