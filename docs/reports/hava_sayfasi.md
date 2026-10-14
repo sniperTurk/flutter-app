@@ -275,9 +275,11 @@ Hepsi `fix/hava-sayfasi` dalında koştu.
 - Hedefli testler (13 dosya):
   [38575185837](https://github.com/sniperTurk/flutter-app/actions/runs/38575185837)
   başarılı.
-- PR'ın iOS CI koşusu (dart-checks):
-  [38575753908](https://github.com/sniperTurk/flutter-app/actions/runs/38575753908)
-  bu rapor yazılırken sürüyordu; sonucu PR'daki check'lerden okunmalı.
-  Simulator/TestFlight bu PR'da koşmadı (ios-simulator adımı atlandı).
+- PR'ın iOS CI koşusu
+  [38577334249](https://github.com/sniperTurk/flutter-app/actions/runs/38577334249)
+  (b31bb14; kod 7661fac ile aynı, sonrası yalnız rapor): `dart-checks`
+  **başarılı**, `wind-acceptance` **başarılı**, `iOS CI / verify`
+  **başarılı**. `ios-simulator` işi bu PR'da atlandı (koşmadı); Simulator,
+  cihaz ve TestFlight denenmedi.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
