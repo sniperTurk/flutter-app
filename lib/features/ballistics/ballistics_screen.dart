@@ -49,6 +49,7 @@ import '../tools/parallax_screen.dart';
 import 'dope_card.dart';
 import '../profiles/profile_field_info.dart';
 import 'environment_field_info.dart';
+import 'fetch_date_text.dart';
 import 'flight_warnings.dart';
 import 'incline_measure_screen.dart';
 import 'pro_info_sheet.dart';
@@ -1284,24 +1285,10 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     return age >= 0 && age <= _freshFor.inMilliseconds;
   }
 
-  /// "14.10.2026" (owner, 2026-10-14: numeric, never month names).
-  static String dateText(DateTime t) {
-    final l = t.toLocal();
-    String two(int v) => v.toString().padLeft(2, '0');
-    return '${two(l.day)}.${two(l.month)}.${l.year}';
-  }
-
-  /// "14.10.2026 14:36": a fetch time in the phone's local time, 24 h.
-  static String dateTimeText(int atMs) {
-    final t = DateTime.fromMillisecondsSinceEpoch(atMs);
-    String two(int v) => v.toString().padLeft(2, '0');
-    return '${dateText(t)} ${two(t.hour)}:${two(t.minute)}';
-  }
-
   /// The date row under a fetch button: the fetch's date and time, or
   /// today's date before any fetch (owner, 2026-10-14).
   String _whenText(int? atMs) =>
-      atMs == null ? dateText(_clock.now()) : dateTimeText(atMs);
+      atMs == null ? fetchDateText(_clock.now()) : fetchDateTimeText(atMs);
 
   /// One timer for the earliest moment a fresh fetch turns old; it fires
   /// just after the 30-minute mark, rebuilds and arms the next one.
