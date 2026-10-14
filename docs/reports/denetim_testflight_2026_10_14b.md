@@ -283,12 +283,13 @@ Hepsi bu dalda (`audit/testflight-2026-10-14b`), son kod commit'i 672a1dd üzeri
 | `skip` kaldırılmış kanıt turu (`audit/probe-14b`) | beklendiği gibi başarısız: bulgu testleri düştü | https://github.com/sniperTurk/flutter-app/actions/runs/38598869200 |
 
 - İlk analyze ve test turları (38597943816, 38597933692), `testWidgets` içinde yazı `skip` kullanıldığı için derleme hatası verdi; düzeltildi.
-- iOS CI (`iOS CI / verify`), Simulator ve TestFlight çalıştırılmadı; geçti denmiyor.
+- PR #310 üzerinde iOS CI (rapor öncesi son commit 1be99a6): `verify`, `dart-checks` ve `wind-acceptance` başarılı; `ios-simulator` atlandı. https://github.com/sniperTurk/flutter-app/actions/runs/38602354533
+- Simulator ve TestFlight çalıştırılmadı; geçti denmiyor.
 
 ## Yapılmayanlar
 
 - `lib/` içinde hiçbir düzeltme yapılmadı.
-- TestFlight, Simulator ve iOS CI çalıştırılmadı.
+- TestFlight ve Simulator çalıştırılmadı.
 - Birleştirme yapılmadı; PR taslak.
 - Üretici sitelerine yeniden bakılamadı (WebFetch izni zaman aşımına uğradı). BC kontrolü, depoya daha önce kaydedilmiş üretici tablolarıyla yapıldı.
 - Gerçek GPS ve gerçek Google Elevation isteği denenmedi (RUZ-3).
