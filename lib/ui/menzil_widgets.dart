@@ -1422,6 +1422,13 @@ class MenzilSelect<T> extends StatefulWidget {
   /// its content (still at least 48 high).
   final double? itemHeight;
 
+  /// The closed box shows its choice at the normal size and WRAPS onto as
+  /// many lines as it needs; the box grows with it (owner, 2026-10-14:
+  /// Dürbün and Tüfek Model, like Mühimmat Model: "yazı küçülmesin, alt
+  /// satıra geçsin"). The text is [selectedLabels] or the item's [Text].
+  /// Not for the compact variant.
+  final bool wrapSelected;
+
   const MenzilSelect({
     super.key,
     required this.label,
@@ -1438,7 +1445,9 @@ class MenzilSelect<T> extends StatefulWidget {
     this.fitSelected = false,
     this.shortSelectedLabels,
     this.itemHeight = kMinInteractiveDimension,
-  }) : assert(!fitSelected || selectedLabels != null);
+    this.wrapSelected = false,
+  }) : assert(!fitSelected || selectedLabels != null),
+       assert(!(fitSelected && wrapSelected));
 
   /// A list item that allows two lines (long model names) still shows one
   /// line in the closed box (owner, 2026-10-11: the second line overflowed).
@@ -1478,6 +1487,52 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
     }
   }
 
+  /// [MenzilSelect.wrapSelected]: the choice [text] wraps at the list's own
+  /// size (15, regular) inside the box, which takes its height; the list
+  /// [button] lies over it, so the whole box still opens the list and its
+  /// arrow sits where it always does. Without [text] the button alone.
+  static Widget _withWrapped(String? text, MenzilColors c, Widget button) {
+    if (text == null) return button;
+    return Stack(
+      children: [
+        IgnorePointer(
+          child: Padding(
+            // Where the list button puts its text (16 pt in, see the
+            // aligned padding below) and clear of the 24 pt arrow.
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 13, 44, 13),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 24),
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  text,
+                  key: const Key('menzil-select-wrapped'),
+                  softWrap: true,
+                  maxLines: 8,
+                  overflow: TextOverflow.visible,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: c.ink,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned.fill(child: button),
+      ],
+    );
+  }
+
+  /// [MenzilSelect.wrapSelected]: the plain text of item [i].
+  String _wrapText(int i, List<DropdownMenuItem<T>> items) {
+    final labels = widget.selectedLabels;
+    if (labels != null) return labels[i];
+    final child = items[i].child;
+    return child is Text ? child.data ?? '' : '';
+  }
+
   /// The closed box's text for item [i].
   Widget _closed(int i, List<DropdownMenuItem<T>> items) {
     final w = widget;
@@ -1506,6 +1561,11 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
         ? null
         : items.indexWhere((i) => i.value == value);
     final compact = w.compact ?? MenzilCompactFields.of(context);
+    // Wrapping choice (owner, 2026-10-14): drawn by this box at the normal
+    // size, under the list button, which stays on top for every tap.
+    final wrapped = w.wrapSelected && !compact && selectedIndex != null
+        ? _wrapText(selectedIndex, items)
+        : null;
     final arrow = Icon(Icons.expand_more, color: c.ink2);
     return Padding(
       padding: const EdgeInsets.only(bottom: MenzilSpace.md),
@@ -1544,7 +1604,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                   disabledBorder: _noGap(t.disabledBorder),
                 ),
                 isEmpty: false,
-                child: DropdownButtonHideUnderline(
+                child: _withWrapped(wrapped, c, DropdownButtonHideUnderline(
                   // The open list has exactly the box's left and right edge
                   // (owner, 2026-10-13: "daha büyük açılsın ama kutudan
                   // dışarı çıkmasın"). Unaligned, Flutter widens the box by
@@ -1564,7 +1624,9 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       value: null,
                       // Every list box says "Seçiniz" until something is
                       // picked (owner, 2026-10-11).
-                      hint: selectedIndex == null
+                      hint: wrapped != null
+                          ? const SizedBox.shrink()
+                          : selectedIndex == null
                           ? (w.fitSelected
                                 ? DefaultTextStyle.merge(
                                     style: TextStyle(color: c.ink2),
@@ -1621,6 +1683,9 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                                 final k = items[i].value == null
                                     ? selectedIndex
                                     : i;
+                                if (wrapped != null) {
+                                  return const SizedBox.shrink();
+                                }
                                 if (k == null) {
                                   return Text(
                                     w.hint ?? 'Seçiniz',
@@ -1672,7 +1737,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       ),
                     ),
                   ),
-                ),
+                )),
               ),
             ),
           ),
