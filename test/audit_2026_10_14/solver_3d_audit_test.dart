@@ -142,7 +142,11 @@ void main() {
         for (var i = 0; i < pts.length; i++) {
           final e = c.expected[i];
           final p = pts[i];
-          expect(p.correctionMrad, closeTo(e.$2, 0.005), reason: '${e.$1} m up');
+          expect(
+            p.correctionMrad,
+            closeTo(e.$2, 0.005),
+            reason: '${e.$1} m up',
+          );
           expect(p.windMrad, closeTo(e.$3, 0.005), reason: '${e.$1} m wind');
           expect(p.timeOfFlightS, closeTo(e.$4, 0.0005), reason: '${e.$1} m');
         }

@@ -144,7 +144,9 @@ const _fx = RifleProfile(
 
 Widget _app(RifleProfile profile, BallisticsView view) => MaterialApp(
   theme: MenzilTheme.light(),
-  home: Scaffold(body: BallisticsScreen(profile: profile, view: view)),
+  home: Scaffold(
+    body: BallisticsScreen(profile: profile, view: view),
+  ),
 );
 
 Future<ScopeDialView> _shotView(
@@ -167,7 +169,11 @@ void main() {
     testWidgets('control: a typed station pressure is used as is', (
       tester,
     ) async {
-      final rho = await _densityAt(tester, pressure: '845.56', altitude: '1500');
+      final rho = await _densityAt(
+        tester,
+        pressure: '845.56',
+        altitude: '1500',
+      );
       expect(rho, closeTo(_isa1500Density, 0.0005));
     });
 

@@ -87,12 +87,14 @@ void main() {
       expect(FieldCalc.stationPressureHpa(1013.25, 2000), closeTo(794.95, 0.1));
     });
 
-    test('density altitude: 1.225 kg/m³ is 0 m; ISA 1000 m density ≈ 1000 m',
-        () {
-      expect(FieldCalc.densityAltitudeM(1.225), closeTo(0, 1e-6));
-      // ICAO density at 1000 m: 1.11164 kg/m³.
-      expect(FieldCalc.densityAltitudeM(1.11164), closeTo(1000, 2));
-    });
+    test(
+      'density altitude: 1.225 kg/m³ is 0 m; ISA 1000 m density ≈ 1000 m',
+      () {
+        expect(FieldCalc.densityAltitudeM(1.225), closeTo(0, 1e-6));
+        // ICAO density at 1000 m: 1.11164 kg/m³.
+        expect(FieldCalc.densityAltitudeM(1.11164), closeTo(1000, 2));
+      },
+    );
 
     test('dew point (Magnus): 20 °C %50 → 9.3 °C', () {
       expect(FieldCalc.dewPointC(20, 50), closeTo(9.26, 0.05));
@@ -103,7 +105,8 @@ void main() {
       expect(Gravity.at(latitudeDeg: 0), closeTo(9.7803253, 1e-6));
       // Free-air: −3.086 mm/s² per km.
       expect(
-        Gravity.at(latitudeDeg: 45) - Gravity.at(latitudeDeg: 45, altitudeM: 1000),
+        Gravity.at(latitudeDeg: 45) -
+            Gravity.at(latitudeDeg: 45, altitudeM: 1000),
         closeTo(0.003086, 0.00002),
       );
     });
@@ -123,7 +126,10 @@ void main() {
     test('angles: 1 MOA = π/10.8 mrad, 1 SMOA = 1 in / 100 yd', () {
       expect(Units.moaToMrad(1), closeTo(0.2908882, 1e-7));
       expect(Units.mradToMoa(1), closeTo(3.4377468, 1e-7));
-      expect(AngularUnit.smoa.mradPerUnit, closeTo(0.0254 / 91.44 * 1000, 1e-12));
+      expect(
+        AngularUnit.smoa.mradPerUnit,
+        closeTo(0.0254 / 91.44 * 1000, 1e-12),
+      );
       expect(
         ScopeDialMath.convert(1, AngularUnit.mrad, AngularUnit.smoa),
         closeTo(3.6, 1e-12),
@@ -303,11 +309,8 @@ void main() {
     });
 
     test('unregulated: linear between points, held at the ends', () {
-      double at(double bar) => PcpPressure.velocity(
-        profileMps: 270,
-        tubeBar: bar,
-        table: table,
-      ).mps;
+      double at(double bar) =>
+          PcpPressure.velocity(profileMps: 270, tubeBar: bar, table: table).mps;
       expect(at(160), closeTo(262.5, 1e-9));
       expect(at(100), 255);
       expect(at(300), 270);
@@ -365,10 +368,7 @@ void main() {
         ),
         1,
       );
-      expect(
-        PowderTemperature.effectiveTempC(airC: 30, ammoC: 10),
-        10,
-      );
+      expect(PowderTemperature.effectiveTempC(airC: 30, ammoC: 10), 10);
     });
 
     test('WEZ: 5-shot ES = 3.067 σ; ± is 2 σ', () {
