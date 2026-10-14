@@ -262,9 +262,9 @@ abstract final class ProfileFieldInfo {
   // PCP tüp ve regülatör basıncı (owner, 2026-10-12). Yalnızca PCP.
   static const tubePressure =
       'Tüpü doldurduğunuz basınç, bar. Dolum sonrası manometreden okuyun ya '
-      'da kılavuzdaki en yüksek dolum basıncını yazın. Sahada kalan basıncı '
-      'Pro > Tüfek düzeltmeleri\'nde girersiniz. Bilmiyorsanız boş bırakın. '
-      'Örnek: 250.';
+      'da kılavuzdaki en yüksek dolum basıncını yazın. Basınca göre hız '
+      'ölçümleri varsa hız bu basınca göre bulunur. Bilmiyorsanız boş '
+      'bırakın. Örnek: 250.';
   static const regulatorPressure =
       'Regülatörün vanaya verdiği sabit basınç, bar. Kılavuzda ya da '
       'regülatör manometresinde yazar. Tüp bu basıncın üstündeyken hız '
