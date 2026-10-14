@@ -278,26 +278,8 @@ void main() {
         await openTab('Pro');
         await page('pro_ayarlar');
       });
-      await step('pro_tup_basinci', () async {
-        // Tube at 120 bar, below the 150 bar regulator: warning and the
-        // measured 860 fps.
-        final header = find.byKey(const Key('pro-section-rifle'));
-        await tester.ensureVisible(header);
-        await settle();
-        // On the title: the header's centre can be the ⓘ (2026-10-13).
-        final h = tester.getSize(header).height;
-        await tester.tapAt(tester.getTopLeft(header) + Offset(12, h / 2));
-        await settle();
-        await type('pro-tube-pressure', '120');
-        await settle();
-        // Box, warning and velocity used in one frame.
-        await Scrollable.ensureVisible(
-          tester.element(find.byKey(const Key('pro-pcp-velocity'))),
-          alignment: 0.85,
-        );
-        await settle();
-        await shot('pro_tup_basinci');
-      });
+      // No pro_tup_basinci step: Pro > Kalan tüp basıncı is hidden (owner,
+      // 2026-10-14, PRO_TUBE_PRESSURE).
       await step('hedef_atis', () async {
         await openTab('Hedef');
         await wait(2);

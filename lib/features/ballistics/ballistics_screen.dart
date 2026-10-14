@@ -580,6 +580,16 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     'WIND_OBSERVATION',
   );
 
+  /// Pro "Kalan tüp basıncı" is hidden (owner, 2026-10-14: "Kalan tüp
+  /// basıncını kaldıralım", "gizle, silme"). While hidden the box, its
+  /// notices, its ⓘ entries and the Hedef regulator warning are not shown,
+  /// and a saved value is kept in storage but ignored: the velocity is the
+  /// profile velocity, as with an empty box. Build with
+  /// --dart-define=PRO_TUBE_PRESSURE=true to show and use it again.
+  static const bool _showProTubePressure = bool.fromEnvironment(
+    'PRO_TUBE_PRESSURE',
+  );
+
   /// Rüzgâr gözlemi (Ö2): the chosen Beaufort force, null = "Seçiniz".
   /// Not saved; the wind values it writes are. A typed wind clears it.
   int? _windObservation;
@@ -807,7 +817,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// tube pressure typed on Pro, from the profile's regulator pressure and
   /// basınca göre hız table. Null on a firearm (never applies there).
   PcpVelocity? _pcpVelocity(double profileMps) {
-    if (!_isPcp) return null;
+    // Hidden box (owner, 2026-10-14): a saved value must not change the
+    // velocity; null = the profile velocity, as with an empty box.
+    if (!_isPcp || !_showProTubePressure) return null;
     final p = widget.profile;
     final tube = _parsed(tubePressureCtl);
     return PcpPressure.velocity(
@@ -3892,7 +3904,9 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       zero.up != 0 || zero.right != 0,
       _spinDriftOn,
       _isFirearm && _powder.coef != null && _powder.referenceC != null,
-      _isPcp && tubePressureCtl.text.trim().isNotEmpty,
+      _showProTubePressure &&
+          _isPcp &&
+          tubePressureCtl.text.trim().isNotEmpty,
     ].where((x) => x).length;
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
@@ -4375,7 +4389,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
           ),
           if (_isFirearm) const ProInfoEntry(ProSectionInfo.powder),
-          if (_isPcp) const ProInfoEntry(ProSectionInfo.pcpPressure),
+          if (_showProTubePressure && _isPcp)
+            const ProInfoEntry(ProSectionInfo.pcpPressure),
         ],
         fields: [
           const ProInfoField(
@@ -4389,7 +4404,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
               'Mermi uzunluğu',
               EnvironmentFieldInfo.bulletLength,
             ),
-          if (_isPcp)
+          if (_showProTubePressure && _isPcp)
             const ProInfoField(
               'Kalan tüp basıncı',
               EnvironmentFieldInfo.tubePressure,
@@ -4498,7 +4513,8 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             ),
           ],
           // PCP tüp basıncı (owner, 2026-10-12): never on a firearm.
-          if (_isPcp) ..._pcpPressureProFields(c),
+          // Hidden since 2026-10-14 (owner): PRO_TUBE_PRESSURE.
+          if (_showProTubePressure && _isPcp) ..._pcpPressureProFields(c),
         ],
       ),
       const SizedBox(height: MenzilSpace.md),
@@ -4763,6 +4779,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
 
   /// PCP with the Pro tube pressure below the profile's regulator pressure.
   bool get _pcpRegulatorBypassed {
+    if (!_showProTubePressure) return false;
     final v0 = widget.profile?.muzzleVelocityMps;
     if (v0 == null) return false;
     return _pcpVelocity(v0)?.regulatorBypassed ?? false;

@@ -1,7 +1,10 @@
 // PCP tüp ve regülatör basıncı on screen (owner, 2026-10-12): Profil shows
 // Tüp basıncı | Regülatör basıncı and the basınca göre hız rows on PCP only;
-// Pro takes the tube pressure left; a firearm sees none of it and its
-// solution does not change; a PCP with nothing entered solves as before.
+// a firearm sees none of it and its solution does not change.
+//
+// Pro "Kalan tüp basıncı" is hidden (owner, 2026-10-14: "Kalan tüp
+// basıncını kaldıralım", PRO_TUBE_PRESSURE off): no box, no ⓘ entry, no
+// notices, and a saved value no longer changes the velocity on Hedef.
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -212,31 +215,23 @@ void main() {
       addTearDown(tester.view.reset);
     }
 
-    Future<double> elevation(
-      WidgetTester tester,
-      RifleProfile profile, {
-      String? tube,
-    }) async {
+    Future<double> elevation(WidgetTester tester, RifleProfile profile) async {
       // A fresh workspace each time (no state carried between profiles).
       await tester.pumpWidget(const SizedBox());
-      await tester.pumpWidget(app(profile, BallisticsView.pro));
-      await tester.pumpAndSettle();
-      if (tube != null) {
-        const key = Key('pro-tube-pressure');
-        await openProFor(tester, key);
-        final f = find.descendant(
-          of: find.byKey(key),
-          matching: find.byType(TextField),
-        );
-        await tester.ensureVisible(f);
-        await tester.enterText(f, tube);
-        await tester.pump();
-      }
       await tester.pumpWidget(app(profile, BallisticsView.shot));
       await tester.pumpAndSettle();
       return tester
           .widget<ScopeDialView>(find.byType(ScopeDialView))
           .requiredUp!;
+    }
+
+    /// A Pro tube pressure saved before the box was hidden.
+    void saveTube(RifleProfile profile, String tube) {
+      SharedPreferences.setMockInitialValues({
+        ShotSettingsStore.keyFor(profile.id): jsonEncode(
+          ShotSettings(tubePressureText: tube).toJson(),
+        ),
+      });
     }
 
     testWidgets('firearm: no tube pressure on Pro', (tester) async {
@@ -246,19 +241,48 @@ void main() {
       await tapProHeader(tester, find.byKey(const Key('pro-section-rifle')));
       expect(find.byKey(const Key('pro-turret-scale')), findsOneWidget);
       expect(find.byKey(const Key('pro-tube-pressure')), findsNothing);
+      expect(find.text('Kalan tüp basıncı'), findsNothing);
     });
 
-    testWidgets('PCP: tube pressure box on Pro with ⓘ', (tester) async {
+    testWidgets('PCP: no Kalan tüp basıncı on Pro, the rest of Tüfek '
+        'düzeltmeleri stays', (tester) async {
       await big(tester);
-      await tester.pumpWidget(app(_pcpPlain, BallisticsView.pro));
+      saveTube(_pcpRegulated, '120');
+      await tester.pumpWidget(app(_pcpRegulated, BallisticsView.pro));
       await tester.pumpAndSettle();
-      await openProFor(tester, const Key('pro-tube-pressure'));
-      final box = find.byKey(const Key('pro-tube-pressure'));
-      expect(box, findsOneWidget);
+      final header = find.byKey(const Key('pro-section-rifle'));
+      // The saved value does not count as an open setting: only spin drift
+      // (always on) is counted, as on an empty box.
       expect(
-        find.descendant(of: box, matching: find.byType(MenzilInfoButton)),
-        findsOneWidget,
+        tester.widget<Text>(find.byKey(const Key('pro-summary-rifle'))).data,
+        '1 ayar açık',
       );
+      await tapProHeader(tester, header);
+      expect(find.byKey(const Key('pro-turret-scale')), findsOneWidget);
+      expect(find.byKey(const Key('pro-zero-up')), findsOneWidget);
+      expect(find.byKey(const Key('pro-tube-pressure')), findsNothing);
+      expect(find.text('Kalan tüp basıncı'), findsNothing);
+      expect(find.byKey(const Key('pro-pcp-regulator')), findsNothing);
+      expect(find.byKey(const Key('pro-pcp-velocity')), findsNothing);
+      expect(find.byKey(const Key('pro-pcp-above-fill')), findsNothing);
+      expect(find.textContaining('Kullanılan hız'), findsNothing);
+      expect(find.textContaining('regülatör basıncının altında'), findsNothing);
+    });
+
+    testWidgets('PCP: the Tüfek düzeltmeleri ⓘ sheet has no tube pressure '
+        'entry', (tester) async {
+      await big(tester);
+      await tester.pumpWidget(app(_pcpRegulated, BallisticsView.pro));
+      await tester.pumpAndSettle();
+      final info = find.byKey(const Key('pro-info-rifle'));
+      await tester.ensureVisible(info);
+      await tester.pumpAndSettle();
+      await tester.tap(info);
+      await tester.pumpAndSettle();
+      expect(find.byType(BottomSheet), findsOneWidget);
+      expect(find.text('Gerçek / yazan'), findsWidgets);
+      expect(find.text('Kalan tüp basıncı'), findsNothing);
+      expect(find.text('Tüp basıncı'), findsNothing);
     });
 
     testWidgets('a saved tube pressure never moves a firearm solution', (
@@ -268,57 +292,57 @@ void main() {
       final a = await elevation(tester, _fx);
       // A tube pressure stored for this profile id (e.g. from a PCP profile
       // restored under the same id) is ignored on a firearm.
-      SharedPreferences.setMockInitialValues({
-        ShotSettingsStore.keyFor(_fx.id): jsonEncode(
-          const ShotSettings(tubePressureText: '50').toJson(),
-        ),
-      });
+      saveTube(_fx, '50');
       final b = await elevation(tester, _fx);
       expect(b, a);
       expect(find.byKey(const Key('shot-pcp-regulator')), findsNothing);
     });
 
-    testWidgets('regulated, tube above the regulator: as before', (
-      tester,
-    ) async {
+    testWidgets('PCP fields without a Pro value: as before', (tester) async {
       await big(tester);
       final plain = await elevation(tester, _pcpPlain);
       final fields = await elevation(tester, _pcpRegulated);
       expect(fields, closeTo(plain, 1e-12));
-      final above = await elevation(tester, _pcpRegulated, tube: '200');
-      expect(above, closeTo(plain, 1e-12));
       expect(find.byKey(const Key('shot-pcp-regulator')), findsNothing);
     });
 
-    testWidgets('regulated, tube below the regulator: warning and the '
-        'slower measured velocity', (tester) async {
+    testWidgets('regulated: a saved 120 bar below the 150 bar regulator no '
+        'longer changes the velocity, no warning on Hedef', (tester) async {
       await big(tester);
       final plain = await elevation(tester, _pcpRegulated);
-      final low = await elevation(tester, _pcpRegulated, tube: '120');
-      expect(find.byKey(const Key('shot-pcp-regulator')), findsOneWidget);
-      // 255 m/s against a zero at 270 m/s: the pellet drops more.
-      expect(low, isNot(closeTo(plain, 1e-6)));
+      saveTube(_pcpRegulated, '120');
+      final saved = await elevation(tester, _pcpRegulated);
+      expect(saved, closeTo(plain, 1e-12));
+      expect(find.byKey(const Key('shot-pcp-regulator')), findsNothing);
+      expect(find.textContaining('Regülatör devre dışı'), findsNothing);
+      // The saved value stays in storage (gizle, silme).
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getString(ShotSettingsStore.keyFor(_pcpRegulated.id));
+      expect(raw, isNotNull);
+      expect(raw, contains('"tubePressure":"120"'));
     });
 
-    testWidgets('Pro shows the warning and the velocity used', (tester) async {
-      await big(tester);
-      await tester.pumpWidget(app(_pcpRegulated, BallisticsView.pro));
-      await tester.pumpAndSettle();
-      const key = Key('pro-tube-pressure');
-      await openProFor(tester, key);
-      final f = find.descendant(
-        of: find.byKey(key),
-        matching: find.byType(TextField),
+    testWidgets('unregulated: a saved tube pressure no longer picks a '
+        'table velocity', (tester) async {
+      const unregulated = RifleProfile(
+        id: 'p-pcp',
+        name: 'PCP',
+        rifleId: 'manual_rifle_pcp',
+        ammunitionId: 'manual_ammo_pcp',
+        scopeId: 'gazi-6-36',
+        muzzleVelocityMps: 270,
+        zeroRangeM: 30,
+        sightHeightMm: 60,
+        pressureVelocityTable: [
+          PressureVelocityPoint(bar: 120, mps: 240),
+          PressureVelocityPoint(bar: 200, mps: 270),
+        ],
       );
-      await tester.ensureVisible(f);
-      // Comma decimals are accepted.
-      await tester.enterText(f, '120,0');
-      await tester.pump();
-      expect(find.byKey(const Key('pro-pcp-regulator')), findsOneWidget);
-      final used = tester
-          .widget<Text>(find.byKey(const Key('pro-pcp-velocity')))
-          .data!;
-      expect(used, contains('${(255 * 3.280839895).toStringAsFixed(0)} fps'));
+      await big(tester);
+      final plain = await elevation(tester, unregulated);
+      saveTube(unregulated, '120');
+      final saved = await elevation(tester, unregulated);
+      expect(saved, closeTo(plain, 1e-12));
     });
   });
 }
