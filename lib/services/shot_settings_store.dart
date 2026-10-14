@@ -96,6 +96,19 @@ class ShotSettings {
   final int? weatherFetchedAtMs;
   final int? pressureFetchedAtMs;
 
+  /// İrtifa card (owner, 2026-10-14): when "Telefondan" / "Haritadan" wrote
+  /// their box (UTC epoch ms); null = typed, reset or never fetched. The
+  /// boxes themselves are weatherSi 'altitude' (Telefondan irtifa; an older
+  /// single İrtifa migrates there) and 'mapAltitude' (Haritadan irtifa).
+  final int? altitudePhoneAtMs;
+  final int? altitudeMapAtMs;
+
+  /// When the Rüzgâr yönü was set (tap on the dial or typed hour).
+  final int? windDirectionAtMs;
+
+  /// When "Düzeltme al" (or a weather fill) wrote En çok rüzgâr.
+  final int? windMaxAtMs;
+
   const ShotSettings({
     this.inclineDeg = 0,
     this.cantDeg = 0,
@@ -135,6 +148,10 @@ class ShotSettings {
     this.pressureFromPhone = false,
     this.weatherFetchedAtMs,
     this.pressureFetchedAtMs,
+    this.altitudePhoneAtMs,
+    this.altitudeMapAtMs,
+    this.windDirectionAtMs,
+    this.windMaxAtMs,
   });
 
   static const weatherKeys = {
@@ -142,6 +159,7 @@ class ShotSettings {
     'pressure',
     'humidity',
     'altitude',
+    'mapAltitude',
     'wind',
     'windDirection',
   };
@@ -184,6 +202,10 @@ class ShotSettings {
     'pressurePhone': pressureFromPhone,
     if (weatherFetchedAtMs != null) 'weatherGpsAt': weatherFetchedAtMs,
     if (pressureFetchedAtMs != null) 'pressurePhoneAt': pressureFetchedAtMs,
+    if (altitudePhoneAtMs != null) 'altPhoneAt': altitudePhoneAtMs,
+    if (altitudeMapAtMs != null) 'altMapAt': altitudeMapAtMs,
+    if (windDirectionAtMs != null) 'windDirAt': windDirectionAtMs,
+    if (windMaxAtMs != null) 'windMaxAt': windMaxAtMs,
   };
 
   /// Unknown or damaged values fall back to the neutral default (level,
@@ -255,6 +277,10 @@ class ShotSettings {
       pressureFromPhone: json['pressurePhone'] == true,
       weatherFetchedAtMs: epochMs(json['weatherGpsAt']),
       pressureFetchedAtMs: epochMs(json['pressurePhoneAt']),
+      altitudePhoneAtMs: epochMs(json['altPhoneAt']),
+      altitudeMapAtMs: epochMs(json['altMapAt']),
+      windDirectionAtMs: epochMs(json['windDirAt']),
+      windMaxAtMs: epochMs(json['windMaxAt']),
     );
   }
 }
