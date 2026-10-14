@@ -62,13 +62,6 @@ Finder _field(Key key) =>
 String _text(WidgetTester tester, Key key) =>
     tester.widget<TextField>(_field(key)).controller!.text;
 
-Future<void> _type(WidgetTester tester, Key key, String v) async {
-  await tester.ensureVisible(_field(key));
-  await tester.pumpAndSettle();
-  await tester.enterText(_field(key), v);
-  await tester.pumpAndSettle();
-}
-
 Future<void> _tap(WidgetTester tester, Key key) async {
   await tester.ensureVisible(find.byKey(key));
   await tester.pumpAndSettle();
