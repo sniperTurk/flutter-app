@@ -67,7 +67,8 @@ Yerel:
 | Dart format düzeltme | 28608af | başarılı, değişiklik commit'i yok | https://github.com/sniperTurk/flutter-app/actions/runs/38604931095 |
 | Bütün test takımı (`files=test`) | 28608af | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38604935842 |
 
-- iOS CI (`iOS CI / verify`), Simulator ve TestFlight çalıştırılmadı; geçti denmiyor.
+- PR'ın kendi iOS CI turu (61d88e4, rapor commit'i; kod 28608af ile aynı): `verify`, `dart-checks`, `wind-acceptance` başarılı; `ios-simulator` işi atlandı (skipped), yani Simulator derlemesi çalışmadı. https://github.com/sniperTurk/flutter-app/actions/runs/38605851540
+- Simulator, cihaz ve TestFlight çalıştırılmadı; geçti denmiyor.
 
 ## Yapılmayanlar
 
