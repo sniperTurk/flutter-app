@@ -62,6 +62,12 @@ class ScopeDialView extends StatelessWidget {
   final double mountCantMoa;
   final int mountCantClicks;
 
+  /// The zero's bore angle above the sight line, in clicks (denetim F2,
+  /// 2026-10-14): the zeroed turret already holds it, so it is already
+  /// out of [maxElevationClicks] and in [maxElevationDownClicks]. 0 when
+  /// unknown.
+  final int zeroAngleClicks;
+
   /// True when the turret travel comes from the scope's catalog data (not
   /// the generic fallback), so a mount size can be suggested.
   final bool travelKnown;
@@ -156,6 +162,7 @@ class ScopeDialView extends StatelessWidget {
     this.maxElevationDownClicks,
     this.mountCantMoa = 0,
     this.mountCantClicks = 0,
+    this.zeroAngleClicks = 0,
     this.travelKnown = false,
     this.halfElevationClicks,
     required this.maxWindageClicks,
@@ -261,7 +268,7 @@ class ScopeDialView extends StatelessWidget {
     final base =
         'Kule yetmez: gereken ${need.abs()} klik '
         '(${_fmt(req.abs())} $unitLabel), kulenin ${up ? 'yukarı' : 'aşağı'} '
-        'yolu $limit klik'
+        'yolu yaklaşık $limit klik'
         '${up ? mount : ''}. ';
     if (!up) {
       // Only blame the mount when there is one.
@@ -274,20 +281,23 @@ class ScopeDialView extends StatelessWidget {
       return '${base}Mesafeyi kısaltın veya retikülde tutuş yapın.';
     }
     // Mount slope that would cover the missing clicks. A mount is usable
-    // only while the zero can still be dialled, i.e. while it is not larger
-    // than half of the travel (the zero sits mid-travel).
+    // only while the zero can still be dialled: the mount minus the zero
+    // angle must fit in half of the travel (denetim F2).
     final missing = (need - limit) * clickValue;
     // Mounts are sold in true MOA.
     final missingMoa = AngularUnit.moa.fromMrad(unit.toMrad(missing));
     final needMoa = mountCantMoa + missingMoa;
     final suggest = needMoa.ceil();
-    final half = halfElevationClicks ?? (maxElevationClicks - mountCantClicks);
-    final halfAngle = half * clickValue;
+    final half =
+        halfElevationClicks ??
+        (maxElevationClicks - mountCantClicks + zeroAngleClicks);
+    final halfAngle = (half + zeroAngleClicks) * clickValue;
     final halfMoa = AngularUnit.moa.fromMrad(unit.toMrad(halfAngle));
     if (needMoa > halfMoa + 1e-9) {
       return '${base}Hiçbir dürbün ayağı yetmez: gereken ayak ($suggest MOA) '
-          'kulenin yarı yolundan (${_trim((halfMoa * 10).floor() / 10)} MOA) '
-          'büyük, o ayakla dürbün sıfırlanamaz. Mesafeyi kısaltın, '
+          'sıfırlanabilen en büyük ayaktan (yaklaşık '
+          '${_trim((halfMoa * 10).floor() / 10)} MOA) büyük, o ayakla dürbün '
+          'sıfırlanamaz. Mesafeyi kısaltın, '
           'retikülde tutuş yapın veya ayar aralığı daha geniş bir dürbün '
           'kullanın.';
     }
@@ -302,11 +312,14 @@ class ScopeDialView extends StatelessWidget {
         '$listed; veya mesafeyi kısaltın ya da retikülde tutuş yapın.';
   }
 
-  /// True when the mount is larger than half of the known travel: the turret
-  /// cannot be dialled down far enough to zero the rifle.
+  /// True when the mount, less the zero angle, is larger than half of the
+  /// known travel: the turret cannot be dialled down far enough to zero the
+  /// rifle (denetim F2).
   bool get mountBlocksZero {
     final half = halfElevationClicks;
-    return travelKnown && half != null && mountCantClicks > half;
+    return travelKnown &&
+        half != null &&
+        mountCantClicks - zeroAngleClicks > half;
   }
 
   static String _fmt(double v) {
@@ -561,7 +574,8 @@ class ScopeDialView extends StatelessWidget {
                   tone: MenzilNoticeTone.danger,
                   message:
                       'Bu ayakla dürbün sıfırlanamaz: ${_trim(mountCantMoa)} '
-                      'MOA ayak için kuleyi $mountCantClicks klik aşağı '
+                      'MOA ayak için kuleyi yaklaşık '
+                      '${mountCantClicks - zeroAngleClicks} klik aşağı '
                       'çevirmek gerekir, kulenin aşağı yolu '
                       '${halfElevationClicks!} klik. Profil\'de daha küçük '
                       'bir dürbün ayağı seçin.',
@@ -594,7 +608,7 @@ class ScopeDialView extends StatelessWidget {
                   message:
                       'Dürbün ayağı ${_trim(mountCantMoa)} MOA: kulede yukarı '
                       '+$mountCantClicks klik ek yer'
-                      '${travelKnown ? ' (yukarı toplam $maxElevationClicks klik)' : ' (kule ayar aralığı Profil\'de girilmediği için toplam yol gösterilmiyor)'}'
+                      '${travelKnown ? ' (yukarı toplam yaklaşık $maxElevationClicks klik)' : ' (kule ayar aralığı Profil\'de girilmediği için toplam yol gösterilmiyor)'}'
                       '. Gereken klik sayısı değişmez; ayak yalnızca kuleye '
                       'yer açar.',
                 ),

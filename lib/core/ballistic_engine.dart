@@ -55,6 +55,44 @@ class BallisticEngine {
     return (points: const [], unreachableM: dropped.reversed.toList());
   }
 
+  /// Bore angle above the line of sight at the zero, in mrad, from the same
+  /// solver as [solve] (denetim F2, 2026-10-14). The zeroed turret already
+  /// holds this angle, so it is not free UP travel.
+  double zeroAngleMrad(BallisticInput input) {
+    if (input.ballisticModel != null || input.ballisticCoefficient != null) {
+      return const AerodynamicTrajectorySolver().zeroAngleRad(input) * 1000;
+    }
+    return _vacuumBoreAngle(
+          g: input.gravityMps2,
+          zeroRangeM: input.zeroRangeM,
+          zeroVelocityMps:
+              input.zeroMuzzleVelocityMps ?? input.muzzleVelocityMps,
+          sightM: input.sightHeightMm / 1000,
+        ) *
+        1000;
+  }
+
+  /// Low-angle root of the vacuum zero condition (see [vacuumDope]).
+  static double _vacuumBoreAngle({
+    required double g,
+    required double zeroRangeM,
+    required double zeroVelocityMps,
+    required double sightM,
+  }) {
+    final x = zeroRangeM;
+    final vZero = zeroVelocityMps;
+    if (vZero <= 0) throw ArgumentError('zero velocity must be > 0');
+    final a = g * x * x / (2 * vZero * vZero);
+    final discriminant = x * x - 4 * a * (sightM + a);
+    if (discriminant < 0) {
+      throw ArgumentError(
+        'zeroRangeM is unreachable at this muzzle velocity in the vacuum model',
+      );
+    }
+    final tanBoreAngle = (x - math.sqrt(discriminant)) / (2 * a);
+    return math.atan(tanBoreAngle);
+  }
+
   List<TrajectoryPoint> solveVacuum(BallisticInput input) => vacuumDope(
     muzzleVelocityMps: input.muzzleVelocityMps,
     grain: input.grain,
@@ -99,18 +137,12 @@ class BallisticEngine {
     // With u = tan(angle), the zero condition becomes:
     //   A*u^2 - x*u + (s + A) = 0, A = g*x^2/(2*v^2).
     // Select the low-angle root used by a normal sighted rifle.
-    final x = zeroRangeM;
-    final vZero = zeroVelocityMps ?? muzzleVelocityMps;
-    if (vZero <= 0) throw ArgumentError('zero velocity must be > 0');
-    final a = g * x * x / (2 * vZero * vZero);
-    final discriminant = x * x - 4 * a * (sightM + a);
-    if (discriminant < 0) {
-      throw ArgumentError(
-        'zeroRangeM is unreachable at this muzzle velocity in the vacuum model',
-      );
-    }
-    final tanBoreAngle = (x - math.sqrt(discriminant)) / (2 * a);
-    final boreAngle = math.atan(tanBoreAngle);
+    final boreAngle = _vacuumBoreAngle(
+      g: g,
+      zeroRangeM: zeroRangeM,
+      zeroVelocityMps: zeroVelocityMps ?? muzzleVelocityMps,
+      sightM: sightM,
+    );
     // The zero is level; the shot may be inclined (θ) and canted (φ). In the
     // scope frame gravity is (−g·sinθ, −g·cosθ·cosφ, g·cosθ·sinφ): constant,
     // so the vacuum trajectory stays closed-form. θ = φ = 0 reproduces the

@@ -245,6 +245,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   double? densityRatio;
   double? speedOfSoundMps;
   double? muzzleMach;
+
+  /// The last solve took the station pressure from İrtifa (Basınç empty,
+  /// denetim F1); Hedef says so.
+  bool _pressureEstimated = false;
   ScopeOptic? scope;
   Ammunition? ammunition;
 
@@ -1604,6 +1608,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       densityRatio = null;
       speedOfSoundMps = null;
       muzzleMach = null;
+      _pressureEstimated = false;
       _basis = null;
       _warnings = [];
       _unreachableM = [];
@@ -1667,9 +1672,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final temp = metric
         ? rawTemperature!
         : UnitSystem.fahrenheitToCelsius(rawTemperature!);
-    final pres = metric ? rawPressure! : UnitSystem.inHgToHpa(rawPressure!);
     final hum = rawHumidity!;
     final alt = metric ? rawAltitude! : UnitSystem.feetToMeters(rawAltitude!);
+    // Denetim F1 (2026-10-14): an empty Basınç with a typed İrtifa is the
+    // ISA station pressure at that altitude, not 1013,25 hPa. A typed
+    // pressure always wins; both empty stays the standard atmosphere.
+    final pressureFromAltitude =
+        pressure.text.trim().isEmpty && altitude.text.trim().isNotEmpty;
+    final pres = pressureFromAltitude
+        ? FieldCalc.stationPressureHpa(1013.25, alt)
+        : metric
+        ? rawPressure!
+        : UnitSystem.inHgToHpa(rawPressure!);
 
     if (v <= 0 ||
         g <= 0 ||
@@ -1678,6 +1692,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         w < 0 ||
         wd < 0 ||
         wd > 360 ||
+        !pres.isFinite ||
         pres <= 0 ||
         hum < 0 ||
         hum > 100 ||
@@ -1713,8 +1728,18 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       // PCP tüp basıncı: the velocity at the profile's Tüp basıncı (the Pro
       // box only with PRO_TUBE_PRESSURE); a firearm never changes here.
       final vPowder = _powderAdjusted(v, temp);
-      final vToday = _pcpVelocity(vPowder)?.mps ?? vPowder;
-      final double? vZero = vToday == v ? null : v;
+      final pcp = _pcpVelocity(vPowder);
+      final vToday = pcp?.mps ?? vPowder;
+      // Denetim F3 (2026-10-14): an unregulated PCP whose table gives the
+      // velocity at the Profil tube pressure (#284) is zeroed and shot with
+      // that same velocity, so it is on zero at its own zero range. The Pro
+      // "Kalan tüp basıncı" (PRO_TUBE_PRESSURE, hidden) keeps the old split.
+      final pcpTableAtProfilePressure =
+          !_showProTubePressure &&
+          pcp != null &&
+          pcp.fromTable &&
+          !pcp.regulatorBypassed;
+      final double? vZero = pcpTableAtProfilePressure || vToday == v ? null : v;
       final density = Atmosphere.densityKgM3(environment);
       final ratio = Atmosphere.densityRatio(environment);
       final sound = Atmosphere.speedOfSoundMps(environment);
@@ -1772,6 +1797,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         densityRatio = ratio;
         speedOfSoundMps = sound;
         muzzleMach = mach;
+        _pressureEstimated = pressureFromAltitude;
         _basis = _ShotBasis(
           velocityMps: vToday,
           grain: g,
@@ -2545,6 +2571,29 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   /// Drum limit when the travel is unknown: the turret simply keeps turning.
   static const int _unknownTravelClicks = 100000;
 
+  _ShotBasis? _zeroAngleBasis;
+  double? _zeroAngleMradCache;
+
+  /// The zero's bore angle above the sight line in whole turret clicks
+  /// (nearest; denetim F2). Solved once per basis; 0 when it cannot be.
+  int _zeroAngleClicks(_ShotBasis basis, double click, AngularUnit unit) {
+    if (!identical(basis, _zeroAngleBasis)) {
+      _zeroAngleBasis = basis;
+      try {
+        _zeroAngleMradCache = const BallisticEngine().zeroAngleMrad(
+          basis.input([basis.zeroRangeM]),
+        );
+      } on ArgumentError {
+        _zeroAngleMradCache = null;
+      } on StateError {
+        _zeroAngleMradCache = null;
+      }
+    }
+    final mrad = _zeroAngleMradCache;
+    if (mrad == null || !mrad.isFinite) return 0;
+    return (unit.fromMrad(mrad) / click).round();
+  }
+
   /// Elevation correction from 1 m out to the farthest reachable range of
   /// the current basis (drag or vacuum), sampled once per solve.
   /// Hold-label samples on the turret's scale (audit 2026-10-11): the
@@ -2761,14 +2810,21 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     final mountClicks = mountCantMoa > 0
         ? ScopeDialMath.mountCantClicks(mountCantMoa, click, unit)
         : 0;
+    // Denetim F2 (2026-10-14): on a 0 MOA mount the zeroed turret is not
+    // mid-travel: it already holds the zero angle (bore above the sight
+    // line), dialled UP when zeroing. That angle comes off the UP travel
+    // and adds to the DOWN travel. Limits only; the required clicks stay.
+    final zeroClicks = basis == null
+        ? 0
+        : _zeroAngleClicks(basis, click, unit);
     // Known travel: the mount moves the zero down inside the SAME travel,
     // so UP can never exceed the whole travel and DOWN never goes below 0.
     final upClicks = halfUp == null
         ? _unknownTravelClicks
-        : math.min(halfUp + mountClicks, 2 * halfUp);
+        : math.max(0, math.min(halfUp + mountClicks - zeroClicks, 2 * halfUp));
     final downClicks = halfUp == null
         ? _unknownTravelClicks
-        : math.max(0, halfUp - mountClicks);
+        : math.max(0, halfUp - mountClicks + zeroClicks);
     final maxWindage =
         _halfTravelClicks(click, s.windageRangeMrad) ?? _unknownTravelClicks;
     if (_autoDialArmed && requiredUp != null) {
@@ -2810,6 +2866,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       maxElevationDownClicks: downClicks,
       mountCantMoa: mountCantMoa,
       mountCantClicks: mountClicks,
+      zeroAngleClicks: zeroClicks,
       travelKnown: (s.elevationRangeMrad ?? 0) > 0,
       halfElevationClicks: halfUp,
       // The side turret's limit only matters for the drum; it is never
@@ -4880,6 +4937,15 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             message:
                 'Regülatör devre dışı: tüp basıncı regülatör basıncının '
                 'altında, hız düşer.',
+          ),
+        ),
+      if (_pressureEstimated && _basis != null)
+        const Padding(
+          padding: EdgeInsets.only(bottom: MenzilSpace.sm),
+          child: MenzilNotice(
+            key: Key('shot-pressure-from-altitude'),
+            tone: MenzilNoticeTone.info,
+            message: 'Basınç irtifadan tahmin edildi.',
           ),
         ),
       if (shot == null)

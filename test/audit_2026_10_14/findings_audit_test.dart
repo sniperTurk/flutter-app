@@ -1,10 +1,11 @@
 // Formül denetimi 2026-10-14: the "?" and "✗" rows of
 // docs/reports/formul_denetimi_2026_10_14.md, each as a minimal repro.
 //
-// Tests that describe the EXPECTED behaviour and fail on the current code
-// are `skip:`ped with the finding number, so CI stays green until the main
-// session decides a fix (this audit changes nothing in lib/). The tests
-// without `skip` are passing controls that pin the part that is right.
+// Tests that describe the EXPECTED behaviour and failed on the audited code
+// were `skip:`ped with the finding number. F1, F2, F3 and F5 are fixed
+// (fix/denetim-f1-f2-f3-f5, report docs/reports/denetim_duzeltmeleri_
+// f1_f2_f3_f5.md) and run; F4 stays skipped until the main session decides
+// it. The other tests are controls that pin the part that was right.
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -182,10 +183,9 @@ void main() {
       'not 1013.25 hPa',
       (tester) async {
         final rho = await _densityAt(tester, pressure: '', altitude: '1500');
-        // Current code: 1.2250 (sea level), 20 % too dense.
+        // Before the fix: 1.2250 (sea level), 20 % too dense.
         expect(rho, closeTo(_isa1500Density, 0.0005));
       },
-      skip: true, // F1: empty Basınç → 1013.25 hPa even with İrtifa typed
     );
   });
 
@@ -212,11 +212,10 @@ void main() {
       '(same velocity for zero and shot)',
       (tester) async {
         final v = await _shotView(tester, _unregulated(120));
-        // Current code: zero solved at 270 m/s, shot at 255 m/s → ≈ +1.0
+        // Before the fix: zero solved at 270 m/s, shot at 255 m/s → ≈ +1.0
         // mrad at the zero range itself.
         expect(v.requiredUp!.abs(), lessThan(0.05));
       },
-      skip: true, // F3: PCP zero at profile velocity, shot at table velocity
     );
 
     testWidgets('control F2: 0 MOA mount, travel taken from mid-travel', (
@@ -231,10 +230,9 @@ void main() {
       'expected F2: the zero itself uses ~1.26 mrad (≈13 clicks) of UP travel',
       (tester) async {
         final v = await _shotView(tester, _fx);
-        // Current code: 130 (zero assumed at mid-travel).
+        // Before the fix: 130 (zero assumed at mid-travel).
         expect(v.maxElevationClicks, lessThanOrEqualTo(130 - 10));
       },
-      skip: true, // F2: turret UP room ignores the zero's launch angle
     );
   });
 
@@ -273,7 +271,6 @@ void main() {
         ).readAsStringSync();
         expect(src, isNot(contains('Diabolo saçmada GA')));
       },
-      skip: true, // F5: text still recommends the removed GA model
     );
   });
 }
