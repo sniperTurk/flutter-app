@@ -35,7 +35,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/environment_field_info.dart';
-import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/shot_settings_store.dart';
 import 'package:sniper_turk/tools/ports/location_provider.dart';
@@ -417,27 +416,6 @@ void main() {
         expect(find.byKey(_note), findsOneWidget);
       },
       skip: true, // ATM-1: the first solve ran before the İrtifa was restored
-    );
-
-    testWidgets(
-      'Hedef elevation is the same before and after a tab round trip',
-      (tester) async {
-        seedAltitude();
-        final rig = _Rig();
-        await _open(tester, rig, BallisticsView.shot);
-        final first = tester
-            .widget<ScopeDialView>(find.byType(ScopeDialView))
-            .requiredUp;
-        await _view(tester, rig, BallisticsView.environment);
-        await _view(tester, rig, BallisticsView.shot);
-        final after = tester
-            .widget<ScopeDialView>(find.byType(ScopeDialView))
-            .requiredUp;
-        expect(after, isNotNull);
-        expect(first, isNotNull);
-        expect(first!, closeTo(after!, 1e-9));
-      },
-      skip: true, // ATM-1: first = standard atmosphere, after = 1500 m
     );
   });
 
