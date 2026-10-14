@@ -399,8 +399,14 @@ void main() {
         'Sağ + / sol −',
         'Mermi uzunluğu',
       ]);
-      expect(find.byKey(const ValueKey('pro-explain-Spin drift')), findsOneWidget);
-      expect(find.byKey(const ValueKey('pro-explain-Tüp basıncı')), findsNothing);
+      expect(
+        find.byKey(const ValueKey('pro-explain-Spin drift')),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const ValueKey('pro-explain-Tüp basıncı')),
+        findsNothing,
+      );
     });
   });
 }
