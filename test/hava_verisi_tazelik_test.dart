@@ -308,7 +308,8 @@ void main() {
       await _tap(tester, _weatherKey);
       await _type(tester, BallisticsFieldKeys.temperature, '20');
       expect(_button(tester, _weatherKey).active, isFalse);
-      expect(find.textContaining('Hava verisi'), findsNothing);
+      expect(find.textContaining('Hava verisi alındı'), findsNothing);
+      expect(find.textContaining('Hava verisi eski'), findsNothing);
       expect(find.text('Konumdan canlı hava verisi al'), findsOneWidget);
     });
 
