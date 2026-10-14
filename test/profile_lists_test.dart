@@ -162,10 +162,14 @@ void main() {
     expect((brand.width - model.width).abs(), lessThan(1));
     final caliber = tester.getRect(find.byKey(const Key('rifle-caliber')));
     expect(caliber.top, greaterThanOrEqualTo(model.bottom));
-    // Namlu çıkış hızı | Kalibre share the row (owner, 2026-10-13).
+    // Kalibre alone on its full row (owner, 2026-10-14 18:58); Namlu çıkış
+    // hızı moved beside Sıfırlama mesafesi.
+    expect((caliber.width - model.width).abs(), lessThan(1));
+    expect((caliber.left - model.left).abs(), lessThan(1));
     final v = tester.getRect(find.byKey(const Key('profile-velocity-fps')));
-    expect((v.top - caliber.top).abs(), lessThanOrEqualTo(1));
-    expect(v.right, lessThan(caliber.left));
+    final zero = tester.getRect(find.byKey(const Key('profile-zero')));
+    expect((v.top - zero.top).abs(), lessThanOrEqualTo(1));
+    expect(zero.right, lessThan(v.left));
     // Tür | Üretim on one row.
     final tur = tester.getRect(find.byKey(const Key('profile-platform')));
     final origin = tester.getRect(find.byKey(const Key('rifle-origin')));
@@ -238,16 +242,17 @@ void main() {
     expect(_text(tester, 'ammo-bc'), '0,263');
     expect(_text(tester, 'profile-velocity-fps'), '2700');
     expect(_in('ammo-bc-model', find.text('G7')), findsOneWidget);
-    // Ağırlık | BC is a row of two; Namlu çıkış hızı moved to the rifle,
-    // under Marka | Model, and sits left of Kalibre on one row (owner,
-    // 2026-10-13).
+    // Ağırlık | BC is a row of two; Namlu çıkış hızı is on the rifle card,
+    // right of Sıfırlama mesafesi (owner, 2026-10-14 18:58), under Kalibre.
     final g = tester.getRect(find.byKey(const Key('ammo-grain')));
     final bc = tester.getRect(find.byKey(const Key('ammo-bc')));
     expect((g.top - bc.top).abs(), lessThan(1));
     final v = tester.getRect(find.byKey(const Key('profile-velocity-fps')));
     final caliber = tester.getRect(find.byKey(const Key('rifle-caliber')));
-    expect((v.top - caliber.top).abs(), lessThanOrEqualTo(1));
-    expect(v.right, lessThan(caliber.left));
+    final zero = tester.getRect(find.byKey(const Key('profile-zero')));
+    expect(v.top, greaterThanOrEqualTo(caliber.bottom));
+    expect((v.top - zero.top).abs(), lessThanOrEqualTo(1));
+    expect(zero.right, lessThan(v.left));
     // Another caliber empties the listed ammunition.
     await chooseInSelect(tester, 'rifle-caliber', '6.5 Creedmoor');
     expect(_text(tester, 'ammo-grain'), '');

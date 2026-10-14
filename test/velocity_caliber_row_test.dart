@@ -1,14 +1,17 @@
-// Owner, 2026-10-13 (TestFlight, Profil Oluştur > Tüfek, PCP Hatsan
-// Hercules): "Namlu çıkış hızı, Kalibre tek sütun olmasın, her satır 2 kutu
-// olsun." Namlu çıkış hızı (left) and Kalibre (right) share ONE row for PCP
-// and Ateşli Tüfek, at every width and text size, and a long caliber stays
-// on one readable line inside its half-width box.
+// Owner, 2026-10-14 18:56–18:58 (Profil Oluştur / Profili Düzenle > Tüfek):
+// Kalibre is alone on its full row under Marka and Model, and Namlu çıkış
+// hızı sits right of Sıfırlama mesafesi on the last row. This supersedes the
+// 2026-10-13 decision "Namlu çıkış hızı | Kalibre" on one row (this file
+// pinned it before). A long caliber keeps its size and wraps inside the
+// box, which grows (like the Model boxes, #308); PCP and Ateşli Tüfek alike,
+// at every width and text size.
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/rifle_form.dart';
 
@@ -49,84 +52,58 @@ Finder _key(String key) => find.byKey(Key(key));
 
 Finder _in(String key, Finder f) => find.descendant(of: _key(key), matching: f);
 
-/// Velocity left, Kalibre right, same row; their boxes line up too.
-void _expectOneRow(WidgetTester tester) {
-  final v = tester.getRect(_key('profile-velocity-fps'));
-  final c = tester.getRect(_key('rifle-caliber'));
-  expect((v.top - c.top).abs(), lessThanOrEqualTo(1), reason: '$v / $c');
-  expect(v.right, lessThan(c.left));
-  expect((v.width - c.width).abs(), lessThan(1));
-  // Both boxes inside the rifle card.
+/// Kalibre: full width under Model, alone on its row. Namlu çıkış hızı:
+/// right of Sıfırlama mesafesi when the card has two columns, under it when
+/// it has one. Every box inside the rifle card.
+void _expectLayout(WidgetTester tester) {
   final card = tester.getRect(_key('profile-rifle-form'));
-  expect(v.left, greaterThanOrEqualTo(card.left));
-  expect(c.right, lessThanOrEqualTo(card.right));
-  // The text box and the list box start at the same height.
-  final field = tester.getRect(
-    _in('profile-velocity-fps', find.byType(TextField)),
-  );
-  final select = tester.getRect(
-    _in('rifle-caliber', find.byType(InputDecorator)),
-  );
-  expect((field.top - select.top).abs(), lessThanOrEqualTo(1));
-  // Marka and Model keep their own full rows above.
   final model = tester.getRect(_key('rifle-model-select'));
-  expect(v.top, greaterThanOrEqualTo(model.bottom));
-  expect(model.width, greaterThan(v.width * 1.8));
+  final c = tester.getRect(_key('rifle-caliber'));
+  final v = tester.getRect(_key('profile-velocity-fps'));
+  final z = tester.getRect(_key('profile-zero'));
+  expect(c.top, greaterThanOrEqualTo(model.bottom));
+  expect((c.left - model.left).abs(), lessThan(1));
+  expect((c.width - model.width).abs(), lessThan(1));
+  for (final r in [c, v, z]) {
+    expect(r.left, greaterThanOrEqualTo(card.left));
+    expect(r.right, lessThanOrEqualTo(card.right + 0.5));
+  }
+  // Nothing else on the Kalibre row.
+  final twist = tester.getRect(_key('rifle-twist-rate'));
+  expect(twist.top, greaterThanOrEqualTo(c.bottom - 0.5));
+  expect(v.top, greaterThanOrEqualTo(c.bottom));
+  if (z.width < c.width * 0.75) {
+    // Two columns: Sıfırlama mesafesi | Namlu çıkış hızı.
+    expect((v.top - z.top).abs(), lessThanOrEqualTo(1), reason: '$z / $v');
+    expect(z.right, lessThan(v.left));
+    expect((v.width - z.width).abs(), lessThan(1));
+  } else {
+    // One column: Namlu çıkış hızı right under Sıfırlama mesafesi.
+    expect(v.top, greaterThanOrEqualTo(z.bottom - 0.5));
+  }
 }
 
-/// The closed Kalibre box shows [full] or its [short] form on one line,
-/// inside the box, at a readable size (from iPhone SE's 375 pt up; the
-/// 320 pt phone only has to fit).
-void _expectFits(WidgetTester tester, String full, String short) {
-  final shown = _in(
-    'rifle-caliber',
-    find.byWidgetPredicate(
-      (w) => w is Text && (w.data == full || w.data == short),
-    ),
-  );
-  expect(shown, findsOneWidget, reason: 'closed box shows $full / $short');
+/// The closed Kalibre box shows [text] whole, at the normal size, wrapped
+/// onto as many lines as it needs, inside the box.
+void _expectWraps(WidgetTester tester, String text) {
+  final shown = _in('rifle-caliber', find.byKey(const Key('menzil-select-wrapped')));
+  expect(shown, findsOneWidget);
+  final t = tester.widget<Text>(shown);
+  expect(t.data, text);
+  expect(t.style?.fontSize, 15);
+  expect(_in('rifle-caliber', find.byType(MenzilFitText)), findsNothing);
+  final p = tester.renderObject<RenderParagraph>(shown);
+  expect(p.didExceedMaxLines, isFalse);
   final rect = tester.getRect(shown);
   final box = tester.getRect(_in('rifle-caliber', find.byType(InputDecorator)));
   expect(rect.left, greaterThanOrEqualTo(box.left));
   expect(rect.right, lessThanOrEqualTo(box.right));
   expect(rect.top, greaterThanOrEqualTo(box.top));
   expect(rect.bottom, lessThanOrEqualTo(box.bottom));
-  final paragraph = tester.renderObject<RenderParagraph>(
-    find.descendant(of: shown, matching: find.byType(RichText)),
-  );
-  // One line, not cut with "…".
-  expect(paragraph.maxLines, 1);
-  expect(paragraph.didExceedMaxLines, isFalse);
-  // Scaled down only: never drawn larger than its own size. (The test font
-  // draws every glyph 1 em wide, much wider than the iPhone font, so the
-  // scale here is a worst case and no font-size floor is asserted.)
-  final scale = rect.width / paragraph.size.width;
-  expect(scale, greaterThan(0));
-  expect(scale, lessThanOrEqualTo(1.0001));
-  // The short form is only used when the full text would shrink too much.
-  final shownText = tester.widget<Text>(shown).data;
-  if (shownText == short && short != full) {
-    final style = tester.widget<RichText>(
-      find.descendant(of: shown, matching: find.byType(RichText)),
-    );
-    final p = TextPainter(
-      text: TextSpan(text: full, style: style.text.style),
-      textDirection: TextDirection.ltr,
-      textScaler: style.textScaler,
-      maxLines: 1,
-    )..layout();
-    final room = tester
-        .getRect(
-          find.ancestor(of: shown, matching: find.byType(SizedBox)).first,
-        )
-        .width;
-    expect(p.width * 0.8, greaterThan(room), reason: full);
-    p.dispose();
-  }
 }
 
-/// Picks [label] in the open Kalibre list. The list is as wide as the half
-/// box (#273); with the test font at 320 pt and ×1.3 its entries wrap onto
+/// Picks [label] in the open Kalibre list. The list is as wide as the box
+/// (#273); with the test font at 320 pt and ×1.3 its entries may wrap onto
 /// several lines, so the list is scrolled until the entry shows instead of
 /// the shared helper's fixed number of drags.
 Future<void> _pickInLongList(WidgetTester tester, String label) async {
@@ -182,28 +159,28 @@ void main() {
       (_narrowest, 1.0),
       (_narrowest, 1.3),
     ]) {
-      testWidgets('$kind: Namlu çıkış hızı | Kalibre on one row '
-          '(width $width, text ×$textScale)', (tester) async {
+      testWidgets('$kind: Kalibre alone, Sıfırlama mesafesi | Namlu çıkış '
+          'hızı (width $width, text ×$textScale)', (tester) async {
         await _openNew(
           tester,
           firearm: firearm,
           width: width,
           textScale: textScale,
         );
-        _expectOneRow(tester);
+        _expectLayout(tester);
         if (firearm) {
           // The longest cartridge name of the list.
           await _pickInLongList(tester, '.338-378 Weatherby Mag');
-          _expectFits(tester, '.338-378 Weatherby Mag', '.338-378 Wby Mag');
+          _expectWraps(tester, '.338-378 Weatherby Mag');
         } else {
           // The owner's screenshot: Hatsan Hercules.
           await chooseInSelect(tester, 'rifle-brand-select', 'Hatsan');
           await chooseInSelect(tester, 'rifle-model-select', 'Hercules');
           await chooseInSelect(tester, 'rifle-caliber', '11.43 mm (.45)');
-          _expectFits(tester, '11.43 mm (.45)', '11.43 mm (.45)');
+          _expectWraps(tester, '11.43 mm (.45)');
         }
-        _expectOneRow(tester);
-        // A velocity error stays in the left box; the row holds.
+        _expectLayout(tester);
+        // A velocity error stays in its own box; the layout holds.
         await enterRifleField(tester, 'profile-velocity-fps', '6000');
         await tester.pumpAndSettle();
         final error = _in(
@@ -215,7 +192,7 @@ void main() {
         final v = tester.getRect(_key('profile-velocity-fps'));
         expect(e.left, greaterThanOrEqualTo(v.left));
         expect(e.right, lessThanOrEqualTo(v.right + 0.5));
-        _expectOneRow(tester);
+        _expectLayout(tester);
         expect(tester.takeException(), isNull);
       });
     }
@@ -227,7 +204,7 @@ void main() {
     (_narrowest, 1.3),
   ]) {
     testWidgets(
-      'Fişeğim listede yok fits the half box; Mermi çapı takes the row below '
+      'Fişeğim listede yok shows whole; Mermi çapı takes the row below '
       '(width $width, text ×$textScale)',
       (tester) async {
         await _openNew(
@@ -238,20 +215,23 @@ void main() {
         );
         // The last item of the long list.
         await _pickInLongList(tester, 'Fişeğim listede yok');
-        _expectOneRow(tester);
-        _expectFits(tester, 'Fişeğim listede yok', 'Listede yok');
+        _expectLayout(tester);
+        _expectWraps(tester, 'Fişeğim listede yok');
         final c = tester.getRect(_key('rifle-caliber'));
         final d = tester.getRect(_key('rifle-bullet-diameter'));
         expect(d.top, greaterThanOrEqualTo(c.bottom));
-        final card = tester.getRect(_key('profile-rifle-form'));
-        expect(d.width, greaterThan(card.width * 0.8));
+        expect((d.left - c.left).abs(), lessThan(1));
+        expect((d.width - c.width).abs(), lessThan(1));
+        // Directly under Kalibre: Yiv oranı comes after Mermi çapı.
+        final twist = tester.getRect(_key('rifle-twist-rate'));
+        expect(twist.top, greaterThanOrEqualTo(d.bottom - 0.5));
         await chooseInSelect(
           tester,
           'rifle-bullet-diameter',
           '.308 in · 7,82 mm',
         );
-        _expectOneRow(tester);
-        _expectFits(tester, 'Fişeğim listede yok', 'Listede yok');
+        _expectLayout(tester);
+        _expectWraps(tester, 'Fişeğim listede yok');
         expect(tester.takeException(), isNull);
       },
     );

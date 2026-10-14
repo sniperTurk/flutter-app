@@ -314,26 +314,135 @@ const _scopeTypedLayout = [
   'Dürbün: …',
 ];
 
-/// Tüfek from the lists (new profile and every list rifle on edit).
+/// Tüfek from the lists (new profile and every list rifle on edit). Owner,
+/// 2026-10-14 18:56–18:58: Marka, Model and Kalibre each alone on a full
+/// row (an exception to "two boxes per row"), then three rows of two.
+/// Supersedes "Namlu çıkış hızı | Kalibre" (2026-10-13).
 const _rifleListLayout = [
   'Marka',
   'Model',
   'Aradığın tüfek listede yok mu?',
-  'Namlu çıkış hızı | Kalibre',
-  'Namlu yiv yönü | Yiv oranı',
+  'Kalibre',
+  'Yiv oranı | Namlu yiv yönü',
   'Sight height | Mesafe birimi',
-  'Sıfırlama mesafesi',
+  'Sıfırlama mesafesi | Namlu çıkış hızı',
 ];
 
-/// Tüfek typed in (no list match).
+/// Tüfek typed in (no list match): the same order.
 const _rifleTypedLayout = [
   'Marka (yazılı)',
   'Model (yazılı)',
   'Listeden seç',
-  'Namlu çıkış hızı | Kalibre',
-  'Namlu yiv yönü | Yiv oranı',
+  'Kalibre',
+  'Yiv oranı | Namlu yiv yönü',
   'Sight height | Mesafe birimi',
+  'Sıfırlama mesafesi | Namlu çıkış hızı',
+];
+
+/// The Tüfek names of "Kaydetmek için eksik", in the order of the boxes.
+const _rifleBannerOrder = [
+  'Marka',
+  'Model',
+  'Kalibre',
+  'Yiv oranı',
+  'Yiv yönü',
+  'Sight height',
+  'Mesafe birimi',
   'Sıfırlama mesafesi',
+  'Namlu çıkış hızı',
+];
+
+/// Marka, Model and Kalibre: each alone on a full row, one left edge, one
+/// width, as wide as the two-box rows below (two columns only).
+void _rifleFullRows(WidgetTester tester) {
+  Rect first(List<String> keys) => tester.getRect(
+    keys
+        .map((k) => find.byKey(Key(k)))
+        .firstWhere((f) => f.evaluate().isNotEmpty),
+  );
+  final brand = first(const ['rifle-brand-select', 'rifle-brand']);
+  final model = first(const ['rifle-model-select', 'rifle-model']);
+  final caliber = first(const ['rifle-caliber']);
+  final twist = first(const ['rifle-twist-rate']);
+  final direction = first(const ['rifle-twist-direction']);
+  for (final r in [model, caliber]) {
+    expect((r.left - brand.left).abs(), lessThan(1), reason: '$r / $brand');
+    expect((r.width - brand.width).abs(), lessThan(1), reason: '$r / $brand');
+  }
+  expect(model.top, greaterThanOrEqualTo(brand.bottom - 0.5));
+  expect(caliber.top, greaterThanOrEqualTo(model.bottom - 0.5));
+  expect(twist.top, greaterThanOrEqualTo(caliber.bottom - 0.5));
+  // Full width: from the left box's left edge to the right box's right edge.
+  expect((brand.left - twist.left).abs(), lessThan(1));
+  expect((brand.right - direction.right).abs(), lessThan(1));
+}
+
+/// The Retikül values of the typed / generic list, in list order.
+List<String?> _reticles(WidgetTester tester) => [
+  for (final i
+      in tester
+          .widget<MenzilSelect<String>>(
+            find.descendant(
+              of: find.byKey(const Key('scope-reticle')),
+              matching: find.byType(MenzilSelect<String>),
+            ),
+          )
+          .items)
+    i.value,
+];
+
+/// Picks [label] in the open Kalibre list, scrolling until it shows (the
+/// firearm list is long).
+Future<void> _pickCaliber(WidgetTester tester, String label) async {
+  final box = find.byKey(const Key('rifle-caliber'));
+  await tester.ensureVisible(box);
+  await tester.tap(box);
+  await tester.pumpAndSettle();
+  final inMenu = find.descendant(
+    of: find.byWidgetPredicate(
+      (w) => w.runtimeType.toString().startsWith('_DropdownMenuItemButton'),
+    ),
+    matching: find.text(label),
+  );
+  await tester.dragUntilVisible(
+    inMenu,
+    find.byType(Scrollable).last,
+    const Offset(0, -300),
+    maxIteration: 400,
+  );
+  await tester.ensureVisible(inMenu.last);
+  await tester.pumpAndSettle();
+  await tester.tap(inMenu.last);
+  await tester.pumpAndSettle();
+}
+
+/// A new profile at [width] pt with the text scaled by [scale].
+Future<void> _openNewScaled(
+  WidgetTester tester, {
+  required double width,
+  required double scale,
+}) async {
+  _view(tester, width: width);
+  await tester.pumpWidget(
+    MaterialApp(
+      theme: MenzilTheme.light(),
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(
+          context,
+        ).copyWith(textScaler: TextScaler.linear(scale)),
+        child: child!,
+      ),
+      home: ProfilesScreen(store: MemoryProfileStore()),
+    ),
+  );
+  await tester.pumpAndSettle();
+  await tester.tap(find.byTooltip('Yeni profil'));
+  await tester.pumpAndSettle();
+}
+
+/// The layout's names one after another (one column on a narrow screen).
+List<String> _flat(List<String> rows) => [
+  for (final r in rows) ...r.split(' | '),
 ];
 
 String _designation(WidgetTester tester) =>
@@ -511,6 +620,7 @@ void main() {
       await _openNew(tester);
       expect(_scopeLayout(tester), _scopeNewLayout);
       expect(_rifleLayout(tester), _rifleListLayout);
+      _rifleFullRows(tester);
       await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
       expect(_scopeLayout(tester), _scopeFilterLayout);
       await chooseInSelect(
@@ -530,11 +640,13 @@ void main() {
       // Tüfek typed from the link, and back.
       await openRifleManual(tester);
       expect(_rifleLayout(tester), _rifleTypedLayout);
+      _rifleFullRows(tester);
       final back = find.byKey(const Key('rifle-back-to-list'));
       await tester.ensureVisible(back);
       await tester.tap(back);
       await tester.pumpAndSettle();
       expect(_rifleLayout(tester), _rifleListLayout);
+      _rifleFullRows(tester);
     });
 
     testWidgets('Profili Düzenle: list scope (gazi-6-36) and list rifle', (
@@ -563,6 +675,7 @@ void main() {
       expect(_designation(tester), 'Dürbün: Gazi Sniper 6-36x56 FFP');
       // The built-in HATSAN / Hercules is the list's Hatsan / Hercules.
       expect(_rifleLayout(tester), _rifleListLayout);
+      _rifleFullRows(tester);
       expect(selectedValue<String>(tester, 'rifle-brand-select'), 'Hatsan');
       expect(selectedValue<String>(tester, 'rifle-model-select'), 'Hercules');
       expect(selectedValue<bool?>(tester, 'rifle-origin'), isTrue);
@@ -590,6 +703,7 @@ void main() {
       // Saved values in use (boxes hidden, values kept).
       expect(_designation(tester), 'Dürbün: Arken SH-4 Gen II 4-16x50 FFP');
       expect(_rifleLayout(tester), _rifleListLayout);
+      _rifleFullRows(tester);
       expect(selectedValue<String>(tester, 'rifle-brand-select'), 'Tikka');
       expect(
         selectedValue<String>(tester, 'rifle-model-select'),
@@ -632,6 +746,7 @@ void main() {
       await _openEdit(tester, 'Eski Profil');
       expect(_scopeLayout(tester), _scopeEditLayout);
       expect(_rifleLayout(tester), _rifleListLayout);
+      _rifleFullRows(tester);
       expect(
         selectedValue<String>(tester, 'scope-model-select'),
         'SH-4 GENII 4-16x50 FFP',
@@ -684,6 +799,7 @@ void main() {
       expect(selectedValue<double>(tester, 'scope-objective'), 44);
       expect(selectedValue<bool>(tester, 'scope-focal-plane'), isFalse);
       expect(_rifleLayout(tester), _rifleTypedLayout);
+      _rifleFullRows(tester);
       expect(_typed(tester, 'rifle-brand'), 'Atölyem');
       expect(_typed(tester, 'rifle-model'), 'Özel Yapım');
       _bannerNamesVisibleBoxes(tester);
@@ -706,6 +822,7 @@ void main() {
       await _openEdit(tester, 'Eski Profil (kopya)');
       expect(_scopeLayout(tester), _scopeEditLayout);
       expect(_rifleLayout(tester), _rifleListLayout);
+      _rifleFullRows(tester);
       expect(
         selectedValue<String>(tester, 'scope-model-select'),
         'SH-4 GENII 4-16x50 FFP',
@@ -843,6 +960,272 @@ void main() {
         ),
       );
     });
+  });
+
+  group('Tüfek order (owner, 2026-10-14 18:56–18:58)', () {
+    testWidgets('banner names Tüfek boxes in the order of the page', (
+      tester,
+    ) async {
+      void inOrder() {
+        final named = _missing(tester)['Tüfek'] ?? const <String>[];
+        expect(named.take(3), ['Marka', 'Model', 'Kalibre']);
+        expect(named, [
+          for (final n in _rifleBannerOrder)
+            if (named.contains(n)) n,
+        ]);
+      }
+
+      await _openNew(tester);
+      inOrder();
+      await openRifleManual(tester);
+      inOrder();
+    });
+
+    testWidgets('typed caliber: Mermi çapı directly under Kalibre', (
+      tester,
+    ) async {
+      await _openNew(tester);
+      await _pickCaliber(tester, 'Fişeğim listede yok');
+      const withDiameter = [
+        'Marka',
+        'Model',
+        'Aradığın tüfek listede yok mu?',
+        'Kalibre',
+        'Mermi çapı',
+        'Yiv oranı | Namlu yiv yönü',
+        'Sight height | Mesafe birimi',
+        'Sıfırlama mesafesi | Namlu çıkış hızı',
+      ];
+      expect(_rifleLayout(tester), withDiameter);
+      _rifleFullRows(tester);
+      final c = tester.getRect(find.byKey(const Key('rifle-caliber')));
+      final d = tester.getRect(find.byKey(const Key('rifle-bullet-diameter')));
+      expect((d.left - c.left).abs(), lessThan(1));
+      expect((d.width - c.width).abs(), lessThan(1));
+      await chooseInSelect(
+        tester,
+        'rifle-bullet-diameter',
+        '.308 in · 7,82 mm',
+      );
+      expect(_rifleLayout(tester), withDiameter);
+      // The typed rifle keeps the same order.
+      await openRifleManual(tester);
+      expect(_rifleLayout(tester), [
+        'Marka (yazılı)',
+        'Model (yazılı)',
+        'Listeden seç',
+        ...withDiameter.skip(3),
+      ]);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('long Marka and Kalibre wrap at the normal size', (
+      tester,
+    ) async {
+      await _openNew(tester);
+      await chooseInSelect(
+        tester,
+        'rifle-brand-select',
+        'Accuracy International',
+      );
+      _wrapsAtNormalSize(tester, 'rifle-brand-select', 'Accuracy International');
+      await _pickCaliber(tester, '.338-378 Weatherby Mag');
+      expect(
+        selectedValue<String>(tester, 'rifle-caliber'),
+        '.338-378 Weatherby Mag',
+      );
+      _wrapsAtNormalSize(tester, 'rifle-caliber', '.338-378 Weatherby Mag');
+      _rifleFullRows(tester);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('list rifle: Güncelle -> reopen keeps order and values', (
+      tester,
+    ) async {
+      const profile = RifleProfile(
+        id: 'p-gazi',
+        name: 'Gazi Profil',
+        rifleId: 'hatsan-hercules-635',
+        ammunitionId: 'gmaz-51',
+        scopeId: 'gazi-6-36',
+        muzzleVelocityMps: 270,
+        zeroRangeM: 25,
+        sightHeightMm: 60,
+        pressureBar: 200,
+      );
+      final store = await _openSaved(tester, profile);
+      (String?, String, String, String, TwistDirection?, String) values() => (
+        selectedValue<String>(tester, 'rifle-caliber'),
+        _typed(tester, 'rifle-twist-rate'),
+        _typed(tester, 'scope-sight-height'),
+        _typed(tester, 'profile-zero'),
+        selectedValue<TwistDirection>(tester, 'rifle-twist-direction'),
+        _typed(tester, 'profile-velocity-fps'),
+      );
+      expect(_rifleLayout(tester), _rifleListLayout);
+      final before = values();
+      expect(before.$1, isNotNull);
+      await _update(tester);
+      final saved = (await store.all()).single;
+      expect(saved.muzzleVelocityMps, closeTo(270, 0.5));
+      expect(saved.zeroRangeM, closeTo(25, 0.01));
+      expect(saved.sightHeightMm, closeTo(60, 0.01));
+      await _openEdit(tester, 'Gazi Profil');
+      expect(_rifleLayout(tester), _rifleListLayout);
+      _rifleFullRows(tester);
+      expect(values(), before);
+    });
+
+    for (final scale in [1.0, 1.3]) {
+      testWidgets('320 pt, ×$scale: same order, no overflow', (tester) async {
+        await _openNewScaled(tester, width: 320, scale: scale);
+        expect(_flat(_rifleLayout(tester)), _flat(_rifleListLayout));
+        await chooseInSelect(
+          tester,
+          'rifle-brand-select',
+          'Accuracy International',
+        );
+        await _pickCaliber(tester, '.338-378 Weatherby Mag');
+        expect(_flat(_rifleLayout(tester)), _flat(_rifleListLayout));
+        final card = tester.getRect(
+          find.byKey(const Key('profile-rifle-form')),
+        );
+        for (final k in ['rifle-brand-select', 'rifle-caliber']) {
+          final r = tester.getRect(find.byKey(Key(k)));
+          expect(r.right, lessThanOrEqualTo(card.right + 0.5), reason: k);
+          final p = tester.renderObject<RenderParagraph>(
+            find.descendant(
+              of: find.byKey(Key(k)),
+              matching: find.byKey(const Key('menzil-select-wrapped')),
+            ),
+          );
+          expect(p.didExceedMaxLines, isFalse, reason: k);
+        }
+        await openRifleManual(tester);
+        expect(_flat(_rifleLayout(tester)), _flat(_rifleTypedLayout));
+        expect(tester.takeException(), isNull);
+      });
+    }
+  });
+
+  group('Retikül of a typed scope (owner, 2026-10-14 18:30–18:33)', () {
+    const all = [
+      'Christmas tree (MIL)',
+      'MIL çizgili',
+      'MOA çizgili',
+      'Mil-Dot',
+      'Duplex',
+    ];
+    const mil = ['Christmas tree (MIL)', 'MIL çizgili', 'Mil-Dot', 'Duplex'];
+    const moa = ['MOA çizgili', 'Duplex'];
+
+    testWidgets('Profil Oluştur: Seçiniz lists all 5; MRAD 4; MOA 2', (
+      tester,
+    ) async {
+      await _openNew(tester);
+      await openScopeManual(tester);
+      expect(selectedValue<AngularUnit>(tester, 'scope-unit'), isNull);
+      expect(_reticles(tester), all);
+      await chooseInSelect(tester, 'scope-unit', 'MRAD');
+      expect(_reticles(tester), mil);
+      await chooseInSelect(tester, 'scope-unit', 'MOA');
+      expect(_reticles(tester), moa);
+      await chooseInSelect(tester, 'scope-unit', 'SMOA');
+      expect(_reticles(tester), moa);
+    });
+
+    testWidgets('Profili Düzenle: hidden MOA unit, box Seçiniz -> all 5', (
+      tester,
+    ) async {
+      _install([_oldRifle, _oldAmmo]);
+      await _openSaved(
+        tester,
+        _decode(
+          _profileJson(
+            scopeId: 'lib-element-optics-titan-3-18x50-ffp-moa',
+            angularUnit: 'moa',
+          ),
+        ),
+      );
+      await openScopeManual(tester);
+      expect(selectedValue<AngularUnit>(tester, 'scope-unit'), isNull);
+      expect(_reticles(tester), all);
+      await chooseInSelect(tester, 'scope-unit', 'MRAD');
+      expect(_reticles(tester), mil);
+      await chooseInSelect(tester, 'scope-unit', 'MOA');
+      expect(_reticles(tester), moa);
+    });
+
+    testWidgets('a chosen reticle is never cleared by the unit', (
+      tester,
+    ) async {
+      await _openNew(tester);
+      await openScopeManual(tester);
+      await chooseInSelect(tester, 'scope-reticle', 'Christmas tree (MIL)');
+      await chooseInSelect(tester, 'scope-unit', 'MOA');
+      expect(
+        selectedValue<String>(tester, 'scope-reticle'),
+        'Christmas tree (MIL)',
+      );
+      expect(_reticles(tester), [
+        'Christmas tree (MIL)',
+        'MOA çizgili',
+        'Duplex',
+      ]);
+    });
+
+    testWidgets('a saved generic reticle stays listed and selected', (
+      tester,
+    ) async {
+      _install([
+        _typedRifle,
+        _oldAmmo,
+        {..._typedScope, 'reticle': 'MOA çizgili'},
+      ]);
+      await _openSaved(
+        tester,
+        _decode(
+          _profileJson(
+            rifleId: 'manual_rifle_typed',
+            scopeId: 'manual_scope_typed',
+          ),
+        ),
+      );
+      expect(_scopeLayout(tester), _scopeTypedLayout);
+      expect(selectedValue<String>(tester, 'scope-reticle'), 'MOA çizgili');
+      expect(_reticles(tester), contains('MOA çizgili'));
+      await chooseInSelect(tester, 'scope-unit', 'MRAD');
+      expect(selectedValue<String>(tester, 'scope-reticle'), 'MOA çizgili');
+      expect(_reticles(tester), contains('MOA çizgili'));
+    });
+
+    testWidgets('catalog scope reticles unchanged', (tester) async {
+      await _openNew(tester);
+      await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
+      await chooseInSelect(
+        tester,
+        'scope-model-select',
+        'Titan 3-18x50 FFP MOA',
+      );
+      final r = _reticles(tester);
+      expect(r, contains('APR-2D MOA'));
+      for (final n in all) {
+        expect(r, isNot(contains(n)), reason: n);
+      }
+    });
+
+    for (final scale in [1.0, 1.3]) {
+      testWidgets('320 pt, ×$scale: 5 reticles, list opens, no overflow', (
+        tester,
+      ) async {
+        await _openNewScaled(tester, width: 320, scale: scale);
+        await openScopeManual(tester);
+        expect(_reticles(tester), all);
+        await chooseInSelect(tester, 'scope-reticle', 'Duplex');
+        expect(selectedValue<String>(tester, 'scope-reticle'), 'Duplex');
+        expect(tester.takeException(), isNull);
+      });
+    }
   });
 
   group('Mühimmat: Barut katsayısı', () {
