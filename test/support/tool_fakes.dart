@@ -64,6 +64,7 @@ class TestLocation implements LocationProvider {
     if (precise && preciseHold != null) return preciseHold!.future;
     return precise ? (preciseResult ?? result) : result;
   }
+
   @override
   Future<bool> openSettings() async {
     settingsOpened++;

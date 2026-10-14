@@ -150,9 +150,7 @@ void main() {
     expect(_text(tester, BallisticsFieldKeys.pressure), '912.4');
     expect(_text(tester, BallisticsFieldKeys.altitude), '900');
     expect(
-      find.text(
-        "Basınç telefondan alındı: 912,4 hPa · irtifa GPS'ten 900 m.",
-      ),
+      find.text("Basınç telefondan alındı: 912,4 hPa · irtifa GPS'ten 900 m."),
       findsOneWidget,
     );
     // No second GPS request on the tap.

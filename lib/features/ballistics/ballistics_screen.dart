@@ -1428,7 +1428,11 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
             'Basınç telefondan alındı: '
             '${_pressureText(reading.hpa).replaceAll('.', ',')} '
             '${metric ? 'hPa' : 'inHg'}'
-            '${altitudeTyped ? '' : gpsAlt != null && gpsAlt.isFinite ? ' · irtifa GPS\'ten ${altitude.text} ${metric ? 'm' : 'ft'}' : ' · irtifa alınamadı, elle girin'}.';
+            '${altitudeTyped
+                ? ''
+                : gpsAlt != null && gpsAlt.isFinite
+                ? ' · irtifa GPS\'ten ${altitude.text} ${metric ? 'm' : 'ft'}'
+                : ' · irtifa alınamadı, elle girin'}.';
       } else {
         _pressureFailed = true;
         final u = reading as PressureUnavailable;
