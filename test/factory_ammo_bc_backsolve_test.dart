@@ -290,7 +290,7 @@ const _excluded = <(String, String, String, String, double)>[
     'Aguila',
     '22 Long Rifle Standard Velocity Lead Solid Point',
     '.22 LR',
-    29.0,
+    40.0, // 29 → 40 gr, BC mermiden görevi (14.10.2026, sahip onaylı).
   ),
   ('FA014', 'Geco', 'GECO RIFLE .22 2,6g', '.22 LR', 40.0),
   ('FA015', 'Geco', 'GECO SEMI-AUTO .22 2,6g', '.22 LR', 40.0),
@@ -336,7 +336,8 @@ void main() {
       expect(a.model, isNull, reason: id);
       expect(a.bcSource, isNull, reason: id);
       expect(a.bcSourceUrl, isNull, reason: id);
-      expect(a.note, isNull, reason: id);
+      // FA007 now carries the weight-fix note (bc_mermiden).
+      expect(a.note, id == 'FA007' ? contains('40 gr') : isNull, reason: id);
       expect(a.bcG7, isNull, reason: id);
     }
   });
