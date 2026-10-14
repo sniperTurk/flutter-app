@@ -311,6 +311,23 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   /// personal store is kept as it is. Returns the ids the copy points at.
   Future<({String rifleId, String ammunitionId, String scopeId})>
   _copyPersonalRecords(RifleProfile p) async {
+    final unchanged = (
+      rifleId: p.rifleId,
+      ammunitionId: p.ammunitionId,
+      scopeId: p.scopeId,
+    );
+    // Only a profile with a user-entered record reads the personal store.
+    final personal =
+        CatalogRepository.allRifles.any(
+          (r) => r.userEntered && r.id == p.rifleId,
+        ) ||
+        CatalogRepository.allAmmunition.any(
+          (a) => a.userEntered && a.id == p.ammunitionId,
+        ) ||
+        CatalogRepository.allScopes.any(
+          (s) => s.userEntered && s.id == p.scopeId,
+        );
+    if (!personal) return unchanged;
     final entries = await catalogStore.all();
     final stamp = DateTime.now().microsecondsSinceEpoch;
     var n = 0;

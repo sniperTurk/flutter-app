@@ -515,10 +515,25 @@ void main() {
         (await store.all()).singleWhere((x) => x.id == 'orig'),
       );
       await _update(tester);
-      expect(
-        _solverInputs((await store.all()).singleWhere((x) => x.id == 'orig')),
-        before,
+      // Editor display rounding only (as the audit's tolerances): fps with
+      // one decimal <= 0.02 m/s, zero to 0.1 of the distance unit.
+      const tolerance = {'muzzleVelocityMps': 0.02, 'zeroRangeM': 0.05};
+      final after = _solverInputs(
+        (await store.all()).singleWhere((x) => x.id == 'orig'),
       );
+      expect(after.keys.toSet(), before.keys.toSet());
+      for (final k in before.keys) {
+        final b = before[k], a = after[k];
+        if (b is num && a is num) {
+          expect(
+            a.toDouble(),
+            closeTo(b.toDouble(), tolerance[k] ?? 1e-9),
+            reason: k,
+          );
+        } else {
+          expect(a, b, reason: k);
+        }
+      }
     });
 
     testWidgets('deleting the copy leaves the original intact', (tester) async {
