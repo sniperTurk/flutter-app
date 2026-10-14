@@ -1,55 +1,60 @@
 # BC mermiden: BC'si boş kalan ateşli tüfek fişekleri
 
-Tarih: 14.10.2026 (İstanbul) · Dal: `data/bc-mermiden` · Taslak PR, birleştirme yok, TestFlight yok.
+Tarih: 14.10.2026 (İstanbul) · Dal: `data/bc-mermiden` · PR #304 (taslak). Birleştirme ve
+TestFlight yok.
 
-Sahibin kararı: 13:53 "Ateşli tüfekler için benim derdim." 13:55 "Bulabilirsek sorun yok!
-Kimsenin verisine ihtiyacımız yok ama ateşli tüfekler eksiksiz olmalı."
+Sahibin kararları:
+- 13:53 "Ateşli tüfekler için benim derdim."
+- 13:55 "Bulabilirsek sorun yok! Kimsenin verisine ihtiyacımız yok ama ateşli tüfekler eksiksiz
+  olmalı."
+- **15:16:** kalan 52 BC'siz fişek **boş kalacak**. Tahmin yok, başka kaynak yok.
 
 ## Özet
 
-- #296 birleştikten sonra `lib/data/factory_ammo_library.dart` içinde BC'si boş **53** ateşli
-  tüfek fişeği vardı. Listeyi main'den çıkardım; sayı ve marka dağılımı görevdeki ile aynı.
-- **14 fişeğe fişek üreticisinin kendi yazdığı BC eklendi:** Winchester 13, SWISS P 1.
-- **Mermi üreticisinden: 0.** Adı geçen mermilerin hiçbirinin üretici BC'si bulunamadı. Hornady
-  70 gr GMX artık satılmıyor; Hornady'nin 125 gr .308 CX diye bir bileşen mermisi yok; Nosler'ın
-  50 gr FBHP Varmageddon diye bir bileşen mermisi yok.
-- **39 fişek hâlâ BC'siz (bulunamadı).** Black Hills 23, Aguila 3, Geco 2, Lapua 2, MKE 2,
-  Federal 1 (saçma fişeği), RWS 1, Nosler 1, Norma 1, Hornady 1, SWISS P 1, Winchester 1.
-- **FA007 düzeltildi:** Aguila "22 Long Rifle Standard Velocity Lead Solid Point" 29 gr → 40 gr.
-  Kaynak aguilaammo.com; satıra kaynak notu eklendi.
-- Başka satır, hesap kodu ya da arayüz değişmedi. #296'nın doldurduğu 30 satıra dokunulmadı.
+- #296 birleştikten sonra BC'si boş ateşli tüfek fişeği sayısı **53** idi.
+- Bu PR **yalnız iki satırı** değiştiriyor:
+  1. **Winchester 6.5 Creedmoor Super-X Power-Point 129 gr (X651):** BC 0,324 G1, üreticinin 2026
+     kataloğundan. `bcSource`, `bcSourceUrl` ve not var.
+  2. **FA007 Aguila 22 LR Standard Velocity Lead Solid Point:** ağırlık 29 → 40 gr, kaynak notuyla.
+- **Kalan 52 fişek boş kaldı** (sahibin 15:16 kararı). Hiçbir tahmin ya da başka kaynak eklenmedi.
+- Fişek üreticisinden 1 BC, mermi üreticisinden 0 BC.
+- #296'nın main'deki 30 değeri aynen duruyor. Hesap kodu ve arayüz değişmedi.
 
-## Nasıl
+## Çakışma çözümü
 
-- Her fişek için sıra şuydu:
-  1. Fişek üreticisinin kendi BC'si: ürün sayfası, katalog PDF'i ya da bilgi föyü.
-  2. Yoksa, üretici mermiyi adıyla yazıyorsa mermi üreticisinin BC'si.
-  3. O da yoksa "bulunamadı".
-- Yalnız üretici sitelerini okudum ve her sitede önce robots.txt'ye baktım. rws-ammunition.com
-  robots.txt ile kapalı olduğu için açılmadı.
-- Forum, blog, bayi değeri ve başka balistik uygulamalarının verisi kullanılmadı. Arama
-  sonuçlarını yalnız üreticinin sayfasını bulmak için ipucu olarak kullandım.
-- **Winchester:** ürün sayfaları "There is no ballistics data available at this time" diyor. BC'ler
-  Winchester'ın kendi kataloglarındaki balistik tablolarının "B.C." sütununda basılı. Kataloglar
-  winchester.com katalog bağlantısından açılan resmî flipbook'lar: 2020, 2025 ve 2026.
-  - Okuma aracı tablo sütunlarını ayrı ayrı veriyor. Satırı bu yüzden sembol sırası, ağırlık,
-    hız ve açıklama ile eşleştirdim.
-  - Eşleştirmeyi, kütüphanede zaten BC'si olan Winchester satırlarıyla sınadım. Varmint LF 0,062,
-    USA 36 gr 0,084, Silvertip/Varmint HE 0,090, 22 WMR V-MAX 0,095 ve 6.5 PRC AccuBond LR 0,625
-    katalogda da aynı satıra düşüyor.
-- **Model:** Winchester sütun başlığı yalnız "B.C." diyor, G1/G7 yazmıyor. Kütüphanenin
-  kuralına uyarak G1 kabul ettim ve bunu not alanına yazdım.
-- **SWISS P:** bilgi föyü G1 ve G7'yi birlikte veriyor. Kütüphanenin kuralına göre `bc` G1,
-  `bcG7` G7 oldu.
-- **Hız bantları:** `FactoryAmmo` sınıfında bant alanı yok, ve sınıfı değiştirmek kapsam dışı.
-  SWISS P'nin bantlarını bu yüzden not alanına yazdım.
+- Bu dal, #296 ve #298 birleşmeden önceki main'den açılmıştı. Bu yüzden
+  `lib/data/factory_ammo_library.dart` dosyasında çakışma vardı.
+- Güncel main (`f09270a`) dala birleştirildi (merge commit, geçmiş yeniden yazılmadı).
+- Çözümde dosya main'deki haliyle alındı. Üstüne yalnız bu PR'ın iki satırı uygulandı.
+- `git diff origin/main -- lib/data/factory_ammo_library.dart` yalnız 2 satır gösteriyor: X651 ve
+  FA007. #296'nın 30 satırının hiçbiri değişmedi.
+- **Sahibin 15:16 kararına uyum:** önceki bir takip çalıştırması 13 fişeğe daha üretici BC'si
+  eklemişti (Winchester 12, SWISS P 1). Bu çalıştırmada o 13 satır main'deki boş hallerine
+  döndürüldü. Bulunan değerler yalnız bilgi için aşağıda listeleniyor; uygulamada yoklar.
 
-## Bulunanlar (14)
+## Değişen satırlar
 
-Okuma tarihi hepsinde 14.10.2026. Kaynak türü: "Fişek üreticisi (katalog)" ya da "Fişek
-üreticisi (bilgi föyü)".
+| Marka | Ad | Kalibre | Ağırlık | BC + model | Kaynak türü | URL | Okuma | Alıntı |
+|---|---|---|---|---|---|---|---|---|
+| Winchester | Super-X Power-Point 129 gr (X651) | 6.5 Creedmoor | 129 gr | 0,324 G1 (etiketsiz, G1 kabul) | Fişek üreticisi, katalog 2026 s.32 | https://online.flippingbook.com/view/721179895/34/ | 14.10.2026 | "X651 … 129 0.324" |
+| Aguila | 22 LR Standard Velocity LSP (FA007) | .22 LR | 29 → 40 gr | BC yok | Fişek üreticisi, ürün sayfası | https://www.aguilaammo.com/products/22-super-extra-long-rifle-standard-velocity-lead-solid-point | 14.10.2026 | "40 Grain" |
 
-| Marka | Ad | Kalibre | Ağırlık | BC + model | Kaynak türü | URL | Alıntı (≤15 kelime) |
+- X651 satır eşleştirmesi: 6.5 CM bloğunda 14 sembol var ve X651 8. sırada. 8. ağırlık/BC çifti
+  "129 0.324". Bu blokta başka 129 gr satırı yok.
+- Komşu satırlar kütüphanedeki değerlerle tutuyor: AccuBond LR 142 gr 0,625, Ballistic Silvertip
+  0,509, Match 140 gr 0,580.
+- Kesit yoğunluğu/BC = 0,815; Profil BC uyarısının G1 aralığında (0,32–4,6).
+
+## Boş kalan 52 fişek
+
+Hepsi sahibin 15:16 kararıyla boş kaldı. Tablo, nelere bakıldığını gösteriyor.
+
+### Bulundu ama uygulanmadı (13, bilgi için)
+
+Bu değerler üreticinin kendi kataloğunda ya da bilgi föyünde basılı. Sahibin 15:16 kararı
+nedeniyle uygulamaya eklenmedi. Sahip isterse ayrı bir görevle eklenebilir.
+
+| Marka | Ad | Kalibre | Ağırlık | Basılı BC | Kaynak | URL | Alıntı |
 |---|---|---|---|---|---|---|---|
 | Winchester | M22 40 gr Black Copper Plated Round Nose (S22LRT) | .22 LR | 40 gr | 0,125 G1* | Katalog 2025 s.39 | https://online.flippingbook.com/view/616451212/41/ | "40 … 0.125 … RN Black Copper Plated" |
 | Winchester | Super Suppressed 45 gr BCP RN (SUP22LR) | .22 LR | 45 gr | 0,141 G1* | Katalog 2025 s.39 | https://online.flippingbook.com/view/616451212/41/ | "45 45 … 0.141 0.141" (iki 45 gr satırı) |
@@ -62,17 +67,12 @@ Okuma tarihi hepsinde 14.10.2026. Kaynak türü: "Fişek üreticisi (katalog)" y
 | Winchester | Varmint HV 40 gr HP (XHV22LR) | .22 LR | 40 gr | 0,105 G1* | Katalog 2020 s.31 | https://online.flippingbook.com/view/7964/33/ | "0.105 … 1435" |
 | Winchester | Wildcat 40 gr DynaPoint (WW22LR/B) | .22 LR | 40 gr | 0,116 G1* | Katalog 2025 s.39 | https://online.flippingbook.com/view/616451212/41/ | "Plated Dynapoint … 0.116" |
 | Winchester | Varmint HV 22 WMR 30 gr JHP (S22M2) | .22 WMR | 30 gr | 0,089 G1* | Katalog 2025 s.39 | https://online.flippingbook.com/view/616451212/41/ | "S22M2 JHP 0.089 … 2250" |
-| Winchester | Super-X Power-Point 129 gr (X651) | 6.5 Creedmoor | 129 gr | 0,324 G1* | Katalog 2026 s.32 | https://online.flippingbook.com/view/721179895/34/ | "X651 … 129 0.324" |
 | Winchester | Power-Point 170 gr (X68W1) | 6.8 Western | 170 gr | 0,431 G1* | Katalog 2026 s.33 | https://online.flippingbook.com/view/721179895/35/ | "SBST68W X68W1 S68WBC … 170 0.550 / 170 0.431 / 175 0.682" |
 | SWISS P | Target SX 8.4 g / 130 gr | 6.5 Creedmoor | 130 gr | 0,622 G1 + 0,308 G7 (ICAO) | Bilgi föyü | https://swiss-p.com/s/Sniper_factsheet_65-CM-Target-SX_hr-agss.pdf | "Ballistic Coefficient G1 / G7 0.622 / 0.308 (ICAO)" |
+\* Üretici etiket vermiyor. Winchester satırlarının bir kısmı, katalog tablosu sütun sütun okunduğu
+için hız/açıklama ile eşleştirildi; bu satırlar orta güvenli.
 
-\* Üretici etiket vermiyor; G1 kabul edildi.
-
-- Bu 14 değerin hepsi, Profil'deki BC uyarısının G1 aralığında kalıyor (SD/BC 0,32–4,6).
-  Değerler 0,43 ile 1,16 arasında.
-- **Mermi üreticisinden alınan:** 0.
-
-## Bulunamayanlar (39) ve bakılan yerler
+### Bulunamadı (39)
 
 | Marka | Ad | Kalibre | Neye bakıldı / ne yazıyor |
 |---|---|---|---|
@@ -116,94 +116,44 @@ Okuma tarihi hepsinde 14.10.2026. Kaynak türü: "Fişek üreticisi (katalog)" y
 | MKE | 8.59×70 Solid Fişek | .338 LM | Aynı |
 | SWISS P | LR-1 9.3 g | 6.5 CM | Ürün sayfasında BC yok. SWISS P 2026-27 kataloğu "DATI BALISTICI NON DISPONIBILI", G1/G7 "TBD" diyor. |
 
-## FA007 ağırlık düzeltmesi
+## FA007 notu
 
-- Aguila ürün sayfası
-  (https://www.aguilaammo.com/products/22-super-extra-long-rifle-standard-velocity-lead-solid-point,
-  14.10.2026) bu ürünü "40 Grain" diye veriyor. Kütüphanedeki 29 gr, 22 Short'un ağırlığı.
-- Satırın ağırlığı 40 gr yapıldı ve not alanına kaynak notu yazıldı.
-- **Bilerek yapılmadı:** aynı sayfa namlu ağzı hızını 1130 fps veriyor; kütüphanede 1095 fps var.
-  1095 de 22 Short'un hızı. Sahip yalnız ağırlığı onayladığı için hız değişmedi. Ayrı karar
-  gerekiyor.
+- Aguila sayfası bu ürünün hızını 1130 fps veriyor; kütüphanede 1095 fps var, bu da 22 Short'un
+  hızı.
+- Sahip yalnız ağırlığı onayladığı için hız değişmedi. Ayrı karar gerekiyor.
 
 ## Uç durumlar
 
-1. **Winchester satır eşleştirmesi:** kataloglar BC'yi basıyor, ama okuma aracı tabloyu sütun
-   sütun verdiği için satır eşleştirmesini ben yaptım.
-   - **Güçlü olanlar:**
-     - SUP22LR: iki 45 gr satırı da 0,141.
-     - S22M2: WMR sırasındaki bilinen değerler tutuyor.
-     - X651: 6.5 CM bloğunda tek 129 gr satırı.
-     - X22LRH ve X22LRHSS1: hız ve komşu satırlar tutuyor.
-     - Wildcat: açıklama ve üç 0,116 değeri.
-   - **Orta güvenli olanlar:**
-     - **M22 (0,125), X22LRSS1 (0,119), XHV22LR (0,105), X22LRPP/PP1 (0,098):** 2020
-       kataloğunda sembol sırası bu beş satırda bir kayık. Değerleri hız sütunuyla eşleştirdim
-       (1255 / 1280 / 1280 / 1300 / 1435 fps). 2025 kataloğundaki açıklama sırası da aynı sonucu
-       veriyor.
-     - **X68W1 (0,431):** 6.8 Western bloğunda üç 170 gr satırı var (0,633 / 0,550 / 0,431).
-       Sembol sırası ile 5. çift X68W1'e düşüyor. Aynı sayfada 6.5 PRC bloğu bu sırayla AccuBond
-       LR 0,625 ve Ballistic Silvertip 0,509 ile doğru eşleşiyor.
-2. **X22LRPP1:** kütüphanede 1300 fps yazıyor, 2020 kataloğunda 1280 fps. Aynı 40 gr
-   Power-Point mermisi olduğu ve iki Power-Point satırı da 0,098 olduğu için BC etkilenmiyor.
-   Hız değişmedi.
-3. **X22LR:** güncel ürün sayfası 1150 fps diyor, kütüphanede 1255 fps var. BC (0,116) iki
-   okumada da aynı. Hız değişmedi.
-4. **G1 / G7:**
-   - Winchester etiket vermiyor; G1 kabul edildi ve notta yazıyor.
-   - SWISS P G1 ve G7'yi birlikte, ICAO atmosferinde veriyor. `bc` G1 0,622, `bcG7` 0,308.
-   - SWISS P'nin G1 bantları çok değişiyor (875 m/s 0,6219, 340 m/s 0,3806, 200 m/s 0,5359).
-     G7 daha sabit (0,3081 / 0,3012 / 0,3134). Bantlar notta duruyor.
-5. **Rimfire:** 12 Winchester .22 LR / WMR değeri, kütüphanedeki diğer Winchester rimfire
-   satırları gibi etiketsiz G1. Ses altı ve ses civarı hızlarda tek bir G1 değeri yaklaşık bir
-   sayıdır.
-6. **Mermi kimliği belirsiz olanlar:** "Match HP", "OTM", "Soft Point" gibi genel adlar ağırlıktan
-   tahmin edilmedi. Black Hills aynı sayfada Sierra'lı ürünleri ayrıca satıyor, bu yüzden genel adlı
-   olanların aynı mermi olduğu varsayılamaz.
-7. **Var olan test:** `test/factory_ammo_bc_backsolve_test.dart` FA007'nin 29 gr ve notsuz
-   kalmasını bekliyordu. İki satırı değişti: 40 gr ve FA007 için not beklentisi. Başka
-   beklentisi değişmedi.
+- **G1 / G7:** Winchester katalogları sütuna yalnız "B.C." yazıyor. Kütüphanenin kuralına göre G1
+  kabul edildi ve bu notta yazıyor.
+- **Rimfire / saçma:** Federal #12 saçma fişeği için üretici "Ballistic Coefficient N/A" diyor;
+  zaten boş kalmalı.
+- **Mermi kimliği belirsiz:** Black Hills'in genel adlı mermileri ("Match HP", "OTM", "Soft
+  Point") ağırlıktan tahmin edilmedi.
+- **Var olan test:** `test/factory_ammo_bc_backsolve_test.dart` FA007'nin 29 gr ve notsuz
+  kalmasını bekliyordu. İki satırı değişti: 40 gr ve FA007 için not beklentisi.
 
 ## Bilerek yapılmayanlar
 
-- Hız tablosundan geri hesap yapılmadı; bu görevde yalnız basılı BC kullanıldı.
-- `FactoryAmmo` sınıfına bant alanı eklenmedi.
-- Hız düzeltmeleri yapılmadı: FA007 1095→1130, X22LR, X22LRPP1.
-- Black Hills'e e-posta yazılmadı.
-- Hesap kodu ve arayüz değişmedi.
+- Kalan 52 fişeğe BC eklenmedi (sahibin 15:16 kararı). Bulunan 13 değer de dahil.
+- Hız düzeltmesi yapılmadı (FA007 1095 → 1130).
+- Hesap kodu, arayüz ve başka satırlar değişmedi.
 
 ## Testler
 
-- Yeni test: `test/factory_ammo_bc_mermiden_test.dart`.
-  - 14 satırın her birinde BC > 0, model G1, `bcSource: 'printed'`, https kaynak URL'si ve
-    14.10.2026 notu var.
-  - Winchester notlarında "G1 kabul edildi" yazıyor.
-  - SWISS P için G7 0,308 ve "ICAO" notu var.
-  - Profil BC uyarısıyla aynı kesit yoğunluğu aralığından (G1 0,32–4,6) geçiyorlar.
-  - FA007 40 gr.
-  - BC'siz 39 satır kalıyor ve hepsinde model boş.
+- `test/factory_ammo_bc_mermiden_test.dart`:
+  - X651: BC 0,324 > 0, model G1, `bcSource: 'printed'`, https kaynak URL'si, 14.10.2026 notu,
+    "G1 kabul edildi" notu, kesit yoğunluğu aralığı.
+  - FA007: 40 gr ve not.
+  - Kalan 52 fişekte BC, model ve `bcSource` boş.
 - Yerel:
   - `python3 tools/offline_dart_lint.py`: PASS (334 Dart dosyası, 0 sorun).
-  - `python3 -m unittest discover -s tools -p 'test_*.py'`: 740 test OK.
-- Flutter SDK bu ortamda yok; `flutter test` yerelde çalışmadı.
-- CI: aşağıda.
-- Not: bu dal önceki bir çalıştırmada eski main'den açılmıştı (PR #304, yalnız X651 ve FA007). main
-  (#296, #298) birleştirildi ve tüm iş bu çalıştırmada yeniden yapıldı; PR farkı yalnız bu dört dosya.
+  - `python3 -m unittest discover -s tools -p 'test_*.py'`: OK.
+- Flutter SDK bu ortamda yok; `flutter test` yalnız CI'da çalıştı.
 
 ## CI
 
-Hepsi `fa5acf6` commit'inde çalıştı (veri ve test commit'i; bu rapor commit'i yalnız belge).
-
-- Format (`375209577`): **başarılı**, "Formatted 336 files (0 changed)", format commit'i gerekmedi.
-  https://github.com/sniperTurk/flutter-app/actions/runs/38575174089
-- Test (`test-diag.yml`, `files=test`): **başarılı** (`flutter test` çıkış kodu 0). Görünen
-  "error" notları testlerin kendi tanı çıktısı (KESIK tablosu, beklenen hata yığınları), başarısız
-  test değil.
-  https://github.com/sniperTurk/flutter-app/actions/runs/38575503012
-- Analyze (`analyze-diag.yml`, `--fatal-infos --fatal-warnings`): **başarılı** (çıkış kodu 0;
-  tek not `flutter pub outdated` ipucu).
-  https://github.com/sniperTurk/flutter-app/actions/runs/38575507895
-- iOS CI / Simulator / TestFlight: çalıştırılmadı.
+CI_PLACEHOLDER
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
