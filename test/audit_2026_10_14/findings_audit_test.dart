@@ -185,7 +185,7 @@ void main() {
         // Current code: 1.2250 (sea level), 20 % too dense.
         expect(rho, closeTo(_isa1500Density, 0.0005));
       },
-      skip: true, // F1: empty Basınç → 1013.25 hPa even with İrtifa typed
+      skip: false, // F1: empty Basınç → 1013.25 hPa even with İrtifa typed
     );
   });
 
@@ -216,7 +216,7 @@ void main() {
         // mrad at the zero range itself.
         expect(v.requiredUp!.abs(), lessThan(0.05));
       },
-      skip: true, // F3: PCP zero at profile velocity, shot at table velocity
+      skip: false, // F3: PCP zero at profile velocity, shot at table velocity
     );
 
     testWidgets('control F2: 0 MOA mount, travel taken from mid-travel', (
@@ -234,7 +234,7 @@ void main() {
         // Current code: 130 (zero assumed at mid-travel).
         expect(v.maxElevationClicks, lessThanOrEqualTo(130 - 10));
       },
-      skip: true, // F2: turret UP room ignores the zero's launch angle
+      skip: false, // F2: turret UP room ignores the zero's launch angle
     );
   });
 
@@ -260,7 +260,7 @@ void main() {
         ).readAsStringSync();
         expect(src, isNot(contains('calibrationMag => maxMagnification')));
       },
-      skip: true, // F4: SFP assumed calibrated at max magnification
+      skip: false, // F4: SFP assumed calibrated at max magnification
     );
   });
 
@@ -273,7 +273,7 @@ void main() {
         ).readAsStringSync();
         expect(src, isNot(contains('Diabolo saçmada GA')));
       },
-      skip: true, // F5: text still recommends the removed GA model
+      skip: false, // F5: text still recommends the removed GA model
     );
   });
 }
