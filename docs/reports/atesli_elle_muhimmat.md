@@ -194,6 +194,22 @@ engelli): `python3 tools/offline_dart_lint.py` PASS,
 
 CI (yalnızca gerçekten çalışanlar):
 
-CI_RUNS_PLACEHOLDER
+Her çalıştırmanın hangi commit'i aldığı iş kaydındaki `git log -1` satırından
+doğrulandı (başka oturumlar da aynı iş akışlarını tetikliyor).
+
+- Tüm testler (`flutter test test`), commit `d716f8c` (main #295 üstüne):
+  https://github.com/sniperTurk/flutter-app/actions/runs/38535128911 —
+  **başarılı**.
+- `flutter analyze --fatal-infos --fatal-warnings`, commit `d716f8c`:
+  https://github.com/sniperTurk/flutter-app/actions/runs/38535131974 —
+  **başarılı**.
+- Biçimlendirme (one-off dart format fix) yalnızca
+  `test/rifle_not_listed_test.dart`'ta satır kırdı (commit `df213eb`).
+- Önceki kırmızı: ilk tam çalıştırmada yeni testlerden ikisi, yarım genişlikteki
+  elle ağırlık kutusunun taşması yüzünden düştü (kutu kendi satırına alındı);
+  main'e #289 eklenince onun "Mühimmat Marka keeps its Listede yok item" testi
+  bu kararla çeliştiği için düştü (test yeni karara göre çevrildi).
+- `iOS CI / verify` (macOS, Simulator): bu dal için çalıştırılmadı. Simulator,
+  cihaz, imzalama, TestFlight: çalıştırılmadı.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
