@@ -376,6 +376,10 @@ class _BallisticsScreenState extends State<BallisticsScreen>
         _holdSamples = null;
       });
       _scheduleFreshnessCheck();
+      // ATM-1 (audit 2026-10-14b): the first automatic solve ran before the
+      // saved values arrived; solve again with the restored boxes, the same
+      // way an edit does, so Hedef, WEZ and the F1 note use them.
+      _quietSolve();
     }
     _shotSettingsReady = true;
   }
