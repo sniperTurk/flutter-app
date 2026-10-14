@@ -30,6 +30,7 @@ import '../../ui/menzil_widgets.dart';
 import '../home/empty_states.dart';
 import 'drag_curve_field.dart';
 import 'profile_backup_actions.dart';
+import 'profile_catalog_match.dart';
 import 'profile_field_info.dart';
 import 'profile_recovery_dialog.dart';
 import 'rifle_picker_screen.dart';
@@ -1370,6 +1371,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     'SCOPE_LISTEDE_YOK',
   );
 
+  /// Profili Düzenle: the saved scope was found in the lists only by the
+  /// tolerant rule (older naming, #235); its saved values are kept.
+  bool _scopeTolerant = false;
+
   /// The catalog record the scope values came from (null: none chosen or a
   /// typed scope). Its missing values decide which hidden boxes show.
   ScopeOptic? _scopeRecord;
@@ -1919,21 +1924,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             label: 'Model',
             hint: 'Seçiniz',
             initialValue: model,
+            // Model and its data, no brand (owner, 2026-10-13). A long line
+            // keeps its size and wraps, in the list (two lines) and in the
+            // box, which grows (owner, 2026-10-14: like Mühimmat Model;
+            // never smaller).
+            wrapSelected: true,
             items: [
               for (final m in models)
                 DropdownMenuItem(
                   value: m,
-                  // Model and its data on one line, no brand (owner,
-                  // 2026-10-13); a long line is set smaller, never cut.
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      _scopeModelLine(brand!, m),
-                      maxLines: 1,
-                      softWrap: false,
-                    ),
-                  ),
+                  child: Text(_scopeModelLine(brand!, m), maxLines: 2),
                 ),
             ],
             onChanged: (v) => setState(() {
@@ -2115,6 +2115,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             label: 'Model',
             hint: 'Seçiniz',
             initialValue: model,
+            // A long model keeps its size and wraps; the box grows (owner,
+            // 2026-10-14: like Mühimmat Model).
+            wrapSelected: true,
             items: [
               for (final m in models)
                 DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
@@ -2323,9 +2326,25 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // A saved rifle of the lists comes back in the lists; anything else in
     // the typed boxes (owner, 2026-10-11).
     if (rifleBrand.text.isNotEmpty) {
-      final known = _rifleLib.any(
+      var known = _rifleLib.any(
         (r) => r.brand == rifleBrand.text && r.model == rifleModel.text,
       );
+      // Saved before the list names changed (#235, owner 2026-10-14):
+      // matched tolerantly by Marka + Model, then the caliber. Marka and
+      // Model take the list's spelling; the saved caliber and yiv stay.
+      if (!known) {
+        final match = ProfileCatalogMatch.rifle(
+          rifleBrand.text,
+          rifleModel.text,
+          initialRifle?.caliberMm,
+          _rifleLib,
+        );
+        if (match != null) {
+          rifleBrand.text = match.brand;
+          rifleModel.text = match.model;
+          known = true;
+        }
+      }
       _rifleManual = !known;
       if (known) {
         // Üretim shows the saved rifle's origin, not "Seçiniz" (owner,
@@ -2349,7 +2368,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final s0 = scope;
     // A catalog scope comes back in the lists; a typed one in the typed box.
     if (s0 != null) {
-      final hit = s0.userEntered
+      ScopeOptic? hit = s0.userEntered
           ? _scopeLib
                 .where(
                   (r) =>
@@ -2364,6 +2383,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                 )
                 .firstOrNull
           : s0;
+      // Saved before the 13 Oct catalog update (#235) or under an older
+      // naming (owner, 2026-10-14): matched tolerantly by Marka + series,
+      // then büyütme / mercek çapı / odak / birim. The exact rule above
+      // still goes first.
+      if (hit == null && s0.userEntered) {
+        hit = ProfileCatalogMatch.scope(s0, _scopeLib, _scopeModelOf);
+        if (hit != null) _scopeTolerant = true;
+      }
       if (hit == null) {
         _scopeManual = true;
       } else {
@@ -2376,16 +2403,38 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       }
     }
     angularUnit = p?.angularUnit ?? s0?.clickUnit ?? AngularUnit.mrad;
-    scopeBrand = TextEditingController(text: s0?.brand ?? '');
-    scopeMinMag = TextEditingController(text: num(s0?.minMagnification));
-    scopeMaxMag = TextEditingController(text: num(s0?.maxMagnification));
-    scopeObjective = TextEditingController(text: num(s0?.objectiveDiameterMm));
+    // A built-in record carries its series in Model; the list shows (and
+    // saves) "Marka Seri" as a new pick does, so the saved copy comes back
+    // in the lists after a save (owner, 2026-10-14).
+    final rec = _scopeRecord;
+    final series = s0 != null && !s0.userEntered && rec != null
+        ? ScopePickerScreen.seriesOf(_scopeModelOf(rec))
+        : '';
+    scopeBrand = TextEditingController(
+      text: series.isEmpty ? (s0?.brand ?? '') : '${rec!.brand} $series',
+    );
+    // A tolerant match keeps every saved value; only a value the saved
+    // record lacks is taken from the list record (nothing is overwritten).
+    final fill = _scopeTolerant ? rec : null;
+    scopeMinMag = TextEditingController(
+      text: num(s0?.minMagnification ?? fill?.minMagnification),
+    );
+    scopeMaxMag = TextEditingController(
+      text: num(s0?.maxMagnification ?? fill?.maxMagnification),
+    );
+    scopeObjective = TextEditingController(
+      text: num(
+        fill != null && (s0?.objectiveDiameterMm ?? 0) <= 0
+            ? fill.objectiveDiameterMm
+            : s0?.objectiveDiameterMm,
+      ),
+    );
     scopeClick = TextEditingController(
       text: s0 != null && s0.clickUnit == angularUnit
           ? num(s0.clickValue)
           : num(_defaultClick(angularUnit)),
     );
-    firstFocalPlane = s0?.firstFocalPlane;
+    firstFocalPlane = s0?.firstFocalPlane ?? fill?.firstFocalPlane;
     scopeReticle = s0?.reticle;
     // "Üst kule klik sayısı": total clicks from end to end of the top
     // turret, recovered from the stored travel with the SAME unit and click
@@ -2662,16 +2711,21 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_zeroError == null, 'Sıfırlama mesafesi'),
       (_distanceUnitSet, 'Mesafe birimi'),
     ]);
+    // Only boxes the user can see are named (owner, 2026-10-14): a catalog
+    // scope not chosen yet is "Model", not the five hidden boxes its record
+    // fills in.
+    final listScope = _scopeFromList;
     section('Dürbün', [
       (_scopeBrandError == null, 'Marka'),
-      (_minMagError == null, 'Min. büyütme'),
-      (_maxMagError == null, 'Maks. büyütme'),
-      (_objectiveError == null, 'Mercek çapı'),
-      (firstFocalPlane != null, 'Odak düzlemi'),
-      (_angularUnitSet, 'Dürbün birimi'),
+      if (listScope) (_scopeModelKey != null, 'Model'),
+      if (_scopeMinMagShown) (_minMagError == null, 'Min. büyütme'),
+      if (_scopeMaxMagShown) (_maxMagError == null, 'Maks. büyütme'),
+      if (_scopeObjectiveShown) (_objectiveError == null, 'Mercek çapı'),
+      if (_scopeFocalShown) (firstFocalPlane != null, 'Odak düzlemi'),
+      if (_scopeUnitShown) (_angularUnitSet, 'Dürbün birimi'),
       (_mountCantSet, 'Dürbün ayağı'),
       // Asked for a typed scope; a catalog scope brings its own.
-      (_clickError == null, 'Klik değeri'),
+      if (!listScope) (_clickError == null, 'Klik değeri'),
       (_travelError(scopeTravelElevation) == null, 'Üst kule klik sayısı'),
     ]);
     section('Mühimmat', [
@@ -4639,8 +4693,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                           // Short label: "Barut sıcaklık katsayısı" next to
                           // its unit and ⓘ was cut ("…") on 375–393 pt
                           // phones; the ⓘ text starts with the full name.
+                          // No unit beside it (owner, 2026-10-14): "%/15 °C"
+                          // is in the ⓘ; the label stays on one line.
                           label: 'Barut katsayısı',
-                          unit: '%/15 °C',
                           info: ProfileFieldInfo.powderCoef,
                           options: _powderCoefOptions,
                           error: _powderCoefError,
@@ -4838,7 +4893,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     required String key,
     required TextEditingController controller,
     required String label,
-    required String unit,
+    String? unit,
     required String info,
     required List<double> options,
     required String? error,
