@@ -1,0 +1,1310 @@
+[
+ {
+  "id": "FA002",
+  "role": "bc_less",
+  "brand": "Hornady",
+  "name": ".17 HMR 17 gr V-MAX #83170",
+  "source_url": "https://www.hornady.com/ammunition/rimfire/17-hmr-17-gr-v-max",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2550 / 100 yd: 1902 / 200 yd: 1379 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200
+  ],
+  "velocities": [
+   2550,
+   1902,
+   1379
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA003",
+  "role": "bc_less",
+  "brand": "Hornady",
+  "name": ".17 HMR 20 gr XTP #83172",
+  "source_url": "https://www.hornady.com/ammunition/rimfire/17-hmr-20-gr-xtp",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2375 / 100 yd: 1755 / 200 yd: 1274 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200
+  ],
+  "velocities": [
+   2375,
+   1755,
+   1274
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA029",
+  "role": "bc_less",
+  "brand": "Hornady",
+  "name": ".22 WMR 30 gr V-MAX #83202",
+  "source_url": "https://www.hornady.com/ammunition/rimfire/22-wmr-30-gr-v-max",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2200 / 100 yd: 1454 / 200 yd: 1026 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200
+  ],
+  "velocities": [
+   2200,
+   1454,
+   1026
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA061",
+  "role": "bc_less",
+  "brand": "Hornady",
+  "name": ".338 ARC 285 gr FMJ Frontier #FR430",
+  "source_url": "https://www.hornady.com/ammunition/rifle/338-arc-285-gr-fmj-frontier",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1050 / 100 yd: 1015 / 200 yd: 984 / 300 yd: 956 / 400 yd: 930 / 500 yd: 906 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   1050,
+   1015,
+   984,
+   956,
+   930,
+   906
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": "subsonic"
+ },
+ {
+  "id": "FA062",
+  "role": "bc_less",
+  "brand": "Hornady",
+  "name": ".338 ARC 170 gr MonoFlex Black #82273",
+  "source_url": "https://www.hornady.com/ammunition/rifle/338-arc-170-gr-monoflex-black",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2075 / 100 yd: 1831 / 200 yd: 1608 / 300 yd: 1411 / 400 yd: 1245 / 500 yd: 1117 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   2075,
+   1831,
+   1608,
+   1411,
+   1245,
+   1117
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 16,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA063",
+  "role": "bc_less",
+  "brand": "Hornady",
+  "name": ".338 ARC 175 gr HP Match Black #82271",
+  "source_url": "https://www.hornady.com/ammunition/rifle/338-arc-175-gr-hp-match-black",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2075 / 100 yd: 1878 / 200 yd: 1694 / 300 yd: 1525 / 400 yd: 1373 / 500 yd: 1242 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   2075,
+   1878,
+   1694,
+   1525,
+   1373,
+   1242
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 16,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA064",
+  "role": "bc_less",
+  "brand": "Hornady",
+  "name": ".338 ARC 215 gr FTX Black #82274",
+  "source_url": "https://www.hornady.com/ammunition/rifle/338-arc-215-gr-ftx-black",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1900 / 100 yd: 1708 / 200 yd: 1531 / 300 yd: 1374 / 400 yd: 1239 / 500 yd: 1131 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   1900,
+   1708,
+   1531,
+   1374,
+   1239,
+   1131
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 16,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA067",
+  "role": "bc_less",
+  "brand": "Hornady",
+  "name": ".400 Legend 210 gr InterLock AW #82461",
+  "source_url": "https://www.hornady.com/ammunition/rifle/400-legend-210-gr-interlock-american-whitetail",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2200 / 100 yd: 1814 / 200 yd: 1480 / 300 yd: 1218 / 400 yd: 1048 / 500 yd: 945 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   2200,
+   1814,
+   1480,
+   1218,
+   1048,
+   945
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 16,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA082",
+  "role": "bc_less",
+  "brand": "Hornady",
+  "name": "7.62x39 123 gr HP Match AG #80786",
+  "source_url": "https://www.hornady.com/ammunition/rifle/7.62-x-39mm-123-gr-hp-match-american-gunner",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2350 / 100 yd: 2053 / 200 yd: 1780 / 300 yd: 1535 / 400 yd: 1324 / 500 yd: 1159 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   2350,
+   2053,
+   1780,
+   1535,
+   1324,
+   1159
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 20,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "V-H01",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": ".17 HMR 15.5 gr NTX #83171",
+  "source_url": "https://www.hornady.com/ammunition/rimfire/17-hmr-15.5-gr.-ntx",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2525 / 100 yd: 1830 / 200 yd: 1291 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200
+  ],
+  "velocities": [
+   2525,
+   1830,
+   1291
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": 0.115,
+  "published_model": "g1",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H02",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": ".338 ARC 307 gr Sub-X #82272",
+  "source_url": "https://www.hornady.com/ammunition/rifle/338-arc-307-gr-sub-x-subsonic",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1050 / 100 yd: 990 / 200 yd: 942 / 300 yd: 901 / 400 yd: 866 / 500 yd: 833 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   1050,
+   990,
+   942,
+   901,
+   866,
+   833
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 16,
+  "published_bc": 0.375,
+  "published_model": "g1",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H03",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": "7.62x39 123 gr FMJ Frontier #FR420",
+  "source_url": "https://www.hornady.com/ammunition/rifle/7.62x39-123-gr-fmj-frontier",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2340 / 100 yd: 2033 / 200 yd: 1752 / 300 yd: 1502 / 400 yd: 1291 / 500 yd: 1131 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   2340,
+   2033,
+   1752,
+   1502,
+   1291,
+   1131
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": 0.266,
+  "published_model": "g1",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H04",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": ".450 Marlin 325 gr FTX #82750",
+  "source_url": "https://www.hornady.com/ammunition/rifle/450-marlin-325-gr-ftx-leverevolution",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2225 / 100 yd: 1887 / 200 yd: 1587 / 300 yd: 1332 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300
+  ],
+  "velocities": [
+   2225,
+   1887,
+   1587,
+   1332
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": 0.23,
+  "published_model": "g1",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H05",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": ".223 Rem 55 gr V-MAX #8327",
+  "source_url": "https://www.hornady.com/ammunition/rifle/223-rem-55-gr-v-max",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 3240 / 100 yd: 2855 / 200 yd: 2502 / 300 yd: 2175 / 400 yd: 1873 / 500 yd: 1602 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   3240,
+   2855,
+   2502,
+   2175,
+   1873,
+   1602
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": 0.255,
+  "published_model": "g1",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H06",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": "6.5 CM 147 gr ELD Match #81501",
+  "source_url": "https://www.hornady.com/ammunition/rifle/6.5-creedmoor-147-gr-eld-match",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2695 / 100 yd: 2567 / 200 yd: 2443 / 300 yd: 2323 / 400 yd: 2206 / 500 yd: 2092 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   2695,
+   2567,
+   2443,
+   2323,
+   2206,
+   2092
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": 0.351,
+  "published_model": "g7",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H07",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": ".358 Win 200 gr InterLock SP #91318",
+  "source_url": "https://www.hornady.com/ammunition/rifle/358-win-200-gr-sp",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2475 / 100 yd: 2180 / 200 yd: 1906 / 300 yd: 1655 / 400 yd: 1434 / 500 yd: 1248 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   2475,
+   2180,
+   1906,
+   1655,
+   1434,
+   1248
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": 0.282,
+  "published_model": "g1",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H08",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": ".30-06 165 gr CX Superformance #81169",
+  "source_url": "https://www.hornady.com/ammunition/rifle/30-06-sprg-165-gr.-cx-superformance",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2940 / 100 yd: 2728 / 200 yd: 2525 / 300 yd: 2332 / 400 yd: 2147 / 500 yd: 1970 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   2940,
+   2728,
+   2525,
+   2332,
+   2147,
+   1970
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": 0.221,
+  "published_model": "g7",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H09",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": "5.56 62 gr FMJ Black #81263",
+  "source_url": "https://www.hornady.com/ammunition/rifle/5.56-nato-62-gr-fmj-black",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 3060 / 100 yd: 2714 / 200 yd: 2394 / 300 yd: 2095 / 400 yd: 1820 / 500 yd: 1571 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   3060,
+   2714,
+   2394,
+   2095,
+   1820,
+   1571
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 20,
+  "published_bc": 0.274,
+  "published_model": "g1",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H10",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": ".416 Ruger 400 gr DGS #82666",
+  "source_url": "https://www.hornady.com/ammunition/rifle/416-ruger-400-gr-dgs",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2400 / 100 yd: 2142 / 200 yd: 1901 / 300 yd: 1678 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300
+  ],
+  "velocities": [
+   2400,
+   2142,
+   1901,
+   1678
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": 0.319,
+  "published_model": "g1",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H11",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": ".350 Legend 250 gr Sub-X #81198",
+  "source_url": "https://www.hornady.com/ammunition/rifle/350-legend-250-gr.-sub-x-subsonic",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1050 / 100 yd: 969 / 200 yd: 908 / 300 yd: 857 / 400 yd: 813 / 500 yd: 774 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   1050,
+   969,
+   908,
+   857,
+   813,
+   774
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 16,
+  "published_bc": 0.265,
+  "published_model": "g1",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "V-H12",
+  "role": "validation",
+  "brand": "Hornady",
+  "name": ".22 ARC 75 gr ELD Match Black #81541",
+  "source_url": "https://www.hornady.com/ammunition/rifle/22-arc-75-gr-eld-match-hornady-black",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 3075 / 100 yd: 2868 / 200 yd: 2672 / 300 yd: 2483 / 400 yd: 2302 / 500 yd: 2129 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   400,
+   500
+  ],
+  "velocities": [
+   3075,
+   2868,
+   2672,
+   2483,
+   2302,
+   2129
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": 24,
+  "published_bc": 0.235,
+  "published_model": "g7",
+  "published_bc_source": "library value = Hornady bullet BC (bcFromBullet)",
+  "note": ""
+ },
+ {
+  "id": "FA045",
+  "role": "bc_less",
+  "brand": "Lapua",
+  "name": ".243 Win 90 gr FMJ 4316052",
+  "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+  "read_date": "2026-10-14",
+  "quote": "0 m: 885 / 100 m: 796 / 200 m: 712 / 300 m: 634 / 600 m: 434 m/s",
+  "dist_unit": "m",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   600
+  ],
+  "velocities": [
+   885,
+   796,
+   712,
+   634,
+   434
+  ],
+  "vel_unit": "m/s",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": "catalogue table reconstructed from PDF text by WebFetch; verify against printed page"
+ },
+ {
+  "id": "FA046",
+  "role": "bc_less",
+  "brand": "Lapua",
+  "name": ".243 Win 100 gr SP 4316056",
+  "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+  "read_date": "2026-10-14",
+  "quote": "0 m: 910 / 100 m: 823 / 200 m: 742 / 300 m: 665 m/s",
+  "dist_unit": "m",
+  "distances": [
+   0,
+   100,
+   200,
+   300
+  ],
+  "velocities": [
+   910,
+   823,
+   742,
+   665
+  ],
+  "vel_unit": "m/s",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": "catalogue table reconstructed from PDF text by WebFetch; verify against printed page"
+ },
+ {
+  "id": "V-L01",
+  "role": "validation",
+  "brand": "Lapua",
+  "name": ".223 Rem 69 gr Scenar-L 4315015",
+  "source_url": "https://www.lapua.com/wp-content/uploads/2024/02/Lapua_Catalog_2024.pdf",
+  "read_date": "2026-10-14",
+  "quote": "0 m: 830 / 100 m: 744 / 200 m: 663 / 300 m: 588 / 600 m: 392 m/s",
+  "dist_unit": "m",
+  "distances": [
+   0,
+   100,
+   200,
+   300,
+   600
+  ],
+  "velocities": [
+   830,
+   744,
+   663,
+   588,
+   392
+  ],
+  "vel_unit": "m/s",
+  "test_barrel_in": null,
+  "published_bc": 0.171,
+  "published_model": "g7",
+  "published_bc_source": null,
+  "note": "published G1 0.341 / G7 0.171"
+ },
+ {
+  "id": "FA014",
+  "role": "bc_less",
+  "brand": "Geco",
+  "name": "GECO RIFLE .22 2,6g 2132540",
+  "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-rifle",
+  "read_date": "2026-10-14",
+  "quote": "0 m: 330 / 50 m: 300 / 100 m: 280 m/s",
+  "dist_unit": "m",
+  "distances": [
+   0,
+   50,
+   100
+  ],
+  "velocities": [
+   330,
+   300,
+   280
+  ],
+  "vel_unit": "m/s",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": "also ft/s 1083/991/929 at yd"
+ },
+ {
+  "id": "FA015",
+  "role": "bc_less",
+  "brand": "Geco",
+  "name": "GECO SEMI-AUTO .22 2,6g 2318599",
+  "source_url": "https://geco-ammunition.com/en/ammunition/products-overview/rimfire-cartridges/geco-semi-auto",
+  "read_date": "2026-10-14",
+  "quote": "0 m: 350 / 50 m: 315 / 100 m: 294 m/s",
+  "dist_unit": "m",
+  "distances": [
+   0,
+   50,
+   100
+  ],
+  "velocities": [
+   350,
+   315,
+   294
+  ],
+  "vel_unit": "m/s",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": "also ft/s 1148/1042/976 at yd"
+ },
+ {
+  "id": "FA004",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "22 LR Interceptor CPHP 40 gr",
+  "source_url": "https://www.aguilaammo.com/products/22-interceptor-hollow-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1470 / 100 yd: 1130 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1470,
+   1130
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA005",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "22 LR Interceptor CPSP 40 gr",
+  "source_url": "https://www.aguilaammo.com/products/22-interceptor-long-rifle-high-velocity-copper-plated-solid-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1470 / 100 yd: 1130 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1470,
+   1130
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA006",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "22 LR Sniper Subsonic 60 gr",
+  "source_url": "https://www.aguilaammo.com/products/22-sniper-subsonic-long-rifle-subsonic-lead-solid-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 950 / 100 yd: 848 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   950,
+   848
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA007",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "22 LR Standard Velocity 40 gr (library: 29 gr)",
+  "source_url": "https://www.aguilaammo.com/products/22-super-extra-long-rifle-standard-velocity-lead-solid-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1130 / 100 yd: 981 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1130,
+   981
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA008",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "22 LR Subsonic LHP 38 gr",
+  "source_url": "https://www.aguilaammo.com/products/22-subsonic-hollow-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1024 / 100 yd: 873 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1024,
+   873
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA009",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "22 LR Subsonic LSP 40 gr",
+  "source_url": "https://www.aguilaammo.com/products/22-subsonic-solid-point-long-rifle-subsonic-lead",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1025 / 100 yd: 911 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1025,
+   911
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA010",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "22 LR SuperMaximum CPHP 30 gr",
+  "source_url": "https://www.aguilaammo.com/products/22-supermaximum-hollow-point-1",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1700 / 100 yd: 1190 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1700,
+   1190
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA011",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "22 LR SuperMaximum CPSP 30 gr",
+  "source_url": "https://www.aguilaammo.com/products/22-supermaximum-long-rifle-hyper-velocity-copper-plated-solid-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1700 / 100 yd: 1190 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1700,
+   1190
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA012",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "22 LR Target Competition 40 gr",
+  "source_url": "https://www.aguilaammo.com/products/22-target-competition-long-rifle-standard-velocity-solid-lead-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1080 / 100 yd: 951 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1080,
+   951
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA028",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "22 WMR SJSP 40 gr",
+  "source_url": "https://www.aguilaammo.com/products/22-win-mag-high-velocity-semi-jacketed-soft-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1875 / 100 yd: 1433 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1875,
+   1433
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA047",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": ".30 Carbine 110 gr FMJ",
+  "source_url": "https://www.aguilaammo.com/products/30-carbine-full-metal-jacket",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1990 / 100 yd: 1451 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1990,
+   1451
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA050",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "300 BLK 150 gr FMJ",
+  "source_url": "https://www.aguilaammo.com/products/300-aac-blackout-full-metal-jacket",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 1960 / 100 yd: 1721 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   1960,
+   1721
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA056",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "308 Win 150 gr FMJBT",
+  "source_url": "https://www.aguilaammo.com/products/308-win-full-metal-jacket-boat-tail",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2760 / 100 yd: 2484 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   2760,
+   2484
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA083",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "7.62x51 150 gr FMJBT",
+  "source_url": "https://www.aguilaammo.com/products/7.62-x-51mm-full-metal-jacket-boat-tail",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2760 / 100 yd: 2484 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   2760,
+   2484
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA075",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "6.5 CM 140 gr FMJBT",
+  "source_url": "https://www.aguilaammo.com/products/6.5-creedmoor-full-metal-jacket-boat-tail",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2600 / 100 yd: 2426 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   2600,
+   2426
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA048",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "30-06 150 gr SP",
+  "source_url": "https://www.aguilaammo.com/products/30-06-sprg-150-gr-soft-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2900 / 100 yd: 2628 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   2900,
+   2628
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA069",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "5.56 62 gr FMJBT",
+  "source_url": "https://www.aguilaammo.com/products/5.56-x-45mm-full-metal-jacket-boat-tail",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 3150 / 100 yd: 2809 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   3150,
+   2809
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA068",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "5.56 55 gr FMJBT (bulk pack page)",
+  "source_url": "https://www.aguilaammo.com/products/5.56-x-45mm-full-metal-jacket-boat-tail-bulk-pack",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 3260 / 100 yd: 2929 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   3260,
+   2929
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "FA070",
+  "role": "bc_less",
+  "brand": "Aguila",
+  "name": "5.56 NATO 55 gr FMJ",
+  "source_url": "https://www.aguilaammo.com/products/5-56-x-45mm-nato-55-grain-full-metal-jacket",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 3164 / 100 yd: 2781 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   3164,
+   2781
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": null,
+  "published_model": null,
+  "published_bc_source": null,
+  "note": ""
+ },
+ {
+  "id": "V-A01",
+  "role": "validation",
+  "brand": "Aguila",
+  "name": "308 Win 150 gr SP",
+  "source_url": "https://www.aguilaammo.com/products/308-win-150-gr-soft-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2810 / 100 yd: 2543 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   2810,
+   2543
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": 0.338,
+  "published_model": "g1",
+  "published_bc_source": "library value from Aguila Catalog 2023 PDF",
+  "note": ""
+ },
+ {
+  "id": "V-A02",
+  "role": "validation",
+  "brand": "Aguila",
+  "name": "270 Win 130 gr SP",
+  "source_url": "https://www.aguilaammo.com/products/270-win-130-gr-soft-point",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 3050 / 100 yd: 2816 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   3050,
+   2816
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": 0.409,
+  "published_model": "g1",
+  "published_bc_source": "library value from Aguila Catalog 2023 PDF",
+  "note": ""
+ },
+ {
+  "id": "V-A03",
+  "role": "validation",
+  "brand": "Aguila",
+  "name": "30-30 Win 150 gr RN",
+  "source_url": "https://www.aguilaammo.com/products/30-30-win-150-gr-round-nose",
+  "read_date": "2026-10-14",
+  "quote": "0 yd: 2380 / 100 yd: 1950 fps",
+  "dist_unit": "yd",
+  "distances": [
+   0,
+   100
+  ],
+  "velocities": [
+   2380,
+   1950
+  ],
+  "vel_unit": "fps",
+  "test_barrel_in": null,
+  "published_bc": 0.186,
+  "published_model": "g1",
+  "published_bc_source": "library value from Aguila Catalog 2023 PDF",
+  "note": ""
+ }
+]
