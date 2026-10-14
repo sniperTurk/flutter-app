@@ -1921,28 +1921,18 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     );
   }
 
-  /// A card title (size 18) with ONE ⓘ right after it (owner, 2026-10-14:
-  /// Basınç Ölçer and İrtifa only).
-  Widget _headerWithInfo(String title, String info, {required Key infoKey}) {
-    final c = MenzilColors.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: MenzilSpace.xxs,
-        bottom: MenzilSpace.sm,
-      ),
-      child: Row(
-        children: [
-          Flexible(
-            child: Semantics(
-              header: true,
-              child: Text(title, style: MenzilType.heading(c.ink, size: 18)),
-            ),
-          ),
-          MenzilInfoButton(key: infoKey, title: title, text: info),
-        ],
-      ),
-    );
-  }
+  /// A card title (size 18, like the Profil summary headers) with ONE ⓘ
+  /// right after it (owner, 2026-10-14: Basınç Ölçer and İrtifa only).
+  Widget _headerWithInfo(String title, String info, {required Key infoKey}) =>
+      MenzilSectionHeader(
+        title,
+        size: 18,
+        padding: const EdgeInsets.only(
+          top: MenzilSpace.xxs,
+          bottom: MenzilSpace.sm,
+        ),
+        titleTrailing: MenzilInfoButton(key: infoKey, title: title, text: info),
+      );
 
   String _pressureText(double hpa) => metric
       ? hpa.toStringAsFixed(1)
