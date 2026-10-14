@@ -51,9 +51,9 @@ mühimmat alanları boşalır ve elle giriş açılır. "Listeye dön" eskisi gi
 
 ## Elle girişte kutular ve listelerin kaynağı
 
-Her kutu iki kutu bir satır düzeninde, her birinde Türkçe ⓘ var, listeler
-"Seçiniz" ile başlıyor, etiketlerde parantez yok, kutu altında yardım metni
-yok.
+Kutular mümkün olan yerde iki kutu bir satır (istisnalar "Satır düzeni"
+notunda), her birinde Türkçe ⓘ var, listeler "Seçiniz" ile başlıyor,
+etiketlerde parantez yok, kutu altında yardım metni yok.
 
 | Kutu | Tür | Liste nereden geliyor |
 |---|---|---|
@@ -156,7 +156,9 @@ adı bilinmiyorsa çap yazılır ("7,82 mm").
 
 - **PCP Mühimmat:** aynen (Tip | Ağırlık | BC; Marka/Model yok, bağlantı yok,
   barut kutuları yok).
-- **Tüfek bölümü:** dokunulmadı (paralel görev `fix/tufek-listede-yok`).
+- **Tüfek bölümü:** dokunulmadı. Paralel görev `fix/tufek-listede-yok`
+  main'e girdi (#289); bu dal onun üstüne yeniden kuruldu, çakışma yalnız
+  Ağırlık kutusunun bir yorum satırındaydı.
 - **Listeden seçilen mühimmat akışı:** Marka/Model listeleri, ağırlık/BC/hız
   doldurma, eşikler, BC'den otomatik G1 aynen. Tek fark: Barut kutuları artık
   liste ve Marka listesinde "Listede yok" maddesi yok (bağlantı var).
@@ -197,6 +199,11 @@ CI (yalnızca gerçekten çalışanlar):
 Her çalıştırmanın hangi commit'i aldığı iş kaydındaki `git log -1` satırından
 doğrulandı (başka oturumlar da aynı iş akışlarını tetikliyor).
 
+- **Son kod commit'i `1353464`** (main #295 üstüne, biçimlendirme dahil):
+  tüm testler https://github.com/sniperTurk/flutter-app/actions/runs/38536763343
+  — **başarılı**; `flutter analyze --fatal-infos --fatal-warnings`
+  https://github.com/sniperTurk/flutter-app/actions/runs/38536767152 —
+  **başarılı**. (Sonraki commit'ler yalnız bu rapor.)
 - Tüm testler (`flutter test test`), commit `d716f8c` (main #295 üstüne):
   https://github.com/sniperTurk/flutter-app/actions/runs/38535128911 —
   **başarılı**.
