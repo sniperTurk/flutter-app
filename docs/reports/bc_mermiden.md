@@ -69,6 +69,7 @@ nedeniyle uygulamaya eklenmedi. Sahip isterse ayrı bir görevle eklenebilir.
 | Winchester | Varmint HV 22 WMR 30 gr JHP (S22M2) | .22 WMR | 30 gr | 0,089 G1* | Katalog 2025 s.39 | https://online.flippingbook.com/view/616451212/41/ | "S22M2 JHP 0.089 … 2250" |
 | Winchester | Power-Point 170 gr (X68W1) | 6.8 Western | 170 gr | 0,431 G1* | Katalog 2026 s.33 | https://online.flippingbook.com/view/721179895/35/ | "SBST68W X68W1 S68WBC … 170 0.550 / 170 0.431 / 175 0.682" |
 | SWISS P | Target SX 8.4 g / 130 gr | 6.5 Creedmoor | 130 gr | 0,622 G1 + 0,308 G7 (ICAO) | Bilgi föyü | https://swiss-p.com/s/Sniper_factsheet_65-CM-Target-SX_hr-agss.pdf | "Ballistic Coefficient G1 / G7 0.622 / 0.308 (ICAO)" |
+
 \* Üretici etiket vermiyor. Winchester satırlarının bir kısmı, katalog tablosu sütun sütun okunduğu
 için hız/açıklama ile eşleştirildi; bu satırlar orta güvenli.
 
