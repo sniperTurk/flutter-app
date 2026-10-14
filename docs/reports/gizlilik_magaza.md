@@ -197,6 +197,24 @@ Son baş `70c9e89` (yalnız belge değişikliği sonrası) için yeniden:
 
 Bu satırı ekleyen commit de yalnız bu rapor dosyasını değiştirir.
 
+**Takip çalışması (2026-10-14 11:13 İstanbul):** görev ikinci kez çalıştı.
+PR #294 zaten açık olduğu için yeni dal/PR açılmadı; aynı dal kullanıldı.
+`main @ 64bc3cd` (#290 araştırma, #293 CLAUDE.md) çakışmasız birleştirildi
+(`daac985`); uygulama kodunda değişiklik yok. İstenen her madde yeniden
+kontrol edildi: `url_launcher`/`launchUrl` gibi bağlantı açma yöntemi hâlâ
+yok (o yüzden "Web'de aç" yok); `generate_privacy_policy.py` yeniden
+çalıştırıldı, uygulama metni 03 ile aynı; açık PR #295 ve #296 bu PR'ın
+dosyalarına dokunmuyor. Yerel: lint PASS (333 dosya, 0 sorun), Python
+testleri OK (744), `check_lengths.py` ALL OK.
+
+Baş `daac985` için CI (işler `ref: fix/gizlilik-magaza` ile checkout eder):
+
+| İş | Sonuç | Bağlantı |
+|---|---|---|
+| Dart format | Başarılı — değişiklik yok, commit itilmedi (dal başı `daac985` kaldı) | https://github.com/sniperTurk/flutter-app/actions/runs/38533751488 |
+| Testler (tüm `test/`) | Başarılı (çıkış kodu 0; "failure" görünen ek açıklamalar geçen testlerin tanı yığınlarıdır) | https://github.com/sniperTurk/flutter-app/actions/runs/38533754594 |
+| Analiz (`--fatal-infos --fatal-warnings`) | Başarılı (çıkış kodu 0) | https://github.com/sniperTurk/flutter-app/actions/runs/38533757564 |
+
 iOS Simulator derlemesi, TestFlight ve App Store işlemleri **çalıştırılmadı**.
 
 ---
