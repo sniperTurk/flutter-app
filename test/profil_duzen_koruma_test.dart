@@ -1069,6 +1069,14 @@ void main() {
         _typed(tester, 'profile-velocity-fps'),
       );
       expect(_rifleLayout(tester), _rifleListLayout);
+      // The built-in Hercules names no twist: fill the two boxes once.
+      if (_typed(tester, 'rifle-twist-rate').isEmpty) {
+        await enterRifleField(tester, 'rifle-twist-rate', '16');
+      }
+      if (selectedValue<TwistDirection>(tester, 'rifle-twist-direction') ==
+          null) {
+        await chooseTwistDirection(tester, 'Sağ');
+      }
       final before = values();
       expect(before.$1, isNotNull);
       await _update(tester);
