@@ -61,6 +61,6 @@ Sahip dürbünde uyguladığı düzeni (#269) Tüfek ve Mühimmat için de isted
   - Biçim (dart format): https://github.com/sniperTurk/flutter-app/actions/runs/38521605372 → success (format commit'i `9c30aed` dala çekildi).
   - `flutter test` (bütün `test/`): https://github.com/sniperTurk/flutter-app/actions/runs/38521695476 → success (çıkış kodu 0). Notlardaki "KESIK" ve yığın satırları geçen testlerin yazdırdığı çıktılardır; iş çıkış koduyla başarılı bitti.
   - `flutter analyze`: https://github.com/sniperTurk/flutter-app/actions/runs/38521698416 → success.
-- iOS CI / Simülatör / integration_test bu çalışmada koşturulmadı; geçti denmez. TestFlight yok.
+- PR #288 üzerinde `iOS CI` (commit `51098a7`): https://github.com/sniperTurk/flutter-app/actions/runs/38522412275 → `verify`, `dart-checks`, `wind-acceptance` success; `ios-simulator` işi **atlandı (skipped)**, yani Simülatör derlemesi ve integration_test koşmadı; geçti denmez. TestFlight yok.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
