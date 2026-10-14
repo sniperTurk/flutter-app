@@ -172,7 +172,14 @@ void main() {
     });
     var saved = false;
     await step('profil_kaydet', () async {
-      await choose('rifle-brand-select', 'Listede yok');
+      // Typed rifle: the link under Marka | Model (owner, 2026-10-14: no
+      // "Listede yok" in the rifle Marka list). The bottom bar can cover it
+      // on the Simulator, so its own action is called (widget tests tap it).
+      final rifleNotListed = find.byKey(const Key('rifle-not-listed'));
+      await tester.ensureVisible(rifleNotListed);
+      await tester.pumpAndSettle();
+      tester.widget<TextButton>(rifleNotListed).onPressed!();
+      await tester.pumpAndSettle();
       await type('rifle-brand', 'Test Marka');
       await type('rifle-model', 'Test Model');
       await tester.ensureVisible(find.byKey(const Key('rifle-caliber')));

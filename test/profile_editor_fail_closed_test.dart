@@ -354,9 +354,10 @@ void _unitsAndFirearmTests() {
     await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
     expect(tester.widget<TextField>(grain).decoration!.hintText, isNull);
     // Marka is a list of the firearm bullets for this caliber; a typed
-    // name only after "Listede yok", and without a pellet example.
+    // name only after "Aradığın mühimmat listede yok mu?", and without a
+    // pellet example.
     expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
-    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
+    await tapNotListed(tester, 'ammo-not-listed');
     expect(
       tester
           .widget<TextField>(

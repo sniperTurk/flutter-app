@@ -41,10 +41,10 @@ Future<void> fillRifleForm(
       find.byKey(const Key('profile-platform')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
   }
-  // Marka / Model come from the lists; typed names need "Listede yok"
-  // first (owner, 2026-10-11).
-  if (find.byKey(const Key('rifle-brand-select')).evaluate().isNotEmpty) {
-    await chooseInSelect(tester, 'rifle-brand-select', 'Listede yok');
+  // Marka / Model come from the lists; typed names need "Aradığın tüfek
+  // listede yok mu?" first (owner, 2026-10-14).
+  if (find.byKey(const Key('rifle-not-listed')).evaluate().isNotEmpty) {
+    await tapNotListed(tester, 'rifle-not-listed');
   }
   await enterRifleField(tester, 'rifle-brand', brand);
   await enterRifleField(tester, 'rifle-model', model);
@@ -113,9 +113,10 @@ Future<void> fillAmmoForm(
     await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
   }
   // Marka and Model are separate boxes again and come from the library
-  // lists; a typed name needs "Listede yok" first (owner, 2026-10-11).
-  if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
-    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
+  // lists; a typed name needs "Aradığın mühimmat listede yok mu?" first
+  // (owner, 2026-10-14).
+  if (find.byKey(const Key('ammo-not-listed')).evaluate().isNotEmpty) {
+    await tapNotListed(tester, 'ammo-not-listed');
   }
   // PCP asks no Marka/Model (owner, 2026-10-13).
   if (find.byKey(const Key('ammo-brand')).evaluate().isNotEmpty) {
@@ -150,8 +151,13 @@ Future<void> fillShotValues(
 
 /// Taps "Aradığın dürbün listede yok mu?" under the Dürbün card: the
 /// typed scope entry (owner, 2026-10-13: no "Listede yok" in the list).
-Future<void> openScopeManual(WidgetTester tester) async {
-  final link = find.byKey(const Key('scope-not-listed'));
+Future<void> openScopeManual(WidgetTester tester) =>
+    tapNotListed(tester, 'scope-not-listed');
+
+/// Taps one of the "… listede yok mu?" links (scope-not-listed,
+/// rifle-not-listed, ammo-not-listed): the typed entry.
+Future<void> tapNotListed(WidgetTester tester, String key) async {
+  final link = find.byKey(Key(key));
   // Mid-screen: at the bottom edge a save bar can cover it.
   await Scrollable.ensureVisible(tester.element(link), alignment: 0.5);
   await tester.pumpAndSettle();

@@ -89,8 +89,8 @@ void main() {
       await tester.pump();
     }
 
-    // Marka / Model come from lists; typed names need "Listede yok" first
-    // (owner, 2026-10-11).
+    // Marka / Model come from lists; typed names open from the links under
+    // them (owner, 2026-10-14).
     Future<void> choose(String key, String label) async {
       await tester.ensureVisible(find.byKey(Key(key)));
       await tester.tap(find.byKey(Key(key)));
@@ -112,7 +112,14 @@ void main() {
     // A new profile starts on Ateşli Tüfek (owner, 2026-10-11); this tour
     // saves a PCP rifle (6.35 mm caliber), so Tür = PCP Tüfek first.
     await choose('profile-platform', 'PCP Tüfek');
-    await choose('rifle-brand-select', 'Listede yok');
+    // Typed rifle: the link under Marka | Model (owner, 2026-10-14: no
+    // "Listede yok" in the rifle Marka list). The bottom bar can cover it
+    // on the Simulator, so its own action is called (widget tests tap it).
+    final rifleNotListed = find.byKey(const Key('rifle-not-listed'));
+    await tester.ensureVisible(rifleNotListed);
+    await tester.pumpAndSettle();
+    tester.widget<TextButton>(rifleNotListed).onPressed!();
+    await tester.pumpAndSettle();
     await type('rifle-brand', 'Test Marka');
     await type('rifle-model', 'Test Model');
     await tester.ensureVisible(find.byKey(const Key('rifle-caliber')));

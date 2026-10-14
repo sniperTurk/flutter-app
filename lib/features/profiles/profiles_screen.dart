@@ -2003,8 +2003,26 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     );
   }
 
+  /// "Listede yok" in the rifle Marka list, hidden (owner, 2026-10-14:
+  /// "gizle, silme"); "Aradığın tüfek listede yok mu?" opens the typed entry.
+  static const bool _showRifleListedeYok = bool.fromEnvironment(
+    'RIFLE_LISTEDE_YOK',
+  );
+
+  /// Opens the typed rifle entry ("Aradığın tüfek listede yok mu?", and the
+  /// hidden "Listede yok" item): Marka and Model start empty; ammunition of
+  /// the same caliber is kept.
+  void _openRifleManual() {
+    final before = (rifleCaliber.text, _cartridge);
+    rifleModel.text = '';
+    _clearRifleChoice();
+    _keepAmmoInCaliber(before);
+    _rifleManual = true;
+    rifleBrand.text = '';
+  }
+
   /// Marka | Model of the rifle: two lists side by side; typed boxes after
-  /// "Listede yok" (owner, 2026-10-11).
+  /// "Aradığın tüfek listede yok mu?" (owner, 2026-10-14).
   List<Widget> _rifleNameFields() {
     final brands = _rifleBrands;
     if (_rifleManual || brands.isEmpty) {
@@ -2065,21 +2083,21 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             items: [
               for (final b in brands)
                 DropdownMenuItem(value: b, child: Text(b)),
-              const DropdownMenuItem(
-                value: _manualKey,
-                child: Text('Listede yok'),
-              ),
+              if (_showRifleListedeYok)
+                const DropdownMenuItem(
+                  value: _manualKey,
+                  child: Text('Listede yok'),
+                ),
             ],
             onChanged: (v) => setState(() {
+              if (v == _manualKey) {
+                _openRifleManual();
+                return;
+              }
               final before = (rifleCaliber.text, _cartridge);
               rifleModel.text = '';
               _clearRifleChoice();
               _keepAmmoInCaliber(before);
-              if (v == _manualKey) {
-                _rifleManual = true;
-                rifleBrand.text = '';
-                return;
-              }
               rifleBrand.text = v ?? '';
             }),
           ),
@@ -2106,6 +2124,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               if (variants.length == 1) _applyRifleVariant(variants.first);
               _keepAmmoInCaliber(before);
             }),
+          ),
+        ),
+      ),
+      // Owner, 2026-10-14: the typed entry opens from this link instead of
+      // a "Listede yok" item in the Marka list (as the scope's).
+      MenzilFullWidth(
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton(
+            key: const Key('rifle-not-listed'),
+            onPressed: () => setState(_openRifleManual),
+            child: const Text('Aradığın tüfek listede yok mu?'),
           ),
         ),
       ),
@@ -3382,9 +3412,23 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     'PROFILE_AMMO_LENGTH',
   );
 
+  /// "Listede yok" in the ammunition Marka list, hidden (owner, 2026-10-14:
+  /// "gizle, silme"); "Aradığın mühimmat listede yok mu?" opens the typed
+  /// entry.
+  static const bool _showAmmoListedeYok = bool.fromEnvironment(
+    'AMMO_LISTEDE_YOK',
+  );
+
+  /// Opens the typed ammunition entry (the link, and the hidden item).
+  void _openAmmoManual() {
+    _clearAmmo();
+    _ammoManual = true;
+  }
+
   /// Marka | Model of the ammunition: two lists side by side (factory
   /// cartridges or the bullet library for this caliber); the typed boxes
-  /// only after "Listede yok" or when nothing is listed here.
+  /// only after "Aradığın mühimmat listede yok mu?" or when nothing is
+  /// listed here.
   List<Widget> _ammoNameFields({
     required Widget type,
     required Widget brandText,
@@ -3469,12 +3513,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         initialValue: brand,
         items: [
           for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
-          const DropdownMenuItem(value: _manualKey, child: Text('Listede yok')),
+          if (_showAmmoListedeYok)
+            const DropdownMenuItem(
+              value: _manualKey,
+              child: Text('Listede yok'),
+            ),
         ],
         onChanged: (v) => setState(() {
           if (v == _manualKey) {
-            _clearAmmo();
-            _ammoManual = true;
+            _openAmmoManual();
             return;
           }
           ammoBrand.text = v ?? '';
@@ -3501,7 +3548,20 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         },
       ),
     );
-    return arrange(brandSelect, modelSelect);
+    return [
+      ...arrange(brandSelect, modelSelect),
+      // Owner, 2026-10-14: as the scope's and the rifle's link.
+      MenzilFullWidth(
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton(
+            key: const Key('ammo-not-listed'),
+            onPressed: () => setState(_openAmmoManual),
+            child: const Text('Aradığın mühimmat listede yok mu?'),
+          ),
+        ),
+      ),
+    ];
   }
 
   @override
