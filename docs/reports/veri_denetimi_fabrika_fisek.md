@@ -88,4 +88,4 @@ Tam liste CSV'de `field = ic_tutarlilik`, `status = ŞÜPHELİ` (67 kayıt). Ön
 ## Testler (yerel)
 - `python3 -m unittest discover -s tools -p 'test_*.py'`
 - `python3 tools/offline_dart_lint.py`
-Sonuçlar PR açıklamasında. Bu PR Dart kodu değiştirmediği için Flutter/iOS CI'ı bu değişiklikle ilgili bir şey ölçmez; CI sonucu ayrıca belirtilmiştir.
+Sonuç: 740 test OK; `OFFLINE DART LINT PASS: 330 Dart files, 0 issues`. Bu PR Dart kodu değiştirmediği için Flutter/iOS CI'ı bu değişiklikle ilgili bir şey ölçmez; CI sonucu ayrıca belirtilmiştir.
