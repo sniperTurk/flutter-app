@@ -935,7 +935,8 @@ class MenzilInfoButton extends StatelessWidget {
 ///
 /// In the compact variant the small label sits 5 pt above a 44 pt box; the
 /// unit and the ⓘ are inside the box at its right edge. The ⓘ keeps its
-/// 44 × 44 pt tap target (the box height), opens the same popup and neither
+/// 44 × 44 pt tap target (the box height), opens the field's explanation (a
+/// popup, or Pro's bottom sheet via [MenzilInfoScope]) and neither
 /// focuses the field nor opens a list. Dialogs open on their own route and
 /// so keep the regular layout.
 class MenzilCompactFields extends InheritedWidget {
@@ -1122,8 +1123,6 @@ class _LabelWithInfo extends StatelessWidget {
   }
 }
 
-/// Label row shared by inputs and selectors: label on the left, unit on the
-/// right, constant gap to the control below.
 /// Text that drops its bold weight when it needs a second line (owner,
 /// 2026-10-11: a wrapped bold label or entry reads heavy). One line keeps
 /// [style] as given.
@@ -1179,6 +1178,8 @@ class _MenzilWrapTextState extends State<MenzilWrapText> {
   }
 }
 
+/// Label row shared by inputs and selectors: label on the left, unit on the
+/// right, constant gap to the control below.
 class MenzilFieldLabel extends StatelessWidget {
   final String label;
   final String? unit;
@@ -1649,7 +1650,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       dropdownColor: c.surface,
                       // Compact: the ⓘ sits left of the arrow, inside the
                       // box. Its own button takes the tap, so it opens the
-                      // popup and never the list. A dense button is as tall
+                      // explanation and never the list. A dense button is as tall
                       // as its icon size: 44 pt.
                       icon: compact
                           ? _CompactTrailing(
