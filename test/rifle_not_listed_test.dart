@@ -48,16 +48,16 @@ Finder _key(String key) => find.byKey(Key(key));
 
 Finder _in(String key, Finder f) => find.descendant(of: _key(key), matching: f);
 
-String _text(WidgetTester tester, String key) => tester
-    .widget<TextField>(_in(key, find.byType(TextField)))
-    .controller!
-    .text;
+String _text(WidgetTester tester, String key) =>
+    tester.widget<TextField>(_in(key, find.byType(TextField))).controller!.text;
 
 /// The labels of the list box under [key].
 List<String?> _items(WidgetTester tester, String key) => [
   for (final i
       in tester
-          .widget<MenzilSelect<String>>(_in(key, find.byType(MenzilSelect<String>)))
+          .widget<MenzilSelect<String>>(
+            _in(key, find.byType(MenzilSelect<String>)),
+          )
           .items)
     i.child is Text ? (i.child as Text).data : null,
 ];
@@ -96,8 +96,10 @@ void main() {
       expect(brands, isNot(contains('Listede yok')));
       final link = _key('rifle-not-listed');
       expect(link, findsOneWidget);
-      expect(_in('rifle-not-listed', find.text('Aradığın tüfek listede yok mu?')),
-          findsOneWidget);
+      expect(
+        _in('rifle-not-listed', find.text('Aradığın tüfek listede yok mu?')),
+        findsOneWidget,
+      );
       expect(tester.widget(link), isA<TextButton>());
       // Under the Marka | Model row, left-aligned inside the rifle card.
       final model = tester.getRect(_key('rifle-model-select'));
