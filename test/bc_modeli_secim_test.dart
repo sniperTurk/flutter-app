@@ -327,9 +327,7 @@ void main() {
       expect((dialog.center.dx - screen.center.dx).abs(), lessThan(1));
     });
 
-    testWidgets('G7 is saved, reopened and used by the solver', (
-      tester,
-    ) async {
+    testWidgets('G7 is saved, reopened and used by the solver', (tester) async {
       final store = MemoryProfileStore();
       await _savePcp(tester, store, bc: '0,110', model: 'G7');
       final saved = (await store.all()).single;
@@ -402,7 +400,10 @@ void main() {
         'ra4',
         'custom',
       ]);
-      expect(_info(tester, 'ammo-bc-model'), ProfileFieldInfo.bcModelWithCustom);
+      expect(
+        _info(tester, 'ammo-bc-model'),
+        ProfileFieldInfo.bcModelWithCustom,
+      );
       expect(
         ProfileFieldInfo.bcModelWithCustom,
         endsWith('\n\n${ProfileFieldInfo.bcModelWarning}'),
@@ -453,9 +454,7 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(
-        find.textContaining(
-          'Sürtünmeli hesap: ${model.toUpperCase()} BC 0,11',
-        ),
+        find.textContaining('Sürtünmeli hesap: ${model.toUpperCase()} BC 0,11'),
         findsOneWidget,
       );
       await tester.tap(find.text('DOPE oluştur'));
