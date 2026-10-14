@@ -3514,7 +3514,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         nato = '\n\n$t';
       }
       final note = a.note == null ? '' : '\n\nBu fişek: ${a.note}';
-      if (nato.isNotEmpty || note.isNotEmpty) return nato + note;
+      // A listed factory round whose maker publishes no BC (2026-10-14).
+      final noBc =
+          a.bc == null && platform == WeaponPlatform.firearm && _factoryAmmo
+          ? '\n\nBu fişek: Üretici BC yayımlamıyor. Kendi atışlarınızdan '
+                'bulduğunuz BC\'yi girin; BC modelini de seçin.'
+          : '';
+      if (nato.isNotEmpty || note.isNotEmpty || noBc.isNotEmpty) {
+        return nato + note + noBc;
+      }
     }
     // A listed bullet / pellet whose maker publishes no BC (2026-10-12).
     if (!(platform == WeaponPlatform.firearm && _factoryAmmo)) {
