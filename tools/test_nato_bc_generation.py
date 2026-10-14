@@ -99,7 +99,9 @@ class GeneratedLibraryTest(unittest.TestCase):
         for l in others:
             self.assertNotIn('bcStandard', l)
             self.assertNotIn('bcReport', l)
-            self.assertNotIn('bcSourceUrl', l)
+            # BC geri hesap (2026-10-14): maker-sourced BCs name their URL too.
+            if not re.search(r"bcSource: '(printed|maker-table-backsolve|component-bullet)'", l):
+                self.assertNotIn('bcSourceUrl', l)
 
     def test_mke_rounds_with_their_own_bc_are_unchanged(self):
         m80 = [l for l in _lines() if "'7.62×51 Normal Fişek (M80)'" in l]
