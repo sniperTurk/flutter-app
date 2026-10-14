@@ -246,6 +246,7 @@ class ScopeDialView extends StatelessWidget {
 
   int get _downClicks => maxElevationDownClicks ?? maxElevationClicks;
 
+  /// Whole numbers without decimals, else one decimal with a comma.
   static String _trim(double v) => v == v.roundToDouble()
       ? v.toStringAsFixed(0)
       : v.toStringAsFixed(1).replaceAll('.', ',');
@@ -438,7 +439,7 @@ class ScopeDialView extends StatelessWidget {
                     cantDeg: cantDeg,
                     opticLine:
                         '${ffp ? 'FFP' : 'SFP'} · $unitLabel'
-                        '${hasZoom ? ' · ${_mag(currentMag)}x' : ''}',
+                        '${hasZoom ? ' · ${_trim(currentMag)}x' : ''}',
                     sfpNote: !ffp && hasZoom && (sub - 1).abs() > 1e-6
                         ? '1 çizgi = ${sub.toStringAsFixed(2).replaceAll('.', ',')} $unitLabel'
                         : null,
@@ -612,10 +613,6 @@ class ScopeDialView extends StatelessWidget {
     );
   }
 
-  static String _mag(double m) => m == m.roundToDouble()
-      ? m.toStringAsFixed(0)
-      : m.toStringAsFixed(1).replaceAll('.', ',');
-
   Widget _zoomRow(BuildContext context) {
     final c = MenzilColors.of(context);
     final min = minMagnification!, max = maxMagnification!;
@@ -630,14 +627,14 @@ class ScopeDialView extends StatelessWidget {
             max: max,
             divisions: steps > 0 ? steps : null,
             value: currentMag.clamp(min, max).toDouble(),
-            label: '${_mag(currentMag)}x',
+            label: '${_trim(currentMag)}x',
             onChanged: onMagnificationChanged,
           ),
         ),
         SizedBox(
           width: 52,
           child: Text(
-            '${_mag(currentMag)}x',
+            '${_trim(currentMag)}x',
             textAlign: TextAlign.end,
             style: MenzilType.number(c.ink, size: 16, live: true),
           ),
@@ -753,8 +750,8 @@ class ScopeDialView extends StatelessWidget {
     } else {
       final sub = subtension;
       lines.add(
-        'SFP: retikül yalnız ${_mag(calibrationMag)}x büyütmede doğru. '
-        '1 çizgi = ${_mag(calibrationMag)} / ${_mag(currentMag)} = '
+        'SFP: retikül yalnız ${_trim(calibrationMag)}x büyütmede doğru. '
+        '1 çizgi = ${_trim(calibrationMag)} / ${_trim(currentMag)} = '
         '${sub.toStringAsFixed(3).replaceAll('.', ',')} $unitLabel.',
       );
       if (impact != null) {
@@ -852,7 +849,7 @@ class ScopeDialView extends StatelessWidget {
           '($distanceUnit).'
           '${windMpsPerUnit == null ? '' : ' Turuncu sayılar: bu mesafede isabeti o işarete kaydıran yan rüzgâr hızı.'}'
           '${windNote == null ? '' : ' $windNote'}'
-          '${ffp ? ' FFP: retikül aralıkları her büyütmede geçerlidir.' : ' SFP: retikül aralıkları yalnız ${_mag(calibrationMag)}x büyütmede geçerlidir; sayılar seçili büyütmeye göre hesaplandı.'}',
+          '${ffp ? ' FFP: retikül aralıkları her büyütmede geçerlidir.' : ' SFP: retikül aralıkları yalnız ${_trim(calibrationMag)}x büyütmede geçerlidir; sayılar seçili büyütmeye göre hesaplandı.'}',
           // Hedef page paragraphs stay justified (owner, 2026-10-13: the
           // only justified page).
           textAlign: TextAlign.justify,
@@ -1198,10 +1195,6 @@ class _DrumPainter extends CustomPainter {
   String _letter(int v) =>
       v == 0 ? '' : (v > 0 ? positiveLetter : negativeLetter);
 
-  String _num(double v) => v == v.roundToDouble()
-      ? v.toStringAsFixed(0)
-      : v.toStringAsFixed(1).replaceAll('.', ',');
-
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
@@ -1248,7 +1241,7 @@ class _DrumPainter extends CustomPainter {
           final letter = _letter(v);
           _text(
             canvas,
-            '${_num(value)}$letter',
+            '${ScopeDialView._trim(value)}$letter',
             Offset(p, size.height * 0.40),
             label,
             15,
@@ -1261,7 +1254,7 @@ class _DrumPainter extends CustomPainter {
           final letter = _letter(v);
           _text(
             canvas,
-            '${_num(value)}$letter',
+            '${ScopeDialView._trim(value)}$letter',
             Offset(size.width * 0.62, p),
             label,
             13,

@@ -3205,17 +3205,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// Fills the ammunition from a library record (list or library screen).
   void _applyBullet(LibraryBullet b, double? cal) {
-    String n(num v) =>
-        v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     _ammoManual = false;
     {
       ammoBrand.text = b.brand;
       ammoModel.text = b.name.toLowerCase().startsWith(b.brand.toLowerCase())
           ? b.name.substring(b.brand.length).trim()
           : b.name;
-      ammoGrain.text = n(b.grain);
+      ammoGrain.text = _trimNum(b.grain);
       // No maker BC (2026-10-12): the box stays empty for the shooter's own.
-      ammoBc.text = b.bc == null ? '' : n(b.bc!);
+      ammoBc.text = b.bc == null ? '' : _trimNum(b.bc!);
       ammoBcModel = b.model;
       // A library bullet carries its BC; one with a published measured
       // Cd–Mach curve also fills that curve (owner, 2026-10-11). The BC
@@ -3227,7 +3225,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       for (var i = 0; i < 2; i++) {
         final band = i < b.bands.length ? b.bands[i] : null;
         ammoBandFps[i].text = band == null ? '' : band.$1.toString();
-        ammoBandBc[i].text = band == null ? '' : n(band.$2);
+        ammoBandBc[i].text = band == null ? '' : _trimNum(band.$2);
       }
       // The ammunition's caliber follows the rifle: a bullet of another
       // caliber sets it.
@@ -3329,8 +3327,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   void _applyFactory(FactoryAmmo a) {
     _ammoSourceSet = true; // a listed factory round: Fabrika fişeği
-    String n(num v) =>
-        v % 1 == 0 ? v.toStringAsFixed(0) : v.toString().replaceAll('.', ',');
     // Kalibre not chosen yet: the round tells it.
     if (_cartridge == null && rifleCaliber.text.trim().isEmpty) {
       _cartridge = a.cartridge;
@@ -3339,8 +3335,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     _ammoManual = false;
     ammoBrand.text = a.brand;
     ammoModel.text = a.name;
-    ammoGrain.text = n(a.grain);
-    ammoBc.text = a.bc == null ? '' : n(a.bc!);
+    ammoGrain.text = _trimNum(a.grain);
+    ammoBc.text = a.bc == null ? '' : _trimNum(a.bc!);
     ammoBcModel = a.model;
     _customCurve = false;
     _dragCurve = null;
@@ -3348,7 +3344,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       ammoBandFps[i].text = '';
       ammoBandBc[i].text = '';
     }
-    velocity.text = n(a.muzzleVelocityFps);
+    velocity.text = _trimNum(a.muzzleVelocityFps);
     // Barut sıcaklığı: the maker's figure when it publishes one; otherwise
     // only a previous automatic fill goes (typed values stay).
     final pt = FactoryPowderTempLibrary.lookup(a.brand, a.name);

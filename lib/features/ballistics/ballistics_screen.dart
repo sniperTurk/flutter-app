@@ -325,7 +325,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
         ammoTempCtl.text = ammoC == null || !ammoC.isFinite
             ? ''
             : metric
-            ? _celsiusText(ammoC)
+            ? _twoDecimals(ammoC)
             : UnitSystem.celsiusToFahrenheit(ammoC).toStringAsFixed(1);
         windMidCtl.text = s.windMidText;
         windFarCtl.text = s.windFarText;
@@ -400,13 +400,10 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
   void _putWeatherSi(ShotSettings s) {
     final si = s.weatherSi;
     final m = metric;
-    String f(double v) => v == v.roundToDouble()
-        ? v.toStringAsFixed(0)
-        : double.parse(v.toStringAsFixed(2)).toString();
     String show(String key, double Function(double) toImperial) {
       final v = si[key];
       if (v == null) return '';
-      return f(m ? v : toImperial(v));
+      return _twoDecimals(m ? v : toImperial(v));
     }
 
     temperature.text = show('temperature', UnitSystem.celsiusToFahrenheit);
@@ -419,7 +416,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     }
     final wd = si['windDirection'];
     if (wd != null) {
-      windDirection.text = f(wd);
+      windDirection.text = _twoDecimals(wd);
       windHour.text = '${WindClock.fromDegrees(wd)}';
     }
     _weatherFilled = s.weatherFromLocation;
@@ -456,7 +453,7 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
       powderCoefText: powderCoefCtl.text.trim(),
       tubePressureText: tubePressureCtl.text.trim(),
       powderTempText: powderTempCtl.text.trim(),
-      ammoTempText: _ammoTempC == null ? '' : _celsiusText(_ammoTempC!),
+      ammoTempText: _ammoTempC == null ? '' : _twoDecimals(_ammoTempC!),
       windMidText: windMidCtl.text.trim(),
       windFarText: windFarCtl.text.trim(),
       zeroUpText: zeroUpCtl.text.trim(),
@@ -615,11 +612,6 @@ class _BallisticsScreenState extends State<BallisticsScreen> {
     if (v == null || !v.isFinite) return null;
     return metric ? v : UnitSystem.fahrenheitToCelsius(v);
   }
-
-  /// Stored in °C so a unit switch never reinterprets it.
-  static String _celsiusText(double c) => c == c.roundToDouble()
-      ? c.toStringAsFixed(0)
-      : double.parse(c.toStringAsFixed(2)).toString();
 
   /// Settings written by another page (Kronograf → SD) while this
   /// workspace stayed alive: read them again instead of saving old values.
@@ -5264,9 +5256,6 @@ class EnvironmentCarry {
     final sameProfile = _profileId == s.widget.profile?.id;
     s._weatherFilled = _weatherFilled;
     s._pressureFilled = _pressureFilled;
-    String f(double v) => v == v.roundToDouble()
-        ? v.toStringAsFixed(0)
-        : double.parse(v.toStringAsFixed(2)).toString();
     final fields = {
       'temperature': s.temperature,
       'pressure': s.pressure,
@@ -5283,7 +5272,7 @@ class EnvironmentCarry {
       if (key == 'windDirection' && !sameProfile) continue;
       final v = si[key];
       if (v == null) continue;
-      value.text = f(v);
+      value.text = _twoDecimals(v);
       if (_edited.contains(key)) s._userEdited.add(value);
     }
     final wd = si['windDirection'];
@@ -5346,3 +5335,9 @@ class _WezPainter extends CustomPainter {
 String _decimal(num? v) => v == null
     ? '—'
     : (v % 1 == 0 ? v.toStringAsFixed(0) : v.toString()).replaceAll('.', ',');
+
+/// A stored SI value (°C, hPa, m/s …) back into a box: no trailing ".0",
+/// at most two decimals, decimal point (the boxes accept both).
+String _twoDecimals(double v) => v == v.roundToDouble()
+    ? v.toStringAsFixed(0)
+    : double.parse(v.toStringAsFixed(2)).toString();
