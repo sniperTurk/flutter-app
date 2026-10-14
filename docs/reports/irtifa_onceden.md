@@ -92,7 +92,8 @@ Tarih: 14.10.2026 (İstanbul) · Dal: `fix/irtifa-onceden` · Taslak PR, birleş
 - Biçim (dart format): https://github.com/sniperTurk/flutter-app/actions/runs/38556447863 — başarılı; biçim commit'i (`00b370f`) dala çekildi.
 - Testler (`flutter test test`, tüm klasör, `00b370f`): https://github.com/sniperTurk/flutter-app/actions/runs/38556556854 — başarılı (adım çıkış kodu 0). Notlardaki "KESIK" ve yığın satırları main'deki başarılı çalıştırmada da aynen var (testlerin kendi tanı çıktısı).
 - Analiz (`flutter analyze --fatal-infos --fatal-warnings`, `00b370f`): https://github.com/sniperTurk/flutter-app/actions/runs/38556562343 — başarılı.
-- iOS CI / verify, Simulator, TestFlight: bu görevde çalıştırılmadı; geçti denemez.
+- iOS CI (PR #303, rapor commit'i): https://github.com/sniperTurk/flutter-app/actions/runs/38557694970 — `verify`, `dart-checks`, `wind-acceptance` başarılı. `ios-simulator` işi atlandı (skipped): Simulator derlemesi çalışmadı, geçti denemez.
+- TestFlight: çalıştırılmadı.
 
 Taslak PR. Birleştirme yok, TestFlight yok.
 
