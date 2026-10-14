@@ -353,10 +353,12 @@ void _unitsAndFirearmTests() {
     expect(find.text('9.00 mm (.357)'), findsNothing);
     await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
     expect(tester.widget<TextField>(grain).decoration!.hintText, isNull);
-    // Marka is a list of the firearm bullets for this caliber; a typed
-    // name only after "Listede yok", and without a pellet example.
+    // Marka is a list of the firearm rounds for this caliber; a typed
+    // round opens from the "listede yok mu?" link (owner, 2026-10-14), a
+    // typed brand only after "Diğer", without a pellet example.
     expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
-    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
+    await openAmmoManual(tester);
+    await chooseInSelect(tester, 'ammo-brand-pick', 'Diğer');
     expect(
       tester
           .widget<TextField>(
