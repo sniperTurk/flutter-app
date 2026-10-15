@@ -21,9 +21,8 @@ import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/rifle_form.dart';
 
-const _fisekNote =
-    "\n\nBu fişek: Üretici BC yayımlamıyor. Kendi atışlarınızdan bulduğunuz "
-    "BC'yi girin; BC modelini de seçin.";
+// MUH-5 (owner, 2026-10-15): the note says a typed BC sets G1.
+const _fisekNote = '\n\n${ProfileFieldInfo.bcFactoryNoBc}';
 const _mermiNote =
     "\n\nBu mermi: Üretici BC yayımlamıyor. Kendi atışlarınızdan bulduğunuz "
     "BC'yi girin.";

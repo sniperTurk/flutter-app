@@ -130,6 +130,14 @@ abstract final class ProfileFieldInfo {
       'etkilenir. Tipik: G1 0,25–0,60; G7 0,12–0,30. Kutuda veya mermi '
       'üreticisinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
 
+  /// Added to the BC ⓘ of a listed factory round whose maker publishes no
+  /// BC (2026-10-14). A typed BC sets BC modeli to G1 (owner, 2026-10-13);
+  /// the text says so (MUH-5, owner, 2026-10-15).
+  static const bcFactoryNoBc =
+      'Bu fişek: Üretici BC yayımlamıyor. Kendi atışlarınızdan bulduğunuz '
+      'BC\'yi girin. BC yazınca BC modeli kendiliğinden G1 olur; üretici BC\'yi '
+      'G7 olarak veriyorsa BC modelini G7 yapın.';
+
   /// Added to the BC ⓘ when the listed factory round's BC comes from the
   /// same NATO standard bullet's official report (owner, 2026-10-12: "ⓘ
   /// alanında veriyi nasıl eklediğimizi açıkla; kullanıcı isterse
