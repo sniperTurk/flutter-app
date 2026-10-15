@@ -211,6 +211,17 @@ void main() {
       await tester.pumpAndSettle();
       expect(focus.hasFocus, isFalse);
       expect(_menu, findsOneWidget);
+      // The keyboard coming or going (metrics change, same width) keeps the
+      // list open; it used to close it under the finger on the simulator.
+      tester.view.viewInsets = const FakeViewPadding(bottom: 900);
+      await tester.pumpAndSettle();
+      expect(_menu, findsOneWidget);
+      tester.view.resetViewInsets();
+      await tester.pumpAndSettle();
+      expect(_menu, findsOneWidget);
+      await tester.tap(find.text('Üç').last);
+      await tester.pumpAndSettle();
+      expect(_menu, findsNothing);
     });
 
     testWidgets('a box near the bottom: the page scrolls, list still below', (

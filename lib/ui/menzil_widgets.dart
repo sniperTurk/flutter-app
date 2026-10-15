@@ -1514,9 +1514,11 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
   /// never laid out against a keyboard that is about to disappear.
   Future<void> _closeKeyboard() async {
     FocusManager.instance.primaryFocus?.unfocus();
-    for (var i = 0; i < 40; i++) {
+    // The window's own insets: a Scaffold hides the keyboard from the
+    // MediaQuery of its body.
+    for (var i = 0; i < 60; i++) {
       if (!mounted) return;
-      if (MediaQuery.viewInsetsOf(context).bottom == 0) return;
+      if (View.of(context).viewInsets.bottom == 0) return;
       WidgetsBinding.instance.scheduleFrame();
       await WidgetsBinding.instance.endOfFrame;
     }
@@ -1543,10 +1545,18 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
     super.dispose();
   }
 
-  /// A rotation or a resized window moves the box: the list closes, as
-  /// Flutter's own list did.
+  /// Window width when the list opened.
+  double? _openWidth;
+
+  /// A rotation or a resized window moves the box: the list closes. The
+  /// keyboard coming or going changes the metrics too, but not the width;
+  /// that keeps the list open (it closed the list under the user's finger
+  /// on the iOS Simulator).
   @override
-  void didChangeMetrics() => _closeMenu();
+  void didChangeMetrics() {
+    if (_menu == null || !mounted) return;
+    if (View.of(context).physicalSize.width != _openWidth) _closeMenu();
+  }
 
   void _closeMenu() {
     final menu = _menu;
@@ -1647,6 +1657,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     );
     _menu = menu;
+    _openWidth = View.of(context).physicalSize.width;
     final result = await navigator.push(menu);
     if (identical(_menu, menu)) _menu = null;
     if (!mounted || result == null) return;
