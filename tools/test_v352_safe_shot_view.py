@@ -1,12 +1,13 @@
 import unittest
 from pathlib import Path
+from dart_library_source import library_text
 
 ROOT = Path(__file__).resolve().parents[1]
 SCREEN = ROOT / 'lib/features/ballistics/ballistics_screen.dart'
 
 class SafeShotViewTest(unittest.TestCase):
     def setUp(self):
-        self.text = SCREEN.read_text(encoding='utf-8')
+        self.text = library_text(SCREEN)
 
     def test_safe_shot_view_is_present_and_drag_locked(self):
         # The title moved to the top bar (owner, 2026-10-08).

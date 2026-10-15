@@ -16,6 +16,7 @@ import re
 import sys
 import unittest
 from pathlib import Path
+from dart_library_source import library_text
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import formula_reference as ref  # noqa: E402
@@ -148,7 +149,7 @@ class SpinDriftSourceContract(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.src = re.sub(r"\s+", " ", SCREEN.read_text(encoding="utf-8"))
+        cls.src = re.sub(r"\s+", " ", library_text(SCREEN))
 
     def test_miller(self):
         # Ö5 (2026-10-11): the Miller formula moved to lib/core/stability.dart;
