@@ -1,7 +1,7 @@
 # Simulator screenshots
 
-- Source: `main` @ `ea9c9e85062bb158d9e1a4b96d9e0cac216d81f8`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38640369195
+- Source: `main` @ `9104632f27aa91b6a447696b2736cf230b70463d`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/38799030266
 - flutter test exit code: 1 (0 = every step passed)
 - Device: iPhone 17 Pro / iOS 26.2
 
