@@ -92,7 +92,7 @@ abstract final class ProfileFieldInfo {
       'etkilenir. Tipik: pellet 0,02–0,04, slug 0,05–0,15 (G1). Kutuda veya '
       'üreticinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır. '
       'Saçma ve slug G1 ile hesaplanır. Bilinmiyorsa boş bırakın; sonuç '
-      'yaklaşık olur.';
+      'yaklaşık olur. Örnek: BC değerini 0,032 şeklinde girin.';
   static const scopeFilterUnit =
       'Dürbününüzü bulmak için kulenin birimi. MRAD: klik 0,1 mil. MOA: '
       'klik 1/4 MOA. SMOA: üretici "100 yardada 1/4 inç" diyorsa. Kulede ya '
@@ -128,7 +128,8 @@ abstract final class ProfileFieldInfo {
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
       'etkilenir. Tipik: G1 0,25–0,60; G7 0,12–0,30. Kutuda veya mermi '
-      'üreticisinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
+      'üreticisinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır. '
+      'Örnek: BC değerini 0,324 şeklinde girin.';
 
   /// Added to the BC ⓘ of a listed factory round whose maker publishes no
   /// BC (2026-10-14). A typed BC sets BC modeli to G1 (owner, 2026-10-13);
@@ -175,7 +176,8 @@ abstract final class ProfileFieldInfo {
       'birden çok BC verir (ör. Sierra). Örnek: 1800 fps altında 0,450.';
   static const bandBc =
       'Hız, soldaki eşiğin altına düştüğünde kullanılacak BC (aynı model: '
-      'G1/G7). Boş bırakırsanız tek BC kullanılır. Örnek: 0,031.';
+      'G1/G7). Boş bırakırsanız tek BC kullanılır. Örnek: BC değerini '
+      '0,310 şeklinde girin.';
 
   // Dürbün
   static const focalPlane =
