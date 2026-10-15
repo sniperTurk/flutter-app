@@ -87,7 +87,24 @@ eksi değer) hesaba katmazsa yetmeyen bir ayak önerir.
 
 ## CI
 
-(aşağıda güncellenir)
+Rebase öncesi baş commit `c05439df` (kod + CI'nın format commit'i), hepsi
+gerçekten çalıştı ve yeşil:
+
+- Format düzeltme (format-fix): başarılı, test dosyasına format commit'i itti
+  (`c05439df`).
+- iOS CI, `c05439df` üzerinde (run 38782473646):
+  - `verify`: success —
+    https://github.com/sniperTurk/flutter-app/actions/runs/38782473646/job/116591527568
+  - `dart-checks`: success —
+    https://github.com/sniperTurk/flutter-app/actions/runs/38782473646/job/116585944327
+  - `wind-acceptance`: success —
+    https://github.com/sniperTurk/flutter-app/actions/runs/38782473646/job/116585943626
+- test-diag (files=test): success — https://github.com/sniperTurk/flutter-app/actions/runs/38782145074
+- analyze-diag: success — https://github.com/sniperTurk/flutter-app/actions/runs/38782148941
+
+Not: ilk commit `c38af370` üzerindeki `dart-checks` format yüzünden düştü;
+format commit'inden sonra yeşil. Sonra dal main'e (`44285f13`) rebase edildi;
+rebase sonrası baş commit'in sonuçları PR'daki check'lerde görünür.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
