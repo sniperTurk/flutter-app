@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'units.dart';
+
 /// One error source of a shot, as a 1-sigma spread in mrad on the target,
 /// horizontal (x, + right) and vertical (y, + up).
 class WezSource {
@@ -164,4 +166,10 @@ abstract final class Wez {
 
   /// A "± value" the user types is read as about 2 sigma (95 %).
   static double sigmaOfPlusMinus(double v) => v / 2;
+
+  /// Target radius in mrad for a round target [diameterM] across at
+  /// [rangeM]: atan((d / 2) / range) · 1000. A 10 cm ring at 100 m = 0.5
+  /// mrad. Moved from the Hedef screen (2026-10-15, same arithmetic).
+  static double targetRadiusMrad(double diameterM, double rangeM) =>
+      Units.linearToMrad(diameterM / 2, rangeM);
 }

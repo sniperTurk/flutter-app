@@ -62,4 +62,20 @@ abstract final class EstimatedBc {
       modelWithoutBc: a.modelWithoutBc,
     );
   }
+
+  /// Sectional density in lb/in²: grain / (7000 · d²), d = [caliberMm] in
+  /// inches. 7,62 mm (0,3 in), 168 gr: 0,267. Used by Profil's BC
+  /// plausibility check (moved from the editor, 2026-10-15, same
+  /// arithmetic).
+  static double sectionalDensity(double grain, double caliberMm) {
+    final dIn = caliberMm / 25.4;
+    return grain / (7000 * dIn * dIn);
+  }
+
+  /// Bullet weight in grains that has sectional density [sd] at
+  /// [caliberMm]: sd · 7000 · d² (inverse of [sectionalDensity]).
+  static double grainForSectionalDensity(double sd, double caliberMm) {
+    final dIn = caliberMm / 25.4;
+    return sd * (7000 * dIn * dIn);
+  }
 }
