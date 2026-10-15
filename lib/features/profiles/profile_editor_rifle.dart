@@ -274,6 +274,7 @@ extension _RifleSection on _ProfileDialogState {
     key: const Key('profile-velocity-fps'),
     controller: velocity,
     label: 'Namlu çıkış hızı',
+    unit: 'fps',
     info: platform == WeaponPlatform.firearm
         ? ProfileFieldInfo.velocityFirearm
         : ProfileFieldInfo.velocity,
@@ -559,6 +560,7 @@ extension _RifleSection on _ProfileDialogState {
                 : ProfileFieldInfo.sightHeight,
             controller: sight,
             label: 'Sight height',
+            unit: 'mm',
             onChanged: (_) => _update(() {}),
             errorText: sight.text.isNotEmpty && !_validSight
                 ? '0–300 mm arasında geçerli bir değer girin.'
@@ -592,6 +594,8 @@ extension _RifleSection on _ProfileDialogState {
             key: const Key('profile-zero'),
             controller: zero,
             label: 'Sıfırlama mesafesi',
+            // Follows Mesafe birimi; "m" while it is not chosen yet.
+            unit: distanceUnit.symbol,
             info: platform == WeaponPlatform.firearm
                 ? ProfileFieldInfo.zeroFirearm
                 : ProfileFieldInfo.zero,

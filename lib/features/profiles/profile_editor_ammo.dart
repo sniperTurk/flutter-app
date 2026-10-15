@@ -895,6 +895,7 @@ extension _AmmoSection on _ProfileDialogState {
               controller: ammoGrain,
               focusNode: _grainFocus,
               label: 'Ağırlık',
+              unit: 'gr',
               onChanged: (_) => _update(() {}),
               errorText: _shown(_grainError, ammoGrain),
             ),
