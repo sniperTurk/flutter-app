@@ -52,6 +52,8 @@ Yerel: `python3 tools/offline_dart_lint.py` → PASS (0 sorun); `python3 -m unit
 - Format (one-off dart format fix): https://github.com/sniperTurk/flutter-app/actions/runs/38775122318 — başarılı; test dosyasında 1 satırlık biçim düzeltmesi dala eklendi.
 - Analyze (analyze-diag): https://github.com/sniperTurk/flutter-app/actions/runs/38775284038 — başarılı.
 - Tüm testler (test-diag, files=test): https://github.com/sniperTurk/flutter-app/actions/runs/38775279944 — başarılı (çıkış kodu 0).
-- `verify`, `dart-checks`, `wind-acceptance`: sonuçları PR açıklamasında güncellenecek.
+- iOS CI, rapor öncesi kod commit'i aff5ccb üzerinde (https://github.com/sniperTurk/flutter-app/actions/runs/38776546953): `dart-checks` başarılı, `wind-acceptance` başarılı, `verify` başarılı; `ios-simulator` atlandı (yalnız elle çalışıyor).
+- Bu rapor güncellemesinden sonraki son commit'in CI sonucu PR açıklamasının sonunda yazılı.
+- Simulator, cihaz, TestFlight, App Store: çalıştırılmadı.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
