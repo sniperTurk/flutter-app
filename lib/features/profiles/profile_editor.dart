@@ -56,8 +56,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   WeaponPlatform platform = WeaponPlatform.firearm;
 
   /// False while the Tür box of a new profile still says "Seçiniz" (owner,
-  /// 2026-10-15: every list box starts on "Seçiniz"). The form keeps working
-  /// as Ateşli Tüfek, the default above, until a Tür is picked.
+  /// 2026-10-15: every list box starts on "Seçiniz"). Until a Tür is picked
+  /// the form may still show the Ateşli Tüfek fields (the default above), but
+  /// the profile cannot be saved: "Tür" is listed as missing (owner,
+  /// 2026-10-15).
   bool _platformSet = true;
 
   /// The rifle is typed in by the user (catalog rifle data proved
@@ -809,6 +811,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
     // Same order as the form (owner, 2026-10-09).
     section('Tüfek', [
+      (_platformSet, 'Tür'),
       (_brandError == null, 'Marka'),
       (_modelError == null, 'Model'),
       (_caliberError == null, 'Kalibre'),

@@ -344,6 +344,8 @@ const _rifleTypedLayout = [
 
 /// The Tüfek names of "Kaydetmek için eksik", in the order of the boxes.
 const _rifleBannerOrder = [
+  // Tür is required and named first (owner, 2026-10-15).
+  'Tür',
   'Marka',
   'Model',
   'Kalibre',
@@ -484,6 +486,7 @@ Map<String, List<String>> _missing(WidgetTester tester) {
 /// The box each banner name points at; one of them must be on screen.
 const Map<String, Map<String, List<String>>> _bannerBoxes = {
   'Tüfek': {
+    'Tür': ['profile-platform'],
     'Marka': ['rifle-brand-select', 'rifle-brand'],
     'Model': ['rifle-model-select', 'rifle-model'],
     'Namlu çıkış hızı': ['profile-velocity-fps'],
@@ -904,7 +907,8 @@ void main() {
       tester,
     ) async {
       await _openNew(tester);
-      expect(_missing(tester)['Tüfek']!.take(2), ['Marka', 'Model']);
+      // Tür on "Seçiniz" is named first (owner, 2026-10-15).
+      expect(_missing(tester)['Tüfek']!.take(3), ['Tür', 'Marka', 'Model']);
       _bannerNamesVisibleBoxes(tester);
       await openRifleManual(tester);
       _bannerNamesVisibleBoxes(tester);
@@ -971,7 +975,7 @@ void main() {
     ) async {
       void inOrder() {
         final named = _missing(tester)['Tüfek'] ?? const <String>[];
-        expect(named.take(3), ['Marka', 'Model', 'Kalibre']);
+        expect(named.take(4), ['Tür', 'Marka', 'Model', 'Kalibre']);
         expect(named, [
           for (final n in _rifleBannerOrder)
             if (named.contains(n)) n,
