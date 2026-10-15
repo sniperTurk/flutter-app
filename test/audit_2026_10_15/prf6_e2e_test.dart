@@ -156,6 +156,9 @@ Future<double> _hedefMrad(
   tester.view.physicalSize = const Size(1000, 6000);
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
+  // Unmount the truing page first: a theme change inside one tree would
+  // animate between unrelated text styles (a test artefact).
+  await tester.pumpWidget(const SizedBox());
   await tester.pumpWidget(MaterialApp(home: BallisticsScreen(profile: p)));
   await tester.pumpAndSettle();
   await _enter(tester, BallisticsFieldKeys.temperature, '15');
