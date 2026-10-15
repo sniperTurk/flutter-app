@@ -45,6 +45,14 @@ class UsageGuideSyncTest(unittest.TestCase):
         self.assertNotIn('**', MD.read_text(encoding='utf-8'))
         self.assertNotIn('FontWeight.w7', (ROOT / 'lib/features/guide/usage_guide_screen.dart').read_text(encoding='utf-8'))
 
+    def test_profil_ekle_not_yeni_profil(self):
+        # Owner design 2026-10-15: top-bar "Yeni Profil" removed; later
+        # profiles come from "Profil ekle" in the Profiller list header.
+        for path in (DART, MD):
+            text = path.read_text(encoding='utf-8')
+            self.assertNotIn('yeni profil', text.lower(), path)
+            self.assertIn('"Profil ekle"', text, path)
+
 
 if __name__ == '__main__':
     unittest.main()

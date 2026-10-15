@@ -1,0 +1,47 @@
+name: Maps billing check (Elevation API)
+
+# One-off report: does the app's "Haritadan irtifa" request succeed with the
+# GOOGLE_MAPS_IOS_API_KEY secret? Prints only: secret set (yes/no), HTTP code,
+# JSON status, error_message, elevation. Never prints the key or the URL.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Elevation request (same as google_elevation_provider.dart)
+        env:
+          GOOGLE_MAPS_IOS_API_KEY: ${{ secrets.GOOGLE_MAPS_IOS_API_KEY }}
+        shell: bash
+        run: |
+          set +x
+          set -u
+          if [ -n "${GOOGLE_MAPS_IOS_API_KEY:-}" ]; then
+            echo "secret_set: yes"
+          else
+            echo "secret_set: no"
+            exit 0
+          fi
+          body="$(mktemp)"
+          code="$(curl -sS -G -o "$body" -w '%{http_code}' --max-time 20 \
+            -H 'X-Ios-Bundle-Identifier: com.sniperturk.sniperTurk' \
+            -H 'Accept: application/json' \
+            --data-urlencode 'locations=39.92,32.85' \
+            --data-urlencode "key=${GOOGLE_MAPS_IOS_API_KEY}" \
+            'https://maps.googleapis.com/maps/api/elevation/json' 2>/dev/null)" || code="curl_failed"
+          echo "http_code: ${code}"
+          if jq -e . "$body" >/dev/null 2>&1; then
+            jq -r '"status: \(.status // "-")",
+                   "error_message: \(.error_message // "-")",
+                   "elevation_m: \(if .status == "OK" then (.results[0].elevation // "-") else "-" end)"' "$body"
+          else
+            echo "status: (response is not JSON)"
+          fi
+          rm -f "$body"
+          exit 0

@@ -105,10 +105,14 @@ void main() {
         _expectSame(rects);
         // The box keeps usable width (the test font is wider than Inter, so
         // these are lower bounds) and the right-side gap stays equal to the
-        // left gutter (the theme button ends at the gutter).
+        // left gutter: the profile button ends at the gutter (the theme
+        // button was deleted, owner 2026-10-15).
         expect(rects.values.first.width, greaterThan(width >= 375 ? 60 : 40));
-        final theme = tester.getRect(find.byTooltip('Tema'));
-        expect(width - theme.right, moreOrLessEquals(MenzilSpace.gutter));
+        expect(find.byTooltip('Tema'), findsNothing);
+        final button = tester.getRect(
+          find.byKey(const Key('top-bar-profile-button')),
+        );
+        expect(width - button.right, moreOrLessEquals(MenzilSpace.gutter));
       });
     }
   }
