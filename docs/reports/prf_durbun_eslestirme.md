@@ -69,16 +69,19 @@ Dal: `fix/prf-durbun-eslestirme` (main 9104632 üzerinde). Taslak PR; birleştir
 
 ## CI
 
-Kod commit'i 70d3de4 (447be85 + CI'nın ürettiği format commit'i). Sonrasında yalnız bu rapor eklendi.
+Dal iki kez main'in üstüne alındı (rebase); main'den gelen değişiklikler bu PR'ın dosyalarına dokunmuyor. Aşağıdaki tablo main bc3039d üzerindeki 2e5db4a başı içindir. Son rebase (main 67e75de) yalnız main'i ilerletti, kod aynı; son başın CI sonucu PR sayfasındadır.
 
 | İş | Sonuç | Bağlantı |
 |---|---|---|
-| Dart format düzeltme (format-fix) | başarılı; 70d3de4 commit'ini üretti, dala çekildi | https://github.com/sniperTurk/flutter-app/actions/runs/38794885503 |
-| `flutter analyze` (analyze-diag) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38794996746 |
-| Bütün test takımı, `files=test` (test-diag) | başarılı (çıkış kodu 0) | https://github.com/sniperTurk/flutter-app/actions/runs/38794992912 |
-| iOS CI `dart-checks` | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38795065539/job/116629177630 |
-| iOS CI `wind-acceptance` | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38795065539/job/116629178266 |
-| iOS CI `verify` | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38795065539 |
-| iOS CI `ios-simulator` | atlandı (iş akışı bu dalda çalıştırmıyor); Simulator derlemesi yapılmadı | https://github.com/sniperTurk/flutter-app/actions/runs/38795065539/job/116629180416 |
+| Dart format düzeltme (format-fix), ilk tur | başarılı; format commit'ini üretti, dala çekildi | https://github.com/sniperTurk/flutter-app/actions/runs/38794885503 |
+| Dart format düzeltme, rebase sonrası | başarılı; değişiklik yok | https://github.com/sniperTurk/flutter-app/actions/runs/38810916262 |
+| `flutter analyze` (analyze-diag), rebase sonrası | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38811035097 |
+| Bütün test takımı, `files=test` (test-diag), rebase sonrası | başarılı (çıkış kodu 0) | https://github.com/sniperTurk/flutter-app/actions/runs/38811031766 |
+| iOS CI `dart-checks` (2e5db4a) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38810922663/job/116683632488 |
+| iOS CI `wind-acceptance` (2e5db4a) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38810922663/job/116683632169 |
+| iOS CI `verify` (2e5db4a) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38810922663/job/116689722733 |
+| iOS CI `ios-simulator` | atlandı (iş akışı bu dalda çalıştırmıyor); Simulator derlemesi yapılmadı | https://github.com/sniperTurk/flutter-app/actions/runs/38810922663/job/116683635298 |
+
+Rebase öncesi aynı kodda (70d3de4) analyze, test-diag, dart-checks, wind-acceptance ve verify de başarılıydı: https://github.com/sniperTurk/flutter-app/actions/runs/38795065539.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
