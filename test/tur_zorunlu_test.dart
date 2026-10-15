@@ -183,8 +183,10 @@ List<String> _rifleMissing(WidgetTester tester) {
   return const [];
 }
 
-MenzilPrimaryButton _button(WidgetTester tester, String label) => tester
-    .widget<MenzilPrimaryButton>(find.widgetWithText(MenzilPrimaryButton, label));
+MenzilPrimaryButton _button(WidgetTester tester, String label) =>
+    tester.widget<MenzilPrimaryButton>(
+      find.widgetWithText(MenzilPrimaryButton, label),
+    );
 
 WeaponPlatform? _tur(WidgetTester tester) =>
     selectedValue<WeaponPlatform>(tester, 'profile-platform');
