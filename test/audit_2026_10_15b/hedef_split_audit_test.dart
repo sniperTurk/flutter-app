@@ -131,7 +131,9 @@ void _size(WidgetTester tester, Size size) {
 
 Widget _app(RifleProfile p, BallisticsView view) => MaterialApp(
   theme: MenzilTheme.light(),
-  home: Scaffold(body: BallisticsScreen(profile: p, view: view)),
+  home: Scaffold(
+    body: BallisticsScreen(profile: p, view: view),
+  ),
 );
 
 /// Pro Ayarlar → Atış mesafesi [text], then the Hedef tab (same State, as
@@ -298,9 +300,7 @@ void main() {
         (350.0, _up350, _upMoa350, _right350, _v350, _tof350),
         (620.0, _up620, _upMoa620, _right620, _v620, _tof620),
       ]) {
-        final row = table.rows.firstWhere(
-          (x) => (cell(x, 0) - r).abs() < 0.5,
-        );
+        final row = table.rows.firstWhere((x) => (cell(x, 0) - r).abs() < 0.5);
         expect(cell(row, mrad), closeTo(up, _tol), reason: '$r m MRAD');
         expect(
           cell(row, moa),

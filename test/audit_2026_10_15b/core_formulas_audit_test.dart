@@ -83,10 +83,7 @@ void main() {
       // Old Hedef expression, d3fdf29 ballistics_screen.dart.
       for (final (_, cal) in Cartridges.firearm) {
         for (final len in [20.0, 30.48, 33.7, 41.0]) {
-          expect(
-            Stability.lengthCalibers(len, cal),
-            len / 25.4 / (cal / 25.4),
-          );
+          expect(Stability.lengthCalibers(len, cal), len / 25.4 / (cal / 25.4));
         }
       }
     });
@@ -342,10 +339,7 @@ void main() {
       );
       // The two MOA factors in the code agree to rounding.
       for (final a in [0.25, 1.0, 7.5, 20.0, 60.0]) {
-        expect(
-          Units.moaToMrad(a),
-          closeTo(AngularUnit.moa.toMrad(a), 1e-12),
-        );
+        expect(Units.moaToMrad(a), closeTo(AngularUnit.moa.toMrad(a), 1e-12));
       }
       // Sıfır ofseti and Stadia convert inches two ways; same to rounding.
       for (final v in [0.5, 1.0, 2.0, 18.0, 99.9]) {
