@@ -1549,13 +1549,20 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       _rifleVariant = null;
                       _caliberAll = false;
                       _caliberByDiameter = false;
+                      // A caliber of the other list does not carry over:
+                      // a firearm cartridge is not a PCP caliber and no
+                      // PCP mm is a firearm cartridge.
+                      final cal = _parse(rifleCaliber);
+                      if (cal != null && _caliberItem(cal) == null) {
+                        rifleCaliber.text = '';
+                      }
+                      _cartridge = null;
                     }
-                    // A caliber of the other list does not carry over.
-                    final cal = _parse(rifleCaliber);
-                    if (cal != null && _caliberItem(cal) == null) {
-                      rifleCaliber.text = '';
-                    }
-                    _cartridge = null;
+                    // The same Tür (a new profile starts on Ateşli
+                    // Tüfek): Kalibre stays exactly as chosen. Matching
+                    // it again by diameter turned .300 Win Mag into
+                    // .308 Win and emptied an El dolumu 8,15 mm
+                    // (PRF-7, PRF-8, 2026-10-15).
                   }),
                 ),
                 KeyedSubtree(
