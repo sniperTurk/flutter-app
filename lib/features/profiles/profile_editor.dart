@@ -55,6 +55,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   // A new profile starts on Ateşli Tüfek (owner, 2026-10-11).
   WeaponPlatform platform = WeaponPlatform.firearm;
 
+  /// False while the Tür box of a new profile still says "Seçiniz" (owner,
+  /// 2026-10-15: every list box starts on "Seçiniz"). The form keeps working
+  /// as Ateşli Tüfek, the default above, until a Tür is picked.
+  bool _platformSet = true;
+
   /// The rifle is typed in by the user (catalog rifle data proved
   /// unreliable). On save it is written as a personal record and the profile
   /// points at it. An existing personal record is updated in place.
@@ -638,6 +643,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     // user's data (owner, 2026-10-07: "250 m/s nereden geliyor?").
     distanceUnit = p?.distanceUnit ?? DistanceUnit.meter;
     if (p == null) {
+      _platformSet = false;
       _distanceUnitSet = false;
       _angularUnitSet = false;
       _mountCantSet = false;
@@ -1504,7 +1510,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                   key: const Key('profile-platform'),
                   label: 'Tür',
                   info: ProfileFieldInfo.platform,
-                  initialValue: platform,
+                  initialValue: _platformSet ? platform : null,
                   items: WeaponPlatform.values
                       .map(
                         (e) => DropdownMenuItem(
@@ -1519,6 +1525,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       .toList(),
                   onChanged: (v) => setState(() {
                     final changed = v != platform;
+                    _platformSet = true;
                     platform = v!;
                     // Pellet/slug only exist on PCP; firearms use bullets.
                     if (platform == WeaponPlatform.firearm) ammoType = null;
@@ -1580,6 +1587,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           ..._rifleSection(),
           ..._scopeSection(c),
           ..._ammoSection(c),
+          ..._ammoExtraSection(c),
         ],
       ),
     );

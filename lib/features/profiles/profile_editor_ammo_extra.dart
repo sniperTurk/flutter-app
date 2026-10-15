@@ -1,8 +1,8 @@
 part of 'profiles_screen.dart';
 
 /// "Ek mühimmat bilgileri" of the profile editor: Barut katsayısı | Hız
-/// ölçüm sıcaklığı and Hıza göre BC (moved out of profiles_screen.dart,
-/// behaviour unchanged).
+/// ölçüm sıcaklığı and Hıza göre BC, its own section and card after
+/// Mühimmat (owner, 2026-10-15).
 extension _AmmoExtraSection on _ProfileDialogState {
   /// Ek mühimmat bilgileri has something to show: Barut katsayısı | Hız
   /// ölçüm sıcaklığı (firearms) or the Hıza göre BC rows (same conditions
@@ -13,46 +13,58 @@ extension _AmmoExtraSection on _ProfileDialogState {
           platform != WeaponPlatform.pcp &&
           (!_typedFirearmAmmo || _ProfileDialogState._showTypedBands));
 
-  /// "Ek mühimmat bilgileri  isteğe bağlı ⓘ", left-aligned and always open
-  /// (owner, 2026-10-14 18:07–18:20): no chevron, one ⓘ with the long
-  /// "Nedir? / Neden önemli?" text.
-  Widget _ammoExtraHeader(MenzilColors c) => MenzilFullWidth(
-    child: Padding(
-      key: const Key('ammo-extra-header'),
-      padding: const EdgeInsets.only(top: MenzilSpace.sm),
-      child: Row(
-        children: [
-          Flexible(
-            child: Semantics(
-              header: true,
-              child: Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Ek mühimmat bilgileri',
-                      style: MenzilType.heading(c.ink, size: 17),
-                    ),
-                    const TextSpan(text: '  '),
-                    TextSpan(
-                      text: 'isteğe bağlı',
-                      style: MenzilType.caption(c.ink2),
-                    ),
-                  ],
-                ),
-                key: const Key('ammo-extra-title'),
-                textAlign: TextAlign.start,
-              ),
+  /// Heading row of the section (owner, 2026-10-15): "Ek mühimmat
+  /// bilgileri" at the left in the size of the other section headings,
+  /// "isteğe bağlı" and the ⓘ (long "Nedir? / Neden önemli?" text) at the
+  /// right end. Always open: no chevron.
+  Widget _ammoExtraHeader(MenzilColors c) => Padding(
+    key: const Key('ammo-extra-header'),
+    padding: const EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.xs),
+    child: Row(
+      children: [
+        Expanded(
+          child: Semantics(
+            header: true,
+            child: Text(
+              'Ek mühimmat bilgileri',
+              key: const Key('ammo-extra-title'),
+              textAlign: TextAlign.start,
+              style: MenzilType.heading(c.ink, size: 22),
             ),
           ),
-          const MenzilInfoButton(
-            key: Key('ammo-extra-info'),
-            title: 'Ek mühimmat bilgileri',
-            text: ProfileFieldInfo.ammoExtra,
-          ),
-        ],
-      ),
+        ),
+        Text(
+          'isteğe bağlı',
+          key: const Key('ammo-extra-optional'),
+          style: MenzilType.caption(c.ink2),
+        ),
+        const MenzilInfoButton(
+          key: Key('ammo-extra-info'),
+          title: 'Ek mühimmat bilgileri',
+          text: ProfileFieldInfo.ammoExtra,
+        ),
+      ],
     ),
   );
+
+  /// "Ek mühimmat bilgileri" as its own section after Mühimmat (owner,
+  /// 2026-10-15): its heading row and its own card. Shown under the same
+  /// conditions as before; fields, keys, checks and saving unchanged.
+  List<Widget> _ammoExtraSection(MenzilColors c) => [
+    if (_ammoExtraShown) ...[
+      _ammoExtraHeader(c),
+      MenzilCard(
+        key: const Key('profile-ammo-extra-form'),
+        padding: const EdgeInsets.fromLTRB(
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.xxs,
+        ),
+        child: MenzilFieldGrid(children: _ammoExtraFields(c)),
+      ),
+    ],
+  ];
 
   /// Barut katsayısı / Hız ölçüm sıcaklığı as a list (owner, 2026-10-14).
   /// Starts on "Seçiniz" (empty = no correction; "Seçiniz" in the list
@@ -99,13 +111,9 @@ extension _AmmoExtraSection on _ProfileDialogState {
     );
   }
 
-  /// The optional powder and BC-band fields (same conditions as before).
+  /// The optional powder and BC-band fields of the section's card. Eşik
+  /// altı BC has no unit (owner, 2026-10-15).
   List<Widget> _ammoExtraFields(MenzilColors c) => [
-    // Ek mühimmat bilgileri (owner, 2026-10-14 18:07–18:20): the
-    // optional powder and BC-band fields as their own always-open
-    // sub-section at the end of Mühimmat; fields, keys, checks
-    // and saving unchanged.
-    if (_ammoExtraShown) _ammoExtraHeader(c),
     // Barut sıcaklığı: firearms only, never on PCP (owner,
     // 2026-10-11). Katsayı | Ölçüm sıcaklığı side by side.
     // Own row pair, so BC modeli above keeps its place (2026-10-13).

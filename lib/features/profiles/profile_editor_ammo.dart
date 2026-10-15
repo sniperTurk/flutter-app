@@ -989,7 +989,6 @@ extension _AmmoSection on _ProfileDialogState {
                 onChanged: (v) => _update(() => _dragCurve = v),
               ),
             ),
-          ..._ammoExtraFields(c),
           if (_showErrors &&
               ((!_customCurve && _bcModelForSave == null) ||
                   _effectiveAmmoType == null))

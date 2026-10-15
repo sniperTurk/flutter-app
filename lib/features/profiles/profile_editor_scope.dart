@@ -651,6 +651,17 @@ extension _ScopeSection on _ProfileDialogState {
             ),
           // Typed scope: Dürbün birimi | Klik değeri side by side.
           if (_scopeManual || _scopeBrands.isEmpty) _clickSelect(),
+          // Üst kule klik sayısı | Dürbün ayağı, Dürbün ayağı on the right
+          // (owner, 2026-10-15).
+          MenzilInput(
+            key: const Key('scope-travel-elevation'),
+            info: ProfileFieldInfo.elevationTravel,
+            controller: scopeTravelElevation,
+            label: 'Üst kule klik sayısı',
+            keyboardType: TextInputType.number,
+            onChanged: (_) => _update(() {}),
+            errorText: _travelError(scopeTravelElevation),
+          ),
           KeyedSubtree(
             key: const Key('scope-mount'),
             child: MenzilSelect<double>(
@@ -683,15 +694,6 @@ extension _ScopeSection on _ProfileDialogState {
                 mountCant = v ?? 0;
               }),
             ),
-          ),
-          MenzilInput(
-            key: const Key('scope-travel-elevation'),
-            info: ProfileFieldInfo.elevationTravel,
-            controller: scopeTravelElevation,
-            label: 'Üst kule klik sayısı',
-            keyboardType: TextInputType.number,
-            onChanged: (_) => _update(() {}),
-            errorText: _travelError(scopeTravelElevation),
           ),
           MenzilFullWidth(
             child: KeyedSubtree(
