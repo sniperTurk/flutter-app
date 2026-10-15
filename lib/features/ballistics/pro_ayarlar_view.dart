@@ -213,7 +213,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
           button: MenzilSecondaryButton(
             key: const Key('pro-wind-max-fill'),
             label: _windMaxFilled ? 'Düzeltme alındı' : 'Düzeltme al',
-            icon: _windMaxFilled ? null : Icons.air,
             expand: true,
             active: _windMaxFilled,
             twoLines: true,
@@ -289,7 +288,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                     child: MenzilSecondaryButton(
                       key: const Key('pro-range-map'),
                       label: 'Haritadan ölç',
-                      icon: Icons.map_outlined,
                       expand: true,
                       onPressed: _proRangeFromMap,
                     ),
@@ -299,7 +297,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                     child: MenzilSecondaryButton(
                       key: const Key('pro-range-parallax'),
                       label: 'Paralakstan',
-                      icon: Icons.center_focus_strong_outlined,
                       expand: true,
                       onPressed: _proRangeFromParallax,
                     ),
@@ -310,7 +307,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               MenzilSecondaryButton(
                 key: const Key('pro-range-map'),
                 label: 'Haritadan ölç',
-                icon: Icons.map_outlined,
                 expand: true,
                 onPressed: _proRangeFromMap,
               ),
@@ -375,7 +371,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               button: MenzilSecondaryButton(
                 key: const Key('pro-latitude-gps'),
                 label: _latFilled ? 'Konumdan alındı' : 'Konumdan al',
-                icon: _latFilled ? Icons.check : Icons.my_location,
                 expand: true,
                 active: _latFilled,
                 twoLines: true,
@@ -408,7 +403,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               button: MenzilSecondaryButton(
                 key: const Key('pro-azimuth-compass'),
                 label: _aziFilled ? 'Pusuladan alındı' : 'Pusuladan al',
-                icon: _aziFilled ? Icons.check : Icons.explore_outlined,
                 expand: true,
                 active: _aziFilled,
                 twoLines: true,
@@ -472,7 +466,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               button: MenzilSecondaryButton(
                 key: const Key('pro-gravity-gps'),
                 label: _gravFilled ? 'Konumdan hesaplandı' : 'Konumdan hesapla',
-                icon: _gravFilled ? Icons.check : Icons.my_location,
                 expand: true,
                 active: _gravFilled,
                 twoLines: true,

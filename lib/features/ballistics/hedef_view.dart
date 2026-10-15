@@ -196,7 +196,6 @@ extension _HedefView on _BallisticsScreenState {
           child: MenzilSecondaryButton(
             key: const Key('shot-dope-pdf'),
             label: 'DOPE kartını paylaş (PDF)',
-            icon: Icons.picture_as_pdf_outlined,
             expand: true,
             onPressed: _shareDopeCard,
           ),

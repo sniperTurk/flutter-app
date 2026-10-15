@@ -292,7 +292,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   _ShotBasis? _basis;
   double _shotRangeM = 100;
 
-  /// Opens the right (windage) turret after "Çözümü kulelere kur".
+  /// Opens the right (windage) turret after "Kuleleri kur".
   int _windageRevealToken = 0;
 
   /// Hedef always opens at 100 m (100 yd on a yard profile) (owner,
@@ -653,6 +653,13 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   /// the old select again.
   static const bool _showWindObservation = bool.fromEnvironment(
     'WIND_OBSERVATION',
+  );
+
+  /// The "Rüzgâr tahmini nasıl yapılır?" link under the Rüzgâr card (owner,
+  /// 2026-10-15): hidden, the Rüzgâr ⓘ opens the same guide. Build with
+  /// --dart-define=WIND_GUIDE_LINK=true to show the link again.
+  static const bool _showWindGuideLink = bool.fromEnvironment(
+    'WIND_GUIDE_LINK',
   );
 
   /// Rüzgâr gözlemi (Ö2): the chosen Beaufort force, null = "Seçiniz".

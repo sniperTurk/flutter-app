@@ -14,7 +14,6 @@ extension _ScopeWorkings on ScopeDialView {
     double dialedRight,
     ({double up, double right})? impact,
   ) {
-    final c = MenzilColors.of(context);
     final req = requiredUp;
     String f(double v) => ScopeDialView._fmt(v);
     String len(double angle) {
@@ -125,23 +124,94 @@ extension _ScopeWorkings on ScopeDialView {
         );
       }
     }
-    return Column(
-      key: ScopeDialKeys.workings,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text('Hesap dökümü', style: MenzilType.heading(c.ink, size: 17)),
-        const SizedBox(height: MenzilSpace.xxs),
-        for (final l in lines)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 2),
-            child: Text(
-              l,
-              // Hedef page: justified (owner, 2026-10-13).
-              textAlign: TextAlign.justify,
-              style: MenzilType.caption(c.ink2),
+    return _WorkingsPanel(key: ScopeDialKeys.workings, lines: lines);
+  }
+}
+
+/// "Hesap dökümü" (owner, 2026-10-15): a row that opens and closes, closed
+/// when the page opens. The lines are the same as before, justified like the
+/// rest of the Hedef page.
+class _WorkingsPanel extends StatefulWidget {
+  final List<String> lines;
+
+  const _WorkingsPanel({super.key, required this.lines});
+
+  @override
+  State<_WorkingsPanel> createState() => _WorkingsPanelState();
+}
+
+class _WorkingsPanelState extends State<_WorkingsPanel> {
+  bool _open = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    final radius = BorderRadius.circular(14);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: radius,
+        border: Border.all(color: c.line),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Semantics(
+            button: true,
+            expanded: _open,
+            child: InkWell(
+              key: ScopeDialKeys.workingsToggle,
+              borderRadius: radius,
+              onTap: () => setState(() => _open = !_open),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 56),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: MenzilSpace.lg,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Hesap dökümü',
+                          style: MenzilType.heading(c.ink, size: 17),
+                        ),
+                      ),
+                      Icon(
+                        _open ? Icons.expand_less : Icons.expand_more,
+                        color: c.ink2,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
-      ],
+          if (_open)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                MenzilSpace.lg,
+                0,
+                MenzilSpace.lg,
+                MenzilSpace.md,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (final l in widget.lines)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 2),
+                      child: Text(
+                        l,
+                        // Hedef page: justified (owner, 2026-10-13).
+                        textAlign: TextAlign.justify,
+                        style: MenzilType.caption(c.ink2),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

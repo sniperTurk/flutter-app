@@ -8,8 +8,9 @@ part of 'ballistics_screen.dart';
 extension _BallisticsSharedRows on _BallisticsScreenState {
   // ---- Shared rows (owner, 2026-10-14) ------------------------------------
 
-  /// "Sıfırla", the same size as the other buttons; after a reset it turns
-  /// orange "Veriler sıfırlandı" (owner, 2026-10-12).
+  /// "Sıfırla", the same size as the other buttons; after a reset it shows
+  /// the done state "Veriler sıfırlandı" (owner, 2026-10-12). No icon
+  /// (owner, 2026-10-15: buttons carry no icons).
   Widget _resetButton({
     required bool wasReset,
     required Key resetKey,
@@ -17,7 +18,6 @@ extension _BallisticsSharedRows on _BallisticsScreenState {
   }) => MenzilSecondaryButton(
     key: resetKey,
     label: wasReset ? 'Veriler sıfırlandı' : 'Sıfırla',
-    icon: wasReset ? Icons.check : Icons.restart_alt,
     expand: true,
     active: wasReset,
     twoLines: true,

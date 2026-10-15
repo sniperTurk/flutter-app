@@ -96,7 +96,7 @@ void main() {
     // Atış solves on its own: no Hesapla button (owner, 2026-10-08).
     await _openShot(tester);
     expect(find.text('Menzil'), findsNothing);
-    expect(_title(tester), 'Atış Çözümü');
+    expect(_title(tester), 'Hedef');
     // No "Tek atış | Tablo" switch (owner, 2026-10-12).
     expect(find.byKey(const Key('shot-mode-shot')), findsNothing);
     expect(find.byKey(const Key('shot-mode-table')), findsNothing);
@@ -151,7 +151,7 @@ void main() {
       find.textContaining('Değerleri görmek için hesaplayın'),
       findsNothing,
     );
-    expect(_title(tester), 'Atış Çözümü');
+    expect(_title(tester), 'Hedef');
     // V354: elevation is computed from the vacuum drop (valid trigonometry);
     // only wind stays locked, since a vacuum model has no aerodynamic
     // coupling to produce a real wind value.

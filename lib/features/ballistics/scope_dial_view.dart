@@ -18,6 +18,9 @@ part 'scope_workings.dart';
 abstract final class ScopeDialKeys {
   static const elevationDrum = ValueKey('scope-elevation-drum');
   static const windageDrum = ValueKey('scope-windage-drum');
+
+  /// The side turret's drum box, without its arrows.
+  static const windageDrumBox = ValueKey('scope-windage-drum-box');
   static const reticle = ValueKey('scope-reticle');
   static const impactText = ValueKey('scope-impact-text');
   static const dialSolution = ValueKey('scope-dial-solution');
@@ -29,6 +32,9 @@ abstract final class ScopeDialKeys {
   static const mountNote = ValueKey('scope-mount-note');
   static const mountZeroNote = ValueKey('scope-mount-zero-note');
   static const workings = ValueKey('scope-workings');
+
+  /// The "Hesap dökümü" row that opens and closes the lines.
+  static const workingsToggle = ValueKey('scope-workings-toggle');
   static const labelsToggle = ValueKey('scope-labels-toggle');
   static const zoomReset = ValueKey('scope-zoom-reset');
 }
@@ -85,11 +91,11 @@ class ScopeDialView extends StatelessWidget {
   final ValueChanged<int> onElevationChanged;
   final ValueChanged<int> onWindageChanged;
 
-  /// Incremented by the owner after "Çözümü kulelere kur"; each change slides
+  /// Incremented by the owner after "Kuleleri kur"; each change slides
   /// the windage (right) turret open (owner, 2026-10-09).
   final int windageRevealToken;
 
-  /// Called after "Çözümü kulelere kur" has dialled both turrets.
+  /// Called after "Kuleleri kur" has dialled both turrets.
   final VoidCallback? onSolutionDialed;
 
   /// Required elevation at [rangeM] in [unit] (positive = dial up). Null
@@ -494,7 +500,7 @@ class ScopeDialView extends StatelessWidget {
                       '${impact.up >= 0 ? 'yukarıda' : 'aşağıda'}'
                       '${impact.right.abs() < 0.005 ? '' : ', ${_fmt(impact.right.abs())} $unitLabel ${impact.right >= 0 ? 'sağda' : 'solda'}'}'
                       '. Kenardaki ok o yönü gösterir. Kuleyi çevirin veya '
-                      '"Çözümü kulelere kur"a dokunun.',
+                      '"Kuleleri kur"a dokunun.',
                 ),
               ),
             if (mountBlocksZero)

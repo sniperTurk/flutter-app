@@ -21,7 +21,10 @@ extension _HavaDurumuView on _BallisticsScreenState {
           // Below the Rüzgâr card, above Pro Ayarlara Geç (owner,
           // 2026-10-13): only a link; the guide opens in a popup
           // (2026-10-13 19:49). Display only: it never fills Rüzgâr hızı.
-          WindGuideLink(metric: metric),
+          // Hidden behind WIND_GUIDE_LINK (owner, 2026-10-15): the Rüzgâr
+          // ⓘ opens the same guide.
+          if (_BallisticsScreenState._showWindGuideLink)
+            WindGuideLink(metric: metric),
           if (widget.onContinueToPro != null)
             MenzilPrimaryButton(
               key: const Key('environment-continue-pro'),
@@ -64,11 +67,9 @@ extension _HavaDurumuView on _BallisticsScreenState {
               : _weatherWasReset
               ? 'Tekrar canlı konum verisi al'
               : 'Konumdan canlı hava verisi al',
-          icon: _weatherOrange
-              ? Icons.check
-              : _weatherStale
-              ? Icons.refresh
-              : Icons.my_location,
+          // No icons in buttons; only "Hava verisi alındı" keeps its ✓
+          // (owner, 2026-10-15).
+          icon: _weatherOrange ? Icons.check : null,
           expand: true,
           active: _weatherOrange,
           twoLines: true,
@@ -198,8 +199,14 @@ extension _HavaDurumuView on _BallisticsScreenState {
     );
 
     return [
-      // No section title: the page title already says Hava Durumu (owner,
-      // 2026-10-12).
+      // Top card title "Hava" (owner, 2026-10-15), the same size as the
+      // Basınç Ölçer / İrtifa / Rüzgâr titles.
+      const MenzilSectionHeader(
+        'Hava',
+        key: Key('environment-weather-header'),
+        size: 18,
+        padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
+      ),
       MenzilCard(
         padding: const EdgeInsets.fromLTRB(
           MenzilSpace.lg,
@@ -308,11 +315,6 @@ extension _HavaDurumuView on _BallisticsScreenState {
                     : _pressureStale
                     ? 'Basıncı yenile'
                     : 'Basınç al',
-                icon: _pressureOrange
-                    ? Icons.check
-                    : _pressureStale
-                    ? Icons.refresh
-                    : Icons.speed,
                 expand: true,
                 active: _pressureOrange,
                 twoLines: true,
@@ -385,7 +387,6 @@ extension _HavaDurumuView on _BallisticsScreenState {
                     : _altMapAtMs != null
                     ? 'Haritadan alındı'
                     : 'Haritadan',
-                icon: _altMapAtMs != null || _altMapBusy ? null : Icons.terrain,
                 expand: true,
                 active: _altMapAtMs != null,
                 twoLines: true,
@@ -419,9 +420,6 @@ extension _HavaDurumuView on _BallisticsScreenState {
                     : _altPhoneAtMs != null
                     ? 'Telefondan alındı'
                     : 'Telefondan',
-                icon: _altPhoneAtMs != null || _altPhoneBusy
-                    ? null
-                    : Icons.my_location,
                 expand: true,
                 active: _altPhoneAtMs != null,
                 twoLines: true,
@@ -456,10 +454,21 @@ extension _HavaDurumuView on _BallisticsScreenState {
           tone: MenzilNoticeTone.warning,
           message: _pressureWarning!,
         ),
-      const MenzilSectionHeader(
+      // Rüzgâr: its ⓘ opens the "Rüzgâr tahmini nasıl yapılır?" guide
+      // (owner, 2026-10-15); the separate link below the card is hidden.
+      MenzilSectionHeader(
         'Rüzgâr',
         size: 18,
-        padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
+        padding: const EdgeInsets.only(
+          top: MenzilSpace.xxs,
+          bottom: MenzilSpace.sm,
+        ),
+        titleTrailing: MenzilInfoButton(
+          key: const Key('environment-wind-info'),
+          title: 'Rüzgâr',
+          tooltip: WindGuide.linkLabel,
+          onPressed: () => WindGuide.show(context, metric: metric),
+        ),
       ),
       MenzilCard(
         padding: const EdgeInsets.fromLTRB(
@@ -573,22 +582,32 @@ extension _HavaDurumuView on _BallisticsScreenState {
   Widget _atmosphereResult(BuildContext context) {
     final c = MenzilColors.of(context);
     if (airDensityKgM3 == null) return const SizedBox.shrink();
-    return MenzilCard(
-      background: c.surface,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Hava', style: MenzilType.heading(c.ink, size: 20)),
-          const SizedBox(height: MenzilSpace.xs),
-          Text(
+    // "Hava özeti" (owner, 2026-10-15): a title above the summary card, like
+    // the other Hava Durumu cards.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const MenzilSectionHeader(
+          'Hava özeti',
+          key: Key('environment-summary-header'),
+          size: 18,
+          padding: EdgeInsets.only(
+            top: MenzilSpace.xxs,
+            bottom: MenzilSpace.sm,
+          ),
+        ),
+        MenzilCard(
+          key: const Key('environment-summary-card'),
+          background: c.surface,
+          child: Text(
             'Hava yoğunluğu: ${airDensityKgM3!.toStringAsFixed(4).replaceAll('.', ',')} kg/m³ • '
             'yoğunluk oranı: ${densityRatio!.toStringAsFixed(3).replaceAll('.', ',')} • '
             'ses hızı: ${speedOfSoundMps!.toStringAsFixed(1).replaceAll('.', ',')} m/s • '
             'namlu Mach: ${muzzleMach!.toStringAsFixed(3).replaceAll('.', ',')}',
             style: MenzilType.body(c.ink),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

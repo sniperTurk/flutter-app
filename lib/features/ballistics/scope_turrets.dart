@@ -7,7 +7,7 @@ part of 'scope_dial_view.dart';
 // taşındı.
 
 extension _ScopeTurretButtons on ScopeDialView {
-  /// "Çözümü kulelere kur" | "Kuleleri sıfırla" under the scope.
+  /// "Kuleleri kur" | "Kuleleri sıfırla" under the scope, one line each.
   Widget _turretButtons() {
     final req = requiredUp;
     return Builder(
@@ -51,7 +51,9 @@ extension _ScopeTurretButtons on ScopeDialView {
                 label: noClicks
                     ? 'Çözüm: 0 klik'
                     : !dialled
-                    ? 'Çözümü kulelere kur'
+                    // Owner, 2026-10-15: "Kuleleri kur" | "Kuleleri sıfırla" on
+                    // one line; the label never wraps (it shrinks instead).
+                    ? 'Kuleleri kur'
                     : atLimit
                     ? 'Kule sınırına kuruldu'
                     : 'Çözüm kulelere kuruldu',
@@ -97,7 +99,7 @@ class _TurretBar extends StatefulWidget {
   final Widget elevation, windage, reticle;
   final double side;
 
-  /// A change opens the windage drum (after "Çözümü kulelere kur").
+  /// A change opens the windage drum (after "Kuleleri kur").
   final int revealToken;
   const _TurretBar({
     required this.revealToken,
@@ -120,48 +122,64 @@ class _TurretBarState extends State<_TurretBar> {
     if (widget.revealToken != old.revealToken) _windage = true;
   }
 
-  static const double _drumWidth = 58;
+  /// Top row (owner, 2026-10-15): [empty 48][‹ 28][drum 1fr][› 28][L-R 48],
+  /// 4 pt apart. The empty slot balances L-R, so the drum and its zero sit
+  /// over the reticle's vertical line.
+  static const double slot = 48, gap = 4, rowHeight = 84;
+
+  /// The side turret on the 334 pt reticle of the approved design (390 pt
+  /// phone): a long, slim 74 × 224 pt drum box with its arrows outside it,
+  /// 30 pt tall, 6 pt away. Everything scales with the reticle size.
+  static const double designSide = 334,
+      sideBoxWidth = 74,
+      sideBoxHeight = 224,
+      sideArrowHeight = 30,
+      sideArrowGap = 6;
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     final side = widget.side;
+    final k = side / designSide;
+    final boxWidth = sideBoxWidth * k;
+    final columnHeight =
+        (sideBoxHeight + 2 * (sideArrowHeight + sideArrowGap)) * k;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // An empty slot on the left balances the L-R button on the right,
-        // so the drum (and its zero) is centred over the reticle.
-        Row(
-          children: [
-            const SizedBox(width: 52 + MenzilSpace.xs),
-            Expanded(child: widget.elevation),
-            const SizedBox(width: MenzilSpace.xs),
-            Semantics(
-              button: true,
-              toggled: _windage,
-              label: _windage
-                  ? 'Rüzgâr kulesini gizle'
-                  : 'Rüzgâr kulesini göster',
-              child: ExcludeSemantics(
-                child: SizedBox.square(
-                  dimension: 52,
-                  // A plain button like the others (owner, 2026-10-12):
-                  // white on navy in Koyu, dark on light in Açık; orange is
-                  // kept for "selected / taken".
-                  child: Material(
-                    key: ScopeDialKeys.turretToggle,
-                    color: c.surface,
-                    shape: CircleBorder(side: BorderSide(color: c.line)),
-                    child: InkWell(
-                      customBorder: const CircleBorder(),
-                      onTap: () => setState(() => _windage = !_windage),
-                      child: Center(
-                        child: Text(
-                          'L-R',
-                          style: TextStyle(
-                            color: c.ink,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15,
+        SizedBox(
+          height: rowHeight,
+          child: Row(
+            children: [
+              const SizedBox(width: slot + gap),
+              Expanded(child: widget.elevation),
+              const SizedBox(width: gap),
+              Semantics(
+                button: true,
+                toggled: _windage,
+                label: _windage
+                    ? 'Rüzgâr kulesini gizle'
+                    : 'Rüzgâr kulesini göster',
+                child: ExcludeSemantics(
+                  child: SizedBox.square(
+                    dimension: slot,
+                    // A plain button like the others (owner, 2026-10-12):
+                    // white on navy in Koyu, dark on light in Açık.
+                    child: Material(
+                      key: ScopeDialKeys.turretToggle,
+                      color: c.surface,
+                      shape: CircleBorder(side: BorderSide(color: c.line)),
+                      child: InkWell(
+                        customBorder: const CircleBorder(),
+                        onTap: () => setState(() => _windage = !_windage),
+                        child: Center(
+                          child: Text(
+                            'L-R',
+                            style: TextStyle(
+                              color: c.ink,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ),
@@ -169,8 +187,8 @@ class _TurretBarState extends State<_TurretBar> {
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         const SizedBox(height: MenzilSpace.xs),
         Center(
@@ -179,13 +197,14 @@ class _TurretBarState extends State<_TurretBar> {
             child: Stack(
               children: [
                 Positioned.fill(child: widget.reticle),
-                // Windage drum over the right edge, vertically centred on
-                // the reticle so its zero meets the horizontal line.
+                // Windage drum at the right edge, vertically centred on the
+                // reticle so its zero meets the horizontal line; its arrows
+                // sit above and below the drum box.
                 Positioned(
                   right: 0,
-                  top: side * 0.18,
-                  bottom: side * 0.18,
-                  width: _drumWidth,
+                  top: (side - columnHeight) / 2,
+                  height: columnHeight,
+                  width: boxWidth,
                   child: ClipRect(
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 260),
@@ -199,13 +218,8 @@ class _TurretBarState extends State<_TurretBar> {
                         child: child,
                       ),
                       child: _windage
-                          ? DecoratedBox(
+                          ? KeyedSubtree(
                               key: const ValueKey('windage-open'),
-                              decoration: BoxDecoration(
-                                color: c.surface2,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: c.line),
-                              ),
                               child: widget.windage,
                             )
                           : const SizedBox.shrink(
@@ -262,6 +276,10 @@ class _TurretDrum extends StatefulWidget {
 
 class _TurretDrumState extends State<_TurretDrum> {
   static const double pixelsPerClick = 9;
+
+  /// The top drum is 78 pt tall (U/D header, values, ticks) and its arrows
+  /// 28 pt wide (owner, 2026-10-15).
+  static const double drumHeight = 78, arrowWidth = 28;
   double _carry = 0;
 
   void _set(int value) {
@@ -318,37 +336,96 @@ class _TurretDrumState extends State<_TurretDrum> {
       ),
     );
 
-    Widget step(int delta, IconData icon, String label) => SizedBox(
-      width: 44,
-      height: 44,
-      child: IconButton(
-        tooltip: label,
-        padding: EdgeInsets.zero,
-        icon: Icon(icon, size: 22, color: c.ink),
-        onPressed: () => _set(widget.clicks + delta),
+    // Step arrows (owner, 2026-10-15): only the chevron, no box, white with
+    // a thin dark edge so it shows on the light reticle and the dark card.
+    // VoiceOver steps the drum through its slider actions below.
+    Widget step(
+      int delta,
+      AxisDirection direction,
+      String label, {
+      double? width,
+      double? height,
+    }) => Tooltip(
+      message: label,
+      excludeFromSemantics: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        excludeFromSemantics: true,
+        onTap: () => _set(widget.clicks + delta),
+        child: SizedBox(
+          width: width,
+          height: height,
+          child: Center(
+            child: CustomPaint(
+              key: ValueKey(
+                '${widget.semanticName}-step-${delta > 0 ? 'plus' : 'minus'}',
+              ),
+              size: const Size.square(24),
+              painter: TurretChevronPainter(direction),
+            ),
+          ),
+        ),
       ),
     );
 
     final up = '${widget.semanticName} 1 klik ${widget.positiveWord}';
     final down = '${widget.semanticName} 1 klik ${widget.negativeWord}';
-    final body = horizontal
-        ? SizedBox(
-            height: 52,
-            child: Row(
-              children: [
-                step(1, Icons.chevron_left, up),
-                Expanded(child: drum),
-                step(-1, Icons.chevron_right, down),
-              ],
-            ),
-          )
-        : Column(
+    final Widget body;
+    if (horizontal) {
+      // ‹ drum ›, 28 pt arrows 4 pt from the drum (owner, 2026-10-15).
+      body = Row(
+        children: [
+          step(1, AxisDirection.left, up, width: arrowWidth, height: drumHeight),
+          const SizedBox(width: _TurretBarState.gap),
+          Expanded(child: SizedBox(height: drumHeight, child: drum)),
+          const SizedBox(width: _TurretBarState.gap),
+          step(
+            -1,
+            AxisDirection.right,
+            down,
+            width: arrowWidth,
+            height: drumHeight,
+          ),
+        ],
+      );
+    } else {
+      // Long, slim drum box; the arrows sit outside it, above and below.
+      body = LayoutBuilder(
+        builder: (context, box) {
+          final k = box.maxWidth / _TurretBarState.sideBoxWidth;
+          final arrow = _TurretBarState.sideArrowHeight * k;
+          final gap = _TurretBarState.sideArrowGap * k;
+          return Column(
             children: [
-              step(1, Icons.expand_less, up),
-              Expanded(child: drum),
-              step(-1, Icons.expand_more, down),
+              step(1, AxisDirection.up, up, width: box.maxWidth, height: arrow),
+              SizedBox(height: gap),
+              Expanded(
+                child: DecoratedBox(
+                  key: ScopeDialKeys.windageDrumBox,
+                  decoration: BoxDecoration(
+                    color: c.surface2,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: c.line),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: drum,
+                  ),
+                ),
+              ),
+              SizedBox(height: gap),
+              step(
+                -1,
+                AxisDirection.down,
+                down,
+                width: box.maxWidth,
+                height: arrow,
+              ),
             ],
           );
+        },
+      );
+    }
 
     return Semantics(
       container: true,
@@ -581,4 +658,63 @@ class _ResetTurretsButtonState extends State<_ResetTurretsButton> {
             },
     );
   }
+}
+
+/// A turret step arrow (owner, 2026-10-15): only the chevron, white with a
+/// thin dark edge, so it reads on the light reticle and on the dark card.
+class TurretChevronPainter extends CustomPainter {
+  final AxisDirection direction;
+
+  const TurretChevronPainter(this.direction);
+
+  static const Color fill = Colors.white;
+
+  /// The reticle's dark line colour (#0F2230).
+  static Color get edge => MenzilColors.light.scopeLine;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // The design's 16-unit chevron: arms 4 units long either side.
+    final u = size.shortestSide / 16;
+    final c = size.center(Offset.zero);
+    final (Offset a, Offset tip, Offset b) = switch (direction) {
+      AxisDirection.up => (
+        c + Offset(-4 * u, 2 * u),
+        c + Offset(0, -2 * u),
+        c + Offset(4 * u, 2 * u),
+      ),
+      AxisDirection.down => (
+        c + Offset(-4 * u, -2 * u),
+        c + Offset(0, 2 * u),
+        c + Offset(4 * u, -2 * u),
+      ),
+      AxisDirection.left => (
+        c + Offset(2 * u, -4 * u),
+        c + Offset(-2 * u, 0),
+        c + Offset(2 * u, 4 * u),
+      ),
+      AxisDirection.right => (
+        c + Offset(-2 * u, -4 * u),
+        c + Offset(2 * u, 0),
+        c + Offset(-2 * u, 4 * u),
+      ),
+    };
+    final path = Path()
+      ..moveTo(a.dx, a.dy)
+      ..lineTo(tip.dx, tip.dy)
+      ..lineTo(b.dx, b.dy);
+    Paint stroke(Color color, double width) => Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = width
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    canvas
+      ..drawPath(path, stroke(edge, 4.2 * u))
+      ..drawPath(path, stroke(fill, 2 * u));
+  }
+
+  @override
+  bool shouldRepaint(covariant TurretChevronPainter old) =>
+      old.direction != direction;
 }
