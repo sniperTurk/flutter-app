@@ -17,13 +17,21 @@ Loga yalnız şunlar yazılır: anahtar tanımlı mı (yes/no), HTTP kodu, JSON 
 İş her zaman başarıyla biter (rapor amaçlı).
 
 ## Sonuç
-**Henüz çalıştırılamadı (BLOCKED).** GitHub, `workflow_dispatch` ile çalıştırmaya yalnız
-dosya varsayılan dalda (main) bulunduğunda izin veriyor; `ci/maps-check` dalında
-çalıştırma isteği `404 Not Found` döndü. Bu yüzden faturalandırmanın aktif olup
-olmadığı **doğrulanmadı**; OK denemez.
+**OK — faturalandırma ve Elevation API çalışıyor.**
 
-Gereken: PR birleştirildikten sonra Actions → "Maps billing check (Elevation API)" →
-Run workflow (main). Sonuç bu dosyaya eklenecek.
+Çalıştırma: [Actions run 38785522797](https://github.com/sniperTurk/flutter-app/actions/runs/38785522797)
+(main, 2026-10-15 21:25 İstanbul). Log çıktısı:
+
+```
+secret_set: yes
+http_code: 200
+status: OK
+error_message: -
+elevation_m: 868.9695434570312
+```
+
+Anahtar tanımlı, istek uygulamadaki paket kimliği başlığıyla kabul edildi, Ankara
+(39.92, 32.85) için yükseklik ≈ 869 m döndü. Sahibin Cloud Console'da yapması gereken bir adım yok.
 
 ## Sonucu okuma
 - `status: OK` ve bir yükseklik → faturalandırma ve Elevation API çalışıyor.
