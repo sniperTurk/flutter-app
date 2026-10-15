@@ -269,7 +269,6 @@ class _ActiveProfileDetails extends StatelessWidget {
           MenzilPrimaryButton(
             key: const Key('profile-continue-weather'),
             label: 'Hava Durumu\'na geç',
-            icon: Icons.arrow_forward,
             onPressed: onContinue,
           ),
         ],

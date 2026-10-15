@@ -28,19 +28,14 @@ extension _HavaDurumuView on _BallisticsScreenState {
           if (widget.onContinueToPro != null)
             MenzilPrimaryButton(
               key: const Key('environment-continue-pro'),
-              label: 'Pro Ayarlara Geç',
-              icon: Icons.arrow_forward,
+              label: 'Pro Ayarlar\'a geç',
               onPressed: () {
                 _quietSolve();
                 widget.onContinueToPro!();
               },
             )
           else
-            MenzilPrimaryButton(
-              label: 'Hesapla',
-              onPressed: solve,
-              icon: Icons.calculate_outlined,
-            ),
+            MenzilPrimaryButton(label: 'Hesapla', onPressed: solve),
           const SizedBox(height: MenzilSpace.md),
           _atmosphereResult(context),
         ],
@@ -137,7 +132,6 @@ extension _HavaDurumuView on _BallisticsScreenState {
           MenzilPrimaryButton(
             key: const Key('environment-create-profile'),
             label: 'Profil oluştur',
-            icon: Icons.add,
             amber: true,
             onPressed: widget.onCreateProfile,
           ),
