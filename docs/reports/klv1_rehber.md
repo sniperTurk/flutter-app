@@ -41,7 +41,14 @@ Sahibin kararı, 2026-10-15 20:03 İstanbul: "her iş için ayrı görev". KLV-1
 
 ## CI
 - Format (One-off dart format fix): [run 38774681224](https://github.com/sniperTurk/flutter-app/actions/runs/38774681224) — başarılı, değişiklik gerekmedi.
-- CI_RESULTS_PLACEHOLDER
+- Test tanılama (test-diag, files=test): [run 38774687516](https://github.com/sniperTurk/flutter-app/actions/runs/38774687516) — başarılı.
+- iOS CI, `3e13ef0` (kod + rapor taslağı) üzerinde: [run 38774927929](https://github.com/sniperTurk/flutter-app/actions/runs/38774927929)
+  - `verify`: başarılı
+  - `dart-checks`: başarılı
+  - `wind-acceptance`: başarılı
+  - `ios-simulator`: atlandı (bu iş akışında çalışmadı; geçti sayılmaz)
+- Bu satırları ekleyen son commit yalnız bu rapor dosyasını değiştirir; onun CI sonucu PR sayfasındaki check'lerdedir.
+- Simulator, cihaz, TestFlight, App Store: çalıştırılmadı.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
