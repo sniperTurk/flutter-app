@@ -157,9 +157,10 @@ Yalnız gerçekten koşan ve sonucunu gördüğüm işler:
   ios-simulator atlandı (varsayılan), dart-checks ve verify bu rapor
   yazılırken sürüyordu.
   https://github.com/sniperTurk/flutter-app/actions/runs/38699768186
-- Bu rapor commit'i yalnız belge değiştirdiği için PR iş akışı kendiliğinden
-  koşmaz; iOS CI bu son commit için elle başlatıldı. Son sonuç PR
-  açıklamasında.
+- PR iOS CI her yeni commit'te kendiliğinden koşuyor (belge commit'lerinde
+  de, PR'ın tamamı kod içerdiği için). Elle başlattığım iki fazla iOS CI
+  koşusu (38700970028, 38701049307) gereksiz olduğu için iptal edildi. Son
+  commit'in sonucu PR açıklamasının sonunda.
 
 ## Birleştirme sonucu
 
