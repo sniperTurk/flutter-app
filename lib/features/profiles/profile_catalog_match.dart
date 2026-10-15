@@ -15,10 +15,9 @@ abstract final class ProfileCatalogMatch {
   /// Lower case words of [text] ("Viper PST Gen II" -> viper, pst, gen,
   /// ii); a decimal comma is read as a point.
   static List<String> words(String text) => [
-    for (final w
-        in fold(text)
-            .replaceAll(',', '.')
-            .split(RegExp(r'[^a-z0-9çğıöşü.]+')))
+    for (final w in fold(
+      text,
+    ).replaceAll(',', '.').split(RegExp(r'[^a-z0-9çğıöşü.]+')))
       if (w.replaceAll('.', '').isNotEmpty)
         w.replaceAll(RegExp(r'^\.+|\.+$'), ''),
   ];

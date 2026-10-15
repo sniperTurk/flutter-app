@@ -840,7 +840,10 @@ void main() {
         ProfileCatalogMatch.squash('istanbul silah'),
       );
       expect(ProfileCatalogMatch.brandMatches('TIKKA', 'Tikka'), isTrue);
-      expect(ProfileCatalogMatch.brandMatches('sarsilmaz', 'Sarsılmaz'), isTrue);
+      expect(
+        ProfileCatalogMatch.brandMatches('sarsilmaz', 'Sarsılmaz'),
+        isTrue,
+      );
       expect(ProfileCatalogMatch.brandMatches('Hatsan', 'Sarsılmaz'), isFalse);
     });
   });
