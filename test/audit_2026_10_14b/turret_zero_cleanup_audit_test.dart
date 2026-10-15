@@ -463,10 +463,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('truing-confirm')));
       await tester.pumpAndSettle();
-      expect(
-        (await store.all()).single.muzzleVelocityMps,
-        closeTo(240, 0.5),
-      );
+      expect((await store.all()).single.muzzleVelocityMps, closeTo(240, 0.5));
     });
 
     testWidgets('regulated PCP above the regulator: velocity is applied as '
