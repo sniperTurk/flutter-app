@@ -75,8 +75,12 @@ yalnızca kaydetmeyi engellemekti). TestFlight yok, birleştirme yok.
   başarılı (flutter test çıkış kodu 0). Kayıtta görünen "KESIK" ve
   truing/scope_mount_cant yığın satırları testlerin tanı çıktısı; aynı
   satırlar main'de de var: https://github.com/sniperTurk/flutter-app/actions/runs/38728839709
-- `verify`, `dart-checks`, `wind-acceptance`: PR açıklamasında, son commit
-  üzerindeki sonuçlarla.
+- iOS CI, commit 1721276 (PR #323) — `verify`: başarılı, `dart-checks`:
+  başarılı, `wind-acceptance`: başarılı
+  (https://github.com/sniperTurk/flutter-app/actions/runs/38729799503).
+  `ios-simulator` bu koşuda atlandı (skipped); Simulator, cihaz ve TestFlight
+  çalışmadı, başarılı sayılmaz. Bu satırı ekleyen rapor commit'i yalnızca
+  belge değiştirir; CI onun üzerinde yeniden koşar.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
