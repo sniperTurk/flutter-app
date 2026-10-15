@@ -88,7 +88,7 @@ Bulgu sayılmayan notlar (#315 raporunda zaten yazılı, sahibin kabul ettiği d
 | dart format (tek seferlik), ilk commit | başarılı; biçim commit'i geldi (`1f46fa5`) | https://github.com/sniperTurk/flutter-app/actions/runs/38686021914 |
 | `flutter test test`, ilk deneme | düştü: yalnız yeni Hedef testi (test düzeneği: tema değişince yazı stili geçişi). Testteki sayfa değişimi düzeltildi | https://github.com/sniperTurk/flutter-app/actions/runs/38686024234 |
 | Yalnız `test/audit_2026_10_15` | başarılı (3/3) | https://github.com/sniperTurk/flutter-app/actions/runs/38686935575 |
-| `flutter test test` (bütün testler), son | çalışıyor (sonuç PR açıklamasında güncellenecek) | https://github.com/sniperTurk/flutter-app/actions/runs/38687058063 |
+| `flutter test test` (bütün testler), son | başarılı (`59d4dff` üzerinde, ~1475 test) | https://github.com/sniperTurk/flutter-app/actions/runs/38687058063 |
 | dart format (tek seferlik), son | başarılı; değişiklik yok, commit gelmedi | https://github.com/sniperTurk/flutter-app/actions/runs/38687060486 |
 
 TestFlight, Simulator ve App Store çalıştırılmadı.
