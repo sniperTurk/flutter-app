@@ -32,6 +32,7 @@ abstract final class ScopeDialKeys {
   static const travelNote = ValueKey('scope-travel-note');
   static const mountNote = ValueKey('scope-mount-note');
   static const mountZeroNote = ValueKey('scope-mount-zero-note');
+  static const zeroAngleNote = ValueKey('scope-zero-angle-note');
   static const workings = ValueKey('scope-workings');
 
   /// The "Hesap dökümü" row that opens and closes the lines.
@@ -295,14 +296,18 @@ class ScopeDialView extends StatelessWidget {
     // Mount slope that would cover the missing clicks. A mount is usable
     // only while the zero can still be dialled: the mount minus the zero
     // angle must fit in half of the travel (denetim F2).
-    final missing = (need - limit) * clickValue;
+    final half =
+        halfElevationClicks ??
+        (maxElevationClicks - mountCantClicks + zeroAngleClicks);
+    // The suggestion starts from the unclamped UP travel: with a zero angle
+    // beyond half of the travel the shown UP travel is 0, but the turret is
+    // really that many clicks short already (denetim KUL-1).
+    final unclampedUp = half + mountCantClicks - zeroAngleClicks;
+    final missing = (need - unclampedUp) * clickValue;
     // Mounts are sold in true MOA.
     final missingMoa = AngularUnit.moa.fromMrad(unit.toMrad(missing));
     final needMoa = mountCantMoa + missingMoa;
     final suggest = needMoa.ceil();
-    final half =
-        halfElevationClicks ??
-        (maxElevationClicks - mountCantClicks + zeroAngleClicks);
     final halfAngle = (half + zeroAngleClicks) * clickValue;
     final halfMoa = AngularUnit.moa.fromMrad(unit.toMrad(halfAngle));
     if (needMoa > halfMoa + 1e-9) {
@@ -332,6 +337,16 @@ class ScopeDialView extends StatelessWidget {
     return travelKnown &&
         half != null &&
         mountCantClicks - zeroAngleClicks > half;
+  }
+
+  /// True when the zero angle, less the mount, is larger than half of the
+  /// known travel: the turret cannot be dialled up far enough to zero the
+  /// rifle (denetim KUL-1).
+  bool get zeroAngleBlocksZero {
+    final half = halfElevationClicks;
+    return travelKnown &&
+        half != null &&
+        zeroAngleClicks - mountCantClicks > half;
   }
 
   static String _fmt(double v) {
@@ -517,6 +532,21 @@ class ScopeDialView extends StatelessWidget {
                       'çevirmek gerekir, kulenin aşağı yolu '
                       '${halfElevationClicks!} klik. Profil\'de daha küçük '
                       'bir dürbün ayağı seçin.',
+                ),
+              ),
+            if (zeroAngleBlocksZero)
+              Padding(
+                padding: const EdgeInsets.only(top: MenzilSpace.xs),
+                child: MenzilNotice(
+                  key: ScopeDialKeys.zeroAngleNote,
+                  tone: MenzilNoticeTone.danger,
+                  message:
+                      'Bu dürbünle tüfek sıfırlanamaz: sıfır için kuleyi '
+                      'yaklaşık ${zeroAngleClicks - mountCantClicks} klik '
+                      'yukarı çevirmek gerekir, kulenin yukarı yolu '
+                      '${halfElevationClicks!} klik. Profil\'de eğimli bir '
+                      'dürbün ayağı seçin veya ayar aralığı daha geniş bir '
+                      'dürbün kullanın.',
                 ),
               ),
             // Without the scope's real travel there is nothing honest to

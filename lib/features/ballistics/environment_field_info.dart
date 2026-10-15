@@ -36,10 +36,9 @@ abstract final class EnvironmentFieldInfo {
       'Bulunduğunuz yerde ölçülen gerçek (istasyon) hava basıncı. Hava '
       'durumu uygulamalarının çoğu deniz seviyesine indirgenmiş basıncı '
       '(QNH, ~1013 hPa) verir; yüksek yerde bu değer hesabı bozar (1000 m '
-      'irtifada gerçek basınç ~900 hPa). Barometreli telefonda "Basıncı '
-      'telefondan al" düğmesi gerçek basıncı okur; araç içinde veya klimalı '
-      'odada değil, açık havada basın. Ya da Kestrel, barometre veya '
-      'Araçlar > hesaplayıcılar ile deniz seviyesinden istasyon basıncına '
+      'irtifada gerçek basınç ~900 hPa). Kutu standart değerle başlar; '
+      'atış anındaki basıncı yazın. Kestrel veya barometreyle ölçün ya da '
+      'Araçlar > Hesaplayıcılar ile deniz seviyesinden istasyon basıncına '
       'çevirin. Örnek: 1000 m irtifada 900 hPa.';
 
   /// Basınç Ölçer card: ONE ⓘ right of the title (owner exception,
@@ -47,22 +46,19 @@ abstract final class EnvironmentFieldInfo {
   static const barometerCard =
       'İstasyon basıncı: bulunduğunuz yerdeki gerçek hava basıncı, '
       'telefonun basınç sensöründen alınır. Hava durumu uygulamalarındaki '
-      'deniz seviyesi basıncı değildir. Örnek: 998,4 hPa.';
+      'deniz seviyesi basıncı değildir. Boşsa basınç İrtifa kartından '
+      'tahmin edilir. Örnek: 998,4 hPa.';
 
   /// İrtifa card: ONE ⓘ right of the title (owner exception, 2026-10-14).
   static const altitudeCard =
       'Bulunduğunuz yerin deniz seviyesinden yüksekliği. Haritadan: Google '
       'haritadan zemin yüksekliği, internet ister. Telefondan: GPS ölçümü, '
       'açık havada daha doğrudur. Telefon irtifası varsa hesap onu kullanır; '
-      'yoksa harita irtifası kullanılır. Örnek: 126 m.';
+      'yoksa harita irtifası kullanılır. İrtifa yalnız İstasyon basıncı '
+      'boşken basınç tahmini için kullanılır. Örnek: 126 m.';
   static const humidity =
       'Bağıl nem, yüzde olarak (0–100). Etkisi küçüktür: nemli hava biraz '
       'daha hafiftir. Hava durumunda yazar. Örnek: %60.';
-  static const altitude =
-      'Atış yerinin deniz seviyesinden yüksekliği. Basınç boşsa basınç '
-      'irtifadan tahmin edilir (standart atmosfer). Basınç doluysa irtifa '
-      'hesaba ayrıca girmez; ölçülen basınç irtifayı zaten içerir. Telefonda '
-      'veya haritada yazar. Örnek: 1000 m.';
   static const windSpeed =
       'Rüzgârın hızı. Anemometre (ör. Kestrel) ile atış yerinde ölçmek en '
       'doğrusudur. Yan rüzgâr saçmayı yana taşır; sapma BC ile hesaplanır. '

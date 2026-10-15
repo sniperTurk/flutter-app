@@ -229,21 +229,26 @@ void main() {
         await _tap(tester, find.byKey(ScopeDialKeys.turretToggle));
         final reticle = tester.getRect(find.byKey(ScopeDialKeys.reticle));
         final box = tester.getRect(find.byKey(ScopeDialKeys.windageDrumBox));
-        // 74 × 224 pt on the design's 334 pt reticle; scales with it.
+        // 66 × 180 pt on the design's 334 pt reticle (yan kule küçük, owner
+        // 2026-10-15 12:52; was 74 × 224); scales with it.
         final k = reticle.width / 334;
-        expect(box.width, moreOrLessEquals(74 * k, epsilon: 0.5));
-        expect(box.height, moreOrLessEquals(224 * k, epsilon: 0.5));
-        expect(box.height / box.width, greaterThan(2.9));
+        expect(box.width, moreOrLessEquals(66 * k, epsilon: 0.5));
+        expect(box.height, moreOrLessEquals(180 * k, epsilon: 0.5));
+        expect(box.height / box.width, greaterThan(2.6));
         if (width == 390) {
-          expect(box.width, moreOrLessEquals(74, epsilon: 1.5));
-          expect(box.height, moreOrLessEquals(224, epsilon: 4));
+          expect(box.width, moreOrLessEquals(66, epsilon: 1.5));
+          expect(box.height, moreOrLessEquals(180, epsilon: 4));
         }
-        // Zero on the reticle's horizontal line, at the right edge.
+        // Zero on the reticle's horizontal line; the box sits centred in
+        // the 74 pt arrow column at the right edge.
         expect(
           box.center.dy,
           moreOrLessEquals(reticle.center.dy, epsilon: 0.5),
         );
-        expect(box.right, moreOrLessEquals(reticle.right, epsilon: 0.5));
+        expect(
+          box.right,
+          moreOrLessEquals(reticle.right - 4 * k, epsilon: 0.5),
+        );
         // R up / L down, the arrows above and below the box, not in it.
         final right = find.byTooltip('Rüzgâr kulesi 1 klik sağa');
         final left = find.byTooltip('Rüzgâr kulesi 1 klik sola');
