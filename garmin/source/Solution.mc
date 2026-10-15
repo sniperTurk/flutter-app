@@ -26,10 +26,12 @@ class Solution {
         if (Solution.toNum(m.get("v")) != 1) {
             return null;
         }
-        var ok = m.get("ok");
+        // iPhone (Connect IQ Mobile SDK) bool'u Boolean, 0/1 sayı veya Char
+        // olarak gelebilir; köprü 0/1 gönderir, hepsi kabul edilir.
+        var ok = Solution.toBool(m.get("ok"));
         var profile = m.get("profile");
         var atMs = m.get("at");
-        if (!(ok instanceof Boolean) || !(profile instanceof String)) {
+        if (ok == null || !(profile instanceof String)) {
             return null;
         }
         if (!(atMs instanceof Number) && !(atMs instanceof Long)) {
@@ -70,6 +72,19 @@ class Solution {
         s.windUnit = (wu instanceof String) ? wu : null;
         s.windClock = Solution.toNum(m.get("windClock"));
         return s;
+    }
+
+    static function toBool(v) {
+        if (v instanceof Boolean) {
+            return v;
+        }
+        if (v instanceof Number || v instanceof Long) {
+            return v != 0;
+        }
+        if (v instanceof Char) {
+            return v.toNumber() != 0;
+        }
+        return null;
     }
 
     static function toNum(v) {

@@ -67,6 +67,116 @@ class MethodChannelWatchTransport implements WatchTransport {
   }
 }
 
+/// Several watch links at once (Apple Watch and Garmin). A send goes to all
+/// of them: [WatchSendResult.sent] when any took it,
+/// [WatchSendResult.unavailable] only when none has a native side, otherwise
+/// [WatchSendResult.notDelivered].
+/// Messages from every link arrive on one stream.
+class MultiWatchTransport implements WatchTransport {
+  final List<WatchTransport> _links;
+  Stream<Map<Object?, Object?>>? _incoming;
+
+  MultiWatchTransport(List<WatchTransport> links)
+    : _links = List.unmodifiable(links);
+
+  @override
+  Future<WatchSendResult> send(Map<String, Object> message) async {
+    final results = await Future.wait(
+      _links.map((link) async {
+        try {
+          return await link.send(message);
+        } catch (_) {
+          return WatchSendResult.notDelivered;
+        }
+      }),
+    );
+    if (results.contains(WatchSendResult.sent)) return WatchSendResult.sent;
+    if (results.isNotEmpty &&
+        results.every((r) => r == WatchSendResult.unavailable)) {
+      return WatchSendResult.unavailable;
+    }
+    return WatchSendResult.notDelivered;
+  }
+
+  @override
+  Stream<Map<Object?, Object?>> get incoming {
+    final existing = _incoming;
+    if (existing != null) return existing;
+    final controller = StreamController<Map<Object?, Object?>>.broadcast();
+    for (final link in _links) {
+      link.incoming.listen(controller.add);
+    }
+    return _incoming = controller.stream;
+  }
+}
+
+/// The Garmin link's own calls: choosing the watch in Garmin Connect.
+/// Only the iOS Garmin bridge answers them (garmin/ios_runner, opt-in);
+/// elsewhere every call is a quiet no.
+class GarminLink {
+  static const channelName = 'sniper_turk/garmin';
+
+  /// Native → Dart: the number of chosen watches, once on listen and after
+  /// every return from Garmin Connect.
+  static const devicesChannelName = 'sniper_turk/garmin/devices';
+
+  final MethodChannel _channel;
+  final EventChannel _devices;
+
+  GarminLink([MethodChannel? channel, EventChannel? devices])
+    : _channel = channel ?? const MethodChannel(channelName),
+      _devices = devices ?? const EventChannel(devicesChannelName);
+
+  static GarminLink? _instance;
+
+  /// The app-wide link.
+  static GarminLink get instance => _instance ??= GarminLink();
+
+  /// Replaces [instance] (tests only).
+  @visibleForTesting
+  static set instance(GarminLink link) => _instance = link;
+
+  /// Garmin watches the user shared with the app; null when this build has
+  /// no Garmin bridge.
+  Future<int?> deviceCount() async {
+    try {
+      return await _channel.invokeMethod<int>('deviceCount');
+    } on MissingPluginException {
+      return null;
+    } on PlatformException {
+      return null;
+    }
+  }
+
+  /// The chosen-watch count whenever it changes (Garmin Connect returned a
+  /// new selection). Empty without a Garmin bridge; native errors end it.
+  Stream<int> get deviceCountChanges async* {
+    // Without a bridge EventChannel would report the missing plugin as a
+    // Flutter error instead of an exception; ask the method channel first.
+    if (await deviceCount() == null) return;
+    try {
+      await for (final value in _devices.receiveBroadcastStream()) {
+        if (value is int) yield value;
+      }
+    } on MissingPluginException {
+      // No bridge: the stream simply ends.
+    } on PlatformException {
+      // Native error: the stream ends; the tile still refreshes on resume.
+    }
+  }
+
+  /// Opens Garmin Connect to pick the watch. False without a bridge.
+  Future<bool> selectDevice() async {
+    try {
+      return await _channel.invokeMethod<bool>('selectDevice') == true;
+    } on MissingPluginException {
+      return false;
+    } on PlatformException {
+      return false;
+    }
+  }
+}
+
 /// Sends the shot solution to a watch and receives the watch's distance
 /// requests. Without a watch (or without the native side) it silently does
 /// nothing: no exception, no retry storm.
@@ -88,7 +198,14 @@ class WatchBridge {
     WatchTransport? transport,
     this.maxRange = 100000,
     DateTime Function()? clock,
-  }) : _transport = transport ?? MethodChannelWatchTransport(),
+  }) : _transport =
+           transport ??
+           MultiWatchTransport([
+             MethodChannelWatchTransport(),
+             MethodChannelWatchTransport(
+               const MethodChannel(GarminLink.channelName),
+             ),
+           ]),
        _clock = clock ?? DateTime.now;
 
   static WatchBridge? _instance;
