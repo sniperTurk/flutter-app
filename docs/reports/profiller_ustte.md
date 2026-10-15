@@ -65,6 +65,20 @@ Sahip, profiller sayfanın en üstünde olsun ve her kartta profilin özeti yazs
 
 Sonuçlar PR açıklamasında ve aşağıda; yalnız gerçekten yeşil biten koşu yeşil olarak yazılır.
 
-<!-- CI-SONUC -->
+Commit `5e8d616` üzerinde `iOS CI` koşusu 38777143724:
+- `verify`: başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38777143724/job/116572042427
+- `dart-checks`: başarılı (biçim, analiz, testler). https://github.com/sniperTurk/flutter-app/actions/runs/38777143724/job/116567621579
+- `wind-acceptance`: başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38777143724/job/116567621936
+- `ios-simulator`: atlandı (yalnız elle çalışıyor).
+
+Ek tanı koşuları (`analyze-diag`, `test-diag`): bu dala gönderildi, ikisi de başarılı bitti (38777135822, 38777132735). Bu iki koşu `main` adıyla göründüğü ve aynı anda başka görevler de koşu açtığı için, hangi koşunun bu dala ait olduğu zaman damgasından eşleştirildi. Asıl kanıt yukarıdaki PR koşusu.
+
+Önceki koşularda iki sorun çıktı ve düzeltildi:
+- `prefer_const_constructors` analiz uyarısı.
+- `test/profile_page_test.dart` testinin eski sırayı beklemesi.
+
+Biçim düzeltmesini CI'daki format iş akışı yaptı (commit `306ce35`). Bot commit'inin CI koşusu onay bekliyordu, API ile onaylandı.
+
+Birleştirme yapılmadı, TestFlight başlatılmadı. Simulator dışında cihaz, imzalama ve TestFlight adımları çalışmadı.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
