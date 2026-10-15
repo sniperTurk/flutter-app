@@ -48,7 +48,16 @@ Tasarım: `design/clean-2026-10-15` dalı, README "Ek kararlar" ve `Hedef.png`.
 - Bu ortamda Flutter SDK indirilemedi (storage.googleapis.com engelli); `flutter test` / `flutter analyze` yalnız CI'da çalıştı.
 
 ## CI
-CI_SONUCLARI
+Son kod commit'i `edb0f62` üzerinde:
+- iOS CI `verify` (macOS): geçti — https://github.com/sniperTurk/flutter-app/actions/runs/38776612779/job/116570561903
+- `dart-checks` (format, `flutter analyze`, birim ve widget testleri): geçti — https://github.com/sniperTurk/flutter-app/actions/runs/38776612779/job/116565789993
+- `wind-acceptance`: geçti — https://github.com/sniperTurk/flutter-app/actions/runs/38776612779/job/116565789378
+- `ios-simulator`: atlandı (iş akışı bu PR'da çalıştırmıyor; Simulator derlemesi yapılmadı).
+- analyze-diag: geçti — https://github.com/sniperTurk/flutter-app/actions/runs/38776611676
+- test-diag (`test` klasörünün tamamı): geçti — https://github.com/sniperTurk/flutter-app/actions/runs/38776615053
+- İlk commit'te `analyze` tek bir `prefer_const_constructors` bilgisiyle kırmızıydı (yeni testte); `edb0f62` ile düzeltildi.
+- Format: format-fix iş akışı (375209577) testi biçimlendirip `236e1e4` commit'ini ekledi.
+- TestFlight çalıştırılmadı; birleştirme yapılmadı.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
