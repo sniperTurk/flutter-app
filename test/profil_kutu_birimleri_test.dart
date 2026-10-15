@@ -79,7 +79,10 @@ void main() {
     ) async {
       await _openNew(tester);
       // Mesafe birimi still "Seçiniz": the zero is read as metres.
-      expect(selectedValue<DistanceUnit>(tester, 'profile-distance-unit'), isNull);
+      expect(
+        selectedValue<DistanceUnit>(tester, 'profile-distance-unit'),
+        isNull,
+      );
       for (final e in _rifleUnits.entries) {
         expect(_unit(tester, e.key), e.value, reason: e.key);
         _expectUnitInside(tester, e.key, e.value);
