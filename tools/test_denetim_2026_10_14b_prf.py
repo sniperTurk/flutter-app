@@ -23,6 +23,9 @@ import math
 import re
 import unittest
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dart_library_source import library_text  # noqa: E402
 
 from dart_library_source import library_text
 
@@ -176,7 +179,7 @@ class Prf4CaliberBeatsExactName(unittest.TestCase):
         self.assertEqual(r["model"], "Hercules")  # finding: name replaced
 
     def test_editor_writes_the_list_name_into_the_saved_record(self):
-        src = SCREEN.read_text(encoding="utf-8")
+        src = library_text("lib/features/profiles/profiles_screen.dart")
         self.assertIn("rifleBrand.text = match.brand;", src)
         self.assertIn("rifleModel.text = match.model;", src)
         self.assertIn("'model': rifleModel.text.trim(),", src)
@@ -212,7 +215,7 @@ class PowderCoefficient(unittest.TestCase):
     def test_dart_formula_and_label(self):
         core = (ROOT / "lib/core/powder_temperature.dart").read_text(encoding="utf-8")
         self.assertIn("final f = 1 + k / 100 * (todayTempC - t0) / 15;", core)
-        src = SCREEN.read_text(encoding="utf-8")
+        src = library_text("lib/features/profiles/profiles_screen.dart")
         i = src.index("label: 'Barut katsayısı',")
         block = src[i:i + 200]
         self.assertNotIn("unit:", block)  # no unit beside the label (#308)
@@ -250,13 +253,18 @@ class RepositoryFacts(unittest.TestCase):
             "PRO_TUBE_PRESSURE": BALLISTICS,
         }
         for flag, path in flags.items():
-            src = path.read_text(encoding="utf-8")
+            # profiles_screen.dart is one library in several part files.
+            src = (
+                library_text("lib/features/profiles/profiles_screen.dart")
+                if path == SCREEN
+                else path.read_text(encoding="utf-8")
+            )
             m = re.search(r"bool\.fromEnvironment\(\s*'%s'\s*(,[^)]*)?\)" % flag, src)
             self.assertIsNotNone(m, flag)
             self.assertNotIn("defaultValue: true", m.group(0), flag)
 
     def _scope_entry(self):
-        src = SCREEN.read_text(encoding="utf-8")
+        src = library_text("lib/features/profiles/profiles_screen.dart")
         i = src.index("Map<String, dynamic> _scopeEntry()")
         return src[i:src.index("Future<void> _save()", i)]
 
@@ -272,7 +280,7 @@ class RepositoryFacts(unittest.TestCase):
         # the original's record ids; the editor overwrote a shared personal
         # record). Flipped to the fixed state (CLAUDE.md: a fixed finding's
         # test must pass); the Dart PRF-2 tests are the behaviour guards.
-        src = SCREEN.read_text(encoding="utf-8")
+        src = library_text("lib/features/profiles/profiles_screen.dart")
         i = src.index("Future<void> _duplicate(RifleProfile p)")
         dup = src[i:i + 1500]
         for f in ("rifleId: p.rifleId", "ammunitionId: p.ammunitionId", "scopeId: p.scopeId"):
@@ -284,7 +292,7 @@ class RepositoryFacts(unittest.TestCase):
     def test_prf3_scope_saved_with_profile_unit(self):
         block = self._scope_entry()
         self.assertIn("'clickUnit': angularUnit.name", block)
-        src = SCREEN.read_text(encoding="utf-8")
+        src = library_text("lib/features/profiles/profiles_screen.dart")
         self.assertIn("angularUnit = p?.angularUnit ?? s0?.clickUnit ?? AngularUnit.mrad;", src)
         self.assertIn(": num(_defaultClick(angularUnit)),", src)
         match = MATCH.read_text(encoding="utf-8")
@@ -295,7 +303,7 @@ class RepositoryFacts(unittest.TestCase):
         self.assertIn("double? get _bulletLengthMm {", balli)
         i = balli.index("double? get _bulletLengthMm {")
         self.assertIn("bulletLengthCtl", balli[i:i + 300])
-        src = SCREEN.read_text(encoding="utf-8")
+        src = library_text("lib/features/profiles/profiles_screen.dart")
         self.assertIn("_showProfileAmmoLength ? _parse(ammoLength) : ammo?.lengthMm", src)
 
     def test_pro_tube_pressure_off_uses_profile_value(self):

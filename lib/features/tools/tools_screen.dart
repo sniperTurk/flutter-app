@@ -57,6 +57,7 @@ class ToolsScreen extends StatelessWidget {
     return MenzilPage(
       children: [
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-truing'),
           icon: Icons.tune,
           title: 'Hız Doğrulama',
@@ -65,6 +66,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const TruingScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-chrono'),
           icon: Icons.speed,
           title: 'Kronograf',
@@ -72,6 +74,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const ChronoScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-sight-height'),
           icon: Icons.height,
           title: 'Sight Height',
@@ -79,6 +82,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const SightHeightScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-map-distance'),
           icon: Icons.map_outlined,
           title: 'Haritadan mesafe',
@@ -86,6 +90,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const MapDistanceScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-weather'),
           icon: Icons.air,
           title: 'Hava & Rüzgâr',
@@ -93,6 +98,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const WeatherScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-compass'),
           icon: Icons.explore_outlined,
           title: 'Pusula',
@@ -100,6 +106,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const CompassScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-level'),
           icon: Icons.straighten,
           title: 'Su Terazisi',
@@ -107,6 +114,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const LevelScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-hit-probability'),
           icon: Icons.track_changes_outlined,
           title: 'İsabet Olasılığı',
@@ -115,6 +123,7 @@ class ToolsScreen extends StatelessWidget {
         ),
         if (activePlatform == WeaponPlatform.pcp)
           MenzilToolTile(
+            plainIcon: true,
             tileKey: const Key('tool-parallax'),
             icon: Icons.center_focus_strong_outlined,
             title: 'Paralaks Mesafesi',
@@ -122,6 +131,7 @@ class ToolsScreen extends StatelessWidget {
             onTap: () => _open(context, const ParallaxScreen()),
           ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-mpbr'),
           icon: Icons.vertical_align_center,
           title: 'Avcı Sıfırı',
@@ -129,6 +139,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const MpbrScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-calculators'),
           icon: Icons.calculate_outlined,
           title: 'Hesaplayıcılar',
@@ -138,6 +149,7 @@ class ToolsScreen extends StatelessWidget {
         ),
         // Ö11, Ö10, Ö9 (2026-10-12): last, so the hub order above stays.
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-checklist'),
           icon: Icons.checklist,
           title: 'Atış Öncesi Kontrol',
@@ -146,6 +158,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const PreShotChecklistScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-zero-group'),
           icon: Icons.grid_on,
           title: 'Sıfır Grubu',
@@ -153,6 +166,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const ZeroGroupScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-shot-journal'),
           icon: Icons.menu_book_outlined,
           title: 'Atış Günlüğü',
@@ -160,6 +174,7 @@ class ToolsScreen extends StatelessWidget {
           onTap: () => _open(context, const ShotJournalScreen()),
         ),
         MenzilToolTile(
+          plainIcon: true,
           tileKey: const Key('tool-usage-guide'),
           icon: Icons.menu_book_outlined,
           title: 'Kullanım rehberi',

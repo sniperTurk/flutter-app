@@ -32,6 +32,8 @@ import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
+import '../support/library_source.dart';
+
 // ---- Manual ("Listede yok") records, as a typed rifle is stored ----------
 
 const _pcpRifle = <String, dynamic>{
@@ -411,9 +413,7 @@ void main() {
     });
 
     test('the hidden item stays behind RIFLE_LISTEDE_YOK (default off)', () {
-      final src = File(
-        'lib/features/profiles/profiles_screen.dart',
-      ).readAsStringSync();
+      final src = librarySource('lib/features/profiles/profiles_screen.dart');
       expect(src, contains("bool.fromEnvironment(\n    'RIFLE_LISTEDE_YOK',"));
       expect(src, contains('if (_showRifleListedeYok)'));
       expect(src, contains("Key('rifle-not-listed')"));

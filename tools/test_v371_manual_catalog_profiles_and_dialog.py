@@ -3,13 +3,16 @@ itself is covered by Flutter tests in test/user_catalog_test.dart. (The manual
 catalog dialog and catalog screen were removed as unreachable code.)"""
 import unittest
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dart_library_source import library_text  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 USER = (ROOT / 'lib/data/user_catalog.dart').read_text(encoding='utf-8')
 LOADER = (ROOT / 'lib/services/user_catalog_loader.dart').read_text(encoding='utf-8')
 REPO = (ROOT / 'lib/data/catalog_repository.dart').read_text(encoding='utf-8')
 INTEGRITY = (ROOT / 'lib/data/profile_catalog_integrity.dart').read_text(encoding='utf-8')
-PROFILES = (ROOT / 'lib/features/profiles/profiles_screen.dart').read_text(encoding='utf-8')
+PROFILES = library_text('lib/features/profiles/profiles_screen.dart')
 
 
 class PersonalCatalogProfileContract(unittest.TestCase):
