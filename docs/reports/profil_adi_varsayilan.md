@@ -33,10 +33,10 @@ Sahip kararı: 15 Ekim 2026, 13:16 (İstanbul) — "Profil adı yeni profilde "Y
 
 ## CI bağlantıları
 - Dart format düzeltme: https://github.com/sniperTurk/flutter-app/actions/runs/38719650118 — başarılı; biçim commit'i (1077ffb) dala alındı.
-- Test teşhisi (`test-diag.yml`, tüm `test/`): https://github.com/sniperTurk/flutter-app/actions/runs/38719939375
-- Analiz teşhisi (`analyze-diag.yml`): https://github.com/sniperTurk/flutter-app/actions/runs/38719942590
-- PR'ın iOS CI `verify` işi (Simulator'da `app_launch_test.dart`): PR sayfasında.
+- Test teşhisi (`test-diag.yml`, tüm `test/`, commit 1077ffb): https://github.com/sniperTurk/flutter-app/actions/runs/38719939375 — başarılı (`flutter test` çıkış kodu 0).
+- Analiz teşhisi (`analyze-diag.yml`, `flutter analyze --fatal-infos --fatal-warnings`, commit 1077ffb): https://github.com/sniperTurk/flutter-app/actions/runs/38719942590 — başarılı.
+- PR'ın iOS CI çalışması (commit 6a259c1, ilk rapor dahil): https://github.com/sniperTurk/flutter-app/actions/runs/38720052379 — `dart-checks` başarılı, `wind-acceptance` başarılı, `verify` başarılı (iOS Simulator derlemesi ve Simulator'da `app_launch_test.dart` başarılı); `ios-simulator` işi iş akışı tarafından atlandı (skipped).
 
-Sonuçlar PR açıklamasında güncellenir; çalışıp yeşil bitmeyen hiçbir iş "geçti" diye yazılmaz. Birleştirme ve TestFlight yok; taslak PR.
+Bu rapor güncellemesi yalnızca belge değişikliğidir; PR'daki son commit için CI yeniden çalışır, sonucu PR sayfasındadır. Birleştirme ve TestFlight yok; taslak PR.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
