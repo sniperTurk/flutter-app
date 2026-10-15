@@ -171,12 +171,9 @@ Future<double> _hedefMrad(
     (c) => c.label is Text && (c.label as Text).data == 'Yükseklik MRAD',
   );
   expect(mradCol, isNonNegative, reason: 'DOPE has no MRAD column');
-  double cell(DataRow r, int i) => double.parse(
-    (r.cells[i].child as Text).data!.replaceAll(',', '.'),
-  );
-  final row = table.rows.firstWhere(
-    (r) => (cell(r, 0) - rangeM).abs() < 0.5,
-  );
+  double cell(DataRow r, int i) =>
+      double.parse((r.cells[i].child as Text).data!.replaceAll(',', '.'));
+  final row = table.rows.firstWhere((r) => (cell(r, 0) - rangeM).abs() < 0.5);
   return cell(row, mradCol);
 }
 
