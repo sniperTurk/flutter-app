@@ -20,7 +20,7 @@ extension _ScopeWorkings on ScopeDialView {
       final m = ScopeDialMath.linearAtRange(angle.abs(), rangeM, unit);
       return metric
           ? '${(m * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
-          : '${(m * 39.3700787).toStringAsFixed(1).replaceAll('.', ',')} in';
+          : '${Units.metersToInchesDisplay(m).toStringAsFixed(1).replaceAll('.', ',')} in';
     }
 
     final lines = <String>[];
@@ -42,7 +42,7 @@ extension _ScopeWorkings on ScopeDialView {
     if (tRad != null) {
       final d = metric
           ? '${(targetDiameterM * 100).toStringAsFixed(0).replaceAll('.', ',')} cm'
-          : '${(targetDiameterM * 39.3700787).toStringAsFixed(1).replaceAll('.', ',')} in';
+          : '${Units.metersToInchesDisplay(targetDiameterM).toStringAsFixed(1).replaceAll('.', ',')} in';
       lines.add(
         'Hedef halkası Ø$d = ${f(tRad * 2)} $unitLabel; gerçek boyutunda '
         'çizilir, bir çizgi aralığından küçükse o boyutta gösterilir. İki '
@@ -53,7 +53,7 @@ extension _ScopeWorkings on ScopeDialView {
     }
     if (inclineDeg.round() != 0) {
       final horizontal = toDisplayRange(
-        rangeM * math.cos(inclineDeg * math.pi / 180),
+        ScopeDialMath.horizontalRange(rangeM, inclineDeg),
       );
       lines.add(
         'Tüfek eğimi ∠${inclineDeg.round()}°: düşüş eğik mesafe ($r '

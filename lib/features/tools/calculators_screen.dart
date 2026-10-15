@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/input_error_text.dart';
 import '../../core/standard_drag_tables.dart';
 import '../../core/unit_system.dart';
+import '../../core/units.dart';
 import '../../models/domain.dart';
 import '../../tools/domain/field_calc.dart';
 import '../../tools/ports/location_provider.dart';
@@ -278,7 +279,7 @@ class _StadiaState extends State<StadiaScreen> {
     final reading = _p(_reading);
     double? dist;
     if (size != null && reading != null) {
-      final sizeM = _cm ? size / 100 : size * 0.0254;
+      final sizeM = _cm ? size / 100 : Units.inchesToMeters(size);
       final rad = reading * (_mil ? FieldCalc.radPerMil : FieldCalc.radPerMoa);
       dist = FieldCalc.distanceFromAngle(sizeM, rad);
     }
@@ -808,7 +809,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final f = _fps ? 0.3048 : 1.0;
+    double mps(double v) => _fps ? UnitSystem.fpsToMps(v) : v;
     final v1 = _p(_v1), v2 = _p(_v2), dist = _p(_dist);
     final t = _p(_temp), pr = _p(_press), rh = _p(_rh);
     double? bc;
@@ -827,8 +828,8 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
         try {
           bc = FieldCalc.ballisticCoefficientFromTwoVelocities(
             table: StandardDragTables.forModel(_model),
-            v1Mps: v1 * f,
-            v2Mps: v2 * f,
+            v1Mps: mps(v1),
+            v2Mps: mps(v2),
             distanceM: dist,
             env: EnvironmentData(
               temperatureC: t,
@@ -940,7 +941,7 @@ class _TwoVelState extends State<TwoVelocityBcScreen> {
                 _d(bc, 3),
                 'lb/in²',
               ),
-              MenzilMetric('Hız kaybı', _d((v1! - v2!) * f, 1), 'm/s'),
+              MenzilMetric('Hız kaybı', _d(mps(v1! - v2!), 1), 'm/s'),
             ],
           ),
         _note(
@@ -1081,7 +1082,7 @@ class _AirLabState extends State<AirLabScreen> {
               ),
               MenzilMetric(
                 'Yoğunluk irtifası',
-                _d(lab.densityAltitudeM / 0.3048, 0),
+                _d(UnitSystem.metersToFeet(lab.densityAltitudeM), 0),
                 'ft',
               ),
               MenzilMetric('Ses hızı', _d(lab.speedOfSoundMps, 1), 'm/s'),
@@ -1225,9 +1226,9 @@ class _EnergyState extends State<EnergyScreen> {
   @override
   Widget build(BuildContext context) {
     final g = _p(_grain), vIn = _p(_velocity), e = _p(_target);
-    final f = _fps ? 0.3048 : 1.0;
+    double mps(double v) => _fps ? UnitSystem.fpsToMps(v) : v;
     final ok = g != null && g > 0 && vIn != null && vIn > 0;
-    final v = ok ? vIn * f : null;
+    final v = ok ? mps(vIn) : null;
     final joules = ok ? FieldCalc.energyJ(g, v!) : null;
     final need = (g != null && g > 0 && e != null && e > 0)
         ? FieldCalc.velocityForEnergyMps(g, e)
@@ -1297,7 +1298,11 @@ class _EnergyState extends State<EnergyScreen> {
             columns: 2,
             metrics: [
               MenzilMetric('Gereken hız', _d(need, 1), 'm/s'),
-              MenzilMetric('Gereken hız', _d(need / 0.3048, 0), 'fps'),
+              MenzilMetric(
+                'Gereken hız',
+                _d(UnitSystem.mpsToFps(need), 0),
+                'fps',
+              ),
             ],
           ),
         ],

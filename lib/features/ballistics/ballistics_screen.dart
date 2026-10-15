@@ -15,6 +15,7 @@ import '../../core/drag_safety.dart';
 import '../../core/drag_table.dart';
 import '../../core/estimated_bc.dart';
 import '../../core/gravity.dart';
+import '../../core/moving_target.dart';
 import '../../core/pcp_pressure.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
@@ -22,6 +23,7 @@ import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
 import '../../core/stability.dart';
 import '../../core/unit_system.dart';
+import '../../core/units.dart';
 import '../../core/wez.dart';
 import '../../core/wind_clock.dart';
 import '../../core/wind_zone_shares.dart';
@@ -825,12 +827,8 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   /// when empty.
   ({double up, double right}) get _zeroOffsetMrad {
     final z = widget.profile?.zeroRangeM;
-    double a(TextEditingController c) {
-      final v = _parsed(c);
-      if (z == null || z <= 0 || v == null || v.abs() > 100) return 0;
-      final m = metric ? v / 100 : UnitSystem.inchesToMillimeters(v) / 1000;
-      return math.atan(m / z) * 1000;
-    }
+    double a(TextEditingController c) =>
+        ScopeDialMath.zeroOffsetMrad(_parsed(c), z, metric: metric);
 
     return (up: a(zeroUpCtl), right: a(zeroRightCtl));
   }
@@ -915,7 +913,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     if (rifle == null || dir == null || sg == null || lengthMm == null) {
       return null;
     }
-    final lCal = lengthMm / 25.4 / (rifle.caliberMm / 25.4);
+    final lCal = Stability.lengthCalibers(lengthMm, rifle.caliberMm);
     return (sg: sg, lCal: lCal, dir: dir);
   }
 
@@ -972,9 +970,12 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   double? _spinDriftMrad(TrajectoryPoint shot, _ShotBasis basis) {
     final st = _stability(basis);
     if (st == null) return null;
-    final driftIn = 1.25 * (st.sg + 1.2) * math.pow(shot.timeOfFlightS, 1.83);
-    final m = driftIn * 0.0254 * (st.dir == TwistDirection.right ? 1 : -1);
-    return math.atan(m / _shotRangeM) * 1000;
+    return Stability.spinDriftMrad(
+      sg: st.sg,
+      timeOfFlightS: shot.timeOfFlightS,
+      rangeM: _shotRangeM,
+      rightHandTwist: st.dir == TwistDirection.right,
+    );
   }
 
   /// Aerodynamic jump (Litz): a crosswind at the muzzle tips a spinning
@@ -986,13 +987,13 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     if (st == null) return null;
     final env = basis.environment;
     // Internal wind degrees: 90° = from the LEFT, 270° = from the right.
-    final fromRightMph =
-        -UnitSystem.mpsToMph(env.windMps) *
-        math.sin(env.windDirectionDeg * math.pi / 180);
-    final moaPerMph = 0.01 * st.sg - 0.0024 * st.lCal + 0.032;
-    final moa =
-        moaPerMph * fromRightMph * (st.dir == TwistDirection.right ? 1 : -1);
-    return moa * math.pi / 10800 * 1000;
+    return Stability.aeroJumpMrad(
+      sg: st.sg,
+      lCal: st.lCal,
+      windMps: env.windMps,
+      windDirectionDeg: env.windDirectionDeg,
+      rightHandTwist: st.dir == TwistDirection.right,
+    );
   }
 
   /// Real / marked turret travel; 1 when empty or implausible (0.8–1.2).
@@ -2438,12 +2439,14 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     }
     final spin = _spinDriftMrad(shot, basis);
     if (spin != null) {
-      final m = math.tan(spin.abs() / 1000) * _shotRangeM;
+      final m = Units.mradToLinear(spin.abs(), _shotRangeM);
       final len = metric
           ? '${(m * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
           : '${UnitSystem.millimetersToInches(m * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
       final jump = _aeroJumpMrad(basis);
-      final jm = jump == null ? 0.0 : math.tan(jump.abs() / 1000) * _shotRangeM;
+      final jm = jump == null
+          ? 0.0
+          : Units.mradToLinear(jump.abs(), _shotRangeM);
       final jLen = metric
           ? '${(jm * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
           : '${UnitSystem.millimetersToInches(jm * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
@@ -2526,8 +2529,12 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       );
     }
     if (speed != null && movesRight != null) {
-      final leadM = speed * shot.timeOfFlightS;
-      final mrad = math.atan(leadM / _shotRangeM) * 1000;
+      final leadM = MovingTarget.leadM(speed, shot.timeOfFlightS);
+      final mrad = MovingTarget.leadMrad(
+        speed,
+        shot.timeOfFlightS,
+        _shotRangeM,
+      );
       final len = metric
           ? '${(leadM * 100).toStringAsFixed(0).replaceAll('.', ',')} cm'
           : '${UnitSystem.millimetersToInches(leadM * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
@@ -2726,8 +2733,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     if (zero == null || zero <= 0 || g == null || g <= 0 || g > 100) {
       return null;
     }
-    double lenM(double v) =>
-        metric ? v / 100 : UnitSystem.inchesToMillimeters(v) / 1000;
+    double lenM(double v) => Units.cmOrInchToMeters(v, metric: metric);
     final sources = <WezSource>[];
     final sigmaG = Wez.groupSigmaMrad(lenM(g), zero);
     sources.add(
@@ -2812,7 +2818,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final size = typedSize != null && typedSize > 0 && typedSize < 1000
         ? typedSize
         : (metric ? 10.0 : 4.0);
-    final radius = math.atan(lenM(size) / 2 / _shotRangeM) * 1000;
+    final radius = Wez.targetRadiusMrad(lenM(size), _shotRangeM);
     final sizeText =
         '${size % 1 == 0 ? size.toStringAsFixed(0) : _decimal(size)} '
         '${metric ? 'cm' : 'in'}';
@@ -3189,13 +3195,13 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final size = typed != null && typed > 0 && typed < 1000
         ? typed
         : (metric ? 10.0 : 4.0);
-    return metric ? size / 100 : UnitSystem.inchesToMillimeters(size) / 1000;
+    return Units.cmOrInchToMeters(size, metric: metric);
   }
 
   /// Lateral wind drift at the point's range, in cm (metric) or inches.
   /// windMrad is the angle atan2(-z, range); this recovers |z| exactly.
   double _windDrift(TrajectoryPoint point) {
-    final meters = point.rangeM * math.tan(point.windMrad.abs() / 1000);
+    final meters = Units.mradToLinear(point.windMrad.abs(), point.rangeM);
     return metric
         ? meters * 100
         : UnitSystem.millimetersToInches(meters * 1000);
@@ -3709,7 +3715,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
           .single;
       // dropM is positive down; windMrad > 0 means the shot went LEFT.
       double lateral(TrajectoryPoint point) =>
-          -_shotRangeM * math.tan(point.windMrad / 1000);
+          -Units.mradToLinear(point.windMrad, _shotRangeM);
       return (
         up: base.dropM - withC.dropM,
         right: lateral(withC) - lateral(base),

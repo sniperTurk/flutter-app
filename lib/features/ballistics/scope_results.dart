@@ -17,7 +17,7 @@ extension _ScopeResults on ScopeDialView {
       final m = ScopeDialMath.linearAtRange(angle.abs(), rangeM, unit);
       return metric
           ? '${(m * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
-          : '${(m * 39.3700787).toStringAsFixed(1).replaceAll('.', ',')} in';
+          : '${Units.metersToInchesDisplay(m).toStringAsFixed(1).replaceAll('.', ',')} in';
     }
 
     String dial(int clicks, double angle, String pos, String neg) =>

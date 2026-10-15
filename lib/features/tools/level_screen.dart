@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../core/low_pass.dart';
 import '../../tools/domain/tilt_math.dart';
 import '../../tools/ports/tilt_provider.dart';
 import '../../tools/state/level_controller.dart';
@@ -817,10 +818,10 @@ class _EasedAnglesState extends State<_EasedAngles>
     final dt = (elapsed - _last).inMicroseconds / 1e6;
     _last = elapsed;
     if (dt <= 0) return;
-    final k = 1 - math.exp(-dt / _tauSeconds);
+    final k = LowPass.factor(dt, _tauSeconds);
     setState(() {
-      _x += (widget.target.xDeg - _x) * k;
-      _y += (widget.target.yDeg - _y) * k;
+      _x = LowPass.step(_x, widget.target.xDeg, k);
+      _y = LowPass.step(_y, widget.target.yDeg, k);
       if (_arrived) {
         _x = widget.target.xDeg;
         _y = widget.target.yDeg;

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
@@ -8,6 +7,7 @@ import '../../core/drag_band_truing.dart';
 import '../../core/drag_curve.dart';
 import '../../core/gravity.dart';
 import '../../core/powder_temperature.dart';
+import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
 import '../../core/velocity_truing.dart';
 import '../../data/catalog_repository.dart';
@@ -209,10 +209,11 @@ class _TruingScreenState extends State<TruingScreen> {
 
   /// Pro "Sıfır ofseti" upward part in mrad, same rule as Atış.
   static double _zeroUpMrad(ShotSettings? shot, double zeroM, bool metric) {
-    final v = _num(shot?.zeroUpText);
-    if (zeroM <= 0 || v == null || v.abs() > 100) return 0;
-    final m = metric ? v / 100 : UnitSystem.inchesToMillimeters(v) / 1000;
-    return math.atan(m / zeroM) * 1000;
+    return ScopeDialMath.zeroOffsetMrad(
+      _num(shot?.zeroUpText),
+      zeroM,
+      metric: metric,
+    );
   }
 
   /// Pro "Yerçekimi", same rule as Atış; standard when off.

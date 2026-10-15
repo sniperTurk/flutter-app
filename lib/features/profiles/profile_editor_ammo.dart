@@ -103,9 +103,10 @@ extension _AmmoSection on _ProfileDialogState {
     if (cal == null || cal <= 0) return null;
     final w = _caliberWeights;
     if (w.isNotEmpty) return (0.8 * w.first, 1.25 * w.last);
-    final dIn = cal / 25.4;
-    final k = 7000 * dIn * dIn;
-    return (0.08 * k, 0.45 * k);
+    return (
+      EstimatedBc.grainForSectionalDensity(0.08, cal),
+      EstimatedBc.grainForSectionalDensity(0.45, cal),
+    );
   }
 
   /// "Federal Gold Medal · .308 Win · 168 gr (10,9 g) · BC 0,462 G1", once
@@ -165,8 +166,7 @@ extension _AmmoSection on _ProfileDialogState {
       _ => null,
     };
     if (range == null) return null;
-    final dIn = cal / 25.4;
-    final i = grain / (7000 * dIn * dIn) / bc;
+    final i = EstimatedBc.sectionalDensity(grain, cal) / bc;
     if (i < range.$1) {
       return 'Bu BC, bu kalibre ve ağırlık için çok yüksek görünüyor. '
           'Kutudaki değeri kontrol edin; yanlışsa uzak mesafede düşüş '
