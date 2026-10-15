@@ -6,6 +6,7 @@
 // "0" label, zero tick and red pointer sit on the reticle's horizontal line,
 // the top turret's on its vertical line (±0,5 pt).
 // Report: docs/reports/kule_ok_alani_sifir_hizasi.md.
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -201,8 +202,12 @@ void main() {
         }
         _noOverlap(up, down, '‹ vs ›');
 
-        // (c) glyphs: 24 pt chevrons exactly where main draws them.
-        Rect at(Offset c) => Rect.fromCenter(center: c, width: 24, height: 24);
+        // (c) glyphs: 24 pt chevrons exactly where main draws them. As on
+        // main, a side chevron is never taller than its 30·k pt cell
+        // (23,7 pt on a 320 pt phone).
+        final sideGlyph = math.min(24.0, 30 * k);
+        Rect at(Offset c, [double h = 24]) =>
+            Rect.fromCenter(center: c, width: 24, height: h);
         for (final (key, want) in [
           (
             'Yükseklik kulesi-step-plus',
@@ -214,11 +219,17 @@ void main() {
           ),
           (
             'Rüzgâr kulesi-step-plus',
-            at(Offset(reticle.right - 37 * k, reticle.center.dy - 133 * k)),
+            at(
+              Offset(reticle.right - 37 * k, reticle.center.dy - 133 * k),
+              sideGlyph,
+            ),
           ),
           (
             'Rüzgâr kulesi-step-minus',
-            at(Offset(reticle.right - 37 * k, reticle.center.dy + 133 * k)),
+            at(
+              Offset(reticle.right - 37 * k, reticle.center.dy + 133 * k),
+              sideGlyph,
+            ),
           ),
         ]) {
           final g = _glyph(tester, key);
@@ -229,7 +240,11 @@ void main() {
           );
           expect(g.top, moreOrLessEquals(want.top, epsilon: 0.5), reason: key);
           expect(g.width, moreOrLessEquals(24, epsilon: 0.01), reason: key);
-          expect(g.height, moreOrLessEquals(24, epsilon: 0.01), reason: key);
+          expect(
+            g.height,
+            moreOrLessEquals(want.height, epsilon: 0.01),
+            reason: key,
+          );
         }
         // Top row layout unchanged: [48][4][‹ 28][4][drum][4][› 28][4][L-R].
         expect(toggle.left - turret.right, moreOrLessEquals(4, epsilon: 0.5));
