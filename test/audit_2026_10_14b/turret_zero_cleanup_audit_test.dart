@@ -312,44 +312,43 @@ void main() {
       },
     );
 
-    testWidgets(
-      'repro Hatsan Hercules 635 + Steiner Ranger 4: up 0, down 72, '
-      '"sıfırlanamaz" note, mount suggestion from the unclamped travel',
-      (tester) async {
-        final v = await _shotView(
-          tester,
-          _vacuumPcp('lib-steiner-ranger-4-4-16x56-4a-i'),
-        );
-        expect(v.maxElevationClicks, 0);
-        expect(v.maxElevationDownClicks, 72);
-        expect(v.zeroAngleBlocksZero, isTrue);
-        expect(v.mountBlocksZero, isFalse);
-        final note = tester.widget<MenzilNotice>(
-          find.byKey(ScopeDialKeys.zeroAngleNote),
-        );
-        expect(note.message, contains('sıfırlanamaz'));
-        // 41 − 0 clicks up are needed to zero, the UP half is 36 clicks.
-        expect(note.message, contains('yaklaşık 41 klik'));
-        expect(note.message, contains('yukarı yolu 36 klik'));
-        expect(find.byKey(ScopeDialKeys.mountZeroNote), findsNothing);
+    testWidgets('repro Hatsan Hercules 635 + Steiner Ranger 4: up 0, down 72, '
+        '"sıfırlanamaz" note, mount suggestion from the unclamped travel', (
+      tester,
+    ) async {
+      final v = await _shotView(
+        tester,
+        _vacuumPcp('lib-steiner-ranger-4-4-16x56-4a-i'),
+      );
+      expect(v.maxElevationClicks, 0);
+      expect(v.maxElevationDownClicks, 72);
+      expect(v.zeroAngleBlocksZero, isTrue);
+      expect(v.mountBlocksZero, isFalse);
+      final note = tester.widget<MenzilNotice>(
+        find.byKey(ScopeDialKeys.zeroAngleNote),
+      );
+      expect(note.message, contains('sıfırlanamaz'));
+      // 41 − 0 clicks up are needed to zero, the UP half is 36 clicks.
+      expect(note.message, contains('yaklaşık 41 klik'));
+      expect(note.message, contains('yukarı yolu 36 klik'));
+      expect(find.byKey(ScopeDialKeys.mountZeroNote), findsNothing);
 
-        // The required clicks on Hedef are not limited by the travel.
-        final need = (v.requiredUp! / 0.1).round();
-        expect(need, greaterThan(0));
-        // Hand calc: a mount of m clicks gives UP 36 + m − 41, so the
-        // mount must cover need − 36 + 41 clicks; 1 mrad = 10,8/π MOA.
-        final needMoa = (need - 36 + 41) * 0.1 * 10.8 / math.pi;
-        final travel = tester.widget<MenzilNotice>(
-          find.byKey(ScopeDialKeys.travelNote),
-        );
-        expect(travel.message, contains('${needMoa.ceil()} MOA'));
-        // Before the fix the suggestion was 5 clicks (0,5 mrad) short.
-        final oldMoa = need * 0.1 * 10.8 / math.pi;
-        if (oldMoa.ceil() != needMoa.ceil()) {
-          expect(travel.message, isNot(contains('${oldMoa.ceil()} MOA')));
-        }
-      },
-    );
+      // The required clicks on Hedef are not limited by the travel.
+      final need = (v.requiredUp! / 0.1).round();
+      expect(need, greaterThan(0));
+      // Hand calc: a mount of m clicks gives UP 36 + m − 41, so the
+      // mount must cover need − 36 + 41 clicks; 1 mrad = 10,8/π MOA.
+      final needMoa = (need - 36 + 41) * 0.1 * 10.8 / math.pi;
+      final travel = tester.widget<MenzilNotice>(
+        find.byKey(ScopeDialKeys.travelNote),
+      );
+      expect(travel.message, contains('${needMoa.ceil()} MOA'));
+      // Before the fix the suggestion was 5 clicks (0,5 mrad) short.
+      final oldMoa = need * 0.1 * 10.8 / math.pi;
+      if (oldMoa.ceil() != needMoa.ceil()) {
+        expect(travel.message, isNot(contains('${oldMoa.ceil()} MOA')));
+      }
+    });
 
     testWidgets(
       'normal: Ranger 4 with a 20 MOA mount: no note, up 53, down 19',
