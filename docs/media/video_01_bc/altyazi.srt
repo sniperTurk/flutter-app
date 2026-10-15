@@ -1,0 +1,47 @@
+1
+00:00:11,000 --> 00:00:13,400
+Selam! Bugün tek bir sayıyı konuşalım: BC.
+
+2
+00:00:13,733 --> 00:00:15,667
+BC, yani balistik katsayı.
+
+3
+00:00:15,733 --> 00:00:17,867
+Merminin havayı ne kadar kolay yardığını gösteren sayı.
+
+4
+00:00:18,267 --> 00:00:20,867
+İki mermiyi aynı hızla gönderelim.
+
+5
+00:00:21,000 --> 00:00:22,933
+BC’si büyük olan hızını daha iyi korur,
+
+6
+00:00:23,000 --> 00:00:24,867
+rüzgârda daha az sapar, uzakta daha az düşer.
+
+7
+00:00:25,200 --> 00:00:28,867
+Bu sayı fişek kutusunda ya da üreticinin kataloğunda veya sitesinde yazar.
+
+8
+00:00:29,200 --> 00:00:31,000
+Yanında modeli de yazar: G1 ya da G7.
+
+9
+00:00:31,067 --> 00:00:32,867
+Üretici hangisini yazıyorsa onu seçin.
+
+10
+00:00:33,200 --> 00:00:35,467
+Sniper Türk’te Profil Oluştur › Mühimmat bölümünü açın,
+
+11
+00:00:35,533 --> 00:00:37,867
+BC ve BC modeli kutularına yazın.
+
+12
+00:00:38,200 --> 00:00:40,333
+Gerisini uygulama hesaplar.
