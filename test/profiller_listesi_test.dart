@@ -160,9 +160,7 @@ void main() {
     expect(find.text('Profil Oluştur'), findsOneWidget);
   });
 
-  testWidgets('rows: name and one ⋯, no velocity · Sıfır line', (
-    tester,
-  ) async {
+  testWidgets('rows: name and one ⋯, no velocity · Sıfır line', (tester) async {
     await _pump(tester);
     expect(find.textContaining('• Sıfır'), findsNothing);
     expect(find.textContaining('fps •'), findsNothing);
