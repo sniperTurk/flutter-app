@@ -13,7 +13,6 @@ import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/pro_section_info.dart';
-import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/watch/watch_bridge.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
