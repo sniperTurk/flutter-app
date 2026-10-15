@@ -33,7 +33,15 @@ Yalnız `lib/features/ballistics/environment_field_info.dart` içindeki metinler
 
 ## CI
 
-CI_PLACEHOLDER
+Commit `c5dbfb4` üzerinde (gerçekten çalıştı ve yeşil bitti):
+
+- iOS CI / `verify`: başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38781209622/job/116587787487
+- iOS CI / `dart-checks`: başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38781209622/job/116581576260
+- iOS CI / `wind-acceptance`: başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38781209622/job/116581576545
+- Tam Dart test takımı (test-diag, `files=test`): başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38781210263
+- Biçim düzeltme (dart format): başarılı, değişiklik gerekmedi — https://github.com/sniperTurk/flutter-app/actions/runs/38781205912
+
+Bu commit yalnız raporu günceller (kod aynı).
 
 Taslak PR; birleştirme ve TestFlight yok.
 
