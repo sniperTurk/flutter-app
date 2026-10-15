@@ -283,7 +283,7 @@ void main() {
           ).copyWith(textScaler: const TextScaler.linear(1.3)),
           child: c!,
         ),
-        home: Scaffold(
+        home: const Scaffold(
           body: BallisticsScreen(
             profile: _mradMetric,
             view: BallisticsView.shot,
