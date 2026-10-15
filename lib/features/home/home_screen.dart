@@ -87,14 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _tabTools: 'Araçlar',
   };
 
-  /// Every title the top bar can show, incl. the single shot "Atış Çözümü";
-  /// the bar sizes its fixed title slot from these (owner, 2026-10-13).
-  static final List<String> _topBarTitles = List.unmodifiable([
-    ..._titles.values,
-    _shotTitle,
-  ]);
-
-  static const _shotTitle = 'Atış Çözümü';
+  /// Every title the top bar can show; the bar sizes its fixed title slot
+  /// from these (owner, 2026-10-13).
+  static final List<String> _topBarTitles = List.unmodifiable(_titles.values);
 
   static const _navItems = [
     MenzilNavItem(MenzilGlyph.profile, 'Profil'),
@@ -314,11 +309,9 @@ class _HomeScreenState extends State<HomeScreen> {
         themeLabel: MenzilThemeController.labelFor(themeMode),
         onThemeTap: themeController?.cycle,
         // Each page shows its own name instead of the brand (2026-10-08).
-        // The tab is "Hedef"; its single shot is "Atış Çözümü" (owner,
-        // 2026-10-13: "Hedef Görünümü" was too long).
-        title: tab == _tabShot && _shotMode == BallisticsView.shot
-            ? _shotTitle
-            : _titles[tab],
+        // The Hedef tab's page title is "Hedef" (owner, 2026-10-15; it was
+        // "Atış Çözümü").
+        title: _titles[tab],
         slotTitles: _topBarTitles,
       ),
       bottomNavigationBar: MenzilBottomNavigation(

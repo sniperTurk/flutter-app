@@ -1,6 +1,8 @@
 import 'dart:math' as math;
 
 import 'unit_system.dart';
+import 'units.dart';
+import 'wind_clock.dart';
 
 /// Gyroscopic stability class of a bullet from its Miller Sg.
 enum StabilityLevel { unstable, marginal, stable }
@@ -83,4 +85,57 @@ abstract final class Stability {
     required double muzzleMach,
     required double targetMach,
   }) => muzzleMach > 1.0 && targetMach < transonicBelowMach;
+
+  /// Bullet length in calibres: (length mm / 25.4) / (calibre mm / 25.4),
+  /// the l used by Miller and by the aerodynamic-jump fit. Moved from the
+  /// Hedef screen (2026-10-15, same arithmetic).
+  static double lengthCalibers(double lengthMm, double caliberMm) =>
+      lengthMm / 25.4 / (caliberMm / 25.4);
+
+  /// Spin drift in inches (Litz, Applied Ballistics for Long Range
+  /// Shooting): 1.25 · (Sg + 1.2) · t^1.83, t = time of flight in seconds.
+  static double spinDriftInches({
+    required double sg,
+    required double timeOfFlightS,
+  }) => 1.25 * (sg + 1.2) * math.pow(timeOfFlightS, 1.83);
+
+  /// Spin drift as a sideways angle at [rangeM] in mrad, + = to the right
+  /// (right-hand twist drifts right, left-hand twist left).
+  static double spinDriftMrad({
+    required double sg,
+    required double timeOfFlightS,
+    required double rangeM,
+    required bool rightHandTwist,
+  }) {
+    final driftIn = spinDriftInches(sg: sg, timeOfFlightS: timeOfFlightS);
+    final m = Units.inchesToMeters(driftIn) * (rightHandTwist ? 1 : -1);
+    return Units.linearToMrad(m, rangeM);
+  }
+
+  /// Aerodynamic jump per mph of crosswind, in MOA (Litz):
+  /// 0.01 · Sg − 0.0024 · l + 0.032, l = bullet length in calibres.
+  static double aeroJumpMoaPerMph({required double sg, required double lCal}) =>
+      0.01 * sg - 0.0024 * lCal + 0.032;
+
+  /// Aerodynamic jump in mrad, + = impact moves UP. [windMps] and
+  /// [windDirectionDeg] use the solver's convention (90° = from the left,
+  /// 270° = from the right). Right-hand twist: wind from the right lifts,
+  /// from the left drops (mirrored for left-hand twist).
+  static double aeroJumpMrad({
+    required double sg,
+    required double lCal,
+    required double windMps,
+    required double windDirectionDeg,
+    required bool rightHandTwist,
+  }) {
+    final fromRightMph = WindClock.crosswindFromRight(
+      UnitSystem.mpsToMph(windMps),
+      windDirectionDeg,
+    );
+    final moa =
+        aeroJumpMoaPerMph(sg: sg, lCal: lCal) *
+        fromRightMph *
+        (rightHandTwist ? 1 : -1);
+    return Units.moaToMrad(moa);
+  }
 }

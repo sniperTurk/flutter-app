@@ -58,8 +58,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   WeaponPlatform platform = WeaponPlatform.firearm;
 
   /// False while the Tür box of a new profile still says "Seçiniz" (owner,
-  /// 2026-10-15: every list box starts on "Seçiniz"). The form keeps working
-  /// as Ateşli Tüfek, the default above, until a Tür is picked.
+  /// 2026-10-15: every list box starts on "Seçiniz"). Until a Tür is picked
+  /// the form may still show the Ateşli Tüfek fields (the default above), but
+  /// the profile cannot be saved: "Tür" is listed as missing (owner,
+  /// 2026-10-15).
   bool _platformSet = true;
 
   /// The rifle is typed in by the user (catalog rifle data proved
@@ -111,13 +113,14 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final out = <double>[];
     final all = [for (final (_, d) in Cartridges.firearm) d]..sort();
     for (final d in all) {
-      if (seen.add((d / 25.4).toStringAsFixed(3))) out.add(d);
+      final inch = UnitSystem.millimetersToInches(d).toStringAsFixed(3);
+      if (seen.add(inch)) out.add(d);
     }
     return out;
   }();
 
   static String _diameterLabel(double mm) =>
-      '.${(mm / 25.4).toStringAsFixed(3).split('.').last} in · '
+      '.${UnitSystem.millimetersToInches(mm).toStringAsFixed(3).split('.').last} in · '
       '${mm.toStringAsFixed(2).replaceAll('.', ',')} mm';
 
   // ---- Tüfek Marka / Model / Kalibre lists (owner, 2026-10-11) ----
@@ -172,7 +175,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final parts = <String>[r.cartridge];
     final b = r.barrelLengthMm;
     if (b != null) {
-      final inch = b / 25.4;
+      final inch = UnitSystem.millimetersToInches(b);
       parts.add(
         '${inch.toStringAsFixed((inch - inch.round()).abs() < 0.05 ? 0 : 1)} in namlu',
       );
@@ -810,6 +813,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
     // Same order as the form (owner, 2026-10-09).
     section('Tüfek', [
+      (_platformSet, 'Tür'),
       (_brandError == null, 'Marka'),
       (_modelError == null, 'Model'),
       (_caliberError == null, 'Kalibre'),

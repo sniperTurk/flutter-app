@@ -1,6 +1,7 @@
 import pathlib, unittest
+from dart_library_source import library_text
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-SRC=(ROOT/'lib/features/ballistics/ballistics_screen.dart').read_text(encoding='utf-8')
+SRC=library_text(ROOT/'lib/features/ballistics/ballistics_screen.dart')
 
 class V197AtomicUnitPreferenceConversion(unittest.TestCase):
     def _conversion_body(self):

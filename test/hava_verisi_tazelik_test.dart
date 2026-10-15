@@ -214,7 +214,8 @@ void main() {
       expect(find.text('Veriyi yenile'), findsOneWidget);
       expect(find.textContaining('Hava verisi alındı'), findsNothing);
       expect(_button(tester, _weatherKey).active, isFalse);
-      expect(_button(tester, _weatherKey).icon, Icons.refresh);
+      // No icons in buttons (owner, 2026-10-15).
+      expect(_button(tester, _weatherKey).icon, isNull);
       // The boxes keep the fetched values.
       expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
       expect(_text(tester, BallisticsFieldKeys.humidity), '55');
@@ -426,7 +427,7 @@ void main() {
       await tester.pump(const Duration(minutes: 2));
       expect(find.text('Basıncı yenile'), findsOneWidget);
       expect(_button(tester, _pressureKey).active, isFalse);
-      expect(_button(tester, _pressureKey).icon, Icons.refresh);
+      expect(_button(tester, _pressureKey).icon, isNull);
       expect(_text(tester, BallisticsFieldKeys.pressure), '912.4');
       // The pressure button no longer writes İrtifa (owner, 2026-10-14).
       expect(_text(tester, BallisticsFieldKeys.altitude), '');

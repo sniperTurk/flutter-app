@@ -22,6 +22,8 @@ import re
 import unittest
 from pathlib import Path
 
+from dart_library_source import library_text
+
 ROOT = Path(__file__).resolve().parents[1]
 SCREEN = ROOT / "lib/features/ballistics/ballistics_screen.dart"
 FIELD_CALC = ROOT / "lib/tools/domain/field_calc.dart"
@@ -141,7 +143,7 @@ class IsaReference(unittest.TestCase):
         # The app relies on NaN (pow of a negative base) above ~44.3 km and
         # rejects it with `!pres.isFinite`; Python raises/complexes instead.
         self.assertLess(1 - 2.25577e-5 * 45000, 0)
-        src = SCREEN.read_text(encoding="utf-8")
+        src = library_text(SCREEN)
         self.assertIn("!pres.isFinite", src)
 
 
@@ -204,7 +206,7 @@ class CodePathGuards(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.src = SCREEN.read_text(encoding="utf-8")
+        cls.src = library_text(SCREEN)
 
     def test_effective_altitude_is_phone_else_map(self):
         self.assertRegex(
@@ -276,7 +278,7 @@ class InfoTexts(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.info = INFO.read_text(encoding="utf-8")
-        cls.screen = SCREEN.read_text(encoding="utf-8")
+        cls.screen = library_text(SCREEN)
 
     def test_atm2_f1_rule_text_is_no_longer_shown(self):
         # Documents ATM-2: the only text that explains the F1 rule is unused.

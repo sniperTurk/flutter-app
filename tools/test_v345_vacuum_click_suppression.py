@@ -1,5 +1,6 @@
 import pathlib
 import unittest
+from dart_library_source import library_text
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCREEN = ROOT / "lib/features/ballistics/ballistics_screen.dart"
@@ -14,7 +15,7 @@ class VacuumClickSuppressionContractTest(unittest.TestCase):
     """
 
     def test_dope_table_does_not_add_a_per_row_click_column(self):
-        text = SCREEN.read_text(encoding="utf-8")
+        text = library_text(SCREEN)
         # Per-row click counts depend on the specific scope's click size, so
         # they stay out of the multi-range DOPE table; only the angular
         # MOA/mrad values are tabulated there (see test_v354_*).
@@ -24,12 +25,12 @@ class VacuumClickSuppressionContractTest(unittest.TestCase):
         # The elevation box was removed from Atış (owner, 2026-10-08); the
         # scope dial gets the required elevation from every basis (vacuum
         # included) and shows it as clicks.
-        text = SCREEN.read_text(encoding="utf-8")
+        text = library_text(SCREEN)
         self.assertIn("requiredUp: requiredUp", text)
         self.assertIn("_scopeDial(shot)", text)
 
     def test_wind_click_suppression_language_is_still_present(self):
-        text = SCREEN.read_text(encoding="utf-8")
+        text = library_text(SCREEN)
         self.assertIn("Rüzgâr düzeltmesi/kliki hiç üretilmez (KİLİTLİ)", text)
         self.assertIn("Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)", text)
 

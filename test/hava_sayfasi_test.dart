@@ -209,7 +209,8 @@ void main() {
       rig.advance(const Duration(minutes: 31));
       await tester.pump(const Duration(minutes: 31));
       expect(find.text('Veriyi yenile'), findsOneWidget);
-      expect(_button(tester, _weatherBtn).icon, Icons.refresh);
+      // No icons in buttons (owner, 2026-10-15).
+      expect(_button(tester, _weatherBtn).icon, isNull);
       expect(_button(tester, _weatherBtn).active, isFalse);
       expect(_button(tester, _weatherBtn).maxLabelLines, 1);
       expect(tester.widget<Text>(find.text('Veriyi yenile')).maxLines, 1);
@@ -578,8 +579,9 @@ void main() {
       final rig = _Rig(elevation: elevation);
       await _pump(tester, rig);
       expect(find.text('Haritadan'), findsOneWidget);
-      expect(_button(tester, _mapBtn).icon, Icons.terrain);
-      expect(_button(tester, _phoneBtn).icon, Icons.my_location);
+      // No icons in buttons (owner, 2026-10-15).
+      expect(_button(tester, _mapBtn).icon, isNull);
+      expect(_button(tester, _phoneBtn).icon, isNull);
       expect(elevation.requests, isEmpty);
       await _tap(tester, _mapBtn);
       expect(elevation.requests, [(39.9, 32.8)]);

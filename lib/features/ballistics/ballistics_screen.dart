@@ -15,6 +15,7 @@ import '../../core/drag_safety.dart';
 import '../../core/drag_table.dart';
 import '../../core/estimated_bc.dart';
 import '../../core/gravity.dart';
+import '../../core/moving_target.dart';
 import '../../core/pcp_pressure.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
@@ -22,6 +23,7 @@ import '../../core/reticle_holds.dart';
 import '../../core/scope_dial.dart';
 import '../../core/stability.dart';
 import '../../core/unit_system.dart';
+import '../../core/units.dart';
 import '../../core/wez.dart';
 import '../../core/wind_clock.dart';
 import '../../core/wind_zone_shares.dart';
@@ -58,6 +60,11 @@ import 'scope_cant_screen.dart';
 import 'scope_dial_view.dart';
 import 'wind_clock_picker.dart';
 import 'wind_guide.dart';
+
+part 'ballistics_shared_rows.dart';
+part 'hava_durumu_view.dart';
+part 'hedef_view.dart';
+part 'pro_ayarlar_view.dart';
 
 /// Which part of the ballistic workspace is shown.
 ///
@@ -287,7 +294,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   _ShotBasis? _basis;
   double _shotRangeM = 100;
 
-  /// Opens the right (windage) turret after "Çözümü kulelere kur".
+  /// Opens the right (windage) turret after "Kuleleri kur".
   int _windageRevealToken = 0;
 
   /// Hedef always opens at 100 m (100 yd on a yard profile) (owner,
@@ -650,6 +657,13 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     'WIND_OBSERVATION',
   );
 
+  /// The "Rüzgâr tahmini nasıl yapılır?" link under the Rüzgâr card (owner,
+  /// 2026-10-15): hidden, the Rüzgâr ⓘ opens the same guide. Build with
+  /// --dart-define=WIND_GUIDE_LINK=true to show the link again.
+  static const bool _showWindGuideLink = bool.fromEnvironment(
+    'WIND_GUIDE_LINK',
+  );
+
   /// Rüzgâr gözlemi (Ö2): the chosen Beaufort force, null = "Seçiniz".
   /// Not saved; the wind values it writes are. A typed wind clears it.
   int? _windObservation;
@@ -813,12 +827,8 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   /// when empty.
   ({double up, double right}) get _zeroOffsetMrad {
     final z = widget.profile?.zeroRangeM;
-    double a(TextEditingController c) {
-      final v = _parsed(c);
-      if (z == null || z <= 0 || v == null || v.abs() > 100) return 0;
-      final m = metric ? v / 100 : UnitSystem.inchesToMillimeters(v) / 1000;
-      return math.atan(m / z) * 1000;
-    }
+    double a(TextEditingController c) =>
+        ScopeDialMath.zeroOffsetMrad(_parsed(c), z, metric: metric);
 
     return (up: a(zeroUpCtl), right: a(zeroRightCtl));
   }
@@ -903,7 +913,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     if (rifle == null || dir == null || sg == null || lengthMm == null) {
       return null;
     }
-    final lCal = lengthMm / 25.4 / (rifle.caliberMm / 25.4);
+    final lCal = Stability.lengthCalibers(lengthMm, rifle.caliberMm);
     return (sg: sg, lCal: lCal, dir: dir);
   }
 
@@ -960,9 +970,12 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   double? _spinDriftMrad(TrajectoryPoint shot, _ShotBasis basis) {
     final st = _stability(basis);
     if (st == null) return null;
-    final driftIn = 1.25 * (st.sg + 1.2) * math.pow(shot.timeOfFlightS, 1.83);
-    final m = driftIn * 0.0254 * (st.dir == TwistDirection.right ? 1 : -1);
-    return math.atan(m / _shotRangeM) * 1000;
+    return Stability.spinDriftMrad(
+      sg: st.sg,
+      timeOfFlightS: shot.timeOfFlightS,
+      rangeM: _shotRangeM,
+      rightHandTwist: st.dir == TwistDirection.right,
+    );
   }
 
   /// Aerodynamic jump (Litz): a crosswind at the muzzle tips a spinning
@@ -974,13 +987,13 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     if (st == null) return null;
     final env = basis.environment;
     // Internal wind degrees: 90° = from the LEFT, 270° = from the right.
-    final fromRightMph =
-        -UnitSystem.mpsToMph(env.windMps) *
-        math.sin(env.windDirectionDeg * math.pi / 180);
-    final moaPerMph = 0.01 * st.sg - 0.0024 * st.lCal + 0.032;
-    final moa =
-        moaPerMph * fromRightMph * (st.dir == TwistDirection.right ? 1 : -1);
-    return moa * math.pi / 10800 * 1000;
+    return Stability.aeroJumpMrad(
+      sg: st.sg,
+      lCal: st.lCal,
+      windMps: env.windMps,
+      windDirectionDeg: env.windDirectionDeg,
+      rightHandTwist: st.dir == TwistDirection.right,
+    );
   }
 
   /// Real / marked turret travel; 1 when empty or implausible (0.8–1.2).
@@ -1424,6 +1437,10 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     }
   }
 
+  /// setState for the page modules (part files): an extension may not call
+  /// the protected setState itself (module split, owner 2026-10-15).
+  void _update(VoidCallback fn) => setState(fn);
+
   /// Solve without snack bars (Atış says why when there is no value).
   void _quietSolve() {
     if (widget.profile == null) return;
@@ -1836,188 +1853,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     if (a == null) return b;
     if (b == null) return a;
     return a > b ? a : b;
-  }
-
-  // ---- Shared rows (owner, 2026-10-14) ------------------------------------
-
-  /// "Sıfırla", the same size as the other buttons; after a reset it turns
-  /// orange "Veriler sıfırlandı" (owner, 2026-10-12).
-  Widget _resetButton({
-    required bool wasReset,
-    required Key resetKey,
-    required VoidCallback onReset,
-  }) => MenzilSecondaryButton(
-    key: resetKey,
-    label: wasReset ? 'Veriler sıfırlandı' : 'Sıfırla',
-    icon: wasReset ? Icons.check : Icons.restart_alt,
-    expand: true,
-    active: wasReset,
-    twoLines: true,
-    maxLabelLines: 2,
-    onPressed: onReset,
-  );
-
-  /// Always visible from the first frame (no layout jump): the date on the
-  /// left (one line, never wraps; shrinks when it must), Sıfırla on the
-  /// right.
-  Widget _dateResetRow({
-    required Key dateKey,
-    required String date,
-    required bool wasReset,
-    required Key resetKey,
-    required VoidCallback onReset,
-  }) {
-    final c = MenzilColors.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(top: MenzilSpace.sm),
-      child: Row(
-        children: [
-          Expanded(
-            child: _oneLineText(date, key: dateKey, color: c.ink2),
-          ),
-          const SizedBox(width: MenzilSpace.md),
-          Expanded(
-            child: _resetButton(
-              wasReset: wasReset,
-              resetKey: resetKey,
-              onReset: onReset,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// Left-aligned text on one line that scales down instead of wrapping.
-  static Widget _oneLineText(String text, {Key? key, required Color color}) =>
-      Align(
-        alignment: AlignmentDirectional.centerStart,
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          alignment: AlignmentDirectional.centerStart,
-          child: Text(
-            text,
-            key: key,
-            maxLines: 1,
-            softWrap: false,
-            textAlign: TextAlign.start,
-            style: MenzilType.caption(color),
-          ),
-        ),
-      );
-
-  /// A box on the left, its fetch button on the right, bottoms aligned.
-  /// Always two items, at any width or text size (owner, 2026-10-14).
-  Widget _boxButtonRow({required Widget box, required Widget button}) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Expanded(child: box),
-        const SizedBox(width: MenzilSpace.md),
-        Expanded(
-          child: Padding(
-            // The compact box keeps md below it; the button lines up.
-            padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-            child: button,
-          ),
-        ),
-      ],
-    );
-  }
-
-  /// A card title (size 18, like the Profil summary headers) with ONE ⓘ
-  /// right after it (owner, 2026-10-14: Basınç Ölçer and İrtifa only).
-  Widget _headerWithInfo(String title, String info, {required Key infoKey}) =>
-      MenzilSectionHeader(
-        title,
-        size: 18,
-        padding: const EdgeInsets.only(
-          top: MenzilSpace.xxs,
-          bottom: MenzilSpace.sm,
-        ),
-        titleTrailing: MenzilInfoButton(key: infoKey, title: title, text: info),
-      );
-
-  String _pressureText(double hpa) => metric
-      ? hpa.toStringAsFixed(1)
-      : UnitSystem.hpaToInHg(hpa).toStringAsFixed(2);
-
-  /// A fetch button with "Sıfırla" always beside it (owner, 2026-10-12):
-  /// the fetch button turns orange once its data came, "Sıfırla" turns
-  /// orange ("Veriler sıfırlandı") after a reset.
-  Widget _filledRow({
-    required bool filled,
-    required bool wasReset,
-    required Widget button,
-    required Key resetKey,
-    required VoidCallback onReset,
-  }) {
-    return Row(
-      children: [
-        Expanded(child: button),
-        // Same gap as the boxes above, so the buttons line up with them
-        // (owner, 2026-10-12: "turuncu kutular üstteki kutulardan büyük").
-        const SizedBox(width: MenzilSpace.md),
-        Expanded(
-          child: _resetButton(
-            wasReset: wasReset,
-            resetKey: resetKey,
-            onReset: onReset,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _weatherFillCard(BuildContext context) {
-    final status = _weatherStatus;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        // Full width, one line (owner, 2026-10-14).
-        MenzilSecondaryButton(
-          key: const Key('environment-fill-weather'),
-          label: _weatherBusy
-              ? 'Alınıyor…'
-              : _weatherOrange
-              ? 'Hava verisi alındı'
-              : _weatherStale
-              // Older than 30 minutes: the values stay, the button asks
-              // for a new fetch (owner, 2026-10-14).
-              ? 'Veriyi yenile'
-              : _weatherWasReset
-              ? 'Tekrar canlı konum verisi al'
-              : 'Konumdan canlı hava verisi al',
-          icon: _weatherOrange
-              ? Icons.check
-              : _weatherStale
-              ? Icons.refresh
-              : Icons.my_location,
-          expand: true,
-          active: _weatherOrange,
-          twoLines: true,
-          maxLabelLines: 1,
-          onPressed: _weatherBusy ? null : () => _fillWeather(overwrite: true),
-        ),
-        _dateResetRow(
-          dateKey: const Key('environment-weather-date'),
-          date: _whenText(_weatherFilled ? _weatherFetchedAtMs : null),
-          wasReset: _weatherWasReset,
-          resetKey: const Key('environment-weather-reset'),
-          onReset: _resetWeather,
-        ),
-        if (status != null) ...[
-          const SizedBox(height: MenzilSpace.xs),
-          MenzilNotice(
-            key: const Key('environment-weather-status'),
-            tone: _weatherFailed
-                ? MenzilNoticeTone.warning
-                : MenzilNoticeTone.info,
-            message: status,
-          ),
-        ],
-      ],
-    );
   }
 
   Future<void> _loadUnitPreference() async {
@@ -2511,55 +2346,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   // Fail-closed states
   // -------------------------------------------------------------------------
 
-  Widget _environmentWithoutProfile(BuildContext context) {
-    final c = MenzilColors.of(context);
-    // Compact boxes on Hava Durumu (owner "Fikir 4", 2026-10-13).
-    return MenzilCompactFields(
-      child: MenzilPage(
-        key: const PageStorageKey('ballistics-environment-empty'),
-        children: [
-          MenzilCard(
-            key: const Key('environment-no-profile'),
-            // Plain card, thin orange edge (owner, 2026-10-12).
-            borderColor: c.amber,
-            child: Row(
-              children: [
-                Icon(Icons.wb_sunny_outlined, color: c.amber, size: 28),
-                const SizedBox(width: MenzilSpace.md),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hava hazır, sıra tüfekte',
-                        style: MenzilType.heading(c.ink, size: 16),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        'Profil oluşturunca bu değerler her atışın hesabına '
-                        'otomatik girer.',
-                        style: MenzilType.caption(c.ink2),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: MenzilSpace.md),
-          ..._environmentInputs(context, collapseShotInputs: true),
-          MenzilPrimaryButton(
-            key: const Key('environment-create-profile'),
-            label: 'Profil oluştur',
-            icon: Icons.add,
-            amber: true,
-            onPressed: widget.onCreateProfile,
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _blocked(String message) {
     final body = Center(
       child: Padding(
@@ -2574,24 +2360,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     return Scaffold(
       appBar: const MenzilSubPageBar(title: 'Balistik / DOPE'),
       body: body,
-    );
-  }
-
-  Widget _referenceShotPanel(TrajectoryPoint? shot) {
-    // "Atış Çözümü" is the page title in the top bar (owner, 2026-10-08);
-    // the Yukarı/Aşağı and Rüzgâr boxes were removed: the scope below shows
-    // the clicks and the point of impact.
-    return MenzilCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _scopeDial(shot),
-          ..._extraShotNotes(shot),
-          // Ö9: an approved cold-bore suggestion, shown only (not dialled).
-          if (widget.profile != null)
-            ColdBoreHint(profileId: widget.profile!.id, unit: _scopeUnit),
-        ],
-      ),
     );
   }
 
@@ -2671,12 +2439,14 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     }
     final spin = _spinDriftMrad(shot, basis);
     if (spin != null) {
-      final m = math.tan(spin.abs() / 1000) * _shotRangeM;
+      final m = Units.mradToLinear(spin.abs(), _shotRangeM);
       final len = metric
           ? '${(m * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
           : '${UnitSystem.millimetersToInches(m * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
       final jump = _aeroJumpMrad(basis);
-      final jm = jump == null ? 0.0 : math.tan(jump.abs() / 1000) * _shotRangeM;
+      final jm = jump == null
+          ? 0.0
+          : Units.mradToLinear(jump.abs(), _shotRangeM);
       final jLen = metric
           ? '${(jm * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
           : '${UnitSystem.millimetersToInches(jm * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
@@ -2759,8 +2529,12 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       );
     }
     if (speed != null && movesRight != null) {
-      final leadM = speed * shot.timeOfFlightS;
-      final mrad = math.atan(leadM / _shotRangeM) * 1000;
+      final leadM = MovingTarget.leadM(speed, shot.timeOfFlightS);
+      final mrad = MovingTarget.leadMrad(
+        speed,
+        shot.timeOfFlightS,
+        _shotRangeM,
+      );
       final len = metric
           ? '${(leadM * 100).toStringAsFixed(0).replaceAll('.', ',')} cm'
           : '${UnitSystem.millimetersToInches(leadM * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
@@ -2959,8 +2733,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     if (zero == null || zero <= 0 || g == null || g <= 0 || g > 100) {
       return null;
     }
-    double lenM(double v) =>
-        metric ? v / 100 : UnitSystem.inchesToMillimeters(v) / 1000;
+    double lenM(double v) => Units.cmOrInchToMeters(v, metric: metric);
     final sources = <WezSource>[];
     final sigmaG = Wez.groupSigmaMrad(lenM(g), zero);
     sources.add(
@@ -3045,7 +2818,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final size = typedSize != null && typedSize > 0 && typedSize < 1000
         ? typedSize
         : (metric ? 10.0 : 4.0);
-    final radius = math.atan(lenM(size) / 2 / _shotRangeM) * 1000;
+    final radius = Wez.targetRadiusMrad(lenM(size), _shotRangeM);
     final sizeText =
         '${size % 1 == 0 ? size.toStringAsFixed(0) : _decimal(size)} '
         '${metric ? 'cm' : 'in'}';
@@ -3422,13 +3195,13 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final size = typed != null && typed > 0 && typed < 1000
         ? typed
         : (metric ? 10.0 : 4.0);
-    return metric ? size / 100 : UnitSystem.inchesToMillimeters(size) / 1000;
+    return Units.cmOrInchToMeters(size, metric: metric);
   }
 
   /// Lateral wind drift at the point's range, in cm (metric) or inches.
   /// windMrad is the angle atan2(-z, range); this recovers |z| exactly.
   double _windDrift(TrajectoryPoint point) {
-    final meters = point.rangeM * math.tan(point.windMrad.abs() / 1000);
+    final meters = Units.mradToLinear(point.windMrad.abs(), point.rangeM);
     return metric
         ? meters * 100
         : UnitSystem.millimetersToInches(meters * 1000);
@@ -3456,12 +3229,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
 
     switch (widget.view) {
       case BallisticsView.shot:
-        return MenzilPage(
-          key: const PageStorageKey('ballistics-shot'),
-          // The Hedef page is the only justified page (owner, 2026-10-13).
-          justify: true,
-          children: _shotSection(context),
-        );
+        return _hedefPage(context);
       case BallisticsView.table:
         return MenzilPage(
           key: const PageStorageKey('ballistics-table'),
@@ -3482,48 +3250,9 @@ class _BallisticsScreenState extends State<BallisticsScreen>
           ],
         );
       case BallisticsView.environment:
-        // Hava Durumu and Pro Ayarlar only: compact boxes (label above a
-        // 44 pt box, unit and ⓘ inside; owner "Fikir 4", 2026-10-13).
-        return MenzilCompactFields(
-          child: MenzilPage(
-            key: const PageStorageKey('ballistics-environment'),
-            children: [
-              // The read-only "Konumdan canlı hava verisi" button was removed
-              // (owner, 2026-10-12); the page stays in Araçlar. The fetch
-              // buttons sit under the Hava Durumu boxes.
-              ..._environmentInputs(context, collapseShotInputs: true),
-              // Below the Rüzgâr card, above Pro Ayarlara Geç (owner,
-              // 2026-10-13): only a link; the guide opens in a popup
-              // (2026-10-13 19:49). Display only: it never fills Rüzgâr hızı.
-              WindGuideLink(metric: metric),
-              if (widget.onContinueToPro != null)
-                MenzilPrimaryButton(
-                  key: const Key('environment-continue-pro'),
-                  label: 'Pro Ayarlara Geç',
-                  icon: Icons.arrow_forward,
-                  onPressed: () {
-                    _quietSolve();
-                    widget.onContinueToPro!();
-                  },
-                )
-              else
-                MenzilPrimaryButton(
-                  label: 'Hesapla',
-                  onPressed: solve,
-                  icon: Icons.calculate_outlined,
-                ),
-              const SizedBox(height: MenzilSpace.md),
-              _atmosphereResult(context),
-            ],
-          ),
-        );
+        return _havaDurumuPage(context);
       case BallisticsView.pro:
-        return MenzilCompactFields(
-          child: MenzilPage(
-            key: const PageStorageKey('ballistics-pro'),
-            children: _proSection(context),
-          ),
-        );
+        return _proAyarlarPage(context);
       case BallisticsView.all:
         return Scaffold(
           appBar: const MenzilSubPageBar(title: 'Balistik / DOPE'),
@@ -3746,453 +3475,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   );
 
   // -------------------------------------------------------------------------
-  // Ortam
-  // -------------------------------------------------------------------------
-
-  List<Widget> _environmentInputs(
-    BuildContext context, {
-    required bool collapseShotInputs,
-  }) {
-    // Only the full "Balistik / DOPE" view shows (and edits) these; the
-    // shell takes them from Profil.
-    final shotInputs = MenzilFieldGrid(
-      children: [
-        MenzilInput(
-          key: BallisticsFieldKeys.velocity,
-          controller: velocity,
-          label: 'Namlu çıkış hızı',
-          unit: 'fps',
-          info: _isFirearm
-              ? ProfileFieldInfo.velocityFirearm
-              : ProfileFieldInfo.velocity,
-        ),
-        MenzilInput(
-          key: BallisticsFieldKeys.grain,
-          controller: grain,
-          label: 'Mühimmat ağırlığı',
-          unit: 'grain',
-          info: _isFirearm
-              ? ProfileFieldInfo.grainFirearm
-              : ProfileFieldInfo.grain,
-          onChanged: (_) => setState(() {}),
-        ),
-        MenzilInput(
-          key: BallisticsFieldKeys.zero,
-          controller: zero,
-          label: 'Sıfırlama mesafesi',
-          unit: _distanceUnit,
-          info: _isFirearm
-              ? ProfileFieldInfo.zeroFirearm
-              : ProfileFieldInfo.zero,
-        ),
-        MenzilInput(
-          key: BallisticsFieldKeys.sight,
-          controller: sight,
-          label: 'Sight height',
-          unit: metric ? 'mm' : 'in',
-          info: _isFirearm
-              ? ProfileFieldInfo.sightHeightFirearm
-              : ProfileFieldInfo.sightHeight,
-        ),
-      ],
-    );
-
-    return [
-      // No section title: the page title already says Hava Durumu (owner,
-      // 2026-10-12).
-      MenzilCard(
-        padding: const EdgeInsets.fromLTRB(
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-        ),
-        // The fetch buttons under the boxes (owner, 2026-10-12).
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            MenzilFieldGrid(
-              children: [
-                MenzilInput(
-                  key: BallisticsFieldKeys.temperature,
-                  controller: temperature,
-                  label: 'Sıcaklık',
-                  // A typed value is the user's: auto fill keeps it.
-                  onChanged: (_) {
-                    _userEdited.add(temperature);
-                    if (_weatherFilled || _weatherWasReset) {
-                      setState(() => _weatherFilled = _weatherWasReset = false);
-                    }
-                  },
-                  info: EnvironmentFieldInfo.temperatureFor(
-                    firearm: _isFirearm,
-                  ),
-                  unit: metric ? '°C' : '°F',
-                  keyboardType: const TextInputType.numberWithOptions(
-                    decimal: true,
-                    signed: true,
-                  ),
-                ),
-                // Mühimmat sıcaklığı (Ö1, 2026-10-12): firearms only, on the
-                // Sıcaklık row; it matters only with a powder coefficient.
-                if (_isFirearm)
-                  MenzilInput(
-                    key: const Key('env-ammo-temp'),
-                    controller: ammoTempCtl,
-                    label: 'Mühimmat sıcaklığı',
-                    onChanged: (_) => _coriolisChanged(),
-                    info: EnvironmentFieldInfo.ammoTemperature,
-                    unit: metric ? '°C' : '°F',
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                      signed: true,
-                    ),
-                  ),
-                MenzilInput(
-                  key: BallisticsFieldKeys.humidity,
-                  controller: humidity,
-                  label: 'Bağıl nem',
-                  // A typed value is the user's: auto fill keeps it.
-                  onChanged: (_) {
-                    _userEdited.add(humidity);
-                    if (_weatherFilled || _weatherWasReset) {
-                      setState(() => _weatherFilled = _weatherWasReset = false);
-                    }
-                  },
-                  info: EnvironmentFieldInfo.humidity,
-                  unit: '%',
-                ),
-              ],
-            ),
-            _weatherFillCard(context),
-          ],
-        ),
-      ),
-      // Basınç Ölçer (owner, 2026-10-14): one ⓘ right of the title (none in
-      // the box), İstasyon basıncı | Basınç al, then date | Sıfırla.
-      _headerWithInfo(
-        'Basınç Ölçer',
-        EnvironmentFieldInfo.barometerCard,
-        infoKey: const Key('environment-barometer-info'),
-      ),
-      MenzilCard(
-        key: const Key('environment-barometer-card'),
-        padding: const EdgeInsets.fromLTRB(
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _boxButtonRow(
-              box: MenzilInput(
-                key: BallisticsFieldKeys.pressure,
-                controller: pressure,
-                label: 'İstasyon basıncı',
-                // A typed value is the user's: auto fill keeps it.
-                onChanged: (_) => setState(() {
-                  _userEdited.add(pressure);
-                  _pressureFilled = false;
-                  _pressureWasReset = false;
-                }),
-                unit: metric ? 'hPa' : 'inHg',
-              ),
-              button: MenzilSecondaryButton(
-                key: const Key('environment-phone-pressure'),
-                label: _pressureBusy
-                    ? 'Okunuyor…'
-                    : _pressureOrange
-                    ? 'Basınç alındı'
-                    : _pressureStale
-                    ? 'Basıncı yenile'
-                    : 'Basınç al',
-                icon: _pressureOrange
-                    ? Icons.check
-                    : _pressureStale
-                    ? Icons.refresh
-                    : Icons.speed,
-                expand: true,
-                active: _pressureOrange,
-                twoLines: true,
-                // One line, shrinking when it must (owner, 2026-10-14).
-                maxLabelLines: 1,
-                onPressed: _pressureBusy ? null : _readPhonePressure,
-              ),
-            ),
-            _dateResetRow(
-              dateKey: const Key('environment-pressure-date'),
-              date: _whenText(_pressureFilled ? _pressureFetchedAtMs : null),
-              wasReset: _pressureWasReset,
-              resetKey: const Key('environment-pressure-reset'),
-              onReset: _resetPressure,
-            ),
-            if (_pressureStatus != null) ...[
-              const SizedBox(height: MenzilSpace.xs),
-              MenzilNotice(
-                key: const Key('environment-phone-pressure-status'),
-                tone: _pressureFailed
-                    ? MenzilNoticeTone.warning
-                    : MenzilNoticeTone.info,
-                message: _pressureStatus!,
-              ),
-            ],
-          ],
-        ),
-      ),
-      // İrtifa (owner, 2026-10-14): Haritadan | Telefondan, one ⓘ in the
-      // title; the calculation uses Telefondan, else Haritadan.
-      _headerWithInfo(
-        'İrtifa',
-        EnvironmentFieldInfo.altitudeCard,
-        infoKey: const Key('environment-altitude-info'),
-      ),
-      MenzilCard(
-        key: const Key('environment-altitude-card'),
-        padding: const EdgeInsets.fromLTRB(
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _boxButtonRow(
-              box: MenzilInput(
-                key: BallisticsFieldKeys.mapAltitude,
-                controller: mapAltitude,
-                label: 'Haritadan irtifa',
-                // A typed value is the user's (button no longer orange).
-                onChanged: (_) => setState(() {
-                  _userEdited.add(mapAltitude);
-                  _altMapAtMs = null;
-                  _altitudeWasReset = false;
-                  _shotCache.clear();
-                  _holdSamples = null;
-                }),
-                unit: metric ? 'm' : 'ft',
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                  signed: true,
-                ),
-              ),
-              button: MenzilSecondaryButton(
-                key: const Key('environment-map-altitude'),
-                label: _altMapBusy
-                    ? 'Alınıyor…'
-                    : _altMapAtMs != null
-                    ? 'Haritadan alındı'
-                    : 'Haritadan',
-                icon: _altMapAtMs != null || _altMapBusy ? null : Icons.terrain,
-                expand: true,
-                active: _altMapAtMs != null,
-                twoLines: true,
-                maxLabelLines: 1,
-                onPressed: _altMapBusy ? null : _readMapAltitude,
-              ),
-            ),
-            _boxButtonRow(
-              box: MenzilInput(
-                key: BallisticsFieldKeys.altitude,
-                controller: altitude,
-                label: 'Telefondan irtifa',
-                // A typed value is the user's (button no longer orange).
-                onChanged: (_) => setState(() {
-                  _userEdited.add(altitude);
-                  _altPhoneAtMs = null;
-                  _altitudeWasReset = false;
-                  _shotCache.clear();
-                  _holdSamples = null;
-                }),
-                unit: metric ? 'm' : 'ft',
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                  signed: true,
-                ),
-              ),
-              button: MenzilSecondaryButton(
-                key: const Key('environment-phone-altitude'),
-                label: _altPhoneBusy
-                    ? 'Alınıyor…'
-                    : _altPhoneAtMs != null
-                    ? 'Telefondan alındı'
-                    : 'Telefondan',
-                icon: _altPhoneAtMs != null || _altPhoneBusy
-                    ? null
-                    : Icons.my_location,
-                expand: true,
-                active: _altPhoneAtMs != null,
-                twoLines: true,
-                maxLabelLines: 1,
-                onPressed: _altPhoneBusy ? null : _readPhoneAltitude,
-              ),
-            ),
-            if (_altitudeStatus != null)
-              Padding(
-                padding: const EdgeInsets.only(bottom: MenzilSpace.xs),
-                child: MenzilNotice(
-                  key: const Key('environment-altitude-status'),
-                  tone: MenzilNoticeTone.warning,
-                  message: _altitudeStatus!,
-                ),
-              ),
-            _dateResetRow(
-              dateKey: const Key('environment-altitude-date'),
-              date: _whenText(_altitudeAtMs),
-              wasReset: _altitudeWasReset,
-              resetKey: const Key('environment-altitude-reset'),
-              onReset: _resetAltitude,
-            ),
-          ],
-        ),
-      ),
-      // Outside the field grid on purpose: inserting it between the fields
-      // re-parented them and a typed value could be lost.
-      if (_pressureWarning != null)
-        MenzilNotice(
-          key: const Key('environment-pressure-warning'),
-          tone: MenzilNoticeTone.warning,
-          message: _pressureWarning!,
-        ),
-      const MenzilSectionHeader(
-        'Rüzgâr',
-        size: 18,
-        padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
-      ),
-      MenzilCard(
-        padding: const EdgeInsets.fromLTRB(
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-          MenzilSpace.lg,
-          MenzilSpace.xxs,
-        ),
-        child: MenzilFieldGrid(
-          children: [
-            // Ö2: Beaufort over land; long item texts, so a full row.
-            // Hidden behind WIND_OBSERVATION (owner, 2026-10-13).
-            if (_showWindObservation)
-              MenzilFullWidth(
-                child: MenzilSelect<int>(
-                  key: ValueKey('wind-observation-$_windObservationToken'),
-                  label: 'Rüzgâr gözlemi',
-                  hint: 'Seçiniz',
-                  info: EnvironmentFieldInfo.windObservation,
-                  initialValue: _windObservation,
-                  // "Seçiniz" stays in the list so the shooter can look and
-                  // leave without choosing (owner, 2026-10-12).
-                  items: [
-                    const DropdownMenuItem<int>(child: Text('Seçiniz')),
-                    for (final b in Beaufort.classes)
-                      DropdownMenuItem(
-                        value: b.force,
-                        child: Text('${b.name}: ${b.land}', maxLines: 2),
-                      ),
-                  ],
-                  selectedLabels: [
-                    'Seçiniz',
-                    for (final b in Beaufort.classes) b.name,
-                  ],
-                  onChanged: _pickWindObservation,
-                ),
-              ),
-            MenzilInput(
-              key: BallisticsFieldKeys.wind,
-              controller: wind,
-              label: 'Rüzgâr hızı',
-              // A typed value is the user's: auto fill keeps it. It no
-              // longer comes from the Rüzgâr gözlemi class.
-              onChanged: (_) {
-                _userEdited.add(wind);
-                // The weather button stays orange (owner, 2026-10-13): only
-                // a typed Sıcaklık or Bağıl nem means the weather is no
-                // longer the fetched one.
-                if (_windObservation != null) {
-                  setState(() {
-                    _windObservation = null;
-                    _windObservationToken++;
-                  });
-                }
-              },
-              info: EnvironmentFieldInfo.windSpeedFor(firearm: _isFirearm),
-              unit: metric ? 'm/s' : 'mph',
-            ),
-            MenzilInput(
-              key: BallisticsFieldKeys.windDirection,
-              controller: windHour,
-              label: 'Rüzgâr yönü',
-              unit: 'saat',
-              keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              maxLength: 2,
-              // The time it was set shows under the dial (owner,
-              // 2026-10-14).
-              onChanged: (_) => setState(_windDirectionSet),
-              info: EnvironmentFieldInfo.windDirection,
-            ),
-            // Clock face: nothing pre-selected; a tapped hour fills the box.
-            MenzilFullWidth(
-              child: WindClockPicker(
-                hour: _windHourValue,
-                dateText: _whenText(
-                  _windHourValue == null ? null : _windDirAtMs,
-                ),
-                onChanged: (h) => setState(() {
-                  windHour.text = '$h';
-                  _windDirectionSet();
-                }),
-              ),
-            ),
-          ],
-        ),
-      ),
-      // Hava Durumu no longer shows "Atış girdileri" (owner, 2026-10-08):
-      // they come from Profil and are edited there.
-      if (!collapseShotInputs) ...[
-        const MenzilSectionHeader(
-          'Atış girdileri',
-          padding: EdgeInsets.only(
-            top: MenzilSpace.xxs,
-            bottom: MenzilSpace.sm,
-          ),
-        ),
-        MenzilCard(
-          padding: const EdgeInsets.fromLTRB(
-            MenzilSpace.lg,
-            MenzilSpace.lg,
-            MenzilSpace.lg,
-            MenzilSpace.xxs,
-          ),
-          child: shotInputs,
-        ),
-      ],
-    ];
-  }
-
-  Widget _atmosphereResult(BuildContext context) {
-    final c = MenzilColors.of(context);
-    if (airDensityKgM3 == null) return const SizedBox.shrink();
-    return MenzilCard(
-      background: c.surface,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Hava', style: MenzilType.heading(c.ink, size: 20)),
-          const SizedBox(height: MenzilSpace.xs),
-          Text(
-            'Hava yoğunluğu: ${airDensityKgM3!.toStringAsFixed(4).replaceAll('.', ',')} kg/m³ • '
-            'yoğunluk oranı: ${densityRatio!.toStringAsFixed(3).replaceAll('.', ',')} • '
-            'ses hızı: ${speedOfSoundMps!.toStringAsFixed(1).replaceAll('.', ',')} m/s • '
-            'namlu Mach: ${muzzleMach!.toStringAsFixed(3).replaceAll('.', ',')}',
-            style: MenzilType.body(c.ink),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // -------------------------------------------------------------------------
   // Tablo
   // -------------------------------------------------------------------------
 
@@ -4354,131 +3636,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   // Atış
   // -------------------------------------------------------------------------
 
-  // -------------------------------------------------------------------------
-  // Pro Ayarlar
-  // -------------------------------------------------------------------------
-
-  /// One Pro Ayarlar box: a tappable header with a short summary; the
-  /// content shows only while it is the open box (owner, 2026-10-09: all
-  /// boxes start closed, one open at a time). The box's Ne? / Neden önemli?
-  /// / Nasıl? explanations ([info]) open from the ⓘ next to the title in a
-  /// bottom sheet (owner, 2026-10-13: "alttan açılan sayfa"), followed by
-  /// "Kutular": each of the box's [fields] with its ⓘ text. Every field ⓘ
-  /// inside the box opens the same sheet with that field highlighted (owner:
-  /// "iki bilgi olmaz kafa karıştırır").
-  Widget _proBox({
-    required String id,
-    required String title,
-    required String summary,
-    required List<Widget> children,
-    List<ProInfoEntry> info = const [],
-    List<ProInfoField> fields = const [],
-  }) {
-    final c = MenzilColors.of(context);
-    final open = _proOpen == id;
-    return MenzilCard(
-      key: Key('pro-box-$id'),
-      margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Semantics(
-            button: true,
-            expanded: open,
-            child: InkWell(
-              key: Key('pro-section-$id'),
-              borderRadius: BorderRadius.circular(12),
-              onTap: () => setState(() {
-                _proOpen = open ? null : id;
-              }),
-              // 44 pt minimum tap target (VoiceOver / HIG).
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: 48),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Flexible(
-                            child: Text(
-                              title,
-                              // No bold box titles (owner, 2026-10-11):
-                              // regular.
-                              style: MenzilType.heading(
-                                c.ink,
-                                size: 18,
-                              ).copyWith(fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                          // ⓘ right after the title; its own tap target and
-                          // VoiceOver button, so it does not open the box.
-                          if (info.isNotEmpty)
-                            MenzilInfoButton(
-                              key: Key('pro-info-$id'),
-                              title: title,
-                              tooltip: 'Açıklama: $title',
-                              onPressed: () => showProInfoSheet(
-                                context,
-                                title: title,
-                                entries: info,
-                                fields: fields,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    if (!open)
-                      Flexible(
-                        child: Text(
-                          summary,
-                          key: Key('pro-summary-$id'),
-                          textAlign: TextAlign.right,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: MenzilType.caption(c.ink2),
-                        ),
-                      ),
-                    const SizedBox(width: MenzilSpace.xs),
-                    Icon(
-                      open ? Icons.expand_less : Icons.expand_more,
-                      color: c.ink2,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          if (open) ...[
-            const SizedBox(height: MenzilSpace.sm),
-            // A field ⓘ in the box opens the box's sheet at that field.
-            MenzilInfoScope(
-              onInfo: (label, text) {
-                var i = fields.indexWhere(
-                  (f) => f.label == label && f.text == text,
-                );
-                if (i < 0) i = fields.indexWhere((f) => f.text == text);
-                if (i < 0 || info.isEmpty) return false;
-                showProInfoSheet(
-                  context,
-                  title: title,
-                  entries: info,
-                  fields: fields,
-                  highlight: i,
-                );
-                return true;
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: children,
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
   /// Yerçekimi effect at the shot distance: how much less (or more) the
   /// bullet drops than with standard gravity, metres (+ = less drop).
   Object? _gravityEffectKey;
@@ -4510,718 +3667,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     } on StateError {
       return _gravityEffectValue = null;
     }
-  }
-
-  String _summaryAngle() {
-    final i = _inclineDeg.round(), k = _cantDeg.round();
-    return i == 0 && k == 0 ? 'düz' : '$i° / $k°';
-  }
-
-  String _summaryWind() {
-    if (_windZones != null) return 'bölgeli';
-    final m = _windMaxMps;
-    return m == null
-        ? 'kapalı'
-        : 'en çok ${_windLabel(m)} ${metric ? 'm/s' : 'mph'}';
-  }
-
-  String _summaryTarget() {
-    final on = [
-      if (_targetSpeedMps != null) 'hareketli',
-      if ((_parsed(groupCtl) ?? 0) > 0) 'isabet',
-    ];
-    return on.isEmpty ? 'kapalı' : on.join(' · ');
-  }
-
-  String _summaryRifle() {
-    final zero = _zeroOffsetMrad;
-    final n = [
-      turretScaleCtl.text.trim().isNotEmpty,
-      zero.up != 0 || zero.right != 0,
-      _spinDriftOn,
-      _isFirearm && _powder.coef != null && _powder.referenceC != null,
-      _isPcp && _showProTubePressure && tubePressureCtl.text.trim().isNotEmpty,
-    ].where((x) => x).length;
-    return n == 0 ? 'kapalı' : '$n ayar açık';
-  }
-
-  /// Rüzgâr düzeltmesi (en yüksek rüzgâr, rüzgâr bölgeleri): back on Pro
-  /// Ayarlar after Açı (owner, 2026-10-12; it was on Hava Durumu since
-  /// 2026-10-11).
-  Widget _windCorrectionBox(BuildContext context) {
-    final windUnit = metric ? 'm/s' : 'mph';
-    return _proBox(
-      id: 'wind',
-      title: 'Rüzgâr düzeltmesi',
-      summary: _summaryWind(),
-      info: const [
-        ProInfoEntry(ProSectionInfo.windMax),
-        ProInfoEntry(ProSectionInfo.windZones),
-      ],
-      fields: const [
-        ProInfoField('En çok rüzgâr', EnvironmentFieldInfo.windMax),
-        ProInfoField('Yol ortası', EnvironmentFieldInfo.windMid),
-        ProInfoField('Hedefte', EnvironmentFieldInfo.windFar),
-      ],
-      // Owner, 2026-10-14: En çok rüzgâr | Düzeltme al, then date |
-      // Sıfırla; the two zone boxes follow (ⓘ in the bottom sheet).
-      children: [
-        _boxButtonRow(
-          box: MenzilInput(
-            key: const Key('pro-wind-max'),
-            controller: windMaxCtl,
-            label: 'En çok rüzgâr',
-            unit: windUnit,
-            info: EnvironmentFieldInfo.windMax,
-            onChanged: (v) {
-              if (_windMaxFilled || _windMaxWasReset) {
-                setState(() => _windMaxFilled = _windMaxWasReset = false);
-              }
-              _windMaxAtMs = null;
-              _coriolisChanged();
-            },
-          ),
-          button: MenzilSecondaryButton(
-            key: const Key('pro-wind-max-fill'),
-            label: _windMaxFilled ? 'Düzeltme alındı' : 'Düzeltme al',
-            icon: _windMaxFilled ? null : Icons.air,
-            expand: true,
-            active: _windMaxFilled,
-            twoLines: true,
-            maxLabelLines: 1,
-            onPressed: _fillWindMax,
-          ),
-        ),
-        _dateResetRow(
-          dateKey: const Key('pro-wind-max-date'),
-          date: _whenText(_windMaxFilled ? _windMaxAtMs : null),
-          wasReset: _windMaxWasReset,
-          resetKey: const Key('pro-wind-max-reset'),
-          onReset: _resetWindMax,
-        ),
-        const SizedBox(height: MenzilSpace.sm),
-        MenzilFieldGrid(
-          children: [
-            MenzilInput(
-              key: const Key('pro-wind-mid'),
-              controller: windMidCtl,
-              label: 'Yol ortası',
-              unit: windUnit,
-              info: EnvironmentFieldInfo.windMid,
-              onChanged: (_) => _coriolisChanged(),
-            ),
-            MenzilInput(
-              key: const Key('pro-wind-far'),
-              controller: windFarCtl,
-              label: 'Hedefte',
-              unit: windUnit,
-              info: EnvironmentFieldInfo.windFar,
-              onChanged: (_) => _coriolisChanged(),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  List<Widget> _proSection(BuildContext context) {
-    final c = MenzilColors.of(context);
-    final effect = _coriolisEffect();
-    final windUnit = metric ? 'm/s' : 'mph';
-    final lenUnit = metric ? 'cm' : 'in';
-    const signed = TextInputType.numberWithOptions(decimal: true, signed: true);
-    String len(double m) => metric
-        ? '${(m.abs() * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
-        : '${UnitSystem.millimetersToInches(m.abs() * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
-    return [
-      MenzilCard(
-        key: const Key('pro-range-card'),
-        margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            MenzilInput(
-              key: const Key('pro-shot-range'),
-              controller: proRangeCtl,
-              label: 'Atış mesafesi',
-              unit: _distanceUnit,
-              info: EnvironmentFieldInfo.proShotRange,
-              errorText:
-                  proRangeCtl.text.trim().isNotEmpty && _proRangeM == null
-                  ? '1 ile ${_displayMaxRange.toStringAsFixed(0)} '
-                        '$_distanceUnit arasında olmalı.'
-                  : null,
-              onChanged: (_) => setState(() {}),
-            ),
-            if (profileResolution?.rifle.platform == WeaponPlatform.pcp)
-              Row(
-                children: [
-                  Expanded(
-                    child: MenzilSecondaryButton(
-                      key: const Key('pro-range-map'),
-                      label: 'Haritadan ölç',
-                      icon: Icons.map_outlined,
-                      expand: true,
-                      onPressed: _proRangeFromMap,
-                    ),
-                  ),
-                  const SizedBox(width: MenzilSpace.sm),
-                  Expanded(
-                    child: MenzilSecondaryButton(
-                      key: const Key('pro-range-parallax'),
-                      label: 'Paralakstan',
-                      icon: Icons.center_focus_strong_outlined,
-                      expand: true,
-                      onPressed: _proRangeFromParallax,
-                    ),
-                  ),
-                ],
-              )
-            else
-              MenzilSecondaryButton(
-                key: const Key('pro-range-map'),
-                label: 'Haritadan ölç',
-                icon: Icons.map_outlined,
-                expand: true,
-                onPressed: _proRangeFromMap,
-              ),
-          ],
-        ),
-      ),
-      _proBox(
-        id: 'angle',
-        title: 'Açı',
-        summary: _summaryAngle(),
-        info: const [
-          ProInfoEntry(ProSectionInfo.incline),
-          ProInfoEntry(ProSectionInfo.cant),
-        ],
-        fields: [
-          ProInfoField(
-            'Tüfek eğimi',
-            EnvironmentFieldInfo.inclineFor(firearm: _isFirearm),
-          ),
-          ProInfoField(
-            'Dürbün eğimi',
-            EnvironmentFieldInfo.cantFor(firearm: _isFirearm),
-          ),
-        ],
-        children: [_angleTiles(context)],
-      ),
-      _windCorrectionBox(context),
-      _proBox(
-        id: 'coriolis',
-        title: 'Coriolis',
-        summary: _coriolisOn ? 'açık' : 'kapalı',
-        info: const [ProInfoEntry(ProSectionInfo.coriolis)],
-        fields: [
-          if (_coriolisOn) ...const [
-            ProInfoField('Enlem', EnvironmentFieldInfo.latitude),
-            ProInfoField('Atış yönü', EnvironmentFieldInfo.azimuth),
-          ],
-        ],
-        children: [
-          if (_coriolisOn) ...[
-            const SizedBox(height: MenzilSpace.sm),
-            MenzilInput(
-              key: const Key('pro-latitude'),
-              controller: latitudeCtl,
-              label: 'Enlem',
-              unit: '°',
-              info: EnvironmentFieldInfo.latitude,
-              errorText: latitudeCtl.text.isNotEmpty && _latitude == null
-                  ? '−90 ile 90 arasında olmalı.'
-                  : null,
-              keyboardType: signed,
-              onChanged: (_) {
-                if (_latFilled || _latWasReset) {
-                  setState(() => _latFilled = _latWasReset = false);
-                }
-                _coriolisChanged();
-              },
-            ),
-            _filledRow(
-              filled: _latFilled,
-              wasReset: _latWasReset,
-              button: MenzilSecondaryButton(
-                key: const Key('pro-latitude-gps'),
-                label: _latFilled ? 'Konumdan alındı' : 'Konumdan al',
-                icon: _latFilled ? Icons.check : Icons.my_location,
-                expand: true,
-                active: _latFilled,
-                twoLines: true,
-                maxLabelLines: 2,
-                onPressed: _latitudeFromGps,
-              ),
-              resetKey: const Key('pro-latitude-reset'),
-              onReset: _resetLatitude,
-            ),
-            const SizedBox(height: MenzilSpace.md),
-            MenzilInput(
-              key: const Key('pro-azimuth'),
-              controller: azimuthCtl,
-              label: 'Atış yönü',
-              unit: '°',
-              info: EnvironmentFieldInfo.azimuth,
-              errorText: azimuthCtl.text.isNotEmpty && _azimuth == null
-                  ? '0 ile 360 arasında olmalı.'
-                  : null,
-              onChanged: (_) {
-                if (_aziFilled || _aziWasReset) {
-                  setState(() => _aziFilled = _aziWasReset = false);
-                }
-                _coriolisChanged();
-              },
-            ),
-            _filledRow(
-              filled: _aziFilled,
-              wasReset: _aziWasReset,
-              button: MenzilSecondaryButton(
-                key: const Key('pro-azimuth-compass'),
-                label: _aziFilled ? 'Pusuladan alındı' : 'Pusuladan al',
-                icon: _aziFilled ? Icons.check : Icons.explore_outlined,
-                expand: true,
-                active: _aziFilled,
-                twoLines: true,
-                maxLabelLines: 2,
-                onPressed: _azimuthFromCompass,
-              ),
-              resetKey: const Key('pro-azimuth-reset'),
-              onReset: _resetAzimuth,
-            ),
-            if (_coriolisStatus != null) ...[
-              const SizedBox(height: MenzilSpace.xs),
-              Text(_coriolisStatus!, style: MenzilType.caption(c.ink2)),
-            ],
-            const SizedBox(height: MenzilSpace.sm),
-            Text(
-              effect == null
-                  ? !_dragMode
-                        ? 'Coriolis, BC değeri olan mühimmatla hesaplanır.'
-                        : 'Etkiyi görmek için enlem ve atış yönünü girin.'
-                  : '$_shotDisplay $_distanceUnit\'de Coriolis: '
-                        '${len(effect.up)} ${effect.up >= 0 ? 'yukarı' : 'aşağı'} · '
-                        '${len(effect.right)} ${effect.right >= 0 ? 'sağa' : 'sola'}. '
-                        'Kule klikleri bunu içerir.',
-              key: const Key('pro-coriolis-effect'),
-              style: MenzilType.body(c.ink),
-            ),
-          ],
-        ],
-      ),
-      _proBox(
-        id: 'gravity',
-        title: 'Yerçekimi',
-        summary: _gravityOn ? 'açık' : 'kapalı',
-        info: const [ProInfoEntry(ProSectionInfo.gravity)],
-        fields: [
-          if (_gravityOn)
-            const ProInfoField('Yerçekimi', EnvironmentFieldInfo.gravity),
-        ],
-        children: [
-          if (_gravityOn) ...[
-            const SizedBox(height: MenzilSpace.sm),
-            MenzilInput(
-              key: const Key('pro-gravity'),
-              controller: gravityCtl,
-              label: 'Yerçekimi',
-              unit: 'm/s²',
-              info: EnvironmentFieldInfo.gravity,
-              errorText: gravityCtl.text.isNotEmpty && _gravityTyped == null
-                  ? '9,7 ile 9,9 arasında olmalı.'
-                  : null,
-              onChanged: (_) {
-                if (_gravFilled || _gravWasReset) {
-                  setState(() => _gravFilled = _gravWasReset = false);
-                }
-                _gravityChanged();
-              },
-            ),
-            _filledRow(
-              filled: _gravFilled,
-              wasReset: _gravWasReset,
-              button: MenzilSecondaryButton(
-                key: const Key('pro-gravity-gps'),
-                label: _gravFilled ? 'Konumdan hesaplandı' : 'Konumdan hesapla',
-                icon: _gravFilled ? Icons.check : Icons.my_location,
-                expand: true,
-                active: _gravFilled,
-                twoLines: true,
-                maxLabelLines: 2,
-                onPressed: _gravityFromLocation,
-              ),
-              resetKey: const Key('pro-gravity-reset'),
-              onReset: _resetGravity,
-            ),
-            if (_gravityStatus != null) ...[
-              const SizedBox(height: MenzilSpace.xs),
-              Text(_gravityStatus!, style: MenzilType.caption(c.ink2)),
-            ],
-            const SizedBox(height: MenzilSpace.sm),
-            Builder(
-              builder: (context) {
-                final e = _gravityEffect();
-                final mm = e == null ? null : e * 1000;
-                String mmText(double v) =>
-                    v.abs().toStringAsFixed(1).replaceAll('.', ',');
-                return Text(
-                  mm == null
-                      ? 'Etkiyi görmek için "Konumdan hesapla"ya dokunun.'
-                      : mm.abs() < 0.05
-                      ? '$_shotDisplay $_distanceUnit\'de yerçekimi farkı '
-                            'yok denecek kadar az (sıfır mesafesinde etkisi '
-                            'sıfırdır; uzak mesafede büyür).'
-                      : '$_shotDisplay $_distanceUnit\'de yerçekimi: mermi '
-                            '${mmText(mm)} mm '
-                            '${mm >= 0 ? 'daha az' : 'daha çok'} düşer '
-                            '(standart 9,80665 m/s²\'ye göre). Kule klikleri '
-                            'bunu içerir.',
-                  key: const Key('pro-gravity-effect'),
-                  style: MenzilType.body(c.ink),
-                );
-              },
-            ),
-          ],
-        ],
-      ),
-      _proBox(
-        id: 'target',
-        title: 'Hareketli hedef',
-        summary: _summaryTarget(),
-        info: const [
-          ProInfoEntry(ProSectionInfo.movingTarget),
-          ProInfoEntry(ProSectionInfo.hitProbability),
-        ],
-        fields: const [
-          ProInfoField('Hedef hızı', EnvironmentFieldInfo.targetSpeed),
-          ProInfoField('Yönü', EnvironmentFieldInfo.targetDirection),
-          ProInfoField('Grup çapı', EnvironmentFieldInfo.group),
-          ProInfoField('Hız farkı', EnvironmentFieldInfo.sd),
-          ProInfoField('Hedef çapı', EnvironmentFieldInfo.targetSize),
-          ProInfoField('Mesafe hatası', EnvironmentFieldInfo.rangeError),
-          ProInfoField('BC hatası', EnvironmentFieldInfo.bcError),
-          ProInfoField('Atış sayısı', EnvironmentFieldInfo.wezShotCount),
-        ],
-        children: [
-          // Owner, 2026-10-12: boxes first, Verileri sil under them; the
-          // explanations are in the ⓘ bottom sheet (owner, 2026-10-13).
-          MenzilFieldGrid(
-            children: [
-              MenzilInput(
-                key: const Key('pro-target-speed'),
-                controller: targetSpeedCtl,
-                label: 'Hedef hızı',
-                unit: windUnit,
-                info: EnvironmentFieldInfo.targetSpeed,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              MenzilSelect<bool>(
-                key: ValueKey('pro-target-direction-$_targetMovesRight'),
-                label: 'Yönü',
-                info: EnvironmentFieldInfo.targetDirection,
-                initialValue: _targetMovesRight,
-                // "Seçiniz" stays in the list so a choice can be taken back
-                // (owner, 2026-10-10).
-                items: const [
-                  DropdownMenuItem<bool>(child: Text('Seçiniz')),
-                  DropdownMenuItem(value: true, child: Text('Soldan sağa')),
-                  DropdownMenuItem(value: false, child: Text('Sağdan sola')),
-                ],
-                onChanged: (v) {
-                  _targetMovesRight = v;
-                  _coriolisChanged();
-                },
-              ),
-            ],
-          ),
-          MenzilFieldGrid(
-            children: [
-              MenzilInput(
-                key: const Key('pro-group'),
-                controller: groupCtl,
-                label: 'Grup çapı',
-                unit: lenUnit,
-                info: EnvironmentFieldInfo.group,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              MenzilInput(
-                key: const Key('pro-sd'),
-                controller: sdCtl,
-                label: 'Hız farkı',
-                unit: 'fps',
-                info: EnvironmentFieldInfo.sd,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              MenzilInput(
-                key: const Key('pro-target-size'),
-                controller: targetSizeCtl,
-                label: 'Hedef çapı',
-                unit: lenUnit,
-                info: EnvironmentFieldInfo.targetSize,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              MenzilInput(
-                key: const Key('pro-range-error'),
-                controller: rangeErrorCtl,
-                label: 'Mesafe hatası',
-                unit: _distanceUnit,
-                info: EnvironmentFieldInfo.rangeError,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              MenzilInput(
-                key: const Key('pro-bc-error'),
-                controller: bcErrorCtl,
-                label: 'BC hatası',
-                unit: '%',
-                info: EnvironmentFieldInfo.bcError,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              KeyedSubtree(
-                key: ValueKey('pro-wez-shots-$_targetClearToken'),
-                child: MenzilSelect<int>(
-                  key: const Key('pro-wez-shots'),
-                  label: 'Atış sayısı',
-                  info: EnvironmentFieldInfo.wezShotCount,
-                  initialValue: _wezShotChosen ? _wezShotCount : null,
-                  hint: 'Seçiniz',
-                  // "Seçiniz" stays in the list (owner, 2026-10-12).
-                  items: [
-                    const DropdownMenuItem<int>(child: Text('Seçiniz')),
-                    for (final n in Wez.shotCounts)
-                      DropdownMenuItem(value: n, child: Text('$n atış')),
-                  ],
-                  onChanged: (v) {
-                    setState(() {
-                      _wezShotChosen = v != null;
-                      _wezShotCount = v ?? Wez.defaultShotCount;
-                    });
-                    _saveShotSettings();
-                  },
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: MenzilSpace.sm),
-          MenzilSecondaryButton(
-            key: const Key('pro-target-clear'),
-            label: 'Verileri sil',
-            icon: Icons.delete_outline,
-            destructive: true,
-            expand: true,
-            onPressed: _clearTargetBox,
-          ),
-        ],
-      ),
-      _proBox(
-        id: 'rifle',
-        title: 'Tüfek düzeltmeleri',
-        summary: _summaryRifle(),
-        info: [
-          const ProInfoEntry(ProSectionInfo.turretScale),
-          const ProInfoEntry(ProSectionInfo.zeroOffset),
-          ProInfoEntry(
-            ProSectionInfo.spinDrift,
-            note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
-          ),
-          if (_isFirearm) const ProInfoEntry(ProSectionInfo.powder),
-          if (_isPcp && _showProTubePressure)
-            const ProInfoEntry(ProSectionInfo.pcpPressure),
-        ],
-        fields: [
-          const ProInfoField(
-            'Gerçek / yazan',
-            EnvironmentFieldInfo.turretScale,
-          ),
-          const ProInfoField('Yukarı + / aşağı −', EnvironmentFieldInfo.zeroUp),
-          const ProInfoField('Sağ + / sol −', EnvironmentFieldInfo.zeroRight),
-          if (_spinDriftOn)
-            const ProInfoField(
-              'Mermi uzunluğu',
-              EnvironmentFieldInfo.bulletLength,
-            ),
-          if (_isPcp && _showProTubePressure)
-            const ProInfoField(
-              'Kalan tüp basıncı',
-              EnvironmentFieldInfo.tubePressure,
-            ),
-        ],
-        children: [
-          // Owner, 2026-10-12: boxes first; the explanations are in the ⓘ
-          // bottom sheet since 2026-10-13.
-          MenzilInput(
-            key: const Key('pro-turret-scale'),
-            controller: turretScaleCtl,
-            label: 'Gerçek / yazan',
-            info: EnvironmentFieldInfo.turretScale,
-            errorText:
-                turretScaleCtl.text.trim().isNotEmpty &&
-                    (_parsed(turretScaleCtl) == null ||
-                        _parsed(turretScaleCtl)! < 0.8 ||
-                        _parsed(turretScaleCtl)! > 1.2)
-                ? '0,80 ile 1,20 arasında olmalı.'
-                : null,
-            onChanged: (_) => _coriolisChanged(),
-          ),
-          MenzilFieldGrid(
-            children: [
-              MenzilInput(
-                key: const Key('pro-zero-up'),
-                controller: zeroUpCtl,
-                label: 'Yukarı + / aşağı −',
-                unit: lenUnit,
-                info: EnvironmentFieldInfo.zeroUp,
-                keyboardType: signed,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-              MenzilInput(
-                key: const Key('pro-zero-right'),
-                controller: zeroRightCtl,
-                label: 'Sağ + / sol −',
-                unit: lenUnit,
-                info: EnvironmentFieldInfo.zeroRight,
-                keyboardType: signed,
-                onChanged: (_) => _coriolisChanged(),
-              ),
-            ],
-          ),
-          if (_spinDriftOn) ...[
-            MenzilInput(
-              key: const Key('pro-bullet-length'),
-              controller: bulletLengthCtl,
-              label: 'Mermi uzunluğu',
-              unit: 'mm',
-              info: EnvironmentFieldInfo.bulletLength,
-              onChanged: (_) => _coriolisChanged(),
-            ),
-            if (profileResolution?.rifle.twistRateIn == null ||
-                profileResolution?.rifle.twistDirection == null)
-              const MenzilNotice(
-                tone: MenzilNoticeTone.warning,
-                message:
-                    'Profilde yiv yönü veya yiv oranı yok; spin drift '
-                    'hesaplanamaz.',
-              ),
-          ],
-          if (_isFirearm) ...[
-            // The values are entered on Profil > Mühimmat (2026-10-11); here
-            // only what is used and today's velocity.
-            Builder(
-              builder: (context) {
-                final p = _powder;
-                String n(double v) => v % 1 == 0
-                    ? v.toStringAsFixed(0)
-                    : v.toString().replaceAll('.', ',');
-                final k = p.coef, t0 = p.referenceC;
-                final where = p.fromProfile
-                    ? 'Profil > Mühimmat\'tan değiştirilir.'
-                    : 'Önceki sürümde burada girildi; Profil > Mühimmat\'ta '
-                          'girin.';
-                return Text(
-                  k != null && t0 != null
-                      ? 'Katsayı %${n(k)} / 15 °C, hız ölçüm sıcaklığı '
-                            '${n(t0)} °C. $where'
-                      : 'Barut sıcaklık katsayısı ve hız ölçüm sıcaklığı '
-                            'Profil > Mühimmat\'ta girilir; girilmezse hız '
-                            'düzeltilmez.',
-                  key: const Key('pro-powder-source'),
-                  style: MenzilType.body(c.ink),
-                );
-              },
-            ),
-            Builder(
-              builder: (context) {
-                final v0 = widget.profile?.muzzleVelocityMps;
-                final t = _parsed(temperature);
-                if (v0 == null || t == null) return const SizedBox.shrink();
-                final today = _powderAdjusted(
-                  v0,
-                  metric ? t : UnitSystem.fahrenheitToCelsius(t),
-                );
-                if (today == v0) return const SizedBox.shrink();
-                return Text(
-                  'Bugünkü hız: ${UnitSystem.mpsToFps(today).toStringAsFixed(0)} '
-                  'fps (profil ${UnitSystem.mpsToFps(v0).toStringAsFixed(0)} fps).',
-                  key: const Key('pro-powder-today'),
-                  style: MenzilType.body(c.ink),
-                );
-              },
-            ),
-          ],
-          // PCP tüp basıncı (owner, 2026-10-12): never on a firearm; hidden
-          // behind PRO_TUBE_PRESSURE (owner, 2026-10-14: asked on Profil).
-          if (_isPcp && _showProTubePressure) ..._pcpPressureProFields(c),
-        ],
-      ),
-      const SizedBox(height: MenzilSpace.md),
-      if (widget.onContinueToShot != null)
-        MenzilPrimaryButton(
-          key: const Key('pro-continue-shot'),
-          label: 'Hedef\'e geç',
-          icon: Icons.arrow_forward,
-          onPressed: widget.onContinueToShot,
-        ),
-    ];
-  }
-
-  /// Pro > Tüfek düzeltmeleri, PCP: Kalan tüp basıncı, the regulator
-  /// warning and the velocity used.
-  List<Widget> _pcpPressureProFields(MenzilColors c) {
-    final typed = tubePressureCtl.text.trim();
-    final tube = _parsed(tubePressureCtl);
-    final bad =
-        typed.isNotEmpty &&
-        (tube == null ||
-            tube <= 0 ||
-            tube > ProductionLimits.maxPcpPressureBar);
-    final v0 = widget.profile?.muzzleVelocityMps;
-    final r = v0 == null || bad ? null : _pcpVelocity(v0);
-    final fill = widget.profile?.tubePressureBar;
-    return [
-      MenzilFieldGrid(
-        children: [
-          MenzilInput(
-            key: const Key('pro-tube-pressure'),
-            controller: tubePressureCtl,
-            label: 'Kalan tüp basıncı',
-            unit: 'bar',
-            info: EnvironmentFieldInfo.tubePressure,
-            errorText: bad
-                ? '0 ile ${ProductionLimits.maxPcpPressureBar.toStringAsFixed(0)} '
-                      'arasında olmalı.'
-                : null,
-            onChanged: (_) => _coriolisChanged(),
-          ),
-        ],
-      ),
-      if (!bad && tube != null && fill != null && tube > fill)
-        const MenzilNotice(
-          key: Key('pro-pcp-above-fill'),
-          tone: MenzilNoticeTone.warning,
-          message:
-              'Kalan basınç, profildeki tüp basıncından yüksek; manometreyi '
-              'kontrol edin.',
-        ),
-      if (r != null && r.regulatorBypassed)
-        MenzilNotice(
-          key: const Key('pro-pcp-regulator'),
-          tone: MenzilNoticeTone.warning,
-          message: r.fromTable
-              ? 'Tüp basıncı regülatör basıncının altında: regülatör devre '
-                    'dışı, hız düşer. Hız, basınca göre hız ölçümlerinden '
-                    'alındı.'
-              : 'Tüp basıncı regülatör basıncının altında: regülatör devre '
-                    'dışı, hız düşer. Bu basınç için ölçüm yok; hesap profil '
-                    'hızıyla yapılıyor. Profil > Mühimmat\'ta basınca göre '
-                    'hız ölçümü girin.',
-        ),
-      if (r != null && v0 != null && r.mps != v0)
-        Text(
-          'Kullanılan hız: ${UnitSystem.mpsToFps(r.mps).toStringAsFixed(0)} '
-          'fps (profil ${UnitSystem.mpsToFps(v0).toStringAsFixed(0)} fps).',
-          key: const Key('pro-pcp-velocity'),
-          style: MenzilType.body(c.ink),
-        ),
-    ];
   }
 
   /// Where Coriolis moves the impact at the shot range: (up, right) in
@@ -5270,7 +3715,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
           .single;
       // dropM is positive down; windMrad > 0 means the shot went LEFT.
       double lateral(TrajectoryPoint point) =>
-          -_shotRangeM * math.tan(point.windMrad / 1000);
+          -Units.mradToLinear(point.windMrad, _shotRangeM);
       return (
         up: base.dropM - withC.dropM,
         right: lateral(withC) - lateral(base),
@@ -5324,74 +3769,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     _coriolisChanged();
   }
 
-  /// Tüfek eğimi and Dürbün eğimi, side by side (Pro Ayarlar).
-  Widget _angleTiles(BuildContext context) {
-    final c = MenzilColors.of(context);
-    Widget tile({
-      required Key key,
-      required String title,
-      required String value,
-      required String info,
-      required IconData icon,
-      required VoidCallback onTap,
-    }) => Expanded(
-      child: MenzilCard(
-        margin: EdgeInsets.zero,
-        background: c.surface2,
-        padding: const EdgeInsets.fromLTRB(
-          MenzilSpace.md,
-          MenzilSpace.xs,
-          MenzilSpace.xxs,
-          MenzilSpace.sm,
-        ),
-        child: InkWell(
-          key: key,
-          onTap: onTap,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(icon, size: 18, color: c.ink2),
-                  const SizedBox(width: MenzilSpace.xxs),
-                  Expanded(
-                    child: Text(title, style: MenzilType.caption(c.ink2)),
-                  ),
-                  MenzilInfoButton(title: title, text: info),
-                ],
-              ),
-              Text(value, style: MenzilType.number(c.ink, size: 22)),
-            ],
-          ),
-        ),
-      ),
-    );
-    return Row(
-      children: [
-        tile(
-          key: const Key('shot-incline'),
-          title: 'Tüfek eğimi',
-          value: '∠ ${ShotAngleMath.degrees(_inclineDeg)}',
-          info: EnvironmentFieldInfo.inclineFor(firearm: _isFirearm),
-          icon: Icons.terrain_outlined,
-          onTap: _editIncline,
-        ),
-        const SizedBox(width: MenzilSpace.sm),
-        tile(
-          key: const Key('shot-cant'),
-          title: 'Dürbün eğimi',
-          value: _cantDeg == 0
-              ? 'Yok'
-              : '${ShotAngleMath.degrees(_cantDeg)} '
-                    '${_cantDeg > 0 ? 'sağa' : 'sola'}',
-          info: EnvironmentFieldInfo.cantFor(firearm: _isFirearm),
-          icon: Icons.rotate_right,
-          onTap: _editCant,
-        ),
-      ],
-    );
-  }
-
   Future<void> _editIncline() async {
     final result = await showDialog<double>(
       context: context,
@@ -5418,292 +3795,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final v0 = widget.profile?.muzzleVelocityMps;
     if (v0 == null) return false;
     return _pcpVelocity(v0)?.regulatorBypassed ?? false;
-  }
-
-  List<Widget> _shotSection(BuildContext context) {
-    final c = MenzilColors.of(context);
-    final shot = _shotPoint();
-    final display = _shotDisplay;
-    // The shot range may be anything up to the production limit; it is not
-    // tied to the last range of the DOPE table (that made the dial stop at
-    // the default table's 400 m).
-    final sliderMax = math.max(
-      display.toDouble(),
-      _displayMaxRange.floorToDouble(),
-    );
-
-    return [
-      // Range dial: −5 −1 [value] +1 +5, slider below. Dark like the rest of
-      // the page; numbers in soft grey, not bright white (owner,
-      // 2026-10-12: "rakamlar çok beyaz, göz yoruyor"; the field stays dark).
-      Builder(
-        builder: (context) {
-          final c = MenzilColors.of(context);
-          return DecoratedBox(
-            decoration: const BoxDecoration(),
-            child: Padding(
-              padding: EdgeInsets.zero,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      MenzilStepButton(
-                        label: '−5',
-                        semanticLabel: '5 azalt',
-                        onPressed: () => _setShotDisplay(display - 5),
-                      ),
-                      const SizedBox(width: MenzilSpace.xs),
-                      MenzilStepButton(
-                        label: '−1',
-                        semanticLabel: '1 azalt',
-                        small: true,
-                        onPressed: () => _setShotDisplay(display - 1),
-                      ),
-                      Expanded(
-                        child: Semantics(
-                          button: true,
-                          label:
-                              'Atış mesafesi $display $_distanceUnit, değiştirmek için dokunun',
-                          child: ExcludeSemantics(
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(
-                                MenzilRadius.button,
-                              ),
-                              onTap: _editShotRange,
-                              child: SizedBox(
-                                height: 64,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.baseline,
-                                    textBaseline: TextBaseline.alphabetic,
-                                    children: [
-                                      Text(
-                                        '$display',
-                                        // Stepped live with ±1/±5:
-                                        // equal-width figures, no jitter.
-                                        style: MenzilType.display(
-                                          c.ink,
-                                          size: display >= 1000 ? 44 : 52,
-                                          live: true,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 4),
-                                      Text(
-                                        _distanceUnit,
-                                        style: MenzilType.number(
-                                          c.ink2,
-                                          size: 18,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      MenzilStepButton(
-                        label: '+1',
-                        semanticLabel: '1 artır',
-                        small: true,
-                        onPressed: () => _setShotDisplay(display + 1),
-                      ),
-                      const SizedBox(width: MenzilSpace.xs),
-                      MenzilStepButton(
-                        label: '+5',
-                        semanticLabel: '5 artır',
-                        onPressed: () => _setShotDisplay(display + 5),
-                      ),
-                    ],
-                  ),
-                  Slider(
-                    value: display.toDouble().clamp(1.0, sliderMax).toDouble(),
-                    min: 1,
-                    max: sliderMax,
-                    label: '$display $_distanceUnit',
-                    semanticFormatterCallback: (v) =>
-                        '${v.round()} $_distanceUnit',
-                    onChanged: (v) => _setShotDisplay(v.round()),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-      const SizedBox(height: MenzilSpace.sm),
-      if (_pcpRegulatorBypassed)
-        const Padding(
-          padding: EdgeInsets.only(bottom: MenzilSpace.sm),
-          child: MenzilNotice(
-            key: Key('shot-pcp-regulator'),
-            tone: MenzilNoticeTone.warning,
-            message:
-                'Regülatör devre dışı: tüp basıncı regülatör basıncının '
-                'altında, hız düşer.',
-          ),
-        ),
-      if (_pressureEstimated && _basis != null)
-        const Padding(
-          padding: EdgeInsets.only(bottom: MenzilSpace.sm),
-          child: MenzilNotice(
-            key: Key('shot-pressure-from-altitude'),
-            tone: MenzilNoticeTone.info,
-            message: 'Basınç irtifadan tahmin edildi.',
-          ),
-        ),
-      if (shot == null)
-        MenzilNotice(
-          tone: MenzilNoticeTone.info,
-          message: _basis == null
-              ? 'Değerler hesaplanamadı. Profil ve Hava Durumu değerlerini kontrol edin.'
-              : _dragMode
-              ? 'Bu mermi bu mesafeye ulaşamıyor veya değer üretilemedi. Daha kısa bir mesafe deneyin.'
-              : 'Bu mesafe için değer üretilemedi. Mesafeyi veya girdileri kontrol edin.',
-        ),
-      // No Hesapla button (owner, 2026-10-08): Atış is solved automatically
-      // whenever it opens, with the Hava Durumu and Pro Ayarlar values.
-      const SizedBox(height: MenzilSpace.xs),
-      // Without a BC the shot uses the vacuum (no-drag) drop for elevation;
-      // wind stays locked — a vacuum model has no aerodynamic coupling, so
-      // it cannot produce a real wind value (see BallisticEngine.vacuumDope).
-      // With a BC the drag solver (checked against py-ballisticcalc in CI)
-      // gives both.
-      Padding(
-        padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-        child: _referenceShotPanel(shot),
-      ),
-      if (_basis != null)
-        Padding(
-          padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-          child: MenzilSecondaryButton(
-            key: const Key('shot-dope-pdf'),
-            label: 'DOPE kartını paylaş (PDF)',
-            icon: Icons.picture_as_pdf_outlined,
-            expand: true,
-            onPressed: _shareDopeCard,
-          ),
-        ),
-      if (_dragMode) ..._dragNotices(),
-      if (!_dragMode)
-        const Padding(
-          padding: EdgeInsets.only(bottom: MenzilSpace.md),
-          child: MenzilNotice(
-            tone: MenzilNoticeTone.danger,
-            message:
-                'Yükseklik kliki, hava direnci YOK sayılan bir vakum düşüşünden hesaplanır — '
-                'gerçek mermi menzil arttıkça havadan daha çok yavaşlar, bu nedenle gerçek düşüş '
-                'burada gösterilenden FAZLA olur. Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ). '
-                'Bu klik değerini ilk atışta mutlaka canlı atışla (kronograf + deneme atışı) '
-                'doğrulayın; tek başına gerçek atış için kullanmayın.',
-          ),
-        ),
-      if (shot != null && _dragMode)
-        MenzilMetricGrid(
-          metrics: [
-            MenzilMetric(
-              'Uçuş süresi',
-              shot.timeOfFlightS.toStringAsFixed(3).replaceAll('.', ','),
-              's',
-            ),
-            MenzilMetric(
-              'Düşüş',
-              (metric
-                      ? shot.dropM * 100
-                      : UnitSystem.millimetersToInches(shot.dropM * 1000))
-                  .toStringAsFixed(1)
-                  .replaceAll('.', ','),
-              metric ? 'cm' : 'in',
-            ),
-            MenzilMetric(
-              'Hız',
-              (metric
-                      ? shot.velocityMps
-                      : UnitSystem.mpsToFps(shot.velocityMps))
-                  .toStringAsFixed(0)
-                  .replaceAll('.', ','),
-              metric ? 'm/s' : 'fps',
-            ),
-            MenzilMetric(
-              'Enerji',
-              (metric
-                      ? shot.energyJ
-                      : UnitSystem.joulesToFootPounds(shot.energyJ))
-                  .toStringAsFixed(1)
-                  .replaceAll('.', ','),
-              metric ? 'J' : 'ft·lbf',
-            ),
-            if (muzzleMach != null)
-              MenzilMetric(
-                'Namlu Mach',
-                muzzleMach!.toStringAsFixed(3).replaceAll('.', ','),
-              ),
-            if (densityRatio != null)
-              MenzilMetric(
-                'Yoğunluk oranı',
-                densityRatio!.toStringAsFixed(3).replaceAll('.', ','),
-              ),
-          ],
-        ),
-      if (shot != null && !_dragMode)
-        MenzilMetricGrid(
-          metrics: [
-            MenzilMetric(
-              'Uçuş süresi',
-              shot.timeOfFlightS.toStringAsFixed(3).replaceAll('.', ','),
-              's',
-            ),
-            MenzilMetric(
-              'Vakum düşüşü*',
-              (metric
-                      ? shot.dropM * 100
-                      : UnitSystem.millimetersToInches(shot.dropM * 1000))
-                  .toStringAsFixed(1)
-                  .replaceAll('.', ','),
-              metric ? 'cm' : 'in',
-            ),
-            MenzilMetric(
-              'Namlu hızı*',
-              (metric
-                      ? shot.velocityMps
-                      : UnitSystem.mpsToFps(shot.velocityMps))
-                  .toStringAsFixed(0)
-                  .replaceAll('.', ','),
-              metric ? 'm/s' : 'fps',
-            ),
-            MenzilMetric(
-              'Namlu enerjisi*',
-              (metric
-                      ? shot.energyJ
-                      : UnitSystem.joulesToFootPounds(shot.energyJ))
-                  .toStringAsFixed(1)
-                  .replaceAll('.', ','),
-              metric ? 'J' : 'ft·lbf',
-            ),
-            if (muzzleMach != null)
-              MenzilMetric(
-                'Namlu Mach',
-                muzzleMach!.toStringAsFixed(3).replaceAll('.', ','),
-              ),
-            if (densityRatio != null)
-              MenzilMetric(
-                'Yoğunluk oranı',
-                densityRatio!.toStringAsFixed(3).replaceAll('.', ','),
-              ),
-          ],
-        ),
-      Text(
-        _dragMode
-            ? 'Sürtünmeli hesap (G1/G7 + girilen BC); sabit rüzgâr tüm menzilde uygulanır. '
-                  'Klik değerlerini ilk atışta canlı atışla doğrulayın.'
-            : '* Vakum temelli (hava direnci modellenmez); rüzgâr düzeltmesi doğrulanmış sürüklenme '
-                  'modeli gelene kadar hiç gösterilmez. Hız ve enerji namlu değeridir.',
-        style: MenzilType.caption(c.ink2),
-      ),
-    ];
   }
 }
 

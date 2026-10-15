@@ -105,12 +105,15 @@ void main() {
       _painted(tester, find.textContaining('Kırmızı sayılar:')),
       TextAlign.justify,
     );
-    // "Hesap dökümü" lines.
+    // "Hesap dökümü" lines (closed by default since 2026-10-15: open it).
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.workingsToggle));
+    await tester.tap(find.byKey(ScopeDialKeys.workingsToggle));
+    await tester.pumpAndSettle();
     final workings = find.descendant(
       of: find.byKey(ScopeDialKeys.workings),
       matching: find.byType(Text),
     );
-    expect(workings, findsWidgets);
+    expect(workings.evaluate().length, greaterThan(1));
     for (final e in workings.evaluate().skip(1)) {
       expect((e.widget as Text).textAlign, TextAlign.justify);
     }

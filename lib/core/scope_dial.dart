@@ -200,4 +200,30 @@ abstract final class ScopeDialMath {
     }
     return result;
   }
+
+  /// Horizontal distance for a shot along an [inclineDeg] slope of slant
+  /// range [slantM]: slant · cos(incline). 100 m at 60° = 50 m. Moved from
+  /// the dial's "nasıl hesaplandı" text (2026-10-15, same arithmetic).
+  static double horizontalRange(double slantM, double inclineDeg) =>
+      slantM * math.cos(inclineDeg * math.pi / 180);
+
+  /// Pro "Sıfır ofseti" (where the group centre sat at the zero range,
+  /// typed in cm, or inches when not [metric]) as an angle in mrad, + = high
+  /// / right. 0 when nothing is typed, the zero range is not positive, or
+  /// the value is beyond ±100. Shared by Hedef and Kule Doğrulama, which
+  /// each had a copy (2026-10-15, same rule and arithmetic).
+  static double zeroOffsetMrad(
+    double? typed,
+    double? zeroRangeM, {
+    required bool metric,
+  }) {
+    if (zeroRangeM == null ||
+        zeroRangeM <= 0 ||
+        typed == null ||
+        typed.abs() > 100) {
+      return 0;
+    }
+    final m = Units.cmOrInchToMeters(typed, metric: metric);
+    return Units.linearToMrad(m, zeroRangeM);
+  }
 }
